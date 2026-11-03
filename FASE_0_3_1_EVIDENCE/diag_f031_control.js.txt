@@ -1,0 +1,63 @@
+const {launch,newLog,shot,newSession,load,bootToHub,snap}=require('./f031_common');
+const fs=require('fs'); const OUT='/home/user/DEADBEAT_DISCO/FASE_0_3_1_EVIDENCE';
+(async()=>{
+ const log=newLog(); let browser;
+ try{
+  browser=await launch();
+  const {ctx,page}=await newSession(browser,log);
+  log.loadMs=await load(page,null);
+  await bootToHub(page);
+  log.initial=await snap(page);
+  log.startCall=await page.evaluate(()=>String(window.DMO_HUB.startCampaignFromHub(0)));
+  const t0=Date.now(); let done=false;
+  for(let i=0;i<150;i++){
+   await page.waitForTimeout(500);
+   const s=await snap(page);
+   if(s.hub.location==='CAMPAIGN_ROOM'&&s.hub.inHub===false&&s.hub.transitionLock===false&&s.hub.transitionsCompleted>=1){done=true;break}
+  }
+  log.completed=done; log.durationMs=Date.now()-t0;
+  log.atArrival=await snap(page);
+  await shot(page,OUT+'/08_control_arrival.png');
+
+  // Movimiento con espera larga (Fase 0.3: d -> +25 px)
+  const px=()=>page.evaluate(()=>{try{return window.DMO.debug.state().px}catch(e){return null}});
+  const px0=await px();
+  await page.keyboard.down('d'); await page.waitForTimeout(1200); await page.keyboard.up('d');
+  await page.waitForTimeout(1600);
+  const px1=await px();
+  // Movimiento con frames forzados, para aislar inanición de rAF
+  const px2b=await px();
+  await page.keyboard.down('d');
+  await page.evaluate(()=>window.DMO.debug.tick(0.016,90));
+  await page.keyboard.up('d');
+  await page.waitForTimeout(300);
+  const px2=await px();
+  log.movement={px0,px1,deltaNatural:(px1!=null&&px0!=null)?px1-px0:null,
+    px2b,px2,deltaForced:(px2!=null&&px2b!=null)?px2-px2b:null};
+
+  // Disparo primario y habilidad Q con el control ya recuperado
+  log.spawn=await page.evaluate(()=>{const D=window.DMO.debug;D.on();D.forceWave();return String(D.spawnEnemyAt(1350,1000))});
+  const b=await snap(page);
+  await page.mouse.move(760,420); await page.mouse.down(); await page.waitForTimeout(700); await page.mouse.up();
+  await page.waitForTimeout(300);
+  const a=await snap(page);
+  log.shoot={beforeShots:b.shotsFired,afterShots:a.shotsFired,deltaShots:(a.shotsFired??0)-(b.shotsFired??0),
+    deltaBullets:(a.bulletsCount??0)-(b.bulletsCount??0),waLen:a.waLen,framesDelta:a.frames-b.frames};
+  const bq=await snap(page);
+  await page.keyboard.press('q'); await page.waitForTimeout(900);
+  const aq=await snap(page);
+  log.Q={killsBefore:bq.read.kills,killsAfter:aq.read.kills,delta:(aq.read.kills??0)-(bq.read.kills??0),
+    scoreBefore:bq.read.score,scoreAfter:aq.read.score,deltaScore:(aq.read.score??0)-(bq.read.score??0)};
+  log.final=await snap(page);
+  await shot(page,OUT+'/09_control_after_actions.png');
+  log.consoleErrors=log.console.filter(c=>c.type==='error');
+  fs.writeFileSync(OUT+'/control_supplement.json',JSON.stringify(log,null,2));
+  console.log('loadMs',log.loadMs,'completed',done,'durationMs',log.durationMs);
+  console.log('arrival hub',JSON.stringify(log.atArrival.hub),'zone',log.atArrival.read.zone);
+  console.log('movement',JSON.stringify(log.movement));
+  console.log('shoot',JSON.stringify(log.shoot));
+  console.log('Q',JSON.stringify(log.Q));
+  console.log('errores',log.consoleErrors.length,'pageerrors',log.pageerrors.length);
+  await ctx.close(); await browser.close();
+ }catch(e){console.log('FALLO:',e.message,(e.stack||'').split('\n').slice(0,12).join('\n'));fs.writeFileSync(OUT+'/control_error.json',JSON.stringify(log,null,2));if(browser)await browser.close().catch(()=>{});process.exit(1)}
+})();

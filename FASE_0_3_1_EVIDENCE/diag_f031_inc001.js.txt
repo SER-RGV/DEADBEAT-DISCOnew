@@ -1,0 +1,140 @@
+const {launch,newLog,shot,newSession,load,bootToHub,snap}=require('./f031_common');
+const fs=require('fs'); const OUT='/home/user/DEADBEAT_DISCO/FASE_0_3_1_EVIDENCE'; fs.mkdirSync(OUT,{recursive:true});
+
+const sleep=p=>p.waitForTimeout(400);
+(async()=>{
+ const log=newLog(); let browser;
+ try{
+  browser=await launch();
+  const {ctx,page}=await newSession(browser,log);
+  log.session='INC-001 · sesión limpia única';
+  log.loadMs=await load(page,null);
+  await bootToHub(page);
+  log.preStart=await snap(page);
+  log.startCall=await page.evaluate(()=>String(window.DMO_HUB.startCampaignFromHub(0)));
+
+  // Espera a una transición COMPLETADA (no solo animación / cambio de location)
+  log.wait=[];
+  let ready=false;
+  for(let i=0;i<120;i++){
+    await page.waitForTimeout(500);
+    const s=await snap(page);
+    log.wait.push({t:(i+1)*500,hub:s.hub,zone:s.read.zone,frames:s.frames,
+      shotsFired:s.shotsFired,floorDrop:s.cine.floorDrop});
+    if(s.hub&&s.hub.location==='CAMPAIGN_ROOM'&&s.hub.inHub===false&&
+       s.hub.transitionLock===false&&s.hub.transitionsCompleted>=1){ready=true;break}
+    // A partir de los 20 s, forzar frames de simulación para descartar inanición de rAF
+    if(i>=40&&i%2===0){
+      try{await page.evaluate(()=>window.DMO.debug.tick(0.016,30))}catch(e){}
+    }
+  }
+  log.ready=ready;
+  log.preCombat=await snap(page);
+  await shot(page,OUT+'/01_inc001_room_ready.png');
+
+  // Enemigo asistido por la API de depuración del propio juego
+  log.spawn=await page.evaluate(()=>{
+    const D=window.DMO.debug; D.on(); D.forceWave();
+    const r=D.spawnEnemyAt(1350,1000);
+    const s=D.state();
+    return {spawn:String(r),enemies:s.enemies,balas:s.balas};
+  });
+  await page.waitForTimeout(900);
+  log.before=await snap(page);
+
+  const measure=async(label)=>{
+    const s=await snap(page);
+    return {label,ts:s.ts,hub:s.hub,frames:s.frames,shotsFired:s.shotsFired,shotsHit:s.shotsHit,
+      bulletsCount:s.bulletsCount,waLen:s.waLen,waTail:s.waTail,dbg:s.dbg,read:s.read,
+      gp:s.gp,events:s.eventsTail,eventsCount:s.eventsCount};
+  };
+
+  // ===== 10 INTENTOS INDEPENDIENTES CON RATÓN REAL =====
+  log.mouse=[];
+  const coords=[[760,420],[700,380],[820,460],[640,450],[880,500],
+                [720,500],[800,360],[680,520],[900,400],[760,300]];
+  for(let i=0;i<10;i++){
+    const [x,y]=coords[i];
+    const at=await page.evaluate(([x,y])=>{
+      const e=document.elementFromPoint(x,y);
+      return e?(e.id||e.tagName):null;
+    },[x,y]);
+    const b=await measure('before');
+    await page.mouse.move(x,y);
+    await page.mouse.down();
+    await page.waitForTimeout(450);
+    const m=await measure('held');
+    await page.mouse.up();
+    await page.waitForTimeout(220);
+    const a=await measure('after');
+    log.mouse.push({i:i+1,x,y,elementAt:at,before:b,held:m,after:a,
+      deltaShots:(a.shotsFired??0)-(b.shotsFired??0),
+      deltaBullets:(a.bulletsCount??0)-(b.bulletsCount??0),
+      deltaFrames:(a.frames??0)-(b.frames??0),
+      pointerdown:a.events.filter(e=>e.type==='pointerdown'&&e.phase==='bubble').slice(-1),
+      mousedownSeen:a.events.some(e=>e.type==='mousedown'),
+      clickSeen:a.events.some(e=>e.type==='click')});
+  }
+  await shot(page,OUT+'/02_inc001_mouse_attempts.png');
+
+  // ===== 10 INTENTOS CON CONTROL ALTERNATIVO (inyección de input del motor) =====
+  log.alt=[];
+  for(let i=0;i<10;i++){
+    const b=await measure('before');
+    await page.evaluate(()=>window.DMO.debug.setInput({fire:true}));
+    await page.waitForTimeout(450);
+    const m=await measure('held');
+    await page.evaluate(()=>window.DMO.debug.setInput({fire:false}));
+    await page.waitForTimeout(220);
+    const a=await measure('after');
+    log.alt.push({i:i+1,method:'DMO.debug.setInput({fire:true|false})',before:b,held:m,after:a,
+      deltaShots:(a.shotsFired??0)-(b.shotsFired??0),
+      deltaBullets:(a.bulletsCount??0)-(b.bulletsCount??0),
+      deltaFrames:(a.frames??0)-(b.frames??0)});
+  }
+  await shot(page,OUT+'/03_inc001_alt_attempts.png');
+
+  // ===== COMPARACIÓN CON HABILIDAD Q =====
+  const bQ=await measure('beforeQ');
+  await page.keyboard.press('q');
+  await page.waitForTimeout(900);
+  const aQ=await measure('afterQ');
+  log.Q={before:bQ,after:aQ,deltaKills:(aQ.read.kills??0)-(bQ.read.kills??0),
+    deltaScore:(aQ.read.score??0)-(bQ.read.score??0)};
+  await shot(page,OUT+'/04_inc001_after_Q.png');
+
+  // ===== prueba adicional:-frame forcing con input activo =====
+  const bT=await measure('beforeTick');
+  await page.evaluate(()=>{window.DMO.debug.setInput({fire:true});window.DMO.debug.tick(0.016,60);window.DMO.debug.setInput({fire:false})});
+  await page.waitForTimeout(400);
+  const aT=await measure('afterTick');
+  log.tickForced={before:bT,after:aT,deltaShots:(aT.shotsFired??0)-(bT.shotsFired??0),
+    deltaBullets:(aT.bulletsCount??0)-(bT.bulletsCount??0)};
+
+  log.apiProbe=await page.evaluate(()=>{
+    const W=window,safe=f=>{try{return f()}catch(e){return 'ERR:'+e.message}};
+    return {weaponRigKeys:safe(()=>Object.keys(W.DMO.weaponRig||{})),
+      weaponRigState:safe(()=>{const x=W.DMO.weaponRig;return x&&typeof x.state==='function'?x.state():null}),
+      floorDropKeys:safe(()=>Object.keys(W.DMO.floorDrop||{})),
+      floorDropState:safe(()=>{const x=W.DMO.floorDrop;return x&&typeof x.state==='function'?x.state():null}),
+      playtestKeys:safe(()=>Object.keys(W.DMO.playtest||{})),
+      readSrc:safe(()=>String(W.DMO.read).slice(0,900)),
+      gameStateSrc:safe(()=>String(W.DMO.gameState).slice(0,900)),
+      telemetryRun:safe(()=>{const t=W.DMO.telemetry();return t&&t.run?t.run:Object.keys(t||{})})};
+  });
+  log.consoleErrors=log.console.filter(c=>c.type==='error');
+  fs.writeFileSync(OUT+'/inc001_session.json',JSON.stringify(log,null,2));
+  console.log('loadMs',log.loadMs,'start',log.startCall,'ready',ready,
+    'waitLen',log.wait.length,'last',JSON.stringify(log.wait.slice(-2)).slice(0,700));
+  console.log('spawn',JSON.stringify(log.spawn));
+  console.log('\nMOUSE (Δshots / Δbullets / Δframes / element / mousedown?)');
+  log.mouse.forEach(r=>console.log(' ',r.i,r.deltaShots,r.deltaBullets,r.deltaFrames,r.elementAt,r.mousedownSeen,'waLen',r.after.waLen,'hub',JSON.stringify(r.after.hub)));
+  console.log('\nALT');
+  log.alt.forEach(r=>console.log(' ',r.i,r.deltaShots,r.deltaBullets,r.deltaFrames,'waLen',r.after.waLen,'hub',JSON.stringify(r.after.hub)));
+  console.log('\nQ',JSON.stringify(log.Q.deltaKills),JSON.stringify(log.Q.deltaScore),'before/after shots',log.Q.before.shotsFired,log.Q.after.shotsFired);
+  console.log('\nTICK',JSON.stringify(log.tickForced.deltaShots),JSON.stringify(log.tickForced.deltaBullets));
+  console.log('\nAPI',JSON.stringify(log.apiProbe).slice(0,2200));
+  console.log('\nerrores',log.consoleErrors.length,'pageerrors',log.pageerrors.length,'http',log.httpErrors.length,'crashes',log.crashes.length);
+  await ctx.close(); await browser.close();
+ }catch(e){console.log('FALLO:',e.message,(e.stack||'').split('\n').slice(0,14).join('\n'));fs.writeFileSync(OUT+'/inc001_error.json',JSON.stringify(log,null,2));if(browser)await browser.close().catch(()=>{});process.exit(1)}
+})();

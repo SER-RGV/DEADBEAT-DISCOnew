@@ -1,0 +1,476 @@
+{
+  "tanda": "03",
+  "fase": "B",
+  "status": "FASE B CERRADA - 8 orientaciones unicas, mismas identidad y escala, sin reflejos ni duplicados; NO integradas en el juego",
+  "approved_from_phase": "FASE A aprobada por el usuario el 2026-11-03",
+  "purpose": "Vistas isometricas de orientacion listas para adaptar al pipeline REAL en FASE D; aun no son sprites integrados.",
+  "angle_convention": "aimAngle = atan2(dy,dx); +x = este (derecha), +y = sur (hacia la camara). 8 sectores de 45 grados.",
+  "identity_reference": "ART_ASSETS/tanda_03/master_full_body.png",
+  "banner_reference": "ART_REFERENCES/REF_04_protagonista_banner.png",
+  "preparation": "ART_TOOLS/prepare_tanda_03_fase_b.py",
+  "alpha_pipeline": "ART_TOOLS/prepare_tanda_03.py (build_alpha, calibrado en FASE A)",
+  "canonical_height": 1130,
+  "max_assets_per_tanda": 10,
+  "assets_in_this_tanda": 8,
+  "resolution_log": [
+    "Turno anterior: E y O repetian el perfil este; SE y SO repetian el 3/4 frontal izquierdo; NE tenia zancada. Limite de 10 generaciones alcanzado.",
+    "Turno de continuacion: se generaron 3 candidatos para O, 3 para SE y 1 para NE con referencias sin sesgo direccional; se adopto O2, SE2 y NE1.",
+    "NE1 corrigio la zancada pero se volvio casi identica a NO (IoU directo 0.9028); se generaron NE2 y NE3 con giro derecho forzado y se adopto NE2 (IoU con NO 0.6285, piernas paralelas, sin artefactos).",
+    "Se añade head_bias como senal auxiliar; se documenta su escasa sensibilidad en tres cuartos sutiles y se excluye del criterio de cierre."
+  ],
+  "known_deviations": [],
+  "pending_regeneration": [],
+  "selection_candidates": "fase_b/_candidates/ - borradores de seleccion, NO son entregables ni cuentan como assets finales",
+  "qa_contact_sheet": "ART_EVIDENCE/tanda_03/fase_b_orientaciones_QA.png",
+  "head_bias_qa": {
+    "values": {
+      "E": 0.0537,
+      "SE": 0.0535,
+      "S": -0.0068,
+      "SO": 0.0308,
+      "O": -0.019,
+      "NO": -0.0011,
+      "N": 0.0023,
+      "NE": 0.0252
+    },
+    "opposite_pairs": {
+      "E_vs_O": [
+        0.0537,
+        -0.019
+      ],
+      "SE_vs_SO": [
+        0.0535,
+        0.0308
+      ],
+      "NE_vs_NO": [
+        0.0252,
+        -0.0011
+      ]
+    },
+    "all_opposite_signs_contrary": false,
+    "note": "SENAL AUXILIAR, no criterio de cierre. positivo = cabeza desplazada hacia la derecha; negativo = hacia la izquierda. Discrimina bien los perfiles E/O, pero es poco sensible en tres cuartos sutiles (SE/SO). La evidencia principal de angulos opuestos es la inspeccion visual ampliada mas el IoU directo/reflejo."
+  },
+  "not_generated": [
+    "8 familias de animacion",
+    "spritesheet definitivo",
+    "integracion en HTML",
+    "cambios en el render"
+  ],
+  "anti_flip_qa": {
+    "method": "IoU de silueta directo y contra reflejo horizontal, mas diferencia RGB media",
+    "flip_alert_threshold_iou": 0.9,
+    "duplicate_alert_threshold_iou": 0.9,
+    "pairs_checked": 28,
+    "suspected_pure_flips": [],
+    "suspected_same_angle_duplicates": [],
+    "top_8_most_similar": [
+      {
+        "a": "S",
+        "b": "N",
+        "direct_iou": 0.8414,
+        "mirror_iou": 0.8505,
+        "mirror_rgb_mean_diff": 4.09,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "NO",
+        "b": "N",
+        "direct_iou": 0.8421,
+        "mirror_iou": 0.8249,
+        "mirror_rgb_mean_diff": 3.3,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "E",
+        "b": "SE",
+        "direct_iou": 0.8247,
+        "mirror_iou": 0.4689,
+        "mirror_rgb_mean_diff": 3.63,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "S",
+        "b": "NO",
+        "direct_iou": 0.8074,
+        "mirror_iou": 0.8177,
+        "mirror_rgb_mean_diff": 4.51,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "SO",
+        "b": "NO",
+        "direct_iou": 0.6737,
+        "mirror_iou": 0.7197,
+        "mirror_rgb_mean_diff": 4.45,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "S",
+        "b": "SO",
+        "direct_iou": 0.691,
+        "mirror_iou": 0.6814,
+        "mirror_rgb_mean_diff": 3.83,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "SO",
+        "b": "N",
+        "direct_iou": 0.6824,
+        "mirror_iou": 0.6889,
+        "mirror_rgb_mean_diff": 4.02,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "SO",
+        "b": "NE",
+        "direct_iou": 0.6708,
+        "mirror_iou": 0.5982,
+        "mirror_rgb_mean_diff": 4.44,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      }
+    ],
+    "opposite_pairs": [
+      {
+        "a": "NO",
+        "b": "NE",
+        "direct_iou": 0.6228,
+        "mirror_iou": 0.6512,
+        "mirror_rgb_mean_diff": 3.43,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "E",
+        "b": "O",
+        "direct_iou": 0.539,
+        "mirror_iou": 0.6205,
+        "mirror_rgb_mean_diff": 3.98,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      },
+      {
+        "a": "SE",
+        "b": "SO",
+        "direct_iou": 0.4972,
+        "mirror_iou": 0.5108,
+        "mirror_rgb_mean_diff": 4.51,
+        "suspected_pure_flip": false,
+        "suspected_same_angle_duplicate": false
+      }
+    ]
+  },
+  "items": [
+    {
+      "id": "E",
+      "direction_deg": 0,
+      "aim_angle_rad": 0.0,
+      "facing_left_expected": false,
+      "description": "Perfil mirando al este (derecha); se ve el lado izquierdo del cuerpo",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/E.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/E.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "raw_crop_size": [
+        247,
+        1195
+      ],
+      "output_size": [
+        234,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 256,
+      "bright_halo_candidates_px": 0,
+      "head_bias": 0.0537,
+      "torso_control_point": [
+        117,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "5fef6089808f56354454d3ce3ec4b9c8a4ef80854410b11c553e81394b9524ca",
+      "bytes": 322214
+    },
+    {
+      "id": "SE",
+      "direction_deg": 45,
+      "aim_angle_rad": 0.7854,
+      "facing_left_expected": false,
+      "description": "Tres cuartos frontal hacia el sureste; hombro derecho cercano",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/SE.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/SE.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "raw_crop_size": [
+        286,
+        1263
+      ],
+      "output_size": [
+        256,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 0,
+      "bright_halo_candidates_px": 0,
+      "head_bias": 0.0535,
+      "torso_control_point": [
+        128,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "d95963ca9b8b11bb3e6256b0798185f45cae06ab49df27d89d19605ec875fc80",
+      "bytes": 346630
+    },
+    {
+      "id": "S",
+      "direction_deg": 90,
+      "aim_angle_rad": 1.5708,
+      "facing_left_expected": false,
+      "description": "Frontal recta mirando a la camara; ambos ojos y hombros simetricos",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/S.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/S.png",
+      "source_size": [
+        768,
+        1376
+      ],
+      "raw_crop_size": [
+        388,
+        1296
+      ],
+      "output_size": [
+        338,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 4,
+      "bright_halo_candidates_px": 0,
+      "head_bias": -0.0068,
+      "torso_control_point": [
+        169,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "018f05bee840656e3660dd9cd51692cae69d580489b48bdf22dccd03a906afdc",
+      "bytes": 424046
+    },
+    {
+      "id": "SO",
+      "direction_deg": 135,
+      "aim_angle_rad": 2.3562,
+      "facing_left_expected": true,
+      "description": "Tres cuartos frontal hacia el suroeste; hombro izquierdo cercano",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/SO.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/SO.png",
+      "source_size": [
+        768,
+        1376
+      ],
+      "raw_crop_size": [
+        392,
+        1219
+      ],
+      "output_size": [
+        363,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 565,
+      "bright_halo_candidates_px": 0,
+      "head_bias": 0.0308,
+      "torso_control_point": [
+        181,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "17472ff3c1149c2d48db1a25f6a56dd11bec120c18a904acf5541ce25d48747e",
+      "bytes": 440340
+    },
+    {
+      "id": "O",
+      "direction_deg": 180,
+      "aim_angle_rad": 3.1416,
+      "facing_left_expected": true,
+      "description": "Perfil mirando al oeste (izquierda); se ve el lado derecho del cuerpo",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/O.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/O.png",
+      "source_size": [
+        768,
+        1376
+      ],
+      "raw_crop_size": [
+        256,
+        1288
+      ],
+      "output_size": [
+        225,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 0,
+      "bright_halo_candidates_px": 0,
+      "head_bias": -0.019,
+      "torso_control_point": [
+        112,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "55a06f0086732d4642aa391c6b6e486214c0638c22404e472a32694f23fa5c91",
+      "bytes": 306897
+    },
+    {
+      "id": "NO",
+      "direction_deg": 225,
+      "aim_angle_rad": 3.927,
+      "facing_left_expected": true,
+      "description": "Tres cuartos de espaldas hacia el noroeste; rostro no visible",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/NO.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/NO.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "raw_crop_size": [
+        362,
+        1195
+      ],
+      "output_size": [
+        342,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 74,
+      "bright_halo_candidates_px": 0,
+      "head_bias": -0.0011,
+      "torso_control_point": [
+        171,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "bb8fd57b505a183a7488eee47006b25d3b0593ed2fc4d54c961972de92608dbc",
+      "bytes": 428304
+    },
+    {
+      "id": "N",
+      "direction_deg": 270,
+      "aim_angle_rad": 4.7124,
+      "facing_left_expected": false,
+      "description": "Espalda recta alejandose; rostro no visible, simetrica",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/N.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/N.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "raw_crop_size": [
+        367,
+        1194
+      ],
+      "output_size": [
+        347,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 158,
+      "bright_halo_candidates_px": 0,
+      "head_bias": 0.0023,
+      "torso_control_point": [
+        173,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "0db47c8f92a1843bf28aab3eb929aa88eab8d0791ca94a7fb2e10ee8965012af",
+      "bytes": 431762
+    },
+    {
+      "id": "NE",
+      "direction_deg": 315,
+      "aim_angle_rad": 5.4978,
+      "facing_left_expected": false,
+      "description": "Tres cuartos de espaldas hacia el noreste; rostro no visible",
+      "source": "ART_ASSETS/tanda_03/fase_b/_source/NE.png",
+      "file": "ART_ASSETS/tanda_03/fase_b/NE.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "raw_crop_size": [
+        351,
+        1263
+      ],
+      "output_size": [
+        314,
+        1130
+      ],
+      "mode": "RGBA",
+      "scale_normalized_to_height": 1130,
+      "alpha_bg_tol": 10,
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_soft_edge_px": 0,
+      "bright_halo_candidates_px": 0,
+      "head_bias": 0.0252,
+      "torso_control_point": [
+        157,
+        508
+      ],
+      "torso_opaque": true,
+      "corners_clear": true,
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "da1bd01cfd05048009c54413ddc9db9b2af5c57188e5302a8e85dfcc42c1f31a",
+      "bytes": 415385
+    }
+  ]
+}

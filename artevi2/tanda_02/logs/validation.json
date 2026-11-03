@@ -1,0 +1,2926 @@
+{
+  "started": "2026-11-03T02:39:16.552Z",
+  "builds": [
+    {
+      "started": "2026-11-03T02:39:16.635Z",
+      "console": [
+        {
+          "t": 1793673573399,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        },
+        {
+          "t": 1793673573406,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "pageerrors": [],
+      "requests": [
+        {
+          "t": 1793673556695,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+          "type": "document"
+        },
+        {
+          "t": 1793673573379,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "type": "script"
+        },
+        {
+          "t": 1793673573379,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "type": "script"
+        }
+      ],
+      "requestfailed": [
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "httpErrors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "frames": [
+        {
+          "t": 1793673572230,
+          "url": "about:blank"
+        },
+        {
+          "t": 1793673573354,
+          "url": "about:blank"
+        }
+      ],
+      "crashes": [],
+      "steps": [],
+      "build": "before",
+      "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+      "loadMs": 16705,
+      "hubShotBytes": 1524839,
+      "probeHub": {
+        "ts": 1793673650859,
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": false,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.7,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 2,
+          "transitionsCompleted": 0,
+          "transitionErrors": 0,
+          "officialUntainted": true
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 0,
+          "inHub": true,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1250,
+          "y": 975,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        "player": {
+          "px": 1250,
+          "py": 965,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 0,
+        "frames": 353,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "campaign": {
+        "started": "true",
+        "completed": true,
+        "polls": 9,
+        "ms": 3369
+      },
+      "roomShotBytes": 1109592,
+      "probeRoom": {
+        "ts": 1793673695854,
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": false,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.7,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 1,
+          "inHub": false,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1250,
+          "y": 925,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": -10
+          }
+        },
+        "player": {
+          "px": 1250,
+          "py": 863,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 0,
+        "frames": 505,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "abSameBuild": {
+        "applicable": false
+      },
+      "connectionsShotBytes": 1117405,
+      "doorsClosedShotBytes": 1117209,
+      "doorStateClosed": {
+        "enemies": 0,
+        "room": 1,
+        "note": "sala sin despejar: Bg usa t=0"
+      },
+      "clearRound": "true",
+      "doorsOpenShotBytes": 1122296,
+      "doorStateOpen": {
+        "enemies": 0,
+        "room": 1,
+        "secured": 1,
+        "note": "tras clearRound + ticks del motor: Bg usa t=openT/.8"
+      },
+      "performance": {
+        "tick30Ms": 2.6,
+        "framesIn2s": 6,
+        "fps": 3
+      },
+      "regression": {
+        "p0": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1250,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p1": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1455,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p2": {
+          "shotsFired": 1,
+          "kills": 0,
+          "score": 0,
+          "px": 1455,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": 1,
+          "bulletsSeen": 1
+        },
+        "movementDelta": 205,
+        "shotDelta": 1,
+        "bulletsDelta": 0,
+        "waProjectilesDelta": 1
+      },
+      "gameplayShotBytes": 1098262,
+      "probeFinal": {
+        "ts": 1793673839435,
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": false,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.7,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 1,
+          "inHub": false,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1469,
+          "y": 925,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 14,
+            "y": 2
+          }
+        },
+        "player": {
+          "px": 1455,
+          "py": 863,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 1,
+        "frames": 1129,
+        "waLen": 0,
+        "bulletsSeen": 1
+      },
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        }
+      ],
+      "pageerrorCount": 0,
+      "artRequests": [],
+      "artResponses": []
+    },
+    {
+      "started": "2026-11-03T02:43:59.456Z",
+      "console": [
+        {
+          "t": 1793673902371,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        },
+        {
+          "t": 1793673902371,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "pageerrors": [],
+      "requests": [
+        {
+          "t": 1793673877521,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/DEADBEAT_DISCO.ART.html",
+          "type": "document"
+        },
+        {
+          "t": 1793673902233,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_PACK/art_pack.js",
+          "type": "script"
+        },
+        {
+          "t": 1793673902251,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902251,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/boss_01_anden.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902252,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/weapon_m1911.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902349,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "type": "script"
+        },
+        {
+          "t": 1793673902349,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "type": "script"
+        },
+        {
+          "t": 1793673902368,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_straight.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902368,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_corner_inner.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_corner_outer.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_end_cap.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_pillar.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/door_closed.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/door_open.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902370,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/doorway_frame.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902371,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/threshold_entry.png",
+          "type": "image"
+        },
+        {
+          "t": 1793673902371,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_02/wall_neon_detail.png",
+          "type": "image"
+        }
+      ],
+      "requestfailed": [
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "httpErrors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "frames": [
+        {
+          "t": 1793673902075,
+          "url": "about:blank"
+        },
+        {
+          "t": 1793673902115,
+          "url": "about:blank"
+        }
+      ],
+      "crashes": [],
+      "steps": [],
+      "build": "after",
+      "url": "http://127.0.0.1:8123/DEADBEAT_DISCO.ART.html",
+      "loadMs": 29934,
+      "hubShotBytes": 1834904,
+      "probeHub": {
+        "ts": 1793673987459,
+        "artPack": {
+          "version": "fase1-tanda01+tanda02",
+          "status": "applied",
+          "startedAt": 1793673902240,
+          "appliedAt": 1793673902242,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "architecture": {
+            "version": "fase1-tanda02",
+            "count": 10,
+            "applied": 10,
+            "enabled": true,
+            "appliedAt": 1793673907450,
+            "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+          },
+          "finishedAt": 1793673907450
+        },
+        "integrity": {
+          "status": "applied",
+          "errors": [],
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_01",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_02",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                560,
+                332
+              ]
+            },
+            {
+              "id": "decor_neon_rug",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                456,
+                243
+              ]
+            },
+            {
+              "id": "decor_potted_palm",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                209,
+                147
+              ]
+            },
+            {
+              "id": "boss_01_anden",
+              "loader": "ILT",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                400,
+                386
+              ]
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "loader": "HD",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                160,
+                87
+              ]
+            }
+          ],
+          "registries": {
+            "t3b": true,
+            "v5": true,
+            "ilt": true,
+            "hd": true
+          },
+          "checkedAt": 1793673987457
+        },
+        "architecture": {
+          "version": "fase1-tanda02",
+          "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+          "enabled": true,
+          "applied": 10,
+          "count": 10,
+          "originalsPreserved": 10,
+          "errors": [],
+          "assets": [
+            {
+              "id": "A01",
+              "name": "wall_straight",
+              "slot": "wall_stained_glass_arch",
+              "alias": "t02_A01_wall_straight",
+              "file": "ART_ASSETS/tanda_02/wall_straight.png",
+              "expected": [
+                120,
+                176
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                120,
+                176
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A02",
+              "name": "wall_corner_inner",
+              "slot": "wall_limbo_ticket_window",
+              "alias": "t02_A02_wall_corner_inner",
+              "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+              "expected": [
+                144,
+                144
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                144,
+                144
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A03",
+              "name": "wall_corner_outer",
+              "slot": "wall_avaricia_vault_door",
+              "alias": "t02_A03_wall_corner_outer",
+              "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+              "expected": [
+                150,
+                86
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                150,
+                86
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A04",
+              "name": "wall_end_cap",
+              "slot": "wall_traicion_glacier_panel",
+              "alias": "t02_A04_wall_end_cap",
+              "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+              "expected": [
+                124,
+                64
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                124,
+                64
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A05",
+              "name": "wall_pillar",
+              "slot": "nucleo_pillar_prop",
+              "alias": "t02_A05_wall_pillar",
+              "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+              "expected": [
+                204,
+                505
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                204,
+                505
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A06",
+              "name": "door_closed",
+              "slot": "campaign_door_leaf",
+              "alias": "t02_A06_door_closed",
+              "file": "ART_ASSETS/tanda_02/door_closed.png",
+              "expected": [
+                76,
+                54
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                76,
+                54
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A07",
+              "name": "door_open",
+              "slot": "campaign_door_side_leaf",
+              "alias": "t02_A07_door_open",
+              "file": "ART_ASSETS/tanda_02/door_open.png",
+              "expected": [
+                52,
+                136
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                52,
+                136
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A08",
+              "name": "doorway_frame",
+              "slot": "campaign_door_frame",
+              "alias": "t02_A08_doorway_frame",
+              "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+              "expected": [
+                196,
+                124
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                124
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A09",
+              "name": "threshold_entry",
+              "slot": "campaign_door_south_gate",
+              "alias": "t02_A09_threshold_entry",
+              "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+              "expected": [
+                196,
+                67
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                67
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A10",
+              "name": "wall_neon_detail",
+              "slot": "wall_neon_club_crest",
+              "alias": "t02_A10_wall_neon_detail",
+              "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+              "expected": [
+                84,
+                84
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                84,
+                84
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            }
+          ],
+          "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": true,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 24,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.72,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 2,
+          "transitionsCompleted": 0,
+          "transitionErrors": 0,
+          "officialUntainted": true
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 0,
+          "inHub": true,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1250,
+          "y": 975,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        "player": {
+          "px": 1250,
+          "py": 965,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 0,
+        "frames": 375,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "campaign": {
+        "started": "true",
+        "completed": true,
+        "polls": 8,
+        "ms": 42751
+      },
+      "roomShotBytes": 1604842,
+      "probeRoom": {
+        "ts": 1793674037843,
+        "artPack": {
+          "version": "fase1-tanda01+tanda02",
+          "status": "applied",
+          "startedAt": 1793673902240,
+          "appliedAt": 1793673902242,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "architecture": {
+            "version": "fase1-tanda02",
+            "count": 10,
+            "applied": 10,
+            "enabled": true,
+            "appliedAt": 1793673907450,
+            "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+          },
+          "finishedAt": 1793673907450
+        },
+        "integrity": {
+          "status": "applied",
+          "errors": [],
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_01",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_02",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                560,
+                332
+              ]
+            },
+            {
+              "id": "decor_neon_rug",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                456,
+                243
+              ]
+            },
+            {
+              "id": "decor_potted_palm",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                209,
+                147
+              ]
+            },
+            {
+              "id": "boss_01_anden",
+              "loader": "ILT",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                400,
+                386
+              ]
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "loader": "HD",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                160,
+                87
+              ]
+            }
+          ],
+          "registries": {
+            "t3b": true,
+            "v5": true,
+            "ilt": true,
+            "hd": true
+          },
+          "checkedAt": 1793674037842
+        },
+        "architecture": {
+          "version": "fase1-tanda02",
+          "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+          "enabled": true,
+          "applied": 10,
+          "count": 10,
+          "originalsPreserved": 10,
+          "errors": [],
+          "assets": [
+            {
+              "id": "A01",
+              "name": "wall_straight",
+              "slot": "wall_stained_glass_arch",
+              "alias": "t02_A01_wall_straight",
+              "file": "ART_ASSETS/tanda_02/wall_straight.png",
+              "expected": [
+                120,
+                176
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                120,
+                176
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A02",
+              "name": "wall_corner_inner",
+              "slot": "wall_limbo_ticket_window",
+              "alias": "t02_A02_wall_corner_inner",
+              "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+              "expected": [
+                144,
+                144
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                144,
+                144
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A03",
+              "name": "wall_corner_outer",
+              "slot": "wall_avaricia_vault_door",
+              "alias": "t02_A03_wall_corner_outer",
+              "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+              "expected": [
+                150,
+                86
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                150,
+                86
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A04",
+              "name": "wall_end_cap",
+              "slot": "wall_traicion_glacier_panel",
+              "alias": "t02_A04_wall_end_cap",
+              "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+              "expected": [
+                124,
+                64
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                124,
+                64
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A05",
+              "name": "wall_pillar",
+              "slot": "nucleo_pillar_prop",
+              "alias": "t02_A05_wall_pillar",
+              "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+              "expected": [
+                204,
+                505
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                204,
+                505
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A06",
+              "name": "door_closed",
+              "slot": "campaign_door_leaf",
+              "alias": "t02_A06_door_closed",
+              "file": "ART_ASSETS/tanda_02/door_closed.png",
+              "expected": [
+                76,
+                54
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                76,
+                54
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A07",
+              "name": "door_open",
+              "slot": "campaign_door_side_leaf",
+              "alias": "t02_A07_door_open",
+              "file": "ART_ASSETS/tanda_02/door_open.png",
+              "expected": [
+                52,
+                136
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                52,
+                136
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A08",
+              "name": "doorway_frame",
+              "slot": "campaign_door_frame",
+              "alias": "t02_A08_doorway_frame",
+              "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+              "expected": [
+                196,
+                124
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                124
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A09",
+              "name": "threshold_entry",
+              "slot": "campaign_door_south_gate",
+              "alias": "t02_A09_threshold_entry",
+              "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+              "expected": [
+                196,
+                67
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                67
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A10",
+              "name": "wall_neon_detail",
+              "slot": "wall_neon_club_crest",
+              "alias": "t02_A10_wall_neon_detail",
+              "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+              "expected": [
+                84,
+                84
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                84,
+                84
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            }
+          ],
+          "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": true,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 24,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.72,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 1,
+          "inHub": false,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1250,
+          "y": 925,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": -10
+          }
+        },
+        "player": {
+          "px": 1250,
+          "py": 863,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 0,
+        "frames": 554,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "abSameBuild": {
+        "applicable": true,
+        "onApplied": 10,
+        "offApplied": 0,
+        "restoredSlots": 10,
+        "reappliedSlots": 10,
+        "onAgainApplied": 10,
+        "offShotBytes": 1617590,
+        "onShotBytes": 1616735,
+        "offErrors": [],
+        "onErrors": []
+      },
+      "connectionsShotBytes": 1616484,
+      "doorsClosedShotBytes": 1617108,
+      "doorStateClosed": {
+        "enemies": 0,
+        "room": 1,
+        "note": "sala sin despejar: Bg usa t=0"
+      },
+      "clearRound": "true",
+      "doorsOpenShotBytes": 1616427,
+      "doorStateOpen": {
+        "enemies": 0,
+        "room": 1,
+        "secured": 1,
+        "note": "tras clearRound + ticks del motor: Bg usa t=openT/.8"
+      },
+      "performance": {
+        "tick30Ms": 2.9,
+        "framesIn2s": 0,
+        "fps": 0
+      },
+      "regression": {
+        "p0": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1250,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p1": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1502,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p2": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1502,
+          "py": 863,
+          "enemies": 0,
+          "lives": 3,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "movementDelta": 252,
+        "shotDelta": 0,
+        "bulletsDelta": 0,
+        "waProjectilesDelta": 0
+      },
+      "gameplayShotBytes": 1556540,
+      "probeFinal": {
+        "ts": 1793674245175,
+        "artPack": {
+          "version": "fase1-tanda01+tanda02",
+          "status": "applied",
+          "startedAt": 1793673902240,
+          "appliedAt": 1793673902242,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "architecture": {
+            "version": "fase1-tanda02",
+            "count": 10,
+            "applied": 10,
+            "enabled": true,
+            "appliedAt": 1793673907450,
+            "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+          },
+          "finishedAt": 1793673907450
+        },
+        "integrity": {
+          "status": "applied",
+          "errors": [],
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_01",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_02",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                560,
+                332
+              ]
+            },
+            {
+              "id": "decor_neon_rug",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                456,
+                243
+              ]
+            },
+            {
+              "id": "decor_potted_palm",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                209,
+                147
+              ]
+            },
+            {
+              "id": "boss_01_anden",
+              "loader": "ILT",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                400,
+                386
+              ]
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "loader": "HD",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                160,
+                87
+              ]
+            }
+          ],
+          "registries": {
+            "t3b": true,
+            "v5": true,
+            "ilt": true,
+            "hd": true
+          },
+          "checkedAt": 1793674245175
+        },
+        "architecture": {
+          "version": "fase1-tanda02",
+          "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+          "enabled": true,
+          "applied": 10,
+          "count": 10,
+          "originalsPreserved": 10,
+          "errors": [],
+          "assets": [
+            {
+              "id": "A01",
+              "name": "wall_straight",
+              "slot": "wall_stained_glass_arch",
+              "alias": "t02_A01_wall_straight",
+              "file": "ART_ASSETS/tanda_02/wall_straight.png",
+              "expected": [
+                120,
+                176
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                120,
+                176
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A02",
+              "name": "wall_corner_inner",
+              "slot": "wall_limbo_ticket_window",
+              "alias": "t02_A02_wall_corner_inner",
+              "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+              "expected": [
+                144,
+                144
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                144,
+                144
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A03",
+              "name": "wall_corner_outer",
+              "slot": "wall_avaricia_vault_door",
+              "alias": "t02_A03_wall_corner_outer",
+              "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+              "expected": [
+                150,
+                86
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                150,
+                86
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A04",
+              "name": "wall_end_cap",
+              "slot": "wall_traicion_glacier_panel",
+              "alias": "t02_A04_wall_end_cap",
+              "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+              "expected": [
+                124,
+                64
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                124,
+                64
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A05",
+              "name": "wall_pillar",
+              "slot": "nucleo_pillar_prop",
+              "alias": "t02_A05_wall_pillar",
+              "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+              "expected": [
+                204,
+                505
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                204,
+                505
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A06",
+              "name": "door_closed",
+              "slot": "campaign_door_leaf",
+              "alias": "t02_A06_door_closed",
+              "file": "ART_ASSETS/tanda_02/door_closed.png",
+              "expected": [
+                76,
+                54
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                76,
+                54
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A07",
+              "name": "door_open",
+              "slot": "campaign_door_side_leaf",
+              "alias": "t02_A07_door_open",
+              "file": "ART_ASSETS/tanda_02/door_open.png",
+              "expected": [
+                52,
+                136
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                52,
+                136
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A08",
+              "name": "doorway_frame",
+              "slot": "campaign_door_frame",
+              "alias": "t02_A08_doorway_frame",
+              "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+              "expected": [
+                196,
+                124
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                124
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A09",
+              "name": "threshold_entry",
+              "slot": "campaign_door_south_gate",
+              "alias": "t02_A09_threshold_entry",
+              "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+              "expected": [
+                196,
+                67
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                67
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A10",
+              "name": "wall_neon_detail",
+              "slot": "wall_neon_club_crest",
+              "alias": "t02_A10_wall_neon_detail",
+              "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+              "expected": [
+                84,
+                84
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                84,
+                84
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            }
+          ],
+          "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "t3b": {
+          "enabled": true,
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 24,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            }
+          ]
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.72,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "current": "r0",
+          "role": "start",
+          "floor": 1,
+          "secured": 1,
+          "inHub": false,
+          "nodes": 12
+        },
+        "camera": {
+          "x": 1497,
+          "y": 925,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 14,
+            "y": 2
+          }
+        },
+        "player": {
+          "px": 1502,
+          "py": 863,
+          "enemies": 0,
+          "balas": 0,
+          "lives": 3
+        },
+        "shotsFired": 0,
+        "frames": 1487,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        }
+      ],
+      "pageerrorCount": 0,
+      "artRequests": [
+        {
+          "url": "wall_straight.png",
+          "method": "GET"
+        },
+        {
+          "url": "wall_corner_inner.png",
+          "method": "GET"
+        },
+        {
+          "url": "wall_corner_outer.png",
+          "method": "GET"
+        },
+        {
+          "url": "wall_end_cap.png",
+          "method": "GET"
+        },
+        {
+          "url": "wall_pillar.png",
+          "method": "GET"
+        },
+        {
+          "url": "door_closed.png",
+          "method": "GET"
+        },
+        {
+          "url": "door_open.png",
+          "method": "GET"
+        },
+        {
+          "url": "doorway_frame.png",
+          "method": "GET"
+        },
+        {
+          "url": "threshold_entry.png",
+          "method": "GET"
+        },
+        {
+          "url": "wall_neon_detail.png",
+          "method": "GET"
+        }
+      ],
+      "artResponses": []
+    }
+  ],
+  "viewport": [
+    1280,
+    900
+  ],
+  "note": "Chromium headless SwiftShader; sin GUI. Las capturas son del juego real."
+}

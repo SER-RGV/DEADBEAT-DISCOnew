@@ -1,0 +1,2764 @@
+{
+  "started": "2026-11-03T00:36:42.314Z",
+  "builds": [
+    {
+      "started": "2026-11-03T00:36:42.395Z",
+      "console": [
+        {
+          "t": 1793666216846,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        },
+        {
+          "t": 1793666216850,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "pageerrors": [],
+      "requests": [
+        {
+          "t": 1793666202451,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/DEADBEAT_DISCO.ART.html",
+          "type": "document"
+        },
+        {
+          "t": 1793666216763,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_PACK/art_pack.js",
+          "type": "script"
+        },
+        {
+          "t": 1793666216776,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216777,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/boss_01_anden.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216778,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/ART_ASSETS/tanda_01/weapon_m1911.png",
+          "type": "image"
+        },
+        {
+          "t": 1793666216804,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "type": "script"
+        },
+        {
+          "t": 1793666216805,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "type": "script"
+        }
+      ],
+      "requestfailed": [
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "httpErrors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        }
+      ],
+      "frames": [
+        {
+          "t": 1793666216659,
+          "url": "about:blank"
+        },
+        {
+          "t": 1793666216661,
+          "url": "about:blank"
+        }
+      ],
+      "crashes": [],
+      "steps": [],
+      "build": "despues",
+      "url": "http://127.0.0.1:8123/DEADBEAT_DISCO.ART.html",
+      "loadMs": 14399,
+      "hubShotBytes": 1833963,
+      "probeHub": {
+        "ts": 1793666286785,
+        "artPack": {
+          "version": "fase1-tanda01",
+          "status": "applied",
+          "startedAt": 1793666216771,
+          "appliedAt": 1793666216771,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "finishedAt": 1793666216841
+        },
+        "integrity": {
+          "status": "applied",
+          "errors": [],
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_01",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_02",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                560,
+                332
+              ]
+            },
+            {
+              "id": "decor_neon_rug",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                456,
+                243
+              ]
+            },
+            {
+              "id": "decor_potted_palm",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                209,
+                147
+              ]
+            },
+            {
+              "id": "boss_01_anden",
+              "loader": "ILT",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                400,
+                386
+              ]
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "loader": "HD",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                160,
+                87
+              ]
+            }
+          ],
+          "registries": {
+            "t3b": true,
+            "v5": true,
+            "ilt": true,
+            "hd": true
+          },
+          "checkedAt": 1793666286785
+        },
+        "t3b": {
+          "enabled": true,
+          "ready": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "errors": [],
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            }
+          ],
+          "imgs": [
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ]
+          ]
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "hd": {
+          "total": 165,
+          "m1911": "ART_ASSETS/tanda_01/weapon_m1911.png"
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.18,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 2,
+          "transitionsCompleted": 0,
+          "transitionErrors": 0,
+          "officialUntainted": true
+        },
+        "dungeon": {
+          "version": "8.6.0-dungeon",
+          "seed": 755089968,
+          "floor": 1,
+          "current": "r0",
+          "role": "start",
+          "graph": {
+            "floor": 0,
+            "nodes": [
+              {
+                "key": "r0",
+                "index": 0,
+                "local": 0,
+                "floor": 0,
+                "x": 0,
+                "y": 0,
+                "shop": false,
+                "kind": "start",
+                "distance": 0,
+                "main": true,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r1"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r1",
+                "index": 1,
+                "local": 1,
+                "floor": 0,
+                "x": 1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "top",
+                    "to": "s0"
+                  }
+                ]
+              },
+              {
+                "key": "r2",
+                "index": 2,
+                "local": 2,
+                "floor": 0,
+                "x": -1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r0"
+                  }
+                ]
+              },
+              {
+                "key": "r3",
+                "index": 3,
+                "local": 3,
+                "floor": 0,
+                "x": 1,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r1"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r4"
+                  }
+                ]
+              },
+              {
+                "key": "r4",
+                "index": 4,
+                "local": 4,
+                "floor": 0,
+                "x": 2,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 3,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r5",
+                "index": 5,
+                "local": 5,
+                "floor": 0,
+                "x": 2,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r4"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r6",
+                "index": 6,
+                "local": 6,
+                "floor": 0,
+                "x": 3,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r4"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r7",
+                "index": 7,
+                "local": 7,
+                "floor": 0,
+                "x": 3,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r10"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r8",
+                "index": 8,
+                "local": 8,
+                "floor": 0,
+                "x": 3,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r9",
+                "index": 9,
+                "local": 9,
+                "floor": 0,
+                "x": 2,
+                "y": 3,
+                "shop": false,
+                "kind": "treasure",
+                "distance": 5,
+                "main": false,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r5"
+                  }
+                ]
+              },
+              {
+                "key": "r10",
+                "index": 10,
+                "local": 10,
+                "floor": 0,
+                "x": 4,
+                "y": 2,
+                "shop": false,
+                "kind": "boss",
+                "distance": 6,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r7"
+                  }
+                ]
+              },
+              {
+                "key": "s0",
+                "index": 11,
+                "local": 11,
+                "floor": 0,
+                "x": 1,
+                "y": -1,
+                "shop": true,
+                "kind": "shop",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r1"
+                  }
+                ]
+              }
+            ],
+            "bounds": {
+              "minX": -1,
+              "maxX": 4,
+              "minY": -1,
+              "maxY": 3
+            },
+            "generator": "8.6.0-dungeon",
+            "seedRoute": "principal + ramas",
+            "bossDistance": 6
+          },
+          "visited": [],
+          "secured": 0,
+          "inHub": true
+        },
+        "frames": 335,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "roomCaptureHub": 2889334,
+      "startCampaign": "true",
+      "campaign": {
+        "completed": true,
+        "polls": 6,
+        "ms": 21871
+      },
+      "campaignShotBytes": 1612186,
+      "roomCaptureCampaign": 2319973,
+      "probeCampaign": {
+        "ts": 1793666386193,
+        "artPack": {
+          "version": "fase1-tanda01",
+          "status": "applied",
+          "startedAt": 1793666216771,
+          "appliedAt": 1793666216771,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/tanda_01/floor_01_neon_dancefloor.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "finishedAt": 1793666216841
+        },
+        "integrity": {
+          "status": "applied",
+          "errors": [],
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_01",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "t3b_material_02",
+              "loader": "T3B",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                512,
+                512
+              ]
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                560,
+                332
+              ]
+            },
+            {
+              "id": "decor_neon_rug",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                456,
+                243
+              ]
+            },
+            {
+              "id": "decor_potted_palm",
+              "loader": "V5",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                209,
+                147
+              ]
+            },
+            {
+              "id": "boss_01_anden",
+              "loader": "ILT",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                400,
+                386
+              ]
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "loader": "HD",
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "live": true,
+              "natural": [
+                160,
+                87
+              ]
+            }
+          ],
+          "registries": {
+            "t3b": true,
+            "v5": true,
+            "ilt": true,
+            "hd": true
+          },
+          "checkedAt": 1793666386192
+        },
+        "t3b": {
+          "enabled": true,
+          "ready": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "errors": [],
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "candidate",
+              "revision": 27,
+              "ready": true,
+              "src": "http://127.0.0.1:8123/ART_ASSETS"
+            }
+          ],
+          "imgs": [
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ]
+          ]
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "hd": {
+          "total": 165,
+          "m1911": "ART_ASSETS/tanda_01/weapon_m1911.png"
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.33,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "version": "8.6.0-dungeon",
+          "seed": 755089968,
+          "floor": 1,
+          "current": "r0",
+          "role": "start",
+          "graph": {
+            "floor": 0,
+            "nodes": [
+              {
+                "key": "r0",
+                "index": 0,
+                "local": 0,
+                "floor": 0,
+                "x": 0,
+                "y": 0,
+                "shop": false,
+                "kind": "start",
+                "distance": 0,
+                "main": true,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r1"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r1",
+                "index": 1,
+                "local": 1,
+                "floor": 0,
+                "x": 1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "top",
+                    "to": "s0"
+                  }
+                ]
+              },
+              {
+                "key": "r2",
+                "index": 2,
+                "local": 2,
+                "floor": 0,
+                "x": -1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r0"
+                  }
+                ]
+              },
+              {
+                "key": "r3",
+                "index": 3,
+                "local": 3,
+                "floor": 0,
+                "x": 1,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r1"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r4"
+                  }
+                ]
+              },
+              {
+                "key": "r4",
+                "index": 4,
+                "local": 4,
+                "floor": 0,
+                "x": 2,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 3,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r5",
+                "index": 5,
+                "local": 5,
+                "floor": 0,
+                "x": 2,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r4"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r6",
+                "index": 6,
+                "local": 6,
+                "floor": 0,
+                "x": 3,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r4"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r7",
+                "index": 7,
+                "local": 7,
+                "floor": 0,
+                "x": 3,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r10"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r8",
+                "index": 8,
+                "local": 8,
+                "floor": 0,
+                "x": 3,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r9",
+                "index": 9,
+                "local": 9,
+                "floor": 0,
+                "x": 2,
+                "y": 3,
+                "shop": false,
+                "kind": "treasure",
+                "distance": 5,
+                "main": false,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r5"
+                  }
+                ]
+              },
+              {
+                "key": "r10",
+                "index": 10,
+                "local": 10,
+                "floor": 0,
+                "x": 4,
+                "y": 2,
+                "shop": false,
+                "kind": "boss",
+                "distance": 6,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r7"
+                  }
+                ]
+              },
+              {
+                "key": "s0",
+                "index": 11,
+                "local": 11,
+                "floor": 0,
+                "x": 1,
+                "y": -1,
+                "shop": true,
+                "kind": "shop",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r1"
+                  }
+                ]
+              }
+            ],
+            "bounds": {
+              "minX": -1,
+              "maxX": 4,
+              "minY": -1,
+              "maxY": 3
+            },
+            "generator": "8.6.0-dungeon",
+            "seedRoute": "principal + ramas",
+            "bossDistance": 6
+          },
+          "visited": [
+            "r0"
+          ],
+          "secured": 1,
+          "inHub": false
+        },
+        "frames": 613,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "regression": {
+        "p0": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1250,
+          "py": 863,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p1": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1652,
+          "py": 863,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p2": {
+          "shotsFired": 3,
+          "kills": 0,
+          "score": 0,
+          "px": 1652,
+          "py": 863,
+          "waLen": 3,
+          "bulletsSeen": 3
+        },
+        "movementDelta": 402,
+        "shotDelta": 3,
+        "bulletsDelta": 0,
+        "waProjectilesDelta": 3
+      },
+      "afterActionsShotBytes": 1635609,
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        }
+      ],
+      "pageerrorCount": 0
+    },
+    {
+      "started": "2026-11-03T00:40:17.779Z",
+      "console": [
+        {
+          "t": 1793666469215,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        },
+        {
+          "t": 1793666469216,
+          "type": "error",
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "loc": {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "line": 0,
+            "column": 0,
+            "lineNumber": 0,
+            "columnNumber": 0
+          }
+        }
+      ],
+      "pageerrors": [],
+      "requests": [
+        {
+          "t": 1793666445769,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+          "type": "document"
+        },
+        {
+          "t": 1793666469177,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "type": "script"
+        },
+        {
+          "t": 1793666469178,
+          "method": "GET",
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "type": "script"
+        }
+      ],
+      "requestfailed": [
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+          "failure": "net::ERR_ABORTED"
+        },
+        {
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+          "failure": "net::ERR_ABORTED"
+        }
+      ],
+      "httpErrors": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "frames": [
+        {
+          "t": 1793666447117,
+          "url": "about:blank"
+        },
+        {
+          "t": 1793666469140,
+          "url": "about:blank"
+        }
+      ],
+      "crashes": [],
+      "steps": [],
+      "build": "antes",
+      "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+      "loadMs": 23447,
+      "hubShotBytes": 1526652,
+      "probeHub": {
+        "ts": 1793666549357,
+        "t3b": {
+          "enabled": false,
+          "ready": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "errors": [],
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            }
+          ],
+          "imgs": [
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ]
+          ]
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "hd": {
+          "total": 165,
+          "m1911": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABXCAYAAACDWE6MAAAHbklEQVR42u2dO2sjSRSF"
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 3.92,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 2,
+          "transitionsCompleted": 0,
+          "transitionErrors": 0,
+          "officialUntainted": true
+        },
+        "dungeon": {
+          "version": "8.6.0-dungeon",
+          "seed": 744275313,
+          "floor": 1,
+          "current": "r0",
+          "role": "start",
+          "graph": {
+            "floor": 0,
+            "nodes": [
+              {
+                "key": "r0",
+                "index": 0,
+                "local": 0,
+                "floor": 0,
+                "x": 0,
+                "y": 0,
+                "shop": false,
+                "kind": "start",
+                "distance": 0,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r2"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r1"
+                  }
+                ]
+              },
+              {
+                "key": "r1",
+                "index": 1,
+                "local": 1,
+                "floor": 0,
+                "x": 1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": false,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r0"
+                  }
+                ]
+              },
+              {
+                "key": "r2",
+                "index": 2,
+                "local": 2,
+                "floor": 0,
+                "x": -1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": true,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r4"
+                  }
+                ]
+              },
+              {
+                "key": "r3",
+                "index": 3,
+                "local": 3,
+                "floor": 0,
+                "x": -1,
+                "y": -1,
+                "shop": false,
+                "kind": "treasure",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r4",
+                "index": 4,
+                "local": 4,
+                "floor": 0,
+                "x": -2,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r5",
+                "index": 5,
+                "local": 5,
+                "floor": 0,
+                "x": -1,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r2"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r6",
+                "index": 6,
+                "local": 6,
+                "floor": 0,
+                "x": -1,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 3,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "left",
+                    "to": "s0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r7",
+                "index": 7,
+                "local": 7,
+                "floor": 0,
+                "x": 0,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r6"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r8",
+                "index": 8,
+                "local": 8,
+                "floor": 0,
+                "x": -1,
+                "y": 3,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r6"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r9",
+                "index": 9,
+                "local": 9,
+                "floor": 0,
+                "x": 0,
+                "y": 3,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r10"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r10",
+                "index": 10,
+                "local": 10,
+                "floor": 0,
+                "x": 1,
+                "y": 3,
+                "shop": false,
+                "kind": "boss",
+                "distance": 6,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "s0",
+                "index": 11,
+                "local": 11,
+                "floor": 0,
+                "x": -2,
+                "y": 2,
+                "shop": true,
+                "kind": "shop",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r6"
+                  }
+                ]
+              }
+            ],
+            "bounds": {
+              "minX": -2,
+              "maxX": 1,
+              "minY": -1,
+              "maxY": 3
+            },
+            "generator": "8.6.0-dungeon",
+            "seedRoute": "principal + ramas",
+            "bossDistance": 6
+          },
+          "visited": [],
+          "secured": 0,
+          "inHub": true
+        },
+        "frames": 370,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "roomCaptureHub": 788996,
+      "startCampaign": "true",
+      "campaign": {
+        "completed": true,
+        "polls": 6,
+        "ms": 2405
+      },
+      "campaignShotBytes": 1051195,
+      "roomCaptureCampaign": 1207273,
+      "probeCampaign": {
+        "ts": 1793666649103,
+        "t3b": {
+          "enabled": false,
+          "ready": [
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true,
+            true
+          ],
+          "errors": [],
+          "draws": [
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 10,
+              "ready": false
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "hub",
+              "index": 1,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            },
+            {
+              "route": "campaign",
+              "index": 0,
+              "choice": "original",
+              "revision": 20,
+              "ready": true
+            }
+          ],
+          "imgs": [
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ],
+            [
+              512,
+              512
+            ]
+          ]
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "ilt": {
+          "version": "9.0.0-ilt",
+          "enabled": true,
+          "total": 11,
+          "loaded": 11,
+          "errors": [],
+          "spriteMap": {
+            "security": "enemy_security",
+            "fanatic": "enemy_fanatic",
+            "chef": "enemy_chef",
+            "dancer": "enemy_dancer",
+            "drone": "enemy_drone",
+            "elite": "enemy_elite"
+          },
+          "bossMap": {
+            "boss_01_anden": "boss_01_anden",
+            "boss_01_djdoom": "boss_01_anden",
+            "boss_02_reinaespectro": "boss_02_reinaespectro",
+            "boss_03_reydisco": "boss_03_reydisco",
+            "boss_04_entidadvoraz": "boss_04_entidadvoraz",
+            "magneta": "resident_magneta",
+            "anden": "boss_01_anden",
+            "bufe": "boss_03_reydisco",
+            "cajero": "boss_04_entidadvoraz",
+            "pogo": "boss_04_entidadvoraz"
+          },
+          "tileMap": {},
+          "stats": {
+            "charactersDrawn": 0,
+            "bossesDrawn": 0,
+            "tilesDrawn": 0,
+            "fallbacks": 0
+          },
+          "hooks": {
+            "boss": true,
+            "tile": true,
+            "character": true
+          }
+        },
+        "hd": {
+          "total": 165,
+          "m1911": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAKAAAABXCAYAAACDWE6MAAAHbklEQVR42u2dO2sjSRSF"
+        },
+        "hub": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 3.97,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "dungeon": {
+          "version": "8.6.0-dungeon",
+          "seed": 744275313,
+          "floor": 1,
+          "current": "r0",
+          "role": "start",
+          "graph": {
+            "floor": 0,
+            "nodes": [
+              {
+                "key": "r0",
+                "index": 0,
+                "local": 0,
+                "floor": 0,
+                "x": 0,
+                "y": 0,
+                "shop": false,
+                "kind": "start",
+                "distance": 0,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r2"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r1"
+                  }
+                ]
+              },
+              {
+                "key": "r1",
+                "index": 1,
+                "local": 1,
+                "floor": 0,
+                "x": 1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": false,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r0"
+                  }
+                ]
+              },
+              {
+                "key": "r2",
+                "index": 2,
+                "local": 2,
+                "floor": 0,
+                "x": -1,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 1,
+                "main": true,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "top",
+                    "to": "r3"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r4"
+                  }
+                ]
+              },
+              {
+                "key": "r3",
+                "index": 3,
+                "local": 3,
+                "floor": 0,
+                "x": -1,
+                "y": -1,
+                "shop": false,
+                "kind": "treasure",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "bottom",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r4",
+                "index": 4,
+                "local": 4,
+                "floor": 0,
+                "x": -2,
+                "y": 0,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r2"
+                  }
+                ]
+              },
+              {
+                "key": "r5",
+                "index": 5,
+                "local": 5,
+                "floor": 0,
+                "x": -1,
+                "y": 1,
+                "shop": false,
+                "kind": "combat",
+                "distance": 2,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r2"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r6"
+                  }
+                ]
+              },
+              {
+                "key": "r6",
+                "index": 6,
+                "local": 6,
+                "floor": 0,
+                "x": -1,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 3,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r5"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "left",
+                    "to": "s0"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r7",
+                "index": 7,
+                "local": 7,
+                "floor": 0,
+                "x": 0,
+                "y": 2,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r6"
+                  },
+                  {
+                    "side": "bottom",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r8",
+                "index": 8,
+                "local": 8,
+                "floor": 0,
+                "x": -1,
+                "y": 3,
+                "shop": false,
+                "kind": "combat",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r6"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "r9",
+                "index": 9,
+                "local": 9,
+                "floor": 0,
+                "x": 0,
+                "y": 3,
+                "shop": false,
+                "kind": "combat",
+                "distance": 5,
+                "main": true,
+                "links": [
+                  {
+                    "side": "top",
+                    "to": "r7"
+                  },
+                  {
+                    "side": "right",
+                    "to": "r10"
+                  },
+                  {
+                    "side": "left",
+                    "to": "r8"
+                  }
+                ]
+              },
+              {
+                "key": "r10",
+                "index": 10,
+                "local": 10,
+                "floor": 0,
+                "x": 1,
+                "y": 3,
+                "shop": false,
+                "kind": "boss",
+                "distance": 6,
+                "main": true,
+                "links": [
+                  {
+                    "side": "left",
+                    "to": "r9"
+                  }
+                ]
+              },
+              {
+                "key": "s0",
+                "index": 11,
+                "local": 11,
+                "floor": 0,
+                "x": -2,
+                "y": 2,
+                "shop": true,
+                "kind": "shop",
+                "distance": 4,
+                "main": false,
+                "links": [
+                  {
+                    "side": "right",
+                    "to": "r6"
+                  }
+                ]
+              }
+            ],
+            "bounds": {
+              "minX": -2,
+              "maxX": 1,
+              "minY": -1,
+              "maxY": 3
+            },
+            "generator": "8.6.0-dungeon",
+            "seedRoute": "principal + ramas",
+            "bossDistance": 6
+          },
+          "visited": [
+            "r0"
+          ],
+          "secured": 1,
+          "inHub": false
+        },
+        "frames": 633,
+        "waLen": null,
+        "bulletsSeen": 0
+      },
+      "regression": {
+        "p0": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1250,
+          "py": 863,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p1": {
+          "shotsFired": 0,
+          "kills": 0,
+          "score": 0,
+          "px": 1655,
+          "py": 863,
+          "waLen": null,
+          "bulletsSeen": 0
+        },
+        "p2": {
+          "shotsFired": 3,
+          "kills": 0,
+          "score": 0,
+          "px": 1655,
+          "py": 863,
+          "waLen": 2,
+          "bulletsSeen": 3
+        },
+        "movementDelta": 405,
+        "shotDelta": 3,
+        "bulletsDelta": 0,
+        "waProjectilesDelta": 3
+      },
+      "afterActionsShotBytes": 1041505,
+      "consoleErrors": [
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        },
+        {
+          "text": "Failed to load resource: the server responded with a status of 404 (File not found)"
+        }
+      ],
+      "pageerrorCount": 0
+    }
+  ],
+  "viewport": [
+    1280,
+    900
+  ]
+}

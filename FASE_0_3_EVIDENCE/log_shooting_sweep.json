@@ -1,0 +1,487 @@
+{
+  "started": "2026-11-02T22:41:21.196Z",
+  "console": [
+    {
+      "t": 1793659296347,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793659296348,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "pageerrors": [],
+  "requests": [
+    {
+      "t": 1793659281359,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+      "type": "document"
+    },
+    {
+      "t": 1793659296327,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "type": "script"
+    },
+    {
+      "t": 1793659296327,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "type": "script"
+    }
+  ],
+  "requestfailed": [
+    {
+      "t": 1793659296347,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    },
+    {
+      "t": 1793659296349,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    }
+  ],
+  "httpErrors": [
+    {
+      "t": 1793659296346,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "t": 1793659296348,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "frames": [
+    {
+      "t": 1793659295241,
+      "url": "about:blank"
+    },
+    {
+      "t": 1793659296309,
+      "url": "about:blank"
+    }
+  ],
+  "crashes": [],
+  "steps": [],
+  "base": {
+    "px": 1250,
+    "py": 1092,
+    "balas": 0,
+    "balasArr": 0,
+    "enemies": 0,
+    "loc": "TRANSITION",
+    "inHub": true,
+    "read": {
+      "kills": 0,
+      "score": 0,
+      "enemies": 0
+    },
+    "ev": [
+      {
+        "t": "mousedown",
+        "x": 640,
+        "y": 450,
+        "tgt": "DIV"
+      },
+      {
+        "t": "mouseup",
+        "x": 640,
+        "y": 450,
+        "tgt": "DIV"
+      },
+      {
+        "t": "click",
+        "x": 640,
+        "y": 450,
+        "tgt": "DIV"
+      },
+      {
+        "t": "keydown",
+        "key": "Enter",
+        "tgt": "ddc-gate"
+      },
+      {
+        "t": "click",
+        "x": 0,
+        "y": 0,
+        "tgt": "start-btn"
+      },
+      {
+        "t": "keydown",
+        "key": "Escape",
+        "tgt": "ddc-gate"
+      }
+    ]
+  },
+  "tests": [
+    {
+      "name": "A mouse.down(760,420) 1.5s",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "click",
+          "x": 640,
+          "y": 450,
+          "tgt": "DIV"
+        },
+        {
+          "t": "keydown",
+          "key": "Enter",
+          "tgt": "ddc-gate"
+        },
+        {
+          "t": "click",
+          "x": 0,
+          "y": 0,
+          "tgt": "start-btn"
+        },
+        {
+          "t": "keydown",
+          "key": "Escape",
+          "tgt": "ddc-gate"
+        },
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        }
+      ]
+    },
+    {
+      "name": "B mouse.click(760,420) x3",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        }
+      ]
+    },
+    {
+      "name": "C barrido 6 posiciones con down",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "pointerdown",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "mousedown",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "mouseup",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "click",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "pointerdown",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        }
+      ]
+    },
+    {
+      "name": "D mousedown sintetico en #game",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "mouseup",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "click",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "pointerdown",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        },
+        {
+          "t": "mousedown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "mouseup",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        }
+      ]
+    },
+    {
+      "name": "E pointerdown sintetico en #game",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "click",
+          "x": 1000,
+          "y": 300,
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "pointerdown",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        },
+        {
+          "t": "click",
+          "x": 300,
+          "y": 650,
+          "tgt": "game"
+        },
+        {
+          "t": "mousedown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "mouseup",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        }
+      ]
+    },
+    {
+      "name": "F tecla J / K / Ctrl",
+      "before": {
+        "balas": 0,
+        "enemies": 0,
+        "kills": 0
+      },
+      "after": {
+        "balas": 0,
+        "arr": 0,
+        "enemies": 0,
+        "kills": 0,
+        "score": 0
+      },
+      "loc": "TRANSITION",
+      "ev": [
+        {
+          "t": "mousedown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "mouseup",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "pointerdown",
+          "x": 760,
+          "y": 420,
+          "tgt": "game"
+        },
+        {
+          "t": "keydown",
+          "key": "j",
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "keydown",
+          "key": "k",
+          "tgt": "BUTTON"
+        },
+        {
+          "t": "keydown",
+          "key": "Control",
+          "tgt": "BUTTON"
+        }
+      ]
+    }
+  ],
+  "weaponProbe": "null",
+  "laser": "false",
+  "consoleErrors": [
+    {
+      "t": 1793659296347,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793659296348,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ]
+}

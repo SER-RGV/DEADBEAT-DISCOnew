@@ -1,0 +1,110 @@
+const {launch,attach,newLog,shot}=require('./lib');
+const URL='http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html';
+
+// Instrumentación de SOLO LECTURA inyectada antes de cualquier script del juego.
+// No modifica el HTML: se ejecuta en el contexto del navegador de pruebas.
+function initScript(){
+  window.__qaEvents=[];
+  window.__qaBullets=[];
+  window.__qaWa=null;
+  window.__qaFrames=0;
+  const rec=(e,phase)=>{
+    try{
+      window.__qaEvents.push({t:Date.now(),phase,type:e.type,
+        target:(e.target&&(e.target.id||e.target.tagName))||null,
+        pointerType:e.pointerType||null,button:e.button,nullable:null,
+        x:e.clientX,y:e.clientY,key:e.key||null,
+        prevented:!!e.defaultPrevented, cancelable:!!e.cancelable});
+      if(window.__qaEvents.length>1200) window.__qaEvents.shift();
+    }catch(_){}
+  };
+  for(const t of ['pointerdown','pointerup','mousedown','mouseup','click','keydown','keyup']){
+    window.addEventListener(t,e=>rec(e,'capture'),true);
+    window.addEventListener(t,e=>rec(e,'bubble'),false);
+  }
+  // Observar la entrada real de proyectiles del JUGADOR en el array del mundo (wa).
+  // Firma: objeto con weaponSerial + accuracyCohort (creado en wd()).
+  const origPush=Array.prototype.push;
+  Array.prototype.push=function(){
+    for(let i=0;i<arguments.length;i++){
+      const v=arguments[i];
+      if(v&&typeof v==='object'&&('weaponSerial'in v)&&('accuracyCohort'in v)){
+        window.__qaWa=this;
+        window.__qaBullets.push({t:Date.now(),x:Math.round(v.x),y:Math.round(v.y),
+          vx:Math.round(v.vx),vy:Math.round(v.vy),r:v.r,weaponId:v.weaponId,
+          serial:v.weaponSerial,arrLen:this.length});
+        if(window.__qaBullets.length>800) window.__qaBullets.shift();
+      }
+    }
+    return origPush.apply(this,arguments);
+  };
+  const loop=()=>{window.__qaFrames++;requestAnimationFrame(loop)};
+  requestAnimationFrame(loop);
+}
+
+const SNAP=`(()=>{
+ const W=window; const safe=f=>{try{return f()}catch(e){return 'ERR:'+e.message}};
+ const t=safe(()=>W.DMO.testStats());
+ const d=safe(()=>W.DMO.debug.state());
+ const c=safe(()=>W.DMO_CINE.state());
+ const h=safe(()=>W.DMO_HUB.state());
+ const r=safe(()=>W.DMO.read());
+ const g=safe(()=>W.DMO.gamepad.state());
+ const du=safe(()=>W.DMO_DUNGEON.state());
+ const wa=W.__qaWa;
+ const ev=W.__qaEvents||[];
+ return {
+  ts:Date.now(),
+  hub:h&&typeof h==='object'?{location:h.location,inHub:h.inHub,transitionLock:h.transitionLock,
+    transitionsCompleted:h.transitionsCompleted,transitionErrors:h.transitionErrors,modalOpen:h.modalOpen,
+    saveWrites:h.saveWrites}:h,
+  cine:c&&typeof c==='object'?{active:c.active,skips:c.skips,completes:c.completes,
+    floorDrop:c.floorDrop,subtitle:c.subtitle,lastReason:c.lastReason}:c,
+  floorDropExtra:safe(()=>{const f=W.DMO.floorDrop;return f&&typeof f==='object'?Object.keys(f):String(typeof f)}),
+  read:r&&typeof r==='object'?{running:r.running,zone:r.zone,kills:r.kills,score:r.score,
+    enemies:r.enemies,x:r.x,y:r.y,paused:r.paused}:r,
+  dbg:d&&typeof d==='object'?{balas:d.balas,enemies:d.enemies,px:d.px,py:d.py,round:d.round,
+    lives:d.lives,invuln:d.invuln}:d,
+  shotsFired:t&&typeof t==='object'?t.shotsFired:null,
+  shotsHit:t&&typeof t==='object'?t.shotsHit:null,
+  bulletsCount:(W.__qaBullets||[]).length,
+  bulletsTail:(W.__qaBullets||[]).slice(-4),
+  waLen:wa?wa.length:null,
+  waTail:wa?wa.slice(-3).map(b=>({x:Math.round(b.x),y:Math.round(b.y),life:+b.life.toFixed(2)})):null,
+  frames:W.__qaFrames||0,
+  eventsCount:ev.length,
+  eventsTail:ev.slice(-10),
+  gp:g&&typeof g==='object'?{active:g.active,fire:g.fire,connected:g.connected,supported:g.supported}:g,
+  dungeon:du&&typeof du==='object'?{current:du.current,visited:(du.visited||[]).length,
+    secured:du.secured,rooms:du.graph&&du.graph.nodes?Object.keys(du.graph.nodes).length:null}:du,
+  bodyClass:safe(()=>String(document.body.className).slice(0,300))
+ };
+})()`;
+
+async function newSession(browser,log,viewport){
+  const ctx=await browser.newContext({viewport:viewport||{width:1280,height:900}});
+  const page=await ctx.newPage();
+  attach(page,log);
+  await page.addInitScript(initScript);
+  return {ctx,page};
+}
+async function load(page,log){
+  const t0=Date.now();
+  await page.goto(URL,{waitUntil:'load',timeout:180000});
+  await page.waitForTimeout(1500);
+  const ms=Date.now()-t0;
+  if(log) log.loadMs=ms;
+  return ms;
+}
+async function bootToHub(page){
+  await page.mouse.click(640,450);
+  await page.waitForTimeout(600);
+  await page.keyboard.press('Enter');
+  await page.waitForTimeout(900);
+  await page.keyboard.down('Escape');
+  await page.waitForTimeout(2800);
+  await page.keyboard.up('Escape');
+  await page.waitForTimeout(600);
+}
+const snap=p=>p.evaluate(SNAP);
+module.exports={launch,attach,newLog,shot,URL,initScript,SNAP,newSession,load,bootToHub,snap};
