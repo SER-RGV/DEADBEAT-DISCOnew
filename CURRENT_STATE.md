@@ -54,3 +54,17 @@ Toda modificación debe partir de una copia de seguridad.
 - QA: `ART_EVIDENCE/hub/tanda_03/report.json` — **12/12 APROBADO** del arnés A/B (Chromium 131.0.6778.0, playwright-core 1.58.2, 1280×900, SwiftShader), con `BLOQUEADO_INTEGRACION: 8` y `NO_VERIFICADO_VISIBILIDAD: 1`. 0 `pageerror`, 0 404 locales, regresión T01/T02/V5/capas/`CAMPAIGN_ROOM`/colisiones/puertas/estaciones/disparo/movimiento sin cambios. 74 evidencias / 79 MB.
 - Documentos: `ART_TANDA_03_HUB_REPORT.md`, `ART_HUB_TANDA_03_AUDIT.md`, `CHANGELOG.md`, `ART_PRODUCTION_LOG.md`, `ASSET_INVENTORY.md`, `VISUAL_QA_REPORT.md`. Auditoría: D-01…D-07.
 - Git: rama `arena/109fe45c-deadbeat-disconew`; PR #1 `OPEN` **sin merge**; `main`/`origin/main` en `d75e021` intactos. Commit independiente `HUB TANDA 03 — Environment reconstruction` y push a la rama de sesión.
+
+
+---
+
+## Estado actual · 2026-11-03 (HUB · Tanda 04) — VIGENTE
+
+- **Build activa:** `DEADBEAT_DISCO.ART.html` (13.384.309 B, SHA-256 `f3f5e15d06492fb3b511b6c8d8f3c7d3be51f93332d6408d47a432ac744c9865`). Es la **primera tanda que modifica el HTML activo**, autorizada explícitamente y solo para conectar recursos a renderers existentes: 3 bloques `TANDA04:BEGIN/END`, `+59/-2` líneas. Copia de seguridad y reversión: `ART_TOOLS/qa/apply_hub_tanda_04_html.py --restore`.
+- **`ART_PACK/art_pack.js`: SIN CAMBIOS** (SHA `1df28db436b629610ae47e9a5390e742f48928620d0bd19fa8b4cfdb86d8c8e1`). `__DDM_V5_IMG`, `load()`, `HUB3_*` / `HUB2_*` y las APIs de invalidación siguen igual. 142 claves V5. T01, T02 y T03 intactas; el histórico `ART_EVIDENCE/hub/tanda_03/report.json` NO se reescribe.
+- **Integración de render: 13/13 `INTEGRADO`, 0 bloqueadas, 0 `NO_VERIFICADO`.** 4 suelos (`drawHubFloorLayer`/`Wf`), 2 variantes de mobiliario + VIP (`hubDecor` -> `addHubCustomProp`/`Lc`, `solid:false`) y 6 señales diegéticas (`drawHubAerialLayer`/`Ph`). El VIP NO usa el pintor del menú. Flag `__DDM_HUB_T04` activo por defecto y reversible en caliente.
+- **Preview:** `python3` pid 4783 en `0.0.0.0:8123`, verificado HTTP 200 con el HTML actual; **no se ha reiniciado ni reparado** (ya estaba correcto).
+- **QA:** `ART_EVIDENCE/hub/tanda_04/report.json` — **12/12 `APROBADO`**, `exit=0`, 3 fases A/B (1280x900, misma cámara, 10 zonas), `drawImage` medidos por unidad en el canvas de mundo del HUB, 0 errores JS, 0 404 locales, regresión completa T01/T02/V5/capas/`CAMPAIGN_ROOM`/colisiones/puertas/estaciones/disparo. Performance: mediana 16,7/16,8/16,7 ms, coste de carga separado. 83 evidencias / ~90 MB, 114 hashes / 0 discrepancias.
+- **T01:** APROBADA. **T02:** integrada y verificada, **cierre pendiente de performance gate** (medido en T04, sin declararla cerrada). **T03:** producción/carga/QA aprobadas, render 8/8 bloqueado en su informe histórico, ahora resuelto por T04.
+- **Git:** rama `arena/109fe45c-deadbeat-disconew`; PR #1 `OPEN`, base `arte-y-recursos`, head rama de sesión, **sin merge**; `main`/`origin/main` en `d75e021` intactos. Commit independiente `HUB TANDA 04 — Render integration`.
+- **Documentos vigentes:** `ART_TANDA_04_HUB_REPORT.md`, `ART_HUB_TANDA_04_AUDIT.md`, `ART_HUB_TANDA_04_MATRIX.md` (estado `INTEGRADO`), `ART_PRODUCTION_LOG.md`, `CHANGELOG.md`.

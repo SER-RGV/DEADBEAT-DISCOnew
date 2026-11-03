@@ -7883,15 +7883,27 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           { id: "hub_decor_speaker_w", slot: "club_speaker_tower_prop", x: 985, y: 502, h: 122, flip: false },
           { id: "hub_decor_speaker_e", slot: "club_speaker_tower_prop", x: 1515, y: 502, h: 122, flip: true },
           { id: "hub_decor_cooler_w", slot: "club_water_cooler_prop", x: 452, y: 692, h: 104, flip: false },
-          { id: "hub_decor_vending_e", slot: "club_vending_machine_prop", x: 2048, y: 692, h: 118, flip: true }
+          { id: "hub_decor_vending_e", slot: "club_vending_machine_prop", x: 2048, y: 692, h: 118, flip: true },
+          /* === TANDA04:BEGIN · 3 anclajes derivados (FASE 2) · solid:false ===
+             T03-05 / T03-06 / T03-07 conectados al renderer de props YA existente
+             (hubDecor -> addHubCustomProp -> Lc). solid:false => sin colliders,
+             sin cambios de hitbox ni de geometría. Reversible con el flag
+             window.__DDM_HUB_T04. Ver ART_HUB_TANDA_04_AUDIT.md / _MATRIX.md. */
+          { id: "hub_decor_planter_v02", slot: "h03_planter_variant_02", x: 452, y: 900, h: 88, flip: false, t04: "T03-05" },
+          { id: "hub_decor_bench_v02",   slot: "h03_bench_variant_02",   x: 2048, y: 900, h: 74, flip: true,  t04: "T03-06" },
+          { id: "hub_decor_vip_lounge",  slot: "h03_vip_booth_lounge",   x: 785, y: 760, h: 136, flip: false, t04: "T03-07" }
+          /* === TANDA04:END === */
         ];
         for (const dc of hubDecor) {
           addHubCustomProp({
             id: dc.id, kind: "circle", x: dc.x, y: dc.y, r: 10, solid: false, tall: false, sortY: dc.y,
             hubDraw: function (ctx, p) {
+              /* TANDA04:BEGIN · reversibilidad A/B sin reconstruir el motor */
+              if (dc.t04 && window.__DDM_HUB_T04 === false) return;
+              /* TANDA04:END */
               const im = V5D(dc.slot);
               if (!im) return;
-              ctx.save(); ctx.imageSmoothingEnabled = false;
+              ctx.save(); ctx.imageSmoothingEnabled = !!dc.t04; /* TANDA04: arte pintado, no pixel art */
               const dh = dc.h, dw = Math.round(dh * im.naturalWidth / im.naturalHeight);
               Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10);
               if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
@@ -9345,6 +9357,28 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           __t3bHubDraws++; g.drawImage(hubCachedFloorCv, 290, 265);
         }
 
+        /* === TANDA04:BEGIN · Familia A: 4 panos de suelo (FASE 2/3) ===
+           Renderer de SUELO existente (hook Wf), sobre la capa cacheada
+           1920x1320 en (290,265) y antes del medallón. Cajas mundo MEDIDAS
+           en manifest T03, disjuntas y dentro del octógono; orientacion
+           O/E/S/N conservada. Sin cache nueva ni canvas alternativo. */
+        if (window.__DDM_HUB_T04 !== false) {
+          const t04Floors = [
+            ["h03_floor_patch_o",        290,  720, 580, 430],
+            ["h03_floor_patch_e",       1630,  720, 580, 430],
+            ["h03_floor_patch_s_crack",  870, 1256, 760, 329],
+            ["h03_floor_north_dj",       870,  265, 760, 224]
+          ];
+          const t04SmoothFloor = g.imageSmoothingEnabled;
+          g.imageSmoothingEnabled = true;
+          for (const f of t04Floors) {
+            const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[f[0]];
+            if (im && im.complete && im.naturalWidth > 0) g.drawImage(im, f[1], f[2], f[3], f[4]);
+          }
+          g.imageSmoothingEnabled = t04SmoothFloor;
+        }
+        /* === TANDA04:END === */
+
         // v7.13 · el escudo neón del zorro y la mariposa (emblema de la comunidad)
         // sustituye a la calavera coronada en el centro de la pista: se conservan los
         // anillos neón y el suelo ajedrezado del medallón (cráneo borrado en caché).
@@ -9566,6 +9600,29 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           drawPixelNeonBanner(g, "▼ CÍRCULOS · DESCENSO ▼", 1250, 1456, "#ef4444", "#fde047", 0.96);
         }
         g.restore();
+
+        /* === TANDA04:BEGIN · Familia D: 6 placas diegeticas (FASE 2/3) ===
+           Anclajes derivados del signY REAL de 6 estaciones medidas; misma
+           escala 144x96 en las 6 zonas A-F y ninguna oculta, porque esta capa
+           se dibuja DESPUES de los props. Claves V5 ya registradas por T03. */
+        if (window.__DDM_HUB_T04 !== false) {
+          const t04Signs = [
+            ["h03_zone_signage_a",  958,  565],
+            ["h03_zone_signage_b", 1178,  431],
+            ["h03_zone_signage_c", 1178, 1363],
+            ["h03_zone_signage_d",  633,  781],
+            ["h03_zone_signage_e", 1718,  781],
+            ["h03_zone_signage_f",  583, 1133]
+          ];
+          const t04SmoothSign = g.imageSmoothingEnabled;
+          g.imageSmoothingEnabled = true;
+          for (const s of t04Signs) {
+            const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[s[0]];
+            if (im && im.complete && im.naturalWidth > 0) g.drawImage(im, s[1], s[2], 144, 96);
+          }
+          g.imageSmoothingEnabled = t04SmoothSign;
+        }
+        /* === TANDA04:END === */
 
         const nearest = (!hub.modalOpen && !hub.invasion.active && !hub.invasion.warningActive)
           ? findNearestHubStation()

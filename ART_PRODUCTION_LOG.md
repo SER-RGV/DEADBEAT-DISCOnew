@@ -180,6 +180,22 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 
 ---
 
+## HUB · TANDA 04 — Render integration (2026-11-03)
+
+**Clasificación: APROBADA · 13/13 unidades INTEGRADAS · 0 bloqueadas · QA A/B 12/12.**
+
+- **Objetivo:** TANDA 04 NO produce assets nuevos; activa visualmente los 13 PNG finales de TANDA 03 en el HUB real. `registro != integracion`, `carga != visibilidad`, `visibilidad en menu != visibilidad en HUB`.
+- **FASE 1 (auditoría):** `ART_HUB_TANDA_04_AUDIT.md` + `audit_runtime.json`. Causa medida del bloqueo de T03: `#overlay.hidden` envía el bucle a `Qf()` y la portada visible es `ddc-cover-js`; el pintor VIP del MENÚ dibuja en `#menu-canvas54`, no en el HUB, y **no es reutilizable**.
+- **FASE 2 (matriz):** 13 filas, 4 suelos disjuntos, 6 anclajes de señalética derivados del `signY` real, 3 props `solid:false`. `matriz_integracion.json` pasa de `PENDIENTE` a **`INTEGRADO`** solo tras la QA.
+- **FASE 3 (cambio mínimo):** **solo `DEADBEAT_DISCO.ART.html`**, `+59/-2` líneas, `+3.281 B`, SHA `f231cfc7...` -> `f3f5e15d...`. Tres bloques entre marcadores `TANDA04:BEGIN/END`: 3 entradas en `hubDecor` (T03-05/06/07 a `addHubCustomProp`/`Lc`), 4 `drawImage` en `drawHubFloorLayer()`/`Wf` y 6 en `drawHubAerialLayer()`/`Ph`. Flag reversible `window.__DDM_HUB_T04 !== false`. **`ART_PACK/art_pack.js` byte a byte idéntico**: se mantienen `__DDM_V5_IMG`, `load()`, `HUB3_*`, `HUB2_*` y todas las APIs de invalidación. Sin segundo motor, caché nueva, canvas alternativo ni loader paralelo. Sin cambios de gameplay, colisiones, geometría, puertas, estaciones, música, HUD, guardado, progresión ni IA.
+- **FASE 4/5 (QA):** arnés `validate_hub_tanda_04.js`, 3 fases A/B a 1280x900 con la misma cámara y 10 zonas. **13/13 `drawImage` medidos en el canvas de mundo `1280x900`**, 0 en el MENÚ; ANTES `0`, CONTROL off `0`, CONTROL on `13`, `hub3Restore()` `0`, `hub3Apply()` `13`. 0 `pageerror`, 0 404 locales, T01 10/10, T02 10/10, 6 zonas, 11 estaciones, `CAMPAIGN_ROOM`, colisiones/puertas/disparo intactos, cachés de ambas capas activas, 27 canvas en las 3 fases.
+- **Performance gate (pendiente de T02, medido aquí):** 40 rAF por fase, mediana `16,7 / 16,8 / 16,7 ms` (ratio `0,994`); coste de CARGA de los 13 PNG medido por separado de `load()`. Variaciones de frame atribuidas a SwiftShader con línea base `4,83 %` frente a `11,52 %` en la comparativa off/on en caliente. T02 sigue con **cierre pendiente de performance gate** según indicación del usuario.
+- **FASE 6:** `ART_EVIDENCE/hub/tanda_04/`, 83 archivos / ~90 MB, 10 pares ANTES/DESPUÉS, 10 capturas del HUB real, `report.json`, `draw_calls.json`, `resultados_ab.json`, `visual_diff.json`, `verificacion_carga.json`, `comprobacion_caches.json`, `incidencias.json`, `version_probe.json` y `hashes.json` (114 / 0 discrepancias). T01/T02/T03 y el histórico `tanda_03/report.json` intactos.
+- **FASE 7:** commit independiente `HUB TANDA 04 — Render integration` en la rama de sesión, push y PR #1 actualizado **sin merge**. `main`/`origin/main` intactos.
+- **Informe:** `ART_TANDA_04_HUB_REPORT.md`. Auditoría/matriz: `ART_HUB_TANDA_04_AUDIT.md`, `ART_HUB_TANDA_04_MATRIX.md`.
+
+---
+
 ## Historial de versiones
 
 | Fecha | Entrada |
@@ -189,3 +205,4 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 | 2026-11-03 | HUB · Tanda 01: 10 assets, 10 fuentes, integración real en loaders existentes, QA 12/12 y cierre documental |
 | 2026-11-03 | HUB · Tanda 02: auditoría de 21 slots, 10 assets nuevos, integración V5, QA A/B 12/12 y cierre documental |
 | 2026-11-03 | HUB · Tanda 03: 8 unidades / 13 PNG, bloque HUB3_*, QA A/B 12/12, 8 bloqueos de render documentados y HTML intacto |
+| 2026-11-03 | HUB · Tanda 04: render integration, 13/13 PNG dibujados en el HUB real, 3 bloques en el HTML, art_pack.js intacto, QA A/B 12/12 |
