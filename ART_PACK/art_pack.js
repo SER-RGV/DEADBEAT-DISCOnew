@@ -21,18 +21,31 @@
  * profundidad. Las imagenes previas de cada slot se conservan en ORIGINALS y
  * restore() permite capturar el "antes" sin recargar la pagina.
  *
- * Expone window.DMO_ART_PACK.state() / .integrity() / .architecture() para QA.
+ * HUB · TANDA 01 (reconstruccion de escenarios) amplia ESTE MISMO paquete con
+ * 10 assets: el suelo entra por el slot T3B que ya pinta el HUB, el panel de
+ * pared por la familia modular T02 y los otros 8 por el registro V5 que
+ * consumen los pintores reales del HUB. No hay segundo loader, segundo canvas
+ * ni segundo <script>; no se toca geometria, colisiones, puertas ni logica.
+ * Las dimensiones son las medidas en runtime (ver manifest.json de la tanda).
+ *
+ * Expone window.DMO_ART_PACK.state() / .integrity() / .architecture() / .hub()
+ * para QA.
  * ==========================================================================*/
 (function () {
   'use strict';
 
   var BASE = 'ART_ASSETS/tanda_01/';
   var BASE2 = 'ART_ASSETS/tanda_02/';
+  var BASEH = 'ART_ASSETS/hub/tanda_01/';
 
   /* id, archivo, dimensiones esperadas, loader, pivote, alfa */
   var MANIFEST = [
     { id: 't3b_material_00',          file: 'floor_00_obsidian_vein.png',   w: 512, h: 512, loader: 'T3B',  slot: 0, pivot: 'tile',          alpha: false },
-    { id: 't3b_material_01',          file: 'floor_01_neon_dancefloor.png', w: 512, h: 512, loader: 'T3B',  slot: 1, pivot: 'tile',          alpha: false },
+    /* HUB-01 · Suelo central. La build activa pinta el HUB con
+       __DDM_PAINT_MATERIAL(c,1,...) -> __T3B_IMAGES[1]. Se sirve ese MISMO
+       slot con el nuevo tile; el PNG de la Tanda 01 sigue en el repositorio. */
+    { id: 't3b_material_01',          file: 'floor_01_neon_dancefloor.png', w: 512, h: 512, loader: 'T3B',  slot: 1, pivot: 'tile',          alpha: false,
+      path: BASEH + 'hub_01_suelo_central.png', hubId: 'HUB-01' },
     { id: 't3b_material_02',          file: 'floor_02_gilded_mosaic.png',   w: 512, h: 512, loader: 'T3B',  slot: 2, pivot: 'tile',          alpha: false },
     { id: 'hub_fox_crest_emblem',     file: 'hub_fox_crest_emblem.png',     w: 560, h: 332, loader: 'V5',   pivot: 'center',        alpha: true },
     { id: 'decor_neon_rug',           file: 'decor_neon_rug.png',           w: 456, h: 243, loader: 'V5',   pivot: 'bottom-center', alpha: true },
@@ -45,7 +58,10 @@
      EXACTAS que el motor consulta con __DDM_GET_V5; 'alias' es la referencia
      nueva y trazable que tambien se registra en el mismo registro V5. */
   var ARCHITECTURE = [
-    { id: 'A01', name: 'wall_straight',       file: 'wall_straight.png',       slot: 'wall_stained_glass_arch',      w: 120, h: 176, alias: 't02_A01_wall_straight',       pivot: 'bottom-center' },
+    /* HUB-03 · Paredes arquitectonicas. Se mantiene la clave, el pintor y
+       las dimensiones del modulo recto; solo cambia la ilustracion servida. */
+    { id: 'A01', name: 'wall_straight',       file: 'wall_straight.png',       slot: 'wall_stained_glass_arch',      w: 120, h: 176, alias: 't02_A01_wall_straight',       pivot: 'bottom-center',
+      path: BASEH + 'hub_03_paredes.png', hubId: 'HUB-03' },
     { id: 'A02', name: 'wall_corner_inner',   file: 'wall_corner_inner.png',   slot: 'wall_limbo_ticket_window',     w: 144, h: 144, alias: 't02_A02_wall_corner_inner',   pivot: 'bottom-center' },
     { id: 'A03', name: 'wall_corner_outer',   file: 'wall_corner_outer.png',   slot: 'wall_avaricia_vault_door',     w: 150, h: 86,  alias: 't02_A03_wall_corner_outer',   pivot: 'bottom-center' },
     { id: 'A04', name: 'wall_end_cap',        file: 'wall_end_cap.png',        slot: 'wall_traicion_glacier_panel',  w: 124, h: 64,  alias: 't02_A04_wall_end_cap',        pivot: 'bottom-center' },
@@ -57,12 +73,67 @@
     { id: 'A10', name: 'wall_neon_detail',    file: 'wall_neon_detail.png',    slot: 'wall_neon_club_crest',         w: 84,  h: 84,  alias: 't02_A10_wall_neon_detail',    pivot: 'center' }
   ];
 
+  /* -------------------------------------------------------------------------
+   * HUB · TANDA 01 — 10 assets, una sola familia visual.
+   * 'slots' son las claves EXACTAS que los pintores del HUB consultan en
+   * window.__DDM_V5_IMG / __DDM_GET_V5 (medido con la sonda de runtime).
+   * HUB-01 y HUB-03 no se cargan aqui: entran por los manifest de T01/T02
+   * (arriba) para que no existan dos integraciones compitiendo por un slot.
+   * -----------------------------------------------------------------------*/
+  var HUB_ASSETS = [
+    { id: 'HUB-01', file: 'hub_01_suelo_central.png',          w: 512, h: 512, loader: 'T3B', slots: ['t3b_material_01'],
+      pivot: 'tile',          alpha: false, managedBy: 'MANIFEST/T01',
+      classification: 'Arquitectónico / Funcional',
+      role: 'Superficie principal del HUB (patrón repeat 512x512).' },
+    { id: 'HUB-02', file: 'hub_02_pista_central.png',           w: 760, h: 430, loader: 'V5',  slots: ['hub_pista_medallion'],
+      pivot: 'center',        alpha: true,  managedBy: 'HUB',
+      classification: 'Decorativo',
+      role: 'Alfombra / medallón de identidad de la pista central.' },
+    { id: 'HUB-03', file: 'hub_03_paredes.png',                 w: 120, h: 176, loader: 'V5',  slots: ['wall_stained_glass_arch'],
+      pivot: 'bottom-center', alpha: true,  managedBy: 'ARCHITECTURE/T02',
+      classification: 'Arquitectónico',
+      role: 'Panel de muro modular: delimita y da profundidad al perímetro.' },
+    { id: 'HUB-04', file: 'hub_04_cabina_dj.png',               w: 720, h: 392, loader: 'V5',  slots: ['hub_dj_shrine'],
+      pivot: 'bottom-center', alpha: true,  managedBy: 'HUB',
+      classification: 'Interactivo',
+      role: 'Cabina del DJ, elemento protagonista (estación dj).' },
+    { id: 'HUB-05', file: 'hub_05_barra_bebidas.png',           w: 380, h: 313, loader: 'V5',  slots: ['hub_bar_shrine'],
+      pivot: 'bottom-center', alpha: true,  managedBy: 'HUB',
+      classification: 'Interactivo',
+      role: 'Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).' },
+    { id: 'HUB-06', file: 'hub_06_columnas.png',                w: 76,  h: 148, loader: 'V5',  slots: ['club_speaker_tower_prop'],
+      pivot: 'bottom-center', alpha: true,  managedBy: 'HUB',
+      classification: 'Arquitectónico',
+      role: 'Columnas estructurales / torres acústicas: ritmo y volumen.' },
+    { id: 'HUB-07', file: 'hub_07_sofas_asientos.png',          w: 224, h: 172, loader: 'V5',
+      slots: ['hub_vip_booth_nw', 'hub_vip_booth_ne'],
+      pivot: 'bottom-center', alpha: true,  managedBy: 'HUB',
+      classification: 'Decorativo',
+      role: 'Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).' },
+    { id: 'HUB-08', file: 'hub_08_luminarias_neones.png',       w: 67,  h: 152, loader: 'V5',  slots: ['hub_disco_chandelier'],
+      pivot: 'top-center',    alpha: true,  managedBy: 'HUB',
+      classification: 'Funcional / Decorativo',
+      role: 'Luminaria colgante de neón: iluminación ambiental sobre la pista.' },
+    { id: 'HUB-09', file: 'hub_09_puertas_accesos.png',         w: 320, h: 175, loader: 'V5',  slots: ['hub_abyss_stair_crack'],
+      pivot: 'center',        alpha: true,  managedBy: 'HUB',
+      classification: 'Interactivo / Funcional',
+      role: 'Portal de descenso: acceso a otras zonas. No toca Ot.openT.' },
+    { id: 'HUB-10', file: 'hub_10_decoracion_ambiental.png',    w: 167, h: 136, loader: 'V5',  slots: ['hub_trophy_board_prop'],
+      pivot: 'center',        alpha: true,  managedBy: 'HUB',
+      classification: 'Decorativo',
+      role: 'Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.' }
+  ];
+
+  var HUB_IMAGES = {};             /* Image decodificados por id HUB-xx */
+  var HUB_ORIGINALS = {};          /* imagen/URL previa de cada slot, preservada */
+  var hubApplied = false;
+
   var ORIGINALS = {};              /* recursos V5 previos, preservados */
   var ARCH_IMAGES = {};            /* Image ya decodificados, por id */
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -73,7 +144,7 @@
 
   function entry(m) {
     return {
-      id: m.id, file: BASE + m.file, loader: m.loader, pivot: m.pivot,
+      id: m.id, file: m.path || BASE + m.file, loader: m.loader, pivot: m.pivot,
       alpha: m.alpha, expected: [m.w, m.h], natural: null,
       applied: false, loaded: false, exactSize: false, note: ''
     };
@@ -118,6 +189,11 @@
   function applyT3B(m, rec, im) {
     var arr = window.__T3B_IMAGES;
     if (!arr || arr.length < 10) { err(m.id, '__T3B_IMAGES no disponible'); return; }
+    if (m.hubId) {
+      HUB_ORIGINALS[m.id] = arr[m.slot];       /* T01 anterior, conservado */
+      HUB_IMAGES[m.hubId] = im;
+      try { im.__hubTanda01 = m.hubId; } catch (_) {}
+    }
     arr[m.slot] = rec.file;
     /* La build trae el pintor candidato de materiales DESACTIVADO (cache probe).
        Se habilita el flag visual propio del motor; no afecta a lógica ni mecánicas. */
@@ -128,6 +204,9 @@
       catch (e) { err(m.id, 'setEnabled: ' + e); }
     }
     api.reload(m.slot, 0);           /* loader existente: crea Image + invalida cache */
+    if (m.hubId && api.images && api.images[m.slot]) {
+      try { api.images[m.slot].__hubTanda01 = m.hubId; } catch (_) {}
+    }
     rec.applied = true;
     rec.note = '__T3B_IMAGES[' + m.slot + '] + __T3B.reload() + setEnabled(true)';
   }
@@ -179,6 +258,10 @@
       if (!Object.prototype.hasOwnProperty.call(ORIGINALS, m.slot)) {
         ORIGINALS[m.slot] = reg[m.slot];
       }
+      if (m.hubId) {
+        HUB_IMAGES[m.hubId] = im;
+        try { im.__hubTanda01 = m.hubId; } catch (_) {}
+      }
       reg[m.slot] = im;          /* el pintor real de muros/puertas lo consume */
       reg[m.alias] = im;         /* referencia nueva y trazable, mismo registro */
       n++;
@@ -212,7 +295,7 @@
   function loadArchitecture(done) {
     var pending = ARCHITECTURE.length;
     ARCHITECTURE.forEach(function (m) {
-      var rec = { id: m.id, file: BASE2 + m.file, expected: [m.w, m.h],
+      var rec = { id: m.id, file: m.path || BASE2 + m.file, expected: [m.w, m.h],
                   loaded: false, natural: null, exactSize: false };
       load(rec.file, rec, function (im) {
         if (im) ARCH_IMAGES[m.id] = im;
@@ -250,8 +333,15 @@
               applied: n, enabled: archApplied,
               appliedAt: Date.now(), loader: '__DDM_V5_IMG -> __DDM_GET_V5'
             };
-            st.status = st.errors.length ? 'applied-with-errors' : 'applied';
-            st.finishedAt = Date.now();
+            /* HUB · Tanda 01: se cargan DESPUES de T01/T02 en el mismo
+               mecanismo. Un fallo del HUB no reclasifica el estado ya
+               verificado de las tandas anteriores. */
+            loadHub(function (k) {
+              st.status = (st.errors.length || (st.archErrors || []).length ||
+                           (st.hubErrors || []).length)
+                ? 'applied-with-errors' : 'applied';
+              st.finishedAt = Date.now();
+            });
           });
         }
       });
@@ -327,7 +417,7 @@
       var im = ARCH_IMAGES[m.id];
       return {
         id: m.id, name: m.name, slot: m.slot, alias: m.alias,
-        file: BASE2 + m.file, expected: [m.w, m.h], pivot: m.pivot,
+        file: m.path || BASE2 + m.file, expected: [m.w, m.h], pivot: m.pivot,
         loaded: !!im,
         natural: im ? [im.naturalWidth, im.naturalHeight] : null,
         exactSize: !!im && im.naturalWidth === m.w && im.naturalHeight === m.h,
@@ -354,10 +444,187 @@
     };
   }
 
+  /* ======================================================================
+   * HUB · TANDA 01 — aplicacion sobre el registro V5 existente.
+   * No se crea un loader nuevo: se usa load() (new Image) y se escriben las
+   * claves que los pintores del HUB ya consultan. Se preserva la imagen
+   * anterior de cada slot y se invalidan las dos caches existentes del motor
+   * (__DDM_V5_MED_NO_SKULL y DMO_INFERNAL_ART.invalidate).
+   * ====================================================================*/
+
+  function hubErr(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hubErrors) st.hubErrors = [];
+    st.hubErrors.push(msg);
+    try { console.warn('[ART_PACK/HUB] ' + msg); } catch (_) {}
+  }
+
+  function hubInvalidate() {
+    /* Cache del medallón: el motor la construye una sola vez en
+       drawHubFloorLayer(). Se limpia para que recomponga con HUB-02. */
+    try { window.__DDM_V5_MED_NO_SKULL = null; } catch (_) {}
+    /* Invalidación de sala/caché de arte que YA usa __T3B.reload(). */
+    try {
+      if (window.DMO_INFERNAL_ART &&
+          typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hubErr('invalidate', e); }
+  }
+
+  function applyHub() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hubErr('HUB', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0;
+    HUB_ASSETS.forEach(function (a) {
+      if (a.managedBy !== 'HUB') return;      /* HUB-01 / HUB-03 ya aplicados */
+      var im = HUB_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda01 = a.id; } catch (_) {}
+      a.slots.forEach(function (slot) {
+        if (!Object.prototype.hasOwnProperty.call(HUB_ORIGINALS, slot)) {
+          HUB_ORIGINALS[slot] = reg[slot];
+        }
+        reg[slot] = im;                       /* pintor real del HUB */
+        reg['h01_' + a.id.toLowerCase().replace('-', '_')] = im; /* alias trazable */
+        n++;
+      });
+    });
+    hubApplied = (n === 9);   /* 8 assets: HUB-07 ocupa 2 slots */
+    hubInvalidate();
+    st.hub = {
+      version: 'hub-tanda01', count: HUB_ASSETS.length,
+      slotsApplied: n, enabled: hubApplied,
+      loader: '__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+
+  function restoreHub() {
+    var reg = window.__DDM_V5_IMG;
+    var n = 0;
+    if (reg) {
+      HUB_ASSETS.forEach(function (a) {
+        if (a.managedBy !== 'HUB') return;
+        a.slots.forEach(function (slot) {
+          if (!Object.prototype.hasOwnProperty.call(HUB_ORIGINALS, slot)) return;
+          reg[slot] = HUB_ORIGINALS[slot];
+          delete reg['h01_' + a.id.toLowerCase().replace('-', '_')];
+          n++;
+        });
+      });
+    }
+    /* HUB-01 vuelve al tile de la Tanda 01 por el mismo loader T3B. */
+    try {
+      if (Object.prototype.hasOwnProperty.call(HUB_ORIGINALS, 't3b_material_01') &&
+          window.__T3B_IMAGES && window.__T3B && typeof window.__T3B.reload === 'function') {
+        window.__T3B_IMAGES[1] = HUB_ORIGINALS['t3b_material_01'];
+        window.__T3B.reload(1, 0);
+      }
+    } catch (e) { hubErr('HUB-01 restore', e); }
+    hubApplied = false;
+    if (st.hub) { st.hub.enabled = false; st.hub.slotsApplied = 0; }
+    hubInvalidate();
+    return n;
+  }
+
+  function loadHub(done) {
+    var pending = 0, list = HUB_ASSETS.filter(function (a) { return a.managedBy === 'HUB'; });
+    pending = list.length;
+    list.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB_IMAGES[a.id] = im;
+          if (!rec.exactSize) hubErr(a.id, 'dimensiones inesperadas ' + rec.natural);
+        }
+        if (--pending === 0) done(applyHub());
+      });
+    });
+  }
+
+  /* Solo lectura: comprueba el registro VIVO, dimensiones, alpha esperado y
+     conservación del recurso anterior. No dibuja nada. */
+  function hub() {
+    var reg = window.__DDM_V5_IMG || {};
+    var get = window.__DDM_GET_V5;
+    var t3b = window.__T3B;
+    var assets = HUB_ASSETS.map(function (a) {
+      var im = HUB_IMAGES[a.id] || null;
+      var live = false, viaLoader = 0, slotsLive = 0;
+      if (a.id === 'HUB-01') {
+        var url = window.__T3B_IMAGES && window.__T3B_IMAGES[1];
+        var im3 = t3b && t3b.images && t3b.images[1];
+        live = url === BASEH + a.file && !!im3 && !!im3.complete &&
+               im3.naturalWidth === a.w && im3.naturalHeight === a.h &&
+               t3b.enabled === true;
+        slotsLive = live ? 1 : 0;
+      } else {
+        a.slots.forEach(function (slot) {
+          if (im && reg[slot] === im) slotsLive++;
+          try {
+            if (typeof get === 'function' && get(slot) === im) viaLoader++;
+          } catch (_) {}
+        });
+        live = slotsLive === a.slots.length;
+      }
+      return {
+        id: a.id, file: BASEH + a.file, loader: a.loader, managedBy: a.managedBy,
+        slots: a.slots.slice(), slotsLive: slotsLive, loaderResolves: viaLoader,
+        classification: a.classification, role: a.role, pivot: a.pivot,
+        alpha: a.alpha, expected: [a.w, a.h],
+        natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, live: live,
+        /* HUB-03 entra por el manifest de Tanda 02: su original lo guarda
+           applyArch() en ORIGINALS, no en HUB_ORIGINALS. Se consulta el mapa
+           que corresponde a su gestor para no falsear el informe. */
+        originalsPreserved: a.id === 'HUB-01'
+          ? Object.prototype.hasOwnProperty.call(HUB_ORIGINALS, 't3b_material_01')
+          : a.managedBy === 'ARCHITECTURE/T02'
+            ? a.slots.every(function (s) {
+                return Object.prototype.hasOwnProperty.call(ORIGINALS, s) &&
+                       ORIGINALS[s] !== im;
+              })
+            : a.slots.every(function (s) {
+                return Object.prototype.hasOwnProperty.call(HUB_ORIGINALS, s) &&
+                       HUB_ORIGINALS[s] !== im;
+              })
+      };
+    });
+    return {
+      version: 'hub-tanda01', count: HUB_ASSETS.length,
+      enabled: hubApplied, applied: assets.filter(function (a) { return a.live; }).length,
+      slotsApplied: st.hub ? st.hub.slotsApplied : 0,
+      errors: (st.hubErrors || []).slice(),
+      assets: assets,
+      note: 'Todos los slots son consumidos por los pintores reales del HUB; '
+          + 'geometria, colisiones, sortY, puertas y camara permanecen en el motor.'
+    };
+  }
+
+  function hubTag() {
+    /* Etiqueta de solo lectura para contar drawImage() en QA. */
+    HUB_ASSETS.forEach(function (a) {
+      var im = HUB_IMAGES[a.id];
+      if (im) { try { im.__hubTanda01 = a.id; } catch (_) {} }
+    });
+    try {
+      if (window.__T3B && window.__T3B.images[1]) {
+        window.__T3B.images[1].__hubTanda01 = 'HUB-01';
+      }
+    } catch (_) {}
+    return HUB_ASSETS.length;
+  }
+
   /* restore()/apply() existen para QA A/B con la MISMA build y los MISMOS
      parametros. No forman parte del render del juego. */
   function restore() { return restoreArch(); }
   function apply() { return archApplied ? ARCHITECTURE.length : applyArch(); }
+  function hubRestore() { return restoreHub(); }
+  function hubApply() { return hubApplied ? 9 : applyHub(); }
 
   /* ======================================================================
    * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
@@ -844,6 +1111,8 @@
   window.DMO_ART_PACK = Object.freeze({
     state: state, integrity: integrity, architecture: architecture,
     restore: restore, apply: apply,
+    hub: hub, hubManifest: function () { return JSON.parse(JSON.stringify(HUB_ASSETS)); },
+    hubRestore: hubRestore, hubApply: hubApply, hubTag: hubTag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

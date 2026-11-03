@@ -85,3 +85,24 @@ Las dimensiones finales **son exactamente las del recurso original** para no alt
 - Las 13 URIs `INLINE_JS` no tienen clave legible: se identifican por offset en el HTML y se conservan; su consumidor exacto no se ha mapeado uno a uno → **PARCIALMENTE VERIFICADO**.
 - `codeRefs=0` en `__HD_DATA` y `__T3B_IMAGES` no significa «sin uso»: el código construye las claves dinámicamente (`"weapons/weapon_"+wid+".png"`) o accede por índice. Se verificó leyendo los consumidores, no solo contando literales.
 - El estado visual de los 286 recursos no seleccionados se ha revisado por decodificación, **no** uno a uno en pantalla → **PARCIALMENTE VERIFICADO**.
+
+---
+
+## 7. HUB · Tanda 01 (añadido 2026-11-03)
+
+Nueva familia externa de 10 PNG en `ART_ASSETS/hub/tanda_01/` con sus 10 fuentes en `_source/` y manifiesto máquina `manifest.json` (SHA-256, bytes, dimensiones, modo, alfa, cobertura, bordes, halo, slot, loader, clasificación, rol, caja de dibujo, anclaje y preparación). Se suma a las 300 URIs `data:` auditadas en las secciones anteriores; **no se eliminó ni sustituyó ningún recurso embebido**: los originales se conservan en `ORIGINALS` / `HUB_ORIGINALS` dentro de `ART_PACK/art_pack.js` y se pueden restaurar con `hubRestore()` / `restoreArch()`.
+
+| ID | Final | Dimensiones | Modo | Slot | Clasificación |
+|---|---|---|---|---|---|
+| HUB-01 | `hub_01_suelo_central.png` | 512×512 | RGB | `t3b_material_01` | Arquitectónico / Funcional |
+| HUB-02 | `hub_02_pista_central.png` | 760×430 | RGBA | `hub_pista_medallion` | Decorativo |
+| HUB-03 | `hub_03_paredes.png` | 120×176 | RGBA | `wall_stained_glass_arch` | Arquitectónico |
+| HUB-04 | `hub_04_cabina_dj.png` | 720×392 | RGBA | `hub_dj_shrine` | Interactivo |
+| HUB-05 | `hub_05_barra_bebidas.png` | 380×313 | RGBA | `hub_bar_shrine` | Interactivo |
+| HUB-06 | `hub_06_columnas.png` | 76×148 | RGBA | `club_speaker_tower_prop` | Arquitectónico |
+| HUB-07 | `hub_07_sofas_asientos.png` | 224×172 | RGBA | `hub_vip_booth_nw` + `_ne` | Decorativo |
+| HUB-08 | `hub_08_luminarias_neones.png` | 67×152 | RGBA | `hub_disco_chandelier` | Funcional / Decorativo |
+| HUB-09 | `hub_09_puertas_accesos.png` | 320×175 | RGBA | `hub_abyss_stair_crack` | Interactivo / Funcional |
+| HUB-10 | `hub_10_decoracion_ambiental.png` | 167×136 | RGBA | `hub_trophy_board_prop` | Decorativo |
+
+Evidencias: `ART_EVIDENCE/hub/tanda_01/`. Informe: `ART_TANDA_01_HUB_REPORT.md`. Hashes del cambio: `ART_EVIDENCE/hub/tanda_01/hashes.json`.

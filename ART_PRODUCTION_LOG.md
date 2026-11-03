@@ -116,6 +116,23 @@ Evidencias: `ART_EVIDENCE/tanda_02/{before,after,modular_connections,doors,gamep
 
 Visibilidad aislada de A04/A06/A08/A10 y de A05 en el NÚCLEO · corrección de DEF-001 si se autoriza un asset adicional · 7 materiales T3B restantes · 10 sprites ILT restantes · 162 armas HD · HUD/menús/transiciones · verificación GUI, mando y varias resoluciones · rendimiento en hardware real.
 
+
+---
+
+## HUB · TANDA 01 — Reconstrucción de escenarios (2026-11-03)
+
+**Objetivo:** diez assets reales con una sola familia visual, integrados en el HUB de la build activa y verificados en juego ejecutado.
+
+**Auditoría previa:** `DEADBEAT_DISCO.ART.html` (Tanda 03 `faseD.2` presente), `ART_PACK/art_pack.js`, `ART_AUDIT/asset_inventory.json`, `ART_BIBLE.md`, `ASSET_INVENTORY.md`, informes de Tandas 01/02/03 y medición en runtime de los `drawImage` del HUB. Dimensiones tomadas del inventario y de la sonda, no inventadas.
+
+**Generación:** 10 fuentes en `ART_ASSETS/hub/tanda_01/_source/` (HUB-01 1024×1024 con fondo oscuro; HUB-02 1376×768; HUB-03…10 1408×768 con fondo blanco). Pipeline `ART_TOOLS/prepare_hub_tanda_01.py`: `contain` + pivote sin deformar, extracción por esquinas, descontaminación, compatibilidad con el filtro del medallón y corrección de costura para el tile. 10/10 dimensiones exactas, 9/9 RGBA con alfa y bordes limpios, halo residual ≤4,48 %.
+
+**Integración:** `ART_PACK/art_pack.js`, reutilizando `__T3B_IMAGES[1]` (HUB-01), el manifiesto de Tanda 02 (HUB-03) y `__DDM_V5_IMG` para los otros ocho. `restoreHub()` permite A/B sin recargar. Sin canvas nuevo, sin HUB estático, sin cambios de motor.
+
+**QA:** `ART_TOOLS/qa/validate_hub_tanda_01.js`, Chromium 131 + Playwright 1.58.2, 12 comprobaciones ejecutadas → **12/12 APROBADO**. Capturas ANTES/CONTROL/DESPUÉS, por zona, puertas y campaña; `report.json`, `visual_diff.json` (60,17 % de píxeles cambiados control↔después), `hashes.json`.
+
+**Clasificación de esta tanda:** **VERIFICADA** en lo técnico y visual; entrega Git **APROBADA** por autorización del usuario (commit/push en la rama de sesión + PR hacia `arte-y-recursos`, sin merge). Ver `ART_TANDA_01_HUB_REPORT.md`, sección 9.
+
 ---
 
 ## Historial de versiones
@@ -124,3 +141,4 @@ Visibilidad aislada de A04/A06/A08/A10 y de A05 en el NÚCLEO · corrección de 
 |---|---|
 | 2026-11-03 | Tanda 01: auditoría de 300 recursos, 8 assets generados e integrados, validación y cierre documental |
 | 2026-11-03 | Tanda 02: 10 módulos de arquitectura integrados en el loader V5 real, HTML intacto, QA en 4 salas reales y cierre documental |
+| 2026-11-03 | HUB · Tanda 01: 10 assets, 10 fuentes, integración real en loaders existentes, QA 12/12 y cierre documental |

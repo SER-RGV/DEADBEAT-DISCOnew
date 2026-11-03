@@ -149,3 +149,35 @@ Inspección de `FASE_0_3_1_EVIDENCE/inc001_session.json` (traza primaria) y de l
 | `v9_t3_fase1b_cache_probe.html` | `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a` |
 | `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` | `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a` |
 | `DEADBEAT_DISCO.ART.html` | `f231cfc7e2c634095d767e321d71155d1a9a9c6c661a008274e5989d97230723` |
+
+---
+
+## 10. HUB · Tanda 01 (2026-11-03) — batería nueva e independiente
+
+> No se reutilizan los resultados de la sección 1–9: esta batería se ejecutó completa y limpia sobre `DEADBEAT_DISCO.ART.html` con `ART_TOOLS/qa/validate_hub_tanda_01.js`. Clasificación: **APROBADO / FALLIDO / BLOQUEADO / NO VERIFICADO**.
+
+| Dato | Valor |
+|---|---|
+| Navegador | Chromium 131.0.6778.0 headless + `playwright-core` 1.58.2 |
+| Render / resolución | SwiftShader por software · 1280×900 |
+| Servidor | `http.server 8123` sobre el workspace, `--bind 0.0.0.0` |
+| Diseño | A/B en la misma build: `hubRestore()` = CONTROL, pack aplicado = DESPUÉS |
+
+| # | Comprobación | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Carga del HTML | APROBADO | HTTP 200, `loadMs=1265` |
+| 2 | Carga de 10 assets | APROBADO | 10 HTTP 200, `10/10 loaded/exactSize/live` |
+| 3 | Ausencia de errores JS | APROBADO | `pageErrors=0`; 2 404 Cloudflare externos documentados |
+| 4 | Visibilidad real | APROBADO | `drawImage`/`createPattern` instrumentados, 10/10 |
+| 5 | Perspectiva y escala | APROBADO | `contain` sin deformar; desviación motor registrada |
+| 6 | Transparencias | APROBADO | 9 RGBA + 1 tile RGB opaco |
+| 7 | Orden de capas | APROBADO | muros → suelo → medallón → props |
+| 8 | Movimiento | APROBADO | Δx=405 con tecla `d` |
+| 9 | Colisiones | APROBADO | barra bloquea en x=1795 igual que en CONTROL |
+| 10 | Puertas | APROBADO | `r23`, `secured 0→1`, dos capturas |
+| 11 | Interactivos | APROBADO | `openStation('bar')` → `active='bar'` |
+| 12 | Regresión | APROBADO | T01 8/8, T02 10/10, T03 12 poses, V5 100/100, disparo 0→4 |
+
+**Resumen: 12 APROBADO, 0 FALLIDO, 0 BLOQUEADO, 0 NO VERIFICADO en las pruebas.** La discrepancia de rama detectada para la entrega Git (ajena a la QA) se resolvió mediante autorización explícita del usuario: commit/push en la rama de sesión y PR hacia `arte-y-recursos`, sin merge.
+
+Diferencias de píxel (`visual_diff.json`): ANTES↔DESPUÉS 61,95 %, CONTROL↔DESPUÉS 60,17 %, puertas cerradas↔abiertas 4,96 %. `report.json`, `hashes.json` y las 12 capturas están en `ART_EVIDENCE/hub/tanda_01/`. Detalle completo, errores encontrados y limitaciones: `ART_TANDA_01_HUB_REPORT.md`.
