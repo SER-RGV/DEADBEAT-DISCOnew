@@ -129,3 +129,24 @@ Inventario de necesidades previo: `ART_AUDIT/hub_tanda_02_needs_inventory.json` 
 Cada fila tiene en `ART_ASSETS/hub/tanda_02/manifest.json`: fuente original (`_source/`), SHA-256, caja medida, anclaje, pivote, escala, clasificación, rol, transparencia, bordes y halo. T02-04 documenta `sourceCrop=[510,0,925,768]` para aislar una expendedora sin modificar la fuente.
 
 **Conservación:** los 10 assets, 10 fuentes, el manifiesto y las evidencias de la TANDA 01 permanecen intactos; no se movió ni renombró ningún archivo anterior. Integración en `ART_PACK/art_pack.js` (único archivo de código modificado). Evidencias: `ART_EVIDENCE/hub/tanda_02/`. Informe: `ART_TANDA_02_HUB_REPORT.md`. Hashes de la entrega: `ART_EVIDENCE/hub/tanda_02/hashes.json`.
+
+---
+
+## HUB · TANDA 03 — Inventario (8 unidades / 13 PNG finales)
+
+Ruta: `ART_ASSETS/hub/tanda_03/<carpeta>/{source,final}/`. Manifiesto: `ART_ASSETS/hub/tanda_03/manifest.json` con dimensiones y SHA-256 **medidos**, clasificación, rol, rectángulo mundo, anclaje, pivote, escala, transparencia y **estado de integración**.
+
+| ID | Unidad | Finales | Dimensiones reales | Slot / sistema | Estado |
+|---|---|---|---|---|---|
+| T03-01 | `HUB_FLOOR_PATCH_O` | `hub_floor_patch_o.png` | 580×430 | `__T3B_HUB_QA` suelo 1920×1320 en (290,265), caja `[290,720,580,430]` | BLOQUEADO (sin slot) |
+| T03-02 | `HUB_FLOOR_PATCH_E` | `hub_floor_patch_e.png` | 580×430 | caja `[1630,720,580,430]` | BLOQUEADO (sin slot) |
+| T03-03 | `HUB_FLOOR_PATCH_S_CRACK` | `hub_floor_patch_s_crack.png` | 760×329 | grieta `[1085,1256,330,180]`, borde sur 1585 | BLOQUEADO (sin slot) |
+| T03-04 | `HUB_FLOOR_NORTH_DJ` | `hub_floor_north_dj.png` | 760×224 | DJ `[1058,280,384,209]` | BLOQUEADO (sin slot) |
+| T03-05 | `HUB_PLANTER_VARIANT_02` | `hub_planter_variant_02.png` | 96×108 | natural de `club_neon_planter_prop` (T02) | BLOQUEADO (sin 2.º slot) |
+| T03-06 | `HUB_BENCH_VARIANT_02` | `hub_bench_variant_02.png` | 256×198 | natural de `limbo_bench_prop` (T02) | BLOQUEADO (sin 2.º slot) |
+| T03-07 | `HUB_VIP_BOOTH_LOUNGE` | `hub_vip_booth_lounge.png` | 216×136 | `hub_vip_booth_lounge`, caja real 108×68 ×4 en `d.menu` del MENÚ | BLOQUEADO (renderer inactivo, D-07) |
+| T03-08 | `HUB_ZONE_SIGNAGE` | 6 × `hub_zone_signage_{a..f}_*.png` | 192×128 c/u | sin slot V5 declarado explícitamente | BLOQUEADO (sin slot) |
+
+Todos se cargan con `load()` y se registran en `window.__DDM_V5_IMG` con alias `h03_*` trazables (más `hub_vip_booth_lounge`). **Registro ≠ integración**: 8/8 unidades están `BLOQUEADO` para render y `NO VERIFICADO` para visibilidad en producción. 13/13 `exactSize`, RGBA, esquinas transparentes, halo ≤ 0,11 %. Las 8 fuentes originales se conservan íntegras. Hashes de entrega: `ART_EVIDENCE/hub/tanda_03/hashes.json` (152 entradas, 0 discrepancias). Capturas individuales: `ART_EVIDENCE/hub/tanda_03/asset_01…13_*.png` y `hoja_recursos_tanda_03.jpg` (**evidencia de archivo, no in-game**).
+
+**Conservación:** TANDA 01 y TANDA 02 (21 archivos por tanda, 10 fuentes y 10 finales cada una), HTML activo y backups intactos. Único archivo de código modificado: `ART_PACK/art_pack.js`.

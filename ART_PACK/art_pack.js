@@ -28,8 +28,17 @@
  * ni segundo <script>; no se toca geometria, colisiones, puertas ni logica.
  * Las dimensiones son las medidas en runtime (ver manifest.json de la tanda).
  *
+ * HUB · TANDA 03 amplia ESTE MISMO paquete con un bloque HUB3_* independiente:
+ * 8 unidades de produccion / 13 PNG finales, cargados con load() y registrados
+ * en el MISMO window.__DDM_V5_IMG. La integracion de RENDER queda BLOQUEADA
+ * en las 8 unidades: 7 no tienen slot de dibujo y el pintor del canvas del
+ * MENU (4 drawImage de 108x68) pertenece a un renderer inactivo en este build
+ * (D-07). Los 13 PNG se cargan y registran en el V5 real, pero
+ * registro != integracion. No se inventa un pintor, un segundo motor ni se
+ * modifica el HTML. Ver ART_HUB_TANDA_03_AUDIT.md.
+ *
  * Expone window.DMO_ART_PACK.state() / .integrity() / .architecture() / .hub()
- * para QA.
+ * / .hub2() / .hub3() para QA.
  * ==========================================================================*/
 (function () {
   'use strict';
@@ -133,7 +142,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -312,10 +321,21 @@
               window.__HD_DATA && window.__HD_GET);
   }
 
+  /* HUB · Tanda 03: se arranca en el PRIMER instante del boot (no al final
+     de la cadena), porque el canvas del MENU se construye una sola vez. Si
+     run() se invoca sincronicamente durante la evaluacion de este script,
+     HUB3_ASSETS aun no esta inicializado: se reagenda un tick, sin crear
+     ningun cargador nuevo (sigue siendo load()). */
+  function startHub3() {
+    if (!HUB3_ASSETS || !HUB3_ASSETS.length) { setTimeout(startHub3, 0); return; }
+    loadHub3(function (k) { st.hub3Boot = { registered: k, at: Date.now() }; });
+  }
+
   function run() {
     if (st.status !== 'pending') return;
     st.status = 'applying';
     st.appliedAt = Date.now();
+    startHub3();
     var pending = MANIFEST.length;
     MANIFEST.forEach(function (m, i) {
       var rec = st.assets[i];
@@ -325,6 +345,8 @@
           catch (e) { err(m.id, e); }
         }
         if (--pending === 0) {
+          /* La cadena T01/T02/HUB-01/HUB-02 no se altera y no espera a HUB3:
+             startHub3() ya lanzo esa carga en el primer instante del boot. */
           /* Tanda 01 cerrada; se amplia el MISMO registro con la familia
              modular. Los errores de T02 no cambian el estado de T01. */
           loadArchitecture(function (n) {
@@ -342,7 +364,8 @@
                  de T01/T02/T03/HUB-01. */
               loadHub2(function (m) {
                 st.status = (st.errors.length || (st.archErrors || []).length ||
-                             (st.hubErrors || []).length || (st.hub2Errors || []).length)
+                             (st.hubErrors || []).length || (st.hub2Errors || []).length ||
+                             (st.hub3Errors || []).length)
                   ? 'applied-with-errors' : 'applied';
                 st.finishedAt = Date.now();
               });
@@ -817,6 +840,241 @@
   function hubApply() { return hubApplied ? 9 : applyHub(); }
   function hub2Restore() { return restoreHub2(); }
   function hub2Apply() { return hub2Applied ? HUB2_ASSETS.length : applyHub2(); }
+
+  /* ========================================================================
+   * HUB · TANDA 03 — RECONSTRUCCION DE ENTORNO (bloque INDEPENDIENTE HUB3_*)
+   * ------------------------------------------------------------------------
+   * MISMO registro window.__DDM_V5_IMG, MISMO load(), MISMA invalidacion de
+   * caches. No hay segundo motor, canvas superpuesto, HUB estatico, cache
+   * nueva, loader paralelo ni registro de imagenes duplicado. Los mapas son
+   * independientes de los mapas HUB y HUB2: restoreHub3() no puede deshacer
+   * T01/T02 ni restoreHub()/restoreHub2() pueden deshacer T03.
+   *
+   * AUDITORIA (ART_HUB_TANDA_03_AUDIT.md): las 8 unidades se producen, se
+   * cargan con load() y se registran en el MISMO registro V5 con alias h03_*.
+   * La INTEGRACION DE RENDER esta BLOQUEADA en las 8: 7 (4 suelos, 2
+   * variantes, sistema de 6 senales) no tienen NINGUN slot de dibujo, y
+   * T03-07 (`hub_vip_booth_lounge`) tiene un pintor en el CODIGO del canvas
+   * del MENU (4 drawImage de 108x68) cuyo renderer NO esta activo en el build
+   * en ejecucion (D-07: 0 dibujos medidos en 5 arranques). El loader y la
+   * clave V5 si son reales y se verifican. REGISTRO != INTEGRACION.
+   * Integrarlos exigiria editar el HTML activo o inventar un pintor nuevo;
+   * ambas cosas estan prohibidas. HTML INTACTO.
+   *
+   * El menu se cachea una sola vez: `d.menu` se reconstruye cuando djReady
+   * pasa a true. Por eso startHub3() arranca la carga en el PRIMER instante
+   * del boot, no al final de la cadena. Aun asi no hay garantia de que el
+   * renderer de pixeles llegue a ejecutarse; la visibilidad en produccion
+   * queda clasificada NO VERIFICADO. No se cambia una linea del render.
+   * ======================================================================*/
+
+  var BASEH3 = 'ART_ASSETS/hub/tanda_03/';
+  var HUB3_ASSETS = [
+    { id: 'T03-01', unit: 'HUB_FLOOR_PATCH_O', file: '01_floor_patch_o/final/hub_floor_patch_o.png',
+      w: 580, h: 430, alias: 'h03_floor_patch_o', slots: [], drawSlot: null, blocked: true,
+      classification: 'Arquitectonico / Suelo (Familia A)', orientation: 'OESTE',
+      worldBox: [290, 720, 580, 430] },
+    { id: 'T03-02', unit: 'HUB_FLOOR_PATCH_E', file: '02_floor_patch_e/final/hub_floor_patch_e.png',
+      w: 580, h: 430, alias: 'h03_floor_patch_e', slots: [], drawSlot: null, blocked: true,
+      classification: 'Arquitectonico / Suelo (Familia A)', orientation: 'ESTE',
+      worldBox: [1630, 720, 580, 430] },
+    { id: 'T03-03', unit: 'HUB_FLOOR_PATCH_S_CRACK', file: '03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png',
+      w: 760, h: 329, alias: 'h03_floor_patch_s_crack', slots: [], drawSlot: null, blocked: true,
+      classification: 'Arquitectonico / Suelo (Familia A)', orientation: 'SUR',
+      worldBox: [870, 1256, 760, 329] },
+    { id: 'T03-04', unit: 'HUB_FLOOR_NORTH_DJ', file: '04_floor_north_dj/final/hub_floor_north_dj.png',
+      w: 760, h: 224, alias: 'h03_floor_north_dj', slots: [], drawSlot: null, blocked: true,
+      classification: 'Arquitectonico / Suelo (Familia A)', orientation: 'NORTE',
+      worldBox: [870, 265, 760, 224] },
+    { id: 'T03-05', unit: 'HUB_PLANTER_VARIANT_02', file: '05_planter_variant_02/final/hub_planter_variant_02.png',
+      w: 96, h: 108, alias: 'h03_planter_variant_02', slots: [], drawSlot: null, blocked: true,
+      classification: 'Mobiliario / Variante (Familia B)' },
+    { id: 'T03-06', unit: 'HUB_BENCH_VARIANT_02', file: '06_bench_variant_02/final/hub_bench_variant_02.png',
+      w: 256, h: 198, alias: 'h03_bench_variant_02', slots: [], drawSlot: null, blocked: true,
+      classification: 'Mobiliario / Variante (Familia B)' },
+    { id: 'T03-07', unit: 'HUB_VIP_BOOTH_LOUNGE', file: '07_vip_booth_lounge/final/hub_vip_booth_lounge.png',
+      w: 216, h: 136, alias: 'h03_vip_booth_lounge', slots: ['hub_vip_booth_lounge'],
+      drawSlot: 'hub_vip_booth_lounge', blocked: true, rendererInactive: true,
+      classification: 'Espacio VIP / Setpiece de MENU (Familia C)',
+      note: '4 drawImage(vb,32,284,108,68) en el canvas del menu; 0 dibujos en el HUB.' },
+    { id: 'T03-08-A', unit: 'HUB_ZONE_SIGNAGE/A', file: '08_zone_signage/final/hub_zone_signage_a_pista.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_a', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' },
+    { id: 'T03-08-B', unit: 'HUB_ZONE_SIGNAGE/B', file: '08_zone_signage/final/hub_zone_signage_b_cabina_dj.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_b', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' },
+    { id: 'T03-08-C', unit: 'HUB_ZONE_SIGNAGE/C', file: '08_zone_signage/final/hub_zone_signage_c_descenso.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_c', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' },
+    { id: 'T03-08-D', unit: 'HUB_ZONE_SIGNAGE/D', file: '08_zone_signage/final/hub_zone_signage_d_arsenal.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_d', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' },
+    { id: 'T03-08-E', unit: 'HUB_ZONE_SIGNAGE/E', file: '08_zone_signage/final/hub_zone_signage_e_barra.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_e', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' },
+    { id: 'T03-08-F', unit: 'HUB_ZONE_SIGNAGE/F', file: '08_zone_signage/final/hub_zone_signage_f_arcade.png',
+      w: 192, h: 128, alias: 'h03_zone_signage_f', slots: [], drawSlot: null, blocked: true,
+      classification: 'Senaletica diegetica / Sistema (Familia D)' }
+  ];
+  var HUB3_IMAGES = {};
+  var HUB3_ORIGINALS = {};
+  var hub3Applied = false;
+
+  function hub3Err(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hub3Errors) st.hub3Errors = [];
+    st.hub3Errors.push(msg);
+    try { console.warn('[ART_PACK/HUB3] ' + msg); } catch (_) {}
+  }
+
+  function hub3Invalidate() {
+    /* APIs de invalidacion YA existentes (identicas a hub2Invalidate). Ningun
+       asset HUB3 se pinta en las dos capas cacheadas del HUB: se conservan
+       intactas y solo se fuerza su recomposicion para que la composicion de
+       las dos capas siga siendo la del motor. El canvas del MENU no expone
+       invalidacion publica; por eso HUB3 se registra ANTES de que se construya. */
+    try {
+      if (window.DMO_INFERNAL_ART &&
+          typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hub3Err('invalidate', e); }
+    try { window.__DDM_V5_MED_NO_SKULL = null; } catch (_) {}
+    try {
+      if (window.__T3B && typeof window.__T3B.setEnabled === 'function') {
+        window.__T3B.setEnabled(true);
+      }
+    } catch (e) { hub3Err('setEnabled', e); }
+  }
+
+  function applyHub3() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hub3Err('HUB3', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0, slotsRegistered = 0;
+    HUB3_ASSETS.forEach(function (a) {
+      var im = HUB3_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda03 = a.id; } catch (_) {}
+      if (!Object.prototype.hasOwnProperty.call(HUB3_ORIGINALS, a.alias)) {
+        HUB3_ORIGINALS[a.alias] = reg[a.alias];
+      }
+      reg[a.alias] = im;                 /* clave trazable, sin registro nuevo */
+      a.slots.forEach(function (slot) {  /* UNICO slot con pintor real: menu */
+        if (!Object.prototype.hasOwnProperty.call(HUB3_ORIGINALS, slot)) {
+          HUB3_ORIGINALS[slot] = reg[slot];
+        }
+        reg[slot] = im;
+        slotsRegistered++;
+      });
+      n++;
+    });
+    hub3Applied = (n === HUB3_ASSETS.length);
+    hub3Invalidate();
+    st.hub3 = {
+      version: 'hub-tanda03', count: HUB3_ASSETS.length,
+      productionUnits: 8, files: HUB3_ASSETS.length,
+      registered: n, registeredDrawSlots: slotsRegistered,
+      verifiedDraws: 0,
+      blocked: HUB3_ASSETS.length,
+      enabled: hub3Applied,
+      loader: 'load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)',
+      note: '13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA '
+          + 'en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). '
+          + '0 drawImage verificados en produccion. HTML intacto.',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+
+  function restoreHub3() {
+    var reg = window.__DDM_V5_IMG, n = 0;
+    if (reg) {
+      HUB3_ASSETS.forEach(function (a) {
+        if (!Object.prototype.hasOwnProperty.call(HUB3_ORIGINALS, a.alias)) return;
+        reg[a.alias] = HUB3_ORIGINALS[a.alias];
+        if (reg[a.alias] === undefined) delete reg[a.alias];
+        a.slots.forEach(function (slot) {
+          if (!Object.prototype.hasOwnProperty.call(HUB3_ORIGINALS, slot)) return;
+          reg[slot] = HUB3_ORIGINALS[slot];
+          if (reg[slot] === undefined) delete reg[slot];
+        });
+        n++;
+      });
+    }
+    hub3Applied = false;
+    if (st.hub3) { st.hub3.enabled = false; st.hub3.registered = 0; st.hub3.registeredDrawSlots = 0; }
+    hub3Invalidate();
+    return n;
+  }
+
+  function loadHub3(done) {
+    var pending = HUB3_ASSETS.length;
+    HUB3_ASSETS.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH3 + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB3_IMAGES[a.id] = im;
+          if (!rec.exactSize) hub3Err(a.id, 'dimensiones inesperadas ' + rec.natural);
+        } else {
+          hub3Err(a.id, 'no se pudo decodificar ' + rec.file);
+        }
+        if (--pending === 0) done(applyHub3());
+      });
+    });
+  }
+
+  /* Solo lectura: estado VIVO del registro, sin dibujar nada. */
+  function hub3() {
+    var reg = window.__DDM_V5_IMG || {}, get = window.__DDM_GET_V5;
+    var assets = HUB3_ASSETS.map(function (a) {
+      var im = HUB3_IMAGES[a.id] || null;
+      var viaLoader = 0, slotsLive = 0;
+      a.slots.forEach(function (slot) {
+        if (im && reg[slot] === im) slotsLive++;
+        try { if (typeof get === 'function' && get(slot) === im) viaLoader++; } catch (_) {}
+      });
+      return {
+        id: a.id, unit: a.unit, file: BASEH3 + a.file,
+        alias: a.alias, aliasLive: !!(im && reg[a.alias] === im),
+        slots: a.slots.slice(), slotsLive: slotsLive, loaderResolves: viaLoader,
+        drawSlot: a.drawSlot, blocked: true,
+        visibleInGame: false,
+        rendererInactiveD07: !a.blocked,
+        classification: a.classification, orientation: a.orientation || null,
+        worldBox: a.worldBox || null, expected: [a.w, a.h],
+        natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, registered: !!(im && reg[a.alias] === im),
+        originalsPreserved: Object.prototype.hasOwnProperty.call(HUB3_ORIGINALS, a.alias) &&
+                            HUB3_ORIGINALS[a.alias] !== im
+      };
+    });
+    return {
+      version: 'hub-tanda03', count: HUB3_ASSETS.length,
+      productionUnits: 8, enabled: hub3Applied,
+      registered: assets.filter(function (a) { return a.registered; }).length,
+      loaded: assets.filter(function (a) { return a.loaded; }).length,
+      exactSize: assets.filter(function (a) { return a.exactSize; }).length,
+      blocked: assets.filter(function (a) { return a.blocked; }).length,
+      verifiedDraws: 0,
+      registeredDrawSlots: assets.filter(function (a) { return a.slotsLive > 0; }).length,
+      errors: (st.hub3Errors || []).slice(), assets: assets,
+      note: '13/13 PNG registrados; 8/8 unidades BLOQUEADAS para render. '
+          + 'El unico pintor del codigo (MENU) no esta activo en el build (D-07): '
+          + '0 drawImage medidos. No se inventa render nuevo ni se toca el HTML.'
+    };
+  }
+
+  function hub3Tag() {
+    HUB3_ASSETS.forEach(function (a) {
+      var im = HUB3_IMAGES[a.id];
+      if (im) { try { im.__hubTanda03 = a.id; } catch (_) {} }
+    });
+    return HUB3_ASSETS.length;
+  }
+  function hub3Restore() { return restoreHub3(); }
+  function hub3Apply() { return hub3Applied ? HUB3_ASSETS.length : applyHub3(); }
 
   /* ======================================================================
    * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
@@ -1307,6 +1565,8 @@
     hubRestore: hubRestore, hubApply: hubApply, hubTag: hubTag,
     hub2: hub2, hub2Manifest: function () { return JSON.parse(JSON.stringify(HUB2_ASSETS)); },
     hub2Restore: hub2Restore, hub2Apply: hub2Apply, hub2Tag: hub2Tag,
+    hub3: hub3, hub3Manifest: function () { return JSON.parse(JSON.stringify(HUB3_ASSETS)); },
+    hub3Restore: hub3Restore, hub3Apply: hub3Apply, hub3Tag: hub3Tag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

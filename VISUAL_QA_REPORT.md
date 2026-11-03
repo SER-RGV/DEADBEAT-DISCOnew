@@ -217,3 +217,57 @@ Diferencias de píxel (`visual_diff.json`): ANTES↔DESPUÉS 61,95 %, CONTROL↔
 **Incidencias reales investigadas (no ocultadas):** el primer arnés dio 9/12 por tres criterios propios erróneos (404 Cloudflare contados por host en vez de por ruta; suposición de que las capas cacheadas se dibujan después del suelo; igualdad exacta de Δ de movimiento en un bucle `rAF`), corregidos con mediciones y con una comprobación adicional de canvases. El canvas 28 de DESPUÉS es `canvas.hub-portrait-canvas` 72×72 creado por el modal `openStation('bar')` del propio juego (`canvas_probe.json`), no por el pack. Revisiones heredadas de T01 (`loaderResolves=0`, desviación 26,92 %, costura 12,57, 2 × 404) documentadas sin impacto y sin correcciones a ciegas.
 
 Diferencias de píxel: `visual_diff.json` (15 comparativas, umbral 12/canal): principal ANTES↔DESPUÉS 9,84 %, CONTROL↔DESPUÉS 12,59 %, ANTES↔CONTROL 3,60 %, arsenal 11,26 %, arcade 8,15 %, descenso 8,30 %, puertas 5,38 %. ANTES↔CONTROL no es 0 % por la animación continua del HUB. Hoja visual lado a lado: `comparativa_antes_despues.jpg`. Logs completos: `antes_runtime.json`, `control_runtime.json`, `despues_runtime_full.json`. Hashes: `hashes.json`. Informe: `ART_TANDA_02_HUB_REPORT.md`.
+
+---
+
+## HUB · TANDA 03 — QA A/B real (2026-11-03)
+
+> Clasificación obligatoria por comprobación: **VERIFICADA / PARCIALMENTE VERIFICADA / NO VERIFICADA / FALLIDA / BLOQUEADA**.
+> **Aviso:** los 12/12 del arnés aprueban producción, carga, registro, medición de bloqueos y regresión. **NO aprueban visibilidad de los 8 objetivos**, que están `BLOQUEADA` para render.
+
+### Entorno y método (medido en `version_probe.json`)
+| Dato | Valor |
+|---|---|
+| Chromium | **131.0.6778.0** (HeadlessChrome, `browser.version()`) |
+| playwright-core | **1.58.2** |
+| Resolución | **1280×900**, `deviceScaleFactor=1` |
+| Renderer | SwiftShader por software (`--use-gl=swiftshader`); **no se atribuyen a los assets sus variaciones** |
+| Cámara | `DMO.debug.teleport(x,y)`, 10 zonas idénticas en ANTES y DESPUÉS |
+| Servidor | `http://127.0.0.1:8123/` → HTML activo, HTTP 200 / 13.381.028 B |
+| Fases | ANTES (`hub3Restore()` en arranque) · CONTROL (`hub3Restore()` en caliente) · DESPUÉS (HUB3 aplicado) |
+| Estado inicial de recursos | T01 10/10, T02 10/10, arquitectura 10/10, V5 completo, HTML SHA sin cambios |
+
+### Resultado de las 12 comprobaciones
+| # | Comprobación | Estado | Evidencia |
+|---|---|---|---|
+| 1 | HTML intacto y art pack | APROBADO | SHA-256 `f231cfc7…`, `status=applied`, versión `+hub-tanda03` |
+| 2 | Producción/carga/registro de 8 unidades · 13 PNG | APROBADO | 13/13 HTTP 200, cargados, registrados, `exactSize`; ANTES 0, CONTROL 0 tras restore |
+| 3 | Ausencia de errores JS | APROBADO | 0 `pageerror`, 0 errores de consola inesperados, 0 404 locales; 2 rutas Cloudflare externas preexistentes |
+| 4 | Pintor del código, registro V5 y medición de los 8 bloqueos | APROBADO | sonda controlada 4 dibujos 108×68; loader resuelve; **0 dibujos T03 en MENÚ y HUB en producción**; 8 bloqueos documentados |
+| 5 | Perspectiva, escala, pivote y anclaje | APROBADO | 13/13 sin deformar; cajas mundo medidas; `slot: null` declarado en señalética |
+| 6 | Transparencias, bordes y alfa | APROBADO | 13/13 RGBA, α [0,255], esquinas transparentes, halo máx. **0,11 %** |
+| 7 | Capas cacheadas y canvases | APROBADO | `__T3B_HUB_QA.available=true` en 3 fases, `builds≥1`, canvases base idénticos, sin canvas nuevo del pack |
+| 8 | Movimiento | APROBADO | mismo origen y sentido, Δ comparable <25 px también A↔C |
+| 9 | Colisiones, zonas, estaciones | APROBADO | `hubAudit`/`stations` idénticos; bloqueo barra con tolerancia 0,01 px |
+| 10 | Transición y puertas | APROBADO | `r23`, `secured 0→1`, `doors_closed.png`/`doors_open.png`, `Ot.openT` intacto |
+| 11 | Interactivos existentes | APROBADO | 11 estaciones, `openStation('bar')`; sin interacción nueva |
+| 12 | Regresión T01/T02/V5/campaña | APROBADO | 10/10 + 10/10 + arquitectura 10/10 + 12 poses + V5 completo + disparo + `CAMPAIGN_ROOM` sin errores |
+
+**Resumen del arnés: 12 APROBADO, 0 FALLIDO.** **Veredicto de entrega: `APROBADO` (producción/QA) · `BLOQUEADO` 8/8 (integración de render) · `NO VERIFICADO` 1 (visibilidad del VIP en producción).**
+
+### Rendimiento antes/después (sin relajar el arnés)
+- **Coste de carga** (una vez): 13 PNG por `load()`; `hub3.appliedAt − startedAt` medido en las 3 fases (`performance.json`, `resultados_ab.json`).
+- **Coste de render**: mediana de 40 `rAF` en el HUB con la misma cámara → **16,7 ms** en ANTES, CONTROL y DESPUÉS. `p90` 33,4–50 ms con variación **también entre ANTES y CONTROL**, atribuible a SwiftShader/cadencia de fotogramas, no a los assets. Ningún PNG T03 se dibuja en el HUB.
+
+### Comparativas visuales
+`visual_diff.json` (15 comparativas, umbral 12/canal): menú A↔D **1,39 %**, HUB principal A↔D **1,22 %**, A↔C **3,87 %**, C↔D **3,53 %**, puertas **5,17 %**. Diferencias de 1–4 % por animación continua, presentes también A↔C; **no se interpretan como cambios de arte**. Hoja: `comparativa_antes_despues.jpg`. Capturas: `antes_00_menu.png`, `despues_00_menu.png`, `antes_01_hub.png`, `despues_01_hub.png`, 10 zonas × A/D, `doors_*.png`, `regresion_campaign.png`, 13 `asset_*.png`.
+
+### Incidencias reales (no ocultadas)
+1. Primer informe falló por `preparation.expected` ausente en las 6 variantes → corregido y **las 3 fases se repitieron por completo**.
+2. Halo blanco hasta 11 % en placas/banco → despill de des-premultiplicación + flood-fill → ≤0,11 %.
+3. Paño norte con perspectiva frontal → regenerado isométrico 2:1.
+4. `hub_vip_booth_lounge`: el pintor existe en el código (4 `drawImage` de 108×68 en `d.menu`), pero el renderer de píxeles **no está activo** en el build: 0 dibujos en 5 arranques con el PNG real. Se clasifica `NO VERIFICADO` y **no se aprueba la visibilidad**.
+5. 8/8 bloqueos de render por ausencia de slots / renderer inactivo; requieren autorización para modificar el HTML. No se inventa un pintor nuevo.
+6. 2 × 404 `/cdn-cgi/challenge-platform/` externos y preexistentes; 0 404 locales y 0 `pageerror`.
+
+Logs completos: `antes_runtime.json`, `control_runtime.json`, `despues_runtime_full.json`. Hashes: `hashes.json` (152/0 discrepancias). Cargas: `verificacion_carga.json`. Cachés: `comprobacion_caches.json`. A/B: `resultados_ab.json`. Incidencias: `incidencias.json`. Auditoría: `ART_HUB_TANDA_03_AUDIT.md`. Informe: `ART_TANDA_03_HUB_REPORT.md`.

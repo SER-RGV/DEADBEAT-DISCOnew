@@ -166,6 +166,20 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 
 ---
 
+## HUB · TANDA 03 — Environment reconstruction (2026-11-03)
+
+**Clasificación: BLOQUEADA (integración de render) · VERIFICADA (producción, carga y QA A/B).**
+
+- Dirección artística: art déco nocturno, elegancia decadente y discoteca grotesca; magenta/violeta/cian/negro/oro, contrastes fuertes, profundidad de materiales, ornamentación controlada, iluminación coherente. Sin pixel art, sin texturas genéricas, sin ruido excesivo, sin bordes verdes, sin halos artificiales ni efecto pegatina.
+- 8 unidades / 13 PNG finales / 8 fuentes: 4 suelos (O abanico radial, E chevrones, S fisuras que continúan la grieta, N onda/ecualizador del DJ), 2 variantes de mobiliario (urna acanalada, banco con respaldo en abanico), 1 alcoba VIP y 1 sistema de 6 señales diegéticas (A pista, B DJ, C descenso, D arsenal, E barra, F arcade).
+- Preparación reproducible con `build_alpha()`/`crop_alpha()` heredados y despill de des-premultiplicación nuevo. 13/13 tamaño exacto y RGBA, halo ≤ 0,11 %, `contain` sin deformar. Hash de cada fuente y cada final en `manifest.json` y `hashes.json`.
+- Integración **solo de registro**: bloque `HUB3_*` en `ART_PACK/art_pack.js`, mismo `__DDM_V5_IMG`, mismo `load()`, mismas APIs de invalidación, dos capas cacheadas conservadas. HTML intacto.
+- **Bloqueo documentado, no disfrazado**: 7 objetivos no tienen slot de dibujo y el octavo tiene un pintor en el código del MENÚ cuyo renderer no se ejecuta en el build (0 `drawImage` en 5 arranques). No se crea un sistema de render nuevo. Visibilidad en producción: `NO VERIFICADO`.
+- QA A/B real 12/12, 74 evidencias, 152 hashes sin discrepancias. Regresión T01/T02/V5/`CAMPAIGN_ROOM` completa. Diferencias de píxel 1–4 % atribuibles a ruido de frame, presentes también A↔C; no se interpretan como cambio artístico.
+- Informes: `ART_TANDA_03_HUB_REPORT.md`, `ART_HUB_TANDA_03_AUDIT.md`. Evidencias: `ART_EVIDENCE/hub/tanda_03/`.
+
+---
+
 ## Historial de versiones
 
 | Fecha | Entrada |
@@ -174,5 +188,4 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 | 2026-11-03 | Tanda 02: 10 módulos de arquitectura integrados en el loader V5 real, HTML intacto, QA en 4 salas reales y cierre documental |
 | 2026-11-03 | HUB · Tanda 01: 10 assets, 10 fuentes, integración real en loaders existentes, QA 12/12 y cierre documental |
 | 2026-11-03 | HUB · Tanda 02: auditoría de 21 slots, 10 assets nuevos, integración V5, QA A/B 12/12 y cierre documental |
-
-
+| 2026-11-03 | HUB · Tanda 03: 8 unidades / 13 PNG, bloque HUB3_*, QA A/B 12/12, 8 bloqueos de render documentados y HTML intacto |

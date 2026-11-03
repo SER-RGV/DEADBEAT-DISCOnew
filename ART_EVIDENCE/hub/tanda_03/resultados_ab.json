@@ -1,0 +1,106 @@
+{
+  "generatedAt": "2026-11-03T15:14:28.004654+00:00",
+  "phases": [
+    "antes",
+    "control",
+    "despues"
+  ],
+  "movement": {
+    "antes": {
+      "pxBefore": 1250,
+      "pxAfter": 1652,
+      "delta": 402,
+      "withinWorld": true
+    },
+    "control": {
+      "pxBefore": 1250,
+      "pxAfter": 1655,
+      "delta": 405,
+      "withinWorld": true
+    },
+    "despues": {
+      "pxBefore": 1250,
+      "pxAfter": 1659,
+      "delta": 409,
+      "withinWorld": true
+    }
+  },
+  "collision": {
+    "antes": {
+      "from": 1720,
+      "afterHoldingD": 1795,
+      "delta": 75,
+      "blockedBeforeBarCollider": true
+    },
+    "control": {
+      "from": 1720,
+      "afterHoldingD": 1795,
+      "delta": 75,
+      "blockedBeforeBarCollider": true
+    },
+    "despues": {
+      "from": 1720,
+      "afterHoldingD": 1795,
+      "delta": 75,
+      "blockedBeforeBarCollider": true
+    }
+  },
+  "loadMs": {
+    "antes": 1486,
+    "control": 1320,
+    "despues": 1351
+  },
+  "render": {
+    "antes": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 50,
+      "minMs": -2.7,
+      "maxMs": 50
+    },
+    "control": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": -2.2,
+      "maxMs": 33.4
+    },
+    "despues": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": -4,
+      "maxMs": 33.4
+    }
+  },
+  "loadCost": {
+    "antes": {
+      "startedAt": 1793718238414,
+      "hub3AppliedAt": 1793718238613,
+      "hub3BootAt": 1793718238614,
+      "deltaMs": 199
+    },
+    "control": {
+      "startedAt": 1793718264593,
+      "hub3AppliedAt": 1793718264716,
+      "hub3BootAt": 1793718264716,
+      "deltaMs": 123
+    },
+    "despues": {
+      "startedAt": 1793718282166,
+      "hub3AppliedAt": 1793718282282,
+      "hub3BootAt": 1793718282282,
+      "deltaMs": 116
+    }
+  },
+  "campaign": {
+    "completed": true
+  },
+  "shooting": {
+    "before": 0,
+    "after": 4,
+    "delta": 4
+  },
+  "environment": "Chromium 131.0.6778.0 · playwright-core 1.58.2 · SwiftShader · 1280x900 · deviceScaleFactor 1",
+  "note": "Coste de CARGA (13 PNG, una vez) separado del coste de RENDER (mediana de 40 rAF en el HUB, misma cámara). Las variaciones de rAF se observan también entre ANTES y CONTROL y NO se atribuyen a los assets; el entorno usa SwiftShader por software."
+}

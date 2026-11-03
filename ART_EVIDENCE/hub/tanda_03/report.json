@@ -1,0 +1,1748 @@
+{
+  "started": "2026-11-03T15:05:45.248Z",
+  "finished": "2026-11-03T15:05:45.248Z",
+  "build": "http://127.0.0.1:8123/",
+  "viewport": [
+    1280,
+    900
+  ],
+  "chromium": "131.0.6778.0",
+  "playwright": "1.58.2",
+  "phases": [
+    "antes (restore en arranque)",
+    "control (restore en caliente)",
+    "despues (HUB3 aplicado)"
+  ],
+  "states": [
+    "APROBADO",
+    "FALLIDO",
+    "BLOQUEADO",
+    "NO VERIFICADO"
+  ],
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga del HTML intacto y del art pack",
+      "state": "APROBADO",
+      "detail": {
+        "status": 200,
+        "loadMs": 1351,
+        "readyState": "complete",
+        "title": "DEADBEAT DISCO · ILLUSTRATED EDITION v8.6.0-dungeon",
+        "artPackStatus": "applied",
+        "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03",
+        "htmlSha256": "f231cfc7e2c634095d767e321d71155d1a9a9c6c661a008274e5989d97230723",
+        "hub3AppliedAtBoot": {
+          "registered": 13,
+          "loaded": 13,
+          "enabled": true,
+          "verifiedDraws": 0,
+          "registeredDrawSlots": 1
+        },
+        "htmlUnmodifiedByQA": true
+      },
+      "evidence": [
+        "despues_00_menu.png",
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": 2,
+      "check": "Producción, carga y registro de las 8 unidades / 13 PNG de TANDA 03",
+      "state": "APROBADO",
+      "detail": {
+        "units": 8,
+        "finalPngFiles": 13,
+        "applied": "13/13",
+        "enabled": true,
+        "errors": [],
+        "http200": 13,
+        "files": [
+          "hub_bench_variant_02.png",
+          "hub_floor_north_dj.png",
+          "hub_floor_patch_e.png",
+          "hub_floor_patch_o.png",
+          "hub_floor_patch_s_crack.png",
+          "hub_planter_variant_02.png",
+          "hub_vip_booth_lounge.png",
+          "hub_zone_signage_a_pista.png",
+          "hub_zone_signage_b_cabina_dj.png",
+          "hub_zone_signage_c_descenso.png",
+          "hub_zone_signage_d_arsenal.png",
+          "hub_zone_signage_e_barra.png",
+          "hub_zone_signage_f_arcade.png"
+        ],
+        "loader": "load() -> window.__DDM_V5_IMG[h03_* / hub_vip_booth_lounge]",
+        "perAsset": [
+          {
+            "id": "T03-01",
+            "unit": "HUB_FLOOR_PATCH_O",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              580,
+              430
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-02",
+            "unit": "HUB_FLOOR_PATCH_E",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              580,
+              430
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-03",
+            "unit": "HUB_FLOOR_PATCH_S_CRACK",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              760,
+              329
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-04",
+            "unit": "HUB_FLOOR_NORTH_DJ",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              760,
+              224
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-05",
+            "unit": "HUB_PLANTER_VARIANT_02",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              96,
+              108
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-06",
+            "unit": "HUB_BENCH_VARIANT_02",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              256,
+              198
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-07",
+            "unit": "HUB_VIP_BOOTH_LOUNGE",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              216,
+              136
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-A",
+            "unit": "HUB_ZONE_SIGNAGE/A",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-B",
+            "unit": "HUB_ZONE_SIGNAGE/B",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-C",
+            "unit": "HUB_ZONE_SIGNAGE/C",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-D",
+            "unit": "HUB_ZONE_SIGNAGE/D",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-E",
+            "unit": "HUB_ZONE_SIGNAGE/E",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-F",
+            "unit": "HUB_ZONE_SIGNAGE/F",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              192,
+              128
+            ],
+            "registered": true,
+            "aliasLive": true,
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "visibleInGame": false,
+            "blocked": true,
+            "originalsPreserved": true
+          }
+        ],
+        "blocked": 13,
+        "verifiedDraws": 0,
+        "registeredDrawSlots": 1,
+        "antesAtBoot": {
+          "registered": 0,
+          "loaded": 13,
+          "enabled": false,
+          "verifiedDraws": 0,
+          "registeredDrawSlots": 0
+        },
+        "controlAfterRestore": {
+          "registered": 0,
+          "enabled": false,
+          "restore": 13
+        },
+        "restoreBeforeHub": {
+          "restored": 13,
+          "at": 1793718238617,
+          "polls": 13
+        },
+        "integrationPolicy": "13/13 PNG REGISTRADOS; 8/8 unidades BLOQUEADAS para render (7 sin slot + 1 con renderer inactivo, D-07).",
+        "note": "Registro ≠ integración: los 13 recursos se cargan por el loader real y se registran con alias trazables, pero ningún pintor activo los consume en producción."
+      },
+      "evidence": [
+        "manifest.json",
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 3,
+      "check": "Ausencia de errores JavaScript",
+      "state": "APROBADO",
+      "detail": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsAntes": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsControl": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "knownCloudflare404": [
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+          },
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+          }
+        ],
+        "unexpectedLocalHttpErrors": [],
+        "assetResponses200": 13,
+        "requestFailed": [
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "failure": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "failure": "net::ERR_ABORTED"
+          }
+        ],
+        "excludedUnexpectedJs": [],
+        "hub3Errors": [],
+        "note": "Los 404 de /cdn-cgi/challenge-platform/ son externos y preexistentes (T01/T02). Cero 404 locales, cero pageerror, cero error de consola inesperado."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 4,
+      "check": "Pintor del código, registro V5 y medición de los 8 bloqueos de render",
+      "state": "APROBADO",
+      "detail": {
+        "controlledProbe": {
+          "vipDrawsMenu": 4,
+          "vipBoxMenu": [
+            32,
+            284,
+            108,
+            68
+          ],
+          "source": "slot_probe.json (inyección anticipada, PNG 1x1 de control)"
+        },
+        "production": {
+          "vipDrawsMenuDespues": 0,
+          "vipDrawsMenuAntes": 0,
+          "t03DrawsInHUB": [],
+          "t03DrawsInMenu": [],
+          "vipBoxMenu": null,
+          "vipCanvas": null,
+          "loaderResolves": 1
+        },
+        "blockedUnits": 8,
+        "blockedPngFiles": 13,
+        "hubSlotsTotal": 19,
+        "verdictVisibility": "NO VERIFICADO",
+        "note": "El pintor EXISTE en el código (4 drawImage de 108x68 en d.menu 768x500) y la sonda controlada lo demostró. Pero en el build en ejecución ese renderer de píxeles no está activo: 5 arranques medidos dan 0 dibujos del PNG real. No se aprueba la visibilidad; se clasifica NO VERIFICADO y los 8 objetivos BLOQUEADO. No se modifica el HTML ni se inventa un sistema de render.",
+        "staticEvidence": "DEADBEAT_DISCO.ART.html: gv(\"hub_vip_booth_lounge\") -> vb -> drawImage(vb,32,284,108,68) x4; audit_runtime.json (69 claves consultadas, 0 claves de suelo/señalética).",
+        "evidenceOfBlockedAssets": "capturas individuales de los 13 PNG finales (asset_*.png) + slot_probe.json + audit_runtime.json + geometry_probe.json"
+      },
+      "evidence": [
+        "despues_00_menu.png",
+        "antes_00_menu.png",
+        "despues_01_hub.png",
+        "slot_probe.json",
+        "audit_runtime.json"
+      ]
+    },
+    {
+      "id": 5,
+      "check": "Perspectiva, escala, pivote y anclaje (sin deformación)",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "file": "hub_floor_patch_o.png",
+            "natural": [
+              580,
+              430
+            ],
+            "measuredOrDeclared": "Rectángulo mundo medido: suelo 1920x1320 en (290,265); medallón 760x430 centrado en (1250,935) -> x 290..870, y 720..1150.",
+            "preparedSize": [
+              580,
+              430
+            ],
+            "placed": [
+              580,
+              333
+            ],
+            "scale": 0.47541,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": [
+              290,
+              720,
+              580,
+              430
+            ]
+          },
+          {
+            "file": "hub_floor_patch_e.png",
+            "natural": [
+              580,
+              430
+            ],
+            "measuredOrDeclared": "Rectángulo mundo medido: x 1630..2210, y 720..1150 (simétrico del Oeste respecto a cx=1250).",
+            "preparedSize": [
+              580,
+              430
+            ],
+            "placed": [
+              580,
+              309
+            ],
+            "scale": 0.43708,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": [
+              1630,
+              720,
+              580,
+              430
+            ]
+          },
+          {
+            "file": "hub_floor_patch_s_crack.png",
+            "natural": [
+              760,
+              329
+            ],
+            "measuredOrDeclared": "Caja medida de hub_abyss_stair_crack [1085,1256,330,180] y borde sur del suelo y=1585 -> x 870..1630, y 1256..1585.",
+            "preparedSize": [
+              760,
+              329
+            ],
+            "placed": [
+              611,
+              329
+            ],
+            "scale": 0.49623,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": [
+              870,
+              1256,
+              760,
+              329
+            ]
+          },
+          {
+            "file": "hub_floor_north_dj.png",
+            "natural": [
+              760,
+              224
+            ],
+            "measuredOrDeclared": "Borde superior del suelo y=265 y caja medida de hub_dj_shrine [1058,280,384,209] -> x 870..1630, y 265..489.",
+            "preparedSize": [
+              760,
+              224
+            ],
+            "placed": [
+              484,
+              224
+            ],
+            "scale": 0.36305,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": [
+              870,
+              265,
+              760,
+              224
+            ]
+          },
+          {
+            "file": "hub_planter_variant_02.png",
+            "natural": [
+              96,
+              108
+            ],
+            "measuredOrDeclared": "Dimensiones naturales EXACTAS del slot V5 club_neon_planter_prop (96x108, caja 78x88), medidas en audit_runtime.json.",
+            "preparedSize": [
+              96,
+              108
+            ],
+            "placed": [
+              47,
+              108
+            ],
+            "scale": 0.16438,
+            "withoutDeformation": true,
+            "pivot": "bottom-center",
+            "anchor": "bottom-center; mismo pivote que el slot de T02",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_bench_variant_02.png",
+            "natural": [
+              256,
+              198
+            ],
+            "measuredOrDeclared": "Dimensiones naturales EXACTAS del slot V5 limbo_bench_prop (256x198, caja 96x74), medidas en audit_runtime.json.",
+            "preparedSize": [
+              256,
+              198
+            ],
+            "placed": [
+              256,
+              198
+            ],
+            "scale": 0.32778,
+            "withoutDeformation": true,
+            "pivot": "bottom-center",
+            "anchor": "bottom-center; mismo pivote que el slot de T02",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_vip_booth_lounge.png",
+            "natural": [
+              216,
+              136
+            ],
+            "measuredOrDeclared": "Caja de dibujo REAL 108x68 medida con slot_probe.json (vipDrawsMenu=4, vipBoxMenu=[32,284,108,68]); archivo a 2x (216x136) conservando el aspecto 108/68=1.588 sin deformación.",
+            "preparedSize": [
+              216,
+              136
+            ],
+            "placed": [
+              190,
+              136
+            ],
+            "scale": 0.27364,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; drawImage(vb, 32, 284, 108, 68) x4 en menú",
+            "drawSlot": "hub_vip_booth_lounge",
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_a_pista.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_b_cabina_dj.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_c_descenso.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_d_arsenal.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_e_barra.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          },
+          {
+            "file": "hub_zone_signage_f_arcade.png",
+            "natural": [
+              192,
+              128
+            ],
+            "measuredOrDeclared": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+            "preparedSize": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "withoutDeformation": true,
+            "pivot": "center",
+            "anchor": "center; rectángulo mundo propuesto, sin pintor",
+            "drawSlot": null,
+            "worldBox": null
+          }
+        ],
+        "measuredRuntimeGeometry": "geometry_probe.json (canvas suelo 1920x1320 en (290,265))",
+        "note": "contain + pivote, nunca estirar. Las dimensiones de los 4 suelos derivan de rectángulos mundo medidos; las 2 variantes usan las naturales exactas de los slots T02; el VIP usa la caja real 108x68 x2; la señalética declara explícitamente que NO tiene slot medido.",
+        "limitations": "Ningún PNG de T03 se dibuja en el HUB; las cajas mundo son propuestas documentadas, no ranuras del motor."
+      },
+      "evidence": [
+        "manifest.json",
+        "geometry_probe.json",
+        "slot_probe.json"
+      ]
+    },
+    {
+      "id": 6,
+      "check": "Transparencias, bordes y alfa de los 13 PNG",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "file": "hub_floor_patch_o.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 37.2,
+            "corners": true,
+            "whiteFringePct": 0.01,
+            "borderClean": true,
+            "haloPixelsRemoved": 26976
+          },
+          {
+            "file": "hub_floor_patch_e.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 36.35,
+            "corners": true,
+            "whiteFringePct": 0.11,
+            "borderClean": true,
+            "haloPixelsRemoved": 11907
+          },
+          {
+            "file": "hub_floor_patch_s_crack.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 45.05,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true,
+            "haloPixelsRemoved": 12050
+          },
+          {
+            "file": "hub_floor_north_dj.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 33.42,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true,
+            "haloPixelsRemoved": 21627
+          },
+          {
+            "file": "hub_planter_variant_02.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 32.46,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true,
+            "haloPixelsRemoved": 6916
+          },
+          {
+            "file": "hub_bench_variant_02.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 54.56,
+            "corners": true,
+            "whiteFringePct": 0.01,
+            "borderClean": true,
+            "haloPixelsRemoved": 69489
+          },
+          {
+            "file": "hub_vip_booth_lounge.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 77.72,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true,
+            "haloPixelsRemoved": 3184
+          },
+          {
+            "file": "hub_zone_signage_a_pista.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          },
+          {
+            "file": "hub_zone_signage_b_cabina_dj.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          },
+          {
+            "file": "hub_zone_signage_c_descenso.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          },
+          {
+            "file": "hub_zone_signage_d_arsenal.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          },
+          {
+            "file": "hub_zone_signage_e_barra.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          },
+          {
+            "file": "hub_zone_signage_f_arcade.png",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 79.58,
+            "corners": true,
+            "whiteFringePct": 0.06,
+            "borderClean": true,
+            "haloPixelsRemoved": 72780
+          }
+        ],
+        "maxWhiteFringePct": 0.11,
+        "note": "Despill por des-premultiplicación + flood-fill del reflejo exterior del fondo. Halo máximo 0,11 %. 13/13 esquinas transparentes y alpha [0,255]."
+      },
+      "evidence": [
+        "manifest.json",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 7,
+      "check": "Orden de profundidad, capas cacheadas y canvases (motor intacto)",
+      "state": "APROBADO",
+      "detail": {
+        "hubAuditEqual": true,
+        "t01Order": {
+          "despues": [
+            "HUB|HUB-03",
+            "HUB|HUB-01",
+            "HUB|HUB-10",
+            "HUB|HUB-04",
+            "HUB|HUB-06",
+            "HUB|HUB-07",
+            "HUB|HUB-05",
+            "HUB|HUB-09",
+            "HUB|HUB-08"
+          ],
+          "control": [
+            "HUB|HUB-03",
+            "HUB|HUB-01",
+            "HUB|HUB-10",
+            "HUB|HUB-04",
+            "HUB|HUB-06",
+            "HUB|HUB-07",
+            "HUB|HUB-05",
+            "HUB|HUB-09",
+            "HUB|HUB-08"
+          ],
+          "antes": [
+            "HUB|HUB-03",
+            "HUB|HUB-01",
+            "HUB|HUB-10",
+            "HUB|HUB-04",
+            "HUB|HUB-06",
+            "HUB|HUB-07",
+            "HUB|HUB-05",
+            "HUB|HUB-09",
+            "HUB|HUB-08"
+          ]
+        },
+        "canvasCount": {
+          "despues": 28,
+          "antes": 27,
+          "control": 27
+        },
+        "canvasCountBase": {
+          "despues": 27,
+          "antes": 27,
+          "control": 27
+        },
+        "canvasPortraitCount": {
+          "despues": 1,
+          "antes": 0,
+          "control": 0
+        },
+        "hubFloorCache": {
+          "revision": 30,
+          "builds": 2,
+          "draws": 793,
+          "available": true
+        },
+        "t3bEnabled": true,
+        "note": "Las DOS capas cacheadas (suelo y pared/aristas) siguen vivas con su composición original. HUB3 no añade lienzo, caché, motor ni HUB estático. El canvas de retrato 72x72 lo crea el propio juego al abrir la estación bar.",
+        "noNewCanvasFromPack": true
+      },
+      "evidence": [
+        "geometry_probe.json",
+        "despues_01_hub.png",
+        "control_01_hub.png",
+        "antes_01_hub.png"
+      ]
+    },
+    {
+      "id": 8,
+      "check": "Movimiento del jugador",
+      "state": "APROBADO",
+      "detail": {
+        "despues": {
+          "pxBefore": 1250,
+          "pxAfter": 1659,
+          "delta": 409,
+          "withinWorld": true
+        },
+        "antes": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "control": {
+          "pxBefore": 1250,
+          "pxAfter": 1655,
+          "delta": 405,
+          "withinWorld": true
+        },
+        "rafTolerancePx": 25,
+        "note": "Desviación de pocos px por cadencia de rAF, presente también entre ANTES y CONTROL; no es regresión. La prueba determinista es la 9."
+      },
+      "evidence": [
+        "despues_tras_movimiento.png"
+      ]
+    },
+    {
+      "id": 9,
+      "check": "Colisiones, zonas y estaciones sin cambios",
+      "state": "APROBADO",
+      "detail": {
+        "stationsEqual": true,
+        "collisionDespues": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionAntes": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionControl": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "note": "Ningún asset T03 añade colisionador ni modifica la grieta, la geometría o las zonas de interacción."
+      },
+      "evidence": [
+        "despues_detalle_bar.png",
+        "despues_detalle_descenso.png",
+        "control_01_hub.png"
+      ]
+    },
+    {
+      "id": 10,
+      "check": "Transición a campaña y apertura de puertas (Ot.openT intacto)",
+      "state": "APROBADO",
+      "detail": {
+        "campaign": {
+          "completed": true
+        },
+        "campaignStart": "true",
+        "setNight": {
+          "via": "setNight",
+          "ok": true
+        },
+        "clearRound": "true",
+        "dungeonClosed": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 0,
+          "floor": 3
+        },
+        "dungeonOpen": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 1,
+          "floor": 3
+        },
+        "locationClosed": "CAMPAIGN_ROOM",
+        "locationOpen": "CAMPAIGN_ROOM",
+        "architectureAfterDoors": 10,
+        "note": "Sala real r23 (setNight 24): puertas cerradas y clearRound() para abrirlas. La señalética NO modifica navegación, puertas ni desbloqueo."
+      },
+      "evidence": [
+        "doors_closed.png",
+        "doors_open.png"
+      ]
+    },
+    {
+      "id": 11,
+      "check": "Elementos interactivos y funcionales del HUB",
+      "state": "APROBADO",
+      "detail": {
+        "interaction": {
+          "stationsBefore": 11,
+          "open": "true",
+          "active": "bar",
+          "close": "true",
+          "activeAfter": null
+        },
+        "stations": 11,
+        "functionalSlotsLive": [
+          "hub_arcade_shrine",
+          "hub_arsenal_shrine",
+          "hub_seals_shrine",
+          "descent_abyssal_lift_pad"
+        ],
+        "note": "No se implementa ninguna interacción nueva: estaciones, puertas y Ot.openT conservan su lógica."
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_detalle_arcade.png"
+      ]
+    },
+    {
+      "id": 12,
+      "check": "Regresión de sistemas, TANDA 01/02 intactas y sala de campaña",
+      "state": "APROBADO",
+      "detail": {
+        "tanda01Live": true,
+        "tanda01Draws": true,
+        "tanda01Integrity": true,
+        "tanda02Live": true,
+        "tanda02Architecture": true,
+        "tanda03Player": true,
+        "v5Ready": true,
+        "shooting": {
+          "before": 0,
+          "after": 4,
+          "delta": 4
+        },
+        "campaignRoom": true,
+        "campaignT03Registry": true,
+        "campaignV5": true,
+        "campaignNoErrors": true,
+        "stateEqual": true,
+        "errorsEqual": true,
+        "integrity": [
+          {
+            "id": "t3b_material_00",
+            "live": true
+          },
+          {
+            "id": "t3b_material_01",
+            "live": true
+          },
+          {
+            "id": "t3b_material_02",
+            "live": true
+          },
+          {
+            "id": "hub_fox_crest_emblem",
+            "live": true
+          },
+          {
+            "id": "decor_neon_rug",
+            "live": true
+          },
+          {
+            "id": "decor_potted_palm",
+            "live": true
+          },
+          {
+            "id": "boss_01_anden",
+            "live": true
+          },
+          {
+            "id": "weapons/weapon_m1911.png",
+            "live": true
+          }
+        ],
+        "architecture": {
+          "applied": 10,
+          "enabled": true
+        },
+        "player": {
+          "version": "tanda03-faseD.2",
+          "poses": 12,
+          "errors": []
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "tanda01": {
+          "applied": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "tanda02": {
+          "applied": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "campaignRegression": {
+          "location": "CAMPAIGN_ROOM",
+          "inHub": false,
+          "hub3Registered": 13,
+          "v5": {
+            "ready": 100,
+            "total": 100,
+            "errors": []
+          },
+          "artPackStatus": "applied",
+          "pageErrors": [],
+          "t3bErrors": []
+        },
+        "note": "Se comprueba exprésamente que el registro V5 compartido sigue completo en CAMPAIGN_ROOM y que T01/T02/arquitectura no se han degradado."
+      },
+      "evidence": [
+        "regresion_campaign.png",
+        "antes_runtime.json",
+        "control_runtime.json",
+        "despues_runtime_full.json"
+      ]
+    }
+  ],
+  "summary": {
+    "APROBADO": 12,
+    "BLOQUEADO_INTEGRACION": 8,
+    "NO_VERIFICADO_VISIBILIDAD": 1
+  },
+  "verdict": {
+    "APROBADO": [
+      "8 unidades de producción / 13 PNG finales + 8 fuentes, medidas y con SHA-256",
+      "13/13 cargados por load(), registrados en window.__DDM_V5_IMG y con tamaño exacto",
+      "QA A/B real ejecutada: 12/12 comprobaciones del arnés",
+      "Regresión TANDA 01, TANDA 02, arquitectura, V5, capas cacheadas, colisiones, puertas, estaciones, movimiento, disparo y CAMPAIGN_ROOM",
+      "HTML activo intacto (SHA-256 sin cambios)"
+    ],
+    "BLOQUEADO": [
+      "8/8 unidades sin integración de render: 7 sin slot de dibujo y 1 con el renderer del menú inactivo (D-07)",
+      "Integrarlas exigiría autorización para modificar el HTML activo; no se ha solicitado ni ejecutado",
+      "No se crea segundo motor, canvas superpuesto, HUB estático, caché nueva ni loader paralelo"
+    ],
+    "NO_VERIFICADO": [
+      "Visibilidad en producción de hub_vip_booth_lounge: 0 drawImage medidos en 5 arranques con el PNG real (el pintor existe en el código pero su renderer no se ejecuta)",
+      "Cualquier afirmación de \"nuevo espacio VIP en el HUB\" queda descartada"
+    ]
+  },
+  "table": [
+    {
+      "ID": "T03-01",
+      "unidad": "pano_suelo_oeste",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-02",
+      "unidad": "pano_suelo_este",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-03",
+      "unidad": "pano_suelo_sur_grieta",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-04",
+      "unidad": "pano_suelo_norte_dj",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-05",
+      "unidad": "jardinera_variante_02",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-06",
+      "unidad": "banco_variante_02",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-07",
+      "unidad": "vip_booth_lounge",
+      "archivos": 1,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (renderer inactivo · D-07)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    },
+    {
+      "ID": "T03-08",
+      "unidad": "sistema_senaletica_6_zonas",
+      "archivos": 6,
+      "Generado": true,
+      "CargadoRegistrado": true,
+      "IntegradoRender": false,
+      "Estado": "BLOQUEADO (sin slot)",
+      "Visibilidad": "NO VERIFICADO",
+      "Validado": true
+    }
+  ],
+  "perAsset": [
+    {
+      "id": "T03-01",
+      "unit": "HUB_FLOOR_PATCH_O",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        580,
+        430
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-02",
+      "unit": "HUB_FLOOR_PATCH_E",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        580,
+        430
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-03",
+      "unit": "HUB_FLOOR_PATCH_S_CRACK",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        760,
+        329
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-04",
+      "unit": "HUB_FLOOR_NORTH_DJ",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        760,
+        224
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-05",
+      "unit": "HUB_PLANTER_VARIANT_02",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        96,
+        108
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-06",
+      "unit": "HUB_BENCH_VARIANT_02",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        256,
+        198
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-07",
+      "unit": "HUB_VIP_BOOTH_LOUNGE",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        216,
+        136
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 1,
+      "loaderResolves": 1,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-A",
+      "unit": "HUB_ZONE_SIGNAGE/A",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-B",
+      "unit": "HUB_ZONE_SIGNAGE/B",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-C",
+      "unit": "HUB_ZONE_SIGNAGE/C",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-D",
+      "unit": "HUB_ZONE_SIGNAGE/D",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-E",
+      "unit": "HUB_ZONE_SIGNAGE/E",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    },
+    {
+      "id": "T03-08-F",
+      "unit": "HUB_ZONE_SIGNAGE/F",
+      "loaded": true,
+      "exactSize": true,
+      "natural": [
+        192,
+        128
+      ],
+      "registered": true,
+      "aliasLive": true,
+      "slotsLive": 0,
+      "loaderResolves": 0,
+      "visibleInGame": false,
+      "blocked": true,
+      "originalsPreserved": true
+    }
+  ],
+  "blockers": [
+    {
+      "id": "T03-01",
+      "unit": "pano_suelo_oeste",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-02",
+      "unit": "pano_suelo_este",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-03",
+      "unit": "pano_suelo_sur_grieta",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-04",
+      "unit": "pano_suelo_norte_dj",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-05",
+      "unit": "jardinera_variante_02",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-06",
+      "unit": "banco_variante_02",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-07",
+      "unit": "vip_booth_lounge",
+      "reason": "El único pintor (canvas d.menu del MENÚ) pertenece a un renderer inactivo en el build; 0 drawImage medidos en producción (D-07).",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-08",
+      "unit": "sistema_senaletica_6_zonas",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    }
+  ],
+  "performance": {
+    "despues": 1351,
+    "antes": 1486,
+    "control": 1320,
+    "render": {
+      "despues": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.4,
+        "minMs": -4,
+        "maxMs": 33.4
+      },
+      "antes": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 50,
+        "minMs": -2.7,
+        "maxMs": 50
+      },
+      "control": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.4,
+        "minMs": -2.2,
+        "maxMs": 33.4
+      }
+    },
+    "loadCost": {
+      "despues": {
+        "startedAt": 1793718282166,
+        "hub3AppliedAt": 1793718282282,
+        "hub3BootAt": 1793718282282,
+        "deltaMs": 116
+      },
+      "antes": {
+        "startedAt": 1793718238414,
+        "hub3AppliedAt": 1793718238613,
+        "hub3BootAt": 1793718238614,
+        "deltaMs": 199
+      },
+      "control": {
+        "startedAt": 1793718264593,
+        "hub3AppliedAt": 1793718264716,
+        "hub3BootAt": 1793718264716,
+        "deltaMs": 123
+      }
+    },
+    "note": "Se distingue coste de CARGA (una vez, 13 PNG) de coste de RENDER (mediana de 40 rAF en el HUB, misma cámara). SwiftShader por software: no se atribuyen a los assets las variaciones de entorno."
+  },
+  "incidenceReview": {
+    "D-01": "No existen slots para 7 de los 8 objetivos; BLOQUEADO documentado, sin modificar el HTML.",
+    "D-02": "O = OESTE y E = ESTE, corregido por código antes de producir.",
+    "D-03": "El pliego pide 10 assets pero define 8 unidades (la 08 son 6 variantes) y excluye 2: se entregan 8 unidades / 13 PNG.",
+    "D-04": "hub_vip_booth_lounge tiene pintor en el código del MENÚ (4 drawImage de 108x68), 0 en el HUB.",
+    "D-05": "Los ganchos del pintor del HUB no son globales; no se inventa un sistema de render.",
+    "D-06": "d.menu se construye una vez: startHub3() arranca la carga en el primer instante del boot.",
+    "D-07": "Renderer de píxeles inactivo en el build: 0 drawImage del VIP real en 5 arranques; visibilidad NO VERIFICADO e integración BLOQUEADA.",
+    "Dos 404 Cloudflare": "cdn-cgi/challenge-platform externos y preexistentes; 0 404 locales y 0 pageerror.",
+    "sharedSystemsModified": false
+  },
+  "evidenceFiles": {
+    "assetCaptures": [
+      "asset_01_hub_floor_patch_o.png",
+      "asset_02_hub_floor_patch_e.png",
+      "asset_03_hub_floor_patch_s_crack.png",
+      "asset_04_hub_floor_north_dj.png",
+      "asset_05_hub_planter_variant_02.png",
+      "asset_06_hub_bench_variant_02.png",
+      "asset_07_hub_vip_booth_lounge.png",
+      "asset_08_hub_zone_signage_a_pista.png",
+      "asset_09_hub_zone_signage_b_cabina_dj.png",
+      "asset_10_hub_zone_signage_c_descenso.png",
+      "asset_11_hub_zone_signage_d_arsenal.png",
+      "asset_12_hub_zone_signage_e_barra.png",
+      "asset_13_hub_zone_signage_f_arcade.png"
+    ],
+    "assetSheet": "hoja_recursos_tanda_03.jpg",
+    "visualDiff": "visual_diff.json",
+    "comparativeSheet": "comparativa_antes_despues.jpg",
+    "hashes": "hashes.json",
+    "loadVerification": "verificacion_carga.json",
+    "cacheCheck": "comprobacion_caches.json",
+    "abResults": "resultados_ab.json",
+    "incidences": "incidencias.json",
+    "versions": "version_probe.json",
+    "audit": "ART_HUB_TANDA_03_AUDIT.md"
+  }
+}
