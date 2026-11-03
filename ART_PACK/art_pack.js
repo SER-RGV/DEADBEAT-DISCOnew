@@ -87,6 +87,11 @@
     if (/^A\d\d$/.test(where)) {
       if (!st.archErrors) st.archErrors = [];
       st.archErrors.push(msg);
+    } else if (/^P\d\d$/.test(where)) {
+      /* FASE D mantiene su propia traza: un fallo del protagonista no debe
+         reclasificar el estado ya verificado de T01/T02. */
+      if (!st.playerErrors) st.playerErrors = [];
+      st.playerErrors.push(msg);
     } else {
       st.errors.push(msg);
     }
@@ -354,9 +359,492 @@
   function restore() { return restoreArch(); }
   function apply() { return archApplied ? ARCHITECTURE.length : applyArch(); }
 
+  /* ======================================================================
+   * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
+   * ----------------------------------------------------------------------
+   * No hay un segundo cargador, ni un segundo render, ni un segundo
+   * <script>. Se usa el MISMO registro que ensureHdImg() ya consulta
+   * (window.__HD_ASSETS.images) y el MISMO Pf() del modulo v3.2.
+   *
+   * IMPORTANTE: todo el juego vive en un unico <script> IIFE con
+   * "use strict", por lo que Pf / it / ANATOMY_SPINE NO son globales.
+   * El unico punto de enganche publico del protagonista es
+   * window.DMO.playerAnim (w.playerAnim = pAnim). Se conecta ahi con
+   * setters sobre las propiedades que pAnim.update()/transitionTo()
+   * escriben en cada tick: state, waistSplitActive, stridePhase y
+   * walkFrame. No se reimplementa Pf ni se crea un gestor paralelo.
+   *
+   * Cada clave de PLAYER_ASSET_MAP recibe un canvas derivado de los PNG de
+   * FASE C, reescalado al formato nativo del motor: 96 px de alto, ancho
+   * 2*ANATOMY_SPINE[key].spineX para que dx = -spineX*scaleY deje el
+   * centro del personaje en el origen, y el pie en footGroundY. La
+   * muerte usa el 95x29 que el propio Pf() espera para un cuerpo caido.
+   *
+   * Hoy hay 1 frame por estado: presentacion estatica sincronizada con
+   * el estado del motor. SEQUENCES es un ARRAY por estado y los setters
+   * de stridePhase/walkFrame ya notifican cada tick: incorporar
+   * secuencias animadas despues solo exige poblar el array y que
+   * resolveFrame() elija el indice por fase. La integracion NO se rehace.
+   *
+   * No se tocan mecanicas, controles, armas, colisiones, IA, Director,
+   * economia, progresion, guardado, salas, HUD ni transiciones. El unico
+   * flag que se fija es pAnim.waistSplitActive (flag VISUAL de Pf):
+   * el waist-split parte el sprite en y=53 y aplica clearRect a
+   * coordenadas del arte pixel de 96px, ademas de tener su propia cache
+   * de piernas con el sprite antiguo. Se usa la rama "Full-body
+   * spine-aligned pose" del propio Pf().
+   * ==================================================================== */
+  var BASE3 = 'ART_ASSETS/tanda_03/fase_c/';
+  var P3_W = 560, P3_H = 1130, P3_GROUND = 1130, P3_CX = 280;
+
+  /* Orden de integracion: IDLE -> CAMINAR -> CORRER -> DISPARAR ->
+     DISPARO_CARGADO -> HABILIDAD -> DANO -> MUERTE. sw/sh son la silueta
+     medida en el manifest de FASE C; se usan solo para el escalado. */
+  var P3_ASSETS = [
+    { name: 'IDLE',             file: 'IDLE.png',             state: 'idle',    p: 10,  sw: 257, sh: 1128 },
+    { name: 'CAMINAR',          file: 'CAMINAR.png',          state: 'walk',    p: 15,  sw: 319, sh: 1125 },
+    { name: 'CORRER',           file: 'CORRER.png',           state: 'run',     p: 20,  sw: 268, sh: 1127 },
+    { name: 'DISPARAR',         file: 'DISPARAR.png',         state: 'shoot',   p: 60,  sw: 427, sh: 1124 },
+    { name: 'DISPARO_CARGADO',  file: 'DISPARO_CARGADO.png',  state: 'charged', p: 65,  sw: 455, sh: 1125 },
+    { name: 'HABILIDAD',        file: 'HABILIDAD.png',        state: 'ability', p: 70,  sw: 256, sh: 1129 },
+    { name: 'DANO',             file: 'DANO.png',             state: 'hurt',    p: 80,  sw: 262, sh: 1126 },
+    { name: 'MUERTE',           file: 'MUERTE.png',           state: 'death',   p: 100, sw: 558, sh: 181 }
+  ];
+
+  /* Estado real del motor (STATE_PRIORITIES / DMO.playerAnim.state) ->
+     secuencia. Los estados sin asset propio reutilizan el mas cercano;
+     ninguno queda sin imagen, incluidos fire2/firehip que la build traia
+     sin __HD_DATA y caian al render pixel antiguo. */
+  var STATE_SEQUENCE = {
+    idle: 'IDLE', walk: 'CAMINAR', run: 'CORRER',
+    shoot: 'DISPARAR', aim: 'DISPARAR', charged: 'DISPARO_CARGADO',
+    melee: 'DISPARAR', reload: 'DISPARAR', weaponSwitch: 'IDLE',
+    ability: 'HABILIDAD', hurt: 'DANO', stun: 'DANO',
+    dodge: 'CORRER', victory: 'IDLE', interact: 'IDLE',
+    death: 'MUERTE'
+  };
+
+  /* Claves EXACTAS de PLAYER_ASSET_MAP + spineX de ANATOMY_SPINE. */
+  var P3_POSES = [
+    { key: 'player_idle',    path: 'player/player_idle_00.png',    spineX: 17.2, W: 34.4, H: 96 },
+    { key: 'player_walk0',   path: 'player/player_walk_00.png',    spineX: 22.8, W: 45.6, H: 96 },
+    { key: 'player_walk1',   path: 'player/player_walk_01.png',    spineX: 20.0, W: 40.0, H: 96 },
+    { key: 'player_walk2',   path: 'player/player_walk_02.png',    spineX: 23.0, W: 46.0, H: 96 },
+    { key: 'player_walk3',   path: 'player/player_walk_03.png',    spineX: 18.6, W: 37.2, H: 96 },
+    { key: 'player_fire',    path: 'player/player_shoot_00.png',   spineX: 27.0, W: 54.0, H: 96 },
+    { key: 'player_fire2',   path: 'player/player_fire2.png',      spineX: 43.3, W: 86.6, H: 96 },
+    { key: 'player_firehip', path: 'player/player_firehip.png',    spineX: 27.0, W: 54.0, H: 96 },
+    { key: 'player_hit',     path: 'player/player_hurt_00.png',    spineX: 28.5, W: 57.0, H: 96 },
+    { key: 'player_roll',    path: 'player/player_roll_00.png',    spineX: 33.0, W: 66.0, H: 96 },
+    { key: 'player_death',   path: 'player/player_death_00.png',   spineX: 48.0, W: 95.0, H: 29 },
+    { key: 'player_boost',   path: 'player/player_boost_00.png',   spineX: 39.5, W: 79.0, H: 96 }
+  ];
+
+  /* Mano dominante real de cada asset, medida sobre el lienzo 560x1130 de
+     FASE C (centro del cluster de piel mas a la derecha; CORRER corregido a
+     mano porque su puño queda por debajo del hombro). Es la referencia
+     anatomica del arte NUEVO, no del sprite pixel de 96px. */
+  var P3_HAND_PX = {
+    IDLE: [391, 597], CAMINAR: [422, 590], CORRER: [385, 430],
+    DISPARAR: [472, 299], DISPARO_CARGADO: [487, 333],
+    HABILIDAD: [388, 227], DANO: [355, 497], MUERTE: [300, 1050]
+  };
+  /* FASE D.2 · Mano de APOYO medida sobre el mismo lienzo 560x1130 de
+     FASE C, con cuadricula de verificacion (la primera pasada automatica
+     marcaba el hombro; estos son los extremos reales del brazo contrario,
+     comprobados visualmente sobre los 8 PNG). MUERTE es inerte: el motor
+     no dibuja arma en death/roll (noWeapon). */
+  var P3_HANDSUP_PX = {
+    IDLE: [165, 655], CAMINAR: [190, 640], CORRER: [340, 500],
+    DISPARAR: [400, 370], DISPARO_CARGADO: [385, 365],
+    HABILIDAD: [390, 640], DANO: [320, 490], MUERTE: [220, 1020]
+  };
+  /* Secuencia por defecto de cada clave del motor, para calibrar las poses
+     que aun no han pasado por el render de este tick. */
+  var P3_POSE_SEQ = {
+    player_idle: 'IDLE', player_walk0: 'CAMINAR', player_walk1: 'CAMINAR',
+    player_walk2: 'CAMINAR', player_walk3: 'CAMINAR',
+    player_fire: 'DISPARAR', player_fire2: 'DISPARO_CARGADO',
+    player_firehip: 'DISPARAR', player_hit: 'DANO',
+    player_roll: 'CORRER', player_death: 'MUERTE', player_boost: 'HABILIDAD'
+  };
+
+  var P3_BY_NAME = {}, P3_POSE_BY_KEY = {}, P3_HAND_ARRAYS = {};
+  P3_ASSETS.forEach(function (a) { P3_BY_NAME[a.name] = a; });
+  P3_POSES.forEach(function (p) { P3_POSE_BY_KEY[p.key] = p; });
+  var P3_IMAGES = {};       /* nombre -> Image 560x1130 de FASE C */
+  var P3_CANVAS = {};       /* poseKey -> canvas derivado, mismo registro */
+  var P3_ORIGINALS = {};    /* imagen previa, conservada para QA A/B */
+  var P3_SEQUENCES = {};    /* estado de diseno -> [nombres de frame] */
+  var p3Current = null, p3Ready = false, p3Hooked = false, p3Anim = null;
+
+  function p3Register() {
+    var reg = window.__HD_ASSETS && window.__HD_ASSETS.images;
+    if (!reg) return false;
+    P3_POSES.forEach(function (p) {
+      var cnv = document.createElement('canvas');
+      cnv.width = Math.round(p.W);
+      cnv.height = p.H;
+      /* El render lee naturalWidth/naturalHeight/complete. Un canvas es
+         drawable; estos getters lo hacen indistinguible de un Image para
+         ensureHdImg(), getCleanWalkLower() y g.drawImage(). */
+      Object.defineProperty(cnv, 'naturalWidth',
+        { configurable: true, get: function () { return cnv.width; } });
+      Object.defineProperty(cnv, 'naturalHeight',
+        { configurable: true, get: function () { return cnv.height; } });
+      Object.defineProperty(cnv, 'complete',
+        { configurable: true, get: function () { return p3Ready; } });
+      P3_CANVAS[p.key] = cnv;
+      if (Object.prototype.hasOwnProperty.call(reg, p.key)) {
+        P3_ORIGINALS[p.key] = reg[p.key];
+      }
+      reg[p.key] = cnv;                 /* MISMO registro que ensureHdImg */
+      if (window.__HD_EXTRA) window.__HD_EXTRA[p.path] = cnv;
+    });
+    return true;
+  }
+
+  /* Pinta el frame activo en los 12 canvas. f = min(W/sw, H/sh) conserva
+     el aspecto SIEMPRE; dx centra el cuerpo y dy deja el pie en el borde
+     inferior del canvas, que es el footGroundY del motor. */
+  function p3Draw(name) {
+    var im = P3_IMAGES[name], a = P3_BY_NAME[name];
+    if (!im || !a) return;
+    P3_POSES.forEach(function (p) {
+      var cnv = P3_CANVAS[p.key];
+      if (!cnv) return;
+      var ctx = cnv.getContext('2d');
+      ctx.clearRect(0, 0, cnv.width, cnv.height);
+      var f = Math.min(cnv.width / a.sw, cnv.height / a.sh);
+      var dx = cnv.width / 2 - P3_CX * f;
+      var dy = cnv.height - P3_GROUND * f;
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(im, dx, dy, P3_W * f, P3_H * f);
+    });
+    /* FASE D.2 · Mano de APOYO en la referencia anatomica real.
+       El render de armas articula el antebrazo de apoyo recortando
+       hdImages.player_fire2 en (sx=55, sy=20, sw=29, sh=10) y lo estira
+       hasta ov.sup (it(), getOrientedWeaponDrawable). Con el arte FASE C
+       escalado por p3Draw, esa region cae fuera del personaje: el brazo
+       salia vacio. Se rellena SOLO esa ventana con el antebrazo/mano de
+       apoyo medido en el PNG original, en el MISMO registro de imagenes,
+       usando las mismas coordenadas del lienzo 560x1130. No se crea otro
+       asset, ni otro registro, ni otra transformacion. */
+    var supCnv = P3_CANVAS.player_fire2, sup = P3_HANDSUP_PX[name];
+    if (supCnv && sup && im) {
+      var sx = Math.max(0, Math.min(P3_W - 60, sup[0] - 30));
+      var sy = Math.max(0, Math.min(P3_H - 22, sup[1] - 11));
+      supCnv.getContext('2d').drawImage(im, sx, sy, 60, 22, 55, 20, 29, 10);
+    }
+  }
+
+  /* Arquitectura de secuencias: hoy devuelve el unico frame. Cuando un
+     estado tenga N fotogramas, basta con poblar SEQUENCES[name] y elegir
+     aqui el indice por stridePhase / stateTime / walkFrame; los setters
+     ya notifican cada tick, asi que no hay que rehacer la integracion. */
+  function p3Resolve(name, pa) {
+    var seq = P3_SEQUENCES[name] || P3_SEQUENCES.IDLE || ['IDLE'];
+    var idx = 0;
+    /* if (seq.length > 1) idx = Math.floor(((pa && pa.stridePhase) || 0) * seq.length) % seq.length; */
+    return seq[idx];
+  }
+
+  /* FASE D.2 · Convierte CUALQUIER punto medido del asset FASE C
+     (mano dominante o mano de apoyo) a coordenadas NATIVAS del motor:
+     mismas f, dx y dy que p3Draw, incluido el redondeo del ancho del
+     canvas. Una sola transformacion para las dos manos: no hay una
+     segunda fuente de verdad geometrica. */
+  function p3HandPoint(kind, name, key) {
+    var p = P3_POSE_BY_KEY[key], a = P3_BY_NAME[name];
+    var table = kind === 'sup' ? P3_HANDSUP_PX : P3_HAND_PX;
+    var h = table[name];
+    if (!p || !a || !h) return null;
+    var W = Math.round(p.W), H = p.H;
+    var f = Math.min(W / a.sw, H / a.sh);
+    var dx = W / 2 - P3_CX * f;
+    var dy = H - P3_GROUND * f;
+    return [+(dx + h[0] * f).toFixed(2), +(dy + h[1] * f).toFixed(2)];
+  }
+  function p3HandDom(name, key) { return p3HandPoint('dom', name, key); }
+  function p3HandSup(name, key) { return p3HandPoint('sup', name, key); }
+
+  /* Separacion real entre las dos manos del arte nuevo, en px nativos.
+     El agarre secundario del arma se dibuja en it() a
+     (r.hd.sup - r.hd.grip) * len * 95 px de la empuñadura; weaponRig.table()
+     expone grip/support/lenFrac, asi que la comparacion se hace contra la
+     fuente REAL del motor, no contra valores copiados. */
+  function p3SupportGap(name, key) {
+    var d = p3HandDom(name, key), s = p3HandSup(name, key);
+    if (!d || !s) return null;
+    return +Math.hypot(d[0] - s[0], d[1] - s[1]).toFixed(2);
+  }
+
+  function p3SupportAudit(weaponId) {
+    var rig = window.DMO && window.DMO.weaponRig, pa = p3Anim;
+    if (!rig || !pa || typeof rig.table !== 'function') return null;
+    var name = p3Resolve(STATE_SEQUENCE[pa.state] || 'IDLE', pa);
+    var key = pa.upperPose || 'player_idle';
+    var gap = p3SupportGap(name, key);
+    if (gap === null) return null;
+    var t = null;
+    try { t = rig.table().filter(function (x) { return x.id === weaponId; })[0]; }
+    catch (e) { return null; }
+    if (!t || t.support === null) return { weapon: weaponId, twoHanded: false,
+      handDom: p3HandDom(name, key), handSup: p3HandSup(name, key),
+      spriteGapPx: gap };
+    /* lenFrac del arma * canonH(95) convierte la fraccion a px del render */
+    var weaponGap = +((t.support - t.grip) * t.lenFrac * 95).toFixed(2);
+    return { weapon: weaponId, twoHanded: true,
+      handDom: p3HandDom(name, key), handSup: p3HandSup(name, key),
+      spriteGapPx: gap, weaponGripGapPx: weaponGap,
+      deviationPx: +(weaponGap - gap).toFixed(2),
+      source: 'weaponRig.table().support/grip/lenFrac' };
+  }
+
+  /* FASE D.2 · Precaptura de las 12 referencias anatomicas VIVAS.
+     pAnim.renderNow() ejecuta el Pf() real con la pose que le indiquemos;
+     al terminar, gripCheck().manoNativa apunta al handDom de ESA pose
+     (ut._hnNative = handFrame.anat.handDom). Se hace una sola vez, durante
+     el arranque, restaurando upperPose/forcedState al salir: no se fuerza
+     ningun estado visible ni se altera la maquina de estados.
+     Sin esto, un cambio de pose dejaba un frame con la calibracion de la
+     pose anterior (defecto de FASE D.1). */
+  function p3CaptureAnatomy() {
+    var rig = window.DMO && window.DMO.weaponRig, pa = p3Anim;
+    if (!rig || !pa || typeof pa.renderNow !== 'function' ||
+        typeof rig.gripCheck !== 'function') return 0;
+    var savedPose = pa.upperPose, savedState = pa.state,
+        savedForced = pa.forcedState, savedAim = pa.forcedAimAngle;
+    var n = 0;
+    try {
+      P3_POSES.forEach(function (p) {
+        try {
+          pa.upperPose = p.key;
+          pa.renderNow();
+          var g = rig.gripCheck();
+          if (g && g.ok && Array.isArray(g.manoNativa)) {
+            P3_HAND_ARRAYS[p.key] = g.manoNativa; n++;
+          }
+        } catch (e) { /* pose no dibujable en este contexto: se omite */ }
+      });
+    } finally {
+      pa.upperPose = savedPose;
+      pa.state = savedState;
+      pa.forcedState = savedForced;
+      pa.forcedAimAngle = savedAim;
+    }
+    return n;
+  }
+
+  /* Recalibra ANATOMY_SPINE[pose].handDom SIN tocar el HTML ni el IIFE.
+     DMO.weaponRig.gripCheck() devuelve en `manoNativa` la REFERENCIA viva
+     al array handDom de la pose (ut._hnNative = handFrame.anat.handDom).
+     D.2: la pose ACTIVA se toma de pAnim.upperPose (ya actualizado por
+     update() en este mismo tick), NO de g.pose, que es el frame anterior.
+     Asi desaparece el frame desfasado en las transiciones rapidas.
+     No se cambia aimAngle, ni ut.muzzleWorld, ni estadisticas. */
+  function p3CalibrateHand() {
+    var rig = window.DMO && window.DMO.weaponRig, pa = p3Anim;
+    if (!rig || typeof rig.gripCheck !== 'function' || !pa) return 0;
+    var g = null;
+    try { g = rig.gripCheck(); } catch (e) { g = null; }
+    if (g && g.ok && Array.isArray(g.manoNativa) && g.pose) {
+      if (!P3_HAND_ARRAYS[g.pose]) P3_HAND_ARRAYS[g.pose] = g.manoNativa;
+    }
+    var name = p3Resolve(STATE_SEQUENCE[pa.state] || 'IDLE', pa);
+    var active = pa.upperPose || 'player_idle';
+    var n = 0;
+    Object.keys(P3_HAND_ARRAYS).forEach(function (k) {
+      var seq = (k === active) ? name : (P3_POSE_SEQ[k] || name);
+      var hd = p3HandDom(seq, k), arr = P3_HAND_ARRAYS[k];
+      if (!hd || !arr) return;
+      arr[0] = hd[0]; arr[1] = hd[1]; n++;
+    });
+    return n;
+  }
+
+  function p3Select() {
+    var pa = p3Anim;
+    if (!pa) return;
+    var name = p3Resolve(STATE_SEQUENCE[pa.state] || 'IDLE', pa);
+    if (name !== p3Current) { p3Draw(name); p3Current = name; }
+    p3CalibrateHand();
+  }
+
+  /* Enganche minimo sobre el unico objeto publico del protagonista.
+     state / stridePhase / walkFrame: pAnim los escribe en cada tick, asi
+     que el selector queda sincronizado con el estado del motor.
+     waistSplitActive: flag unicamente VISUAL de Pf(); se recalcula en
+     cada tick y aqui se fija a false para usar la rama full-body. */
+  function p3HookAnim(pa) {
+    function notify(prop, forceValue) {
+      var v = pa[prop];
+      Object.defineProperty(pa, prop, {
+        configurable: true, enumerable: true,
+        get: function () { return v; },
+        set: function (n) {
+          v = (forceValue === undefined) ? n : forceValue;
+          if (p3Ready) { try { p3Select(); } catch (e) {} }
+        }
+      });
+    }
+    notify('state');
+    /* D.2: update() escribe upperPose DESPUES de state. Sin este setter,
+       el cambio de estado recalibraba con la pose del frame anterior y
+       dejaba un frame con el handDom viejo (salto del arma). Escuchando
+       upperPose la calibracion ocurre en el mismo tick, sin retardos ni
+       suavizados artificiales. */
+    notify('upperPose');
+    notify('stridePhase');
+    notify('walkFrame');
+    notify('waistSplitActive', false);
+    pa.waistSplitActive = false;
+    p3Hooked = true;
+  }
+
+  function p3Activate() {
+    var reg = window.__HD_ASSETS && window.__HD_ASSETS.images;
+    var pa = window.DMO && window.DMO.playerAnim;
+    if (!reg || !pa) return false;
+    if (!p3Register()) return false;
+    p3Anim = pa;
+    p3Ready = true;
+    p3Draw('IDLE');
+    p3Current = 'IDLE';
+    if (!p3Hooked) p3HookAnim(pa);
+    /* D.2: capturar las 12 referencias vivas ANTES del primer tick evita
+       el frame desfasado de D.1 en cualquier transicion. */
+    var captured = p3CaptureAnatomy();
+    p3Select();
+    st.player = {
+      version: 'tanda03-faseD.2', ready: true, appliedAt: Date.now(),
+      anatomyCaptured: captured,
+      assets: P3_ASSETS.length, poses: P3_POSES.length,
+      sequenceSlots: Object.keys(P3_SEQUENCES).length,
+      loader: 'window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()',
+      hook: 'window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive'
+    };
+    return true;
+  }
+
+  function p3Boot() {
+    var pending = P3_ASSETS.length;
+    P3_ASSETS.forEach(function (a, i) {
+      var rec = { id: 'P' + (i < 9 ? '0' : '') + (i + 1),
+                  file: BASE3 + a.file, expected: [P3_W, P3_H],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          P3_IMAGES[a.name] = im;
+          P3_SEQUENCES[a.name] = [a.name];   /* 1 frame; ampliable a N */
+        }
+        if (--pending === 0) {
+          if (!p3Activate()) err('P00', 'no se pudo activar el protagonista');
+        }
+      });
+    });
+  }
+
+  var p3Tries = 0;
+  (function p3Poll() {
+    if (window.__HD_ASSETS && window.__HD_ASSETS.images &&
+        window.DMO && window.DMO.playerAnim) { p3Boot(); return; }
+    if (++p3Tries > 200) {
+      err('P00', 'DMO.playerAnim no disponible tras 10 s');
+      return;
+    }
+    setTimeout(p3Poll, 50);
+  })();
+
+  /* QA tecnica breve + A/B sin recargar. No forma parte del render. */
+  function player() {
+    var pa = p3Anim || (window.DMO && window.DMO.playerAnim);
+    var reg = window.__HD_ASSETS && window.__HD_ASSETS.images;
+    return {
+      version: 'tanda03-faseD.2',
+      ready: p3Ready, hooked: p3Hooked,
+      engineState: pa ? pa.state : null,
+      sequence: STATE_SEQUENCE[pa ? pa.state : 'idle'] || 'IDLE',
+      frame: p3Current,
+      waistSplitActive: pa ? pa.waistSplitActive : null,
+      sequences: Object.keys(P3_SEQUENCES).map(function (k) {
+        return { state: k, frames: P3_SEQUENCES[k].slice() };
+      }),
+      poses: P3_POSES.map(function (p) {
+        var cnv = P3_CANVAS[p.key];
+        return { key: p.key, expected: [Math.round(p.W), p.H],
+                 natural: cnv ? [cnv.width, cnv.height] : null,
+                 registered: !!reg && reg[p.key] === cnv,
+                 complete: cnv ? cnv.complete : false };
+      }),
+      originalsPreserved: Object.keys(P3_ORIGINALS).length,
+      handCalibration: {
+        via: 'DMO.weaponRig.gripCheck().manoNativa -> ANATOMY_SPINE[pose].handDom',
+        posesCaptured: Object.keys(P3_HAND_ARRAYS).length,
+        sync: 'pAnim.upperPose del tick actual (sin frame desfasado)',
+        active: (function () {
+          var pa = p3Anim;
+          if (!pa) return null;
+          var name = p3Resolve(STATE_SEQUENCE[pa.state] || 'IDLE', pa);
+          var key = pa.upperPose || 'player_idle';
+          var wid = (window.DMO && window.DMO.weaponRig &&
+                     window.DMO.weaponRig.info) ?
+                     (function () { try { return window.DMO.weaponRig.info().equipped; }
+                       catch (e) { return null; } })() : null;
+          return { state: pa.state, pose: key, sequence: name,
+                   handDom: p3HandDom(name, key),
+                   handSup: p3HandSup(name, key),
+                   support: wid ? p3SupportAudit(wid) : null };
+        })()
+      },
+      errors: (st.playerErrors || []).slice(),
+      note: 'Un frame por estado. aimAngle, facingLeft, armas it(back/front), '
+          + 'footGroundY, sombra y orden de profundidad permanecen en Pf().',
+      limitations: 'ANATOMY_SPINE[].handSup no tiene ningun consumo en el '
+          + 'HTML activo (0 referencias fuera de su declaracion) y no es '
+          + 'alcanzable sin modificar el HTML, prohibido en esta fase. La '
+          + 'referencia anatomica real que SI controla este pack es '
+          + 'hdImages.player_fire2: el render de armas recorta de ella el '
+          + 'antebrazo de apoyo en (55,20,29,10) hasta ov.sup; D.2 la '
+          + 'rellena con la mano medida en FASE C (282/290 px con alfa) '
+          + 'sin segundo registro ni asset nuevo. En este build ese '
+          + 'recorte no se ejecuta (0 drawImage de 9 args): la mano de '
+          + 'apoyo visible es la procedural de it() desde r.hd.sup. '
+          + 'Desviacion medida en DISPARAR (manos juntas) frente al agarre '
+          + 'secundario de armas 2M: 14.77-16.90 px; no corregible sin '
+          + 'regenerar PNG o tocar arsenal/HTML. pAnim.update() solo emite '
+          + 'player_fire / player_firehip: player_fire2 no se activa como '
+          + 'upperPose. death/dodge no dibujan arma.'
+    };
+  }
+
+  function playerRestore() {
+    var reg = window.__HD_ASSETS && window.__HD_ASSETS.images;
+    if (!reg) return 0;
+    var n = 0;
+    P3_POSES.forEach(function (p) {
+      if (Object.prototype.hasOwnProperty.call(P3_ORIGINALS, p.key)) {
+        reg[p.key] = P3_ORIGINALS[p.key]; n++;
+      }
+    });
+    return n;
+  }
+
+  function playerApply() {
+    var reg = window.__HD_ASSETS && window.__HD_ASSETS.images;
+    if (!reg) return 0;
+    var n = 0;
+    P3_POSES.forEach(function (p) {
+      if (P3_CANVAS[p.key]) { reg[p.key] = P3_CANVAS[p.key]; n++; }
+    });
+    return n;
+  }
+
   window.DMO_ART_PACK = Object.freeze({
     state: state, integrity: integrity, architecture: architecture,
     restore: restore, apply: apply,
+    player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }
   });
