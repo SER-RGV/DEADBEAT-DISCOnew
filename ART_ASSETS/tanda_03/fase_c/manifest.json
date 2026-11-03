@@ -1,0 +1,551 @@
+{
+  "tanda": "03",
+  "fase": "C",
+  "status": "FASE C CERRADA - 8 poses clave, lienzo canonico compartido, continuidad medida; NO integradas en el juego",
+  "purpose": "Un asset individual por familia de animacion. Poses CLAVE de diseno, no una secuencia de N fotogramas por familia: el limite es 10 assets por tanda y la secuenciacion real depende del controlador del motor (FASE D).",
+  "identity_reference": "ART_ASSETS/tanda_03/master_full_body.png",
+  "orientation_reference": "ART_ASSETS/tanda_03/fase_b/SE.png",
+  "engine_states_source": "ART_AUDIT/player_render_audit.json (STATE_PRIORITIES)",
+  "preparation": "ART_TOOLS/prepare_tanda_03_fase_c.py",
+  "canvas": {
+    "width": 560,
+    "height": 1130,
+    "ground_y": 1130,
+    "anchor": "bottom-center",
+    "reason": "Todos los frames comparten coordenadas, escala y punto de apoyo: es la base de la continuidad."
+  },
+  "max_assets_per_tanda": 10,
+  "assets_in_this_tanda": 8,
+  "continuity_qa": {
+    "frames_with_support_on_ground": "8/8",
+    "upright_silhouette_height_spread_px": 5,
+    "upright_heights": {
+      "IDLE": 1128,
+      "CAMINAR": 1125,
+      "CORRER": 1127,
+      "DISPARAR": 1124,
+      "DISPARO_CARGADO": 1125,
+      "HABILIDAD": 1129,
+      "DANO": 1126
+    },
+    "death_is_horizontal_low_silhouette": true,
+    "all_perimeters_transparent": true,
+    "no_bright_neutral_halos": true,
+    "all_rgba_with_real_alpha": true,
+    "internal_alpha_holes_repaired": 5,
+    "white_specks_inpainted": 25,
+    "metric_note": "light_neutral_opaque_px cuenta piel/tatuajes claros legitimos, por eso NO se usa como criterio de cierre; se comprueba en su lugar que el perimetro quede totalmente transparente.",
+    "transition_order": [
+      "IDLE",
+      "CAMINAR",
+      "CORRER",
+      "DISPARAR",
+      "DISPARO_CARGADO",
+      "HABILIDAD",
+      "DANO",
+      "MUERTE"
+    ],
+    "note": "La continuidad se mide aqui por lienzo, suelo, escala y silueta. La secuenciacion REAL de fotogramas sigue NO VERIFICADA hasta FASE D con el controlador del motor."
+  },
+  "known_deviations": [
+    "CORRER y HABILIDAD se generaron con fondo blanco o mancha blanca; se elimino en el pipeline de alfa con deteccion de claros neutros conectados al borde (sin regenerar ni usar reflejos).",
+    "MUERTE se regenero una vez: la primera salida era una figura de pie con los ojos cerrados, no un cuerpo abatido."
+  ],
+  "not_generated": [
+    "N fotogramas por familia",
+    "spritesheet definitivo",
+    "integracion en HTML",
+    "cambios en el render",
+    "segundo sistema de animacion"
+  ],
+  "items": [
+    {
+      "id": "IDLE",
+      "engine_state": "idle",
+      "state_priority": 10,
+      "description": "Postura neutral de pie, frame cero de la serie",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/IDLE.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/IDLE.png",
+      "source_size": [
+        480,
+        2119
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          11,
+          480,
+          2119
+        ],
+        "scaled_size": [
+          257,
+          1130
+        ],
+        "scale_factor": 0.53605
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          0,
+          0,
+          0
+        ],
+        "light_pixels_in_source": 815,
+        "alpha_soft_edge_px": 776,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 706,
+        "internal_holes_filled": 1,
+        "hole_pixels_restored": 2871,
+        "white_specks_repaired": 11,
+        "white_speck_pixels_restored": 44
+      },
+      "continuity": {
+        "head_row": 2,
+        "support_row": 1129,
+        "silhouette_height": 1128,
+        "silhouette_width": 257,
+        "center_of_mass_y": 537.1,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 41696
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "6cfef72542f8033d29bc06f233e56451bd63f242ec26cb67f1f09caba53a842f",
+      "bytes": 347628
+    },
+    {
+      "id": "CAMINAR",
+      "engine_state": "walk",
+      "state_priority": 15,
+      "description": "Paso medio, pierna izquierda adelante, contrabalanceo de brazos",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/CAMINAR.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/CAMINAR.png",
+      "source_size": [
+        480,
+        2119
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          162,
+          480,
+          1850
+        ],
+        "scaled_size": [
+          321,
+          1130
+        ],
+        "scale_factor": 0.66943
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          3,
+          3,
+          2
+        ],
+        "light_pixels_in_source": 592,
+        "alpha_soft_edge_px": 1602,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 592,
+        "internal_holes_filled": 0,
+        "hole_pixels_restored": 0,
+        "white_specks_repaired": 3,
+        "white_speck_pixels_restored": 8
+      },
+      "continuity": {
+        "head_row": 2,
+        "support_row": 1126,
+        "silhouette_height": 1125,
+        "silhouette_width": 319,
+        "center_of_mass_y": 510.4,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 42845
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "33eb77e0f2e8e7fbb5d3df35d1718c320e7e4391aeef5e50ba438662cd392fb2",
+      "bytes": 377093
+    },
+    {
+      "id": "CORRER",
+      "engine_state": "run",
+      "state_priority": 20,
+      "description": "Sprint, torso inclinado, rodilla alta, cabello hacia atras",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/CORRER.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/CORRER.png",
+      "source_size": [
+        480,
+        2119
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          0,
+          480,
+          2022
+        ],
+        "scaled_size": [
+          268,
+          1130
+        ],
+        "scale_factor": 0.55885
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          27,
+          25,
+          31
+        ],
+        "light_pixels_in_source": 366737,
+        "alpha_soft_edge_px": 4618,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 1112,
+        "internal_holes_filled": 2,
+        "hole_pixels_restored": 7943,
+        "white_specks_repaired": 4,
+        "white_speck_pixels_restored": 408
+      },
+      "continuity": {
+        "head_row": 0,
+        "support_row": 1126,
+        "silhouette_height": 1127,
+        "silhouette_width": 268,
+        "center_of_mass_y": 499.2,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 46378
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "74df389227ae4bdb2090e6fce5082f9cf1f2c282634f4c081a0010eb8bc045e6",
+      "bytes": 386875
+    },
+    {
+      "id": "DISPARAR",
+      "engine_state": "shoot",
+      "state_priority": 60,
+      "description": "Apoyo estable, ambos brazos al frente empuñando arma INVISIBLE",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/DISPARAR.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/DISPARAR.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          287,
+          40,
+          718,
+          1169
+        ],
+        "scaled_size": [
+          431,
+          1130
+        ],
+        "scale_factor": 1.00089
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          7,
+          7,
+          4
+        ],
+        "light_pixels_in_source": 376,
+        "alpha_soft_edge_px": 732,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 376,
+        "internal_holes_filled": 1,
+        "hole_pixels_restored": 249,
+        "white_specks_repaired": 1,
+        "white_speck_pixels_restored": 1
+      },
+      "continuity": {
+        "head_row": 2,
+        "support_row": 1125,
+        "silhouette_height": 1124,
+        "silhouette_width": 427,
+        "center_of_mass_y": 528.0,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 48351
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "bcb9307f7c8520134a830a0c81c16b1ccba0c310dcc32f956effcde368c83efc",
+      "bytes": 406058
+    },
+    {
+      "id": "DISPARO_CARGADO",
+      "engine_state": "charged",
+      "state_priority": 65,
+      "description": "Misma familia de disparo con mayor tension y apertura de piernas",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/DISPARO_CARGADO.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/DISPARO_CARGADO.png",
+      "source_size": [
+        656,
+        1632
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          0,
+          656,
+          1625
+        ],
+        "scaled_size": [
+          456,
+          1130
+        ],
+        "scale_factor": 0.69538
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          0,
+          1,
+          1
+        ],
+        "light_pixels_in_source": 839,
+        "alpha_soft_edge_px": 1226,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 839,
+        "internal_holes_filled": 0,
+        "hole_pixels_restored": 0,
+        "white_specks_repaired": 2,
+        "white_speck_pixels_restored": 2
+      },
+      "continuity": {
+        "head_row": 2,
+        "support_row": 1126,
+        "silhouette_height": 1125,
+        "silhouette_width": 455,
+        "center_of_mass_y": 517.9,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 52087
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "b4af7f4cec82088250723ce5b4073ae703bbbb680fe214292257b3cd5e170573",
+      "bytes": 446725
+    },
+    {
+      "id": "HABILIDAD",
+      "engine_state": "ability",
+      "state_priority": 70,
+      "description": "Brazo derecho levantado, mano abierta, sin efectos",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/HABILIDAD.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/HABILIDAD.png",
+      "source_size": [
+        480,
+        2119
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          0,
+          480,
+          2119
+        ],
+        "scaled_size": [
+          256,
+          1130
+        ],
+        "scale_factor": 0.53327
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          0,
+          0,
+          0
+        ],
+        "light_pixels_in_source": 130772,
+        "alpha_soft_edge_px": 0,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 2155,
+        "internal_holes_filled": 0,
+        "hole_pixels_restored": 0,
+        "white_specks_repaired": 2,
+        "white_speck_pixels_restored": 2
+      },
+      "continuity": {
+        "head_row": 1,
+        "support_row": 1129,
+        "silhouette_height": 1129,
+        "silhouette_width": 256,
+        "center_of_mass_y": 558.2,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 37734
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "b959a8b1ab41f8cbb97444737186575857627e7c024e06c9f92e8d4357396b92",
+      "bytes": 336986
+    },
+    {
+      "id": "DANO",
+      "engine_state": "hurt",
+      "state_priority": 80,
+      "description": "Retroceso por impacto, torso arqueado, mano al pecho",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/DANO.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/DANO.png",
+      "source_size": [
+        480,
+        2119
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          0,
+          19,
+          480,
+          2091
+        ],
+        "scaled_size": [
+          262,
+          1130
+        ],
+        "scale_factor": 0.54537
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          0,
+          0,
+          0
+        ],
+        "light_pixels_in_source": 955,
+        "alpha_soft_edge_px": 1071,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 955,
+        "internal_holes_filled": 1,
+        "hole_pixels_restored": 2790,
+        "white_specks_repaired": 2,
+        "white_speck_pixels_restored": 222
+      },
+      "continuity": {
+        "head_row": 1,
+        "support_row": 1126,
+        "silhouette_height": 1126,
+        "silhouette_width": 262,
+        "center_of_mass_y": 512.7,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 39603
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "898734553cbcdad0b4ae5f3e0565916437f1d8d4e1989113e10d7e6e3318412b",
+      "bytes": 353139
+    },
+    {
+      "id": "MUERTE",
+      "engine_state": "death",
+      "state_priority": 100,
+      "description": "Cuerpo abatido en horizontal, ojos cerrados, silueta ancha y baja",
+      "source": "ART_ASSETS/tanda_03/fase_c/_source/MUERTE.png",
+      "file": "ART_ASSETS/tanda_03/fase_c/MUERTE.png",
+      "source_size": [
+        1792,
+        592
+      ],
+      "output_size": [
+        560,
+        1130
+      ],
+      "mode": "RGBA",
+      "canvas_shared": "560x1130, suelo en y=1130, anclaje abajo-centro",
+      "geometry": {
+        "raw_bbox_in_source": [
+          2,
+          0,
+          1790,
+          581
+        ],
+        "scaled_size": [
+          560,
+          182
+        ],
+        "scale_factor": 0.3132
+      },
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_metrics": {
+        "bg_dark": [
+          1,
+          1,
+          1
+        ],
+        "light_pixels_in_source": 393,
+        "alpha_soft_edge_px": 0,
+        "bright_halo_candidates_px": 0,
+        "light_neutral_opaque_px": 393,
+        "internal_holes_filled": 0,
+        "hole_pixels_restored": 0,
+        "white_specks_repaired": 0,
+        "white_speck_pixels_restored": 0
+      },
+      "continuity": {
+        "head_row": 948,
+        "support_row": 1128,
+        "silhouette_height": 181,
+        "silhouette_width": 558,
+        "center_of_mass_y": 1043.5,
+        "support_aligned_to_canvas_bottom": true,
+        "opaque_sample_px": 12073
+      },
+      "perimeter_clear": true,
+      "pivot_proposed": "bottom-center (x=280, y=1130)",
+      "sha256": "a0f3f87e5cdc4183ea7c2c2d06d4fef8c9cd45f54ead08c9888239201dd5f332",
+      "bytes": 134152
+    }
+  ]
+}
