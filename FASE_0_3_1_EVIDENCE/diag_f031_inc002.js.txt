@@ -1,0 +1,93 @@
+const {launch,newLog,shot,newSession,load,bootToHub,snap}=require('./f031_common');
+const fs=require('fs'); const OUT='/home/user/DEADBEAT_DISCO/FASE_0_3_1_EVIDENCE'; fs.mkdirSync(OUT,{recursive:true});
+
+async function floorState(p){return p.evaluate(()=>{try{return window.DMO.floorDrop.state()}catch(e){return 'ERR:'+e.message}})}
+async function run(browser,idx,opts){
+ const log={run:idx,forcedFrames:!!opts.forcedFrames,started:new Date().toISOString(),
+  console:[],pageerrors:[],requests:[],requestfailed:[],httpErrors:[],frames:[],crashes:[],steps:[]};
+ const {ctx,page}=await newSession(browser,log);
+ log.loadMs=await load(page,null);
+ await bootToHub(page);
+ log.initial=await snap(page);
+ log.initialFloor=await floorState(page);
+ await shot(page,`${OUT}/${idx===1?'05_run1_hub':'05_run'+idx+'_hub'}.png`).catch(()=>{});
+ log.action={api:'DMO_HUB.startCampaignFromHub(0)',at:Date.now()};
+ log.startCall=await page.evaluate(()=>String(window.DMO_HUB.startCampaignFromHub(0)));
+ const t0=Date.now(); let prevFrames=log.initial.frames;
+ log.trace=[]; let midShot=false; let completed=false; let completionMs=null;
+ for(let i=0;i<150;i++){
+  if(opts.forcedFrames){try{await page.evaluate(()=>window.DMO.debug.tick(0.016,30))}catch(e){}}
+  await page.waitForTimeout(500);
+  const s=await snap(page);
+  const f=await floorState(page);
+  const row={t:Date.now()-t0,poll:i+1,frames:s.frames,fps:+((s.frames-prevFrames)/0.5).toFixed(1),
+   hub:s.hub,zone:s.read.zone,running:s.read.running,
+   dungeon:s.dungeon,floorDrop:f,shotsFired:s.shotsFired,
+   bulletsCount:s.bulletsCount,waLen:s.waLen,
+   eventsCount:s.eventsCount,bodyClass:s.bodyClass};
+  prevFrames=s.frames;
+  log.trace.push(row);
+  if(!midShot&&row.t>=10000){midShot=true;await shot(page,`${OUT}/06_run${idx}_transition.png`).catch(()=>{})}
+  if(row.hub&&row.hub.location==='CAMPAIGN_ROOM'&&row.hub.inHub===false&&
+     row.hub.transitionLock===false&&row.hub.transitionsCompleted>=1){
+    completed=true;completionMs=row.t;log.completionRow=row;break;
+  }
+ }
+ log.completed=completed; log.durationMs=completionMs; log.polls=log.trace.length;
+ log.final=await snap(page);
+ log.finalFloor=await floorState(page);
+
+ // Comprobación de control recuperado (no basta con la animación / el cambio de location)
+ const px0=await page.evaluate(()=>{try{return window.DMO.debug.state().px}catch(e){return null}});
+ await page.keyboard.down('d'); await page.waitForTimeout(900); await page.keyboard.up('d');
+ await page.waitForTimeout(400);
+ const px1=await page.evaluate(()=>{try{return window.DMO.debug.state().px}catch(e){return null}});
+ log.control={movement:{px0,px1,delta:(px1!=null&&px0!=null)?px1-px0:null}};
+ const b=await snap(page);
+ await page.mouse.move(760,420); await page.mouse.down(); await page.waitForTimeout(700); await page.mouse.up();
+ await page.waitForTimeout(300);
+ const a=await snap(page);
+ log.control.shoot={beforeShots:b.shotsFired,afterShots:a.shotsFired,
+  deltaShots:(a.shotsFired??0)-(b.shotsFired??0),
+  beforeBullets:b.bulletsCount,afterBullets:a.bulletsCount,
+  deltaBullets:(a.bulletsCount??0)-(b.bulletsCount??0),
+  waLen:a.waLen,framesDelta:(a.frames??0)-(b.frames??0)};
+ await shot(page,`${OUT}/07_run${idx}_final.png`).catch(()=>{});
+ log.consoleErrors=log.console.filter(c=>c.type==='error');
+ log.exceptionCount=log.pageerrors.length;
+ log.errorSample=log.consoleErrors.slice(0,4);
+ await ctx.close();
+ return log;
+}
+(async()=>{
+ let browser; const all={started:new Date().toISOString(),runs:[]};
+ try{
+  browser=await launch();
+  for(const cfg of [{i:1,forced:false},{i:2,forced:false},{i:3,forced:false},{i:4,forced:true}]){
+   console.log(`\n===== EJECUCIÓN ${cfg.i} (forcedFrames=${cfg.forced}) =====`);
+   const r=await run(browser,cfg.i,{forcedFrames:cfg.forced});
+   all.runs.push(r);
+   const changes=[]; let prev=null;
+   for(const x of r.trace){
+    const k=[x.hub.location,x.hub.inHub,x.hub.transitionLock,x.hub.transitionsCompleted,
+      x.floorDrop&&x.floorDrop.phase,x.floorDrop&&x.floorDrop.stage].join('|');
+    if(k!==prev){changes.push({t:x.t,loc:x.hub.location,inHub:x.hub.inHub,lock:x.hub.transitionLock,
+      tc:x.hub.transitionsCompleted,phase:x.floorDrop&&x.floorDrop.phase,stage:x.floorDrop&&x.floorDrop.stage,
+      zone:x.zone,visited:x.dungeon&&x.dungeon.visited});prev=k}
+   }
+   console.log(' loadMs',r.loadMs,'start',r.startCall,'completed',r.completed,'durationMs',r.durationMs,
+     'polls',r.polls,'pageerrors',r.exceptionCount);
+   console.log(' cambios de estado:',JSON.stringify(changes));
+   console.log(' fps medio',+(r.trace.reduce((s,x)=>s+(x.fps||0),0)/r.trace.length).toFixed(1),
+     'min',Math.min(...r.trace.map(x=>x.fps||0)),'max',Math.max(...r.trace.map(x=>x.fps||0)));
+   console.log(' final hub',JSON.stringify(r.final.hub),'zone',r.final.read.zone,
+     'dungeon',JSON.stringify(r.final.dungeon));
+   console.log(' control',JSON.stringify(r.control));
+   console.log(' floor final',JSON.stringify(r.finalFloor).slice(0,300));
+  }
+  fs.writeFileSync(OUT+'/inc002_three_runs.json',JSON.stringify(all,null,2));
+  await browser.close();
+ }catch(e){console.log('FALLO:',e.message,(e.stack||'').split('\n').slice(0,14).join('\n'));
+  fs.writeFileSync(OUT+'/inc002_error.json',JSON.stringify(all,null,2));
+  if(browser)await browser.close().catch(()=>{});process.exit(1)}
+})();

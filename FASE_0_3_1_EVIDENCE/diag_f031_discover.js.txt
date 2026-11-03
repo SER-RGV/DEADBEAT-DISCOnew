@@ -1,0 +1,72 @@
+const {launch,attach,newLog}=require('./lib'); const fs=require('fs');
+const OUT='/home/user/DEADBEAT_DISCO/FASE_0_3_1_EVIDENCE'; fs.mkdirSync(OUT,{recursive:true});
+(async()=>{
+ const log=newLog(); let browser;
+ try{
+  browser=await launch();
+  const ctx=await browser.newContext({viewport:{width:1280,height:900}});
+  const page=await ctx.newPage(); attach(page,log);
+  const t0=Date.now();
+  await page.goto('http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html',{waitUntil:'load',timeout:180000});
+  await page.waitForTimeout(1600);
+  log.loadMs=Date.now()-t0;
+  log.api=await page.evaluate(()=>{
+   const W=window, out={};
+   const safe=(f)=>{try{return f()}catch(e){return 'ERR:'+e.message}};
+   out.DMOkeys=safe(()=>Object.keys(W.DMO||{}));
+   out.DMOdebugKeys=safe(()=>Object.keys(W.DMO.debug||{}));
+   out.DMOHUBkeys=safe(()=>Object.keys(W.DMO_HUB||{}));
+   out.DMOhubKeys=safe(()=>Object.keys(W.DMO.hub||{}));
+   out.hubState=safe(()=>W.DMO_HUB.state());
+   out.dbgStateKeys=safe(()=>Object.keys(W.DMO.debug.state()));
+   out.dbgState=safe(()=>{const s=W.DMO.debug.state(); const o={}; for(const k of Object.keys(s)){const v=s[k]; o[k]=(typeof v==='function'||typeof v==='object'&&v!==null)?String(typeof v):v} return o});
+   out.hubStateSrc=safe(()=>String(W.DMO_HUB.state).slice(0,2500));
+   out.dbgSetInputSrc=safe(()=>String(W.DMO.debug.setInput).slice(0,600));
+   out.testStats=safe(()=>{const t=W.DMO.testStats();return {shotsFired:t.shotsFired,shotsHit:t.shotsHit,balas:t.balas,kills:t.kills,elapsed:t.elapsed}});
+   out.readKeys=safe(()=>Object.keys(W.DMO.read()));
+   out.globals=safe(()=>Object.keys(W).filter(k=>/^(DMO|DDC|__)/.test(k)));
+   return out;
+  });
+  // Entrar en partida: portada -> ENTER -> ESC mantenido -> descenso
+  await page.mouse.click(640,450); await page.waitForTimeout(600);
+  await page.keyboard.press('Enter'); await page.waitForTimeout(900);
+  await page.keyboard.down('Escape'); await page.waitForTimeout(2800); await page.keyboard.up('Escape'); await page.waitForTimeout(600);
+  log.preStart=await page.evaluate(()=>({hub:window.DMO_HUB.state(),read:window.DMO.read()}));
+  log.startCall=await page.evaluate(()=>String(window.DMO_HUB.startCampaignFromHub(0)));
+  log.trace=[];
+  for(let i=0;i<90;i++){
+   await page.waitForTimeout(500);
+   const s=await page.evaluate(()=>{
+    const W=window, safe=(f)=>{try{return f()}catch(e){return 'ERR:'+e.message}};
+    return {h:safe(()=>W.DMO_HUB.state()),d:safe(()=>W.DMO_DUNGEON.state()),
+     read:safe(()=>W.DMO.read()),dbg:safe(()=>{const s=W.DMO.debug.state();return {balas:s.balas,enemies:s.enemies,px:s.px,py:s.py,round:s.round}}),
+     ts:safe(()=>{const t=W.DMO.testStats();return {shotsFired:t.shotsFired,balas:t.balas.n}})};
+   });
+   log.trace.push({t:i*500+500,h:s.h,d:{current:s.d.current,visited:(s.d.visited||[]).length,rooms:s.d.graph?.nodes?Object.keys(s.d.graph.nodes).length:null},
+    zone:s.read.zone,running:s.read.running,dbg:s.dbg,ts:s.ts});
+   if(s.h.location==='CAMPAIGN_ROOM'&&s.h.inHub===false&&s.h.transitionLock===false) break;
+  }
+  log.post=await page.evaluate(()=>{
+   const W=window,safe=(f)=>{try{return f()}catch(e){return 'ERR:'+e.message}};
+   return {hub:safe(()=>W.DMO_HUB.state()),dungeon:safe(()=>W.DMO_DUNGEON.state()),
+    dbg:safe(()=>{const s=W.DMO.debug.state();const o={};for(const k of Object.keys(s)){const v=s[k];o[k]=(typeof v==='function'||typeof v==='object'&&v!==null)?String(typeof v):v}return o}),
+    testStats:safe(()=>{const t=W.DMO.testStats();return {shotsFired:t.shotsFired,shotsHit:t.shotsHit,balas:t.balas,kills:t.kills}}),
+    bodyClass:safe(()=>document.body.className)};
+  });
+  log.consoleErrors=log.console.filter(c=>c.type==='error');
+  fs.writeFileSync(OUT+'/discover_runtime_api.json',JSON.stringify(log,null,2));
+  console.log('loadMs',log.loadMs,'startCall',log.startCall);
+  console.log('DMOkeys',JSON.stringify(log.api.DMOkeys));
+  console.log('DMOdebugKeys',JSON.stringify(log.api.DMOdebugKeys));
+  console.log('DMOHUBkeys',JSON.stringify(log.api.DMOHUBkeys));
+  console.log('hubState PRE',JSON.stringify(log.preStart.hub));
+  console.log('hubStateSrc',log.api.hubStateSrc.slice(0,1800));
+  console.log('dbgStateKeys',JSON.stringify(log.api.dbgStateKeys));
+  console.log('trace tail',JSON.stringify(log.trace.slice(-6)));
+  console.log('POST hub',JSON.stringify(log.post.hub));
+  console.log('POST dbg',JSON.stringify(log.post.dbg).slice(0,1200));
+  console.log('POST testStats',JSON.stringify(log.post.testStats));
+  console.log('errores',log.consoleErrors.length,'pageerrors',log.pageerrors.length);
+  await browser.close();
+ }catch(e){console.log('FALLO:',e.message,(e.stack||'').split('\n').slice(0,14).join('\n'));fs.writeFileSync(OUT+'/discover_error.json',JSON.stringify(log,null,2));if(browser)await browser.close().catch(()=>{});process.exit(1)}
+})();
