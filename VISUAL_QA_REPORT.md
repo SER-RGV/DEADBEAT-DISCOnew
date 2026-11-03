@@ -181,3 +181,39 @@ Inspección de `FASE_0_3_1_EVIDENCE/inc001_session.json` (traza primaria) y de l
 **Resumen: 12 APROBADO, 0 FALLIDO, 0 BLOQUEADO, 0 NO VERIFICADO en las pruebas.** La discrepancia de rama detectada para la entrega Git (ajena a la QA) se resolvió mediante autorización explícita del usuario: commit/push en la rama de sesión y PR hacia `arte-y-recursos`, sin merge.
 
 Diferencias de píxel (`visual_diff.json`): ANTES↔DESPUÉS 61,95 %, CONTROL↔DESPUÉS 60,17 %, puertas cerradas↔abiertas 4,96 %. `report.json`, `hashes.json` y las 12 capturas están en `ART_EVIDENCE/hub/tanda_01/`. Detalle completo, errores encontrados y limitaciones: `ART_TANDA_01_HUB_REPORT.md`.
+
+---
+
+## 11. HUB · Tanda 02 (2026-11-03) — batería A/B nueva e independiente
+
+> No se reutilizan los resultados de las secciones anteriores. Arnés: `ART_TOOLS/qa/validate_hub_tanda_02.js`. Clasificación: **APROBADO / FALLIDO / BLOQUEADO / NO VERIFICADO**.
+
+| Dato | Valor |
+|---|---|
+| Navegador | Chromium 131.0.6778.0 headless + `playwright-core` 1.58.2 |
+| Render / resolución | SwiftShader por software · 1280×900 |
+| Servidor | `0.0.0.0:8123`, raíz → `DEADBEAT_DISCO.ART.html` (HTTP 200) |
+| Diseño | **3 fases** sobre la misma build: ANTES = `hub2Restore()` antes de entrar; CONTROL = restore en caliente dentro del HUB; DESPUÉS = pack aplicado |
+| Cámara | Capturas principales de las 3 fases en el mismo punto (`teleport 1250,935`); 10 zonas idénticas en ANTES y DESPUÉS |
+| Instrumentación | solo lectura: `drawImage` / `createPattern` etiquetados, cajas de pantalla, orden de primera aparición, recuento de `<canvas>` |
+
+| # | Comprobación | Estado | Evidencia |
+|---|---|---|---|
+| 1 | Carga del HTML y del art pack | APROBADO | HTTP 200, `loadMs=1426`, `status=applied`, `hub2AppliedAtBoot=10` |
+| 2 | Carga e integración de 10 assets | APROBADO | 10 HTTP 200, `10/10 applied`, `exactSize`, `live`, `loaderResolves=1`, `originalsPreserved` |
+| 3 | Ausencia de errores JavaScript | APROBADO | 0 `pageerror`, 0 errores locales; 2 404 Cloudflare preexistentes clasificados por ruta |
+| 4 | Visibilidad real | APROBADO | 10/10 con `drawImage` real (20–2678 dibujos), 10/10 en pantalla |
+| 5 | Perspectiva / escala / pivote | APROBADO | `contain` sin deformar, cajas del motor medidas por asset |
+| 6 | Transparencias y bordes | APROBADO | 10/10 RGBA, esquinas limpias, halo ≤ 0,18 % |
+| 7 | Profundidad / capas / sin canvas nuevo | APROBADO | secuencia T01 idéntica en 3 fases; canvases base 27/27/27 |
+| 8 | Movimiento | APROBADO | `1250→1652` (Δ 402), mismo sentido en las 3 fases |
+| 9 | Colisiones, zonas, estaciones | APROBADO | `hubAudit` y 11 estaciones idénticos; bloqueo x=1795 (Δ 75) con tolerancia 0,01 px |
+| 10 | Transición y puertas | APROBADO | `r23`, `secured 0→1`, `doors_closed.png` / `doors_open.png` |
+| 11 | Interactivos existentes | APROBADO | `openStation('bar') → active='bar' → closeModal()`; sin interacción nueva |
+| 12 | Regresión + T01 + sala de campaña | APROBADO | T01 10/10, V5 100/100, T03 12 poses, disparo 0→4; `CAMPAIGN_ROOM` con `hub2Applied=10` y 0 errores |
+
+**Resumen: 12 APROBADO, 0 FALLIDO, 0 BLOQUEADO, 0 NO VERIFICADO.**
+
+**Incidencias reales investigadas (no ocultadas):** el primer arnés dio 9/12 por tres criterios propios erróneos (404 Cloudflare contados por host en vez de por ruta; suposición de que las capas cacheadas se dibujan después del suelo; igualdad exacta de Δ de movimiento en un bucle `rAF`), corregidos con mediciones y con una comprobación adicional de canvases. El canvas 28 de DESPUÉS es `canvas.hub-portrait-canvas` 72×72 creado por el modal `openStation('bar')` del propio juego (`canvas_probe.json`), no por el pack. Revisiones heredadas de T01 (`loaderResolves=0`, desviación 26,92 %, costura 12,57, 2 × 404) documentadas sin impacto y sin correcciones a ciegas.
+
+Diferencias de píxel: `visual_diff.json` (15 comparativas, umbral 12/canal): principal ANTES↔DESPUÉS 9,84 %, CONTROL↔DESPUÉS 12,59 %, ANTES↔CONTROL 3,60 %, arsenal 11,26 %, arcade 8,15 %, descenso 8,30 %, puertas 5,38 %. ANTES↔CONTROL no es 0 % por la animación continua del HUB. Hoja visual lado a lado: `comparativa_antes_despues.jpg`. Logs completos: `antes_runtime.json`, `control_runtime.json`, `despues_runtime_full.json`. Hashes: `hashes.json`. Informe: `ART_TANDA_02_HUB_REPORT.md`.

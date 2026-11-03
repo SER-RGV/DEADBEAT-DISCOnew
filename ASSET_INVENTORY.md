@@ -106,3 +106,26 @@ Nueva familia externa de 10 PNG en `ART_ASSETS/hub/tanda_01/` con sus 10 fuentes
 | HUB-10 | `hub_10_decoracion_ambiental.png` | 167×136 | RGBA | `hub_trophy_board_prop` | Decorativo |
 
 Evidencias: `ART_EVIDENCE/hub/tanda_01/`. Informe: `ART_TANDA_01_HUB_REPORT.md`. Hashes del cambio: `ART_EVIDENCE/hub/tanda_01/hashes.json`.
+
+---
+
+## 8. HUB · Tanda 02 (añadido 2026-11-03)
+
+Inventario de necesidades previo: `ART_AUDIT/hub_tanda_02_needs_inventory.json` (6 clases + `INTERACTIVO` superimpuesta). Auditoría visual: `ART_HUB_TANDA_02_AUDIT.md` con 10 capturas `audit_*.png` y `audit_runtime.json` (21 slots dibujados en el HUB, 118 claves V5, 6 zonas, 11 estaciones). Dimensiones **medidas** en el registro V5 del HUB, no estimadas.
+
+| ID | Archivo final | Dimensiones | Modo | Slot V5 | Función / ubicación | Clase |
+|---|---|---|---|---|---|---|
+| T02-01 | `hub_t02_01_arcade.png` | 264×239 | RGBA | `hub_arcade_shrine` | Recreativas, zona F1 (655,1210) | 2 + 5 |
+| T02-02 | `hub_t02_02_arsenal.png` | 360×253 | RGBA | `hub_arsenal_shrine` | Arsenal, zona D (590,845) | 2 + 5 |
+| T02-03 | `hub_t02_03_seals.png` | 244×237 | RGBA | `hub_seals_shrine` | Espejo de Sellos, zona F2 (1845,1210) | 2 + 5 |
+| T02-04 | `hub_t02_04_vending.png` | 100×152 | RGBA | `club_vending_machine_prop` | Expendedora este (2048,692), compartida | 2 |
+| T02-05 | `hub_t02_05_cooler.png` | 61×136 | RGBA | `club_water_cooler_prop` | Dispensador oeste (452,692), compartida | 2 |
+| T02-06 | `hub_t02_06_bench.png` | 256×198 | RGBA | `limbo_bench_prop` | Bancos del descenso (1037,1178) | 2 |
+| T02-07 | `hub_t02_07_planter.png` | 96×108 | RGBA | `club_neon_planter_prop` | 4 jardineras (966,614), compartida | 2 |
+| T02-08 | `hub_t02_08_liftpad.png` | 198×104 | RGBA | `descent_abyssal_lift_pad` | Plataforma de descenso, puertas de sala | 2 + 5 |
+| T02-09 | `hub_t02_09_ceiling_fixture.png` | 148×38 | RGBA | `wall_ceiling_neon_fixture` | Neón horizontal de techo/muro, capa cacheada | 2 |
+| T02-10 | `hub_t02_10_sconce.png` | 48×60 | RGBA | `club_wall_sconce_side` | Aplique lateral, capa de aristas cacheada | 2 |
+
+Cada fila tiene en `ART_ASSETS/hub/tanda_02/manifest.json`: fuente original (`_source/`), SHA-256, caja medida, anclaje, pivote, escala, clasificación, rol, transparencia, bordes y halo. T02-04 documenta `sourceCrop=[510,0,925,768]` para aislar una expendedora sin modificar la fuente.
+
+**Conservación:** los 10 assets, 10 fuentes, el manifiesto y las evidencias de la TANDA 01 permanecen intactos; no se movió ni renombró ningún archivo anterior. Integración en `ART_PACK/art_pack.js` (único archivo de código modificado). Evidencias: `ART_EVIDENCE/hub/tanda_02/`. Informe: `ART_TANDA_02_HUB_REPORT.md`. Hashes de la entrega: `ART_EVIDENCE/hub/tanda_02/hashes.json`.

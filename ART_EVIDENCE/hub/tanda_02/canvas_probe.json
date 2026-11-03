@@ -1,0 +1,26 @@
+{
+  "purpose": "Identificar el canvas extra observado en la fase DESPUES de la QA A/B de la TANDA 02",
+  "executedAt": "2026-11-03T13:07:00.372Z",
+  "url": "http://127.0.0.1:8123/",
+  "method": "Playwright/Chromium real: bootToHub -> listado de canvas -> DMO_HUB.openStation(bar) -> listado -> closeModal -> listado",
+  "before": 27,
+  "afterOpen": 28,
+  "afterClose": 28,
+  "extrasOnOpen": [
+    {
+      "id": "",
+      "cls": "hub-portrait-canvas",
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "afterCloseVsBefore": [
+    {
+      "id": "",
+      "cls": "hub-portrait-canvas",
+      "w": 72,
+      "h": 72
+    }
+  ],
+  "conclusion": "El unico canvas nuevo es canvas.hub-portrait-canvas 72x72, creado por el modal de estacion del juego. Ningun canvas procede del art pack."
+}

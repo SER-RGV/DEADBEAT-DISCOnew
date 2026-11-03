@@ -135,6 +135,37 @@ Visibilidad aislada de A04/A06/A08/A10 y de A05 en el NÚCLEO · corrección de 
 
 ---
 
+## HUB · TANDA 02 — Expansión visual y arquitectónica (2026-11-03)
+
+**Objetivo:** completar la segunda capa de objetos del HUB sin repetir la TANDA 01, partiendo de una auditoría visual real y sin tocar sistemas.
+
+**Auditoría previa:** `ART_TOOLS/qa/hub_tanda_02_audit.js` sobre Chromium 131 + Playwright, 10 zonas del HUB real, 21 slots dibujados por fotograma, 118 claves V5, 6 zonas y 11 estaciones. Inventario de necesidades con 6 clases (más `INTERACTIVO` superimpuesta) en `ART_AUDIT/hub_tanda_02_needs_inventory.json` y `ART_HUB_TANDA_02_AUDIT.md`. Se descartaron los slots con 0 dibujos y los paños de suelo sin función.
+
+**Lenguaje:** continuidad estricta con T01 — art-déco nocturna, latón/terciopelo/cristal/esmalte, negro profundo, rosa eléctrico, cian, violeta y amarillo ácido, perspectiva isométrica, ilustración estilizada, sin pixel art ni assets genéricos.
+
+**Assets producidos (10)**
+
+| ID | Archivo | Dimensiones | Slot V5 | Rol | Clase |
+|---|---|---|---|---|---|
+| T02-01 | `hub_t02_01_arcade.png` | 264×239 | `hub_arcade_shrine` | Recreativas F1 | 2 + 5 |
+| T02-02 | `hub_t02_02_arsenal.png` | 360×253 | `hub_arsenal_shrine` | Arsenal D | 2 + 5 |
+| T02-03 | `hub_t02_03_seals.png` | 244×237 | `hub_seals_shrine` | Espejo de Sellos F2 | 2 + 5 |
+| T02-04 | `hub_t02_04_vending.png` | 100×152 | `club_vending_machine_prop` | Expendedora este | 2 |
+| T02-05 | `hub_t02_05_cooler.png` | 61×136 | `club_water_cooler_prop` | Dispensador oeste | 2 |
+| T02-06 | `hub_t02_06_bench.png` | 256×198 | `limbo_bench_prop` | Bancos del descenso | 2 |
+| T02-07 | `hub_t02_07_planter.png` | 96×108 | `club_neon_planter_prop` | 4 jardineras | 2 |
+| T02-08 | `hub_t02_08_liftpad.png` | 198×104 | `descent_abyssal_lift_pad` | Plataforma de descenso | 2 + 5 |
+| T02-09 | `hub_t02_09_ceiling_fixture.png` | 148×38 | `wall_ceiling_neon_fixture` | Neón de techo (caché) | 2 |
+| T02-10 | `hub_t02_10_sconce.png` | 48×60 | `club_wall_sconce_side` | Aplique de pared (caché) | 2 |
+
+Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[510,0,925,768]` sin alterar la fuente. Preparación `contain` sin deformación: 10/10 tamaño exacto, alfa, esquinas transparentes, bordes limpios y halo ≤ 0,18 %. `manifest.json` registra función, ubicación, caja medida, anclaje, pivote y SHA-256.
+
+**Integración:** `ART_PACK/art_pack.js`, mismo registro `__DDM_V5_IMG` y mismo `load()`. `applyHub2()` / `restoreHub2()` independientes de T01, `hub2Invalidate()` para las capas cacheadas, `run()` encadena T01 → arquitectura → HUB-T01 → HUB-T02. Sin segundo motor, sin canvas nuevo, sin cambios de geometría, colisiones, puertas, estaciones, música, HUD ni guardado. Sin interacciones nuevas.
+
+**Clasificación de esta tanda:** **VERIFICADA**. QA A/B en 3 fases, 12/12 `APROBADO` (`ART_EVIDENCE/hub/tanda_02/report.json`), 10/10 visibles, T01 10/10 intacta, regresión en sala `r23`/`CAMPAIGN_ROOM`, `visual_diff.json`, `comparativa_antes_despues.jpg`, `hashes.json`. Informe: `ART_TANDA_02_HUB_REPORT.md`.
+
+---
+
 ## Historial de versiones
 
 | Fecha | Entrada |
@@ -142,3 +173,6 @@ Visibilidad aislada de A04/A06/A08/A10 y de A05 en el NÚCLEO · corrección de 
 | 2026-11-03 | Tanda 01: auditoría de 300 recursos, 8 assets generados e integrados, validación y cierre documental |
 | 2026-11-03 | Tanda 02: 10 módulos de arquitectura integrados en el loader V5 real, HTML intacto, QA en 4 salas reales y cierre documental |
 | 2026-11-03 | HUB · Tanda 01: 10 assets, 10 fuentes, integración real en loaders existentes, QA 12/12 y cierre documental |
+| 2026-11-03 | HUB · Tanda 02: auditoría de 21 slots, 10 assets nuevos, integración V5, QA A/B 12/12 y cierre documental |
+
+

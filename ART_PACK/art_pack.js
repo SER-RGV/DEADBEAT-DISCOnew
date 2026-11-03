@@ -133,7 +133,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -337,10 +337,15 @@
                mecanismo. Un fallo del HUB no reclasifica el estado ya
                verificado de las tandas anteriores. */
             loadHub(function (k) {
-              st.status = (st.errors.length || (st.archErrors || []).length ||
-                           (st.hubErrors || []).length)
-                ? 'applied-with-errors' : 'applied';
-              st.finishedAt = Date.now();
+              /* HUB · Tanda 02: se cargan DESPUES de la Tanda 01 en el mismo
+                 registro. Un fallo suyo no reclasifica el estado ya verificado
+                 de T01/T02/T03/HUB-01. */
+              loadHub2(function (m) {
+                st.status = (st.errors.length || (st.archErrors || []).length ||
+                             (st.hubErrors || []).length || (st.hub2Errors || []).length)
+                  ? 'applied-with-errors' : 'applied';
+                st.finishedAt = Date.now();
+              });
             });
           });
         }
@@ -619,12 +624,199 @@
     return HUB_ASSETS.length;
   }
 
+  /* ======================================================================
+   * HUB · TANDA 02 — segunda expansion visual del escenario.
+   * ----------------------------------------------------------------------
+   * Diez slots que el pintor REAL del HUB ya dibuja/consulta (medidos en
+   * ART_EVIDENCE/hub/tanda_02/audit_runtime.json). Entran por el MISMO
+   * registro __DDM_V5_IMG y el MISMO load() que la Tanda 01; no hay segundo
+   * motor, ni canvas nuevo, ni cambios de geometria, colisiones, sortY,
+   * estaciones, puertas, musica o camara.
+   *
+   * Los mapas son INDEPENDIENTES de HUB_ASSETS/HUB_IMAGES/HUB_ORIGINALS:
+   * restoreHub2() no puede deshacer la Tanda 01 y viceversa.
+   * ====================================================================*/
+
+  var BASEH2 = 'ART_ASSETS/hub/tanda_02/';
+  var HUB2_ASSETS = [
+    { id: 'T02-01', file: 'hub_t02_01_arcade.png',          w: 264, h: 239, slots: ['hub_arcade_shrine'],
+      pivot: 'bottom-center', classification: 'Interactivo / Mobiliario secundario',
+      role: 'Banco de recreativas del Rincon Arcade (zona F1).', cached: false },
+    { id: 'T02-02', file: 'hub_t02_02_arsenal.png',         w: 360, h: 253, slots: ['hub_arsenal_shrine'],
+      pivot: 'bottom-center', classification: 'Interactivo / Mobiliario funcional',
+      role: 'Mostrador del Arsenal de Caronte (zona D).', cached: false },
+    { id: 'T02-03', file: 'hub_t02_03_seals.png',           w: 244, h: 237, slots: ['hub_seals_shrine'],
+      pivot: 'bottom-center', classification: 'Interactivo / Objeto narrativo',
+      role: 'Espejo de los Sellos (zona F2).', cached: false },
+    { id: 'T02-04', file: 'hub_t02_04_vending.png',         w: 100, h: 152, slots: ['club_vending_machine_prop'],
+      pivot: 'bottom-center', classification: 'Decorativo / Equipamiento de discoteca',
+      role: 'Maquina expendedora del lado este.', cached: false },
+    { id: 'T02-05', file: 'hub_t02_05_cooler.png',          w: 61,  h: 136, slots: ['club_water_cooler_prop'],
+      pivot: 'bottom-center', classification: 'Decorativo / Objeto narrativo',
+      role: 'Dispensador de agua del lado oeste.', cached: false },
+    { id: 'T02-06', file: 'hub_t02_06_bench.png',           w: 256, h: 198, slots: ['limbo_bench_prop'],
+      pivot: 'bottom-center', classification: 'Decorativo / Mobiliario secundario',
+      role: 'Bancos gemelos junto al descenso.', cached: false },
+    { id: 'T02-07', file: 'hub_t02_07_planter.png',         w: 96,  h: 108, slots: ['club_neon_planter_prop'],
+      pivot: 'bottom-center', classification: 'Decorativo / Variante visual',
+      role: 'Cuatro jardineras fijas del HUB.', cached: false },
+    { id: 'T02-08', file: 'hub_t02_08_liftpad.png',         w: 198, h: 104, slots: ['descent_abyssal_lift_pad'],
+      pivot: 'center', classification: 'Funcional / Interactivo',
+      role: 'Plataforma de descenso y puertas de sala.', cached: false },
+    { id: 'T02-09', file: 'hub_t02_09_ceiling_fixture.png', w: 148, h: 38,  slots: ['wall_ceiling_neon_fixture'],
+      pivot: 'center', classification: 'Arquitectonico / Iluminacion',
+      role: 'Barra de neon horizontal de techo/muro (capa de pared en cache).', cached: true },
+    { id: 'T02-10', file: 'hub_t02_10_sconce.png',          w: 48,  h: 60,  slots: ['club_wall_sconce_side'],
+      pivot: 'center', classification: 'Arquitectonico / Senalizacion luminosa',
+      role: 'Apliques laterales de pared (capa de aristas en cache).', cached: true }
+  ];
+  var HUB2_IMAGES = {};              /* Image ya decodificados, por id */
+  var HUB2_ORIGINALS = {};           /* imagen previa de cada slot, preservada */
+  var hub2Applied = false;
+
+  function hub2Err(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hub2Errors) st.hub2Errors = [];
+    st.hub2Errors.push(msg);
+    try { console.warn('[ART_PACK/HUB2] ' + msg); } catch (_) {}
+  }
+
+  function hub2Invalidate() {
+    /* Los dos slots de capa cacheada (T02-09/T02-10) se pintan una sola vez
+       al construir los lienzos de pared. Se usa la API de invalidacion que
+       YA emplea __T3B.reload(): DMO_INFERNAL_ART.invalidate() limpia la clave
+       de la cache de sala y el motor la recompone con las imagenes nuevas.
+       No se anyade ningun lienzo ni se cambia el render. */
+    try {
+      if (window.DMO_INFERNAL_ART &&
+          typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hub2Err('invalidate', e); }
+    try { window.__DDM_V5_MED_NO_SKULL = null; } catch (_) {}
+    try {
+      /* API visual existente: incrementa __T3B.revision y fuerza reconstruir
+         los lienzos cacheados de suelo/pared. No afecta a logica ni a HUB-01. */
+      if (window.__T3B && typeof window.__T3B.setEnabled === 'function') {
+        window.__T3B.setEnabled(true);
+      }
+    } catch (e) { hub2Err('setEnabled', e); }
+  }
+
+  function applyHub2() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hub2Err('HUB2', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0;
+    HUB2_ASSETS.forEach(function (a) {
+      var im = HUB2_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda02 = a.id; } catch (_) {}
+      a.slots.forEach(function (slot) {
+        if (!Object.prototype.hasOwnProperty.call(HUB2_ORIGINALS, slot)) {
+          HUB2_ORIGINALS[slot] = reg[slot];   /* recurso anterior, conservado */
+        }
+        reg[slot] = im;                       /* pintor real del HUB */
+        reg['h02_' + a.id.toLowerCase().replace(/-/g, '_')] = im; /* alias trazable */
+        n++;
+      });
+    });
+    hub2Applied = (n === HUB2_ASSETS.length);
+    hub2Invalidate();
+    st.hub2 = {
+      version: 'hub-tanda02', count: HUB2_ASSETS.length,
+      slotsApplied: n, enabled: hub2Applied,
+      loader: '__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+
+  function restoreHub2() {
+    var reg = window.__DDM_V5_IMG, n = 0;
+    if (reg) {
+      HUB2_ASSETS.forEach(function (a) {
+        a.slots.forEach(function (slot) {
+          if (!Object.prototype.hasOwnProperty.call(HUB2_ORIGINALS, slot)) return;
+          reg[slot] = HUB2_ORIGINALS[slot];
+          delete reg['h02_' + a.id.toLowerCase().replace(/-/g, '_')];
+          n++;
+        });
+      });
+    }
+    hub2Applied = false;
+    if (st.hub2) { st.hub2.enabled = false; st.hub2.slotsApplied = 0; }
+    hub2Invalidate();
+    return n;
+  }
+
+  function loadHub2(done) {
+    var pending = HUB2_ASSETS.length;
+    HUB2_ASSETS.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH2 + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB2_IMAGES[a.id] = im;
+          if (!rec.exactSize) hub2Err(a.id, 'dimensiones inesperadas ' + rec.natural);
+        } else {
+          hub2Err(a.id, 'no se pudo decodificar ' + rec.file);
+        }
+        if (--pending === 0) done(applyHub2());
+      });
+    });
+  }
+
+  /* Solo lectura: estado VIVO del registro, sin dibujar nada. */
+  function hub2() {
+    var reg = window.__DDM_V5_IMG || {}, get = window.__DDM_GET_V5;
+    var assets = HUB2_ASSETS.map(function (a) {
+      var im = HUB2_IMAGES[a.id] || null;
+      var live = false, viaLoader = 0, slotsLive = 0;
+      a.slots.forEach(function (slot) {
+        if (im && reg[slot] === im) slotsLive++;
+        try { if (typeof get === 'function' && get(slot) === im) viaLoader++; } catch (_) {}
+      });
+      live = slotsLive === a.slots.length;
+      return {
+        id: a.id, file: BASEH2 + a.file, loader: 'V5',
+        slots: a.slots.slice(), slotsLive: slotsLive, loaderResolves: viaLoader,
+        classification: a.classification, role: a.role, pivot: a.pivot,
+        cachedLayer: a.cached, expected: [a.w, a.h],
+        natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, live: live,
+        originalsPreserved: a.slots.every(function (s) {
+          return Object.prototype.hasOwnProperty.call(HUB2_ORIGINALS, s) &&
+                 HUB2_ORIGINALS[s] !== im;
+        })
+      };
+    });
+    return {
+      version: 'hub-tanda02', count: HUB2_ASSETS.length,
+      enabled: hub2Applied, applied: assets.filter(function (a) { return a.live; }).length,
+      slotsApplied: st.hub2 ? st.hub2.slotsApplied : 0,
+      errors: (st.hub2Errors || []).slice(), assets: assets,
+      note: 'Solo se sustituye el Image de slots que el motor ya dibuja; '
+          + 'geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor.'
+    };
+  }
+
+  function hub2Tag() {
+    HUB2_ASSETS.forEach(function (a) {
+      var im = HUB2_IMAGES[a.id];
+      if (im) { try { im.__hubTanda02 = a.id; } catch (_) {} }
+    });
+    return HUB2_ASSETS.length;
+  }
+
   /* restore()/apply() existen para QA A/B con la MISMA build y los MISMOS
      parametros. No forman parte del render del juego. */
   function restore() { return restoreArch(); }
   function apply() { return archApplied ? ARCHITECTURE.length : applyArch(); }
   function hubRestore() { return restoreHub(); }
   function hubApply() { return hubApplied ? 9 : applyHub(); }
+  function hub2Restore() { return restoreHub2(); }
+  function hub2Apply() { return hub2Applied ? HUB2_ASSETS.length : applyHub2(); }
 
   /* ======================================================================
    * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
@@ -1113,6 +1305,8 @@
     restore: restore, apply: apply,
     hub: hub, hubManifest: function () { return JSON.parse(JSON.stringify(HUB_ASSETS)); },
     hubRestore: hubRestore, hubApply: hubApply, hubTag: hubTag,
+    hub2: hub2, hub2Manifest: function () { return JSON.parse(JSON.stringify(HUB2_ASSETS)); },
+    hub2Restore: hub2Restore, hub2Apply: hub2Apply, hub2Tag: hub2Tag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

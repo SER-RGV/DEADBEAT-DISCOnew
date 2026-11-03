@@ -23,3 +23,14 @@ Registrar aquí cada modificación:
 - Pruebas: Chromium 131 + Playwright, A/B control/DESPUÉS, 12/12 `APROBADO`; `report.json`, `visual_diff.json`, `hashes.json`.
 - Resultado: 10/10 generados, integrados, visibles y validados; `main` intacta.
 - Entrega Git: el usuario autorizó commit/push en `arena/109fe45c-deadbeat-disconew` y PR hacia `arte-y-recursos` **sin merge** (la rama obligatoria remota solo contiene `README.md` y Arena fija la rama de sesión). `main` intacta. Ver informe, sección 9.
+
+## 2026-11-03 · HUB · Tanda 02 (expansión visual y arquitectónica)
+- Versión: `fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02` (`ART_PACK/art_pack.js`, 1314 líneas, `node --check OK`).
+- Archivo modificado: **solo** `ART_PACK/art_pack.js`. HTML activo, backups, TANDA 01 y todos los archivos anteriores intactos; nada movido ni renombrado.
+- Archivos nuevos: auditoría `ART_HUB_TANDA_02_AUDIT.md` + `ART_AUDIT/hub_tanda_02_needs_inventory.json`; 10 fuentes + 10 finales + `manifest.json` en `ART_ASSETS/hub/tanda_02/`; `ART_TOOLS/prepare_hub_tanda_02.py`; arneses `hub_tanda_02_audit.js`, `validate_hub_tanda_02.js`, `canvas_probe_hub_tanda_02.js`, `finalize_hub_tanda_02.py`; evidencias en `ART_EVIDENCE/hub/tanda_02/`; informe `ART_TANDA_02_HUB_REPORT.md`.
+- Selección: 10 slots reales dibujados/consultados por el pintor del HUB, elegidos tras auditoría de 21 slots y 10 zonas. No se repite T01 ni se sustituye lo que funciona. 6 slots son compartidos con salas de campaña: solo cambia el `Image` V5.
+- Integración: mismo registro `__DDM_V5_IMG`, mismo `load()`, mismos pintores; mapas `HUB2_IMAGES`/`HUB2_ORIGINALS` independientes de T01; `hub2Invalidate()` usa `DMO_INFERNAL_ART.invalidate()` + `__T3B.setEnabled(true)` para las capas cacheadas T02-09/T02-10. Sin segundo motor, sin canvas superpuesto, sin HUB estático, sin cambios de geometría/colisiones/mecánicas.
+- Preparación: 10/10 tamaño exacto, RGBA, esquinas transparentes, bordes limpios, halo ≤ 0,18 %, `contain` sin deformar. La fuente de T02-04 traía dos expendedoras: se aisló una con `sourceCrop=[510,0,925,768]`, conservando la fuente original.
+- Pruebas: Chromium 131 + Playwright 1.58.2, A/B real en 3 fases (ANTES / CONTROL restore en caliente / DESPUÉS), **12/12 `APROBADO`**, 10/10 visibles, T01 10/10, V5 100/100, colisión x=1795 idéntica, `r23` puertas `secured 0→1`, disparo `0→4`, regresión explícita en `CAMPAIGN_ROOM`. `report.json`, `visual_diff.json`, `comparativa_antes_despues.jpg`, `hashes.json`.
+- Incidencias investigadas y documentadas: 3 criterios erróneos del primer arnés corregidos con mediciones; canvas extra = `hub-portrait-canvas` del modal del propio juego; 2 404 Cloudflare preexistentes; incidencias T01 sin impacto. No se corrigió nada a ciegas ni se modificaron sistemas compartidos sin justificación.
+- Resultado: 10/10 generados, integrados, visibles y validados; TANDA 01 intacta; `main` intacta; PR sin merge.
