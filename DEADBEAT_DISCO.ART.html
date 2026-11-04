@@ -7891,8 +7891,23 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
              window.__DDM_HUB_T04. Ver ART_HUB_TANDA_04_AUDIT.md / _MATRIX.md. */
           { id: "hub_decor_planter_v02", slot: "h03_planter_variant_02", x: 452, y: 900, h: 88, flip: false, t04: "T03-05" },
           { id: "hub_decor_bench_v02",   slot: "h03_bench_variant_02",   x: 2048, y: 900, h: 74, flip: true,  t04: "T03-06" },
-          { id: "hub_decor_vip_lounge",  slot: "h03_vip_booth_lounge",   x: 785, y: 760, h: 136, flip: false, t04: "T03-07" }
-          /* === TANDA04:END === */
+          { id: "hub_decor_vip_lounge",  slot: "h03_vip_booth_lounge",   x: 785, y: 760, h: 136, flip: false, t04: "T03-07" },
+          /* === TANDA05:BEGIN · 10 props nuevos en el array REAL hubDecor ===
+             Renderer existente addHubCustomProp -> Lc (Y-sort, solid:false,
+             tall:false). Coordenadas y alturas derivadas de la auditoría del
+             HUB real. Flag reversible window.__DDM_HUB_T05. Sin colisiones,
+             sin geometría nueva, sin sistemas de interacción. */
+          { id: "hub_decor_t05_01", slot: "h05_garra_del_limbo", x: 455, y: 1310, h: 180, flip: false, t05: "T05-01" },
+          { id: "hub_decor_t05_02", slot: "h05_banco_del_olvido", x: 2040, y: 1160, h: 150, flip: false, t05: "T05-02" },
+          { id: "hub_decor_t05_03", slot: "h05_subwoofer_stack", x: 905, y: 430, h: 120, flip: false, t05: "T05-03" },
+          { id: "hub_decor_t05_04", slot: "h05_video_wall", x: 1560, y: 360, h: 110, flip: false, t05: "T05-04", pulse: 0.7, t05hang: true },
+          { id: "hub_decor_t05_05", slot: "h05_consola_aux", x: 1560, y: 520, h: 70, flip: true, t05: "T05-05" },
+          { id: "hub_decor_t05_06", slot: "h05_neon_ultimo_trago", x: 1910, y: 640, h: 96, flip: false, t05: "T05-06", pulse: 1.4, t05hang: true },
+          { id: "hub_decor_t05_07", slot: "h05_cartel_ultima_sesion", x: 600, y: 760, h: 120, flip: false, t05: "T05-07", t05hang: true },
+          { id: "hub_decor_t05_08", slot: "h05_line_array", x: 1250, y: 720, h: 170, flip: false, t05: "T05-08", t05hang: true },
+          { id: "hub_decor_t05_09", slot: "h05_cordon_vip", x: 930, y: 560, h: 80, flip: false, t05: "T05-09" },
+          { id: "hub_decor_t05_10", slot: "h05_confesionario", x: 1715, y: 700, h: 150, flip: false, t05: "T05-10" }
+          /* === TANDA05:END === */
         ];
         for (const dc of hubDecor) {
           addHubCustomProp({
@@ -7901,11 +7916,17 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
               /* TANDA04:BEGIN · reversibilidad A/B sin reconstruir el motor */
               if (dc.t04 && window.__DDM_HUB_T04 === false) return;
               /* TANDA04:END */
+              /* TANDA05:BEGIN · reversibilidad A/B de TANDA 05 */
+              if (dc.t05 && window.__DDM_HUB_T05 === false) return;
+              /* TANDA05:END */
               const im = V5D(dc.slot);
               if (!im) return;
-              ctx.save(); ctx.imageSmoothingEnabled = !!dc.t04; /* TANDA04: arte pintado, no pixel art */
+              ctx.save(); ctx.imageSmoothingEnabled = !!(dc.t04 || dc.t05); /* TANDA04/05: arte pintado, no pixel art */
+              /* TANDA05:BEGIN · pulso ambiental sobre el ctx existente (sin sistema nuevo) */
+              if (dc.pulse) ctx.globalAlpha *= 0.82 + 0.18 * Math.sin(performance.now() / 520 + dc.pulse);
+              /* TANDA05:END */
               const dh = dc.h, dw = Math.round(dh * im.naturalWidth / im.naturalHeight);
-              Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10);
+              if (!dc.t05hang) Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10); /* TANDA05: sin sombra en objetos colgantes */
               if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
               else ctx.drawImage(im, p.x - (dw >> 1), p.y - dh, dw, dh);
               ctx.restore();

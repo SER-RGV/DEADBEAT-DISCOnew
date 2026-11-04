@@ -142,7 +142,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -363,11 +363,15 @@
                  registro. Un fallo suyo no reclasifica el estado ya verificado
                  de T01/T02/T03/HUB-01. */
               loadHub2(function (m) {
-                st.status = (st.errors.length || (st.archErrors || []).length ||
-                             (st.hubErrors || []).length || (st.hub2Errors || []).length ||
-                             (st.hub3Errors || []).length)
-                  ? 'applied-with-errors' : 'applied';
-                st.finishedAt = Date.now();
+                /* TANDA05:BEGIN · mismo load(), encadenado tras HUB-02 */
+                loadHub5(function (k5) {
+                  st.status = (st.errors.length || (st.archErrors || []).length ||
+                               (st.hubErrors || []).length || (st.hub2Errors || []).length ||
+                               (st.hub3Errors || []).length || (st.hub5Errors || []).length)
+                    ? 'applied-with-errors' : 'applied';
+                  st.finishedAt = Date.now();
+                });
+                /* TANDA05:END */
               });
             });
           });
@@ -1077,6 +1081,173 @@
   function hub3Apply() { return hub3Applied ? HUB3_ASSETS.length : applyHub3(); }
 
   /* ======================================================================
+   * HUB · TANDA 05 — EQUIPAMIENTO, VIDA AMBIENTAL E INTERACTIVIDAD
+   * ----------------------------------------------------------------------
+   * 10 assets NUEVos registrados en el MISMO window.__DDM_V5_IMG con el
+   * MISMO load() y las MISMAS APIs de invalidacion (DMO_INFERNAL_ART,
+   * __DDM_V5_MED_NO_SKULL, __T3B.setEnabled). No hay segundo registro,
+   * segundo loader, canvas alternativo, cache nueva ni sistema de dibujo
+   * independiente. El render se conecta en el HTML activo a traves del
+   * array YA existente hubDecor -> addHubCustomProp -> Lc.
+   *
+   * T05 NO crea interacciones: 4 objetos son FUNCIONALES (apariencia de
+   * uso) y su sistema de interaccion queda documentado como PROPUESTA.
+   * restoreHub5() solo deshace TANDA 05; no afecta a T01/T02/T03/T04.
+   * ====================================================================*/
+
+  var BASEH5 = 'ART_ASSETS/hub/tanda_05/';
+  var HUB5_ASSETS = [
+    { id: 'T05-01', unit: 'garra_del_limbo', file: '01_garra_del_limbo/final/hub_t05_01_garra_del_limbo.png', w: 147, h: 280, alias: 'h05_garra_del_limbo',
+      x: 455, y: 1310, worldH: 180, category: 'A · Máquinas y entretenimiento' },
+    { id: 'T05-02', unit: 'banco_del_olvido', file: '02_banco_del_olvido/final/hub_t05_02_banco_del_olvido.png', w: 133, h: 240, alias: 'h05_banco_del_olvido',
+      x: 2040, y: 1160, worldH: 150, category: 'A/D · Máquinas y terminales' },
+    { id: 'T05-03', unit: 'subwoofer_stack', file: '03_subwoofer_stack/final/hub_t05_03_subwoofer_stack.png', w: 253, h: 160, alias: 'h05_subwoofer_stack',
+      x: 905, y: 430, worldH: 120, category: 'B · Equipamiento de discoteca' },
+    { id: 'T05-04', unit: 'video_wall', file: '04_video_wall/final/hub_t05_04_video_wall.png', w: 249, h: 144, alias: 'h05_video_wall',
+      x: 1560, y: 360, worldH: 110, category: 'B/C · Equipamiento audiovisual y decoración' },
+    { id: 'T05-05', unit: 'consola_auxiliar', file: '05_consola_aux/final/hub_t05_05_consola_aux.png', w: 150, h: 140, alias: 'h05_consola_aux',
+      x: 1560, y: 520, worldH: 70, category: 'B · Equipamiento de discoteca' },
+    { id: 'T05-06', unit: 'neon_ultimo_trago', file: '06_neon_ultimo_trago/final/hub_t05_06_neon_ultimo_trago.png', w: 201, h: 192, alias: 'h05_neon_ultimo_trago',
+      x: 1910, y: 640, worldH: 96, category: 'C · Decoración ambiental' },
+    { id: 'T05-07', unit: 'cartel_ultima_sesion', file: '07_cartel_ultima_sesion/final/hub_t05_07_cartel_ultima_sesion.png', w: 196, h: 130, alias: 'h05_cartel_ultima_sesion',
+      x: 600, y: 760, worldH: 120, category: 'C · Decoración ambiental / objeto narrativo' },
+    { id: 'T05-08', unit: 'line_array_colgante', file: '08_line_array/final/hub_t05_08_line_array.png', w: 68, h: 178, alias: 'h05_line_array',
+      x: 1250, y: 720, worldH: 170, category: 'B/C · Equipamiento / elemento colgante' },
+    { id: 'T05-09', unit: 'cordon_vip', file: '09_cordon_vip/final/hub_t05_09_cordon_vip.png', w: 128, h: 120, alias: 'h05_cordon_vip',
+      x: 930, y: 560, worldH: 80, category: 'C/D · Decoración y circulación' },
+    { id: 'T05-10', unit: 'confesionario_neon', file: '10_confesionario/final/hub_t05_10_confesionario.png', w: 158, h: 260, alias: 'h05_confesionario',
+      x: 1715, y: 700, worldH: 150, category: 'A/D · Dispositivo del universo / interactividad potencial' },
+  ];
+  var HUB5_IMAGES = {};
+  var HUB5_ORIGINALS = {};
+  var hub5Applied = false;
+
+  function hub5Err(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hub5Errors) st.hub5Errors = [];
+    st.hub5Errors.push(msg);
+    try { console.warn('[ART_PACK/HUB5] ' + msg); } catch (_) {}
+  }
+
+  function hub5Invalidate() {
+    try {
+      if (window.DMO_INFERNAL_ART &&
+          typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hub5Err('invalidate', e); }
+    try { window.__DDM_V5_MED_NO_SKULL = null; } catch (_) {}
+    try {
+      if (window.__T3B && typeof window.__T3B.setEnabled === 'function') {
+        window.__T3B.setEnabled(true);
+      }
+    } catch (e) { hub5Err('setEnabled', e); }
+  }
+
+  function applyHub5() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hub5Err('HUB5', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0;
+    HUB5_ASSETS.forEach(function (a) {
+      var im = HUB5_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda05 = a.id; } catch (_) {}
+      if (!Object.prototype.hasOwnProperty.call(HUB5_ORIGINALS, a.alias)) {
+        HUB5_ORIGINALS[a.alias] = reg[a.alias];
+      }
+      reg[a.alias] = im;
+      n++;
+    });
+    hub5Applied = (n === HUB5_ASSETS.length);
+    hub5Invalidate();
+    st.hub5 = {
+      version: 'hub-tanda05', count: HUB5_ASSETS.length,
+      productionUnits: HUB5_ASSETS.length, files: HUB5_ASSETS.length,
+      registered: n, enabled: hub5Applied,
+      loader: 'load() -> __DDM_V5_IMG[alias h05_*]',
+      renderer: 'DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc',
+      flag: 'window.__DDM_HUB_T05 !== false',
+      note: '10/10 PNG cargados y registrados. Integracion de render en el '
+          + 'HUB real por los pintores existentes. Sin segundo motor.',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+
+  function restoreHub5() {
+    var reg = window.__DDM_V5_IMG, n = 0;
+    if (reg) {
+      HUB5_ASSETS.forEach(function (a) {
+        if (!Object.prototype.hasOwnProperty.call(HUB5_ORIGINALS, a.alias)) return;
+        reg[a.alias] = HUB5_ORIGINALS[a.alias];
+        if (reg[a.alias] === undefined) delete reg[a.alias];
+        n++;
+      });
+    }
+    hub5Applied = false;
+    if (st.hub5) { st.hub5.enabled = false; st.hub5.registered = 0; }
+    hub5Invalidate();
+    return n;
+  }
+
+  function loadHub5(done) {
+    var pending = HUB5_ASSETS.length;
+    HUB5_ASSETS.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH5 + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB5_IMAGES[a.id] = im;
+          if (!rec.exactSize) hub5Err(a.id, 'dimensiones inesperadas ' + rec.natural);
+        } else {
+          hub5Err(a.id, 'no se pudo decodificar ' + rec.file);
+        }
+        if (--pending === 0) done(applyHub5());
+      });
+    });
+  }
+
+  function hub5() {
+    var reg = window.__DDM_V5_IMG || {}, get = window.__DDM_GET_V5;
+    var assets = HUB5_ASSETS.map(function (a) {
+      var im = HUB5_IMAGES[a.id] || null;
+      var resolves = 0;
+      try { if (typeof get === 'function' && get(a.alias) === im) resolves = 1; } catch (_) {}
+      return {
+        id: a.id, unit: a.unit, file: BASEH5 + a.file, alias: a.alias,
+        aliasLive: !!(im && reg[a.alias] === im), loaderResolves: resolves,
+        expected: [a.w, a.h], natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, registered: !!(im && reg[a.alias] === im),
+        worldBox: [a.x - (Math.round(a.worldH * a.w / a.h) >> 1),
+                   a.y - a.worldH, Math.round(a.worldH * a.w / a.h), a.worldH],
+        originalsPreserved: Object.prototype.hasOwnProperty.call(HUB5_ORIGINALS, a.alias) &&
+                            HUB5_ORIGINALS[a.alias] !== im
+      };
+    });
+    return {
+      version: 'hub-tanda05', count: HUB5_ASSETS.length,
+      productionUnits: HUB5_ASSETS.length, enabled: hub5Applied,
+      registered: assets.filter(function (a) { return a.registered; }).length,
+      loaded: assets.filter(function (a) { return a.loaded; }).length,
+      exactSize: assets.filter(function (a) { return a.exactSize; }).length,
+      errors: (st.hub5Errors || []).slice(), assets: assets,
+      note: '10/10 PNG de TANDA 05 en el MISMO registro V5 y MISMO load(). '
+          + 'El render se mide en el HUB con drawImage por unidad.'
+    };
+  }
+
+  function hub5Tag() {
+    HUB5_ASSETS.forEach(function (a) {
+      var im = HUB5_IMAGES[a.id];
+      if (im) { try { im.__hubTanda05 = a.id; } catch (_) {} }
+    });
+    return HUB5_ASSETS.length;
+  }
+  function hub5Restore() { return restoreHub5(); }
+  function hub5Apply() { return hub5Applied ? HUB5_ASSETS.length : applyHub5(); }
+
+  /* ======================================================================
    * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
    * ----------------------------------------------------------------------
    * No hay un segundo cargador, ni un segundo render, ni un segundo
@@ -1567,6 +1738,8 @@
     hub2Restore: hub2Restore, hub2Apply: hub2Apply, hub2Tag: hub2Tag,
     hub3: hub3, hub3Manifest: function () { return JSON.parse(JSON.stringify(HUB3_ASSETS)); },
     hub3Restore: hub3Restore, hub3Apply: hub3Apply, hub3Tag: hub3Tag,
+    hub5: hub5, hub5Manifest: function () { return JSON.parse(JSON.stringify(HUB5_ASSETS)); },
+    hub5Restore: hub5Restore, hub5Apply: hub5Apply, hub5Tag: hub5Tag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

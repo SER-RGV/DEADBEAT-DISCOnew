@@ -54,3 +54,13 @@ Registrar aquí cada modificación:
 - Pruebas: Chromium 131.0.6778.0 + playwright-core 1.58.2, 1280x900, SwiftShader; A/B de 3 fases con 10 zonas y cámara idéntica; **12/12 `APROBADO`**; 13/13 `drawImage` medidos en el HUB; 0 errores JS, 0 404 locales; `performance.json` (40 rAF, coste de carga separado), `visual_diff.json`, `hashes.json` (114 / 0).
 - Resultado: **13/13 unidades integradas, 0 bloqueadas**. Se resuelve el bloqueo de render de TANDA 03 sin reconstruir el motor. T01/T02/T03 y sus evidencias históricas conservadas. T02 sigue con cierre pendiente de performance gate.
 - Entrega Git: commit independiente `HUB TANDA 04 — Render integration`, push a `arena/109fe45c-deadbeat-disconew`, PR #1 actualizado **sin merge**. `main` intacta.
+
+<!-- TANDA05:CHANGELOG -->
+## TANDA 05 — Equipamiento, vida ambiental e interactividad (2026-11-04)
+
+- Añadidos 10 recursos nuevos en `ART_ASSETS/hub/tanda_05/` (10 fuentes, 10 finales, `manifest.json`) sin repetir T01–T04.
+- `ART_PACK/art_pack.js`: `HUB5_*`, `loadHub5()` y API `hub5*` en el registro V5 existente; versión `+hub-tanda05`.
+- `DEADBEAT_DISCO.ART.html`: 10 props en `hubDecor` con flag reversible `__DDM_HUB_T05`, pulso de `globalAlpha` en 2 neones y sin sombra en 4 colgantes.
+- QA formal A/B de 3 fases y 14 comprobaciones: **14/14 APROBADO**, 10/10 `drawImage` y 10/10 confirmados por diff de píxel; evidencias en `ART_EVIDENCE/hub/tanda_05/`.
+- Documentación: informe técnico, matriz de validación, registro de producción, estado de integración e incidencias.
+- No se fusiona PR #1; no se modifica `main`.

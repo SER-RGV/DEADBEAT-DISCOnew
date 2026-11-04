@@ -1,0 +1,1130 @@
+{
+  "tanda": "05",
+  "title": "HUB · TANDA 05 — Equipamiento, vida ambiental e interactividad (10 assets)",
+  "build": "DEADBEAT_DISCO.ART.html",
+  "integrationFiles": [
+    "ART_PACK/art_pack.js",
+    "DEADBEAT_DISCO.ART.html"
+  ],
+  "loader": "window.__DDM_V5_IMG[alias h05_*] mediante load() de ART_PACK/art_pack.js",
+  "renderer": "hubDecor -> addHubCustomProp -> Lc (Y-sort existente)",
+  "flag": "window.__DDM_HUB_T05 !== false",
+  "dimensionSource": "ART_EVIDENCE/hub/tanda_05/audit_runtime.json + cajas de props y estaciones medidas en TANDA 01-04",
+  "preparation": "ART_TOOLS/prepare_hub_tanda_05.py · build_alpha/crop_alpha de prepare_tanda_02.py · contain + pivote · despill para fondo negro",
+  "policy": "10 assets NUEVOS; no se repite ningún recurso de TANDA 01-04. Sin geometría, colisiones, estaciones, interacciones, progresión, combate, inventario, economía, guardado, música ni DJ nuevos.",
+  "count": 10,
+  "finalPngFiles": 10,
+  "sourceFiles": 10,
+  "interactivity": "Ningún sistema de interacción nuevo. T05-01/02/05/10 son FUNCIONALES (apariencia de uso) y su interacción real se documenta como PROPUESTA, no implementada. T05-04/06 usan un pulso de globalAlpha del contexto existente.",
+  "assets": [
+    {
+      "id": "T05-01",
+      "name": "garra_del_limbo",
+      "alias": "h05_garra_del_limbo",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_01_garra_del_limbo.png",
+      "sourceSha256": "4324b64ba427f5e24082cdefd8d41f54a73ce49612aa4dc95f3a7d0a547edb66",
+      "file": "ART_ASSETS/hub/tanda_05/01_garra_del_limbo/final/hub_t05_01_garra_del_limbo.png",
+      "sha256": "198b339149988daefcad1c84ef3f0562a7d0189299a957e21f8185876fdf92bf",
+      "bytes": 92217,
+      "width": 147,
+      "height": 280,
+      "expected": [
+        147,
+        280
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.392,
+        "placed": [
+          147,
+          280
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          375,
+          714
+        ],
+        "backgroundDetected": [
+          11,
+          9,
+          16
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 63228,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 147,
+        "height": 280,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 13979,
+        "partialPx": 16649,
+        "opaquePx": 9486,
+        "coveragePct": 66.04,
+        "cornersTransparent": true,
+        "whiteFringePx": 18,
+        "whiteFringePct": 0.11,
+        "borderClean": true
+      },
+      "category": "A · Máquinas y entretenimiento",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "classification": "Máquina de premios / entretenimiento",
+      "function": "Máquina de garra con peluches fantasma; da identidad al cuadrante SW.",
+      "why": "La auditoría visual muestra el perímetro suroeste (x 300-520, y 1150-1350) completamente vacío salvo el banco de recreativas en (655,1210). Es una máquina distinta del shrine de T02-01 (batería de 3 cabinas) y de la expendedora T02-04.",
+      "dimensionSource": "Altura mundo 180 u; PNG 147x280 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=94 u = round(180*147/280); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 150 u derivada de hub_decor_cooler_w (h=104) y hub_decor_vending_e (h=118); ancho 220x280 conserve la proporción del objeto sin deformación -> dw=118 u.",
+      "anchor": {
+        "x": 455,
+        "y": 1310,
+        "worldH": 180,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        408,
+        1130,
+        95,
+        180
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 513,
+        "onScreenDraws": 172,
+        "fullVisibilityZones": [
+          "vip_este",
+          "arcade",
+          "sellos"
+        ],
+        "pixelDiffZone": "arcade",
+        "pixelDiffSignalPct": 53.201,
+        "pixelDiffNoisePct": 0.685
+      },
+      "worldBoxNote": "worldBox ajustado a la caja MEDIDA en el HUB: el renderer usa Math.round() de JS, no round() de Python. Diferencia de 1 px de ancho; el PNG no se ha regenerado."
+    },
+    {
+      "id": "T05-02",
+      "name": "banco_del_olvido",
+      "alias": "h05_banco_del_olvido",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_02_banco_del_olvido.png",
+      "sourceSha256": "665f88afd162fd3be51a520a58e47dabbb585079462e74a39e51dfd7b184b439",
+      "file": "ART_ASSETS/hub/tanda_05/02_banco_del_olvido/final/hub_t05_02_banco_del_olvido.png",
+      "sha256": "b56c0072a385a76da749e813f9afbab6205e2b9e88cd0aca510f4a5f85f7a3d9",
+      "bytes": 68030,
+      "width": 133,
+      "height": 240,
+      "expected": [
+        133,
+        240
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.33613,
+        "placed": [
+          133,
+          240
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          395,
+          714
+        ],
+        "backgroundDetected": [
+          45,
+          44,
+          49
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 5305,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 133,
+        "height": 240,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 11125,
+        "partialPx": 15839,
+        "opaquePx": 4142,
+        "coveragePct": 65.15,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "A/D · Máquinas y terminales",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "classification": "Terminal dispensador de fichas del universo del juego",
+      "function": "Terminal de fichas con mano esquelética; cierra el perímetro SE.",
+      "why": "El cuadrante sureste (x 1980-2100, y 1000-1200) está vacío: el espejo de sellos está en (1845,1210) y la expendedora en (2048,692). No repite ningún terminal de T01-T04.",
+      "dimensionSource": "Altura mundo 150 u; PNG 133x240 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=83 u = round(150*133/240); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 132 u entre cooler (104) y vending (118/140); 160x240 -> dw=88 u, sin deformación.",
+      "anchor": {
+        "x": 2040,
+        "y": 1160,
+        "worldH": 150,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1999,
+        1010,
+        83,
+        150
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 726,
+        "onScreenDraws": 387,
+        "fullVisibilityZones": [
+          "dj",
+          "bar",
+          "arcade",
+          "sellos",
+          "norte"
+        ],
+        "pixelDiffZone": "pared_este",
+        "pixelDiffSignalPct": 43.662,
+        "pixelDiffNoisePct": 0.0
+      }
+    },
+    {
+      "id": "T05-03",
+      "name": "subwoofer_stack",
+      "alias": "h05_subwoofer_stack",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_03_subwoofer_stack.png",
+      "sourceSha256": "aec1b0cdd56e68df3635fc3f15827a3ce633ecca9983ea50bc72e9e1f911fe11",
+      "file": "ART_ASSETS/hub/tanda_05/03_subwoofer_stack/final/hub_t05_03_subwoofer_stack.png",
+      "sha256": "fabf4834c512d53d066574ea1264a216070b2714530e2f585b29848a94ce62a7",
+      "bytes": 58883,
+      "width": 253,
+      "height": 160,
+      "expected": [
+        253,
+        160
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.21305,
+        "placed": [
+          253,
+          160
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1186,
+          751
+        ],
+        "backgroundDetected": [
+          20,
+          18,
+          26
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 203574,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 253,
+        "height": 160,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 25109,
+        "partialPx": 11620,
+        "opaquePx": 3187,
+        "coveragePct": 37.97,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "B · Equipamiento de discoteca",
+      "interactiveClass": "Decorativo / equipamiento",
+      "classification": "Torre de subwoofers apilados",
+      "function": "Cuerpo grave junto al flanco izquierdo de la cabina DJ.",
+      "why": "El flanco norte izquierdo (x 800-1010, y 300-440) solo tiene el cartel narrativo y el sofá VIP; las torres de T01-06 son columnas estrechas (club_speaker_tower_prop). Falta un equipo de graves de gran volumen.",
+      "dimensionSource": "Altura mundo 120 u; PNG 253x160 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=190 u = round(120*253/160); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 120 u comparable a club_speaker_tower_prop (h=122); 264x160 -> dw=198 u, apilado horizontal sin deformar.",
+      "anchor": {
+        "x": 905,
+        "y": 430,
+        "worldH": 120,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        810,
+        310,
+        190,
+        120
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 748,
+        "onScreenDraws": 349,
+        "fullVisibilityZones": [
+          "centro",
+          "bar",
+          "pared_oeste"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 21.669,
+        "pixelDiffNoisePct": 1.008
+      }
+    },
+    {
+      "id": "T05-04",
+      "name": "video_wall",
+      "alias": "h05_video_wall",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_04_video_wall.png",
+      "sourceSha256": "aa9bdd63e1f025db415426551c8539f8f62def940a8b969a578d410d94e0c9cb",
+      "file": "ART_ASSETS/hub/tanda_05/04_video_wall/final/hub_t05_04_video_wall.png",
+      "sha256": "13bdb8778ce9027cc6a5e1d6c43e5116836a05680024a9784f2b3ea5ee54fd33",
+      "bytes": 59201,
+      "width": 249,
+      "height": 144,
+      "expected": [
+        249,
+        144
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "top-center",
+      "placement": {
+        "scale": 0.20854,
+        "placed": [
+          249,
+          144
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "top-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1194,
+          690
+        ],
+        "backgroundDetected": [
+          17,
+          18,
+          29
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 28865,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 249,
+        "height": 144,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 14160,
+        "partialPx": 11482,
+        "opaquePx": 9170,
+        "coveragePct": 60.51,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "B/C · Equipamiento audiovisual y decoración",
+      "interactiveClass": "Ambiental animado",
+      "classification": "Panel de videowall LED con pulso de brillo",
+      "function": "Pantalla modular sobre el muro norte; primera pantalla del HUB.",
+      "why": "El muro norte a la derecha del DJ (x 1450-1680, y 230-370) está vacío; no existe ninguna pantalla ni panel AV en el HUB (solo letreros diegéticos).",
+      "dimensionSource": "Altura mundo 110 u; PNG 249x144 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=190 u = round(110*249/144); pivote top-center.",
+      "dimensionRationale": "Altura mundo 110 u; 288x144 -> dw=220 u. El pulso usa globalAlpha del ctx existente, sin sistema de animación nuevo.",
+      "anchor": {
+        "x": 1560,
+        "y": 360,
+        "worldH": 110,
+        "flip": false,
+        "pulse": 0.7,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1465,
+        250,
+        190,
+        110
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 541,
+        "onScreenDraws": 225,
+        "fullVisibilityZones": [
+          "centro",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "norte",
+        "pixelDiffSignalPct": 42.337,
+        "pixelDiffNoisePct": 0.0
+      }
+    },
+    {
+      "id": "T05-05",
+      "name": "consola_auxiliar",
+      "alias": "h05_consola_aux",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_05_consola_aux.png",
+      "sourceSha256": "4ca5375725adbbd8392fe6fa7c87ddcdb22e01f5c0fd018881cf8ba7bbeb5e66",
+      "file": "ART_ASSETS/hub/tanda_05/05_consola_aux/final/hub_t05_05_consola_aux.png",
+      "sha256": "901b6a87129b9bdb512ed1a153181aa609e2cb19a91a972573bc30d4d82b3ea3",
+      "bytes": 34767,
+      "width": 150,
+      "height": 140,
+      "expected": [
+        150,
+        140
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.20027,
+        "placed": [
+          150,
+          140
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          749,
+          698
+        ],
+        "backgroundDetected": [
+          10,
+          10,
+          17
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 92370,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 150,
+        "height": 140,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 12343,
+        "partialPx": 6848,
+        "opaquePx": 1551,
+        "coveragePct": 41.22,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "B · Equipamiento de discoteca",
+      "interactiveClass": "Funcional / decorativo",
+      "classification": "Consola auxiliar de mezcla (sidecar)",
+      "function": "Equipo de control junto al flanco derecho de la cabina.",
+      "why": "La cabina DJ de T01-04 es un único bloque; a su derecha (x 1500-1630, y 450-520) no hay equipo auxiliar. Complementa, no sustituye, el shrine.",
+      "dimensionSource": "Altura mundo 70 u; PNG 150x140 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=75 u = round(70*150/140); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 70 u (mesa baja, por debajo del sofá VIP h=62 pero con ancho mayor); 240x140 -> dw=120 u.",
+      "anchor": {
+        "x": 1560,
+        "y": 520,
+        "worldH": 70,
+        "flip": true,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1523,
+        450,
+        75,
+        70
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 755,
+        "onScreenDraws": 748,
+        "fullVisibilityZones": [
+          "centro",
+          "dj",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste"
+        ],
+        "pixelDiffZone": "norte",
+        "pixelDiffSignalPct": 31.516,
+        "pixelDiffNoisePct": 0.0
+      }
+    },
+    {
+      "id": "T05-06",
+      "name": "neon_ultimo_trago",
+      "alias": "h05_neon_ultimo_trago",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_06_neon_ultimo_trago.png",
+      "sourceSha256": "0ba912e9baefb24838f0b82aa8e9ef8e02149497e5a252c73225fc9d46d4cfa5",
+      "file": "ART_ASSETS/hub/tanda_05/06_neon_ultimo_trago/final/hub_t05_06_neon_ultimo_trago.png",
+      "sha256": "a6280bbcdb92ab6e0fe98ce42ad35d99a03a32baee6aedf878590bcbee1168e3",
+      "bytes": 51724,
+      "width": 201,
+      "height": 192,
+      "expected": [
+        201,
+        192
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "top-center",
+      "placement": {
+        "scale": 0.30622,
+        "placed": [
+          201,
+          192
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "top-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          656,
+          627
+        ],
+        "backgroundDetected": [
+          19,
+          20,
+          27
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 91004,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 201,
+        "height": 192,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 25677,
+        "partialPx": 6174,
+        "opaquePx": 6308,
+        "coveragePct": 33.47,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "C · Decoración ambiental",
+      "interactiveClass": "Ambiental animado",
+      "classification": "Neón colgante de la barra con pulso",
+      "function": "Hito vertical luminoso sobre la barra «El Último Trago».",
+      "why": "La barra (1910,845) tiene mostrador y botellas pero ningún rótulo colgante; la lámpara T01-08 es una araña central y T02-10 son apliques laterales. El neón no repite las 6 placas de T04.",
+      "dimensionSource": "Altura mundo 96 u; PNG 201x192 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=100 u = round(96*201/192); pivote top-center.",
+      "dimensionRationale": "Altura mundo 96 u; 288x192 -> dw=144 u, mismo ancho que las placas de T04 pero silueta y capa distintas.",
+      "anchor": {
+        "x": 1910,
+        "y": 640,
+        "worldH": 96,
+        "flip": false,
+        "pulse": 1.4,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1860,
+        544,
+        101,
+        96
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 705,
+        "onScreenDraws": 643,
+        "fullVisibilityZones": [
+          "dj",
+          "bar",
+          "vip_oeste",
+          "vip_este",
+          "norte"
+        ],
+        "pixelDiffZone": "pared_este",
+        "pixelDiffSignalPct": 26.257,
+        "pixelDiffNoisePct": 1.392
+      },
+      "worldBoxNote": "worldBox ajustado a la caja MEDIDA en el HUB: el renderer usa Math.round() de JS, no round() de Python. Diferencia de 1 px de ancho; el PNG no se ha regenerado."
+    },
+    {
+      "id": "T05-07",
+      "name": "cartel_ultima_sesion",
+      "alias": "h05_cartel_ultima_sesion",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_07_cartel_ultima_sesion.png",
+      "sourceSha256": "476d996b320a8d06e4f82d1b7b5030e1a1d12a4c8f7d144ed050d9672a6dfa58",
+      "file": "ART_ASSETS/hub/tanda_05/07_cartel_ultima_sesion/final/hub_t05_07_cartel_ultima_sesion.png",
+      "sha256": "3ebe7670ae7846f0e11ab3d55c56ea117e22d8d48a9d30a666227c90138bfa50",
+      "bytes": 55728,
+      "width": 196,
+      "height": 130,
+      "expected": [
+        196,
+        130
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "center",
+      "placement": {
+        "scale": 0.17925,
+        "placed": [
+          179,
+          114
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "padding": 8,
+        "finalCanvas": [
+          196,
+          130
+        ]
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1000,
+          636
+        ],
+        "backgroundDetected": [
+          9,
+          8,
+          14
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 39906,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 196,
+        "height": 130,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 7811,
+        "partialPx": 11414,
+        "opaquePx": 5529,
+        "coveragePct": 69.34,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "C · Decoración ambiental / objeto narrativo",
+      "interactiveClass": "Decorativo narrativo",
+      "classification": "Cartel de la última sesión (humor negro)",
+      "function": "Objeto narrativo en el muro oeste, entre arsenal y refrigerador.",
+      "why": "El muro oeste (x 510-610, y 640-760) solo tiene el mostrador del arsenal más abajo; falta un objeto de pared con historia. No repite el tablón de trofeos T01-10 ni la señalética T04.",
+      "dimensionSource": "Altura mundo 120 u; PNG 196x130 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=181 u = round(120*196/130); pivote center.",
+      "dimensionRationale": "Altura mundo 120 u; 180x240 -> dw=90 u. Glifos abstractos en lugar de texto para evitar letras generadas mal.",
+      "anchor": {
+        "x": 600,
+        "y": 760,
+        "worldH": 120,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        510,
+        640,
+        181,
+        120
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 530,
+        "onScreenDraws": 501,
+        "fullVisibilityZones": [
+          "bar",
+          "vip_oeste",
+          "sellos"
+        ],
+        "pixelDiffZone": "pared_oeste",
+        "pixelDiffSignalPct": 29.78,
+        "pixelDiffNoisePct": 0.22
+      }
+    },
+    {
+      "id": "T05-08",
+      "name": "line_array_colgante",
+      "alias": "h05_line_array",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_08_line_array.png",
+      "sourceSha256": "c9cb98ee7c9cc67b7dd2082ffe072e0c07435bb9f7aac948737f7d737028879c",
+      "file": "ART_ASSETS/hub/tanda_05/08_line_array/final/hub_t05_08_line_array.png",
+      "sha256": "c609375c16d57847d7c3abff2dece9499456811bb29905706c17f77b1e6ce310",
+      "bytes": 22851,
+      "width": 68,
+      "height": 178,
+      "expected": [
+        68,
+        178
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "top-center",
+      "placement": {
+        "scale": 0.24185,
+        "placed": [
+          68,
+          178
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "top-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          281,
+          736
+        ],
+        "backgroundDetected": [
+          10,
+          11,
+          16
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 53768,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 68,
+        "height": 178,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 6613,
+        "partialPx": 4899,
+        "opaquePx": 513,
+        "coveragePct": 45.37,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "B/C · Equipamiento / elemento colgante",
+      "interactiveClass": "Arquitectónico / ambiental",
+      "classification": "Cluster de altavoces colgante (line array)",
+      "function": "Rigging aéreo sobre el corredor central de la pista.",
+      "why": "El corredor central entre la cabina y el medallón (x 1130-1370, y 610-700) solo tiene haces de luz; falta equipamiento suspendido. Es un cluster volado, distinto de las torres de suelo T01-06 y de la araña T01-08.",
+      "dimensionSource": "Altura mundo 170 u; PNG 68x178 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=65 u = round(170*68/178); pivote top-center.",
+      "dimensionRationale": "Altura mundo 90 u; 320x120 -> dw=240 u, centrado sobre el eje x=1250 del HUB.",
+      "anchor": {
+        "x": 1250,
+        "y": 720,
+        "worldH": 170,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1218,
+        550,
+        65,
+        170
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 889,
+        "onScreenDraws": 876,
+        "fullVisibilityZones": [
+          "centro",
+          "dj",
+          "bar",
+          "vip_oeste",
+          "sellos",
+          "pared_oeste",
+          "norte",
+          "pared_este"
+        ],
+        "pixelDiffZone": "norte",
+        "pixelDiffSignalPct": 11.094,
+        "pixelDiffNoisePct": 0.619
+      }
+    },
+    {
+      "id": "T05-09",
+      "name": "cordon_vip",
+      "alias": "h05_cordon_vip",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_09_cordon_vip.png",
+      "sourceSha256": "c1c8d8ec61b16862e00e782bee24948b112f7834877dc9782696ea0e8dbe59c1",
+      "file": "ART_ASSETS/hub/tanda_05/09_cordon_vip/final/hub_t05_09_cordon_vip.png",
+      "sha256": "e82da38621fcd945a95911c973e67b246c306b69e6910ba57ee60d04181ea43a",
+      "bytes": 18064,
+      "width": 128,
+      "height": 120,
+      "expected": [
+        128,
+        120
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.17595,
+        "placed": [
+          128,
+          120
+        ],
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          726,
+          682
+        ],
+        "backgroundDetected": [
+          9,
+          9,
+          16
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 29419,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 128,
+        "height": 120,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 10860,
+        "partialPx": 3946,
+        "opaquePx": 482,
+        "coveragePct": 29.3,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "C/D · Decoración y circulación",
+      "interactiveClass": "Arquitectónico (sin collider)",
+      "classification": "Cordón VIP con postes cráneo",
+      "function": "Delimita el acceso a la zona VIP oeste sin bloquear el paso.",
+      "why": "La zona VIP oeste tiene sofá (785,545) y alcoba T03-07, pero ningún límite visual de circulación. solid:false -> 0 cambios de hitbox.",
+      "dimensionSource": "Altura mundo 80 u; PNG 128x120 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=85 u = round(80*128/120); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 60 u; 260x120 -> dw=130 u. Caja x 865..995, y 500..560, sin solapar sofá ni placa A de T04.",
+      "anchor": {
+        "x": 930,
+        "y": 560,
+        "worldH": 80,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        888,
+        480,
+        85,
+        80
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 759,
+        "onScreenDraws": 748,
+        "fullVisibilityZones": [
+          "centro",
+          "bar",
+          "pared_oeste"
+        ],
+        "pixelDiffZone": "norte",
+        "pixelDiffSignalPct": 19.224,
+        "pixelDiffNoisePct": 0.0
+      }
+    },
+    {
+      "id": "T05-10",
+      "name": "confesionario_neon",
+      "alias": "h05_confesionario",
+      "source": "ART_ASSETS/hub/tanda_05/_source/hub_t05_10_confesionario.png",
+      "sourceSha256": "332777d19fc60720aac2e0e1d9a19b374fb34c00256320ef9b9ca26f4df3a68a",
+      "file": "ART_ASSETS/hub/tanda_05/10_confesionario/final/hub_t05_10_confesionario.png",
+      "sha256": "05d6417dcc9a9adb7663b92b0f4e43ca6622bfc4fd80a6660551b7ff2e936ba8",
+      "bytes": 89910,
+      "width": 158,
+      "height": 260,
+      "expected": [
+        158,
+        260
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "placement": {
+        "scale": 0.36574,
+        "placed": [
+          158,
+          259
+        ],
+        "offset": [
+          0,
+          1
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          432,
+          709
+        ],
+        "backgroundDetected": [
+          8,
+          11,
+          19
+        ],
+        "threshold": 16,
+        "haloPixelsRemoved": 4249,
+        "mode": "contain + exterior dark-halo flood-fill + unpremultiply despill (dark bg)"
+      },
+      "verification": {
+        "width": 158,
+        "height": 260,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 8480,
+        "partialPx": 16754,
+        "opaquePx": 13841,
+        "coveragePct": 79.36,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "category": "A/D · Dispositivo del universo / interactividad potencial",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "classification": "Confesionario de quejas al Más Allá",
+      "function": "Terminal narrativa en la zona VIP este; humor negro.",
+      "why": "La zona VIP este (x 1660-1780, y 550-690) está vacía entre el sofá (1715,545) y la placa E (1718,781). Aporta un dispositivo propio del universo sin repetir el espejo de sellos ni la barra.",
+      "dimensionSource": "Altura mundo 150 u; PNG 158x260 con el aspecto EXACTO del bbox alfa recortado (sin padding, sin deformación); dw=91 u = round(150*158/260); pivote bottom-center.",
+      "dimensionRationale": "Altura mundo 140 u; 190x260 -> dw=102 u.",
+      "anchor": {
+        "x": 1715,
+        "y": 700,
+        "worldH": 150,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "worldBox": [
+        1670,
+        550,
+        91,
+        150
+      ],
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 887,
+        "onScreenDraws": 645,
+        "fullVisibilityZones": [
+          "centro",
+          "dj",
+          "vip_oeste",
+          "pared_oeste",
+          "norte",
+          "pared_este"
+        ],
+        "pixelDiffZone": "bar",
+        "pixelDiffSignalPct": 46.94,
+        "pixelDiffNoisePct": 0.0
+      }
+    }
+  ],
+  "integrationState": "INTEGRADO — 10/10 drawImage medidos en el HUB real + 10/10 confirmados por diff de píxel OFF/ON",
+  "verifiedAt": "2026-11-04T00:24:01.270076+00:00",
+  "qa": {
+    "report": "ART_EVIDENCE/hub/tanda_05/report.json",
+    "summary": {
+      "APROBADO": 14,
+      "FALLIDO": 0,
+      "BLOQUEADO": 0,
+      "NO_VERIFICADO": 0,
+      "UNIDADES_INTEGRADAS": 10,
+      "UNIDADES_CON_DRAWIMAGE": 10
+    },
+    "drawCalls": "ART_EVIDENCE/hub/tanda_05/draw_calls.json",
+    "visualDiff": "ART_EVIDENCE/hub/tanda_05/visual_diff.json",
+    "method": "proxy de solo lectura sobre drawImage + page.screenshot() en Chromium/Playwright, A/B reversible con window.__DDM_HUB_T05"
+  }
+}

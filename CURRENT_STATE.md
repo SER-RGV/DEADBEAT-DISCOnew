@@ -68,3 +68,13 @@ Toda modificación debe partir de una copia de seguridad.
 - **T01:** APROBADA. **T02:** integrada y verificada, **cierre pendiente de performance gate** (medido en T04, sin declararla cerrada). **T03:** producción/carga/QA aprobadas, render 8/8 bloqueado en su informe histórico, ahora resuelto por T04.
 - **Git:** rama `arena/109fe45c-deadbeat-disconew`; PR #1 `OPEN`, base `arte-y-recursos`, head rama de sesión, **sin merge**; `main`/`origin/main` en `d75e021` intactos. Commit independiente `HUB TANDA 04 — Render integration`.
 - **Documentos vigentes:** `ART_TANDA_04_HUB_REPORT.md`, `ART_HUB_TANDA_04_AUDIT.md`, `ART_HUB_TANDA_04_MATRIX.md` (estado `INTEGRADO`), `ART_PRODUCTION_LOG.md`, `CHANGELOG.md`.
+
+<!-- TANDA05:STATE -->
+### Integración TANDA 05 — `APROBADO`
+
+- HUB real: 152 claves V5 (142 de T04 + 10 de T05), 27 canvas base, 11 estaciones, 6 zonas, caché de suelo activa.
+- 10/10 assets integrados y visibles: `drawImage` medido en `game` 1280×900, A/B `0 → 10 → 0 → 10`, `hub5Restore/hub5Apply` verificados.
+- Sin sistemas nuevos: sin colisiones, estaciones, interacciones, geometría, guardado, música, DJ ni segundo motor/canvas/caché/loader.
+- T01–T04 intactas. PR #1 abierto, base `arte-y-recursos`, head de sesión, **sin merge**; `main`/`origin/main` en `d75e021`.
+- Pendiente ajeno a T05: cierre formal del performance gate de T02; históricos `BLOQUEADO` de T03 conservados.
+- Siguiente: TANDA 06 — envolvente arquitectónica y atmósfera.

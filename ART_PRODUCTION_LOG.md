@@ -206,3 +206,12 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 | 2026-11-03 | HUB · Tanda 02: auditoría de 21 slots, 10 assets nuevos, integración V5, QA A/B 12/12 y cierre documental |
 | 2026-11-03 | HUB · Tanda 03: 8 unidades / 13 PNG, bloque HUB3_*, QA A/B 12/12, 8 bloqueos de render documentados y HTML intacto |
 | 2026-11-03 | HUB · Tanda 04: render integration, 13/13 PNG dibujados en el HUB real, 3 bloques en el HTML, art_pack.js intacto, QA A/B 12/12 |
+
+<!-- TANDA05:PRODUCTION -->
+### TANDA 05 — Equipamiento, vida ambiental e interactividad
+
+- Producción: **10 fuentes** 1408×768 en `_source/` y **10 finales** RGBA (tamaño exacto, esquinas transparentes, halo exterior ≤0,11 %), con `ART_TOOLS/prepare_hub_tanda_05.py` (`kill_exterior_halo`, `despill_dark` para fondo negro). Sin regeneración durante el cierre.
+- Clasificación: A máquinas/entretenimiento (T05-01/02), B equipamiento (T05-03/04/05/08), C decoración ambiental (T05-06/07/09) y D interactividad potencial (T05-10). 4 objetos funcionales SIN lógica nueva.
+- `T05-08` conservó composición **vertical** 68×178 con escala ajustada: NO se regeneró horizontalmente (límite de 10 generaciones de imagen).
+- Integración: `loadHub5()` tras `loadHub2()` en `ART_PACK/art_pack.js` y 10 entradas `hubDecor` en `DEADBEAT_DISCO.ART.html`, ambas con marcadores `TANDA05:BEGIN/END`. Flag reversible `window.__DDM_HUB_T05`.
+- Cierre: QA formal 14/14 APROBADO, 10/10 `drawImage` en el canvas de mundo, 10/10 con diff de píxel OFF/ON, `hashes.json`, informe `ART_TANDA_05_HUB_REPORT.md` y matriz `ART_HUB_TANDA_05_MATRIX.md`.
