@@ -1,0 +1,375 @@
+{
+  "tanda": "09",
+  "phase": "F1 · matriz de asignación de rutinas",
+  "generatedAt": "2026-11-04T05:39:10",
+  "principio": "Cada NPC tiene una razón reconocible para estar donde está. No todos bailan, caminan, reaccionan ni cambian a la vez.",
+  "noBailan": [
+    "t07_charla_01",
+    "t07_charla_02",
+    "t07_descanso",
+    "t07_recorrido"
+  ],
+  "noCaminan": [
+    "hub_ambient_dancer_nw",
+    "hub_ambient_dancer_ne",
+    "hub_ambient_dancer_sw",
+    "hub_ambient_clubber_bar",
+    "t07_charla_01",
+    "t07_charla_02",
+    "t07_descanso"
+  ],
+  "noReaccionan": [
+    "hub_ambient_dancer_nw",
+    "hub_ambient_dancer_ne",
+    "hub_ambient_dancer_sw",
+    "hub_ambient_clubber_bar",
+    "t07_descanso"
+  ],
+  "asignacion": [
+    {
+      "id": "hub_ambient_dancer_nw",
+      "zona": "A",
+      "actividadBase": "dance",
+      "durActividad_s": 7.5,
+      "durPausa_s": 1.4,
+      "intensidad": [
+        0.7,
+        1.1
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.0,
+      "acontecimientos": [
+        "group_start"
+      ],
+      "motivo": "Bailarín veterano de la pista NW: baila casi siempre, con pausas cortas; anclaje fijo por station dancer_0",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "hub_ambient_dancer_ne",
+      "zona": "A",
+      "actividadBase": "dance",
+      "durActividad_s": 9.2,
+      "durPausa_s": 2.1,
+      "intensidad": [
+        0.6,
+        1.15
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.0,
+      "acontecimientos": [
+        "two_positions"
+      ],
+      "motivo": "Desfase propio y pausa más larga que NW para evitar sincronía artificial",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "hub_ambient_dancer_sw",
+      "zona": "A/F",
+      "actividadBase": "dance",
+      "durActividad_s": 6.8,
+      "durPausa_s": 1.8,
+      "intensidad": [
+        0.55,
+        0.95
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.0,
+      "acontecimientos": [
+        "arcade_watch"
+      ],
+      "motivo": "Más cercano al arcade: a veces deja de bailar y se gira a mirar las máquinas; sin animación nueva",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "hub_ambient_clubber_bar",
+      "zona": "E",
+      "actividadBase": "dance",
+      "durActividad_s": 8.4,
+      "durPausa_s": 2.6,
+      "intensidad": [
+        0.45,
+        0.9
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.0,
+      "acontecimientos": [
+        "bar_shift"
+      ],
+      "motivo": "En la barra alterna baile bajo, espera quieta y giro hacia el mostrador; station dancer_3 fija",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_danza_01",
+      "zona": "A",
+      "actividadBase": "dance",
+      "durActividad_s": 5.6,
+      "durPausa_s": 1.2,
+      "intensidad": [
+        0.75,
+        1.2
+      ],
+      "desplazamientoMax_u": 18,
+      "pesoReaccion": 0.9,
+      "acontecimientos": [
+        "group_start"
+      ],
+      "motivo": "El más enérgico; intensidad alta/baja y microdesplazamiento lateral; conserva reacción al jugador",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_danza_02",
+      "zona": "A",
+      "actividadBase": "dance",
+      "durActividad_s": 7.1,
+      "durPausa_s": 1.7,
+      "intensidad": [
+        0.7,
+        1.1
+      ],
+      "desplazamientoMax_u": 18,
+      "pesoReaccion": 0.55,
+      "acontecimientos": [
+        "two_positions"
+      ],
+      "motivo": "Pausas desincronizadas con danza_01; reacción más tenue",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_charla_01",
+      "zona": "E",
+      "actividadBase": "talk",
+      "durActividad_s": 6.2,
+      "durPausa_s": 2.2,
+      "intensidad": [
+        0.4,
+        0.75
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.45,
+      "acontecimientos": [
+        "conversation_ends"
+      ],
+      "motivo": "Orientado a charla_02; gestos alternos y pausas; la conversación puede terminar y reanudarse",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_charla_02",
+      "zona": "E",
+      "actividadBase": "talk",
+      "durActividad_s": 8.0,
+      "durPausa_s": 1.9,
+      "intensidad": [
+        0.35,
+        0.7
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.25,
+      "acontecimientos": [
+        "conversation_ends"
+      ],
+      "motivo": "Responde con desfase; reacción mínima para que no todos miren al jugador",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_descanso",
+      "zona": "E",
+      "actividadBase": "rest",
+      "durActividad_s": 11.0,
+      "durPausa_s": 3.0,
+      "intensidad": [
+        0.25,
+        0.45
+      ],
+      "desplazamientoMax_u": 0,
+      "pesoReaccion": 0.0,
+      "acontecimientos": [
+        "posture_change"
+      ],
+      "motivo": "DE PIE (no existe sprite sentado): sólo cambios de inclinación y respiración; nunca reacciona ni se desplaza",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    },
+    {
+      "id": "t07_recorrido",
+      "zona": "D/A",
+      "actividadBase": "walk",
+      "durActividad_s": 9.5,
+      "durPausa_s": 2.4,
+      "intensidad": [
+        0.55,
+        0.95
+      ],
+      "desplazamientoMax_u": 25,
+      "pesoReaccion": 0.35,
+      "acontecimientos": [
+        "cliff_watch"
+      ],
+      "motivo": "Conserva la ruta seno ±62 u; añade pausas y una deriva corta; rara contemplación de la grieta",
+      "estado": "PENDIENTE_DE_AUTORIZACION"
+    }
+  ],
+  "esquema": {
+    "nombre": "Capa de rutinas T09 sobre props existentes (NO un sistema de NPC paralelo)",
+    "relojes": "UN único acumulador T09.clock alimentado por el dt del motor desde UN hook Tf(dt) encadenado tras T08. Sin setInterval, setTimeout, rAF ni temporizadores por NPC.",
+    "registroPorNPC": {
+      "activity": "actividad base heredada de T01/T07; nunca se elimina",
+      "anchor": "x/y original del prop; inmutable en los 4 ambientDancers (sus stations dancer_* nacen de ahí)",
+      "state": "ACTIVE | PAUSE | SHIFT | OBSERVE | RESUME",
+      "tLeft": "segundos restantes del estado; se decrementa con el dt compartido",
+      "variation": "seed determinista por índice (sin Math.random): desfases y duraciones individuales",
+      "intensity": "multiplicador de bounce/lean/velocidad de frame, con transición suave",
+      "facing": "flip objetivo; se interpola, nunca se invierte en un fotograma",
+      "offset": "dx/dy acotados; easing smoothstep; vuelta siempre al anchor",
+      "holdOffset": "desfase de reloj para CONGELAR el frame sin reiniciar phase; se recupera en ~0,5 s",
+      "transitionT": "0,35–0,55 s de suavizado en TODAS las transiciones"
+    },
+    "transiciones": [
+      "ACTIVE → PAUSE → ACTIVE",
+      "ACTIVE → SHIFT → ACTIVE",
+      "ACTIVE → OBSERVE → ACTIVE",
+      "ACTIVE → RESUME → ACTIVE (tras acontecimiento)"
+    ],
+    "continuidad": "stepIdx se calcula SIEMPRE con el mismo reloj artístico zz(); durante la pausa se usa zz−holdOffset. No se reinicia phase, no hay salto de frame ni de posición.",
+    "reacciones": "Se CONSERVAN las 5 reacciones T07 (react=clamp((185−dist)/85)) con peso individual 0,25–0,90; rest sigue excluido; los 4 ambientDancers y narr_cliente000 siguen sin reaccionar. Sin diálogos ni interacciones.",
+    "restricciones": [
+      "sin nuevos props ni NPC",
+      "sin colisiones (solid:false en los 10)",
+      "sin mover los 4 ambientDancers (stations ancladas)",
+      "sin invadir radios de estaciones: lift 142, dj 132, arsenal/bar 136, arcade/seals 124, cliente000 110",
+      "sin cambios en cámara, audio, Director, DJ, progresión ni control del jugador",
+      "Yc.reduced → comportamiento base congelado, sin acontecimientos"
+    ],
+    "acontecimientos": [
+      {
+        "id": "conversation_ends",
+        "duracion_s": 4.0,
+        "npcs": [
+          "t07_charla_01",
+          "t07_charla_02"
+        ],
+        "descripcion": "Uno deja de gesticular, el otro mantiene un gesto; vuelta al talk"
+      },
+      {
+        "id": "group_start",
+        "duracion_s": 4.5,
+        "npcs": [
+          "hub_ambient_dancer_nw",
+          "t07_danza_01"
+        ],
+        "descripcion": "Un bailarín en pausa reanuda con intensidad 1.2"
+      },
+      {
+        "id": "arcade_watch",
+        "duracion_s": 5.0,
+        "npcs": [
+          "hub_ambient_dancer_sw"
+        ],
+        "descripcion": "Se gira al oeste y reduce el baile: mira las máquinas"
+      },
+      {
+        "id": "bar_shift",
+        "duracion_s": 3.5,
+        "npcs": [
+          "hub_ambient_clubber_bar"
+        ],
+        "descripcion": "Cambia de orientación hacia el mostrador y se detiene"
+      },
+      {
+        "id": "two_positions",
+        "duracion_s": 5.5,
+        "npcs": [
+          "hub_ambient_dancer_ne",
+          "t07_danza_02"
+        ],
+        "descripcion": "Dos NPC intercambian un offset lateral ≤18 u y vuelven"
+      },
+      {
+        "id": "cliff_watch",
+        "duracion_s": 4.5,
+        "npcs": [
+          "t07_recorrido"
+        ],
+        "descripcion": "Detiene el recorrido y se orienta al sur (grieta); luego reanuda"
+      },
+      {
+        "id": "posture_change",
+        "duracion_s": 3.0,
+        "npcs": [
+          "t07_descanso"
+        ],
+        "descripcion": "Cambio de inclinación/alpha, sin sprite sentado"
+      }
+    ],
+    "cadenciaAcontecimientos": {
+      "minGap_s": 25,
+      "maxDuracion_s": 5.5,
+      "simultaneos": 1,
+      "secuencia": "round-robin determinista",
+      "condiciones": "sólo si HUB/EXPLORATION, sin modal, sin transitionLock, sin llegada T07, sin descenso y sin Yc.reduced",
+      "reversible": true
+    },
+    "flag": {
+      "nombre": "window.__DDM_HUB_T09",
+      "porDefecto": "ON (undefined)",
+      "false": "install() no monta nada si el flag ya es false; los wrappers ya montados delegan íntegramente en el hubDraw original de T01–T08",
+      "api": "window.DMO_HUB_T09.state() / audit() / setEnabled(v)",
+      "recuperacion": "Al volver a true se reanuda desde los anchors y la actividad base, sin residuos"
+    },
+    "integracion": {
+      "html": "DEADBEAT_DISCO.ART.html: módulo T09 tras TANDA08:END (módulo) L7892, dentro de initDmoHubV35; T09.install() tras T08.install() L8869 en buildHubSpace. 2 INSERCIONES, 0 ELIMINACIONES.",
+      "propAccess": "window.DMO_LAYOUT.propObjects() devuelve los 62 props reales; se envuelve hubDraw de 10 ids y se guarda el original.",
+      "art_pack": "SIN CAMBIOS: T09 no añade assets, loader ni versión nueva.",
+      "renderer": "Mismo addHubCustomProp → Lc → Y-sort; mismos sprites V5; misma sombra elíptica y Wb.",
+      "exclusion": "narr_cliente000 queda INTOCABLE (NPC de historia con diálogo/estación)."
+    },
+    "rendimiento": {
+      "npcs": 10,
+      "propsNuevos": 0,
+      "canvasNuevos": 0,
+      "acumuladores": 1,
+      "intervalosPorNPC": 0,
+      "allocsPorFrame": 0,
+      "skip": "si !inHub, location≠HUB/TRANSITION, modal, transitionLock o Yc.reduced"
+    },
+    "carencias": [
+      "No existe animación de SENTADO: t07_descanso seguirá de pie. Propuesta (SIN GENERAR): 1 sprite sentado, pendiente de autorización expresa.",
+      "No existe animación de USAR/MIRAR ARCADE: se resuelve con orientación + pausa; zona F queda sin NPC propio.",
+      "No existe animación de SALUDO: se reutiliza lean+flip.",
+      "No existe sistema de patrulla (patrol=0): no se crearán rutas nuevas; sólo la ruta seno ±62 u ya existente.",
+      "Zonas B (cabina) y F (arcade/espejo) no tienen NPC ambiental; no se añaden NPC nuevos en esta tanda.",
+      "narr_cliente000 no se modifica por su vinculación a NARR/storyState."
+    ],
+    "estado": "FASE 1 ENTREGADA · PENDIENTE DE AUTORIZACIÓN PARA FASE 2"
+  },
+  "identidadZonas": [
+    {
+      "zona": "A",
+      "identidad": "Energía sostenida con pausas desincronizadas",
+      "npcs": 6
+    },
+    {
+      "zona": "B",
+      "identidad": "Foco musical y llegada; quietud deliberada (sin NPC ambiental)",
+      "npcs": 0
+    },
+    {
+      "zona": "C",
+      "identidad": "Contemplación y tensión; sólo un acontecimiento raro de observación",
+      "npcs": 0
+    },
+    {
+      "zona": "D",
+      "identidad": "Tránsito y curiosidad; único recorrido existente",
+      "npcs": 1
+    },
+    {
+      "zona": "E",
+      "identidad": "Conversación, espera y descanso; movimiento mínimo",
+      "npcs": 4
+    },
+    {
+      "zona": "F",
+      "identidad": "Curiosidad y entretenimiento por orientación, no por interacción",
+      "npcs": 0
+    }
+  ]
+}
