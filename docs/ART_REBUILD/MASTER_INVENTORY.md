@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T20:14:11Z
+- **Última actualización:** 2026-11-04T20:26:37Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **28 / 330** recursos verificados en motor real
+- **Progreso global:** **35 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -13,13 +13,13 @@
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
-| `environments` | 8 | 1 | 1 | 1 |
+| `environments` | 8 | 4 | 4 | 4 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
 | `props` | 30 | 2 | 2 | 2 |
 | `ui` | 14 | 4 | 4 | 4 |
-| `walls` | 10 | 6 | 6 | 6 |
+| `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
 
 ## Inventario Detallado
@@ -48,21 +48,21 @@
 | 20 | TANDA_02 | `floor_core` | Suelo 10 · Obsidiana Cósmica Veteada (IX Núcleo Final) | `floors` | `assets/floors/floor_09_core_cosmic_vein.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
 | 21 | TANDA_03 | `Wc.floor` | Suelo 11 · Damero Clásico Blanco y Negro Club | `floors` | `assets/floors/floor_10_hub_checker.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
 | 22 | TANDA_03 | `floor_sloth` | Suelo 12 · Moqueta Terciopelo Carmesí VIP | `floors` | `assets/floors/floor_11_vip_velvet.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
-| 23 | TANDA_03 | `wall_limbo` | Muro Modular 01 · Hornacina Gótica Obsidiana | `walls` | `assets/walls/wall_panel_gothic_niche.png` | 256x384 | PENDING | PENDING | PENDING |
+| 23 | TANDA_03 | `wall_limbo` | Muro Modular 01 · Hornacina Gótica Obsidiana | `walls` | `assets/walls/wall_panel_gothic_niche.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 24 | TANDA_03 | `wall_lust` | Muro Modular 02 · Doble Pilastra Corona Neón | `walls` | `assets/walls/wall_panel_neon_crown.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 25 | TANDA_03 | `wall_envy` | Muro Modular 03 · Mirador VIP Ventana Neón | `walls` | `assets/walls/wall_panel_vip_window.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 26 | TANDA_03 | `arch:pillar` | Muro Modular 04 · Columna Pilastra Obsidiana | `walls` | `assets/walls/wall_pillar_obsidian.png` | 192x384 | DONE | INTEGRATED | VERIFIED |
 | 27 | TANDA_03 | `wall_nucleo` | Muro Modular 05 · Panel Alto Veta Magenta | `walls` | `assets/walls/wall_panel_tall_neon.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 28 | TANDA_03 | `wall_pride_tile` | Muro Modular 06 · Muro Pesado Zócalo Carmesí | `walls` | `assets/walls/wall_panel_heavy_base.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 29 | TANDA_03 | `wall_gula` | Muro Modular 07 · Panel Banquete Dorado (Gula/Avaricia) | `walls` | `assets/walls/wall_gula_banquet.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
-| 30 | TANDA_03 | `wall_wrath` | Muro Modular 08 · Muro Forja y Hielo (Ira/Traición) | `walls` | `assets/walls/wall_ice_glacier.png` | 256x384 | PENDING | PENDING | PENDING |
-| 31 | TANDA_04 | `wall_wrath_tile` | Muro Modular 09 · Forja Magma Industrial (Ira/Violencia) | `walls` | `assets/walls/wall_wrath_furnace.png` | 256x384 | PENDING | PENDING | PENDING |
-| 32 | TANDA_04 | `wall_core_tile` | Muro Modular 10 · Monolito Blanco y Negro (Núcleo) | `walls` | `assets/walls/wall_core_monolith.png` | 256x384 | PENDING | PENDING | PENDING |
-| 33 | TANDA_04 | `Bg:door_stained` | Puerta 01 · Arco Vitral Carmesí y Oro (Cerrada) | `environments` | `assets/environments/door_stained_closed.png` | 320x384 | PENDING | PENDING | PENDING |
+| 30 | TANDA_03 | `wall_wrath` | Muro Modular 08 · Muro Forja y Hielo (Ira/Traición) | `walls` | `assets/walls/wall_ice_glacier.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
+| 31 | TANDA_04 | `wall_wrath_tile` | Muro Modular 09 · Forja Magma Industrial (Ira/Violencia) | `walls` | `assets/walls/wall_wrath_furnace.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
+| 32 | TANDA_04 | `wall_core_tile` | Muro Modular 10 · Monolito Blanco y Negro (Núcleo) | `walls` | `assets/walls/wall_core_monolith.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
+| 33 | TANDA_04 | `Bg:door_stained` | Puerta 01 · Arco Vitral Carmesí y Oro (Cerrada) | `environments` | `assets/environments/door_stained_closed.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 34 | TANDA_04 | `Bg:door_arched_open` | Puerta 02 · Umbral Arco Dorado (Abierta) | `environments` | `assets/environments/door_arched_open.png` | 320x384 | PENDING | PENDING | PENDING |
-| 35 | TANDA_04 | `Bg:door_gothic_closed` | Puerta 03 · Portal Gótico Apuntado (Cerrada) | `environments` | `assets/environments/door_gothic_closed.png` | 320x384 | PENDING | PENDING | PENDING |
+| 35 | TANDA_04 | `Bg:door_gothic_closed` | Puerta 03 · Portal Gótico Apuntado (Cerrada) | `environments` | `assets/environments/door_gothic_closed.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 36 | TANDA_04 | `Bg:door_gothic_open` | Puerta 04 · Portal Gótico con Escalón (Umbral) | `environments` | `assets/environments/door_gothic_open.png` | 320x384 | PENDING | PENDING | PENDING |
-| 37 | TANDA_04 | `Bg:door_vip_crimson` | Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda/Cabina) | `environments` | `assets/environments/door_vip_crimson.png` | 288x384 | PENDING | PENDING | PENDING |
+| 37 | TANDA_04 | `Bg:door_vip_crimson` | Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda/Cabina) | `environments` | `assets/environments/door_vip_crimson.png` | 288x384 | DONE | INTEGRATED | VERIFIED |
 | 38 | TANDA_04 | `Bg:portal_baroque` | Portal 06 · Retablo Barroco Dorado (Cámara de Jefe) | `environments` | `assets/environments/portal_baroque_gold.png` | 320x416 | PENDING | PENDING | PENDING |
 | 39 | TANDA_04 | `Bg:portal_avaricia` | Portal 07 · Arco Relicario Dorado (Tesoro / Élite) | `environments` | `assets/environments/portal_avaricia_gold.png` | 320x384 | PENDING | PENDING | PENDING |
 | 40 | TANDA_04 | `ui:hud_minimap_frame` | Marco UI · Minimapa Isométrico y Corazones Neón | `ui` | `assets/ui/hud_heart_full.png` | 128x128 | PENDING | PENDING | PENDING |

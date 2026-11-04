@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 28,
+  "totalRegistered": 35,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -288,6 +288,19 @@
       "tanda": "TANDA_03",
       "sha16": "0698eac7387326e6"
     },
+    "wall_panel_gothic_niche": {
+      "id": "wall_panel_gothic_niche",
+      "originalId": "wall_limbo",
+      "name": "Muro Modular 01 · Hornacina Gótica Obsidiana",
+      "category": "walls",
+      "src": "assets/walls/wall_panel_gothic_niche.png",
+      "w": 256,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_03",
+      "sha16": "e3344b5699cae80c"
+    },
     "wall_panel_neon_crown": {
       "id": "wall_panel_neon_crown",
       "originalId": "wall_lust",
@@ -365,6 +378,84 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_03",
       "sha16": "a2766b7b3701046c"
+    },
+    "wall_ice_glacier": {
+      "id": "wall_ice_glacier",
+      "originalId": "wall_wrath",
+      "name": "Muro Modular 08 · Muro Forja y Hielo (Ira/Traición)",
+      "category": "walls",
+      "src": "assets/walls/wall_ice_glacier.png",
+      "w": 256,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_03",
+      "sha16": "66cb8105d66cfd46"
+    },
+    "wall_wrath_furnace": {
+      "id": "wall_wrath_furnace",
+      "originalId": "wall_wrath_tile",
+      "name": "Muro Modular 09 · Forja Magma Industrial (Ira/Violencia)",
+      "category": "walls",
+      "src": "assets/walls/wall_wrath_furnace.png",
+      "w": 256,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "07ed3efa4776f80d"
+    },
+    "wall_core_monolith": {
+      "id": "wall_core_monolith",
+      "originalId": "wall_core_tile",
+      "name": "Muro Modular 10 · Monolito Blanco y Negro (Núcleo)",
+      "category": "walls",
+      "src": "assets/walls/wall_core_monolith.png",
+      "w": 256,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "e3dfeee05665fada"
+    },
+    "door_stained_closed": {
+      "id": "door_stained_closed",
+      "originalId": "Bg:door_stained",
+      "name": "Puerta 01 · Arco Vitral Carmesí y Oro (Cerrada)",
+      "category": "environments",
+      "src": "assets/environments/door_stained_closed.png",
+      "w": 320,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "0bbeb12720879888"
+    },
+    "door_gothic_closed": {
+      "id": "door_gothic_closed",
+      "originalId": "Bg:door_gothic_closed",
+      "name": "Puerta 03 · Portal Gótico Apuntado (Cerrada)",
+      "category": "environments",
+      "src": "assets/environments/door_gothic_closed.png",
+      "w": 320,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "8fe4b3c4f87810dd"
+    },
+    "door_vip_crimson": {
+      "id": "door_vip_crimson",
+      "originalId": "Bg:door_vip_crimson",
+      "name": "Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda/Cabina)",
+      "category": "environments",
+      "src": "assets/environments/door_vip_crimson.png",
+      "w": 288,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "e6381f5f54da192d"
     }
   },
   "byOriginalId": {
@@ -390,11 +481,18 @@
     "floor_core": "floor_09_core_cosmic_vein",
     "Wc.floor": "floor_10_hub_checker",
     "floor_sloth": "floor_11_vip_velvet",
+    "wall_limbo": "wall_panel_gothic_niche",
     "wall_lust": "wall_panel_neon_crown",
     "wall_envy": "wall_panel_vip_window",
     "arch:pillar": "wall_pillar_obsidian",
     "wall_nucleo": "wall_panel_tall_neon",
     "wall_pride_tile": "wall_panel_heavy_base",
-    "wall_gula": "wall_gula_banquet"
+    "wall_gula": "wall_gula_banquet",
+    "wall_wrath": "wall_ice_glacier",
+    "wall_wrath_tile": "wall_wrath_furnace",
+    "wall_core_tile": "wall_core_monolith",
+    "Bg:door_stained": "door_stained_closed",
+    "Bg:door_gothic_closed": "door_gothic_closed",
+    "Bg:door_vip_crimson": "door_vip_crimson"
   }
 }
