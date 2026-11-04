@@ -411,9 +411,7 @@
     if (kind === "chest" && (prop.opened || prop.open)) {
       assetId = "prop_chest_open";
     }
-    const im =
-      (window.DD_ASSETS && window.DD_ASSETS.get(assetId)) ||
-      (window.DD_ASSETS && window.DD_ASSETS.get("prop_sofa_magenta"));
+    const im = window.DD_ASSETS && window.DD_ASSETS.get(assetId);
     if (!im) return false;
 
     const baseR = Math.max(24, Number(prop.br || prop.r || 38));

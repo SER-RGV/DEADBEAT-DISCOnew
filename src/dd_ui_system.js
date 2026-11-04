@@ -562,9 +562,14 @@
     const snap = br ? br.getSnapshot() : null;
     const inHub = window.DD_HUB && window.DD_HUB.isActive();
 
-    // Auto-hide main menu if engine started externally (e.g. test script clicking #start-btn)
+    // Hide HUD cleanly during full-screen blocking cinematics or main menu
     if (uiState.menuVisible && ((snap && snap.running) || inHub)) {
       hideMainMenu();
+    }
+    const hudEl = document.getElementById("dd-hud");
+    const cineBlocking = !!(window.DD_CINE && window.DD_CINE.isBlocking());
+    if (hudEl) {
+      hudEl.classList.toggle("dd-hidden", uiState.menuVisible || cineBlocking);
     }
 
     // Gamepad navigation for Main Menu & Modals

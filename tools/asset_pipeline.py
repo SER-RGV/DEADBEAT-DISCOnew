@@ -77,6 +77,10 @@ def extract_clean_rgba(im: Image.Image) -> Image.Image:
     edge_labels = np.unique(labeled[seed])
     edge_labels = edge_labels[edge_labels > 0]
     exterior_bg = np.isin(labeled, edge_labels)
+    if is_green_bg:
+        # Also punch out enclosed pure #00FF00 chroma cutouts (e.g. open iron frames)
+        green_interior = (rgb[:, :, 1] > 165) & ((rgb[:, :, 1] - np.maximum(rgb[:, :, 0], rgb[:, :, 2])) > 65)
+        exterior_bg = exterior_bg | green_interior
 
     # Erode foreground mask by 1px at exterior boundary & smooth 1.2px for clean anti-aliased edge
     fg = (~exterior_bg).astype(np.float32)
@@ -371,10 +375,12 @@ def process_tanda(tanda_num: int):
 
     raw_dir = f"/tmp/dd_raw/tanda_{tanda_num:02d}"
     report = []
+    missing = []
     for a in batch:
         raw_path = os.path.join(raw_dir, f"{a['id']}.png")
         if not os.path.isfile(raw_path):
-            raise FileNotFoundError(f"Missing raw asset {raw_path}")
+            missing.append(a["id"])
+            continue
 
         src_im = Image.open(raw_path)
         tw, th = a["dimensions"]
@@ -402,9 +408,11 @@ def process_tanda(tanda_num: int):
         report.append((a["id"], a["location"], f"{tw}x{th}", f"{size_kb:.1f}KB", f"trans={trans_px}"))
 
     rebuild_registry()
-    print(f"=== {tanda_key} PROCESSED & REGISTERED (10/10) ===")
+    print(f"=== {tanda_key} PROCESSED & REGISTERED ({len(report)}/{len(batch)}) ===")
     for r in report:
         print("  ", " | ".join(r))
+    if missing:
+        print("  PENDING (platform turn cap / retry queued):", ", ".join(missing))
 
 
 if __name__ == "__main__":

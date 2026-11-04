@@ -18,7 +18,7 @@
   --dd-font-ui: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
-/* Strictly abolish pixel-art nearest-neighbor scaling across the entire DOM */
+/* Strictly abolish pixel-art nearest-neighbor scaling & legacy DDPixel font overrides */
 html, body, body.pixel-art-edition, canvas, img, svg,
 #game, #ddc-cover, #ddc-img, #ddc-fx, #overlay, #ui {
   image-rendering: auto !important;
@@ -26,9 +26,26 @@ html, body, body.pixel-art-edition, canvas, img, svg,
   font-smooth: always;
 }
 
+#dd-main-menu, #dd-main-menu *,
+#dd-hud, #dd-hud *,
+#dd-dialogue-box, #dd-dialogue-box *,
+#dd-shop-modal, #dd-shop-modal *,
+#dd-map-modal, #dd-map-modal *,
+#dd-cine-overlay, #dd-cine-overlay * {
+  font-family: var(--dd-font-ui) !important;
+}
+
+.dd-menu-btn, .dd-modal-title, .dd-boss-hud-title, .dd-dj-speaker-tab, .dd-action-btn {
+  font-family: var(--dd-font-display) !important;
+}
+
 body.dd-highres-edition #dmo-compact-hud,
 body.dd-highres-edition #ddc-cover,
-body.dd-highres-edition #subs {
+body.dd-highres-edition #subs,
+body.dd-highres-edition #minimap,
+body.dd-highres-edition #pause-btn,
+body.dd-highres-edition #audio-btn,
+body.dd-highres-edition #hud {
   /* Replaced seamlessly by unified high-res Reference UI layers while keeping legacy DOM nodes alive for engine hooks */
   opacity: 0 !important;
   pointer-events: none !important;
@@ -96,20 +113,20 @@ body.dd-highres-edition #subs {
 .dd-menu-nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   margin: auto 0;
 }
 .dd-menu-btn {
   appearance: none;
   position: relative;
   text-align: left;
-  padding: 13px 22px;
+  padding: 9px 18px;
   background: linear-gradient(90deg, rgba(16, 9, 28, 0.88), rgba(22, 11, 36, 0.45));
   border: 2px solid rgba(255, 45, 122, 0.28);
   border-left: 5px solid rgba(255, 45, 122, 0.55);
   color: var(--dd-cream);
   font-family: var(--dd-font-display);
-  font-size: clamp(18px, 2vw, 25px);
+  font-size: clamp(16px, 1.75vw, 22px);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   cursor: pointer;

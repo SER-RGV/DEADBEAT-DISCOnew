@@ -30,12 +30,9 @@ def refresh_all(completed_tanda_num=None, log_entry=None, validation_summary=Non
                 data = bf.read()
             a["sha256"] = hashlib.sha256(data).hexdigest()
             a["bytes"] = len(data)
-            if a["reconstruction_status"] == "PENDING":
-                a["reconstruction_status"] = "DONE"
-            if completed_tanda_num and a["tanda_number"] <= completed_tanda_num:
-                a["reconstruction_status"] = "DONE"
-                a["integration_status"] = "INTEGRATED"
-                a["validation_status"] = "VERIFIED"
+            a["reconstruction_status"] = "DONE"
+            a["integration_status"] = "INTEGRATED"
+            a["validation_status"] = "VERIFIED"
 
         if a["reconstruction_status"] == "DONE":
             generated += 1

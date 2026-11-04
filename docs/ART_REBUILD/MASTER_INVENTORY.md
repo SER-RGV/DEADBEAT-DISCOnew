@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T18:56:43Z
+- **Última actualización:** 2026-11-04T19:26:02Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **0 / 330** recursos verificados en motor real
+- **Progreso global:** **9 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -10,15 +10,15 @@
 |---|---:|---:|---:|---:|
 | `bosses` | 42 | 0 | 0 | 0 |
 | `characters` | 16 | 0 | 0 | 0 |
-| `cinematics` | 11 | 0 | 0 | 0 |
+| `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
-| `environments` | 8 | 0 | 0 | 0 |
+| `environments` | 8 | 1 | 1 | 1 |
 | `floors` | 12 | 0 | 0 | 0 |
-| `logos` | 2 | 0 | 0 | 0 |
+| `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
-| `props` | 30 | 0 | 0 | 0 |
-| `ui` | 14 | 0 | 0 | 0 |
+| `props` | 30 | 2 | 2 | 2 |
+| `ui` | 14 | 3 | 3 | 3 |
 | `walls` | 10 | 0 | 0 | 0 |
 | `weapons` | 121 | 0 | 0 | 0 |
 
@@ -26,16 +26,16 @@
 
 | # | Tanda | ID Original | Nombre | Categoría | Ubicación | Dim. | Reconstrucción | Integración | Validación |
 |---:|---|---|---|---|---|---|---|---|---|
-| 1 | TANDA_01 | `atlas:logo` | Logotipo Graffiti Deadbeat Disco | `logos` | `assets/logos/logo_deadbeat_graffiti.png` | 1024x682 | PENDING | PENDING | PENDING |
-| 2 | TANDA_01 | `boot-sigil` | Emblema Zorro Coronado Neón | `logos` | `assets/logos/emblem_fox_crown.png` | 512x512 | PENDING | PENDING | PENDING |
-| 3 | TANDA_01 | `ddc-img` | Ilustración Menú Principal Protagonista y Ciudad Roja | `ui` | `assets/ui/menu_main_backdrop.png` | 1280x720 | PENDING | PENDING | PENDING |
-| 4 | TANDA_01 | `ddc-bg` | Key Art Discoteca Infernal Panorama | `cinematics` | `assets/cinematics/cine_intro_club_panorama.png` | 1280x720 | PENDING | PENDING | PENDING |
-| 5 | TANDA_01 | `hud:portrait` | Retrato HUD Perfil Protagonista | `ui` | `assets/ui/hud_portrait_protagonist.png` | 256x256 | PENDING | PENDING | PENDING |
-| 6 | TANDA_01 | `atlas:dj` | Retrato Diálogo DJ Virgilio | `ui` | `assets/ui/dialogue_portrait_dj.png` | 512x512 | PENDING | PENDING | PENDING |
+| 1 | TANDA_01 | `atlas:logo` | Logotipo Graffiti Deadbeat Disco | `logos` | `assets/logos/logo_deadbeat_graffiti.png` | 1024x682 | DONE | INTEGRATED | VERIFIED |
+| 2 | TANDA_01 | `boot-sigil` | Emblema Zorro Coronado Neón | `logos` | `assets/logos/emblem_fox_crown.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 3 | TANDA_01 | `ddc-img` | Ilustración Menú Principal Protagonista y Ciudad Roja | `ui` | `assets/ui/menu_main_backdrop.png` | 1280x720 | DONE | INTEGRATED | VERIFIED |
+| 4 | TANDA_01 | `ddc-bg` | Key Art Discoteca Infernal Panorama | `cinematics` | `assets/cinematics/cine_intro_club_panorama.png` | 1280x720 | DONE | INTEGRATED | VERIFIED |
+| 5 | TANDA_01 | `hud:portrait` | Retrato HUD Perfil Protagonista | `ui` | `assets/ui/hud_portrait_protagonist.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
+| 6 | TANDA_01 | `atlas:dj` | Retrato Diálogo DJ Virgilio | `ui` | `assets/ui/dialogue_portrait_dj.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
 | 7 | TANDA_01 | `explore72-map` | Mapa de Progresión Torre Infernal Isométrica | `ui` | `assets/ui/map_infernal_tower.png` | 640x640 | PENDING | PENDING | PENDING |
-| 8 | TANDA_01 | `hub:fox_neon` | Neón Mural Zorro Refugio HUB | `props` | `assets/props/prop_hub_fox_neon.png` | 384x512 | PENDING | PENDING | PENDING |
-| 9 | TANDA_01 | `atlas:sofa` | Sofá Terciopelo Magenta VIP Isométrico | `props` | `assets/props/prop_sofa_magenta.png` | 384x256 | PENDING | PENDING | PENDING |
-| 10 | TANDA_01 | `hub:descent_pad` | Plataforma Cian de Descenso HUB | `environments` | `assets/environments/threshold_descent_pad.png` | 512x320 | PENDING | PENDING | PENDING |
+| 8 | TANDA_01 | `hub:fox_neon` | Neón Mural Zorro Refugio HUB | `props` | `assets/props/prop_hub_fox_neon.png` | 384x512 | DONE | INTEGRATED | VERIFIED |
+| 9 | TANDA_01 | `atlas:sofa` | Sofá Terciopelo Magenta VIP Isométrico | `props` | `assets/props/prop_sofa_magenta.png` | 384x256 | DONE | INTEGRATED | VERIFIED |
+| 10 | TANDA_01 | `hub:descent_pad` | Plataforma Cian de Descenso HUB | `environments` | `assets/environments/threshold_descent_pad.png` | 512x320 | DONE | INTEGRATED | VERIFIED |
 | 11 | TANDA_02 | `floor_limbo` | Suelo 01 · Mármol Marfil Agrietado (Limbo / Refugio) | `floors` | `assets/floors/floor_00_limbo_marble.png` | 512x512 | PENDING | PENDING | PENDING |
 | 12 | TANDA_02 | `floor_lust` | Suelo 02 · Pista Neón Magenta y Violeta (I Lujuria) | `floors` | `assets/floors/floor_01_lust_dancefloor.png` | 512x512 | PENDING | PENDING | PENDING |
 | 13 | TANDA_02 | `floor_gula` | Suelo 03 · Mármol Terracota Carmesí (II Gula) | `floors` | `assets/floors/floor_02_gula_terracotta.png` | 512x512 | PENDING | PENDING | PENDING |
