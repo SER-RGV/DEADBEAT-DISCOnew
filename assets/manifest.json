@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 35,
+  "totalRegistered": 40,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -431,6 +431,19 @@
       "tanda": "TANDA_04",
       "sha16": "0bbeb12720879888"
     },
+    "door_arched_open": {
+      "id": "door_arched_open",
+      "originalId": "Bg:door_arched_open",
+      "name": "Puerta 02 · Umbral Arco Dorado (Abierta)",
+      "category": "environments",
+      "src": "assets/environments/door_arched_open.png",
+      "w": 320,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "23ed4c471502e476"
+    },
     "door_gothic_closed": {
       "id": "door_gothic_closed",
       "originalId": "Bg:door_gothic_closed",
@@ -444,6 +457,19 @@
       "tanda": "TANDA_04",
       "sha16": "8fe4b3c4f87810dd"
     },
+    "door_gothic_open": {
+      "id": "door_gothic_open",
+      "originalId": "Bg:door_gothic_open",
+      "name": "Puerta 04 · Portal Gótico con Escalón (Umbral)",
+      "category": "environments",
+      "src": "assets/environments/door_gothic_open.png",
+      "w": 320,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "7a87a94e22f94d03"
+    },
     "door_vip_crimson": {
       "id": "door_vip_crimson",
       "originalId": "Bg:door_vip_crimson",
@@ -456,6 +482,45 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_04",
       "sha16": "e6381f5f54da192d"
+    },
+    "portal_baroque_gold": {
+      "id": "portal_baroque_gold",
+      "originalId": "Bg:portal_baroque",
+      "name": "Portal 06 · Retablo Barroco Dorado (Cámara de Jefe)",
+      "category": "environments",
+      "src": "assets/environments/portal_baroque_gold.png",
+      "w": 320,
+      "h": 416,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "83e96ae57d0df2a6"
+    },
+    "portal_avaricia_gold": {
+      "id": "portal_avaricia_gold",
+      "originalId": "Bg:portal_avaricia",
+      "name": "Portal 07 · Arco Relicario Dorado (Tesoro / Élite)",
+      "category": "environments",
+      "src": "assets/environments/portal_avaricia_gold.png",
+      "w": 320,
+      "h": 384,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_04",
+      "sha16": "2518fdde1cf2486b"
+    },
+    "hud_heart_full": {
+      "id": "hud_heart_full",
+      "originalId": "ui:hud_minimap_frame",
+      "name": "Marco UI · Minimapa Isométrico y Corazones Neón",
+      "category": "ui",
+      "src": "assets/ui/hud_heart_full.png",
+      "w": 128,
+      "h": 128,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_04",
+      "sha16": "da0b836b78941f6e"
     }
   },
   "byOriginalId": {
@@ -492,7 +557,12 @@
     "wall_wrath_tile": "wall_wrath_furnace",
     "wall_core_tile": "wall_core_monolith",
     "Bg:door_stained": "door_stained_closed",
+    "Bg:door_arched_open": "door_arched_open",
     "Bg:door_gothic_closed": "door_gothic_closed",
-    "Bg:door_vip_crimson": "door_vip_crimson"
+    "Bg:door_gothic_open": "door_gothic_open",
+    "Bg:door_vip_crimson": "door_vip_crimson",
+    "Bg:portal_baroque": "portal_baroque_gold",
+    "Bg:portal_avaricia": "portal_avaricia_gold",
+    "ui:hud_minimap_frame": "hud_heart_full"
   }
 }

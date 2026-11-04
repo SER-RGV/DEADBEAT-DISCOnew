@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T20:26:37Z
+- **Última actualización:** 2026-11-04T20:38:11Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **35 / 330** recursos verificados en motor real
+- **Progreso global:** **40 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -13,12 +13,12 @@
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
-| `environments` | 8 | 4 | 4 | 4 |
+| `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
 | `props` | 30 | 2 | 2 | 2 |
-| `ui` | 14 | 4 | 4 | 4 |
+| `ui` | 14 | 5 | 5 | 5 |
 | `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
 
@@ -59,13 +59,13 @@
 | 31 | TANDA_04 | `wall_wrath_tile` | Muro Modular 09 · Forja Magma Industrial (Ira/Violencia) | `walls` | `assets/walls/wall_wrath_furnace.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 32 | TANDA_04 | `wall_core_tile` | Muro Modular 10 · Monolito Blanco y Negro (Núcleo) | `walls` | `assets/walls/wall_core_monolith.png` | 256x384 | DONE | INTEGRATED | VERIFIED |
 | 33 | TANDA_04 | `Bg:door_stained` | Puerta 01 · Arco Vitral Carmesí y Oro (Cerrada) | `environments` | `assets/environments/door_stained_closed.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
-| 34 | TANDA_04 | `Bg:door_arched_open` | Puerta 02 · Umbral Arco Dorado (Abierta) | `environments` | `assets/environments/door_arched_open.png` | 320x384 | PENDING | PENDING | PENDING |
+| 34 | TANDA_04 | `Bg:door_arched_open` | Puerta 02 · Umbral Arco Dorado (Abierta) | `environments` | `assets/environments/door_arched_open.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 35 | TANDA_04 | `Bg:door_gothic_closed` | Puerta 03 · Portal Gótico Apuntado (Cerrada) | `environments` | `assets/environments/door_gothic_closed.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
-| 36 | TANDA_04 | `Bg:door_gothic_open` | Puerta 04 · Portal Gótico con Escalón (Umbral) | `environments` | `assets/environments/door_gothic_open.png` | 320x384 | PENDING | PENDING | PENDING |
+| 36 | TANDA_04 | `Bg:door_gothic_open` | Puerta 04 · Portal Gótico con Escalón (Umbral) | `environments` | `assets/environments/door_gothic_open.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 37 | TANDA_04 | `Bg:door_vip_crimson` | Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda/Cabina) | `environments` | `assets/environments/door_vip_crimson.png` | 288x384 | DONE | INTEGRATED | VERIFIED |
-| 38 | TANDA_04 | `Bg:portal_baroque` | Portal 06 · Retablo Barroco Dorado (Cámara de Jefe) | `environments` | `assets/environments/portal_baroque_gold.png` | 320x416 | PENDING | PENDING | PENDING |
-| 39 | TANDA_04 | `Bg:portal_avaricia` | Portal 07 · Arco Relicario Dorado (Tesoro / Élite) | `environments` | `assets/environments/portal_avaricia_gold.png` | 320x384 | PENDING | PENDING | PENDING |
-| 40 | TANDA_04 | `ui:hud_minimap_frame` | Marco UI · Minimapa Isométrico y Corazones Neón | `ui` | `assets/ui/hud_heart_full.png` | 128x128 | PENDING | PENDING | PENDING |
+| 38 | TANDA_04 | `Bg:portal_baroque` | Portal 06 · Retablo Barroco Dorado (Cámara de Jefe) | `environments` | `assets/environments/portal_baroque_gold.png` | 320x416 | DONE | INTEGRATED | VERIFIED |
+| 39 | TANDA_04 | `Bg:portal_avaricia` | Portal 07 · Arco Relicario Dorado (Tesoro / Élite) | `environments` | `assets/environments/portal_avaricia_gold.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
+| 40 | TANDA_04 | `ui:hud_minimap_frame` | Marco UI · Minimapa Isométrico y Corazones Neón | `ui` | `assets/ui/hud_heart_full.png` | 128x128 | DONE | INTEGRATED | VERIFIED |
 | 41 | TANDA_05 | `ui:heart_empty` | Icono HUD · Corazón Vacío Obsidiana | `ui` | `assets/ui/hud_heart_empty.png` | 128x128 | PENDING | PENDING | PENDING |
 | 42 | TANDA_05 | `ui:shield_badge` | Icono HUD · Escudo Dorado y Cian | `ui` | `assets/ui/hud_shield_badge.png` | 128x128 | PENDING | PENDING | PENDING |
 | 43 | TANDA_05 | `ui:skill_bomb` | Icono HUD · Habilidad Bomba Infernal | `ui` | `assets/ui/hud_skill_bomb.png` | 160x160 | PENDING | PENDING | PENDING |
