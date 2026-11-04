@@ -110,3 +110,14 @@ Registrar aquí cada modificación:
 - Flag reversible `window.__DDM_HUB_T09`: con `false`, delegación íntegra al `hubDraw` de T01–T08 y sin carga de sprites nuevos; verificado OFF → ON y con movimiento reducido.
 - QA formal de 16 puntos durante **100 s / 400 muestras + 180 a 33 ms**: **16 APROBADO / 0 FALLIDO** (matriz completa 16/0/3/6), 0 `pageerror`, 0 warnings, 39 evidencias, 17 hashes, 4/4 SHA-256 de assets.
 - No se fusiona PR #1; no se modifica `main`.
+
+## 2026-11-04 · MODIFICACIÓN PRIORITARIA — Legibilidad y reconstrucción espacial del HUB (A–F)
+- Versión: módulo `1.0.0-legibilidad`; HTML `3e82dc77…9011` → 4 inserciones / 0 eliminaciones. `ART_PACK/art_pack.js` **sin cambios**.
+- Autorización: usuario eligió alcance **A–F completo** y **T09 desactivada**; la propuesta se entregó antes de modificar porque `lift` no estaba conectado a la grieta.
+- Archivos modificados: `DEADBEAT_DISCO.ART.html` (4 enganches: módulo, apertura/cierre de `clipCutaway` en T08, `LEG.install()` en `buildHubSpace()`).
+- Archivos nuevos: `ART_TOOLS/hub_legibilidad_block.js`, `ART_TOOLS/apply_hub_legibilidad.py`, `ART_TOOLS/qa/hub_legibilidad_correccion_qa.js`, `ART_TOOLS/qa/hub_legibilidad_metricas.py`, `ART_TOOLS/finalize_hub_legibilidad.py`, `ART_CORRECCION_LEGIBILIDAD_HUB.md`, 46 evidencias en `ART_EVIDENCE/hub/correccion/`. Actualizados: `ART_AUDITORIA_LEGIBILIDAD_HUB.md` (§10), `ART_PROPUESTA_CORRECCION_PRECIPICIO.md`, `CURRENT_STATE.md`, `ART_PRODUCTION_LOG.md`.
+- Sistemas afectados: **sólo capas de dibujo y visibilidad** (`style.opacity` de `DMO_ATMOS`, `CFG.grade/grain`, `prop.hidden`, envoltorios de `drawHubFloorLayer`/`drawPixelNeonBanner`/`drawDiegeticSign`/`zf`/`Tf`, clip de `drawCutaway`). Sin cámara global, colisiones, estaciones, progresión, Director, combate ni audio.
+- Cambios: bloom 1,00→0,30; vignette 1,00→0,45; grade 1→0,35; grain 0,016→0,006; 9 props redundantes ocultos (reversibles); velo de jerarquía en el suelo; sombras de contacto; oclusión del abanico del arsenal; labio rocoso irregular en lugar de la línea recta; boca oscura con escalera de caracol y luz inferior; cutaway T08 recortado desde la boca; un cartel por POI.
+- Pruebas: Chromium 131 + Playwright, A/B en la misma página en 6 zonas, 16 barridos, 9 fotogramas de descenso, flag OFF desde arranque, `startCampaignFromHub(0)` → `CAMPAIGN_ROOM`; `git diff --check`, `node --check`, `py_compile`.
+- Resultado: **QA 18/18 APROBADO / 0 FALLIDO**, 0 `pageerror`, 0 assets nuevos, 0 props nuevos, 62 props y 11 estaciones intactos. Línea magenta 1089→0 px (reversible), separación de planos 17,95→23,65 en el borde.
+- Entrega Git: rama `arena/109fe45c-deadbeat-disconew`, PR #1 `OPEN` **sin merge**, `main` intacta.

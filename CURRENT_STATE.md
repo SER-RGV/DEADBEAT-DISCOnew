@@ -129,3 +129,15 @@ Toda modificación debe partir de una copia de seguridad.
 - **BLOQUEADO (diseño):** sin sistema de patrulla, sin NPC ambiental propio en B/F, `narr_cliente000` sin cambios.
 - **NO VERIFICADO:** vídeo continuo, mando físico, audio audible/latencia, coste real de frame y rendimiento sostenido en hardware real, regresión visual/formal completa T01–07, sostenimiento >100 s; heredados: performance gate T02 y 8 `BLOQUEADO` de T03.
 - **Documentos vigentes:** `ART_TANDA_09_REPORT.md`, `ART_TANDA_09_FASE0_INVENTARIO.md`, `ART_TANDA_09_FASE1_MATRIZ_RUTINAS.md`, `ART_TANDA_09_FASE2_RECURSOS.md`, `ART_EVIDENCE/hub/tanda_09/`.
+
+---
+
+## Estado actual · 2026-11-04 (MODIFICACIÓN PRIORITARIA · legibilidad y geografía del HUB)
+
+- Prioridad vigente del usuario por encima de nuevas actividades NPC. La **TANDA 09 ya publicada** queda **desactivada** (`window.__DDM_HUB_T09 = false`) durante toda la corrección; no se amplían sus rutinas.
+- Auditoría visual T01–T08 publicada en `56dfd85` (16 capturas de barrido, 21 A/B de capas, 12 de prueba, 9 de descenso, matriz de 79 incidencias). Diagnóstico: niebla por `opacity=1` del bloom `screen`, saturación por el patrón art-déco, línea magenta recta como falso borde y grieta decorativa desconectada del descenso.
+- Propuesta entregada **antes de modificar** (`ART_PROPUESTA_CORRECCION_PRECIPICIO.md`); el usuario autorizó **A–F completos**.
+- Implementación: módulo reversible `ART_TOOLS/hub_legibilidad_block.js` + `apply_hub_legibilidad.py` (`--apply/--check/--restore` con SHA-256 byte a byte). **4 inserciones, 0 eliminaciones** en `DEADBEAT_DISCO.ART.html`; `ART_PACK/art_pack.js` **sin cambios**. Flag `window.__DDM_HUB_LEGIBILIDAD` (`true` tras autorización, `false` = estado publicado). Sin assets, props, cámara, motor, Director, combate, progresión ni audio nuevos.
+- Resultado medido: línea magenta recta **1089 → 0 px** (restaurado 1117), separación de planos en el borde **17,95 → 23,65**, 62 props / 11 estaciones intactos, `startCampaignFromHub(0)` sin cambios → `CAMPAIGN_ROOM`.
+- QA `ART_EVIDENCE/hub/correccion/qa_matrix.json`: **18 APROBADO / 0 FALLIDO**, 0 `pageerror` en 5 contextos, reversibilidad en caliente verificada. Evidencias: 16 sweep, 12 A/B + 2 restaurado, 9 descenso, `flag_off_boot_borde.jpg`, `compatibilidad_t09_legibilidad.jpg`, `comparativa_antes_despues.png`, `report.json`, `qa_matrix.json`, `metricas.json`, `hashes.json` (46 ficheros).
+- `main`/`origin/main` en `d75e021`, PR #1 `OPEN` sin merge. Informe: `ART_CORRECCION_LEGIBILIDAD_HUB.md`.

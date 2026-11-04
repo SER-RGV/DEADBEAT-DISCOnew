@@ -201,4 +201,21 @@ Realizada en **copia temporal** del HTML con un módulo reversible (`propuesta_m
 
 Arnés: `ART_TOOLS/qa/hub_legibilidad_audit.js`, `hub_legibilidad_descenso.js`, `hub_legibilidad_prueba_visual.js`.
 
-**Siguiente paso:** revisar `ART_PROPUESTA_CORRECCION_PRECIPICIO.md` y autorizar (o ajustar) las correcciones mínimas de P3–P5.
+**Siguiente paso (histórico):** revisar `ART_PROPUESTA_CORRECCION_PRECIPICIO.md` y autorizar (o ajustar) las correcciones mínimas de P3–P5.
+
+---
+
+## 10. ACTUALIZACIÓN · 2026-11-04 — corrección A–F autorizada y aplicada
+
+El usuario autorizó **A–F completos** en orden, con parada ante problemas críticos, y decidió mantener **T09 desactivada** (`__DDM_HUB_T09 = false`). Este documento conserva la auditoría original (estado `3a22d5b`, juego sin modificar) como línea base; la ejecución y sus resultados están en **`ART_CORRECCION_LEGIBILIDAD_HUB.md`** y en `ART_EVIDENCE/hub/correccion/`.
+
+| Prioridad | Estado tras la corrección |
+|---|---|
+| 1 · Legibilidad | **RESUELTA** — A/B en 6 zonas, Δmedia −7,60…−13,50, separación de planos +32…33 % en sur/borde |
+| 2 · Niebla y saturación | **RESUELTA** — bloom 0,30, vig 0,45, grade 0,35, grain 0,006; velo de suelo; 9 props ocultos (reversibles) |
+| 3 · Perspectiva y orientación | **PARCIALMENTE RESUELTA** — sombras de contacto, oclusión del abanico (sin reescalar T04), línea recta magenta eliminada (1089→0 px) |
+| 4 · Grieta geográfica y jugable | **RESUELTA** — final del terreno, labio irregular con grosor, abertura, escalera descendente y luz inferior |
+| 5 · Transición de descenso | **RESUELTA VISUALMENTE** — `clipCutaway` hace crecer T08 desde la boca; `startCampaignFromHub(0)` intacta, llega a `CAMPAIGN_ROOM` |
+| 6 · Rutinas NPC T09 | **NO AMPLIADAS**, desactivadas por decisión del usuario |
+
+**QA:** 18/18 `APROBADO`, 0 `FALLIDO`, 0 `pageerror`. **Permanecen `NO VERIFICADO`:** prueba con personas que entren por primera vez sin documentación, vídeo continuo, mando físico, audio audible, coste real de fotograma, rendimiento sostenido >100 s y regresión en hardware real. Las discrepancias documentales heredadas (T07 «12 capturas» / hay 11; T08 «52 evidencias» / hay 53) siguen sin corregir.

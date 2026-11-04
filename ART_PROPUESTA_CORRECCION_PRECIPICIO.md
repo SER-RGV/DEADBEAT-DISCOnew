@@ -1,9 +1,11 @@
 # PROPUESTA DE CORRECCIÓN — Legibilidad, precipicio y conexión grieta ↔ descenso
 
-**Estado:** `PROPUESTA · NO IMPLEMENTADA · REQUIERE AUTORIZACIÓN`
-**Fecha:** 2026-11-04 · **Juego sin modificar** (HTML con SHA-256 `3e82dc77…9011`, idéntico al publicado)
+**Estado:** `AUTORIZADA E IMPLEMENTADA (A–F) · 2026-11-04 · QA 18/18 APROBADO`
+**Documento histórico de propuesta:** el texto siguiente se entregó **antes de modificar**, con el juego sin tocar (HTML con SHA-256 `3e82dc77…9011`, idéntico al publicado). El usuario autorizó el alcance **A–F completo** y pidió mantener T09 desactivada. Ver **`ART_CORRECCION_LEGIBILIDAD_HUB.md`** para la ejecución, las métricas, la matriz QA y los límites.
 
-Se presenta **antes de modificar** porque la auditoría (`ART_AUDITORIA_LEGIBILIDAD_HUB.md`) confirmó que el acceso al descenso **no está físicamente conectado a la grieta**: `lift` es un radio lógico + HUD, la grieta es un decal sobre un suelo intacto y el cutaway T08 se abre como una ventana rectangular independiente.
+Se presentó **antes de modificar** porque la auditoría (`ART_AUDITORIA_LEGIBILIDAD_HUB.md`) confirmó que el acceso al descenso **no estaba físicamente conectado a la grieta**: `lift` es un radio lógico + HUD, la grieta era un decal sobre un suelo intacto y el cutaway T08 se abría como una ventana rectangular independiente.
+
+**Resultado:** 4 inserciones / 0 eliminaciones en el HTML, `ART_PACK/art_pack.js` intacto, flag reversible `window.__DDM_HUB_LEGIBILIDAD` (`true` por defecto tras la autorización; `false` recupera el estado publicado), 0 `pageerror`, `startCampaignFromHub(0)` sin cambios y llegada a `CAMPAIGN_ROOM`. La línea magenta recta pasó de 1089 a 0 píxeles (y vuelve a 1117 al desactivar); la separación de planos en el borde subió de 17,95 a 23,65. El criterio visual de 5 puntos se registra como `APROBADO` por inspección de capturas, con la prueba con usuarios nuevos en `NO VERIFICADO`.
 
 ---
 
