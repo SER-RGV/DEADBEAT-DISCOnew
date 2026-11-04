@@ -8,3 +8,4 @@
 - **2026-11-04T20:38:11Z** · TANDA_04 completada (10/10): muros industriales y monolito del Vacío, puertas góticas/stained-glass/VIP, portales barrocos dorados y corazón HUD; 40/40 recursos validados.
 - **2026-11-04T20:57:16Z** · TANDA_05 completada (10/10): iconografía HUD de corazón vacío, escudo, habilidades y créditos, emblemas de victoria/derrota, palma de neón y lámpara barroca; 50/50 recursos verificados.
 - **2026-11-04T21:05:48Z** · TANDA_06 completada (10/10): mobiliario VIP, planta, torre de sonido, subwoofer cian, estatua gótica, altar, cofres abierto/cerrado y flor de neón; 60/60 recursos verificados.
+- **2026-11-04T21:20:23Z** · TANDA_07 completada (10/10): props interactivos y decorativos del Refugio (pedestal arcano, póster, botellas, banco, bolardos, cabina DJ, arcade, vending, cooler y espejo); 70/70 recursos verificados.

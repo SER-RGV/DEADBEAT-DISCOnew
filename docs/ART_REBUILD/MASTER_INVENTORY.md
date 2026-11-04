@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T21:05:48Z
+- **Última actualización:** 2026-11-04T21:20:23Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **60 / 330** recursos verificados en motor real
+- **Progreso global:** **70 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -17,7 +17,7 @@
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
-| `props` | 30 | 14 | 14 | 14 |
+| `props` | 30 | 24 | 24 | 24 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
@@ -86,16 +86,16 @@
 | 58 | TANDA_06 | `atlas:chest` | Prop 12 · Cofre Tallado Dorado (Cerrado) | `props` | `assets/props/prop_chest_closed.png` | 256x224 | DONE | INTEGRATED | VERIFIED |
 | 59 | TANDA_06 | `Uf:chest_open` | Prop 13 · Cofre Tallado Dorado (Abierto) | `props` | `assets/props/prop_chest_open.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
 | 60 | TANDA_06 | `atlas:bunny` | Prop 14 · Flor / Estrella Neón Cian y Rosa | `props` | `assets/props/prop_neon_flower.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
-| 61 | TANDA_07 | `prop:arcane_pedestal` | Prop 15 · Pedestal Orbe de Energía Violeta | `props` | `assets/props/prop_arcane_pedestal.png` | 288x352 | PENDING | PENDING | PENDING |
-| 62 | TANDA_07 | `atlas:poster` | Prop 16 · Cuadro Sigilo Estelar Enmarcado | `props` | `assets/props/prop_sigil_poster.png` | 224x288 | PENDING | PENDING | PENDING |
-| 63 | TANDA_07 | `prop:bar_bottles` | Prop 17 · Conjunto Botellas y Cristalería Neón | `props` | `assets/props/prop_bar_bottles.png` | 256x224 | PENDING | PENDING | PENDING |
-| 64 | TANDA_07 | `atlas:bench` | Prop 18 · Banco / Mesa Baja con Tira Neón Rosa | `props` | `assets/props/prop_bench_neon.png` | 320x192 | PENDING | PENDING | PENDING |
-| 65 | TANDA_07 | `prop:bollard_pair` | Prop 19 · Bolardos / Pilares Cortos Obsidiana | `props` | `assets/props/prop_bollard_pair.png` | 224x288 | PENDING | PENDING | PENDING |
-| 66 | TANDA_07 | `prop:dj_booth` | Prop 20 · Cabina de DJ Turntables Neón | `props` | `assets/props/prop_dj_booth.png` | 448x288 | PENDING | PENDING | PENDING |
-| 67 | TANDA_07 | `atlas:arcade` | Prop 21 · Máquina Recreativa Infernal | `props` | `assets/props/prop_arcade_cabinet.png` | 256x352 | PENDING | PENDING | PENDING |
-| 68 | TANDA_07 | `atlas:vending` | Prop 22 · Máquina Expendedora / Armería | `props` | `assets/props/prop_vending_machine.png` | 256x352 | PENDING | PENDING | PENDING |
-| 69 | TANDA_07 | `atlas:cooler` | Prop 23 · Vitrina Refrigerador Neón Cian | `props` | `assets/props/prop_cooler_neon.png` | 224x352 | PENDING | PENDING | PENDING |
-| 70 | TANDA_07 | `atlas:mirror` | Prop 24 · Espejo Alto Biselado (Fraude / VIP) | `props` | `assets/props/prop_mirror_baroque.png` | 224x384 | PENDING | PENDING | PENDING |
+| 61 | TANDA_07 | `prop:arcane_pedestal` | Prop 15 · Pedestal Orbe de Energía Violeta | `props` | `assets/props/prop_arcane_pedestal.png` | 288x352 | DONE | INTEGRATED | VERIFIED |
+| 62 | TANDA_07 | `atlas:poster` | Prop 16 · Cuadro Sigilo Estelar Enmarcado | `props` | `assets/props/prop_sigil_poster.png` | 224x288 | DONE | INTEGRATED | VERIFIED |
+| 63 | TANDA_07 | `prop:bar_bottles` | Prop 17 · Conjunto Botellas y Cristalería Neón | `props` | `assets/props/prop_bar_bottles.png` | 256x224 | DONE | INTEGRATED | VERIFIED |
+| 64 | TANDA_07 | `atlas:bench` | Prop 18 · Banco / Mesa Baja con Tira Neón Rosa | `props` | `assets/props/prop_bench_neon.png` | 320x192 | DONE | INTEGRATED | VERIFIED |
+| 65 | TANDA_07 | `prop:bollard_pair` | Prop 19 · Bolardos / Pilares Cortos Obsidiana | `props` | `assets/props/prop_bollard_pair.png` | 224x288 | DONE | INTEGRATED | VERIFIED |
+| 66 | TANDA_07 | `prop:dj_booth` | Prop 20 · Cabina de DJ Turntables Neón | `props` | `assets/props/prop_dj_booth.png` | 448x288 | DONE | INTEGRATED | VERIFIED |
+| 67 | TANDA_07 | `atlas:arcade` | Prop 21 · Máquina Recreativa Infernal | `props` | `assets/props/prop_arcade_cabinet.png` | 256x352 | DONE | INTEGRATED | VERIFIED |
+| 68 | TANDA_07 | `atlas:vending` | Prop 22 · Máquina Expendedora / Armería | `props` | `assets/props/prop_vending_machine.png` | 256x352 | DONE | INTEGRATED | VERIFIED |
+| 69 | TANDA_07 | `atlas:cooler` | Prop 23 · Vitrina Refrigerador Neón Cian | `props` | `assets/props/prop_cooler_neon.png` | 224x352 | DONE | INTEGRATED | VERIFIED |
+| 70 | TANDA_07 | `atlas:mirror` | Prop 24 · Espejo Alto Biselado (Fraude / VIP) | `props` | `assets/props/prop_mirror_baroque.png` | 224x384 | DONE | INTEGRATED | VERIFIED |
 | 71 | TANDA_08 | `ay:banquet_table` | Prop 25 · Mesa de Banquete Carmesí y Oro (Gula) | `props` | `assets/props/prop_banquet_table.png` | 416x288 | PENDING | PENDING | PENDING |
 | 72 | TANDA_08 | `ay:bar_counter` | Prop 26 · Barra de Club Iluminada | `props` | `assets/props/prop_bar_counter.png` | 416x256 | PENDING | PENDING | PENDING |
 | 73 | TANDA_08 | `atlas:crate` | Prop 27 · Flightcase / Caja de Equipo Audio | `props` | `assets/props/prop_crate_club.png` | 256x224 | PENDING | PENDING | PENDING |
