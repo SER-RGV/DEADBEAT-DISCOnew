@@ -9,3 +9,4 @@
 - **2026-11-04T20:57:16Z** · TANDA_05 completada (10/10): iconografía HUD de corazón vacío, escudo, habilidades y créditos, emblemas de victoria/derrota, palma de neón y lámpara barroca; 50/50 recursos verificados.
 - **2026-11-04T21:05:48Z** · TANDA_06 completada (10/10): mobiliario VIP, planta, torre de sonido, subwoofer cian, estatua gótica, altar, cofres abierto/cerrado y flor de neón; 60/60 recursos verificados.
 - **2026-11-04T21:20:23Z** · TANDA_07 completada (10/10): props interactivos y decorativos del Refugio (pedestal arcano, póster, botellas, banco, bolardos, cabina DJ, arcade, vending, cooler y espejo); 70/70 recursos verificados.
+- **2026-11-04T22:17:52Z** · TANDA_08 completada (10/10): mobiliario de banquete y bar, props ambientales, NPCs del Refugio (DJ, armera, bartender) y dron aliado; 80/80 recursos verificados.

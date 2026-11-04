@@ -1,12 +1,12 @@
 # CHECKPOINT — DEADBEAT DISCO (AUTONOMOUS CONTINUITY)
 
-- **Timestamp UTC:** `2026-11-04T21:20:23Z`
+- **Timestamp UTC:** `2026-11-04T22:17:52Z`
 - **Rama activa:** `arena/d58c4d15-deadbeat-disconew`
-- **Tandas completadas:** `7 / 33` (TANDA_01, TANDA_02, TANDA_03, TANDA_04, TANDA_05, TANDA_06, TANDA_07)
-- **Siguiente tanda inmediata:** `TANDA_08`
-- **Recursos verificados:** `70 / 330`
-- **Categorías completadas:** `environments, floors, logos, walls`
-- **Última nota de commit:** `feat(art): complete TANDA_07 nightclub hub props`
+- **Tandas completadas:** `8 / 33` (TANDA_01, TANDA_02, TANDA_03, TANDA_04, TANDA_05, TANDA_06, TANDA_07, TANDA_08)
+- **Siguiente tanda inmediata:** `TANDA_09`
+- **Recursos verificados:** `80 / 330`
+- **Categorías completadas:** `environments, floors, logos, props, walls`
+- **Última nota de commit:** `feat(art): complete TANDA_08 hub props and character sprites`
 
 ## Cómo reanudar automáticamente sin repetir trabajo
 1. Leer `docs/ART_REBUILD/PRODUCTION_STATUS.json` y `docs/ART_REBUILD/NEXT_BATCH.md`.

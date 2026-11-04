@@ -1,15 +1,15 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T21:20:23Z
+- **Última actualización:** 2026-11-04T22:17:52Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **70 / 330** recursos verificados en motor real
+- **Progreso global:** **80 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
 | `bosses` | 42 | 0 | 0 | 0 |
-| `characters` | 16 | 0 | 0 | 0 |
+| `characters` | 16 | 4 | 4 | 4 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
@@ -17,7 +17,7 @@
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
-| `props` | 30 | 24 | 24 | 24 |
+| `props` | 30 | 30 | 30 | 30 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
@@ -96,16 +96,16 @@
 | 68 | TANDA_07 | `atlas:vending` | Prop 22 · Máquina Expendedora / Armería | `props` | `assets/props/prop_vending_machine.png` | 256x352 | DONE | INTEGRATED | VERIFIED |
 | 69 | TANDA_07 | `atlas:cooler` | Prop 23 · Vitrina Refrigerador Neón Cian | `props` | `assets/props/prop_cooler_neon.png` | 224x352 | DONE | INTEGRATED | VERIFIED |
 | 70 | TANDA_07 | `atlas:mirror` | Prop 24 · Espejo Alto Biselado (Fraude / VIP) | `props` | `assets/props/prop_mirror_baroque.png` | 224x384 | DONE | INTEGRATED | VERIFIED |
-| 71 | TANDA_08 | `ay:banquet_table` | Prop 25 · Mesa de Banquete Carmesí y Oro (Gula) | `props` | `assets/props/prop_banquet_table.png` | 416x288 | PENDING | PENDING | PENDING |
-| 72 | TANDA_08 | `ay:bar_counter` | Prop 26 · Barra de Club Iluminada | `props` | `assets/props/prop_bar_counter.png` | 416x256 | PENDING | PENDING | PENDING |
-| 73 | TANDA_08 | `atlas:crate` | Prop 27 · Flightcase / Caja de Equipo Audio | `props` | `assets/props/prop_crate_club.png` | 256x224 | PENDING | PENDING | PENDING |
-| 74 | TANDA_08 | `ay:barrel` | Prop 28 · Barril Industrial Neón | `props` | `assets/props/prop_barrel_infernal.png` | 224x256 | PENDING | PENDING | PENDING |
-| 75 | TANDA_08 | `hub:bookshelf` | Prop 29 · Estantería Gótica Licorería HUB | `props` | `assets/props/prop_bookshelf_hub.png` | 320x384 | PENDING | PENDING | PENDING |
-| 76 | TANDA_08 | `atlas:lamp` | Prop 30 · Candelabro de Pie / Aplique Neón | `props` | `assets/props/prop_candelabra_floor.png` | 192x320 | PENDING | PENDING | PENDING |
-| 77 | TANDA_08 | `world:dj` | Personaje · DJ Virgilio en Cabina (Mundo) | `characters` | `assets/characters/npc_dj_booth_world.png` | 384x320 | PENDING | PENDING | PENDING |
-| 78 | TANDA_08 | `hub:armorer` | Personaje · Armera del Refugio HUB | `characters` | `assets/characters/npc_armorer_hub.png` | 256x320 | PENDING | PENDING | PENDING |
-| 79 | TANDA_08 | `hub:bartender` | Personaje · Camarero Sombrío del Refugio | `characters` | `assets/characters/npc_bartender_hub.png` | 256x320 | PENDING | PENDING | PENDING |
-| 80 | TANDA_08 | `Lf:turret` | Personaje · Dron Aliado / Torreta Sónica | `characters` | `assets/characters/companion_drone_ally.png` | 224x224 | PENDING | PENDING | PENDING |
+| 71 | TANDA_08 | `ay:banquet_table` | Prop 25 · Mesa de Banquete Carmesí y Oro (Gula) | `props` | `assets/props/prop_banquet_table.png` | 416x288 | DONE | INTEGRATED | VERIFIED |
+| 72 | TANDA_08 | `ay:bar_counter` | Prop 26 · Barra de Club Iluminada | `props` | `assets/props/prop_bar_counter.png` | 416x256 | DONE | INTEGRATED | VERIFIED |
+| 73 | TANDA_08 | `atlas:crate` | Prop 27 · Flightcase / Caja de Equipo Audio | `props` | `assets/props/prop_crate_club.png` | 256x224 | DONE | INTEGRATED | VERIFIED |
+| 74 | TANDA_08 | `ay:barrel` | Prop 28 · Barril Industrial Neón | `props` | `assets/props/prop_barrel_infernal.png` | 224x256 | DONE | INTEGRATED | VERIFIED |
+| 75 | TANDA_08 | `hub:bookshelf` | Prop 29 · Estantería Gótica Licorería HUB | `props` | `assets/props/prop_bookshelf_hub.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
+| 76 | TANDA_08 | `atlas:lamp` | Prop 30 · Candelabro de Pie / Aplique Neón | `props` | `assets/props/prop_candelabra_floor.png` | 192x320 | DONE | INTEGRATED | VERIFIED |
+| 77 | TANDA_08 | `world:dj` | Personaje · DJ Virgilio en Cabina (Mundo) | `characters` | `assets/characters/npc_dj_booth_world.png` | 384x320 | DONE | INTEGRATED | VERIFIED |
+| 78 | TANDA_08 | `hub:armorer` | Personaje · Armera del Refugio HUB | `characters` | `assets/characters/npc_armorer_hub.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
+| 79 | TANDA_08 | `hub:bartender` | Personaje · Camarero Sombrío del Refugio | `characters` | `assets/characters/npc_bartender_hub.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
+| 80 | TANDA_08 | `Lf:turret` | Personaje · Dron Aliado / Torreta Sónica | `characters` | `assets/characters/companion_drone_ally.png` | 224x224 | DONE | INTEGRATED | VERIFIED |
 | 81 | TANDA_09 | `player/player_idle_00.png` | Protagonista · Pose Idle Respiración | `characters` | `assets/characters/player_idle_00.png` | 224x320 | PENDING | PENDING | PENDING |
 | 82 | TANDA_09 | `player/player_walk_00.png` | Protagonista · Caminar Fotograma 01 | `characters` | `assets/characters/player_walk_00.png` | 224x320 | PENDING | PENDING | PENDING |
 | 83 | TANDA_09 | `player/player_walk_01.png` | Protagonista · Caminar Fotograma 02 | `characters` | `assets/characters/player_walk_01.png` | 224x320 | PENDING | PENDING | PENDING |

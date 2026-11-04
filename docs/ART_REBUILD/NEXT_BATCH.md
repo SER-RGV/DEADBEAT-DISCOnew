@@ -1,22 +1,22 @@
-# NEXT BATCH — TANDA_08
+# NEXT BATCH — TANDA_09
 
-- **Tanda a ejecutar:** `TANDA_08` (8 de 33)
-- **Fecha de planificación:** 2026-11-04T21:20:23Z
+- **Tanda a ejecutar:** `TANDA_09` (9 de 33)
+- **Fecha de planificación:** 2026-11-04T22:17:52Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 8` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_08 high-res asset reconstruction and real engine integration`
+- **Pruebas obligatorias:** `node tools/validate_batch.js 9` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
+- **Commit previsto:** `feat(art): complete TANDA_09 high-res asset reconstruction and real engine integration`
 
 ## Diez Recursos de la Tanda
 
 | # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
 |---:|---|---|---|---|---|---|---|
-| 71 | `prop_banquet_table` | `ay:banquet_table` | `props` | `assets/props/prop_banquet_table.png` | 416x288 | `True` | ninguna |
-| 72 | `prop_bar_counter` | `ay:bar_counter` | `props` | `assets/props/prop_bar_counter.png` | 416x256 | `True` | ninguna |
-| 73 | `prop_crate_club` | `atlas:crate` | `props` | `assets/props/prop_crate_club.png` | 256x224 | `True` | ninguna |
-| 74 | `prop_barrel_infernal` | `ay:barrel` | `props` | `assets/props/prop_barrel_infernal.png` | 224x256 | `True` | ninguna |
-| 75 | `prop_bookshelf_hub` | `hub:bookshelf` | `props` | `assets/props/prop_bookshelf_hub.png` | 320x384 | `True` | ninguna |
-| 76 | `prop_candelabra_floor` | `atlas:lamp` | `props` | `assets/props/prop_candelabra_floor.png` | 192x320 | `True` | ninguna |
-| 77 | `npc_dj_booth_world` | `world:dj` | `characters` | `assets/characters/npc_dj_booth_world.png` | 384x320 | `True` | ninguna |
-| 78 | `npc_armorer_hub` | `hub:armorer` | `characters` | `assets/characters/npc_armorer_hub.png` | 256x320 | `True` | ninguna |
-| 79 | `npc_bartender_hub` | `hub:bartender` | `characters` | `assets/characters/npc_bartender_hub.png` | 256x320 | `True` | ninguna |
-| 80 | `companion_drone_ally` | `Lf:turret` | `characters` | `assets/characters/companion_drone_ally.png` | 224x224 | `True` | ninguna |
+| 81 | `player_idle_00` | `player/player_idle_00.png` | `characters` | `assets/characters/player_idle_00.png` | 224x320 | `True` | ninguna |
+| 82 | `player_walk_00` | `player/player_walk_00.png` | `characters` | `assets/characters/player_walk_00.png` | 224x320 | `True` | ninguna |
+| 83 | `player_walk_01` | `player/player_walk_01.png` | `characters` | `assets/characters/player_walk_01.png` | 224x320 | `True` | ninguna |
+| 84 | `player_walk_02` | `player/player_walk_02.png` | `characters` | `assets/characters/player_walk_02.png` | 224x320 | `True` | ninguna |
+| 85 | `player_walk_03` | `player/player_walk_03.png` | `characters` | `assets/characters/player_walk_03.png` | 224x320 | `True` | ninguna |
+| 86 | `player_shoot_00` | `player/player_shoot_00.png` | `characters` | `assets/characters/player_shoot_00.png` | 240x320 | `True` | ninguna |
+| 87 | `player_fire2` | `player/player_fire2.png` | `characters` | `assets/characters/player_fire2.png` | 280x320 | `True` | ninguna |
+| 88 | `player_firehip` | `player/player_firehip.png` | `characters` | `assets/characters/player_firehip.png` | 256x320 | `True` | ninguna |
+| 89 | `player_boost_00` | `player/player_boost_00.png` | `characters` | `assets/characters/player_boost_00.png` | 288x320 | `True` | ninguna |
+| 90 | `player_roll_00` | `player/player_roll_00.png` | `characters` | `assets/characters/player_roll_00.png` | 256x288 | `True` | ninguna |
