@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T20:38:11Z
+- **Última actualización:** 2026-11-04T20:57:16Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **40 / 330** recursos verificados en motor real
+- **Progreso global:** **50 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -17,8 +17,8 @@
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
-| `props` | 30 | 2 | 2 | 2 |
-| `ui` | 14 | 5 | 5 | 5 |
+| `props` | 30 | 4 | 4 | 4 |
+| `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
 
@@ -66,16 +66,16 @@
 | 38 | TANDA_04 | `Bg:portal_baroque` | Portal 06 · Retablo Barroco Dorado (Cámara de Jefe) | `environments` | `assets/environments/portal_baroque_gold.png` | 320x416 | DONE | INTEGRATED | VERIFIED |
 | 39 | TANDA_04 | `Bg:portal_avaricia` | Portal 07 · Arco Relicario Dorado (Tesoro / Élite) | `environments` | `assets/environments/portal_avaricia_gold.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 40 | TANDA_04 | `ui:hud_minimap_frame` | Marco UI · Minimapa Isométrico y Corazones Neón | `ui` | `assets/ui/hud_heart_full.png` | 128x128 | DONE | INTEGRATED | VERIFIED |
-| 41 | TANDA_05 | `ui:heart_empty` | Icono HUD · Corazón Vacío Obsidiana | `ui` | `assets/ui/hud_heart_empty.png` | 128x128 | PENDING | PENDING | PENDING |
-| 42 | TANDA_05 | `ui:shield_badge` | Icono HUD · Escudo Dorado y Cian | `ui` | `assets/ui/hud_shield_badge.png` | 128x128 | PENDING | PENDING | PENDING |
-| 43 | TANDA_05 | `ui:skill_bomb` | Icono HUD · Habilidad Bomba Infernal | `ui` | `assets/ui/hud_skill_bomb.png` | 160x160 | PENDING | PENDING | PENDING |
-| 44 | TANDA_05 | `ui:skill_boost` | Icono HUD · Habilidad Boost Relámpago | `ui` | `assets/ui/hud_skill_boost.png` | 160x160 | PENDING | PENDING | PENDING |
-| 45 | TANDA_05 | `ui:skill_dodge` | Icono HUD · Habilidad Esquiva Sombra | `ui` | `assets/ui/hud_skill_dodge.png` | 160x160 | PENDING | PENDING | PENDING |
-| 46 | TANDA_05 | `ui:credit_coin` | Icono UI · Moneda Créditos (CR) Oro | `ui` | `assets/ui/hud_credit_coin.png` | 128x128 | PENDING | PENDING | PENDING |
-| 47 | TANDA_05 | `ui:victory_emblem` | Emblema Pantalla Victoria · Corona Zorro Oro | `ui` | `assets/ui/ui_victory_emblem.png` | 512x384 | PENDING | PENDING | PENDING |
-| 48 | TANDA_05 | `ui:defeat_emblem` | Emblema Pantalla Derrota · Vinilo Roto Carmesí | `ui` | `assets/ui/ui_defeat_emblem.png` | 512x384 | PENDING | PENDING | PENDING |
-| 49 | TANDA_05 | `prop:neon_palm` | Prop 03 · Palmera Neón Rosa Brillante | `props` | `assets/props/prop_neon_palm.png` | 320x384 | PENDING | PENDING | PENDING |
-| 50 | TANDA_05 | `prop:chandelier_gold` | Prop 04 · Lámpara de Araña Dorada Club | `props` | `assets/props/prop_chandelier_gold.png` | 320x320 | PENDING | PENDING | PENDING |
+| 41 | TANDA_05 | `ui:heart_empty` | Icono HUD · Corazón Vacío Obsidiana | `ui` | `assets/ui/hud_heart_empty.png` | 128x128 | DONE | INTEGRATED | VERIFIED |
+| 42 | TANDA_05 | `ui:shield_badge` | Icono HUD · Escudo Dorado y Cian | `ui` | `assets/ui/hud_shield_badge.png` | 128x128 | DONE | INTEGRATED | VERIFIED |
+| 43 | TANDA_05 | `ui:skill_bomb` | Icono HUD · Habilidad Bomba Infernal | `ui` | `assets/ui/hud_skill_bomb.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 44 | TANDA_05 | `ui:skill_boost` | Icono HUD · Habilidad Boost Relámpago | `ui` | `assets/ui/hud_skill_boost.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 45 | TANDA_05 | `ui:skill_dodge` | Icono HUD · Habilidad Esquiva Sombra | `ui` | `assets/ui/hud_skill_dodge.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 46 | TANDA_05 | `ui:credit_coin` | Icono UI · Moneda Créditos (CR) Oro | `ui` | `assets/ui/hud_credit_coin.png` | 128x128 | DONE | INTEGRATED | VERIFIED |
+| 47 | TANDA_05 | `ui:victory_emblem` | Emblema Pantalla Victoria · Corona Zorro Oro | `ui` | `assets/ui/ui_victory_emblem.png` | 512x384 | DONE | INTEGRATED | VERIFIED |
+| 48 | TANDA_05 | `ui:defeat_emblem` | Emblema Pantalla Derrota · Vinilo Roto Carmesí | `ui` | `assets/ui/ui_defeat_emblem.png` | 512x384 | DONE | INTEGRATED | VERIFIED |
+| 49 | TANDA_05 | `prop:neon_palm` | Prop 03 · Palmera Neón Rosa Brillante | `props` | `assets/props/prop_neon_palm.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
+| 50 | TANDA_05 | `prop:chandelier_gold` | Prop 04 · Lámpara de Araña Dorada Club | `props` | `assets/props/prop_chandelier_gold.png` | 320x320 | DONE | INTEGRATED | VERIFIED |
 | 51 | TANDA_06 | `prop:sofa_black` | Prop 05 · Sofá Club Cuero Negro Escalonado | `props` | `assets/props/prop_sofa_black.png` | 384x256 | PENDING | PENDING | PENDING |
 | 52 | TANDA_06 | `atlas:armchair` | Prop 06 · Sillón VIP Terciopelo Carmesí | `props` | `assets/props/prop_armchair_vip.png` | 256x256 | PENDING | PENDING | PENDING |
 | 53 | TANDA_06 | `atlas:plant` | Prop 07 · Planta Tropical en Maceta Magenta | `props` | `assets/props/prop_potted_plant.png` | 256x320 | PENDING | PENDING | PENDING |
