@@ -1,0 +1,155 @@
+{
+  "tanda": "06",
+  "source": "DEADBEAT_DISCO.ART.html + medición Chromium en el HUB real",
+  "cameraProjection": "pantalla = centro + zoom*(mundo - (B,L))",
+  "zoom": 0.9375,
+  "rotation": 0,
+  "shear": 0,
+  "depthScaleForHubCustom": 1.0,
+  "semi2dScaleFor": {
+    "worldTop": 455,
+    "worldBottom": 1415,
+    "scale300": 0.8042808219178083,
+    "scale700": 0.9275684931506849,
+    "scale1200": 1.0816780821917809,
+    "scale1500": 1.1741438356164384,
+    "depth300": 0.06506849315068493,
+    "depth1200": 0.6815068493150684
+  },
+  "ySort": "sort(y ascendente); hubCustom.sortY = dc.y",
+  "hubPolygon": {
+    "Ps": [
+      290,
+      265,
+      1920,
+      1320
+    ],
+    "cut": 210,
+    "poly": [
+      [
+        500,
+        265
+      ],
+      [
+        2000,
+        265
+      ],
+      [
+        2210,
+        475
+      ],
+      [
+        2210,
+        1375
+      ],
+      [
+        2000,
+        1585
+      ],
+      [
+        500,
+        1585
+      ],
+      [
+        290,
+        1375
+      ],
+      [
+        290,
+        475
+      ]
+    ]
+  },
+  "floorCache": {
+    "size": [
+      1920,
+      1320
+    ],
+    "origin": [
+      290,
+      265
+    ],
+    "center": [
+      1250,
+      935
+    ],
+    "revision": "window.__T3B.revision"
+  },
+  "cameraLimits": {
+    "x": [
+      883,
+      1617
+    ],
+    "yMin": 655,
+    "measured": [
+      {
+        "x": 1250,
+        "y": 655,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      {
+        "x": 883,
+        "y": 655,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      {
+        "x": 1617,
+        "y": 655,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      {
+        "x": 883,
+        "y": 975,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      {
+        "x": 1617,
+        "y": 975,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      {
+        "x": 1250,
+        "y": 945,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      }
+    ]
+  },
+  "existingWallPainter": "generador de salas de campaña (rotate atan2(dy,dx)); NO activo en el HUB: solo suelo cacheado + ribete Rs.edges",
+  "decision": "No imponer isometría matemática; fachadas billboard alineadas a ejes X/Y reales, coronación y zócalo para anclar volumen."
+}

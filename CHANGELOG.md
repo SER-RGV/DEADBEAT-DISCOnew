@@ -64,3 +64,13 @@ Registrar aquí cada modificación:
 - QA formal A/B de 3 fases y 14 comprobaciones: **14/14 APROBADO**, 10/10 `drawImage` y 10/10 confirmados por diff de píxel; evidencias en `ART_EVIDENCE/hub/tanda_05/`.
 - Documentación: informe técnico, matriz de validación, registro de producción, estado de integración e incidencias.
 - No se fusiona PR #1; no se modifica `main`.
+
+<!-- TANDA06:CHANGELOG -->
+## TANDA 06 — Envolvente arquitectónica y atmósfera (2026-11-04)
+
+- Añadidos 10 recursos nuevos en `ART_ASSETS/hub/tanda_06/` (10 fuentes, 10 finales, `manifest.json` con `additionalAnchors` y `additionalWorldBoxes`), sin repetir T01–T05.
+- `ART_PACK/art_pack.js`: `HUB6_ASSETS`, `loadHub6()` y API `hub6*` en el registro V5 existente; versión `+hub-tanda06`.
+- `DEADBEAT_DISCO.ART.html`: **14 props** `hubDecor` (10 PNG + 4 repeticiones laterales) con flag reversible `__DDM_HUB_T06`, `t06hang`×2, `t06flat`×1 y sombra omitida en colgantes/zócalo.
+- QA formal A/B de 3 fases y 14 comprobaciones: **14/14 APROBADO**, 10/10 `drawImage` y 10/10 confirmados por diff de píxel; evidencias en `ART_EVIDENCE/hub/tanda_06/`.
+- Documentación: informe técnico, matriz de validación, auditoría de cámara, registro de producción, estado de integración e incidencias.
+- No se fusiona PR #1; no se modifica `main`.

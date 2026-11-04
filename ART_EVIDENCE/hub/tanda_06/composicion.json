@@ -1,0 +1,1059 @@
+{
+  "tanda": "06",
+  "phase": "FASE 1b · prueba de composición previa a producción",
+  "projection": "ortográfica oblicua 2.5D, escala uniforme, sin cizalla/rotación",
+  "world": {
+    "Ps": [
+      290,
+      265,
+      1920,
+      1320
+    ],
+    "cut": 210,
+    "poly": [
+      [
+        500,
+        265
+      ],
+      [
+        2000,
+        265
+      ],
+      [
+        2210,
+        475
+      ],
+      [
+        2210,
+        1375
+      ],
+      [
+        2000,
+        1585
+      ],
+      [
+        500,
+        1585
+      ],
+      [
+        290,
+        1375
+      ],
+      [
+        290,
+        475
+      ]
+    ],
+    "worldSize": [
+      2500,
+      1850
+    ]
+  },
+  "cameraMeasured": {
+    "x": 1250,
+    "y": 975,
+    "zoom": 0.9375,
+    "viewW": 1365,
+    "viewH": 960,
+    "lead": {
+      "x": 0,
+      "y": 10
+    }
+  },
+  "semi2d": {
+    "worldTop": 455,
+    "worldBottom": 1415,
+    "scale300": 0.8042808219178083,
+    "scale700": 0.9275684931506849,
+    "scale1200": 1.0816780821917809,
+    "scale1500": 1.1741438356164384,
+    "depth300": 0.06506849315068493,
+    "depth1200": 0.6815068493150684
+  },
+  "visibleFaces": {
+    "norte": "SUR (+Y)",
+    "oeste": "ESTE (+X)",
+    "este": "OESTE (-X)",
+    "techo": "INFERIOR",
+    "suelo": "SUPERIOR (cenital)",
+    "ocultas": [
+      "cara norte del muro norte",
+      "caras exteriores de los muros laterales",
+      "cara superior de la viga",
+      "trasera del cortinaje"
+    ]
+  },
+  "primaryZones": [
+    "norte",
+    "pared_oeste",
+    "pared_este"
+  ],
+  "supportZones": [
+    "vip_oeste",
+    "vip_este",
+    "centro",
+    "dj",
+    "bar",
+    "arcade",
+    "sellos"
+  ],
+  "zones": [
+    {
+      "zone": "norte",
+      "camera": {
+        "x": 1250,
+        "y": 655,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "transform": {
+        "a": 0.9375,
+        "b": 0,
+        "c": 0,
+        "d": 0.9375,
+        "e": -531.875,
+        "f": -164.0625
+      },
+      "proposals": [
+        {
+          "id": "T06-01",
+          "worldBox": [
+            500.0,
+            180,
+            862.0,
+            330
+          ],
+          "screenBox": [
+            -63.1,
+            4.7,
+            276.2,
+            145.3
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-02",
+          "worldBox": [
+            862.0,
+            180,
+            1366.0,
+            330
+          ],
+          "screenBox": [
+            276.2,
+            4.7,
+            748.8,
+            145.3
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-03",
+          "worldBox": [
+            1366.0,
+            180,
+            1856.0,
+            330
+          ],
+          "screenBox": [
+            748.8,
+            4.7,
+            1208.1,
+            145.3
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-04",
+          "worldBox": [
+            536.0,
+            180,
+            664.0,
+            330
+          ],
+          "screenBox": [
+            -29.4,
+            4.7,
+            90.6,
+            145.3
+          ],
+          "face": "NO→SE (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-05",
+          "worldBox": [
+            1844.5,
+            180,
+            1955.5,
+            330
+          ],
+          "screenBox": [
+            1197.3,
+            4.7,
+            1301.4,
+            145.3
+          ],
+          "face": "NE→SO (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-06",
+          "worldBox": [
+            276.5,
+            780,
+            383.5,
+            1160
+          ],
+          "screenBox": [
+            -272.7,
+            567.2,
+            -172.3,
+            923.4
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06-R1",
+          "worldBox": [
+            277,
+            400,
+            107,
+            380
+          ],
+          "screenBox": [
+            -272.2,
+            210.9,
+            -431.6,
+            192.2
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06-R2",
+          "worldBox": [
+            277,
+            1160,
+            107,
+            380
+          ],
+          "screenBox": [
+            -272.2,
+            923.4,
+            -431.6,
+            192.2
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07",
+          "worldBox": [
+            2128.5,
+            780,
+            2211.5,
+            1160
+          ],
+          "screenBox": [
+            1463.6,
+            567.2,
+            1541.4,
+            923.4
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07-R1",
+          "worldBox": [
+            2129,
+            400,
+            83,
+            380
+          ],
+          "screenBox": [
+            1464.1,
+            210.9,
+            -454.1,
+            192.2
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": true,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07-R2",
+          "worldBox": [
+            2129,
+            1160,
+            83,
+            380
+          ],
+          "screenBox": [
+            1464.1,
+            923.4,
+            -454.1,
+            192.2
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": true,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-08",
+          "worldBox": [
+            991.0,
+            240,
+            1509.0,
+            330
+          ],
+          "screenBox": [
+            397.2,
+            60.9,
+            882.8,
+            145.3
+          ],
+          "face": "INFERIOR",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-09",
+          "worldBox": [
+            1817.0,
+            200,
+            1913.0,
+            430
+          ],
+          "screenBox": [
+            1171.6,
+            23.4,
+            1261.6,
+            239.1
+          ],
+          "face": "FRONTAL",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-10",
+          "worldBox": [
+            1089.5,
+            322.0,
+            1410.5,
+            358.0
+          ],
+          "screenBox": [
+            489.5,
+            137.8,
+            790.5,
+            171.6
+          ],
+          "face": "SUELO (cenital)",
+          "fullVisible": true,
+          "intersectsViewport": true
+        }
+      ],
+      "title": "A · NORTE / CABINA DJ",
+      "note": "Muro norte: cara SUR, cornisa, viga, zócalo",
+      "image": "ART_EVIDENCE/hub/tanda_06/composicion_norte.jpg"
+    },
+    {
+      "zone": "pared_oeste",
+      "camera": {
+        "x": 883,
+        "y": 975,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "transform": {
+        "a": 0.9375,
+        "b": 0,
+        "c": 0,
+        "d": 0.9375,
+        "e": -187.8125,
+        "f": -464.0625
+      },
+      "proposals": [
+        {
+          "id": "T06-01",
+          "worldBox": [
+            500.0,
+            180,
+            862.0,
+            330
+          ],
+          "screenBox": [
+            280.9,
+            -295.3,
+            620.3,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-02",
+          "worldBox": [
+            862.0,
+            180,
+            1366.0,
+            330
+          ],
+          "screenBox": [
+            620.3,
+            -295.3,
+            1092.8,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-03",
+          "worldBox": [
+            1366.0,
+            180,
+            1856.0,
+            330
+          ],
+          "screenBox": [
+            1092.8,
+            -295.3,
+            1552.2,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-04",
+          "worldBox": [
+            536.0,
+            180,
+            664.0,
+            330
+          ],
+          "screenBox": [
+            314.7,
+            -295.3,
+            434.7,
+            -154.7
+          ],
+          "face": "NO→SE (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-05",
+          "worldBox": [
+            1844.5,
+            180,
+            1955.5,
+            330
+          ],
+          "screenBox": [
+            1541.4,
+            -295.3,
+            1645.5,
+            -154.7
+          ],
+          "face": "NE→SO (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06",
+          "worldBox": [
+            276.5,
+            780,
+            383.5,
+            1160
+          ],
+          "screenBox": [
+            71.4,
+            267.2,
+            171.7,
+            623.4
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-06-R1",
+          "worldBox": [
+            277,
+            400,
+            107,
+            380
+          ],
+          "screenBox": [
+            71.9,
+            -89.1,
+            -87.5,
+            -107.8
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06-R2",
+          "worldBox": [
+            277,
+            1160,
+            107,
+            380
+          ],
+          "screenBox": [
+            71.9,
+            623.4,
+            -87.5,
+            -107.8
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": true,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07",
+          "worldBox": [
+            2128.5,
+            780,
+            2211.5,
+            1160
+          ],
+          "screenBox": [
+            1807.7,
+            267.2,
+            1885.5,
+            623.4
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07-R1",
+          "worldBox": [
+            2129,
+            400,
+            83,
+            380
+          ],
+          "screenBox": [
+            1808.1,
+            -89.1,
+            -110.0,
+            -107.8
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07-R2",
+          "worldBox": [
+            2129,
+            1160,
+            83,
+            380
+          ],
+          "screenBox": [
+            1808.1,
+            623.4,
+            -110.0,
+            -107.8
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": true,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-08",
+          "worldBox": [
+            991.0,
+            240,
+            1509.0,
+            330
+          ],
+          "screenBox": [
+            741.2,
+            -239.1,
+            1226.9,
+            -154.7
+          ],
+          "face": "INFERIOR",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-09",
+          "worldBox": [
+            1817.0,
+            200,
+            1913.0,
+            430
+          ],
+          "screenBox": [
+            1515.6,
+            -276.6,
+            1605.6,
+            -60.9
+          ],
+          "face": "FRONTAL",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-10",
+          "worldBox": [
+            1089.5,
+            322.0,
+            1410.5,
+            358.0
+          ],
+          "screenBox": [
+            833.6,
+            -162.2,
+            1134.5,
+            -128.4
+          ],
+          "face": "SUELO (cenital)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        }
+      ],
+      "title": "B · OESTE / ARSENAL",
+      "note": "Muro oeste: cara ESTE, capa superior hacia -X",
+      "image": "ART_EVIDENCE/hub/tanda_06/composicion_pared_oeste.jpg"
+    },
+    {
+      "zone": "pared_este",
+      "camera": {
+        "x": 1617,
+        "y": 975,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "transform": {
+        "a": 0.9375,
+        "b": 0,
+        "c": 0,
+        "d": 0.9375,
+        "e": -875.9375,
+        "f": -464.0625
+      },
+      "proposals": [
+        {
+          "id": "T06-01",
+          "worldBox": [
+            500.0,
+            180,
+            862.0,
+            330
+          ],
+          "screenBox": [
+            -407.2,
+            -295.3,
+            -67.8,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-02",
+          "worldBox": [
+            862.0,
+            180,
+            1366.0,
+            330
+          ],
+          "screenBox": [
+            -67.8,
+            -295.3,
+            404.7,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-03",
+          "worldBox": [
+            1366.0,
+            180,
+            1856.0,
+            330
+          ],
+          "screenBox": [
+            404.7,
+            -295.3,
+            864.1,
+            -154.7
+          ],
+          "face": "SUR (+Y)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-04",
+          "worldBox": [
+            536.0,
+            180,
+            664.0,
+            330
+          ],
+          "screenBox": [
+            -373.4,
+            -295.3,
+            -253.4,
+            -154.7
+          ],
+          "face": "NO→SE (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-05",
+          "worldBox": [
+            1844.5,
+            180,
+            1955.5,
+            330
+          ],
+          "screenBox": [
+            853.3,
+            -295.3,
+            957.3,
+            -154.7
+          ],
+          "face": "NE→SO (inglete 45°)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06",
+          "worldBox": [
+            276.5,
+            780,
+            383.5,
+            1160
+          ],
+          "screenBox": [
+            -616.7,
+            267.2,
+            -516.4,
+            623.4
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06-R1",
+          "worldBox": [
+            277,
+            400,
+            107,
+            380
+          ],
+          "screenBox": [
+            -616.2,
+            -89.1,
+            -775.6,
+            -107.8
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-06-R2",
+          "worldBox": [
+            277,
+            1160,
+            107,
+            380
+          ],
+          "screenBox": [
+            -616.2,
+            623.4,
+            -775.6,
+            -107.8
+          ],
+          "face": "ESTE (+X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07",
+          "worldBox": [
+            2128.5,
+            780,
+            2211.5,
+            1160
+          ],
+          "screenBox": [
+            1119.5,
+            267.2,
+            1197.3,
+            623.4
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": true,
+          "intersectsViewport": true
+        },
+        {
+          "id": "T06-07-R1",
+          "worldBox": [
+            2129,
+            400,
+            83,
+            380
+          ],
+          "screenBox": [
+            1120.0,
+            -89.1,
+            -798.1,
+            -107.8
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-07-R2",
+          "worldBox": [
+            2129,
+            1160,
+            83,
+            380
+          ],
+          "screenBox": [
+            1120.0,
+            623.4,
+            -798.1,
+            -107.8
+          ],
+          "face": "OESTE (-X)",
+          "fullVisible": true,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-08",
+          "worldBox": [
+            991.0,
+            240,
+            1509.0,
+            330
+          ],
+          "screenBox": [
+            53.1,
+            -239.1,
+            538.8,
+            -154.7
+          ],
+          "face": "INFERIOR",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-09",
+          "worldBox": [
+            1817.0,
+            200,
+            1913.0,
+            430
+          ],
+          "screenBox": [
+            827.5,
+            -276.6,
+            917.5,
+            -60.9
+          ],
+          "face": "FRONTAL",
+          "fullVisible": false,
+          "intersectsViewport": false
+        },
+        {
+          "id": "T06-10",
+          "worldBox": [
+            1089.5,
+            322.0,
+            1410.5,
+            358.0
+          ],
+          "screenBox": [
+            145.5,
+            -162.2,
+            446.4,
+            -128.4
+          ],
+          "face": "SUELO (cenital)",
+          "fullVisible": false,
+          "intersectsViewport": false
+        }
+      ],
+      "title": "C · ESTE / BARRA VIP",
+      "note": "Muro este: cara OESTE, simetría de luz",
+      "image": "ART_EVIDENCE/hub/tanda_06/composicion_pared_este.jpg"
+    }
+  ],
+  "coverage": {
+    "T06-01": {
+      "fullVisibleZones": [
+        "vip_oeste"
+      ],
+      "ok": true
+    },
+    "T06-02": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_oeste",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-03": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-04": {
+      "fullVisibleZones": [
+        "vip_oeste"
+      ],
+      "ok": true
+    },
+    "T06-05": {
+      "fullVisibleZones": [
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-06": {
+      "fullVisibleZones": [
+        "pared_oeste",
+        "arcade"
+      ],
+      "ok": true
+    },
+    "T06-06-R1": {
+      "fullVisibleZones": [
+        "vip_oeste"
+      ],
+      "ok": true
+    },
+    "T06-06-R2": {
+      "fullVisibleZones": [
+        "pared_oeste",
+        "vip_oeste",
+        "arcade"
+      ],
+      "ok": true
+    },
+    "T06-07": {
+      "fullVisibleZones": [
+        "pared_este",
+        "bar",
+        "sellos"
+      ],
+      "ok": true
+    },
+    "T06-07-R1": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_oeste",
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-07-R2": {
+      "fullVisibleZones": [
+        "norte",
+        "pared_oeste",
+        "pared_este",
+        "vip_oeste",
+        "vip_este",
+        "centro",
+        "dj",
+        "bar",
+        "arcade",
+        "sellos"
+      ],
+      "ok": true
+    },
+    "T06-08": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_oeste",
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-09": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    },
+    "T06-10": {
+      "fullVisibleZones": [
+        "norte",
+        "vip_oeste",
+        "vip_este",
+        "dj"
+      ],
+      "ok": true
+    }
+  },
+  "allAssetsHaveFullVisibleZone": true,
+  "diagram": "ART_EVIDENCE/hub/tanda_06/plano_caras_visibles.png",
+  "verdict": "APROBADA",
+  "rationale": "Caras interiores, coronación, ingletes y zócalo se leen desde la cámara de juego; no se requiere cambiar cámara ni proyección."
+}

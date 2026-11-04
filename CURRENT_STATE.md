@@ -78,3 +78,13 @@ Toda modificación debe partir de una copia de seguridad.
 - T01–T04 intactas. PR #1 abierto, base `arte-y-recursos`, head de sesión, **sin merge**; `main`/`origin/main` en `d75e021`.
 - Pendiente ajeno a T05: cierre formal del performance gate de T02; históricos `BLOQUEADO` de T03 conservados.
 - Siguiente: TANDA 06 — envolvente arquitectónica y atmósfera.
+
+<!-- TANDA06:STATE -->
+### Integración TANDA 06 — `APROBADO`
+
+- HUB real: **162 claves V5** (152 de T05 + 10 de T06), 27 canvas base, 11 estaciones, 6 zonas, caché de suelo activa.
+- 10/10 recursos integrados y visibles; **14 anclajes `hubDecor`** medidos, paramentos laterales continuos `y=400..1540`.
+- A/B `0 → 0 → N → 0 → 10 → N`; `hub6Restore/hub6Apply` verificados; 0 `pageerror`, 0 errores JS, 0 404 locales.
+- Sin sistemas nuevos: sin colisiones, estaciones, interacciones, geometría, guardado, música, DJ, segundo motor/canvas/caché/loader.
+- T01–T05 intactas. PR #1 abierto, base `arte-y-recursos`, head de sesión, **sin merge**; `main`/`origin/main` en `d75e021`.
+- Pendiente ajeno a T06: cierre formal del performance gate de T02; históricos `BLOQUEADO` de T03 conservados.

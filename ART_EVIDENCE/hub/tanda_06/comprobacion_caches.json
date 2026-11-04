@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-11-04T01:53:30.096319+00:00",
+  "hubFloor": {
+    "antes": {
+      "revision": 31,
+      "builds": 1,
+      "draws": 216,
+      "available": true
+    },
+    "control": {
+      "revision": 33,
+      "builds": 3,
+      "draws": 1068,
+      "available": true
+    },
+    "despues": {
+      "revision": 31,
+      "builds": 1,
+      "draws": 239,
+      "available": true
+    }
+  },
+  "t3b": {
+    "antes": {
+      "enabled": true,
+      "revision": 31,
+      "ready": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "errors": [],
+      "routes": [
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign",
+        "campaign"
+      ]
+    },
+    "control": {
+      "enabled": true,
+      "revision": 33,
+      "ready": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "errors": [],
+      "routes": [
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign",
+        "hub"
+      ]
+    },
+    "despues": {
+      "enabled": true,
+      "revision": 31,
+      "ready": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "errors": [],
+      "routes": [
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign",
+        "campaign"
+      ]
+    }
+  },
+  "canvasCountBase": {
+    "antes": 27,
+    "control": 27,
+    "despues": 27
+  },
+  "v5Keys": {
+    "antes": 162,
+    "control": 162,
+    "despues": 162
+  },
+  "newCanvases": 0,
+  "newCaches": 0,
+  "newEngines": 0,
+  "newLoaders": 0,
+  "note": "La caché de suelo __T3B_HUB_QA y las rutas hub/campaign de __DDM_PAINT_MATERIAL siguen activas con las mismas invalidaciones. hub6Restore/hub6Apply provocan rebuilds esperables en CONTROL; no se crea un segundo sistema."
+}

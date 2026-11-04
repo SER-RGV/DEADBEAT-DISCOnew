@@ -1,0 +1,97 @@
+{
+  "generatedAt": "2026-11-04T01:53:30.096319+00:00",
+  "incidences": [
+    {
+      "id": "HUB-01",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "loaderResolves=0 (T01)",
+      "affectsT06": false,
+      "detail": "Incidencia histórica de TANDA 01. NO se corrige.",
+      "t06Evidence": "hub6().assets: 10/10 alias h06_* con loaderResolves=1."
+    },
+    {
+      "id": "T02-GATE",
+      "state": "PENDIENTE",
+      "severity": "media",
+      "title": "Performance gate pendiente de cierre formal (T02)",
+      "affectsT06": false,
+      "detail": "El check de rendimiento mide 40 rAF por fase pero NO cierra el gate de T02: sigue pendiente por decisión del usuario.",
+      "t06Evidence": "performance.json, resultados_ab.json"
+    },
+    {
+      "id": "T03-BLOQUEADOS",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "8 BLOQUEADO históricos de TANDA 03",
+      "affectsT06": false,
+      "detail": "Se conservan sin tocar, según decisión de esa tanda.",
+      "t06Evidence": "integridad_t01_t05.json"
+    },
+    {
+      "id": "T06-ALFA-FLOOD",
+      "state": "CERRADA",
+      "severity": "informativa",
+      "title": "Primera preparación borró paneles near-black legítimos",
+      "affectsT06": false,
+      "detail": "prepared_object() de T05 + kill_exterior_halo comía el interior oscuro de los paneles. Descartados build_alpha(16,26), strict_alpha(2,8) y RAMP=6 (huecos verdes / motas). CORREGIDO con flood_alpha por conectividad (tol=10) + despill_dark; 10/10 finales inspeccionados y con halo 0,0 %.",
+      "t06Evidence": "alpha_verification.json, manifest.json"
+    },
+    {
+      "id": "T06-CONTINUIDAD-LATERAL",
+      "state": "CERRADA",
+      "severity": "media",
+      "title": "Paramentos laterales aislados en el primer smoke",
+      "affectsT06": false,
+      "detail": "T06-06/07 aparecían como una sola pieza en y=780..1160. Se añadieron additionalAnchors/additionalWorldBoxes en y=780/1540 y 4 props repetidos en hubDecor: 14 entradas / 10 PNG, cobertura y=400..1540 con gaps=0. El rerun del preparador fue determinista (hashes sin cambios) y el smoke A/B y la composición se repitieron con 14 cajas.",
+      "t06Evidence": "composicion.json, smoke.json, report.json check 5 y 7"
+    },
+    {
+      "id": "T06-QA-HARNESS",
+      "state": "CERRADA",
+      "severity": "informativa",
+      "title": "Tres iteraciones del arnés A/B por medición",
+      "affectsT06": false,
+      "detail": "Los falsos FALLIDO venían de (a) cajas Y-sort leídas del anclaje primario en lugar de los 3 anclajes reales, (b) umbral del octógono 3 px más estricto que la banda exterior de paramentos, (c) conteo de \"dibujos en menú\" por fase en vez de por canvas y (d) tolerancia de movimiento de 25 px frente a 28 px de variación rAF. Se corrigió SOLO el arnés; el juego no se tocó y la QA final es 14/14.",
+      "t06Evidence": "qa_validation.log, report.json, visual_diff.json"
+    },
+    {
+      "id": "T06-PREBOOT",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "Dibujos del mundo detrás de la portada antes del boot",
+      "affectsT06": false,
+      "detail": "El juego pinta el HUB en el canvas de mundo 1280x900 bajo la portada. Esos drawImage existen también en T01–T05. 0 dibujos T06 en cualquier canvas ajeno al mundo (offWorld=0 en los 10 assets).",
+      "t06Evidence": "report.json check 8, draw_calls.json"
+    },
+    {
+      "id": "T06-CLOUDFLARE",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "2 x 404 de /cdn-cgi/challenge-platform/",
+      "affectsT06": false,
+      "detail": "Rutas externas preexistentes; 0 404 locales, 0 pageerror y 0 errores JS en las 3 fases.",
+      "t06Evidence": "despues_runtime_full.json, report.json.errors"
+    },
+    {
+      "id": "T06-UNTAINTED",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "officialUntainted=false",
+      "affectsT06": false,
+      "detail": "Consecuencia del teleport/debug del arnés; aparece idéntico en ANTES, CONTROL y DESPUES. No es una regresión de assets.",
+      "t06Evidence": "report.json check 12"
+    }
+  ],
+  "openBlockers": 0,
+  "regressions": 0,
+  "qaState": "APROBADO",
+  "pendingFromPreviousTandas": [
+    "T02-GATE"
+  ],
+  "historicalNotModified": [
+    "HUB-01",
+    "T02-GATE",
+    "T03-BLOQUEADOS"
+  ]
+}

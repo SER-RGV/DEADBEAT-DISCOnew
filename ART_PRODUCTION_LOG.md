@@ -215,3 +215,12 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 - `T05-08` conservó composición **vertical** 68×178 con escala ajustada: NO se regeneró horizontalmente (límite de 10 generaciones de imagen).
 - Integración: `loadHub5()` tras `loadHub2()` en `ART_PACK/art_pack.js` y 10 entradas `hubDecor` en `DEADBEAT_DISCO.ART.html`, ambas con marcadores `TANDA05:BEGIN/END`. Flag reversible `window.__DDM_HUB_T05`.
 - Cierre: QA formal 14/14 APROBADO, 10/10 `drawImage` en el canvas de mundo, 10/10 con diff de píxel OFF/ON, `hashes.json`, informe `ART_TANDA_05_HUB_REPORT.md` y matriz `ART_HUB_TANDA_05_MATRIX.md`.
+
+<!-- TANDA06:PRODUCTION -->
+### TANDA 06 — Envolvente arquitectónica y atmósfera
+
+- Producción: **10 fuentes** 1408×768 y **10 finales RGBA** con `flood_alpha` por conectividad + `despill_dark`; 10/10 `exactSize`, halo claro 0,0 %, cobertura 64,99–88,89 %. Segundo rerun del preparador **determinista** (hashes sin cambios).
+- Continuidad: `additionalAnchors`/`additionalWorldBoxes` para `T06-06/07` en `y=780/1540`; **14 entradas `hubDecor` sobre 10 PNG** que cubren `y=400..1540` con `gaps=0`. Muro norte `x=500→1856`, `abutmentGaps=0`.
+- Composición previa repetida con las 14 cajas: `APROBADA`, cobertura 14/14 en 10 zonas de cámara; `ART_HUB_TANDA_06_CAMERA_AUDIT.md` regenerado.
+- Integración: `HUB6_ASSETS`/`loadHub6()`/API `hub6*` en `ART_PACK/art_pack.js` y 14 props en `DEADBEAT_DISCO.ART.html`, con flag reversible `__DDM_HUB_T06`. Sin sistemas nuevos.
+- Cierre: QA formal A/B de 3 fases **14/14 APROBADO**, 10/10 `drawImage` en el canvas de mundo, 10/10 confirmados por diff de píxel OFF/ON, `alpha_verification.json`, `hashes.json`, informe `ART_TANDA_06_HUB_REPORT.md` y matriz `ART_HUB_TANDA_06_MATRIX.md`.

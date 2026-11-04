@@ -142,7 +142,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -365,11 +365,16 @@
               loadHub2(function (m) {
                 /* TANDA05:BEGIN · mismo load(), encadenado tras HUB-02 */
                 loadHub5(function (k5) {
-                  st.status = (st.errors.length || (st.archErrors || []).length ||
-                               (st.hubErrors || []).length || (st.hub2Errors || []).length ||
-                               (st.hub3Errors || []).length || (st.hub5Errors || []).length)
-                    ? 'applied-with-errors' : 'applied';
-                  st.finishedAt = Date.now();
+                  /* TANDA06:BEGIN · mismo load(), encadenado tras TANDA 05 */
+                  loadHub6(function (k6) {
+                    st.status = (st.errors.length || (st.archErrors || []).length ||
+                                 (st.hubErrors || []).length || (st.hub2Errors || []).length ||
+                                 (st.hub3Errors || []).length || (st.hub5Errors || []).length ||
+                                 (st.hub6Errors || []).length)
+                      ? 'applied-with-errors' : 'applied';
+                    st.finishedAt = Date.now();
+                  });
+                  /* TANDA06:END */
                 });
                 /* TANDA05:END */
               });
@@ -1247,6 +1252,163 @@
   function hub5Restore() { return restoreHub5(); }
   function hub5Apply() { return hub5Applied ? HUB5_ASSETS.length : applyHub5(); }
 
+  /* === TANDA06:BEGIN · HUB6_* (mismo load(), mismo registro V5) =============
+     Envolvente arquitectónica T06. Se encadena tras loadHub5() usando el MISMO
+     cargador load() y el MISMO registro window.__DDM_V5_IMG. restoreHub6()
+     solo deshace TANDA 06; no afecta a T01/T02/T03/T04/T05.
+     ======================================================================*/
+  var BASEH6 = 'ART_ASSETS/hub/tanda_06/';
+  var HUB6_ASSETS = [
+    { id: 'T06-01', unit: 'paramento_norte_oeste', file: '01_paramento_norte_o/final/hub_t06_01_paramento_norte_o.png', w: 391, h: 162, alias: 'h06_paramento_norte_o',
+      x: 681, y: 330, worldH: 150, category: 'A · Envolvente / paramentos' },
+    { id: 'T06-02', unit: 'paramento_norte_central', file: '02_paramento_norte_c/final/hub_t06_02_paramento_norte_c.png', w: 544, h: 162, alias: 'h06_paramento_norte_c',
+      x: 1114, y: 330, worldH: 150, category: 'A · Envolvente / paramentos' },
+    { id: 'T06-03', unit: 'paramento_norte_este', file: '03_paramento_norte_e/final/hub_t06_03_paramento_norte_e.png', w: 529, h: 162, alias: 'h06_paramento_norte_e',
+      x: 1611, y: 330, worldH: 150, category: 'A · Envolvente / paramentos' },
+    { id: 'T06-04', unit: 'machon_esquina_noroeste', file: '04_machon_esquina_no/final/hub_t06_04_machon_esquina_no.png', w: 138, h: 162, alias: 'h06_machon_esquina_no',
+      x: 600, y: 330, worldH: 150, category: 'B · Esquinas / uniones' },
+    { id: 'T06-05', unit: 'machon_esquina_noreste', file: '05_machon_esquina_ne/final/hub_t06_05_machon_esquina_ne.png', w: 120, h: 162, alias: 'h06_machon_esquina_ne',
+      x: 1900, y: 330, worldH: 150, category: 'B · Esquinas / uniones' },
+    { id: 'T06-06', unit: 'paramento_oeste', file: '06_paramento_oeste/final/hub_t06_06_paramento_oeste.png', w: 110, h: 392, alias: 'h06_paramento_oeste',
+      x: 330, y: 1160, worldH: 380, category: 'A · Envolvente / paramentos' },
+    { id: 'T06-07', unit: 'paramento_este', file: '07_paramento_este/final/hub_t06_07_paramento_este.png', w: 86, h: 392, alias: 'h06_paramento_este',
+      x: 2170, y: 1160, worldH: 380, category: 'A · Envolvente / paramentos' },
+    { id: 'T06-08', unit: 'viga_caseton_techo', file: '08_viga_caseton_techo/final/hub_t06_08_viga_caseton_techo.png', w: 587, h: 102, alias: 'h06_viga_caseton_techo',
+      x: 1250, y: 330, worldH: 90, category: 'C · Techos y elementos superiores' },
+    { id: 'T06-09', unit: 'cortinaje_acustico', file: '09_cortinaje_acustico/final/hub_t06_09_cortinaje_acustico.png', w: 101, h: 242, alias: 'h06_cortinaje_acustico',
+      x: 1865, y: 430, worldH: 230, category: 'C · Techos, cortinajes y remates' },
+    { id: 'T06-10', unit: 'zocalo_remate_suelo', file: '10_zocalo_remate_suelo/final/hub_t06_10_zocalo_remate_suelo.png', w: 428, h: 48, alias: 'h06_zocalo_remate_suelo',
+      x: 1250, y: 340, worldH: 36, category: 'E · Remates y transiciones' },
+  ];
+  var HUB6_IMAGES = {};
+  var HUB6_ORIGINALS = {};
+  var hub6Applied = false;
+
+  function hub6Err(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hub6Errors) st.hub6Errors = [];
+    st.hub6Errors.push(msg);
+    try { console.warn('[ART_PACK/HUB6] ' + msg); } catch (_) {}
+  }
+
+  function hub6Invalidate() {
+    try {
+      if (window.DMO_INFERNAL_ART &&
+          typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hub6Err('invalidate', e); }
+    try { window.__DDM_V5_MED_NO_SKULL = null; } catch (_) {}
+    try {
+      if (window.__T3B && typeof window.__T3B.setEnabled === 'function') {
+        window.__T3B.setEnabled(true);
+      }
+    } catch (e) { hub6Err('setEnabled', e); }
+  }
+
+  function applyHub6() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hub6Err('HUB6', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0;
+    HUB6_ASSETS.forEach(function (a) {
+      var im = HUB6_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda06 = a.id; } catch (_) {}
+      if (!Object.prototype.hasOwnProperty.call(HUB6_ORIGINALS, a.alias)) {
+        HUB6_ORIGINALS[a.alias] = reg[a.alias];
+      }
+      reg[a.alias] = im;
+      n++;
+    });
+    hub6Applied = (n === HUB6_ASSETS.length);
+    hub6Invalidate();
+    st.hub6 = {
+      version: 'hub-tanda06', count: HUB6_ASSETS.length,
+      productionUnits: HUB6_ASSETS.length, files: HUB6_ASSETS.length,
+      registered: n, enabled: hub6Applied,
+      loader: 'load() -> __DDM_V5_IMG[alias h06_*]',
+      renderer: 'DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc',
+      flag: 'window.__DDM_HUB_T06 !== false',
+      note: '10/10 PNG de envolvente cargados y registrados. Sin segundo motor, '
+          + 'sin canvas adicional, sin cambio de camara ni proyeccion.',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+
+  function restoreHub6() {
+    var reg = window.__DDM_V5_IMG, n = 0;
+    if (reg) {
+      HUB6_ASSETS.forEach(function (a) {
+        if (!Object.prototype.hasOwnProperty.call(HUB6_ORIGINALS, a.alias)) return;
+        reg[a.alias] = HUB6_ORIGINALS[a.alias];
+        if (reg[a.alias] === undefined) delete reg[a.alias];
+        n++;
+      });
+    }
+    hub6Applied = false;
+    if (st.hub6) { st.hub6.enabled = false; st.hub6.registered = 0; }
+    hub6Invalidate();
+    return n;
+  }
+
+  function loadHub6(done) {
+    var pending = HUB6_ASSETS.length;
+    HUB6_ASSETS.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH6 + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB6_IMAGES[a.id] = im;
+          if (!rec.exactSize) hub6Err(a.id, 'dimensiones inesperadas ' + rec.natural);
+        } else {
+          hub6Err(a.id, 'no se pudo decodificar ' + rec.file);
+        }
+        if (--pending === 0) done(applyHub6());
+      });
+    });
+  }
+
+  function hub6() {
+    var reg = window.__DDM_V5_IMG || {}, get = window.__DDM_GET_V5;
+    var list = HUB6_ASSETS.map(function (a) {
+      var im = HUB6_IMAGES[a.id] || null;
+      var resolves = 0;
+      try { if (typeof get === 'function' && get(a.alias) === im) resolves = 1; } catch (_) {}
+      return {
+        id: a.id, unit: a.unit, file: BASEH6 + a.file, alias: a.alias,
+        aliasLive: !!(im && reg[a.alias] === im), loaderResolves: resolves,
+        expected: [a.w, a.h], natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, registered: !!(im && reg[a.alias] === im),
+        worldBox: [a.x - (Math.round(a.worldH * a.w / a.h) >> 1),
+                   a.y - a.worldH, Math.round(a.worldH * a.w / a.h), a.worldH],
+        originalsPreserved: Object.prototype.hasOwnProperty.call(HUB6_ORIGINALS, a.alias) &&
+                            HUB6_ORIGINALS[a.alias] !== im
+      };
+    });
+    return {
+      version: 'hub-tanda06', count: HUB6_ASSETS.length,
+      productionUnits: HUB6_ASSETS.length, enabled: hub6Applied,
+      registered: list.filter(function (a) { return a.registered; }).length,
+      loaded: list.filter(function (a) { return a.loaded; }).length,
+      exactSize: list.filter(function (a) { return a.exactSize; }).length,
+      errors: (st.hub6Errors || []).slice(), assets: list,
+      note: '10/10 PNG de TANDA 06 en el MISMO registro V5 y MISMO load().'
+    };
+  }
+
+  function hub6Tag() {
+    HUB6_ASSETS.forEach(function (a) {
+      var im = HUB6_IMAGES[a.id];
+      if (im) { try { im.__hubTanda06 = a.id; } catch (_) {} }
+    });
+    return HUB6_ASSETS.length;
+  }
+  function hub6Restore() { return restoreHub6(); }
+  function hub6Apply() { return hub6Applied ? HUB6_ASSETS.length : applyHub6(); }
+  /* === TANDA06:END ========================================================*/
+
   /* ======================================================================
    * TANDA 03 · FASE D — PROTAGONISTA NUEVO (8 estados)
    * ----------------------------------------------------------------------
@@ -1740,6 +1902,8 @@
     hub3Restore: hub3Restore, hub3Apply: hub3Apply, hub3Tag: hub3Tag,
     hub5: hub5, hub5Manifest: function () { return JSON.parse(JSON.stringify(HUB5_ASSETS)); },
     hub5Restore: hub5Restore, hub5Apply: hub5Apply, hub5Tag: hub5Tag,
+    hub6: hub6, hub6Manifest: function () { return JSON.parse(JSON.stringify(HUB6_ASSETS)); },
+    hub6Restore: hub6Restore, hub6Apply: hub6Apply, hub6Tag: hub6Tag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

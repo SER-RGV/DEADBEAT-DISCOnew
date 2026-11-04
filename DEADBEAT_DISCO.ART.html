@@ -7906,8 +7906,32 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           { id: "hub_decor_t05_07", slot: "h05_cartel_ultima_sesion", x: 600, y: 760, h: 120, flip: false, t05: "T05-07", t05hang: true },
           { id: "hub_decor_t05_08", slot: "h05_line_array", x: 1250, y: 720, h: 170, flip: false, t05: "T05-08", t05hang: true },
           { id: "hub_decor_t05_09", slot: "h05_cordon_vip", x: 930, y: 560, h: 80, flip: false, t05: "T05-09" },
-          { id: "hub_decor_t05_10", slot: "h05_confesionario", x: 1715, y: 700, h: 150, flip: false, t05: "T05-10" }
+          { id: "hub_decor_t05_10", slot: "h05_confesionario", x: 1715, y: 700, h: 150, flip: false, t05: "T05-10" },
           /* === TANDA05:END === */
+          /* === TANDA06:BEGIN · 10 props de envolvente en el array REAL hubDecor ===
+             Renderer existente addHubCustomProp -> Lc (Y-sort, solid:false, tall:false).
+             Coordenadas/anchos MEDIDOS en manifest.json y composicion.json; caras
+             visibles segun la auditoria de camara. t06hang = sin sombra de suelo
+             (viga/cortinaje); t06flat = plano de suelo sin altura (zocalo).
+             Flag reversible window.__DDM_HUB_T06. Sin colisiones ni geometria nueva. */
+          { id: "hub_decor_t06_01", slot: "h06_paramento_norte_o", x: 681, y: 330, h: 150, flip: false, t06: "T06-01" },
+          { id: "hub_decor_t06_02", slot: "h06_paramento_norte_c", x: 1114, y: 330, h: 150, flip: false, t06: "T06-02" },
+          { id: "hub_decor_t06_03", slot: "h06_paramento_norte_e", x: 1611, y: 330, h: 150, flip: false, t06: "T06-03" },
+          { id: "hub_decor_t06_04", slot: "h06_machon_esquina_no", x: 600, y: 330, h: 150, flip: false, t06: "T06-04" },
+          { id: "hub_decor_t06_05", slot: "h06_machon_esquina_ne", x: 1900, y: 330, h: 150, flip: false, t06: "T06-05" },
+          { id: "hub_decor_t06_06", slot: "h06_paramento_oeste", x: 330, y: 1160, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_07", slot: "h06_paramento_este", x: 2170, y: 1160, h: 380, flip: false, t06: "T06-07" },
+          { id: "hub_decor_t06_08", slot: "h06_viga_caseton_techo", x: 1250, y: 330, h: 90, flip: false, t06: "T06-08", t06hang: true },
+          { id: "hub_decor_t06_09", slot: "h06_cortinaje_acustico", x: 1865, y: 430, h: 230, flip: false, t06: "T06-09", t06hang: true },
+          { id: "hub_decor_t06_10", slot: "h06_zocalo_remate_suelo", x: 1250, y: 340, h: 36, flip: false, t06: "T06-10", t06flat: true },
+          /* TANDA06 · continuidad de aristas: los DOS paramentos laterales se
+             repiten en y=780 y y=1540 (mismo PNG, mismo slot, 3 tramos que
+             abutan y cubren y=400..1540 sin huecos). Siguen siendo 10 recursos. */
+          { id: "hub_decor_t06_06_rep1", slot: "h06_paramento_oeste", x: 330, y: 780, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_06_rep2", slot: "h06_paramento_oeste", x: 330, y: 1540, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_07_rep1", slot: "h06_paramento_este", x: 2170, y: 780, h: 380, flip: false, t06: "T06-07" },
+          { id: "hub_decor_t06_07_rep2", slot: "h06_paramento_este", x: 2170, y: 1540, h: 380, flip: false, t06: "T06-07" }
+          /* === TANDA06:END === */
         ];
         for (const dc of hubDecor) {
           addHubCustomProp({
@@ -7919,15 +7943,21 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
               /* TANDA05:BEGIN · reversibilidad A/B de TANDA 05 */
               if (dc.t05 && window.__DDM_HUB_T05 === false) return;
               /* TANDA05:END */
+              /* TANDA06:BEGIN · reversibilidad A/B de TANDA 06 */
+              if (dc.t06 && window.__DDM_HUB_T06 === false) return;
+              /* TANDA06:END */
               const im = V5D(dc.slot);
               if (!im) return;
-              ctx.save(); ctx.imageSmoothingEnabled = !!(dc.t04 || dc.t05); /* TANDA04/05: arte pintado, no pixel art */
+              ctx.save(); ctx.imageSmoothingEnabled = !!(dc.t04 || dc.t05 || dc.t06); /* TANDA04/05/06: arte pintado, no pixel art */
               /* TANDA05:BEGIN · pulso ambiental sobre el ctx existente (sin sistema nuevo) */
               if (dc.pulse) ctx.globalAlpha *= 0.82 + 0.18 * Math.sin(performance.now() / 520 + dc.pulse);
               /* TANDA05:END */
               const dh = dc.h, dw = Math.round(dh * im.naturalWidth / im.naturalHeight);
-              if (!dc.t05hang) Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10); /* TANDA05: sin sombra en objetos colgantes */
-              if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
+              if (!dc.t05hang && !dc.t06hang && !dc.t06flat) Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10); /* TANDA05/06: sin sombra en colgantes ni plano de suelo */
+              /* TANDA06:BEGIN · plano de SUELO: centrado en (x,y), sin altura ni sombra */
+              if (dc.t06flat) ctx.drawImage(im, p.x - (dw >> 1), p.y - (dh >> 1), dw, dh);
+              /* TANDA06:END */
+              else if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
               else ctx.drawImage(im, p.x - (dw >> 1), p.y - dh, dw, dh);
               ctx.restore();
             }
