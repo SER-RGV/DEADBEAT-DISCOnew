@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T20:57:16Z
+- **Última actualización:** 2026-11-04T21:05:48Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **50 / 330** recursos verificados en motor real
+- **Progreso global:** **60 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -17,7 +17,7 @@
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
-| `props` | 30 | 4 | 4 | 4 |
+| `props` | 30 | 14 | 14 | 14 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
 | `weapons` | 121 | 0 | 0 | 0 |
@@ -76,16 +76,16 @@
 | 48 | TANDA_05 | `ui:defeat_emblem` | Emblema Pantalla Derrota · Vinilo Roto Carmesí | `ui` | `assets/ui/ui_defeat_emblem.png` | 512x384 | DONE | INTEGRATED | VERIFIED |
 | 49 | TANDA_05 | `prop:neon_palm` | Prop 03 · Palmera Neón Rosa Brillante | `props` | `assets/props/prop_neon_palm.png` | 320x384 | DONE | INTEGRATED | VERIFIED |
 | 50 | TANDA_05 | `prop:chandelier_gold` | Prop 04 · Lámpara de Araña Dorada Club | `props` | `assets/props/prop_chandelier_gold.png` | 320x320 | DONE | INTEGRATED | VERIFIED |
-| 51 | TANDA_06 | `prop:sofa_black` | Prop 05 · Sofá Club Cuero Negro Escalonado | `props` | `assets/props/prop_sofa_black.png` | 384x256 | PENDING | PENDING | PENDING |
-| 52 | TANDA_06 | `atlas:armchair` | Prop 06 · Sillón VIP Terciopelo Carmesí | `props` | `assets/props/prop_armchair_vip.png` | 256x256 | PENDING | PENDING | PENDING |
-| 53 | TANDA_06 | `atlas:plant` | Prop 07 · Planta Tropical en Maceta Magenta | `props` | `assets/props/prop_potted_plant.png` | 256x320 | PENDING | PENDING | PENDING |
-| 54 | TANDA_06 | `atlas:speaker` | Prop 08 · Torre Altavoz Triple Dorado y Negro | `props` | `assets/props/prop_speaker_tower.png` | 224x384 | PENDING | PENDING | PENDING |
-| 55 | TANDA_06 | `prop:subwoofer_cyan` | Prop 09 · Subwoofer Masivo Anillo Cian | `props` | `assets/props/prop_subwoofer_cyan.png` | 256x352 | PENDING | PENDING | PENDING |
-| 56 | TANDA_06 | `prop:gothic_statue` | Prop 10 · Estatua Gótica Relicario | `props` | `assets/props/prop_gothic_statue.png` | 224x384 | PENDING | PENDING | PENDING |
-| 57 | TANDA_06 | `prop:gilded_altar` | Prop 11 · Chimenea / Altar Dorado Barroco | `props` | `assets/props/prop_gilded_altar.png` | 320x320 | PENDING | PENDING | PENDING |
-| 58 | TANDA_06 | `atlas:chest` | Prop 12 · Cofre Tallado Dorado (Cerrado) | `props` | `assets/props/prop_chest_closed.png` | 256x224 | PENDING | PENDING | PENDING |
-| 59 | TANDA_06 | `Uf:chest_open` | Prop 13 · Cofre Tallado Dorado (Abierto) | `props` | `assets/props/prop_chest_open.png` | 256x256 | PENDING | PENDING | PENDING |
-| 60 | TANDA_06 | `atlas:bunny` | Prop 14 · Flor / Estrella Neón Cian y Rosa | `props` | `assets/props/prop_neon_flower.png` | 256x256 | PENDING | PENDING | PENDING |
+| 51 | TANDA_06 | `prop:sofa_black` | Prop 05 · Sofá Club Cuero Negro Escalonado | `props` | `assets/props/prop_sofa_black.png` | 384x256 | DONE | INTEGRATED | VERIFIED |
+| 52 | TANDA_06 | `atlas:armchair` | Prop 06 · Sillón VIP Terciopelo Carmesí | `props` | `assets/props/prop_armchair_vip.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
+| 53 | TANDA_06 | `atlas:plant` | Prop 07 · Planta Tropical en Maceta Magenta | `props` | `assets/props/prop_potted_plant.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
+| 54 | TANDA_06 | `atlas:speaker` | Prop 08 · Torre Altavoz Triple Dorado y Negro | `props` | `assets/props/prop_speaker_tower.png` | 224x384 | DONE | INTEGRATED | VERIFIED |
+| 55 | TANDA_06 | `prop:subwoofer_cyan` | Prop 09 · Subwoofer Masivo Anillo Cian | `props` | `assets/props/prop_subwoofer_cyan.png` | 256x352 | DONE | INTEGRATED | VERIFIED |
+| 56 | TANDA_06 | `prop:gothic_statue` | Prop 10 · Estatua Gótica Relicario | `props` | `assets/props/prop_gothic_statue.png` | 224x384 | DONE | INTEGRATED | VERIFIED |
+| 57 | TANDA_06 | `prop:gilded_altar` | Prop 11 · Chimenea / Altar Dorado Barroco | `props` | `assets/props/prop_gilded_altar.png` | 320x320 | DONE | INTEGRATED | VERIFIED |
+| 58 | TANDA_06 | `atlas:chest` | Prop 12 · Cofre Tallado Dorado (Cerrado) | `props` | `assets/props/prop_chest_closed.png` | 256x224 | DONE | INTEGRATED | VERIFIED |
+| 59 | TANDA_06 | `Uf:chest_open` | Prop 13 · Cofre Tallado Dorado (Abierto) | `props` | `assets/props/prop_chest_open.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
+| 60 | TANDA_06 | `atlas:bunny` | Prop 14 · Flor / Estrella Neón Cian y Rosa | `props` | `assets/props/prop_neon_flower.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
 | 61 | TANDA_07 | `prop:arcane_pedestal` | Prop 15 · Pedestal Orbe de Energía Violeta | `props` | `assets/props/prop_arcane_pedestal.png` | 288x352 | PENDING | PENDING | PENDING |
 | 62 | TANDA_07 | `atlas:poster` | Prop 16 · Cuadro Sigilo Estelar Enmarcado | `props` | `assets/props/prop_sigil_poster.png` | 224x288 | PENDING | PENDING | PENDING |
 | 63 | TANDA_07 | `prop:bar_bottles` | Prop 17 · Conjunto Botellas y Cristalería Neón | `props` | `assets/props/prop_bar_bottles.png` | 256x224 | PENDING | PENDING | PENDING |
