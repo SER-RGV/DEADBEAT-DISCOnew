@@ -1,0 +1,158 @@
+{
+  "tanda": "09",
+  "title": "HUB · TANDA 09 — 4 posturas NPC para rutinas ambientales",
+  "generatedAt": "2026-11-04T05:50:45",
+  "status": "INTEGRADO_VALIDADO",
+  "canvas": [
+    131,
+    232
+  ],
+  "pivot": "línea de pies (bottom-center)",
+  "key": "croma verde #00FF00 con borde suave y despill",
+  "fallback": "Si el sprite no carga o __DDM_HUB_T09 === false se usa el sprite V5 original",
+  "integration": "Módulo T09 en DEADBEAT_DISCO.ART.html; SIN cambios en ART_PACK/art_pack.js",
+  "assets": [
+    {
+      "id": "T09-01",
+      "alias": "t09_rest_seated",
+      "unit": "Postura de descanso sentado/reclinado",
+      "use": "t07_descanso · rest y posture_change",
+      "source": "ART_ASSETS/hub/tanda_09/_source/hub_t09_01_descanso.png",
+      "file": "ART_ASSETS/hub/tanda_09/01_descanso/final/hub_t09_01_descanso.png",
+      "exactSize": true,
+      "size": [
+        131,
+        232
+      ],
+      "mode": "RGBA",
+      "figureHeight": 158,
+      "figureWidth": 82,
+      "cornersTransparent": true,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaquePct": 10.97,
+      "transparentPct": 79.72,
+      "greenFringePct": 0.0,
+      "borderClean": true,
+      "alphaReal": true,
+      "bytes": 20235,
+      "sha256": "52693d13afac28d023e8f1022449336fdd3b63fb0953b21a6e64b18eafef5635"
+    },
+    {
+      "id": "T09-02",
+      "alias": "t09_observe",
+      "unit": "Postura de observación, cabeza girada",
+      "use": "hub_ambient_dancer_sw (arcade) y t07_recorrido (grieta) · OBSERVE",
+      "source": "ART_ASSETS/hub/tanda_09/_source/hub_t09_02_observador.png",
+      "file": "ART_ASSETS/hub/tanda_09/02_observador/final/hub_t09_02_observador.png",
+      "exactSize": true,
+      "size": [
+        131,
+        232
+      ],
+      "mode": "RGBA",
+      "figureHeight": 232,
+      "figureWidth": 73,
+      "cornersTransparent": true,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaquePct": 19.38,
+      "transparentPct": 65.97,
+      "greenFringePct": 0.6536,
+      "borderClean": true,
+      "alphaReal": true,
+      "bytes": 29745,
+      "sha256": "232c24aec4e7ceaeee3742c0d4074d92c33e7a4c7e0438c5f281b3dea0feefd2"
+    },
+    {
+      "id": "T09-03",
+      "alias": "t09_greeting",
+      "unit": "Gesto pequeño de saludo, brazo levantado",
+      "use": "t07_charla_01/02 · gesture y reacción al jugador",
+      "source": "ART_ASSETS/hub/tanda_09/_source/hub_t09_03_gesto.png",
+      "file": "ART_ASSETS/hub/tanda_09/03_gesto/final/hub_t09_03_gesto.png",
+      "exactSize": true,
+      "size": [
+        131,
+        232
+      ],
+      "mode": "RGBA",
+      "figureHeight": 232,
+      "figureWidth": 102,
+      "cornersTransparent": true,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaquePct": 18.9,
+      "transparentPct": 66.68,
+      "greenFringePct": 0.2137,
+      "borderClean": true,
+      "alphaReal": true,
+      "bytes": 32266,
+      "sha256": "481ad924a2130e9f5332e4ea83f964fc8b05beac462535fc56d784637c91991c"
+    },
+    {
+      "id": "T09-04",
+      "alias": "t09_wait",
+      "unit": "Espera quieta, brazos cruzados",
+      "use": "hub_ambient_clubber_bar · WAIT y bar_shift",
+      "source": "ART_ASSETS/hub/tanda_09/_source/hub_t09_04_espera.png",
+      "file": "ART_ASSETS/hub/tanda_09/04_espera/final/hub_t09_04_espera.png",
+      "exactSize": true,
+      "size": [
+        131,
+        232
+      ],
+      "mode": "RGBA",
+      "figureHeight": 232,
+      "figureWidth": 73,
+      "cornersTransparent": true,
+      "corners": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "opaquePct": 17.27,
+      "transparentPct": 70.84,
+      "greenFringePct": 0.0,
+      "borderClean": true,
+      "alphaReal": true,
+      "bytes": 26355,
+      "sha256": "303b2e4af4b72eaf947f7d9247ca34b2e3f3258ce694a7fbbcb098a58862d488"
+    }
+  ],
+  "count": 4,
+  "checks": {
+    "exactSize": 4,
+    "alphaReal": 4,
+    "cornersTransparent": 4,
+    "borderClean": 4,
+    "hashes": 4
+  },
+  "integratedAt": "2026-11-04T09:05:15",
+  "qa": {
+    "matriz": {
+      "APROBADO": 16,
+      "FALLIDO": 0,
+      "BLOQUEADO": 3,
+      "NO VERIFICADO": 6
+    },
+    "duracion_s": 100,
+    "pageerrors": [],
+    "warnings": [],
+    "flag": "window.__DDM_HUB_T09",
+    "note": "4/4 posturas cargadas y verificadas en render; con flag=false se delega en los sprites V5 originales."
+  }
+}

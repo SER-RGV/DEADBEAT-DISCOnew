@@ -114,3 +114,18 @@ Toda modificación debe partir de una copia de seguridad.
 - **Sin sistemas nuevos:** sin canvas, motor, cámara, loader, rAF, temporizador propio, audio, colisiones, geometría, estaciones, progresión, NPC, criaturas ni enemigos. Audio y lógica de llegada T07 intactos.
 - **NO VERIFICADO:** vídeo continuo, mando físico, audio audible/latencia, rendimiento sostenido y regresión visual formal completa en hardware real; heredados: performance gate T02 y 8 `BLOQUEADO` T03.
 - **Documentos vigentes:** `ART_TANDA_08_REPORT.md`, `ART_TANDA_08_FASE0_1_MAPA_Y_COMPOSICION.md`, `ART_EVIDENCE/hub/tanda_08/mapa_profundidad.json`.
+
+<!-- TANDA09:STATE -->
+### Integración TANDA 09 — `INTEGRADO_VALIDADO` (Fases 0–5)
+
+- **Build activa:** `DEADBEAT_DISCO.ART.html` 13.460.630 B / 21.296 líneas (SHA `3e82dc77b9fd4c59d01e016628b204b1b07042c7f8f9085de3433141e5429011`); diff de T09 = **494 inserciones, 0 eliminaciones**. `ART_PACK/art_pack.js` 108.072 B **sin cambios** (SHA `330c9f46fd32e0f9782009252ea1380321e9e37a3e500e9fadf8869e914921c5`, versión `+hub-tanda08`).
+- **HUB real:** 182 claves V5 (178 T01–08 + 4 alias `t09_*`), 27 canvas, 62 props, 11 estaciones, 6 zonas, 1 secuenciador, zoom `.9375`. Sin segundo motor, canvas, cámara, loader, rAF, temporizador por NPC, audio, colisiones, estaciones ni progresión.
+- **NPC:** los 11 originales intactos (4 `ambientDancers` + 6 actores T07 + `narr_cliente000` intocable). 10 registros de rutina con 10 pares de duraciones distintos; 4 posturas estáticas nuevas con fallback a los sprites V5.
+- **Arquitectura:** `DMO_LAYOUT.propObjects()` es un clon profundo → T09 engancha el array real `tc` con re-enganche perezoso en `Tf(dt)`. Un solo acumulador, `draws/updates = 10`, 0 `allocs` por frame.
+- **Continuidad:** 0 saltos de frame a 33 ms en los 10 NPC; ΔX máximo 5 u a 33 ms y 26 u a 250 ms; orientación intermedia ≤10,5 % de muestras; 136 combinaciones de estado; máx. 4/10 cambios simultáneos.
+- **Flag reversible:** `window.__DDM_HUB_T09 = false` → 260+ delegaciones al pintor original, 0 rutinas nuevas; al volver a `true` se reanuda. Con `false` **desde el arranque** (`qa_flag_boot.json`, APROBADO): 0 peticiones de los 4 PNG, `assetsRequested=false`, V5 = 178, `draws=0`; al activar, 4/4 sprites y rutinas activas. `reducedMotion` congela y delega (880 delegaciones).
+- **QA:** `ART_EVIDENCE/hub/tanda_09/qa_matrix.json` — **16/16 APROBADO** en los puntos pedidos; matriz completa **16 APROBADO / 0 FALLIDO / 3 BLOQUEADO / 6 NO VERIFICADO**. 100 s / 400 muestras, 0 `pageerror`, 0 warnings, 39 evidencias, `hashes.json` con 17 ficheros, `manifest.json` → `INTEGRADO_VALIDADO`.
+- **T01–08 intactas** (auditorías T07/T08/HUB `ok`, marcadores y pack sin tocar; A/B de flag). PR #1 `OPEN`, base `arte-y-recursos`, **sin merge**; `main`/`origin/main` en `d75e021`.
+- **BLOQUEADO (diseño):** sin sistema de patrulla, sin NPC ambiental propio en B/F, `narr_cliente000` sin cambios.
+- **NO VERIFICADO:** vídeo continuo, mando físico, audio audible/latencia, coste real de frame y rendimiento sostenido en hardware real, regresión visual/formal completa T01–07, sostenimiento >100 s; heredados: performance gate T02 y 8 `BLOQUEADO` de T03.
+- **Documentos vigentes:** `ART_TANDA_09_REPORT.md`, `ART_TANDA_09_FASE0_INVENTARIO.md`, `ART_TANDA_09_FASE1_MATRIZ_RUTINAS.md`, `ART_TANDA_09_FASE2_RECURSOS.md`, `ART_EVIDENCE/hub/tanda_09/`.

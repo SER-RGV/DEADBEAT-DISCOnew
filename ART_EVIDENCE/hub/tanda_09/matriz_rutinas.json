@@ -42,7 +42,7 @@
         "group_start"
       ],
       "motivo": "Bailarín veterano de la pista NW: baila casi siempre, con pausas cortas; anclaje fijo por station dancer_0",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "hub_ambient_dancer_ne",
@@ -60,7 +60,7 @@
         "two_positions"
       ],
       "motivo": "Desfase propio y pausa más larga que NW para evitar sincronía artificial",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "hub_ambient_dancer_sw",
@@ -78,7 +78,7 @@
         "arcade_watch"
       ],
       "motivo": "Más cercano al arcade: a veces deja de bailar y se gira a mirar las máquinas; sin animación nueva",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "hub_ambient_clubber_bar",
@@ -96,7 +96,7 @@
         "bar_shift"
       ],
       "motivo": "En la barra alterna baile bajo, espera quieta y giro hacia el mostrador; station dancer_3 fija",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_danza_01",
@@ -114,7 +114,7 @@
         "group_start"
       ],
       "motivo": "El más enérgico; intensidad alta/baja y microdesplazamiento lateral; conserva reacción al jugador",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_danza_02",
@@ -132,7 +132,7 @@
         "two_positions"
       ],
       "motivo": "Pausas desincronizadas con danza_01; reacción más tenue",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_charla_01",
@@ -150,7 +150,7 @@
         "conversation_ends"
       ],
       "motivo": "Orientado a charla_02; gestos alternos y pausas; la conversación puede terminar y reanudarse",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_charla_02",
@@ -168,7 +168,7 @@
         "conversation_ends"
       ],
       "motivo": "Responde con desfase; reacción mínima para que no todos miren al jugador",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_descanso",
@@ -186,7 +186,7 @@
         "posture_change"
       ],
       "motivo": "DE PIE (no existe sprite sentado): sólo cambios de inclinación y respiración; nunca reacciona ni se desplaza",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     },
     {
       "id": "t07_recorrido",
@@ -204,7 +204,7 @@
         "cliff_watch"
       ],
       "motivo": "Conserva la ruta seno ±62 u; añade pausas y una deriva corta; rara contemplación de la grieta",
-      "estado": "PENDIENTE_DE_AUTORIZACION"
+      "estado": "IMPLEMENTADO_VALIDADO"
     }
   ],
   "esquema": {
@@ -338,7 +338,7 @@
       "Zonas B (cabina) y F (arcade/espejo) no tienen NPC ambiental; no se añaden NPC nuevos en esta tanda.",
       "narr_cliente000 no se modifica por su vinculación a NARR/storyState."
     ],
-    "estado": "FASE 1 ENTREGADA · PENDIENTE DE AUTORIZACIÓN PARA FASE 2"
+    "estado": "FASE 1 ENTREGADA · AUTORIZADA EL 2026-11-04 · FASES 2–5 EJECUTADAS"
   },
   "identidadZonas": [
     {
@@ -371,5 +371,12 @@
       "identidad": "Curiosidad y entretenimiento por orientación, no por interacción",
       "npcs": 0
     }
-  ]
+  ],
+  "autorizacion": {
+    "fecha": "2026-11-04",
+    "fases": "F2–F5",
+    "spritesNuevos": true,
+    "alcance": "ART_TANDA_09_FASE2_RECURSOS.md",
+    "cierre": "ART_TANDA_09_REPORT.md"
+  }
 }

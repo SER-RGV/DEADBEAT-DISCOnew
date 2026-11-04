@@ -1,0 +1,258 @@
+{
+  "tanda": "09",
+  "phase": "F5 · matriz de QA",
+  "generatedAt": "2026-11-04T09:05:15",
+  "duracion_s": 100,
+  "muestras": 400,
+  "puntosPedidos": 16,
+  "total": 25,
+  "tally": {
+    "APROBADO": 16,
+    "FALLIDO": 0,
+    "BLOQUEADO": 3,
+    "NO VERIFICADO": 6
+  },
+  "tallyPuntos16": {
+    "APROBADO": 16,
+    "FALLIDO": 0,
+    "BLOQUEADO": 0,
+    "NO VERIFICADO": 0
+  },
+  "erroresCriticos": 0,
+  "rows": [
+    {
+      "id": "T09-01",
+      "prueba": "Los 11 props NPC originales siguen presentes con hubDraw vivo",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "11/11 props (4 ambientDancers + 6 T07 + narr_cliente000); solid=false, tall=true, hubCustom=true, hubDraw=function"
+    },
+    {
+      "id": "T09-02",
+      "prueba": "6 actores ambientales de T07 intactos",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "6 actores · {'dance': 2, 'talk': 2, 'rest': 1, 'walk': 1} · assetsLoaded 6/6 · errors 0"
+    },
+    {
+      "id": "T09-03",
+      "prueba": "4 ambientDancers intactos: anclajes y estaciones sin desincronía",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "4/4 en (1030,785)(1470,785)(1015,1085)(1965,918);  dancer_0..3 = 4 estaciones en las mismas coordenadas"
+    },
+    {
+      "id": "T09-04",
+      "prueba": "10 rutinas asignadas con duraciones/intensidades distintas y zona",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "10/10 registros · 10 pares durAct/durPause distintos · actividades {'dance': 6, 'talk': 2, 'rest': 1, 'walk': 1} · 6 zonas A–F"
+    },
+    {
+      "id": "T09-05",
+      "prueba": "Variación: no todos bailan/caminan/reaccionan ni cambian a la vez",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "136 combinaciones de estado distintas · máximo 4/10 cambios simultáneos · 4 no bailan · 8 con Δ=0 · 5 sin reacción · intensidades individuales"
+    },
+    {
+      "id": "T09-06",
+      "prueba": "Pausas y varios ciclos completos por NPC (no un único cambio)",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "100 s de muestreo (400 muestras) · mínimo 7 ciclos por NPC · estados observados ['ACTIVE', 'OBSERVE', 'PAUSE', 'POSTURE', 'RESUME', 'SHIFT', 'WAIT'] · pausas 114 · reanudaciones 5"
+    },
+    {
+      "id": "T09-07",
+      "prueba": "Transiciones sin reinicios ni saltos de animación",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "sonda a 33 ms / 180 muestras: 0 saltos de frame en los 10 NPC; histograma de deltas 0/1 únicamente · congelación exacta + recuperación por holdOffset sin reiniciar phase"
+    },
+    {
+      "id": "T09-08",
+      "prueba": "Ausencia de saltos de posición",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "ΔX máximo 5 u a 33 ms y 26 u a 250 ms (el recorrido seno T07 es el único desplazamiento, conservado)"
+    },
+    {
+      "id": "T09-09",
+      "prueba": "Sin movimientos erráticos ni orientaciones intermedias sostenidas",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "faceMix intermedio máximo 10.5% de muestras (giro suave de 0,22 s, converge a 0/1) · offsets máximos ≤25 u · 0 pageerror · 0 warning"
+    },
+    {
+      "id": "T09-10",
+      "prueba": "Sin solapamientos graves ni invasión de radios de estación",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "distancia mínima entre anclajes 58 u (par barra/descanso, PREEXISTENTE y sin cambios) · offsets ≤25 u y vuelven al anclaje · radios lift142/dj132/arsenal-bar136/arcade-seals124/cliente000110 no invadidos"
+    },
+    {
+      "id": "T09-11",
+      "prueba": "Accesos, puertas y estaciones libres",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "11 estaciones · 11 geometrías de colisión (sin cambios) · 62 props antes/después · 0 props nuevos · 0 colisiones nuevas"
+    },
+    {
+      "id": "T09-12",
+      "prueba": "Reacciones conservadas, ponderadas y no uniformes",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "5 actores T07 con peso .90/.55/.45/.25/.35 · rest excluido · 4 dancers sin reacción · mediciones en 6 posiciones del jugador · sin diálogos ni interacciones"
+    },
+    {
+      "id": "T09-13",
+      "prueba": "Compatibilidad con el movimiento y el control del jugador",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "tecla D desplazó la cámara 110 u · 6 teleports sin pérdida de EXPLORATION · worldLive estable · sin bloqueos ni excepciones"
+    },
+    {
+      "id": "T09-14",
+      "prueba": "Movimiento reducido",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "contexto reducedMotion:frames estáticos · 880 delegaciones al pintor original · 0 pageerror · 0 acontecimientos"
+    },
+    {
+      "id": "T09-15",
+      "prueba": "Rendimiento: un acumulador, sin intervalos/canvas/props nuevos",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "draws/updates = 10 (10 NPC por fotograma) · 27 canvas antes/después · 62 props · 1 acumulador Tf(dt) · 0 setInterval/rAF · 0 canvas nuevos · 0 temporizadores por NPC · 0 allocs por frame"
+    },
+    {
+      "id": "T09-16",
+      "prueba": "Flag reversible window.__DDM_HUB_T09 y regresión T01–08",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "OFF → 260 delegaciones, 0 rutinas nuevas; ON de nuevo → 33570 dibujos · pack sin cambios (07+hub-tanda08) · T07/T08/HUB audits ok · V5 178+4 slots t09_*"
+    },
+    {
+      "id": "L-01",
+      "prueba": "Vídeo continuo y captura de ciclos completos en tiempo real",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Se muestrean 400 estados a 250 ms y 180 a 33 ms; no hay grabación de vídeo continuo."
+    },
+    {
+      "id": "L-02",
+      "prueba": "Mando físico / gamepad",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Sólo teclado y ratón en Chromium."
+    },
+    {
+      "id": "L-03",
+      "prueba": "Audio audible y latencia real",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "T09 no toca audio; no se mide latencia audible."
+    },
+    {
+      "id": "L-04",
+      "prueba": "Coste real de frame y rendimiento sostenido en hardware real",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Estructura sin intervalos/canvas/allocs verificada; falta perfil de GPU/CPU en equipo real."
+    },
+    {
+      "id": "L-05",
+      "prueba": "Regresión visual/formal completa T01–07 en hardware real",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Se verifican auditorías, marcadores, manifiestos, A/B y capturas por zona."
+    },
+    {
+      "id": "L-06",
+      "prueba": "Rendimiento sostenido más allá de 100 s y con múltiples incursiones",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Ciclo de observación de 100 s en una única sesión de HUB."
+    },
+    {
+      "id": "B-01",
+      "prueba": "Sistema de patrulla / rutas nuevas",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "patrol=0 en el HTML; no se crea. Sólo se conserva el seno ±62 u de t07_recorrido."
+    },
+    {
+      "id": "B-02",
+      "prueba": "NPC ambiental propio en zonas B (cabina) y F (arcade/espejo)",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "No se añaden NPC nuevos; se resuelve con quietud deliberada (B) y orientación de dancer_sw (F)."
+    },
+    {
+      "id": "B-03",
+      "prueba": "narr_cliente000",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "NPC narrativo con estación y diálogo: queda intacto por diseño."
+    }
+  ],
+  "limites": [
+    {
+      "id": "L-01",
+      "item": "Vídeo continuo y captura de ciclos completos en tiempo real",
+      "estado": "NO VERIFICADO",
+      "detalle": "Se muestrean 400 estados a 250 ms y 180 a 33 ms; no hay grabación de vídeo continuo."
+    },
+    {
+      "id": "L-02",
+      "item": "Mando físico / gamepad",
+      "estado": "NO VERIFICADO",
+      "detalle": "Sólo teclado y ratón en Chromium."
+    },
+    {
+      "id": "L-03",
+      "item": "Audio audible y latencia real",
+      "estado": "NO VERIFICADO",
+      "detalle": "T09 no toca audio; no se mide latencia audible."
+    },
+    {
+      "id": "L-04",
+      "item": "Coste real de frame y rendimiento sostenido en hardware real",
+      "estado": "NO VERIFICADO",
+      "detalle": "Estructura sin intervalos/canvas/allocs verificada; falta perfil de GPU/CPU en equipo real."
+    },
+    {
+      "id": "L-05",
+      "item": "Regresión visual/formal completa T01–07 en hardware real",
+      "estado": "NO VERIFICADO",
+      "detalle": "Se verifican auditorías, marcadores, manifiestos, A/B y capturas por zona."
+    },
+    {
+      "id": "L-06",
+      "item": "Rendimiento sostenido más allá de 100 s y con múltiples incursiones",
+      "estado": "NO VERIFICADO",
+      "detalle": "Ciclo de observación de 100 s en una única sesión de HUB."
+    }
+  ],
+  "bloqueados": [
+    {
+      "id": "B-01",
+      "item": "Sistema de patrulla / rutas nuevas",
+      "estado": "BLOQUEADO",
+      "detalle": "patrol=0 en el HTML; no se crea. Sólo se conserva el seno ±62 u de t07_recorrido."
+    },
+    {
+      "id": "B-02",
+      "item": "NPC ambiental propio en zonas B (cabina) y F (arcade/espejo)",
+      "estado": "BLOQUEADO",
+      "detalle": "No se añaden NPC nuevos; se resuelve con quietud deliberada (B) y orientación de dancer_sw (F)."
+    },
+    {
+      "id": "B-03",
+      "item": "narr_cliente000",
+      "estado": "BLOQUEADO",
+      "detalle": "NPC narrativo con estación y diálogo: queda intacto por diseño."
+    }
+  ],
+  "nota": "Los 16 puntos pedidos se miden durante 100 s / 400 muestras; además se clasifican 6 límites NO VERIFICADO y 3 carencias BLOQUEADO heredadas o de diseño."
+}

@@ -1,7 +1,9 @@
 # TANDA 09 · Fase 1 — Diseño de rutinas y matriz de asignación
 
-**Fecha:** 2026-11-04 · **Estado:** `ENTREGADA · PENDIENTE DE AUTORIZACIÓN PARA FASE 2`
+**Fecha:** 2026-11-04 · **Estado:** `ENTREGADA · AUTORIZADA` (documento histórico de Fase 1; se conserva sin alterar el diseño aprobado)
 **Base:** auditoría Fase 0 (`ART_TANDA_09_FASE0_INVENTARIO.md`, `ART_EVIDENCE/hub/tanda_09/audit_npc.json`)
+
+> **Actualización 2026-11-04:** el usuario autorizó continuar con Fases 2–5 y generar los recursos propuestos en `ART_ASSETS/hub/tanda_09/`. El alcance exacto se concretó en `ART_TANDA_09_FASE2_RECURSOS.md` **antes de generar nada**. El resultado final está en `ART_TANDA_09_REPORT.md`. Las tablas siguientes son la matriz aprobada, no una propuesta pendiente.
 **Principio:** cada NPC tiene una razón reconocible para estar donde está. **No todos bailan, no todos caminan, no todos reaccionan y nadie cambia de actividad al mismo tiempo.**
 
 > Esta fase **no modifica el código**. Se presenta la matriz antes de la implementación, según el plan de ejecución. No se han generado recursos ni se ha creado `ART_ASSETS/hub/tanda_09/`.
@@ -180,4 +182,4 @@ Sin cambios de arquitectura, mobiliario, cámara ni composición: la identidad v
 
 **No se ha modificado el código.** La auditoría F0 (14 APROBADO / 0 FALLIDO / 4 BLOQUEADO / 2 NO VERIFICADO, 0 errores críticos) y esta matriz F1 son los entregables previos a la implementación.
 
-Se solicita autorización para pasar a la **Fase 2 (implementación de la capa de rutinas en el HTML activo)** y continuar con Fases 3–5. Si se prefiere ajustar primero alguna asignación, duración, acontecimiento o el tratamiento de las zonas B/F, se corrige la matriz antes de tocar el juego.
+La autorización se concedió el 2026-11-04 y las Fases 2–5 se ejecutaron respetando esta matriz. El cierre completo, con la QA y la clasificación de los 16 puntos, está en `ART_TANDA_09_REPORT.md`.

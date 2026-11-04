@@ -97,3 +97,16 @@ Registrar aquí cada modificación:
 - **Prueba de composición previa a producción 16/16 APROBADA** (`composition_proof.json`), mapa de profundidad y carencias P1–P5 entregados antes de generar los assets.
 - QA formal A/B en 8 zonas **33 APROBADO / 0 FALLIDO / 4 NO VERIFICADO**, 10/10 SHA-256, 0 `pageerror`, 52 evidencias en `ART_EVIDENCE/hub/tanda_08/`.
 - No se fusiona PR #1; no se modifica `main`.
+
+<!-- TANDA09:CHANGELOG -->
+## TANDA 09 — El HUB como lugar habitado (2026-11-04)
+
+- Añadidos 4 recursos en `ART_ASSETS/hub/tanda_09/` (4 fuentes, 4 finales RGBA 131×232, `manifest.json` → `INTEGRADO_VALIDADO`). **Posturas estáticas autorizadas**; sin NPC, animaciones de sentado/usar máquina, mobiliario ni arquitectura nuevos.
+- `DEADBEAT_DISCO.ART.html`: módulo `T09` dentro de `initDmoHubV35` y `T09.install()` tras `T08.install()` en `buildHubSpace()`; **2 inserciones, 0 eliminaciones**. **`ART_PACK/art_pack.js` SIN CAMBIOS**: los 4 alias `t09_*` se cargan en caliente y se registran en `__DDM_V5_IMG` (178 → 182 claves).
+- Capa de rutinas sobre **los mismos 10 props**: `ACTIVE → PAUSE/SHIFT/OBSERVE/WAIT/POSTURE → RESUME → ACTIVE`, un único acumulador `Tf(dt)`, `seed` determinista, continuidad de frame por `holdOffset` (congelación exacta + recuperación 1,2 s), orientación/intensidad/desplazamiento interpolados.
+- Reutilización: 6 actores T07 + 4 `ambientDancers` + `narr_cliente000` intacto; reacciones T07 conservadas con pesos `.90/.55/.45/.25/.35`; 5 de 10 NPC sin reacción y 8 de 10 sin desplazamiento; anclajes de `dancer_0…3` inmutables.
+- Identidad por zona A–F y 7 acontecimientos cotidianos raros (≥25 s de separación, 3,0–5,5 s, uno simultáneo, reversibles, sin progresión ni mecánicas).
+- **Correcciones de integración:** `DMO_LAYOUT.propObjects()` devuelve clon profundo → enganche sobre el array real `tc`; `buildHubSpace()` recrea props → re-enganche perezoso; orientación intermedia y recuperación de frame suavizadas.
+- Flag reversible `window.__DDM_HUB_T09`: con `false`, delegación íntegra al `hubDraw` de T01–T08 y sin carga de sprites nuevos; verificado OFF → ON y con movimiento reducido.
+- QA formal de 16 puntos durante **100 s / 400 muestras + 180 a 33 ms**: **16 APROBADO / 0 FALLIDO** (matriz completa 16/0/3/6), 0 `pageerror`, 0 warnings, 39 evidencias, 17 hashes, 4/4 SHA-256 de assets.
+- No se fusiona PR #1; no se modifica `main`.
