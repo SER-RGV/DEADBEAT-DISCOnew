@@ -1,0 +1,2570 @@
+{
+  "generatedAt": "2026-11-04T09:29:39.304Z",
+  "pageerrors": [],
+  "started": true,
+  "before": {
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 2.85,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    },
+    "t07arrival": {
+      "active": false,
+      "pending": false,
+      "t": 1.85,
+      "dur": 1.85,
+      "reason": "hub-entry",
+      "plays": 1,
+      "completes": 1,
+      "restored": true
+    },
+    "t08": {
+      "version": "4.0.0-tanda08",
+      "enabled": true,
+      "flag": "ON",
+      "clock": 3.65,
+      "frames": 16,
+      "updates": 90,
+      "visible": true,
+      "winTop": 815.6,
+      "winH": 84.4,
+      "expand": 0,
+      "descentP": 0,
+      "draws": {
+        "bands": 64,
+        "objects": 112,
+        "smoke": 64,
+        "embers": 768,
+        "ash": 416,
+        "glows": 160
+      },
+      "errors": [],
+      "lastError": "",
+      "camera": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375
+      },
+      "assets": [
+        {
+          "key": "paredIzq",
+          "alias": "h08_pared_cercana_izq",
+          "loaded": true
+        },
+        {
+          "key": "paredDer",
+          "alias": "h08_pared_cercana_der",
+          "loaded": true
+        },
+        {
+          "key": "estrato",
+          "alias": "h08_estrato_medio",
+          "loaded": true
+        },
+        {
+          "key": "columna",
+          "alias": "h08_columna_natural",
+          "loaded": true
+        },
+        {
+          "key": "plataforma",
+          "alias": "h08_plataforma_suspendida",
+          "loaded": true
+        },
+        {
+          "key": "paredLejana",
+          "alias": "h08_pared_lejana",
+          "loaded": true
+        },
+        {
+          "key": "rocas",
+          "alias": "h08_rocas_suspendidas",
+          "loaded": true
+        },
+        {
+          "key": "cavidades",
+          "alias": "h08_cavidades_lejanas",
+          "loaded": true
+        },
+        {
+          "key": "luces",
+          "alias": "h08_luces_abismo",
+          "loaded": true
+        },
+        {
+          "key": "humo",
+          "alias": "h08_humo_infernal",
+          "loaded": true
+        }
+      ],
+      "boxes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "x": -115.2,
+          "y": 820.7,
+          "w": 1510.4,
+          "h": 25.3,
+          "dx": 0,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "x": -78.6,
+          "y": 846.7,
+          "w": 1437.2,
+          "h": 20.9,
+          "dx": 0,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "x": -42,
+          "y": 865.3,
+          "w": 1364,
+          "h": 16.5,
+          "dx": 0,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "x": -8.2,
+          "y": 880.6,
+          "w": 1296.4,
+          "h": 12.5,
+          "dx": 0,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "x": 17.2,
+          "y": 891.4,
+          "w": 1245.7,
+          "h": 9.4,
+          "dx": 0,
+          "alpha": 0.3
+        }
+      ],
+      "embers": [
+        {
+          "x": -114.1,
+          "y": 897.5,
+          "t": 0.031
+        },
+        {
+          "x": 58.8,
+          "y": 883,
+          "t": 0.212
+        },
+        {
+          "x": 214.7,
+          "y": 868.5,
+          "t": 0.393
+        },
+        {
+          "x": 323,
+          "y": 854,
+          "t": 0.574
+        },
+        {
+          "x": 480.4,
+          "y": 839.5,
+          "t": 0.755
+        },
+        {
+          "x": 627.2,
+          "y": 825,
+          "t": 0.936
+        },
+        {
+          "x": 765.4,
+          "y": 890.6,
+          "t": 0.117
+        },
+        {
+          "x": 896.6,
+          "y": 880.6,
+          "t": 0.242
+        }
+      ]
+    },
+    "cam": {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "api": "function"
+  },
+  "shots": [
+    {
+      "ms": 250,
+      "file": "descenso_0250.jpg",
+      "location": "TRANSITION",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "t07descent": {
+        "active": true,
+        "frames": 14,
+        "completions": 0,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.002,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.015,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.038,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.069,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.109,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.139,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.189,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.226,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.285,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.346,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.006,
+            "shaftOpen": 0.389,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": true,
+        "expand": 101.2,
+        "winTop": 632.3,
+        "winH": 267.7,
+        "descentP": 0.006
+      },
+      "cam": {
+        "x": 1250,
+        "y": 1310,
+        "zoom": 1.03073046875,
+        "viewW": 1242,
+        "viewH": 873,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      }
+    },
+    {
+      "ms": 500,
+      "file": "descenso_0500.jpg",
+      "location": "TRANSITION",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "t07descent": {
+        "active": true,
+        "frames": 24,
+        "completions": 0,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.002,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.015,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.038,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.069,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.109,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.139,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.189,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.226,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.285,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.346,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.006,
+            "shaftOpen": 0.389,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.026,
+            "shaftOpen": 0.455,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.047,
+            "shaftOpen": 0.521,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.061,
+            "shaftOpen": 0.565,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.082,
+            "shaftOpen": 0.63,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.103,
+            "shaftOpen": 0.693,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.117,
+            "shaftOpen": 0.733,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.137,
+            "shaftOpen": 0.79,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.158,
+            "shaftOpen": 0.843,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.179,
+            "shaftOpen": 0.889,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.193,
+            "shaftOpen": 0.917,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": true,
+        "expand": 238.3,
+        "winTop": 532.8,
+        "winH": 367.2,
+        "descentP": 0.193
+      },
+      "cam": {
+        "x": 1250,
+        "y": 1268,
+        "zoom": 1.01315625,
+        "viewW": 1263,
+        "viewH": 888,
+        "lead": {
+          "x": 0,
+          "y": -9
+        }
+      }
+    },
+    {
+      "ms": 900,
+      "file": "descenso_0900.jpg",
+      "location": "TRANSITION",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "t07descent": {
+        "active": true,
+        "frames": 41,
+        "completions": 0,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.189,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.226,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.285,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "approach",
+            "stairP": 0,
+            "shaftOpen": 0.346,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.006,
+            "shaftOpen": 0.389,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.026,
+            "shaftOpen": 0.455,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.047,
+            "shaftOpen": 0.521,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.061,
+            "shaftOpen": 0.565,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.082,
+            "shaftOpen": 0.63,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.103,
+            "shaftOpen": 0.693,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.117,
+            "shaftOpen": 0.733,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.137,
+            "shaftOpen": 0.79,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.158,
+            "shaftOpen": 0.843,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.179,
+            "shaftOpen": 0.889,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.193,
+            "shaftOpen": 0.917,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.214,
+            "shaftOpen": 0.951,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.235,
+            "shaftOpen": 0.978,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.256,
+            "shaftOpen": 0.994,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.276,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.297,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.311,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.332,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.346,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.367,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.387,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.401,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.422,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.436,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.457,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.471,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.492,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.512,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": true,
+        "expand": 260,
+        "winTop": 602.9,
+        "winH": 297.1,
+        "descentP": 0.512
+      },
+      "cam": {
+        "x": 1250,
+        "y": 1165,
+        "zoom": 0.9832109374999999,
+        "viewW": 1302,
+        "viewH": 915,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    },
+    {
+      "ms": 1400,
+      "file": "descenso_1400.jpg",
+      "location": "TRANSITION",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "t07descent": {
+        "active": true,
+        "frames": 59,
+        "completions": 0,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.276,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.297,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.311,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.332,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.346,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.367,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.387,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.401,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.422,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.436,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.457,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.471,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.492,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.512,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.533,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.554,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.568,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.589,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.603,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.624,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.637,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.658,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.679,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.693,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.714,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.735,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.755,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.769,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.79,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.804,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.825,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.846,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": true,
+        "expand": 260,
+        "winTop": 716.4,
+        "winH": 183.6,
+        "descentP": 0.846
+      },
+      "cam": {
+        "x": 1250,
+        "y": 1032,
+        "zoom": 0.9519648437500001,
+        "viewW": 1345,
+        "viewH": 945,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    },
+    {
+      "ms": 2000,
+      "file": "descenso_2000.jpg",
+      "location": "CAMPAIGN_ROOM",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "t07descent": {
+        "active": true,
+        "frames": 74,
+        "completions": 0,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.554,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.568,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.589,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.603,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.624,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.637,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.658,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.679,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.693,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.714,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.735,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.755,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.769,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.79,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.804,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.825,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.846,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.867,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.887,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.908,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.922,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.936,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.957,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.978,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.992,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.086,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.172,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.23,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.287,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.345,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.431,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": false,
+        "expand": 0,
+        "winTop": 1091.7,
+        "winH": -191.7,
+        "descentP": 0
+      },
+      "cam": {
+        "x": 1250,
+        "y": 912,
+        "zoom": 0.9535021551724138,
+        "viewW": 1342,
+        "viewH": 944,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    },
+    {
+      "ms": 2800,
+      "file": "descenso_2800.jpg",
+      "location": "CAMPAIGN_ROOM",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "t07descent": {
+        "active": false,
+        "frames": 94,
+        "completions": 1,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.922,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.936,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.957,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.978,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.992,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.086,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.172,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.23,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.287,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.345,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.431,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.517,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.575,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.661,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.718,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.804,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.862,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.948,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": false,
+        "expand": 0,
+        "winTop": 1076.3,
+        "winH": -176.3,
+        "descentP": 0
+      },
+      "cam": {
+        "x": 1250,
+        "y": 917,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    },
+    {
+      "ms": 3600,
+      "file": "descenso_3600.jpg",
+      "location": "CAMPAIGN_ROOM",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "t07descent": {
+        "active": false,
+        "frames": 94,
+        "completions": 1,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.922,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.936,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.957,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.978,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.992,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.086,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.172,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.23,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.287,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.345,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.431,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.517,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.575,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.661,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.718,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.804,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.862,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.948,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": false,
+        "expand": 0,
+        "winTop": 1068.8,
+        "winH": -168.8,
+        "descentP": 0
+      },
+      "cam": {
+        "x": 1250,
+        "y": 925,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    },
+    {
+      "ms": 4600,
+      "file": "descenso_4600.jpg",
+      "location": "CAMPAIGN_ROOM",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "t07descent": {
+        "active": false,
+        "frames": 94,
+        "completions": 1,
+        "lastKind": "hub-to-campaign",
+        "samples": [
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.922,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.936,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.957,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.978,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "plunge",
+            "stage": "descent",
+            "stairP": 0.992,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.086,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.172,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.23,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.287,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.345,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.431,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.517,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.575,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.661,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.718,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.804,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.862,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "skyfall",
+            "stage": "arrival",
+            "stairP": 0.948,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          },
+          {
+            "phase": "impact",
+            "stage": "landing",
+            "stairP": 1,
+            "shaftOpen": 1,
+            "plungeOffsetY": 0,
+            "toHub": false,
+            "kind": "hub-to-campaign"
+          }
+        ]
+      },
+      "t08": {
+        "visible": false,
+        "expand": 0,
+        "winTop": 1068.8,
+        "winH": -168.8,
+        "descentP": 0
+      },
+      "cam": {
+        "x": 1250,
+        "y": 925,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      }
+    }
+  ]
+}
