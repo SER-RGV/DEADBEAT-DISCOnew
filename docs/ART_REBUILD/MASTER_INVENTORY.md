@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T19:26:02Z
+- **Última actualización:** 2026-11-04T19:50:36Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **9 / 330** recursos verificados en motor real
+- **Progreso global:** **19 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -14,11 +14,11 @@
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
 | `environments` | 8 | 1 | 1 | 1 |
-| `floors` | 12 | 0 | 0 | 0 |
+| `floors` | 12 | 9 | 9 | 9 |
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 0 | 0 | 0 |
 | `props` | 30 | 2 | 2 | 2 |
-| `ui` | 14 | 3 | 3 | 3 |
+| `ui` | 14 | 4 | 4 | 4 |
 | `walls` | 10 | 0 | 0 | 0 |
 | `weapons` | 121 | 0 | 0 | 0 |
 
@@ -32,19 +32,19 @@
 | 4 | TANDA_01 | `ddc-bg` | Key Art Discoteca Infernal Panorama | `cinematics` | `assets/cinematics/cine_intro_club_panorama.png` | 1280x720 | DONE | INTEGRATED | VERIFIED |
 | 5 | TANDA_01 | `hud:portrait` | Retrato HUD Perfil Protagonista | `ui` | `assets/ui/hud_portrait_protagonist.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
 | 6 | TANDA_01 | `atlas:dj` | Retrato Diálogo DJ Virgilio | `ui` | `assets/ui/dialogue_portrait_dj.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
-| 7 | TANDA_01 | `explore72-map` | Mapa de Progresión Torre Infernal Isométrica | `ui` | `assets/ui/map_infernal_tower.png` | 640x640 | PENDING | PENDING | PENDING |
+| 7 | TANDA_01 | `explore72-map` | Mapa de Progresión Torre Infernal Isométrica | `ui` | `assets/ui/map_infernal_tower.png` | 640x640 | DONE | INTEGRATED | VERIFIED |
 | 8 | TANDA_01 | `hub:fox_neon` | Neón Mural Zorro Refugio HUB | `props` | `assets/props/prop_hub_fox_neon.png` | 384x512 | DONE | INTEGRATED | VERIFIED |
 | 9 | TANDA_01 | `atlas:sofa` | Sofá Terciopelo Magenta VIP Isométrico | `props` | `assets/props/prop_sofa_magenta.png` | 384x256 | DONE | INTEGRATED | VERIFIED |
 | 10 | TANDA_01 | `hub:descent_pad` | Plataforma Cian de Descenso HUB | `environments` | `assets/environments/threshold_descent_pad.png` | 512x320 | DONE | INTEGRATED | VERIFIED |
-| 11 | TANDA_02 | `floor_limbo` | Suelo 01 · Mármol Marfil Agrietado (Limbo / Refugio) | `floors` | `assets/floors/floor_00_limbo_marble.png` | 512x512 | PENDING | PENDING | PENDING |
-| 12 | TANDA_02 | `floor_lust` | Suelo 02 · Pista Neón Magenta y Violeta (I Lujuria) | `floors` | `assets/floors/floor_01_lust_dancefloor.png` | 512x512 | PENDING | PENDING | PENDING |
-| 13 | TANDA_02 | `floor_gula` | Suelo 03 · Mármol Terracota Carmesí (II Gula) | `floors` | `assets/floors/floor_02_gula_terracotta.png` | 512x512 | PENDING | PENDING | PENDING |
-| 14 | TANDA_02 | `floor_greed` | Suelo 04 · Pizarra Negra con Vetas de Oro (III Avaricia) | `floors` | `assets/floors/floor_03_greed_slate_gold.png` | 512x512 | PENDING | PENDING | PENDING |
-| 15 | TANDA_02 | `floor_wrath` | Suelo 05 · Piedra Burdeos Sangre (IV Ira) | `floors` | `assets/floors/floor_04_wrath_burgundy.png` | 512x512 | PENDING | PENDING | PENDING |
-| 16 | TANDA_02 | `floor_pride` | Suelo 06 · Obsidiana Gótica con Filo Dorado (V Herejía) | `floors` | `assets/floors/floor_05_pride_obsidian_gold.png` | 512x512 | PENDING | PENDING | PENDING |
-| 17 | TANDA_02 | `floor_violence` | Suelo 07 · Losas Ceniza Industrial (VI Violencia) | `floors` | `assets/floors/floor_06_violence_ash_slabs.png` | 512x512 | PENDING | PENDING | PENDING |
-| 18 | TANDA_02 | `floor_envy` | Suelo 08 · Travertino Tallado Diagonal (VII Fraude) | `floors` | `assets/floors/floor_07_envy_travertine.png` | 512x512 | PENDING | PENDING | PENDING |
-| 19 | TANDA_02 | `floor_ice` | Suelo 09 · Piedra Abisal Glaciar Cian (VIII Traición) | `floors` | `assets/floors/floor_08_ice_abyssal.png` | 512x512 | PENDING | PENDING | PENDING |
+| 11 | TANDA_02 | `floor_limbo` | Suelo 01 · Mármol Marfil Agrietado (Limbo / Refugio) | `floors` | `assets/floors/floor_00_limbo_marble.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 12 | TANDA_02 | `floor_lust` | Suelo 02 · Pista Neón Magenta y Violeta (I Lujuria) | `floors` | `assets/floors/floor_01_lust_dancefloor.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 13 | TANDA_02 | `floor_gula` | Suelo 03 · Mármol Terracota Carmesí (II Gula) | `floors` | `assets/floors/floor_02_gula_terracotta.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 14 | TANDA_02 | `floor_greed` | Suelo 04 · Pizarra Negra con Vetas de Oro (III Avaricia) | `floors` | `assets/floors/floor_03_greed_slate_gold.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 15 | TANDA_02 | `floor_wrath` | Suelo 05 · Piedra Burdeos Sangre (IV Ira) | `floors` | `assets/floors/floor_04_wrath_burgundy.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 16 | TANDA_02 | `floor_pride` | Suelo 06 · Obsidiana Gótica con Filo Dorado (V Herejía) | `floors` | `assets/floors/floor_05_pride_obsidian_gold.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 17 | TANDA_02 | `floor_violence` | Suelo 07 · Losas Ceniza Industrial (VI Violencia) | `floors` | `assets/floors/floor_06_violence_ash_slabs.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 18 | TANDA_02 | `floor_envy` | Suelo 08 · Travertino Tallado Diagonal (VII Fraude) | `floors` | `assets/floors/floor_07_envy_travertine.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
+| 19 | TANDA_02 | `floor_ice` | Suelo 09 · Piedra Abisal Glaciar Cian (VIII Traición) | `floors` | `assets/floors/floor_08_ice_abyssal.png` | 512x512 | DONE | INTEGRATED | VERIFIED |
 | 20 | TANDA_02 | `floor_core` | Suelo 10 · Obsidiana Cósmica Veteada (IX Núcleo Final) | `floors` | `assets/floors/floor_09_core_cosmic_vein.png` | 512x512 | PENDING | PENDING | PENDING |
 | 21 | TANDA_03 | `Wc.floor` | Suelo 11 · Damero Clásico Blanco y Negro Club | `floors` | `assets/floors/floor_10_hub_checker.png` | 512x512 | PENDING | PENDING | PENDING |
 | 22 | TANDA_03 | `floor_sloth` | Suelo 12 · Moqueta Terciopelo Carmesí VIP | `floors` | `assets/floors/floor_11_vip_velvet.png` | 512x512 | PENDING | PENDING | PENDING |

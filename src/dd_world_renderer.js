@@ -196,6 +196,9 @@
     if (floorPat) {
       ctx.fillStyle = floorPat;
       ctx.fillRect(rx - 64, ry - 64, rw + 128, rh + 128);
+      // Nightclub moody lighting glaze so neon VFX, projectiles & characters pop with high contrast
+      ctx.fillStyle = circleIdx === 0 ? "rgba(10, 5, 22, 0.42)" : "rgba(7, 3, 16, 0.24)";
+      ctx.fillRect(rx - 64, ry - 64, rw + 128, rh + 128);
     } else {
       const fg = ctx.createLinearGradient(rx, ry, rx + rw, ry + rh);
       fg.addColorStop(0, "#171126");

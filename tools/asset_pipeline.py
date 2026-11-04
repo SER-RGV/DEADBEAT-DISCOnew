@@ -138,31 +138,33 @@ def fit_rgba_to_canvas(im: Image.Image, target_w: int, target_h: int, pivot: str
 
 def make_seamless_tile(im: Image.Image, target_w: int, target_h: int) -> Image.Image:
     """
-    Center-crops square, resizes to (target_w, target_h), and applies smooth periodic
-    edge cross-blending so tiled floors have zero visible grid seams.
+    Preserves full-bleed 1:1 architectural grid geometry at (target_w, target_h)
+    with a narrow 4% perimeter wrap-blend so tiled floors have zero edge seams
+    and zero ghosting on internal geometric patterns.
     """
     rgb = im.convert("RGB")
     w, h = rgb.size
     s = min(w, h)
-    # Trim 6% outer margin in case generation had vignette border
-    s_inner = int(s * 0.88)
-    x0 = (w - s_inner) // 2
-    y0 = (h - s_inner) // 2
-    sq = rgb.crop((x0, y0, x0 + s_inner, y0 + s_inner)).resize((target_w, target_h), Image.Resampling.LANCZOS)
+    x0 = (w - s) // 2
+    y0 = (h - s) // 2
+    sq = rgb.crop((x0, y0, x0 + s, y0 + s)).resize((target_w, target_h), Image.Resampling.LANCZOS)
 
     arr = np.array(sq, dtype=np.float32)
-    shifted = np.roll(np.roll(arr, target_h // 2, axis=0), target_w // 2, axis=1)
+    # Symmetrize outer 10px seam smoothly against opposite edge
+    seam = max(6, int(round(target_w * 0.025)))
+    for i in range(seam):
+        t = 0.5 * (1.0 - (i / float(seam)))
+        # Left/Right edge match
+        avg_lr = 0.5 * (arr[:, i, :] + arr[:, target_w - 1 - i, :])
+        arr[:, i, :] = arr[:, i, :] * (1.0 - t) + avg_lr * t
+        arr[:, target_w - 1 - i, :] = arr[:, target_w - 1 - i, :] * (1.0 - t) + avg_lr * t
+        # Top/Bottom edge match
+        avg_tb = 0.5 * (arr[i, :, :] + arr[target_h - 1 - i, :, :])
+        arr[i, :, :] = arr[i, :, :] * (1.0 - t) + avg_tb * t
+        arr[target_h - 1 - i, :] = arr[target_h - 1 - i, :] * (1.0 - t) + avg_tb * t
 
-    # Cosine diamond/edge weight: 1 at center of original, 0 at outer wrap seams
-    ux = np.linspace(-1.0, 1.0, target_w, dtype=np.float32)
-    uy = np.linspace(-1.0, 1.0, target_h, dtype=np.float32)
-    gx, gy = np.meshgrid(ux, uy)
-    edge_dist = 1.0 - np.maximum(np.abs(gx), np.abs(gy))
-    blend = np.clip(edge_dist / 0.22, 0.0, 1.0)
-    blend = 0.5 - 0.5 * np.cos(np.pi * blend)
-    out = arr * blend[:, :, None] + shifted * (1.0 - blend[:, :, None])
-    res = Image.fromarray(np.clip(out, 0, 255).astype(np.uint8), mode="RGB")
-    return ImageEnhance.Sharpness(res).enhance(1.12)
+    res = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8), mode="RGB")
+    return ImageEnhance.Sharpness(res).enhance(1.08)
 
 
 def fit_opaque_cover(im: Image.Image, target_w: int, target_h: int) -> Image.Image:

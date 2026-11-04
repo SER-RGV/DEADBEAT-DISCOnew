@@ -1,22 +1,22 @@
-# NEXT BATCH — TANDA_01
+# NEXT BATCH — TANDA_02
 
-- **Tanda a ejecutar:** `TANDA_01` (1 de 33)
-- **Fecha de planificación:** 2026-11-04T19:26:02Z
+- **Tanda a ejecutar:** `TANDA_02` (2 de 33)
+- **Fecha de planificación:** 2026-11-04T19:50:36Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 1` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_01 high-res asset reconstruction and real engine integration`
+- **Pruebas obligatorias:** `node tools/validate_batch.js 2` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
+- **Commit previsto:** `feat(art): complete TANDA_02 high-res asset reconstruction and real engine integration`
 
 ## Diez Recursos de la Tanda
 
 | # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
 |---:|---|---|---|---|---|---|---|
-| 1 | `logo_deadbeat_graffiti` | `atlas:logo` | `logos` | `assets/logos/logo_deadbeat_graffiti.png` | 1024x682 | `True` | ninguna |
-| 2 | `emblem_fox_crown` | `boot-sigil` | `logos` | `assets/logos/emblem_fox_crown.png` | 512x512 | `True` | ninguna |
-| 3 | `menu_main_backdrop` | `ddc-img` | `ui` | `assets/ui/menu_main_backdrop.png` | 1280x720 | `False` | logo_deadbeat_graffiti |
-| 4 | `cine_intro_club_panorama` | `ddc-bg` | `cinematics` | `assets/cinematics/cine_intro_club_panorama.png` | 1280x720 | `False` | logo_deadbeat_graffiti |
-| 5 | `hud_portrait_protagonist` | `hud:portrait` | `ui` | `assets/ui/hud_portrait_protagonist.png` | 256x256 | `True` | ninguna |
-| 6 | `dialogue_portrait_dj` | `atlas:dj` | `ui` | `assets/ui/dialogue_portrait_dj.png` | 512x512 | `True` | ninguna |
-| 7 | `map_infernal_tower` | `explore72-map` | `ui` | `assets/ui/map_infernal_tower.png` | 640x640 | `True` | ninguna |
-| 8 | `prop_hub_fox_neon` | `hub:fox_neon` | `props` | `assets/props/prop_hub_fox_neon.png` | 384x512 | `True` | ninguna |
-| 9 | `prop_sofa_magenta` | `atlas:sofa` | `props` | `assets/props/prop_sofa_magenta.png` | 384x256 | `True` | ninguna |
-| 10 | `threshold_descent_pad` | `hub:descent_pad` | `environments` | `assets/environments/threshold_descent_pad.png` | 512x320 | `True` | ninguna |
+| 11 | `floor_00_limbo_marble` | `floor_limbo` | `floors` | `assets/floors/floor_00_limbo_marble.png` | 512x512 | `False` | ninguna |
+| 12 | `floor_01_lust_dancefloor` | `floor_lust` | `floors` | `assets/floors/floor_01_lust_dancefloor.png` | 512x512 | `False` | ninguna |
+| 13 | `floor_02_gula_terracotta` | `floor_gula` | `floors` | `assets/floors/floor_02_gula_terracotta.png` | 512x512 | `False` | ninguna |
+| 14 | `floor_03_greed_slate_gold` | `floor_greed` | `floors` | `assets/floors/floor_03_greed_slate_gold.png` | 512x512 | `False` | ninguna |
+| 15 | `floor_04_wrath_burgundy` | `floor_wrath` | `floors` | `assets/floors/floor_04_wrath_burgundy.png` | 512x512 | `False` | ninguna |
+| 16 | `floor_05_pride_obsidian_gold` | `floor_pride` | `floors` | `assets/floors/floor_05_pride_obsidian_gold.png` | 512x512 | `False` | ninguna |
+| 17 | `floor_06_violence_ash_slabs` | `floor_violence` | `floors` | `assets/floors/floor_06_violence_ash_slabs.png` | 512x512 | `False` | ninguna |
+| 18 | `floor_07_envy_travertine` | `floor_envy` | `floors` | `assets/floors/floor_07_envy_travertine.png` | 512x512 | `False` | ninguna |
+| 19 | `floor_08_ice_abyssal` | `floor_ice` | `floors` | `assets/floors/floor_08_ice_abyssal.png` | 512x512 | `False` | ninguna |
+| 20 | `floor_09_core_cosmic_vein` | `floor_core` | `floors` | `assets/floors/floor_09_core_cosmic_vein.png` | 512x512 | `False` | ninguna |
