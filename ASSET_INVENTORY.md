@@ -150,3 +150,23 @@ Ruta: `ART_ASSETS/hub/tanda_03/<carpeta>/{source,final}/`. Manifiesto: `ART_ASSE
 Todos se cargan con `load()` y se registran en `window.__DDM_V5_IMG` con alias `h03_*` trazables (más `hub_vip_booth_lounge`). **Registro ≠ integración**: 8/8 unidades están `BLOQUEADO` para render y `NO VERIFICADO` para visibilidad en producción. 13/13 `exactSize`, RGBA, esquinas transparentes, halo ≤ 0,11 %. Las 8 fuentes originales se conservan íntegras. Hashes de entrega: `ART_EVIDENCE/hub/tanda_03/hashes.json` (152 entradas, 0 discrepancias). Capturas individuales: `ART_EVIDENCE/hub/tanda_03/asset_01…13_*.png` y `hoja_recursos_tanda_03.jpg` (**evidencia de archivo, no in-game**).
 
 **Conservación:** TANDA 01 y TANDA 02 (21 archivos por tanda, 10 fuentes y 10 finales cada una), HTML activo y backups intactos. Único archivo de código modificado: `ART_PACK/art_pack.js`.
+
+<!-- TANDA08:INVENTORY -->
+## HUB · TANDA 08 — Inventario (10 unidades / 10 PNG finales)
+
+Ruta: `ART_ASSETS/hub/tanda_08/<carpeta>/final/`. Manifiesto: `ART_ASSETS/hub/tanda_08/manifest.json` (`INTEGRADO_VALIDADO`) con dimensiones y SHA-256 **medidos**, plano de profundidad, pivote centro, anclaje de cámara, función visual y verificación de alfa. Fuentes en `_source/`.
+
+| ID | Alias V5 | Dimensiones | Plano | Estado |
+|---|---|---|---|---|
+| T08-01 | `h08_pared_cercana_izq` | 900×300 | P1 cercano | INTEGRADO_VALIDADO |
+| T08-02 | `h08_pared_cercana_der` | 900×300 | P1 cercano | INTEGRADO_VALIDADO |
+| T08-03 | `h08_estrato_medio` | 1600×220 | P2 medio | INTEGRADO_VALIDADO |
+| T08-04 | `h08_columna_natural` | 300×460 | P2 medio | INTEGRADO_VALIDADO |
+| T08-05 | `h08_plataforma_suspendida` | 700×260 | P3 intermedio | INTEGRADO_VALIDADO |
+| T08-06 | `h08_pared_lejana` | 1600×180 | P4 lejano | INTEGRADO_VALIDADO |
+| T08-07 | `h08_rocas_suspendidas` | 900×260 | P3 intermedio | INTEGRADO_VALIDADO |
+| T08-08 | `h08_cavidades_lejanas` | 1600×160 | P4 lejano | INTEGRADO_VALIDADO |
+| T08-09 | `h08_luces_abismo` | 1200×200 | P5 fondo | INTEGRADO_VALIDADO |
+| T08-10 | `h08_humo_infernal` | 360×640 | Ambiente | INTEGRADO_VALIDADO |
+
+10/10 `exactSize`, RGBA con alfa real, esquinas transparentes, halo claro 0,0 %. Se registran con el MISMO `load()` en `window.__DDM_V5_IMG` (alias `h08_*`) y se dibujan **en espacio de pantalla** desde el hook `zf`, no como props de mundo: no alteran Y-sort, colisiones ni geometría. Hashes: `ART_EVIDENCE/hub/tanda_08/hashes.json` (10/10, 0 discrepancias). Comparativas A/B: `t08_AB_ON_*/OFF_*.jpg` y `t08_comparativa_*.jpg`.

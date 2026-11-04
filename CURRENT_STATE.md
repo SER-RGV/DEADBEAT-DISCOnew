@@ -101,3 +101,16 @@ Toda modificación debe partir de una copia de seguridad.
 - **T01–T06 intactas** (smoke de carga/topología; la regresión formal completa sigue `NO VERIFICADO`). PR #1 `OPEN`, base `arte-y-recursos`, **sin merge**; `main`/`origin/main` en `d75e021`.
 - **Pendiente / bloqueado (heredado):** vídeo, mando físico, audio audible, inventario completo de frames NPC, rendimiento sostenido con T07, performance gate de T02 y 8 `BLOQUEADO` de T03.
 - **Documentos vigentes:** `ART_TANDA_07_REPORT.md`, `ART_TANDA_07_FASE3_MATRIZ_NPC.md`, `ART_TANDA_07_FASE0_AUDITORIA.md`, `ART_TANDA_07_FASE1_GEOGRAFIA.md`.
+
+<!-- TANDA08:STATE -->
+### Integración TANDA 08 — `INTEGRADO_VALIDADO` (Fases 0–5)
+
+- **Prueba de composición previa a producción:** 16/16 APROBADA en el juego real y sin assets (`ART_EVIDENCE/hub/tanda_08/composition_proof.json`). Restricción medida: con `zoom .9375` y límite sur `y=1195` sólo hay ~84 px bajo `y1585`, y la cámara SUBE durante el descenso → **cutaway en espacio de pantalla** anclado al borde, parallax sobre `DMO.camera()` y apertura con `shaftOpen`.
+- **Build activa:** `DEADBEAT_DISCO.ART.html` 13.434.376 B / 20.803 líneas; `ART_PACK/art_pack.js` 108.072 B / 2.176 líneas. Versión `+hub-tanda08`. Backups `.PRE_T08` en `/tmp/t8/`. Diff del HTML: **2 inserciones, 0 eliminaciones** → T01–07 intactas.
+- **HUB real:** 178 claves V5 (168 T01–07 + 10 T08), 27 canvas, 11 estaciones, 1 secuenciador, zoom `.9375` y límites de cámara sin tocar. 5 planos (`factor .92/.66/.40/.20/.08`), 56 brasas + 26 cenizas + 4 humos + 3 luces lejanas preasignados.
+- **Descenso:** `expand = 260·shaftOpen`, ventana `84 → 374 px`, densidad con `stairProgress`, retirada en `CAMPAIGN_ROOM`, sin pantalla negra (lum. mín. 38,45). T07 `descentScreen` sigue activo.
+- **Flag reversible:** `window.__DDM_HUB_T08 = false` detiene todos los dibujos T08 sin afectar T01–07; arranque con `false` ≡ T07 (diff 0,20).
+- **QA:** `ART_EVIDENCE/hub/tanda_08/qa_tanda08.json` — **33 APROBADO / 0 FALLIDO / 4 NO VERIFICADO**, 0 `pageerror`, 10/10 SHA-256 sin discrepancias, `manifest.json` → `INTEGRADO_VALIDADO`.
+- **Sin sistemas nuevos:** sin canvas, motor, cámara, loader, rAF, temporizador propio, audio, colisiones, geometría, estaciones, progresión, NPC, criaturas ni enemigos. Audio y lógica de llegada T07 intactos.
+- **NO VERIFICADO:** vídeo continuo, mando físico, audio audible/latencia, rendimiento sostenido y regresión visual formal completa en hardware real; heredados: performance gate T02 y 8 `BLOQUEADO` T03.
+- **Documentos vigentes:** `ART_TANDA_08_REPORT.md`, `ART_TANDA_08_FASE0_1_MAPA_Y_COMPOSICION.md`, `ART_EVIDENCE/hub/tanda_08/mapa_profundidad.json`.

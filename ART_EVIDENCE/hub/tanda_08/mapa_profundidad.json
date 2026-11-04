@@ -1,0 +1,162 @@
+{
+  "tanda": "08",
+  "generated": "2026-11-04T04:45:28",
+  "camera": {
+    "zoom": 0.9375,
+    "viewW": 1365,
+    "viewH": 960,
+    "lead": {
+      "x": 0,
+      "y": 10
+    },
+    "limits": {
+      "x": [
+        883,
+        1617
+      ],
+      "y": [
+        655,
+        1195
+      ]
+    },
+    "southView": "y715…1675 en cam.y=1195"
+  },
+  "constraint": "Bajo y1585 sólo hay ~84 px; durante el descenso la cámara SUBE (1195→1306→985). La profundidad se resuelve como cutaway en espacio de pantalla anclado al borde real.",
+  "formula": {
+    "edgeY": "450 + zoom*(1585 - cam.y)",
+    "expand": "260 * shaftOpen",
+    "windowTop": "edgeY - expand",
+    "planeY": "T + Wh*(0.06 + 0.88*d^0.78)",
+    "planeH": "Wh*(0.30 - 0.20*d)",
+    "parallax": "-zoom*(cam.x - 1250)*factor"
+  },
+  "planes": [
+    {
+      "id": "P1_cercano",
+      "d": 0.0,
+      "factor": 0.92,
+      "alpha": 0.98,
+      "screenY": 820.7,
+      "role": "Paredes próximas con máxima definición",
+      "assets": [
+        "h08_pared_cercana_izq",
+        "h08_pared_cercana_der"
+      ],
+      "state": "RESUELTO por T08"
+    },
+    {
+      "id": "P2_medio",
+      "d": 0.26,
+      "factor": 0.66,
+      "alpha": 0.82,
+      "screenY": 846.7,
+      "role": "Estrato + columnas naturales",
+      "assets": [
+        "h08_estrato_medio",
+        "h08_columna_natural"
+      ],
+      "state": "RESUELTO por T08"
+    },
+    {
+      "id": "P3_intermedio",
+      "d": 0.52,
+      "factor": 0.4,
+      "alpha": 0.62,
+      "screenY": 865.3,
+      "role": "Plataforma suspendida + rocas flotantes",
+      "assets": [
+        "h08_plataforma_suspendida",
+        "h08_rocas_suspendidas"
+      ],
+      "state": "RESUELTO por T08"
+    },
+    {
+      "id": "P4_lejano",
+      "d": 0.76,
+      "factor": 0.2,
+      "alpha": 0.42,
+      "screenY": 880.6,
+      "role": "Pared lejana + cavidades, bajo contraste",
+      "assets": [
+        "h08_pared_lejana",
+        "h08_cavidades_lejanas"
+      ],
+      "state": "RESUELTO por T08"
+    },
+    {
+      "id": "P5_fondo",
+      "d": 0.94,
+      "factor": 0.08,
+      "alpha": 0.3,
+      "screenY": 891.4,
+      "role": "Fuentes de luz infernales que interpretan distancia",
+      "assets": [
+        "h08_luces_abismo"
+      ],
+      "state": "RESUELTO por T08"
+    },
+    {
+      "id": "A_ambiente",
+      "factor": null,
+      "role": "Humo infernal, brasas, ceniza, luces lejanas móviles",
+      "assets": [
+        "h08_humo_infernal"
+      ],
+      "state": "RESUELTO por T08"
+    }
+  ],
+  "alreadyResolved": [
+    "Superficie transitable y medallón (T01–T06)",
+    "Labio del acantilado y estrato T07 (y1470…1585)",
+    "Grieta central: marco/decal T01 + panel III · DESCENSO",
+    "Llegada breve, 6 actores NPC y transición de descenso (T07)",
+    "Iluminación Wb/gradientes y DMO_ATMOS (bloom/vignette/grain)"
+  ],
+  "gaps": [
+    {
+      "priority": "P1",
+      "gap": "La grieta era un agujero negro sin lectura de distancia",
+      "resolution": "Resplandor aditivo, banda de luces lejanas y brasas dentro de la elipse interior"
+    },
+    {
+      "priority": "P2",
+      "gap": "Bajo el acantilado sólo había una banda de roca plana",
+      "resolution": "5 planos de cutaway con trapezoide convergente"
+    },
+    {
+      "priority": "P3",
+      "gap": "Sin sistema de animación ambiental propio",
+      "resolution": "56 brasas + 26 cenizas + 4 columnas de humo + 3 luces lejanas, preasignados"
+    },
+    {
+      "priority": "P4",
+      "gap": "Sin parallax de profundidad",
+      "resolution": "Factores .92/.66/.40/.20/.08 derivados de DMO.camera()"
+    },
+    {
+      "priority": "P5",
+      "gap": "El descenso no revelaba nuevas capas",
+      "resolution": "expand = 260*shaftOpen, winH 84→374 px, luces y densidad ligadas a stairProgress"
+    }
+  ],
+  "reuse": [
+    "registro __DDM_V5_IMG / load()",
+    "hooks zf y Tf existentes",
+    "reloj Z y dt del motor",
+    "Yc.reduced",
+    "floorDropAnim",
+    "decal hub_abyss_stair_crack (T01)",
+    "labio y estrato (T07)"
+  ],
+  "deliberatelyUntouched": [
+    "cámara global",
+    "colisiones",
+    "geometría transitable",
+    "puertas",
+    "estaciones",
+    "progresión",
+    "audio/secuenciador",
+    "lógica de llegada",
+    "recuperación de control"
+  ]
+}

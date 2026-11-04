@@ -234,3 +234,12 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 - Fase 2: llegada breve 1,85 s (0,95 s con movimiento reducido), disparada al entrar al HUB, **sin `transitionLock`** y sin tocar audio. Fase 3: 6 actores / 5 actividades sobre `addHubCustomProp → Lc → Y-sort`. Fase 4: parallax del pozo + luz + brasas sobre `floorDropAnim`, sin fotograma negro (luminancia mínima 39,15).
 - Audio **deliberadamente intacto**: `cineFilter`/`cineGain`/`cineSting` están detrás de `M.cine` y habilitarlos exigiría `cineBegin()` (`forceKey` inmediato). 1 secuenciador en todo momento.
 - Cierre: QA formal A/B **35/35 APROBADO** (`ART_EVIDENCE/hub/tanda_07/qa_tanda07.json`), 6/6 SHA-256 sin discrepancias, `manifest.json` → `INTEGRADO_VALIDADO`, informe `ART_TANDA_07_REPORT.md` y matriz `ART_TANDA_07_FASE3_MATRIZ_NPC.md`. PR #1 abierto **sin merge**; `main` intacta.
+
+<!-- TANDA08:PRODUCTION -->
+### TANDA 08 — El abismo vivo (Fases 0–5)
+
+- F0/F1 entregadas **antes de producir**: auditoría global (`audit_global.json`, 12 capturas), mapa de profundidad de 6 planos, carencias P1–P5 y prueba de composición **16/16 APROBADA** en copia temporal del HTML sin generar assets. Restricción decisiva: la cámara no desciende y bajo `y1585` sólo hay ~84 px.
+- Producción: **10 fuentes** `generate_image` → **10 finales RGBA** con `ART_TOOLS/prepare_hub_tanda_08.py` (recorte automático por luminancia, `resize LANCZOS`, gradación de brillo/saturación por plano, máscaras `band`/`object`/`smoke`, despill oscuro). 10/10 `exactSize`, halo claro 0,0 %, `allValid:true`. Las dos paredes próximas son fuentes distintas. **0 sprites de NPC, 0 criaturas, 0 enemigos.**
+- Integración: `HUB8_ASSETS`/`loadHub8()` tras `loadHub7()` en el **mismo `load()`** y registro `__DDM_V5_IMG` (**168 → 178**); módulo `T08` en `initDmoHubV35` y `T08.install()` en `buildHubSpace()` sobre los hooks `zf`/`Tf` existentes. Flag reversible `window.__DDM_HUB_T08`.
+- Animación: brasas, humo, ceniza, luces lejanas y formaciones con balanceo, todo con objetos preasignados, `Yc.reduced`, `update()` que sale temprano si el cutaway es invisible y progreso real de `floorDropAnim`. Sin segundo temporizador.
+- Cierre: QA formal A/B **33 APROBADO / 0 FALLIDO / 4 NO VERIFICADO** (`ART_TOOLS/qa/validate_hub_tanda_08.js`), 10/10 hashes, `manifest.json` → `INTEGRADO_VALIDADO`, informe `ART_TANDA_08_REPORT.md`, `mapa_profundidad.json` y 52 evidencias. PR #1 abierto **sin merge**; `main` intacta.

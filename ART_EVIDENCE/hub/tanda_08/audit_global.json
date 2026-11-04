@@ -1,0 +1,1286 @@
+{
+  "generatedAt": "2026-11-04T04:09:08.534Z",
+  "phase": "F0 · auditoría global T01-T07",
+  "boot": {
+    "pack": {
+      "status": "applied",
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07",
+      "t01": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "enabled": true,
+        "errors": 0
+      },
+      "t02": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "enabled": true,
+        "errors": 0
+      },
+      "t03": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "loaded": 13,
+        "registered": 13,
+        "enabled": true,
+        "errors": 0
+      },
+      "t05": {
+        "version": "hub-tanda05",
+        "count": 10,
+        "loaded": 10,
+        "registered": 10,
+        "enabled": true,
+        "errors": 0
+      },
+      "t06": {
+        "version": "hub-tanda06",
+        "count": 10,
+        "loaded": 10,
+        "registered": 10,
+        "enabled": true,
+        "errors": 0
+      },
+      "t07": {
+        "version": "hub-tanda07",
+        "count": 6,
+        "loaded": 6,
+        "registered": 6,
+        "enabled": true,
+        "errors": 0
+      }
+    },
+    "v5Keys": 168,
+    "h07": [
+      "h07_labio_acantilado",
+      "h07_estrato_rococo",
+      "h07_apertura_profundidad",
+      "h07_exterior_infernal",
+      "h07_pozo_capas",
+      "h07_panorama_acantilado"
+    ],
+    "canvases": 27,
+    "canvasIds": [
+      "game",
+      "minimap",
+      "menu-canvas54",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "(sin id)",
+      "ilt-atmos-bloom",
+      "ilt-atmos-vig",
+      "ddc-fx",
+      "v32-preview-canvas"
+    ],
+    "globals": 34,
+    "atmos": {
+      "version": "9.2.0-atmos",
+      "ready": true,
+      "enabled": true,
+      "frames": 3,
+      "fps": 0,
+      "degraded": false,
+      "layers": {
+        "bloom": [
+          640,
+          450,
+          "screen"
+        ],
+        "vignette": [
+          640,
+          450,
+          "normal"
+        ]
+      },
+      "config": {
+        "bloom": 1,
+        "bloomScale": 6,
+        "bloomEvery": 2,
+        "vignette": 0.34,
+        "grain": 0.016,
+        "grade": 1,
+        "overlayDiv": 2
+      }
+    },
+    "music": {
+      "version": "3.8.0-music",
+      "state": "MENU",
+      "prev": null,
+      "since": 0,
+      "key": "opening",
+      "pendingKey": "limbo",
+      "bpm": 97,
+      "ctx": "none",
+      "sequencers": 0,
+      "coverPlaying": false,
+      "filterHz": null,
+      "filterTarget": 20000,
+      "transGain": null,
+      "wired": false,
+      "graphFallback": false,
+      "hubModal": false,
+      "hubMilestones": 0,
+      "invasion": false,
+      "descent": null,
+      "descentCount": 0,
+      "landingCount": 0,
+      "lastLanding": null,
+      "keyRequests": 0,
+      "immediateSwitches": 0,
+      "coverStops": 0,
+      "missing": [],
+      "voices": {
+        "live": 0,
+        "dropped": 0,
+        "load": 0
+      },
+      "errors": []
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 0,
+      "inHub": false,
+      "location": "CAMPAIGN_ROOM",
+      "mode": "MENU",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "floor": {
+      "active": false,
+      "phase": "idle",
+      "stage": "idle",
+      "direction": "down",
+      "toHub": false,
+      "transitionKind": "",
+      "approachP": 0,
+      "stairP": 0,
+      "stepsCompleted": 0,
+      "totalSteps": 8,
+      "t": 0,
+      "fromFloor": 0,
+      "toFloor": 1,
+      "shaftOpen": 0,
+      "plungeOffsetY": 0,
+      "airborneZ": 0,
+      "landingDipY": 0,
+      "particles": 0,
+      "stampActive": false,
+      "zoom": 0.938,
+      "dropsCompleted": 0,
+      "lastDrop": null,
+      "transitionId": 0,
+      "prepP": 0,
+      "fallP": 0,
+      "girdersPassed": 0,
+      "timelineMode": "auto",
+      "DA": 2.22,
+      "OA": 0.58,
+      "lastDrawError": null
+    },
+    "t07": {
+      "version": "3.9.0-tanda07",
+      "enabled": true,
+      "clock": 0,
+      "flag": "ON",
+      "arrival": {
+        "active": false,
+        "pending": false,
+        "t": 0,
+        "dur": 1.85,
+        "reason": "",
+        "plays": 0,
+        "completes": 0,
+        "restored": true
+      },
+      "descent": {
+        "active": false,
+        "frames": 0,
+        "completions": 0,
+        "lastKind": "",
+        "samples": []
+      },
+      "actors": [],
+      "lastLocation": null,
+      "counts": {
+        "geography": 0,
+        "ambient": 0,
+        "screen": 0,
+        "descentScreen": 0,
+        "updates": 0
+      },
+      "errors": [],
+      "lastError": "",
+      "assets": [
+        {
+          "slot": "h07_labio_acantilado",
+          "loaded": true
+        },
+        {
+          "slot": "h07_estrato_rococo",
+          "loaded": true
+        },
+        {
+          "slot": "h07_apertura_profundidad",
+          "loaded": true
+        },
+        {
+          "slot": "h07_exterior_infernal",
+          "loaded": true
+        },
+        {
+          "slot": "h07_pozo_capas",
+          "loaded": true
+        },
+        {
+          "slot": "h07_panorama_acantilado",
+          "loaded": true
+        }
+      ],
+      "audioTouched": false,
+      "cameraTouched": false,
+      "newCanvases": 0,
+      "newRAF": 0,
+      "hooksInstalled": false
+    }
+  },
+  "cameras": [
+    {
+      "id": "00_centro",
+      "requested": [
+        1250,
+        975
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 985,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1250,
+        "camY": 984.5,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 567.3,
+        "top": 504.5,
+        "right": 1932.7,
+        "bottom": 1464.5
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 3.57,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 113,
+        "ambient": 113,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 113
+      }
+    },
+    {
+      "id": "01_aproximacion",
+      "requested": [
+        1250,
+        1100
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 1110,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1250,
+        "camY": 1109.6,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 567.3,
+        "top": 629.6,
+        "right": 1932.7,
+        "bottom": 1589.6
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 4.15,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 129,
+        "ambient": 129,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 129
+      }
+    },
+    {
+      "id": "02_borde_sur",
+      "requested": [
+        1250,
+        1195
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1250,
+        "camY": 1195,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 567.3,
+        "top": 715,
+        "right": 1932.7,
+        "bottom": 1675
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 4.72,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 145,
+        "ambient": 145,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 145
+      }
+    },
+    {
+      "id": "03_sur_izq",
+      "requested": [
+        883,
+        1195
+      ],
+      "camera": {
+        "x": 883,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 883,
+        "camY": 1195,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 200.3,
+        "top": 715,
+        "right": 1565.7,
+        "bottom": 1675
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 5.35,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 162,
+        "ambient": 162,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 162
+      }
+    },
+    {
+      "id": "04_sur_der",
+      "requested": [
+        1617,
+        1195
+      ],
+      "camera": {
+        "x": 1617,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1617,
+        "camY": 1195,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 934.3,
+        "top": 715,
+        "right": 2299.7,
+        "bottom": 1675
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 5.98,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 181,
+        "ambient": 181,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 181
+      }
+    },
+    {
+      "id": "05_norte",
+      "requested": [
+        1250,
+        655
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 665,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1250,
+        "camY": 664.6,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 567.3,
+        "top": 184.6,
+        "right": 1932.7,
+        "bottom": 1144.6
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 6.58,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 197,
+        "ambient": 197,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 197
+      }
+    },
+    {
+      "id": "06_zona_oeste",
+      "requested": [
+        883,
+        975
+      ],
+      "camera": {
+        "x": 883,
+        "y": 985,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 883,
+        "camY": 984.6,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 200.3,
+        "top": 504.6,
+        "right": 1565.7,
+        "bottom": 1464.6
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 7.17,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 214,
+        "ambient": 214,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 214
+      }
+    },
+    {
+      "id": "07_zona_este",
+      "requested": [
+        1617,
+        975
+      ],
+      "camera": {
+        "x": 1617,
+        "y": 984,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "observe": [
+        "t",
+        "view",
+        "arena",
+        "me",
+        "hud",
+        "enemies",
+        "boss",
+        "bullets",
+        "rings",
+        "telegraphs",
+        "windups",
+        "laser",
+        "sweep",
+        "pickups",
+        "props",
+        "edge",
+        "zones",
+        "gaps"
+      ],
+      "view": {
+        "camX": 1617,
+        "camY": 984.5,
+        "zoom": 0.9375,
+        "w": 1280,
+        "h": 900,
+        "left": 934.3,
+        "top": 504.5,
+        "right": 2299.7,
+        "bottom": 1464.5
+      },
+      "hub": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "transitionLock": false,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 7.77,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 2,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": false
+      },
+      "t07counts": {
+        "geography": 230,
+        "ambient": 230,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 230
+      }
+    }
+  ],
+  "descentStart": true,
+  "descent": [
+    {
+      "i": 0,
+      "cam": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "phase": "plunge",
+      "stage": "approach",
+      "stairP": 0,
+      "shaftOpen": 0,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 0,
+      "music": "HUB"
+    },
+    {
+      "i": 1,
+      "cam": {
+        "x": 1250,
+        "y": 1212,
+        "zoom": 1.03125,
+        "viewW": 1241,
+        "viewH": 873,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "phase": "plunge",
+      "stage": "approach",
+      "stairP": 0,
+      "shaftOpen": 0,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 3,
+      "music": "DESCENT"
+    },
+    {
+      "i": 2,
+      "cam": {
+        "x": 1250,
+        "y": 1306,
+        "zoom": 1.03125,
+        "viewW": 1241,
+        "viewH": 873,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "phase": "plunge",
+      "stage": "approach",
+      "stairP": 0,
+      "shaftOpen": 0.325,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 13,
+      "music": "DESCENT"
+    },
+    {
+      "i": 3,
+      "cam": {
+        "x": 1250,
+        "y": 1300,
+        "zoom": 1.02553515625,
+        "viewW": 1248,
+        "viewH": 878,
+        "lead": {
+          "x": 0,
+          "y": -1
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.061,
+      "shaftOpen": 0.564,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 17,
+      "music": "DESCENT"
+    },
+    {
+      "i": 4,
+      "cam": {
+        "x": 1250,
+        "y": 1286,
+        "zoom": 1.0196757812500001,
+        "viewW": 1255,
+        "viewH": 883,
+        "lead": {
+          "x": 0,
+          "y": -7
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.123,
+      "shaftOpen": 0.752,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 20,
+      "music": "DESCENT"
+    },
+    {
+      "i": 5,
+      "cam": {
+        "x": 1250,
+        "y": 1266,
+        "zoom": 1.012515625,
+        "viewW": 1264,
+        "viewH": 889,
+        "lead": {
+          "x": 0,
+          "y": -9
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.2,
+      "shaftOpen": 0.929,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 24,
+      "music": "DESCENT"
+    },
+    {
+      "i": 6,
+      "cam": {
+        "x": 1250,
+        "y": 1212,
+        "zoom": 0.9942968750000001,
+        "viewW": 1287,
+        "viewH": 905,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.394,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 34,
+      "music": "DESCENT"
+    },
+    {
+      "i": 7,
+      "cam": {
+        "x": 1250,
+        "y": 1176,
+        "zoom": 0.9858359375000001,
+        "viewW": 1298,
+        "viewH": 913,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.484,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 39,
+      "music": "DESCENT"
+    },
+    {
+      "i": 8,
+      "cam": {
+        "x": 1250,
+        "y": 1146,
+        "zoom": 0.978671875,
+        "viewW": 1308,
+        "viewH": 920,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.561,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 43,
+      "music": "DESCENT"
+    },
+    {
+      "i": 9,
+      "cam": {
+        "x": 1250,
+        "y": 1107,
+        "zoom": 0.9695585937500001,
+        "viewW": 1320,
+        "viewH": 928,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.658,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 48,
+      "music": "DESCENT"
+    },
+    {
+      "i": 10,
+      "cam": {
+        "x": 1250,
+        "y": 1046,
+        "zoom": 0.9552382812500002,
+        "viewW": 1340,
+        "viewH": 942,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.811,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 56,
+      "music": "DESCENT"
+    },
+    {
+      "i": 11,
+      "cam": {
+        "x": 1250,
+        "y": 1010,
+        "zoom": 0.9467734375000002,
+        "viewW": 1352,
+        "viewH": 951,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.901,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 61,
+      "music": "DESCENT"
+    },
+    {
+      "i": 12,
+      "cam": {
+        "x": 1250,
+        "y": 985,
+        "zoom": 0.9409179687500002,
+        "viewW": 1360,
+        "viewH": 957,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "plunge",
+      "stage": "descent",
+      "stairP": 0.964,
+      "shaftOpen": 1,
+      "loc": "TRANSITION",
+      "lock": true,
+      "t07screen": 65,
+      "music": "DESCENT"
+    },
+    {
+      "i": 13,
+      "cam": {
+        "x": 1250,
+        "y": 925,
+        "zoom": 1.0125000000000002,
+        "viewW": 1264,
+        "viewH": 889,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "skyfall",
+      "stage": "arrival",
+      "stairP": 0,
+      "shaftOpen": 1,
+      "loc": "CAMPAIGN_ROOM",
+      "lock": true,
+      "t07screen": 67,
+      "music": "DESCENT"
+    },
+    {
+      "i": 14,
+      "cam": {
+        "x": 1250,
+        "y": 906,
+        "zoom": 0.9486530172413792,
+        "viewW": 1349,
+        "viewH": 949,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "skyfall",
+      "stage": "arrival",
+      "stairP": 0.603,
+      "shaftOpen": 1,
+      "loc": "CAMPAIGN_ROOM",
+      "lock": true,
+      "t07screen": 76,
+      "music": "DESCENT"
+    },
+    {
+      "i": 15,
+      "cam": {
+        "x": 1250,
+        "y": 895,
+        "zoom": 0.9397645474137929,
+        "viewW": 1362,
+        "viewH": 958,
+        "lead": {
+          "x": 0,
+          "y": -10
+        }
+      },
+      "phase": "skyfall",
+      "stage": "arrival",
+      "stairP": 0.919,
+      "shaftOpen": 1,
+      "loc": "CAMPAIGN_ROOM",
+      "lock": true,
+      "t07screen": 81,
+      "music": "DESCENT"
+    }
+  ],
+  "pageerrors": [],
+  "warns": [
+    "error:Failed to load resource: the server responded with a status of 404 (File not found)",
+    "error:Failed to load resource: the server responded with a status of 404 (File not found)"
+  ]
+}

@@ -86,3 +86,14 @@ Registrar aquí cada modificación:
 - QA formal A/B **35/35 APROBADO** (`ART_TOOLS/qa/validate_hub_tanda_07.js`), 6/6 hashes, 0 `pageerror`, evidencias en `ART_EVIDENCE/hub/tanda_07/`.
 - Corrección de integración: los enganches se montan desde `buildHubSpace()` (ámbito de `initDmoHubV35`), no en el cierre exterior del script, donde `Wf` no está definido.
 - No se fusiona PR #1; no se modifica `main`.
+
+<!-- TANDA08:CHANGELOG -->
+## TANDA 08 — El abismo vivo (2026-11-04)
+
+- Añadidos 10 recursos en `ART_ASSETS/hub/tanda_08/` (10 fuentes, 10 finales RGBA, `manifest.json` → `INTEGRADO_VALIDADO`). Sin NPC, criaturas ni enemigos nuevos; no se repiten assets T01–07.
+- `ART_PACK/art_pack.js`: `HUB8_ASSETS`, `loadHub8()` encadenado tras `loadHub7()` y API `hub8*` en el registro V5 existente; versión `+hub-tanda08`; 168 → 178 claves V5.
+- `DEADBEAT_DISCO.ART.html`: módulo `T08` dentro de `initDmoHubV35` y `T08.install()` dentro de `buildHubSpace()` sobre `zf`/`Tf`. Cutaway anclado al borde sur con 5 planos de profundidad, parallax derivado de `DMO.camera()`, grieta iluminada y animación ambiental. Flag reversible `__DDM_HUB_T08`.
+- Descenso T07 complementado: `expand = 260·shaftOpen` (ventana 84 → 374 px), sin modificar cámara, llegada, control, música ni secuenciador; 0 fotogramas negros.
+- **Prueba de composición previa a producción 16/16 APROBADA** (`composition_proof.json`), mapa de profundidad y carencias P1–P5 entregados antes de generar los assets.
+- QA formal A/B en 8 zonas **33 APROBADO / 0 FALLIDO / 4 NO VERIFICADO**, 10/10 SHA-256, 0 `pageerror`, 52 evidencias en `ART_EVIDENCE/hub/tanda_08/`.
+- No se fusiona PR #1; no se modifica `main`.
