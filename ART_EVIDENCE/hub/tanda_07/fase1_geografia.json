@@ -1,0 +1,355 @@
+{
+  "tanda": "07",
+  "fase": "1",
+  "titulo": "Composicion geografica · El umbral del infierno",
+  "generado": "2026-11-04",
+  "estado": "PROPUESTA_ENTREGADA_SIN_IMPLEMENTAR",
+  "assets_generados": 0,
+  "sistemas_modificados": 0,
+  "rector": {
+    "arriba": "musica, NPC, luces, refugio, aparente normalidad",
+    "abajo": "oscuridad, profundidad, peligro, infierno que continua"
+  },
+  "proyeccion": {
+    "formula": "sx=640+0.9375*(wx-cx); sy=450+0.9375*(wy-cy)",
+    "zoom": 0.9375,
+    "viewW": 1365,
+    "viewH": 960,
+    "rotacion": 0,
+    "cizalla": 0,
+    "escala_hubCustom": 1.0
+  },
+  "mundo": {
+    "size": [
+      2500,
+      1850
+    ],
+    "Ps": [
+      290,
+      265,
+      1920,
+      1320
+    ],
+    "cut": 210,
+    "poly": [
+      [
+        500,
+        265
+      ],
+      [
+        2000,
+        265
+      ],
+      [
+        2210,
+        475
+      ],
+      [
+        2210,
+        1375
+      ],
+      [
+        2000,
+        1585
+      ],
+      [
+        500,
+        1585
+      ],
+      [
+        290,
+        1375
+      ],
+      [
+        290,
+        475
+      ]
+    ],
+    "suelo_cache": {
+      "origen": [
+        290,
+        265
+      ],
+      "size": [
+        1920,
+        1320
+      ],
+      "y_max": 1585
+    },
+    "semi2d": {
+      "worldTop": 455,
+      "worldBottom": 1415
+    }
+  },
+  "camara": {
+    "arranque": [
+      1250,
+      975
+    ],
+    "limites_teclado": {
+      "x": [
+        883,
+        1617
+      ],
+      "y": [
+        655,
+        1195
+      ]
+    },
+    "limite_sur_forzado_debug": 1210,
+    "banda_sur_visible": {
+      "y": [
+        1585,
+        1675
+      ],
+      "unidades": 90,
+      "pixeles_pantalla": 84
+    },
+    "visible_en": {
+      "centro": {
+        "cam": [
+          1250,
+          975
+        ],
+        "y": [
+          495,
+          1455
+        ]
+      },
+      "aproximacion": {
+        "cam": [
+          1250,
+          1100
+        ],
+        "y": [
+          620,
+          1580
+        ]
+      },
+      "borde": {
+        "cam": [
+          1250,
+          1195
+        ],
+        "y": [
+          715,
+          1675
+        ]
+      }
+    }
+  },
+  "cotas": [
+    {
+      "id": "COTA_+02",
+      "y": [
+        180,
+        330
+      ],
+      "descripcion": "envolvente norte T06 (INTACTA)",
+      "accion": "no tocar"
+    },
+    {
+      "id": "COTA_0",
+      "y": [
+        265,
+        1470
+      ],
+      "descripcion": "superficie transitable / discoteca habitada",
+      "accion": "conservar T01-06"
+    },
+    {
+      "id": "COTA_-01",
+      "y": [
+        1470,
+        1585
+      ],
+      "x": [
+        500,
+        2000
+      ],
+      "descripcion": "labio del acantilado, cambio de material, relieve bajo",
+      "accion": "decoracion estatica aditiva"
+    },
+    {
+      "id": "COTA_-02",
+      "y": [
+        1585,
+        1675
+      ],
+      "x": [
+        200,
+        2300
+      ],
+      "descripcion": "borde + pared rocosa en 3 estratos + abertura",
+      "accion": "hook Wf fuera del clip Ls(g)"
+    },
+    {
+      "id": "COTA_-03",
+      "y": [
+        1675,
+        null
+      ],
+      "descripcion": "profundidades, parallax, luz y particulas",
+      "accion": "solo durante floorDropAnim (Fase 4)"
+    }
+  ],
+  "elementos": [
+    {
+      "id": "G1",
+      "nombre": "Superficie transitable",
+      "caja": [
+        290,
+        265,
+        1920,
+        1205
+      ],
+      "cara": "SUELO cenital",
+      "capa": "render actual",
+      "solid": false
+    },
+    {
+      "id": "G2",
+      "nombre": "Labio del acantilado",
+      "caja": [
+        500,
+        1470,
+        1500,
+        115
+      ],
+      "cara": "SUELO -> SUR (+Y)",
+      "capa": "1 decoracion estatica",
+      "solid": false,
+      "sortY": 1500
+    },
+    {
+      "id": "G3",
+      "nombre": "Borde y pared rocosa (3 estratos)",
+      "caja": [
+        200,
+        1585,
+        2100,
+        90
+      ],
+      "cara": "SUR (+Y) + ingletes 45",
+      "capa": "1 decoracion estatica",
+      "solid": false
+    },
+    {
+      "id": "G4",
+      "nombre": "Abertura de la grieta (decal existente + conexion)",
+      "caja": [
+        1085,
+        1255,
+        330,
+        330
+      ],
+      "cara": "SUELO -> abertura",
+      "capa": "1 + 2 glow",
+      "solid": false
+    },
+    {
+      "id": "G5",
+      "nombre": "Profundidades",
+      "caja": [
+        200,
+        1675,
+        2100,
+        null
+      ],
+      "cara": "vertical de transicion",
+      "capa": "5 transicion de descenso",
+      "solid": false
+    }
+  ],
+  "pantalla_con_camara_borde": {
+    "cam": [
+      1250,
+      1195
+    ],
+    "borde_sur": {
+      "x": [
+        -63.1,
+        1343.1
+      ],
+      "y": 815.6
+    },
+    "banda_abismo": {
+      "y": [
+        815.6,
+        900.0
+      ]
+    },
+    "labio": {
+      "y": [
+        707.8,
+        815.6
+      ]
+    },
+    "grieta_decal": {
+      "x": [
+        485.3,
+        794.7
+      ],
+      "y": [
+        506.3,
+        676.0
+      ]
+    }
+  },
+  "exclusion_T06": {
+    "norte": {
+      "x": [
+        500,
+        1955
+      ],
+      "y": [
+        180,
+        330
+      ]
+    },
+    "oeste": {
+      "x": [
+        277,
+        384
+      ],
+      "y": [
+        400,
+        1540
+      ]
+    },
+    "este": {
+      "x": [
+        2129,
+        2212
+      ],
+      "y": [
+        400,
+        1540
+      ]
+    },
+    "regla": "geografia nueva al sur de y=1470; continuidad lateral solo y=1540..1675"
+  },
+  "capas": [
+    "1 decoracion estatica",
+    "2 animacion ambiental",
+    "3 animacion NPC",
+    "4 transicion de entrada",
+    "5 transicion de descenso"
+  ],
+  "hooks": {
+    "update": "Tf(dt)",
+    "camara_pose": "Qf()",
+    "suelo": "Wf()",
+    "aereo": "Ph()",
+    "pantalla": "zf()",
+    "props": "Lc / sortY",
+    "flag_AB": "window.__DDM_HUB_T07"
+  },
+  "subfases": {
+    "2": "llegada breve y repetible",
+    "3": "vida de NPC",
+    "4": "descenso con continuidad",
+    "5": "integracion y QA"
+  },
+  "siguiente_paso": "esperar autorizacion del usuario antes de Fase 2"
+}
