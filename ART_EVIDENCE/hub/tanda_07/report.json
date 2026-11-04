@@ -1,0 +1,222 @@
+{
+  "tanda": "07",
+  "title": "El umbral del infierno",
+  "generatedAt": "2026-11-04T03:51:01+00:00",
+  "verdict": "APROBADO",
+  "passed": 35,
+  "total": 35,
+  "fases": [
+    "0 auditoría",
+    "1 geografía",
+    "2 llegada",
+    "3 NPC",
+    "4 descenso",
+    "5 QA"
+  ],
+  "assets": {
+    "count": 6,
+    "allValid": true,
+    "hashes": 6,
+    "hashMismatches": 0,
+    "finals": [
+      "ART_ASSETS/hub/tanda_07/01_labio/final/hub_t07_01_labio.png",
+      "ART_ASSETS/hub/tanda_07/02_estrato/final/hub_t07_02_estrato.png",
+      "ART_ASSETS/hub/tanda_07/03_apertura/final/hub_t07_03_apertura.png",
+      "ART_ASSETS/hub/tanda_07/04_exterior/final/hub_t07_04_exterior.jpg",
+      "ART_ASSETS/hub/tanda_07/05_pozo/final/hub_t07_05_pozo.png",
+      "ART_ASSETS/hub/tanda_07/06_panorama/final/hub_t07_06_panorama.jpg"
+    ]
+  },
+  "checks": [
+    {
+      "id": "T07-01",
+      "ok": true,
+      "name": "pack.status = applied"
+    },
+    {
+      "id": "T07-02",
+      "ok": true,
+      "name": "versión incluye hub-tanda07"
+    },
+    {
+      "id": "T07-03",
+      "ok": true,
+      "name": "6/6 assets T07: loaded + exactSize + registered"
+    },
+    {
+      "id": "T07-04",
+      "ok": true,
+      "name": "6 alias h07_* resuelven por __DDM_GET_V5"
+    },
+    {
+      "id": "T07-05",
+      "ok": true,
+      "name": "registro V5 base 162 + 6 T07 = 168 sin bajas"
+    },
+    {
+      "id": "T07-06",
+      "ok": true,
+      "name": "API DMO_HUB_T07 expuesta en arranque"
+    },
+    {
+      "id": "T07-07",
+      "ok": true,
+      "name": "sin canvas nuevo (27 de Fase 0)"
+    },
+    {
+      "id": "T07-08",
+      "ok": true,
+      "name": "TANDA 01/02/03/05/06 siguen cargadas y sin errores"
+    },
+    {
+      "id": "T07-06B",
+      "ok": true,
+      "name": "enganches Wf/Ph/zf/Tf instalados al arrancar el HUB"
+    },
+    {
+      "id": "T07-09",
+      "ok": true,
+      "name": "llegada automática al entrar al HUB (reason hub-entry)"
+    },
+    {
+      "id": "T07-10",
+      "ok": true,
+      "name": "llegada breve ≤ 2,4 s"
+    },
+    {
+      "id": "T07-11",
+      "ok": true,
+      "name": "control NO bloqueado durante la llegada"
+    },
+    {
+      "id": "T07-12",
+      "ok": true,
+      "name": "capa de pantalla dibujada y sin fotograma negro"
+    },
+    {
+      "id": "T07-13",
+      "ok": true,
+      "name": "audio intacto durante la llegada (1 secuenciador, HUB)"
+    },
+    {
+      "id": "T07-14",
+      "ok": true,
+      "name": "cámara y topología sin cambios (zoom .9375, 6 zonas, 11 estaciones)"
+    },
+    {
+      "id": "T07-15",
+      "ok": true,
+      "name": "6 actores con 5 actividades (danza×2, charla×2, descanso, recorrido)"
+    },
+    {
+      "id": "T07-16",
+      "ok": true,
+      "name": "frames NPC alternan (danza y recorrido ≥2 frames)"
+    },
+    {
+      "id": "T07-17",
+      "ok": true,
+      "name": "recorrido cambia de posición y de orientación"
+    },
+    {
+      "id": "T07-18",
+      "ok": true,
+      "name": "reacción al jugador sin IA (react>0 cerca, 0 lejos)"
+    },
+    {
+      "id": "T07-19",
+      "ok": true,
+      "name": "props solid:false y WASD sin regresión (derecha mueve cámara)"
+    },
+    {
+      "id": "T07-20",
+      "ok": true,
+      "name": "flag A/B: ON dibuja geografía, OFF no dibuja"
+    },
+    {
+      "id": "T07-21",
+      "ok": true,
+      "name": "A/B cambia la franja sur de forma medible y localizada"
+    },
+    {
+      "id": "T07-22",
+      "ok": true,
+      "name": "A/B no rompe estaciones ni audio"
+    },
+    {
+      "id": "T07-23",
+      "ok": true,
+      "name": "llegada repetible ×2 y sin bloqueo residual"
+    },
+    {
+      "id": "T07-24",
+      "ok": true,
+      "name": "startCampaignFromHub(0) verdadero y descenso monitorizado"
+    },
+    {
+      "id": "T07-25",
+      "ok": true,
+      "name": "progresión real de escalera/pozo (stairP>0.1 y fase skyfall)"
+    },
+    {
+      "id": "T07-26",
+      "ok": true,
+      "name": "continuidad visual del pozo dibujada en gran parte del descenso"
+    },
+    {
+      "id": "T07-27",
+      "ok": true,
+      "name": "NINGÚN fotograma negro durante el descenso"
+    },
+    {
+      "id": "T07-28",
+      "ok": true,
+      "name": "audio de descenso existente intacto (1 secuenciador, eventos)"
+    },
+    {
+      "id": "T07-29",
+      "ok": true,
+      "name": "destino LIMBO, control recuperado y zoom restaurado"
+    },
+    {
+      "id": "T07-30",
+      "ok": true,
+      "name": "regreso al HUB dispara de nuevo la llegada (repetible)"
+    },
+    {
+      "id": "T07-31",
+      "ok": true,
+      "name": "0 pageerror y 0 errores T07 en toda la sesión"
+    },
+    {
+      "id": "T07-32",
+      "ok": true,
+      "name": "estado final: applied, 168 V5, 6/6 T07, 6 actores"
+    },
+    {
+      "id": "T07-33",
+      "ok": true,
+      "name": "sólo los 2 404 externos preexistentes de Fase 0"
+    },
+    {
+      "id": "T07-34",
+      "ok": true,
+      "name": "Yc.reduced: llegada corta (0,95 s) y NPC congelados"
+    }
+  ],
+  "noVerificadoBloqueado": [
+    "vídeo/captura en movimiento continuo",
+    "mando físico real",
+    "audio audible (sólo se verifica el estado del secuenciador)",
+    "inventario completo de frames NPC originales",
+    "regresión formal completa de TANDA 01-06 (sólo smoke de carga/topología)",
+    "rendimiento sostenido en producción con los 6 assets T07",
+    "medición de latencia de llegada en hardware real"
+  ],
+  "git": {
+    "branch": "arena/109fe45c-deadbeat-disconew",
+    "pr": 1,
+    "merge": false,
+    "main": "d75e021fb13418bf49d5853c1a9583e7d11b90f2"
+  }
+}

@@ -224,3 +224,13 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 - Composición previa repetida con las 14 cajas: `APROBADA`, cobertura 14/14 en 10 zonas de cámara; `ART_HUB_TANDA_06_CAMERA_AUDIT.md` regenerado.
 - Integración: `HUB6_ASSETS`/`loadHub6()`/API `hub6*` en `ART_PACK/art_pack.js` y 14 props en `DEADBEAT_DISCO.ART.html`, con flag reversible `__DDM_HUB_T06`. Sin sistemas nuevos.
 - Cierre: QA formal A/B de 3 fases **14/14 APROBADO**, 10/10 `drawImage` en el canvas de mundo, 10/10 confirmados por diff de píxel OFF/ON, `alpha_verification.json`, `hashes.json`, informe `ART_TANDA_06_HUB_REPORT.md` y matriz `ART_HUB_TANDA_06_MATRIX.md`.
+
+<!-- TANDA07:PRODUCTION -->
+### TANDA 07 — El umbral del infierno (Fases 0–5)
+
+- F0/F1: auditoría del juego real (23 filas, 16 APROBADO / 6 NO VERIFICADO / 1 BLOQUEADO) y composición geográfica entregadas **antes de producir assets**, en el commit `c6c1303`. Autorización del usuario: «si».
+- Producción: **8 fuentes** `generate_image` → **6 finales** (4 RGBA con máscaras `top_corners`/`aperture`/`shaft` y 2 JPEG opacos) con `ART_TOOLS/prepare_hub_tanda_07.py`; 6/6 tamaño exacto, halo <1 %, `allValid:true`. **0 sprites de NPC nuevos**: dos pruebas de «clubber sentada» se descartaron y se reutilizan los 5 NPC V5 existentes.
+- Integración: `HUB7_ASSETS`/`loadHub7()` tras `loadHub6()` en `ART_PACK/art_pack.js` (mismo `load()`, mismo `__DDM_V5_IMG`, **162 → 168 claves**); módulo `T07` en `initDmoHubV35` y enganches `Wf/Ph/zf/Tf` montados en tiempo de arranque desde `buildHubSpace()` en `DEADBEAT_DISCO.ART.html`. Flag reversible `window.__DDM_HUB_T07`.
+- Fase 2: llegada breve 1,85 s (0,95 s con movimiento reducido), disparada al entrar al HUB, **sin `transitionLock`** y sin tocar audio. Fase 3: 6 actores / 5 actividades sobre `addHubCustomProp → Lc → Y-sort`. Fase 4: parallax del pozo + luz + brasas sobre `floorDropAnim`, sin fotograma negro (luminancia mínima 39,15).
+- Audio **deliberadamente intacto**: `cineFilter`/`cineGain`/`cineSting` están detrás de `M.cine` y habilitarlos exigiría `cineBegin()` (`forceKey` inmediato). 1 secuenciador en todo momento.
+- Cierre: QA formal A/B **35/35 APROBADO** (`ART_EVIDENCE/hub/tanda_07/qa_tanda07.json`), 6/6 SHA-256 sin discrepancias, `manifest.json` → `INTEGRADO_VALIDADO`, informe `ART_TANDA_07_REPORT.md` y matriz `ART_TANDA_07_FASE3_MATRIZ_NPC.md`. PR #1 abierto **sin merge**; `main` intacta.

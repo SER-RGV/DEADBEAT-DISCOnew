@@ -74,3 +74,15 @@ Registrar aquí cada modificación:
 - QA formal A/B de 3 fases y 14 comprobaciones: **14/14 APROBADO**, 10/10 `drawImage` y 10/10 confirmados por diff de píxel; evidencias en `ART_EVIDENCE/hub/tanda_06/`.
 - Documentación: informe técnico, matriz de validación, auditoría de cámara, registro de producción, estado de integración e incidencias.
 - No se fusiona PR #1; no se modifica `main`.
+
+<!-- TANDA07:CHANGELOG -->
+## TANDA 07 — El umbral del infierno (2026-11-04)
+
+- Añadidos 6 recursos en `ART_ASSETS/hub/tanda_07/` (6 fuentes conservadas, 2 referencias V5, 6 finales, `manifest.json` → `INTEGRADO_VALIDADO`). **Sin sprites de NPC nuevos**.
+- `ART_PACK/art_pack.js`: `HUB7_ASSETS`, `loadHub7()` encadenado tras `loadHub6()` y API `hub7*` en el registro V5 existente; versión `+hub-tanda07`; 162 → 168 claves V5.
+- `DEADBEAT_DISCO.ART.html`: módulo `T07` en `initDmoHubV35`, 6 props NPC en `buildHubSpace()` y enganches `Wf/Ph/zf/Tf` al final de las cadenas existentes, con flag reversible `__DDM_HUB_T07`. Sin segundo motor, canvas, cámara, audio, rAF ni colisiones.
+- Fase 2: llegada breve desde el exterior infernal (1,85 s / 0,95 s reducido), repetible y sin `transitionLock`. Fase 3: 6 actores / 5 actividades con `solid:false`, Y-sort y `Yc.reduced`. Fase 4: continuidad visual del descenso sobre `floorDropAnim` sin pantalla negra.
+- Audio intacto: se descartó usar `cineBegin()` para habilitar `cineFilter`/`cineGain` porque fuerza un cambio de pista inmediato; la cadena musical de descenso existente queda verificada por eventos.
+- QA formal A/B **35/35 APROBADO** (`ART_TOOLS/qa/validate_hub_tanda_07.js`), 6/6 hashes, 0 `pageerror`, evidencias en `ART_EVIDENCE/hub/tanda_07/`.
+- Corrección de integración: los enganches se montan desde `buildHubSpace()` (ámbito de `initDmoHubV35`), no en el cierre exterior del script, donde `Wf` no está definido.
+- No se fusiona PR #1; no se modifica `main`.

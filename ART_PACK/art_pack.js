@@ -142,7 +142,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -367,12 +367,16 @@
                 loadHub5(function (k5) {
                   /* TANDA06:BEGIN · mismo load(), encadenado tras TANDA 05 */
                   loadHub6(function (k6) {
-                    st.status = (st.errors.length || (st.archErrors || []).length ||
-                                 (st.hubErrors || []).length || (st.hub2Errors || []).length ||
-                                 (st.hub3Errors || []).length || (st.hub5Errors || []).length ||
-                                 (st.hub6Errors || []).length)
-                      ? 'applied-with-errors' : 'applied';
-                    st.finishedAt = Date.now();
+                    /* TANDA07:BEGIN · mismo load(), encadenado tras TANDA 06 */
+                    loadHub7(function (k7) {
+                      st.status = (st.errors.length || (st.archErrors || []).length ||
+                                   (st.hubErrors || []).length || (st.hub2Errors || []).length ||
+                                   (st.hub3Errors || []).length || (st.hub5Errors || []).length ||
+                                   (st.hub6Errors || []).length || (st.hub7Errors || []).length)
+                        ? 'applied-with-errors' : 'applied';
+                      st.finishedAt = Date.now();
+                    });
+                    /* TANDA07:END */
                   });
                   /* TANDA06:END */
                 });
@@ -1398,6 +1402,130 @@
     };
   }
 
+
+  /* === TANDA07:BEGIN · HUB7_* (mismo load(), mismo registro V5) =============
+     «El umbral del infierno». 6 assets: 4 texturas RGBA de geografía y 2
+     placas JPEG de llegada/descenso. Se encadena tras loadHub6(). No hay
+     segundo loader, segundo canvas ni cambio de cámara/audio. */
+  var BASEH7 = 'ART_ASSETS/hub/tanda_07/';
+  var HUB7_ASSETS = [
+    { id: 'T07-01', unit: 'labio_acantilado', file: '01_labio/final/hub_t07_01_labio.png', w: 1500, h: 115, alias: 'h07_labio_acantilado', worldH: 115, category: 'COTA -01 · labio' },
+    { id: 'T07-02', unit: 'estrato_rococo', file: '02_estrato/final/hub_t07_02_estrato.png', w: 2100, h: 110, alias: 'h07_estrato_rococo', worldH: 110, category: 'COTA -02 · pared rocosa' },
+    { id: 'T07-03', unit: 'apertura_profundidad', file: '03_apertura/final/hub_t07_03_apertura.png', w: 420, h: 260, alias: 'h07_apertura_profundidad', worldH: 260, category: 'COTA -02/-03 · abertura' },
+    { id: 'T07-04', unit: 'exterior_infernal', file: '04_exterior/final/hub_t07_04_exterior.jpg', w: 1280, h: 720, alias: 'h07_exterior_infernal', worldH: 0, category: 'Fase 2 · llegada' },
+    { id: 'T07-05', unit: 'pozo_capas', file: '05_pozo/final/hub_t07_05_pozo.png', w: 512, h: 1024, alias: 'h07_pozo_capas', worldH: 0, category: 'Fase 4 · descenso' },
+    { id: 'T07-06', unit: 'panorama_acantilado', file: '06_panorama/final/hub_t07_06_panorama.jpg', w: 1280, h: 720, alias: 'h07_panorama_acantilado', worldH: 0, category: 'Fase 2 · placa intermedia' }
+  ];
+  var HUB7_IMAGES = {};
+  var HUB7_ORIGINALS = {};
+  var hub7Applied = false;
+
+  function hub7Err(where, e) {
+    var msg = where + ': ' + (e && (e.message || e.type) || String(e));
+    if (!st.hub7Errors) st.hub7Errors = [];
+    st.hub7Errors.push(msg);
+    try { console.warn('[ART_PACK/HUB7] ' + msg); } catch (_) {}
+  }
+  function hub7Invalidate() {
+    try {
+      if (window.DMO_INFERNAL_ART && typeof window.DMO_INFERNAL_ART.invalidate === 'function') {
+        window.DMO_INFERNAL_ART.invalidate();
+      }
+    } catch (e) { hub7Err('invalidate', e); }
+    try {
+      if (window.__T3B && typeof window.__T3B.setEnabled === 'function') window.__T3B.setEnabled(true);
+    } catch (e) { hub7Err('setEnabled', e); }
+  }
+  function applyHub7() {
+    var reg = window.__DDM_V5_IMG;
+    if (!reg) { hub7Err('HUB7', '__DDM_V5_IMG no disponible'); return 0; }
+    var n = 0;
+    HUB7_ASSETS.forEach(function (a) {
+      var im = HUB7_IMAGES[a.id];
+      if (!im) return;
+      try { im.__hubTanda07 = a.id; } catch (_) {}
+      if (!Object.prototype.hasOwnProperty.call(HUB7_ORIGINALS, a.alias)) HUB7_ORIGINALS[a.alias] = reg[a.alias];
+      reg[a.alias] = im; n++;
+    });
+    hub7Applied = (n === HUB7_ASSETS.length);
+    hub7Invalidate();
+    st.hub7 = {
+      version: 'hub-tanda07', count: HUB7_ASSETS.length,
+      productionUnits: HUB7_ASSETS.length, files: HUB7_ASSETS.length,
+      registered: n, enabled: hub7Applied,
+      loader: 'load() -> __DDM_V5_IMG[alias h07_*]',
+      renderer: 'DEADBEAT_DISCO.ART.html :: hooks Wf/Ph/zf (T07)',
+      flag: 'window.__DDM_HUB_T07 !== false',
+      note: '6/6 assets T07 en el MISMO registro V5 y MISMO load(). '
+          + 'Sin segundo motor, canvas, cámara ni audio.',
+      appliedAt: Date.now()
+    };
+    return n;
+  }
+  function restoreHub7() {
+    var reg = window.__DDM_V5_IMG, n = 0;
+    if (reg) {
+      HUB7_ASSETS.forEach(function (a) {
+        if (!Object.prototype.hasOwnProperty.call(HUB7_ORIGINALS, a.alias)) return;
+        reg[a.alias] = HUB7_ORIGINALS[a.alias];
+        if (reg[a.alias] === undefined) delete reg[a.alias];
+        n++;
+      });
+    }
+    hub7Applied = false;
+    if (st.hub7) { st.hub7.enabled = false; st.hub7.registered = 0; }
+    hub7Invalidate();
+    return n;
+  }
+  function loadHub7(done) {
+    var pending = HUB7_ASSETS.length;
+    HUB7_ASSETS.forEach(function (a) {
+      var rec = { id: a.id, file: BASEH7 + a.file, expected: [a.w, a.h],
+                  loaded: false, natural: null, exactSize: false };
+      load(rec.file, rec, function (im) {
+        if (im) {
+          HUB7_IMAGES[a.id] = im;
+          if (!rec.exactSize) hub7Err(a.id, 'dimensiones inesperadas ' + rec.natural);
+        } else hub7Err(a.id, 'no se pudo decodificar ' + rec.file);
+        if (--pending === 0) done(applyHub7());
+      });
+    });
+  }
+  function hub7() {
+    var reg = window.__DDM_V5_IMG || {}, get = window.__DDM_GET_V5;
+    var list = HUB7_ASSETS.map(function (a) {
+      var im = HUB7_IMAGES[a.id] || null;
+      var resolves = 0;
+      try { if (typeof get === 'function' && get(a.alias) === im) resolves = 1; } catch (_) {}
+      return {
+        id: a.id, unit: a.unit, file: BASEH7 + a.file, alias: a.alias,
+        aliasLive: !!(im && reg[a.alias] === im), loaderResolves: resolves,
+        expected: [a.w, a.h], natural: im ? [im.naturalWidth, im.naturalHeight] : null,
+        exactSize: !!im && im.naturalWidth === a.w && im.naturalHeight === a.h,
+        loaded: !!im, registered: !!(im && reg[a.alias] === im)
+      };
+    });
+    return {
+      version: 'hub-tanda07', count: HUB7_ASSETS.length,
+      productionUnits: HUB7_ASSETS.length, enabled: hub7Applied,
+      registered: list.filter(function (a) { return a.registered; }).length,
+      loaded: list.filter(function (a) { return a.loaded; }).length,
+      exactSize: list.filter(function (a) { return a.exactSize; }).length,
+      errors: (st.hub7Errors || []).slice(), assets: list,
+      note: '6/6 PNG/JPG de TANDA 07 en el MISMO registro V5 y MISMO load().'
+    };
+  }
+  function hub7Tag() {
+    HUB7_ASSETS.forEach(function (a) {
+      var im = HUB7_IMAGES[a.id];
+      if (im) { try { im.__hubTanda07 = a.id; } catch (_) {} }
+    });
+    return HUB7_ASSETS.length;
+  }
+  function hub7Restore() { return restoreHub7(); }
+  function hub7Apply() { return hub7Applied ? HUB7_ASSETS.length : applyHub7(); }
+  /* === TANDA07:END · HUB7_* ================================================ */
+
   function hub6Tag() {
     HUB6_ASSETS.forEach(function (a) {
       var im = HUB6_IMAGES[a.id];
@@ -1904,6 +2032,8 @@
     hub5Restore: hub5Restore, hub5Apply: hub5Apply, hub5Tag: hub5Tag,
     hub6: hub6, hub6Manifest: function () { return JSON.parse(JSON.stringify(HUB6_ASSETS)); },
     hub6Restore: hub6Restore, hub6Apply: hub6Apply, hub6Tag: hub6Tag,
+    hub7: hub7, hub7Manifest: function () { return JSON.parse(JSON.stringify(HUB7_ASSETS)); },
+    hub7Restore: hub7Restore, hub7Apply: hub7Apply, hub7Tag: hub7Tag,
     player: player, playerRestore: playerRestore, playerApply: playerApply,
     manifest: function () { return JSON.parse(JSON.stringify(MANIFEST)); },
     architectureManifest: function () { return JSON.parse(JSON.stringify(ARCHITECTURE)); }

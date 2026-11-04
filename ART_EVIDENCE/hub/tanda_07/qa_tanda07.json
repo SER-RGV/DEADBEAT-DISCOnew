@@ -1,0 +1,6238 @@
+{
+  "generatedAt": "2026-11-04T03:48:23.291Z",
+  "suite": "TANDA 07 · El umbral del infierno · QA Fase 5",
+  "total": 35,
+  "passed": 35,
+  "failed": 0,
+  "verdict": "APROBADO",
+  "checks": [
+    {
+      "id": "T07-01",
+      "name": "pack.status = applied",
+      "ok": true,
+      "detail": "applied"
+    },
+    {
+      "id": "T07-02",
+      "name": "versión incluye hub-tanda07",
+      "ok": true,
+      "detail": "ub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07"
+    },
+    {
+      "id": "T07-03",
+      "name": "6/6 assets T07: loaded + exactSize + registered",
+      "ok": true,
+      "detail": {
+        "loaded": 6,
+        "exactSize": 6,
+        "registered": 6,
+        "errors": []
+      }
+    },
+    {
+      "id": "T07-04",
+      "name": "6 alias h07_* resuelven por __DDM_GET_V5",
+      "ok": true,
+      "detail": [
+        "h07_labio_acantilado",
+        "h07_estrato_rococo",
+        "h07_apertura_profundidad",
+        "h07_exterior_infernal",
+        "h07_pozo_capas",
+        "h07_panorama_acantilado"
+      ]
+    },
+    {
+      "id": "T07-05",
+      "name": "registro V5 base 162 + 6 T07 = 168 sin bajas",
+      "ok": true,
+      "detail": 168
+    },
+    {
+      "id": "T07-06",
+      "name": "API DMO_HUB_T07 expuesta en arranque",
+      "ok": true,
+      "detail": {
+        "api": true,
+        "hooksAtBoot": false,
+        "note": "los enganches se montan al entrar al HUB (buildHubSpace)"
+      }
+    },
+    {
+      "id": "T07-07",
+      "name": "sin canvas nuevo (27 de Fase 0)",
+      "ok": true,
+      "detail": 27
+    },
+    {
+      "id": "T07-08",
+      "name": "TANDA 01/02/03/05/06 siguen cargadas y sin errores",
+      "ok": true,
+      "detail": [
+        {
+          "k": "t01",
+          "errors": 0
+        },
+        {
+          "k": "t02",
+          "errors": 0
+        },
+        {
+          "k": "t03",
+          "loaded": 13,
+          "errors": 0
+        },
+        {
+          "k": "t05",
+          "loaded": 10,
+          "errors": 0
+        },
+        {
+          "k": "t06",
+          "loaded": 10,
+          "errors": 0
+        }
+      ]
+    },
+    {
+      "id": "T07-06B",
+      "name": "enganches Wf/Ph/zf/Tf instalados al arrancar el HUB",
+      "ok": true,
+      "detail": {
+        "hooksInstalled": true
+      }
+    },
+    {
+      "id": "T07-09",
+      "name": "llegada automática al entrar al HUB (reason hub-entry)",
+      "ok": true,
+      "detail": {
+        "plays": 1,
+        "completes": 1,
+        "reason": "hub-entry"
+      }
+    },
+    {
+      "id": "T07-10",
+      "name": "llegada breve ≤ 2,4 s",
+      "ok": true,
+      "detail": 1.85
+    },
+    {
+      "id": "T07-11",
+      "name": "control NO bloqueado durante la llegada",
+      "ok": true,
+      "detail": {
+        "activeFrames": 8,
+        "anyLock": false,
+        "modes": [
+          "EXPLORATION"
+        ]
+      }
+    },
+    {
+      "id": "T07-12",
+      "name": "capa de pantalla dibujada y sin fotograma negro",
+      "ok": true,
+      "detail": {
+        "screen": 45,
+        "lum": [
+          47.37,
+          47.36,
+          47.4
+        ]
+      }
+    },
+    {
+      "id": "T07-13",
+      "name": "audio intacto durante la llegada (1 secuenciador, HUB)",
+      "ok": true,
+      "detail": {
+        "seq": 1,
+        "state": "HUB",
+        "key": "hub_afterparty"
+      }
+    },
+    {
+      "id": "T07-14",
+      "name": "cámara y topología sin cambios (zoom .9375, 6 zonas, 11 estaciones)",
+      "ok": true,
+      "detail": {
+        "zoom": 0.9375,
+        "zones": 6,
+        "stations": 11
+      }
+    },
+    {
+      "id": "T07-15",
+      "name": "6 actores con 5 actividades (danza×2, charla×2, descanso, recorrido)",
+      "ok": true,
+      "detail": {
+        "dance": 2,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      }
+    },
+    {
+      "id": "T07-16",
+      "name": "frames NPC alternan (danza y recorrido ≥2 frames)",
+      "ok": true,
+      "detail": {
+        "dance": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "walk": [
+          2,
+          3,
+          0,
+          1
+        ]
+      }
+    },
+    {
+      "id": "T07-17",
+      "name": "recorrido cambia de posición y de orientación",
+      "ok": true,
+      "detail": {
+        "distinctX": 29,
+        "span": 120
+      }
+    },
+    {
+      "id": "T07-18",
+      "name": "reacción al jugador sin IA (react>0 cerca, 0 lejos)",
+      "ok": true,
+      "detail": [
+        {
+          "id": "t07_danza_01",
+          "r": 1
+        }
+      ]
+    },
+    {
+      "id": "T07-19",
+      "name": "props solid:false y WASD sin regresión (derecha mueve cámara)",
+      "ok": true,
+      "detail": {
+        "movedX": 195,
+        "before": {
+          "x": 1150,
+          "y": 960
+        },
+        "after": {
+          "x": 1345,
+          "y": 975
+        }
+      }
+    },
+    {
+      "id": "T07-20",
+      "name": "flag A/B: ON dibuja geografía, OFF no dibuja",
+      "ok": true,
+      "detail": {
+        "onDelta": 20,
+        "offDelta": 0,
+        "stripDiff": 37.41
+      }
+    },
+    {
+      "id": "T07-21",
+      "name": "A/B cambia la franja sur de forma medible y localizada",
+      "ok": true,
+      "detail": 37.41
+    },
+    {
+      "id": "T07-22",
+      "name": "A/B no rompe estaciones ni audio",
+      "ok": true,
+      "detail": {
+        "a": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "m": {
+          "version": "3.8.0-music",
+          "state": "HUB",
+          "prev": "MENU",
+          "since": 13.08,
+          "key": "hub_afterparty",
+          "pendingKey": null,
+          "bpm": 114,
+          "ctx": "running",
+          "sequencers": 1,
+          "coverPlaying": false,
+          "filterHz": 20000,
+          "filterTarget": 20000,
+          "transGain": 1,
+          "wired": true,
+          "graphFallback": false,
+          "hubModal": false,
+          "hubMilestones": 0,
+          "invasion": false,
+          "descent": null,
+          "descentCount": 0,
+          "landingCount": 0,
+          "lastLanding": null,
+          "keyRequests": 2,
+          "immediateSwitches": 2,
+          "coverStops": 0,
+          "missing": [],
+          "voices": {
+            "live": 7,
+            "dropped": 0,
+            "load": 0.11
+          },
+          "errors": []
+        }
+      }
+    },
+    {
+      "id": "T07-23",
+      "name": "llegada repetible ×2 y sin bloqueo residual",
+      "ok": true,
+      "detail": {
+        "plays": 3,
+        "completes": 3,
+        "lock": false
+      }
+    },
+    {
+      "id": "T07-24",
+      "name": "startCampaignFromHub(0) verdadero y descenso monitorizado",
+      "ok": true,
+      "detail": {
+        "started": true,
+        "frames": 99,
+        "completions": 1
+      }
+    },
+    {
+      "id": "T07-25",
+      "name": "progresión real de escalera/pozo (stairP>0.1 y fase skyfall)",
+      "ok": true,
+      "detail": {
+        "maxStairP": 1,
+        "phases": [
+          "plunge",
+          "skyfall",
+          "impact"
+        ],
+        "stages": [
+          "descent",
+          "arrival",
+          "landing"
+        ]
+      }
+    },
+    {
+      "id": "T07-26",
+      "name": "continuidad visual del pozo dibujada en gran parte del descenso",
+      "ok": true,
+      "detail": 86
+    },
+    {
+      "id": "T07-27",
+      "name": "NINGÚN fotograma negro durante el descenso",
+      "ok": true,
+      "detail": {
+        "min": 39.15,
+        "max": 48.94
+      }
+    },
+    {
+      "id": "T07-28",
+      "name": "audio de descenso existente intacto (1 secuenciador, eventos)",
+      "ok": true,
+      "detail": {
+        "seq": 1,
+        "events": [
+          "key:hub_afterparty @114 (inmediato)",
+          "cine:end",
+          "state:HUB → DESCENT",
+          "stairs:descenso hacia 0",
+          "key:limbo @118 (inmediato)",
+          "state:DESCENT → LANDING",
+          "landing:limbo",
+          "state:LANDING → EXPLORATION"
+        ]
+      }
+    },
+    {
+      "id": "T07-29",
+      "name": "destino LIMBO, control recuperado y zoom restaurado",
+      "ok": true,
+      "detail": {
+        "loc": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "lock": false,
+        "zoom": 0.9375,
+        "dungeonOk": true
+      }
+    },
+    {
+      "id": "T07-30",
+      "name": "regreso al HUB dispara de nuevo la llegada (repetible)",
+      "ok": true,
+      "detail": {
+        "result": true,
+        "inHub": true,
+        "plays": 4,
+        "reason": "hub-entry"
+      }
+    },
+    {
+      "id": "T07-31",
+      "name": "0 pageerror y 0 errores T07 en toda la sesión",
+      "ok": true,
+      "detail": {
+        "pageerrors": [],
+        "t07": [],
+        "hub7": []
+      }
+    },
+    {
+      "id": "T07-32",
+      "name": "estado final: applied, 168 V5, 6/6 T07, 6 actores",
+      "ok": true,
+      "detail": {
+        "status": "applied",
+        "v5": 168,
+        "registered": 6,
+        "actors": 6
+      }
+    },
+    {
+      "id": "T07-33",
+      "name": "sólo los 2 404 externos preexistentes de Fase 0",
+      "ok": true,
+      "detail": {
+        "warns": [
+          "error: Failed to load resource: the server responded with a status of 404 (File not found)",
+          "error: Failed to load resource: the server responded with a status of 404 (File not found)",
+          "warning: Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multip"
+        ],
+        "count404": 2
+      }
+    },
+    {
+      "id": "T07-34",
+      "name": "Yc.reduced: llegada corta (0,95 s) y NPC congelados",
+      "ok": true,
+      "detail": {
+        "dur": 0.95,
+        "allFrame0": true,
+        "staticX": true,
+        "reacts": true
+      }
+    }
+  ],
+  "evidence": {
+    "boot": {
+      "status": "applied",
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07",
+      "hub7": {
+        "version": "hub-tanda07",
+        "count": 6,
+        "productionUnits": 6,
+        "enabled": true,
+        "registered": 6,
+        "loaded": 6,
+        "exactSize": 6,
+        "errors": [],
+        "assets": [
+          {
+            "id": "T07-01",
+            "unit": "labio_acantilado",
+            "file": "ART_ASSETS/hub/tanda_07/01_labio/final/hub_t07_01_labio.png",
+            "alias": "h07_labio_acantilado",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              1500,
+              115
+            ],
+            "natural": [
+              1500,
+              115
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          },
+          {
+            "id": "T07-02",
+            "unit": "estrato_rococo",
+            "file": "ART_ASSETS/hub/tanda_07/02_estrato/final/hub_t07_02_estrato.png",
+            "alias": "h07_estrato_rococo",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              2100,
+              110
+            ],
+            "natural": [
+              2100,
+              110
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          },
+          {
+            "id": "T07-03",
+            "unit": "apertura_profundidad",
+            "file": "ART_ASSETS/hub/tanda_07/03_apertura/final/hub_t07_03_apertura.png",
+            "alias": "h07_apertura_profundidad",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              420,
+              260
+            ],
+            "natural": [
+              420,
+              260
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          },
+          {
+            "id": "T07-04",
+            "unit": "exterior_infernal",
+            "file": "ART_ASSETS/hub/tanda_07/04_exterior/final/hub_t07_04_exterior.jpg",
+            "alias": "h07_exterior_infernal",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              1280,
+              720
+            ],
+            "natural": [
+              1280,
+              720
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          },
+          {
+            "id": "T07-05",
+            "unit": "pozo_capas",
+            "file": "ART_ASSETS/hub/tanda_07/05_pozo/final/hub_t07_05_pozo.png",
+            "alias": "h07_pozo_capas",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              512,
+              1024
+            ],
+            "natural": [
+              512,
+              1024
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          },
+          {
+            "id": "T07-06",
+            "unit": "panorama_acantilado",
+            "file": "ART_ASSETS/hub/tanda_07/06_panorama/final/hub_t07_06_panorama.jpg",
+            "alias": "h07_panorama_acantilado",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              1280,
+              720
+            ],
+            "natural": [
+              1280,
+              720
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true
+          }
+        ],
+        "note": "6/6 PNG/JPG de TANDA 07 en el MISMO registro V5 y MISMO load()."
+      },
+      "v5Keys": 168,
+      "aliases": [
+        "h07_labio_acantilado",
+        "h07_estrato_rococo",
+        "h07_apertura_profundidad",
+        "h07_exterior_infernal",
+        "h07_pozo_capas",
+        "h07_panorama_acantilado"
+      ],
+      "resolve": [
+        {
+          "slot": "h07_labio_acantilado",
+          "ok": true
+        },
+        {
+          "slot": "h07_estrato_rococo",
+          "ok": true
+        },
+        {
+          "slot": "h07_apertura_profundidad",
+          "ok": true
+        },
+        {
+          "slot": "h07_exterior_infernal",
+          "ok": true
+        },
+        {
+          "slot": "h07_pozo_capas",
+          "ok": true
+        },
+        {
+          "slot": "h07_panorama_acantilado",
+          "ok": true
+        }
+      ],
+      "t01": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "enabled": true,
+        "applied": 10,
+        "slotsApplied": 9,
+        "errors": [],
+        "assets": [
+          {
+            "id": "HUB-01",
+            "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+            "loader": "T3B",
+            "managedBy": "MANIFEST/T01",
+            "slots": [
+              "t3b_material_01"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 0,
+            "classification": "Arquitectónico / Funcional",
+            "role": "Superficie principal del HUB (patrón repeat 512x512).",
+            "pivot": "tile",
+            "alpha": false,
+            "expected": [
+              512,
+              512
+            ],
+            "natural": [
+              512,
+              512
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-02",
+            "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_pista_medallion"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Decorativo",
+            "role": "Alfombra / medallón de identidad de la pista central.",
+            "pivot": "center",
+            "alpha": true,
+            "expected": [
+              760,
+              430
+            ],
+            "natural": [
+              760,
+              430
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-03",
+            "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+            "loader": "V5",
+            "managedBy": "ARCHITECTURE/T02",
+            "slots": [
+              "wall_stained_glass_arch"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Arquitectónico",
+            "role": "Panel de muro modular: delimita y da profundidad al perímetro.",
+            "pivot": "bottom-center",
+            "alpha": true,
+            "expected": [
+              120,
+              176
+            ],
+            "natural": [
+              120,
+              176
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-04",
+            "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_dj_shrine"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo",
+            "role": "Cabina del DJ, elemento protagonista (estación dj).",
+            "pivot": "bottom-center",
+            "alpha": true,
+            "expected": [
+              720,
+              392
+            ],
+            "natural": [
+              720,
+              392
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-05",
+            "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_bar_shrine"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo",
+            "role": "Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).",
+            "pivot": "bottom-center",
+            "alpha": true,
+            "expected": [
+              380,
+              313
+            ],
+            "natural": [
+              380,
+              313
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-06",
+            "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "club_speaker_tower_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Arquitectónico",
+            "role": "Columnas estructurales / torres acústicas: ritmo y volumen.",
+            "pivot": "bottom-center",
+            "alpha": true,
+            "expected": [
+              76,
+              148
+            ],
+            "natural": [
+              76,
+              148
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-07",
+            "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_vip_booth_nw",
+              "hub_vip_booth_ne"
+            ],
+            "slotsLive": 2,
+            "loaderResolves": 2,
+            "classification": "Decorativo",
+            "role": "Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).",
+            "pivot": "bottom-center",
+            "alpha": true,
+            "expected": [
+              224,
+              172
+            ],
+            "natural": [
+              224,
+              172
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-08",
+            "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_disco_chandelier"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Funcional / Decorativo",
+            "role": "Luminaria colgante de neón: iluminación ambiental sobre la pista.",
+            "pivot": "top-center",
+            "alpha": true,
+            "expected": [
+              67,
+              152
+            ],
+            "natural": [
+              67,
+              152
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-09",
+            "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_abyss_stair_crack"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo / Funcional",
+            "role": "Portal de descenso: acceso a otras zonas. No toca Ot.openT.",
+            "pivot": "center",
+            "alpha": true,
+            "expected": [
+              320,
+              175
+            ],
+            "natural": [
+              320,
+              175
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "HUB-10",
+            "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+            "loader": "V5",
+            "managedBy": "HUB",
+            "slots": [
+              "hub_trophy_board_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Decorativo",
+            "role": "Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.",
+            "pivot": "center",
+            "alpha": true,
+            "expected": [
+              167,
+              136
+            ],
+            "natural": [
+              167,
+              136
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          }
+        ],
+        "note": "Todos los slots son consumidos por los pintores reales del HUB; geometria, colisiones, sortY, puertas y camara permanecen en el motor."
+      },
+      "t02": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "enabled": true,
+        "applied": 10,
+        "slotsApplied": 10,
+        "errors": [],
+        "assets": [
+          {
+            "id": "T02-01",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+            "loader": "V5",
+            "slots": [
+              "hub_arcade_shrine"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo / Mobiliario secundario",
+            "role": "Banco de recreativas del Rincon Arcade (zona F1).",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              264,
+              239
+            ],
+            "natural": [
+              264,
+              239
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-02",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+            "loader": "V5",
+            "slots": [
+              "hub_arsenal_shrine"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo / Mobiliario funcional",
+            "role": "Mostrador del Arsenal de Caronte (zona D).",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              360,
+              253
+            ],
+            "natural": [
+              360,
+              253
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-03",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+            "loader": "V5",
+            "slots": [
+              "hub_seals_shrine"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Interactivo / Objeto narrativo",
+            "role": "Espejo de los Sellos (zona F2).",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              244,
+              237
+            ],
+            "natural": [
+              244,
+              237
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-04",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+            "loader": "V5",
+            "slots": [
+              "club_vending_machine_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Decorativo / Equipamiento de discoteca",
+            "role": "Maquina expendedora del lado este.",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              100,
+              152
+            ],
+            "natural": [
+              100,
+              152
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-05",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+            "loader": "V5",
+            "slots": [
+              "club_water_cooler_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Decorativo / Objeto narrativo",
+            "role": "Dispensador de agua del lado oeste.",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              61,
+              136
+            ],
+            "natural": [
+              61,
+              136
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-06",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+            "loader": "V5",
+            "slots": [
+              "limbo_bench_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Decorativo / Mobiliario secundario",
+            "role": "Bancos gemelos junto al descenso.",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              256,
+              198
+            ],
+            "natural": [
+              256,
+              198
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-07",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+            "loader": "V5",
+            "slots": [
+              "club_neon_planter_prop"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 0,
+            "classification": "Decorativo / Variante visual",
+            "role": "Cuatro jardineras fijas del HUB.",
+            "pivot": "bottom-center",
+            "cachedLayer": false,
+            "expected": [
+              96,
+              108
+            ],
+            "natural": [
+              96,
+              108
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-08",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+            "loader": "V5",
+            "slots": [
+              "descent_abyssal_lift_pad"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Funcional / Interactivo",
+            "role": "Plataforma de descenso y puertas de sala.",
+            "pivot": "center",
+            "cachedLayer": false,
+            "expected": [
+              198,
+              104
+            ],
+            "natural": [
+              198,
+              104
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-09",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+            "loader": "V5",
+            "slots": [
+              "wall_ceiling_neon_fixture"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Arquitectonico / Iluminacion",
+            "role": "Barra de neon horizontal de techo/muro (capa de pared en cache).",
+            "pivot": "center",
+            "cachedLayer": true,
+            "expected": [
+              148,
+              38
+            ],
+            "natural": [
+              148,
+              38
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T02-10",
+            "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+            "loader": "V5",
+            "slots": [
+              "club_wall_sconce_side"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "classification": "Arquitectonico / Senalizacion luminosa",
+            "role": "Apliques laterales de pared (capa de aristas en cache).",
+            "pivot": "center",
+            "cachedLayer": true,
+            "expected": [
+              48,
+              60
+            ],
+            "natural": [
+              48,
+              60
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "live": true,
+            "originalsPreserved": true
+          }
+        ],
+        "note": "Solo se sustituye el Image de slots que el motor ya dibuja; geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor."
+      },
+      "t03": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "productionUnits": 8,
+        "enabled": true,
+        "registered": 13,
+        "loaded": 13,
+        "exactSize": 13,
+        "blocked": 13,
+        "verifiedDraws": 0,
+        "registeredDrawSlots": 1,
+        "errors": [],
+        "assets": [
+          {
+            "id": "T03-01",
+            "unit": "HUB_FLOOR_PATCH_O",
+            "file": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/final/hub_floor_patch_o.png",
+            "alias": "h03_floor_patch_o",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Arquitectonico / Suelo (Familia A)",
+            "orientation": "OESTE",
+            "worldBox": [
+              290,
+              720,
+              580,
+              430
+            ],
+            "expected": [
+              580,
+              430
+            ],
+            "natural": [
+              580,
+              430
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-02",
+            "unit": "HUB_FLOOR_PATCH_E",
+            "file": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/final/hub_floor_patch_e.png",
+            "alias": "h03_floor_patch_e",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Arquitectonico / Suelo (Familia A)",
+            "orientation": "ESTE",
+            "worldBox": [
+              1630,
+              720,
+              580,
+              430
+            ],
+            "expected": [
+              580,
+              430
+            ],
+            "natural": [
+              580,
+              430
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-03",
+            "unit": "HUB_FLOOR_PATCH_S_CRACK",
+            "file": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png",
+            "alias": "h03_floor_patch_s_crack",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Arquitectonico / Suelo (Familia A)",
+            "orientation": "SUR",
+            "worldBox": [
+              870,
+              1256,
+              760,
+              329
+            ],
+            "expected": [
+              760,
+              329
+            ],
+            "natural": [
+              760,
+              329
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-04",
+            "unit": "HUB_FLOOR_NORTH_DJ",
+            "file": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/final/hub_floor_north_dj.png",
+            "alias": "h03_floor_north_dj",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Arquitectonico / Suelo (Familia A)",
+            "orientation": "NORTE",
+            "worldBox": [
+              870,
+              265,
+              760,
+              224
+            ],
+            "expected": [
+              760,
+              224
+            ],
+            "natural": [
+              760,
+              224
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-05",
+            "unit": "HUB_PLANTER_VARIANT_02",
+            "file": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/final/hub_planter_variant_02.png",
+            "alias": "h03_planter_variant_02",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Mobiliario / Variante (Familia B)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              96,
+              108
+            ],
+            "natural": [
+              96,
+              108
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-06",
+            "unit": "HUB_BENCH_VARIANT_02",
+            "file": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/final/hub_bench_variant_02.png",
+            "alias": "h03_bench_variant_02",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Mobiliario / Variante (Familia B)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              256,
+              198
+            ],
+            "natural": [
+              256,
+              198
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-07",
+            "unit": "HUB_VIP_BOOTH_LOUNGE",
+            "file": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/final/hub_vip_booth_lounge.png",
+            "alias": "h03_vip_booth_lounge",
+            "aliasLive": true,
+            "slots": [
+              "hub_vip_booth_lounge"
+            ],
+            "slotsLive": 1,
+            "loaderResolves": 1,
+            "drawSlot": "hub_vip_booth_lounge",
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Espacio VIP / Setpiece de MENU (Familia C)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              216,
+              136
+            ],
+            "natural": [
+              216,
+              136
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-A",
+            "unit": "HUB_ZONE_SIGNAGE/A",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+            "alias": "h03_zone_signage_a",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-B",
+            "unit": "HUB_ZONE_SIGNAGE/B",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+            "alias": "h03_zone_signage_b",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-C",
+            "unit": "HUB_ZONE_SIGNAGE/C",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+            "alias": "h03_zone_signage_c",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-D",
+            "unit": "HUB_ZONE_SIGNAGE/D",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+            "alias": "h03_zone_signage_d",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-E",
+            "unit": "HUB_ZONE_SIGNAGE/E",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+            "alias": "h03_zone_signage_e",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          },
+          {
+            "id": "T03-08-F",
+            "unit": "HUB_ZONE_SIGNAGE/F",
+            "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+            "alias": "h03_zone_signage_f",
+            "aliasLive": true,
+            "slots": [],
+            "slotsLive": 0,
+            "loaderResolves": 0,
+            "drawSlot": null,
+            "blocked": true,
+            "visibleInGame": false,
+            "rendererInactiveD07": false,
+            "classification": "Senaletica diegetica / Sistema (Familia D)",
+            "orientation": null,
+            "worldBox": null,
+            "expected": [
+              192,
+              128
+            ],
+            "natural": [
+              192,
+              128
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "originalsPreserved": true
+          }
+        ],
+        "note": "13/13 PNG registrados; 8/8 unidades BLOQUEADAS para render. El unico pintor del codigo (MENU) no esta activo en el build (D-07): 0 drawImage medidos. No se inventa render nuevo ni se toca el HTML."
+      },
+      "t05": {
+        "version": "hub-tanda05",
+        "count": 10,
+        "productionUnits": 10,
+        "enabled": true,
+        "registered": 10,
+        "loaded": 10,
+        "exactSize": 10,
+        "errors": [],
+        "assets": [
+          {
+            "id": "T05-01",
+            "unit": "garra_del_limbo",
+            "file": "ART_ASSETS/hub/tanda_05/01_garra_del_limbo/final/hub_t05_01_garra_del_limbo.png",
+            "alias": "h05_garra_del_limbo",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              147,
+              280
+            ],
+            "natural": [
+              147,
+              280
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-02",
+            "unit": "banco_del_olvido",
+            "file": "ART_ASSETS/hub/tanda_05/02_banco_del_olvido/final/hub_t05_02_banco_del_olvido.png",
+            "alias": "h05_banco_del_olvido",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              133,
+              240
+            ],
+            "natural": [
+              133,
+              240
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-03",
+            "unit": "subwoofer_stack",
+            "file": "ART_ASSETS/hub/tanda_05/03_subwoofer_stack/final/hub_t05_03_subwoofer_stack.png",
+            "alias": "h05_subwoofer_stack",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              253,
+              160
+            ],
+            "natural": [
+              253,
+              160
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-04",
+            "unit": "video_wall",
+            "file": "ART_ASSETS/hub/tanda_05/04_video_wall/final/hub_t05_04_video_wall.png",
+            "alias": "h05_video_wall",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              249,
+              144
+            ],
+            "natural": [
+              249,
+              144
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-05",
+            "unit": "consola_auxiliar",
+            "file": "ART_ASSETS/hub/tanda_05/05_consola_aux/final/hub_t05_05_consola_aux.png",
+            "alias": "h05_consola_aux",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              150,
+              140
+            ],
+            "natural": [
+              150,
+              140
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1523,
+              450,
+              75,
+              70
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-06",
+            "unit": "neon_ultimo_trago",
+            "file": "ART_ASSETS/hub/tanda_05/06_neon_ultimo_trago/final/hub_t05_06_neon_ultimo_trago.png",
+            "alias": "h05_neon_ultimo_trago",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              201,
+              192
+            ],
+            "natural": [
+              201,
+              192
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-07",
+            "unit": "cartel_ultima_sesion",
+            "file": "ART_ASSETS/hub/tanda_05/07_cartel_ultima_sesion/final/hub_t05_07_cartel_ultima_sesion.png",
+            "alias": "h05_cartel_ultima_sesion",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              196,
+              130
+            ],
+            "natural": [
+              196,
+              130
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-08",
+            "unit": "line_array_colgante",
+            "file": "ART_ASSETS/hub/tanda_05/08_line_array/final/hub_t05_08_line_array.png",
+            "alias": "h05_line_array",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              68,
+              178
+            ],
+            "natural": [
+              68,
+              178
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-09",
+            "unit": "cordon_vip",
+            "file": "ART_ASSETS/hub/tanda_05/09_cordon_vip/final/hub_t05_09_cordon_vip.png",
+            "alias": "h05_cordon_vip",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              128,
+              120
+            ],
+            "natural": [
+              128,
+              120
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T05-10",
+            "unit": "confesionario_neon",
+            "file": "ART_ASSETS/hub/tanda_05/10_confesionario/final/hub_t05_10_confesionario.png",
+            "alias": "h05_confesionario",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              158,
+              260
+            ],
+            "natural": [
+              158,
+              260
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "originalsPreserved": true
+          }
+        ],
+        "note": "10/10 PNG de TANDA 05 en el MISMO registro V5 y MISMO load(). El render se mide en el HUB con drawImage por unidad."
+      },
+      "t06": {
+        "version": "hub-tanda06",
+        "count": 10,
+        "productionUnits": 10,
+        "enabled": true,
+        "registered": 10,
+        "loaded": 10,
+        "exactSize": 10,
+        "errors": [],
+        "assets": [
+          {
+            "id": "T06-01",
+            "unit": "paramento_norte_oeste",
+            "file": "ART_ASSETS/hub/tanda_06/01_paramento_norte_o/final/hub_t06_01_paramento_norte_o.png",
+            "alias": "h06_paramento_norte_o",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              391,
+              162
+            ],
+            "natural": [
+              391,
+              162
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              500,
+              180,
+              362,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-02",
+            "unit": "paramento_norte_central",
+            "file": "ART_ASSETS/hub/tanda_06/02_paramento_norte_c/final/hub_t06_02_paramento_norte_c.png",
+            "alias": "h06_paramento_norte_c",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              544,
+              162
+            ],
+            "natural": [
+              544,
+              162
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              862,
+              180,
+              504,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-03",
+            "unit": "paramento_norte_este",
+            "file": "ART_ASSETS/hub/tanda_06/03_paramento_norte_e/final/hub_t06_03_paramento_norte_e.png",
+            "alias": "h06_paramento_norte_e",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              529,
+              162
+            ],
+            "natural": [
+              529,
+              162
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1366,
+              180,
+              490,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-04",
+            "unit": "machon_esquina_noroeste",
+            "file": "ART_ASSETS/hub/tanda_06/04_machon_esquina_no/final/hub_t06_04_machon_esquina_no.png",
+            "alias": "h06_machon_esquina_no",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              138,
+              162
+            ],
+            "natural": [
+              138,
+              162
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              536,
+              180,
+              128,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-05",
+            "unit": "machon_esquina_noreste",
+            "file": "ART_ASSETS/hub/tanda_06/05_machon_esquina_ne/final/hub_t06_05_machon_esquina_ne.png",
+            "alias": "h06_machon_esquina_ne",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              120,
+              162
+            ],
+            "natural": [
+              120,
+              162
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1845,
+              180,
+              111,
+              150
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-06",
+            "unit": "paramento_oeste",
+            "file": "ART_ASSETS/hub/tanda_06/06_paramento_oeste/final/hub_t06_06_paramento_oeste.png",
+            "alias": "h06_paramento_oeste",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              110,
+              392
+            ],
+            "natural": [
+              110,
+              392
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              277,
+              780,
+              107,
+              380
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-07",
+            "unit": "paramento_este",
+            "file": "ART_ASSETS/hub/tanda_06/07_paramento_este/final/hub_t06_07_paramento_este.png",
+            "alias": "h06_paramento_este",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              86,
+              392
+            ],
+            "natural": [
+              86,
+              392
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              2129,
+              780,
+              83,
+              380
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-08",
+            "unit": "viga_caseton_techo",
+            "file": "ART_ASSETS/hub/tanda_06/08_viga_caseton_techo/final/hub_t06_08_viga_caseton_techo.png",
+            "alias": "h06_viga_caseton_techo",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              587,
+              102
+            ],
+            "natural": [
+              587,
+              102
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              991,
+              240,
+              518,
+              90
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-09",
+            "unit": "cortinaje_acustico",
+            "file": "ART_ASSETS/hub/tanda_06/09_cortinaje_acustico/final/hub_t06_09_cortinaje_acustico.png",
+            "alias": "h06_cortinaje_acustico",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              101,
+              242
+            ],
+            "natural": [
+              101,
+              242
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1817,
+              200,
+              96,
+              230
+            ],
+            "originalsPreserved": true
+          },
+          {
+            "id": "T06-10",
+            "unit": "zocalo_remate_suelo",
+            "file": "ART_ASSETS/hub/tanda_06/10_zocalo_remate_suelo/final/hub_t06_10_zocalo_remate_suelo.png",
+            "alias": "h06_zocalo_remate_suelo",
+            "aliasLive": true,
+            "loaderResolves": 1,
+            "expected": [
+              428,
+              48
+            ],
+            "natural": [
+              428,
+              48
+            ],
+            "exactSize": true,
+            "loaded": true,
+            "registered": true,
+            "worldBox": [
+              1090,
+              304,
+              321,
+              36
+            ],
+            "originalsPreserved": true
+          }
+        ],
+        "note": "10/10 PNG de TANDA 06 en el MISMO registro V5 y MISMO load()."
+      },
+      "t07api": true,
+      "hooks": false,
+      "canvases": 27
+    },
+    "autoArrival": {
+      "poll": [
+        {
+          "i": -1,
+          "act": true,
+          "t": 0.67,
+          "plays": 1,
+          "scr": 17,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 0.8,
+          "plays": 1,
+          "scr": 20,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 0.92,
+          "plays": 1,
+          "scr": 23,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 1.27,
+          "plays": 1,
+          "scr": 31,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 1.38,
+          "plays": 1,
+          "scr": 34,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 1.52,
+          "plays": 1,
+          "scr": 37,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 1.65,
+          "plays": 1,
+          "scr": 40,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": true,
+          "t": 1.77,
+          "plays": 1,
+          "scr": 43,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        },
+        {
+          "i": -1,
+          "act": false,
+          "t": 1.85,
+          "plays": 1,
+          "scr": 45,
+          "lock": false,
+          "mode": "EXPLORATION",
+          "modal": false,
+          "loc": "HUB",
+          "seq": 1
+        }
+      ],
+      "state": {
+        "a": {
+          "active": false,
+          "pending": false,
+          "t": 1.85,
+          "dur": 1.85,
+          "reason": "hub-entry",
+          "plays": 1,
+          "completes": 1,
+          "restored": true
+        },
+        "c": {
+          "geography": 134,
+          "ambient": 134,
+          "screen": 45,
+          "descentScreen": 0,
+          "updates": 134
+        },
+        "h": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 4.25,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 2,
+          "transitionsCompleted": 0,
+          "transitionErrors": 0,
+          "officialUntainted": true
+        },
+        "mu": {
+          "version": "3.8.0-music",
+          "state": "HUB",
+          "prev": "MENU",
+          "since": 5,
+          "key": "hub_afterparty",
+          "pendingKey": null,
+          "bpm": 114,
+          "ctx": "running",
+          "sequencers": 1,
+          "coverPlaying": false,
+          "filterHz": 20000,
+          "filterTarget": 20000,
+          "transGain": 1,
+          "wired": true,
+          "graphFallback": false,
+          "hubModal": false,
+          "hubMilestones": 0,
+          "invasion": false,
+          "descent": null,
+          "descentCount": 0,
+          "landingCount": 0,
+          "lastLanding": null,
+          "keyRequests": 2,
+          "immediateSwitches": 2,
+          "coverStops": 0,
+          "missing": [],
+          "voices": {
+            "live": 8,
+            "dropped": 0,
+            "load": 0.13
+          },
+          "errors": []
+        },
+        "cam": {
+          "x": 1250,
+          "y": 975,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": 10
+          }
+        },
+        "audit": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": true
+        }
+      },
+      "lum": [
+        47.37,
+        47.36,
+        47.4
+      ]
+    },
+    "npc": {
+      "samples": [
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1119,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 958,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1119,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 955,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1120,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 952,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1120,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 947,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1120,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 944,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1121,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 938,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1121,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 933,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 925,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 919,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 912,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 903,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 897,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 890,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1383,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 882,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 878,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 869,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 863,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1382,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 857,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1381,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 852,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1123,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1381,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 847,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1381,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 843,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1380,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 841,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1122,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1380,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 839,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1121,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1380,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 838,
+            "flip": true,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1121,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1379,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 838,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1121,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1379,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 839,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1120,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 1,
+            "x": 1379,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 1,
+            "x": 840,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 2,
+            "x": 1120,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1378,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 843,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 3,
+            "x": 1119,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 2,
+            "x": 1378,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 2,
+            "x": 845,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1119,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1378,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 848,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 0,
+            "x": 1119,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 3,
+            "x": 1378,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 3,
+            "x": 853,
+            "flip": false,
+            "r": 0
+          }
+        ],
+        [
+          {
+            "id": "t07_danza_01",
+            "act": "dance",
+            "f": 1,
+            "x": 1118,
+            "flip": false,
+            "r": 0.467
+          },
+          {
+            "id": "t07_danza_02",
+            "act": "dance",
+            "f": 0,
+            "x": 1377,
+            "flip": true,
+            "r": 0.467
+          },
+          {
+            "id": "t07_charla_01",
+            "act": "talk",
+            "f": 0,
+            "x": 1690,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_charla_02",
+            "act": "talk",
+            "f": 0,
+            "x": 1780,
+            "flip": true,
+            "r": 0
+          },
+          {
+            "id": "t07_descanso",
+            "act": "rest",
+            "f": 0,
+            "x": 1910,
+            "flip": false,
+            "r": 0
+          },
+          {
+            "id": "t07_recorrido",
+            "act": "walk",
+            "f": 0,
+            "x": 859,
+            "flip": false,
+            "r": 0
+          }
+        ]
+      ],
+      "activities": {
+        "dance": 2,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "react": [
+        {
+          "id": "t07_danza_01",
+          "r": 1
+        }
+      ],
+      "danceFrames": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "walkFrames": [
+        2,
+        3,
+        0,
+        1
+      ],
+      "walkX": [
+        958,
+        955,
+        952,
+        947,
+        944,
+        938,
+        933,
+        925,
+        919,
+        912,
+        903,
+        897,
+        890,
+        882,
+        878,
+        869,
+        863,
+        857,
+        852,
+        847,
+        843,
+        841,
+        839,
+        838,
+        840,
+        845,
+        848,
+        853,
+        859
+      ]
+    },
+    "movement": {
+      "before": {
+        "x": 1150,
+        "y": 960
+      },
+      "after": {
+        "x": 1345,
+        "y": 975
+      },
+      "movedX": 195
+    },
+    "ab": {
+      "onDelta": 20,
+      "offDelta": 0,
+      "stripDiff": 37.41
+    },
+    "descent": {
+      "started": true,
+      "samples": [
+        {
+          "i": 0,
+          "act": false,
+          "frames": 0,
+          "comp": 0,
+          "scr": 0,
+          "phase": "plunge",
+          "stage": "approach",
+          "stairP": 0,
+          "shaftOpen": 0,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "HUB",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 48.94
+        },
+        {
+          "i": 1,
+          "act": true,
+          "frames": 3,
+          "comp": 0,
+          "scr": 3,
+          "phase": "plunge",
+          "stage": "approach",
+          "stairP": 0,
+          "shaftOpen": 0,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.03125,
+          "lum": 44.91
+        },
+        {
+          "i": 2,
+          "act": true,
+          "frames": 8,
+          "comp": 0,
+          "scr": 8,
+          "phase": "plunge",
+          "stage": "approach",
+          "stairP": 0,
+          "shaftOpen": 0.082,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.03125,
+          "lum": 43.84
+        },
+        {
+          "i": 3,
+          "act": true,
+          "frames": 20,
+          "comp": 0,
+          "scr": 20,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.089,
+          "shaftOpen": 0.651,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.0229179687499999,
+          "lum": 42.71
+        },
+        {
+          "i": 4,
+          "act": true,
+          "frames": 25,
+          "comp": 0,
+          "scr": 25,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.186,
+          "shaftOpen": 0.903,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.01380859375,
+          "lum": 42.6
+        },
+        {
+          "i": 5,
+          "act": true,
+          "frames": 30,
+          "comp": 0,
+          "scr": 30,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.269,
+          "shaftOpen": 0.999,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.00599609375,
+          "lum": 43.07
+        },
+        {
+          "i": 6,
+          "act": true,
+          "frames": 35,
+          "comp": 0,
+          "scr": 35,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.36,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9975312499999999,
+          "lum": 43.09
+        },
+        {
+          "i": 7,
+          "act": true,
+          "frames": 43,
+          "comp": 0,
+          "scr": 43,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.499,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9845078124999999,
+          "lum": 43.64
+        },
+        {
+          "i": 8,
+          "act": true,
+          "frames": 47,
+          "comp": 0,
+          "scr": 47,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.568,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9779999999999999,
+          "lum": 42.77
+        },
+        {
+          "i": 9,
+          "act": true,
+          "frames": 51,
+          "comp": 0,
+          "scr": 51,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.637,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9714921874999998,
+          "lum": 42.72
+        },
+        {
+          "i": 10,
+          "act": true,
+          "frames": 56,
+          "comp": 0,
+          "scr": 56,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.728,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.96302734375,
+          "lum": 42.91
+        },
+        {
+          "i": 11,
+          "act": true,
+          "frames": 69,
+          "comp": 0,
+          "scr": 69,
+          "phase": "plunge",
+          "stage": "descent",
+          "stairP": 0.957,
+          "shaftOpen": 1,
+          "loc": "TRANSITION",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.94155078125,
+          "lum": 41.79
+        },
+        {
+          "i": 12,
+          "act": true,
+          "frames": 72,
+          "comp": 0,
+          "scr": 72,
+          "phase": "skyfall",
+          "stage": "arrival",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 1.0125000000000002,
+          "lum": 39.15
+        },
+        {
+          "i": 13,
+          "act": true,
+          "frames": 77,
+          "comp": 0,
+          "scr": 77,
+          "phase": "skyfall",
+          "stage": "arrival",
+          "stairP": 0.373,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9551217672413791,
+          "lum": 39.32
+        },
+        {
+          "i": 14,
+          "act": true,
+          "frames": 82,
+          "comp": 0,
+          "scr": 82,
+          "phase": "skyfall",
+          "stage": "arrival",
+          "stairP": 0.718,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": true,
+          "mstate": "DESCENT",
+          "seq": 1,
+          "zoom": 0.9454234913793103,
+          "lum": 39.41
+        },
+        {
+          "i": 15,
+          "act": true,
+          "frames": 93,
+          "comp": 0,
+          "scr": 86,
+          "phase": "impact",
+          "stage": "landing",
+          "stairP": 1,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": true,
+          "mstate": "LANDING",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 42.46
+        },
+        {
+          "i": 16,
+          "act": true,
+          "frames": 98,
+          "comp": 0,
+          "scr": 86,
+          "phase": "impact",
+          "stage": "landing",
+          "stairP": 1,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": true,
+          "mstate": "LANDING",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 42.52
+        },
+        {
+          "i": 17,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.93
+        },
+        {
+          "i": 18,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.2
+        },
+        {
+          "i": 19,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.5
+        },
+        {
+          "i": 20,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.54
+        },
+        {
+          "i": 21,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.54
+        },
+        {
+          "i": 22,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.53
+        },
+        {
+          "i": 23,
+          "act": false,
+          "frames": 99,
+          "comp": 1,
+          "scr": 86,
+          "phase": "idle",
+          "stage": "idle",
+          "stairP": 0,
+          "shaftOpen": 1,
+          "loc": "CAMPAIGN_ROOM",
+          "lock": false,
+          "mstate": "EXPLORATION",
+          "seq": 1,
+          "zoom": 0.9375,
+          "lum": 41.55
+        }
+      ],
+      "lum": [
+        48.94,
+        44.91,
+        43.84,
+        42.71,
+        42.6,
+        43.07,
+        43.09,
+        43.64,
+        42.77,
+        42.72,
+        42.91,
+        41.79,
+        39.15,
+        39.32,
+        39.41,
+        42.46,
+        42.52,
+        41.93,
+        41.2,
+        41.5,
+        41.54,
+        41.54,
+        41.53,
+        41.55
+      ],
+      "end": {
+        "t": {
+          "version": "3.9.0-tanda07",
+          "enabled": true,
+          "clock": 24.53,
+          "flag": "ON",
+          "arrival": {
+            "active": false,
+            "pending": false,
+            "t": 1.85,
+            "dur": 1.85,
+            "reason": "manual",
+            "plays": 3,
+            "completes": 3,
+            "restored": true
+          },
+          "descent": {
+            "active": false,
+            "frames": 99,
+            "completions": 1,
+            "lastKind": "hub-to-campaign",
+            "samples": [
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.943,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.957,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.978,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.992,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.086,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.172,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.23,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.316,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.373,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.431,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.488,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.546,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.632,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.718,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.776,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.862,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.919,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.977,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": false,
+                "kind": "hub-to-campaign"
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "t07_danza_01",
+              "act": "dance",
+              "x": 1120,
+              "y": 900,
+              "h": 96,
+              "phase": 0.35,
+              "rate": 1,
+              "flip": false,
+              "col": "#ec4899",
+              "lastFrame": 3,
+              "lastReact": 0.448,
+              "lastX": 1118,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_danza_02",
+              "act": "dance",
+              "x": 1380,
+              "y": 900,
+              "h": 96,
+              "phase": 2.15,
+              "rate": 0.86,
+              "flip": true,
+              "col": "#22d3ee",
+              "lastFrame": 3,
+              "lastReact": 0.448,
+              "lastX": 1378,
+              "lastFlip": true
+            },
+            {
+              "id": "t07_charla_01",
+              "act": "talk",
+              "x": 1690,
+              "y": 1010,
+              "h": 92,
+              "phase": 0.8,
+              "rate": 0.55,
+              "flip": false,
+              "col": "#f472b6",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1690,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_charla_02",
+              "act": "talk",
+              "x": 1780,
+              "y": 1010,
+              "h": 92,
+              "phase": 2.6,
+              "rate": 0.48,
+              "flip": true,
+              "col": "#67e8f9",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1780,
+              "lastFlip": true
+            },
+            {
+              "id": "t07_descanso",
+              "act": "rest",
+              "x": 1910,
+              "y": 900,
+              "h": 88,
+              "phase": 1.4,
+              "rate": 0.3,
+              "flip": false,
+              "col": "#a855f7",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1910,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_recorrido",
+              "act": "walk",
+              "x": 900,
+              "y": 700,
+              "h": 94,
+              "phase": 3.3,
+              "rate": 0.72,
+              "flip": false,
+              "col": "#fde047",
+              "span": 62,
+              "lastFrame": 1,
+              "lastReact": 0,
+              "lastX": 870,
+              "lastFlip": false
+            }
+          ],
+          "lastLocation": "CAMPAIGN_ROOM",
+          "counts": {
+            "geography": 578,
+            "ambient": 606,
+            "screen": 234,
+            "descentScreen": 86,
+            "updates": 684
+          },
+          "errors": [],
+          "lastError": "",
+          "assets": [
+            {
+              "slot": "h07_labio_acantilado",
+              "loaded": true
+            },
+            {
+              "slot": "h07_estrato_rococo",
+              "loaded": true
+            },
+            {
+              "slot": "h07_apertura_profundidad",
+              "loaded": true
+            },
+            {
+              "slot": "h07_exterior_infernal",
+              "loaded": true
+            },
+            {
+              "slot": "h07_pozo_capas",
+              "loaded": true
+            },
+            {
+              "slot": "h07_panorama_acantilado",
+              "loaded": true
+            }
+          ],
+          "audioTouched": false,
+          "cameraTouched": false,
+          "newCanvases": 0,
+          "newRAF": 0,
+          "hooksInstalled": true
+        },
+        "h": {
+          "version": "3.5.0-hub-proto",
+          "inHub": false,
+          "location": "CAMPAIGN_ROOM",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 18.15,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 1,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        },
+        "m": {
+          "version": "3.8.0-music",
+          "state": "EXPLORATION",
+          "prev": "LANDING",
+          "since": 1.52,
+          "key": "limbo",
+          "pendingKey": null,
+          "bpm": 118,
+          "ctx": "running",
+          "sequencers": 1,
+          "coverPlaying": false,
+          "filterHz": 20000,
+          "filterTarget": 20000,
+          "transGain": 1,
+          "wired": true,
+          "graphFallback": false,
+          "hubModal": false,
+          "hubMilestones": 0,
+          "invasion": false,
+          "descent": null,
+          "descentCount": 1,
+          "landingCount": 1,
+          "lastLanding": "limbo",
+          "keyRequests": 3,
+          "immediateSwitches": 3,
+          "coverStops": 0,
+          "missing": [],
+          "voices": {
+            "live": 1,
+            "dropped": 0,
+            "load": 0.02
+          },
+          "errors": []
+        },
+        "ev": [
+          {
+            "t": 0,
+            "kind": "key",
+            "detail": "intro_party @126 (inmediato)"
+          },
+          {
+            "t": 0,
+            "kind": "cine",
+            "detail": "begin (fiesta: intro_party 126)"
+          },
+          {
+            "t": 0,
+            "kind": "cine",
+            "detail": "sting:esclusa"
+          },
+          {
+            "t": 0.05,
+            "kind": "graph",
+            "detail": "lowpass+transition gain insertado tras Xl.music"
+          },
+          {
+            "t": 0.05,
+            "kind": "state",
+            "detail": "MENU → HUB"
+          },
+          {
+            "t": 0.8,
+            "kind": "key",
+            "detail": "hub_afterparty @114 (inmediato)"
+          },
+          {
+            "t": 0.8,
+            "kind": "cine",
+            "detail": "end"
+          },
+          {
+            "t": 19,
+            "kind": "state",
+            "detail": "HUB → DESCENT"
+          },
+          {
+            "t": 19.58,
+            "kind": "stairs",
+            "detail": "descenso hacia 0"
+          },
+          {
+            "t": 21.06,
+            "kind": "key",
+            "detail": "limbo @118 (inmediato)"
+          },
+          {
+            "t": 22.61,
+            "kind": "state",
+            "detail": "DESCENT → LANDING"
+          },
+          {
+            "t": 22.61,
+            "kind": "landing",
+            "detail": "limbo"
+          },
+          {
+            "t": 23.01,
+            "kind": "state",
+            "detail": "LANDING → EXPLORATION"
+          }
+        ],
+        "cam": {
+          "x": 1250,
+          "y": 925,
+          "zoom": 0.9375,
+          "viewW": 1365,
+          "viewH": 960,
+          "lead": {
+            "x": 0,
+            "y": -10
+          }
+        },
+        "dungeon": {
+          "ok": true,
+          "errors": [],
+          "rooms": 12,
+          "bossDistance": 5
+        }
+      }
+    },
+    "returnToHub": {
+      "result": true,
+      "state": {
+        "t": {
+          "version": "3.9.0-tanda07",
+          "enabled": true,
+          "clock": 29.7,
+          "flag": "ON",
+          "arrival": {
+            "active": true,
+            "pending": false,
+            "t": 1.1331999999999973,
+            "dur": 1.85,
+            "reason": "hub-entry",
+            "plays": 4,
+            "completes": 3,
+            "restored": true
+          },
+          "descent": {
+            "active": false,
+            "frames": 106,
+            "completions": 2,
+            "lastKind": "milestone-to-hub",
+            "samples": [
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.971,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.984,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "plunge",
+                "stage": "descent",
+                "stairP": 0.998,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.086,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.172,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.23,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.287,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.345,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.402,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.488,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.546,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.603,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.661,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.718,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.776,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.833,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.919,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "skyfall",
+                "stage": "arrival",
+                "stairP": 0.977,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              },
+              {
+                "phase": "impact",
+                "stage": "landing",
+                "stairP": 1,
+                "shaftOpen": 1,
+                "plungeOffsetY": 0,
+                "toHub": true,
+                "kind": "milestone-to-hub"
+              }
+            ]
+          },
+          "actors": [
+            {
+              "id": "t07_danza_01",
+              "act": "dance",
+              "x": 1120,
+              "y": 900,
+              "h": 96,
+              "phase": 0.35,
+              "rate": 1,
+              "flip": false,
+              "col": "#ec4899",
+              "lastFrame": 2,
+              "lastReact": 0,
+              "lastX": 1123,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_danza_02",
+              "act": "dance",
+              "x": 1380,
+              "y": 900,
+              "h": 96,
+              "phase": 2.15,
+              "rate": 0.86,
+              "flip": true,
+              "col": "#22d3ee",
+              "lastFrame": 1,
+              "lastReact": 0,
+              "lastX": 1377,
+              "lastFlip": true
+            },
+            {
+              "id": "t07_charla_01",
+              "act": "talk",
+              "x": 1690,
+              "y": 1010,
+              "h": 92,
+              "phase": 0.8,
+              "rate": 0.55,
+              "flip": false,
+              "col": "#f472b6",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1690,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_charla_02",
+              "act": "talk",
+              "x": 1780,
+              "y": 1010,
+              "h": 92,
+              "phase": 2.6,
+              "rate": 0.48,
+              "flip": true,
+              "col": "#67e8f9",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1780,
+              "lastFlip": true
+            },
+            {
+              "id": "t07_descanso",
+              "act": "rest",
+              "x": 1910,
+              "y": 900,
+              "h": 88,
+              "phase": 1.4,
+              "rate": 0.3,
+              "flip": false,
+              "col": "#a855f7",
+              "lastFrame": 0,
+              "lastReact": 0,
+              "lastX": 1910,
+              "lastFlip": false
+            },
+            {
+              "id": "t07_recorrido",
+              "act": "walk",
+              "x": 900,
+              "y": 700,
+              "h": 94,
+              "phase": 3.3,
+              "rate": 0.72,
+              "flip": false,
+              "col": "#fde047",
+              "span": 62,
+              "lastFrame": 2,
+              "lastReact": 0,
+              "lastX": 942,
+              "lastFlip": false
+            }
+          ],
+          "lastLocation": "HUB",
+          "counts": {
+            "geography": 636,
+            "ambient": 741,
+            "screen": 369,
+            "descentScreen": 179,
+            "updates": 819
+          },
+          "errors": [],
+          "lastError": "",
+          "assets": [
+            {
+              "slot": "h07_labio_acantilado",
+              "loaded": true
+            },
+            {
+              "slot": "h07_estrato_rococo",
+              "loaded": true
+            },
+            {
+              "slot": "h07_apertura_profundidad",
+              "loaded": true
+            },
+            {
+              "slot": "h07_exterior_infernal",
+              "loaded": true
+            },
+            {
+              "slot": "h07_pozo_capas",
+              "loaded": true
+            },
+            {
+              "slot": "h07_panorama_acantilado",
+              "loaded": true
+            }
+          ],
+          "audioTouched": false,
+          "cameraTouched": false,
+          "newCanvases": 0,
+          "newRAF": 0,
+          "hooksInstalled": true
+        },
+        "h": {
+          "version": "3.5.0-hub-proto",
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "transitionLock": false,
+          "modalOpen": false,
+          "activeStationId": null,
+          "selectedCircle": 0,
+          "unlockedCircles": [
+            0
+          ],
+          "defeatedResidents": [],
+          "completedInvasions": [],
+          "visitPeaceTimer": 1.13,
+          "invasionWarning": false,
+          "invasionActive": false,
+          "extractionAvailable": false,
+          "extractionBeacon": null,
+          "storageAvailable": true,
+          "lastCorruptionRecovered": false,
+          "saveWrites": 3,
+          "transitionsCompleted": 2,
+          "transitionErrors": 0,
+          "officialUntainted": false
+        }
+      }
+    },
+    "final": {
+      "pack": {
+        "h7": {
+          "version": "hub-tanda07",
+          "count": 6,
+          "productionUnits": 6,
+          "enabled": true,
+          "registered": 6,
+          "loaded": 6,
+          "exactSize": 6,
+          "errors": [],
+          "assets": [
+            {
+              "id": "T07-01",
+              "unit": "labio_acantilado",
+              "file": "ART_ASSETS/hub/tanda_07/01_labio/final/hub_t07_01_labio.png",
+              "alias": "h07_labio_acantilado",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                1500,
+                115
+              ],
+              "natural": [
+                1500,
+                115
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            },
+            {
+              "id": "T07-02",
+              "unit": "estrato_rococo",
+              "file": "ART_ASSETS/hub/tanda_07/02_estrato/final/hub_t07_02_estrato.png",
+              "alias": "h07_estrato_rococo",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                2100,
+                110
+              ],
+              "natural": [
+                2100,
+                110
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            },
+            {
+              "id": "T07-03",
+              "unit": "apertura_profundidad",
+              "file": "ART_ASSETS/hub/tanda_07/03_apertura/final/hub_t07_03_apertura.png",
+              "alias": "h07_apertura_profundidad",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                420,
+                260
+              ],
+              "natural": [
+                420,
+                260
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            },
+            {
+              "id": "T07-04",
+              "unit": "exterior_infernal",
+              "file": "ART_ASSETS/hub/tanda_07/04_exterior/final/hub_t07_04_exterior.jpg",
+              "alias": "h07_exterior_infernal",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                1280,
+                720
+              ],
+              "natural": [
+                1280,
+                720
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            },
+            {
+              "id": "T07-05",
+              "unit": "pozo_capas",
+              "file": "ART_ASSETS/hub/tanda_07/05_pozo/final/hub_t07_05_pozo.png",
+              "alias": "h07_pozo_capas",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                512,
+                1024
+              ],
+              "natural": [
+                512,
+                1024
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            },
+            {
+              "id": "T07-06",
+              "unit": "panorama_acantilado",
+              "file": "ART_ASSETS/hub/tanda_07/06_panorama/final/hub_t07_06_panorama.jpg",
+              "alias": "h07_panorama_acantilado",
+              "aliasLive": true,
+              "loaderResolves": 1,
+              "expected": [
+                1280,
+                720
+              ],
+              "natural": [
+                1280,
+                720
+              ],
+              "exactSize": true,
+              "loaded": true,
+              "registered": true
+            }
+          ],
+          "note": "6/6 PNG/JPG de TANDA 07 en el MISMO registro V5 y MISMO load()."
+        },
+        "st": {
+          "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07",
+          "status": "applied",
+          "startedAt": 1793764061182,
+          "appliedAt": 1793764061182,
+          "base": "ART_ASSETS/tanda_01/",
+          "assets": [
+            {
+              "id": "t3b_material_00",
+              "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_01",
+              "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "t3b_material_02",
+              "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+              "loader": "T3B",
+              "pivot": "tile",
+              "alpha": false,
+              "expected": [
+                512,
+                512
+              ],
+              "natural": [
+                512,
+                512
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+            },
+            {
+              "id": "hub_fox_crest_emblem",
+              "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+              "loader": "V5",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                560,
+                332
+              ],
+              "natural": [
+                560,
+                332
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+            },
+            {
+              "id": "decor_neon_rug",
+              "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                456,
+                243
+              ],
+              "natural": [
+                456,
+                243
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+            },
+            {
+              "id": "decor_potted_palm",
+              "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+              "loader": "V5",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                209,
+                147
+              ],
+              "natural": [
+                209,
+                147
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+            },
+            {
+              "id": "boss_01_anden",
+              "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+              "loader": "ILT",
+              "pivot": "bottom-center",
+              "alpha": true,
+              "expected": [
+                400,
+                386
+              ],
+              "natural": [
+                400,
+                386
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+            },
+            {
+              "id": "weapons/weapon_m1911.png",
+              "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+              "loader": "HD",
+              "pivot": "center",
+              "alpha": true,
+              "expected": [
+                160,
+                87
+              ],
+              "natural": [
+                160,
+                87
+              ],
+              "applied": true,
+              "loaded": true,
+              "exactSize": true,
+              "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+            }
+          ],
+          "errors": [],
+          "t3bEnabled": true,
+          "iltEnabled": true,
+          "player": {
+            "version": "tanda03-faseD.2",
+            "ready": true,
+            "appliedAt": 1793764061319,
+            "anatomyCaptured": 10,
+            "assets": 8,
+            "poses": 12,
+            "sequenceSlots": 8,
+            "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+            "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+          },
+          "hub3": {
+            "version": "hub-tanda03",
+            "count": 13,
+            "productionUnits": 8,
+            "files": 13,
+            "registered": 13,
+            "registeredDrawSlots": 1,
+            "verifiedDraws": 0,
+            "blocked": 13,
+            "enabled": true,
+            "loader": "load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)",
+            "note": "13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). 0 drawImage verificados en produccion. HTML intacto.",
+            "appliedAt": 1793764061352
+          },
+          "hub3Boot": {
+            "registered": 13,
+            "at": 1793764061352
+          },
+          "architecture": {
+            "version": "fase1-tanda02",
+            "count": 10,
+            "applied": 10,
+            "enabled": true,
+            "appliedAt": 1793764061377,
+            "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+          },
+          "hub": {
+            "version": "hub-tanda01",
+            "count": 10,
+            "slotsApplied": 9,
+            "enabled": true,
+            "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+            "appliedAt": 1793764061409
+          },
+          "hub2": {
+            "version": "hub-tanda02",
+            "count": 10,
+            "slotsApplied": 10,
+            "enabled": true,
+            "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+            "appliedAt": 1793764061443
+          },
+          "hub5": {
+            "version": "hub-tanda05",
+            "count": 10,
+            "productionUnits": 10,
+            "files": 10,
+            "registered": 10,
+            "enabled": true,
+            "loader": "load() -> __DDM_V5_IMG[alias h05_*]",
+            "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+            "flag": "window.__DDM_HUB_T05 !== false",
+            "note": "10/10 PNG cargados y registrados. Integracion de render en el HUB real por los pintores existentes. Sin segundo motor.",
+            "appliedAt": 1793764061471
+          },
+          "hub6": {
+            "version": "hub-tanda06",
+            "count": 10,
+            "productionUnits": 10,
+            "files": 10,
+            "registered": 10,
+            "enabled": true,
+            "loader": "load() -> __DDM_V5_IMG[alias h06_*]",
+            "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+            "flag": "window.__DDM_HUB_T06 !== false",
+            "note": "10/10 PNG de envolvente cargados y registrados. Sin segundo motor, sin canvas adicional, sin cambio de camara ni proyeccion.",
+            "appliedAt": 1793764061492
+          },
+          "hub7": {
+            "version": "hub-tanda07",
+            "count": 6,
+            "productionUnits": 6,
+            "files": 6,
+            "registered": 6,
+            "enabled": true,
+            "loader": "load() -> __DDM_V5_IMG[alias h07_*]",
+            "renderer": "DEADBEAT_DISCO.ART.html :: hooks Wf/Ph/zf (T07)",
+            "flag": "window.__DDM_HUB_T07 !== false",
+            "note": "6/6 assets T07 en el MISMO registro V5 y MISMO load(). Sin segundo motor, canvas, cámara ni audio.",
+            "appliedAt": 1793764061519
+          },
+          "finishedAt": 1793764061519
+        },
+        "v5": 168,
+        "t07": {
+          "ok": true,
+          "assetsLoaded": 6,
+          "actors": 6,
+          "activities": {
+            "dance": 2,
+            "talk": 2,
+            "rest": 1,
+            "walk": 1
+          },
+          "errors": [],
+          "counts": {
+            "geography": 637,
+            "ambient": 742,
+            "screen": 370,
+            "descentScreen": 179,
+            "updates": 820
+          }
+        }
+      },
+      "errors": [],
+      "warns": [
+        "error: Failed to load resource: the server responded with a status of 404 (File not found)",
+        "error: Failed to load resource: the server responded with a status of 404 (File not found)",
+        "warning: Canvas2D: Multiple readback operations using getImageData are faster with the willReadFrequently attribute set to true. See: https://html.spec.whatwg.org/multip"
+      ]
+    },
+    "external404": 2,
+    "reduced": {
+      "dur": 0.95,
+      "a": [
+        {
+          "id": "t07_danza_01",
+          "f": 0,
+          "x": 1120,
+          "r": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "f": 0,
+          "x": 1380,
+          "r": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "f": 0,
+          "x": 1690,
+          "r": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "f": 0,
+          "x": 1780,
+          "r": 0
+        },
+        {
+          "id": "t07_descanso",
+          "f": 0,
+          "x": 1910,
+          "r": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "f": 0,
+          "x": 900,
+          "r": 0
+        }
+      ],
+      "b": [
+        {
+          "id": "t07_danza_01",
+          "f": 0,
+          "x": 1120,
+          "r": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "f": 0,
+          "x": 1380,
+          "r": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "f": 0,
+          "x": 1690,
+          "r": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "f": 0,
+          "x": 1780,
+          "r": 0
+        },
+        {
+          "id": "t07_descanso",
+          "f": 0,
+          "x": 1910,
+          "r": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "f": 0,
+          "x": 900,
+          "r": 0
+        }
+      ],
+      "errors": [],
+      "pageerrors": []
+    }
+  },
+  "environment": {
+    "url": "http://127.0.0.1:8123/",
+    "viewport": "1280x900",
+    "chromium": "/tmp/chromium",
+    "note": "Headless. Vídeo, mando físico y audio audible siguen BLOQUEADO / NO VERIFICADO (Fase 0)."
+  }
+}

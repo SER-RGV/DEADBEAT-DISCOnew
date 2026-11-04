@@ -88,3 +88,16 @@ Toda modificación debe partir de una copia de seguridad.
 - Sin sistemas nuevos: sin colisiones, estaciones, interacciones, geometría, guardado, música, DJ, segundo motor/canvas/caché/loader.
 - T01–T05 intactas. PR #1 abierto, base `arte-y-recursos`, head de sesión, **sin merge**; `main`/`origin/main` en `d75e021`.
 - Pendiente ajeno a T06: cierre formal del performance gate de T02; históricos `BLOQUEADO` de T03 conservados.
+
+<!-- TANDA07:STATE -->
+### Integración TANDA 07 — `INTEGRADO_VALIDADO` (Fases 0–5)
+
+- **Build activa:** `DEADBEAT_DISCO.ART.html` 13.414.811 B / 20.427 líneas (SHA `a757a49e5b623efeba14b27f115df33bf5bd86b4fca51bf81f876205f6dbabfb`); `ART_PACK/art_pack.js` 100.474 B / 2.042 líneas (SHA `c5e5759b31120aa66adca3ab50808046ec225d3415d1f133e0045da5a76e3579`). Backups `.PRE_T07` en `/tmp/t7/`.
+- **HUB real:** 168 claves V5 (162 de T06 + 6 de T07), 27 canvas, 11 estaciones, 6 zonas, zoom `0.9375`, 1 secuenciador. Sin segundo motor/canvas/cámara/audio/colisiones.
+- **6/6 assets T07** cargados, `exactSize`, registrados y dibujados; llegada 1,85 s sin bloqueo de control; 6 actores NPC / 5 actividades; descenso con continuidad visual y 0 fotogramas negros.
+- **A/B:** `window.__DDM_HUB_T07 = false` retira todo lo nuevo; diff de franja sur 37,41 y `ON +20 / OFF +0` dibujos de geografía.
+- **QA:** `ART_EVIDENCE/hub/tanda_07/qa_tanda07.json` — **35/35 APROBADO**, 0 `pageerror`, 0 errores T07, sólo los 2 `404` externos preexistentes. `report.json` y `hashes.json` (6/6, 0 discrepancias).
+- **Audio:** intacto. No se usó `cineFilter`/`cineGain`/`cineSting` (detrás de `M.cine`); la cadena de descenso existente verificada por eventos.
+- **T01–T06 intactas** (smoke de carga/topología; la regresión formal completa sigue `NO VERIFICADO`). PR #1 `OPEN`, base `arte-y-recursos`, **sin merge**; `main`/`origin/main` en `d75e021`.
+- **Pendiente / bloqueado (heredado):** vídeo, mando físico, audio audible, inventario completo de frames NPC, rendimiento sostenido con T07, performance gate de T02 y 8 `BLOQUEADO` de T03.
+- **Documentos vigentes:** `ART_TANDA_07_REPORT.md`, `ART_TANDA_07_FASE3_MATRIZ_NPC.md`, `ART_TANDA_07_FASE0_AUDITORIA.md`, `ART_TANDA_07_FASE1_GEOGRAFIA.md`.
