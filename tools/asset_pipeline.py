@@ -103,13 +103,43 @@ def extract_clean_rgba(im: Image.Image) -> Image.Image:
 
 def fit_rgba_to_canvas(im: Image.Image, target_w: int, target_h: int, pivot: str) -> Image.Image:
     """
-    Auto-crops transparent padding around the sprite and places it cleanly into (target_w, target_h)
-    respecting pivot ('bottom-center', 'center', or 'grip-calibrated').
+    Auto-crops transparent padding around the sprite (isolating the primary central
+    standalone subject if the generator repeated multiple copies across a wide strip)
+    and places it cleanly into (target_w, target_h) respecting pivot.
     """
     arr = np.array(im)
     mask = arr[:, :, 3] > 14
     if not np.any(mask):
         return im.resize((target_w, target_h), Image.Resampling.LANCZOS)
+
+    # Dilate slightly (4px) so micro-details stay grouped without merging side-by-side strip copies
+    grouped = ndimage.binary_dilation(mask, iterations=4)
+    labeled, num_comp = ndimage.label(grouped)
+    if num_comp > 1:
+        H, W = mask.shape
+        cx_img = W * 0.5
+        best_lbl = 1
+        best_score = -1.0
+        total_fg = float(np.sum(mask))
+        for lbl in range(1, num_comp + 1):
+            comp_mask = mask & (labeled == lbl)
+            area = float(np.sum(comp_mask))
+            if area < total_fg * 0.06:
+                continue
+            ys_c, xs_c = np.where(comp_mask)
+            cx_c = float(np.mean(xs_c))
+            # Prefer large component closest to horizontal center
+            centrality = 1.0 - (abs(cx_c - cx_img) / max(1.0, W * 0.5))
+            score = area * (0.65 + 0.35 * centrality)
+            if score > best_score:
+                best_score = score
+                best_lbl = lbl
+        # Zero out duplicate side-by-side copies!
+        keep = labeled == best_lbl
+        arr = arr.copy()
+        arr[~keep, 3] = 0
+        im = Image.fromarray(arr, mode="RGBA")
+        mask = arr[:, :, 3] > 14
 
     ys, xs = np.where(mask)
     y0, y1 = int(ys.min()), int(ys.max()) + 1

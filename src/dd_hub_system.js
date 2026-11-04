@@ -286,9 +286,9 @@
     ctx.fillRect(0, 0, viewW, viewH);
 
     // Smooth camera tracking protagonist inside Refugio
-    const zoom = Math.min(1.12, Math.max(0.78, viewW / 1420));
-    const camX = state.px * 0.65 + (HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5) * 0.35;
-    const camY = state.py * 0.65 + (HUB_BOUNDS.y + HUB_BOUNDS.h * 0.5) * 0.35;
+    const zoom = Math.min(1.06, Math.max(0.76, viewW / 1460));
+    const camX = state.px * 0.55 + (HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5) * 0.45;
+    const camY = state.py * 0.48 + (HUB_BOUNDS.y + HUB_BOUNDS.h * 0.42) * 0.52;
 
     ctx.save();
     ctx.translate(viewW * 0.5, viewH * 0.5);

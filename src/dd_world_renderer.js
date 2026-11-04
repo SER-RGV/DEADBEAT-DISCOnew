@@ -270,47 +270,47 @@
       (window.DD_ASSETS && window.DD_ASSETS.get("wall_panel_neon_crown"));
     const pillarImg = window.DD_ASSETS && window.DD_ASSETS.get(cfg.pillar);
     const foxNeonImg = window.DD_ASSETS && window.DD_ASSETS.get("prop_hub_fox_neon");
-    const wallH = 148;
+    const wallH = 132;
+    const wallTopY = ry - 34;
     const modW = 128;
 
-    // North wall backdrop band above ry
-    const nwGrad = ctx.createLinearGradient(0, ry - wallH, 0, ry + 8);
+    // 2.5D North wall elevation band visible inside top room perimeter
+    const nwGrad = ctx.createLinearGradient(0, wallTopY, 0, wallTopY + wallH + 10);
     nwGrad.addColorStop(0, "#070310");
     nwGrad.addColorStop(0.85, "#120922");
-    nwGrad.addColorStop(1, "#05020a");
+    nwGrad.addColorStop(1, "rgba(5, 2, 10, 0.92)");
     ctx.fillStyle = nwGrad;
-    ctx.fillRect(rx - 18, ry - wallH, rw + 36, wallH + 8);
+    ctx.fillRect(rx - 8, wallTopY, rw + 16, wallH + 6);
 
     if (wallImg) {
       for (let wx = rx; wx < rx + rw; wx += modW) {
         const segW = Math.min(modW, rx + rw - wx);
-        ctx.drawImage(wallImg, 0, 0, wallImg.naturalWidth * (segW / modW), wallImg.naturalHeight, wx, ry - wallH + 4, segW, wallH);
+        ctx.drawImage(wallImg, 0, 0, wallImg.naturalWidth * (segW / modW), wallImg.naturalHeight, wx, wallTopY + 2, segW, wallH);
       }
     } else {
-      // Clean dark-ink architectural arches even before Tanda 03 lands
       ctx.strokeStyle = cfg.neon;
       ctx.lineWidth = 2;
       for (let wx = rx + 16; wx < rx + rw - 48; wx += 128) {
         ctx.fillStyle = "rgba(8, 4, 16, 0.92)";
-        ctx.fillRect(wx, ry - wallH + 18, 96, wallH - 24);
-        ctx.strokeRect(wx, ry - wallH + 18, 96, wallH - 24);
+        ctx.fillRect(wx, wallTopY + 14, 96, wallH - 20);
+        ctx.strokeRect(wx, wallTopY + 14, 96, wallH - 20);
       }
     }
 
-    // Architectural pilasters every 384px + room corners
+    // Architectural pilasters every 320px + room corners
     if (pillarImg) {
-      for (let px = rx - 16; px <= rx + rw - 16; px += 384) {
-        ctx.drawImage(pillarImg, px, ry - wallH - 8, 52, wallH + 18);
+      for (let px = rx - 14; px <= rx + rw - 24; px += 320) {
+        ctx.drawImage(pillarImg, px, wallTopY - 8, 56, wallH + 16);
       }
-      ctx.drawImage(pillarImg, rx + rw - 36, ry - wallH - 8, 52, wallH + 18);
+      ctx.drawImage(pillarImg, rx + rw - 38, wallTopY - 8, 56, wallH + 16);
     }
 
     // Signature neon wall emblem at upper facade flanks
     if (foxNeonImg && rw >= 900) {
-      ctx.drawImage(foxNeonImg, rx + 96, ry - wallH + 12, 84, 112);
-      ctx.drawImage(foxNeonImg, rx + rw - 180, ry - wallH + 12, 84, 112);
-      drawNeonGlow(ctx, rx + 138, ry - wallH + 68, 120, "#ff2d7a", 0.24);
-      drawNeonGlow(ctx, rx + rw - 138, ry - wallH + 68, 120, "#ff2d7a", 0.24);
+      ctx.drawImage(foxNeonImg, rx + 96, wallTopY + 10, 82, 108);
+      ctx.drawImage(foxNeonImg, rx + rw - 178, wallTopY + 10, 82, 108);
+      drawNeonGlow(ctx, rx + 137, wallTopY + 64, 120, "#ff2d7a", 0.24);
+      drawNeonGlow(ctx, rx + rw - 137, wallTopY + 64, 120, "#ff2d7a", 0.24);
     }
 
     // Crisp dark-ink + neon architectural rim around room boundary
