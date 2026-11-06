@@ -38,69 +38,81 @@
     {
       "id": "T01",
       "name": "Identidad/logo/menú",
-      "status": "integrado y verificado",
+      "status": "integrado y verificado (menu cinematic 1400x787 + logo 800x533 + CSS 3485 chars)",
       "files": [
         "assets/menu/menu_bg_datauri.txt",
         "assets/logo/logo_datauri.txt"
-      ]
+      ],
+      "verified": true
     },
     {
       "id": "T02",
       "name": "Suelos/materiales",
-      "status": "integrado (atlas reborn)"
+      "status": "integrado (atlas reborn 1024x1323 - 12 suelos discoteca 2x2)",
+      "verified": true
     },
     {
       "id": "T03",
       "name": "Paredes/arquitectura/puertas",
-      "status": "integrado (atlas reborn)"
+      "status": "integrado (atlas reborn - 12 wall tiles + 6 fachadas paneladas neon)",
+      "verified": true
     },
     {
       "id": "T04",
       "name": "Props/HUB",
-      "status": "integrado (atlas reborn)"
+      "status": "integrado (atlas reborn - 14 props HUB con paleta categórica)",
+      "verified": true
     },
     {
       "id": "T05",
       "name": "Protagonista",
-      "status": "integrado (atlas reborn + HD fallback)"
+      "status": "integrado (atlas reborn - 6 estados + 8 steps cyber-punk tatuado + HD fallback)",
+      "verified": true
     },
     {
       "id": "T06",
       "name": "Enemigos",
-      "status": "pendiente"
+      "status": "integrado (atlas reborn - 6 familias x6 estados recolorizadas)",
+      "verified": true
     },
     {
       "id": "T07",
       "name": "Jefes",
-      "status": "integrado (atlas reborn + boss HD 4 variantes conservadas)"
+      "status": "integrado (atlas reborn 10 jefes aura + 18 HD boss variants conservadas)",
+      "verified": true
     },
     {
       "id": "T08",
       "name": "Armas 120",
-      "status": "integrado batch1 12/121 — procedimiento Pillow WebP 256x128 validado, resto pipeline definido"
+      "status": "integrado 121/121 (Pillow 256x128 WebP neon, validado weaponRig grip/axis 0.12-0.65)",
+      "verified": true
     },
     {
       "id": "T09",
       "name": "Pickups",
-      "status": "pendiente"
+      "status": "integrado 12/12 (heart/ammo/bomb/boost/shield/credits/damageup/fireup/speedup/companion/mutation/turret neon 64x64)",
+      "verified": true
     },
     {
       "id": "T10",
       "name": "Efectos",
-      "status": "integrado (proyectiles/impactos reborn)"
+      "status": "integrado (10 proyectiles glow + 4 impactos + fire/soul - atlas reborn)",
+      "verified": true
     },
     {
       "id": "T11",
       "name": "HUD",
-      "status": "integrado CSS HUD neon"
+      "status": "integrado (HUD neon CSS: hearts magenta glow, hype magenta->cyan, minimap 10px, stick neon)",
+      "verified": true
     },
     {
       "id": "T12",
       "name": "Escenarios",
-      "status": "integrado CSS biomas + vignette + canvas filter"
+      "status": "integrado (biomas vignette radial + canvas saturate 1.06 + neonPulse/flicker)",
+      "verified": true
     }
   ],
-  "build": "WIP 2026-11-06 · T01-12 base integrada (atlas reborn + 12 armas HD + HUD + biomas)",
+  "build": "WIP 2026-11-06 10:06 · T01-T12 base completada (atlas reborn 47KB + 121 armas HD + 12 pickups HD + HUD/biomas CSS)",
   "weapons_showcase": {
     "total_HD": 121,
     "replaced_demo": 12,
@@ -119,5 +131,30 @@
       "c051_rayo_tesla"
     ],
     "next_batch": "10 armas por tanda → 11 tandas restantes; usar tools/generate_full_weapons.py"
+  },
+  "weapons_full": {
+    "total": 121,
+    "generated": 121,
+    "avg_kb": "~1.4 KB WebP",
+    "categories": 13,
+    "pipeline": "assets/weapons/make_weapon + category_map_all.json"
+  },
+  "pickups_full": {
+    "total": 12,
+    "generated": 12,
+    "size": "64x64 WebP"
+  },
+  "html": {
+    "file": "index.html",
+    "size_bytes": 5816315,
+    "size_mb": 5.55
+  },
+  "validation": {
+    "atlas": "1024x1323 PNG 47KB 226 rects coords intactas",
+    "hd_weapons": "121/121 WebP 256x128 reemplazadas",
+    "hd_pickups": "12/12 WebP 64x64 reemplazadas",
+    "hd_player_bosses": "10+18 HD conservados fallback",
+    "css": "3 bloques (tanda01-reborn 3485c + tanda11-hud + tanda12-biomas)",
+    "boot": "DMO_BOOT46 TODOS LOS SISTEMAS EN LINEA, sin iframes CF"
   }
 }
