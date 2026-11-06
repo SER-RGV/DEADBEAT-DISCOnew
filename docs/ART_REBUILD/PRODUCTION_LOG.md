@@ -15,3 +15,4 @@
 - **2026-11-06T10:14:53Z** · TANDA_10 cerrada (10/10) tras integrar `enemy_security_death`; TANDA_11 integrada parcialmente (8/10): animaciones del chef y bailarín más dron enemigo. Quedan `enemy_chef_death` y `enemy_drone_windup` para la siguiente tanda de generación.
 - **2026-11-06T10:46:14Z** · TANDA_11 completada (10/10) tras integrar las dos animaciones pendientes del chef y del dron enemigo; 110/110 recursos verificados.
 - **2026-11-06T10:48:41Z** · TANDA_11 cerrada (10/10). TANDA_12 integrada parcialmente (7/10): ataques y baja del dron, cuatro estados del enemigo élite y Anden idle. Quedan los estados de Anden ataque, impacto y baja para la siguiente tanda de generación; 117/120 recursos verificados.
+- **2026-11-06T18:45:34Z** · TANDA_12 completada (10/10) y TANDA_13 integrada parcialmente (7/10): cuatro estados de Magneta y tres de Bufe; 127/130 recursos registrados y validados.

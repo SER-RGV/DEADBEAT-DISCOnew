@@ -1,22 +1,22 @@
-# NEXT BATCH — TANDA_12
+# NEXT BATCH — TANDA_13
 
-- **Tanda a ejecutar:** `TANDA_12` (12 de 33)
-- **Fecha de planificación:** 2026-11-06T10:48:41Z
+- **Tanda a ejecutar:** `TANDA_13` (13 de 33)
+- **Fecha de planificación:** 2026-11-06T18:45:34Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 12` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_12 high-res asset reconstruction and real engine integration`
+- **Pruebas obligatorias:** `node tools/validate_batch.js 13` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
+- **Commit previsto:** `feat(art): complete TANDA_13 high-res asset reconstruction and real engine integration`
 
 ## Diez Recursos de la Tanda
 
 | # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
 |---:|---|---|---|---|---|---|---|
-| 111 | `enemy_drone_attack` | `atlas:drone_attack` | `enemies` | `assets/enemies/enemy_drone_attack.png` | 288x288 | `True` | ninguna |
-| 112 | `enemy_drone_death` | `atlas:drone_death` | `enemies` | `assets/enemies/enemy_drone_death.png` | 288x224 | `True` | ninguna |
-| 113 | `enemy_elite_walk` | `atlas:elite_walk` | `enemies` | `assets/enemies/enemy_elite_walk.png` | 256x288 | `True` | ninguna |
-| 114 | `enemy_elite_windup` | `atlas:elite_windup` | `enemies` | `assets/enemies/enemy_elite_windup.png` | 256x288 | `True` | ninguna |
-| 115 | `enemy_elite_attack` | `atlas:elite_attack` | `enemies` | `assets/enemies/enemy_elite_attack.png` | 288x288 | `True` | ninguna |
-| 116 | `enemy_elite_death` | `atlas:elite_death` | `enemies` | `assets/enemies/enemy_elite_death.png` | 288x224 | `True` | ninguna |
-| 117 | `boss_00_anden_idle` | `resident_01_anden:idle` | `bosses` | `assets/bosses/boss_00_anden_idle.png` | 384x448 | `True` | ninguna |
-| 118 | `boss_00_anden_attack` | `resident_01_anden:attack` | `bosses` | `assets/bosses/boss_00_anden_attack.png` | 416x448 | `True` | ninguna |
-| 119 | `boss_00_anden_hit` | `resident_01_anden:hit` | `bosses` | `assets/bosses/boss_00_anden_hit.png` | 384x448 | `True` | ninguna |
-| 120 | `boss_00_anden_death` | `resident_01_anden:death` | `bosses` | `assets/bosses/boss_00_anden_death.png` | 416x352 | `True` | ninguna |
+| 121 | `boss_01_magneta_idle` | `resident_02_magneta:idle` | `bosses` | `assets/bosses/boss_01_magneta_idle.png` | 384x448 | `True` | ninguna |
+| 122 | `boss_01_magneta_attack` | `resident_02_magneta:attack` | `bosses` | `assets/bosses/boss_01_magneta_attack.png` | 416x448 | `True` | ninguna |
+| 123 | `boss_01_magneta_hit` | `resident_02_magneta:hit` | `bosses` | `assets/bosses/boss_01_magneta_hit.png` | 384x448 | `True` | ninguna |
+| 124 | `boss_01_magneta_death` | `resident_02_magneta:death` | `bosses` | `assets/bosses/boss_01_magneta_death.png` | 416x352 | `True` | ninguna |
+| 125 | `boss_02_bufe_idle` | `resident_03_bufe:idle` | `bosses` | `assets/bosses/boss_02_bufe_idle.png` | 384x448 | `True` | ninguna |
+| 126 | `boss_02_bufe_attack` | `resident_03_bufe:attack` | `bosses` | `assets/bosses/boss_02_bufe_attack.png` | 416x448 | `True` | ninguna |
+| 127 | `boss_02_bufe_hit` | `resident_03_bufe:hit` | `bosses` | `assets/bosses/boss_02_bufe_hit.png` | 384x448 | `True` | ninguna |
+| 128 | `boss_02_bufe_death` | `resident_03_bufe:death` | `bosses` | `assets/bosses/boss_02_bufe_death.png` | 416x352 | `True` | ninguna |
+| 129 | `boss_03_cajero_idle` | `resident_04_cajero:idle` | `bosses` | `assets/bosses/boss_03_cajero_idle.png` | 384x448 | `True` | ninguna |
+| 130 | `boss_03_cajero_attack` | `resident_04_cajero:attack` | `bosses` | `assets/bosses/boss_03_cajero_attack.png` | 416x448 | `True` | ninguna |

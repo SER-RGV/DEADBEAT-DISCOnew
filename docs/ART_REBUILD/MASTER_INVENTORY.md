@@ -1,14 +1,14 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-06T10:48:41Z
+- **Última actualización:** 2026-11-06T18:45:34Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **117 / 330** recursos verificados en motor real
+- **Progreso global:** **127 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 1 | 1 | 1 |
+| `bosses` | 42 | 11 | 11 | 11 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
@@ -143,16 +143,16 @@
 | 115 | TANDA_12 | `atlas:elite_attack` | Élite Guardia Real del Club · Ataque Activo | `enemies` | `assets/enemies/enemy_elite_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
 | 116 | TANDA_12 | `atlas:elite_death` | Élite Guardia Real del Club · Impacto y Colapso | `enemies` | `assets/enemies/enemy_elite_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
 | 117 | TANDA_12 | `resident_01_anden:idle` | ANDÉN · El Portero (Limbo) · Presencia / Idle | `bosses` | `assets/bosses/boss_00_anden_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 118 | TANDA_12 | `resident_01_anden:attack` | ANDÉN · El Portero (Limbo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_00_anden_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 119 | TANDA_12 | `resident_01_anden:hit` | ANDÉN · El Portero (Limbo) · Impacto / Daño | `bosses` | `assets/bosses/boss_00_anden_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 120 | TANDA_12 | `resident_01_anden:death` | ANDÉN · El Portero (Limbo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_00_anden_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 121 | TANDA_13 | `resident_02_magneta:idle` | MAGNETA · La Anfitriona (I Lujuria) · Presencia / Idle | `bosses` | `assets/bosses/boss_01_magneta_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 122 | TANDA_13 | `resident_02_magneta:attack` | MAGNETA · La Anfitriona (I Lujuria) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_01_magneta_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 123 | TANDA_13 | `resident_02_magneta:hit` | MAGNETA · La Anfitriona (I Lujuria) · Impacto / Daño | `bosses` | `assets/bosses/boss_01_magneta_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 124 | TANDA_13 | `resident_02_magneta:death` | MAGNETA · La Anfitriona (I Lujuria) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_01_magneta_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 125 | TANDA_13 | `resident_03_bufe:idle` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Presencia / Idle | `bosses` | `assets/bosses/boss_02_bufe_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 126 | TANDA_13 | `resident_03_bufe:attack` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_02_bufe_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 127 | TANDA_13 | `resident_03_bufe:hit` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Impacto / Daño | `bosses` | `assets/bosses/boss_02_bufe_hit.png` | 384x448 | PENDING | PENDING | PENDING |
+| 118 | TANDA_12 | `resident_01_anden:attack` | ANDÉN · El Portero (Limbo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_00_anden_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 119 | TANDA_12 | `resident_01_anden:hit` | ANDÉN · El Portero (Limbo) · Impacto / Daño | `bosses` | `assets/bosses/boss_00_anden_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 120 | TANDA_12 | `resident_01_anden:death` | ANDÉN · El Portero (Limbo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_00_anden_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 121 | TANDA_13 | `resident_02_magneta:idle` | MAGNETA · La Anfitriona (I Lujuria) · Presencia / Idle | `bosses` | `assets/bosses/boss_01_magneta_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 122 | TANDA_13 | `resident_02_magneta:attack` | MAGNETA · La Anfitriona (I Lujuria) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_01_magneta_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 123 | TANDA_13 | `resident_02_magneta:hit` | MAGNETA · La Anfitriona (I Lujuria) · Impacto / Daño | `bosses` | `assets/bosses/boss_01_magneta_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 124 | TANDA_13 | `resident_02_magneta:death` | MAGNETA · La Anfitriona (I Lujuria) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_01_magneta_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 125 | TANDA_13 | `resident_03_bufe:idle` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Presencia / Idle | `bosses` | `assets/bosses/boss_02_bufe_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 126 | TANDA_13 | `resident_03_bufe:attack` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_02_bufe_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 127 | TANDA_13 | `resident_03_bufe:hit` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Impacto / Daño | `bosses` | `assets/bosses/boss_02_bufe_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 128 | TANDA_13 | `resident_03_bufe:death` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_02_bufe_death.png` | 416x352 | PENDING | PENDING | PENDING |
 | 129 | TANDA_13 | `resident_04_cajero:idle` | EL CAJERO · Señor del VIP (III Avaricia) · Presencia / Idle | `bosses` | `assets/bosses/boss_03_cajero_idle.png` | 384x448 | PENDING | PENDING | PENDING |
 | 130 | TANDA_13 | `resident_04_cajero:attack` | EL CAJERO · Señor del VIP (III Avaricia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_03_cajero_attack.png` | 416x448 | PENDING | PENDING | PENDING |
