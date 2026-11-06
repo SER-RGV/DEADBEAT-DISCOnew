@@ -62,7 +62,7 @@
     {
       "id": "T05",
       "name": "Protagonista",
-      "status": "empezado (player sprites reborn)"
+      "status": "integrado (atlas reborn + HD fallback)"
     },
     {
       "id": "T06",
@@ -72,12 +72,12 @@
     {
       "id": "T07",
       "name": "Jefes",
-      "status": "empezado (bosses reborn)"
+      "status": "integrado (atlas reborn + boss HD 4 variantes conservadas)"
     },
     {
       "id": "T08",
       "name": "Armas 120",
-      "status": "pendiente"
+      "status": "integrado batch1 12/121 — procedimiento Pillow WebP 256x128 validado, resto pipeline definido"
     },
     {
       "id": "T09",
@@ -92,13 +92,32 @@
     {
       "id": "T11",
       "name": "HUD",
-      "status": "empezado (HUD CSS overhaul)"
+      "status": "integrado CSS HUD neon"
     },
     {
       "id": "T12",
       "name": "Escenarios",
-      "status": "pendiente"
+      "status": "integrado CSS biomas + vignette + canvas filter"
     }
   ],
-  "build": "WIP 2026-11-04 · atlas reborn + menu reborn"
+  "build": "WIP 2026-11-06 · T01-12 base integrada (atlas reborn + 12 armas HD + HUD + biomas)",
+  "weapons_showcase": {
+    "total_HD": 121,
+    "replaced_demo": 12,
+    "list": [
+      "c003_laser",
+      "c008_silenciada",
+      "c011_de_veneno",
+      "c013_escopeta",
+      "c017_de_fuego",
+      "c028_famas",
+      "c029_scar",
+      "c038_minigun",
+      "c041_lanzacohetes",
+      "c044_bfg",
+      "c050_rayo_continuo",
+      "c051_rayo_tesla"
+    ],
+    "next_batch": "10 armas por tanda → 11 tandas restantes; usar tools/generate_full_weapons.py"
+  }
 }
