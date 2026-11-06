@@ -1,15 +1,15 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-04T22:17:52Z
+- **Última actualización:** 2026-11-06T10:04:15Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **80 / 330** recursos verificados en motor real
+- **Progreso global:** **90 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
 | `bosses` | 42 | 0 | 0 | 0 |
-| `characters` | 16 | 4 | 4 | 4 |
+| `characters` | 16 | 14 | 14 | 14 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
 | `enemies` | 24 | 0 | 0 | 0 |
@@ -106,16 +106,16 @@
 | 78 | TANDA_08 | `hub:armorer` | Personaje · Armera del Refugio HUB | `characters` | `assets/characters/npc_armorer_hub.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
 | 79 | TANDA_08 | `hub:bartender` | Personaje · Camarero Sombrío del Refugio | `characters` | `assets/characters/npc_bartender_hub.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
 | 80 | TANDA_08 | `Lf:turret` | Personaje · Dron Aliado / Torreta Sónica | `characters` | `assets/characters/companion_drone_ally.png` | 224x224 | DONE | INTEGRATED | VERIFIED |
-| 81 | TANDA_09 | `player/player_idle_00.png` | Protagonista · Pose Idle Respiración | `characters` | `assets/characters/player_idle_00.png` | 224x320 | PENDING | PENDING | PENDING |
-| 82 | TANDA_09 | `player/player_walk_00.png` | Protagonista · Caminar Fotograma 01 | `characters` | `assets/characters/player_walk_00.png` | 224x320 | PENDING | PENDING | PENDING |
-| 83 | TANDA_09 | `player/player_walk_01.png` | Protagonista · Caminar Fotograma 02 | `characters` | `assets/characters/player_walk_01.png` | 224x320 | PENDING | PENDING | PENDING |
-| 84 | TANDA_09 | `player/player_walk_02.png` | Protagonista · Caminar Fotograma 03 | `characters` | `assets/characters/player_walk_02.png` | 224x320 | PENDING | PENDING | PENDING |
-| 85 | TANDA_09 | `player/player_walk_03.png` | Protagonista · Caminar Fotograma 04 | `characters` | `assets/characters/player_walk_03.png` | 224x320 | PENDING | PENDING | PENDING |
-| 86 | TANDA_09 | `player/player_shoot_00.png` | Protagonista · Disparo 1 Mano | `characters` | `assets/characters/player_shoot_00.png` | 240x320 | PENDING | PENDING | PENDING |
-| 87 | TANDA_09 | `player/player_fire2.png` | Protagonista · Disparo 2 Manos Rifle | `characters` | `assets/characters/player_fire2.png` | 280x320 | PENDING | PENDING | PENDING |
-| 88 | TANDA_09 | `player/player_firehip.png` | Protagonista · Disparo Cadera Arma Pesada | `characters` | `assets/characters/player_firehip.png` | 256x320 | PENDING | PENDING | PENDING |
-| 89 | TANDA_09 | `player/player_boost_00.png` | Protagonista · Impulso / Dash Sónico | `characters` | `assets/characters/player_boost_00.png` | 288x320 | PENDING | PENDING | PENDING |
-| 90 | TANDA_09 | `player/player_roll_00.png` | Protagonista · Esquiva Acrobática | `characters` | `assets/characters/player_roll_00.png` | 256x288 | PENDING | PENDING | PENDING |
+| 81 | TANDA_09 | `player/player_idle_00.png` | Protagonista · Pose Idle Respiración | `characters` | `assets/characters/player_idle_00.png` | 224x320 | DONE | INTEGRATED | VERIFIED |
+| 82 | TANDA_09 | `player/player_walk_00.png` | Protagonista · Caminar Fotograma 01 | `characters` | `assets/characters/player_walk_00.png` | 224x320 | DONE | INTEGRATED | VERIFIED |
+| 83 | TANDA_09 | `player/player_walk_01.png` | Protagonista · Caminar Fotograma 02 | `characters` | `assets/characters/player_walk_01.png` | 224x320 | DONE | INTEGRATED | VERIFIED |
+| 84 | TANDA_09 | `player/player_walk_02.png` | Protagonista · Caminar Fotograma 03 | `characters` | `assets/characters/player_walk_02.png` | 224x320 | DONE | INTEGRATED | VERIFIED |
+| 85 | TANDA_09 | `player/player_walk_03.png` | Protagonista · Caminar Fotograma 04 | `characters` | `assets/characters/player_walk_03.png` | 224x320 | DONE | INTEGRATED | VERIFIED |
+| 86 | TANDA_09 | `player/player_shoot_00.png` | Protagonista · Disparo 1 Mano | `characters` | `assets/characters/player_shoot_00.png` | 240x320 | DONE | INTEGRATED | VERIFIED |
+| 87 | TANDA_09 | `player/player_fire2.png` | Protagonista · Disparo 2 Manos Rifle | `characters` | `assets/characters/player_fire2.png` | 280x320 | DONE | INTEGRATED | VERIFIED |
+| 88 | TANDA_09 | `player/player_firehip.png` | Protagonista · Disparo Cadera Arma Pesada | `characters` | `assets/characters/player_firehip.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
+| 89 | TANDA_09 | `player/player_boost_00.png` | Protagonista · Impulso / Dash Sónico | `characters` | `assets/characters/player_boost_00.png` | 288x320 | DONE | INTEGRATED | VERIFIED |
+| 90 | TANDA_09 | `player/player_roll_00.png` | Protagonista · Esquiva Acrobática | `characters` | `assets/characters/player_roll_00.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 91 | TANDA_10 | `player/player_hurt_00.png` | Protagonista · Impacto / Daño | `characters` | `assets/characters/player_hurt_00.png` | 240x320 | PENDING | PENDING | PENDING |
 | 92 | TANDA_10 | `player/player_death_00.png` | Protagonista · Caído / Derrota | `characters` | `assets/characters/player_death_00.png` | 352x160 | PENDING | PENDING | PENDING |
 | 93 | TANDA_10 | `atlas:security_walk` | Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_security_walk.png` | 256x288 | PENDING | PENDING | PENDING |
