@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 108,
+  "totalRegistered": 110,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1341,6 +1341,19 @@
       "tanda": "TANDA_11",
       "sha16": "e82246b7d382d87e"
     },
+    "enemy_chef_death": {
+      "id": "enemy_chef_death",
+      "originalId": "atlas:chef_death",
+      "name": "Cocinero Carnicero (Tanque Gula) · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_chef_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "968ca74bdf0c3180"
+    },
     "enemy_dancer_walk": {
       "id": "enemy_dancer_walk",
       "originalId": "atlas:dancer_walk",
@@ -1405,6 +1418,19 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_11",
       "sha16": "90324093ba6399bb"
+    },
+    "enemy_drone_windup": {
+      "id": "enemy_drone_windup",
+      "originalId": "atlas:drone_windup",
+      "name": "Dron Altavoz Sónico (Ranged) · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_drone_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "a204e1fb8db59f6c"
     }
   },
   "byOriginalId": {
@@ -1511,10 +1537,12 @@
     "atlas:chef_walk": "enemy_chef_walk",
     "atlas:chef_windup": "enemy_chef_windup",
     "atlas:chef_attack": "enemy_chef_attack",
+    "atlas:chef_death": "enemy_chef_death",
     "atlas:dancer_walk": "enemy_dancer_walk",
     "atlas:dancer_windup": "enemy_dancer_windup",
     "atlas:dancer_attack": "enemy_dancer_attack",
     "atlas:dancer_death": "enemy_dancer_death",
-    "atlas:drone_walk": "enemy_drone_walk"
+    "atlas:drone_walk": "enemy_drone_walk",
+    "atlas:drone_windup": "enemy_drone_windup"
   }
 }
