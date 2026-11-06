@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 90,
+  "totalRegistered": 99,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1171,6 +1171,123 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_09",
       "sha16": "ce7085ac81564415"
+    },
+    "player_hurt_00": {
+      "id": "player_hurt_00",
+      "originalId": "player/player_hurt_00.png",
+      "name": "Protagonista · Impacto / Daño",
+      "category": "characters",
+      "src": "assets/characters/player_hurt_00.png",
+      "w": 240,
+      "h": 320,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "8d4f142311593212"
+    },
+    "player_death_00": {
+      "id": "player_death_00",
+      "originalId": "player/player_death_00.png",
+      "name": "Protagonista · Caído / Derrota",
+      "category": "characters",
+      "src": "assets/characters/player_death_00.png",
+      "w": 352,
+      "h": 160,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "5ad93172033f4585"
+    },
+    "enemy_security_walk": {
+      "id": "enemy_security_walk",
+      "originalId": "atlas:security_walk",
+      "name": "Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_security_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "b462ef8e4c5e14d9"
+    },
+    "enemy_security_windup": {
+      "id": "enemy_security_windup",
+      "originalId": "atlas:security_windup",
+      "name": "Seguridad Infernal (Gorila de Club) · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_security_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "ddbe5c4c85ffffbf"
+    },
+    "enemy_security_attack": {
+      "id": "enemy_security_attack",
+      "originalId": "atlas:security_attack",
+      "name": "Seguridad Infernal (Gorila de Club) · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_security_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "7d4afc642c1acf90"
+    },
+    "enemy_fanatic_walk": {
+      "id": "enemy_fanatic_walk",
+      "originalId": "atlas:fanatic_walk",
+      "name": "Fanático del Ritmo (Sprinter) · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_fanatic_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "fd9abb259a649cbd"
+    },
+    "enemy_fanatic_windup": {
+      "id": "enemy_fanatic_windup",
+      "originalId": "atlas:fanatic_windup",
+      "name": "Fanático del Ritmo (Sprinter) · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_fanatic_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "25ac60d5eaba9167"
+    },
+    "enemy_fanatic_attack": {
+      "id": "enemy_fanatic_attack",
+      "originalId": "atlas:fanatic_attack",
+      "name": "Fanático del Ritmo (Sprinter) · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_fanatic_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "d173b01f082cc1f5"
+    },
+    "enemy_fanatic_death": {
+      "id": "enemy_fanatic_death",
+      "originalId": "atlas:fanatic_death",
+      "name": "Fanático del Ritmo (Sprinter) · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_fanatic_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "06c5804ffda79d6b"
     }
   },
   "byOriginalId": {
@@ -1263,6 +1380,15 @@
     "player/player_fire2.png": "player_fire2",
     "player/player_firehip.png": "player_firehip",
     "player/player_boost_00.png": "player_boost_00",
-    "player/player_roll_00.png": "player_roll_00"
+    "player/player_roll_00.png": "player_roll_00",
+    "player/player_hurt_00.png": "player_hurt_00",
+    "player/player_death_00.png": "player_death_00",
+    "atlas:security_walk": "enemy_security_walk",
+    "atlas:security_windup": "enemy_security_windup",
+    "atlas:security_attack": "enemy_security_attack",
+    "atlas:fanatic_walk": "enemy_fanatic_walk",
+    "atlas:fanatic_windup": "enemy_fanatic_windup",
+    "atlas:fanatic_attack": "enemy_fanatic_attack",
+    "atlas:fanatic_death": "enemy_fanatic_death"
   }
 }

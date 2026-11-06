@@ -1,7 +1,7 @@
 # NEXT BATCH — TANDA_10
 
 - **Tanda a ejecutar:** `TANDA_10` (10 de 33)
-- **Fecha de planificación:** 2026-11-06T10:04:15Z
+- **Fecha de planificación:** 2026-11-06T10:08:30Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
 - **Pruebas obligatorias:** `node tools/validate_batch.js 10` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
 - **Commit previsto:** `feat(art): complete TANDA_10 high-res asset reconstruction and real engine integration`

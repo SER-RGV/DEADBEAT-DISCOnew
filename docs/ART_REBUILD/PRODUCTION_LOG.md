@@ -11,3 +11,4 @@
 - **2026-11-04T21:20:23Z** · TANDA_07 completada (10/10): props interactivos y decorativos del Refugio (pedestal arcano, póster, botellas, banco, bolardos, cabina DJ, arcade, vending, cooler y espejo); 70/70 recursos verificados.
 - **2026-11-04T22:17:52Z** · TANDA_08 completada (10/10): mobiliario de banquete y bar, props ambientales, NPCs del Refugio (DJ, armera, bartender) y dron aliado; 80/80 recursos verificados.
 - **2026-11-06T10:04:15Z** · TANDA_09 completada (10/10): sprites del protagonista para idle, ciclo de caminar, disparo, fuego alterno, hip-fire, boost y rodar; 90/90 recursos verificados.
+- **2026-11-06T10:08:30Z** · TANDA_10 integrada parcialmente (9/10): recuperación y muerte del protagonista, animaciones de seguridad y fanático; `enemy_security_death` queda pendiente por bloqueo de generación. 99/100 recursos verificados.

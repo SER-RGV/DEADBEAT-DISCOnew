@@ -1,18 +1,18 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-06T10:04:15Z
+- **Última actualización:** 2026-11-06T10:08:30Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **90 / 330** recursos verificados en motor real
+- **Progreso global:** **99 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
 | `bosses` | 42 | 0 | 0 | 0 |
-| `characters` | 16 | 14 | 14 | 14 |
+| `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
-| `enemies` | 24 | 0 | 0 | 0 |
+| `enemies` | 24 | 7 | 7 | 7 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
@@ -116,16 +116,16 @@
 | 88 | TANDA_09 | `player/player_firehip.png` | Protagonista · Disparo Cadera Arma Pesada | `characters` | `assets/characters/player_firehip.png` | 256x320 | DONE | INTEGRATED | VERIFIED |
 | 89 | TANDA_09 | `player/player_boost_00.png` | Protagonista · Impulso / Dash Sónico | `characters` | `assets/characters/player_boost_00.png` | 288x320 | DONE | INTEGRATED | VERIFIED |
 | 90 | TANDA_09 | `player/player_roll_00.png` | Protagonista · Esquiva Acrobática | `characters` | `assets/characters/player_roll_00.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
-| 91 | TANDA_10 | `player/player_hurt_00.png` | Protagonista · Impacto / Daño | `characters` | `assets/characters/player_hurt_00.png` | 240x320 | PENDING | PENDING | PENDING |
-| 92 | TANDA_10 | `player/player_death_00.png` | Protagonista · Caído / Derrota | `characters` | `assets/characters/player_death_00.png` | 352x160 | PENDING | PENDING | PENDING |
-| 93 | TANDA_10 | `atlas:security_walk` | Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_security_walk.png` | 256x288 | PENDING | PENDING | PENDING |
-| 94 | TANDA_10 | `atlas:security_windup` | Seguridad Infernal (Gorila de Club) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_security_windup.png` | 256x288 | PENDING | PENDING | PENDING |
-| 95 | TANDA_10 | `atlas:security_attack` | Seguridad Infernal (Gorila de Club) · Ataque Activo | `enemies` | `assets/enemies/enemy_security_attack.png` | 288x288 | PENDING | PENDING | PENDING |
+| 91 | TANDA_10 | `player/player_hurt_00.png` | Protagonista · Impacto / Daño | `characters` | `assets/characters/player_hurt_00.png` | 240x320 | DONE | INTEGRATED | VERIFIED |
+| 92 | TANDA_10 | `player/player_death_00.png` | Protagonista · Caído / Derrota | `characters` | `assets/characters/player_death_00.png` | 352x160 | DONE | INTEGRATED | VERIFIED |
+| 93 | TANDA_10 | `atlas:security_walk` | Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_security_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 94 | TANDA_10 | `atlas:security_windup` | Seguridad Infernal (Gorila de Club) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_security_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 95 | TANDA_10 | `atlas:security_attack` | Seguridad Infernal (Gorila de Club) · Ataque Activo | `enemies` | `assets/enemies/enemy_security_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
 | 96 | TANDA_10 | `atlas:security_death` | Seguridad Infernal (Gorila de Club) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_security_death.png` | 288x224 | PENDING | PENDING | PENDING |
-| 97 | TANDA_10 | `atlas:fanatic_walk` | Fanático del Ritmo (Sprinter) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_fanatic_walk.png` | 256x288 | PENDING | PENDING | PENDING |
-| 98 | TANDA_10 | `atlas:fanatic_windup` | Fanático del Ritmo (Sprinter) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_fanatic_windup.png` | 256x288 | PENDING | PENDING | PENDING |
-| 99 | TANDA_10 | `atlas:fanatic_attack` | Fanático del Ritmo (Sprinter) · Ataque Activo | `enemies` | `assets/enemies/enemy_fanatic_attack.png` | 288x288 | PENDING | PENDING | PENDING |
-| 100 | TANDA_10 | `atlas:fanatic_death` | Fanático del Ritmo (Sprinter) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_fanatic_death.png` | 288x224 | PENDING | PENDING | PENDING |
+| 97 | TANDA_10 | `atlas:fanatic_walk` | Fanático del Ritmo (Sprinter) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_fanatic_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 98 | TANDA_10 | `atlas:fanatic_windup` | Fanático del Ritmo (Sprinter) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_fanatic_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 99 | TANDA_10 | `atlas:fanatic_attack` | Fanático del Ritmo (Sprinter) · Ataque Activo | `enemies` | `assets/enemies/enemy_fanatic_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
+| 100 | TANDA_10 | `atlas:fanatic_death` | Fanático del Ritmo (Sprinter) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_fanatic_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
 | 101 | TANDA_11 | `atlas:chef_walk` | Cocinero Carnicero (Tanque Gula) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_chef_walk.png` | 256x288 | PENDING | PENDING | PENDING |
 | 102 | TANDA_11 | `atlas:chef_windup` | Cocinero Carnicero (Tanque Gula) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_chef_windup.png` | 256x288 | PENDING | PENDING | PENDING |
 | 103 | TANDA_11 | `atlas:chef_attack` | Cocinero Carnicero (Tanque Gula) · Ataque Activo | `enemies` | `assets/enemies/enemy_chef_attack.png` | 288x288 | PENDING | PENDING | PENDING |
