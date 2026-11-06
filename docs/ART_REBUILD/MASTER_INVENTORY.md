@@ -1,18 +1,18 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-06T10:46:14Z
+- **Última actualización:** 2026-11-06T10:48:41Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **110 / 330** recursos verificados en motor real
+- **Progreso global:** **117 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 0 | 0 | 0 |
+| `bosses` | 42 | 1 | 1 | 1 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
-| `enemies` | 24 | 18 | 18 | 18 |
+| `enemies` | 24 | 24 | 24 | 24 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
@@ -136,13 +136,13 @@
 | 108 | TANDA_11 | `atlas:dancer_death` | Bailarina Letal (Sombra Lujuria) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_dancer_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
 | 109 | TANDA_11 | `atlas:drone_walk` | Dron Altavoz Sónico (Ranged) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_drone_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 110 | TANDA_11 | `atlas:drone_windup` | Dron Altavoz Sónico (Ranged) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_drone_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
-| 111 | TANDA_12 | `atlas:drone_attack` | Dron Altavoz Sónico (Ranged) · Ataque Activo | `enemies` | `assets/enemies/enemy_drone_attack.png` | 288x288 | PENDING | PENDING | PENDING |
-| 112 | TANDA_12 | `atlas:drone_death` | Dron Altavoz Sónico (Ranged) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_drone_death.png` | 288x224 | PENDING | PENDING | PENDING |
-| 113 | TANDA_12 | `atlas:elite_walk` | Élite Guardia Real del Club · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_elite_walk.png` | 256x288 | PENDING | PENDING | PENDING |
-| 114 | TANDA_12 | `atlas:elite_windup` | Élite Guardia Real del Club · Preparación de Ataque | `enemies` | `assets/enemies/enemy_elite_windup.png` | 256x288 | PENDING | PENDING | PENDING |
-| 115 | TANDA_12 | `atlas:elite_attack` | Élite Guardia Real del Club · Ataque Activo | `enemies` | `assets/enemies/enemy_elite_attack.png` | 288x288 | PENDING | PENDING | PENDING |
-| 116 | TANDA_12 | `atlas:elite_death` | Élite Guardia Real del Club · Impacto y Colapso | `enemies` | `assets/enemies/enemy_elite_death.png` | 288x224 | PENDING | PENDING | PENDING |
-| 117 | TANDA_12 | `resident_01_anden:idle` | ANDÉN · El Portero (Limbo) · Presencia / Idle | `bosses` | `assets/bosses/boss_00_anden_idle.png` | 384x448 | PENDING | PENDING | PENDING |
+| 111 | TANDA_12 | `atlas:drone_attack` | Dron Altavoz Sónico (Ranged) · Ataque Activo | `enemies` | `assets/enemies/enemy_drone_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
+| 112 | TANDA_12 | `atlas:drone_death` | Dron Altavoz Sónico (Ranged) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_drone_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
+| 113 | TANDA_12 | `atlas:elite_walk` | Élite Guardia Real del Club · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_elite_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 114 | TANDA_12 | `atlas:elite_windup` | Élite Guardia Real del Club · Preparación de Ataque | `enemies` | `assets/enemies/enemy_elite_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 115 | TANDA_12 | `atlas:elite_attack` | Élite Guardia Real del Club · Ataque Activo | `enemies` | `assets/enemies/enemy_elite_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
+| 116 | TANDA_12 | `atlas:elite_death` | Élite Guardia Real del Club · Impacto y Colapso | `enemies` | `assets/enemies/enemy_elite_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
+| 117 | TANDA_12 | `resident_01_anden:idle` | ANDÉN · El Portero (Limbo) · Presencia / Idle | `bosses` | `assets/bosses/boss_00_anden_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 118 | TANDA_12 | `resident_01_anden:attack` | ANDÉN · El Portero (Limbo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_00_anden_attack.png` | 416x448 | PENDING | PENDING | PENDING |
 | 119 | TANDA_12 | `resident_01_anden:hit` | ANDÉN · El Portero (Limbo) · Impacto / Daño | `bosses` | `assets/bosses/boss_00_anden_hit.png` | 384x448 | PENDING | PENDING | PENDING |
 | 120 | TANDA_12 | `resident_01_anden:death` | ANDÉN · El Portero (Limbo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_00_anden_death.png` | 416x352 | PENDING | PENDING | PENDING |

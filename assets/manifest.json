@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 110,
+  "totalRegistered": 117,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1431,6 +1431,97 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_11",
       "sha16": "a204e1fb8db59f6c"
+    },
+    "enemy_drone_attack": {
+      "id": "enemy_drone_attack",
+      "originalId": "atlas:drone_attack",
+      "name": "Dron Altavoz Sónico (Ranged) · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_drone_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "17271732e991b20f"
+    },
+    "enemy_drone_death": {
+      "id": "enemy_drone_death",
+      "originalId": "atlas:drone_death",
+      "name": "Dron Altavoz Sónico (Ranged) · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_drone_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "c443f9e0a97adf31"
+    },
+    "enemy_elite_walk": {
+      "id": "enemy_elite_walk",
+      "originalId": "atlas:elite_walk",
+      "name": "Élite Guardia Real del Club · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_elite_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "1b0adc21e0af950f"
+    },
+    "enemy_elite_windup": {
+      "id": "enemy_elite_windup",
+      "originalId": "atlas:elite_windup",
+      "name": "Élite Guardia Real del Club · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_elite_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "bb29ce1e4bd37e62"
+    },
+    "enemy_elite_attack": {
+      "id": "enemy_elite_attack",
+      "originalId": "atlas:elite_attack",
+      "name": "Élite Guardia Real del Club · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_elite_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "4ce8f4acbf85ccbb"
+    },
+    "enemy_elite_death": {
+      "id": "enemy_elite_death",
+      "originalId": "atlas:elite_death",
+      "name": "Élite Guardia Real del Club · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_elite_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "d2fd115c07e7c957"
+    },
+    "boss_00_anden_idle": {
+      "id": "boss_00_anden_idle",
+      "originalId": "resident_01_anden:idle",
+      "name": "ANDÉN · El Portero (Limbo) · Presencia / Idle",
+      "category": "bosses",
+      "src": "assets/bosses/boss_00_anden_idle.png",
+      "w": 384,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_12",
+      "sha16": "9210a47619ad5ebd"
     }
   },
   "byOriginalId": {
@@ -1543,6 +1634,13 @@
     "atlas:dancer_attack": "enemy_dancer_attack",
     "atlas:dancer_death": "enemy_dancer_death",
     "atlas:drone_walk": "enemy_drone_walk",
-    "atlas:drone_windup": "enemy_drone_windup"
+    "atlas:drone_windup": "enemy_drone_windup",
+    "atlas:drone_attack": "enemy_drone_attack",
+    "atlas:drone_death": "enemy_drone_death",
+    "atlas:elite_walk": "enemy_elite_walk",
+    "atlas:elite_windup": "enemy_elite_windup",
+    "atlas:elite_attack": "enemy_elite_attack",
+    "atlas:elite_death": "enemy_elite_death",
+    "resident_01_anden:idle": "boss_00_anden_idle"
   }
 }
