@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 99,
+  "totalRegistered": 108,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1237,6 +1237,19 @@
       "tanda": "TANDA_10",
       "sha16": "7d4afc642c1acf90"
     },
+    "enemy_security_death": {
+      "id": "enemy_security_death",
+      "originalId": "atlas:security_death",
+      "name": "Seguridad Infernal (Gorila de Club) · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_security_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_10",
+      "sha16": "021bc5c651023516"
+    },
     "enemy_fanatic_walk": {
       "id": "enemy_fanatic_walk",
       "originalId": "atlas:fanatic_walk",
@@ -1288,6 +1301,110 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_10",
       "sha16": "06c5804ffda79d6b"
+    },
+    "enemy_chef_walk": {
+      "id": "enemy_chef_walk",
+      "originalId": "atlas:chef_walk",
+      "name": "Cocinero Carnicero (Tanque Gula) · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_chef_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "5ff043464e2e023c"
+    },
+    "enemy_chef_windup": {
+      "id": "enemy_chef_windup",
+      "originalId": "atlas:chef_windup",
+      "name": "Cocinero Carnicero (Tanque Gula) · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_chef_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "d5991d1c199e1425"
+    },
+    "enemy_chef_attack": {
+      "id": "enemy_chef_attack",
+      "originalId": "atlas:chef_attack",
+      "name": "Cocinero Carnicero (Tanque Gula) · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_chef_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "e82246b7d382d87e"
+    },
+    "enemy_dancer_walk": {
+      "id": "enemy_dancer_walk",
+      "originalId": "atlas:dancer_walk",
+      "name": "Bailarina Letal (Sombra Lujuria) · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_dancer_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "def06bce6ce7be12"
+    },
+    "enemy_dancer_windup": {
+      "id": "enemy_dancer_windup",
+      "originalId": "atlas:dancer_windup",
+      "name": "Bailarina Letal (Sombra Lujuria) · Preparación de Ataque",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_dancer_windup.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "9fd5f86b897e20ba"
+    },
+    "enemy_dancer_attack": {
+      "id": "enemy_dancer_attack",
+      "originalId": "atlas:dancer_attack",
+      "name": "Bailarina Letal (Sombra Lujuria) · Ataque Activo",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_dancer_attack.png",
+      "w": 288,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "82e069eb4feeb4e2"
+    },
+    "enemy_dancer_death": {
+      "id": "enemy_dancer_death",
+      "originalId": "atlas:dancer_death",
+      "name": "Bailarina Letal (Sombra Lujuria) · Impacto y Colapso",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_dancer_death.png",
+      "w": 288,
+      "h": 224,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "058c8a7b6104ed57"
+    },
+    "enemy_drone_walk": {
+      "id": "enemy_drone_walk",
+      "originalId": "atlas:drone_walk",
+      "name": "Dron Altavoz Sónico (Ranged) · Ciclo Movimiento / Guardia",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_drone_walk.png",
+      "w": 256,
+      "h": 288,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_11",
+      "sha16": "90324093ba6399bb"
     }
   },
   "byOriginalId": {
@@ -1386,9 +1503,18 @@
     "atlas:security_walk": "enemy_security_walk",
     "atlas:security_windup": "enemy_security_windup",
     "atlas:security_attack": "enemy_security_attack",
+    "atlas:security_death": "enemy_security_death",
     "atlas:fanatic_walk": "enemy_fanatic_walk",
     "atlas:fanatic_windup": "enemy_fanatic_windup",
     "atlas:fanatic_attack": "enemy_fanatic_attack",
-    "atlas:fanatic_death": "enemy_fanatic_death"
+    "atlas:fanatic_death": "enemy_fanatic_death",
+    "atlas:chef_walk": "enemy_chef_walk",
+    "atlas:chef_windup": "enemy_chef_windup",
+    "atlas:chef_attack": "enemy_chef_attack",
+    "atlas:dancer_walk": "enemy_dancer_walk",
+    "atlas:dancer_windup": "enemy_dancer_windup",
+    "atlas:dancer_attack": "enemy_dancer_attack",
+    "atlas:dancer_death": "enemy_dancer_death",
+    "atlas:drone_walk": "enemy_drone_walk"
   }
 }

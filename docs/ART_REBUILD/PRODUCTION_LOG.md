@@ -12,3 +12,4 @@
 - **2026-11-04T22:17:52Z** · TANDA_08 completada (10/10): mobiliario de banquete y bar, props ambientales, NPCs del Refugio (DJ, armera, bartender) y dron aliado; 80/80 recursos verificados.
 - **2026-11-06T10:04:15Z** · TANDA_09 completada (10/10): sprites del protagonista para idle, ciclo de caminar, disparo, fuego alterno, hip-fire, boost y rodar; 90/90 recursos verificados.
 - **2026-11-06T10:08:30Z** · TANDA_10 integrada parcialmente (9/10): recuperación y muerte del protagonista, animaciones de seguridad y fanático; `enemy_security_death` queda pendiente por bloqueo de generación. 99/100 recursos verificados.
+- **2026-11-06T10:14:53Z** · TANDA_10 cerrada (10/10) tras integrar `enemy_security_death`; TANDA_11 integrada parcialmente (8/10): animaciones del chef y bailarín más dron enemigo. Quedan `enemy_chef_death` y `enemy_drone_windup` para la siguiente tanda de generación.

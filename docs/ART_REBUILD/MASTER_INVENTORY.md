@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-06T10:08:30Z
+- **Última actualización:** 2026-11-06T10:14:53Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **99 / 330** recursos verificados en motor real
+- **Progreso global:** **108 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -12,7 +12,7 @@
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
-| `enemies` | 24 | 7 | 7 | 7 |
+| `enemies` | 24 | 16 | 16 | 16 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
@@ -121,20 +121,20 @@
 | 93 | TANDA_10 | `atlas:security_walk` | Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_security_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 94 | TANDA_10 | `atlas:security_windup` | Seguridad Infernal (Gorila de Club) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_security_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 95 | TANDA_10 | `atlas:security_attack` | Seguridad Infernal (Gorila de Club) · Ataque Activo | `enemies` | `assets/enemies/enemy_security_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
-| 96 | TANDA_10 | `atlas:security_death` | Seguridad Infernal (Gorila de Club) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_security_death.png` | 288x224 | PENDING | PENDING | PENDING |
+| 96 | TANDA_10 | `atlas:security_death` | Seguridad Infernal (Gorila de Club) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_security_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
 | 97 | TANDA_10 | `atlas:fanatic_walk` | Fanático del Ritmo (Sprinter) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_fanatic_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 98 | TANDA_10 | `atlas:fanatic_windup` | Fanático del Ritmo (Sprinter) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_fanatic_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 99 | TANDA_10 | `atlas:fanatic_attack` | Fanático del Ritmo (Sprinter) · Ataque Activo | `enemies` | `assets/enemies/enemy_fanatic_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
 | 100 | TANDA_10 | `atlas:fanatic_death` | Fanático del Ritmo (Sprinter) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_fanatic_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
-| 101 | TANDA_11 | `atlas:chef_walk` | Cocinero Carnicero (Tanque Gula) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_chef_walk.png` | 256x288 | PENDING | PENDING | PENDING |
-| 102 | TANDA_11 | `atlas:chef_windup` | Cocinero Carnicero (Tanque Gula) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_chef_windup.png` | 256x288 | PENDING | PENDING | PENDING |
-| 103 | TANDA_11 | `atlas:chef_attack` | Cocinero Carnicero (Tanque Gula) · Ataque Activo | `enemies` | `assets/enemies/enemy_chef_attack.png` | 288x288 | PENDING | PENDING | PENDING |
+| 101 | TANDA_11 | `atlas:chef_walk` | Cocinero Carnicero (Tanque Gula) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_chef_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 102 | TANDA_11 | `atlas:chef_windup` | Cocinero Carnicero (Tanque Gula) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_chef_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 103 | TANDA_11 | `atlas:chef_attack` | Cocinero Carnicero (Tanque Gula) · Ataque Activo | `enemies` | `assets/enemies/enemy_chef_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
 | 104 | TANDA_11 | `atlas:chef_death` | Cocinero Carnicero (Tanque Gula) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_chef_death.png` | 288x224 | PENDING | PENDING | PENDING |
-| 105 | TANDA_11 | `atlas:dancer_walk` | Bailarina Letal (Sombra Lujuria) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_dancer_walk.png` | 256x288 | PENDING | PENDING | PENDING |
-| 106 | TANDA_11 | `atlas:dancer_windup` | Bailarina Letal (Sombra Lujuria) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_dancer_windup.png` | 256x288 | PENDING | PENDING | PENDING |
-| 107 | TANDA_11 | `atlas:dancer_attack` | Bailarina Letal (Sombra Lujuria) · Ataque Activo | `enemies` | `assets/enemies/enemy_dancer_attack.png` | 288x288 | PENDING | PENDING | PENDING |
-| 108 | TANDA_11 | `atlas:dancer_death` | Bailarina Letal (Sombra Lujuria) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_dancer_death.png` | 288x224 | PENDING | PENDING | PENDING |
-| 109 | TANDA_11 | `atlas:drone_walk` | Dron Altavoz Sónico (Ranged) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_drone_walk.png` | 256x288 | PENDING | PENDING | PENDING |
+| 105 | TANDA_11 | `atlas:dancer_walk` | Bailarina Letal (Sombra Lujuria) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_dancer_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 106 | TANDA_11 | `atlas:dancer_windup` | Bailarina Letal (Sombra Lujuria) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_dancer_windup.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
+| 107 | TANDA_11 | `atlas:dancer_attack` | Bailarina Letal (Sombra Lujuria) · Ataque Activo | `enemies` | `assets/enemies/enemy_dancer_attack.png` | 288x288 | DONE | INTEGRATED | VERIFIED |
+| 108 | TANDA_11 | `atlas:dancer_death` | Bailarina Letal (Sombra Lujuria) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_dancer_death.png` | 288x224 | DONE | INTEGRATED | VERIFIED |
+| 109 | TANDA_11 | `atlas:drone_walk` | Dron Altavoz Sónico (Ranged) · Ciclo Movimiento / Guardia | `enemies` | `assets/enemies/enemy_drone_walk.png` | 256x288 | DONE | INTEGRATED | VERIFIED |
 | 110 | TANDA_11 | `atlas:drone_windup` | Dron Altavoz Sónico (Ranged) · Preparación de Ataque | `enemies` | `assets/enemies/enemy_drone_windup.png` | 256x288 | PENDING | PENDING | PENDING |
 | 111 | TANDA_12 | `atlas:drone_attack` | Dron Altavoz Sónico (Ranged) · Ataque Activo | `enemies` | `assets/enemies/enemy_drone_attack.png` | 288x288 | PENDING | PENDING | PENDING |
 | 112 | TANDA_12 | `atlas:drone_death` | Dron Altavoz Sónico (Ranged) · Impacto y Colapso | `enemies` | `assets/enemies/enemy_drone_death.png` | 288x224 | PENDING | PENDING | PENDING |
