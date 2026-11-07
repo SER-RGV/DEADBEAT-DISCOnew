@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T11:17:40Z
+- **Última actualización:** 2026-11-07T11:39:54Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **165 / 330** recursos verificados en motor real
+- **Progreso global:** **175 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -16,7 +16,7 @@
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
-| `pickups` | 20 | 9 | 9 | 9 |
+| `pickups` | 20 | 19 | 19 | 19 |
 | `props` | 30 | 30 | 30 | 30 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
@@ -191,16 +191,16 @@
 | 163 | TANDA_17 | `pickups/pickup_damageup_00.png` | Pickup · Subida de Daño Carmesí | `pickups` | `assets/pickups/pickup_damageup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 164 | TANDA_17 | `pickups/pickup_fireup_00.png` | Pickup · Cadencia Ígnea Naranja | `pickups` | `assets/pickups/pickup_fireup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 165 | TANDA_17 | `pickups/pickup_speedup_00.png` | Pickup · Velocidad Doble Flecha Neón | `pickups` | `assets/pickups/pickup_speedup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
-| 166 | TANDA_17 | `pickups/pickup_turret_00.png` | Pickup · Módulo Torreta | `pickups` | `assets/pickups/pickup_turret_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 167 | TANDA_17 | `pickups/pickup_companion_00.png` | Pickup · Medallón Compañero | `pickups` | `assets/pickups/pickup_companion_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 168 | TANDA_17 | `pickups/pickup_mutation_00.png` | Pickup · Mutación Arcana Cian | `pickups` | `assets/pickups/pickup_mutation_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 169 | TANDA_17 | `rogue:needle` | Reliquia · Aguja de Vinilo | `pickups` | `assets/pickups/relic_needle.png` | 160x160 | PENDING | PENDING | PENDING |
-| 170 | TANDA_17 | `rogue:lowpass` | Reliquia · Filtro de Bajos | `pickups` | `assets/pickups/relic_lowpass.png` | 160x160 | PENDING | PENDING | PENDING |
-| 171 | TANDA_18 | `rogue:magnet` | Reliquia · Imán de Cabina | `pickups` | `assets/pickups/relic_magnet.png` | 160x160 | PENDING | PENDING | PENDING |
-| 172 | TANDA_18 | `rogue:pact` | Reliquia · Sello del DJ | `pickups` | `assets/pickups/relic_pact.png` | 160x160 | PENDING | PENDING | PENDING |
-| 173 | TANDA_18 | `rogue:echo` | Reliquia · Vinilo Retrovisor | `pickups` | `assets/pickups/relic_echo.png` | 160x160 | PENDING | PENDING | PENDING |
-| 174 | TANDA_18 | `rogue:coil` | Reliquia · Bobina Infernal | `pickups` | `assets/pickups/relic_coil.png` | 160x160 | PENDING | PENDING | PENDING |
-| 175 | TANDA_18 | `rogue:prism` | Reliquia · Prisma de Humo | `pickups` | `assets/pickups/relic_prism.png` | 160x160 | PENDING | PENDING | PENDING |
+| 166 | TANDA_17 | `pickups/pickup_turret_00.png` | Pickup · Módulo Torreta | `pickups` | `assets/pickups/pickup_turret_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 167 | TANDA_17 | `pickups/pickup_companion_00.png` | Pickup · Medallón Compañero | `pickups` | `assets/pickups/pickup_companion_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 168 | TANDA_17 | `pickups/pickup_mutation_00.png` | Pickup · Mutación Arcana Cian | `pickups` | `assets/pickups/pickup_mutation_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 169 | TANDA_17 | `rogue:needle` | Reliquia · Aguja de Vinilo | `pickups` | `assets/pickups/relic_needle.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 170 | TANDA_17 | `rogue:lowpass` | Reliquia · Filtro de Bajos | `pickups` | `assets/pickups/relic_lowpass.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 171 | TANDA_18 | `rogue:magnet` | Reliquia · Imán de Cabina | `pickups` | `assets/pickups/relic_magnet.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 172 | TANDA_18 | `rogue:pact` | Reliquia · Sello del DJ | `pickups` | `assets/pickups/relic_pact.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 173 | TANDA_18 | `rogue:echo` | Reliquia · Vinilo Retrovisor | `pickups` | `assets/pickups/relic_echo.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 174 | TANDA_18 | `rogue:coil` | Reliquia · Bobina Infernal | `pickups` | `assets/pickups/relic_coil.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 175 | TANDA_18 | `rogue:prism` | Reliquia · Prisma de Humo | `pickups` | `assets/pickups/relic_prism.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 176 | TANDA_18 | `rogue:tempo` | Reliquia · Metrónomo Negro | `pickups` | `assets/pickups/relic_tempo.png` | 160x160 | PENDING | PENDING | PENDING |
 | 177 | TANDA_18 | `atlas:projectile_slug` | Proyectil · Bala Cinética Dorada | `effects` | `assets/effects/proj_slug.png` | 160x96 | PENDING | PENDING | PENDING |
 | 178 | TANDA_18 | `atlas:projectile_heavy` | Proyectil · Calibre Pesado Ámbar | `effects` | `assets/effects/proj_heavy.png` | 192x96 | PENDING | PENDING | PENDING |
