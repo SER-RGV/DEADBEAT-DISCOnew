@@ -632,7 +632,22 @@
 
   function enterGame() {
     /* Lo llama el botón de partida DESPUÉS de validar la acción. Aquí sólo se
-       garantiza la propiedad del audio y se impide la doble pulsación. */
+       garantiza la propiedad del audio y se impide la doble pulsación.
+       Sólo es válido desde el menú o un submenú: una partida no puede empezar
+       durante el arranque ni desde la intro. Si la transición no procede, se
+       rechaza sin tocar el estado (ningún estado a medias). */
+    if (!canStartGame()) return false;
+    /* Y sólo si el motor está realmente en marcha. Se comprueba aquí, no sólo en
+       la UI, para que la garantía valga también para cualquier llamada directa
+       al API: PLAYING no se declara nunca sobre un motor parado. */
+    var engineUp = false;
+    try {
+      if (window.DD_HUB && window.DD_HUB.isActive()) engineUp = true;
+      else if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.isRunning === "function")
+        engineUp = !!window.__DD_BRIDGE.isRunning();
+      else engineUp = true; /* sin puente (build sin motor) no se puede comprobar */
+    } catch (e) { engineUp = false; }
+    if (!engineUp) return false;
     document.body.classList.remove("dd-booting", "dd-intro-running");
     audio.stopMenuMusic(0.5);
     setState("PLAYING");

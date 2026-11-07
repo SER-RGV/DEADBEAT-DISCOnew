@@ -476,8 +476,20 @@
         return '<option value="' + g[0] + '"' + (a11y.gfx === g[0] ? " selected" : "") + '>' + g[1] + '</option>';
       }).join("") + '</select></div>' +
       '    <div class="dd-opt-row"><label for="dd-opt-fs">PANTALLA COMPLETA</label>' +
-      '      <button type="button" class="dd-toggle" id="dd-opt-fs" aria-pressed="' + (document.fullscreenElement ? "true" : "false") + '">' +
-      (document.fullscreenElement ? "SÍ" : "NO") + '</button></div>' +
+      (function () {
+        /* Honestidad del control: si el navegador no expone la API o el contexto
+           la prohíbe, el botón se muestra desactivado en lugar de fingir que
+           funciona. No se ofrece lo que no se puede cumplir. */
+        var api = !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen);
+        var allowed = (typeof document.fullscreenEnabled === "boolean") ? document.fullscreenEnabled : api;
+        if (!api || !allowed) {
+          return '<button type="button" class="dd-toggle" id="dd-opt-fs" aria-pressed="false" aria-disabled="true" disabled title="' +
+            (api ? "El navegador bloquea la pantalla completa en este contexto." : "Este navegador no expone la API de pantalla completa.") +
+            '">NO DISPONIBLE</button>';
+        }
+        return '<button type="button" class="dd-toggle" id="dd-opt-fs" aria-pressed="' + (document.fullscreenElement ? "true" : "false") + '">' +
+          (document.fullscreenElement ? "SÍ" : "NO") + '</button>';
+      })() + '</div>' +
       '    <p class="dd-opt-note" id="dd-opt-res"></p>' +
       '    <h3>CONTROLES</h3>' +
       '    <div class="dd-opt-row"><label for="dd-opt-keys">TECLADO</label><span class="dd-opt-fixed">WASD / FLECHAS · ENTER · ESC</span></div>' +
@@ -561,21 +573,46 @@
     }
 
     var fs = el("dd-opt-fs");
-    if (fs) {
+    if (fs && !fs.disabled) {
+      /* El estado del botón se sincroniza con el evento REAL del navegador, no
+         con una suposición optimista: si la petición se rechaza, el botón queda
+         como estaba y se explica el motivo. */
+      var syncFs = function () {
+        var on = !!document.fullscreenElement;
+        fs.setAttribute("aria-pressed", on ? "true" : "false");
+        fs.textContent = on ? "SÍ" : "NO";
+        fs.title = "";
+      };
+      ["fullscreenchange", "webkitfullscreenchange"].forEach(function (ev) {
+        document.addEventListener(ev, syncFs);
+      });
       fs.addEventListener("click", function () {
         var want = !document.fullscreenElement;
+        var done = function (err) {
+          syncFs();
+          if (err) {
+            var note = el("dd-opt-fs-note");
+            if (!note) {
+              note = document.createElement("p");
+              note.id = "dd-opt-fs-note";
+              note.className = "dd-opt-note";
+              if (fs.parentNode && fs.parentNode.parentNode) fs.parentNode.parentNode.appendChild(note);
+            }
+            note.textContent = "El navegador no concedió la pantalla completa (" +
+              String((err && err.message) || err).slice(0, 90) + ").";
+          }
+        };
         try {
           if (want) {
             var r = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
-            if (r) r.call(document.documentElement);
-          } else if (document.exitFullscreen) {
-            document.exitFullscreen();
+            if (!r) return done(new Error("API no disponible"));
+            var pr = r.call(document.documentElement);
+            if (pr && typeof pr.then === "function") pr.then(function () { done(null); }, done);
+            else setTimeout(function () { done(null); }, 150);
+          } else {
+            document.exitFullscreen().then(function () { done(null); }, done);
           }
-        } catch (e) {}
-        setTimeout(function () {
-          fs.setAttribute("aria-pressed", document.fullscreenElement ? "true" : "false");
-          fs.textContent = document.fullscreenElement ? "SÍ" : "NO";
-        }, 120);
+        } catch (e) { done(e); }
         sfx("ok");
       });
     }

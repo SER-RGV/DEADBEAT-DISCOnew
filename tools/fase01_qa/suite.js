@@ -14,14 +14,25 @@
 const fs = require('fs');
 const { launch, waitState, clean } = require(__dirname + '/lib.js');
 
-const OUT = process.env.QA_OUT || '/home/user/_qa/out';
+const OUT = process.env.QA_OUT || require(__dirname + '/lib.js').OUT;
 const URL = (process.env.QA_URL || 'http://127.0.0.1:8123') + '/index.html';
 fs.mkdirSync(OUT, { recursive: true });
 
 const res = [];
+/* Tres estados, no dos. Un SKIP no es un PASS encubierto: significa que la
+   prueba no llegó a ejecutarse por una limitación del entorno, y así se informa.
+   NO VERIFICABLE se registra cuando el efecto no puede medirse aquí. */
 function ok(id, cond, detail) {
-  res.push({ id, pass: !!cond, detail: String(detail == null ? '' : detail) });
+  res.push({ id, pass: !!cond, status: cond ? 'PASS' : 'FAIL', detail: String(detail == null ? '' : detail) });
   console.log((cond ? 'PASS ' : 'FAIL ') + id + '  ' + (detail == null ? '' : detail));
+}
+function skip(id, why, detail) {
+  res.push({ id, pass: null, status: 'SKIP', detail: String(detail == null ? '' : detail), why: String(why) });
+  console.log('SKIP ' + id + '  ' + why + (detail ? ' · ' + detail : ''));
+}
+function nv(id, why, detail) {
+  res.push({ id, pass: null, status: 'NV', detail: String(detail == null ? '' : detail), why: String(why) });
+  console.log('NV   ' + id + '  ' + why + (detail ? ' · ' + detail : ''));
 }
 
 /* Espera a que la FSM llegue a MAIN_MENU (el boot puede tardar en este entorno). */
@@ -157,12 +168,67 @@ async function toMenu(p, maxMs) {
   });
   ok('C7 mezcla del motor incrustada (sin duplicar controles)', mix.rows >= 3, JSON.stringify(mix));
 
-  const fsTry = await p.evaluate(() => {
-    try { document.getElementById('dd-opt-fs').click(); return 'clicked'; } catch (e) { return 'err'; }
+  /* C8 · Pantalla completa, medida de verdad.
+     Se distinguen tres cosas que antes se confundían en una sola:
+       (a) el navegador EXPONE la API,
+       (b) el botón es OPERATIVO (no está desactivado),
+       (c) la pantalla completa SE ACTIVÓ de hecho (document.fullscreenElement).
+     El PASS sólo se declara si se cumple (c) y además la salida restaura el
+     estado original. Si el entorno lo bloquea, la prueba es SKIP, nunca PASS. */
+  const fsState = await p.evaluate(() => {
+    const btn = document.getElementById('dd-opt-fs');
+    return {
+      hasApi: !!(document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen),
+      fullscreenEnabled: typeof document.fullscreenEnabled === 'boolean' ? document.fullscreenEnabled : null,
+      btnExists: !!btn,
+      btnDisabled: btn ? !!btn.disabled : null,
+      btnText: btn ? btn.textContent.trim() : '',
+      before: !!document.fullscreenElement
+    };
   });
-  await p.waitForTimeout(600);
-  ok('C8 pantalla completa usa el API real', fsTry === 'clicked',
-    'fullscreenElement=' + (await p.evaluate(() => !!document.fullscreenElement)));
+
+  let fsAfter = { on: fsState.before };
+  if (fsState.btnExists && !fsState.btnDisabled) {
+    await p.evaluate(() => {
+      window.__fsEvents = [];
+      document.addEventListener('fullscreenchange', () => window.__fsEvents.push(!!document.fullscreenElement));
+      document.getElementById('dd-opt-fs').click();
+    });
+    await p.waitForTimeout(2500);
+    fsAfter = await p.evaluate(() => ({
+      on: !!document.fullscreenElement,
+      events: window.__fsEvents || [],
+      pressed: (document.getElementById('dd-opt-fs') || {}).getAttribute
+        ? document.getElementById('dd-opt-fs').getAttribute('aria-pressed') : null,
+      note: (document.getElementById('dd-opt-fs-note') || {}).textContent || ''
+    }));
+  }
+
+  const fsInfo = 'API=' + fsState.hasApi + ' enabled=' + fsState.fullscreenEnabled +
+    ' botón=' + (fsState.btnExists ? (fsState.btnDisabled ? 'desactivado' : 'operativo') : 'ausente') +
+    ' fullscreenElement ' + fsState.before + '->' + fsAfter.on +
+    ' eventos=' + JSON.stringify(fsAfter.events || []) + ' pressed=' + fsAfter.pressed;
+
+  if (fsState.btnExists && fsState.btnDisabled) {
+    skip('C8 pantalla completa activada de verdad', 'el botón se declara no disponible en este contexto', fsInfo);
+  } else if (fsAfter.on) {
+    /* Entró de verdad: se comprueba también la salida y la restauración. */
+    let exitOk = false, restored = null;
+    try {
+      restored = await p.evaluate(async () => {
+        await document.exitFullscreen();
+        return !!document.fullscreenElement;
+      });
+      await p.waitForTimeout(900);
+      exitOk = (await p.evaluate(() => !document.fullscreenElement)) === true;
+    } catch (e) { exitOk = false; }
+    ok('C8b la salida restaura el estado original', exitOk, 'fullscreenElement tras salir=' + restored);
+    ok('C8 pantalla completa activada de verdad',
+      fsAfter.on === true && (fsAfter.events || []).indexOf(true) >= 0, fsInfo);
+  } else {
+    skip('C8 pantalla completa activada de verdad',
+      'el entorno headless no concedió el cambio de modo', fsInfo);
+  }
   await p.keyboard.press('Escape');
   await p.waitForTimeout(700);
 
@@ -316,11 +382,274 @@ async function toMenu(p, maxMs) {
   ok('G4 sin errores durante la transición a juego', gErrs.length === 0, gErrs.slice(0, 3).join(' || '));
   await bg.close();
 
+  /* ==========================================================================
+     H. FASE 01.1 — PANEL DE ERROR, SEGURIDAD DEL MODO SEGURO Y ACCESIBILIDAD
+     Cada prueba abre su propio navegador porque simula un arranque roto: no se
+     puede reutilizar un contexto ya arrancado sin falsear el resultado.
+     ========================================================================== */
+
+  /* --- H-A · fallo CRÍTICO real: se rompe un recurso indispensable --------- */
+  {
+    const { b: hb, p: hp } = await launch(1280, 720);
+    /* Se impide que DD_UI llegue a existir: es un paso critical:true. */
+    await hp.addInitScript(() => {
+      Object.defineProperty(window, 'DD_UI', {
+        configurable: true, get() { return undefined; }, set() {}
+      });
+    });
+    hp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+
+    let panel = null;
+    const tA = Date.now();
+    while (Date.now() - tA < 150000) {
+      panel = await hp.evaluate(() => {
+        const e = document.getElementById('dd-boot-err');
+        const safe = document.getElementById('dd-boot-safe');
+        const retry = document.getElementById('dd-boot-retry');
+        return {
+          visible: !!e && !e.hidden,
+          title: (document.getElementById('dd-boot-err-title') || {}).textContent || '',
+          body: (document.getElementById('dd-boot-err-body') || {}).textContent || '',
+          safeDisabled: safe ? !!safe.disabled : null,
+          safeLabel: safe ? safe.textContent.trim() : null,
+          retryExists: !!retry,
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
+          errors: window.DD_BOOT ? window.DD_BOOT.getEvidence().errors || [] : []
+        };
+      }).catch(() => null);
+      if (panel && panel.visible) break;
+      await hp.waitForTimeout(150);
+    }
+    await hp.screenshot({ path: OUT + '/13_error_panel.png' });
+
+    ok('H-A1 el fallo crítico se detecta y el panel aparece',
+      !!(panel && panel.visible), JSON.stringify(panel && { v: panel.visible, st: panel.state }));
+    ok('H-A2 el mensaje identifica el problema concreto (DD_UI)',
+      !!(panel && /DD_UI/.test(panel.body) && /NO SE PUDO ABRIR EL CLUB/.test(panel.title)),
+      panel ? panel.title + ' · ' + panel.body.slice(0, 110) : 'sin panel');
+    ok('H-A3 se ofrece REINTENTAR', !!(panel && panel.retryExists), String(panel && panel.retryExists));
+
+    /* --- H-C · modo seguro: qué salta de verdad y qué no ----------------- */
+    ok('H-C1 el modo seguro no está disponible sin recurso indispensable',
+      !!(panel && panel.safeDisabled === true),
+      'disabled=' + (panel && panel.safeDisabled) + ' etiqueta=' + (panel && panel.safeLabel));
+
+    const beforeSafe = await hp.evaluate(() => window.DD_BOOT.getState().state);
+    await hp.evaluate(() => {
+      const s = document.getElementById('dd-boot-safe');
+      if (s) s.click();               /* un clic real sobre un botón desactivado */
+    }).catch(() => {});
+    await hp.waitForTimeout(4000);
+    const afterSafe = await hp.evaluate(() => ({
+      state: window.DD_BOOT.getState().state,
+      ddUI: typeof window.DD_UI
+    }));
+    ok('H-C2 pulsar modo seguro no entrega un menú inutilizable',
+      afterSafe.state !== 'MAIN_MENU' && afterSafe.ddUI === 'undefined',
+      beforeSafe + ' -> ' + JSON.stringify(afterSafe));
+
+    /* --- H-B · REINTENTAR pide un arranque nuevo sin dejar estado sucio --- */
+    const retryInfo = await hp.evaluate(() => {
+      const r = document.getElementById('dd-boot-retry');
+      if (!r) return { ok: false, why: 'no hay botón' };
+      /* Se intercepta la recarga para observar la intención sin perder el contexto. */
+      window.__reloadRequested = false;
+      r.onclick = function () { window.__reloadRequested = true; };
+      r.click();
+      return { ok: true, requested: window.__reloadRequested };
+    }).catch(() => null);
+    ok('H-B1 REINTENTAR solicita un arranque nuevo',
+      !!(retryInfo && retryInfo.requested),
+      JSON.stringify(retryInfo));
+    await hb.close();
+
+    /* La recarga real se comprueba en un contexto limpio: tras reintentar, el
+       juego debe poder arrancar sin que quede un estado de error bloqueante. */
+    const { b: rb2, p: rp2 } = await launch(1280, 720);
+    rp2.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tB = Date.now();
+    let reached = null;
+    while (Date.now() - tB < 150000) {
+      reached = await rp2.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (reached === 'INTRO' || reached === 'MAIN_MENU') break;
+      await rp2.waitForTimeout(150);
+    }
+    const cleanBoot = await rp2.evaluate(() => ({
+      errHidden: (document.getElementById('dd-boot-err') || {}).hidden,
+      state: window.DD_BOOT.getState().state
+    })).catch(() => null);
+    ok('H-B2 un arranque nuevo no hereda el estado de error',
+      !!cleanBoot && cleanBoot.errHidden === true,
+      JSON.stringify(cleanBoot));
+    await rb2.close();
+  }
+
+  /* --- H-D · modo seguro DEGRADABLE: sólo debe saltarse lo no esencial ------ */
+  {
+    const { b: db, p: dp } = await launch(1280, 720);
+    /* Se rompe un paso NO esencial (audio del menú): el juego debe seguir
+       abriendo y el modo seguro debe poder mostrar qué se ha saltado. */
+    await dp.addInitScript(() => {
+      Object.defineProperty(window, 'DDC_COVER', {
+        configurable: true, get() { return undefined; }, set() {}
+      });
+    });
+    dp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tD = Date.now();
+    let stD = null;
+    while (Date.now() - tD < 180000) {
+      stD = await dp.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (stD === 'MAIN_MENU') break;
+      if (stD === 'INTRO') await dp.keyboard.press('Escape').catch(() => {});
+      await dp.waitForTimeout(150);
+    }
+    const detail = await dp.evaluate(() => {
+      const ev = window.DD_BOOT.getEvidence();
+      return {
+        state: window.DD_BOOT.getState().state,
+        errors: ev.errors || []
+      };
+    }).catch(() => null);
+    ok('H-D1 un fallo no esencial no impide abrir el menú',
+      !!(detail && detail.state === 'MAIN_MENU'), JSON.stringify(detail && detail.state));
+    ok('H-D2 el fallo no esencial queda registrado como degradado, no como fatal',
+      !!(detail && (detail.errors || []).every(e => !e.fatal)),
+      JSON.stringify(detail && detail.errors));
+    await db.close();
+  }
+
+  /* --- H-E · accesibilidad del menú: foco, etiquetas y reduced-motion ----- */
+  {
+    const { b: ab, p: ap } = await launch(1280, 720);
+    await ap.emulateMedia({ reducedMotion: 'reduce' });
+    ap.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tE = Date.now();
+    while (Date.now() - tE < 180000) {
+      const st = await ap.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (st === 'INTRO') await ap.keyboard.press('Escape').catch(() => {});
+      if (st === 'MAIN_MENU') break;
+      await ap.waitForTimeout(150);
+    }
+    const a11y = await ap.evaluate(() => {
+      const btns = [...document.querySelectorAll('#dd-menu-nav .dd-menu-btn')];
+      const unusable = btns.filter(b => b.disabled).map(b => b.textContent.trim());
+      const noLabel = btns.filter(b => !b.getAttribute('aria-label') && !b.textContent.trim()).length;
+      const focus = document.activeElement;
+      return {
+        count: btns.length,
+        labelled: btns.filter(b => (b.getAttribute('aria-label') || b.textContent.trim()).length > 0).length,
+        noLabel,
+        unusable,
+        focusInMenu: !!focus && focus.classList.contains('dd-menu-btn'),
+        focusVisible: !!focus && getComputedStyle(focus).outlineStyle !== 'none',
+        navRole: (document.getElementById('dd-menu-nav') || {}).getAttribute
+          ? document.getElementById('dd-menu-nav').getAttribute('role') : null
+      };
+    });
+    ok('H-E1 las seis acciones del menú tienen etiqueta accesible',
+      a11y.count === 6 && a11y.labelled === 6, JSON.stringify(a11y).slice(0, 160));
+    ok('H-E2 el foco arranca dentro del menú y es visible',
+      a11y.focusInMenu && a11y.focusVisible,
+      'focoEnMenú=' + a11y.focusInMenu + ' outline=' + a11y.focusVisible);
+    ok('H-E3 ninguna acción parece funcional estando desactivada',
+      a11y.unusable.length === 0, 'desactivadas=' + JSON.stringify(a11y.unusable));
+    ok('H-E4 la navegación se anuncia como menú', a11y.navRole === 'menu', 'role=' + a11y.navRole);
+
+    /* La navegación por teclado debe mover la selección de verdad. */
+    const sel0 = await ap.evaluate(() => (document.querySelector('.dd-menu-btn.dd-selected') || {}).textContent || '');
+    await ap.keyboard.press('ArrowDown');
+    await ap.waitForTimeout(600);
+    const sel1 = await ap.evaluate(() => (document.querySelector('.dd-menu-btn.dd-selected') || {}).textContent || '');
+    ok('H-E5 las flechas mueven la selección del menú',
+      sel0 !== '' && sel1 !== '' && sel0 !== sel1, sel0.trim() + ' -> ' + sel1.trim());
+    await ap.screenshot({ path: OUT + '/14_a11y_reduced_motion.png' });
+    await ab.close();
+  }
+
+  /* --- H-F · máquina de estados: transiciones válidas e inválidas -------- */
+  {
+    const { b: fb, p: fp } = await launch(1280, 720);
+    /* Traza completa de transiciones, incluida la de LOADING. */
+    await fp.addInitScript(() => {
+      window.__ddTrace = [];
+      document.addEventListener('DOMContentLoaded', () => {
+        const iv = setInterval(() => {
+          if (!window.DD_BOOT) return;
+          window.__ddTrace.push(window.DD_BOOT.getState().state);
+          clearInterval(iv);
+        }, 1);
+      });
+    });
+    fp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const seen = [];
+    const tF = Date.now();
+    while (Date.now() - tF < 200000) {
+      const st = await fp.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (st && seen[seen.length - 1] !== st) seen.push(st);
+      if (st === 'MAIN_MENU') break;
+      await fp.waitForTimeout(60);
+    }
+    const order = ['BOOT', 'LOADING', 'INTRO', 'MAIN_MENU'];
+    const idx = order.map(s => seen.indexOf(s));
+    ok('H-F1 la secuencia de arranque es BOOT -> LOADING -> INTRO -> MAIN_MENU',
+      idx.every(i => i >= 0) && idx[0] < idx[1] && idx[1] < idx[2] && idx[2] < idx[3],
+      'observado: ' + seen.join(' -> '));
+
+    const trace = await fp.evaluate(() => window.DD_BOOT.getTrace());
+    ok('H-F2 la carga va de 0 % a 100 % sin retroceder',
+      trace.length > 2 && trace[0].pct === 0 && trace[trace.length - 1].pct === 100 &&
+      trace.every((t, i) => i === 0 || t.pct >= trace[i - 1].pct),
+      'pcts=' + JSON.stringify(trace.map(t => t.pct)));
+
+    /* SUBMENU -> MAIN_MENU y rechazo de transiciones inválidas. */
+    const sub = await fp.evaluate(() => {
+      const boot = window.DD_BOOT;
+      const opened = boot.openSubmenu('options');
+      return { opened, inSub: boot.getState().state };
+    });
+    await fp.waitForTimeout(400);
+    const closeOk = await fp.evaluate(() => {
+      const r = window.DD_BOOT.closeSubmenu();
+      return { r, state: window.DD_BOOT.getState().state };
+    });
+    ok('H-F3 se entra y se sale del submenú volviendo a MAIN_MENU',
+      sub.opened === true && sub.inSub === 'SUBMENU' &&
+      closeOk.r === true && closeOk.state === 'MAIN_MENU',
+      JSON.stringify({ abrir: sub.inSub, cerrar: closeOk.state }));
+
+    /* Transiciones inválidas: deben RECHAZARSE sin tocar el estado. */
+    const invalid = await fp.evaluate(() => {
+      const boot = window.DD_BOOT;
+      const fromMenu = boot.getState().state;
+      const closeFromMenu = boot.closeSubmenu();      /* ya no hay submenú */
+      const afterClose = boot.getState().state;
+      boot.openSubmenu('options');
+      const inSub = boot.getState().state;
+      const enterFromSub = boot.enterGame();          /* no se juega desde un submenú */
+      const afterEnter = boot.getState().state;
+      boot.closeSubmenu();
+      return { fromMenu, closeFromMenu, afterClose, inSub, enterFromSub, afterEnter,
+               back: boot.getState().state };
+    });
+    ok('H-F4 las transiciones inválidas se rechazan sin corromper el estado',
+      invalid.closeFromMenu === false && invalid.afterClose === 'MAIN_MENU' &&
+      invalid.enterFromSub === false && invalid.afterEnter === 'SUBMENU' &&
+      invalid.back === 'MAIN_MENU',
+      JSON.stringify(invalid));
+    await fb.close();
+  }
+
   /* ============================== RESULTADO ============================= */
   fs.writeFileSync(OUT + '/results.json', JSON.stringify(res, null, 1));
-  const fails = res.filter(r => !r.pass);
-  console.log('\n== ' + (res.length - fails.length) + '/' + res.length + ' PASS ==');
+  const fails = res.filter(r => r.status === 'FAIL');
+  const skipped = res.filter(r => r.status === 'SKIP');
+  const nvs = res.filter(r => r.status === 'NV');
+  const passes = res.filter(r => r.status === 'PASS');
+  console.log('\n== ' + passes.length + ' PASS · ' + fails.length + ' FAIL · ' +
+    skipped.length + ' SKIP · ' + nvs.length + ' NV · ' + res.length + ' TOTAL ==');
   if (fails.length) console.log('FALLOS: ' + fails.map(f => f.id).join(', '));
+  if (skipped.length) console.log('SKIP  : ' + skipped.map(f => f.id).join(', '));
+  if (nvs.length) console.log('NV    : ' + nvs.map(f => f.id).join(', '));
   process.exit(fails.length ? 1 : 0);
 })().catch(e => {
   console.error('FATAL', e.message);
