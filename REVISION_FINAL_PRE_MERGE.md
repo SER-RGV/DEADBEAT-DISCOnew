@@ -3,7 +3,9 @@
 **Fecha:** 2026-11-07 · **Rama:** `arena/4753409a-deadbeat-disconew` · **Base:** `19e38ad1f32e713acfde92a3d3e894cf883cdd5b`
 (`arena/14b148dc-deadbeat-disconew`) · **Destino de la PR:** `main` (sin merge).
 
-**Commit de código y build:** `d12d8476708e491eb234341d25e53bf2a64f6d4a`
+**Commits de código y build:**
+`d12d8476708e491eb234341d25e53bf2a64f6d4a` (guard: capture por objeto, duplicados,
+retirada) y `90440fbd8441efc36043179c05060eff7b3cdfee` (guard: AbortSignal).
 **Commit del informe:** el que encabeza esta PR (se indica en el cuerpo de la PR).
 
 No se ha reconstruido ni rediseñado nada: el cambio de código se limita al
@@ -16,18 +18,20 @@ del trabajo es build reproducible, pruebas y evidencia.
 
 | Área | Resultado |
 |---|---|
-| Keyboard Takeover Guard | **3 incumplimientos de contrato** (capture por objeto, duplicados, listeners imposibles de retirar) — **corregidos**. Todos eran **latentes**: el código actual no los disparaba. |
+| Keyboard Takeover Guard | **4 incumplimientos de contrato** corregidos: capture por objeto, duplicados, listeners imposibles de retirar y **fugas de registro con `AbortSignal`**. Todos eran **latentes**: el código actual no los disparaba. |
 | Build | Reproducible byte a byte desde el backup protegido; `index.html` ≡ `DEADBEAT_DISCO.html`; sin duplicación de módulos; CSS y JS autocontenidos. |
 | Assets | 227 rutas referenciadas, **227 presentes** (14 directorios, 14,09 MB). Ninguna imagen sustituida ni regenerada. |
-| Regresión | Guard **17/17**, integración con el motor **4/4**, flujo completo **16/16**, **0 `pageerror`**, 0 errores HTTP. |
+| Regresión | Guard **30/30**, integración con el motor **4/4**, flujo completo **16/16**, **0 `pageerror`**, 0 errores HTTP. |
 | Git | `main` intacta, sin merge, push solo a la rama de la PR. |
 | **Veredicto** | **APROBAR el merge** (con los riesgos de la §7 documentados). |
 
-Dato clave para la decisión: **el flujo completo ya pasaba 16/16 antes de la
-corrección**. Los defectos del guard no rompían la partida hoy; rompían su
+Dato clave para la decisión: **el flujo completo ya pasaba 16/16 antes de las
+correcciones**. Los defectos del guard no rompían la partida hoy; rompían su
 *contrato* y habrían aparecido en cuanto alguien registrase un listener de
-captura con objeto de opciones, lo registrase dos veces o intentase retirarlo.
-Por eso la corrección es de endurecimiento, no un parche de urgencia.
+captura con objeto de opciones, lo registrase dos veces, intentase retirarlo o
+usase `AbortSignal`. Por eso las correcciones son de endurecimiento, no parches
+de urgencia. Ningún registro del juego usa hoy `signal` (auditado), así que la
+fuga de la §2.5 también era latente.
 
 ---
 
@@ -70,8 +74,10 @@ en una página sin el cover, para medir el contrato sin interferencias
 | D2 | Registro duplicado de la misma función | `C…` **FAIL**, `hits=2` (entrega doble) | **PASS**, `hits=1` |
 | D3 | `removeEventListener` no se parcheaba → wrapper irretirable | `A3`/`B3` **FAIL**; peor: un listener filtrado seguía vivo y **mataba todas las teclas** (`F…` **FAIL**, `hits=0`) | **PASS** (`A3`, `B3`, `F`, `C2`), registro de vuelta a la línea base |
 | D4 | Sin marcador de estado ni idempotencia | `guard.exposes-state` **FAIL** (`undefined`) | **PASS**; reinstalar el fragmento es inerte (`G`) |
+| D5 | Sin soporte de `AbortSignal` → **entradas fantasma**, fuga sin cota y **re-registro bloqueado para siempre** | `H2`, `H3`, `H3b`, `H4`, `H7`, `H7b` **FAIL** (hasta `count()=30` tras 30 ciclos) | **PASS** (detalle en §2.5) |
 
-Resultado del bloque A: **9/17 antes → 17/17 después**.
+Resultado del bloque A (D1–D4): **9/17 antes → 17/17 después**.
+Añadiendo el bloque H de `AbortSignal` (§2.5): **24/30 antes → 30/30 después**.
 
 ### 2.3 Corrección aplicada (quirúrgica, en el generador)
 
@@ -102,6 +108,54 @@ Comprobado contra el motor real (`03_final_regression.json`, bloque B):
 
 ---
 
+### 2.5 AbortSignal (revisión solicitada)
+
+Cuando el navegador retira un listener por `AbortSignal`, el registro interno
+del guard no se enteraba: la entrada se quedaba para siempre. Dos consecuencias,
+una de ellas **funcional**:
+
+1. `count()` filtraba entradas obsoletas (fuga sin cota: 30 ciclos → 30 entradas).
+2. La comprobación de duplicado (`findIndex(type, fn) >= 0`) trataba el callback
+   como «ya registrado» y devolvía sin registrar nada: **esa función ya no se
+   podía volver a añadir nunca**.
+3. Un `AbortSignal` ya abortado antes del registro creaba una entrada fantasma
+   aunque el navegador no registraba nada — y, por el punto 2, bloqueaba
+   cualquier alta posterior válida.
+
+Evidencia medida sobre el build anterior (`eaf607c5…c09b`, guard 24/30) y sobre
+el build corregido (`483fc9c9…953c`, guard 30/30) — ficheros
+`04_signal_before_fix.json` y `05_final_regression.json`:
+
+| Caso solicitado | Comprobación | **Antes** | **Después** |
+|---|---|---|---|
+| 1. Registro con `{capture, signal}` | `H1` | PASS (`count 0→1`, compuerta HD respetada) | PASS (`count 0→1`, `entregasEnHD=0`, `entregasFueraHD=1`) |
+| 2. `signal` **ya abortado** antes del registro | `H3` / `H3b` | **FAIL**: `count=1` fantasma y el alta válida posterior **no entrega** (`entregas=0`) | PASS: `entregas=0`, `count=0`; el alta posterior entrega (`entregas=1`, `count=1`) |
+| 3. `signal` abortado **después** del registro | `H2` | **FAIL**: `count tras abort=1` | PASS: `count tras abort=0`, `entregas=1` |
+| 4. Re-registrar la misma función tras el abort | `H4` / `H4b` / `H4c` | **FAIL**: deduplicado, `entregas=1` (no llega a 2) | PASS: `count=1`, `entregas=2`; retirada manual `count=0`; abort posterior a la retirada `count=0` |
+| 5. Registro con `once` | `H5` / `H5b` | PASS (`entregas=1`, `count=0`) | PASS (`entregas=1`, `count=0`; con HD activo: `entregas=0` y entrada retirada) |
+| 6. Retirada manual tras registrar con opciones | `H6` | PASS (`entregas=0`, `count=0`) | PASS (`entregas=0`, `count tras retirar=0`, `count tras abort=0`) |
+| 7. Ausencia de entradas obsoletas en `count()` | `H7` / `H7b` | **FAIL**: `count=30` tras 30 ciclos registro/abort | PASS: `count=0` (base 0) y vuelta a la línea base |
+
+Resumen: **3 de los 7 casos estaban rotos** (2, 3 y 4), el 7 era su síntoma
+acumulado, y los casos 1, 5 y 6 ya funcionaban correctamente.
+
+Corrección aplicada (12 líneas netas, **todo dentro del guard**, sin tocar su
+condición de actuación `window` + captura + `keydown`/`keyup`):
+
+- `dropEntry(entry)` retira la entrada **concreta por identidad** y desengancha
+  su hook de `abort`, para que una señal vieja no pueda desalojar un registro
+  nuevo del mismo callback;
+- señal ya abortada al registrar: **no se registra nada** ni se crea entrada
+  (semántica del navegador), así que tampoco bloquea altas futuras;
+- señal válida: se engancha `"abort"` con `{ once: true }`, que retira la
+  entrada del registro;
+- `once` y la retirada manual usan `dropEntry`, incluido el desenganche del hook.
+
+Nota de alcance: **ningún registro del juego usa hoy `signal`** (auditoría del
+build: 0 llamadas con `signal` fuera del propio guard), por lo que D5 era
+latente, igual que D1–D3. No se ha añadido ninguna función nueva a la API del
+guard: siguen siendo `installed`, `capturesLegacyKeyboard()` y `count()`.
+
 ## 3. Build (punto 2)
 
 Generador oficial ejecutado **desde el backup protegido**
@@ -110,16 +164,16 @@ Generador oficial ejecutado **desde el backup protegido**
 | Comprobación | Resultado |
 |---|---|
 | Hash del backup antes y después del build | `1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e` (5.006.181 B) — **intacto** |
-| `index.html` ≡ `DEADBEAT_DISCO.html` | **Idénticos**, `eaf607c5ba18e3d24041bf54e9a1f5bfd50f01f4f994da2fa86ee224a714c09b` (5.232.970 B, 9.171 líneas) |
-| Regeneración repetida | **Byte a byte idéntica** (2ª y 3ª ejecución, mismo SHA-256) |
+| `index.html` ≡ `DEADBEAT_DISCO.html` | **Idénticos**, `483fc9c9675d05dddae7ad9e2fd278a3448fcd5e127f2419d6ad2a338696553c` (5.234.728 B) |
+| Regeneración repetida | **Byte a byte idéntica** (hasta 4 ejecuciones, mismo SHA-256, también tras el arreglo de `AbortSignal`) |
 | Duplicación de módulos | Cada artefacto inlineado aparece **exactamente 1 vez**: `dd_rebuild_ui.css`, `dd_asset_registry.js`, `dd_world_renderer.js`, `dd_hub_system.js`, `dd_cinematic_camera.js`, `dd_ui_system.js`. El generador **aborta** si alguno aparece ≠1 vez o si el guard no queda instalado exactamente una vez. |
-| Diff respecto al build anterior | Solo el bloque del guard (líneas ~5899-5983); nada antes del guard cambia, ni CSS, ni módulos, ni HTML del motor |
-| Build previa (referencia) | `cc3bf39ba33de1d3ee68d58610000c238c2f03501ecdc2cbdf93af9601e7dcd5` (5.230.025 B) |
+| Diff respecto al build anterior | Solo el bloque del guard (líneas ~5899-5990); nada antes del guard cambia, ni CSS, ni módulos, ni HTML del motor |
+| Builds de referencia | `cc3bf39b…dcd5` (5.230.025 B, base de la primera revisión) · `eaf607c5…c09b` (5.232.970 B, guard D1–D4) · **`483fc9c9…953c` (5.234.728 B, final con D5)** |
 | Original protegido v9 | `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a` — sin tocar |
 | Backup pre-reparación | `d87e2bd9ecba06812a521518ced1749575443f1db0fb5c5e2433576feb80d7f4` — sin tocar |
 
-> Nota: el generador imprime `Size: 5227516` = **caracteres**; el fichero en
-> disco son 5.232.970 **bytes** UTF-8. No es una discrepancia.
+> Nota: el generador imprime `Size: 5229274` = **caracteres**; el fichero en
+> disco son 5.234.728 **bytes** UTF-8. No es una discrepancia.
 
 ### Autocontención en CSS y JavaScript
 
@@ -183,6 +237,9 @@ Entorno: **Chromium headless 153.0.8010.0**, 1440×900, SwiftShader. Arnés
 
 ### 5.1 Flujo completo (16/16, 0 `pageerror`, 0 errores HTTP)
 
+Re-ejecutado **después** del arreglo de `AbortSignal`: guard **30/30**,
+integración **4/4**, flujo **16/16** (evidencia `05_final_regression.json`).
+
 | Paso | Resultado medido |
 |---|---|
 | `menu.visible` | `display=flex`, 5 botones, `hd=true`, cover heredado `display=none` |
@@ -225,9 +282,17 @@ responde y el `[E]`/`(A)` de estación no se ha validado con hardware.
 
 ---
 
+### 5.5 Clasificación de las pruebas
+
+| Tipo | Qué entra aquí | Evidencia |
+|---|---|---|
+| **Automatizado** (aserciones, navegador real headless) | Guard 30/30 (bloques A–H, incluidos los 7 casos de `AbortSignal`); integración con el motor 4/4; flujo 16/16 con teclado real, cinemática, HUB, descenso y pausa; autocontención CSS/JS; `file://` con 225/225 assets | `01`–`05_*.json`, `selfcontained.json` |
+| **Emulado** | **Mando**: `navigator.getGamepads` sustituido por un pad sintético (ejes + botón A). Botón A de estación no ejercitado. | `05_final_regression.json` → `hub.emulated-gamepad-move`, nota `"mando EMULADO"` |
+| **Pendiente de hardware físico** | Mando físico real; GUI real (aquí solo headless); audio audible; rendimiento/FPS y rAF en hardware (SwiftShader no es representativo); comportamiento con DPR real ≠ 1 | — (no cubierto) |
+
 ## 6. Archivos modificados y añadidos
 
-### 6.1 Diff completo de la PR contra `main` (21 ficheros, ≈ +14,7 k / −28 líneas)
+### 6.1 Diff completo de la PR contra `main` (23 ficheros)
 
 La PR parte de `19e38ad` (commit de la sesión anterior, **todavía no presente en
 `main`**), por lo que su diff contra `main` incluye **dos grupos**:
@@ -240,7 +305,7 @@ revisado aquí pero no modificado en esta revisión salvo por el guard):
 `src/dd_rebuild_ui.css` · `src/dd_ui_system.js` · `src/dd_world_renderer.js` ·
 `tools/build_active_html.py`
 
-**(b) De esta revisión — 14 ficheros** (detalle abajo). `index.html`,
+**(b) De esta revisión — 16 ficheros** (detalle abajo). `index.html`,
 `DEADBEAT_DISCO.html` y `tools/build_active_html.py` aparecen en **ambos**
 grupos, por lo que los subtotales no suman el total.
 
@@ -255,8 +320,21 @@ grupos, por lo que los subtotales no suman el total.
 | `tools/qa/selfcontained.js` | **nuevo** arnés de autocontención y `file://` | nuevo |
 | `ART_EVIDENCE/final_review/` | **nuevo**: 4 JSON, 3 capturas (5,0 MB), README | nuevo |
 
-Commit `c9e8ef329dd494d1265d8c0d74dc6f95749e80e6` (informe):
-`REVISION_FINAL_PRE_MERGE.md` (nuevo, 303 líneas).
+### 6.3 Commit `90440fbd8441efc36043179c05060eff7b3cdfee` (AbortSignal)
+
+| Fichero | Cambio | Δ |
+|---|---|---|
+| `tools/build_active_html.py` | `dropEntry`, señal ya abortada, hook `"abort"`, contrato en el comentario | +35 / −6 |
+| `index.html` | build `483fc9c9…953c` | +35 / −6 |
+| `DEADBEAT_DISCO.html` | idéntica a `index.html` | +35 / −6 |
+| `tools/qa/final_review.js` | bloque H: 13 comprobaciones de `AbortSignal` | +114 / −1 |
+| `ART_EVIDENCE/final_review/04_signal_before_fix.json` | **nuevo**: guard 24/30 antes del arreglo | nuevo |
+
+### 6.4 Commit del informe
+
+`REVISION_FINAL_PRE_MERGE.md` (actualizado) · `ART_EVIDENCE/final_review/05_final_regression.json`
+(**nuevo**: guard 30/30) · `selfcontained.json` y capturas `step_1…3` regeneradas
+sobre el build final · `README.md` de la evidencia.
 
 Sin cambios en `src/`, `src/dd_rebuild_ui.css`, `assets/`, `ART_ASSETS/`,
 `ART_PACK/`, backups ni documentación histórica.
@@ -292,10 +370,11 @@ Sin cambios en `src/`, `src/dd_rebuild_ui.css`, `assets/`, `ART_ASSETS/`,
   `19e38ad → 62912c4 (main)`.
 - PR abierta hacia `main`, **sin merge**.
 - Commits de esta revisión:
-  - `d12d8476708e491eb234341d25e53bf2a64f6d4a` — guard, build, arneses, evidencia.
+  - `d12d8476708e491eb234341d25e53bf2a64f6d4a` — guard D1–D4, build, arneses, evidencia.
+  - `90440fbd8441efc36043179c05060eff7b3cdfee` — guard D5 (`AbortSignal`), build, bloque H.
   - el commit de este informe (hash en el cuerpo de la PR).
 - Build que se propone desplegar: `index.html` =
-  `eaf607c5ba18e3d24041bf54e9a1f5bfd50f01f4f994da2fa86ee224a714c09b`.
+  `483fc9c9675d05dddae7ad9e2fd278a3448fcd5e127f2419d6ad2a338696553c`.
 
 ---
 
@@ -316,9 +395,10 @@ Evidencias concretas que lo sostienen:
 4. Flujo completo **16/16** con menú, cinemática, HUB, teclado, mando emulado,
    descenso, partida normal, re-entrada al HUB y segundo descenso; **pausa
    liberada** en ambos descensos y **0 `pageerror`**.
-5. El guard pasa de **9/17 a 17/17**: se cierran los tres huecos de contrato
-   (capture por objeto, duplicados, listeners irretirables) **sin cambiar** el
-   comportamiento heredado cuando se desactiva el modo HD (`B2`).
+5. El guard pasa de **24/30 a 30/30**: se cierran los cuatro huecos de contrato
+   (capture por objeto, duplicados, listeners irretirables y `AbortSignal`)
+   **sin cambiar** el comportamiento heredado cuando se desactiva el modo HD
+   (`B2`), y con los 7 casos de `AbortSignal` verificados uno a uno (§2.5).
 
 Condiciones que acompaño a la aprobación (ninguna bloqueante):
 
