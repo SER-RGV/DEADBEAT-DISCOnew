@@ -1,0 +1,197 @@
+{
+  "status": "PASS",
+  "test": "active-game browser R1 total-rejection/recovery probe",
+  "httpStatus": 200,
+  "url": "http://127.0.0.1:4176/DEADBEAT_DISCO.ART.html",
+  "fixture": "Pogo real boss, selector forced to authored fan, radius temporarily expanded to make actual vh() reject all five attempts; restored before recovery observation.",
+  "result": {
+    "boss": {
+      "resident": "pogo",
+      "variant": "sweeper",
+      "patterns": [
+        "burst",
+        "fan",
+        "spiral"
+      ]
+    },
+    "select": {
+      "elapsed": 1.48,
+      "enemies": 0,
+      "lives": 4
+    },
+    "selected": {
+      "id": "fan",
+      "gap": 2.945,
+      "warn": 0.8,
+      "shots": 0,
+      "index": 2
+    },
+    "warnBefore": {
+      "id": "fan",
+      "gap": 2.945,
+      "warn": 0.05,
+      "shots": 0,
+      "index": 2
+    },
+    "warnZero": {
+      "id": "fan",
+      "gap": 2.945,
+      "warn": 0,
+      "shots": 0,
+      "index": 2
+    },
+    "rejected": {
+      "pattern": {
+        "id": "",
+        "gap": 2.945,
+        "warn": 0,
+        "shots": 5,
+        "index": 2
+      },
+      "attempted": 5,
+      "accepted": 0,
+      "created": 0,
+      "patternSlots": 5,
+      "normalCompletion": true,
+      "hostile": 0
+    },
+    "events": [
+      {
+        "type": "state.exit",
+        "detail": {
+          "state": "IDLE",
+          "to": "OBSERVING"
+        }
+      },
+      {
+        "type": "state.enter",
+        "detail": {
+          "from": "IDLE",
+          "to": "OBSERVING",
+          "pattern": null,
+          "phase": "chase"
+        }
+      },
+      {
+        "type": "telegraph.start",
+        "detail": {
+          "pattern": "fan",
+          "warn": 0.8
+        }
+      },
+      {
+        "type": "state.exit",
+        "detail": {
+          "state": "OBSERVING",
+          "to": "TELEGRAPH"
+        }
+      },
+      {
+        "type": "state.enter",
+        "detail": {
+          "from": "OBSERVING",
+          "to": "TELEGRAPH",
+          "pattern": "fan",
+          "phase": "chase"
+        }
+      },
+      {
+        "type": "state.exit",
+        "detail": {
+          "state": "TELEGRAPH",
+          "to": "WINDUP"
+        }
+      },
+      {
+        "type": "state.enter",
+        "detail": {
+          "from": "TELEGRAPH",
+          "to": "WINDUP",
+          "pattern": "fan",
+          "phase": "chase"
+        }
+      },
+      {
+        "type": "state.exit",
+        "detail": {
+          "state": "WINDUP",
+          "to": "MOVING"
+        }
+      },
+      {
+        "type": "state.enter",
+        "detail": {
+          "from": "WINDUP",
+          "to": "MOVING",
+          "pattern": "fan",
+          "phase": "chase"
+        }
+      }
+    ],
+    "recovered": {
+      "pattern": "spiral",
+      "index": 3,
+      "attempted": 0,
+      "accepted": 0,
+      "created": 0,
+      "steps": 45,
+      "elapsed": 2.25
+    },
+    "state": {
+      "round": 55,
+      "night": 55,
+      "waveMode": "rush",
+      "roundModifier": null,
+      "boss": true,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1,
+      "lives": 4,
+      "invuln": true,
+      "enemies": 0,
+      "bossInfo": {
+        "phase": "chase",
+        "variant": "sweeper",
+        "entrance": 0,
+        "atk": 999,
+        "waveT": 3.1,
+        "hp": 204,
+        "freeze": 0,
+        "phaseT": 0.05
+      },
+      "conos": 0,
+      "balas": 0,
+      "balasArr": [],
+      "dodge": {
+        "precise": 0,
+        "chains": 0,
+        "best": 0,
+        "chain": 0,
+        "byKind": {},
+        "activas": 0,
+        "fx": 0,
+        "lastKind": "",
+        "lastMin": -1,
+        "lastLife": 0,
+        "th": {
+          "laser": 38,
+          "dash": 30,
+          "charge": 34,
+          "volley": 26,
+          "cone": 30
+        }
+      },
+      "px": 1250,
+      "py": 987,
+      "pickups": []
+    }
+  },
+  "captureFile": "captures/r1_total_rejection.jpg",
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "localFailures": []
+}

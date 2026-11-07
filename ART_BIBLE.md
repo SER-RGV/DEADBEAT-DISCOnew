@@ -116,3 +116,23 @@ Usar las referencias como imágenes planas · pixel art o degradación de defini
 |---|---|---|
 | 1.0 | Creación; identidad, jerarquía, paleta, reglas, prioridades | Cierre documental de la Tanda 01 |
 | 1.1 | Cobertura actualizada con la familia modular de arquitectura (prioridad ③): cornisa/zócalo/contorno/luz compartidos, diamante 2:1 en umbrales, adaptación de piezas a `edge`/paneles y a la animación `Ot.openT` del motor | Cierre de la Tanda 02; las reglas visuales 1.0 no se relajan |
+| 1.2 | Nueve jefes vinculados a IDs existentes; estética expresionista de club nocturno, fondo RGBA y silueta limpia; se preservan alias de residentes y despacho nativo de estados | Integración parcial BOSS-T01; faltan fotogramas ilustrados para fases 05–09 |
+| 1.3 | BOSS-T02 añade attack/attack1/hit/death para 05–06 y attack/attack1 para 07 en las cachés HD ya existentes; el `artId` estable prevalece sobre aliases residentes al resolver el arte | QA runtime y regresión aprobados; rendimiento SwiftShader inconcluso, tanda integrada pero aún no cerrada |
+
+## 9. Extensión visual de jefes (BOSS-T01)
+
+La identidad del motor prevalece sobre los apodos/conceptos de referencia. `boss_art_*` son **claves de recurso**, no IDs nuevos de juego. Se asocian solo a los nueve `artId` estables existentes:
+
+| ID de juego | Nombre/identidad del motor | Clave visual | Motivo de forma |
+|---|---|---|---|
+| `boss_01_djdoom` | DJ Doom | `boss_art_boss_01_djdoom` | Esqueleto de DJ con asta/controlador de vinilo; figura vertical y lectura frontal |
+| `boss_02_reinaespectro` | Reina Espectro | `boss_art_boss_02_reinaespectro` | Realeza espectral, velo largo y brazos/atributos legibles |
+| `boss_03_reydisco` | Rey Disco | `boss_art_boss_03_reydisco` | Monarca de pista con capa de mosaico en abanico |
+| `boss_04_entidadvoraz` | Entidad Voraz | `boss_art_boss_04_entidadvoraz` | Masa voraz de bocas/tentáculos; perímetro orgánico y boca focal |
+| `boss_05_fusioncosmica` | Fusión Cósmica | `boss_art_boss_05_fusioncosmica` | Deidad ocular astral con lectura radial |
+| `boss_06_djabismo` | DJ Abismo | `boss_art_boss_06_djabismo` | Arácnido/orbe ocular sobre sello de vinilo |
+| `boss_07_altavoztitan` | Altavoz Titán | `boss_art_boss_07_altavoztitan` | Gólem de stacks de altavoces, volumen ancho y extremidades distinguibles |
+| `boss_08_djcalavera` | DJ Calavera | `boss_art_boss_08_djcalavera` | Esqueleto ceremonial alado, disco y corazón como focos |
+| `boss_09_nucleofinal` | Núcleo Final | `boss_art_boss_09_nucleofinal` | Esfera ocular fracturada, órbitas rotas y extremidades mecánicas |
+
+**Criterios aplicados:** ilustración HD, negros profundos, magenta/cian/violeta, oro envejecido, encuadre transparente y lectura a escala de arena. No se altera el gameplay para acomodar el arte. BOSS-T01 llevó los masters a reposo; BOSS-T02 conserva esos masters y añade, usando el loader/cachés existentes, cuatro estados para Boss 05, cuatro para Boss 06 y dos ataques para Boss 07. Bosses 07–09 mantienen los estados sin arte T02 en sus recursos nativos; Boss 09 `attack_01` también continúa usando su PNG RGBA de T01. La asociación por `artId` estable tiene prioridad visual y los aliases residentes siguen siendo fallback legacy. T02 pasó la QA de integración y regresión; su medición de rendimiento en SwiftShader carece de baseline emparejado y sigue inconclusa, por lo que la tanda no se marca cerrada.

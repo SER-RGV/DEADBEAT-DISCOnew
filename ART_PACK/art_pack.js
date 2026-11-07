@@ -46,6 +46,8 @@
   var BASE = 'ART_ASSETS/tanda_01/';
   var BASE2 = 'ART_ASSETS/tanda_02/';
   var BASEH = 'ART_ASSETS/hub/tanda_01/';
+  var BOSS_BASE = 'ART_ASSETS/bosses/tanda_01/';
+  var BOSS_BASE2 = 'ART_ASSETS/bosses/tanda_02/';
 
   /* id, archivo, dimensiones esperadas, loader, pivote, alfa */
   var MANIFEST = [
@@ -60,7 +62,31 @@
     { id: 'decor_neon_rug',           file: 'decor_neon_rug.png',           w: 456, h: 243, loader: 'V5',   pivot: 'bottom-center', alpha: true },
     { id: 'decor_potted_palm',        file: 'decor_potted_palm.png',        w: 209, h: 147, loader: 'V5',   pivot: 'bottom-center', alpha: true },
     { id: 'boss_01_anden',            file: 'boss_01_anden.png',            w: 400, h: 386, loader: 'ILT',  pivot: 'bottom-center', alpha: true },
-    { id: 'weapons/weapon_m1911.png', file: 'weapon_m1911.png',             w: 160, h: 87,  loader: 'HD',   pivot: 'center',        alpha: true }
+    { id: 'weapons/weapon_m1911.png', file: 'weapon_m1911.png',             w: 160, h: 87,  loader: 'HD',   pivot: 'center',        alpha: true },
+    /* BOSS-T01 · asset keys distinct from gameplay IDs. Resident aliases keep
+       their prior art keys; only stable boss artIds resolve to this set. */
+    { id: 'boss_art_boss_01_djdoom',        bossId: 'boss_01_djdoom',        file: 'boss_art_boss_01_djdoom.png',        base: BOSS_BASE, w: 400, h: 386, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_02_reinaespectro', bossId: 'boss_02_reinaespectro', file: 'boss_art_boss_02_reinaespectro.png', base: BOSS_BASE, w: 349, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_03_reydisco',      bossId: 'boss_03_reydisco',      file: 'boss_art_boss_03_reydisco.png',      base: BOSS_BASE, w: 400, h: 271, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_04_entidadvoraz',  bossId: 'boss_04_entidadvoraz',  file: 'boss_art_boss_04_entidadvoraz.png',  base: BOSS_BASE, w: 400, h: 307, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_05_fusioncosmica', bossId: 'boss_05_fusioncosmica', file: 'boss_art_boss_05_fusioncosmica.png', base: BOSS_BASE, w: 541, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_06_djabismo',      bossId: 'boss_06_djabismo',      file: 'boss_art_boss_06_djabismo.png',      base: BOSS_BASE, w: 465, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_07_altavoztitan',  bossId: 'boss_07_altavoztitan',  file: 'boss_art_boss_07_altavoztitan.png',  base: BOSS_BASE, w: 638, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_08_djcalavera',    bossId: 'boss_08_djcalavera',    file: 'boss_art_boss_08_djcalavera.png',    base: BOSS_BASE, w: 417, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'boss_art_boss_09_nucleofinal',   bossId: 'boss_09_nucleofinal',   file: 'boss_art_boss_09_nucleofinal.png',   base: BOSS_BASE, w: 479, h: 400, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'BOSS-T01' },
+    { id: 'bosses/boss_09_nucleofinal_attack_01.png', bossId: 'boss_09_nucleofinal', file: 'bosses/boss_09_nucleofinal_attack_01.png', base: BOSS_BASE, w: 160, h: 106, loader: 'HD', cacheKey: 'boss_09_nucleofinal_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T01' },
+    /* BOSS-T02 · replacement HD poses occupy the exact runtime cache keys
+       already selected by combatArt.bossState/Of; no new state machine. */
+    { id: 'bosses/boss_05_fusioncosmica_attack_00.png', bossId: 'boss_05_fusioncosmica', file: 'boss_05_fusioncosmica_attack_00.png', base: BOSS_BASE2, w: 476, h: 400, loader: 'HD', cacheKey: 'boss_05_fusioncosmica_attack', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_05_fusioncosmica_attack_01.png', bossId: 'boss_05_fusioncosmica', file: 'boss_05_fusioncosmica_attack_01.png', base: BOSS_BASE2, w: 479, h: 400, loader: 'HD', cacheKey: 'boss_05_fusioncosmica_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_05_fusioncosmica_hit_00.png', bossId: 'boss_05_fusioncosmica', file: 'boss_05_fusioncosmica_hit_00.png', base: BOSS_BASE2, w: 541, h: 400, loader: 'HD', cacheKey: 'boss_05_fusioncosmica_hit', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_05_fusioncosmica_death_00.png', bossId: 'boss_05_fusioncosmica', file: 'boss_05_fusioncosmica_death_00.png', base: BOSS_BASE2, w: 546, h: 400, loader: 'HD', cacheKey: 'boss_05_fusioncosmica_death', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_06_djabismo_attack_00.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_attack_00.png', base: BOSS_BASE2, w: 516, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_attack', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_06_djabismo_attack_01.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_attack_01.png', base: BOSS_BASE2, w: 562, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_06_djabismo_hit_00.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_hit_00.png', base: BOSS_BASE2, w: 440, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_hit', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_06_djabismo_death_00.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_death_00.png', base: BOSS_BASE2, w: 402, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_death', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_07_altavoztitan_attack_00.png', bossId: 'boss_07_altavoztitan', file: 'boss_07_altavoztitan_attack_00.png', base: BOSS_BASE2, w: 687, h: 400, loader: 'HD', cacheKey: 'boss_07_altavoztitan_attack', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    { id: 'bosses/boss_07_altavoztitan_attack_01.png', bossId: 'boss_07_altavoztitan', file: 'boss_07_altavoztitan_attack_01.png', base: BOSS_BASE2, w: 669, h: 400, loader: 'HD', cacheKey: 'boss_07_altavoztitan_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T02' }
   ];
 
   /* Tanda 02 · familia modular de arquitectura. Las claves 'slot' son las
@@ -143,6 +169,7 @@
 
   var st = {
     version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07+hub-tanda08',
+    version: 'fase1-tanda01+tanda02+boss-t01+boss-t02',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -154,6 +181,8 @@
   function entry(m) {
     return {
       id: m.id, file: m.path || BASE + m.file, loader: m.loader, pivot: m.pivot,
+      id: m.id, file: (m.base || BASE) + m.file, loader: m.loader, pivot: m.pivot,
+      bossId: m.bossId || null, cacheKey: m.cacheKey || null,
       alpha: m.alpha, expected: [m.w, m.h], natural: null,
       applied: false, loaded: false, exactSize: false, note: ''
     };
@@ -246,8 +275,13 @@
     data[m.id] = rec.file;
     if (!window.__HD_EXTRA) window.__HD_EXTRA = {};
     window.__HD_EXTRA[m.id] = im;   /* __HD_GET(key) devuelve este Image */
+    if (m.cacheKey) {
+      var images = window.__HD_ASSETS && window.__HD_ASSETS.images;
+      if (!images) { err(m.id, '__HD_ASSETS.images no disponible para ' + m.cacheKey); return; }
+      images[m.cacheKey] = im;      /* misma cache consumida por el renderer Of existente */
+    }
     rec.applied = true;
-    rec.note = '__HD_DATA[' + m.id + '] + __HD_EXTRA cache';
+    rec.note = '__HD_DATA[' + m.id + '] + __HD_EXTRA cache' + (m.cacheKey ? ' + __HD_ASSETS.images[' + m.cacheKey + ']' : '');
   }
 
   var APPLY = { T3B: applyT3B, V5: applyV5, ILT: applyILT, HD: applyHD };
@@ -436,7 +470,9 @@
         dims = im3 ? [im3.naturalWidth, im3.naturalHeight] : null;
       } else if (a.loader === 'HD') {
         var imh = window.__HD_EXTRA && window.__HD_EXTRA[a.id];
-        ok = (live === a.file) && !!imh && !!imh.complete &&
+        var cacheLive = !a.cacheKey || !!(window.__HD_ASSETS && window.__HD_ASSETS.images &&
+                                          window.__HD_ASSETS.images[a.cacheKey] === imh);
+        ok = (live === a.file) && !!imh && !!imh.complete && cacheLive &&
              imh.naturalWidth === a.expected[0] && imh.naturalHeight === a.expected[1];
         dims = imh ? [imh.naturalWidth, imh.naturalHeight] : null;
       } else if (live) {

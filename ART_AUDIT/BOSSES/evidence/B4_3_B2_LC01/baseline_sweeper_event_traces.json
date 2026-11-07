@@ -1,0 +1,708 @@
+{
+  "sourceEvidence": "ART_AUDIT/BOSSES/evidence/B4_2_post_R1/scenario_matrix.json; baseline is before B4.3 correction",
+  "profiles": [
+    {
+      "resident": "pogo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimeSweepLabel": "sweep",
+      "precedingPattern": "fan",
+      "identity": {
+        "resident": "pogo",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "burst",
+          "fan",
+          "spiral"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": null
+      },
+      "events": [
+        {
+          "tick": 116,
+          "time": 5.8,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 128,
+          "time": 6.4,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 132,
+          "time": 6.6,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 133,
+          "time": 6.65,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "fan",
+            "source": "Th-accepted-projectile-emission",
+            "attempted": 5,
+            "accepted": 5,
+            "created": 5
+          }
+        },
+        {
+          "tick": 133,
+          "time": 6.65,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "fan",
+            "completed": true,
+            "recover": 0.8,
+            "reason": null,
+            "attempted": 5,
+            "accepted": 5,
+            "created": 5
+          }
+        },
+        {
+          "tick": 133,
+          "time": 6.65,
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "fan",
+            "duration": 0.8
+          }
+        },
+        {
+          "tick": 134,
+          "time": 6.7,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "TELEGRAPH",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 146,
+          "time": 7.3,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 148,
+          "time": 7.4,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 151,
+          "time": 7.55,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "tick": 151,
+          "time": 7.55,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "ATTACK",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 179,
+          "time": 8.95,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "tick": 179,
+          "time": 8.95,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 186,
+          "time": 9.3,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ]
+    },
+    {
+      "resident": "matarife",
+      "canonicalAttackId": "phase.sweep",
+      "runtimeSweepLabel": "sweep",
+      "precedingPattern": "burst",
+      "identity": {
+        "resident": "matarife",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "spiral",
+          "burst",
+          "fan"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": {
+          "type": "fire",
+          "every": 5.6,
+          "max": 3
+        }
+      },
+      "events": [
+        {
+          "tick": 140,
+          "time": 7,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 152,
+          "time": 7.6,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 157,
+          "time": 7.85,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 158,
+          "time": 7.9,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-accepted-projectile-emission",
+            "attempted": 3,
+            "accepted": 3,
+            "created": 3
+          }
+        },
+        {
+          "tick": 158,
+          "time": 7.9,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 166,
+          "time": 8.3,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "burst",
+            "completed": true,
+            "recover": 0.95,
+            "reason": null,
+            "attempted": 9,
+            "accepted": 9,
+            "created": 9
+          }
+        },
+        {
+          "tick": 166,
+          "time": 8.3,
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "burst",
+            "duration": 0.95
+          }
+        },
+        {
+          "tick": 167,
+          "time": 8.35,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "TELEGRAPH",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 179,
+          "time": 8.95,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 184,
+          "time": 9.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 184,
+          "time": 9.2,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "tick": 184,
+          "time": 9.2,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "ATTACK",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 212,
+          "time": 10.6,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "tick": 212,
+          "time": 10.6,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 219,
+          "time": 10.95,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ]
+    },
+    {
+      "resident": "traidor",
+      "canonicalAttackId": "phase.sweep",
+      "runtimeSweepLabel": "sweep",
+      "precedingPattern": "burst",
+      "identity": {
+        "resident": "traidor",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "ring",
+          "burst",
+          "spiral"
+        ],
+        "configuredAdds": 3,
+        "configuredZones": {
+          "type": "elec",
+          "every": 6,
+          "max": 2
+        }
+      },
+      "events": [
+        {
+          "tick": 112,
+          "time": 5.6,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 124,
+          "time": 6.2,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 129,
+          "time": 6.45,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 130,
+          "time": 6.5,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-accepted-projectile-emission",
+            "attempted": 3,
+            "accepted": 3,
+            "created": 3
+          }
+        },
+        {
+          "tick": 130,
+          "time": 6.5,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 138,
+          "time": 6.9,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "burst",
+            "completed": true,
+            "recover": 0.95,
+            "reason": null,
+            "attempted": 9,
+            "accepted": 9,
+            "created": 9
+          }
+        },
+        {
+          "tick": 138,
+          "time": 6.9,
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "burst",
+            "duration": 0.95
+          }
+        },
+        {
+          "tick": 148,
+          "time": 7.4,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "TELEGRAPH",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 156,
+          "time": 7.8,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 160,
+          "time": 8,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 165,
+          "time": 8.25,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "tick": 165,
+          "time": 8.25,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "ATTACK",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 193,
+          "time": 9.65,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "tick": 193,
+          "time": 9.65,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 200,
+          "time": 10,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ]
+    },
+    {
+      "resident": "nucleo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimeSweepLabel": "sweep",
+      "precedingPattern": "ring",
+      "identity": {
+        "resident": "nucleo",
+        "variant": "sweeper",
+        "final": true,
+        "initialPhase": "chase",
+        "patterns": [
+          "fan",
+          "ring",
+          "burst",
+          "spiral"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": null
+      },
+      "events": [
+        {
+          "tick": 102,
+          "time": 5.1,
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 115,
+          "time": 5.75,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 123,
+          "time": 6.15,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "tick": 124,
+          "time": 6.2,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "ring",
+            "source": "Th-accepted-projectile-emission",
+            "attempted": 15,
+            "accepted": 15,
+            "created": 15
+          }
+        },
+        {
+          "tick": 124,
+          "time": 6.2,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "ring",
+            "completed": true,
+            "recover": 1.05,
+            "reason": null,
+            "attempted": 15,
+            "accepted": 15,
+            "created": 15
+          }
+        },
+        {
+          "tick": 124,
+          "time": 6.2,
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "ring",
+            "duration": 1.05
+          }
+        },
+        {
+          "tick": 125,
+          "time": 6.25,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "TELEGRAPH",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 135,
+          "time": 6.75,
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 142,
+          "time": 7.1,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "tick": 142,
+          "time": 7.1,
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "ATTACK",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 144,
+          "time": 7.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 170,
+          "time": 8.5,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "tick": 170,
+          "time": 8.5,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "tick": 177,
+          "time": 8.85,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ]
+    }
+  ]
+}

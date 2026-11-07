@@ -1,0 +1,17 @@
+{
+  "status": "BLOCKED",
+  "comparison_run": false,
+  "reason": "No hardware GPU is exposed to the sandbox; Chromium is configured to use SwiftShader.",
+  "T01_real_gpu_passes": 0,
+  "T02_real_gpu_passes": 0,
+  "repeated_passes_by_configuration": 0,
+  "variability": null,
+  "comparison_metrics": null,
+  "legacy_swiftshader_data": {
+    "T01": "raw_noncomparable/T01_swiftshader_single_run.json",
+    "T02": "raw_noncomparable/T02_swiftshader_single_run.json",
+    "used_for_gate": false,
+    "reason_not_comparable": "Single runs used different scripts, sample counts, and scene/entity setup; both used software rendering and neither is a real-GPU run."
+  },
+  "instruction": "Do not compare either legacy result against real-GPU data or infer an asset-related regression from these figures."
+}

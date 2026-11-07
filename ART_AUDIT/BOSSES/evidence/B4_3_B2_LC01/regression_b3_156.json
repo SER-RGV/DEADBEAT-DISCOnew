@@ -1,0 +1,348 @@
+{
+  "suite": "B3 Telegraph & Attack Communication — source-coupled contract audit",
+  "status": "PASS",
+  "assertions": 156,
+  "attackPatternLinks": 42,
+  "sourceAuditCoverage": {
+    "correct": 42,
+    "partial": 0,
+    "missing": 0,
+    "note": "All 42 source links match their scheduler-owned warning geometry and lifecycle: 32 pattern links, four sweeps, and six zone channels. Burst/spiral renderer bounds now match execution; non-final phase changes clear sweep references; six zones remain independent visual scheduler records without duplicating B2 per boss."
+  },
+  "configuredProfiles": 10,
+  "authoredPatternIds": {
+    "fan": {
+      "name": "ABANICO DE BAJOS",
+      "warn": 0.8,
+      "shots": 5
+    },
+    "ring": {
+      "name": "ANILLO · BUSCA EL HUECO",
+      "warn": 1.05,
+      "shots": 18
+    },
+    "spiral": {
+      "name": "ESPIRAL DOBLE",
+      "warn": 1.1,
+      "shots": 20
+    },
+    "burst": {
+      "name": "RÁFAGA · PASO LATERAL",
+      "warn": 0.82,
+      "shots": 9
+    },
+    "summon": {
+      "name": "INVOCACIÓN · ROMPE EL BLINDAJE",
+      "warn": 1.2,
+      "shots": 2
+    }
+  },
+  "matrix": [
+    {
+      "resident": "anden",
+      "variant": "hunter",
+      "attackIds": [
+        "pattern:fan",
+        "pattern:burst",
+        "pattern:ring"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "magneta",
+      "variant": "hunter",
+      "attackIds": [
+        "pattern:burst",
+        "pattern:fan",
+        "pattern:ring"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "bufe",
+      "variant": "pulse",
+      "attackIds": [
+        "pattern:ring",
+        "pattern:spiral",
+        "pattern:burst",
+        "zone:fire"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:fire",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "cajero",
+      "variant": "hunter",
+      "attackIds": [
+        "pattern:ring",
+        "pattern:fan",
+        "pattern:spiral"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "pogo",
+      "variant": "sweeper",
+      "attackIds": [
+        "pattern:burst",
+        "pattern:fan",
+        "pattern:spiral",
+        "sweep:phase.sweep"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "sweep:phase.sweep",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "oficiante",
+      "variant": "pulse",
+      "attackIds": [
+        "pattern:summon",
+        "pattern:ring",
+        "pattern:spiral",
+        "zone:elec"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:summon",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:elec",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "matarife",
+      "variant": "sweeper",
+      "attackIds": [
+        "pattern:spiral",
+        "pattern:burst",
+        "pattern:fan",
+        "sweep:phase.sweep",
+        "zone:fire"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "sweep:phase.sweep",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:fire",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "imitador",
+      "variant": "hunter",
+      "attackIds": [
+        "pattern:fan",
+        "pattern:ring",
+        "pattern:burst"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "traidor",
+      "variant": "sweeper",
+      "attackIds": [
+        "pattern:ring",
+        "pattern:burst",
+        "pattern:spiral",
+        "sweep:phase.sweep",
+        "zone:elec"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "sweep:phase.sweep",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:elec",
+          "status": "C"
+        }
+      ]
+    },
+    {
+      "resident": "nucleo",
+      "variant": "sweeper",
+      "attackIds": [
+        "pattern:fan",
+        "pattern:ring",
+        "pattern:burst",
+        "pattern:spiral",
+        "sweep:phase.sweep",
+        "pattern:summon (conditional final stage)",
+        "zone:elec (stage 2)",
+        "zone:fire (stage 3)"
+      ],
+      "attackLinks": [
+        {
+          "attackId": "pattern:fan",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:ring",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:burst",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:spiral",
+          "status": "C"
+        },
+        {
+          "attackId": "sweep:phase.sweep",
+          "status": "C"
+        },
+        {
+          "attackId": "pattern:summon (conditional final stage)",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:elec (stage 2)",
+          "status": "C"
+        },
+        {
+          "attackId": "zone:fire (stage 3)",
+          "status": "C"
+        }
+      ]
+    }
+  ],
+  "core": {
+    "resident": "nucleo",
+    "distinctFinalRecord": true,
+    "attackIds": [
+      "pattern:fan",
+      "pattern:ring",
+      "pattern:burst",
+      "pattern:spiral",
+      "sweep:phase.sweep",
+      "pattern:summon (conditional final stage)",
+      "zone:elec (stage 2)",
+      "zone:fire (stage 3)"
+    ]
+  },
+  "knownBlockers": [],
+  "evidenceKind": "Static/source-coupled contract validation; does not claim human readability or full gameplay verification."
+}

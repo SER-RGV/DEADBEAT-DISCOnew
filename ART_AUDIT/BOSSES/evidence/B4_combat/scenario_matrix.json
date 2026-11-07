@@ -1,0 +1,6106 @@
+{
+  "test": "B4 active-HTML combat scheduler scenarios",
+  "status": "PASS",
+  "url": "http://127.0.0.1:4176/DEADBEAT_DISCO.ART.html",
+  "source": "DEADBEAT_DISCO.ART.html: su(), Tf()/boss update, Th(), wh(), vh(), Sh(), du(); browser renders actual active game runtime",
+  "modes": "stationary, scripted clockwise orbit, scripted retreat; 10 real profile selections, styles rotated across the roster",
+  "executionDefinition": "selected=pattern71 becomes active; scheduler-emission-attempt=patternShot71 advances; aggregate bullet deltas are reported separately and are not treated as boss-attributed hits",
+  "limitations": [
+    "These are scripted browser simulations, not observed human matches, bot AI, fairness, fun, or readability tests.",
+    "Scripted coordinates are teleport-injected at fixed steps, not physical keyboard movement.",
+    "The game runtime and scheduler are real, but encounter conditions are a QA fixture: debug.clearRound removes ordinary wave enemies, boss adds remain scheduler-controlled, and debug.invuln protects the player. Seeded Math.random replaces normal randomness.",
+    "No per-pattern persistent counter exists; patternShot71 is an attempt counter and aggregate projectile count is not source-attributed."
+  ],
+  "cases": [
+    {
+      "identity": {
+        "resident": "anden",
+        "variant": "hunter",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "fan",
+          "burst",
+          "ring"
+        ],
+        "configuredAdds": 0,
+        "configuredZones": null
+      },
+      "behavior": "stationary",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1135,
+        "y": 940
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.3,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 2
+          },
+          {
+            "t": 9.15,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 3
+          },
+          {
+            "t": 12.9,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 2.9,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.2,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.4,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 3,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.6,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.25,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 14,
+            "aggregateBulletDelta": 14,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.75,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 1,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.65,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 10.3,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 13.9,
+            "from": "ranged",
+            "to": "chase"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 2,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 12.05,
+            "hostile": 10,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 2,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 12.05,
+            "spawned": 0,
+            "alive": 0
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "stationary"
+      },
+      "animationEvents": [
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "OBSERVING",
+            "pattern": "ring",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "ring",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "ring",
+            "completed": true,
+            "recover": 1.05,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "ring",
+            "duration": 1.05
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "MOVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "MOVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "fan",
+            "warn": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "MOVING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "MOVING",
+            "to": "TELEGRAPH",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "OBSERVING",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "fan",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "fan",
+            "completed": true,
+            "recover": 0.8,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "fan",
+            "duration": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "MOVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "MOVING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        }
+      ],
+      "state": {
+        "round": 11,
+        "night": 11,
+        "waveMode": "rush",
+        "roundModifier": "tank-party",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 0,
+        "bossInfo": {
+          "phase": "chase",
+          "variant": "hunter",
+          "entrance": 0,
+          "atk": 0.15,
+          "waveT": 16,
+          "hp": 147,
+          "freeze": 0,
+          "phaseT": 2.55
+        },
+        "conos": 0,
+        "balas": 1,
+        "balasArr": [
+          {
+            "x": 658,
+            "y": 800,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 21,
+          "chains": 19,
+          "best": 21,
+          "chain": 21,
+          "byKind": {
+            "volley": 21
+          },
+          "activas": 5,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 32.5,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1135,
+        "py": 940,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46080,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "magneta",
+        "variant": "hunter",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "burst",
+          "fan",
+          "ring"
+        ],
+        "configuredAdds": 4,
+        "configuredZones": null
+      },
+      "behavior": "orbit-clockwise",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1300,
+        "y": 642
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.85,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 2
+          },
+          {
+            "t": 9,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 3
+          },
+          {
+            "t": 12.7,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 2.95,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.15,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 3,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.35,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.7,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.1,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.6,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.8,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 14,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 9,
+            "aggregateBulletCountAfter": 12,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.4,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 7.1,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 11.1,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 14.1,
+            "from": "ranged",
+            "to": "chase"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 9,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 5,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 12.05,
+            "hostile": 7,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 11,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 1,
+            "alive": 1
+          },
+          {
+            "t": 12.05,
+            "spawned": 2,
+            "alive": 2
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "orbit-clockwise"
+      },
+      "animationEvents": [
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "ring",
+            "completed": true,
+            "recover": 1.05,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "ring",
+            "duration": 1.05
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "burst",
+            "warn": 0.82
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "burst",
+            "completed": true,
+            "recover": 0.95,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "burst",
+            "duration": 0.95
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        }
+      ],
+      "state": {
+        "round": 22,
+        "night": 22,
+        "waveMode": "onslaught",
+        "roundModifier": "sprinters",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 3,
+        "bossInfo": {
+          "phase": "chase",
+          "variant": "hunter",
+          "entrance": 0,
+          "atk": 0.45,
+          "waveT": 16,
+          "hp": 169,
+          "freeze": 0,
+          "phaseT": 2.68
+        },
+        "conos": 0,
+        "balas": 6,
+        "balasArr": [
+          {
+            "x": 639,
+            "y": 1071,
+            "mine": false
+          },
+          {
+            "x": 634,
+            "y": 915,
+            "mine": false
+          },
+          {
+            "x": 659,
+            "y": 1068,
+            "mine": false
+          },
+          {
+            "x": 654,
+            "y": 917,
+            "mine": false
+          },
+          {
+            "x": 744,
+            "y": 1055,
+            "mine": false
+          },
+          {
+            "x": 740,
+            "y": 924,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 1,
+          "chains": 0,
+          "best": 1,
+          "chain": 1,
+          "byKind": {
+            "volley": 1
+          },
+          "activas": 12,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 168.6,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1300,
+        "py": 642,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46081,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "bufe",
+        "variant": "pulse",
+        "final": false,
+        "initialPhase": "ranged",
+        "patterns": [
+          "ring",
+          "spiral",
+          "burst"
+        ],
+        "configuredAdds": 4,
+        "configuredZones": {
+          "type": "fire",
+          "every": 6.2,
+          "max": 2
+        }
+      },
+      "behavior": "retreat",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 441,
+        "y": 1098
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 3.35,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 3
+          },
+          {
+            "t": 7,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 4
+          },
+          {
+            "t": 10.55,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 5
+          },
+          {
+            "t": 15.6,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 6
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 4.25,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.45,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 3,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.65,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 8.1,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.7,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.85,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.15,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.3,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.45,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 8,
+            "aggregateBulletCountAfter": 10,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.6,
+            "pattern": "spiral",
+            "counterBefore": 12,
+            "counterAfter": 14,
+            "aggregateBulletCountBefore": 9,
+            "aggregateBulletCountAfter": 11,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.75,
+            "pattern": "spiral",
+            "counterBefore": 14,
+            "counterAfter": 16,
+            "aggregateBulletCountBefore": 11,
+            "aggregateBulletCountAfter": 13,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.9,
+            "pattern": "spiral",
+            "counterBefore": 16,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 13,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.05,
+            "pattern": "spiral",
+            "counterBefore": 18,
+            "counterAfter": 20,
+            "aggregateBulletCountBefore": 15,
+            "aggregateBulletCountAfter": 16,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 6.85,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 9.7,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 13.2,
+            "from": "chase",
+            "to": "ranged"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 4.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 6.05,
+            "hostile": 6,
+            "activePatterns": false
+          },
+          {
+            "t": 8.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 10.05,
+            "hostile": 10,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 6,
+            "activePatterns": true
+          },
+          {
+            "t": 14.05,
+            "hostile": 13,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 3,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "retreat"
+      },
+      "animationEvents": [
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "spiral",
+            "warn": 1.1
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "spiral",
+            "completed": true,
+            "recover": 1.15,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "spiral",
+            "duration": 1.15
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "burst",
+            "warn": 0.82
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        }
+      ],
+      "state": {
+        "round": 33,
+        "night": 33,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 4,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "pulse",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 16,
+          "hp": 186,
+          "freeze": 0,
+          "phaseT": 0.91
+        },
+        "conos": 0,
+        "balas": 5,
+        "balasArr": [
+          {
+            "x": 1512,
+            "y": 416,
+            "mine": false
+          },
+          {
+            "x": 1714,
+            "y": 646,
+            "mine": false
+          },
+          {
+            "x": 1789,
+            "y": 930,
+            "mine": false
+          },
+          {
+            "x": 542,
+            "y": 1077,
+            "mine": false
+          },
+          {
+            "x": 766,
+            "y": 591,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": 496,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 441,
+        "py": 1098,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46082,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "cajero",
+        "variant": "hunter",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "ring",
+          "fan",
+          "spiral"
+        ],
+        "configuredAdds": 3,
+        "configuredZones": null
+      },
+      "behavior": "stationary",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1135,
+        "y": 940
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.75,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 2
+          },
+          {
+            "t": 8.9,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 3
+          },
+          {
+            "t": 14.1,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 3.15,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.6,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 10,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.05,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 2,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.2,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.35,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.5,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.65,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.8,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.95,
+            "pattern": "spiral",
+            "counterBefore": 12,
+            "counterAfter": 14,
+            "aggregateBulletCountBefore": 9,
+            "aggregateBulletCountAfter": 11,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.1,
+            "pattern": "spiral",
+            "counterBefore": 14,
+            "counterAfter": 16,
+            "aggregateBulletCountBefore": 11,
+            "aggregateBulletCountAfter": 13,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.25,
+            "pattern": "spiral",
+            "counterBefore": 16,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 13,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.4,
+            "pattern": "spiral",
+            "counterBefore": 18,
+            "counterAfter": 20,
+            "aggregateBulletCountBefore": 15,
+            "aggregateBulletCountAfter": 16,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 15.2,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 17,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.65,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 11.65,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 15.25,
+            "from": "ranged",
+            "to": "chase"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 13,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 6,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 4,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 2,
+            "activePatterns": true
+          },
+          {
+            "t": 12.05,
+            "hostile": 16,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 10,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 1,
+            "alive": 1
+          },
+          {
+            "t": 12.05,
+            "spawned": 2,
+            "alive": 2
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "stationary"
+      },
+      "animationEvents": [
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "spiral",
+            "completed": true,
+            "recover": 1.15,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "spiral",
+            "duration": 1.15
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "ring",
+            "warn": 1.05
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "ring",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "ring",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "ring",
+            "completed": true,
+            "recover": 1.05,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "ring",
+            "duration": 1.05
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        }
+      ],
+      "state": {
+        "round": 44,
+        "night": 44,
+        "waveMode": "armored",
+        "roundModifier": "sprinters",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 3,
+        "bossInfo": {
+          "phase": "chase",
+          "variant": "hunter",
+          "entrance": 0,
+          "atk": 1.75,
+          "waveT": 16,
+          "hp": 184,
+          "freeze": 0,
+          "phaseT": 3.79
+        },
+        "conos": 0,
+        "balas": 16,
+        "balasArr": [
+          {
+            "x": 1078,
+            "y": 600,
+            "mine": false
+          },
+          {
+            "x": 1314,
+            "y": 645,
+            "mine": false
+          },
+          {
+            "x": 1421,
+            "y": 931,
+            "mine": false
+          },
+          {
+            "x": 1426,
+            "y": 1002,
+            "mine": false
+          },
+          {
+            "x": 1376,
+            "y": 1053,
+            "mine": false
+          },
+          {
+            "x": 1334,
+            "y": 1111,
+            "mine": false
+          },
+          {
+            "x": 1263,
+            "y": 1119,
+            "mine": false
+          },
+          {
+            "x": 1194,
+            "y": 1136,
+            "mine": false
+          },
+          {
+            "x": 1134,
+            "y": 1096,
+            "mine": false
+          },
+          {
+            "x": 1070,
+            "y": 1065,
+            "mine": false
+          },
+          {
+            "x": 1050,
+            "y": 996,
+            "mine": false
+          },
+          {
+            "x": 1194,
+            "y": 725,
+            "mine": false
+          },
+          {
+            "x": 1263,
+            "y": 742,
+            "mine": false
+          },
+          {
+            "x": 1334,
+            "y": 750,
+            "mine": false
+          },
+          {
+            "x": 1376,
+            "y": 808,
+            "mine": false
+          },
+          {
+            "x": 1426,
+            "y": 859,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 19,
+          "chains": 17,
+          "best": 19,
+          "chain": 19,
+          "byKind": {
+            "volley": 19
+          },
+          "activas": 18,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 26,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1135,
+        "py": 940,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46083,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "pogo",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "burst",
+          "fan",
+          "spiral"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": null
+      },
+      "behavior": "orbit-clockwise",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1076,
+        "y": 933
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.75,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 2
+          },
+          {
+            "t": 11.45,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 3
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 2.95,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.15,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 3,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.35,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.6,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.6,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.75,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.9,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.05,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.2,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 8,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.35,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 9,
+            "aggregateBulletCountAfter": 11,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.5,
+            "pattern": "spiral",
+            "counterBefore": 12,
+            "counterAfter": 14,
+            "aggregateBulletCountBefore": 10,
+            "aggregateBulletCountAfter": 12,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.65,
+            "pattern": "spiral",
+            "counterBefore": 14,
+            "counterAfter": 16,
+            "aggregateBulletCountBefore": 12,
+            "aggregateBulletCountAfter": 14,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.8,
+            "pattern": "spiral",
+            "counterBefore": 16,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 14,
+            "aggregateBulletCountAfter": 16,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.95,
+            "pattern": "spiral",
+            "counterBefore": 18,
+            "counterAfter": 20,
+            "aggregateBulletCountBefore": 16,
+            "aggregateBulletCountAfter": 17,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.4,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.65,
+            "from": "ranged",
+            "to": "sweep"
+          },
+          {
+            "t": 9.25,
+            "from": "sweep",
+            "to": "chase"
+          },
+          {
+            "t": 14,
+            "from": "chase",
+            "to": "ranged"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 5,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 5,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 2,
+            "activePatterns": true
+          },
+          {
+            "t": 14.05,
+            "hostile": 16,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 1
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 3,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "orbit-clockwise"
+      },
+      "animationEvents": [
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "spiral",
+            "warn": 1.1
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "spiral",
+            "completed": true,
+            "recover": 1.15,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "spiral",
+            "duration": 1.15
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        }
+      ],
+      "state": {
+        "round": 55,
+        "night": 55,
+        "waveMode": "onslaught",
+        "roundModifier": null,
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 4,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 0.52,
+          "waveT": 16,
+          "hp": 204,
+          "freeze": 0,
+          "phaseT": 1.81
+        },
+        "conos": 0,
+        "balas": 9,
+        "balasArr": [
+          {
+            "x": 1600,
+            "y": 743,
+            "mine": false
+          },
+          {
+            "x": 1678,
+            "y": 1026,
+            "mine": false
+          },
+          {
+            "x": 1128,
+            "y": 592,
+            "mine": false
+          },
+          {
+            "x": 1334,
+            "y": 700,
+            "mine": false
+          },
+          {
+            "x": 1462,
+            "y": 879,
+            "mine": false
+          },
+          {
+            "x": 649,
+            "y": 1334,
+            "mine": false
+          },
+          {
+            "x": 1494,
+            "y": 1084,
+            "mine": false
+          },
+          {
+            "x": 617,
+            "y": 1129,
+            "mine": false
+          },
+          {
+            "x": 678,
+            "y": 943,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 1,
+          "chains": 0,
+          "best": 1,
+          "chain": 1,
+          "byKind": {
+            "volley": 1
+          },
+          "activas": 7,
+          "fx": 1,
+          "lastKind": "volley",
+          "lastMin": 169.7,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1076,
+        "py": 933,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46084,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "oficiante",
+        "variant": "pulse",
+        "final": false,
+        "initialPhase": "ranged",
+        "patterns": [
+          "summon",
+          "ring",
+          "spiral"
+        ],
+        "configuredAdds": 2,
+        "configuredZones": {
+          "type": "elec",
+          "every": 6.6,
+          "max": 2
+        }
+      },
+      "behavior": "retreat",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 497,
+        "y": 1105
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "summon",
+            "warningRemaining": 1.2,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.9,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 2
+          },
+          {
+            "t": 9.45,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 3
+          },
+          {
+            "t": 14.5,
+            "pattern": "summon",
+            "warningRemaining": 1.2,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 3.3,
+            "pattern": "summon",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 0,
+            "aggregateBulletDelta": 0,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 7,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.6,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.75,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.9,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.05,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.2,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.35,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 8,
+            "aggregateBulletCountAfter": 10,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.5,
+            "pattern": "spiral",
+            "counterBefore": 12,
+            "counterAfter": 14,
+            "aggregateBulletCountBefore": 10,
+            "aggregateBulletCountAfter": 11,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.65,
+            "pattern": "spiral",
+            "counterBefore": 14,
+            "counterAfter": 16,
+            "aggregateBulletCountBefore": 11,
+            "aggregateBulletCountAfter": 13,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.8,
+            "pattern": "spiral",
+            "counterBefore": 16,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 13,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 11.95,
+            "pattern": "spiral",
+            "counterBefore": 18,
+            "counterAfter": 20,
+            "aggregateBulletCountBefore": 15,
+            "aggregateBulletCountAfter": 16,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 15.75,
+            "pattern": "summon",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 0,
+            "aggregateBulletDelta": 0,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.35,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 7.05,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 12,
+            "from": "ranged",
+            "to": "chase"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 15,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 7,
+            "activePatterns": true
+          },
+          {
+            "t": 12.05,
+            "hostile": 16,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 10,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 2,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 2,
+            "alive": 2
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "retreat"
+      },
+      "animationEvents": [
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "spiral",
+            "completed": true,
+            "recover": 1.15,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "spiral",
+            "duration": 1.15
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "summon",
+            "warn": 1.2
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "summon",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "summon",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "summon",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "summon",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "summon",
+            "completed": true,
+            "recover": 1.2,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "summon",
+            "duration": 1.2
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "chase"
+          }
+        }
+      ],
+      "state": {
+        "round": 66,
+        "night": 66,
+        "waveMode": "standard",
+        "roundModifier": "sticky-floor",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 2,
+        "bossInfo": {
+          "phase": "chase",
+          "variant": "pulse",
+          "entrance": 0,
+          "atk": 2.31,
+          "waveT": 16,
+          "hp": 204,
+          "freeze": 0,
+          "phaseT": 0.24
+        },
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": 736.6,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 497,
+        "py": 1105,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46085,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "matarife",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "spiral",
+          "burst",
+          "fan"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": {
+          "type": "fire",
+          "every": 5.6,
+          "max": 3
+        }
+      },
+      "behavior": "stationary",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1250,
+        "y": 987
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 1
+          },
+          {
+            "t": 6.95,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 2
+          },
+          {
+            "t": 13.05,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 3
+          },
+          {
+            "t": 15.95,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 3.2,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 2,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.35,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.5,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.65,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.8,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 3.95,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 8,
+            "aggregateBulletCountAfter": 10,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.1,
+            "pattern": "spiral",
+            "counterBefore": 12,
+            "counterAfter": 14,
+            "aggregateBulletCountBefore": 10,
+            "aggregateBulletCountAfter": 12,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.25,
+            "pattern": "spiral",
+            "counterBefore": 14,
+            "counterAfter": 16,
+            "aggregateBulletCountBefore": 12,
+            "aggregateBulletCountAfter": 14,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.4,
+            "pattern": "spiral",
+            "counterBefore": 16,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 14,
+            "aggregateBulletCountAfter": 16,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 4.55,
+            "pattern": "spiral",
+            "counterBefore": 18,
+            "counterAfter": 20,
+            "aggregateBulletCountBefore": 16,
+            "aggregateBulletCountAfter": 17,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 7.85,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 1,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 8.05,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 8.25,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 3,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.9,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 5,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 4.6,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 8.3,
+            "from": "ranged",
+            "to": "sweep"
+          },
+          {
+            "t": 10.9,
+            "from": "sweep",
+            "to": "chase"
+          },
+          {
+            "t": 14.5,
+            "from": "chase",
+            "to": "ranged"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 10,
+            "activePatterns": true
+          },
+          {
+            "t": 6.05,
+            "hostile": 14,
+            "activePatterns": false
+          },
+          {
+            "t": 8.05,
+            "hostile": 3,
+            "activePatterns": true
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 5,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 1
+          },
+          {
+            "t": 8.05,
+            "spawned": 3,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 4,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "stationary"
+      },
+      "animationEvents": [
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "ATTACK",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "fan",
+            "warn": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "fan",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "fan",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "fan",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "fan",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "fan",
+            "completed": true,
+            "recover": 0.8,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "fan",
+            "duration": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "spiral",
+            "warn": 1.1
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        }
+      ],
+      "state": {
+        "round": 77,
+        "night": 77,
+        "waveMode": "armored",
+        "roundModifier": null,
+        "boss": true,
+        "combo": 1,
+        "hype": 7,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 4,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 16,
+          "hp": 235,
+          "freeze": 0,
+          "phaseT": 2.63
+        },
+        "conos": 0,
+        "balas": 3,
+        "balasArr": [
+          {
+            "x": 791,
+            "y": 1365,
+            "mine": false
+          },
+          {
+            "x": 769,
+            "y": 1268,
+            "mine": false
+          },
+          {
+            "x": 705,
+            "y": 1102,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 20,
+          "chains": 18,
+          "best": 20,
+          "chain": 20,
+          "byKind": {
+            "volley": 20
+          },
+          "activas": 8,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 0,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 987,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46086,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "imitador",
+        "variant": "hunter",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "fan",
+          "ring",
+          "burst"
+        ],
+        "configuredAdds": 4,
+        "configuredZones": null
+      },
+      "behavior": "orbit-clockwise",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1258,
+        "y": 586
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.15,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 2
+          },
+          {
+            "t": 8.75,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 3
+          },
+          {
+            "t": 12.45,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 4
+          },
+          {
+            "t": 15.55,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 5
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 2.9,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.25,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 9.65,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 9.85,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 10.05,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 2,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.3,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.3,
+            "from": "ranged",
+            "to": "chase"
+          },
+          {
+            "t": 10.35,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 13.55,
+            "from": "ranged",
+            "to": "chase"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 4,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 11,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 9,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 14.05,
+            "hostile": 5,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 3,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "orbit-clockwise"
+      },
+      "animationEvents": [
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "burst",
+            "completed": true,
+            "recover": 0.95,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "burst",
+            "duration": 0.95
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "fan",
+            "warn": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "fan",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "fan",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "fan",
+            "completed": true,
+            "recover": 0.8,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "fan",
+            "duration": 0.8
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "ring",
+            "warn": 1.05
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "ring",
+            "phase": "chase"
+          }
+        }
+      ],
+      "state": {
+        "round": 88,
+        "night": 88,
+        "waveMode": "armored",
+        "roundModifier": "hot-floor",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 4,
+        "bossInfo": {
+          "phase": "chase",
+          "variant": "hunter",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 16,
+          "hp": 219,
+          "freeze": 0,
+          "phaseT": 1.6
+        },
+        "conos": 0,
+        "balas": 3,
+        "balasArr": [
+          {
+            "x": 648,
+            "y": 1091,
+            "mine": false
+          },
+          {
+            "x": 590,
+            "y": 978,
+            "mine": false
+          },
+          {
+            "x": 648,
+            "y": 866,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 5,
+          "chains": 3,
+          "best": 5,
+          "chain": 5,
+          "byKind": {
+            "volley": 5
+          },
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 164.8,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1258,
+        "py": 586,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46087,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "traidor",
+        "variant": "sweeper",
+        "final": false,
+        "initialPhase": "chase",
+        "patterns": [
+          "ring",
+          "burst",
+          "spiral"
+        ],
+        "configuredAdds": 3,
+        "configuredZones": {
+          "type": "elec",
+          "every": 6,
+          "max": 2
+        }
+      },
+      "behavior": "retreat",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 313,
+        "y": 962
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.55,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 2
+          },
+          {
+            "t": 11.75,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 3
+          },
+          {
+            "t": 15.1,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 5
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 3.15,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.45,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 8,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.65,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 8,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.85,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.9,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 2,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.05,
+            "pattern": "spiral",
+            "counterBefore": 2,
+            "counterAfter": 4,
+            "aggregateBulletCountBefore": 2,
+            "aggregateBulletCountAfter": 4,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.2,
+            "pattern": "spiral",
+            "counterBefore": 4,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.35,
+            "pattern": "spiral",
+            "counterBefore": 6,
+            "counterAfter": 8,
+            "aggregateBulletCountBefore": 5,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.5,
+            "pattern": "spiral",
+            "counterBefore": 8,
+            "counterAfter": 10,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 1,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 13.65,
+            "pattern": "spiral",
+            "counterBefore": 10,
+            "counterAfter": 12,
+            "aggregateBulletCountBefore": 7,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 16,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 4,
+            "aggregateBulletCountAfter": 7,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.9,
+            "from": "ranged",
+            "to": "sweep"
+          },
+          {
+            "t": 9.5,
+            "from": "sweep",
+            "to": "chase"
+          },
+          {
+            "t": 13.85,
+            "from": "chase",
+            "to": "ranged"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 13,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 9,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 6,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 14.05,
+            "hostile": 9,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 1
+          },
+          {
+            "t": 12.05,
+            "spawned": 3,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "retreat"
+      },
+      "animationEvents": [
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "spiral",
+            "warn": 1.1
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "spiral",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.interrupted",
+          "detail": {
+            "pattern": "spiral",
+            "completed": false,
+            "recover": 0,
+            "reason": "existing-scheduler-cancel"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "burst",
+            "warn": 0.82
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "burst",
+            "phase": "ranged"
+          }
+        }
+      ],
+      "state": {
+        "round": 99,
+        "night": 99,
+        "waveMode": "onslaught",
+        "roundModifier": "hot-floor",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 3,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 16,
+          "hp": 232,
+          "freeze": 0,
+          "phaseT": 1.61
+        },
+        "conos": 0,
+        "balas": 7,
+        "balasArr": [
+          {
+            "x": 1257,
+            "y": 654,
+            "mine": false
+          },
+          {
+            "x": 1376,
+            "y": 895,
+            "mine": false
+          },
+          {
+            "x": 1374,
+            "y": 1152,
+            "mine": false
+          },
+          {
+            "x": 806,
+            "y": 613,
+            "mine": false
+          },
+          {
+            "x": 753,
+            "y": 1068,
+            "mine": false
+          },
+          {
+            "x": 753,
+            "y": 1063,
+            "mine": false
+          },
+          {
+            "x": 755,
+            "y": 1058,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 1,
+          "chains": 0,
+          "best": 1,
+          "chain": 1,
+          "byKind": {
+            "volley": 1
+          },
+          "activas": 6,
+          "fx": 1,
+          "lastKind": "volley",
+          "lastMin": 363.3,
+          "lastLife": 2.5,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 313,
+        "py": 962,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46088,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    },
+    {
+      "identity": {
+        "resident": "nucleo",
+        "variant": "sweeper",
+        "final": true,
+        "initialPhase": "chase",
+        "patterns": [
+          "fan",
+          "ring",
+          "burst",
+          "spiral"
+        ],
+        "configuredAdds": 5,
+        "configuredZones": null
+      },
+      "behavior": "stationary",
+      "start": {
+        "x": 1135,
+        "y": 940
+      },
+      "end": {
+        "x": 1250,
+        "y": 1013
+      },
+      "trace": {
+        "selections": [
+          {
+            "t": 2.05,
+            "pattern": "fan",
+            "warningRemaining": 0.8,
+            "selectorIndex": 1
+          },
+          {
+            "t": 5.05,
+            "pattern": "ring",
+            "warningRemaining": 1.05,
+            "selectorIndex": 2
+          },
+          {
+            "t": 11.15,
+            "pattern": "burst",
+            "warningRemaining": 0.82,
+            "selectorIndex": 3
+          },
+          {
+            "t": 14.75,
+            "pattern": "spiral",
+            "warningRemaining": 1.1,
+            "selectorIndex": 4
+          }
+        ],
+        "schedulerEmissionAttempts": [
+          {
+            "t": 2.9,
+            "pattern": "fan",
+            "counterBefore": 0,
+            "counterAfter": 5,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 5,
+            "aggregateBulletDelta": 5,
+            "addsSpawned": 0,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 6.15,
+            "pattern": "ring",
+            "counterBefore": 0,
+            "counterAfter": 18,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 15,
+            "aggregateBulletDelta": 15,
+            "addsSpawned": 1,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.05,
+            "pattern": "burst",
+            "counterBefore": 0,
+            "counterAfter": 3,
+            "aggregateBulletCountBefore": 3,
+            "aggregateBulletCountAfter": 6,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.25,
+            "pattern": "burst",
+            "counterBefore": 3,
+            "counterAfter": 6,
+            "aggregateBulletCountBefore": 6,
+            "aggregateBulletCountAfter": 9,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 12.45,
+            "pattern": "burst",
+            "counterBefore": 6,
+            "counterAfter": 9,
+            "aggregateBulletCountBefore": 9,
+            "aggregateBulletCountAfter": 12,
+            "aggregateBulletDelta": 3,
+            "addsSpawned": 3,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          },
+          {
+            "t": 15.9,
+            "pattern": "spiral",
+            "counterBefore": 0,
+            "counterAfter": 2,
+            "aggregateBulletCountBefore": 0,
+            "aggregateBulletCountAfter": 2,
+            "aggregateBulletDelta": 2,
+            "addsSpawned": 4,
+            "attribution": "patternShot71 advances on scheduler emission attempts; aggregate hostile bullet count is not source-attributed and can also fall as older bullets expire"
+          }
+        ],
+        "phaseChanges": [
+          {
+            "t": 3.25,
+            "from": "chase",
+            "to": "ranged"
+          },
+          {
+            "t": 6.2,
+            "from": "ranged",
+            "to": "sweep"
+          },
+          {
+            "t": 8.8,
+            "from": "sweep",
+            "to": "chase"
+          },
+          {
+            "t": 12.5,
+            "from": "chase",
+            "to": "ranged"
+          }
+        ],
+        "projectileCounts": [
+          {
+            "t": 0.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 2.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 4.05,
+            "hostile": 5,
+            "activePatterns": false
+          },
+          {
+            "t": 6.05,
+            "hostile": 0,
+            "activePatterns": true
+          },
+          {
+            "t": 8.05,
+            "hostile": 13,
+            "activePatterns": false
+          },
+          {
+            "t": 10.05,
+            "hostile": 0,
+            "activePatterns": false
+          },
+          {
+            "t": 12.05,
+            "hostile": 6,
+            "activePatterns": true
+          },
+          {
+            "t": 14.05,
+            "hostile": 11,
+            "activePatterns": false
+          }
+        ],
+        "addCounts": [
+          {
+            "t": 0.05,
+            "spawned": 0,
+            "alive": 0
+          },
+          {
+            "t": 4.05,
+            "spawned": 1,
+            "alive": 0
+          },
+          {
+            "t": 8.05,
+            "spawned": 2,
+            "alive": 2
+          },
+          {
+            "t": 12.05,
+            "spawned": 3,
+            "alive": 3
+          }
+        ],
+        "samples": 320,
+        "durationSeconds": 16,
+        "behavior": "stationary"
+      },
+      "animationEvents": [
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "burst",
+            "warn": 0.82
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "burst",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "burst",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "burst",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "burst",
+            "phase": "chase"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "burst",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "burst",
+            "completed": true,
+            "recover": 0.95,
+            "reason": null
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "burst",
+            "duration": 0.95
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK",
+            "to": "ATTACK_RECOVERY"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": null
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "ATTACK_RECOVERY",
+            "to": "OBSERVING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK_RECOVERY",
+            "to": "OBSERVING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "OBSERVING",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "OBSERVING",
+            "to": "DEFENDING",
+            "pattern": null,
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "telegraph.start",
+          "detail": {
+            "pattern": "spiral",
+            "warn": 1.1
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "TELEGRAPH"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "TELEGRAPH",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "TELEGRAPH",
+            "to": "WINDUP"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "TELEGRAPH",
+            "to": "WINDUP",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "WINDUP",
+            "to": "DEFENDING"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "WINDUP",
+            "to": "DEFENDING",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "spiral",
+            "source": "Th-projectile-or-hazard-emission"
+          }
+        },
+        {
+          "type": "state.exit",
+          "detail": {
+            "state": "DEFENDING",
+            "to": "ATTACK"
+          }
+        },
+        {
+          "type": "state.enter",
+          "detail": {
+            "from": "DEFENDING",
+            "to": "ATTACK",
+            "pattern": "spiral",
+            "phase": "ranged"
+          }
+        }
+      ],
+      "state": {
+        "round": 100,
+        "night": 100,
+        "waveMode": "armored",
+        "roundModifier": "hot-floor",
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": true,
+        "enemies": 4,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 16,
+          "hp": 363,
+          "freeze": 0,
+          "phaseT": 0.11
+        },
+        "conos": 0,
+        "balas": 2,
+        "balasArr": [
+          {
+            "x": 1291,
+            "y": 902,
+            "mine": false
+          },
+          {
+            "x": 1359,
+            "y": 1003,
+            "mine": false
+          }
+        ],
+        "dodge": {
+          "precise": 15,
+          "chains": 11,
+          "best": 10,
+          "chain": 10,
+          "byKind": {
+            "volley": 15
+          },
+          "activas": 2,
+          "fx": 0,
+          "lastKind": "volley",
+          "lastMin": 28,
+          "lastLife": 3.6,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 1013,
+        "pickups": []
+      },
+      "reproducibility": {
+        "MathRandomSeed": 46089,
+        "stepSeconds": 0.05,
+        "scriptedSteps": 320
+      }
+    }
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    {
+      "resident": "anden",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "anden",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "magneta",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "magneta",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "bufe",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "bufe",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "cajero",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "cajero",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "pogo",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "pogo",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "oficiante",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "oficiante",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "matarife",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "matarife",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "imitador",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "imitador",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "traidor",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "traidor",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "nucleo",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    },
+    {
+      "resident": "nucleo",
+      "error": "Failed to load resource: the server responded with a status of 404 (File not found)"
+    }
+  ],
+  "localFailures": [],
+  "ignoredHostResponses": [
+    {
+      "resident": "anden",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "anden",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "magneta",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "magneta",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "bufe",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "bufe",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "cajero",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "cajero",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "pogo",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "pogo",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "oficiante",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "oficiante",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "matarife",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "matarife",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "imitador",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "imitador",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "traidor",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "traidor",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    },
+    {
+      "resident": "nucleo",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "resident": "nucleo",
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "humanPlaytest": false,
+  "fairnessVerified": false,
+  "allTenNaturalCyclesVerified": false
+}

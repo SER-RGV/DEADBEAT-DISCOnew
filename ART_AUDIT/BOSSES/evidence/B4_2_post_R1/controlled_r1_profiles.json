@@ -1,0 +1,4638 @@
+{
+  "suite": "B4.2 R1 controlled actual-source scheduler/FSM by profile",
+  "status": "PASS",
+  "source": "active HTML vh()/wh()/Th()/actual B2 Th observer plus current FSM, extracted verbatim; acceptance/corridor dependencies controlled",
+  "profileScenarios": [
+    {
+      "resident": "anden",
+      "variant": "hunter",
+      "patternCatalog": [
+        "fan",
+        "burst",
+        "ring"
+      ],
+      "reject": {
+        "resident": "anden",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "burst",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 46
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "anden",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "anden",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 5,
+        "trackingRecords": 5
+      },
+      "sequence2": {
+        "resident": "anden",
+        "length": 2,
+        "sequence": [
+          "fan",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 4.5,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 14,
+          "accepted": 14,
+          "created": 14
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "anden",
+        "length": 3,
+        "sequence": [
+          "fan",
+          "burst",
+          "ring"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 4.5,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 3,
+              "time": 7,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "ring",
+            "selectedAt": 7,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 8.1,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 29,
+          "accepted": 29,
+          "created": 29
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "anden",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "magneta",
+      "variant": "hunter",
+      "patternCatalog": [
+        "burst",
+        "fan",
+        "ring"
+      ],
+      "reject": {
+        "resident": "magneta",
+        "variant": "hunter",
+        "pattern": "burst",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "fan",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 50
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "magneta",
+        "variant": "hunter",
+        "pattern": "burst",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "burst",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 3,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "burst",
+              "duration": 0.95
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "magneta",
+        "variant": "hunter",
+        "pattern": "burst",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "burst",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 3,
+              "accepted": 3,
+              "created": 3
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "burst",
+              "duration": 0.95
+            }
+          }
+        ],
+        "hostileProjectiles": 9,
+        "trackingRecords": 9
+      },
+      "sequence2": {
+        "resident": "magneta",
+        "length": 2,
+        "sequence": [
+          "burst",
+          "fan"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "burst",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 1.35,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.85,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.85,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.7,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 14,
+          "accepted": 14,
+          "created": 14
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "magneta",
+        "length": 3,
+        "sequence": [
+          "burst",
+          "fan",
+          "ring"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "burst",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 1.35,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.85,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.85,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.7,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 3,
+              "time": 7,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "ring",
+            "selectedAt": 7,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 8.1,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 29,
+          "accepted": 29,
+          "created": 29
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "magneta",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "bufe",
+      "variant": "pulse",
+      "patternCatalog": [
+        "ring",
+        "spiral",
+        "burst"
+      ],
+      "reject": {
+        "resident": "bufe",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "spiral",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 52
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "bufe",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "bufe",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 15,
+        "trackingRecords": 15
+      },
+      "sequence2": {
+        "resident": "bufe",
+        "length": 2,
+        "sequence": [
+          "ring",
+          "spiral"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "spiral",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 6.25,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 32,
+          "accepted": 32,
+          "created": 32
+        },
+        "settledRecoveryTicks": 22,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "bufe",
+        "length": 3,
+        "sequence": [
+          "ring",
+          "spiral",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "spiral",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 6.25,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 3,
+              "time": 8.95,
+              "recoveryTicks": 54,
+              "recoverySeconds": 2.7,
+              "cooldownTicksFromCompletion": 54
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "burst",
+            "selectedAt": 8.95,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 10.25,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 41,
+          "accepted": 41,
+          "created": 41
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "bufe",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "cajero",
+      "variant": "hunter",
+      "patternCatalog": [
+        "ring",
+        "fan",
+        "spiral"
+      ],
+      "reject": {
+        "resident": "cajero",
+        "variant": "hunter",
+        "pattern": "ring",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "fan",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 52
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "cajero",
+        "variant": "hunter",
+        "pattern": "ring",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "cajero",
+        "variant": "hunter",
+        "pattern": "ring",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 15,
+        "trackingRecords": 15
+      },
+      "sequence2": {
+        "resident": "cajero",
+        "length": 2,
+        "sequence": [
+          "ring",
+          "fan"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.6,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 20,
+          "accepted": 20,
+          "created": 20
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "cajero",
+        "length": 3,
+        "sequence": [
+          "ring",
+          "fan",
+          "spiral"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.6,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 3,
+              "time": 6.9,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "spiral",
+            "selectedAt": 6.9,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 9.4,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 37,
+          "accepted": 37,
+          "created": 37
+        },
+        "settledRecoveryTicks": 22,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "cajero",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "pogo",
+      "variant": "sweeper",
+      "patternCatalog": [
+        "burst",
+        "fan",
+        "spiral"
+      ],
+      "reject": {
+        "resident": "pogo",
+        "variant": "sweeper",
+        "pattern": "burst",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "fan",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 50
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "pogo",
+        "variant": "sweeper",
+        "pattern": "burst",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "burst",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 3,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "burst",
+              "duration": 0.95
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "pogo",
+        "variant": "sweeper",
+        "pattern": "burst",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 17,
+        "emissionTicks": 9,
+        "counts": {
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "patternSlots": 9,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "burst",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 3,
+              "accepted": 3,
+              "created": 3
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "burst",
+              "duration": 0.95
+            }
+          }
+        ],
+        "hostileProjectiles": 9,
+        "trackingRecords": 9
+      },
+      "sequence2": {
+        "resident": "pogo",
+        "length": 2,
+        "sequence": [
+          "burst",
+          "fan"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "burst",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 1.35,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.85,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.85,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.7,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 14,
+          "accepted": 14,
+          "created": 14
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "pogo",
+        "length": 3,
+        "sequence": [
+          "burst",
+          "fan",
+          "spiral"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "burst",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 1.35,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 2,
+              "time": 3.85,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "fan",
+            "selectedAt": 3.85,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 4.7,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 3,
+              "time": 7,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "spiral",
+            "selectedAt": 7,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 9.5,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 31,
+          "accepted": 31,
+          "created": 31
+        },
+        "settledRecoveryTicks": 22,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "pogo",
+        "pattern": "spiral",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "oficiante",
+      "variant": "pulse",
+      "patternCatalog": [
+        "summon",
+        "ring",
+        "spiral"
+      ],
+      "reject": {
+        "resident": "oficiante",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "reject",
+        "selectionIndex": 1,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "spiral",
+          "selectorIndex": 3,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 52
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "oficiante",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "partial",
+        "selectionIndex": 1,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "oficiante",
+        "variant": "pulse",
+        "pattern": "ring",
+        "mode": "full",
+        "selectionIndex": 1,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 15,
+        "trackingRecords": 15
+      },
+      "sequence2": {
+        "resident": "oficiante",
+        "length": 2,
+        "sequence": [
+          "ring",
+          "spiral"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "spiral",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 6.25,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 32,
+          "accepted": 32,
+          "created": 32
+        },
+        "settledRecoveryTicks": 22,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "oficiante",
+        "length": 3,
+        "sequence": [
+          "ring",
+          "spiral",
+          "ring"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "spiral",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 6.25,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 3,
+              "time": 8.95,
+              "recoveryTicks": 54,
+              "recoverySeconds": 2.7,
+              "cooldownTicksFromCompletion": 54
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "ring",
+            "selectedAt": 8.95,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 10.05,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 47,
+          "accepted": 47,
+          "created": 47
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "oficiante",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "matarife",
+      "variant": "sweeper",
+      "patternCatalog": [
+        "spiral",
+        "burst",
+        "fan"
+      ],
+      "reject": {
+        "resident": "matarife",
+        "variant": "sweeper",
+        "pattern": "spiral",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 22,
+        "emissionTicks": 28,
+        "counts": {
+          "attempted": 17,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 20,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "burst",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 54
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "matarife",
+        "variant": "sweeper",
+        "pattern": "spiral",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 22,
+        "emissionTicks": 28,
+        "counts": {
+          "attempted": 17,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 20,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "spiral",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 2,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "spiral",
+              "duration": 1.15
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "matarife",
+        "variant": "sweeper",
+        "pattern": "spiral",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 22,
+        "emissionTicks": 28,
+        "counts": {
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "patternSlots": 20,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "spiral",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 2,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "spiral",
+              "duration": 1.15
+            }
+          }
+        ],
+        "hostileProjectiles": 17,
+        "trackingRecords": 17
+      },
+      "sequence2": {
+        "resident": "matarife",
+        "length": 2,
+        "sequence": [
+          "spiral",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "spiral",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 2.55,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 5.25,
+              "recoveryTicks": 54,
+              "recoverySeconds": 2.7,
+              "cooldownTicksFromCompletion": 54
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 5.25,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 6.55,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 26,
+          "accepted": 26,
+          "created": 26
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "matarife",
+        "length": 3,
+        "sequence": [
+          "spiral",
+          "burst",
+          "fan"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "spiral",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 2.55,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 5.25,
+              "recoveryTicks": 54,
+              "recoverySeconds": 2.7,
+              "cooldownTicksFromCompletion": 54
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 5.25,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 6.55,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "fan",
+              "selectorIndex": 3,
+              "time": 9.05,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "fan",
+            "selectedAt": 9.05,
+            "waitTicks": 0,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 9.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 31,
+          "accepted": 31,
+          "created": 31
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "matarife",
+        "pattern": "spiral",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "imitador",
+      "variant": "hunter",
+      "patternCatalog": [
+        "fan",
+        "ring",
+        "burst"
+      ],
+      "reject": {
+        "resident": "imitador",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "ring",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 46
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "imitador",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "imitador",
+        "variant": "hunter",
+        "pattern": "fan",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 5,
+        "trackingRecords": 5
+      },
+      "sequence2": {
+        "resident": "imitador",
+        "length": 2,
+        "sequence": [
+          "fan",
+          "ring"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "ring",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 4.3,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 20,
+          "accepted": 20,
+          "created": 20
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "imitador",
+        "length": 3,
+        "sequence": [
+          "fan",
+          "ring",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "ring",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 4.3,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 3,
+              "time": 6.9,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "burst",
+            "selectedAt": 6.9,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 8.2,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 29,
+          "accepted": 29,
+          "created": 29
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "imitador",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "traidor",
+      "variant": "sweeper",
+      "patternCatalog": [
+        "ring",
+        "burst",
+        "spiral"
+      ],
+      "reject": {
+        "resident": "traidor",
+        "variant": "sweeper",
+        "pattern": "ring",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "burst",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 52
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "traidor",
+        "variant": "sweeper",
+        "pattern": "ring",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "traidor",
+        "variant": "sweeper",
+        "pattern": "ring",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 21,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "patternSlots": 18,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "ring",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "ring",
+              "duration": 1.05
+            }
+          }
+        ],
+        "hostileProjectiles": 15,
+        "trackingRecords": 15
+      },
+      "sequence2": {
+        "resident": "traidor",
+        "length": 2,
+        "sequence": [
+          "ring",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 5.05,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 24,
+          "accepted": 24,
+          "created": 24
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "traidor",
+        "length": 3,
+        "sequence": [
+          "ring",
+          "burst",
+          "spiral"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "ring",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 1.15,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 2,
+              "time": 3.75,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "burst",
+            "selectedAt": 3.75,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 5.05,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "spiral",
+              "selectorIndex": 3,
+              "time": 7.55,
+              "recoveryTicks": 50,
+              "recoverySeconds": 2.5,
+              "cooldownTicksFromCompletion": 50
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "spiral",
+            "selectedAt": 7.55,
+            "waitTicks": 0,
+            "warningTicks": 22,
+            "emissionTicks": 28,
+            "completedAt": 10.05,
+            "counts": {
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17,
+              "patternSlots": 20,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 2,
+                  "accepted": 2,
+                  "created": 2
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "spiral",
+                  "completed": true,
+                  "recover": 1.15,
+                  "reason": null,
+                  "attempted": 17,
+                  "accepted": 17,
+                  "created": 17
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "spiral",
+                  "duration": 1.15
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 41,
+          "accepted": 41,
+          "created": 41
+        },
+        "settledRecoveryTicks": 22,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "traidor",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    },
+    {
+      "resident": "nucleo",
+      "variant": "sweeper",
+      "patternCatalog": [
+        "fan",
+        "ring",
+        "burst",
+        "spiral"
+      ],
+      "reject": {
+        "resident": "nucleo",
+        "variant": "sweeper",
+        "pattern": "fan",
+        "mode": "reject",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 0,
+          "created": 0,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": {
+          "pattern": "ring",
+          "selectorIndex": 2,
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "waitTicks": 46
+        },
+        "b2Lifecycle": [],
+        "hostileProjectiles": 0,
+        "trackingRecords": 0
+      },
+      "partial": {
+        "resident": "nucleo",
+        "variant": "sweeper",
+        "pattern": "fan",
+        "mode": "partial",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 2,
+          "created": 2,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 2,
+              "created": 2
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 2,
+        "trackingRecords": 2
+      },
+      "full": {
+        "resident": "nucleo",
+        "variant": "sweeper",
+        "pattern": "fan",
+        "mode": "full",
+        "selectionIndex": 0,
+        "selectionConfirmed": true,
+        "warningTicks": 16,
+        "emissionTicks": 1,
+        "counts": {
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "patternSlots": 5,
+          "schedulerCompleted": true,
+          "patternCleared": true
+        },
+        "nextSelection": null,
+        "b2Lifecycle": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "fan",
+              "source": "Th-accepted-projectile-emission",
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "fan",
+              "duration": 0.8
+            }
+          }
+        ],
+        "hostileProjectiles": 5,
+        "trackingRecords": 5
+      },
+      "sequence2": {
+        "resident": "nucleo",
+        "length": 2,
+        "sequence": [
+          "fan",
+          "ring"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "ring",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 4.3,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 20,
+          "accepted": 20,
+          "created": 20
+        },
+        "settledRecoveryTicks": 0,
+        "preResetState": "ATTACK",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "sequence3": {
+        "resident": "nucleo",
+        "length": 3,
+        "sequence": [
+          "fan",
+          "ring",
+          "burst"
+        ],
+        "attacks": [
+          {
+            "index": 1,
+            "pattern": "fan",
+            "selectedAt": 0.05,
+            "waitTicks": 1,
+            "warningTicks": 16,
+            "emissionTicks": 1,
+            "completedAt": 0.9,
+            "counts": {
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5,
+              "patternSlots": 5,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "fan",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "fan",
+                  "completed": true,
+                  "recover": 0.8,
+                  "reason": null,
+                  "attempted": 5,
+                  "accepted": 5,
+                  "created": 5
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "fan",
+                  "duration": 0.8
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "ring",
+              "selectorIndex": 2,
+              "time": 3.2,
+              "recoveryTicks": 46,
+              "recoverySeconds": 2.3,
+              "cooldownTicksFromCompletion": 46
+            }
+          },
+          {
+            "index": 2,
+            "pattern": "ring",
+            "selectedAt": 3.2,
+            "waitTicks": 0,
+            "warningTicks": 21,
+            "emissionTicks": 1,
+            "completedAt": 4.3,
+            "counts": {
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15,
+              "patternSlots": 18,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "ring",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "ring",
+                  "completed": true,
+                  "recover": 1.05,
+                  "reason": null,
+                  "attempted": 15,
+                  "accepted": 15,
+                  "created": 15
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "ring",
+                  "duration": 1.05
+                }
+              }
+            ],
+            "nextSelection": {
+              "pattern": "burst",
+              "selectorIndex": 3,
+              "time": 6.9,
+              "recoveryTicks": 52,
+              "recoverySeconds": 2.6,
+              "cooldownTicksFromCompletion": 52
+            }
+          },
+          {
+            "index": 3,
+            "pattern": "burst",
+            "selectedAt": 6.9,
+            "waitTicks": 0,
+            "warningTicks": 17,
+            "emissionTicks": 9,
+            "completedAt": 8.2,
+            "counts": {
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9,
+              "patternSlots": 9,
+              "schedulerCompleted": true
+            },
+            "lifecycle": [
+              {
+                "type": "attack.start",
+                "detail": {
+                  "pattern": "burst",
+                  "source": "Th-accepted-projectile-emission",
+                  "attempted": 3,
+                  "accepted": 3,
+                  "created": 3
+                }
+              },
+              {
+                "type": "attack.end",
+                "detail": {
+                  "pattern": "burst",
+                  "completed": true,
+                  "recover": 0.95,
+                  "reason": null,
+                  "attempted": 9,
+                  "accepted": 9,
+                  "created": 9
+                }
+              },
+              {
+                "type": "recovery.start",
+                "detail": {
+                  "pattern": "burst",
+                  "duration": 0.95
+                }
+              }
+            ],
+            "nextSelection": null
+          }
+        ],
+        "total": {
+          "attempted": 29,
+          "accepted": 29,
+          "created": 29
+        },
+        "settledRecoveryTicks": 18,
+        "preResetState": "OBSERVING",
+        "resetReturned": true,
+        "postResetState": "OBSERVING",
+        "residualLifecycleEvents": 0,
+        "status": "PASS"
+      },
+      "cancellation": {
+        "resident": "nucleo",
+        "pattern": "ring",
+        "attempted": 0,
+        "accepted": 0,
+        "created": 0,
+        "patternCompleted": false,
+        "patternCleared": true,
+        "b2Lifecycle": []
+      },
+      "reset": {
+        "resetReturned": true,
+        "state": "OBSERVING",
+        "pattern": null,
+        "attackLifecycleResidual": 0
+      }
+    }
+  ],
+  "checks": {
+    "profileCount": 10,
+    "allTotalRejectCasesPass": true,
+    "allPartialCasesPass": true,
+    "allFullCasesPass": true,
+    "allTwoAttackSequencesPass": true,
+    "allThreeAttackSequencesPass": true,
+    "allZeroAttemptCancellationsPass": true,
+    "allResetsPass": true
+  }
+}

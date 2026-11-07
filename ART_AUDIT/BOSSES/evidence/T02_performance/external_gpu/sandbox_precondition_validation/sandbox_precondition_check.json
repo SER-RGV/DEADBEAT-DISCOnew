@@ -1,0 +1,93 @@
+{
+  "status": "PASS_PRECONDITIONS_ONLY",
+  "purpose": "SwiftShader scene/asset precondition smoke only. No rAF sampling, no elapsed-frame metrics, no GPU performance metrics.",
+  "browserVersion": "153.0.8010.0",
+  "renderer": "SwiftShader (expected; invalid for performance gate)",
+  "removedBOSS_T02RecordCountInT01": 10,
+  "removedBOSS_T02RecordIds": [
+    "bosses/boss_05_fusioncosmica_attack_00.png",
+    "bosses/boss_05_fusioncosmica_attack_01.png",
+    "bosses/boss_05_fusioncosmica_hit_00.png",
+    "bosses/boss_05_fusioncosmica_death_00.png",
+    "bosses/boss_06_djabismo_attack_00.png",
+    "bosses/boss_06_djabismo_attack_01.png",
+    "bosses/boss_06_djabismo_hit_00.png",
+    "bosses/boss_06_djabismo_death_00.png",
+    "bosses/boss_07_altavoztitan_attack_00.png",
+    "bosses/boss_07_altavoztitan_attack_01.png"
+  ],
+  "results": [
+    {
+      "configuration": "T01",
+      "passed": true,
+      "stableBossId": "boss_05_fusioncosmica",
+      "secretBossActive": true,
+      "coverClass": "ddc-off ddc-gone",
+      "pack": {
+        "version": "fase1-tanda01+tanda02+boss-t01+boss-t02",
+        "t01": 10,
+        "t02": 0,
+        "integrityAssets": 18,
+        "allLive": true
+      },
+      "images": {
+        "count": 10,
+        "allLoaded": true
+      },
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "badResponses": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:44441/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:44441/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ]
+    },
+    {
+      "configuration": "T02",
+      "passed": true,
+      "stableBossId": "boss_05_fusioncosmica",
+      "secretBossActive": true,
+      "coverClass": "ddc-off ddc-gone",
+      "pack": {
+        "version": "fase1-tanda01+tanda02+boss-t01+boss-t02",
+        "t01": 10,
+        "t02": 10,
+        "integrityAssets": 28,
+        "allLive": true
+      },
+      "images": {
+        "count": 20,
+        "allLoaded": true
+      },
+      "errors": [
+        "Failed to load resource: the server responded with a status of 404 (Not Found)",
+        "Failed to load resource: the server responded with a status of 404 (Not Found)"
+      ],
+      "badResponses": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:44441/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:44441/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ]
+    }
+  ],
+  "validatedAt": "2026-11-03T22:44:24.917Z",
+  "known_background_404": {
+    "path": "/cdn-cgi/challenge-platform/scripts/jsd/main.js",
+    "observed_in_both_configurations": true,
+    "classification": "non-game hosting/challenge request documented as removed from the frozen HTML; it is not a BOSS-T02 asset request",
+    "performance_gate_use": false
+  },
+  "scope_note": "This precondition smoke did not install a pageerror listener or evaluate page-error policy; the full external harness does. The two generic console 404s map to the exact path above."
+}

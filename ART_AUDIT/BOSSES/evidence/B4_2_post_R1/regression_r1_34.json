@@ -1,0 +1,17 @@
+{
+  "suite": "B4.1 R1 actual source-coupled emission acceptance + B2 integration",
+  "status": "PASS",
+  "assertions": 34,
+  "source": "vh(), wh(), Th(), and the actual Th B2 observer extracted verbatim from DEADBEAT_DISCO.ART.html; boss_animation_state_machine.js loaded directly.",
+  "scope": "Acceptance/rejection geometry and projectile budget are controlled; all pattern data, scheduler cadence, vh() effects, FSM, and integration logic are actual source.",
+  "cases": [
+    "5 rejected",
+    "2/5 accepted",
+    "5/5 accepted",
+    "0-attempt corridor cancellation",
+    "recovery",
+    "fresh-encounter reset"
+  ],
+  "createdDefinition": "patternCreated71 counts the real delta in Ia around vh(); current vh() returns true only after Ia.push and dodge tracking, so accepted===created for this implementation. Tests assert both independently.",
+  "gameplayFairnessValidated": false
+}
