@@ -1,14 +1,14 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T11:01:47Z
+- **Última actualización:** 2026-11-07T11:11:59Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **146 / 330** recursos verificados en motor real
+- **Progreso global:** **155 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 30 | 30 | 30 |
+| `bosses` | 42 | 39 | 39 | 39 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
@@ -169,19 +169,19 @@
 | 141 | TANDA_15 | `resident_07_matarife:idle` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Presencia / Idle | `bosses` | `assets/bosses/boss_06_matarife_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 142 | TANDA_15 | `resident_07_matarife:attack` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_06_matarife_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
 | 143 | TANDA_15 | `resident_07_matarife:hit` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Impacto / Daño | `bosses` | `assets/bosses/boss_06_matarife_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 144 | TANDA_15 | `resident_07_matarife:death` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_06_matarife_death.png` | 416x352 | PENDING | PENDING | PENDING |
+| 144 | TANDA_15 | `resident_07_matarife:death` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_06_matarife_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
 | 145 | TANDA_15 | `resident_08_imitador:idle` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Presencia / Idle | `bosses` | `assets/bosses/boss_07_imitador_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 146 | TANDA_15 | `resident_08_imitador:attack` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_07_imitador_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
 | 147 | TANDA_15 | `resident_08_imitador:hit` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Impacto / Daño | `bosses` | `assets/bosses/boss_07_imitador_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 148 | TANDA_15 | `resident_08_imitador:death` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_07_imitador_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 149 | TANDA_15 | `resident_09_traidor:idle` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Presencia / Idle | `bosses` | `assets/bosses/boss_08_traidor_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 150 | TANDA_15 | `resident_09_traidor:attack` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_08_traidor_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 151 | TANDA_16 | `resident_09_traidor:hit` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Impacto / Daño | `bosses` | `assets/bosses/boss_08_traidor_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 152 | TANDA_16 | `resident_09_traidor:death` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_08_traidor_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 153 | TANDA_16 | `boss_09_nucleofinal:idle` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Presencia / Idle | `bosses` | `assets/bosses/boss_09_nucleo_idle.png` | 384x448 | PENDING | PENDING | PENDING |
+| 148 | TANDA_15 | `resident_08_imitador:death` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_07_imitador_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 149 | TANDA_15 | `resident_09_traidor:idle` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Presencia / Idle | `bosses` | `assets/bosses/boss_08_traidor_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 150 | TANDA_15 | `resident_09_traidor:attack` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_08_traidor_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 151 | TANDA_16 | `resident_09_traidor:hit` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Impacto / Daño | `bosses` | `assets/bosses/boss_08_traidor_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 152 | TANDA_16 | `resident_09_traidor:death` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_08_traidor_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 153 | TANDA_16 | `boss_09_nucleofinal:idle` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Presencia / Idle | `bosses` | `assets/bosses/boss_09_nucleo_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 154 | TANDA_16 | `boss_09_nucleofinal:attack` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_09_nucleo_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 155 | TANDA_16 | `boss_09_nucleofinal:hit` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Impacto / Daño | `bosses` | `assets/bosses/boss_09_nucleo_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 156 | TANDA_16 | `boss_09_nucleofinal:death` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_09_nucleo_death.png` | 416x352 | PENDING | PENDING | PENDING |
+| 155 | TANDA_16 | `boss_09_nucleofinal:hit` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Impacto / Daño | `bosses` | `assets/bosses/boss_09_nucleo_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 156 | TANDA_16 | `boss_09_nucleofinal:death` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_09_nucleo_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
 | 157 | TANDA_16 | `pickups/pickup_credits_00.png` | Pickup · Moneda de Créditos Oro | `pickups` | `assets/pickups/pickup_credits_00.png` | 160x160 | PENDING | PENDING | PENDING |
 | 158 | TANDA_16 | `pickups/pickup_heart_00.png` | Pickup · Corazón Rubí Neón | `pickups` | `assets/pickups/pickup_heart_00.png` | 160x160 | PENDING | PENDING | PENDING |
 | 159 | TANDA_16 | `pickups/pickup_ammo_00.png` | Pickup · Caja de Munición / Batería | `pickups` | `assets/pickups/pickup_ammo_00.png` | 160x160 | PENDING | PENDING | PENDING |

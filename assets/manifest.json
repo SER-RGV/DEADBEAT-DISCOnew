@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 146,
+  "totalRegistered": 155,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1861,6 +1861,19 @@
       "tanda": "TANDA_15",
       "sha16": "d666821b5b27f5a8"
     },
+    "boss_06_matarife_death": {
+      "id": "boss_06_matarife_death",
+      "originalId": "resident_07_matarife:death",
+      "name": "EL MATARIFE · Coloso del Matadero (VI Violencia) · Colapso Cinematográfico",
+      "category": "bosses",
+      "src": "assets/bosses/boss_06_matarife_death.png",
+      "w": 416,
+      "h": 352,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_15",
+      "sha16": "4270b7118b4acec6"
+    },
     "boss_07_imitador_idle": {
       "id": "boss_07_imitador_idle",
       "originalId": "resident_08_imitador:idle",
@@ -1899,6 +1912,110 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_15",
       "sha16": "705265114c18f7e6"
+    },
+    "boss_07_imitador_death": {
+      "id": "boss_07_imitador_death",
+      "originalId": "resident_08_imitador:death",
+      "name": "EL IMITADOR · Dama de los Espejos (VII Fraude) · Colapso Cinematográfico",
+      "category": "bosses",
+      "src": "assets/bosses/boss_07_imitador_death.png",
+      "w": 416,
+      "h": 352,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_15",
+      "sha16": "7c99f5940ddfff9e"
+    },
+    "boss_08_traidor_idle": {
+      "id": "boss_08_traidor_idle",
+      "originalId": "resident_09_traidor:idle",
+      "name": "EL TRAIDOR · Monarca Glacial (VIII Traición) · Presencia / Idle",
+      "category": "bosses",
+      "src": "assets/bosses/boss_08_traidor_idle.png",
+      "w": 384,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_15",
+      "sha16": "cff13dce33f5a9be"
+    },
+    "boss_08_traidor_attack": {
+      "id": "boss_08_traidor_attack",
+      "originalId": "resident_09_traidor:attack",
+      "name": "EL TRAIDOR · Monarca Glacial (VIII Traición) · Ataque / Despliegue",
+      "category": "bosses",
+      "src": "assets/bosses/boss_08_traidor_attack.png",
+      "w": 416,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_15",
+      "sha16": "6f0127d2604818d3"
+    },
+    "boss_08_traidor_hit": {
+      "id": "boss_08_traidor_hit",
+      "originalId": "resident_09_traidor:hit",
+      "name": "EL TRAIDOR · Monarca Glacial (VIII Traición) · Impacto / Daño",
+      "category": "bosses",
+      "src": "assets/bosses/boss_08_traidor_hit.png",
+      "w": 384,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "6f9600e341f2e17f"
+    },
+    "boss_08_traidor_death": {
+      "id": "boss_08_traidor_death",
+      "originalId": "resident_09_traidor:death",
+      "name": "EL TRAIDOR · Monarca Glacial (VIII Traición) · Colapso Cinematográfico",
+      "category": "bosses",
+      "src": "assets/bosses/boss_08_traidor_death.png",
+      "w": 416,
+      "h": 352,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "fe622ace749de873"
+    },
+    "boss_09_nucleo_idle": {
+      "id": "boss_09_nucleo_idle",
+      "originalId": "boss_09_nucleofinal:idle",
+      "name": "NÚCLEO FINAL · La Última Canción (IX Núcleo) · Presencia / Idle",
+      "category": "bosses",
+      "src": "assets/bosses/boss_09_nucleo_idle.png",
+      "w": 384,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "1b070ed9454a8371"
+    },
+    "boss_09_nucleo_hit": {
+      "id": "boss_09_nucleo_hit",
+      "originalId": "boss_09_nucleofinal:hit",
+      "name": "NÚCLEO FINAL · La Última Canción (IX Núcleo) · Impacto / Daño",
+      "category": "bosses",
+      "src": "assets/bosses/boss_09_nucleo_hit.png",
+      "w": 384,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "d511266936236722"
+    },
+    "boss_09_nucleo_death": {
+      "id": "boss_09_nucleo_death",
+      "originalId": "boss_09_nucleofinal:death",
+      "name": "NÚCLEO FINAL · La Última Canción (IX Núcleo) · Colapso Cinematográfico",
+      "category": "bosses",
+      "src": "assets/bosses/boss_09_nucleo_death.png",
+      "w": 416,
+      "h": 352,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "5db42fec80f316d7"
     }
   },
   "byOriginalId": {
@@ -2045,8 +2162,17 @@
     "resident_07_matarife:idle": "boss_06_matarife_idle",
     "resident_07_matarife:attack": "boss_06_matarife_attack",
     "resident_07_matarife:hit": "boss_06_matarife_hit",
+    "resident_07_matarife:death": "boss_06_matarife_death",
     "resident_08_imitador:idle": "boss_07_imitador_idle",
     "resident_08_imitador:attack": "boss_07_imitador_attack",
-    "resident_08_imitador:hit": "boss_07_imitador_hit"
+    "resident_08_imitador:hit": "boss_07_imitador_hit",
+    "resident_08_imitador:death": "boss_07_imitador_death",
+    "resident_09_traidor:idle": "boss_08_traidor_idle",
+    "resident_09_traidor:attack": "boss_08_traidor_attack",
+    "resident_09_traidor:hit": "boss_08_traidor_hit",
+    "resident_09_traidor:death": "boss_08_traidor_death",
+    "boss_09_nucleofinal:idle": "boss_09_nucleo_idle",
+    "boss_09_nucleofinal:hit": "boss_09_nucleo_hit",
+    "boss_09_nucleofinal:death": "boss_09_nucleo_death"
   }
 }
