@@ -1,0 +1,67 @@
+{
+  "batch": "E01",
+  "title": "Reconstrucción visual de diez enemigos",
+  "status": "BLOCKED",
+  "generated_at": "2026-11-03",
+  "reference": {
+    "required": "ENEMIGOS(1).JPG",
+    "status": "MISSING",
+    "do_not_substitute": true,
+    "available_boss_reference": {
+      "path": "ART_REFERENCES/BOSSES_user_reference.png",
+      "sha256": "58ce0a0b0266dc47247d4f87879f62585e79f7ba3ed823b6befacde8d60e8897",
+      "note": "Boss poster only; not an authorized substitute for the enemy reference."
+    }
+  },
+  "engine_audit_source": {
+    "repository": "SER-RGV/DEADBEAT-DISCOnew",
+    "branch": "origin/main",
+    "commit": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "file": "v9_t3_fase1b_cache_probe.html",
+    "inspection": "static only; source is not present in the active Arena branch checkout"
+  },
+  "stable_engine_enemy_families": [
+    {"family": "security", "draw_id": "enemy_security", "role_observed": ["fallback", "guardian"], "art_key": "enemy_security", "art_dimensions": [224, 232]},
+    {"family": "fanatic", "draw_id": "enemy_fanatic", "role_observed": ["sprinter"], "art_key": "enemy_fanatic", "art_dimensions": [193, 232]},
+    {"family": "chef", "draw_id": "enemy_chef", "role_observed": ["tank", "room-2-mini"], "art_key": "enemy_chef", "art_dimensions": [232, 193]},
+    {"family": "dancer", "draw_id": "enemy_dancer", "role_observed": ["dancer"], "art_key": "enemy_dancer", "art_dimensions": [165, 232]},
+    {"family": "drone", "draw_id": "enemy_drone", "role_observed": ["speaker"], "art_key": "enemy_drone", "art_dimensions": [232, 224]},
+    {"family": "elite", "draw_id": "enemy_elite", "role_observed": ["elite"], "art_key": "enemy_elite", "art_dimensions": [232, 191]}
+  ],
+  "targets": [
+    {"name": "Gorila Discoteca", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Bailarín Poseído", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Máscara Flotante", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Boca Devoradora", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Mancha Mutante", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Seguidores", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Voladores", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Explosivos", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Rápidos", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"},
+    {"name": "Tanque", "engine_id": null, "visual_mapping": null, "assets": [], "status": "BLOCKED_REFERENCE_AND_MAPPING"}
+  ],
+  "animation_contract": {
+    "source_in_checkout": false,
+    "existing_static_ilt_art": true,
+    "enemy_families": 6,
+    "idle_atlas_frames_per_family": 4,
+    "attack_atlas_frame_names_per_family": 2,
+    "hit_dedicated_frames": false,
+    "death_dedicated_frames": false,
+    "directional_sprite_set_verified": false,
+    "collision_or_gameplay_changes_allowed": false
+  },
+  "deliverables": [],
+  "validation": {
+    "sprite_load": "BLOCKED",
+    "animation": "BLOCKED",
+    "directions": "BLOCKED",
+    "alpha": "BLOCKED",
+    "scale_and_pivot": "BLOCKED",
+    "collision_and_hitboxes": "NOT_VERIFIED",
+    "ai_and_combat_regression": "NOT_VERIFIED",
+    "runtime_capture": "BLOCKED",
+    "performance": "NOT_VERIFIED"
+  },
+  "no_gameplay_changes": true
+}

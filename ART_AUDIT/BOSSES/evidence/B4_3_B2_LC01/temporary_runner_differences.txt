@@ -1,0 +1,6 @@
+Temporary browser runner copies for B4.3. Canonical QA files in ART_TOOLS/qa were not edited.
+- b3_browser_canonical_runner_copy.js: only root resolution (process.cwd()) and output directory redirected to evidence/B4_3_B2_LC01/b3_browser_canonical; gameplay steps/assertions unchanged.
+- b4_chromium_runner_copy.js: root/output redirected to evidence/B4_3_B2_LC01/b4_chromium; B2 FSM events are drained each existing tick and preserve seq/t/state in the report. All gameplay inputs, 0.05s step, 320-step count, selectors and assertions unchanged.
+- t01_browser_runner_copy.js and t02_browser_runner_copy.js: only root/output directories redirected to evidence/B4_3_B2_LC01/t01_browser and t02_browser; assertions and interaction logic unchanged.
+- b3_browser_pause_safe_runner_copy.js: same as the output-isolated B3 copy plus one conditional Escape only when the visible page text contains “REANUDAR”; intended solely to resume the pause-sensitive fixture before its original scheduler assertions. Canonical B3 attempts remain separately recorded as failures.
+- baseline/test_boss_animation_fsm_b2_lc01.js: exact new regression logic with only its FSM import redirected to the preserved pre-correction baseline copy at baseline/boss_animation_state_machine.js; the committed-working-tree test remains ART_TOOLS/qa/test_boss_animation_fsm_b2_lc01.js.

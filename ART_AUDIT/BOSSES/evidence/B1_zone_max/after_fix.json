@@ -1,0 +1,217 @@
+{
+  "test": "boss_zone_max_b1_before_after",
+  "before": {
+    "file": "ART_AUDIT/BOSSES/evidence/B1_zone_max/current_behavior.json",
+    "originalScenarios": [
+      {
+        "group": "hunter",
+        "profile": "anden",
+        "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+      },
+      {
+        "group": "hunter",
+        "profile": "magneta",
+        "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+      },
+      {
+        "group": "pulse",
+        "profile": "bufe",
+        "type": "fire",
+        "declaredMax": 2,
+        "currentAdded": 3,
+        "outcome": "KNOWN_PROFILE_MISMATCH"
+      },
+      {
+        "group": "hunter",
+        "profile": "cajero",
+        "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+      },
+      {
+        "group": "sweeper",
+        "profile": "pogo",
+        "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+      },
+      {
+        "group": "pulse",
+        "profile": "oficiante",
+        "type": "elec",
+        "declaredMax": 2,
+        "currentAdded": 2,
+        "outcome": "MATCHES_CURRENT_CAP"
+      },
+      {
+        "group": "sweeper",
+        "profile": "matarife",
+        "type": "fire",
+        "declaredMax": 3,
+        "currentAdded": 3,
+        "outcome": "MATCHES_CURRENT_CAP"
+      },
+      {
+        "group": "hunter",
+        "profile": "imitador",
+        "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+      },
+      {
+        "group": "sweeper",
+        "profile": "traidor",
+        "type": "elec",
+        "declaredMax": 2,
+        "currentAdded": 2,
+        "outcome": "MATCHES_CURRENT_CAP"
+      },
+      {
+        "group": "final",
+        "profile": "nucleo",
+        "stage": 2,
+        "type": "elec",
+        "currentAdded": 2,
+        "outcome": "GLOBAL_CAP"
+      },
+      {
+        "group": "final",
+        "profile": "nucleo",
+        "stage": 3,
+        "type": "fire",
+        "currentAdded": 3,
+        "outcome": "GLOBAL_CAP"
+      },
+      {
+        "group": "global-cap interaction",
+        "targetType": "fire",
+        "existingType": "elec",
+        "added": 2,
+        "outcome": "TOTAL_ZONE_COUNT_LIMITS_PLACEMENT"
+      },
+      {
+        "group": "global-cap interaction",
+        "targetType": "elec",
+        "existingType": "fire",
+        "added": 1,
+        "outcome": "TOTAL_ZONE_COUNT_LIMITS_PLACEMENT"
+      }
+    ],
+    "bufeFireDeclaredMax": 2,
+    "bufeFirePlaced": 3,
+    "mixedFireWithExistingElec": 2,
+    "mixedElecWithExistingFire": 1
+  },
+  "after": {
+    "test": "boss_zone_max_b1_after_fix",
+    "sourceCoupled": true,
+    "originalScenarioCount": 13,
+    "expandedAssertions": true,
+    "yeProfiles": 10,
+    "circleResidents": 9,
+    "nucleusAlsoPresentInYe": true,
+    "affectedProfiles": 4,
+    "globalCaps": {
+      "elec": 2,
+      "fire": 3
+    },
+    "zoneOwnerField": "bossZoneOwner72 (direct creator-object reference)",
+    "duSourceOffset": 4559779,
+    "scenarios": [
+      {
+        "id": "resident:anden",
+        "group": "hunter",
+        "result": "NO_RESIDENT_ZONE_CONFIG"
+      },
+      {
+        "id": "resident:magneta",
+        "group": "hunter",
+        "result": "NO_RESIDENT_ZONE_CONFIG"
+      },
+      {
+        "id": "resident:bufe",
+        "group": "pulse",
+        "type": "fire",
+        "profileMax": 2,
+        "placed": 2,
+        "overflowRejected": true
+      },
+      {
+        "id": "resident:cajero",
+        "group": "hunter",
+        "result": "NO_RESIDENT_ZONE_CONFIG"
+      },
+      {
+        "id": "resident:pogo",
+        "group": "sweeper",
+        "result": "NO_RESIDENT_ZONE_CONFIG"
+      },
+      {
+        "id": "resident:oficiante",
+        "group": "pulse",
+        "type": "elec",
+        "profileMax": 2,
+        "placed": 2,
+        "overflowRejected": true
+      },
+      {
+        "id": "resident:matarife",
+        "group": "sweeper",
+        "type": "fire",
+        "profileMax": 3,
+        "placed": 3,
+        "overflowRejected": true
+      },
+      {
+        "id": "resident:imitador",
+        "group": "hunter",
+        "result": "NO_RESIDENT_ZONE_CONFIG"
+      },
+      {
+        "id": "resident:traidor",
+        "group": "sweeper",
+        "type": "elec",
+        "profileMax": 2,
+        "placed": 2,
+        "overflowRejected": true
+      },
+      {
+        "id": "nucleo:stage-2",
+        "type": "elec",
+        "placed": 2,
+        "fallback": "global"
+      },
+      {
+        "id": "nucleo:stage-3",
+        "type": "fire",
+        "placed": 3,
+        "fallback": "global"
+      },
+      {
+        "id": "mixed-global:fire-with-elec",
+        "placed": 3,
+        "otherTypeUnaffected": true
+      },
+      {
+        "id": "mixed-global:elec-with-fire",
+        "placed": 2,
+        "otherTypeUnaffected": true
+      }
+    ],
+    "additionalChecks": {
+      "bufeTwoThenRejectAndRelease": "PASS",
+      "allConfiguredResidentMaxima": "PASS",
+      "hardGlobalCaps": "PASS",
+      "independentTypes": "PASS",
+      "simultaneousDistinctOwners": "PASS",
+      "sameTypeGlobalSharing": "PASS",
+      "invalidAbsentZeroFractionalCaps": "PASS",
+      "outZonesDoNotConsumeCapacity": "PASS",
+      "nucleusPhaseFallbacks": "PASS",
+      "actualBossZonePurge": "PASS",
+      "actualClearZonesGaps": "PASS",
+      "actualRoomReset": "PASS",
+      "stateSerializerOmitsOwnerReference": "PASS"
+    }
+  },
+  "changesObserved": {
+    "bufeFireMaxRespected": true,
+    "crossTypeGlobalSlotsIndependent": true,
+    "globalPerTypeCapsUnchanged": true,
+    "nucleusUsesGlobalFallback": true
+  }
+}

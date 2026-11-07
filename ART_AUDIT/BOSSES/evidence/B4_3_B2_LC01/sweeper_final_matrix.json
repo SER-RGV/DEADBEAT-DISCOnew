@@ -1,0 +1,511 @@
+{
+  "suite": "B4.3 per-sweeper recovery-event reconciliation",
+  "deterministicAssertions": 64,
+  "sourceEvidence": [
+    "evidence/B4_2_post_R1/scenario_matrix.json",
+    "evidence/B4_3_B2_LC01/regression_lc01_64.json",
+    "evidence/B4_3_B2_LC01/b4_chromium_canonical/scenario_matrix.json"
+  ],
+  "profiles": [
+    {
+      "bossId": "pogo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "fan",
+      "baselineB4_2": {
+        "previousRecoveryStart": {
+          "time": 6.65,
+          "pattern": "fan",
+          "duration": 0.8
+        },
+        "misattributedPreviousRecoveryEnd": [
+          {
+            "time": 7.4,
+            "pattern": "sweep"
+          }
+        ],
+        "sweepAttackStart": [
+          7.55
+        ],
+        "sweepAttackEnd": [
+          8.95
+        ],
+        "sweepRecoveryStart": [],
+        "sweepTailRecoveryEnd": [
+          9.3
+        ]
+      },
+      "postCorrectionDeterministic": {
+        "previousRecoveryStart": {
+          "seq": 8,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "fan"
+        },
+        "previousRecoveryEnd": {
+          "seq": 15,
+          "t": 0.8,
+          "state": "WINDUP",
+          "pattern": "fan",
+          "startSeq": 8
+        },
+        "sweepAttackEvents": [
+          {
+            "seq": 16,
+            "t": 0.95,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 19,
+            "t": 2.35,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "sweepRecoveryStart": [
+          {
+            "seq": 20,
+            "t": 2.35,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "sweepRecoveryEnd": [
+          {
+            "seq": 23,
+            "t": 2.65,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 20
+          }
+        ],
+        "statePath": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "stateAfterRecovery": "OBSERVING",
+        "sameCycle": true
+      },
+      "postCorrectionB4Chromium": {
+        "selectedSweepPhase": [
+          {
+            "t": 6.65,
+            "from": "ranged",
+            "to": "sweep"
+          }
+        ],
+        "relevantSweepEvents": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "sweep",
+              "source": "existing-sweep-window"
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "sweep",
+              "completed": true,
+              "recover": 0.2999999999999998
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "sweep",
+              "duration": 0.2999999999999998
+            }
+          },
+          {
+            "type": "recovery.end",
+            "detail": {
+              "pattern": "sweep",
+              "startSeq": 45
+            }
+          }
+        ],
+        "recoveryEndReferences": [
+          45
+        ],
+        "eventRingBufferLength": 32,
+        "eventRingBufferCap": 32,
+        "startEventVisible": true,
+        "qualification": "The canonical runner stores only the final 32 events; the full deterministic LC01 trace asserts the cycle start/end pairing for each profile."
+      },
+      "result": "PASS: single normal attack lifecycle and one associated sweep recovery cycle in deterministic regression; actual B4 run reached sweep phase."
+    },
+    {
+      "bossId": "matarife",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "burst",
+      "baselineB4_2": {
+        "previousRecoveryStart": {
+          "time": 8.3,
+          "pattern": "burst",
+          "duration": 0.95
+        },
+        "misattributedPreviousRecoveryEnd": [
+          {
+            "time": 9.2,
+            "pattern": "sweep"
+          }
+        ],
+        "sweepAttackStart": [
+          9.2
+        ],
+        "sweepAttackEnd": [
+          10.6
+        ],
+        "sweepRecoveryStart": [],
+        "sweepTailRecoveryEnd": [
+          10.95
+        ]
+      },
+      "postCorrectionDeterministic": {
+        "previousRecoveryStart": {
+          "seq": 63,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "burst"
+        },
+        "previousRecoveryEnd": {
+          "seq": 70,
+          "t": 0.95,
+          "state": "WINDUP",
+          "pattern": "burst",
+          "startSeq": 63
+        },
+        "sweepAttackEvents": [
+          {
+            "seq": 71,
+            "t": 0.95,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 74,
+            "t": 2.35,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "sweepRecoveryStart": [
+          {
+            "seq": 75,
+            "t": 2.35,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "sweepRecoveryEnd": [
+          {
+            "seq": 78,
+            "t": 2.65,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 75
+          }
+        ],
+        "statePath": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "stateAfterRecovery": "OBSERVING",
+        "sameCycle": true
+      },
+      "postCorrectionB4Chromium": {
+        "selectedSweepPhase": [
+          {
+            "t": 8.3,
+            "from": "ranged",
+            "to": "sweep"
+          }
+        ],
+        "relevantSweepEvents": [
+          {
+            "type": "attack.start",
+            "detail": {
+              "pattern": "sweep",
+              "source": "existing-sweep-window"
+            }
+          },
+          {
+            "type": "attack.end",
+            "detail": {
+              "pattern": "sweep",
+              "completed": true,
+              "recover": 0.2999999999999998
+            }
+          },
+          {
+            "type": "recovery.start",
+            "detail": {
+              "pattern": "sweep",
+              "duration": 0.2999999999999998
+            }
+          },
+          {
+            "type": "recovery.end",
+            "detail": {
+              "pattern": "sweep",
+              "startSeq": 47
+            }
+          }
+        ],
+        "recoveryEndReferences": [
+          47
+        ],
+        "eventRingBufferLength": 32,
+        "eventRingBufferCap": 32,
+        "startEventVisible": true,
+        "qualification": "The canonical runner stores only the final 32 events; the full deterministic LC01 trace asserts the cycle start/end pairing for each profile."
+      },
+      "result": "PASS: single normal attack lifecycle and one associated sweep recovery cycle in deterministic regression; actual B4 run reached sweep phase."
+    },
+    {
+      "bossId": "traidor",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "burst",
+      "baselineB4_2": {
+        "previousRecoveryStart": {
+          "time": 6.9,
+          "pattern": "burst",
+          "duration": 0.95
+        },
+        "misattributedPreviousRecoveryEnd": [
+          {
+            "time": 7.8,
+            "pattern": "sweep"
+          }
+        ],
+        "sweepAttackStart": [
+          8.25
+        ],
+        "sweepAttackEnd": [
+          9.65
+        ],
+        "sweepRecoveryStart": [],
+        "sweepTailRecoveryEnd": [
+          10
+        ]
+      },
+      "postCorrectionDeterministic": {
+        "previousRecoveryStart": {
+          "seq": 118,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "burst"
+        },
+        "previousRecoveryEnd": {
+          "seq": 123,
+          "t": 0.95,
+          "state": "TELEGRAPH",
+          "pattern": "burst",
+          "startSeq": 118
+        },
+        "sweepAttackEvents": [
+          {
+            "seq": 126,
+            "t": 1.4,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 129,
+            "t": 2.8,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "sweepRecoveryStart": [
+          {
+            "seq": 130,
+            "t": 2.8,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "sweepRecoveryEnd": [
+          {
+            "seq": 133,
+            "t": 3.1,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 130
+          }
+        ],
+        "statePath": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "stateAfterRecovery": "OBSERVING",
+        "sameCycle": true
+      },
+      "postCorrectionB4Chromium": {
+        "selectedSweepPhase": [
+          {
+            "t": 6.9,
+            "from": "ranged",
+            "to": "sweep"
+          }
+        ],
+        "relevantSweepEvents": [
+          {
+            "type": "recovery.end",
+            "detail": {
+              "pattern": "sweep",
+              "startSeq": 49
+            }
+          }
+        ],
+        "recoveryEndReferences": [
+          49
+        ],
+        "eventRingBufferLength": 32,
+        "eventRingBufferCap": 32,
+        "startEventVisible": false,
+        "qualification": "The canonical runner stores only the final 32 events; the full deterministic LC01 trace asserts the cycle start/end pairing for each profile."
+      },
+      "result": "PASS: single normal attack lifecycle and one associated sweep recovery cycle in deterministic regression; actual B4 run reached sweep phase."
+    },
+    {
+      "bossId": "nucleo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "ring",
+      "baselineB4_2": {
+        "previousRecoveryStart": {
+          "time": 6.2,
+          "pattern": "ring",
+          "duration": 1.05
+        },
+        "misattributedPreviousRecoveryEnd": [
+          {
+            "time": 7.2,
+            "pattern": "sweep"
+          }
+        ],
+        "sweepAttackStart": [
+          7.1
+        ],
+        "sweepAttackEnd": [
+          8.5
+        ],
+        "sweepRecoveryStart": [],
+        "sweepTailRecoveryEnd": [
+          8.85
+        ]
+      },
+      "postCorrectionDeterministic": {
+        "previousRecoveryStart": {
+          "seq": 173,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "ring"
+        },
+        "previousRecoveryEnd": {
+          "seq": 183,
+          "t": 1.05,
+          "state": "ATTACK",
+          "pattern": "ring",
+          "startSeq": 173
+        },
+        "sweepAttackEvents": [
+          {
+            "seq": 180,
+            "t": 1,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 184,
+            "t": 2.4,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "sweepRecoveryStart": [
+          {
+            "seq": 185,
+            "t": 2.4,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "sweepRecoveryEnd": [
+          {
+            "seq": 188,
+            "t": 2.7,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 185
+          }
+        ],
+        "statePath": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "stateAfterRecovery": "OBSERVING",
+        "sameCycle": true
+      },
+      "postCorrectionB4Chromium": {
+        "selectedSweepPhase": [
+          {
+            "t": 6.2,
+            "from": "ranged",
+            "to": "sweep"
+          }
+        ],
+        "relevantSweepEvents": [
+          {
+            "type": "recovery.end",
+            "detail": {
+              "pattern": "sweep",
+              "startSeq": 47
+            }
+          }
+        ],
+        "recoveryEndReferences": [
+          47
+        ],
+        "eventRingBufferLength": 32,
+        "eventRingBufferCap": 32,
+        "startEventVisible": false,
+        "qualification": "The canonical runner stores only the final 32 events; the full deterministic LC01 trace asserts the cycle start/end pairing for each profile."
+      },
+      "result": "PASS: single normal attack lifecycle and one associated sweep recovery cycle in deterministic regression; actual B4 run reached sweep phase."
+    }
+  ]
+}

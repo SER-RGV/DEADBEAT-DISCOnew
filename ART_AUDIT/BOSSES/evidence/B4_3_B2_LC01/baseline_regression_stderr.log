@@ -1,0 +1,89 @@
+node:assert:150
+  throw new AssertionError(obj);
+  ^
+
+AssertionError [ERR_ASSERTION]: B2-LC-01 regression failures (20):
+- pogo: preceding fan recovery.end retains its start event identity
+- pogo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry
+- pogo: phase.sweep recovery.end points to the same recovery.start event
+- pogo: predecessor and sweep each have one completed, non-duplicated recovery cycle
+- pogo: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels
+- matarife: preceding burst recovery.end retains its start event identity
+- matarife: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry
+- matarife: phase.sweep recovery.end points to the same recovery.start event
+- matarife: predecessor and sweep each have one completed, non-duplicated recovery cycle
+- matarife: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels
+- traidor: preceding burst recovery.end retains its start event identity
+- traidor: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry
+- traidor: phase.sweep recovery.end points to the same recovery.start event
+- traidor: predecessor and sweep each have one completed, non-duplicated recovery cycle
+- traidor: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels
+- nucleo: preceding ring recovery.end retains its start event identity
+- nucleo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry
+- nucleo: phase.sweep recovery.end points to the same recovery.start event
+- nucleo: predecessor and sweep each have one completed, non-duplicated recovery cycle
+- nucleo: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels
++ actual - expected
+
++ [
++   'pogo: preceding fan recovery.end retains its start event identity',
++   'pogo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
++   'pogo: phase.sweep recovery.end points to the same recovery.start event',
++   'pogo: predecessor and sweep each have one completed, non-duplicated recovery cycle',
++   'pogo: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels',
++   'matarife: preceding burst recovery.end retains its start event identity',
++   'matarife: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
++   'matarife: phase.sweep recovery.end points to the same recovery.start event',
++   'matarife: predecessor and sweep each have one completed, non-duplicated recovery cycle',
++   'matarife: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels',
++   'traidor: preceding burst recovery.end retains its start event identity',
++   'traidor: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
++   'traidor: phase.sweep recovery.end points to the same recovery.start event',
++   'traidor: predecessor and sweep each have one completed, non-duplicated recovery cycle',
++   'traidor: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels',
++   'nucleo: preceding ring recovery.end retains its start event identity',
++   'nucleo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
++   'nucleo: phase.sweep recovery.end points to the same recovery.start event',
++   'nucleo: predecessor and sweep each have one completed, non-duplicated recovery cycle',
++   'nucleo: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels'
++ ]
+- []
+
+    at Object.<anonymous> (/tmp/b43_lc01_baseline/test_boss_animation_fsm_b2_lc01.js:177:8)
+    at Module._compile (node:internal/modules/cjs/loader:1781:14)
+    at Object..js (node:internal/modules/cjs/loader:1913:10)
+    at Module.load (node:internal/modules/cjs/loader:1505:32)
+    at Function._load (node:internal/modules/cjs/loader:1309:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:254:19)
+    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
+    at node:internal/main/run_main_module:36:49 {
+  generatedMessage: false,
+  code: 'ERR_ASSERTION',
+  actual: [
+    'pogo: preceding fan recovery.end retains its start event identity',
+    'pogo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
+    'pogo: phase.sweep recovery.end points to the same recovery.start event',
+    'pogo: predecessor and sweep each have one completed, non-duplicated recovery cycle',
+    'pogo: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels',
+    'matarife: preceding burst recovery.end retains its start event identity',
+    'matarife: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
+    'matarife: phase.sweep recovery.end points to the same recovery.start event',
+    'matarife: predecessor and sweep each have one completed, non-duplicated recovery cycle',
+    'matarife: consecutive fan cycle has its own paired recovery identity, including repeated pattern labels',
+    'traidor: preceding burst recovery.end retains its start event identity',
+    'traidor: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
+    'traidor: phase.sweep recovery.end points to the same recovery.start event',
+    'traidor: predecessor and sweep each have one completed, non-duplicated recovery cycle',
+    'traidor: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels',
+    'nucleo: preceding ring recovery.end retains its start event identity',
+    'nucleo: completed sweep emits exactly one 0.3s recovery.start on ATTACK_RECOVERY entry',
+    'nucleo: phase.sweep recovery.end points to the same recovery.start event',
+    'nucleo: predecessor and sweep each have one completed, non-duplicated recovery cycle',
+    'nucleo: consecutive burst cycle has its own paired recovery identity, including repeated pattern labels'
+  ],
+  expected: [],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}
+
+Node.js v22.22.3

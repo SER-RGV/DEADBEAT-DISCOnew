@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-04",
+  "branch": "arena/179474d9-deadbeat-disconew",
+  "head": "ebb5a27422f630c656539fe31ab2b566deedecd9",
+  "activeSourceHashes": {
+    "DEADBEAT_DISCO.ART.html": "ac315b8a44b4104e6a6190bc1f006679180cb707edf3d51e7550e420c7ba0f8a",
+    "boss_animation_state_machine.js": "fdb726ef7d0116cd0ce38c14702b53ca9741b7c977e880156002ba7c410117ed"
+  },
+  "qaRunnerHashes": {
+    "ART_TOOLS/qa/test_boss_zone_max_b1.js": "4eff5e6d236e3493901e568c8ff189811651f8adb3ea27c0c754aa50a3e488e4",
+    "ART_TOOLS/qa/test_boss_animation_fsm_b2.js": "3342ffa36615b51c5847e3933666663c0a6338ea95eb7943bc13c0b441bbd63c",
+    "ART_TOOLS/qa/test_boss_telegraph_b3.js": "768e00f74341d4b1aa177dda282c4386e854155feac032f908c6ea5db624978b",
+    "ART_TOOLS/qa/test_boss_telegraph_browser_b3.js": "96f669fdc8dde9bd995611f512fa0d689d5fd57e2885ebb7c99d2dd20f11b42e",
+    "ART_TOOLS/qa/test_boss_combat_behavior_b4.js": "a0e1ce4bcf47d3e22191d87674b2a72fb9f99f46ec2db0c93de0f08d9718ee28",
+    "ART_TOOLS/qa/test_boss_combat_behavior_b4_1_r1.js": "d3c31b0fa55404230eefaebfbc9446766706065f3aab4fa34b70f5dbf80aed68",
+    "ART_TOOLS/qa/validate_boss_tanda_01.js": "c5ca66aa7d9132ddf7247303190bf56bccee3d4a4391d91b11ab109038a51020",
+    "ART_TOOLS/qa/validate_boss_tanda_02.js": "955ac99f3a2430f95bfd517069fe18ecbeda309baadc8527db1de7e1aaad78ae"
+  },
+  "referenceComparisons": {
+    "activeHtmlMatches": "ART_AUDIT/BOSSES/B4_1_R1_CORRECTION_REPORT.md",
+    "activeHtmlSha256": "ac315b8a44b4104e6a6190bc1f006679180cb707edf3d51e7550e420c7ba0f8a",
+    "fsmSha256": "fdb726ef7d0116cd0ce38c14702b53ca9741b7c977e880156002ba7c410117ed",
+    "preR1HtmlSha256": "928a03a53399f808a9c557fe90fcc50b21ba2e2070100cdbf67e862bbe897339",
+    "preR1FsmSha256": "68910f296b3c736875c45317543ff431103a22bd0d5d9432151306c31b7f9261"
+  },
+  "scopeNote": "Hashes were measured after B4.2 execution. Active HTML/FSM match the recorded R1 baseline; no production files or canonical QA runners were modified by B4.2."
+}

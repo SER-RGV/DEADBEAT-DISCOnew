@@ -1,0 +1,144 @@
+{
+  "baseline": {
+    "branch": "arena/179474d9-deadbeat-disconew",
+    "head": "ebb5a27422f630c656539fe31ab2b566deedecd9",
+    "sha256": {
+      "DEADBEAT_DISCO.ART.html": "ac315b8a44b4104e6a6190bc1f006679180cb707edf3d51e7550e420c7ba0f8a",
+      "boss_animation_state_machine.js": "fdb726ef7d0116cd0ce38c14702b53ca9741b7c977e880156002ba7c410117ed",
+      "ART_TOOLS/qa/test_boss_animation_fsm_b2.js": "3342ffa36615b51c5847e3933666663c0a6338ea95eb7943bc13c0b441bbd63c",
+      "ART_TOOLS/qa/test_boss_telegraph_browser_b3.js": "96f669fdc8dde9bd995611f512fa0d689d5fd57e2885ebb7c99d2dd20f11b42e",
+      "ART_TOOLS/qa/test_boss_combat_behavior_b4_1_r1.js": "d3c31b0fa55404230eefaebfbc9446766706065f3aab4fa34b70f5dbf80aed68"
+    }
+  },
+  "postCorrection": {
+    "branch": "arena/179474d9-deadbeat-disconew",
+    "head": "ebb5a27422f630c656539fe31ab2b566deedecd9",
+    "sha256": {
+      "DEADBEAT_DISCO.ART.html": {
+        "sha256": "ac315b8a44b4104e6a6190bc1f006679180cb707edf3d51e7550e420c7ba0f8a",
+        "purpose": "active runtime (unchanged during B4.3)"
+      },
+      "boss_animation_state_machine.js": {
+        "sha256": "01de7a1f5c142ddd52bac0b983a57c4826be82f1b9742feaf5e8698dd08e79f2",
+        "purpose": "active FSM after B2-LC-01 metadata correction"
+      },
+      "ART_TOOLS/qa/test_boss_animation_fsm_b2.js": {
+        "sha256": "3342ffa36615b51c5847e3933666663c0a6338ea95eb7943bc13c0b441bbd63c",
+        "purpose": "canonical B2 60-assertion regression (unchanged)"
+      },
+      "ART_TOOLS/qa/test_boss_animation_fsm_b2_lc01.js": {
+        "sha256": "560c7a457fa1504831ec84d6df99813a7468543f1b5d1761cf5af18843da0d02",
+        "purpose": "new B2-LC-01 regression"
+      },
+      "ART_TOOLS/qa/test_boss_zone_max_b1.js": {
+        "sha256": "4eff5e6d236e3493901e568c8ff189811651f8adb3ea27c0c754aa50a3e488e4",
+        "purpose": "canonical B1 regression (unchanged)"
+      },
+      "ART_TOOLS/qa/test_boss_telegraph_b3.js": {
+        "sha256": "768e00f74341d4b1aa177dda282c4386e854155feac032f908c6ea5db624978b",
+        "purpose": "canonical deterministic B3 regression (unchanged)"
+      },
+      "ART_TOOLS/qa/test_boss_telegraph_browser_b3.js": {
+        "sha256": "96f669fdc8dde9bd995611f512fa0d689d5fd57e2885ebb7c99d2dd20f11b42e",
+        "purpose": "B3 Chromium runner hash captured at the B4.3 audit checkpoint, before the later QA-only pause-precondition follow-up; historical hash retained."
+      },
+      "ART_TOOLS/qa/test_boss_combat_behavior_b4.js": {
+        "sha256": "a0e1ce4bcf47d3e22191d87674b2a72fb9f99f46ec2db0c93de0f08d9718ee28",
+        "purpose": "canonical B4 Chromium regression (unchanged)"
+      },
+      "ART_TOOLS/qa/test_boss_combat_behavior_b4_1_r1.js": {
+        "sha256": "d3c31b0fa55404230eefaebfbc9446766706065f3aab4fa34b70f5dbf80aed68",
+        "purpose": "canonical R1 regression (unchanged)"
+      },
+      "ART_TOOLS/qa/validate_boss_tanda_01.js": {
+        "sha256": "c5ca66aa7d9132ddf7247303190bf56bccee3d4a4391d91b11ab109038a51020",
+        "purpose": "canonical T01 regression (unchanged)"
+      },
+      "ART_TOOLS/qa/validate_boss_tanda_02.js": {
+        "sha256": "955ac99f3a2430f95bfd517069fe18ecbeda309baadc8527db1de7e1aaad78ae",
+        "purpose": "canonical T02 regression (unchanged)"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/baseline/boss_animation_state_machine.js": {
+        "sha256": "fdb726ef7d0116cd0ce38c14702b53ca9741b7c977e880156002ba7c410117ed",
+        "purpose": "exact pre-correction B2 FSM copied before source change"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/baseline/test_boss_animation_fsm_b2_lc01.js": {
+        "sha256": "efe0fcccbc63f50ba7ed4daa00a46f3323198a16a6b949d057c64761e73e0545",
+        "purpose": "new regression with import redirected only to archived baseline FSM"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/b3_browser_canonical_runner_copy.js": {
+        "sha256": "c4a52822fdd05c2a004b980b2dd8baf784c68698779f5407032df5c756381d74",
+        "purpose": "temporary B3 runner: output/root path only"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/b3_browser_pause_safe_runner_copy.js": {
+        "sha256": "a8f8489adcabeaaa9fc87c5d0c088c3c1821b6a0f7eb1fb19a8b9d3ec88d53b7",
+        "purpose": "temporary B3 runner: output/root plus conditional resume"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/b4_chromium_runner_copy.js": {
+        "sha256": "49f7a3885019e804fa40da2ae08c2ba6fa22c01281b482daff3ac0cb52ac3c39",
+        "purpose": "temporary B4 runner: output/root plus per-tick event drain; aborted"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/b4_chromium_canonical_runner_copy.js": {
+        "sha256": "1e8c13f848dede87cdbaf2980e5d3daa175931963da4107950c2c8f3cb48c1ad",
+        "purpose": "temporary B4 runner: output/root only"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/t01_browser_runner_copy.js": {
+        "sha256": "eeed7bdff1e9917ac9d44e3b28532193b567fd3677c42dc6c43635d981b58bcd",
+        "purpose": "temporary T01 runner: output/root only"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/t02_browser_runner_copy.js": {
+        "sha256": "32afb1f48ccc4df171634068f308360c0acbeea9190d118cf163d7553e4dc180",
+        "purpose": "temporary T02 runner: output/root only"
+      },
+      "ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/t01_browser_rerun_runner_copy.js": {
+        "sha256": "6429cf482cfc623a166ed13757de9cb84c839b2eb3737a272642165ff3900ea4",
+        "purpose": "temporary T01 rerun: output/root only"
+      }
+    }
+  },
+  "finalVerification": {
+    "branch": "arena/179474d9-deadbeat-disconew",
+    "head": "ebb5a27422f630c656539fe31ab2b566deedecd9",
+    "worktree": "uncommitted; no stage/commit; scoped changes preserved",
+    "checks": {
+      "git_diff_check": "PASS",
+      "node_check_fsm": "PASS",
+      "node_check_lc01_test": "PASS",
+      "node_check_b3_pause_probe_runner": "PASS",
+      "node_check_b3_canonical_runner": "PASS"
+    },
+    "sha256": {
+      "boss_animation_state_machine.js": "01de7a1f5c142ddd52bac0b983a57c4826be82f1b9742feaf5e8698dd08e79f2",
+      "DEADBEAT_DISCO.ART.html": "ac315b8a44b4104e6a6190bc1f006679180cb707edf3d51e7550e420c7ba0f8a",
+      "ART_TOOLS/qa/test_boss_animation_fsm_b2_lc01.js": "560c7a457fa1504831ec84d6df99813a7468543f1b5d1761cf5af18843da0d02",
+      "ART_TOOLS/qa/test_boss_telegraph_browser_b3.js": "3b8503c86a84188129bcffcd84989705cf05c8007c1ee6cb0c0f5dfe25b78518",
+      "B4_3_B2_LC01_AUDIT.md": "6acc10ffd22677977f54abdf63198ec14c09cadcebbb289074935b0c85ee7f05",
+      "B4_3_B2_LC01_CORRECTION_REPORT.md": "6d64afc223a32fe254fc6b9abad7af6ff6e6651d268d04e8f4d68e795814ae87",
+      "B4_3_B2_LC01_TEST_REPORT.md": "1ac5586e9b1a5a72abec8850e485dfa465ffd9e5a4d35975249683076d061343",
+      "B4_3_B2_LC01_FILE_LIST.txt": "a969b308d1085b6813b785c5cd927b44c31fa3da18d85192d491c6e4da7a456d",
+      "B3_CHROMIUM_BURST_PAUSE_DIAGNOSIS.md": "960bba25cf7ae1a3f958b6d3fe6ad8da42151d33481dcec812f87661e5959de4",
+      "b3_browser_resumed_canonical/sweep_phase_cancellation.json": "b73ddca26f65cdfdf8fdda93ffb2904a0c8a36ccc1f04fb67dc3646b0b394573",
+      "b3_browser_forced_pause/sweep_phase_cancellation.json": "cc813aefd7b8fa076c22101e79a5314e9abfdb9bbeebfeecbc740a2d72452df9",
+      "b3_browser_forced_pause_runner_copy.js": "8c02a2c42e485e40aa2beb176439df81bae673b5da20d1b9ad7edb4a4f01675e",
+      "b3_pause_probe_runner.js": "f0905a8568966a546b0ad07dd62a86d13cc5da0692fbd3d9fad0be49402849ad",
+      "b3_pause_probe_control_probe_1.json": "842561f699f1f63d367e5a276a3fb2b80659bf34ea54d00c7fd0567dbd01b9c0",
+      "b3_pause_probe_paused_probe_2.json": "22881477f0c93a357eb58889c95cb3852d0d84fbe39fc68f0538245bd8e21be6",
+      "sweeper_final_matrix.json": "eb41fc1fc16df5eb744c56b8fabc2ac3ebbda57fc88c0bb08c71eba0fc86cba0",
+      "postfix_b4_event_reconciliation.json": "4830b79c4fade6cbd90f0b7f3d56e02061ea7f7d00c6974f458011af4c2d8939"
+    },
+    "scopedFileList": "ART_AUDIT/BOSSES/B4_3_B2_LC01_FILE_LIST.txt",
+    "note": "The HTML hash matches the B4.3 pre-correction baseline; no HTML or sweep scheduler edits were made for this correction.",
+    "diagnosticConclusion": "B3 historical burst-selection failure is reproduced when the QA route leaves the actual pause overlay active: DMO.read().paused=true prevents the one-tick scheduler fixture from advancing; the same tick selects burst after resume. The B3 QA runner now guards and resumes this precondition; source runner Chromium passed, and a forced-pause copy passed the resume branch. Historical canonical failures remain preserved. No HTML, FSM B2, or gameplay code was modified in the B3 follow-up."
+  },
+  "b3RunnerFollowup": {
+    "date": "2026-11-07",
+    "beforeSha256": "96f669fdc8dde9bd995611f512fa0d689d5fd57e2885ebb7c99d2dd20f11b42e",
+    "afterSha256": "3b8503c86a84188129bcffcd84989705cf05c8007c1ee6cb0c0f5dfe25b78518",
+    "scope": "QA runner only: check DMO.read().paused and visible pause overlay after gotoCircle; click #resume-btn (Escape fallback), wait for unpaused state, record pre/postcondition. Added DMO_B3_OUTDIR to isolate run artifacts.",
+    "verification": {
+      "sourceRunnerChromium": "PASS; output in evidence/B4_3_B2_LC01/b3_browser_resumed_canonical/",
+      "forcedPauseResumeBranch": "PASS; isolated copy detected paused=true, clicked resume button, then completed full B3 suite.",
+      "historicalFailuresPreserved": "evidence/B4_3_B2_LC01/b3_browser_canonical/attempts.json"
+    }
+  }
+}

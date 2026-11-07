@@ -1,0 +1,41 @@
+{
+  "test": "browser_game_integration_b1",
+  "httpStatus": 200,
+  "boot": {
+    "status": "complete",
+    "api": true,
+    "artTest": true,
+    "game": true,
+    "canvases": 27
+  },
+  "spawned": {
+    "resident": "bufe",
+    "round": 33,
+    "hasZonePattern": true,
+    "max": 2,
+    "type": "fire"
+  },
+  "run": {
+    "first": true,
+    "firstOwn": 2,
+    "third": false,
+    "thirdOwn": 2,
+    "removed": true,
+    "refill": true,
+    "finalOwn": 2,
+    "electricMade": true,
+    "electricCount": 2,
+    "global": {
+      "fire": 2,
+      "elec": 2
+    },
+    "afterOwnerClear": {
+      "fire": 0,
+      "elec": 2,
+      "all": 2
+    },
+    "afterReset": 0
+  },
+  "pageErrors": [],
+  "classification": "integration test; no human/bot fairness or GPU performance claim"
+}
