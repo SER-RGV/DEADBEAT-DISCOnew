@@ -1,14 +1,14 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-06T18:45:34Z
+- **Última actualización:** 2026-11-07T10:00:56Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **127 / 330** recursos verificados en motor real
+- **Progreso global:** **137 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 11 | 11 | 11 |
+| `bosses` | 42 | 21 | 21 | 21 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
@@ -153,16 +153,16 @@
 | 125 | TANDA_13 | `resident_03_bufe:idle` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Presencia / Idle | `bosses` | `assets/bosses/boss_02_bufe_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 126 | TANDA_13 | `resident_03_bufe:attack` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_02_bufe_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
 | 127 | TANDA_13 | `resident_03_bufe:hit` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Impacto / Daño | `bosses` | `assets/bosses/boss_02_bufe_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 128 | TANDA_13 | `resident_03_bufe:death` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_02_bufe_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 129 | TANDA_13 | `resident_04_cajero:idle` | EL CAJERO · Señor del VIP (III Avaricia) · Presencia / Idle | `bosses` | `assets/bosses/boss_03_cajero_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 130 | TANDA_13 | `resident_04_cajero:attack` | EL CAJERO · Señor del VIP (III Avaricia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_03_cajero_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 131 | TANDA_14 | `resident_04_cajero:hit` | EL CAJERO · Señor del VIP (III Avaricia) · Impacto / Daño | `bosses` | `assets/bosses/boss_03_cajero_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 132 | TANDA_14 | `resident_04_cajero:death` | EL CAJERO · Señor del VIP (III Avaricia) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_03_cajero_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 133 | TANDA_14 | `resident_05_pogo:idle` | EL POGO · Demonio de la Fosa (IV Ira) · Presencia / Idle | `bosses` | `assets/bosses/boss_04_pogo_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 134 | TANDA_14 | `resident_05_pogo:attack` | EL POGO · Demonio de la Fosa (IV Ira) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_04_pogo_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 135 | TANDA_14 | `resident_05_pogo:hit` | EL POGO · Demonio de la Fosa (IV Ira) · Impacto / Daño | `bosses` | `assets/bosses/boss_04_pogo_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 136 | TANDA_14 | `resident_05_pogo:death` | EL POGO · Demonio de la Fosa (IV Ira) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_04_pogo_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 137 | TANDA_14 | `resident_06_oficiante:idle` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Presencia / Idle | `bosses` | `assets/bosses/boss_05_oficiante_idle.png` | 384x448 | PENDING | PENDING | PENDING |
+| 128 | TANDA_13 | `resident_03_bufe:death` | BUFÉ · El Anfitrión Sin Fondo (II Gula) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_02_bufe_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 129 | TANDA_13 | `resident_04_cajero:idle` | EL CAJERO · Señor del VIP (III Avaricia) · Presencia / Idle | `bosses` | `assets/bosses/boss_03_cajero_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 130 | TANDA_13 | `resident_04_cajero:attack` | EL CAJERO · Señor del VIP (III Avaricia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_03_cajero_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 131 | TANDA_14 | `resident_04_cajero:hit` | EL CAJERO · Señor del VIP (III Avaricia) · Impacto / Daño | `bosses` | `assets/bosses/boss_03_cajero_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 132 | TANDA_14 | `resident_04_cajero:death` | EL CAJERO · Señor del VIP (III Avaricia) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_03_cajero_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 133 | TANDA_14 | `resident_05_pogo:idle` | EL POGO · Demonio de la Fosa (IV Ira) · Presencia / Idle | `bosses` | `assets/bosses/boss_04_pogo_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 134 | TANDA_14 | `resident_05_pogo:attack` | EL POGO · Demonio de la Fosa (IV Ira) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_04_pogo_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 135 | TANDA_14 | `resident_05_pogo:hit` | EL POGO · Demonio de la Fosa (IV Ira) · Impacto / Daño | `bosses` | `assets/bosses/boss_04_pogo_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 136 | TANDA_14 | `resident_05_pogo:death` | EL POGO · Demonio de la Fosa (IV Ira) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_04_pogo_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 137 | TANDA_14 | `resident_06_oficiante:idle` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Presencia / Idle | `bosses` | `assets/bosses/boss_05_oficiante_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 138 | TANDA_14 | `resident_06_oficiante:attack` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_05_oficiante_attack.png` | 416x448 | PENDING | PENDING | PENDING |
 | 139 | TANDA_14 | `resident_06_oficiante:hit` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Impacto / Daño | `bosses` | `assets/bosses/boss_05_oficiante_hit.png` | 384x448 | PENDING | PENDING | PENDING |
 | 140 | TANDA_14 | `resident_06_oficiante:death` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_05_oficiante_death.png` | 416x352 | PENDING | PENDING | PENDING |
