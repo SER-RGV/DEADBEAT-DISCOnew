@@ -1,0 +1,77 @@
+{
+  "antes_vs_despues": {
+    "a": "antes_01_hub.png",
+    "b": "despues_01_hub.png",
+    "size": [
+      1280,
+      900
+    ],
+    "box": null,
+    "thresholdPerChannel": 12,
+    "changedPx": 713718,
+    "totalPx": 1152000,
+    "changedPct": 61.95,
+    "meanAbsDiff": 26.95
+  },
+  "control_vs_despues": {
+    "a": "control_01_hub.png",
+    "b": "despues_01_hub.png",
+    "size": [
+      1280,
+      900
+    ],
+    "box": null,
+    "thresholdPerChannel": 12,
+    "changedPx": 693216,
+    "totalPx": 1152000,
+    "changedPct": 60.17,
+    "meanAbsDiff": 24.66
+  },
+  "antes_vs_control": {
+    "a": "antes_01_hub.png",
+    "b": "control_01_hub.png",
+    "size": [
+      1280,
+      900
+    ],
+    "box": null,
+    "thresholdPerChannel": 12,
+    "changedPx": 515513,
+    "totalPx": 1152000,
+    "changedPct": 44.75,
+    "meanAbsDiff": 15.71
+  },
+  "puertas_cerradas_vs_abiertas": {
+    "a": "doors_closed.png",
+    "b": "doors_open.png",
+    "size": [
+      1280,
+      900
+    ],
+    "box": null,
+    "thresholdPerChannel": 12,
+    "changedPx": 57190,
+    "totalPx": 1152000,
+    "changedPct": 4.96,
+    "meanAbsDiff": 3.57
+  },
+  "puertas_zona_central": {
+    "a": "doors_closed.png",
+    "b": "doors_open.png",
+    "size": [
+      1280,
+      900
+    ],
+    "box": [
+      320,
+      180,
+      960,
+      720
+    ],
+    "thresholdPerChannel": 12,
+    "changedPx": 9133,
+    "totalPx": 345600,
+    "changedPct": 2.64,
+    "meanAbsDiff": 1.63
+  }
+}

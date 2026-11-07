@@ -1,0 +1,290 @@
+{
+  "tanda": "07",
+  "title": "El umbral del infierno",
+  "phase": "FASE 2-5 · assets + integración + QA",
+  "status": "INTEGRADO_VALIDADO",
+  "generated": "2026-11-04T03:12:28",
+  "source": "generate_image + ART_TOOLS/prepare_hub_tanda_07.py",
+  "pipeline": [
+    "resize LANCZOS a tamano exacto",
+    "mascara de alfa calculada",
+    "despill oscuro en semitransparentes",
+    "blur 0.6 de antialias"
+  ],
+  "rules": [
+    "sin deformacion de personajes (no hay sprites de NPC nuevos)",
+    "sin pixel art",
+    "sin halos claros",
+    "transparencia real en texturas",
+    "placas de llegada opacas en JPEG"
+  ],
+  "npcSpritesGenerated": 0,
+  "npcDecision": "Se reutiliza hub_clubber_dancer_a/b + hub_cliente000_npc; el mecanismo existente cubre bailar/conversar/descansar/recorrer/reaccionar. Dos pruebas de sprite sentado descartadas.",
+  "count": 6,
+  "assets": [
+    {
+      "id": "T07-01",
+      "alias": "h07_labio_acantilado",
+      "unit": "Labio del acantilado · COTA -01",
+      "file": "ART_ASSETS/hub/tanda_07/01_labio/final/hub_t07_01_labio.png",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_07_labio_banda.png",
+      "expected": [
+        1500,
+        115
+      ],
+      "natural": [
+        1500,
+        115
+      ],
+      "mode": "RGBA",
+      "worldBox": [
+        500,
+        1470,
+        1500,
+        115
+      ],
+      "phase": "Fase 2/4",
+      "mask": "top_corners",
+      "sha256": "85828e93bce3e6f67570f87aa4c2a16b2ebea55861e8256669773c4ac030c4cc",
+      "bytes": 248203,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 83.01,
+        "transparentPct": 1.03,
+        "semiTransparentSampled": 5824,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true
+      }
+    },
+    {
+      "id": "T07-02",
+      "alias": "h07_estrato_rococo",
+      "unit": "Cara rocosa por estratos · COTA -02",
+      "file": "ART_ASSETS/hub/tanda_07/02_estrato/final/hub_t07_02_estrato.png",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_02_estrato_rococo.png",
+      "expected": [
+        2100,
+        110
+      ],
+      "natural": [
+        2100,
+        110
+      ],
+      "mode": "RGBA",
+      "worldBox": [
+        200,
+        1585,
+        2100,
+        110
+      ],
+      "phase": "Fase 2/4",
+      "mask": "top_corners",
+      "sha256": "4932d53a929e228ede7032d9bf0e108c4d004f3cedfad4b8e1c1db2eed0319b1",
+      "bytes": 376884,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 83.57,
+        "transparentPct": 1.02,
+        "semiTransparentSampled": 7543,
+        "whiteFringePct": 0.053,
+        "borderClean": true,
+        "alphaReal": true
+      }
+    },
+    {
+      "id": "T07-03",
+      "alias": "h07_apertura_profundidad",
+      "unit": "Abertura de la grieta · COTA -02/-03",
+      "file": "ART_ASSETS/hub/tanda_07/03_apertura/final/hub_t07_03_apertura.png",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_03_apertura_profundidad.png",
+      "expected": [
+        420,
+        260
+      ],
+      "natural": [
+        420,
+        260
+      ],
+      "mode": "RGBA",
+      "worldBox": [
+        1040,
+        1560,
+        420,
+        260
+      ],
+      "phase": "Fase 2/4",
+      "mask": "aperture",
+      "sha256": "af9125b35d5d6887b1a519759a9f3c16738c5a785b7b3526b2e92b054f6aa86c",
+      "bytes": 168533,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 44.09,
+        "transparentPct": 2.62,
+        "semiTransparentSampled": 11673,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true
+      }
+    },
+    {
+      "id": "T07-04",
+      "alias": "h07_exterior_infernal",
+      "unit": "Exterior infernal · transicion de llegada",
+      "file": "ART_ASSETS/hub/tanda_07/04_exterior/final/hub_t07_04_exterior.jpg",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_04_exterior_infernal.jpg",
+      "expected": [
+        1280,
+        720
+      ],
+      "natural": [
+        1280,
+        720
+      ],
+      "mode": "RGB",
+      "worldBox": null,
+      "phase": "Fase 2",
+      "mask": "none",
+      "sha256": "a7c7d728fa13223c98d68175f08ff27e5e42ae6ea6d89d33a44356c3a1b756b3",
+      "bytes": 103635,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGB",
+        "alphaReal": false,
+        "cornersTransparent": null,
+        "whiteFringePct": null,
+        "borderClean": true,
+        "opaquePct": 100.0,
+        "transparentPct": 0.0,
+        "semiTransparentSampled": 0
+      }
+    },
+    {
+      "id": "T07-05",
+      "alias": "h07_pozo_capas",
+      "unit": "Capas de profundidad del pozo · transicion de descenso",
+      "file": "ART_ASSETS/hub/tanda_07/05_pozo/final/hub_t07_05_pozo.png",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_05_pozo_capas.png",
+      "expected": [
+        512,
+        1024
+      ],
+      "natural": [
+        512,
+        1024
+      ],
+      "mode": "RGBA",
+      "worldBox": null,
+      "phase": "Fase 4",
+      "mask": "shaft",
+      "sha256": "21e91ab2535858b67051ed30ade8f370b1bb1ab047ccc6febdf54f8b958e0898",
+      "bytes": 756501,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 22.0,
+        "transparentPct": 22.3,
+        "semiTransparentSampled": 59795,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true
+      }
+    },
+    {
+      "id": "T07-06",
+      "alias": "h07_panorama_acantilado",
+      "unit": "Panorama discoteca/acantilado · placa intermedia de llegada",
+      "file": "ART_ASSETS/hub/tanda_07/06_panorama/final/hub_t07_06_panorama.jpg",
+      "source": "ART_ASSETS/hub/tanda_07/_source/hub_t07_01_labio_acantilado.png",
+      "expected": [
+        1280,
+        720
+      ],
+      "natural": [
+        1280,
+        720
+      ],
+      "mode": "RGB",
+      "worldBox": null,
+      "phase": "Fase 2",
+      "mask": "none",
+      "sha256": "fc7cc731c7b69a6a15a8fd6241866eea6594cdf21db66f62301cc0c2a3fbc7a5",
+      "bytes": 297799,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGB",
+        "alphaReal": false,
+        "cornersTransparent": null,
+        "whiteFringePct": null,
+        "borderClean": true,
+        "opaquePct": 100.0,
+        "transparentPct": 0.0,
+        "semiTransparentSampled": 0
+      }
+    }
+  ],
+  "allValid": true,
+  "integratedAt": "2026-11-04T03:51:01+00:00",
+  "integration": {
+    "loader": "ART_PACK/art_pack.js :: HUB7_ASSETS / loadHub7() tras loadHub6()",
+    "registry": "window.__DDM_V5_IMG[alias h07_*] (mismo load(), sin loader paralelo)",
+    "renderer": "DEADBEAT_DISCO.ART.html :: T07 en initDmoHubV35",
+    "hooks": "Wf (geografía/mundo), Ph (ambiental/mundo), zf (pantalla antes del HUD), Tf (estado)",
+    "hookInstall": "en tiempo de arranque desde buildHubSpace(); una sola vez",
+    "flag": "window.__DDM_HUB_T07 = false desactiva TODO lo nuevo",
+    "version": "fase1-...+hub-tanda06+hub-tanda07",
+    "v5Keys": 168,
+    "newSystems": 0,
+    "audioModified": false,
+    "cameraModified": false,
+    "collisionsModified": false,
+    "newCanvases": 0,
+    "newRAF": 0,
+    "phases": {
+      "2": "llegada breve (1,85 s / 0,95 s con movimiento reducido), sin transitionLock",
+      "3": "6 actores NPC en 5 actividades sobre addHubCustomProp -> Lc -> Y-sort",
+      "4": "continuidad visual del descenso (pozo, luz, brasas) sobre floorDropAnim",
+      "5": "QA A/B + regresión"
+    }
+  },
+  "qa": {
+    "suite": "TANDA 07 · El umbral del infierno · QA Fase 5",
+    "report": "ART_EVIDENCE/hub/tanda_07/qa_tanda07.json",
+    "verdict": "APROBADO",
+    "passed": 35,
+    "total": 35,
+    "harness": "ART_TOOLS/qa/validate_hub_tanda_07.js",
+    "screenshots": "ART_EVIDENCE/hub/tanda_07/t07_qa_*.jpg"
+  }
+}

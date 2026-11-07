@@ -1,0 +1,126 @@
+{
+  "generatedAt": "2026-11-04T00:24:01.270076+00:00",
+  "incidences": [
+    {
+      "id": "HUB-01",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "loaderResolves=0 (T01)",
+      "detail": "Incidencia histórica de TANDA 01. NO se corrige.",
+      "affectsT05": false,
+      "t05Evidence": "hub5().assets: loaderResolves=1 en los 10 alias h05_*."
+    },
+    {
+      "id": "HUB-03",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "Desviación dimensional 26,92 % (T03)",
+      "detail": "Histórico de TANDA 03, se conserva sin tocar.",
+      "affectsT05": false,
+      "t05Evidence": "10/10 exactSize y aspecto nativo sin deformación (check 3)."
+    },
+    {
+      "id": "T01-COSTURA",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "Costura del tile 12,57 (T01)",
+      "detail": "TANDA 05 no produce tiles ni modifica el suelo.",
+      "affectsT05": false,
+      "t05Evidence": "comprobacion_caches.json"
+    },
+    {
+      "id": "T04-PLACA-C",
+      "state": "PREEXISTENTE",
+      "severity": "baja",
+      "title": "Rozamiento 3–5 px de la placa C (T04)",
+      "detail": "No se corrige: la placa sigue completa y legible.",
+      "affectsT05": false,
+      "t05Evidence": "antes_*/despues_* por zona; sin cambios en T04."
+    },
+    {
+      "id": "T02-GATE",
+      "state": "PENDIENTE",
+      "severity": "media",
+      "title": "Performance gate pendiente de cierre formal (T02)",
+      "detail": "El check 14 mide el coste de T05 (40 rAF por fase, ratio 1,000) pero NO cierra el gate de T02: sigue pendiente por decisión del usuario.",
+      "affectsT05": false,
+      "t05Evidence": "performance.json, resultados_ab.json"
+    },
+    {
+      "id": "T05-WORLDBOX-1PX",
+      "state": "DOCUMENTADA Y CORREGIDA (solo metadato)",
+      "severity": "baja",
+      "title": "Redondeo del ancho en el manifiesto (T05-01 / T05-06)",
+      "detail": "El manifiesto se generó con round() de Python (banker's) y el renderer usa Math.round() de JS: 94/95 px y 100/101 px.",
+      "affectsT05": false,
+      "t05Evidence": "Se actualiza manifest.json con las cajas MEDIDAS en el HUB; no se regenera ningún PNG."
+    },
+    {
+      "id": "T05-08-VERTICAL",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "T05-08 conserva composición vertical",
+      "detail": "Por el límite de 10 generaciones de imagen del turno de producción NO se regeneró en horizontal. Se conserva el cluster vertical 68x178 con escala ajustada a su bbox alfa y worldBox [1218,550,65,170].",
+      "affectsT05": false,
+      "t05Evidence": "manifest.json, ART_TANDA_05_HUB_REPORT.md"
+    },
+    {
+      "id": "T05-PREBOOT",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "Dibujos del mundo detrás de la portada antes del boot",
+      "detail": "El juego pinta el HUB en el canvas de mundo 1280x900 bajo la portada. Esos drawImage EXISTEN también en T01–T04 y NO se cuentan como integración: 0 dibujos de T05 en menu-canvas54 (960x540) o en cualquier canvas ajeno al mundo.",
+      "affectsT05": false,
+      "t05Evidence": "report.json check 2, draw_calls.json"
+    },
+    {
+      "id": "T05-QA-HARNESS",
+      "state": "CERRADA",
+      "severity": "informativa",
+      "title": "Primera ejecución del arnés: 4 checks FALLIDO por medición",
+      "detail": "La ventana incluía la transición de cámara, las cajas se buscaban con prefijo de fase, hub5Apply se midió desde la última zona y se contaban claves duplicadas por fase. Se corrigió SOLO el arnés y se repitió la QA completa: 14/14.",
+      "affectsT05": false,
+      "t05Evidence": "qa_validation.log, report.json"
+    },
+    {
+      "id": "T05-SWIFTSHADER",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "Ruido de frame entre fases (SwiftShader)",
+      "detail": "No se atribuye a los assets: se mide línea base OFF/OFF y comparativa OFF/ON en caliente en el MISMO contexto.",
+      "affectsT05": false,
+      "t05Evidence": "visual_diff.json"
+    },
+    {
+      "id": "T05-CLOUDFLARE",
+      "state": "PREEXISTENTE",
+      "severity": "informativa",
+      "title": "2 x 404 de /cdn-cgi/challenge-platform/",
+      "detail": "Rutas externas preexistentes; 0 404 locales en las 3 fases.",
+      "affectsT05": false,
+      "t05Evidence": "despues_runtime_full.json"
+    },
+    {
+      "id": "T05-UNTAINTED",
+      "state": "DOCUMENTADA",
+      "severity": "informativa",
+      "title": "officialUntainted=false",
+      "detail": "Consecuencia del teleport/debug del arnés; aparece idéntico en ANTES, CONTROL y DESPUES. No es una regresión de assets.",
+      "affectsT05": false,
+      "t05Evidence": "report.json check 8"
+    }
+  ],
+  "openBlockers": 0,
+  "regressions": 0,
+  "qaState": "APROBADO",
+  "pendingFromPreviousTandas": [
+    "T02-GATE"
+  ],
+  "historicalNotModified": [
+    "HUB-01",
+    "HUB-03",
+    "T01-COSTURA",
+    "T04-PLACA-C",
+    "T02-GATE"
+  ]
+}

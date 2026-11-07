@@ -1,0 +1,4691 @@
+{
+  "mode": "control",
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "pageErrors": [],
+  "httpErrors": [
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "requestFailed": [
+    {
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "failure": "net::ERR_ABORTED"
+    },
+    {
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "failure": "net::ERR_ABORTED"
+    }
+  ],
+  "assetResponses": [
+    {
+      "url": "hub_t02_01_arcade.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_02_arsenal.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_03_seals.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_04_vending.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_05_cooler.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_06_bench.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_07_planter.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_08_liftpad.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_09_ceiling_fixture.png",
+      "status": 200,
+      "type": "image/png"
+    },
+    {
+      "url": "hub_t02_10_sconce.png",
+      "status": 200,
+      "type": "image/png"
+    }
+  ],
+  "screenshots": {
+    "control_01_hub.png": 1999619
+  },
+  "htmlStatus": 200,
+  "loadMs": 1380,
+  "hub2AtBoot": 10,
+  "hub2Restore": 10,
+  "movement": {
+    "pxBefore": 1250,
+    "pxAfter": 1652,
+    "delta": 402,
+    "withinWorld": true
+  },
+  "collision": {
+    "from": 1720,
+    "afterHoldingD": 1795,
+    "delta": 75,
+    "blockedBeforeBarCollider": true
+  },
+  "probe": {
+    "ts": "2026-11-03T13:10:52.707Z",
+    "url": "http://127.0.0.1:8123/",
+    "readyState": "complete",
+    "title": "DEADBEAT DISCO · ILLUSTRATED EDITION v8.6.0-dungeon",
+    "canvasCount": 27,
+    "canvasCountBase": 27,
+    "canvasPortraitCount": 0,
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 12.45,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": false
+    },
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "artPack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02",
+      "status": "applied",
+      "startedAt": 1793711439970,
+      "appliedAt": 1793711439970,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793711440074,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793711440081,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793711440099
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 0,
+        "enabled": false,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793711440129
+      },
+      "finishedAt": 1793711440130
+    },
+    "integrity": {
+      "status": "applied",
+      "errors": [],
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "t3b_material_01",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "t3b_material_02",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            560,
+            332
+          ]
+        },
+        {
+          "id": "decor_neon_rug",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            456,
+            243
+          ]
+        },
+        {
+          "id": "decor_potted_palm",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            209,
+            147
+          ]
+        },
+        {
+          "id": "boss_01_anden",
+          "loader": "ILT",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            400,
+            386
+          ]
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "loader": "HD",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            160,
+            87
+          ]
+        }
+      ],
+      "registries": {
+        "t3b": true,
+        "v5": true,
+        "ilt": true,
+        "hd": true
+      },
+      "checkedAt": 1793711452708
+    },
+    "architecture": {
+      "version": "fase1-tanda02",
+      "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+      "enabled": true,
+      "applied": 10,
+      "count": 10,
+      "originalsPreserved": 10,
+      "errors": [],
+      "assets": [
+        {
+          "id": "A01",
+          "name": "wall_straight",
+          "slot": "wall_stained_glass_arch",
+          "alias": "t02_A01_wall_straight",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "expected": [
+            120,
+            176
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A02",
+          "name": "wall_corner_inner",
+          "slot": "wall_limbo_ticket_window",
+          "alias": "t02_A02_wall_corner_inner",
+          "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+          "expected": [
+            144,
+            144
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            144,
+            144
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A03",
+          "name": "wall_corner_outer",
+          "slot": "wall_avaricia_vault_door",
+          "alias": "t02_A03_wall_corner_outer",
+          "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+          "expected": [
+            150,
+            86
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            150,
+            86
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A04",
+          "name": "wall_end_cap",
+          "slot": "wall_traicion_glacier_panel",
+          "alias": "t02_A04_wall_end_cap",
+          "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+          "expected": [
+            124,
+            64
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            124,
+            64
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A05",
+          "name": "wall_pillar",
+          "slot": "nucleo_pillar_prop",
+          "alias": "t02_A05_wall_pillar",
+          "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+          "expected": [
+            204,
+            505
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            204,
+            505
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A06",
+          "name": "door_closed",
+          "slot": "campaign_door_leaf",
+          "alias": "t02_A06_door_closed",
+          "file": "ART_ASSETS/tanda_02/door_closed.png",
+          "expected": [
+            76,
+            54
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            76,
+            54
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A07",
+          "name": "door_open",
+          "slot": "campaign_door_side_leaf",
+          "alias": "t02_A07_door_open",
+          "file": "ART_ASSETS/tanda_02/door_open.png",
+          "expected": [
+            52,
+            136
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            52,
+            136
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A08",
+          "name": "doorway_frame",
+          "slot": "campaign_door_frame",
+          "alias": "t02_A08_doorway_frame",
+          "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+          "expected": [
+            196,
+            124
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            196,
+            124
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A09",
+          "name": "threshold_entry",
+          "slot": "campaign_door_south_gate",
+          "alias": "t02_A09_threshold_entry",
+          "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+          "expected": [
+            196,
+            67
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            196,
+            67
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A10",
+          "name": "wall_neon_detail",
+          "slot": "wall_neon_club_crest",
+          "alias": "t02_A10_wall_neon_detail",
+          "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+          "expected": [
+            84,
+            84
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            84,
+            84
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        }
+      ],
+      "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+    },
+    "player": {
+      "version": "tanda03-faseD.2",
+      "poses": 12,
+      "errors": []
+    },
+    "hubPack": {
+      "version": "hub-tanda01",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 9,
+      "errors": [],
+      "assets": [
+        {
+          "id": "HUB-01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "managedBy": "MANIFEST/T01",
+          "slots": [
+            "t3b_material_01"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 0,
+          "classification": "Arquitectónico / Funcional",
+          "role": "Superficie principal del HUB (patrón repeat 512x512).",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-02",
+          "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_pista_medallion"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Alfombra / medallón de identidad de la pista central.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            760,
+            430
+          ],
+          "natural": [
+            760,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-03",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "loader": "V5",
+          "managedBy": "ARCHITECTURE/T02",
+          "slots": [
+            "wall_stained_glass_arch"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Panel de muro modular: delimita y da profundidad al perímetro.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            120,
+            176
+          ],
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-04",
+          "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_dj_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Cabina del DJ, elemento protagonista (estación dj).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            720,
+            392
+          ],
+          "natural": [
+            720,
+            392
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-05",
+          "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_bar_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            380,
+            313
+          ],
+          "natural": [
+            380,
+            313
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-06",
+          "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "club_speaker_tower_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Columnas estructurales / torres acústicas: ritmo y volumen.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            76,
+            148
+          ],
+          "natural": [
+            76,
+            148
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-07",
+          "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_vip_booth_nw",
+            "hub_vip_booth_ne"
+          ],
+          "slotsLive": 2,
+          "loaderResolves": 2,
+          "classification": "Decorativo",
+          "role": "Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            224,
+            172
+          ],
+          "natural": [
+            224,
+            172
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-08",
+          "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_disco_chandelier"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Decorativo",
+          "role": "Luminaria colgante de neón: iluminación ambiental sobre la pista.",
+          "pivot": "top-center",
+          "alpha": true,
+          "expected": [
+            67,
+            152
+          ],
+          "natural": [
+            67,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-09",
+          "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_abyss_stair_crack"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Funcional",
+          "role": "Portal de descenso: acceso a otras zonas. No toca Ot.openT.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            320,
+            175
+          ],
+          "natural": [
+            320,
+            175
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-10",
+          "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_trophy_board_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            167,
+            136
+          ],
+          "natural": [
+            167,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Todos los slots son consumidos por los pintores reales del HUB; geometria, colisiones, sortY, puertas y camara permanecen en el motor."
+    },
+    "hub2Pack": {
+      "version": "hub-tanda02",
+      "count": 10,
+      "enabled": false,
+      "applied": 0,
+      "slotsApplied": 0,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T02-01",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arcade_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Mobiliario secundario",
+          "role": "Banco de recreativas del Rincon Arcade (zona F1).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            264,
+            239
+          ],
+          "natural": [
+            264,
+            239
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-02",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arsenal_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Mobiliario funcional",
+          "role": "Mostrador del Arsenal de Caronte (zona D).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            360,
+            253
+          ],
+          "natural": [
+            360,
+            253
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-03",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+          "loader": "V5",
+          "slots": [
+            "hub_seals_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Objeto narrativo",
+          "role": "Espejo de los Sellos (zona F2).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            244,
+            237
+          ],
+          "natural": [
+            244,
+            237
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-04",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+          "loader": "V5",
+          "slots": [
+            "club_vending_machine_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Equipamiento de discoteca",
+          "role": "Maquina expendedora del lado este.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            100,
+            152
+          ],
+          "natural": [
+            100,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-05",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+          "loader": "V5",
+          "slots": [
+            "club_water_cooler_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Objeto narrativo",
+          "role": "Dispensador de agua del lado oeste.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            61,
+            136
+          ],
+          "natural": [
+            61,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-06",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+          "loader": "V5",
+          "slots": [
+            "limbo_bench_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Mobiliario secundario",
+          "role": "Bancos gemelos junto al descenso.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-07",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+          "loader": "V5",
+          "slots": [
+            "club_neon_planter_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Variante visual",
+          "role": "Cuatro jardineras fijas del HUB.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-08",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+          "loader": "V5",
+          "slots": [
+            "descent_abyssal_lift_pad"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Funcional / Interactivo",
+          "role": "Plataforma de descenso y puertas de sala.",
+          "pivot": "center",
+          "cachedLayer": false,
+          "expected": [
+            198,
+            104
+          ],
+          "natural": [
+            198,
+            104
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-09",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+          "loader": "V5",
+          "slots": [
+            "wall_ceiling_neon_fixture"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Arquitectonico / Iluminacion",
+          "role": "Barra de neon horizontal de techo/muro (capa de pared en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            148,
+            38
+          ],
+          "natural": [
+            148,
+            38
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-10",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+          "loader": "V5",
+          "slots": [
+            "club_wall_sconce_side"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Arquitectonico / Senalizacion luminosa",
+          "role": "Apliques laterales de pared (capa de aristas en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            48,
+            60
+          ],
+          "natural": [
+            48,
+            60
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Solo se sustituye el Image de slots que el motor ya dibuja; geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor."
+    },
+    "t3b": {
+      "enabled": true,
+      "revision": 30,
+      "ready": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "errors": [],
+      "draws": [
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "original",
+          "revision": 20,
+          "ready": true
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 29,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 29,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        }
+      ]
+    },
+    "hubFloor": {
+      "revision": 30,
+      "builds": 3,
+      "draws": 455,
+      "available": true
+    },
+    "v5": {
+      "ready": 100,
+      "total": 100,
+      "errors": []
+    },
+    "dungeon": {
+      "current": "r0",
+      "role": "start",
+      "secured": 0,
+      "floor": 1
+    },
+    "debug": {
+      "px": 1795,
+      "py": 845,
+      "round": 1,
+      "enemies": 0
+    },
+    "stats": {
+      "syn": {
+        "cannon": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "flow": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "shield": {
+          "act": 0,
+          "bonus": 0
+        },
+        "echo": {
+          "act": 0,
+          "hype": 0
+        },
+        "volt": {
+          "on": false,
+          "act": 0,
+          "jumps": 0
+        },
+        "ricochet": {
+          "on": false,
+          "act": 0,
+          "bounces": 0
+        },
+        "tempo": {
+          "on": false,
+          "act": 0,
+          "t": 0
+        }
+      },
+      "elapsed": 13.729100000000011,
+      "round": 1,
+      "kills": 0,
+      "score": 0,
+      "lives": 3,
+      "level": 1,
+      "balas": {
+        "n": 0,
+        "vMin": 0,
+        "vMax": 0
+      },
+      "conos": 0,
+      "damageTotal": 0,
+      "damageByCause": {},
+      "absorbed": 0,
+      "shotsFired": 0,
+      "shotsHit": 0,
+      "bossDamage": 0,
+      "pickupTaken": 0,
+      "pickupIgnored": 0,
+      "bombsUsed": 0,
+      "boostsUsed": 0,
+      "offers": 0,
+      "offerPicks": {},
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "roundLog": [],
+      "bossLog": [],
+      "playerPushes": 0,
+      "stationaryTime": 11.285800000000021,
+      "raveTime": 0,
+      "raves": 0,
+      "maxCombo": 1,
+      "laser": {
+        "triggered": 0,
+        "playerHit": 0
+      },
+      "stage": {
+        "pending": null,
+        "ambient": "NORMAL",
+        "sinceSpatial": 112.7,
+        "temps": 0,
+        "whyNot": "",
+        "moved": 0,
+        "hidden": 0,
+        "stats": {
+          "announced": 0,
+          "committed": 0,
+          "cancelled": 0,
+          "retried": 0,
+          "reverted": 0,
+          "rejectedSpots": 0,
+          "validations": 0,
+          "validateMs": 0,
+          "maxValidateMs": 0,
+          "lastWhySpatial": "",
+          "byKind": {},
+          "byReason": {},
+          "rejectReasons": {},
+          "cancelReasons": {},
+          "ambientChanges": 0,
+          "restores": 0,
+          "expired": 0
+        },
+        "chain": null,
+        "zones": [],
+        "gaps": [],
+        "log": [],
+        "rejects": []
+      },
+      "arena": {
+        "djEvents": 0,
+        "gaps": 0,
+        "zones": 0,
+        "forced": {
+          "gaps": 0,
+          "zones": 0
+        }
+      },
+      "subs": {
+        "current": {
+          "text": "DJ-DIRECTOR // Sube la tensión en las baldosas. Mira dónde pisas.",
+          "who": "DJ-DIRECTOR VIRGILIO",
+          "prio": 2,
+          "left": 2.83,
+          "dur": 3.2,
+          "key": "djdir:3"
+        },
+        "queue": [],
+        "layout": {
+          "maxW": 720,
+          "bottom": 18,
+          "fs": 20,
+          "narrow": false
+        },
+        "stats": {
+          "shown": 8,
+          "preempted": 1,
+          "replaced": 1,
+          "queued": 2,
+          "dropped": 0,
+          "dups": 1,
+          "expired": 0,
+          "shortUsed": 0,
+          "fitShrinks": 0,
+          "overflow": 0,
+          "lastFs": 20,
+          "lastLines": 1,
+          "layouts": 3
+        },
+        "rect": {
+          "x": 372,
+          "y": 858,
+          "w": 536,
+          "h": 28
+        },
+        "log": [
+          {
+            "t": 1.03,
+            "text": "RONDA 1 · OLEADA ESTÁNDAR",
+            "who": "",
+            "prio": 1,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 1.03,
+            "text": "Refugio seguro · Explora el club y baja al Círculo I por el Ascensor Sur [E]",
+            "who": "THE LAST AFTERPARTY",
+            "prio": 2,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 4.2,
+            "text": "VIRGILIO HA CLAVADO UN TABLÓN NUEVO · Pulsa J (✦ PROGRESO) en el Refugio: firma ",
+            "who": "",
+            "prio": 1,
+            "dur": 3,
+            "fs": 20,
+            "lines": 2
+          },
+          {
+            "t": 7.57,
+            "text": "DEBUG · x1250 y935",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 8.47,
+            "text": "DEBUG · x1250 y965",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 10.18,
+            "text": "DEBUG · x1720 y845",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 12.13,
+            "text": "Perfecto. Entonces subimos el volumen.",
+            "who": "DJ VIRGILIO",
+            "prio": 0,
+            "dur": 3.99,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 12.13,
+            "text": "DJ-DIRECTOR // Sube la tensión en las baldosas. Mira dónde pisas.",
+            "who": "DJ-DIRECTOR VIRGILIO",
+            "prio": 2,
+            "dur": 3.2,
+            "fs": 20,
+            "lines": 1
+          }
+        ]
+      },
+      "director": {
+        "triggers": {
+          "CYCLE": 1,
+          "DJ_HINT": 1
+        },
+        "responses": {
+          "STANCE_PRESSURE": 1
+        },
+        "failed": {}
+      },
+      "errors": []
+    },
+    "draws": {
+      "HUB-03": {
+        "count": 18,
+        "args": {
+          "5": 18
+        },
+        "boxes": [
+          [
+            540,
+            87,
+            675,
+            243
+          ],
+          [
+            754,
+            87,
+            889,
+            243
+          ],
+          [
+            968,
+            87,
+            1103,
+            243
+          ],
+          [
+            1183,
+            87,
+            1318,
+            243
+          ],
+          [
+            1397,
+            87,
+            1532,
+            243
+          ],
+          [
+            1611,
+            87,
+            1746,
+            243
+          ]
+        ],
+        "sample": [
+          135,
+          156
+        ]
+      },
+      "HUB-01": {
+        "count": 1,
+        "args": {},
+        "boxes": [],
+        "sample": null
+      },
+      "HUB-02": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ]
+        ],
+        "sample": [
+          668,
+          378
+        ]
+      },
+      "HUB-10": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ]
+        ],
+        "sample": [
+          156,
+          127
+        ]
+      },
+      "HUB-04": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ]
+        ],
+        "sample": [
+          384,
+          209
+        ]
+      },
+      "HUB-06": {
+        "count": 514,
+        "args": {
+          "5": 514
+        },
+        "boxes": [
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ],
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ],
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ]
+        ],
+        "sample": [
+          63,
+          122
+        ]
+      },
+      "HUB-07": {
+        "count": 514,
+        "args": {
+          "5": 514
+        },
+        "boxes": [
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ],
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ],
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ]
+        ],
+        "sample": [
+          208,
+          160
+        ]
+      },
+      "HUB-05": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ]
+        ],
+        "sample": [
+          286,
+          236
+        ]
+      },
+      "HUB-09": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ]
+        ],
+        "sample": [
+          330,
+          180
+        ]
+      },
+      "HUB-08": {
+        "count": 257,
+        "args": {
+          "5": 257
+        },
+        "boxes": [
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ]
+        ],
+        "sample": [
+          66,
+          150
+        ]
+      }
+    },
+    "onScreen": {
+      "HUB-03": {
+        "count": 18,
+        "sample": [
+          540,
+          87,
+          675,
+          243
+        ]
+      },
+      "HUB-02": {
+        "count": 257,
+        "sample": [
+          327,
+          236,
+          953,
+          590
+        ]
+      },
+      "HUB-06": {
+        "count": 403,
+        "sample": [
+          363,
+          -108,
+          422,
+          7
+        ]
+      },
+      "HUB-07": {
+        "count": 384,
+        "sample": [
+          107,
+          -52,
+          302,
+          98
+        ]
+      },
+      "HUB-05": {
+        "count": 257,
+        "sample": [
+          1125,
+          154,
+          1393,
+          375
+        ]
+      },
+      "HUB-09": {
+        "count": 257,
+        "sample": [
+          485,
+          714,
+          795,
+          882
+        ]
+      },
+      "HUB-08": {
+        "count": 257,
+        "sample": [
+          609,
+          75,
+          671,
+          216
+        ]
+      },
+      "HUB-10": {
+        "count": 123,
+        "sample": [
+          333,
+          -112,
+          479,
+          7
+        ]
+      },
+      "HUB-04": {
+        "count": 150,
+        "sample": [
+          460,
+          -165,
+          820,
+          31
+        ]
+      }
+    },
+    "patterns": {
+      "HUB-01": 1
+    },
+    "order": [
+      "HUB-03",
+      "HUB-01",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08"
+    ],
+    "seq": [
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-01",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08"
+    ],
+    "pageErrors": []
+  },
+  "probeFinal": {
+    "ts": "2026-11-03T13:10:52.808Z",
+    "url": "http://127.0.0.1:8123/",
+    "readyState": "complete",
+    "title": "DEADBEAT DISCO · ILLUSTRATED EDITION v8.6.0-dungeon",
+    "canvasCount": 27,
+    "canvasCountBase": 27,
+    "canvasPortraitCount": 0,
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 12.53,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": false
+    },
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "artPack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02",
+      "status": "applied",
+      "startedAt": 1793711439970,
+      "appliedAt": 1793711439970,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793711440074,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793711440081,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793711440099
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 0,
+        "enabled": false,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793711440129
+      },
+      "finishedAt": 1793711440130
+    },
+    "integrity": {
+      "status": "applied",
+      "errors": [],
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "t3b_material_01",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "t3b_material_02",
+          "loader": "T3B",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            512,
+            512
+          ]
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            560,
+            332
+          ]
+        },
+        {
+          "id": "decor_neon_rug",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            456,
+            243
+          ]
+        },
+        {
+          "id": "decor_potted_palm",
+          "loader": "V5",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            209,
+            147
+          ]
+        },
+        {
+          "id": "boss_01_anden",
+          "loader": "ILT",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            400,
+            386
+          ]
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "loader": "HD",
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "live": true,
+          "natural": [
+            160,
+            87
+          ]
+        }
+      ],
+      "registries": {
+        "t3b": true,
+        "v5": true,
+        "ilt": true,
+        "hd": true
+      },
+      "checkedAt": 1793711452808
+    },
+    "architecture": {
+      "version": "fase1-tanda02",
+      "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+      "enabled": true,
+      "applied": 10,
+      "count": 10,
+      "originalsPreserved": 10,
+      "errors": [],
+      "assets": [
+        {
+          "id": "A01",
+          "name": "wall_straight",
+          "slot": "wall_stained_glass_arch",
+          "alias": "t02_A01_wall_straight",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "expected": [
+            120,
+            176
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A02",
+          "name": "wall_corner_inner",
+          "slot": "wall_limbo_ticket_window",
+          "alias": "t02_A02_wall_corner_inner",
+          "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+          "expected": [
+            144,
+            144
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            144,
+            144
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A03",
+          "name": "wall_corner_outer",
+          "slot": "wall_avaricia_vault_door",
+          "alias": "t02_A03_wall_corner_outer",
+          "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+          "expected": [
+            150,
+            86
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            150,
+            86
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A04",
+          "name": "wall_end_cap",
+          "slot": "wall_traicion_glacier_panel",
+          "alias": "t02_A04_wall_end_cap",
+          "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+          "expected": [
+            124,
+            64
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            124,
+            64
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A05",
+          "name": "wall_pillar",
+          "slot": "nucleo_pillar_prop",
+          "alias": "t02_A05_wall_pillar",
+          "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+          "expected": [
+            204,
+            505
+          ],
+          "pivot": "bottom-center",
+          "loaded": true,
+          "natural": [
+            204,
+            505
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A06",
+          "name": "door_closed",
+          "slot": "campaign_door_leaf",
+          "alias": "t02_A06_door_closed",
+          "file": "ART_ASSETS/tanda_02/door_closed.png",
+          "expected": [
+            76,
+            54
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            76,
+            54
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A07",
+          "name": "door_open",
+          "slot": "campaign_door_side_leaf",
+          "alias": "t02_A07_door_open",
+          "file": "ART_ASSETS/tanda_02/door_open.png",
+          "expected": [
+            52,
+            136
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            52,
+            136
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A08",
+          "name": "doorway_frame",
+          "slot": "campaign_door_frame",
+          "alias": "t02_A08_doorway_frame",
+          "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+          "expected": [
+            196,
+            124
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            196,
+            124
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A09",
+          "name": "threshold_entry",
+          "slot": "campaign_door_south_gate",
+          "alias": "t02_A09_threshold_entry",
+          "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+          "expected": [
+            196,
+            67
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            196,
+            67
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        },
+        {
+          "id": "A10",
+          "name": "wall_neon_detail",
+          "slot": "wall_neon_club_crest",
+          "alias": "t02_A10_wall_neon_detail",
+          "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+          "expected": [
+            84,
+            84
+          ],
+          "pivot": "center",
+          "loaded": true,
+          "natural": [
+            84,
+            84
+          ],
+          "exactSize": true,
+          "live": true,
+          "loaderResolves": true,
+          "aliasRegistered": true,
+          "originalPreserved": true
+        }
+      ],
+      "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+    },
+    "player": {
+      "version": "tanda03-faseD.2",
+      "poses": 12,
+      "errors": []
+    },
+    "hubPack": {
+      "version": "hub-tanda01",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 9,
+      "errors": [],
+      "assets": [
+        {
+          "id": "HUB-01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "managedBy": "MANIFEST/T01",
+          "slots": [
+            "t3b_material_01"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 0,
+          "classification": "Arquitectónico / Funcional",
+          "role": "Superficie principal del HUB (patrón repeat 512x512).",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-02",
+          "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_pista_medallion"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Alfombra / medallón de identidad de la pista central.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            760,
+            430
+          ],
+          "natural": [
+            760,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-03",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "loader": "V5",
+          "managedBy": "ARCHITECTURE/T02",
+          "slots": [
+            "wall_stained_glass_arch"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Panel de muro modular: delimita y da profundidad al perímetro.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            120,
+            176
+          ],
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-04",
+          "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_dj_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Cabina del DJ, elemento protagonista (estación dj).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            720,
+            392
+          ],
+          "natural": [
+            720,
+            392
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-05",
+          "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_bar_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            380,
+            313
+          ],
+          "natural": [
+            380,
+            313
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-06",
+          "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "club_speaker_tower_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Columnas estructurales / torres acústicas: ritmo y volumen.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            76,
+            148
+          ],
+          "natural": [
+            76,
+            148
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-07",
+          "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_vip_booth_nw",
+            "hub_vip_booth_ne"
+          ],
+          "slotsLive": 2,
+          "loaderResolves": 2,
+          "classification": "Decorativo",
+          "role": "Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            224,
+            172
+          ],
+          "natural": [
+            224,
+            172
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-08",
+          "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_disco_chandelier"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Decorativo",
+          "role": "Luminaria colgante de neón: iluminación ambiental sobre la pista.",
+          "pivot": "top-center",
+          "alpha": true,
+          "expected": [
+            67,
+            152
+          ],
+          "natural": [
+            67,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-09",
+          "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_abyss_stair_crack"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Funcional",
+          "role": "Portal de descenso: acceso a otras zonas. No toca Ot.openT.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            320,
+            175
+          ],
+          "natural": [
+            320,
+            175
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-10",
+          "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_trophy_board_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            167,
+            136
+          ],
+          "natural": [
+            167,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Todos los slots son consumidos por los pintores reales del HUB; geometria, colisiones, sortY, puertas y camara permanecen en el motor."
+    },
+    "hub2Pack": {
+      "version": "hub-tanda02",
+      "count": 10,
+      "enabled": false,
+      "applied": 0,
+      "slotsApplied": 0,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T02-01",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arcade_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Mobiliario secundario",
+          "role": "Banco de recreativas del Rincon Arcade (zona F1).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            264,
+            239
+          ],
+          "natural": [
+            264,
+            239
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-02",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arsenal_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Mobiliario funcional",
+          "role": "Mostrador del Arsenal de Caronte (zona D).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            360,
+            253
+          ],
+          "natural": [
+            360,
+            253
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-03",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+          "loader": "V5",
+          "slots": [
+            "hub_seals_shrine"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Interactivo / Objeto narrativo",
+          "role": "Espejo de los Sellos (zona F2).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            244,
+            237
+          ],
+          "natural": [
+            244,
+            237
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-04",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+          "loader": "V5",
+          "slots": [
+            "club_vending_machine_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Equipamiento de discoteca",
+          "role": "Maquina expendedora del lado este.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            100,
+            152
+          ],
+          "natural": [
+            100,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-05",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+          "loader": "V5",
+          "slots": [
+            "club_water_cooler_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Objeto narrativo",
+          "role": "Dispensador de agua del lado oeste.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            61,
+            136
+          ],
+          "natural": [
+            61,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-06",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+          "loader": "V5",
+          "slots": [
+            "limbo_bench_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Mobiliario secundario",
+          "role": "Bancos gemelos junto al descenso.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-07",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+          "loader": "V5",
+          "slots": [
+            "club_neon_planter_prop"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Decorativo / Variante visual",
+          "role": "Cuatro jardineras fijas del HUB.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-08",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+          "loader": "V5",
+          "slots": [
+            "descent_abyssal_lift_pad"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Funcional / Interactivo",
+          "role": "Plataforma de descenso y puertas de sala.",
+          "pivot": "center",
+          "cachedLayer": false,
+          "expected": [
+            198,
+            104
+          ],
+          "natural": [
+            198,
+            104
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-09",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+          "loader": "V5",
+          "slots": [
+            "wall_ceiling_neon_fixture"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Arquitectonico / Iluminacion",
+          "role": "Barra de neon horizontal de techo/muro (capa de pared en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            148,
+            38
+          ],
+          "natural": [
+            148,
+            38
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-10",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+          "loader": "V5",
+          "slots": [
+            "club_wall_sconce_side"
+          ],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "classification": "Arquitectonico / Senalizacion luminosa",
+          "role": "Apliques laterales de pared (capa de aristas en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            48,
+            60
+          ],
+          "natural": [
+            48,
+            60
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": false,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Solo se sustituye el Image de slots que el motor ya dibuja; geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor."
+    },
+    "t3b": {
+      "enabled": true,
+      "revision": 30,
+      "ready": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "errors": [],
+      "draws": [
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "original",
+          "revision": 20,
+          "ready": true
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 28,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 29,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 29,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "hub",
+          "index": 1,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        },
+        {
+          "route": "campaign",
+          "index": 0,
+          "choice": "candidate",
+          "revision": 30,
+          "ready": true,
+          "src": "http://127.0.0.1:8123/ART_ASSETS"
+        }
+      ]
+    },
+    "hubFloor": {
+      "revision": 30,
+      "builds": 3,
+      "draws": 457,
+      "available": true
+    },
+    "v5": {
+      "ready": 100,
+      "total": 100,
+      "errors": []
+    },
+    "dungeon": {
+      "current": "r0",
+      "role": "start",
+      "secured": 0,
+      "floor": 1
+    },
+    "debug": {
+      "px": 1795,
+      "py": 845,
+      "round": 1,
+      "enemies": 0
+    },
+    "stats": {
+      "syn": {
+        "cannon": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "flow": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "shield": {
+          "act": 0,
+          "bonus": 0
+        },
+        "echo": {
+          "act": 0,
+          "hype": 0
+        },
+        "volt": {
+          "on": false,
+          "act": 0,
+          "jumps": 0
+        },
+        "ricochet": {
+          "on": false,
+          "act": 0,
+          "bounces": 0
+        },
+        "tempo": {
+          "on": false,
+          "act": 0,
+          "t": 0
+        }
+      },
+      "elapsed": 13.812400000000011,
+      "round": 1,
+      "kills": 0,
+      "score": 0,
+      "lives": 3,
+      "level": 1,
+      "balas": {
+        "n": 0,
+        "vMin": 0,
+        "vMax": 0
+      },
+      "conos": 0,
+      "damageTotal": 0,
+      "damageByCause": {},
+      "absorbed": 0,
+      "shotsFired": 0,
+      "shotsHit": 0,
+      "bossDamage": 0,
+      "pickupTaken": 0,
+      "pickupIgnored": 0,
+      "bombsUsed": 0,
+      "boostsUsed": 0,
+      "offers": 0,
+      "offerPicks": {},
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "roundLog": [],
+      "bossLog": [],
+      "playerPushes": 0,
+      "stationaryTime": 11.36910000000002,
+      "raveTime": 0,
+      "raves": 0,
+      "maxCombo": 1,
+      "laser": {
+        "triggered": 0,
+        "playerHit": 0
+      },
+      "stage": {
+        "pending": null,
+        "ambient": "NORMAL",
+        "sinceSpatial": 112.8,
+        "temps": 0,
+        "whyNot": "",
+        "moved": 0,
+        "hidden": 0,
+        "stats": {
+          "announced": 0,
+          "committed": 0,
+          "cancelled": 0,
+          "retried": 0,
+          "reverted": 0,
+          "rejectedSpots": 0,
+          "validations": 0,
+          "validateMs": 0,
+          "maxValidateMs": 0,
+          "lastWhySpatial": "",
+          "byKind": {},
+          "byReason": {},
+          "rejectReasons": {},
+          "cancelReasons": {},
+          "ambientChanges": 0,
+          "restores": 0,
+          "expired": 0
+        },
+        "chain": null,
+        "zones": [],
+        "gaps": [],
+        "log": [],
+        "rejects": []
+      },
+      "arena": {
+        "djEvents": 0,
+        "gaps": 0,
+        "zones": 0,
+        "forced": {
+          "gaps": 0,
+          "zones": 0
+        }
+      },
+      "subs": {
+        "current": {
+          "text": "DJ-DIRECTOR // Sube la tensión en las baldosas. Mira dónde pisas.",
+          "who": "DJ-DIRECTOR VIRGILIO",
+          "prio": 2,
+          "left": 2.75,
+          "dur": 3.2,
+          "key": "djdir:3"
+        },
+        "queue": [],
+        "layout": {
+          "maxW": 720,
+          "bottom": 18,
+          "fs": 20,
+          "narrow": false
+        },
+        "stats": {
+          "shown": 8,
+          "preempted": 1,
+          "replaced": 1,
+          "queued": 2,
+          "dropped": 0,
+          "dups": 1,
+          "expired": 0,
+          "shortUsed": 0,
+          "fitShrinks": 0,
+          "overflow": 0,
+          "lastFs": 20,
+          "lastLines": 1,
+          "layouts": 3
+        },
+        "rect": {
+          "x": 372,
+          "y": 858,
+          "w": 536,
+          "h": 28
+        },
+        "log": [
+          {
+            "t": 1.03,
+            "text": "RONDA 1 · OLEADA ESTÁNDAR",
+            "who": "",
+            "prio": 1,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 1.03,
+            "text": "Refugio seguro · Explora el club y baja al Círculo I por el Ascensor Sur [E]",
+            "who": "THE LAST AFTERPARTY",
+            "prio": 2,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 4.2,
+            "text": "VIRGILIO HA CLAVADO UN TABLÓN NUEVO · Pulsa J (✦ PROGRESO) en el Refugio: firma ",
+            "who": "",
+            "prio": 1,
+            "dur": 3,
+            "fs": 20,
+            "lines": 2
+          },
+          {
+            "t": 7.57,
+            "text": "DEBUG · x1250 y935",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 8.47,
+            "text": "DEBUG · x1250 y965",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 10.18,
+            "text": "DEBUG · x1720 y845",
+            "who": "",
+            "prio": 1,
+            "dur": 1.4,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 12.13,
+            "text": "Perfecto. Entonces subimos el volumen.",
+            "who": "DJ VIRGILIO",
+            "prio": 0,
+            "dur": 3.99,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 12.13,
+            "text": "DJ-DIRECTOR // Sube la tensión en las baldosas. Mira dónde pisas.",
+            "who": "DJ-DIRECTOR VIRGILIO",
+            "prio": 2,
+            "dur": 3.2,
+            "fs": 20,
+            "lines": 1
+          }
+        ]
+      },
+      "director": {
+        "triggers": {
+          "CYCLE": 1,
+          "DJ_HINT": 1
+        },
+        "responses": {
+          "STANCE_PRESSURE": 1
+        },
+        "failed": {}
+      },
+      "errors": []
+    },
+    "draws": {
+      "HUB-03": {
+        "count": 18,
+        "args": {
+          "5": 18
+        },
+        "boxes": [
+          [
+            540,
+            87,
+            675,
+            243
+          ],
+          [
+            754,
+            87,
+            889,
+            243
+          ],
+          [
+            968,
+            87,
+            1103,
+            243
+          ],
+          [
+            1183,
+            87,
+            1318,
+            243
+          ],
+          [
+            1397,
+            87,
+            1532,
+            243
+          ],
+          [
+            1611,
+            87,
+            1746,
+            243
+          ]
+        ],
+        "sample": [
+          135,
+          156
+        ]
+      },
+      "HUB-01": {
+        "count": 1,
+        "args": {},
+        "boxes": [],
+        "sample": null
+      },
+      "HUB-02": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ],
+          [
+            327,
+            236,
+            953,
+            590
+          ]
+        ],
+        "sample": [
+          668,
+          378
+        ]
+      },
+      "HUB-10": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ],
+          [
+            333,
+            -148,
+            479,
+            -29
+          ]
+        ],
+        "sample": [
+          156,
+          127
+        ]
+      },
+      "HUB-04": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ],
+          [
+            460,
+            -201,
+            820,
+            -5
+          ]
+        ],
+        "sample": [
+          384,
+          209
+        ]
+      },
+      "HUB-06": {
+        "count": 518,
+        "args": {
+          "5": 518
+        },
+        "boxes": [
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ],
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ],
+          [
+            363,
+            -108,
+            422,
+            7
+          ],
+          [
+            858,
+            -108,
+            918,
+            7
+          ]
+        ],
+        "sample": [
+          63,
+          122
+        ]
+      },
+      "HUB-07": {
+        "count": 518,
+        "args": {
+          "5": 518
+        },
+        "boxes": [
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ],
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ],
+          [
+            107,
+            -52,
+            302,
+            98
+          ],
+          [
+            978,
+            -52,
+            1173,
+            98
+          ]
+        ],
+        "sample": [
+          208,
+          160
+        ]
+      },
+      "HUB-05": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ],
+          [
+            1125,
+            154,
+            1393,
+            375
+          ]
+        ],
+        "sample": [
+          286,
+          236
+        ]
+      },
+      "HUB-09": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ],
+          [
+            485,
+            714,
+            795,
+            882
+          ]
+        ],
+        "sample": [
+          330,
+          180
+        ]
+      },
+      "HUB-08": {
+        "count": 259,
+        "args": {
+          "5": 259
+        },
+        "boxes": [
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ],
+          [
+            609,
+            75,
+            671,
+            216
+          ]
+        ],
+        "sample": [
+          66,
+          150
+        ]
+      }
+    },
+    "onScreen": {
+      "HUB-03": {
+        "count": 18,
+        "sample": [
+          540,
+          87,
+          675,
+          243
+        ]
+      },
+      "HUB-02": {
+        "count": 259,
+        "sample": [
+          327,
+          236,
+          953,
+          590
+        ]
+      },
+      "HUB-06": {
+        "count": 407,
+        "sample": [
+          363,
+          -108,
+          422,
+          7
+        ]
+      },
+      "HUB-07": {
+        "count": 386,
+        "sample": [
+          107,
+          -52,
+          302,
+          98
+        ]
+      },
+      "HUB-05": {
+        "count": 259,
+        "sample": [
+          1125,
+          154,
+          1393,
+          375
+        ]
+      },
+      "HUB-09": {
+        "count": 259,
+        "sample": [
+          485,
+          714,
+          795,
+          882
+        ]
+      },
+      "HUB-08": {
+        "count": 259,
+        "sample": [
+          609,
+          75,
+          671,
+          216
+        ]
+      },
+      "HUB-10": {
+        "count": 125,
+        "sample": [
+          333,
+          -112,
+          479,
+          7
+        ]
+      },
+      "HUB-04": {
+        "count": 152,
+        "sample": [
+          460,
+          -165,
+          820,
+          31
+        ]
+      }
+    },
+    "patterns": {
+      "HUB-01": 1
+    },
+    "order": [
+      "HUB-03",
+      "HUB-01",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08"
+    ],
+    "seq": [
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-03",
+      "HUB-01",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08",
+      "HUB-02",
+      "HUB-10",
+      "HUB-04",
+      "HUB-06",
+      "HUB-06",
+      "HUB-07",
+      "HUB-07",
+      "HUB-05",
+      "HUB-09",
+      "HUB-08"
+    ],
+    "pageErrors": []
+  }
+}

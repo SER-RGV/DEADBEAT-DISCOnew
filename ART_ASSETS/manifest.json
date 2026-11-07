@@ -1,0 +1,299 @@
+{
+  "tanda": "03",
+  "fase": "A",
+  "status": "FASE A APROBADA POR EL USUARIO (2026-11-03)",
+  "purpose": "Laminas de diseno/comprobacion de identidad. NO son sprites finales.",
+  "reference": "ART_REFERENCES/REF_04_protagonista_banner.png",
+  "audit": "ART_AUDIT/player_render_audit.json",
+  "palette": [
+    "#0a0c12",
+    "#191a25",
+    "#2d0619",
+    "#ff2d95",
+    "#facc15",
+    "#38bdf8",
+    "#c084fc"
+  ],
+  "preparation": "ART_TOOLS/prepare_tanda_03.py",
+  "alpha_calibration": "ART_TOOLS/qa/calibrate_tanda_03_alpha.py",
+  "discarded": "ART_ASSETS/tanda_03/_source/DISCARDED_turnaround_draft.png",
+  "discarded_reason": "La primera generacion devolvio un turnaround de 7 figuras; no cumple 'una imagen maestra de cuerpo entero'. Se conserva solo como referencia de identidad, no es entregable.",
+  "not_generated": [
+    "8 orientaciones jugables",
+    "8 familias de animacion",
+    "spritesheet definitivo",
+    "integracion en HTML"
+  ],
+  "items": [
+    {
+      "id": "master_full_body",
+      "description": "Imagen maestra de cuerpo entero, 3/4 isometrica sur-este",
+      "source": "ART_ASSETS/tanda_03/_source/master_full_body.png",
+      "file": "ART_ASSETS/tanda_03/master_full_body.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "output_size": [
+        364,
+        1130
+      ],
+      "mode": "RGBA",
+      "background_sampled": [
+        8,
+        8,
+        6
+      ],
+      "alpha_params": {
+        "bg_tol": 10,
+        "strong": 45,
+        "near_blur": 50,
+        "near_thr": 1
+      },
+      "alpha_bbox_in_source": [
+        245,
+        40,
+        609,
+        1170
+      ],
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_transparent_px": 858469,
+      "alpha_solid_px": 213103,
+      "alpha_soft_edge_px": 300,
+      "bright_halo_candidates_px": 0,
+      "solid_background_like_px": 5151,
+      "solid_ratio_in_crop": 0.5181,
+      "control_points_qa": {
+        "solid_points": {
+          "430,160": 255,
+          "420,480": 255,
+          "260,500": 255,
+          "400,900": 255,
+          "360,1000": 255
+        },
+        "background_points": {
+          "20,20": 0,
+          "820,20": 0,
+          "20,600": 0,
+          "820,600": 0,
+          "20,1240": 0,
+          "820,1240": 0,
+          "100,300": 0,
+          "750,300": 0,
+          "100,1000": 0,
+          "750,1000": 0
+        },
+        "interior_preserved": true,
+        "background_cleared": true
+      },
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "063e8af8e07e20cbac1ab4515994abcb16b8c0670aac624c3a3493d21f787830",
+      "bytes": 556972
+    },
+    {
+      "id": "view_front",
+      "description": "Vista frontal isometrica de comprobacion de identidad",
+      "source": "ART_ASSETS/tanda_03/_source/view_front.png",
+      "file": "ART_ASSETS/tanda_03/view_front.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "output_size": [
+        363,
+        1122
+      ],
+      "mode": "RGBA",
+      "background_sampled": [
+        7,
+        7,
+        4
+      ],
+      "alpha_params": {
+        "bg_tol": 10,
+        "strong": 45,
+        "near_blur": 50,
+        "near_thr": 1
+      },
+      "alpha_bbox_in_source": [
+        246,
+        40,
+        609,
+        1162
+      ],
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_transparent_px": 860929,
+      "alpha_solid_px": 210469,
+      "alpha_soft_edge_px": 474,
+      "bright_halo_candidates_px": 0,
+      "solid_background_like_px": 4264,
+      "solid_ratio_in_crop": 0.5168,
+      "control_points_qa": {
+        "solid_points": {
+          "430,160": 255,
+          "420,480": 255,
+          "260,500": 255,
+          "400,900": 255,
+          "360,1000": 255
+        },
+        "background_points": {
+          "20,20": 0,
+          "820,20": 0,
+          "20,600": 0,
+          "820,600": 0,
+          "20,1240": 0,
+          "820,1240": 0,
+          "100,300": 0,
+          "750,300": 0,
+          "100,1000": 0,
+          "750,1000": 0
+        },
+        "interior_preserved": true,
+        "background_cleared": true
+      },
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "3402928f2ad46390d6bc66f395c37d05d721f4bd0b5eae6dc94bb9a560f0e9ac",
+      "bytes": 584711
+    },
+    {
+      "id": "view_side",
+      "description": "Vista lateral / perfil 90 grados",
+      "source": "ART_ASSETS/tanda_03/_source/view_side.png",
+      "file": "ART_ASSETS/tanda_03/view_side.png",
+      "source_size": [
+        896,
+        1200
+      ],
+      "output_size": [
+        233,
+        1128
+      ],
+      "mode": "RGBA",
+      "background_sampled": [
+        6,
+        7,
+        4
+      ],
+      "alpha_params": {
+        "bg_tol": 10,
+        "strong": 45,
+        "near_blur": 50,
+        "near_thr": 1
+      },
+      "alpha_bbox_in_source": [
+        341,
+        41,
+        574,
+        1169
+      ],
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_transparent_px": 931945,
+      "alpha_solid_px": 143026,
+      "alpha_soft_edge_px": 229,
+      "bright_halo_candidates_px": 0,
+      "solid_background_like_px": 3873,
+      "solid_ratio_in_crop": 0.5442,
+      "control_points_qa": {
+        "solid_points": {
+          "470,180": 255,
+          "450,500": 255,
+          "430,850": 255,
+          "450,1050": 255,
+          "440,950": 255
+        },
+        "background_points": {
+          "20,20": 0,
+          "870,20": 0,
+          "20,600": 0,
+          "870,600": 0,
+          "20,1180": 0,
+          "870,1180": 0,
+          "100,300": 0,
+          "800,300": 0,
+          "100,1000": 0,
+          "800,1000": 0
+        },
+        "interior_preserved": true,
+        "background_cleared": true
+      },
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "b4baf8a7a820731e3c3b9a5067891dff0c4f2300addbe309c73fbd41ec5fe98a",
+      "bytes": 422878
+    },
+    {
+      "id": "view_back",
+      "description": "Vista posterior",
+      "source": "ART_ASSETS/tanda_03/_source/view_back.png",
+      "file": "ART_ASSETS/tanda_03/view_back.png",
+      "source_size": [
+        848,
+        1264
+      ],
+      "output_size": [
+        367,
+        1195
+      ],
+      "mode": "RGBA",
+      "background_sampled": [
+        7,
+        7,
+        5
+      ],
+      "alpha_params": {
+        "bg_tol": 10,
+        "strong": 45,
+        "near_blur": 50,
+        "near_thr": 1
+      },
+      "alpha_bbox_in_source": [
+        245,
+        41,
+        612,
+        1236
+      ],
+      "alpha_min": 0,
+      "alpha_max": 255,
+      "alpha_transparent_px": 841762,
+      "alpha_solid_px": 230011,
+      "alpha_soft_edge_px": 99,
+      "bright_halo_candidates_px": 0,
+      "solid_background_like_px": 3955,
+      "solid_ratio_in_crop": 0.5245,
+      "control_points_qa": {
+        "solid_points": {
+          "420,180": 255,
+          "420,480": 255,
+          "300,500": 255,
+          "360,850": 255,
+          "360,1000": 255
+        },
+        "background_points": {
+          "20,20": 0,
+          "820,20": 0,
+          "20,600": 0,
+          "820,600": 0,
+          "20,1240": 0,
+          "820,1240": 0,
+          "100,300": 0,
+          "750,300": 0,
+          "100,1000": 0,
+          "750,1000": 0
+        },
+        "interior_preserved": true,
+        "background_cleared": true
+      },
+      "pivot_proposed": "bottom-center (x=w/2, y=h); pie de apoyo en el borde inferior",
+      "sha256": "9b694ddb2dc13cbe942ef436dc665e5e10d488d7959d05d39965697da658e9a1",
+      "bytes": 623934
+    }
+  ],
+  "approval": {
+    "date": "2026-11-03",
+    "approved_by": "user",
+    "message": "apruebo",
+    "scope": "Desbloquea FASE B. No autoriza integracion en HTML, cambio de render ni fases C/D adelantadas."
+  }
+}

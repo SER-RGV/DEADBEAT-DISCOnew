@@ -1,0 +1,1011 @@
+{
+  "started": "2026-11-03T11:52:38.584Z",
+  "build": "http://127.0.0.1:8123/DEADBEAT_DISCO.ART.html",
+  "viewport": [
+    1280,
+    900
+  ],
+  "states": [
+    "APROBADO",
+    "FALLIDO",
+    "BLOQUEADO",
+    "NO VERIFICADO"
+  ],
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga del HTML",
+      "state": "APROBADO",
+      "detail": {
+        "status": 200,
+        "loadMs": 1265,
+        "readyState": "complete",
+        "title": "DEADBEAT DISCO · ILLUSTRATED EDITION v8.6.0-dungeon"
+      },
+      "evidence": [
+        "despues_01_hub.png"
+      ]
+    },
+    {
+      "id": 2,
+      "check": "Carga de los diez assets",
+      "state": "APROBADO",
+      "detail": {
+        "applied": "10/10",
+        "slots": 9,
+        "http200": 10,
+        "files": [
+          "hub_01_suelo_central.png",
+          "hub_02_pista_central.png",
+          "hub_03_paredes.png",
+          "hub_04_cabina_dj.png",
+          "hub_05_barra_bebidas.png",
+          "hub_06_columnas.png",
+          "hub_07_sofas_asientos.png",
+          "hub_08_luminarias_neones.png",
+          "hub_09_puertas_accesos.png",
+          "hub_10_decoracion_ambiental.png"
+        ],
+        "perAsset": [
+          {
+            "id": "HUB-01",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              512,
+              512
+            ]
+          },
+          {
+            "id": "HUB-02",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              760,
+              430
+            ]
+          },
+          {
+            "id": "HUB-03",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              120,
+              176
+            ]
+          },
+          {
+            "id": "HUB-04",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              720,
+              392
+            ]
+          },
+          {
+            "id": "HUB-05",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              380,
+              313
+            ]
+          },
+          {
+            "id": "HUB-06",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              76,
+              148
+            ]
+          },
+          {
+            "id": "HUB-07",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              224,
+              172
+            ]
+          },
+          {
+            "id": "HUB-08",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              67,
+              152
+            ]
+          },
+          {
+            "id": "HUB-09",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              320,
+              175
+            ]
+          },
+          {
+            "id": "HUB-10",
+            "loaded": true,
+            "exactSize": true,
+            "live": true,
+            "natural": [
+              167,
+              136
+            ]
+          }
+        ]
+      },
+      "evidence": [
+        "manifest.json",
+        "despues_runtime.json"
+      ]
+    },
+    {
+      "id": 3,
+      "check": "Ausencia de errores JavaScript",
+      "state": "APROBADO",
+      "detail": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "knownCloudflare404": 2,
+        "excluded": []
+      },
+      "evidence": [
+        "despues_runtime.json",
+        "control_runtime.json"
+      ]
+    },
+    {
+      "id": 4,
+      "check": "Visibilidad de los recursos en el HUB real",
+      "state": "APROBADO",
+      "detail": {
+        "visible": [
+          "HUB-01",
+          "HUB-02",
+          "HUB-03",
+          "HUB-04",
+          "HUB-05",
+          "HUB-06",
+          "HUB-07",
+          "HUB-08",
+          "HUB-09",
+          "HUB-10"
+        ],
+        "drawCounts": [
+          {
+            "id": "HUB-01",
+            "draws": 0,
+            "onScreen": 0,
+            "patterns": 2,
+            "sampleBox": null
+          },
+          {
+            "id": "HUB-02",
+            "draws": 169,
+            "onScreen": 168,
+            "patterns": 0,
+            "sampleBox": [
+              306,
+              296,
+              974,
+              674
+            ]
+          },
+          {
+            "id": "HUB-03",
+            "draws": 36,
+            "onScreen": 36,
+            "patterns": 0,
+            "sampleBox": [
+              540,
+              87,
+              675,
+              243
+            ]
+          },
+          {
+            "id": "HUB-04",
+            "draws": 168,
+            "onScreen": 39,
+            "patterns": 0,
+            "sampleBox": [
+              448,
+              -170,
+              832,
+              39
+            ]
+          },
+          {
+            "id": "HUB-05",
+            "draws": 168,
+            "onScreen": 168,
+            "patterns": 0,
+            "sampleBox": [
+              1157,
+              209,
+              1443,
+              445
+            ]
+          },
+          {
+            "id": "HUB-06",
+            "draws": 336,
+            "onScreen": 336,
+            "patterns": 0,
+            "sampleBox": [
+              344,
+              -70,
+              407,
+              52
+            ]
+          },
+          {
+            "id": "HUB-07",
+            "draws": 336,
+            "onScreen": 336,
+            "patterns": 0,
+            "sampleBox": [
+              71,
+              -11,
+              279,
+              149
+            ]
+          },
+          {
+            "id": "HUB-08",
+            "draws": 168,
+            "onScreen": 168,
+            "patterns": 0,
+            "sampleBox": [
+              607,
+              125,
+              673,
+              275
+            ]
+          },
+          {
+            "id": "HUB-09",
+            "draws": 168,
+            "onScreen": 168,
+            "patterns": 0,
+            "sampleBox": [
+              475,
+              806,
+              805,
+              986
+            ]
+          },
+          {
+            "id": "HUB-10",
+            "draws": 168,
+            "onScreen": 29,
+            "patterns": 0,
+            "sampleBox": [
+              312,
+              -113,
+              468,
+              14
+            ]
+          }
+        ],
+        "hubFloorDraws": 168,
+        "t3bHubCandidate": 2
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_02_detalle_dj.png",
+        "despues_03_detalle_bar.png",
+        "despues_04_detalle_sofas.png",
+        "despues_05_detalle_descenso.png",
+        "despues_06_detalle_este.png",
+        "visual_diff.json",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 5,
+      "check": "Perspectiva y escala (sin deformación)",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "id": "HUB-01",
+            "note": "patrón createPattern (sin caja drawImage)",
+            "preparedWithoutDeformation": true
+          },
+          {
+            "id": "HUB-02",
+            "nativeAspect": 1.767,
+            "drawnAspect": 1.767,
+            "motorBoxDeviationPct": 0.01,
+            "drawBox": [
+              668,
+              378
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-03",
+            "nativeAspect": 0.682,
+            "drawnAspect": 0.865,
+            "motorBoxDeviationPct": 26.92,
+            "drawBox": [
+              135,
+              156
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": true
+          },
+          {
+            "id": "HUB-04",
+            "nativeAspect": 1.837,
+            "drawnAspect": 1.837,
+            "motorBoxDeviationPct": 0.03,
+            "drawBox": [
+              384,
+              209
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-05",
+            "nativeAspect": 1.214,
+            "drawnAspect": 1.212,
+            "motorBoxDeviationPct": 0.18,
+            "drawBox": [
+              286,
+              236
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-06",
+            "nativeAspect": 0.514,
+            "drawnAspect": 0.516,
+            "motorBoxDeviationPct": 0.56,
+            "drawBox": [
+              63,
+              122
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-07",
+            "nativeAspect": 1.302,
+            "drawnAspect": 1.3,
+            "motorBoxDeviationPct": 0.18,
+            "drawBox": [
+              208,
+              160
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-08",
+            "nativeAspect": 0.441,
+            "drawnAspect": 0.44,
+            "motorBoxDeviationPct": 0.18,
+            "drawBox": [
+              66,
+              150
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-09",
+            "nativeAspect": 1.829,
+            "drawnAspect": 1.833,
+            "motorBoxDeviationPct": 0.26,
+            "drawBox": [
+              330,
+              180
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          },
+          {
+            "id": "HUB-10",
+            "nativeAspect": 1.228,
+            "drawnAspect": 1.228,
+            "motorBoxDeviationPct": 0.03,
+            "drawBox": [
+              156,
+              127
+            ],
+            "preparedWithoutDeformation": true,
+            "motorTransformPreexisting": false
+          }
+        ],
+        "note": "La preparación usa contain+pivote: ningún PNG se deforma. HUB-03 muestra la desviación de la caja 135x156 que el pintor de muros aplicaba ANTES de esta tanda (Tanda 02, slot wall_stained_glass_arch); no se ha modificado el motor."
+      },
+      "evidence": [
+        "manifest.json",
+        "despues_runtime.json",
+        "visual_diff.json",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 6,
+      "check": "Transparencias, bordes y alfa",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "id": "HUB-01",
+            "mode": "RGB",
+            "alpha": false,
+            "corners": false,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-02",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 77.41,
+            "corners": true,
+            "whiteFringePct": 4.48,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-03",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 69.86,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-04",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 46.24,
+            "corners": true,
+            "whiteFringePct": 4.26,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-05",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 54.45,
+            "corners": true,
+            "whiteFringePct": 0.35,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-06",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 35.41,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-07",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 52.32,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-08",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 38.78,
+            "corners": true,
+            "whiteFringePct": 0.92,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-09",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 51.07,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "HUB-10",
+            "mode": "RGBA",
+            "alpha": true,
+            "extrema": [
+              0,
+              255
+            ],
+            "coveragePct": 65.31,
+            "corners": true,
+            "whiteFringePct": 1.34,
+            "borderClean": true
+          }
+        ],
+        "hub02Filter": {
+          "rect": [
+            262,
+            103,
+            498,
+            301
+          ],
+          "pixelsRecolored": 2434,
+          "residualErasablePx": 0,
+          "reason": "filtro drawHubFloorLayer / __DDM_V5_MED_NO_SKULL"
+        }
+      },
+      "evidence": [
+        "manifest.json"
+      ]
+    },
+    {
+      "id": 7,
+      "check": "Orden de profundidad / capas",
+      "state": "APROBADO",
+      "detail": {
+        "firstDrawIndex": {
+          "floor": 9,
+          "props": 11
+        },
+        "sequenceHead": [
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-01",
+          "HUB-02",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-06",
+          "HUB-07",
+          "HUB-07",
+          "HUB-05",
+          "HUB-09",
+          "HUB-08",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03",
+          "HUB-03"
+        ],
+        "note": "El orden lo fija el motor (drawHubFloorLayer -> props con sortY -> drawHubAerialLayer). El pack solo registra imágenes."
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_02_detalle_dj.png",
+        "visual_diff.json",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 8,
+      "check": "Movimiento del jugador",
+      "state": "APROBADO",
+      "detail": {
+        "pxBefore": 1250,
+        "pxAfter": 1655,
+        "delta": 405,
+        "withinWorld": true
+      },
+      "evidence": [
+        "despues_07_tras_movimiento.png"
+      ]
+    },
+    {
+      "id": 9,
+      "check": "Colisiones y zonas transitables",
+      "state": "APROBADO",
+      "detail": {
+        "hubAuditAfter": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": true
+        },
+        "hubAuditControl": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": true
+        },
+        "stationsEqual": true,
+        "collisionAfter": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionControl": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "movementAfter": {
+          "pxBefore": 1250,
+          "pxAfter": 1655,
+          "delta": 405,
+          "withinWorld": true
+        },
+        "movementControl": {
+          "pxBefore": 1250,
+          "pxAfter": 1655,
+          "delta": 405,
+          "withinWorld": true
+        }
+      },
+      "evidence": [
+        "despues_03_detalle_bar.png"
+      ]
+    },
+    {
+      "id": 10,
+      "check": "Apertura de puertas (Ot.openT intacto)",
+      "state": "APROBADO",
+      "detail": {
+        "campaign": {
+          "completed": true
+        },
+        "setNight": {
+          "via": "setNight",
+          "ok": true
+        },
+        "clearRound": "true",
+        "closed": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 0,
+          "floor": 3,
+          "doorFields": {
+            "secured": 0
+          }
+        },
+        "open": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 1,
+          "floor": 3,
+          "doorFields": {
+            "secured": 1
+          }
+        },
+        "architectureAppliedAfterDoors": 10,
+        "note": "Se usa la sala real r23 (setNight 24) con puertas cerradas y clearRound() para abrirlas, igual que la QA de la Tanda 02."
+      },
+      "evidence": [
+        "doors_closed.png",
+        "doors_open.png",
+        "visual_diff.json",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 11,
+      "check": "Elementos interactivos (estaciones HUB)",
+      "state": "APROBADO",
+      "detail": {
+        "stationsBefore": 11,
+        "open": "true",
+        "active": "bar",
+        "close": "true",
+        "activeAfter": null
+      },
+      "evidence": [
+        "despues_01_hub.png"
+      ]
+    },
+    {
+      "id": 12,
+      "check": "Regresión de sistemas existentes",
+      "state": "APROBADO",
+      "detail": {
+        "t01Integrity": true,
+        "t02Architecture": true,
+        "t03Player": true,
+        "v5Ready": true,
+        "shooting": {
+          "before": 0,
+          "after": 4,
+          "delta": 4
+        },
+        "stateEqual": true,
+        "errorsEqual": true,
+        "integrity": [
+          {
+            "id": "t3b_material_00",
+            "live": true
+          },
+          {
+            "id": "t3b_material_01",
+            "live": true
+          },
+          {
+            "id": "t3b_material_02",
+            "live": true
+          },
+          {
+            "id": "hub_fox_crest_emblem",
+            "live": true
+          },
+          {
+            "id": "decor_neon_rug",
+            "live": true
+          },
+          {
+            "id": "decor_potted_palm",
+            "live": true
+          },
+          {
+            "id": "boss_01_anden",
+            "live": true
+          },
+          {
+            "id": "weapons/weapon_m1911.png",
+            "live": true
+          }
+        ],
+        "architecture": {
+          "applied": 10,
+          "enabled": true
+        },
+        "player": {
+          "version": "tanda03-faseD.2",
+          "poses": 12,
+          "errors": []
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "campaignScreenshot": "regresion_campaign.png"
+      },
+      "evidence": [
+        "regresion_campaign.png",
+        "antes_runtime.json",
+        "control_runtime.json"
+      ]
+    }
+  ],
+  "summary": {
+    "APROBADO": 12
+  },
+  "table": [
+    {
+      "ID": "HUB-01",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-02",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-03",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-04",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-05",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-06",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-07",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-08",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-09",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "HUB-10",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    }
+  ],
+  "visualDiff": {
+    "antes_vs_despues": {
+      "a": "antes_01_hub.png",
+      "b": "despues_01_hub.png",
+      "size": [
+        1280,
+        900
+      ],
+      "box": null,
+      "thresholdPerChannel": 12,
+      "changedPx": 713718,
+      "totalPx": 1152000,
+      "changedPct": 61.95,
+      "meanAbsDiff": 26.95
+    },
+    "control_vs_despues": {
+      "a": "control_01_hub.png",
+      "b": "despues_01_hub.png",
+      "size": [
+        1280,
+        900
+      ],
+      "box": null,
+      "thresholdPerChannel": 12,
+      "changedPx": 693216,
+      "totalPx": 1152000,
+      "changedPct": 60.17,
+      "meanAbsDiff": 24.66
+    },
+    "antes_vs_control": {
+      "a": "antes_01_hub.png",
+      "b": "control_01_hub.png",
+      "size": [
+        1280,
+        900
+      ],
+      "box": null,
+      "thresholdPerChannel": 12,
+      "changedPx": 515513,
+      "totalPx": 1152000,
+      "changedPct": 44.75,
+      "meanAbsDiff": 15.71
+    },
+    "puertas_cerradas_vs_abiertas": {
+      "a": "doors_closed.png",
+      "b": "doors_open.png",
+      "size": [
+        1280,
+        900
+      ],
+      "box": null,
+      "thresholdPerChannel": 12,
+      "changedPx": 57190,
+      "totalPx": 1152000,
+      "changedPct": 4.96,
+      "meanAbsDiff": 3.57
+    },
+    "puertas_zona_central": {
+      "a": "doors_closed.png",
+      "b": "doors_open.png",
+      "size": [
+        1280,
+        900
+      ],
+      "box": [
+        320,
+        180,
+        960,
+        720
+      ],
+      "thresholdPerChannel": 12,
+      "changedPx": 9133,
+      "totalPx": 345600,
+      "changedPct": 2.64,
+      "meanAbsDiff": 1.63
+    }
+  },
+  "hashesFile": "hashes.json",
+  "hashesCount": 52,
+  "git": {
+    "sessionBranch": "arena/109fe45c-deadbeat-disconew",
+    "head": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "main": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "originMain": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "remoteArteYRecursos": "7653ce66631f75db118e54e70b0f4372dafac666\trefs/heads/arte-y-recursos",
+    "note": "main y origin/main no se han tocado; el usuario autorizó commit/push en la rama de sesión y PR hacia arte-y-recursos sin merge."
+  }
+}

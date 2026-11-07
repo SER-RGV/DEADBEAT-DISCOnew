@@ -1,0 +1,588 @@
+{
+  "generatedAt": "2026-11-04T02:25:21.589Z",
+  "api": {
+    "debugKeys": [
+      "on",
+      "off",
+      "toggle",
+      "advanceRound",
+      "setRound",
+      "forceWave",
+      "forceModifier",
+      "intent",
+      "laser",
+      "encore",
+      "teleport",
+      "rave",
+      "shotChoice",
+      "chooseShot",
+      "weaponProbe",
+      "boss",
+      "invuln",
+      "heal",
+      "killAll",
+      "skipInterlude",
+      "pattern",
+      "hurt",
+      "forceInterlude",
+      "previewLevel",
+      "catalogInfo",
+      "huntTest",
+      "setHype",
+      "spawnEnemyAt",
+      "holdSpawns",
+      "exploreState",
+      "exploreNoEnemies",
+      "exploreUnlock",
+      "exploreColliders",
+      "exploreGoTo",
+      "exploreNext",
+      "explorePrev",
+      "exploreReload",
+      "exploreReseed",
+      "tactics",
+      "forceProfile",
+      "intentWeights",
+      "hardRule",
+      "boostKills",
+      "directorReset",
+      "setRisk",
+      "phase",
+      "propsHp",
+      "breakPropNear",
+      "killAdds",
+      "setBossHp",
+      "setCombo",
+      "giveMutation",
+      "bossAddsInterval",
+      "clearRound",
+      "runStats",
+      "tick",
+      "render1",
+      "setInput",
+      "seed",
+      "explain",
+      "directorTests",
+      "directorSim",
+      "completeNight",
+      "setNight",
+      "state"
+    ],
+    "hubKeys": [
+      "version",
+      "saveKey",
+      "state",
+      "saveState",
+      "reloadSave",
+      "stations",
+      "canEnterCircle",
+      "missingRequirement",
+      "canReturnToHubNow",
+      "openStation",
+      "closeModal",
+      "startCampaignFromHub",
+      "returnToHubFromMilestone",
+      "debugSpawnBeacon",
+      "audit"
+    ],
+    "gamepadKeys": [
+      "configure",
+      "state",
+      "telemetry",
+      "poll"
+    ],
+    "musicKeys": [
+      "version",
+      "state",
+      "events",
+      "profiles",
+      "keepAlive",
+      "cineBegin",
+      "cineFilter",
+      "cineGain",
+      "cineDescentToHub",
+      "cineSting",
+      "cineMotif",
+      "cineEnd",
+      "cineState",
+      "simulateMissingTrack",
+      "onFreefallStart",
+      "onGirderPass",
+      "onStairDescentStart",
+      "onStairStep",
+      "audit"
+    ]
+  },
+  "before": {
+    "cam": {
+      "x": 1250,
+      "y": 975,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "pad": {
+      "supported": true,
+      "connected": true,
+      "index": 0,
+      "name": "Xbox Wireless Controller (synthetic QA)",
+      "active": "keyboard",
+      "move": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "fire": false,
+      "config": {
+        "moveDeadzone": 0.18,
+        "aimDeadzone": 0.22,
+        "triggerThreshold": 0.35
+      },
+      "menu": {
+        "id": null,
+        "index": 0,
+        "count": 0,
+        "selected": null
+      }
+    },
+    "audio": {
+      "version": "3.8.0-music",
+      "state": "HUB",
+      "prev": "MENU",
+      "since": 2.07,
+      "key": "hub_afterparty",
+      "pendingKey": null,
+      "bpm": 114,
+      "ctx": "running",
+      "sequencers": 1,
+      "coverPlaying": false,
+      "filterHz": 20000,
+      "filterTarget": 20000,
+      "transGain": 1,
+      "wired": true,
+      "graphFallback": false,
+      "hubModal": false,
+      "hubMilestones": 0,
+      "invasion": false,
+      "descent": null,
+      "descentCount": 0,
+      "landingCount": 0,
+      "lastLanding": null,
+      "keyRequests": 2,
+      "immediateSwitches": 2,
+      "coverStops": 0,
+      "missing": [],
+      "voices": {
+        "live": 2,
+        "dropped": 0,
+        "load": 0.03
+      },
+      "errors": []
+    },
+    "atmos": {
+      "version": "9.2.0-atmos",
+      "ready": true,
+      "enabled": true,
+      "frames": 69,
+      "fps": 32,
+      "degraded": true,
+      "layers": {
+        "bloom": [
+          427,
+          300,
+          "screen"
+        ],
+        "vignette": [
+          427,
+          300,
+          "normal"
+        ]
+      },
+      "config": {
+        "bloom": 1,
+        "bloomScale": 6,
+        "bloomEvery": 3,
+        "vignette": 0.34,
+        "grain": 0.016,
+        "grade": 1,
+        "overlayDiv": 3
+      }
+    }
+  },
+  "walk": [
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 30
+      }
+    },
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 31
+      }
+    },
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 27
+      }
+    },
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 11
+      }
+    },
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    }
+  ],
+  "padMove": {
+    "state": {
+      "supported": true,
+      "connected": true,
+      "index": 0,
+      "name": "Xbox Wireless Controller (synthetic QA)",
+      "active": "gamepad",
+      "move": {
+        "x": 0,
+        "y": 0.8780487804878048,
+        "active": true
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "fire": false,
+      "config": {
+        "moveDeadzone": 0.18,
+        "aimDeadzone": 0.22,
+        "triggerThreshold": 0.35
+      },
+      "menu": {
+        "id": null,
+        "index": 0,
+        "count": 0,
+        "selected": null
+      }
+    },
+    "tel": {
+      "active": "gamepad",
+      "events": [
+        {
+          "t": 0.47,
+          "type": "gamepad-connected",
+          "detail": "slot 0"
+        },
+        {
+          "t": 8.18,
+          "type": "input-method",
+          "detail": "gamepad"
+        }
+      ],
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "run": {
+        "active": "gamepad",
+        "connections": 0,
+        "disconnections": 0,
+        "bomb": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "boost": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "events": [
+          {
+            "t": 8.18,
+            "type": "input-method",
+            "detail": "gamepad"
+          }
+        ]
+      }
+    },
+    "cam": {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    }
+  },
+  "padBtn": {
+    "state": {
+      "supported": true,
+      "connected": true,
+      "index": 0,
+      "name": "Xbox Wireless Controller (synthetic QA)",
+      "active": "gamepad",
+      "move": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "fire": false,
+      "config": {
+        "moveDeadzone": 0.18,
+        "aimDeadzone": 0.22,
+        "triggerThreshold": 0.35
+      },
+      "menu": {
+        "id": null,
+        "index": 0,
+        "count": 0,
+        "selected": null
+      }
+    },
+    "tel": {
+      "active": "gamepad",
+      "events": [
+        {
+          "t": 0.47,
+          "type": "gamepad-connected",
+          "detail": "slot 0"
+        },
+        {
+          "t": 8.18,
+          "type": "input-method",
+          "detail": "gamepad"
+        }
+      ],
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "run": {
+        "active": "gamepad",
+        "connections": 0,
+        "disconnections": 0,
+        "bomb": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "boost": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "events": [
+          {
+            "t": 8.18,
+            "type": "input-method",
+            "detail": "gamepad"
+          }
+        ]
+      }
+    }
+  },
+  "after": {
+    "cam": {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "pad": {
+      "supported": true,
+      "connected": true,
+      "index": 0,
+      "name": "Xbox Wireless Controller (synthetic QA)",
+      "active": "gamepad",
+      "move": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "fire": false,
+      "config": {
+        "moveDeadzone": 0.18,
+        "aimDeadzone": 0.22,
+        "triggerThreshold": 0.35
+      },
+      "menu": {
+        "id": null,
+        "index": 0,
+        "count": 0,
+        "selected": null
+      }
+    },
+    "audio": {
+      "version": "3.8.0-music",
+      "state": "HUB",
+      "prev": "MENU",
+      "since": 6.6,
+      "key": "hub_afterparty",
+      "pendingKey": null,
+      "bpm": 114,
+      "ctx": "running",
+      "sequencers": 1,
+      "coverPlaying": false,
+      "filterHz": 20000,
+      "filterTarget": 20000,
+      "transGain": 1,
+      "wired": true,
+      "graphFallback": false,
+      "hubModal": false,
+      "hubMilestones": 0,
+      "invasion": false,
+      "descent": null,
+      "descentCount": 0,
+      "landingCount": 0,
+      "lastLanding": null,
+      "keyRequests": 2,
+      "immediateSwitches": 2,
+      "coverStops": 0,
+      "missing": [],
+      "voices": {
+        "live": 5,
+        "dropped": 0,
+        "load": 0.08
+      },
+      "errors": []
+    },
+    "atmos": {
+      "version": "9.2.0-atmos",
+      "ready": true,
+      "enabled": true,
+      "frames": 224,
+      "fps": 36,
+      "degraded": true,
+      "layers": {
+        "bloom": [
+          427,
+          300,
+          "screen"
+        ],
+        "vignette": [
+          427,
+          300,
+          "normal"
+        ]
+      },
+      "config": {
+        "bloom": 1,
+        "bloomScale": 6,
+        "bloomEvery": 3,
+        "vignette": 0.34,
+        "grain": 0.016,
+        "grade": 1,
+        "overlayDiv": 3
+      }
+    },
+    "perf": {},
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 5.82,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    }
+  },
+  "fps": [
+    36,
+    36,
+    39
+  ],
+  "errs": [],
+  "c404": [
+    "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+    "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+  ]
+}

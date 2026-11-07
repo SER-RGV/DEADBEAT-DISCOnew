@@ -1,0 +1,170 @@
+{
+  "tanda": "07",
+  "fase": "0",
+  "titulo": "El umbral del infierno",
+  "generado": "2026-11-04",
+  "html": "DEADBEAT_DISCO.ART.html",
+  "rama": "arena/109fe45c-deadbeat-disconew",
+  "head": "28ee7db0276ba6197b9553346fc131b36b83f0c5",
+  "clasificaciones": [
+    "APROBADO",
+    "FALLIDO",
+    "BLOQUEADO",
+    "NO_VERIFICADO"
+  ],
+  "resumen": {
+    "APROBADO": 16,
+    "NO_VERIFICADO": 6,
+    "BLOQUEADO": 1
+  },
+  "errores_criticos": 0,
+  "permite_fase_1": true,
+  "filas": [
+    {
+      "id": "F0-01",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Rama, HEAD, worktree, PR #1 abierto sin merge, main intacta",
+      "evidencia": "preflight / gh pr view 1"
+    },
+    {
+      "id": "F0-02",
+      "clasificacion": "APROBADO",
+      "comprobacion": "TANDAS 01-06 presentes y no modificadas",
+      "evidencia": "preflight, git status"
+    },
+    {
+      "id": "F0-03",
+      "clasificacion": "APROBADO",
+      "comprobacion": "HTML activo, 162 claves V5, 27 canvas, art_pack.js aplicado",
+      "evidencia": "audit_runtime.json"
+    },
+    {
+      "id": "F0-04",
+      "clasificacion": "APROBADO",
+      "comprobacion": "0 pageerror; 2 404 externos cdn-cgi preexistentes",
+      "evidencia": "audit_input.json, audit_deep.json"
+    },
+    {
+      "id": "F0-05",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Boot real portada -> HUB, 6 zonas / 11 estaciones",
+      "evidencia": "audit_runtime.json, audit_deep.json"
+    },
+    {
+      "id": "F0-06",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Camara .9375 sin rotacion/cizalla, viewW/H, Y-sort, escala uniforme",
+      "evidencia": "camera_audit.json T06, audit_geo.json"
+    },
+    {
+      "id": "F0-07",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Limites de camara y movimiento con teclado WASD",
+      "evidencia": "audit_move.json"
+    },
+    {
+      "id": "F0-08",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Octogono, cache de suelo 1920x1320 y clip Ls(g) restaurado",
+      "evidencia": "DEADBEAT_DISCO.ART.html L7499/L9395/L9530"
+    },
+    {
+      "id": "F0-09",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Sistemas de grieta, hubDecor, ambientDancers, pAnim, hooks Tf/Qf/Wf/Ph/zf",
+      "evidencia": "inspeccion de codigo"
+    },
+    {
+      "id": "F0-10",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Intro real: 12 planos, skip, eventos musicales y 5 capturas",
+      "evidencia": "audit_intro_*.jpg, audit_systems.json"
+    },
+    {
+      "id": "F0-11",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Descenso real completo, llegada al Circulo I y control recuperado",
+      "evidencia": "audit_systems.json, audit_descenso_*.jpg"
+    },
+    {
+      "id": "F0-12",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Audio: unico sequencer, HUB/DESCENT/EXPLORATION, ctx running, 0 errores",
+      "evidencia": "audit_input.json, audit_systems.json"
+    },
+    {
+      "id": "F0-13",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Mando Xbox sintetico: conexion, deadzone, conmutacion, telemetria",
+      "evidencia": "audit_input.json"
+    },
+    {
+      "id": "F0-14",
+      "clasificacion": "APROBADO",
+      "comprobacion": "DMO_ATMOS y FPS base headless 36/36/39 tras calentar",
+      "evidencia": "audit_input.json, audit_geo.json"
+    },
+    {
+      "id": "F0-15",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Capturas de grieta sur y modal de seleccion de circulo",
+      "evidencia": "audit_02_grieta_sur.png, audit_03_selector_descenso.png"
+    },
+    {
+      "id": "F0-16",
+      "clasificacion": "APROBADO",
+      "comprobacion": "Sin assets generados ni sistemas modificados",
+      "evidencia": "git status --short"
+    },
+    {
+      "id": "F0-17",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Animaciones NPC reproducidas frame a frame, variacion y desincronizacion",
+      "evidencia": "Fase 3/5",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-18",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Reaccion al jugador, recorridos y actividades reconocibles",
+      "evidencia": "Fase 3/5",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-19",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Llegada breve y repetible",
+      "evidencia": "Fase 2/5",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-20",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Continuidad visual HUB -> zona inferior con particulas/luces/profundidad",
+      "evidencia": "Fase 4/5",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-21",
+      "clasificacion": "BLOQUEADO",
+      "comprobacion": "Mando Xbox fisico, salida de audio audible, video",
+      "evidencia": "entorno headless sin dispositivo; video diferido",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-22",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Regresion formal QA T01-06 reejecutada y rendimiento con assets T07",
+      "evidencia": "Fase 5",
+      "diferido_a": "Fase 5"
+    },
+    {
+      "id": "F0-23",
+      "clasificacion": "NO_VERIFICADO",
+      "comprobacion": "Circulos II-IX / Nucleo y returnToHubFromMilestone completo",
+      "evidencia": "Fase 5",
+      "diferido_a": "Fase 5"
+    }
+  ],
+  "nota_trazabilidad": "Primera ejecucion del arnes descartada (MENU, dungeonAudit ok=false); repeticion con boot completo: ok=true, 0 errores; capturas *_x.jpg eliminadas"
+}

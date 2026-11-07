@@ -1,0 +1,2421 @@
+{
+  "generatedAt": "2026-11-04T02:20:08.055Z",
+  "introShots": [
+    {
+      "file": "audit_intro_1_1_1_portada.jpg",
+      "shot": "1.1_portada",
+      "t": 1.43,
+      "active": true
+    },
+    {
+      "file": "audit_intro_2_1_2_pista.jpg",
+      "shot": "1.2_pista",
+      "t": 5.78,
+      "active": true
+    },
+    {
+      "file": "audit_intro_3_1_3_barra.jpg",
+      "shot": "1.3_barra",
+      "t": 10.42,
+      "active": true
+    },
+    {
+      "file": "audit_intro_4_2_2_llamada.jpg",
+      "shot": "2.2_llamada",
+      "t": 16.35,
+      "active": true
+    },
+    {
+      "file": "audit_intro_5_2_3_tarjeta.jpg",
+      "shot": "2.3_tarjeta",
+      "t": 23.53,
+      "active": true
+    }
+  ],
+  "systems": {
+    "layoutReport": {
+      "valid": false,
+      "violations": [
+        "pegado a la barandilla: hub_dj_booth (55px)",
+        "objetos demasiado juntos (cuello): hub_dj_booth + hub_dj_speaker_L",
+        "objetos demasiado juntos (cuello): hub_dj_booth + hub_dj_speaker_R",
+        "pasos demasiado estrechos junto a decoración (8 puntos)",
+        "isla con menos de 3 aproximaciones (2 · hub_dj_booth)",
+        "isla con menos de 3 aproximaciones (1 · hub_dj_speaker_L)",
+        "isla con menos de 3 aproximaciones (1 · hub_dj_speaker_R)"
+      ],
+      "metrics": {
+        "propCount": 11,
+        "islands": 11,
+        "pockets": 0,
+        "refuges": 0,
+        "tight": 8,
+        "freeRatio": 0.9265664160401003,
+        "startClear": true,
+        "ringOk": false,
+        "gapOk": false,
+        "marginsOk": false,
+        "beltFree": 1,
+        "startClearance": 354.74825350519063,
+        "rejected": [],
+        "tightPoints": [
+          {
+            "x": 1094,
+            "y": 421,
+            "w": 50
+          },
+          {
+            "x": 1118,
+            "y": 421,
+            "w": 46
+          },
+          {
+            "x": 1382,
+            "y": 421,
+            "w": 46
+          },
+          {
+            "x": 1406,
+            "y": 421,
+            "w": 50
+          },
+          {
+            "x": 1118,
+            "y": 445,
+            "w": 40
+          },
+          {
+            "x": 1382,
+            "y": 445,
+            "w": 40
+          },
+          {
+            "x": 1118,
+            "y": 469,
+            "w": 42
+          },
+          {
+            "x": 1382,
+            "y": 469,
+            "w": 42
+          }
+        ],
+        "accessOk": true
+      },
+      "remix": "ZIGZAG TÁCTICO",
+      "generated": 3,
+      "jittered": 4,
+      "seed": 291465220,
+      "propCount": 11,
+      "floorProps": 11,
+      "venueProps": 41,
+      "islands": 11,
+      "freeRatio": 0.9265664160401003,
+      "blockedRatio": 0.07343358395989974,
+      "propList": [
+        {
+          "name": "hub_dj_booth",
+          "x": 1250,
+          "y": 445,
+          "br": 125.2517464948094,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_dj_speaker_L",
+          "x": 1064,
+          "y": 455,
+          "br": 30,
+          "kind": "circle",
+          "tall": true
+        },
+        {
+          "name": "hub_dj_speaker_R",
+          "x": 1436,
+          "y": 455,
+          "br": 30,
+          "kind": "circle",
+          "tall": true
+        },
+        {
+          "name": "hub_arsenal_counter",
+          "x": 590,
+          "y": 845,
+          "br": 101.55294185792945,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_bar_counter",
+          "x": 1910,
+          "y": 845,
+          "br": 107.01868995647442,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_vip_sofa_nw",
+          "x": 785,
+          "y": 545,
+          "br": 75.64390259630977,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_vip_sofa_ne",
+          "x": 1715,
+          "y": 545,
+          "br": 75.64390259630977,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_arcade_bank",
+          "x": 655,
+          "y": 1210,
+          "br": 90.37698822156003,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_seals_mirror",
+          "x": 1845,
+          "y": 1210,
+          "br": 75.17978451685,
+          "kind": "rect",
+          "tall": true
+        },
+        {
+          "name": "hub_lift_pylon_L",
+          "x": 1126,
+          "y": 1365,
+          "br": 18,
+          "kind": "circle",
+          "tall": true
+        },
+        {
+          "name": "hub_lift_pylon_R",
+          "x": 1374,
+          "y": 1365,
+          "br": 18,
+          "kind": "circle",
+          "tall": true
+        }
+      ]
+    },
+    "layoutProps": [
+      {
+        "name": "hub_dj_booth",
+        "x": 1250,
+        "y": 445,
+        "br": 125.2517464948094,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_dj_speaker_L",
+        "x": 1064,
+        "y": 455,
+        "br": 30,
+        "kind": "circle",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_dj_speaker_R",
+        "x": 1436,
+        "y": 455,
+        "br": 30,
+        "kind": "circle",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_arsenal_counter",
+        "x": 590,
+        "y": 845,
+        "br": 101.55294185792945,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_bar_counter",
+        "x": 1910,
+        "y": 845,
+        "br": 107.01868995647442,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_vip_sofa_nw",
+        "x": 785,
+        "y": 545,
+        "br": 75.64390259630977,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_vip_sofa_ne",
+        "x": 1715,
+        "y": 545,
+        "br": 75.64390259630977,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_arcade_bank",
+        "x": 655,
+        "y": 1210,
+        "br": 90.37698822156003,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_seals_mirror",
+        "x": 1845,
+        "y": 1210,
+        "br": 75.17978451685,
+        "kind": "rect",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_lift_pylon_L",
+        "x": 1126,
+        "y": 1365,
+        "br": 18,
+        "kind": "circle",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_lift_pylon_R",
+        "x": 1374,
+        "y": 1365,
+        "br": 18,
+        "kind": "circle",
+        "tall": true,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_planter_nw",
+        "x": 1005,
+        "y": 702,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_planter_ne",
+        "x": 1495,
+        "y": 702,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_planter_sw",
+        "x": 1005,
+        "y": 1178,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_planter_se",
+        "x": 1495,
+        "y": 1178,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_bench_w",
+        "x": 1085,
+        "y": 1252,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_bench_e",
+        "x": 1415,
+        "y": 1252,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_speaker_w",
+        "x": 985,
+        "y": 502,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_speaker_e",
+        "x": 1515,
+        "y": 502,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_cooler_w",
+        "x": 452,
+        "y": 692,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_vending_e",
+        "x": 2048,
+        "y": 692,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_planter_v02",
+        "x": 452,
+        "y": 900,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_bench_v02",
+        "x": 2048,
+        "y": 900,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_vip_lounge",
+        "x": 785,
+        "y": 760,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_01",
+        "x": 455,
+        "y": 1310,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_02",
+        "x": 2040,
+        "y": 1160,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_03",
+        "x": 905,
+        "y": 430,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_04",
+        "x": 1560,
+        "y": 360,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_05",
+        "x": 1560,
+        "y": 520,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_06",
+        "x": 1910,
+        "y": 640,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_07",
+        "x": 600,
+        "y": 760,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_08",
+        "x": 1250,
+        "y": 720,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_09",
+        "x": 930,
+        "y": 560,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t05_10",
+        "x": 1715,
+        "y": 700,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_01",
+        "x": 681,
+        "y": 330,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_02",
+        "x": 1114,
+        "y": 330,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_03",
+        "x": 1611,
+        "y": 330,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_04",
+        "x": 600,
+        "y": 330,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_05",
+        "x": 1900,
+        "y": 330,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      },
+      {
+        "name": "hub_decor_t06_06",
+        "x": 330,
+        "y": 1160,
+        "br": 10,
+        "kind": "circle",
+        "tall": false,
+        "onFloor": true
+      }
+    ],
+    "layoutMetrics": {
+      "propCount": 11,
+      "islands": 11,
+      "pockets": 0,
+      "refuges": 0,
+      "tight": 8,
+      "freeRatio": 0.9265664160401003,
+      "startClear": true,
+      "ringOk": false,
+      "gapOk": false,
+      "marginsOk": false,
+      "beltFree": 1,
+      "startClearance": 354.74825350519063,
+      "rejected": [],
+      "tightPoints": [
+        {
+          "x": 1094,
+          "y": 421,
+          "w": 50
+        },
+        {
+          "x": 1118,
+          "y": 421,
+          "w": 46
+        },
+        {
+          "x": 1382,
+          "y": 421,
+          "w": 46
+        },
+        {
+          "x": 1406,
+          "y": 421,
+          "w": 50
+        },
+        {
+          "x": 1118,
+          "y": 445,
+          "w": 40
+        },
+        {
+          "x": 1382,
+          "y": 445,
+          "w": 40
+        },
+        {
+          "x": 1118,
+          "y": 469,
+          "w": 42
+        },
+        {
+          "x": 1382,
+          "y": 469,
+          "w": 42
+        }
+      ],
+      "accessOk": true
+    },
+    "gamepad": {
+      "supported": true,
+      "connected": false,
+      "index": null,
+      "name": "",
+      "active": "keyboard",
+      "move": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "aim": {
+        "x": 0,
+        "y": 0,
+        "active": false
+      },
+      "fire": false,
+      "config": {
+        "moveDeadzone": 0.18,
+        "aimDeadzone": 0.22,
+        "triggerThreshold": 0.35
+      },
+      "menu": {
+        "id": null,
+        "index": 0,
+        "count": 0,
+        "selected": null
+      }
+    },
+    "gamepadTelemetry": {
+      "active": "keyboard",
+      "events": [],
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "run": {
+        "active": "keyboard",
+        "connections": 0,
+        "disconnections": 0,
+        "bomb": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "boost": {
+          "attempts": 0,
+          "activated": 0,
+          "rejected": {}
+        },
+        "events": []
+      }
+    },
+    "playerAnim": {
+      "state": "idle",
+      "prevState": "aim",
+      "stateTime": 19.349,
+      "priority": 10,
+      "upperPose": "player_idle",
+      "lowerPose": "player_idle",
+      "waistSplitActive": false,
+      "walkFrame": 0,
+      "walkingBackward": false,
+      "speed": 0,
+      "bobY": 0.32,
+      "turnLean": 0,
+      "meleeT": 0,
+      "switchT": 0,
+      "reloadT": 0,
+      "chargeT": 0,
+      "transitions": [
+        {
+          "t": 0.1,
+          "from": "idle",
+          "to": "aim",
+          "reason": "engine"
+        },
+        {
+          "t": 0.45,
+          "from": "aim",
+          "to": "idle",
+          "reason": "engine"
+        },
+        {
+          "t": 3.2,
+          "from": "idle",
+          "to": "aim",
+          "reason": "engine"
+        },
+        {
+          "t": 7.8,
+          "from": "aim",
+          "to": "idle",
+          "reason": "engine"
+        }
+      ]
+    },
+    "semi2d": {
+      "top": 455,
+      "bottom": 1415,
+      "s300": 0.8042808219178083,
+      "s1500": 1.1741438356164384,
+      "debug": false
+    },
+    "roomGeometry": {
+      "version": "2.72.0",
+      "profiles": 17,
+      "rooms": 100,
+      "concaveRooms": 15,
+      "uniquePhysicalGeometries": 91,
+      "valid": true,
+      "layouts": [
+        {
+          "level": 1,
+          "id": "trapezoid",
+          "label": "TRAPECIO DE EMBUDO",
+          "width": 1600,
+          "height": 1060,
+          "vertices": 4,
+          "areaRatio": 0.8256,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 2,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1600,
+          "height": 1220,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 3,
+          "id": "tall-octagon",
+          "label": "OCTÓGONO VERTICAL",
+          "width": 1180,
+          "height": 1200,
+          "vertices": 10,
+          "areaRatio": 0.8096,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 4,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1560,
+          "height": 1200,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 5,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1500,
+          "height": 1120,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 6,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 7,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1600,
+          "height": 1180,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 8,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1440,
+          "height": 1080,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 9,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1040,
+          "height": 800,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 10,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1420,
+          "height": 1440,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 11,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1560,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 12,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1600,
+          "height": 1200,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 13,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1220,
+          "height": 1220,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 14,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1620,
+          "height": 1340,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 15,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1220,
+          "height": 1060,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 16,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1860,
+          "height": 940,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 17,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1520,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 18,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1400,
+          "height": 1020,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 19,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1120,
+          "height": 780,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 20,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1340,
+          "height": 1460,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 21,
+          "id": "tall-octagon",
+          "label": "OCTÓGONO VERTICAL",
+          "width": 960,
+          "height": 1180,
+          "vertices": 10,
+          "areaRatio": 0.8096,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 22,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 23,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1600,
+          "height": 1240,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 24,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1560,
+          "height": 1420,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 25,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1560,
+          "height": 1100,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 26,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1560,
+          "height": 1000,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 27,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1560,
+          "height": 1220,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 28,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1620,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 29,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1140,
+          "height": 780,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 30,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1160,
+          "height": 1480,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 31,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 960,
+          "height": 1120,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 32,
+          "id": "wide",
+          "label": "RECTÁNGULO PANORÁMICO",
+          "width": 1620,
+          "height": 780,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 33,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 34,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1600,
+          "height": 1200,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 35,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1620,
+          "height": 1060,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 36,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1900,
+          "height": 1100,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 37,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1540,
+          "height": 1040,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 38,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1380,
+          "height": 940,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 39,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1740,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 40,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1320,
+          "height": 1340,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 41,
+          "id": "tall-octagon",
+          "label": "OCTÓGONO VERTICAL",
+          "width": 1040,
+          "height": 1220,
+          "vertices": 10,
+          "areaRatio": 0.8096,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 42,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1480,
+          "height": 960,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 43,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1680,
+          "height": 1200,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 44,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 45,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1600,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 46,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1760,
+          "height": 1060,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 47,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1700,
+          "height": 1200,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 48,
+          "id": "diamond",
+          "label": "DIAMANTE DE FLANCOS",
+          "width": 1560,
+          "height": 1100,
+          "vertices": 4,
+          "areaRatio": 0.4704,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 49,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1020,
+          "height": 800,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 50,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1540,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 51,
+          "id": "beveled-tall",
+          "label": "SALA VERTICAL BISELADA",
+          "width": 1240,
+          "height": 1320,
+          "vertices": 8,
+          "areaRatio": 0.828,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 52,
+          "id": "wide",
+          "label": "RECTÁNGULO PANORÁMICO",
+          "width": 1680,
+          "height": 840,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 53,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1380,
+          "height": 1080,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 54,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1000,
+          "height": 1240,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 55,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1560,
+          "height": 1080,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 56,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1640,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 57,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1720,
+          "height": 1020,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 58,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1600,
+          "height": 1040,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 59,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1120,
+          "height": 740,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 60,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1200,
+          "height": 1420,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 61,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1700,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 62,
+          "id": "wide",
+          "label": "RECTÁNGULO PANORÁMICO",
+          "width": 1520,
+          "height": 860,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 63,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1400,
+          "height": 1080,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 64,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1120,
+          "height": 1180,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 65,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1620,
+          "height": 1400,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 66,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1560,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 67,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1600,
+          "height": 1120,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 68,
+          "id": "pentagon",
+          "label": "PENTÁGONO DE PRESIÓN",
+          "width": 1540,
+          "height": 1000,
+          "vertices": 5,
+          "areaRatio": 0.6468,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 69,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 980,
+          "height": 840,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 70,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1500,
+          "height": 1380,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 71,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1180,
+          "height": 1260,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 72,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1800,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 73,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1440,
+          "height": 1280,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 74,
+          "id": "tower",
+          "label": "RECTÁNGULO VERTICAL",
+          "width": 1100,
+          "height": 1300,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 75,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1640,
+          "height": 1160,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 76,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1320,
+          "height": 1000,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 77,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 78,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1600,
+          "height": 940,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 79,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1120,
+          "height": 780,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 80,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1180,
+          "height": 1220,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 81,
+          "id": "beveled-tall",
+          "label": "SALA VERTICAL BISELADA",
+          "width": 1040,
+          "height": 1220,
+          "vertices": 8,
+          "areaRatio": 0.828,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 82,
+          "id": "wide",
+          "label": "RECTÁNGULO PANORÁMICO",
+          "width": 1660,
+          "height": 800,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 83,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1520,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 84,
+          "id": "tall-octagon",
+          "label": "OCTÓGONO VERTICAL",
+          "width": 960,
+          "height": 1320,
+          "vertices": 10,
+          "areaRatio": 0.8096,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 85,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1680,
+          "height": 1400,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 86,
+          "id": "diamond",
+          "label": "DIAMANTE DE FLANCOS",
+          "width": 1500,
+          "height": 980,
+          "vertices": 4,
+          "areaRatio": 0.4704,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 87,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1660,
+          "height": 1140,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 88,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 89,
+          "id": "compact",
+          "label": "RECTÁNGULO COMPACTO",
+          "width": 1600,
+          "height": 820,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 90,
+          "id": "pent-shaft",
+          "label": "ATRIO + NAVE VERTICAL",
+          "width": 1440,
+          "height": 1480,
+          "vertices": 5,
+          "areaRatio": 0.6156,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 91,
+          "id": "tall-octagon",
+          "label": "OCTÓGONO VERTICAL",
+          "width": 1000,
+          "height": 1320,
+          "vertices": 10,
+          "areaRatio": 0.8096,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 92,
+          "id": "wide",
+          "label": "RECTÁNGULO PANORÁMICO",
+          "width": 1500,
+          "height": 740,
+          "vertices": 4,
+          "areaRatio": 0.9024,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 93,
+          "id": "l-wing",
+          "label": "ALA EN L · DOS NAVES",
+          "width": 1760,
+          "height": 1140,
+          "vertices": 6,
+          "areaRatio": 0.6557,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 94,
+          "id": "wide-hex",
+          "label": "HEXÁGONO HORIZONTAL",
+          "width": 1640,
+          "height": 1040,
+          "vertices": 6,
+          "areaRatio": 0.768,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 95,
+          "id": "t-gallery",
+          "label": "GALERÍA EN T · CRUCERO",
+          "width": 1740,
+          "height": 1140,
+          "vertices": 8,
+          "areaRatio": 0.5596,
+          "convex": false,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 96,
+          "id": "diamond",
+          "label": "DIAMANTE DE FLANCOS",
+          "width": 1460,
+          "height": 1040,
+          "vertices": 4,
+          "areaRatio": 0.4704,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 97,
+          "id": "oct-rect",
+          "label": "NAVE + CÁMARA OCTOGONAL",
+          "width": 1660,
+          "height": 940,
+          "vertices": 8,
+          "areaRatio": 0.7398,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 98,
+          "id": "diamond-rect",
+          "label": "PRISMA + CABECERA",
+          "width": 1580,
+          "height": 1020,
+          "vertices": 5,
+          "areaRatio": 0.6542,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 99,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1480,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        },
+        {
+          "level": 100,
+          "id": "octagon",
+          "label": "OCTÓGONO TÁCTICO",
+          "width": 1600,
+          "height": 1040,
+          "vertices": 8,
+          "areaRatio": 0.8992,
+          "convex": true,
+          "inBounds": true,
+          "valid": true
+        }
+      ]
+    },
+    "musicEvents": [
+      {
+        "t": 0,
+        "kind": "key",
+        "detail": "intro_party @126 (inmediato)"
+      },
+      {
+        "t": 0,
+        "kind": "cine",
+        "detail": "begin (fiesta: intro_party 126)"
+      },
+      {
+        "t": 0,
+        "kind": "cine",
+        "detail": "sting:esclusa"
+      },
+      {
+        "t": 0.05,
+        "kind": "graph",
+        "detail": "lowpass+transition gain insertado tras Xl.music"
+      },
+      {
+        "t": 0.05,
+        "kind": "state",
+        "detail": "MENU → HUB"
+      },
+      {
+        "t": 8.03,
+        "kind": "cine",
+        "detail": "sting:paper"
+      },
+      {
+        "t": 10.83,
+        "kind": "cine",
+        "detail": "sting:esclusa"
+      },
+      {
+        "t": 13.85,
+        "kind": "cine",
+        "detail": "sting:crack"
+      },
+      {
+        "t": 15.66,
+        "kind": "cine",
+        "detail": "sting:call"
+      },
+      {
+        "t": 18.7,
+        "kind": "cine",
+        "detail": "sting:paper"
+      },
+      {
+        "t": 24.13,
+        "kind": "cine",
+        "detail": "sting:write"
+      },
+      {
+        "t": 24.23,
+        "kind": "key",
+        "detail": "hub_afterparty @114 (inmediato)"
+      },
+      {
+        "t": 24.23,
+        "kind": "cine",
+        "detail": "end"
+      }
+    ],
+    "descentFusion": {
+      "version": "2.80.0",
+      "mode": "idle",
+      "transitionId": 0,
+      "progress": 0,
+      "sourceFloor": null,
+      "target": null,
+      "commits": 0,
+      "cancellations": 0,
+      "lastCancel": "",
+      "current": {
+        "level": 1,
+        "circleIndex": 0,
+        "circleId": "limbo",
+        "circleName": "LIMBO",
+        "circleLabel": "CÍRCULO I · LIMBO",
+        "isCircle": true,
+        "campaignRole": "circle",
+        "isNucleo": false,
+        "isShop": false,
+        "roomName": "VESTÍBULO DE TURNOS",
+        "subtype": "entry",
+        "shape": {
+          "id": "hub_afterparty",
+          "label": "THE LAST AFTERPARTY",
+          "width": 1920,
+          "height": 1320
+        },
+        "architecture": {
+          "family": "queue-terminal",
+          "silhouette": "Vestíbulo largo: ventanillas al norte, asientos numerados, taquillas y un eje de cola legible.",
+          "roomLayout": "norte",
+          "wall": "ventanillaTurnos",
+          "door": "torno",
+          "unit": "counter",
+          "special": null,
+          "description": "Mostrador de turnos bajo panel numerado: se entra por ventanilla, no por la pista"
+        },
+        "materials": [
+          "linoleo"
+        ],
+        "rule": {
+          "id": "limbo.turnstile",
+          "kind": "zone",
+          "type": "slow",
+          "title": "FILA LENTA",
+          "cue": "VENTANILLA · ZONA LENTA",
+          "legend": "Anillo azul: reduce tu velocidad y la de los enemigos. Rodéalo o cruza con tiempo."
+        },
+        "environmentalRule": "limbo.turnstile",
+        "resident": null,
+        "motif": "asientos",
+        "lightRig": "strips",
+        "sign": "SALA DE ESPERA",
+        "liftStyle": "ticket",
+        "music": {
+          "key": "limbo",
+          "bpm": 118,
+          "style": "electrónica ambiental · breaks apagados y ecos",
+          "profileKey": "limbo",
+          "profileAvailable": true,
+          "harmonyAvailable": true,
+          "leitmotiv": true
+        }
+      },
+      "rule": {
+        "id": "limbo.turnstile",
+        "title": "FILA LENTA",
+        "status": "skipped-hub",
+        "timeInRoom": 26.85,
+        "attempts": 0,
+        "waits": 0,
+        "lastEvent": "",
+        "pending": null,
+        "zones": [],
+        "gaps": 0,
+        "temps": 0
+      },
+      "activeRuleCircles": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "isFinalCoda": false,
+      "circleCount": 9
+    },
+    "descentAudit": {
+      "ok": true,
+      "version": "2.80.0",
+      "circles": 9,
+      "campaignCoda": 1,
+      "catalogRooms": 100,
+      "architectureProfiles": 100,
+      "roomMetadataMissing": 0,
+      "materialCoverage": true,
+      "rules": [
+        {
+          "id": "limbo",
+          "rule": "limbo.turnstile",
+          "kind": "zone",
+          "type": "slow"
+        },
+        {
+          "id": "lujuria",
+          "rule": "lujuria.current",
+          "kind": "zone",
+          "type": "speed"
+        },
+        {
+          "id": "gula",
+          "rule": "gula.hot-tray",
+          "kind": "zone",
+          "type": "fire"
+        },
+        {
+          "id": "avaricia",
+          "rule": "avaricia.vault-shutter",
+          "kind": "barrier",
+          "type": null
+        },
+        {
+          "id": "ira",
+          "rule": "ira.pit-gap",
+          "kind": "gap",
+          "type": null
+        },
+        {
+          "id": "herejia",
+          "rule": "herejia.altar-pulse",
+          "kind": "zone",
+          "type": "elec"
+        },
+        {
+          "id": "violencia",
+          "rule": "violencia.pressure-ring",
+          "kind": "zone",
+          "type": "pressure"
+        },
+        {
+          "id": "fraude",
+          "rule": "fraude.mirror-refuge",
+          "kind": "zone",
+          "type": "safe"
+        },
+        {
+          "id": "traicion",
+          "rule": "traicion.black-ice",
+          "kind": "zone",
+          "type": "slow"
+        }
+      ],
+      "ruleKinds": [
+        "zone:slow",
+        "zone:speed",
+        "zone:fire",
+        "barrier",
+        "gap",
+        "zone:elec",
+        "zone:pressure",
+        "zone:safe"
+      ],
+      "activeRuleCircles": [
+        "limbo",
+        "lujuria",
+        "gula",
+        "avaricia",
+        "ira",
+        "herejia",
+        "violencia",
+        "fraude",
+        "traicion"
+      ],
+      "nucleus": {
+        "id": "nucleo",
+        "isCircle": false,
+        "campaignRole": "campaign-coda",
+        "rule": "nucleo.final-boss"
+      },
+      "geometry": {
+        "valid": true,
+        "rooms": 100,
+        "uniquePhysicalGeometries": 91,
+        "profiles": 17,
+        "concaveRooms": 15
+      },
+      "deterministicSamples": [
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "skinLegibility": true,
+      "externalNetworkDependencies": 0
+    },
+    "dungeonAudit": {
+      "ok": true,
+      "errors": [],
+      "rooms": 12,
+      "bossDistance": 5
+    },
+    "hubZones": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "cineState": {
+      "active": false,
+      "id": "intro_turno_001",
+      "t": 24.26,
+      "shot": null,
+      "shotIdx": 6,
+      "shotT": 0.12,
+      "skipHold": 0.62,
+      "plays": 1,
+      "skips": 1,
+      "completes": 0,
+      "lastReason": "skip",
+      "replay": false,
+      "subtitle": null,
+      "log": [
+        {
+          "t": 0,
+          "k": "play",
+          "d": "intro_turno_001"
+        },
+        {
+          "t": 0,
+          "k": "shot",
+          "d": "1.1_portada"
+        },
+        {
+          "t": 2.82,
+          "k": "shot",
+          "d": "1.2_pista"
+        },
+        {
+          "t": 7.43,
+          "k": "shot",
+          "d": "1.3_barra"
+        },
+        {
+          "t": 10.87,
+          "k": "shot",
+          "d": "2.1_averia"
+        },
+        {
+          "t": 15.71,
+          "k": "shot",
+          "d": "2.2_llamada"
+        },
+        {
+          "t": 18.73,
+          "k": "shot",
+          "d": "2.3_tarjeta"
+        },
+        {
+          "t": 24.15,
+          "k": "shot",
+          "d": "2.4_firma"
+        },
+        {
+          "t": 24.26,
+          "k": "end",
+          "d": "skip"
+        }
+      ],
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      }
+    },
+    "reduced": null,
+    "muted": null
+  },
+  "started": true,
+  "descent": [
+    {
+      "file": "audit_descenso_1.jpg",
+      "phase": "plunge",
+      "stage": "approach",
+      "active": true,
+      "stairP": 0,
+      "particles": 0,
+      "zoom": 1.031,
+      "location": "TRANSITION",
+      "transitionLock": true,
+      "music": "DESCENT",
+      "musicDescent": {
+        "id": 1,
+        "from": "hub_afterparty",
+        "to": 0,
+        "toHub": false,
+        "direction": "down",
+        "keySwitched": false,
+        "windStarted": false,
+        "revealed": false,
+        "landed": false
+      }
+    },
+    {
+      "file": "audit_descenso_2.jpg",
+      "phase": "plunge",
+      "stage": "descent",
+      "active": true,
+      "stairP": 0.2,
+      "particles": 0,
+      "zoom": 1.013,
+      "location": "TRANSITION",
+      "transitionLock": true,
+      "music": "DESCENT",
+      "musicDescent": {
+        "id": 1,
+        "from": "hub_afterparty",
+        "to": 0,
+        "toHub": false,
+        "direction": "down",
+        "keySwitched": false,
+        "windStarted": false,
+        "revealed": false,
+        "landed": false
+      }
+    },
+    {
+      "file": "audit_descenso_3.jpg",
+      "phase": "plunge",
+      "stage": "descent",
+      "active": true,
+      "stairP": 0.63,
+      "particles": 0,
+      "zoom": 0.972,
+      "location": "TRANSITION",
+      "transitionLock": true,
+      "music": "DESCENT",
+      "musicDescent": {
+        "id": 1,
+        "from": "hub_afterparty",
+        "to": 0,
+        "toHub": false,
+        "direction": "down",
+        "keySwitched": true,
+        "windStarted": false,
+        "revealed": false,
+        "landed": false
+      }
+    },
+    {
+      "file": "audit_descenso_4.jpg",
+      "phase": "skyfall",
+      "stage": "arrival",
+      "active": true,
+      "stairP": 0,
+      "particles": 0,
+      "zoom": 1.013,
+      "location": "CAMPAIGN_ROOM",
+      "transitionLock": true,
+      "music": "DESCENT",
+      "musicDescent": {
+        "id": 1,
+        "from": "hub_afterparty",
+        "to": 0,
+        "toHub": false,
+        "direction": "down",
+        "keySwitched": true,
+        "windStarted": false,
+        "revealed": true,
+        "landed": false
+      }
+    },
+    {
+      "file": "audit_descenso_5.jpg",
+      "phase": "idle",
+      "stage": "idle",
+      "active": false,
+      "stairP": 0,
+      "particles": 0,
+      "zoom": 0.938,
+      "location": "CAMPAIGN_ROOM",
+      "transitionLock": false,
+      "music": "EXPLORATION",
+      "musicDescent": null
+    },
+    {
+      "file": "audit_descenso_6.jpg",
+      "phase": "idle",
+      "stage": "idle",
+      "active": false,
+      "stairP": 0,
+      "particles": 0,
+      "zoom": 0.938,
+      "location": "CAMPAIGN_ROOM",
+      "transitionLock": false,
+      "music": "EXPLORATION",
+      "musicDescent": null
+    }
+  ]
+}

@@ -1,0 +1,914 @@
+{
+  "generatedAt": "2026-11-04T02:16:02.111Z",
+  "intro": {
+    "cineState": {
+      "active": false,
+      "id": "",
+      "t": 0,
+      "shot": null,
+      "shotIdx": -1,
+      "shotT": 0,
+      "skipHold": 0,
+      "plays": 0,
+      "skips": 0,
+      "completes": 0,
+      "lastReason": "",
+      "replay": false,
+      "subtitle": null,
+      "log": [],
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      }
+    },
+    "shotList": [
+      {
+        "id": "1.1_portada",
+        "dur": 2.8
+      },
+      {
+        "id": "1.2_pista",
+        "dur": 4.6
+      },
+      {
+        "id": "1.3_barra",
+        "dur": 3.4
+      },
+      {
+        "id": "2.1_averia",
+        "dur": 4.8
+      },
+      {
+        "id": "2.2_llamada",
+        "dur": 3
+      },
+      {
+        "id": "2.3_tarjeta",
+        "dur": 5.4
+      },
+      {
+        "id": "2.4_firma",
+        "dur": 2.4
+      },
+      {
+        "id": "3.1_reaccion",
+        "dur": 3.2
+      },
+      {
+        "id": "3.2_grietas",
+        "dur": 3.2
+      },
+      {
+        "id": "3.3_acerca",
+        "dur": 3.6
+      },
+      {
+        "id": "4_caida",
+        "dur": null
+      },
+      {
+        "id": "5_llegada",
+        "dur": 2.4
+      }
+    ],
+    "scenes": [
+      "intro_turno_001"
+    ],
+    "storyNpcs": [
+      "virgilio",
+      "caronte",
+      "mudo",
+      "cliente000",
+      "arcade"
+    ],
+    "storyStations": [],
+    "storyFlags": {},
+    "introSeen": false,
+    "musicCineState": {
+      "cine": false,
+      "party": false,
+      "destHub": false,
+      "events": 0
+    },
+    "musicProfiles": {
+      "hub": "hub_afterparty",
+      "invasion": "hub_invasion",
+      "circles": [
+        "limbo",
+        "lujuria",
+        "gula",
+        "avaricia",
+        "ira",
+        "herejia",
+        "violencia",
+        "fraude",
+        "traicion",
+        "nucleo"
+      ],
+      "registered": [
+        "opening",
+        "dirty",
+        "human",
+        "reggaeton",
+        "tecno",
+        "frenzy",
+        "metal",
+        "closing",
+        "limbo",
+        "lujuria",
+        "gula",
+        "avaricia",
+        "ira",
+        "herejia",
+        "violencia",
+        "fraude",
+        "traicion",
+        "nucleo",
+        "void",
+        "inferno",
+        "hub_afterparty",
+        "hub_invasion",
+        "intro_party"
+      ]
+    },
+    "musicAudit": {
+      "ok": true,
+      "version": "3.8.0-music",
+      "singleSequencer": true,
+      "coverEngineIdle": true,
+      "contextState": "none",
+      "filterInserted": false,
+      "hubProfileRegistered": true,
+      "invasionProfileRegistered": true,
+      "circleProfilesIntact": true,
+      "leitmotivIntact": true,
+      "errors": 0
+    },
+    "floorAnimState": {
+      "active": false,
+      "phase": "idle",
+      "stage": "idle",
+      "direction": "down",
+      "toHub": false,
+      "transitionKind": "",
+      "approachP": 0,
+      "stairP": 0,
+      "stepsCompleted": 0,
+      "totalSteps": 8,
+      "t": 0,
+      "fromFloor": 0,
+      "toFloor": 1,
+      "shaftOpen": 0,
+      "plungeOffsetY": 0,
+      "airborneZ": 0,
+      "landingDipY": 0,
+      "particles": 0,
+      "stampActive": false,
+      "zoom": 0.938,
+      "dropsCompleted": 0,
+      "lastDrop": null,
+      "transitionId": 0,
+      "prepP": 0,
+      "fallP": 0,
+      "girdersPassed": 0,
+      "timelineMode": "auto",
+      "DA": 2.22,
+      "OA": 0.58,
+      "lastDrawError": null
+    },
+    "floorAnimTimelines": {
+      "cinematic": {
+        "prep": 0.62,
+        "open": 2.32,
+        "fall": 0.08,
+        "reveal": 0.58,
+        "brace": 0.12,
+        "impact": 0.38
+      },
+      "intense": {
+        "prep": 0.78,
+        "open": 2.68,
+        "fall": 0.12,
+        "reveal": 0.72,
+        "brace": 0.14,
+        "impact": 0.42
+      },
+      "arcade": {
+        "prep": 0.52,
+        "open": 1.98,
+        "fall": 0.06,
+        "reveal": 0.52,
+        "brace": 0.12,
+        "impact": 0.36
+      },
+      "reduced": {
+        "prep": 0.42,
+        "open": 1.54,
+        "fall": 0.04,
+        "reveal": 0.4,
+        "brace": 0.08,
+        "impact": 0.28
+      }
+    },
+    "floorAnimProfiles": [
+      {
+        "id": "limbo",
+        "kind": "ticket",
+        "rootHz": 146.83,
+        "secondaryCol": "#94a3b8",
+        "sparkCol": "#e2e8f0"
+      },
+      {
+        "id": "lujuria",
+        "kind": "velvet",
+        "rootHz": 174.61,
+        "secondaryCol": "#f43f5e",
+        "sparkCol": "#fbcfe8"
+      },
+      {
+        "id": "gula",
+        "kind": "ember",
+        "rootHz": 155.56,
+        "secondaryCol": "#fb923c",
+        "sparkCol": "#bef264"
+      },
+      {
+        "id": "avaricia",
+        "kind": "coin",
+        "rootHz": 196,
+        "secondaryCol": "#facc15",
+        "sparkCol": "#fef9c3"
+      },
+      {
+        "id": "ira",
+        "kind": "impact",
+        "rootHz": 164.81,
+        "secondaryCol": "#f97316",
+        "sparkCol": "#fee2e2"
+      },
+      {
+        "id": "herejia",
+        "kind": "cathedral",
+        "rootHz": 185,
+        "secondaryCol": "#c084fc",
+        "sparkCol": "#f5d0fe"
+      },
+      {
+        "id": "violencia",
+        "kind": "foundry",
+        "rootHz": 138.59,
+        "secondaryCol": "#fb923c",
+        "sparkCol": "#ffffff"
+      },
+      {
+        "id": "fraude",
+        "kind": "mirror",
+        "rootHz": 207.65,
+        "secondaryCol": "#22d3ee",
+        "sparkCol": "#f472b6"
+      },
+      {
+        "id": "traicion",
+        "kind": "ice",
+        "rootHz": 130.81,
+        "secondaryCol": "#38bdf8",
+        "sparkCol": "#f0f9ff"
+      },
+      {
+        "id": "nucleo",
+        "kind": "core",
+        "rootHz": 220,
+        "secondaryCol": "#f43f5e",
+        "sparkCol": "#fef08a"
+      }
+    ],
+    "floorDrop": {
+      "active": false,
+      "phase": "idle",
+      "stage": "idle",
+      "direction": "down",
+      "toHub": false,
+      "transitionKind": "",
+      "approachP": 0,
+      "stairP": 0,
+      "stepsCompleted": 0,
+      "totalSteps": 8,
+      "t": 0,
+      "fromFloor": 0,
+      "toFloor": 1,
+      "shaftOpen": 0,
+      "plungeOffsetY": 0,
+      "airborneZ": 0,
+      "landingDipY": 0,
+      "particles": 0,
+      "stampActive": false,
+      "zoom": 0.938,
+      "dropsCompleted": 0,
+      "lastDrop": null,
+      "transitionId": 0,
+      "prepP": 0,
+      "fallP": 0,
+      "girdersPassed": 0,
+      "timelineMode": "auto",
+      "DA": 2.22,
+      "OA": 0.58,
+      "lastDrawError": null
+    },
+    "descentFusion": [
+      "version",
+      "state",
+      "profileAt",
+      "profiles",
+      "audit"
+    ],
+    "atmosAudit": {
+      "version": "9.2.0-atmos",
+      "ready": true,
+      "enabled": true,
+      "frames": 6,
+      "fps": 0,
+      "degraded": false,
+      "layers": {
+        "bloom": [
+          640,
+          450,
+          "screen"
+        ],
+        "vignette": [
+          640,
+          450,
+          "normal"
+        ]
+      },
+      "config": {
+        "bloom": 1,
+        "bloomScale": 6,
+        "bloomEvery": 2,
+        "vignette": 0.34,
+        "grain": 0.016,
+        "grade": 1,
+        "overlayDiv": 2
+      }
+    },
+    "atmosConfig": {
+      "bloom": 1,
+      "bloomScale": 6,
+      "bloomEvery": 2,
+      "vignette": 0.34,
+      "grain": 0.016,
+      "grade": 1,
+      "overlayDiv": 2,
+      "autoDegradeFps": 26
+    },
+    "infernalThemes": [
+      {
+        "id": "limbo",
+        "numeral": "I",
+        "name": "LIMBO",
+        "stageAsset": "limbo_gate_stage",
+        "bg": "#0e1525",
+        "mid": "#1e293b",
+        "hi": "#475569",
+        "neon": "#38bdf8",
+        "sec": "#94a3b8"
+      },
+      {
+        "id": "lujuria",
+        "numeral": "II",
+        "name": "LUJURIA",
+        "stageAsset": "lujuria_boudoir_stage",
+        "bg": "#1b0826",
+        "mid": "#3b0f4c",
+        "hi": "#86198f",
+        "neon": "#ff2d95",
+        "sec": "#c084fc"
+      },
+      {
+        "id": "gula",
+        "numeral": "III",
+        "name": "GULA",
+        "stageAsset": "gula_banquet_stage",
+        "bg": "#210e09",
+        "mid": "#431a0e",
+        "hi": "#9a3412",
+        "neon": "#f97316",
+        "sec": "#facc15"
+      },
+      {
+        "id": "avaricia",
+        "numeral": "IV",
+        "name": "AVARICIA",
+        "stageAsset": "avaricia_vault_stage",
+        "bg": "#171206",
+        "mid": "#36280a",
+        "hi": "#854d0e",
+        "neon": "#facc15",
+        "sec": "#fef08a"
+      },
+      {
+        "id": "ira",
+        "numeral": "V",
+        "name": "IRA",
+        "stageAsset": "ira_furnace_stage",
+        "bg": "#210709",
+        "mid": "#450a0a",
+        "hi": "#991b1b",
+        "neon": "#ef4444",
+        "sec": "#fb923c"
+      },
+      {
+        "id": "herejia",
+        "numeral": "VI",
+        "name": "HEREJÍA",
+        "stageAsset": "herejia_altar_stage",
+        "bg": "#150826",
+        "mid": "#2e1065",
+        "hi": "#6b21a8",
+        "neon": "#c084fc",
+        "sec": "#f472b6"
+      },
+      {
+        "id": "violencia",
+        "numeral": "VII",
+        "name": "VIOLENCIA",
+        "stageAsset": "violencia_biolab_stage",
+        "bg": "#091813",
+        "mid": "#132a20",
+        "hi": "#166534",
+        "neon": "#4ade80",
+        "sec": "#ef4444"
+      },
+      {
+        "id": "fraude",
+        "numeral": "VIII",
+        "name": "FRAUDE",
+        "stageAsset": "fraude_mirror_stage",
+        "bg": "#081829",
+        "mid": "#0f2942",
+        "hi": "#155e75",
+        "neon": "#22d3ee",
+        "sec": "#c084fc"
+      },
+      {
+        "id": "traicion",
+        "numeral": "IX",
+        "name": "TRAICIÓN",
+        "stageAsset": "traicion_abyss_stage",
+        "bg": "#081526",
+        "mid": "#0c2d48",
+        "hi": "#0284c7",
+        "neon": "#7dd3fc",
+        "sec": "#f43f5e"
+      },
+      {
+        "id": "nucleo",
+        "numeral": "NÚCLEO",
+        "name": "NÚCLEO FINAL",
+        "stageAsset": "nucleo_cathedral_stage",
+        "bg": "#120924",
+        "mid": "#28144a",
+        "hi": "#6d28d9",
+        "neon": "#e2e8f0",
+        "sec": "#38bdf8"
+      }
+    ],
+    "infernalAudit": {
+      "ok": true,
+      "version": "7.6.0-87-assets-complete",
+      "inHub": false,
+      "circleIndex": 0,
+      "theme": {
+        "id": "limbo",
+        "numeral": "I",
+        "name": "LIMBO",
+        "stageAsset": "limbo_gate_stage",
+        "bg": "#0e1525",
+        "mid": "#1e293b",
+        "hi": "#475569",
+        "neon": "#38bdf8",
+        "sec": "#94a3b8"
+      },
+      "referenceAssets": {
+        "floor": true,
+        "stage": true,
+        "ball": true
+      },
+      "reconstructedModularAssets": 100,
+      "v5Ready": {
+        "hub_fox_crest_emblem": true,
+        "decor_neon_rug": true,
+        "decor_neon_painting": true,
+        "decor_chrome_railing": true,
+        "decor_potted_palm": true,
+        "abyssal_portal_pad": true,
+        "allied_combat_turret": true,
+        "avaricia_floor_medallion": true,
+        "avaricia_roulette_prop": true,
+        "avaricia_slot_vault": true,
+        "avaricia_vault_stage": true,
+        "campaign_door_diag_gate": true,
+        "campaign_door_frame": true,
+        "campaign_door_leaf": true,
+        "campaign_door_side_frame": true,
+        "campaign_door_side_leaf": true,
+        "campaign_door_south_gate": true,
+        "campaign_loot_chest": true,
+        "campaign_shop_cabina": true,
+        "campaign_weapon_rack": true,
+        "club_neon_planter_prop": true,
+        "club_roadcase_crate_prop": true,
+        "club_speaker_tower_prop": true,
+        "club_vending_machine_prop": true,
+        "club_wall_sconce_side": true,
+        "club_wall_sconce_torch": true,
+        "club_water_cooler_prop": true,
+        "combat_proximity_mine": true,
+        "descent_abyssal_lift_pad": true,
+        "fraude_card_table_prop": true,
+        "fraude_floor_medallion": true,
+        "fraude_mirror_prop": true,
+        "fraude_mirror_stage": true,
+        "gula_banquet_stage": true,
+        "gula_banquet_table": true,
+        "gula_cauldron_prop": true,
+        "gula_floor_medallion": true,
+        "herejia_altar_stage": true,
+        "herejia_floor_medallion": true,
+        "herejia_pew_prop": true,
+        "herejia_reliquary_prop": true,
+        "hub_arcade_shrine": true,
+        "hub_arsenal_shrine": true,
+        "hub_bar_shrine": true,
+        "hub_cliente000_npc": true,
+        "hub_clubber_dancer_a": true,
+        "hub_clubber_dancer_b": true,
+        "hub_disco_chandelier": true,
+        "hub_dj_shrine": true,
+        "hub_abyss_stair_crack": true,
+        "hub_hell_elevator": true,
+        "hub_pista_medallion": true,
+        "hub_seals_shrine": true,
+        "hub_trophy_board_prop": true,
+        "hub_vip_booth_ne": true,
+        "hub_vip_booth_nw": true,
+        "ira_brazier_prop": true,
+        "ira_floor_medallion": true,
+        "ira_furnace_stage": true,
+        "ira_speaker_stack_prop": true,
+        "limbo_bench_prop": true,
+        "limbo_floor_medallion": true,
+        "limbo_gate_stage": true,
+        "limbo_turnstile_prop": true,
+        "lujuria_divan_prop": true,
+        "lujuria_table_prop": true,
+        "nucleo_cathedral_stage": true,
+        "nucleo_console_prop": true,
+        "nucleo_floor_mandala": true,
+        "nucleo_pillar_prop": true,
+        "objective_energy_orb": true,
+        "objective_generator_pylon": true,
+        "player_aegis_shield_aura": true,
+        "prop_bench_vertical": true,
+        "prop_table_vertical": true,
+        "route_chest_pedestal": true,
+        "route_elite_blood_altar": true,
+        "stage_abyssal_pit_trap": true,
+        "stage_sonic_barrier_prop": true,
+        "traicion_abyss_stage": true,
+        "traicion_cryopod_prop": true,
+        "traicion_floor_medallion": true,
+        "traicion_ice_spike_prop": true,
+        "violencia_biolab_stage": true,
+        "violencia_biovat_prop": true,
+        "violencia_floor_medallion": true,
+        "violencia_surgical_table_prop": true,
+        "hub_bartender_npc": true,
+        "cine_pa_horn_speaker": true,
+        "hub_bouncer_npc": true,
+        "lujuria_boudoir_stage": true,
+        "wall_avaricia_vault_door": true,
+        "wall_traicion_glacier_panel": true,
+        "wall_ira_furnace_vent": true,
+        "wall_ceiling_neon_fixture": true,
+        "wall_gula_bottle_rack": true,
+        "wall_limbo_ticket_window": true,
+        "wall_neon_club_crest": true,
+        "wall_stained_glass_arch": true,
+        "wall_violencia_specimen_vat": true
+      },
+      "placements": {
+        "floor": {
+          "asset": "limbo_floor_medallion",
+          "x": 935,
+          "y": 744,
+          "w": 630,
+          "h": 363,
+          "cx": 1250,
+          "cy": 925
+        },
+        "stage": {
+          "asset": "limbo_gate_stage",
+          "x": 980,
+          "y": 271.6,
+          "w": 540,
+          "h": 276,
+          "wallY": 539.6,
+          "edgeIndex": 0,
+          "t0": 498,
+          "t1": 1038,
+          "base0": {
+            "x": 980,
+            "y": 539.6
+          },
+          "base1": {
+            "x": 1520,
+            "y": 539.6
+          },
+          "projection": {
+            "ux": 1,
+            "uy": 0
+          }
+        },
+        "ball": null
+      },
+      "playerSkinChanged": false,
+      "collisionContract": "original"
+    },
+    "semi2d": [
+      "depthOf",
+      "scaleFor",
+      "shadowScaleFor",
+      "layerFor",
+      "isDebug",
+      "WORLD_TOP",
+      "WORLD_BOTTOM",
+      "debug",
+      "sortByDepth"
+    ],
+    "playerAnim": [
+      "state",
+      "prevState",
+      "stateTime",
+      "totalTime",
+      "stridePhase",
+      "walkFrame",
+      "walkingBackward",
+      "breathePhase",
+      "speed",
+      "prevVx",
+      "prevVy",
+      "turnLean",
+      "bobY",
+      "squashX",
+      "squashY",
+      "switchT",
+      "switchFrom",
+      "switchTo",
+      "interactT",
+      "interactKind",
+      "abilityT",
+      "abilityKind",
+      "meleeT",
+      "meleeDur",
+      "meleeSwingDir",
+      "meleeCombo",
+      "chargeT",
+      "reloadT",
+      "stunT",
+      "hurtT",
+      "deathT",
+      "victoryT",
+      "lastShotSerial",
+      "lastWeapon",
+      "upperPose",
+      "lowerPose",
+      "waistSplitActive",
+      "transitionLog",
+      "paused",
+      "forcedState",
+      "forcedAimAngle",
+      "dustParticles",
+      "transitionTo",
+      "triggerWeaponSwitch",
+      "triggerInteract",
+      "triggerAbility",
+      "triggerStun",
+      "update",
+      "forceState",
+      "step",
+      "renderNow",
+      "getStateSnapshot"
+    ],
+    "hubObj": [
+      "version",
+      "saveKey",
+      "state",
+      "saveState",
+      "reloadSave",
+      "stations",
+      "canEnterCircle",
+      "missingRequirement",
+      "canReturnToHubNow",
+      "openStation",
+      "closeModal",
+      "startCampaignFromHub",
+      "returnToHubFromMilestone",
+      "debugSpawnBeacon",
+      "audit"
+    ],
+    "location": [
+      "zone"
+    ],
+    "gameState": {
+      "round": 1,
+      "night": 1,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "bossActive": false,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1
+    },
+    "gamepad": [
+      "configure",
+      "state",
+      "telemetry",
+      "poll"
+    ],
+    "v5": [
+      {
+        "k": "abyssal_portal_pad",
+        "natural": [
+          176,
+          116
+        ]
+      },
+      {
+        "k": "descent_abyssal_lift_pad",
+        "natural": [
+          198,
+          104
+        ]
+      },
+      {
+        "k": "hub_cliente000_npc",
+        "natural": [
+          96,
+          232
+        ]
+      },
+      {
+        "k": "hub_clubber_dancer_a",
+        "natural": [
+          109,
+          232
+        ]
+      },
+      {
+        "k": "hub_clubber_dancer_b",
+        "natural": [
+          131,
+          232
+        ]
+      },
+      {
+        "k": "hub_abyss_stair_crack",
+        "natural": [
+          320,
+          175
+        ]
+      },
+      {
+        "k": "stage_abyssal_pit_trap",
+        "natural": [
+          168,
+          124
+        ]
+      },
+      {
+        "k": "traicion_abyss_stage",
+        "natural": [
+          720,
+          370
+        ]
+      },
+      {
+        "k": "hub_bartender_npc",
+        "natural": [
+          95,
+          232
+        ]
+      },
+      {
+        "k": "hub_bouncer_npc",
+        "natural": [
+          101,
+          232
+        ]
+      },
+      {
+        "k": "h03_floor_patch_s_crack",
+        "natural": [
+          760,
+          329
+        ]
+      }
+    ]
+  },
+  "lift": {
+    "station": {
+      "id": "lift",
+      "zone": "C",
+      "label": "GRIETA DE DESCENSO",
+      "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+      "x": 1250,
+      "y": 1365,
+      "radius": 142,
+      "color": "#22d3ee"
+    },
+    "canEnter": true,
+    "missing": "",
+    "camera": {
+      "x": 1250,
+      "y": 1195,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "hubState": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 5.08,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    },
+    "audit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": false
+    }
+  },
+  "modal": "true",
+  "modalState": {
+    "version": "3.5.0-hub-proto",
+    "inHub": true,
+    "location": "HUB",
+    "mode": "MENU",
+    "transitionLock": false,
+    "modalOpen": true,
+    "activeStationId": "lift",
+    "selectedCircle": 0,
+    "unlockedCircles": [
+      0
+    ],
+    "defeatedResidents": [],
+    "completedInvasions": [],
+    "visitPeaceTimer": 5.08,
+    "invasionWarning": false,
+    "invasionActive": false,
+    "extractionAvailable": false,
+    "extractionBeacon": null,
+    "storageAvailable": true,
+    "lastCorruptionRecovered": false,
+    "saveWrites": 2,
+    "transitionsCompleted": 0,
+    "transitionErrors": 0,
+    "officialUntainted": false
+  },
+  "pageErrors": []
+}

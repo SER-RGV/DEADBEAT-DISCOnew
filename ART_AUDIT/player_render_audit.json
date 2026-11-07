@@ -1,0 +1,141 @@
+{
+  "source": "DEADBEAT_DISCO.ART.html (13.381.028 B, SHA f231cfc7…723)",
+  "phase": "Tanda 03 · FASE A · auditoria del protagonista existente",
+  "date": "2026-11-03",
+  "findings": {
+    "1_como_se_dibuja": "Pipeline hibrido: atlas legacy pixel (d.version='2.83.0-pixel', rects 48x56) como fallback Yb(), y modulo v3.2 ORGANIC UPGRADE con sprites HD (__HD_DATA 'player/*.png') dibujados en Pf() mediante ensureHdImg() + PLAYER_ASSET_MAP.",
+    "2_partes_procedurales": "El atlas legacy Yb(e,clave,...) dibuja rects procedurales con tintes. El modulo organico usa waist-split (piernas de player_walk0..3 en y=53..96 + torso del upperPose en y=0..53), squashX/squashY, turnLean, bobY, deathT y afterimages de floorDrop.",
+    "3_orientacion": "ye.aimAngle continuo (81 refs). facingLeft = Math.cos(aimA) < 0 -> g.scale(-1,1). NO hay 8 orientaciones discretas: 2 espejos + rotacion continua del arma (g.rotate(aimA)).",
+    "4_cabello_torso_brazos_piernas": "En HD son bitmaps por pose completa (player_idle/walk0..3/fire/hit/roll/death/boost). ANATOMY_SPINE da spineX, waistX, footY, handDom, handSup por pose. Legacy: rects 48x56 pixel.",
+    "5_armas": "Sistema INDEPENDIENTE: it('back') y it('front') con g.translate(0,-0.55*canonH); g.rotate(aimA); drawImage del arma HD (__HD_GET / wo()). organicWeaponMetrics(wid,95) + organicHandFrame() calculan muzzleWorld desde handDom del sprite. El sprite NO debe incluir arma.",
+    "6_pivotes": "g.translate(ye.x, ye.y); scaleY = canonH/upImg.naturalHeight = 95/96; dw = naturalWidth*scaleY; dx = -ANATOMY_SPINE[pose].spineX*scaleY; dy = -canonH + footGroundY; footGroundY = 0.9*ye.r + pAnim.bobY = 12.6 + bobY. Los pies estan en y=96 nativo / footY=95.",
+    "7_skins": "ensureHdImg(key,path) lee window.__HD_DATA[path]; __HD_GET(e) comprueba window.__HD_EXTRA[e] PRIMERO y luego __HD_DATA. Es la MISMA interfaz que uso Tanda 01 para weapons/weapon_m1911.png. playerSkinChanged:false es solo un flag de audit() del modulo v7.6 (version 7.6.0-87-assets-complete), NO un gestor de skins; collisionContract:'original' declara colisiones intactas.",
+    "8_animaciones": "SI existen: STATE_PRIORITIES {death:100,dodge:90,stun:85,hurt:80,victory:75,ability:70,melee:68,charged:65,shoot:60,reload:55,weaponSwitch:50,interact:45,aim:30,run:20,walk:15,idle:10}, pAnim.upperPose/lowerPose/waistSplitActive/turnLean/squashX/squashY/bobY/deathT/forcedAimAngle, y walk frames 0..3.",
+    "9_dimensiones_en_pantalla": "canonH = 95 px de alto. Sprites HD nativos: idle 36x96, walk 54/46/55/42 x96, shoot 56x96, hurt 52x96, roll 66x96, boost 74x96, death WebP (96x29 segun draw). ye.r = 14 (radio de colision). Zoom de camara ~1.16 -> ~110 px en pantalla.",
+    "10_interfaces_de_sustitucion": "window.__HD_DATA['player/player_idle_00.png'] = ruta + window.__HD_EXTRA[clave] = Image (patron Tanda 01, applyHD). Alternativamente hdImages[key] del modulo organico. NO se necesita un segundo sistema de animacion."
+  },
+  "player_asset_map": {
+    "player_idle": "player/player_idle_00.png",
+    "player_walk0": "player/player_walk_00.png",
+    "player_walk1": "player/player_walk_01.png",
+    "player_walk2": "player/player_walk_02.png",
+    "player_walk3": "player/player_walk_03.png",
+    "player_fire": "player/player_shoot_00.png",
+    "player_fire2": "player/player_fire2.png",
+    "player_firehip": "player/player_firehip.png",
+    "player_hit": "player/player_hurt_00.png",
+    "player_roll": "player/player_roll_00.png",
+    "player_death": "player/player_death_00.png",
+    "player_boost": "player/player_boost_00.png"
+  },
+  "hd_slots_present": 10,
+  "hd_slots_missing": [
+    "player/player_fire2.png",
+    "player/player_firehip.png"
+  ],
+  "hd_native_dimensions": {
+    "player/player_boost_00.png": [
+      74,
+      96
+    ],
+    "player/player_hurt_00.png": [
+      52,
+      96
+    ],
+    "player/player_idle_00.png": [
+      36,
+      96
+    ],
+    "player/player_roll_00.png": [
+      66,
+      96
+    ],
+    "player/player_shoot_00.png": [
+      56,
+      96
+    ],
+    "player/player_walk_00.png": [
+      54,
+      96
+    ],
+    "player/player_walk_01.png": [
+      46,
+      96
+    ],
+    "player/player_walk_02.png": [
+      55,
+      96
+    ],
+    "player/player_walk_03.png": [
+      42,
+      96
+    ],
+    "player/player_death_00.png": "WebP, dibujado 95x29"
+  },
+  "state_priorities": {
+    "death": 100,
+    "dodge": 90,
+    "stun": 85,
+    "hurt": 80,
+    "victory": 75,
+    "ability": 70,
+    "melee": 68,
+    "charged": 65,
+    "shoot": 60,
+    "reload": 55,
+    "weaponSwitch": 50,
+    "interact": 45,
+    "aim": 30,
+    "run": 20,
+    "walk": 15,
+    "idle": 10
+  },
+  "anatomy_spine": {
+    "player_idle": {
+      "spineX": 17.2,
+      "waistX": 17.4,
+      "footY": 95,
+      "handDom": [
+        32.5,
+        53.0
+      ],
+      "handSup": [
+        8.0,
+        53.0
+      ]
+    },
+    "player_walk0": {
+      "spineX": 22.8,
+      "waistX": 23.6,
+      "footY": 95
+    },
+    "player_fire": {
+      "spineX": 27.0,
+      "waistX": 27.5,
+      "footY": 95
+    },
+    "player_roll": {
+      "spineX": 33.0,
+      "footY": 56
+    },
+    "player_death": {
+      "spineX": 48.0,
+      "footY": 28
+    }
+  },
+  "player_state": {
+    "x": 1250,
+    "y": 925,
+    "r": 14,
+    "aimAngle": 0,
+    "speed": 200,
+    "animT": 0,
+    "facing": 1
+  },
+  "constraints": {
+    "no_second_animation_system": true,
+    "no_combat_logic_changes": true,
+    "no_weapon_in_sprite": true,
+    "collision_contract": "original"
+  }
+}

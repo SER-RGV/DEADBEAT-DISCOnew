@@ -1,0 +1,1510 @@
+{
+  "started": "2026-11-03T13:11:22.889Z",
+  "finished": "2026-11-03T13:11:22.889Z",
+  "build": "http://127.0.0.1:8123/",
+  "viewport": [
+    1280,
+    900
+  ],
+  "phases": [
+    "antes (T01 sin T02)",
+    "control (restore en caliente)",
+    "despues (T01+T02)"
+  ],
+  "states": [
+    "APROBADO",
+    "FALLIDO",
+    "BLOQUEADO",
+    "NO VERIFICADO"
+  ],
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga del HTML y del art pack",
+      "state": "APROBADO",
+      "detail": {
+        "status": 200,
+        "loadMs": 1426,
+        "readyState": "complete",
+        "title": "DEADBEAT DISCO · ILLUSTRATED EDITION v8.6.0-dungeon",
+        "artPackStatus": "applied",
+        "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02",
+        "hub2AppliedAtBoot": 10,
+        "htmlUnmodifiedByQA": true
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": 2,
+      "check": "Carga e integración de los diez assets de la TANDA 02",
+      "state": "APROBADO",
+      "detail": {
+        "applied": "10/10",
+        "enabled": true,
+        "slotsApplied": 10,
+        "errors": [],
+        "http200": 10,
+        "files": [
+          "hub_t02_01_arcade.png",
+          "hub_t02_02_arsenal.png",
+          "hub_t02_03_seals.png",
+          "hub_t02_04_vending.png",
+          "hub_t02_05_cooler.png",
+          "hub_t02_06_bench.png",
+          "hub_t02_07_planter.png",
+          "hub_t02_08_liftpad.png",
+          "hub_t02_09_ceiling_fixture.png",
+          "hub_t02_10_sconce.png"
+        ],
+        "loader": "window.__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "perAsset": [
+          {
+            "id": "T02-01",
+            "slot": "hub_arcade_shrine",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              264,
+              239
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-02",
+            "slot": "hub_arsenal_shrine",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              360,
+              253
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-03",
+            "slot": "hub_seals_shrine",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              244,
+              237
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-04",
+            "slot": "club_vending_machine_prop",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              100,
+              152
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-05",
+            "slot": "club_water_cooler_prop",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              61,
+              136
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-06",
+            "slot": "limbo_bench_prop",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              256,
+              198
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-07",
+            "slot": "club_neon_planter_prop",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              96,
+              108
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-08",
+            "slot": "descent_abyssal_lift_pad",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              198,
+              104
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": false
+          },
+          {
+            "id": "T02-09",
+            "slot": "wall_ceiling_neon_fixture",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              148,
+              38
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": true
+          },
+          {
+            "id": "T02-10",
+            "slot": "club_wall_sconce_side",
+            "loaded": true,
+            "exactSize": true,
+            "natural": [
+              48,
+              60
+            ],
+            "live": true,
+            "loaderResolves": 1,
+            "originalsPreserved": true,
+            "cachedLayer": true
+          }
+        ],
+        "antesAtBoot": 10,
+        "controlAfterRestore": 0,
+        "restoreBeforeHub": 10,
+        "restoreInHot": 10,
+        "note": "T01 conserva su propio registro; restoreHub2() solo devuelve los 10 slots de T02 a los Image/canvas originales."
+      },
+      "evidence": [
+        "manifest.json",
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 3,
+      "check": "Ausencia de errores JavaScript",
+      "state": "APROBADO",
+      "detail": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsAntes": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsControl": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "knownCloudflare404": [
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+          },
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+          }
+        ],
+        "unexpectedLocalHttpErrors": [],
+        "assetResponses200": 10,
+        "requestFailed": [
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "failure": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "failure": "net::ERR_ABORTED"
+          }
+        ],
+        "excludedUnexpectedJs": [],
+        "note": "Los dos 404 y sus ERR_ABORTED corresponden a /cdn-cgi/challenge-platform/… (script de Cloudflare incrustado en el HTML activo), preexistentes a T01/T02. Cero 404 de ART_ASSETS, cero pageerror, cero error de consola inesperado."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 4,
+      "check": "Visibilidad de los diez recursos en el HUB real",
+      "state": "APROBADO",
+      "detail": {
+        "visibility": [
+          {
+            "id": "T02-01",
+            "draws": 656,
+            "onScreen": 350,
+            "sampleBox": [
+              -28,
+              509,
+              193,
+              710
+            ],
+            "drawArgs": {
+              "5": 656
+            },
+            "drawBox": [
+              236,
+              214
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-02",
+            "draws": 350,
+            "onScreen": 347,
+            "sampleBox": [
+              -108,
+              191,
+              151,
+              373
+            ],
+            "drawArgs": {
+              "5": 350
+            },
+            "drawBox": [
+              276,
+              194
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-03",
+            "draws": 561,
+            "onScreen": 561,
+            "sampleBox": [
+              1097,
+              511,
+              1299,
+              708
+            ],
+            "drawArgs": {
+              "5": 561
+            },
+            "drawBox": [
+              216,
+              210
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-04",
+            "draws": 561,
+            "onScreen": 303,
+            "sampleBox": [
+              1004,
+              123,
+              1077,
+              234
+            ],
+            "drawArgs": {
+              "5": 561
+            },
+            "drawBox": [
+              78,
+              118
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-05",
+            "draws": 333,
+            "onScreen": 75,
+            "sampleBox": [
+              584,
+              161,
+              627,
+              257
+            ],
+            "drawArgs": {
+              "5": 333
+            },
+            "drawBox": [
+              43,
+              96
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-06",
+            "draws": 1338,
+            "onScreen": 1108,
+            "sampleBox": [
+              440,
+              641,
+              530,
+              710
+            ],
+            "drawArgs": {
+              "5": 1338
+            },
+            "drawBox": [
+              96,
+              74
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-07",
+            "draws": 2678,
+            "onScreen": 2460,
+            "sampleBox": [
+              1853,
+              161,
+              1938,
+              257
+            ],
+            "drawArgs": {
+              "5": 2678
+            },
+            "drawBox": [
+              85,
+              96
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-08",
+            "draws": 669,
+            "onScreen": 554,
+            "sampleBox": [
+              547,
+              767,
+              733,
+              865
+            ],
+            "drawArgs": {
+              "5": 669
+            },
+            "drawBox": [
+              198,
+              104
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-09",
+            "draws": 30,
+            "onScreen": 30,
+            "sampleBox": [
+              549,
+              87,
+              665,
+              117
+            ],
+            "drawArgs": {
+              "5": 30
+            },
+            "drawBox": [
+              116,
+              30
+            ],
+            "inOrder": true
+          },
+          {
+            "id": "T02-10",
+            "draws": 20,
+            "onScreen": 20,
+            "sampleBox": [
+              2172,
+              583,
+              2210,
+              631
+            ],
+            "drawArgs": {
+              "5": 20
+            },
+            "drawBox": [
+              38,
+              48
+            ],
+            "inOrder": true
+          }
+        ],
+        "directOnScreen": "10/10",
+        "firstDrawOrder": [
+          "HUB-03",
+          "T02-09",
+          "T02-10",
+          "T02-05",
+          "T02-07",
+          "HUB-01",
+          "HUB-02",
+          "T02-08",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-07",
+          "T02-04",
+          "T02-02",
+          "HUB-05",
+          "T02-03",
+          "T02-01",
+          "T02-06",
+          "HUB-09",
+          "HUB-08"
+        ],
+        "cachedSlots": [
+          "T02-09",
+          "T02-10"
+        ],
+        "note": "T02-09/T02-10 se dibujan en los lienzos de pared/aristas cacheados y se componen después; su drawImage real se cuenta en esa capa. Las capturas por zona son evidencia visual, no simulación."
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_hub_centro.png",
+        "despues_detalle_arcade.png",
+        "despues_detalle_arsenal.png",
+        "despues_detalle_sellos.png",
+        "despues_detalle_descenso.png",
+        "despues_detalle_pared_este.png",
+        "visual_diff.json",
+        "comparativa_antes_despues.jpg",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 5,
+      "check": "Perspectiva, escala, pivote y anclaje (sin deformación)",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "id": "T02-01",
+            "natural": [
+              264,
+              239
+            ],
+            "nativeAspect": 1.105,
+            "measuredEngineBox": [
+              0,
+              0,
+              236,
+              214
+            ],
+            "preparedSize": [
+              264,
+              239
+            ],
+            "drawnBox": [
+              236,
+              214
+            ],
+            "drawnAspect": 1.103,
+            "motorBoxDeviationPct": 0.16,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; hubDraw() calcula sh=236*naturalHeight/naturalWidth",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-02",
+            "natural": [
+              360,
+              253
+            ],
+            "nativeAspect": 1.423,
+            "measuredEngineBox": [
+              0,
+              0,
+              276,
+              194
+            ],
+            "preparedSize": [
+              360,
+              253
+            ],
+            "drawnBox": [
+              276,
+              194
+            ],
+            "drawnAspect": 1.423,
+            "motorBoxDeviationPct": 0.02,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; sw=276, sh=276*naturalHeight/naturalWidth",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-03",
+            "natural": [
+              244,
+              237
+            ],
+            "nativeAspect": 1.03,
+            "measuredEngineBox": [
+              1737,
+              1040,
+              216,
+              210
+            ],
+            "preparedSize": [
+              244,
+              237
+            ],
+            "drawnBox": [
+              216,
+              210
+            ],
+            "drawnAspect": 1.029,
+            "motorBoxDeviationPct": 0.09,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; sw=216, sh=216*naturalHeight/naturalWidth",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-04",
+            "natural": [
+              100,
+              152
+            ],
+            "nativeAspect": 0.658,
+            "measuredEngineBox": [
+              0,
+              0,
+              78,
+              118
+            ],
+            "preparedSize": [
+              100,
+              152
+            ],
+            "drawnBox": [
+              78,
+              118
+            ],
+            "drawnAspect": 0.661,
+            "motorBoxDeviationPct": 0.47,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; dh=118, dw=118*naturalWidth/naturalHeight",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-05",
+            "natural": [
+              61,
+              136
+            ],
+            "nativeAspect": 0.449,
+            "measuredEngineBox": [
+              429,
+              588,
+              47,
+              104
+            ],
+            "preparedSize": [
+              61,
+              136
+            ],
+            "drawnBox": [
+              43,
+              96
+            ],
+            "drawnAspect": 0.448,
+            "motorBoxDeviationPct": 0.14,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; dh=104, dw=104*naturalWidth/naturalHeight",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-06",
+            "natural": [
+              256,
+              198
+            ],
+            "nativeAspect": 1.293,
+            "measuredEngineBox": [
+              1037,
+              1178,
+              96,
+              74
+            ],
+            "preparedSize": [
+              256,
+              198
+            ],
+            "drawnBox": [
+              96,
+              74
+            ],
+            "drawnAspect": 1.297,
+            "motorBoxDeviationPct": 0.34,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; dw=96, dh=96*naturalHeight/naturalWidth",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-07",
+            "natural": [
+              96,
+              108
+            ],
+            "nativeAspect": 0.889,
+            "measuredEngineBox": [
+              966,
+              614,
+              78,
+              88
+            ],
+            "preparedSize": [
+              96,
+              108
+            ],
+            "drawnBox": [
+              85,
+              96
+            ],
+            "drawnAspect": 0.885,
+            "motorBoxDeviationPct": 0.39,
+            "preparedWithoutDeformation": true,
+            "anchor": "bottom-center; dh=88, dw=88*naturalWidth/naturalHeight",
+            "pivot": "bottom-center"
+          },
+          {
+            "id": "T02-08",
+            "natural": [
+              198,
+              104
+            ],
+            "nativeAspect": 1.904,
+            "measuredEngineBox": [
+              -99,
+              -52,
+              198,
+              104
+            ],
+            "preparedSize": [
+              198,
+              104
+            ],
+            "drawnBox": [
+              198,
+              104
+            ],
+            "drawnAspect": 1.904,
+            "motorBoxDeviationPct": 0,
+            "preparedWithoutDeformation": true,
+            "anchor": "center; drawImage(lp,-92,-48,184,96) tras translate/rotate",
+            "pivot": "center"
+          },
+          {
+            "id": "T02-09",
+            "natural": [
+              148,
+              38
+            ],
+            "nativeAspect": 3.895,
+            "measuredEngineBox": [
+              52,
+              -177,
+              116,
+              30
+            ],
+            "preparedSize": [
+              148,
+              38
+            ],
+            "drawnBox": [
+              116,
+              30
+            ],
+            "drawnAspect": 3.867,
+            "motorBoxDeviationPct": 0.72,
+            "preparedWithoutDeformation": true,
+            "anchor": "top-center; drawImage(nf, i-58, 12-l, 116, 30)",
+            "pivot": "center"
+          },
+          {
+            "id": "T02-10",
+            "natural": [
+              48,
+              60
+            ],
+            "nativeAspect": 0.8,
+            "measuredEngineBox": [
+              0,
+              -42,
+              38,
+              48
+            ],
+            "preparedSize": [
+              48,
+              60
+            ],
+            "drawnBox": [
+              38,
+              48
+            ],
+            "drawnAspect": 0.792,
+            "motorBoxDeviationPct": 1.04,
+            "preparedWithoutDeformation": true,
+            "anchor": "top-left; drawImage(ss, wx-6, wy-42, 38, 48)",
+            "pivot": "center"
+          }
+        ],
+        "note": "La preparación usa contain + pivote medido en el HUB: ningún PNG se estira. Las desviaciones de caja, si las hay, son transformaciones que el pintor existente aplicaba ANTES de la TANDA 02 y no se han modificado."
+      },
+      "evidence": [
+        "manifest.json",
+        "despues_runtime_full.json",
+        "ART_TOOLS/qa/hub_tanda_02_audit.js",
+        "visual_diff.json",
+        "comparativa_antes_despues.jpg",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 6,
+      "check": "Transparencias, bordes y alfa",
+      "state": "APROBADO",
+      "detail": {
+        "perAsset": [
+          {
+            "id": "T02-01",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 63.79,
+            "corners": true,
+            "whiteFringePct": 0.18,
+            "borderClean": true
+          },
+          {
+            "id": "T02-02",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 61.48,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-03",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 42.89,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-04",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 61.92,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-05",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 44.5,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-06",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 58.39,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-07",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 58.48,
+            "corners": true,
+            "whiteFringePct": 0.07,
+            "borderClean": true
+          },
+          {
+            "id": "T02-08",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 52,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          },
+          {
+            "id": "T02-09",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 42.89,
+            "corners": true,
+            "whiteFringePct": 0.16,
+            "borderClean": true
+          },
+          {
+            "id": "T02-10",
+            "mode": "RGBA",
+            "alpha": [
+              0,
+              255
+            ],
+            "coveragePct": 55.1,
+            "corners": true,
+            "whiteFringePct": 0,
+            "borderClean": true
+          }
+        ],
+        "note": "Halo blanco máximo 0,18 %; fondo descontaminado con RGB neutro en píxeles transparentes."
+      },
+      "evidence": [
+        "manifest.json"
+      ]
+    },
+    {
+      "id": 7,
+      "check": "Orden de profundidad y capas (motor intacto, sin canvas nuevo)",
+      "state": "APROBADO",
+      "detail": {
+        "firstDrawIndex": {
+          "floorT01": 5,
+          "groundPropsT02": 7
+        },
+        "firstDrawOrder": [
+          "HUB-03",
+          "T02-09",
+          "T02-10",
+          "T02-05",
+          "T02-07",
+          "HUB-01",
+          "HUB-02",
+          "T02-08",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-07",
+          "T02-04",
+          "T02-02",
+          "HUB-05",
+          "T02-03",
+          "T02-01",
+          "T02-06",
+          "HUB-09",
+          "HUB-08"
+        ],
+        "cachedLayerGroup": [
+          "HUB-03",
+          "T02-04",
+          "T02-05",
+          "T02-07",
+          "T02-09",
+          "T02-10"
+        ],
+        "t01OrderDespues": [
+          "HUB-03",
+          "HUB-01",
+          "HUB-02",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-07",
+          "HUB-05",
+          "HUB-09",
+          "HUB-08"
+        ],
+        "t01OrderControl": [
+          "HUB-03",
+          "HUB-01",
+          "HUB-02",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-07",
+          "HUB-05",
+          "HUB-09",
+          "HUB-08"
+        ],
+        "t01OrderAntes": [
+          "HUB-03",
+          "HUB-01",
+          "HUB-02",
+          "HUB-10",
+          "HUB-04",
+          "HUB-06",
+          "HUB-07",
+          "HUB-05",
+          "HUB-09",
+          "HUB-08"
+        ],
+        "t02OrderCount": 10,
+        "canvasCount": {
+          "despues": 28,
+          "antes": 27,
+          "control": 27
+        },
+        "canvasCountBase": {
+          "despues": 27,
+          "antes": 27,
+          "control": 27
+        },
+        "canvasPortraitCount": {
+          "despues": 1,
+          "antes": 0,
+          "control": 0
+        },
+        "hubAuditEqual": true,
+        "note": "El orden lo fija el motor: capas cacheadas de muro/aristas/techo -> suelo -> props con sortY -> capa aérea. La secuencia de los 10 slots de T01 es idéntica con y sin T02, el inventario BASE de canvases (27 en las tres fases) no cambia y hubAudit (6 zonas / 11 estaciones / geometría) es idéntico.",
+        "canvas28Note": "DESPUÉS registra un canvas.hub-portrait-canvas de 72x72 creado por el PROPIO juego al ejecutar openStation(\"bar\") en la comprobación 11; ANTES y CONTROL no abren estaciones. Es UI preexistente, no un lienzo del pack. Diagnóstico ejecutado en canvas_probe.json.",
+        "noNewCanvasFromPack": true
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "control_01_hub.png",
+        "antes_01_hub.png",
+        "despues_runtime_full.json",
+        "canvas_probe.json",
+        "visual_diff.json",
+        "comparativa_antes_despues.jpg",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 8,
+      "check": "Movimiento del jugador",
+      "state": "APROBADO",
+      "detail": {
+        "despues": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "antes": {
+          "pxBefore": 1250,
+          "pxAfter": 1659,
+          "delta": 409,
+          "withinWorld": true
+        },
+        "control": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "rafTolerancePx": 25,
+        "note": "Desviación de 4–7 px por cadencia de fotogramas, presente también entre ANTES y CONTROL; no es una regresión. La colisión contra el sólido de la barra se compara con tolerancia 0,01 px en la comprobación 9."
+      },
+      "evidence": [
+        "despues_tras_movimiento.png"
+      ]
+    },
+    {
+      "id": 9,
+      "check": "Colisiones, zonas y estaciones sin cambios",
+      "state": "APROBADO",
+      "detail": {
+        "hubAuditDespues": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "hubAuditAntes": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "stationsEqual": true,
+        "collisionDespues": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionAntes": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionControl": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "note": "Ningún asset añade colisionador: se sustituye únicamente el Image de slots ya dibujados."
+      },
+      "evidence": [
+        "despues_detalle_bar.png",
+        "control_01_hub.png"
+      ]
+    },
+    {
+      "id": 10,
+      "check": "Transición a campaña y apertura de puertas (Ot.openT intacto)",
+      "state": "APROBADO",
+      "detail": {
+        "campaign": {
+          "completed": true
+        },
+        "campaignStart": "true",
+        "setNight": {
+          "via": "setNight",
+          "ok": true
+        },
+        "clearRound": "true",
+        "dungeonClosed": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 0,
+          "floor": 3
+        },
+        "dungeonOpen": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 1,
+          "floor": 3
+        },
+        "locationClosed": "CAMPAIGN_ROOM",
+        "locationOpen": "CAMPAIGN_ROOM",
+        "architectureAfterDoors": 10,
+        "note": "Sala real r23 (setNight 24): puertas cerradas y clearRound() para abrirlas. No se modifica Ot.openT."
+      },
+      "evidence": [
+        "doors_closed.png",
+        "doors_open.png",
+        "visual_diff.json",
+        "comparativa_antes_despues.jpg",
+        "hashes.json"
+      ]
+    },
+    {
+      "id": 11,
+      "check": "Elementos interactivos y funcionales del HUB",
+      "state": "APROBADO",
+      "detail": {
+        "interaction": {
+          "stationsBefore": 11,
+          "open": "true",
+          "active": "bar",
+          "close": "true",
+          "activeAfter": null
+        },
+        "stations": 11,
+        "functionalSlotsLive": [
+          "hub_arcade_shrine",
+          "hub_arsenal_shrine",
+          "hub_seals_shrine",
+          "descent_abyssal_lift_pad"
+        ],
+        "note": "No se implementa ninguna interacción nueva: los santuarios y la plataforma conservan las estaciones, puertas y Ot.openT existentes."
+      },
+      "evidence": [
+        "despues_01_hub.png",
+        "despues_detalle_arcade.png",
+        "despues_detalle_sellos.png"
+      ]
+    },
+    {
+      "id": 12,
+      "check": "Regresión de sistemas, TANDA 01 intacta y sala de campaña",
+      "state": "APROBADO",
+      "detail": {
+        "tanda01Live": true,
+        "tanda01Draws": true,
+        "tanda01Integrity": true,
+        "tanda02Architecture": true,
+        "tanda03Player": true,
+        "v5Ready": true,
+        "shooting": {
+          "before": 0,
+          "after": 4,
+          "delta": 4
+        },
+        "campaignRoom": true,
+        "campaignT02Registry": true,
+        "campaignV5": true,
+        "campaignNoErrors": true,
+        "stateEqual": true,
+        "errorsEqual": true,
+        "integrity": [
+          {
+            "id": "t3b_material_00",
+            "live": true
+          },
+          {
+            "id": "t3b_material_01",
+            "live": true
+          },
+          {
+            "id": "t3b_material_02",
+            "live": true
+          },
+          {
+            "id": "hub_fox_crest_emblem",
+            "live": true
+          },
+          {
+            "id": "decor_neon_rug",
+            "live": true
+          },
+          {
+            "id": "decor_potted_palm",
+            "live": true
+          },
+          {
+            "id": "boss_01_anden",
+            "live": true
+          },
+          {
+            "id": "weapons/weapon_m1911.png",
+            "live": true
+          }
+        ],
+        "architecture": {
+          "applied": 10,
+          "enabled": true
+        },
+        "player": {
+          "version": "tanda03-faseD.2",
+          "poses": 12,
+          "errors": []
+        },
+        "v5": {
+          "ready": 100,
+          "total": 100,
+          "errors": []
+        },
+        "tanda01": {
+          "applied": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "campaignRegression": {
+          "location": "CAMPAIGN_ROOM",
+          "inHub": false,
+          "hub2Applied": 10,
+          "v5": {
+            "ready": 100,
+            "total": 100,
+            "errors": []
+          },
+          "artPackStatus": "applied",
+          "pageErrors": [],
+          "t3bErrors": []
+        },
+        "note": "Seis slots de T02 son compartidos con salas de campaña: se comprueba exprésamente que el registro V5 sigue completo en CAMPAIGN_ROOM."
+      },
+      "evidence": [
+        "regresion_campaign.png",
+        "antes_runtime.json",
+        "control_runtime.json",
+        "despues_runtime_full.json"
+      ]
+    }
+  ],
+  "summary": {
+    "APROBADO": 12
+  },
+  "table": [
+    {
+      "ID": "T02-01",
+      "slot": "hub_arcade_shrine",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-02",
+      "slot": "hub_arsenal_shrine",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-03",
+      "slot": "hub_seals_shrine",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-04",
+      "slot": "club_vending_machine_prop",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-05",
+      "slot": "club_water_cooler_prop",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-06",
+      "slot": "limbo_bench_prop",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-07",
+      "slot": "club_neon_planter_prop",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-08",
+      "slot": "descent_abyssal_lift_pad",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-09",
+      "slot": "wall_ceiling_neon_fixture",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    },
+    {
+      "ID": "T02-10",
+      "slot": "club_wall_sconce_side",
+      "Generado": true,
+      "Integrado": true,
+      "Visible": true,
+      "Validado": true
+    }
+  ],
+  "incidenceReview": {
+    "HUB-01 loaderResolves=0": "Esperable: HUB-01 se consume por createPattern en el suelo, no por __DDM_GET_V5. No afecta a T02 (los 10 se resuelven por loader V5).",
+    "HUB-03 desviación 26,92 %": "Caja 135x156 que el pintor de muros aplicaba antes de T01; no se modifica el motor.",
+    "Costura media 12,57": "Métrica de preparación de HUB-01; T02 usa su propio pipeline con halo máximo 0,18 %.",
+    "Dos 404 Cloudflare": "cdn-cgi/challenge-platform externos y preexistentes; 0 404 locales y 0 pageerror.",
+    "sharedSystemsModified": false
+  },
+  "visualDiff": {
+    "principal_antes_vs_despues": {
+      "changedPct": 9.84,
+      "meanAbsDiff": 4.69,
+      "a": "antes_01_hub.png",
+      "b": "despues_01_hub.png",
+      "box": null
+    },
+    "principal_control_vs_despues": {
+      "changedPct": 12.59,
+      "meanAbsDiff": 5.13,
+      "a": "control_01_hub.png",
+      "b": "despues_01_hub.png",
+      "box": null
+    },
+    "principal_antes_vs_control": {
+      "changedPct": 3.6,
+      "meanAbsDiff": 0.81,
+      "a": "antes_01_hub.png",
+      "b": "control_01_hub.png",
+      "box": null
+    },
+    "principal_zona_central": {
+      "changedPct": 8.55,
+      "meanAbsDiff": 4.21,
+      "a": "antes_01_hub.png",
+      "b": "despues_01_hub.png",
+      "box": [
+        320,
+        180,
+        960,
+        720
+      ]
+    },
+    "hub_centro": {
+      "changedPct": 8.73,
+      "meanAbsDiff": 4.19,
+      "a": "antes_hub_centro.png",
+      "b": "despues_hub_centro.png",
+      "box": null
+    },
+    "arcade": {
+      "changedPct": 8.15,
+      "meanAbsDiff": 4.65,
+      "a": "antes_detalle_arcade.png",
+      "b": "despues_detalle_arcade.png",
+      "box": null
+    },
+    "arsenal": {
+      "changedPct": 11.26,
+      "meanAbsDiff": 6.42,
+      "a": "antes_detalle_arsenal.png",
+      "b": "despues_detalle_arsenal.png",
+      "box": null
+    },
+    "sellos": {
+      "changedPct": 4.45,
+      "meanAbsDiff": 2.56,
+      "a": "antes_detalle_sellos.png",
+      "b": "despues_detalle_sellos.png",
+      "box": null
+    },
+    "descenso": {
+      "changedPct": 8.3,
+      "meanAbsDiff": 3.87,
+      "a": "antes_detalle_descenso.png",
+      "b": "despues_detalle_descenso.png",
+      "box": null
+    },
+    "barra": {
+      "changedPct": 4.91,
+      "meanAbsDiff": 2.63,
+      "a": "antes_detalle_bar.png",
+      "b": "despues_detalle_bar.png",
+      "box": null
+    },
+    "dj": {
+      "changedPct": 4.21,
+      "meanAbsDiff": 1.9,
+      "a": "antes_detalle_dj.png",
+      "b": "despues_detalle_dj.png",
+      "box": null
+    },
+    "pared_este": {
+      "changedPct": 8.23,
+      "meanAbsDiff": 3.95,
+      "a": "antes_detalle_pared_este.png",
+      "b": "despues_detalle_pared_este.png",
+      "box": null
+    },
+    "vip_oeste": {
+      "changedPct": 6.07,
+      "meanAbsDiff": 3.51,
+      "a": "antes_detalle_vip_oeste.png",
+      "b": "despues_detalle_vip_oeste.png",
+      "box": null
+    },
+    "vip_este": {
+      "changedPct": 3.95,
+      "meanAbsDiff": 2.27,
+      "a": "antes_detalle_vip_este.png",
+      "b": "despues_detalle_vip_este.png",
+      "box": null
+    },
+    "puertas_cerradas_vs_abiertas": {
+      "changedPct": 5.38,
+      "meanAbsDiff": 3.43,
+      "a": "doors_closed.png",
+      "b": "doors_open.png",
+      "box": null
+    }
+  },
+  "visualDiffFile": "visual_diff.json",
+  "comparativaFile": "comparativa_antes_despues.jpg",
+  "hashesFile": "hashes.json",
+  "hashesCount": 81,
+  "git": {
+    "sessionBranch": "arena/109fe45c-deadbeat-disconew",
+    "baseHeadAtClosure": "775926a4158ada230c92ccb63fbe00796f17a1fa",
+    "main": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "originMain": "d75e021fb13418bf49d5853c1a9583e7d11b90f2",
+    "remoteArteYRecursos": "7653ce66631f75db118e54e70b0f4372dafac666\trefs/heads/arte-y-recursos",
+    "note": "Cierre ejecutado ANTES del commit de entrega: baseHeadAtClosure es el commit padre (Tanda 01). main y origin/main no se han tocado. El usuario autorizó commit/push en la rama de sesión y PR hacia arte-y-recursos SIN merge."
+  },
+  "reproduction": {
+    "server": "python3 http.server en 0.0.0.0:8123 con / -> DEADBEAT_DISCO.ART.html",
+    "qa": "QA_LIB=/tmp/qatools/node_modules/playwright-core CHROME_PATH=/tmp/chromium LD_LIB_PATH=/tmp/chromelibs/lib:/tmp node ART_TOOLS/qa/validate_hub_tanda_02.js",
+    "canvasProbe": "node ART_TOOLS/qa/canvas_probe_hub_tanda_02.js",
+    "closure": "PYTHONPATH=/tmp/pylibs python3 ART_TOOLS/qa/finalize_hub_tanda_02.py",
+    "camera": "Las capturas principales ANTES/CONTROL/DESPUES se toman en el mismo punto (teleport 1250,935) para que el diff de píxeles sea válido."
+  }
+}

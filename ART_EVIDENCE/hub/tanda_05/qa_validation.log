@@ -1,0 +1,23 @@
+[TANDA05] fase antes ...
+[TANDA05] fase antes OK · render 16.7 ms · pageErrors 0 · capturas 13
+[TANDA05] fase control ...
+[TANDA05] fase control OK · render 16.7 ms · pageErrors 0 · capturas 32
+[TANDA05] fase despues ...
+[TANDA05] fase despues OK · render 16.7 ms · pageErrors 0 · capturas 17
+
+=== RESULTADO TANDA 05 ===
+{"APROBADO":14,"FALLIDO":0,"BLOQUEADO":0,"NO_VERIFICADO":0,"UNIDADES_INTEGRADAS":10,"UNIDADES_CON_DRAWIMAGE":10}
+1 APROBADO Carga de los diez assets: 10/10 PNG por HTTP 200, load() y registro V5
+2 APROBADO Visibilidad: 10/10 drawImage medidos en el canvas de mundo, A/B 0→10→0→10
+3 APROBADO Escala y dimensiones: aspecto nativo conservado, sin deformación
+4 APROBADO Perspectiva isométrica: misma proyección, pivote y Y-sort que T01–T04
+5 APROBADO Transparencias y halos: alfa real, sin franja blanca ni halo exterior
+6 APROBADO Orden de capas y oclusión: Y-sort compartido, sin canvas nuevo ni sombra en colgantes
+7 APROBADO Movimiento del jugador: idéntico con el flag activado y desactivado
+8 APROBADO Colisiones: sin cambios de hitbox, auditoría del HUB idéntica en las 3 fases
+9 APROBADO Puertas: ciclo noche/ronda, sala real r23 y arquitectura intacta
+10 APROBADO Estaciones: 11 intactas, apertura y cierre de modal sin cambios
+11 APROBADO Interacciones existentes: campaña, disparo y transición sin regresión
+12 APROBADO Regresión T01–T04: 10/10, 10/10, 13/13, 142 claves base y cachés intactas
+13 APROBADO Errores JavaScript y de carga: 0 errores JS, 0 404 locales, 0 errores de loader
+14 APROBADO Rendimiento: coste de render separado del coste de carga (sin cerrar el gate de T02)

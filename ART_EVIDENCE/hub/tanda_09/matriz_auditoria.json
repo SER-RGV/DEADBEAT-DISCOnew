@@ -1,0 +1,156 @@
+{
+  "tanda": "09",
+  "phase": "F0 · matriz de auditoría",
+  "generatedAt": "2026-11-04T05:38:18",
+  "total": 20,
+  "tally": {
+    "APROBADO": 14,
+    "FALLIDO": 0,
+    "BLOQUEADO": 4,
+    "NO VERIFICADO": 2
+  },
+  "erroresCriticos": 0,
+  "permiteFase1": true,
+  "rows": [
+    {
+      "id": "A-01",
+      "prueba": "Rama/HEAD/worktree/PR/main verificados antes de modificar",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "d0156df, limpio, PR OPEN head=d0156df, main=d75e021"
+    },
+    {
+      "id": "A-02",
+      "prueba": "TANDAS 01–08 presentes e intactas (assets+evidencias+marcadores)",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "T01 21/20, T02 21/47, T03 22/74, T04 0/83, T05 21/119, T06 21/109, T07 15/45, T08 21/53"
+    },
+    {
+      "id": "A-03",
+      "prueba": "4 ambientDancers originales identificados y con hubDraw vivo",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "hub_ambient_dancer_nw, hub_ambient_dancer_ne, hub_ambient_dancer_sw, hub_ambient_clubber_bar"
+    },
+    {
+      "id": "A-04",
+      "prueba": "6 actores ambientales T07 identificados",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "t07_danza_01, t07_danza_02, t07_charla_01, t07_charla_02, t07_descanso, t07_recorrido"
+    },
+    {
+      "id": "A-05",
+      "prueba": "NPC narrativo narr_cliente000 identificado y clasificado como intocable",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "x785,y560 · station cliente000"
+    },
+    {
+      "id": "A-06",
+      "prueba": "Propiedades accesibles en runtime para extender sin crear props nuevas",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "DMO_LAYOUT.propObjects() → 62 props, 11 con id de NPC, hubDraw presente"
+    },
+    {
+      "id": "A-07",
+      "prueba": "Sistema de actividades existente caracterizado",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "T07 ACTORS[] con act FIJO; sin máquina de estados ni temporizadores por actor"
+    },
+    {
+      "id": "A-08",
+      "prueba": "Sistema de patrullas existente",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "patrol = 0 coincidencias en el HTML; único desplazamiento es seno ±62 u de t07_recorrido"
+    },
+    {
+      "id": "A-09",
+      "prueba": "Reacciones al jugador caracterizadas",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "react=clamp((185−dist)/85) en 5 actores T07; rest excluido; 0 en dancers y narrativo"
+    },
+    {
+      "id": "A-10",
+      "prueba": "Zonas reales contrastadas con la lista solicitada",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "6 zonas oficiales A–F; Entrada/Descanso/Corredores/Acantilado no son zonas formales"
+    },
+    {
+      "id": "A-11",
+      "prueba": "11 estaciones y sus radios inventariadas",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "6 interactivas + 4 dancer_* quiet + 1 cliente000"
+    },
+    {
+      "id": "A-12",
+      "prueba": "Frames/direcciones/pivotes/estados de animación inventariados",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "5 sprites V5 de pie, 2 variantes de bailarín, flip horizontal, pivote en pie, sin hojas de frames"
+    },
+    {
+      "id": "A-13",
+      "prueba": "Animación de SENTADO disponible",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "No existe. T07 intentó 2 sprites sentados y los descartó. No se generarán sin autorización"
+    },
+    {
+      "id": "A-14",
+      "prueba": "Animación de USAR/MIRAR MÁQUINA disponible",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "No existe. Arcade se resolverá con orientación + pausa"
+    },
+    {
+      "id": "A-15",
+      "prueba": "Animación de SALUDO dedicada disponible",
+      "ok": false,
+      "estado": "BLOQUEADO",
+      "detalle": "No existe; se reutiliza lean+flip existente"
+    },
+    {
+      "id": "A-16",
+      "prueba": "Comportamiento medido en 24 muestras / ~6 s con cámara estática",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "dance/walk 4 frames y 21–22 cambios; talk/rest 1 frame y 0 cambios; actividad NUNCA cambia"
+    },
+    {
+      "id": "A-17",
+      "prueba": "Movimiento reducido verificado",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "contexto reducedMotion: frames y X estáticos en 2 muestras, 0 pageerror"
+    },
+    {
+      "id": "A-18",
+      "prueba": "0 pageerror / 0 warnings en auditoría",
+      "ok": true,
+      "estado": "APROBADO",
+      "detalle": "pageerrors=[], warns=[]"
+    },
+    {
+      "id": "A-19",
+      "prueba": "Vídeo continuo, mando físico, audio audible, latencia real",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Requiere sesión interactiva/hardware"
+    },
+    {
+      "id": "A-20",
+      "prueba": "Rendimiento sostenido y regresión visual formal completa T01–08",
+      "ok": false,
+      "estado": "NO VERIFICADO",
+      "detalle": "Herencia de T08; se medirá en Fase 5"
+    }
+  ]
+}

@@ -1,0 +1,349 @@
+{
+  "generatedAt": "2026-11-04T01:53:30.096319+00:00",
+  "environment": {
+    "viewport": [
+      1280,
+      900
+    ],
+    "chromium": "131.0.6778.0",
+    "preview": "0.0.0.0:8123"
+  },
+  "criterion": "ANTES y CONTROL_OFF se miden con el flag en false (0 dibujos T06). CONTROL_ON / DESPUES / REAPPLY miden los recursos dibujados. OFF_A/OFF_B se confirman además por diff de píxel en visual_diff.json.",
+  "hotToggleSequence": "0 → 0 → N → 0 → 10 → N (OFF_A, OFF_B, ON por zona, hub6Restore, hub6Apply)",
+  "phases": {
+    "antes": {
+      "flag": "false antes del boot",
+      "loadMs": 1645,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 50,
+        "minMs": 16.5,
+        "maxMs": 50
+      },
+      "hub6": {
+        "count": 10,
+        "loaded": 10,
+        "registered": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 162,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1659,
+        "delta": 409,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    },
+    "control": {
+      "flag": "true -> false -> true (conmutación en caliente)",
+      "loadMs": 1566,
+      "render": {
+        "frames": 40,
+        "medianMs": 33.3,
+        "p90Ms": 49.9,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "hub6": {
+        "count": 10,
+        "loaded": 10,
+        "registered": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 162,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      },
+      "hotToggle": {
+        "flagOffBeforeBoot": {
+          "count": 10,
+          "loaded": 10,
+          "registered": 10,
+          "exactSize": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "flagOn": {
+          "count": 10,
+          "loaded": 10,
+          "registered": 10,
+          "exactSize": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "antesT06Draws": 0,
+        "controlOffA": 0,
+        "controlOffB": 0,
+        "controlOn": 895,
+        "controlRestored": 0,
+        "controlReapplied": 72,
+        "despuesT06Draws": 1048,
+        "controlOnDraws": 895,
+        "restore": {
+          "n": 10,
+          "registered": 0
+        },
+        "reapply": {
+          "n": 10,
+          "registered": 10
+        },
+        "hotToggleSequence": "0 → 0 → N → 0 → 10 → N (OFF_A, OFF_B, ON por zona, hub6Restore, hub6Apply)",
+        "note": "ANTES y CONTROL_OFF se miden con el flag en false (0 dibujos T06). CONTROL_ON / DESPUES / REAPPLY miden los recursos dibujados. OFF_A/OFF_B se confirman además por diff de píxel en visual_diff.json."
+      }
+    },
+    "despues": {
+      "flag": "activo por defecto (window.__DDM_HUB_T06 indefinido)",
+      "loadMs": 1349,
+      "render": {
+        "frames": 40,
+        "medianMs": 33.3,
+        "p90Ms": 33.4,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "hub6": {
+        "count": 10,
+        "loaded": 10,
+        "registered": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 162,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    }
+  },
+  "visualDiff": {
+    "assetsWithPixelConfirmation": 10,
+    "assetsFailed": [],
+    "minSignalPct": 10.934,
+    "maxSignalPct": 75.696,
+    "maxNoisePct": 1.992,
+    "pairsGenerated": 10,
+    "controlPairsGenerated": 6,
+    "state": "APROBADO"
+  },
+  "alphaVerification": {
+    "verified": 10,
+    "failed": [],
+    "state": "APROBADO"
+  },
+  "composition": {
+    "verdict": "APROBADA",
+    "boxes": 14,
+    "uniqueAssets": 10,
+    "allAssetsHaveFullVisibleZone": true
+  },
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga de los 10 recursos: load(), registro V5, tamaño exacto y 0 errores de loader",
+      "state": "APROBADO"
+    },
+    {
+      "id": 2,
+      "check": "Visibilidad: 10/10 drawImage medidos en el canvas de mundo 1280x900 con caja en pantalla",
+      "state": "APROBADO"
+    },
+    {
+      "id": 3,
+      "check": "Orientación espacial: caras SUR/ESTE/OESTE/INFERIOR/SUELO y planos correctos",
+      "state": "APROBADO"
+    },
+    {
+      "id": 4,
+      "check": "Perspectiva: proyección ortográfica 2.5D real, sin isometría impuesta ni cambio de cámara",
+      "state": "APROBADO"
+    },
+    {
+      "id": 5,
+      "check": "Continuidad de paredes/estructuras: 0 huecos en el muro norte y en las aristas laterales",
+      "state": "APROBADO"
+    },
+    {
+      "id": 6,
+      "check": "Escala relativa: aspecto del PNG conservado, sin estirar ni deformar",
+      "state": "APROBADO"
+    },
+    {
+      "id": 7,
+      "check": "Anclajes: cajas mundo medidas iguales al manifiesto, dentro del octógono real",
+      "state": "APROBADO"
+    },
+    {
+      "id": 8,
+      "check": "Orden de capas: cola Y-sort compartida, 0 dibujos en menú, 0 canvas nuevos",
+      "state": "APROBADO"
+    },
+    {
+      "id": 9,
+      "check": "Oclusión: jugador/arquitectura/decoración en la misma cola de profundidad",
+      "state": "APROBADO"
+    },
+    {
+      "id": 10,
+      "check": "Transparencias: alfa real, bordes limpios, sin halos blancos ni franjas",
+      "state": "APROBADO"
+    },
+    {
+      "id": 11,
+      "check": "Movimiento: idéntico con el flag activado y desactivado",
+      "state": "APROBADO"
+    },
+    {
+      "id": 12,
+      "check": "Colisiones: sin cambios de hitbox, auditoría del HUB idéntica en las 3 fases",
+      "state": "APROBADO"
+    },
+    {
+      "id": 13,
+      "check": "Puertas y estaciones: sala r23, 11 estaciones y modal sin regresión",
+      "state": "APROBADO"
+    },
+    {
+      "id": 14,
+      "check": "Regresión T01–T05: 10/10, 10/10, 13/13, 10/10, 152 claves base y cachés intactas",
+      "state": "APROBADO"
+    }
+  ],
+  "summary": {
+    "APROBADO": 14,
+    "FALLIDO": 0,
+    "BLOQUEADO": 0,
+    "NO_VERIFICADO": 0,
+    "UNIDADES_INTEGRADAS": 10,
+    "UNIDADES_CON_DRAWIMAGE": 10,
+    "ANCLAJES_HUBDECOR": 14,
+    "RECURSOS_UNICOS": 10,
+    "UNIDADES_CON_PIXEL_DIFF": 10,
+    "CAJAS_MUNDO_VALIDADAS": 14
+  },
+  "finalVerdict": "APROBADO"
+}

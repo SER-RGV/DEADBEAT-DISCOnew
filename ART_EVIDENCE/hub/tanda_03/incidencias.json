@@ -1,0 +1,154 @@
+{
+  "generatedAt": "2026-11-03T15:14:28.004654+00:00",
+  "discrepancies": {
+    "D-01": "No existen slots para 7 de los 8 objetivos; BLOQUEADO documentado, sin modificar el HTML.",
+    "D-02": "O = OESTE y E = ESTE, corregido por código antes de producir.",
+    "D-03": "El pliego pide 10 assets pero define 8 unidades (la 08 son 6 variantes) y excluye 2: se entregan 8 unidades / 13 PNG.",
+    "D-04": "hub_vip_booth_lounge tiene pintor en el código del MENÚ (4 drawImage de 108x68), 0 en el HUB.",
+    "D-05": "Los ganchos del pintor del HUB no son globales; no se inventa un sistema de render.",
+    "D-06": "d.menu se construye una vez: startHub3() arranca la carga en el primer instante del boot.",
+    "D-07": "Renderer de píxeles inactivo en el build: 0 drawImage del VIP real en 5 arranques; visibilidad NO VERIFICADO e integración BLOQUEADA.",
+    "Dos 404 Cloudflare": "cdn-cgi/challenge-platform externos y preexistentes; 0 404 locales y 0 pageerror.",
+    "sharedSystemsModified": false
+  },
+  "blockers": [
+    {
+      "id": "T03-01",
+      "unit": "pano_suelo_oeste",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-02",
+      "unit": "pano_suelo_este",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-03",
+      "unit": "pano_suelo_sur_grieta",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-04",
+      "unit": "pano_suelo_norte_dj",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-05",
+      "unit": "jardinera_variante_02",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-06",
+      "unit": "banco_variante_02",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-07",
+      "unit": "vip_booth_lounge",
+      "reason": "El único pintor (canvas d.menu del MENÚ) pertenece a un renderer inactivo en el build; 0 drawImage medidos en producción (D-07).",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    },
+    {
+      "id": "T03-08",
+      "unit": "sistema_senaletica_6_zonas",
+      "reason": "No existe clave V5 ni slot de dibujo para este objetivo en el HUB.",
+      "evidence": [
+        "audit_runtime.json",
+        "slot_probe.json",
+        "geometry_probe.json",
+        "ART_HUB_TANDA_03_AUDIT.md"
+      ],
+      "requiresHTMLAuthorization": true
+    }
+  ],
+  "verdict": {
+    "APROBADO": [
+      "8 unidades de producción / 13 PNG finales + 8 fuentes, medidas y con SHA-256",
+      "13/13 cargados por load(), registrados en window.__DDM_V5_IMG y con tamaño exacto",
+      "QA A/B real ejecutada: 12/12 comprobaciones del arnés",
+      "Regresión TANDA 01, TANDA 02, arquitectura, V5, capas cacheadas, colisiones, puertas, estaciones, movimiento, disparo y CAMPAIGN_ROOM",
+      "HTML activo intacto (SHA-256 sin cambios)"
+    ],
+    "BLOQUEADO": [
+      "8/8 unidades sin integración de render: 7 sin slot de dibujo y 1 con el renderer del menú inactivo (D-07)",
+      "Integrarlas exigiría autorización para modificar el HTML activo; no se ha solicitado ni ejecutado",
+      "No se crea segundo motor, canvas superpuesto, HUB estático, caché nueva ni loader paralelo"
+    ],
+    "NO_VERIFICADO": [
+      "Visibilidad en producción de hub_vip_booth_lounge: 0 drawImage medidos en 5 arranques con el PNG real (el pintor existe en el código pero su renderer no se ejecuta)",
+      "Cualquier afirmación de \"nuevo espacio VIP en el HUB\" queda descartada"
+    ]
+  },
+  "measured": {
+    "vipDrawsProduction": "0 en 5 arranques con el PNG real (0-2 consultas gv)",
+    "vipDrawsControlledProbe": 4,
+    "vipBoxControlledProbe": [
+      32,
+      284,
+      108,
+      68
+    ],
+    "t03DrawsInHUB": 0,
+    "cloudflare404": "2 rutas /cdn-cgi/challenge-platform/ preexistentes y externas; 0 404 locales",
+    "whiteFringeMaxPct": 0.11
+  },
+  "resolved": [
+    "Primer intento de informe falló por `preparation.expected` ausente en las 6 variantes: corregido en el generador y en el arnés; las 3 fases A/B se reconstruyeron y se repitieron por completo.",
+    "Halo blanquecino en placas y banco: sustituido por despill de des-premultiplicación + flood-fill del reflejo exterior; halo máximo 0,11 %.",
+    "Perspectiva frontal del paño norte 04: regenerado en isométrico 2:1 para igualar la familia.",
+    "Archivo obsoleto `hub_zone_signage_e_último_trago.png`: eliminado por el propio generador (idempotencia)."
+  ],
+  "unresolved": [
+    "8/8 unidades sin integración de render (requiere autorización para modificar el HTML activo).",
+    "Visibilidad en producción de hub_vip_booth_lounge: NO VERIFICADO."
+  ],
+  "staleFile": "validation_error.json corresponde al primer intento de construcción del informe, ya corregido y repetido; se conserva como evidencia de la incidencia resuelta."
+}
