@@ -1,12 +1,12 @@
 # CHECKPOINT — DEADBEAT DISCO (AUTONOMOUS CONTINUITY)
 
-- **Timestamp UTC:** `2026-11-07T12:22:51Z`
+- **Timestamp UTC:** `2026-11-07T12:33:30Z`
 - **Rama activa:** `arena/d58c4d15-deadbeat-disconew`
-- **Tandas completadas:** `20 / 33` (TANDA_01, TANDA_02, TANDA_03, TANDA_04, TANDA_05, TANDA_06, TANDA_07, TANDA_08, TANDA_09, TANDA_10, TANDA_11, TANDA_12, TANDA_13, TANDA_14, TANDA_15, TANDA_16, TANDA_17, TANDA_18, TANDA_19, TANDA_20)
-- **Siguiente tanda inmediata:** `TANDA_21`
-- **Recursos verificados:** `205 / 330`
-- **Categorías completadas:** `characters, effects, enemies, environments, floors, logos, pickups, props, walls`
-- **Última nota de commit:** `feat(art): complete TANDA_20 and integrate five TANDA_21 circle cinematics`
+- **Tandas completadas:** `21 / 33` (TANDA_01, TANDA_02, TANDA_03, TANDA_04, TANDA_05, TANDA_06, TANDA_07, TANDA_08, TANDA_09, TANDA_10, TANDA_11, TANDA_12, TANDA_13, TANDA_14, TANDA_15, TANDA_16, TANDA_17, TANDA_18, TANDA_19, TANDA_20, TANDA_21)
+- **Siguiente tanda inmediata:** `TANDA_22`
+- **Recursos verificados:** `215 / 330`
+- **Categorías completadas:** `bosses, characters, cinematics, effects, enemies, environments, floors, logos, pickups, props, ui, walls`
+- **Última nota de commit:** `feat(art): complete TANDA_21 cinematics and integrate first five TANDA_22 weapons`
 
 ## Cómo reanudar automáticamente sin repetir trabajo
 1. Leer `docs/ART_REBUILD/PRODUCTION_STATUS.json` y `docs/ART_REBUILD/NEXT_BATCH.md`.

@@ -1,16 +1,16 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T12:22:51Z
+- **Última actualización:** 2026-11-07T12:33:30Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **205 / 330** recursos verificados en motor real
+- **Progreso global:** **215 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 40 | 40 | 40 |
+| `bosses` | 42 | 42 | 42 | 42 |
 | `characters` | 16 | 16 | 16 | 16 |
-| `cinematics` | 11 | 10 | 10 | 10 |
+| `cinematics` | 11 | 11 | 11 | 11 |
 | `effects` | 20 | 20 | 20 | 20 |
 | `enemies` | 24 | 24 | 24 | 24 |
 | `environments` | 8 | 8 | 8 | 8 |
@@ -18,9 +18,9 @@
 | `logos` | 2 | 2 | 2 | 2 |
 | `pickups` | 20 | 20 | 20 | 20 |
 | `props` | 30 | 30 | 30 | 30 |
-| `ui` | 14 | 13 | 13 | 13 |
+| `ui` | 14 | 14 | 14 | 14 |
 | `walls` | 10 | 10 | 10 | 10 |
-| `weapons` | 121 | 0 | 0 | 0 |
+| `weapons` | 121 | 6 | 6 | 6 |
 
 ## Inventario Detallado
 
@@ -231,16 +231,16 @@
 | 203 | TANDA_21 | `cine:fraude` | Cinemática Círculo VII · Fraude (El Club de los Espejos) | `cinematics` | `assets/cinematics/cine_circle_07_fraude.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
 | 204 | TANDA_21 | `cine:traicion` | Cinemática Círculo VIII · Traición (La Última Sala) | `cinematics` | `assets/cinematics/cine_circle_08_traicion.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
 | 205 | TANDA_21 | `cine:nucleo` | Cinemática Círculo IX · El Núcleo Final | `cinematics` | `assets/cinematics/cine_circle_09_nucleo.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
-| 206 | TANDA_21 | `weapons/weapon_ricochet.png` | Arma Especial · Rebotador Sónico (Ricochet) | `weapons` | `assets/weapons/weapon_ricochet.png` | 320x160 | PENDING | PENDING | PENDING |
-| 207 | TANDA_21 | `secretBoss:idle` | Jefe Secreto · El Arquitecto (Presencia) | `bosses` | `assets/bosses/boss_10_arquitecto_idle.png` | 416x448 | PENDING | PENDING | PENDING |
-| 208 | TANDA_21 | `secretBoss:attack` | Jefe Secreto · El Arquitecto (Sobrecarga) | `bosses` | `assets/bosses/boss_10_arquitecto_attack.png` | 448x448 | PENDING | PENDING | PENDING |
-| 209 | TANDA_21 | `cine:limbo` | Cinemática Círculo 0 · El Refugio y Cola del Club | `cinematics` | `assets/cinematics/cine_circle_00_hub.png` | 960x540 | PENDING | PENDING | PENDING |
-| 210 | TANDA_21 | `ui:shop_header` | Emblema Armería · Pistola Infernal Tienda | `ui` | `assets/ui/ui_shop_emblem.png` | 320x160 | PENDING | PENDING | PENDING |
-| 211 | TANDA_22 | `weapons/weapon_m1911.png` | Arma #001 · Pistola clásica (m1911) | `weapons` | `assets/weapons/weapon_m1911.png` | 320x160 | PENDING | PENDING | PENDING |
-| 212 | TANDA_22 | `weapons/weapon_magnum.png` | Arma #002 · Revólver (magnum) | `weapons` | `assets/weapons/weapon_magnum.png` | 320x160 | PENDING | PENDING | PENDING |
-| 213 | TANDA_22 | `weapons/weapon_c003_laser.png` | Arma #003 · Láser (c003_laser) | `weapons` | `assets/weapons/weapon_c003_laser.png` | 320x160 | PENDING | PENDING | PENDING |
-| 214 | TANDA_22 | `weapons/weapon_uzi.png` | Arma #004 · Ráfaga (uzi) | `weapons` | `assets/weapons/weapon_uzi.png` | 320x160 | PENDING | PENDING | PENDING |
-| 215 | TANDA_22 | `weapons/weapon_c005_needler.png` | Arma #005 · Needler (c005_needler) | `weapons` | `assets/weapons/weapon_c005_needler.png` | 320x160 | PENDING | PENDING | PENDING |
+| 206 | TANDA_21 | `weapons/weapon_ricochet.png` | Arma Especial · Rebotador Sónico (Ricochet) | `weapons` | `assets/weapons/weapon_ricochet.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 207 | TANDA_21 | `secretBoss:idle` | Jefe Secreto · El Arquitecto (Presencia) | `bosses` | `assets/bosses/boss_10_arquitecto_idle.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 208 | TANDA_21 | `secretBoss:attack` | Jefe Secreto · El Arquitecto (Sobrecarga) | `bosses` | `assets/bosses/boss_10_arquitecto_attack.png` | 448x448 | DONE | INTEGRATED | VERIFIED |
+| 209 | TANDA_21 | `cine:limbo` | Cinemática Círculo 0 · El Refugio y Cola del Club | `cinematics` | `assets/cinematics/cine_circle_00_hub.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 210 | TANDA_21 | `ui:shop_header` | Emblema Armería · Pistola Infernal Tienda | `ui` | `assets/ui/ui_shop_emblem.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 211 | TANDA_22 | `weapons/weapon_m1911.png` | Arma #001 · Pistola clásica (m1911) | `weapons` | `assets/weapons/weapon_m1911.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 212 | TANDA_22 | `weapons/weapon_magnum.png` | Arma #002 · Revólver (magnum) | `weapons` | `assets/weapons/weapon_magnum.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 213 | TANDA_22 | `weapons/weapon_c003_laser.png` | Arma #003 · Láser (c003_laser) | `weapons` | `assets/weapons/weapon_c003_laser.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 214 | TANDA_22 | `weapons/weapon_uzi.png` | Arma #004 · Ráfaga (uzi) | `weapons` | `assets/weapons/weapon_uzi.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 215 | TANDA_22 | `weapons/weapon_c005_needler.png` | Arma #005 · Needler (c005_needler) | `weapons` | `assets/weapons/weapon_c005_needler.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
 | 216 | TANDA_22 | `weapons/weapon_plasma.png` | Arma #006 · Plasma (plasma) | `weapons` | `assets/weapons/weapon_plasma.png` | 320x160 | PENDING | PENDING | PENDING |
 | 217 | TANDA_22 | `weapons/weapon_c007_magnum.png` | Arma #007 · Magnum (rótulo: PAGNUM) (c007_magnum) | `weapons` | `assets/weapons/weapon_c007_magnum.png` | 320x160 | PENDING | PENDING | PENDING |
 | 218 | TANDA_22 | `weapons/weapon_c008_silenciada.png` | Arma #008 · Silenciada (c008_silenciada) | `weapons` | `assets/weapons/weapon_c008_silenciada.png` | 320x160 | PENDING | PENDING | PENDING |
