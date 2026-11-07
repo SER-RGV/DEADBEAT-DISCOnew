@@ -1,14 +1,14 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T11:11:59Z
+- **Última actualización:** 2026-11-07T11:17:40Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **155 / 330** recursos verificados en motor real
+- **Progreso global:** **165 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 39 | 39 | 39 |
+| `bosses` | 42 | 40 | 40 | 40 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
@@ -16,7 +16,7 @@
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
-| `pickups` | 20 | 0 | 0 | 0 |
+| `pickups` | 20 | 9 | 9 | 9 |
 | `props` | 30 | 30 | 30 | 30 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
@@ -179,18 +179,18 @@
 | 151 | TANDA_16 | `resident_09_traidor:hit` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Impacto / Daño | `bosses` | `assets/bosses/boss_08_traidor_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 152 | TANDA_16 | `resident_09_traidor:death` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_08_traidor_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
 | 153 | TANDA_16 | `boss_09_nucleofinal:idle` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Presencia / Idle | `bosses` | `assets/bosses/boss_09_nucleo_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 154 | TANDA_16 | `boss_09_nucleofinal:attack` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_09_nucleo_attack.png` | 416x448 | PENDING | PENDING | PENDING |
+| 154 | TANDA_16 | `boss_09_nucleofinal:attack` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_09_nucleo_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
 | 155 | TANDA_16 | `boss_09_nucleofinal:hit` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Impacto / Daño | `bosses` | `assets/bosses/boss_09_nucleo_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 156 | TANDA_16 | `boss_09_nucleofinal:death` | NÚCLEO FINAL · La Última Canción (IX Núcleo) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_09_nucleo_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
-| 157 | TANDA_16 | `pickups/pickup_credits_00.png` | Pickup · Moneda de Créditos Oro | `pickups` | `assets/pickups/pickup_credits_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 158 | TANDA_16 | `pickups/pickup_heart_00.png` | Pickup · Corazón Rubí Neón | `pickups` | `assets/pickups/pickup_heart_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 159 | TANDA_16 | `pickups/pickup_ammo_00.png` | Pickup · Caja de Munición / Batería | `pickups` | `assets/pickups/pickup_ammo_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 160 | TANDA_16 | `pickups/pickup_bomb_00.png` | Pickup · Bomba Sónica Violeta | `pickups` | `assets/pickups/pickup_bomb_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 161 | TANDA_17 | `pickups/pickup_boost_00.png` | Pickup · Inyección / Cubo Boost Cian | `pickups` | `assets/pickups/pickup_boost_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 162 | TANDA_17 | `pickups/pickup_shield_00.png` | Pickup · Candado / Escudo Áurico | `pickups` | `assets/pickups/pickup_shield_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 163 | TANDA_17 | `pickups/pickup_damageup_00.png` | Pickup · Subida de Daño Carmesí | `pickups` | `assets/pickups/pickup_damageup_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 164 | TANDA_17 | `pickups/pickup_fireup_00.png` | Pickup · Cadencia Ígnea Naranja | `pickups` | `assets/pickups/pickup_fireup_00.png` | 160x160 | PENDING | PENDING | PENDING |
-| 165 | TANDA_17 | `pickups/pickup_speedup_00.png` | Pickup · Velocidad Doble Flecha Neón | `pickups` | `assets/pickups/pickup_speedup_00.png` | 160x160 | PENDING | PENDING | PENDING |
+| 157 | TANDA_16 | `pickups/pickup_credits_00.png` | Pickup · Moneda de Créditos Oro | `pickups` | `assets/pickups/pickup_credits_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 158 | TANDA_16 | `pickups/pickup_heart_00.png` | Pickup · Corazón Rubí Neón | `pickups` | `assets/pickups/pickup_heart_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 159 | TANDA_16 | `pickups/pickup_ammo_00.png` | Pickup · Caja de Munición / Batería | `pickups` | `assets/pickups/pickup_ammo_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 160 | TANDA_16 | `pickups/pickup_bomb_00.png` | Pickup · Bomba Sónica Violeta | `pickups` | `assets/pickups/pickup_bomb_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 161 | TANDA_17 | `pickups/pickup_boost_00.png` | Pickup · Inyección / Cubo Boost Cian | `pickups` | `assets/pickups/pickup_boost_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 162 | TANDA_17 | `pickups/pickup_shield_00.png` | Pickup · Candado / Escudo Áurico | `pickups` | `assets/pickups/pickup_shield_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 163 | TANDA_17 | `pickups/pickup_damageup_00.png` | Pickup · Subida de Daño Carmesí | `pickups` | `assets/pickups/pickup_damageup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 164 | TANDA_17 | `pickups/pickup_fireup_00.png` | Pickup · Cadencia Ígnea Naranja | `pickups` | `assets/pickups/pickup_fireup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 165 | TANDA_17 | `pickups/pickup_speedup_00.png` | Pickup · Velocidad Doble Flecha Neón | `pickups` | `assets/pickups/pickup_speedup_00.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 166 | TANDA_17 | `pickups/pickup_turret_00.png` | Pickup · Módulo Torreta | `pickups` | `assets/pickups/pickup_turret_00.png` | 160x160 | PENDING | PENDING | PENDING |
 | 167 | TANDA_17 | `pickups/pickup_companion_00.png` | Pickup · Medallón Compañero | `pickups` | `assets/pickups/pickup_companion_00.png` | 160x160 | PENDING | PENDING | PENDING |
 | 168 | TANDA_17 | `pickups/pickup_mutation_00.png` | Pickup · Mutación Arcana Cian | `pickups` | `assets/pickups/pickup_mutation_00.png` | 160x160 | PENDING | PENDING | PENDING |

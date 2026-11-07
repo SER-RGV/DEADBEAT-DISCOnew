@@ -1,22 +1,22 @@
-# NEXT BATCH — TANDA_16
+# NEXT BATCH — TANDA_17
 
-- **Tanda a ejecutar:** `TANDA_16` (16 de 33)
-- **Fecha de planificación:** 2026-11-07T11:11:59Z
+- **Tanda a ejecutar:** `TANDA_17` (17 de 33)
+- **Fecha de planificación:** 2026-11-07T11:17:40Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 16` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_16 high-res asset reconstruction and real engine integration`
+- **Pruebas obligatorias:** `node tools/validate_batch.js 17` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
+- **Commit previsto:** `feat(art): complete TANDA_17 high-res asset reconstruction and real engine integration`
 
 ## Diez Recursos de la Tanda
 
 | # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
 |---:|---|---|---|---|---|---|---|
-| 151 | `boss_08_traidor_hit` | `resident_09_traidor:hit` | `bosses` | `assets/bosses/boss_08_traidor_hit.png` | 384x448 | `True` | ninguna |
-| 152 | `boss_08_traidor_death` | `resident_09_traidor:death` | `bosses` | `assets/bosses/boss_08_traidor_death.png` | 416x352 | `True` | ninguna |
-| 153 | `boss_09_nucleo_idle` | `boss_09_nucleofinal:idle` | `bosses` | `assets/bosses/boss_09_nucleo_idle.png` | 384x448 | `True` | ninguna |
-| 154 | `boss_09_nucleo_attack` | `boss_09_nucleofinal:attack` | `bosses` | `assets/bosses/boss_09_nucleo_attack.png` | 416x448 | `True` | ninguna |
-| 155 | `boss_09_nucleo_hit` | `boss_09_nucleofinal:hit` | `bosses` | `assets/bosses/boss_09_nucleo_hit.png` | 384x448 | `True` | ninguna |
-| 156 | `boss_09_nucleo_death` | `boss_09_nucleofinal:death` | `bosses` | `assets/bosses/boss_09_nucleo_death.png` | 416x352 | `True` | ninguna |
-| 157 | `pickup_credits_00` | `pickups/pickup_credits_00.png` | `pickups` | `assets/pickups/pickup_credits_00.png` | 160x160 | `True` | ninguna |
-| 158 | `pickup_heart_00` | `pickups/pickup_heart_00.png` | `pickups` | `assets/pickups/pickup_heart_00.png` | 160x160 | `True` | ninguna |
-| 159 | `pickup_ammo_00` | `pickups/pickup_ammo_00.png` | `pickups` | `assets/pickups/pickup_ammo_00.png` | 160x160 | `True` | ninguna |
-| 160 | `pickup_bomb_00` | `pickups/pickup_bomb_00.png` | `pickups` | `assets/pickups/pickup_bomb_00.png` | 160x160 | `True` | ninguna |
+| 161 | `pickup_boost_00` | `pickups/pickup_boost_00.png` | `pickups` | `assets/pickups/pickup_boost_00.png` | 160x160 | `True` | ninguna |
+| 162 | `pickup_shield_00` | `pickups/pickup_shield_00.png` | `pickups` | `assets/pickups/pickup_shield_00.png` | 160x160 | `True` | ninguna |
+| 163 | `pickup_damageup_00` | `pickups/pickup_damageup_00.png` | `pickups` | `assets/pickups/pickup_damageup_00.png` | 160x160 | `True` | ninguna |
+| 164 | `pickup_fireup_00` | `pickups/pickup_fireup_00.png` | `pickups` | `assets/pickups/pickup_fireup_00.png` | 160x160 | `True` | ninguna |
+| 165 | `pickup_speedup_00` | `pickups/pickup_speedup_00.png` | `pickups` | `assets/pickups/pickup_speedup_00.png` | 160x160 | `True` | ninguna |
+| 166 | `pickup_turret_00` | `pickups/pickup_turret_00.png` | `pickups` | `assets/pickups/pickup_turret_00.png` | 160x160 | `True` | ninguna |
+| 167 | `pickup_companion_00` | `pickups/pickup_companion_00.png` | `pickups` | `assets/pickups/pickup_companion_00.png` | 160x160 | `True` | ninguna |
+| 168 | `pickup_mutation_00` | `pickups/pickup_mutation_00.png` | `pickups` | `assets/pickups/pickup_mutation_00.png` | 160x160 | `True` | ninguna |
+| 169 | `relic_needle` | `rogue:needle` | `pickups` | `assets/pickups/relic_needle.png` | 160x160 | `True` | ninguna |
+| 170 | `relic_lowpass` | `rogue:lowpass` | `pickups` | `assets/pickups/relic_lowpass.png` | 160x160 | `True` | ninguna |

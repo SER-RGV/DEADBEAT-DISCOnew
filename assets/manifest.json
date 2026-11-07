@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 155,
+  "totalRegistered": 165,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -1991,6 +1991,19 @@
       "tanda": "TANDA_16",
       "sha16": "1b070ed9454a8371"
     },
+    "boss_09_nucleo_attack": {
+      "id": "boss_09_nucleo_attack",
+      "originalId": "boss_09_nucleofinal:attack",
+      "name": "NÚCLEO FINAL · La Última Canción (IX Núcleo) · Ataque / Despliegue",
+      "category": "bosses",
+      "src": "assets/bosses/boss_09_nucleo_attack.png",
+      "w": 416,
+      "h": 448,
+      "alpha": true,
+      "pivot": "bottom-center",
+      "tanda": "TANDA_16",
+      "sha16": "69c0b02160c6de07"
+    },
     "boss_09_nucleo_hit": {
       "id": "boss_09_nucleo_hit",
       "originalId": "boss_09_nucleofinal:hit",
@@ -2016,6 +2029,123 @@
       "pivot": "bottom-center",
       "tanda": "TANDA_16",
       "sha16": "5db42fec80f316d7"
+    },
+    "pickup_credits_00": {
+      "id": "pickup_credits_00",
+      "originalId": "pickups/pickup_credits_00.png",
+      "name": "Pickup · Moneda de Créditos Oro",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_credits_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_16",
+      "sha16": "8e0ce900d658eb74"
+    },
+    "pickup_heart_00": {
+      "id": "pickup_heart_00",
+      "originalId": "pickups/pickup_heart_00.png",
+      "name": "Pickup · Corazón Rubí Neón",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_heart_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_16",
+      "sha16": "74e6a622a2a7c8dc"
+    },
+    "pickup_ammo_00": {
+      "id": "pickup_ammo_00",
+      "originalId": "pickups/pickup_ammo_00.png",
+      "name": "Pickup · Caja de Munición / Batería",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_ammo_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_16",
+      "sha16": "1bb3041d9169540f"
+    },
+    "pickup_bomb_00": {
+      "id": "pickup_bomb_00",
+      "originalId": "pickups/pickup_bomb_00.png",
+      "name": "Pickup · Bomba Sónica Violeta",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_bomb_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_16",
+      "sha16": "b6356c6f7f9f7f00"
+    },
+    "pickup_boost_00": {
+      "id": "pickup_boost_00",
+      "originalId": "pickups/pickup_boost_00.png",
+      "name": "Pickup · Inyección / Cubo Boost Cian",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_boost_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_17",
+      "sha16": "a7e5994a503cb383"
+    },
+    "pickup_shield_00": {
+      "id": "pickup_shield_00",
+      "originalId": "pickups/pickup_shield_00.png",
+      "name": "Pickup · Candado / Escudo Áurico",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_shield_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_17",
+      "sha16": "3fde242ee198dd47"
+    },
+    "pickup_damageup_00": {
+      "id": "pickup_damageup_00",
+      "originalId": "pickups/pickup_damageup_00.png",
+      "name": "Pickup · Subida de Daño Carmesí",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_damageup_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_17",
+      "sha16": "00891c827888fcbd"
+    },
+    "pickup_fireup_00": {
+      "id": "pickup_fireup_00",
+      "originalId": "pickups/pickup_fireup_00.png",
+      "name": "Pickup · Cadencia Ígnea Naranja",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_fireup_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_17",
+      "sha16": "1666ce14f7a77ff9"
+    },
+    "pickup_speedup_00": {
+      "id": "pickup_speedup_00",
+      "originalId": "pickups/pickup_speedup_00.png",
+      "name": "Pickup · Velocidad Doble Flecha Neón",
+      "category": "pickups",
+      "src": "assets/pickups/pickup_speedup_00.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_17",
+      "sha16": "0d78ddf9ffeb45df"
     }
   },
   "byOriginalId": {
@@ -2172,7 +2302,17 @@
     "resident_09_traidor:hit": "boss_08_traidor_hit",
     "resident_09_traidor:death": "boss_08_traidor_death",
     "boss_09_nucleofinal:idle": "boss_09_nucleo_idle",
+    "boss_09_nucleofinal:attack": "boss_09_nucleo_attack",
     "boss_09_nucleofinal:hit": "boss_09_nucleo_hit",
-    "boss_09_nucleofinal:death": "boss_09_nucleo_death"
+    "boss_09_nucleofinal:death": "boss_09_nucleo_death",
+    "pickups/pickup_credits_00.png": "pickup_credits_00",
+    "pickups/pickup_heart_00.png": "pickup_heart_00",
+    "pickups/pickup_ammo_00.png": "pickup_ammo_00",
+    "pickups/pickup_bomb_00.png": "pickup_bomb_00",
+    "pickups/pickup_boost_00.png": "pickup_boost_00",
+    "pickups/pickup_shield_00.png": "pickup_shield_00",
+    "pickups/pickup_damageup_00.png": "pickup_damageup_00",
+    "pickups/pickup_fireup_00.png": "pickup_fireup_00",
+    "pickups/pickup_speedup_00.png": "pickup_speedup_00"
   }
 }
