@@ -14,7 +14,9 @@
   --dd-cream: #f8fafc;
   --dd-muted: #cbd5e1;
   --dd-ink: #050208;
-  --dd-font-display: "Impact", "Oswald", "Arial Black", system-ui, sans-serif;
+  /* "DDPixel" (Pixelify Sans, SIL OFL 1.1) ya está embebida por el juego;
+     se usa como display de la Fase 01 con respaldo tipográfico. */
+  --dd-font-display: "DDPixel", "Impact", "Oswald", "Arial Black", system-ui, sans-serif;
   --dd-font-ui: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
 }
 
@@ -796,4 +798,1169 @@ body.dd-highres-edition #ddc-cover {
   letter-spacing: 0.1em;
   cursor: pointer;
   text-transform: uppercase;
+}
+
+/* ==========================================================================
+   FASE 01 · 1. SECUENCIA DE ARRANQUE — LOADING SCREEN (window.DD_BOOT)
+   Reemplaza en pantalla al #boot-screen legado (que permanece en el DOM como
+   contrato de DMO_BOOT46 pero deja de mostrarse: ver dd_boot.js/CSS abajo).
+   ========================================================================== */
+body.dd-booting {
+  overflow: hidden;
+}
+
+#boot-screen {
+  /* El contrato del motor sigue vivo (`#boot-screen`, `#boot-progress`…), pero la
+     pantalla propia de la Fase 01 lo sustituye visualmente. */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#dd-boot-frame {
+  --dd-pixel: "DDPixel", ui-monospace, monospace;
+  position: fixed;
+  inset: 0;
+  z-index: 20000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: #06030c;
+  color: var(--dd-cream);
+  font-family: var(--dd-font-ui);
+  opacity: 1;
+  transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.22, 0.9, 0.25, 1);
+  will-change: opacity, transform;
+}
+#dd-boot-frame.is-out {
+  opacity: 0;
+  transform: scale(1.03);
+  pointer-events: none;
+}
+
+/* --- capas de fondo ------------------------------------------------------- */
+#dd-boot-frame .dd-boot-bg {
+  position: absolute;
+  inset: -3%;
+  background-image: url("assets/fase01/loading_keyart_2k.webp");
+  background-size: cover;
+  background-position: 50% 42%;
+  filter: saturate(0.92) brightness(0.5);
+  transform: scale(1.06);
+  animation: dd-boot-drift 46s ease-in-out infinite alternate;
+}
+@keyframes dd-boot-drift {
+  from { transform: scale(1.06) translate3d(-1.2%, 0.8%, 0); }
+  to   { transform: scale(1.12) translate3d(1.4%, -1.2%, 0); }
+}
+
+#dd-boot-frame .dd-boot-scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 62% 58% at 50% 46%, rgba(6, 3, 12, 0.34) 0%, rgba(6, 3, 12, 0.78) 58%, rgba(6, 3, 12, 0.95) 100%),
+    linear-gradient(180deg, rgba(6, 3, 12, 0.86) 0%, rgba(6, 3, 12, 0.18) 26%, rgba(6, 3, 12, 0.24) 62%, rgba(6, 3, 12, 0.96) 100%);
+  pointer-events: none;
+}
+#dd-boot-frame .dd-boot-beams {
+  position: absolute;
+  inset: 0;
+  mix-blend-mode: screen;
+  opacity: 0.55;
+}
+#dd-boot-frame .dd-boot-beams i {
+  position: absolute;
+  top: -30%;
+  width: 34vw;
+  height: 165%;
+  /* Sin filter:blur — un degradado con parada intermedia da el mismo haz suave
+     sin forzar al compositor a difuminar 34vw x 165vh por fotograma. */
+  background: linear-gradient(180deg,
+    rgba(255, 45, 122, 0.30) 0%,
+    rgba(255, 45, 122, 0.16) 32%,
+    rgba(255, 45, 122, 0) 74%);
+  transform-origin: 50% 0;
+  animation: dd-boot-sweep 13s ease-in-out infinite alternate;
+}
+#dd-boot-frame .dd-boot-beams i:nth-child(1) { left: 4%;  background: linear-gradient(180deg, rgba(34, 211, 238, 0.28) 0%, rgba(34, 211, 238, 0.13) 34%, rgba(34, 211, 238, 0) 76%); animation-duration: 17s; }
+#dd-boot-frame .dd-boot-beams i:nth-child(2) { left: 38%; animation-delay: -4s; }
+#dd-boot-frame .dd-boot-beams i:nth-child(3) { left: 72%; background: linear-gradient(180deg, rgba(168, 85, 247, 0.30) 0%, rgba(168, 85, 247, 0.14) 34%, rgba(168, 85, 247, 0) 78%); animation-delay: -8s; animation-duration: 15s; }
+@keyframes dd-boot-sweep {
+  from { transform: rotate(-9deg) scaleX(1); opacity: 0.55; }
+  to   { transform: rotate(9deg) scaleX(1.24); opacity: 1; }
+}
+#dd-boot-frame .dd-boot-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.5) 0.5px, transparent 0.6px),
+    radial-gradient(rgba(255, 45, 122, 0.4) 0.5px, transparent 0.6px);
+  background-size: 3px 3px, 7px 7px;
+  background-position: 0 0, 1px 1px;
+  mix-blend-mode: screen;
+  animation: dd-boot-grain 0.9s steps(3) infinite;
+}
+@keyframes dd-boot-grain {
+  0% { transform: translate3d(0, 0, 0); }
+  33% { transform: translate3d(-1px, 1px, 0); }
+  66% { transform: translate3d(1px, -1px, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+#dd-boot-frame .dd-boot-scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0.11;
+  background: repeating-linear-gradient(180deg, rgba(255, 255, 255, 0.10) 0 1px, transparent 1px 4px);
+  pointer-events: none;
+}
+#dd-boot-frame .dd-boot-frame-deco {
+  position: absolute;
+  inset: clamp(14px, 3vh, 38px) clamp(14px, 3vw, 46px);
+  pointer-events: none;
+}
+#dd-boot-frame .dd-boot-frame-deco span {
+  position: absolute;
+  width: 46px;
+  height: 46px;
+  border: 2px solid rgba(34, 211, 238, 0.55);
+}
+#dd-boot-frame .dd-boot-frame-deco .tl { top: 0; left: 0; border-right: 0; border-bottom: 0; }
+#dd-boot-frame .dd-boot-frame-deco .tr { top: 0; right: 0; border-left: 0; border-bottom: 0; border-color: rgba(255, 45, 122, 0.6); }
+#dd-boot-frame .dd-boot-frame-deco .bl { bottom: 0; left: 0; border-right: 0; border-top: 0; border-color: rgba(255, 45, 122, 0.6); }
+#dd-boot-frame .dd-boot-frame-deco .br { bottom: 0; right: 0; border-left: 0; border-top: 0; }
+
+/* --- contenido ------------------------------------------------------------ */
+#dd-boot-frame .dd-boot-inner {
+  position: relative;
+  width: min(760px, 88vw);
+  display: grid;
+  justify-items: center;
+  gap: clamp(8px, 1.4vh, 16px);
+  padding: clamp(18px, 3vh, 34px) clamp(18px, 3vw, 40px);
+}
+#dd-boot-frame .dd-boot-top {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 16px;
+  font-family: var(--dd-font-display);
+  font-size: 11px;
+  letter-spacing: 0.26em;
+  color: rgba(248, 250, 252, 0.62);
+  text-transform: uppercase;
+}
+#dd-boot-frame .dd-boot-ver { color: var(--dd-neon-cyan); }
+
+#dd-boot-frame .dd-boot-title {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: clamp(96px, 17vh, 190px);
+  /* Aparece por animación; se fuerza el estado final si el navegador no la
+     ejecuta (pestaña de fondo) para que la marca nunca quede invisible. */
+  animation: dd-boot-appear 1.05s 0.34s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+#dd-boot-frame .dd-boot-wordmark {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  font-family: var(--dd-font-display);
+  line-height: 0.82;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: -0.02em;
+  animation: dd-boot-word 5.6s ease-in-out infinite;
+}
+#dd-boot-frame .dd-boot-wordmark b {
+  display: block;
+  font-size: clamp(38px, 7.4vw, 82px);
+  font-weight: 700;
+  color: #fff;
+  text-shadow: 0 0 26px rgba(255, 45, 122, 0.7), 0 6px 0 rgba(120, 6, 44, 0.9);
+}
+#dd-boot-frame .dd-boot-wordmark i {
+  display: block;
+  font-size: clamp(30px, 6.2vw, 70px);
+  font-style: normal;
+  font-weight: 700;
+  color: var(--dd-cream);
+  text-shadow: 0 0 22px rgba(255, 45, 122, 0.55), 0 5px 0 rgba(120, 6, 44, 0.85);
+}
+@keyframes dd-boot-word {
+  0%, 100% { opacity: 0.94; }
+  50% { opacity: 1; }
+}
+#dd-boot-frame .dd-boot-title img {
+  grid-area: 1 / 1;
+  display: block;
+  width: min(420px, 56vw);
+  height: auto;
+  filter: drop-shadow(0 10px 34px rgba(0, 0, 0, 0.7));
+}
+#dd-boot-frame .dd-boot-title.has-logo .dd-boot-wordmark { display: none; }
+@keyframes dd-boot-glowfix { to { opacity: 1; } }
+#dd-boot-frame .dd-boot-wordmark { opacity: 1; }
+#dd-boot-frame .dd-boot-divider {
+  width: min(560px, 76vw);
+  animation: dd-boot-appear 1s 0.52s ease both;
+}
+#dd-boot-frame .dd-boot-divider img { width: 100%; height: auto; display: block; }
+
+/* --- progreso ------------------------------------------------------------- */
+#dd-boot-frame .dd-boot-statusline {
+  width: 100%;
+  position: relative;
+  padding: 0 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 14px;
+  margin-top: clamp(4px, 1vh, 12px);
+  font-family: var(--dd-font-display);
+  font-size: clamp(11px, 1.35vw, 14px);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dd-cream);
+}
+#dd-boot-frame #dd-boot-stage { color: var(--dd-neon-cyan); }
+#dd-boot-frame #dd-boot-pct { font-variant-numeric: tabular-nums; color: rgba(248, 250, 252, 0.86); }
+
+#dd-boot-frame .dd-boot-bar {
+  position: relative;
+  width: 100%;
+  height: 10px;
+  background: rgba(4, 2, 10, 0.86);
+  border: 1px solid rgba(34, 211, 238, 0.35);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+}
+#dd-boot-frame .dd-boot-bar i {
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, #22d3ee 0 52%, #ff2d7a 92%);
+  box-shadow: 0 0 18px rgba(255, 45, 122, 0.75);
+  transition: width 0.34s cubic-bezier(0.3, 0.9, 0.25, 1);
+}
+#dd-boot-frame .dd-boot-bar b {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 26%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+  animation: dd-boot-shine 1.9s linear infinite;
+  pointer-events: none;
+}
+@keyframes dd-boot-shine {
+  from { left: -30%; }
+  to { left: 108%; }
+}
+
+/* --- lista de pasos ------------------------------------------------------- */
+#dd-boot-frame .dd-boot-steps {
+  width: 100%;
+  position: relative;
+  padding: 10px 14px;
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  background: linear-gradient(180deg, rgba(6, 3, 12, 0.72), rgba(6, 3, 12, 0.5));
+  backdrop-filter: blur(3px);
+  margin: 2px 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 3px 18px;
+  font-size: clamp(9px, 1.05vw, 11px);
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  font-family: var(--dd-pixel);
+  font-weight: 400;
+}
+#dd-boot-frame .dd-boot-step {
+  display: grid;
+  grid-template-columns: 12px 1fr auto;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 0;
+  color: rgba(203, 213, 225, 0.5);
+  transition: color 0.2s ease;
+}
+#dd-boot-frame .dd-boot-step .dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(148, 163, 184, 0.4);
+  transform: rotate(45deg);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+#dd-boot-frame .dd-boot-step .res {
+  font-variant-numeric: tabular-nums;
+  color: rgba(148, 163, 184, 0.55);
+  font-size: 0.92em;
+}
+#dd-boot-frame .dd-boot-step.is-run { color: rgba(248, 250, 252, 0.9); }
+#dd-boot-frame .dd-boot-step.is-run .dot { background: var(--dd-neon-cyan); box-shadow: 0 0 10px var(--dd-neon-cyan); }
+#dd-boot-frame .dd-boot-step.is-ok { color: rgba(248, 250, 252, 0.82); }
+#dd-boot-frame .dd-boot-step.is-ok .dot { background: var(--dd-neon-cyan); }
+#dd-boot-frame .dd-boot-step.is-ok .res { color: rgba(34, 211, 238, 0.9); }
+#dd-boot-frame .dd-boot-step.is-warn .dot { background: var(--dd-neon-gold); }
+#dd-boot-frame .dd-boot-step.is-warn .res { color: var(--dd-neon-gold); }
+#dd-boot-frame .dd-boot-step.is-fail { color: #fecdd3; }
+#dd-boot-frame .dd-boot-step.is-fail .dot { background: #fb7185; box-shadow: 0 0 10px #fb7185; }
+#dd-boot-frame .dd-boot-step.is-fail .res { color: #fb7185; }
+
+/* --- error ---------------------------------------------------------------- */
+#dd-boot-frame .dd-boot-err {
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 16px;
+  border: 1px solid rgba(251, 113, 133, 0.55);
+  border-left: 4px solid #fb7185;
+  background: rgba(40, 6, 16, 0.92);
+  text-align: left;
+}
+#dd-boot-frame .dd-boot-err strong {
+  display: block;
+  font-family: var(--dd-font-display);
+  font-size: 13px;
+  letter-spacing: 0.16em;
+  color: #fecdd3;
+  margin-bottom: 6px;
+}
+#dd-boot-frame .dd-boot-err p {
+  margin: 0 0 12px;
+  font-size: 12px;
+  line-height: 1.55;
+  color: rgba(248, 250, 252, 0.82);
+}
+#dd-boot-frame .dd-boot-err-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+#dd-boot-frame .dd-boot-btn {
+  appearance: none;
+  cursor: pointer;
+  padding: 9px 16px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  background: rgba(12, 8, 22, 0.9);
+  color: var(--dd-cream);
+  font-family: var(--dd-font-display);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+}
+#dd-boot-frame .dd-boot-btn.hot { border-color: var(--dd-neon-pink); color: #fff; background: linear-gradient(100deg, #b3123f, #e11d74); }
+#dd-boot-frame .dd-boot-btn:focus-visible { outline: 2px solid var(--dd-neon-cyan); outline-offset: 3px; }
+
+#dd-boot-frame .dd-boot-foot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 14px;
+  margin-top: 4px;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(148, 163, 184, 0.62);
+}
+
+/* --- estados de salida / reducción de movimiento --------------------------- */
+#dd-boot-frame.is-complete #dd-boot-stage { color: var(--dd-core, #fde68a); }
+#dd-boot-frame.is-degraded .dd-boot-err { display: block; }
+
+@media (max-height: 620px) {
+  #dd-boot-frame .dd-boot-title img { width: min(280px, 46vw); }
+  #dd-boot-frame .dd-boot-steps { grid-template-columns: repeat(3, minmax(0, 1fr)); font-size: 9px; }
+}
+@media (max-width: 720px) {
+  #dd-boot-frame .dd-boot-steps { grid-template-columns: minmax(0, 1fr); }
+  #dd-boot-frame .dd-boot-foot { flex-direction: column; gap: 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-boot-frame .dd-boot-bg,
+  #dd-boot-frame .dd-boot-beams i,
+  #dd-boot-frame .dd-boot-grain,
+  #dd-boot-frame .dd-boot-bar b { animation: none !important; }
+  #dd-boot-frame .dd-boot-title,
+  #dd-boot-frame .dd-boot-divider { animation-duration: 0.01s !important; opacity: 1; }
+}
+
+/* ==========================================================================
+   FASE 01 · MENÚ PRINCIPAL DEFINITIVO + SUBMENÚS  (Bloques 05 y 06)
+   ========================================================================== */
+#dd-main-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 15000;
+  overflow: hidden;
+  color: var(--dd-cream);
+  background: #06030c;
+  font-family: var(--dd-font-ui);
+  isolation: isolate;
+}
+#dd-main-menu.dd-hidden { display: none; }
+
+/* --- fondo: key art aprobado + atmósfera animada ------------------------- */
+#dd-main-menu #dd-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 46%;
+  transform: scale(1.06);
+  /* Sin filter en una capa a pantalla completa con animación: el look se
+     consigue con el degradado de la viñeta (coste cero por fotograma). */
+  animation: dd-menu-drift 46s ease-in-out infinite alternate;
+  z-index: 0;
+}
+@keyframes dd-menu-drift {
+  0%   { transform: scale(1.06) translate3d(0, 0, 0); }
+  100% { transform: scale(1.12) translate3d(-1.2%, -0.9%, 0); }
+}
+#dd-main-menu .dd-menu-vig {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 46% 72% at 24% 52%, rgba(6, 3, 12, 0.94) 0%, rgba(6, 3, 12, 0.72) 46%, rgba(6, 3, 12, 0) 78%),
+    linear-gradient(90deg, rgba(6, 3, 12, 0.92) 0%, rgba(6, 3, 12, 0.45) 42%, rgba(6, 3, 12, 0.12) 62%, rgba(6, 3, 12, 0.42) 100%),
+    linear-gradient(180deg, rgba(6, 3, 12, 0.68) 0%, rgba(6, 3, 12, 0) 30%, rgba(6, 3, 12, 0.38) 78%, rgba(6, 3, 12, 0.9) 100%);
+}
+#dd-main-menu .dd-menu-atmos {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+#dd-main-menu .dd-menu-atmos i {
+  position: absolute;
+  display: block;
+  border-radius: 999px;
+  background: radial-gradient(circle, rgba(255, 45, 122, 0.5), rgba(255, 45, 122, 0) 70%);
+  filter: blur(1px);
+  animation: dd-dust 18s linear infinite;
+}
+#dd-main-menu .dd-menu-atmos .a1 { width: 220px; height: 220px; left: 58%; top: 12%; animation-duration: 22s; }
+#dd-main-menu .dd-menu-atmos .a2 { width: 150px; height: 150px; left: 74%; top: 58%; background: radial-gradient(circle, rgba(34, 211, 238, 0.45), rgba(34, 211, 238, 0) 70%); animation-duration: 27s; animation-delay: -6s; }
+#dd-main-menu .dd-menu-atmos .a3 { width: 320px; height: 320px; left: 42%; top: 62%; background: radial-gradient(circle, rgba(168, 85, 247, 0.34), rgba(168, 85, 247, 0) 70%); animation-duration: 34s; animation-delay: -14s; }
+@keyframes dd-dust {
+  0%   { transform: translate3d(0, 0, 0) scale(1); opacity: 0.28; }
+  35%  { opacity: 0.5; }
+  100% { transform: translate3d(-40px, -80px, 0) scale(1.18); opacity: 0.12; }
+}
+
+/* --- columna izquierda -------------------------------------------------- */
+#dd-main-menu .dd-menu-left {
+  position: relative;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  /* La columna crece con la ventana (hasta un techo) para que en 1080p/1440p y
+     ultrapanorámico el menú no se vea diminuto frente al key art. */
+  width: clamp(360px, max(34vw, 52vh), 900px);
+  padding: clamp(22px, 3.4vh, 56px) clamp(20px, 3vw, 64px);
+  box-sizing: border-box;
+}
+#dd-main-menu .dd-menu-brand { position: relative; }
+#dd-main-menu .dd-menu-logo {
+  display: block;
+  width: clamp(240px, max(26vw, 40vh), 640px);
+  max-height: 28vh;
+  object-fit: contain;
+  object-position: left center;
+  filter: drop-shadow(0 12px 30px rgba(255, 45, 122, 0.36));
+  animation: dd-brand-in 1.15s 0.1s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+@keyframes dd-brand-in {
+  0%   { opacity: 0; transform: translate3d(-26px, 8px, 0) scale(0.965); }
+  100% { opacity: 1; transform: none; }
+}
+#dd-main-menu .dd-menu-tagline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 6px;
+  opacity: 0;
+  animation: dd-brand-in 1s 0.42s ease both;
+}
+#dd-main-menu .dd-menu-tagline span {
+  font-family: var(--dd-pixel);
+  font-size: clamp(10px, max(0.72vw, 1.5vh), 16px);
+  letter-spacing: 0.34em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#dd-main-menu .dd-menu-tagline i {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(34, 211, 238, 0.7), rgba(34, 211, 238, 0));
+}
+
+/* --- navegación --------------------------------------------------------- */
+#dd-main-menu .dd-menu-nav {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3px, 0.7vh, 7px);
+  margin: clamp(10px, 2vh, 30px) 0;
+  max-width: clamp(430px, max(30vw, 46vh), 780px);
+}
+#dd-main-menu .dd-menu-btn {
+  position: relative;
+  display: grid;
+  grid-template-columns: clamp(24px, 2.6vh, 38px) 1fr clamp(12px, 1.4vh, 20px);
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: clamp(9px, 1.15vh, 16px) 14px clamp(9px, 1.15vh, 16px) 12px;
+  border: 1px solid transparent;
+  border-left: 2px solid rgba(255, 45, 122, 0.28);
+  border-radius: 3px;
+  background: linear-gradient(90deg, rgba(10, 6, 20, 0.62), rgba(10, 6, 20, 0.16));
+  color: var(--dd-cream);
+  font-family: inherit;
+  text-align: left;
+  cursor: pointer;
+  opacity: 0;
+  transform: translate3d(-12px, 0, 0);
+  animation: dd-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+  transition: background 0.18s ease, border-color 0.18s ease, padding-left 0.18s ease, box-shadow 0.18s ease;
+}
+#dd-main-menu .dd-menu-btn:nth-child(1) { animation-delay: 0.46s; }
+#dd-main-menu .dd-menu-btn:nth-child(2) { animation-delay: 0.53s; }
+#dd-main-menu .dd-menu-btn:nth-child(3) { animation-delay: 0.60s; }
+#dd-main-menu .dd-menu-btn:nth-child(4) { animation-delay: 0.67s; }
+#dd-main-menu .dd-menu-btn:nth-child(5) { animation-delay: 0.74s; }
+#dd-main-menu .dd-menu-btn:nth-child(6) { animation-delay: 0.81s; }
+@keyframes dd-item-in {
+  to { opacity: 1; transform: none; }
+}
+#dd-main-menu .dd-menu-btn .dd-btn-icon {
+  width: clamp(22px, 2.4vh, 34px);
+  height: clamp(22px, 2.4vh, 34px);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 0.72;
+  transition: opacity 0.18s ease, filter 0.18s ease, transform 0.18s ease;
+}
+#dd-main-menu .dd-menu-btn .dd-btn-text { display: grid; gap: 2px; min-width: 0; }
+#dd-main-menu .dd-menu-btn .dd-btn-text b {
+  font-family: var(--dd-pixel);
+  font-size: clamp(15px, max(1.05vw, 2.15vh), 30px);
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  transition: color 0.16s ease, text-shadow 0.16s ease;
+}
+#dd-main-menu .dd-menu-btn .dd-btn-text small {
+  font-size: clamp(9.5px, max(0.6vw, 1.25vh), 15px);
+  letter-spacing: 0.06em;
+  color: rgba(226, 232, 240, 0.42);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: color 0.16s ease;
+}
+#dd-main-menu .dd-menu-btn .dd-btn-mark {
+  width: 0;
+  height: 0;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  border-left: 9px solid var(--dd-neon-cyan);
+  opacity: 0;
+  transform: translateX(-6px);
+  transition: opacity 0.16s ease, transform 0.16s ease;
+}
+/* hover (ratón) — mismo lenguaje que la selección de teclado/mando */
+#dd-main-menu .dd-menu-btn:hover {
+  background: linear-gradient(90deg, rgba(255, 45, 122, 0.16), rgba(10, 6, 20, 0.1));
+  border-left-color: var(--dd-coral);
+  padding-left: 18px;
+}
+#dd-main-menu .dd-menu-btn:hover .dd-btn-text b { color: #fff; }
+#dd-main-menu .dd-menu-btn:hover .dd-btn-icon { opacity: 1; filter: drop-shadow(0 0 10px rgba(255, 45, 122, 0.7)); }
+/* selección (teclado, mando, foco) */
+#dd-main-menu .dd-menu-btn.dd-selected {
+  background: linear-gradient(90deg, rgba(255, 45, 122, 0.3), rgba(255, 45, 122, 0.05) 74%, rgba(10, 6, 20, 0.1));
+  border-color: rgba(255, 45, 122, 0.36);
+  border-left: 3px solid var(--dd-coral);
+  padding-left: 20px;
+  box-shadow: 0 0 0 1px rgba(255, 45, 122, 0.14), 0 10px 34px -16px rgba(255, 45, 122, 0.9), inset 0 0 26px -10px rgba(255, 45, 122, 0.7);
+}
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-text b {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(255, 45, 122, 0.85);
+}
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-text small { color: rgba(255, 255, 255, 0.66); }
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-icon {
+  opacity: 1;
+  filter: drop-shadow(0 0 12px rgba(255, 45, 122, 0.9));
+  transform: scale(1.06);
+}
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-mark { opacity: 1; transform: none; }
+#dd-main-menu .dd-menu-btn:focus-visible {
+  outline: 2px solid var(--dd-neon-cyan);
+  outline-offset: 3px;
+}
+/* pulsado */
+#dd-main-menu .dd-menu-btn:active,
+#dd-main-menu .dd-menu-btn.dd-press {
+  transform: translate3d(2px, 1px, 0) scale(0.994);
+  background: linear-gradient(90deg, rgba(255, 45, 122, 0.44), rgba(255, 45, 122, 0.1));
+  transition-duration: 0.05s;
+}
+/* deshabilitado */
+#dd-main-menu .dd-menu-btn[disabled] {
+  cursor: not-allowed;
+  filter: grayscale(1);
+  opacity: 0.42;
+}
+
+/* --- pie --------------------------------------------------------------- */
+#dd-main-menu .dd-menu-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  max-width: clamp(430px, max(30vw, 46vh), 780px);
+  opacity: 0;
+  animation: dd-brand-in 1s 0.95s ease both;
+}
+#dd-main-menu .dd-pill {
+  font-family: var(--dd-pixel);
+  font-size: clamp(9px, 1.25vh, 13px);
+  letter-spacing: 0.14em;
+  padding: clamp(4px, 0.6vh, 7px) clamp(8px, 0.9vh, 13px);
+  border: 1px solid rgba(34, 211, 238, 0.34);
+  border-radius: 2px;
+  color: rgba(165, 243, 252, 0.86);
+  background: rgba(4, 20, 26, 0.42);
+  text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+#dd-main-menu .dd-menu-build {
+  font-family: var(--dd-pixel);
+  font-size: clamp(9px, 1.25vh, 13px);
+  letter-spacing: 0.16em;
+  color: rgba(226, 232, 240, 0.34);
+}
+#dd-main-menu.dd-menu-in .dd-menu-left { animation: dd-menu-slide 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+@keyframes dd-menu-slide { from { opacity: 0; } to { opacity: 1; } }
+
+/* --- lateral (emblema + ayuda de controles) ----------------------------- */
+#dd-main-menu .dd-menu-side {
+  position: absolute;
+  right: clamp(16px, 2.4vw, 40px);
+  bottom: clamp(16px, 2.4vh, 34px);
+  z-index: 3;
+  display: flex;
+  align-items: flex-end;
+  gap: 18px;
+  pointer-events: none;
+}
+#dd-main-menu .dd-menu-badge {
+  width: clamp(58px, max(6vw, 9vh), 130px);
+  opacity: 0.72;
+  filter: drop-shadow(0 0 26px rgba(255, 45, 122, 0.5));
+  animation: dd-badge 4.4s ease-in-out infinite;
+}
+#dd-main-menu .dd-menu-badge img { width: 100%; display: block; }
+@keyframes dd-badge {
+  0%, 100% { opacity: 0.6; transform: translateY(0); }
+  50%      { opacity: 0.88; transform: translateY(-4px); }
+}
+#dd-main-menu .dd-menu-hint {
+  display: grid;
+  gap: 5px;
+  justify-items: end;
+  font-family: var(--dd-pixel);
+  font-size: clamp(9.5px, 1.3vh, 14px);
+  letter-spacing: 0.12em;
+  color: rgba(226, 232, 240, 0.5);
+  text-transform: uppercase;
+  text-align: right;
+}
+#dd-main-menu .dd-menu-hint kbd {
+  display: inline-block;
+  min-width: 20px;
+  padding: 2px 5px;
+  margin-right: 4px;
+  border: 1px solid rgba(226, 232, 240, 0.3);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.82);
+  background: rgba(6, 3, 12, 0.5);
+}
+#dd-main-menu .dd-menu-hint .dd-gp { color: rgba(34, 211, 238, 0.6); }
+
+/* ==========================================================================
+   SUBMENÚS (OPCIONES · CRÉDITOS · PARTIDAS · SALIR)
+   ========================================================================== */
+.dd-submenu-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 16000;
+  display: grid;
+  place-items: center;
+  padding: clamp(12px, 3vh, 40px);
+  background: radial-gradient(ellipse at 50% 45%, rgba(6, 3, 12, 0.86), rgba(3, 1, 7, 0.965));
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.26s ease, visibility 0.26s;
+}
+.dd-submenu-wrap.is-open { opacity: 1; visibility: visible; }
+.dd-submenu-card {
+  position: relative;
+  width: min(1080px, 96vw);
+  max-height: 92vh;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255, 45, 122, 0.36);
+  border-radius: 6px;
+  background: linear-gradient(180deg, rgba(14, 8, 24, 0.97), rgba(7, 4, 14, 0.98));
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px rgba(255, 45, 122, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transform: translateY(14px) scale(0.99);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+.dd-submenu-wrap.is-open .dd-submenu-card { transform: none; }
+.dd-submenu-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--dd-neon-cyan), var(--dd-coral), transparent);
+}
+.dd-submenu-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px clamp(16px, 2.4vw, 30px) 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+.dd-submenu-kicker {
+  font-family: var(--dd-pixel);
+  font-size: 10px;
+  letter-spacing: 0.26em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+}
+.dd-submenu-card h2 {
+  margin: 4px 0 3px;
+  font-family: var(--dd-font-display);
+  font-size: clamp(24px, 2.6vw, 36px);
+  line-height: 1;
+  letter-spacing: 0.03em;
+  color: #fff;
+  text-shadow: 0 0 26px rgba(255, 45, 122, 0.55);
+  text-transform: uppercase;
+}
+.dd-submenu-card #dd-submenu-sub {
+  margin: 0;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: rgba(226, 232, 240, 0.5);
+}
+.dd-submenu-back {
+  flex: none;
+  font-family: var(--dd-pixel);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  padding: 8px 12px;
+  border: 1px solid rgba(148, 163, 184, 0.3);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.6);
+  color: var(--dd-cream);
+  cursor: pointer;
+  transition: border-color 0.16s, color 0.16s, background 0.16s;
+}
+.dd-submenu-back:hover, .dd-submenu-back:focus-visible {
+  border-color: var(--dd-coral);
+  color: #fff;
+  background: rgba(255, 45, 122, 0.16);
+  outline: none;
+}
+.dd-submenu-back kbd {
+  margin-left: 5px;
+  font-family: inherit;
+  font-size: 9px;
+  padding: 1px 4px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 2px;
+  opacity: 0.72;
+}
+.dd-submenu-body {
+  padding: clamp(14px, 2.2vh, 24px) clamp(16px, 2.4vw, 30px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 45, 122, 0.5) transparent;
+}
+.dd-submenu-body::-webkit-scrollbar { width: 8px; }
+.dd-submenu-body::-webkit-scrollbar-thumb { background: rgba(255, 45, 122, 0.42); border-radius: 4px; }
+.dd-submenu-foot {
+  padding: 10px clamp(16px, 2.4vw, 30px);
+  border-top: 1px solid rgba(148, 163, 184, 0.12);
+  font-family: var(--dd-pixel);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: rgba(148, 163, 184, 0.62);
+  text-transform: uppercase;
+}
+
+/* --- opciones ----------------------------------------------------------- */
+.dd-opt-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(16px, 2.4vw, 34px);
+}
+.dd-opt-col h3 {
+  margin: 0 0 8px;
+  font-family: var(--dd-pixel);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+}
+.dd-opt-col h3 + .dd-opt-row { margin-top: 2px; }
+.dd-opt-col > h3:not(:first-child) {
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(148, 163, 184, 0.14);
+}
+.dd-opt-row {
+  display: grid;
+  grid-template-columns: minmax(140px, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+  font-size: 12.5px;
+  letter-spacing: 0.03em;
+  color: rgba(226, 232, 240, 0.84);
+}
+.dd-opt-row label { text-transform: uppercase; font-size: 11.5px; letter-spacing: 0.06em; }
+.dd-opt-row input[type="range"] {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 22px;
+  accent-color: var(--dd-coral);
+  cursor: pointer;
+}
+.dd-opt-row output {
+  min-width: 44px;
+  text-align: right;
+  font-family: var(--dd-pixel);
+  font-size: 12px;
+  color: var(--dd-cream);
+}
+.dd-opt-row select {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 5px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.9);
+  color: var(--dd-cream);
+  cursor: pointer;
+  min-width: 150px;
+}
+.dd-opt-row select:focus-visible, .dd-toggle:focus-visible {
+  outline: 2px solid var(--dd-neon-cyan);
+  outline-offset: 2px;
+}
+.dd-toggle {
+  min-width: 96px;
+  padding: 5px 10px;
+  font-family: var(--dd-pixel);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.8);
+  color: rgba(226, 232, 240, 0.72);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s, background 0.15s;
+}
+.dd-toggle[aria-pressed="true"] {
+  border-color: rgba(34, 211, 238, 0.6);
+  color: #d9fdff;
+  background: rgba(8, 47, 55, 0.72);
+  box-shadow: inset 0 0 16px -6px rgba(34, 211, 238, 0.8);
+}
+.dd-toggle:hover { border-color: var(--dd-coral); color: #fff; }
+.dd-opt-fixed { font-family: var(--dd-pixel); font-size: 11px; color: rgba(226, 232, 240, 0.5); text-align: right; }
+.dd-opt-note {
+  margin: 6px 0 10px;
+  font-size: 11.5px;
+  line-height: 1.5;
+  color: rgba(148, 163, 184, 0.66);
+}
+.dd-opt-foot { grid-column: 1 / -1; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(148, 163, 184, 0.12); }
+.dd-mix { display: grid; gap: 2px; }
+/* el panel de mezcla del motor se incrusta tal cual: una sola fuente */
+.dd-mix .audio-panel-row, .dd-mix .ap-row { min-height: 26px; }
+
+/* fila de volumen: deslizador + lectura en la misma línea */
+.dd-opt-row.dd-opt-vol { grid-template-columns: minmax(120px, auto) 1fr auto; }
+.dd-opt-row.dd-opt-vol input[type="range"] { grid-column: 2; }
+.dd-opt-row.dd-opt-vol output { grid-column: 3; }
+
+/* --- créditos ----------------------------------------------------------- */
+.dd-cred-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+}
+.dd-cred-hero img { width: 74px; filter: drop-shadow(0 0 20px rgba(255, 45, 122, 0.55)); }
+.dd-cred-hero b {
+  display: block;
+  font-family: var(--dd-font-display);
+  font-size: clamp(22px, 2.2vw, 30px);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.dd-cred-hero span { font-family: var(--dd-pixel); font-size: 10px; letter-spacing: 0.2em; color: var(--dd-neon-cyan); }
+.dd-cred-list { margin: 0; display: grid; gap: 0; }
+.dd-cred-list > div {
+  display: grid;
+  grid-template-columns: minmax(180px, 34%) 1fr;
+  gap: 14px;
+  padding: 9px 0;
+  border-bottom: 1px dashed rgba(148, 163, 184, 0.1);
+}
+.dd-cred-list dt {
+  font-family: var(--dd-pixel);
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: rgba(148, 163, 184, 0.78);
+  text-transform: uppercase;
+  padding-top: 2px;
+}
+.dd-cred-list dd { margin: 0; font-size: 13px; color: rgba(255, 255, 255, 0.9); }
+.dd-cred-note { margin: 14px 0 0; font-size: 11px; color: rgba(148, 163, 184, 0.55); font-style: italic; }
+
+/* --- partidas / salir --------------------------------------------------- */
+.dd-slot {
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  border-left: 3px solid var(--dd-coral);
+  border-radius: 4px;
+  padding: 14px clamp(12px, 1.6vw, 20px);
+  background: linear-gradient(90deg, rgba(255, 45, 122, 0.09), rgba(6, 3, 12, 0.2));
+}
+.dd-slot.is-empty { border-left-color: rgba(148, 163, 184, 0.4); background: rgba(6, 3, 12, 0.3); }
+.dd-slot-head { display: grid; gap: 3px; }
+.dd-slot-tag {
+  font-family: var(--dd-pixel);
+  font-size: 9.5px;
+  letter-spacing: 0.22em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+}
+.dd-slot-head b {
+  font-family: var(--dd-font-display);
+  font-size: clamp(18px, 1.8vw, 24px);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.dd-slot-head > span:last-child { font-size: 12px; color: rgba(226, 232, 240, 0.6); }
+.dd-slot-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(118px, 1fr));
+  gap: 10px;
+  margin: 14px 0;
+}
+.dd-slot-stats > div {
+  padding: 7px 9px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.5);
+}
+.dd-slot-stats dt {
+  font-family: var(--dd-pixel);
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: rgba(148, 163, 184, 0.7);
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+.dd-slot-stats dd { margin: 0; font-size: 14px; font-weight: 700; color: var(--dd-cream); }
+.dd-slot-actions, .dd-exit .dd-slot-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+.dd-btn-primary, .dd-btn-ghost {
+  font-family: var(--dd-pixel);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  padding: 10px 18px;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: transform 0.1s, box-shadow 0.18s, background 0.18s, color 0.18s, border-color 0.18s;
+}
+.dd-btn-primary {
+  border: 1px solid var(--dd-coral);
+  background: linear-gradient(180deg, rgba(255, 45, 122, 0.92), rgba(178, 14, 74, 0.94));
+  color: #fff;
+  box-shadow: 0 10px 26px -12px rgba(255, 45, 122, 0.9);
+}
+.dd-btn-primary:hover { background: linear-gradient(180deg, #ff4f8f, #c1124f); }
+.dd-btn-primary:active { transform: translateY(1px); }
+.dd-btn-primary[disabled] {
+  background: rgba(51, 39, 58, 0.6);
+  border-color: rgba(148, 163, 184, 0.24);
+  color: rgba(226, 232, 240, 0.36);
+  box-shadow: none;
+  cursor: not-allowed;
+}
+.dd-btn-ghost {
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  background: rgba(6, 3, 12, 0.6);
+  color: rgba(226, 232, 240, 0.86);
+}
+.dd-btn-ghost:hover { border-color: var(--dd-neon-cyan); color: #fff; background: rgba(8, 47, 55, 0.5); }
+.dd-btn-primary:focus-visible, .dd-btn-ghost:focus-visible { outline: 2px solid var(--dd-neon-cyan); outline-offset: 3px; }
+.dd-slot-note {
+  margin: 14px 0 0;
+  padding: 11px 13px;
+  border-left: 2px solid rgba(34, 211, 238, 0.5);
+  background: rgba(8, 47, 55, 0.24);
+  font-size: 11.5px;
+  line-height: 1.55;
+  color: rgba(226, 232, 240, 0.66);
+}
+.dd-slot-note b {
+  display: block;
+  font-family: var(--dd-pixel);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--dd-neon-cyan);
+  margin-bottom: 4px;
+}
+.dd-slot-note p { margin: 0; }
+.dd-slot-hist { margin-top: 16px; }
+.dd-slot-hist h3 {
+  font-family: var(--dd-pixel);
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  color: var(--dd-neon-cyan);
+  margin: 0 0 8px;
+}
+.dd-slot-hist table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.dd-slot-hist th {
+  text-align: left;
+  font-family: var(--dd-pixel);
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  font-weight: 400;
+  color: rgba(148, 163, 184, 0.7);
+  padding: 0 8px 6px 0;
+  text-transform: uppercase;
+}
+.dd-slot-hist td { padding: 6px 8px 6px 0; border-top: 1px solid rgba(148, 163, 184, 0.1); color: rgba(226, 232, 240, 0.8); }
+.dd-exit { display: grid; gap: 4px; }
+.dd-exit-q {
+  margin: 0 0 4px;
+  font-family: var(--dd-font-display);
+  font-size: clamp(19px, 2vw, 26px);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+.dd-exit-note { margin: 0 0 8px; font-size: 12px; line-height: 1.6; color: rgba(226, 232, 240, 0.6); }
+
+/* --- salida real -------------------------------------------------------- */
+#dd-blackout {
+  position: fixed;
+  inset: 0;
+  z-index: 30000;
+  display: grid;
+  place-items: center;
+  background: #000;
+  animation: dd-fade-in 0.6s ease both;
+}
+@keyframes dd-fade-in { from { opacity: 0; } to { opacity: 1; } }
+.dd-blackout-card { display: grid; justify-items: center; gap: 12px; text-align: center; padding: 24px; }
+.dd-blackout-card h2 {
+  margin: 0;
+  font-family: var(--dd-font-display);
+  font-size: clamp(22px, 3vw, 34px);
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.9);
+  text-transform: uppercase;
+}
+.dd-blackout-card p { margin: 0; font-size: 13px; color: rgba(148, 163, 184, 0.7); }
+body.dd-exited #dd-main-menu,
+body.dd-exited .dd-submenu-wrap { visibility: hidden; }
+
+/* ==========================================================================
+   HUD heredado + modales (se conservan; sólo adaptaciones al nuevo menú)
+   ========================================================================== */
+.dd-hidden { display: none !important; }
+#dd-main-menu.dd-behind { filter: brightness(0.4) blur(2px); transition: filter 0.28s ease; }
+
+@media (max-width: 1100px) {
+  .dd-opt-grid { grid-template-columns: 1fr; }
+  #dd-main-menu .dd-menu-left { width: min(520px, 62vw); }
+  #dd-main-menu .dd-menu-side { display: none; }
+}
+@media (max-height: 720px) {
+  #dd-main-menu .dd-menu-logo { width: min(320px, 34vw); max-height: 20vh; }
+  #dd-main-menu .dd-menu-btn { padding-top: 8px; padding-bottom: 8px; }
+  #dd-main-menu .dd-menu-btn .dd-btn-text small { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu #dd-menu-backdrop,
+  #dd-main-menu .dd-menu-atmos i,
+  #dd-main-menu .dd-menu-badge { animation: none !important; }
+  #dd-main-menu .dd-menu-btn,
+  #dd-main-menu .dd-menu-logo,
+  #dd-main-menu .dd-menu-tagline,
+  #dd-main-menu .dd-menu-footer { animation-duration: 0.001s !important; animation-delay: 0s !important; }
+}
+
+/* Inspector de la armería: nombres y medidores con el lenguaje del panel */
+.dd-inspector-name {
+  display: block;
+  font-family: var(--dd-font-display);
+  font-size: 17px;
+  letter-spacing: 0.1em;
+  color: var(--dd-cream);
+}
+.dd-inspector-stats { display: grid; gap: 5px; }
+.dd-menu-btn .dd-btn-icon { background-color: transparent; }
+
+/* --------------------------------------------------------------------------
+   El menú legado (#overlay / #menu-scene53 / #menu-card) sigue existiendo como
+   contrato del motor, pero cuando el menú de FASE 01 tiene la pantalla, su
+   escena animada NO debe seguir componiendo: son ~12 capas con animaciones
+   infinitas detrás de una capa opaca, y eso solo consume GPU/batería (medido:
+   0.9-2.7 fps en el banco de pruebas sin aceleración).
+   Se oculta lo visual; los nodos siguen en el DOM y el motor los usa al jugar.
+   -------------------------------------------------------------------------- */
+body.dd-highres-edition #dd-main-menu:not(.dd-hidden) ~ * ,
+body.dd-highres-edition #menu-scene53,
+body.dd-highres-edition #menu-card { }
+body.dd-menu-owning #menu-scene53,
+body.dd-menu-owning #menu-card,
+body.dd-menu-owning #overlay {
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+body.dd-menu-owning #menu-scene53 * ,
+body.dd-menu-owning #menu-card * {
+  animation-play-state: paused !important;
 }
