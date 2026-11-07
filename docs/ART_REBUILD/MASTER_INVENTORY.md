@@ -1,14 +1,14 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T10:00:56Z
+- **Última actualización:** 2026-11-07T11:01:47Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **137 / 330** recursos verificados en motor real
+- **Progreso global:** **146 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
 | Categoría | Total | Generados | Integrados | Verificados |
 |---|---:|---:|---:|---:|
-| `bosses` | 42 | 21 | 21 | 21 |
+| `bosses` | 42 | 30 | 30 | 30 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
 | `effects` | 20 | 0 | 0 | 0 |
@@ -163,16 +163,16 @@
 | 135 | TANDA_14 | `resident_05_pogo:hit` | EL POGO · Demonio de la Fosa (IV Ira) · Impacto / Daño | `bosses` | `assets/bosses/boss_04_pogo_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 136 | TANDA_14 | `resident_05_pogo:death` | EL POGO · Demonio de la Fosa (IV Ira) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_04_pogo_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
 | 137 | TANDA_14 | `resident_06_oficiante:idle` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Presencia / Idle | `bosses` | `assets/bosses/boss_05_oficiante_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
-| 138 | TANDA_14 | `resident_06_oficiante:attack` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_05_oficiante_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 139 | TANDA_14 | `resident_06_oficiante:hit` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Impacto / Daño | `bosses` | `assets/bosses/boss_05_oficiante_hit.png` | 384x448 | PENDING | PENDING | PENDING |
-| 140 | TANDA_14 | `resident_06_oficiante:death` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_05_oficiante_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 141 | TANDA_15 | `resident_07_matarife:idle` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Presencia / Idle | `bosses` | `assets/bosses/boss_06_matarife_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 142 | TANDA_15 | `resident_07_matarife:attack` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_06_matarife_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 143 | TANDA_15 | `resident_07_matarife:hit` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Impacto / Daño | `bosses` | `assets/bosses/boss_06_matarife_hit.png` | 384x448 | PENDING | PENDING | PENDING |
+| 138 | TANDA_14 | `resident_06_oficiante:attack` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_05_oficiante_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 139 | TANDA_14 | `resident_06_oficiante:hit` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Impacto / Daño | `bosses` | `assets/bosses/boss_05_oficiante_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 140 | TANDA_14 | `resident_06_oficiante:death` | EL OFICIANTE · Pontífice del Ruido (V Herejía) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_05_oficiante_death.png` | 416x352 | DONE | INTEGRATED | VERIFIED |
+| 141 | TANDA_15 | `resident_07_matarife:idle` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Presencia / Idle | `bosses` | `assets/bosses/boss_06_matarife_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 142 | TANDA_15 | `resident_07_matarife:attack` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_06_matarife_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 143 | TANDA_15 | `resident_07_matarife:hit` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Impacto / Daño | `bosses` | `assets/bosses/boss_06_matarife_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 144 | TANDA_15 | `resident_07_matarife:death` | EL MATARIFE · Coloso del Matadero (VI Violencia) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_06_matarife_death.png` | 416x352 | PENDING | PENDING | PENDING |
-| 145 | TANDA_15 | `resident_08_imitador:idle` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Presencia / Idle | `bosses` | `assets/bosses/boss_07_imitador_idle.png` | 384x448 | PENDING | PENDING | PENDING |
-| 146 | TANDA_15 | `resident_08_imitador:attack` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_07_imitador_attack.png` | 416x448 | PENDING | PENDING | PENDING |
-| 147 | TANDA_15 | `resident_08_imitador:hit` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Impacto / Daño | `bosses` | `assets/bosses/boss_07_imitador_hit.png` | 384x448 | PENDING | PENDING | PENDING |
+| 145 | TANDA_15 | `resident_08_imitador:idle` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Presencia / Idle | `bosses` | `assets/bosses/boss_07_imitador_idle.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
+| 146 | TANDA_15 | `resident_08_imitador:attack` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_07_imitador_attack.png` | 416x448 | DONE | INTEGRATED | VERIFIED |
+| 147 | TANDA_15 | `resident_08_imitador:hit` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Impacto / Daño | `bosses` | `assets/bosses/boss_07_imitador_hit.png` | 384x448 | DONE | INTEGRATED | VERIFIED |
 | 148 | TANDA_15 | `resident_08_imitador:death` | EL IMITADOR · Dama de los Espejos (VII Fraude) · Colapso Cinematográfico | `bosses` | `assets/bosses/boss_07_imitador_death.png` | 416x352 | PENDING | PENDING | PENDING |
 | 149 | TANDA_15 | `resident_09_traidor:idle` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Presencia / Idle | `bosses` | `assets/bosses/boss_08_traidor_idle.png` | 384x448 | PENDING | PENDING | PENDING |
 | 150 | TANDA_15 | `resident_09_traidor:attack` | EL TRAIDOR · Monarca Glacial (VIII Traición) · Ataque / Despliegue | `bosses` | `assets/bosses/boss_08_traidor_attack.png` | 416x448 | PENDING | PENDING | PENDING |
