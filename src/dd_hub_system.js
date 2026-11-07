@@ -103,6 +103,11 @@
     state.vx = 0;
     state.vy = 0;
     state.interactCooldown = 0.35;
+    // Freeze the live run (if any) while the player walks the safe zone, so no
+    // offscreen simulation can damage/kill the protagonist behind the HUB camera.
+    if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
+      window.__DD_BRIDGE.setPaused(true);
+    }
     if (window.DD_UI) {
       window.DD_UI.hideMainMenu();
       window.DD_UI.showDialogue("DJ VIRGILIO", DJ_QUOTES[0], 5.2);
@@ -113,9 +118,17 @@
     if (!state.active) return;
     state.active = false;
     const triggerRun = function () {
+      // rp() clears the pause flag on startRun; this covers the no-run case too.
+      if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
+        window.__DD_BRIDGE.setPaused(false);
+      }
       const br = window.__DD_BRIDGE;
       if (br && typeof br.startRun === "function") {
         br.startRun();
+      } else if (window.DDC_COVER && typeof window.DDC_COVER.start === "function") {
+        // Legacy sanctioned entry: the ddc cover owns #start-btn while locked,
+        // so route through its own exposed start() (unlocks keyboard too).
+        window.DDC_COVER.start();
       } else {
         const startBtn = document.getElementById("start-btn");
         if (startBtn) { startBtn.disabled = false; startBtn.click(); }
@@ -285,10 +298,18 @@
     ctx.fillStyle = "#05020a";
     ctx.fillRect(0, 0, viewW, viewH);
 
-    // Smooth camera tracking protagonist inside Refugio
-    const zoom = Math.min(1.06, Math.max(0.76, viewW / 1460));
-    const camX = state.px * 0.55 + (HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5) * 0.45;
-    const camY = state.py * 0.48 + (HUB_BOUNDS.y + HUB_BOUNDS.h * 0.42) * 0.52;
+    // Smooth camera tracking protagonist inside Refugio.
+    // Zoom keeps the clubroom filling the viewport (no black void bands at the edges)
+    // and the protagonist clearly readable; camera is clamped to the room + wall band.
+    const zoom = Math.min(1.6, Math.max(1.02, Math.min(viewW / 1150, viewH / 780)));
+    let camX = state.px * 0.55 + (HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5) * 0.45;
+    let camY = state.py * 0.48 + (HUB_BOUNDS.y + HUB_BOUNDS.h * 0.42) * 0.52;
+    const halfW = viewW * 0.5 / zoom;
+    const halfH = viewH * 0.5 / zoom;
+    const x0 = HUB_BOUNDS.x - 56, x1 = HUB_BOUNDS.x + HUB_BOUNDS.w + 56;
+    const y0 = HUB_BOUNDS.y - 150, y1 = HUB_BOUNDS.y + HUB_BOUNDS.h + 56;
+    camX = (halfW * 2 >= x1 - x0) ? (x0 + x1) * 0.5 : Math.max(x0 + halfW, Math.min(x1 - halfW, camX));
+    camY = (halfH * 2 >= y1 - y0) ? (y0 + y1) * 0.5 : Math.max(y0 + halfH, Math.min(y1 - halfH, camY));
 
     ctx.save();
     ctx.translate(viewW * 0.5, viewH * 0.5);
@@ -352,13 +373,27 @@
         }
       } else if (item.kind === "player") {
         const br = window.__DD_BRIDGE;
+        // Ground spotlight pool + warm halo so the dark protagonist never merges
+        // into the crimson VIP carpet or the pale checker floor.
+        ctx.save();
+        const spot = ctx.createRadialGradient(state.px, state.py + 12, 6, state.px, state.py + 12, 58);
+        spot.addColorStop(0, "rgba(255, 236, 246, 0.5)");
+        spot.addColorStop(1, "rgba(255, 236, 246, 0)");
+        ctx.globalCompositeOperation = "screen";
+        ctx.fillStyle = spot;
+        ctx.beginPath();
+        ctx.ellipse(state.px, state.py + 12, 58, 24, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
+        W.drawNeonGlow(ctx, state.px, state.py + 4, 78, "#ffe4f1", 0.34);
         const drewHi = W.drawProtagonist(
           ctx,
           { x: state.px, y: state.py, aimAngle: state.aimAngle },
           window.DMO && window.DMO.playerAnim,
           null,
           0,
-          0
+          0,
+          1.16
         );
         if (!drewHi && br && typeof br.drawPlayerAt === "function") {
           br.drawPlayerAt(ctx, state.px, state.py, state.aimAngle);

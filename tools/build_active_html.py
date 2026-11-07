@@ -23,12 +23,20 @@ if cf_idx > len(html) - 2000:
     if cf_end > cf_idx:
         html = html[:cf_idx] + html[cf_end + len("</script>"):]
 
-# 2. Inject High-Res UI CSS in <head>
+# 2. Inline the High-Res UI CSS into <head>.
+#    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
+#    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
+#    the build embeds its exact content at the same insertion point (end of <head>).
 head_anchor = "</head>"
 assert head_anchor in html, "Missing </head>"
+with open(os.path.join(ROOT, "src", "dd_rebuild_ui.css"), "r", encoding="utf-8") as f:
+    css_src = f.read()
+assert "</style" not in css_src.lower(), "CSS must not contain </style sequences"
 html = html.replace(
     head_anchor,
-    '  <link rel="stylesheet" href="src/dd_rebuild_ui.css">\n</head>',
+    "  <style>\n/* === INLINED FROM src/dd_rebuild_ui.css — regenerate via tools/build_active_html.py === */\n"
+    + css_src
+    + "\n  </style>\n</head>",
     1
 )
 
@@ -46,6 +54,131 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
      while upgrading rendering to native-DPR digital illustration + HUB + UI.
      ======================================================================== */
   (function () {
+    /* --------------------------------------------------------------------
+       KEYBOARD TAKEOVER GUARD
+       The legacy ddc cover registers window-capture keydown/keyup listeners
+       that call stopImmediatePropagation() while its internal "locked" flag
+       is on. That swallows every keystroke BEFORE the HD menu / HUB /
+       cinematic systems can see them (dead WASD in the Refugio, dead menu
+       navigation, dead skip key). While body.dd-highres-edition is set, the
+       HD layer owns the keyboard and those capture-phase window listeners
+       are neutralized. Engine input (bubble-phase) and every module listener
+       keep working untouched; removing the body class restores 100% of the
+       legacy behavior.
+
+       Contract (verified by tools/qa/final_review.js, block A):
+         - capture arrives as the boolean `true` OR as `{capture:true}`; both
+           are guarded (the options object keeps `once`/`passive`/`signal`).
+         - registering the same (type, listener, capture) twice stays a DOM
+           no-op, so the guard can never deliver a listener twice.
+         - removeEventListener(type, listener, capture) is symmetric: it
+           detaches the wrapper the guard installed, so no listener is left
+           impossible to remove. Unremovable wrappers used to leak and, in
+           legacy mode, a leaked stopImmediatePropagation() listener killed
+           every keystroke.
+         - AbortSignal: `{capture, signal}` follows the browser. A signal
+           aborted AFTER registration drops its registry entry, a signal
+           already aborted BEFORE registration registers nothing at all (and
+           leaves no phantom entry that would dedupe a later valid add), and
+           re-registering the same callback after an abort works normally.
+         - `once` drops its entry on first dispatch (also when the HD gate
+           swallows that dispatch), so count() never keeps stale entries.
+         - only window + capture + keydown/keyup is touched; bubble-phase
+           engine input and element/document listeners are never wrapped.
+         - installation is idempotent (window.__DD_KEY_GUARD__ marker).
+       -------------------------------------------------------------------- */
+    /* == DD_KEYBOARD_GUARD:BEGIN == */
+    (function installKeyboardTakeoverGuard() {
+      if (window.__DD_KEY_GUARD__) return;
+      const HD_CLASS = "dd-highres-edition";
+      const nativeAddEventListener = window.addEventListener;
+      const nativeRemoveEventListener = window.removeEventListener;
+      const registry = []; // { type, fn, wrapper, options }
+
+      function isCaptureOption(opts) {
+        if (opts === true) return true;
+        if (opts && typeof opts === "object") return !!opts.capture;
+        return false;
+      }
+
+      function needsGuard(target, type, fn, opts) {
+        return target === window &&
+          (type === "keydown" || type === "keyup") &&
+          typeof fn === "function" &&
+          isCaptureOption(opts);
+      }
+
+      function findIndex(type, fn) {
+        for (let i = 0; i < registry.length; i++) {
+          if (registry[i].type === type && registry[i].fn === fn) return i;
+        }
+        return -1;
+      }
+
+      // Removes ONE concrete entry (by identity) and unhooks its AbortSignal
+      // listener, so a stale signal can never evict a later registration.
+      function dropEntry(entry) {
+        const i = registry.indexOf(entry);
+        if (i >= 0) registry.splice(i, 1);
+        if (entry.onAbort && entry.signal && typeof entry.signal.removeEventListener === "function") {
+          entry.signal.removeEventListener("abort", entry.onAbort);
+          entry.onAbort = null;
+        }
+      }
+
+      function forget(type, fn) {
+        const i = findIndex(type, fn);
+        if (i >= 0) dropEntry(registry[i]);
+      }
+
+      window.addEventListener = function (type, fn, opts) {
+        if (needsGuard(this, type, fn, opts)) {
+          if (findIndex(type, fn) >= 0) return; // DOM semantics: duplicate = no-op
+          const signal = (opts && typeof opts === "object" && opts.signal) || null;
+          // Spec: an already-aborted signal registers nothing... and must not
+          // leave a phantom entry that would block a later valid registration.
+          if (signal && signal.aborted) return;
+          const once = !!(opts && typeof opts === "object" && opts.once);
+          const entry = { type: type, fn: fn, wrapper: null, options: opts, signal: signal, onAbort: null };
+          entry.wrapper = function (ev) {
+            if (once) dropEntry(entry);
+            if (document.body && document.body.classList.contains(HD_CLASS)) return;
+            return fn.call(this, ev);
+          };
+          if (signal && typeof signal.addEventListener === "function") {
+            // The browser detaches the real listener on abort; the registry must
+            // follow, or count() leaks and re-registration gets deduped away.
+            entry.onAbort = function () { dropEntry(entry); };
+            signal.addEventListener("abort", entry.onAbort, { once: true });
+          }
+          registry.push(entry);
+          return nativeAddEventListener.call(this, type, entry.wrapper, opts);
+        }
+        return nativeAddEventListener.apply(this, arguments);
+      };
+
+      window.removeEventListener = function (type, fn, opts) {
+        if (needsGuard(this, type, fn, opts)) {
+          const i = findIndex(type, fn);
+          if (i >= 0) {
+            const entry = registry[i];
+            dropEntry(entry);
+            return nativeRemoveEventListener.call(this, type, entry.wrapper, entry.options);
+          }
+        }
+        return nativeRemoveEventListener.apply(this, arguments);
+      };
+
+      window.__DD_KEY_GUARD__ = Object.freeze({
+        installed: true,
+        capturesLegacyKeyboard: function () {
+          return !!(document.body && document.body.classList.contains(HD_CLASS));
+        },
+        count: function () { return registry.length; }
+      });
+    })();
+    /* == DD_KEYBOARD_GUARD:END == */
+
     const origQc = qc;
     const origBg = Bg;
     const origWA = WA;
@@ -406,6 +539,17 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return !!U;
       },
       getSnapshot: buildSnapshot,
+      // Silent engine pause for the HUB safe zone: freezes Tf() simulation and
+      // ducks the DJ while the player walks the Refugio, without opening the
+      // legacy pause overlay. rp() (startRun) clears it on descent.
+      setPaused: function (v) {
+        try {
+          if (v) { Y = !!U; }
+          else { Y = false; }
+        } catch (e) {}
+        return !!Y;
+      },
+      isPaused: function () { return !!Y; },
       invalidateRoomCache: function () { roomCacheInvalid = true; b = false; },
       invalidateWeaponCache: function (wid) {
         // Trigger fresh lookup when new weapon illustration loads
@@ -491,19 +635,49 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
 html = html.replace(bridge_anchor, bridge_js, 1)
 
-# 4. Append modular scripts right before the FINAL </body> tag (never inside JS strings!)
+# 4. Inline the modular scripts right before the FINAL </body> tag (never inside JS strings!).
+#    Same single-file rule as the CSS step: the src/*.js files stay in the repo as the
+#    editable source of truth, but the runtime must not depend on fetching them.
 body_ridx = html.rfind("</body>")
 assert body_ridx > len(html) - 100, f"Unexpected final </body> at {body_ridx}"
-scripts_block = """  <script src="src/dd_asset_registry.js"></script>
-  <script src="src/dd_world_renderer.js"></script>
-  <script src="src/dd_hub_system.js"></script>
-  <script src="src/dd_cinematic_camera.js"></script>
-  <script src="src/dd_ui_system.js"></script>
-</body>"""
+MODULE_ORDER = (
+    "dd_asset_registry.js",
+    "dd_world_renderer.js",
+    "dd_hub_system.js",
+    "dd_cinematic_camera.js",
+    "dd_ui_system.js",
+)
+_parts = []
+for fname in MODULE_ORDER:
+    with open(os.path.join(ROOT, "src", fname), "r", encoding="utf-8") as f:
+        js_src = f.read()
+    assert "</script" not in js_src.lower(), f"{fname} must not contain </script sequences"
+    _parts.append(
+        "  <script>\n/* === INLINED FROM src/" + fname
+        + " — regenerate via tools/build_active_html.py === */\n"
+        + js_src
+        + "\n  </script>"
+    )
+scripts_block = "\n".join(_parts) + "\n</body>"
 html = html[:body_ridx] + scripts_block + html[body_ridx + len("</body>"):]
+
+# 5. Post-build invariants: every inlined artefact must appear EXACTLY once, so a
+#    regeneration can never accumulate duplicated modules (idempotency guard).
+assert html.count("INLINED FROM src/dd_rebuild_ui.css") == 1, "CSS inlined more than once"
+for fname in MODULE_ORDER:
+    marker = "INLINED FROM src/" + fname
+    assert html.count(marker) == 1, f"{fname} inlined {html.count(marker)} times (expected 1)"
+assert html.count("== DD_KEYBOARD_GUARD:BEGIN ==") == 1, "keyboard guard BEGIN marker not unique"
+assert html.count("== DD_KEYBOARD_GUARD:END ==") == 1, "keyboard guard END marker not unique"
+assert html.count("window.__DD_KEY_GUARD__ = Object.freeze(") == 1, "keyboard guard installed twice"
+assert "src/dd_rebuild_ui.css" in html  # provenance comment survives
+for fname in MODULE_ORDER:
+    assert "=== INLINED FROM src/" + fname in html, f"{fname} provenance comment missing"
 
 for fname in ("index.html", "DEADBEAT_DISCO.html"):
     with open(os.path.join(ROOT, fname), "w", encoding="utf-8") as f:
         f.write(html)
 
 print("Built index.html and DEADBEAT_DISCO.html cleanly. Size:", len(html), "bytes")
+print("Inlined artifacts:", ", ".join(["src/dd_rebuild_ui.css"] + list(MODULE_ORDER)))
+print("Keyboard guard:", "installed (1x)" if "DD_KEYBOARD_GUARD:BEGIN" in html else "MISSING")
