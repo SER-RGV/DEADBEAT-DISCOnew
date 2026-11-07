@@ -1,0 +1,5074 @@
+{
+  "started": "2026-11-02T23:00:28.554Z",
+  "console": [
+    {
+      "t": 1793660444946,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793660444960,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "pageerrors": [],
+  "requests": [
+    {
+      "t": 1793660430823,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+      "type": "document"
+    },
+    {
+      "t": 1793660444931,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "type": "script"
+    },
+    {
+      "t": 1793660444931,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "type": "script"
+    }
+  ],
+  "requestfailed": [
+    {
+      "t": 1793660444946,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    },
+    {
+      "t": 1793660444960,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    }
+  ],
+  "httpErrors": [
+    {
+      "t": 1793660444946,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "t": 1793660444959,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "frames": [
+    {
+      "t": 1793660443791,
+      "url": "about:blank"
+    },
+    {
+      "t": 1793660443794,
+      "url": "about:blank"
+    }
+  ],
+  "crashes": [],
+  "steps": [],
+  "loadMs": 15737,
+  "api": {
+    "DMOkeys": [
+      "version",
+      "build",
+      "diag",
+      "perf",
+      "assets",
+      "tune",
+      "offerNow",
+      "weaponRig",
+      "dmg86",
+      "loot",
+      "roomGeometryAudit",
+      "gamepad",
+      "dj",
+      "procWorld",
+      "arch100Visual",
+      "arch100",
+      "playtest",
+      "telemetry",
+      "read",
+      "gameState",
+      "location",
+      "debug",
+      "explore77",
+      "director",
+      "directorExplain",
+      "semi2d",
+      "stage",
+      "subs",
+      "layout",
+      "camera",
+      "directorTests",
+      "directorSim",
+      "menu54",
+      "observe",
+      "synStats",
+      "runOutcome",
+      "testStats",
+      "explore",
+      "circles",
+      "rogue",
+      "descentFusion",
+      "arq",
+      "pixelArt",
+      "visual285",
+      "hdPlayer",
+      "combatArt",
+      "playerAnim",
+      "djDirector",
+      "secretBoss",
+      "floorDrop",
+      "organicDebug",
+      "hub",
+      "music36",
+      "dungeon",
+      "prog87"
+    ],
+    "DMOdebugKeys": [
+      "on",
+      "off",
+      "toggle",
+      "advanceRound",
+      "setRound",
+      "forceWave",
+      "forceModifier",
+      "intent",
+      "laser",
+      "encore",
+      "teleport",
+      "rave",
+      "shotChoice",
+      "chooseShot",
+      "weaponProbe",
+      "boss",
+      "invuln",
+      "heal",
+      "killAll",
+      "skipInterlude",
+      "pattern",
+      "hurt",
+      "forceInterlude",
+      "previewLevel",
+      "catalogInfo",
+      "huntTest",
+      "setHype",
+      "spawnEnemyAt",
+      "holdSpawns",
+      "exploreState",
+      "exploreNoEnemies",
+      "exploreUnlock",
+      "exploreColliders",
+      "exploreGoTo",
+      "exploreNext",
+      "explorePrev",
+      "exploreReload",
+      "exploreReseed",
+      "tactics",
+      "forceProfile",
+      "intentWeights",
+      "hardRule",
+      "boostKills",
+      "directorReset",
+      "setRisk",
+      "phase",
+      "propsHp",
+      "breakPropNear",
+      "killAdds",
+      "setBossHp",
+      "setCombo",
+      "giveMutation",
+      "bossAddsInterval",
+      "clearRound",
+      "runStats",
+      "tick",
+      "render1",
+      "setInput",
+      "seed",
+      "explain",
+      "directorTests",
+      "directorSim",
+      "completeNight",
+      "setNight",
+      "state"
+    ],
+    "DMOHUBkeys": [
+      "version",
+      "saveKey",
+      "state",
+      "saveState",
+      "reloadSave",
+      "stations",
+      "canEnterCircle",
+      "missingRequirement",
+      "canReturnToHubNow",
+      "openStation",
+      "closeModal",
+      "startCampaignFromHub",
+      "returnToHubFromMilestone",
+      "debugSpawnBeacon",
+      "audit"
+    ],
+    "DMOhubKeys": [
+      "version",
+      "saveKey",
+      "state",
+      "saveState",
+      "reloadSave",
+      "stations",
+      "canEnterCircle",
+      "missingRequirement",
+      "canReturnToHubNow",
+      "openStation",
+      "closeModal",
+      "startCampaignFromHub",
+      "returnToHubFromMilestone",
+      "debugSpawnBeacon",
+      "audit"
+    ],
+    "hubState": {
+      "version": "3.5.0-hub-proto",
+      "inHub": false,
+      "location": "CAMPAIGN_ROOM",
+      "mode": "MENU",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 0,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 0,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "dbgStateKeys": [
+      "round",
+      "night",
+      "waveMode",
+      "roundModifier",
+      "boss",
+      "combo",
+      "hype",
+      "rave",
+      "playerLevel",
+      "lives",
+      "invuln",
+      "enemies",
+      "bossInfo",
+      "conos",
+      "balas",
+      "balasArr",
+      "dodge",
+      "px",
+      "py",
+      "miniRing",
+      "dodgeProbe",
+      "pickups"
+    ],
+    "dbgState": {
+      "round": 1,
+      "night": 1,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "boss": false,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1,
+      "lives": 3,
+      "invuln": false,
+      "enemies": 0,
+      "bossInfo": null,
+      "conos": 0,
+      "balas": 0,
+      "balasArr": "object",
+      "dodge": "object",
+      "px": 1250,
+      "py": 925,
+      "miniRing": "function",
+      "dodgeProbe": "function",
+      "pickups": "object"
+    },
+    "hubStateSrc": "function () {\n          return {\n            version: HUB_VERSION,\n            inHub: hub.inHub,\n            location: hub.location,\n            mode: getHubMode(),\n            transitionLock: hub.transitionLock,\n            modalOpen: hub.modalOpen,\n            activeStationId: hub.activeStationId,\n            selectedCircle: hub.selectedCircle,\n            unlockedCircles: hub.save.unlockedCircles.slice(),\n            defeatedResidents: hub.save.defeatedResidents.slice(),\n            completedInvasions: hub.save.completedInvasions.slice(),\n            visitPeaceTimer: +hub.visitPeaceTimer.toFixed(2),\n            invasionWarning: hub.invasion.warningActive,\n            invasionActive: hub.invasion.active,\n            extractionAvailable: canReturnToHubNow(),\n            extractionBeacon: hub.extractionBeacon ? Object.assign({}, hub.extractionBeacon) : null,\n            storageAvailable: hub.storageAvailable,\n            lastCorruptionRecovered: hub.lastCorruptionRecovered,\n            saveWrites: hub.saveWrites,\n            transitionsCompleted: hub.transitionsCompleted,\n            transitionErrors: hub.transitionErrors,\n            officialUntainted: Array.isArray(Qe) && Qe.length === 0\n          };\n        }",
+    "dbgSetInputSrc": "function(){const e=Array.prototype.slice.call(arguments);if(o&&!o(e))return tA(r.apply(this,e));const n=t+\":\"+a;fr(n);try{return tA(r.apply(this,e))}finally{fr(n)}}",
+    "testStats": {
+      "shotsFired": 0,
+      "shotsHit": 0,
+      "balas": {
+        "n": 0,
+        "vMin": 0,
+        "vMax": 0
+      },
+      "kills": 0,
+      "elapsed": 0
+    },
+    "readKeys": [
+      "x",
+      "y",
+      "r",
+      "round",
+      "kills",
+      "score",
+      "lives",
+      "running",
+      "paused",
+      "choosing",
+      "bossActive",
+      "enemies",
+      "weapon",
+      "rave",
+      "hype",
+      "combo",
+      "maxCombo",
+      "raves",
+      "waveMode",
+      "roundModifier",
+      "playerLevel",
+      "zone",
+      "night"
+    ],
+    "globals": [
+      "DMO_BOOT46",
+      "__T3B_IMAGES",
+      "__ILT_DATA",
+      "__HD_DATA",
+      "__DDM_PAINT_MATERIAL",
+      "DMO",
+      "__loot274",
+      "__unica274",
+      "__DMO_AMBIENT62",
+      "__PW77",
+      "DMO_LAYOUT",
+      "DMO_SEMI2D",
+      "__HD_ASSETS",
+      "__HD_EXTRA",
+      "__HD_GET",
+      "DMO_FLOOR_ANIM",
+      "DMO_ORGANIC_DEBUG",
+      "__T3B_HUB_QA",
+      "__DMO_ZF_MINIMAP_ACTIVE",
+      "DMO_STORY",
+      "DMO_CINE",
+      "DMO_HUB",
+      "DMO_ART_TEST",
+      "DMO_MUSIC",
+      "__DDM_MASTER_V4",
+      "__DDM_V5_IMG",
+      "__DDM_GET_V5",
+      "DMO_REFERENCE_ROOM_ASSETS",
+      "__DDM_DECOR_STATE",
+      "__DDM_DRAW_ROUTE_SHRINES",
+      "__DDM_PROP_SORT_Y",
+      "DMO_INFERNAL_ART",
+      "DMO_MASTER_RECONSTRUCTION",
+      "DMO_ART_DIRECTION",
+      "__DDM_ART_V84",
+      "DMO_DUNGEON",
+      "__PROG87_INSTALLED",
+      "DMO_PROG",
+      "DMO_ILT",
+      "__ILT_DRAW",
+      "__T3B",
+      "DMO_V88",
+      "__DDM_LUJURIA_BALL_READY",
+      "DDC_COVER",
+      "DMO_ATMOS",
+      "__DDM_V5_TINT"
+    ]
+  },
+  "preStart": {
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 1,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "read": {
+      "x": 1250,
+      "y": 965,
+      "r": 14,
+      "round": 1,
+      "kills": 0,
+      "score": 0,
+      "lives": 3,
+      "running": true,
+      "paused": false,
+      "choosing": false,
+      "bossActive": false,
+      "enemies": 0,
+      "weapon": "M1911",
+      "rave": false,
+      "hype": 0,
+      "combo": 1,
+      "maxCombo": 1,
+      "raves": 0,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "playerLevel": 1,
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "night": 1
+    }
+  },
+  "startCall": "true",
+  "trace": [
+    {
+      "t": 500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 965,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 1000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 1500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 2000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 2500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 3000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 3500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 4000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1024,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 4500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1139,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 5000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1139,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 5500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1139,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 6000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 6500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 7000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 7500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 8000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 8500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1264,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 9000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1357,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 9500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1357,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 10000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1357,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 10500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1354,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 11000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1354,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 11500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1354,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 12000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1354,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 12500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1329,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 13000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1329,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 13500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1318,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 14000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 14500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 15000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 15500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 16000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 16500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1310,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 17000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1285,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 17500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1285,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 18000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1285,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 18500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 19000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 19500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 20000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 20500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 21000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1263,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 21500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1241,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 22000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1241,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 22500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1241,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 23000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1218,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 23500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1218,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 24000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1218,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 24500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1196,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 25000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1196,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 25500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1196,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 26000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1196,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 26500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1196,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 27000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1177,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 27500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1174,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 28000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1174,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 28500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1174,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 29000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1149,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 29500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1149,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 30000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1149,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 30500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1141,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 31000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1127,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 31500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1127,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 32000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1127,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 32500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1104,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 33000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1104,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 33500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1104,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 34000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1104,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 34500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1082,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 35000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1082,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 35500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1082,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 36000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1060,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 36500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1060,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 37000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1060,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 37500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1060,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 38000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1038,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 38500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1038,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 39000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1038,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 39500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 1038,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 40000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 999,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 40500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 999,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 41000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 999,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 41500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 999,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 42000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 974,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 42500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 974,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 43000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": true,
+        "location": "TRANSITION",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 0,
+        "rooms": 12
+      },
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 974,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 43500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 1,
+        "rooms": 12
+      },
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 925,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 44000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 1,
+        "rooms": 12
+      },
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 916,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 44500,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 1,
+        "rooms": 12
+      },
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 916,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    },
+    {
+      "t": 45000,
+      "h": {
+        "version": "3.5.0-hub-proto",
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "transitionLock": true,
+        "modalOpen": false,
+        "activeStationId": null,
+        "selectedCircle": 0,
+        "unlockedCircles": [
+          0
+        ],
+        "defeatedResidents": [],
+        "completedInvasions": [],
+        "visitPeaceTimer": 1,
+        "invasionWarning": false,
+        "invasionActive": false,
+        "extractionAvailable": false,
+        "extractionBeacon": null,
+        "storageAvailable": true,
+        "lastCorruptionRecovered": false,
+        "saveWrites": 3,
+        "transitionsCompleted": 0,
+        "transitionErrors": 0,
+        "officialUntainted": true
+      },
+      "d": {
+        "current": "r0",
+        "visited": 1,
+        "rooms": 12
+      },
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "running": true,
+      "dbg": {
+        "balas": 0,
+        "enemies": 0,
+        "px": 1250,
+        "py": 902,
+        "round": 1
+      },
+      "ts": {
+        "shotsFired": 0,
+        "balas": 0
+      }
+    }
+  ],
+  "post": {
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": false,
+      "location": "CAMPAIGN_ROOM",
+      "mode": "EXPLORATION",
+      "transitionLock": true,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 1,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 3,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "dungeon": {
+      "version": "8.6.0-dungeon",
+      "seed": 175614624,
+      "floor": 1,
+      "current": "r0",
+      "role": "start",
+      "graph": {
+        "floor": 0,
+        "nodes": [
+          {
+            "key": "r0",
+            "index": 0,
+            "local": 0,
+            "floor": 0,
+            "x": 0,
+            "y": 0,
+            "shop": false,
+            "kind": "start",
+            "distance": 0,
+            "main": true,
+            "links": [
+              {
+                "side": "left",
+                "to": "r2"
+              },
+              {
+                "side": "right",
+                "to": "r5"
+              }
+            ]
+          },
+          {
+            "key": "r1",
+            "index": 1,
+            "local": 1,
+            "floor": 0,
+            "x": -1,
+            "y": -1,
+            "shop": false,
+            "kind": "treasure",
+            "distance": 2,
+            "main": false,
+            "links": [
+              {
+                "side": "bottom",
+                "to": "r2"
+              }
+            ]
+          },
+          {
+            "key": "r2",
+            "index": 2,
+            "local": 2,
+            "floor": 0,
+            "x": -1,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 1,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r0"
+              },
+              {
+                "side": "bottom",
+                "to": "r4"
+              },
+              {
+                "side": "top",
+                "to": "r1"
+              }
+            ]
+          },
+          {
+            "key": "r3",
+            "index": 3,
+            "local": 3,
+            "floor": 0,
+            "x": 1,
+            "y": -1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 2,
+            "main": false,
+            "links": [
+              {
+                "side": "bottom",
+                "to": "r5"
+              }
+            ]
+          },
+          {
+            "key": "r4",
+            "index": 4,
+            "local": 4,
+            "floor": 0,
+            "x": -1,
+            "y": 1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 2,
+            "main": true,
+            "links": [
+              {
+                "side": "top",
+                "to": "r2"
+              },
+              {
+                "side": "left",
+                "to": "r6"
+              }
+            ]
+          },
+          {
+            "key": "r5",
+            "index": 5,
+            "local": 5,
+            "floor": 0,
+            "x": 1,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 1,
+            "main": false,
+            "links": [
+              {
+                "side": "left",
+                "to": "r0"
+              },
+              {
+                "side": "top",
+                "to": "r3"
+              }
+            ]
+          },
+          {
+            "key": "r6",
+            "index": 6,
+            "local": 6,
+            "floor": 0,
+            "x": -2,
+            "y": 1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 3,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r4"
+              },
+              {
+                "side": "bottom",
+                "to": "r8"
+              },
+              {
+                "side": "left",
+                "to": "r7"
+              }
+            ]
+          },
+          {
+            "key": "r7",
+            "index": 7,
+            "local": 7,
+            "floor": 0,
+            "x": -3,
+            "y": 1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 4,
+            "main": false,
+            "links": [
+              {
+                "side": "right",
+                "to": "r6"
+              },
+              {
+                "side": "bottom",
+                "to": "r9"
+              }
+            ]
+          },
+          {
+            "key": "r8",
+            "index": 8,
+            "local": 8,
+            "floor": 0,
+            "x": -2,
+            "y": 2,
+            "shop": false,
+            "kind": "combat",
+            "distance": 4,
+            "main": true,
+            "links": [
+              {
+                "side": "top",
+                "to": "r6"
+              },
+              {
+                "side": "left",
+                "to": "r9"
+              },
+              {
+                "side": "bottom",
+                "to": "s0"
+              }
+            ]
+          },
+          {
+            "key": "r9",
+            "index": 9,
+            "local": 9,
+            "floor": 0,
+            "x": -3,
+            "y": 2,
+            "shop": false,
+            "kind": "combat",
+            "distance": 5,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r8"
+              },
+              {
+                "side": "left",
+                "to": "r10"
+              },
+              {
+                "side": "top",
+                "to": "r7"
+              }
+            ]
+          },
+          {
+            "key": "r10",
+            "index": 10,
+            "local": 10,
+            "floor": 0,
+            "x": -4,
+            "y": 2,
+            "shop": false,
+            "kind": "boss",
+            "distance": 6,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r9"
+              }
+            ]
+          },
+          {
+            "key": "s0",
+            "index": 11,
+            "local": 11,
+            "floor": 0,
+            "x": -2,
+            "y": 3,
+            "shop": true,
+            "kind": "shop",
+            "distance": 5,
+            "main": false,
+            "links": [
+              {
+                "side": "top",
+                "to": "r8"
+              }
+            ]
+          }
+        ],
+        "bounds": {
+          "minX": -4,
+          "maxX": 1,
+          "minY": -1,
+          "maxY": 3
+        },
+        "generator": "8.6.0-dungeon",
+        "seedRoute": "principal + ramas",
+        "bossDistance": 6
+      },
+      "visited": [
+        "r0"
+      ],
+      "secured": 1,
+      "inHub": false
+    },
+    "dbg": {
+      "round": 1,
+      "night": 1,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "boss": false,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1,
+      "lives": 3,
+      "invuln": false,
+      "enemies": 0,
+      "bossInfo": null,
+      "conos": 0,
+      "balas": 0,
+      "balasArr": "object",
+      "dodge": "object",
+      "px": 1250,
+      "py": 902,
+      "miniRing": "function",
+      "dodgeProbe": "function",
+      "pickups": "object"
+    },
+    "testStats": {
+      "shotsFired": 0,
+      "shotsHit": 0,
+      "balas": {
+        "n": 0,
+        "vMin": 0,
+        "vMax": 0
+      },
+      "kills": 0
+    },
+    "bodyClass": "floor-dropping dmo-floor-stamp-active"
+  },
+  "consoleErrors": [
+    {
+      "t": 1793660444946,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793660444960,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ]
+}

@@ -1,0 +1,2191 @@
+{
+  "generatedAt": "2026-11-04T02:15:09.800Z",
+  "loadMs": 6543,
+  "boot": {
+    "state": {
+      "version": "3.5.0-hub-proto",
+      "inHub": false,
+      "location": "CAMPAIGN_ROOM",
+      "mode": "MENU",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 0,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 0,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "cine": [
+      "play",
+      "skip",
+      "abort",
+      "scenes",
+      "state",
+      "shotList"
+    ]
+  },
+  "probe": {
+    "globals": [
+      {
+        "name": "DDM_ART81",
+        "type": "object",
+        "keys": {
+          "contactSheet": "function",
+          "stats": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DDM_ART82",
+        "type": "object",
+        "keys": {
+          "stats": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DDM_ART_V84",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "built": "string",
+          "materialSheet": "function",
+          "materials": "function",
+          "stats": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DDM_ASSET_PACK",
+        "type": "object",
+        "keys": {
+          "manifest": "function",
+          "register": "function",
+          "status": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DDM_POLISH8",
+        "type": "object",
+        "keys": {
+          "snapshot": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DDM_SHOP_V85",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "gotoShop": "function",
+          "headState": "function",
+          "muzzleAudit": "function",
+          "placement": "function",
+          "pulls": "function",
+          "qaBuy": "function",
+          "qaCredits": "function",
+          "qaPlace": "function",
+          "qaPlaceWall": "function",
+          "qaReroll": "function",
+          "reroll": "function",
+          "rerollCost": "function",
+          "stock": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO",
+        "type": "object",
+        "keys": {
+          "arch100": "object",
+          "arch100Visual": "object",
+          "arq": "object",
+          "assets": "object",
+          "build": "string",
+          "camera": "function",
+          "circles": "object",
+          "combatArt": "object",
+          "debug": "object",
+          "descentFusion": "object",
+          "diag": "object",
+          "director": "function",
+          "directorExplain": "function",
+          "directorSim": "object",
+          "directorTests": "object",
+          "dj": "object",
+          "djDirector": "object",
+          "dmg86": "object",
+          "dungeon": "object",
+          "explore": "object",
+          "explore77": "object",
+          "floorDrop": "object",
+          "gameState": "object",
+          "gamepad": "object",
+          "hdPlayer": "object",
+          "hub": "object",
+          "layout": "object",
+          "location": "object",
+          "loot": "object",
+          "menu54": "object",
+          "music36": "object",
+          "observe": "function",
+          "offerNow": "function",
+          "organicDebug": "object",
+          "perf": "object",
+          "pixelArt": "object",
+          "playerAnim": "object",
+          "playtest": "object",
+          "procWorld": "object",
+          "prog87": "object",
+          "read": "function",
+          "rogue": "object",
+          "roomGeometryAudit": "function",
+          "runOutcome": "function",
+          "secretBoss": "object",
+          "semi2d": "object",
+          "stage": "object",
+          "subs": "object",
+          "synStats": "function",
+          "telemetry": "function",
+          "testStats": "function",
+          "tune": "object",
+          "version": "string",
+          "visual285": "object",
+          "weaponRig": "object"
+        }
+      },
+      {
+        "name": "DMO_ART_DIRECTION",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "built": "string",
+          "materialSheet": "function",
+          "materials": "function",
+          "stats": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_ART_PACK",
+        "type": "object",
+        "keys": {
+          "apply": "function",
+          "architecture": "function",
+          "architectureManifest": "function",
+          "hub": "function",
+          "hub2": "function",
+          "hub2Apply": "function",
+          "hub2Manifest": "function",
+          "hub2Restore": "function",
+          "hub2Tag": "function",
+          "hub3": "function",
+          "hub3Apply": "function",
+          "hub3Manifest": "function",
+          "hub3Restore": "function",
+          "hub3Tag": "function",
+          "hub5": "function",
+          "hub5Apply": "function",
+          "hub5Manifest": "function",
+          "hub5Restore": "function",
+          "hub5Tag": "function",
+          "hub6": "function",
+          "hub6Apply": "function",
+          "hub6Manifest": "function",
+          "hub6Restore": "function",
+          "hub6Tag": "function",
+          "hubApply": "function",
+          "hubManifest": "function",
+          "hubRestore": "function",
+          "hubTag": "function",
+          "integrity": "function",
+          "manifest": "function",
+          "player": "function",
+          "playerApply": "function",
+          "playerRestore": "function",
+          "restore": "function",
+          "state": "function"
+        }
+      },
+      {
+        "name": "DMO_ART_TEST",
+        "type": "object",
+        "keys": {
+          "equipWeapon": "function",
+          "gotoCircle": "function",
+          "spawnAllyTurret": "function",
+          "spawnBoss": "function",
+          "teleport": "function"
+        }
+      },
+      {
+        "name": "DMO_ATMOS",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "config": "object",
+          "degraded": "boolean",
+          "enabled": "boolean",
+          "fps": "number",
+          "frames": "number",
+          "ready": "boolean",
+          "setEnabled": "function",
+          "toggle": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_BOOT46",
+        "type": "object",
+        "keys": {
+          "asset": "function",
+          "engineReady": "function",
+          "finish": "function",
+          "windowReady": "function"
+        }
+      },
+      {
+        "name": "DMO_CINE",
+        "type": "object",
+        "keys": {
+          "abort": "function",
+          "play": "function",
+          "scenes": "function",
+          "shotList": "function",
+          "skip": "function",
+          "state": "function"
+        }
+      },
+      {
+        "name": "DMO_DUNGEON",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "generate": "function",
+          "state": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_FLOOR_ANIM",
+        "type": "object",
+        "keys": {
+          "demoLiftDrop": "function",
+          "demoSkyfall": "function",
+          "profiles": "function",
+          "setDurationMode": "function",
+          "state": "function",
+          "timeline": "function",
+          "timelines": "function",
+          "verifyContinuity": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_HUB",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "canEnterCircle": "function",
+          "canReturnToHubNow": "function",
+          "closeModal": "function",
+          "debugSpawnBeacon": "function",
+          "missingRequirement": "function",
+          "openStation": "function",
+          "reloadSave": "function",
+          "returnToHubFromMilestone": "function",
+          "saveKey": "string",
+          "saveState": "function",
+          "startCampaignFromHub": "function",
+          "state": "function",
+          "stations": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_ILT",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "enabled": "boolean",
+          "errors": "object",
+          "images": "object",
+          "info": "function",
+          "meta": "object",
+          "ready": "object",
+          "setEnabled": "function",
+          "stats": "object",
+          "toggle": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_INFERNAL_ART",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "invalidate": "function",
+          "themes": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_LAYOUT",
+        "type": "object",
+        "keys": {
+          "build": "function",
+          "isBuilt": "function",
+          "metrics": "function",
+          "overlay": "function",
+          "pointBlocked": "function",
+          "propObjects": "function",
+          "props": "function",
+          "report": "function",
+          "resetRuntime": "function",
+          "seed": "function",
+          "selfTest": "function",
+          "setOverlay": "function",
+          "spawnProbePoints": "function",
+          "toggleOverlay": "function",
+          "trial": "function",
+          "validate": "function"
+        }
+      },
+      {
+        "name": "DMO_MASTER_RECONSTRUCTION",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "invalidate": "function",
+          "themes": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_MUSIC",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "cineBegin": "function",
+          "cineDescentToHub": "function",
+          "cineEnd": "function",
+          "cineFilter": "function",
+          "cineGain": "function",
+          "cineMotif": "function",
+          "cineState": "function",
+          "cineSting": "function",
+          "events": "function",
+          "keepAlive": "function",
+          "onFreefallStart": "function",
+          "onGirderPass": "function",
+          "onStairDescentStart": "function",
+          "onStairStep": "function",
+          "profiles": "function",
+          "simulateMissingTrack": "function",
+          "state": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_ORGANIC_DEBUG",
+        "type": "object",
+        "keys": {
+          "auditWeapons": "function",
+          "close": "function",
+          "open": "function",
+          "runTestSuite": "function",
+          "selectWeapon": "function",
+          "setPreviewState": "function",
+          "setProductionMode": "function",
+          "statusPanel": "function",
+          "toggle": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_PROG",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "closePanel": "function",
+          "ecos": "function",
+          "openPanel": "function",
+          "pacts": "function",
+          "routes": "function",
+          "saveKey": "string",
+          "saveState": "function",
+          "secrets": "function",
+          "sessionState": "function",
+          "setPact": "function",
+          "setRoute": "function",
+          "state": "function",
+          "tickNow": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_REFERENCE_ROOM_ASSETS",
+        "type": "object",
+        "keys": {
+          "state": "function"
+        }
+      },
+      {
+        "name": "DMO_SEMI2D",
+        "type": "object",
+        "keys": {
+          "WORLD_BOTTOM": "number",
+          "WORLD_TOP": "number",
+          "debug": "function",
+          "depthOf": "function",
+          "isDebug": "function",
+          "layerFor": "function",
+          "scaleFor": "function",
+          "shadowScaleFor": "function",
+          "sortByDepth": "function"
+        }
+      },
+      {
+        "name": "DMO_STORY",
+        "type": "object",
+        "keys": {
+          "advance": "function",
+          "cine": "object",
+          "conversation": "function",
+          "flags": "function",
+          "introSeen": "function",
+          "npcs": "function",
+          "stations": "function",
+          "story": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "DMO_V88",
+        "type": "object",
+        "keys": {
+          "bootErrors": "function",
+          "camera": "function",
+          "layout": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "__DDM_ART_V84",
+        "type": "object",
+        "keys": {
+          "audit": "function",
+          "built": "string",
+          "materialSheet": "function",
+          "materials": "function",
+          "stats": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "__DDM_DECOR_STATE",
+        "type": "function",
+        "keys": "function"
+      },
+      {
+        "name": "__DDM_DRAW_ROUTE_SHRINES",
+        "type": "function",
+        "keys": "function"
+      },
+      {
+        "name": "__DDM_GET_V5",
+        "type": "function",
+        "keys": "function"
+      },
+      {
+        "name": "__DDM_LUJURIA_BALL_READY",
+        "type": "boolean",
+        "keys": null
+      },
+      {
+        "name": "__DDM_MASTER_V4",
+        "type": "boolean",
+        "keys": null
+      },
+      {
+        "name": "__DDM_PAINT_MATERIAL",
+        "type": "function",
+        "keys": "function"
+      },
+      {
+        "name": "__DDM_PROP_SORT_Y",
+        "type": "function",
+        "keys": "function"
+      },
+      {
+        "name": "__DDM_V5_IMG",
+        "type": "object",
+        "keys": {
+          "abyssal_portal_pad": "object",
+          "allied_combat_turret": "object",
+          "avaricia_floor_medallion": "object",
+          "avaricia_roulette_prop": "object",
+          "avaricia_slot_vault": "object",
+          "avaricia_vault_stage": "object",
+          "campaign_door_diag_gate": "object",
+          "campaign_door_frame": "object",
+          "campaign_door_leaf": "object",
+          "campaign_door_side_frame": "object",
+          "campaign_door_side_leaf": "object",
+          "campaign_door_south_gate": "object",
+          "campaign_loot_chest": "object",
+          "campaign_shop_cabina": "object",
+          "campaign_weapon_rack": "object",
+          "cine_pa_horn_speaker": "object",
+          "club_neon_planter_prop": "object",
+          "club_roadcase_crate_prop": "object",
+          "club_speaker_tower_prop": "object",
+          "club_vending_machine_prop": "object",
+          "club_wall_sconce_side": "object",
+          "club_wall_sconce_torch": "object",
+          "club_water_cooler_prop": "object",
+          "combat_proximity_mine": "object",
+          "decor_chrome_railing": "object",
+          "decor_neon_painting": "object",
+          "decor_neon_rug": "object",
+          "decor_potted_palm": "object",
+          "descent_abyssal_lift_pad": "object",
+          "fraude_card_table_prop": "object",
+          "fraude_floor_medallion": "object",
+          "fraude_mirror_prop": "object",
+          "fraude_mirror_stage": "object",
+          "gula_banquet_stage": "object",
+          "gula_banquet_table": "object",
+          "gula_cauldron_prop": "object",
+          "gula_floor_medallion": "object",
+          "h01_hub_02": "object",
+          "h01_hub_04": "object",
+          "h01_hub_05": "object",
+          "h01_hub_06": "object",
+          "h01_hub_07": "object",
+          "h01_hub_08": "object",
+          "h01_hub_09": "object",
+          "h01_hub_10": "object",
+          "h02_t02_01": "object",
+          "h02_t02_02": "object",
+          "h02_t02_03": "object",
+          "h02_t02_04": "object",
+          "h02_t02_05": "object",
+          "h02_t02_06": "object",
+          "h02_t02_07": "object",
+          "h02_t02_08": "object",
+          "h02_t02_09": "object",
+          "h02_t02_10": "object",
+          "h03_bench_variant_02": "object",
+          "h03_floor_north_dj": "object",
+          "h03_floor_patch_e": "object",
+          "h03_floor_patch_o": "object",
+          "h03_floor_patch_s_crack": "object",
+          "h03_planter_variant_02": "object",
+          "h03_vip_booth_lounge": "object",
+          "h03_zone_signage_a": "object",
+          "h03_zone_signage_b": "object",
+          "h03_zone_signage_c": "object",
+          "h03_zone_signage_d": "object",
+          "h03_zone_signage_e": "object",
+          "h03_zone_signage_f": "object",
+          "h05_banco_del_olvido": "object",
+          "h05_cartel_ultima_sesion": "object",
+          "h05_confesionario": "object",
+          "h05_consola_aux": "object",
+          "h05_cordon_vip": "object",
+          "h05_garra_del_limbo": "object",
+          "h05_line_array": "object",
+          "h05_neon_ultimo_trago": "object",
+          "h05_subwoofer_stack": "object",
+          "h05_video_wall": "object",
+          "h06_cortinaje_acustico": "object",
+          "h06_machon_esquina_ne": "object",
+          "h06_machon_esquina_no": "object",
+          "h06_paramento_este": "object",
+          "h06_paramento_norte_c": "object",
+          "h06_paramento_norte_e": "object",
+          "h06_paramento_norte_o": "object",
+          "h06_paramento_oeste": "object",
+          "h06_viga_caseton_techo": "object",
+          "h06_zocalo_remate_suelo": "object",
+          "herejia_altar_stage": "object",
+          "herejia_floor_medallion": "object",
+          "herejia_pew_prop": "object",
+          "herejia_reliquary_prop": "object",
+          "hub_abyss_stair_crack": "object",
+          "hub_arcade_shrine": "object",
+          "hub_arsenal_shrine": "object",
+          "hub_bar_shrine": "object",
+          "hub_bartender_npc": "object",
+          "hub_bouncer_npc": "object",
+          "hub_cliente000_npc": "object",
+          "hub_clubber_dancer_a": "object",
+          "hub_clubber_dancer_b": "object",
+          "hub_disco_chandelier": "object",
+          "hub_dj_shrine": "object",
+          "hub_fox_crest_emblem": "object",
+          "hub_hell_elevator": "object",
+          "hub_pista_medallion": "object",
+          "hub_seals_shrine": "object",
+          "hub_trophy_board_prop": "object",
+          "hub_vip_booth_lounge": "object",
+          "hub_vip_booth_ne": "object",
+          "hub_vip_booth_nw": "object",
+          "ira_brazier_prop": "object",
+          "ira_floor_medallion": "object",
+          "ira_furnace_stage": "object",
+          "ira_speaker_stack_prop": "object",
+          "limbo_bench_prop": "object",
+          "limbo_floor_medallion": "object",
+          "limbo_gate_stage": "object",
+          "limbo_turnstile_prop": "object",
+          "lujuria_boudoir_stage": "object",
+          "lujuria_divan_prop": "object",
+          "lujuria_table_prop": "object",
+          "nucleo_cathedral_stage": "object",
+          "nucleo_console_prop": "object",
+          "nucleo_floor_mandala": "object",
+          "nucleo_pillar_prop": "object",
+          "objective_energy_orb": "object",
+          "objective_generator_pylon": "object",
+          "player_aegis_shield_aura": "object",
+          "prop_bench_vertical": "object",
+          "prop_table_vertical": "object",
+          "route_chest_pedestal": "object",
+          "route_elite_blood_altar": "object",
+          "stage_abyssal_pit_trap": "object",
+          "stage_sonic_barrier_prop": "object",
+          "t02_A01_wall_straight": "object",
+          "t02_A02_wall_corner_inner": "object",
+          "t02_A03_wall_corner_outer": "object",
+          "t02_A04_wall_end_cap": "object",
+          "t02_A05_wall_pillar": "object",
+          "t02_A06_door_closed": "object",
+          "t02_A07_door_open": "object",
+          "t02_A08_doorway_frame": "object",
+          "t02_A09_threshold_entry": "object",
+          "t02_A10_wall_neon_detail": "object",
+          "traicion_abyss_stage": "object",
+          "traicion_cryopod_prop": "object",
+          "traicion_floor_medallion": "object",
+          "traicion_ice_spike_prop": "object",
+          "violencia_biolab_stage": "object",
+          "violencia_biovat_prop": "object",
+          "violencia_floor_medallion": "object",
+          "violencia_surgical_table_prop": "object",
+          "wall_avaricia_vault_door": "object",
+          "wall_ceiling_neon_fixture": "object",
+          "wall_gula_bottle_rack": "object",
+          "wall_ira_furnace_vent": "object",
+          "wall_limbo_ticket_window": "object",
+          "wall_neon_club_crest": "object",
+          "wall_stained_glass_arch": "object",
+          "wall_traicion_glacier_panel": "object",
+          "wall_violencia_specimen_vat": "object"
+        }
+      },
+      {
+        "name": "__DDM_V5_MED_NO_SKULL",
+        "type": "object",
+        "keys": {}
+      },
+      {
+        "name": "__DDM_V5_TINT",
+        "type": "object",
+        "keys": {
+          "decor_chrome_railing@h1": "object",
+          "decor_neon_painting@h1": "object",
+          "decor_neon_rug@h1": "object",
+          "decor_potted_palm@h1": "object"
+        }
+      },
+      {
+        "name": "__T3B",
+        "type": "object",
+        "keys": {
+          "draws": "object",
+          "enabled": "boolean",
+          "errors": "object",
+          "images": "object",
+          "lastInvalidation": "string",
+          "ready": "object",
+          "reload": "function",
+          "revision": "number",
+          "roomCapture": "function",
+          "setEnabled": "function",
+          "state": "function",
+          "version": "string"
+        }
+      },
+      {
+        "name": "__T3B_HUB_QA",
+        "type": "object",
+        "keys": {
+          "capture": "function",
+          "state": "function"
+        }
+      },
+      {
+        "name": "__T3B_IMAGES",
+        "type": "object",
+        "keys": {
+          "0": "string",
+          "1": "string",
+          "2": "string",
+          "3": "string",
+          "4": "string",
+          "5": "string",
+          "6": "string",
+          "7": "string",
+          "8": "string",
+          "9": "string"
+        }
+      }
+    ],
+    "DMO": {
+      "arch100": "object",
+      "arch100Visual": "object",
+      "arq": "object",
+      "assets": "object",
+      "build": "string",
+      "camera": "function",
+      "circles": "object",
+      "combatArt": "object",
+      "debug": "object",
+      "descentFusion": "object",
+      "diag": "object",
+      "director": "function",
+      "directorExplain": "function",
+      "directorSim": "object",
+      "directorTests": "object",
+      "dj": "object",
+      "djDirector": "object",
+      "dmg86": "object",
+      "dungeon": "object",
+      "explore": "object",
+      "explore77": "object",
+      "floorDrop": "object",
+      "gameState": "object",
+      "gamepad": "object",
+      "hdPlayer": "object",
+      "hub": "object",
+      "layout": "object",
+      "location": "object",
+      "loot": "object",
+      "menu54": "object",
+      "music36": "object",
+      "observe": "function",
+      "offerNow": "function",
+      "organicDebug": "object",
+      "perf": "object",
+      "pixelArt": "object",
+      "playerAnim": "object",
+      "playtest": "object",
+      "procWorld": "object",
+      "prog87": "object",
+      "read": "function",
+      "rogue": "object",
+      "roomGeometryAudit": "function",
+      "runOutcome": "function",
+      "secretBoss": "object",
+      "semi2d": "object",
+      "stage": "object",
+      "subs": "object",
+      "synStats": "function",
+      "telemetry": "function",
+      "testStats": "function",
+      "tune": "object",
+      "version": "string",
+      "visual285": "object",
+      "weaponRig": "object"
+    },
+    "camera": {
+      "x": 1250,
+      "y": 975,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "debug": {
+      "advanceRound": "function",
+      "boostKills": "function",
+      "boss": "function",
+      "bossAddsInterval": "function",
+      "breakPropNear": "function",
+      "catalogInfo": "function",
+      "chooseShot": "function",
+      "clearRound": "function",
+      "completeNight": "function",
+      "directorReset": "function",
+      "directorSim": "function",
+      "directorTests": "function",
+      "encore": "function",
+      "explain": "function",
+      "exploreColliders": "function",
+      "exploreGoTo": "function",
+      "exploreNext": "function",
+      "exploreNoEnemies": "function",
+      "explorePrev": "function",
+      "exploreReload": "function",
+      "exploreReseed": "function",
+      "exploreState": "function",
+      "exploreUnlock": "function",
+      "forceInterlude": "function",
+      "forceModifier": "function",
+      "forceProfile": "function",
+      "forceWave": "function",
+      "giveMutation": "function",
+      "hardRule": "function",
+      "heal": "function",
+      "holdSpawns": "function",
+      "huntTest": "function",
+      "hurt": "function",
+      "intent": "function",
+      "intentWeights": "function",
+      "invuln": "function",
+      "killAdds": "function",
+      "killAll": "function",
+      "laser": "function",
+      "off": "function",
+      "on": "function",
+      "pattern": "function",
+      "phase": "function",
+      "previewLevel": "function",
+      "propsHp": "function",
+      "rave": "function",
+      "render1": "function",
+      "runStats": "function",
+      "seed": "function",
+      "setBossHp": "function",
+      "setCombo": "function",
+      "setHype": "function",
+      "setInput": "function",
+      "setNight": "function",
+      "setRisk": "function",
+      "setRound": "function",
+      "shotChoice": "function",
+      "skipInterlude": "function",
+      "spawnEnemyAt": "function",
+      "state": "function",
+      "tactics": "function",
+      "teleport": "function",
+      "tick": "function",
+      "toggle": "function",
+      "weaponProbe": "function"
+    },
+    "testStats": {
+      "syn": {
+        "cannon": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "flow": {
+          "on": false,
+          "act": 0,
+          "t": 0,
+          "shots": 0,
+          "extra": 0
+        },
+        "shield": {
+          "act": 0,
+          "bonus": 0
+        },
+        "echo": {
+          "act": 0,
+          "hype": 0
+        },
+        "volt": {
+          "on": false,
+          "act": 0,
+          "jumps": 0
+        },
+        "ricochet": {
+          "on": false,
+          "act": 0,
+          "bounces": 0
+        },
+        "tempo": {
+          "on": false,
+          "act": 0,
+          "t": 0
+        }
+      },
+      "elapsed": 4.249199999999995,
+      "round": 1,
+      "kills": 0,
+      "score": 0,
+      "lives": 3,
+      "level": 1,
+      "balas": {
+        "n": 0,
+        "vMin": 0,
+        "vMax": 0
+      },
+      "conos": 0,
+      "damageTotal": 0,
+      "damageByCause": {},
+      "absorbed": 0,
+      "shotsFired": 0,
+      "shotsHit": 0,
+      "bossDamage": 0,
+      "pickupTaken": 0,
+      "pickupIgnored": 0,
+      "bombsUsed": 0,
+      "boostsUsed": 0,
+      "offers": 0,
+      "offerPicks": {},
+      "power": {
+        "damage": 0,
+        "fire": 0,
+        "speed": 0
+      },
+      "roundLog": [],
+      "bossLog": [],
+      "playerPushes": 0,
+      "stationaryTime": 4.249199999999995,
+      "raveTime": 0,
+      "raves": 0,
+      "maxCombo": 1,
+      "laser": {
+        "triggered": 0,
+        "playerHit": 0
+      },
+      "stage": {
+        "pending": null,
+        "ambient": "NORMAL",
+        "sinceSpatial": 103.2,
+        "temps": 0,
+        "whyNot": "",
+        "moved": 0,
+        "hidden": 0,
+        "stats": {
+          "announced": 0,
+          "committed": 0,
+          "cancelled": 0,
+          "retried": 0,
+          "reverted": 0,
+          "rejectedSpots": 0,
+          "validations": 0,
+          "validateMs": 0,
+          "maxValidateMs": 0,
+          "lastWhySpatial": "",
+          "byKind": {},
+          "byReason": {},
+          "rejectReasons": {},
+          "cancelReasons": {},
+          "ambientChanges": 0,
+          "restores": 0,
+          "expired": 0
+        },
+        "chain": null,
+        "zones": [],
+        "gaps": [],
+        "log": [],
+        "rejects": []
+      },
+      "arena": {
+        "djEvents": 0,
+        "gaps": 0,
+        "zones": 0,
+        "forced": {
+          "gaps": 0,
+          "zones": 0
+        }
+      },
+      "subs": {
+        "current": null,
+        "queue": [],
+        "layout": {
+          "maxW": 720,
+          "bottom": 18,
+          "fs": 20,
+          "narrow": false
+        },
+        "stats": {
+          "shown": 2,
+          "preempted": 0,
+          "replaced": 0,
+          "queued": 1,
+          "dropped": 0,
+          "dups": 1,
+          "expired": 0,
+          "shortUsed": 0,
+          "fitShrinks": 0,
+          "overflow": 0,
+          "lastFs": 20,
+          "lastLines": 1,
+          "layouts": 3
+        },
+        "rect": null,
+        "log": [
+          {
+            "t": 1.05,
+            "text": "RONDA 1 · OLEADA ESTÁNDAR",
+            "who": "",
+            "prio": 1,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          },
+          {
+            "t": 1.05,
+            "text": "Refugio seguro · Explora el club y baja al Círculo I por el Ascensor Sur [E]",
+            "who": "THE LAST AFTERPARTY",
+            "prio": 2,
+            "dur": 3,
+            "fs": 20,
+            "lines": 1
+          }
+        ]
+      },
+      "director": {
+        "triggers": {
+          "CYCLE": 1
+        },
+        "responses": {},
+        "failed": {}
+      },
+      "errors": []
+    },
+    "hubState": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 3.07,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "hubAPI": {
+      "audit": "function",
+      "canEnterCircle": "function",
+      "canReturnToHubNow": "function",
+      "closeModal": "function",
+      "debugSpawnBeacon": "function",
+      "missingRequirement": "function",
+      "openStation": "function",
+      "reloadSave": "function",
+      "returnToHubFromMilestone": "function",
+      "saveKey": "string",
+      "saveState": "function",
+      "startCampaignFromHub": "function",
+      "state": "function",
+      "stations": "function",
+      "version": "string"
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "cine": {
+      "active": false,
+      "id": "intro_turno_001",
+      "t": 1.23,
+      "shot": null,
+      "shotIdx": 0,
+      "shotT": 1.23,
+      "skipHold": 0.62,
+      "plays": 1,
+      "skips": 1,
+      "completes": 0,
+      "lastReason": "skip",
+      "replay": false,
+      "subtitle": null,
+      "log": [
+        {
+          "t": 0,
+          "k": "play",
+          "d": "intro_turno_001"
+        },
+        {
+          "t": 0,
+          "k": "shot",
+          "d": "1.1_portada"
+        },
+        {
+          "t": 1.23,
+          "k": "end",
+          "d": "skip"
+        }
+      ],
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      }
+    },
+    "cineAPI": {
+      "abort": "function",
+      "play": "function",
+      "scenes": "function",
+      "shotList": "function",
+      "skip": "function",
+      "state": "function"
+    },
+    "music": {
+      "version": "3.8.0-music",
+      "state": "HUB",
+      "prev": "MENU",
+      "since": 4.2,
+      "key": "hub_afterparty",
+      "pendingKey": null,
+      "bpm": 114,
+      "ctx": "running",
+      "sequencers": 1,
+      "coverPlaying": false,
+      "filterHz": 20000,
+      "filterTarget": 20000,
+      "transGain": 1,
+      "wired": true,
+      "graphFallback": false,
+      "hubModal": false,
+      "hubMilestones": 0,
+      "invasion": false,
+      "descent": null,
+      "descentCount": 0,
+      "landingCount": 0,
+      "lastLanding": null,
+      "keyRequests": 2,
+      "immediateSwitches": 2,
+      "coverStops": 0,
+      "missing": [],
+      "voices": {
+        "live": 1,
+        "dropped": 0,
+        "load": 0.02
+      },
+      "errors": []
+    },
+    "musicAPI": {
+      "audit": "function",
+      "cineBegin": "function",
+      "cineDescentToHub": "function",
+      "cineEnd": "function",
+      "cineFilter": "function",
+      "cineGain": "function",
+      "cineMotif": "function",
+      "cineState": "function",
+      "cineSting": "function",
+      "events": "function",
+      "keepAlive": "function",
+      "onFreefallStart": "function",
+      "onGirderPass": "function",
+      "onStairDescentStart": "function",
+      "onStairStep": "function",
+      "profiles": "function",
+      "simulateMissingTrack": "function",
+      "state": "function",
+      "version": "string"
+    },
+    "floorAnim": {
+      "demoLiftDrop": "function",
+      "demoSkyfall": "function",
+      "profiles": "function",
+      "setDurationMode": "function",
+      "state": "function",
+      "timeline": "function",
+      "timelines": "function",
+      "verifyContinuity": "function",
+      "version": "string"
+    },
+    "floor": "undefined",
+    "atmos": {
+      "audit": "function",
+      "config": "object",
+      "degraded": "boolean",
+      "enabled": "boolean",
+      "fps": "number",
+      "frames": "number",
+      "ready": "boolean",
+      "setEnabled": "function",
+      "toggle": "function",
+      "version": "string"
+    },
+    "infernal": {
+      "audit": "function",
+      "invalidate": "function",
+      "themes": "function",
+      "version": "string"
+    },
+    "artPack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06",
+      "status": "applied",
+      "startedAt": 1793758502964,
+      "appliedAt": 1793758502964,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793758503107,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "hub3": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "productionUnits": 8,
+        "files": 13,
+        "registered": 13,
+        "registeredDrawSlots": 1,
+        "verifiedDraws": 0,
+        "blocked": 13,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)",
+        "note": "13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). 0 drawImage verificados en produccion. HTML intacto.",
+        "appliedAt": 1793758503127
+      },
+      "hub3Boot": {
+        "registered": 13,
+        "at": 1793758503127
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793758503144,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793758503167
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 10,
+        "enabled": true,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793758503191
+      },
+      "hub5": {
+        "version": "hub-tanda05",
+        "count": 10,
+        "productionUnits": 10,
+        "files": 10,
+        "registered": 10,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h05_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+        "flag": "window.__DDM_HUB_T05 !== false",
+        "note": "10/10 PNG cargados y registrados. Integracion de render en el HUB real por los pintores existentes. Sin segundo motor.",
+        "appliedAt": 1793758503208
+      },
+      "hub6": {
+        "version": "hub-tanda06",
+        "count": 10,
+        "productionUnits": 10,
+        "files": 10,
+        "registered": 10,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h06_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+        "flag": "window.__DDM_HUB_T06 !== false",
+        "note": "10/10 PNG de envolvente cargados y registrados. Sin segundo motor, sin canvas adicional, sin cambio de camara ni proyeccion.",
+        "appliedAt": 1793758503228
+      },
+      "finishedAt": 1793758503228
+    },
+    "artPackAPI": {
+      "apply": "function",
+      "architecture": "function",
+      "architectureManifest": "function",
+      "hub": "function",
+      "hub2": "function",
+      "hub2Apply": "function",
+      "hub2Manifest": "function",
+      "hub2Restore": "function",
+      "hub2Tag": "function",
+      "hub3": "function",
+      "hub3Apply": "function",
+      "hub3Manifest": "function",
+      "hub3Restore": "function",
+      "hub3Tag": "function",
+      "hub5": "function",
+      "hub5Apply": "function",
+      "hub5Manifest": "function",
+      "hub5Restore": "function",
+      "hub5Tag": "function",
+      "hub6": "function",
+      "hub6Apply": "function",
+      "hub6Manifest": "function",
+      "hub6Restore": "function",
+      "hub6Tag": "function",
+      "hubApply": "function",
+      "hubManifest": "function",
+      "hubRestore": "function",
+      "hubTag": "function",
+      "integrity": "function",
+      "manifest": "function",
+      "player": "function",
+      "playerApply": "function",
+      "playerRestore": "function",
+      "restore": "function",
+      "state": "function"
+    },
+    "dungeon": {
+      "version": "8.6.0-dungeon",
+      "seed": 350342227,
+      "floor": 1,
+      "current": "r0",
+      "role": "start",
+      "graph": {
+        "floor": 0,
+        "nodes": [
+          {
+            "key": "r0",
+            "index": 0,
+            "local": 0,
+            "floor": 0,
+            "x": 0,
+            "y": 0,
+            "shop": false,
+            "kind": "start",
+            "distance": 0,
+            "main": true,
+            "links": [
+              {
+                "side": "left",
+                "to": "r1"
+              },
+              {
+                "side": "right",
+                "to": "r2"
+              }
+            ]
+          },
+          {
+            "key": "r1",
+            "index": 1,
+            "local": 1,
+            "floor": 0,
+            "x": -1,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 1,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r0"
+              },
+              {
+                "side": "left",
+                "to": "r4"
+              }
+            ]
+          },
+          {
+            "key": "r2",
+            "index": 2,
+            "local": 2,
+            "floor": 0,
+            "x": 1,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 1,
+            "main": false,
+            "links": [
+              {
+                "side": "left",
+                "to": "r0"
+              },
+              {
+                "side": "right",
+                "to": "r3"
+              }
+            ]
+          },
+          {
+            "key": "r3",
+            "index": 3,
+            "local": 3,
+            "floor": 0,
+            "x": 2,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 2,
+            "main": false,
+            "links": [
+              {
+                "side": "left",
+                "to": "r2"
+              }
+            ]
+          },
+          {
+            "key": "r4",
+            "index": 4,
+            "local": 4,
+            "floor": 0,
+            "x": -2,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 2,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r1"
+              },
+              {
+                "side": "top",
+                "to": "r5"
+              },
+              {
+                "side": "bottom",
+                "to": "s0"
+              },
+              {
+                "side": "left",
+                "to": "r6"
+              }
+            ]
+          },
+          {
+            "key": "r5",
+            "index": 5,
+            "local": 5,
+            "floor": 0,
+            "x": -2,
+            "y": -1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 3,
+            "main": true,
+            "links": [
+              {
+                "side": "bottom",
+                "to": "r4"
+              },
+              {
+                "side": "left",
+                "to": "r8"
+              },
+              {
+                "side": "top",
+                "to": "r7"
+              }
+            ]
+          },
+          {
+            "key": "r6",
+            "index": 6,
+            "local": 6,
+            "floor": 0,
+            "x": -3,
+            "y": 0,
+            "shop": false,
+            "kind": "combat",
+            "distance": 3,
+            "main": false,
+            "links": [
+              {
+                "side": "top",
+                "to": "r8"
+              },
+              {
+                "side": "right",
+                "to": "r4"
+              }
+            ]
+          },
+          {
+            "key": "r7",
+            "index": 7,
+            "local": 7,
+            "floor": 0,
+            "x": -2,
+            "y": -2,
+            "shop": false,
+            "kind": "treasure",
+            "distance": 4,
+            "main": false,
+            "links": [
+              {
+                "side": "bottom",
+                "to": "r5"
+              }
+            ]
+          },
+          {
+            "key": "r8",
+            "index": 8,
+            "local": 8,
+            "floor": 0,
+            "x": -3,
+            "y": -1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 4,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r5"
+              },
+              {
+                "side": "left",
+                "to": "r9"
+              },
+              {
+                "side": "bottom",
+                "to": "r6"
+              }
+            ]
+          },
+          {
+            "key": "r9",
+            "index": 9,
+            "local": 9,
+            "floor": 0,
+            "x": -4,
+            "y": -1,
+            "shop": false,
+            "kind": "combat",
+            "distance": 5,
+            "main": true,
+            "links": [
+              {
+                "side": "right",
+                "to": "r8"
+              },
+              {
+                "side": "top",
+                "to": "r10"
+              }
+            ]
+          },
+          {
+            "key": "r10",
+            "index": 10,
+            "local": 10,
+            "floor": 0,
+            "x": -4,
+            "y": -2,
+            "shop": false,
+            "kind": "boss",
+            "distance": 6,
+            "main": true,
+            "links": [
+              {
+                "side": "bottom",
+                "to": "r9"
+              }
+            ]
+          },
+          {
+            "key": "s0",
+            "index": 11,
+            "local": 11,
+            "floor": 0,
+            "x": -2,
+            "y": 1,
+            "shop": true,
+            "kind": "shop",
+            "distance": 3,
+            "main": false,
+            "links": [
+              {
+                "side": "top",
+                "to": "r4"
+              }
+            ]
+          }
+        ],
+        "bounds": {
+          "minX": -4,
+          "maxX": 2,
+          "minY": -2,
+          "maxY": 1
+        },
+        "generator": "8.6.0-dungeon",
+        "seedRoute": "principal + ramas",
+        "bossDistance": 6
+      },
+      "visited": [],
+      "secured": 0,
+      "inHub": true
+    },
+    "dungeonAPI": {
+      "audit": "function",
+      "generate": "function",
+      "state": "function",
+      "version": "string"
+    },
+    "prog": {
+      "version": "8.7.0",
+      "panelOpen": false,
+      "pact": "ninguno",
+      "appliedPact": "ninguno",
+      "livePact": "ninguno",
+      "route": "libre",
+      "runId": 1,
+      "pactAppliedRunId": -1,
+      "currentFloor": null,
+      "currentRoute": null,
+      "secretsFound": [],
+      "ecosCelebrated": []
+    },
+    "layout": {
+      "build": "function",
+      "isBuilt": "function",
+      "metrics": "function",
+      "overlay": "function",
+      "pointBlocked": "function",
+      "propObjects": "function",
+      "props": "function",
+      "report": "function",
+      "resetRuntime": "function",
+      "seed": "function",
+      "selfTest": "function",
+      "setOverlay": "function",
+      "spawnProbePoints": "function",
+      "toggleOverlay": "function",
+      "trial": "function",
+      "validate": "function"
+    },
+    "story": {
+      "advance": "function",
+      "cine": "object",
+      "conversation": "function",
+      "flags": "function",
+      "introSeen": "function",
+      "npcs": "function",
+      "stations": "function",
+      "story": "function",
+      "version": "string"
+    },
+    "boots": {
+      "asset": "function",
+      "engineReady": "function",
+      "finish": "function",
+      "windowReady": "function"
+    },
+    "canvas": [
+      {
+        "id": "game",
+        "cls": "",
+        "w": 1280,
+        "h": 900
+      },
+      {
+        "id": "minimap",
+        "cls": "",
+        "w": 176,
+        "h": 126
+      },
+      {
+        "id": "menu-canvas54",
+        "cls": "",
+        "w": 960,
+        "h": 540
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 56
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 56,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 64,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 64,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 64,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 64,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 64,
+        "h": 60
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 32,
+        "h": 32
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 32,
+        "h": 32
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 32,
+        "h": 32
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "",
+        "cls": "",
+        "w": 48,
+        "h": 36
+      },
+      {
+        "id": "ilt-atmos-bloom",
+        "cls": "",
+        "w": 427,
+        "h": 300
+      },
+      {
+        "id": "ilt-atmos-vig",
+        "cls": "",
+        "w": 427,
+        "h": 300
+      },
+      {
+        "id": "ddc-fx",
+        "cls": "",
+        "w": 1280,
+        "h": 720
+      },
+      {
+        "id": "v32-preview-canvas",
+        "cls": "",
+        "w": 380,
+        "h": 220
+      }
+    ],
+    "v5Keys": 162,
+    "v5Names": [
+      "abyssal_portal_pad",
+      "descent_abyssal_lift_pad",
+      "hub_abyss_stair_crack",
+      "hub_bartender_npc",
+      "hub_bouncer_npc",
+      "hub_cliente000_npc",
+      "hub_clubber_dancer_a",
+      "hub_clubber_dancer_b",
+      "stage_abyssal_pit_trap",
+      "traicion_abyss_stage"
+    ],
+    "ambientDancers": null
+  },
+  "pageErrors": [
+    "console:Failed to load resource: the server responded with a status of 404 (File not found)",
+    "console:Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "httpErrors": [
+    "404 http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+    "404 http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+  ]
+}

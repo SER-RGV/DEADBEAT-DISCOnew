@@ -1,0 +1,44 @@
+/* === LEGIBILIDAD:TEST:BEGIN · MÓDULO DE PRUEBA (NO PUBLICADO) ===============
+   Módulo temporal y reversible para la PRUEBA VISUAL DE CORRECCIÓN.
+   Se elimina al restaurar el HTML; no forma parte del entregable. */
+const LEG_TEST = (function () {
+  const HIDE = ['hub_decor_t06_10','hub_decor_t06_06_rep1','hub_decor_t06_06_rep2',
+    'hub_decor_t06_07_rep1','hub_decor_t06_07_rep2','hub_decor_planter_v02',
+    'hub_decor_bench_v02','hub_decor_speaker_w','hub_decor_speaker_e'];
+  const BLOOM = 0.30, VIG = 0.45, GRADE = 0.35, GRAIN = 0.006;
+  const saved = { hidden: [], bloom: null, vig: null, grade: null, grain: null };
+  let on = false, applied = false;
+  function arr() { try { return (typeof tc !== 'undefined' && Array.isArray(tc)) ? tc : []; } catch(e){ return []; } }
+  function apply() {
+    if (applied) return;
+    const bl=document.getElementById('ilt-atmos-bloom'), vg=document.getElementById('ilt-atmos-vig');
+    if(bl){ saved.bloom=bl.style.opacity; bl.style.opacity=String(BLOOM); }
+    if(vg){ saved.vig=vg.style.opacity; vg.style.opacity=String(VIG); }
+    try { saved.grade=window.DMO_ATMOS.config.grade; saved.grain=window.DMO_ATMOS.config.grain;
+          window.DMO_ATMOS.config.grade=GRADE; window.DMO_ATMOS.config.grain=GRAIN; } catch(e){}
+    const list=arr();
+    for(let i=0;i<list.length;i++){
+      const q=list[i];
+      if(q && HIDE.indexOf(q.id)>=0){ saved.hidden.push([q, q.hidden]); q.hidden=true; }
+    }
+    applied=true;
+  }
+  function restore() {
+    if(!applied) return;
+    const bl=document.getElementById('ilt-atmos-bloom'), vg=document.getElementById('ilt-atmos-vig');
+    if(bl && saved.bloom!==null) bl.style.opacity=saved.bloom;
+    if(vg && saved.vig!==null) vg.style.opacity=saved.vig;
+    try { if(saved.grade!==null) window.DMO_ATMOS.config.grade=saved.grade;
+          if(saved.grain!==null) window.DMO_ATMOS.config.grain=saved.grain; } catch(e){}
+    saved.hidden.forEach(function(p){ if(p[1]===undefined) delete p[0].hidden; else p[0].hidden=p[1]; });
+    saved.hidden.length=0; applied=false;
+  }
+  return {
+    setEnabled:function(v){ on=!!v; if(on) apply(); else restore(); return on; },
+    state:function(){ return { enabled:on, applied:applied, hidden:saved.hidden.length,
+                               propuestos:HIDE.length, propsReales:arr().length }; },
+    install:function(){ window.__DDM_HUB_LEGIBILIDAD = false; return true; }
+  };
+})();
+window.DMO_HUB_LEGIBILIDAD_TEST = LEG_TEST;
+/* === LEGIBILIDAD:TEST:END =================================================== */

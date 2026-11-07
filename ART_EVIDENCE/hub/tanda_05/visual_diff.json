@@ -1,0 +1,715 @@
+{
+  "generatedAt": "2026-11-04T00:24:01.270076+00:00",
+  "method": "ImageChops.difference -> L; umbral >16 para cambio fuerte. Dos capturas OFF consecutivas (ruido de frame/JPEG/SwiftShader) frente a OFF->ON EN CALIENTE en el mismo contexto y cámara. Pillow puro, sin numpy.",
+  "criterion": "Por asset: señal >=5 % de su caja, >=200 px cambiados y señal >= max(3*ruido, 5 %).",
+  "pairs": {
+    "centro": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 1.4585,
+      "maxDiff": 183,
+      "changedPx": 23645,
+      "changedPct": 2.053,
+      "strongPx": 12387,
+      "strongPct": 1.075,
+      "changedBBox": [
+        0,
+        0,
+        1280,
+        613
+      ],
+      "comparativa": "comparativa_centro.jpg",
+      "comparativaBytes": 237619,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "dj": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.7231,
+      "maxDiff": 195,
+      "changedPx": 52273,
+      "changedPct": 4.538,
+      "strongPx": 28385,
+      "strongPct": 2.464,
+      "changedBBox": [
+        0,
+        7,
+        1280,
+        895
+      ],
+      "comparativa": "comparativa_dj.jpg",
+      "comparativaBytes": 232529,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "bar": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.3272,
+      "maxDiff": 255,
+      "changedPx": 36587,
+      "changedPct": 3.176,
+      "strongPx": 21191,
+      "strongPct": 1.839,
+      "changedBBox": [
+        0,
+        8,
+        1079,
+        889
+      ],
+      "comparativa": "comparativa_bar.jpg",
+      "comparativaBytes": 233839,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "vip_oeste": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.3351,
+      "maxDiff": 255,
+      "changedPx": 31366,
+      "changedPct": 2.723,
+      "strongPx": 19142,
+      "strongPct": 1.662,
+      "changedBBox": [
+        234,
+        93,
+        1280,
+        900
+      ],
+      "comparativa": "comparativa_vip_oeste.jpg",
+      "comparativaBytes": 227762,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "vip_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 3.3418,
+      "maxDiff": 255,
+      "changedPx": 65067,
+      "changedPct": 5.648,
+      "strongPx": 40422,
+      "strongPct": 3.509,
+      "changedBBox": [
+        0,
+        46,
+        1183,
+        900
+      ],
+      "comparativa": "comparativa_vip_este.jpg",
+      "comparativaBytes": 225729,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "arcade": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 1.5226,
+      "maxDiff": 208,
+      "changedPx": 24894,
+      "changedPct": 2.161,
+      "strongPx": 11342,
+      "strongPct": 0.985,
+      "changedBBox": [
+        193,
+        0,
+        1219,
+        563
+      ],
+      "comparativa": "comparativa_arcade.jpg",
+      "comparativaBytes": 221322,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "sellos": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 0.8724,
+      "maxDiff": 193,
+      "changedPx": 14140,
+      "changedPct": 1.227,
+      "strongPx": 5666,
+      "strongPct": 0.492,
+      "changedBBox": [
+        216,
+        0,
+        1076,
+        566
+      ],
+      "comparativa": "comparativa_sellos.jpg",
+      "comparativaBytes": 218932,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "pared_oeste": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 3.3865,
+      "maxDiff": 251,
+      "changedPx": 66035,
+      "changedPct": 5.732,
+      "strongPx": 37288,
+      "strongPct": 3.237,
+      "changedBBox": [
+        195,
+        0,
+        1280,
+        894
+      ],
+      "comparativa": "comparativa_pared_oeste.jpg",
+      "comparativaBytes": 231637,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "norte": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 3.1561,
+      "maxDiff": 232,
+      "changedPx": 59904,
+      "changedPct": 5.2,
+      "strongPx": 33326,
+      "strongPct": 2.893,
+      "changedBBox": [
+        0,
+        1,
+        1280,
+        895
+      ],
+      "comparativa": "comparativa_norte.jpg",
+      "comparativaBytes": 231494,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "pared_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 1.6153,
+      "maxDiff": 191,
+      "changedPx": 24790,
+      "changedPct": 2.152,
+      "strongPx": 14090,
+      "strongPct": 1.223,
+      "changedBBox": [
+        0,
+        0,
+        1076,
+        631
+      ],
+      "comparativa": "comparativa_pared_este.jpg",
+      "comparativaBytes": 230821,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    }
+  },
+  "cleanHotToggle": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 1.187,
+    "maxDiff": 174,
+    "changedPx": 37331,
+    "changedPct": 3.241,
+    "strongPx": 12167,
+    "strongPct": 1.056,
+    "changedBBox": [
+      0,
+      0,
+      1280,
+      615
+    ],
+    "description": "Mismo contexto, misma cámara, solo cambia el flag __DDM_HUB_T05 de false a true. Comparativa A/B limpia."
+  },
+  "noiseBaseline": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 0.6805,
+    "maxDiff": 185,
+    "changedPx": 30393,
+    "changedPct": 2.638,
+    "strongPx": 3489,
+    "strongPct": 0.303,
+    "changedBBox": [
+      158,
+      3,
+      1223,
+      615
+    ],
+    "description": "Dos fotogramas con __DDM_HUB_T05=false, mismo contexto y misma cámara: ruido de frame del render por software."
+  },
+  "assets": {
+    "T05-01": {
+      "zone": "arcade",
+      "box": [
+        195,
+        389,
+        284,
+        558
+      ],
+      "noise": {
+        "size": [
+          89,
+          169
+        ],
+        "meanDiff": 1.3951,
+        "maxDiff": 173,
+        "changedPx": 246,
+        "changedPct": 1.636,
+        "strongPx": 103,
+        "strongPct": 0.685,
+        "changedBBox": [
+          0,
+          95,
+          89,
+          159
+        ]
+      },
+      "signal": {
+        "size": [
+          89,
+          169
+        ],
+        "meanDiff": 36.8047,
+        "maxDiff": 208,
+        "changedPx": 9552,
+        "changedPct": 63.506,
+        "strongPx": 8002,
+        "strongPct": 53.201,
+        "changedBBox": [
+          0,
+          0,
+          89,
+          169
+        ]
+      },
+      "ratio": 77.7,
+      "state": "APROBADO"
+    },
+    "T05-02": {
+      "zone": "pared_este",
+      "box": [
+        998,
+        483,
+        1076,
+        624
+      ],
+      "noise": {
+        "size": [
+          78,
+          141
+        ],
+        "meanDiff": 0.2754,
+        "maxDiff": 11,
+        "changedPx": 4,
+        "changedPct": 0.036,
+        "strongPx": 0,
+        "strongPct": 0.0,
+        "changedBBox": null
+      },
+      "signal": {
+        "size": [
+          78,
+          141
+        ],
+        "meanDiff": 26.2727,
+        "maxDiff": 186,
+        "changedPx": 6111,
+        "changedPct": 55.565,
+        "strongPx": 4802,
+        "strongPct": 43.662,
+        "changedBBox": [
+          0,
+          0,
+          78,
+          140
+        ]
+      },
+      "ratio": 4366.2,
+      "state": "APROBADO"
+    },
+    "T05-03": {
+      "zone": "vip_oeste",
+      "box": [
+        572,
+        127,
+        750,
+        239
+      ],
+      "noise": {
+        "size": [
+          178,
+          112
+        ],
+        "meanDiff": 2.0587,
+        "maxDiff": 145,
+        "changedPx": 727,
+        "changedPct": 3.647,
+        "strongPx": 201,
+        "strongPct": 1.008,
+        "changedBBox": [
+          5,
+          19,
+          171,
+          112
+        ]
+      },
+      "signal": {
+        "size": [
+          178,
+          112
+        ],
+        "meanDiff": 14.3291,
+        "maxDiff": 199,
+        "changedPx": 5677,
+        "changedPct": 28.476,
+        "strongPx": 4320,
+        "strongPct": 21.669,
+        "changedBBox": [
+          0,
+          0,
+          147,
+          109
+        ]
+      },
+      "ratio": 21.5,
+      "state": "APROBADO"
+    },
+    "T05-04": {
+      "zone": "norte",
+      "box": [
+        842,
+        70,
+        1020,
+        173
+      ],
+      "noise": {
+        "size": [
+          178,
+          103
+        ],
+        "meanDiff": 0.0048,
+        "maxDiff": 1,
+        "changedPx": 0,
+        "changedPct": 0.0,
+        "strongPx": 0,
+        "strongPct": 0.0,
+        "changedBBox": null
+      },
+      "signal": {
+        "size": [
+          178,
+          103
+        ],
+        "meanDiff": 25.1164,
+        "maxDiff": 175,
+        "changedPx": 9426,
+        "changedPct": 51.413,
+        "strongPx": 7762,
+        "strongPct": 42.337,
+        "changedBBox": [
+          0,
+          0,
+          178,
+          103
+        ]
+      },
+      "ratio": 4233.7,
+      "state": "APROBADO"
+    },
+    "T05-05": {
+      "zone": "norte",
+      "box": [
+        895,
+        258,
+        965,
+        323
+      ],
+      "noise": {
+        "size": [
+          70,
+          65
+        ],
+        "meanDiff": 0.0,
+        "maxDiff": 0,
+        "changedPx": 0,
+        "changedPct": 0.0,
+        "strongPx": 0,
+        "strongPct": 0.0,
+        "changedBBox": null
+      },
+      "signal": {
+        "size": [
+          70,
+          65
+        ],
+        "meanDiff": 19.2033,
+        "maxDiff": 167,
+        "changedPx": 1786,
+        "changedPct": 39.253,
+        "strongPx": 1434,
+        "strongPct": 31.516,
+        "changedBBox": [
+          0,
+          2,
+          70,
+          65
+        ]
+      },
+      "ratio": 3151.6,
+      "state": "APROBADO"
+    },
+    "T05-06": {
+      "zone": "pared_este",
+      "box": [
+        867,
+        46,
+        962,
+        136
+      ],
+      "noise": {
+        "size": [
+          95,
+          90
+        ],
+        "meanDiff": 3.0735,
+        "maxDiff": 136,
+        "changedPx": 393,
+        "changedPct": 4.596,
+        "strongPx": 119,
+        "strongPct": 1.392,
+        "changedBBox": [
+          1,
+          4,
+          95,
+          70
+        ]
+      },
+      "signal": {
+        "size": [
+          95,
+          90
+        ],
+        "meanDiff": 17.0676,
+        "maxDiff": 163,
+        "changedPx": 2710,
+        "changedPct": 31.696,
+        "strongPx": 2245,
+        "strongPct": 26.257,
+        "changedBBox": [
+          5,
+          0,
+          95,
+          85
+        ]
+      },
+      "ratio": 18.9,
+      "state": "APROBADO"
+    },
+    "T05-07": {
+      "zone": "pared_oeste",
+      "box": [
+        291,
+        136,
+        460,
+        249
+      ],
+      "noise": {
+        "size": [
+          169,
+          113
+        ],
+        "meanDiff": 0.3771,
+        "maxDiff": 90,
+        "changedPx": 132,
+        "changedPct": 0.691,
+        "strongPx": 42,
+        "strongPct": 0.22,
+        "changedBBox": [
+          31,
+          66,
+          147,
+          113
+        ]
+      },
+      "signal": {
+        "size": [
+          169,
+          113
+        ],
+        "meanDiff": 23.2694,
+        "maxDiff": 203,
+        "changedPx": 7053,
+        "changedPct": 36.933,
+        "strongPx": 5687,
+        "strongPct": 29.78,
+        "changedBBox": [
+          12,
+          0,
+          169,
+          113
+        ]
+      },
+      "ratio": 135.4,
+      "state": "APROBADO"
+    },
+    "T05-08": {
+      "zone": "norte",
+      "box": [
+        610,
+        352,
+        671,
+        511
+      ],
+      "noise": {
+        "size": [
+          61,
+          159
+        ],
+        "meanDiff": 2.4885,
+        "maxDiff": 77,
+        "changedPx": 439,
+        "changedPct": 4.526,
+        "strongPx": 60,
+        "strongPct": 0.619,
+        "changedBBox": [
+          6,
+          33,
+          56,
+          90
+        ]
+      },
+      "signal": {
+        "size": [
+          61,
+          159
+        ],
+        "meanDiff": 7.5291,
+        "maxDiff": 133,
+        "changedPx": 1953,
+        "changedPct": 20.136,
+        "strongPx": 1076,
+        "strongPct": 11.094,
+        "changedBBox": [
+          0,
+          33,
+          61,
+          159
+        ]
+      },
+      "ratio": 17.9,
+      "state": "APROBADO"
+    },
+    "T05-09": {
+      "zone": "norte",
+      "box": [
+        301,
+        286,
+        380,
+        361
+      ],
+      "noise": {
+        "size": [
+          79,
+          75
+        ],
+        "meanDiff": 0.1281,
+        "maxDiff": 6,
+        "changedPx": 0,
+        "changedPct": 0.0,
+        "strongPx": 0,
+        "strongPct": 0.0,
+        "changedBBox": null
+      },
+      "signal": {
+        "size": [
+          79,
+          75
+        ],
+        "meanDiff": 15.1779,
+        "maxDiff": 198,
+        "changedPx": 1562,
+        "changedPct": 26.363,
+        "strongPx": 1139,
+        "strongPct": 19.224,
+        "changedBBox": [
+          0,
+          0,
+          79,
+          75
+        ]
+      },
+      "ratio": 1922.4,
+      "state": "APROBADO"
+    },
+    "T05-10": {
+      "zone": "bar",
+      "box": [
+        689,
+        100,
+        775,
+        241
+      ],
+      "noise": {
+        "size": [
+          86,
+          141
+        ],
+        "meanDiff": 0.0,
+        "maxDiff": 0,
+        "changedPx": 0,
+        "changedPct": 0.0,
+        "strongPx": 0,
+        "strongPct": 0.0,
+        "changedBBox": null
+      },
+      "signal": {
+        "size": [
+          86,
+          141
+        ],
+        "meanDiff": 28.5517,
+        "maxDiff": 189,
+        "changedPx": 7913,
+        "changedPct": 65.256,
+        "strongPx": 5692,
+        "strongPct": 46.94,
+        "changedBBox": [
+          0,
+          1,
+          86,
+          141
+        ]
+      },
+      "ratio": 4694.0,
+      "state": "APROBADO"
+    }
+  },
+  "summary": {
+    "assetsWithPixelConfirmation": 10,
+    "assetsFailed": [],
+    "minSignalPct": 11.094,
+    "maxNoisePct": 1.392,
+    "pairsGenerated": 10,
+    "state": "APROBADO"
+  },
+  "index": {
+    "file": "comparativa_antes_despues.jpg",
+    "bytes": 584345,
+    "pairs": 10
+  }
+}

@@ -1,0 +1,303 @@
+{
+  "generatedAt": "2026-11-03T23:00:48.013425+00:00",
+  "environment": {
+    "chromium": "131.0.6778.0",
+    "playwrightCore": "1.58.2",
+    "viewport": [
+      1280,
+      900
+    ],
+    "deviceScaleFactor": 1,
+    "renderer": "SwiftShader / --use-gl=swiftshader",
+    "url": "http://127.0.0.1:8123/",
+    "camera": "DMO.debug.teleport(x,y) · 10 zonas idénticas en las 3 fases"
+  },
+  "criterion": ">=1 drawImage efectivo por unidad en el canvas de mundo del HUB; registro V5 NO basta",
+  "phases": {
+    "antes": {
+      "flag": false,
+      "loadMs": 1396,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.4,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "drawKeysT03": 0,
+      "onScreenT03": 0,
+      "canvasCountBase": 27,
+      "v5Keys": 142,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    },
+    "control": {
+      "flag": "true->false->true",
+      "loadMs": 1649,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.8,
+        "p90Ms": 33.4,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "drawKeysT03": 13,
+      "onScreenT03": 12,
+      "canvasCountBase": 27,
+      "v5Keys": 142,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      },
+      "hotToggle": {
+        "off": 0,
+        "on": 13,
+        "hub3Restore": 0,
+        "hub3Apply": 13,
+        "hub3RestoreResult": 13,
+        "hub3ApplyResult": 13
+      }
+    },
+    "despues": {
+      "flag": "por defecto (true, no definido en window)",
+      "loadMs": 1638,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.3,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "drawKeysT03": 13,
+      "onScreenT03": 13,
+      "canvasCountBase": 27,
+      "v5Keys": 142,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1655,
+        "delta": 405,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    }
+  },
+  "performance": {
+    "antes": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": 16.6,
+      "maxMs": 50
+    },
+    "control": {
+      "frames": 40,
+      "medianMs": 16.8,
+      "p90Ms": 33.4,
+      "minMs": 16.6,
+      "maxMs": 50
+    },
+    "despues": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.3,
+      "minMs": 16.6,
+      "maxMs": 50
+    },
+    "loadCost": {
+      "startedAt": 1793746356599,
+      "hub3AppliedAt": 1793746356796,
+      "hub3BootAt": 1793746356796,
+      "deltaMs": 197
+    },
+    "loadMs": {
+      "antes": 1396,
+      "control": 1649,
+      "despues": 1638
+    }
+  },
+  "checks": [
+    {
+      "id": 1,
+      "check": "Integridad del HTML, del art pack y de las APIs existentes",
+      "state": "APROBADO"
+    },
+    {
+      "id": 2,
+      "check": "Recursos cargados: 13/13 PNG, 8 unidades, registro V5 intacto",
+      "state": "APROBADO"
+    },
+    {
+      "id": 3,
+      "check": "Ausencia de errores JavaScript y de 404 locales",
+      "state": "APROBADO"
+    },
+    {
+      "id": 4,
+      "check": "Criterio de integración: >=1 drawImage efectivo por unidad en el renderer del HUB",
+      "state": "APROBADO"
+    },
+    {
+      "id": 5,
+      "check": "Visibilidad real: ninguna unidad oculta, ninguna señal recortada",
+      "state": "APROBADO"
+    },
+    {
+      "id": 6,
+      "check": "Suelos: continuidad, orientación y ausencia de solapamientos",
+      "state": "APROBADO"
+    },
+    {
+      "id": 7,
+      "check": "Mobiliario y VIP: escala, anclaje y ausencia de cambios de hitbox",
+      "state": "APROBADO"
+    },
+    {
+      "id": 8,
+      "check": "Señalética: 6 anclajes, 6 referencias diferenciadas, 0 ocultas",
+      "state": "APROBADO"
+    },
+    {
+      "id": 9,
+      "check": "Cachés de ambas capas y canvas: sin segundo motor, sin canvas nuevo",
+      "state": "APROBADO"
+    },
+    {
+      "id": 10,
+      "check": "Regresión: colisiones, puertas, estaciones, disparo y CAMPAIGN_ROOM",
+      "state": "APROBADO"
+    },
+    {
+      "id": 11,
+      "check": "Regresión T01 10/10, T02 10/10, V5 y arquitectura intactas",
+      "state": "APROBADO"
+    },
+    {
+      "id": 12,
+      "check": "Performance gate: coste de render separado del coste de carga",
+      "state": "APROBADO"
+    }
+  ],
+  "summary": {
+    "APROBADO": 12,
+    "FALLIDO": 0,
+    "UNIDADES_INTEGRADAS": 13,
+    "UNIDADES_BLOQUEADAS": 0,
+    "NO_VERIFICADO": 0
+  }
+}

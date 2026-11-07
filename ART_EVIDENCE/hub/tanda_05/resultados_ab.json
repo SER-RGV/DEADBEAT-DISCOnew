@@ -1,0 +1,440 @@
+{
+  "generatedAt": "2026-11-04T00:24:01.270076+00:00",
+  "environment": {
+    "chromium": "131.0.6778.0",
+    "playwrightCore": "1.58.2",
+    "viewport": [
+      1280,
+      900
+    ],
+    "deviceScaleFactor": 1,
+    "renderer": "SwiftShader / --use-gl=swiftshader",
+    "url": "http://127.0.0.1:8123/",
+    "camera": "DMO.debug.teleport(x,y) · 10 zonas idénticas en las 3 fases",
+    "capture": "page.screenshot()",
+    "bootToHub": "click(640,450)+Enter+Escape 2800 ms"
+  },
+  "criterion": "10/10 drawImage efectivos en el canvas de mundo 1280x900 del HUB + caja en pantalla + confirmación de píxel OFF/ON en caliente. El registro V5 NO basta.",
+  "phases": {
+    "antes": {
+      "flag": "false (integración de render desactivada)",
+      "loadMs": 1469,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.4,
+        "minMs": 16.6,
+        "maxMs": 50
+      },
+      "drawKeysT05": [],
+      "onScreenT05": [],
+      "hub5": {
+        "count": 10,
+        "registered": 10,
+        "loaded": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 152,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    },
+    "control": {
+      "flag": "true -> false -> true (conmutación en caliente)",
+      "loadMs": 1287,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 33.4,
+        "minMs": 16.6,
+        "maxMs": 50.1
+      },
+      "drawKeysT05": [
+        "HUB|T05-01",
+        "HUB|T05-02",
+        "HUB|T05-03",
+        "HUB|T05-04",
+        "HUB|T05-05",
+        "HUB|T05-06",
+        "HUB|T05-07",
+        "HUB|T05-08",
+        "HUB|T05-09",
+        "HUB|T05-10",
+        "MENU|T05-01",
+        "MENU|T05-02",
+        "MENU|T05-03",
+        "MENU|T05-04",
+        "MENU|T05-05",
+        "MENU|T05-06",
+        "MENU|T05-07",
+        "MENU|T05-08",
+        "MENU|T05-09",
+        "MENU|T05-10"
+      ],
+      "onScreenT05": [
+        "HUB|T05-01",
+        "HUB|T05-02",
+        "HUB|T05-03",
+        "HUB|T05-04",
+        "HUB|T05-05",
+        "HUB|T05-06",
+        "HUB|T05-07",
+        "HUB|T05-08",
+        "HUB|T05-09",
+        "HUB|T05-10",
+        "MENU|T05-05",
+        "MENU|T05-06",
+        "MENU|T05-07",
+        "MENU|T05-08",
+        "MENU|T05-09",
+        "MENU|T05-10"
+      ],
+      "hub5": {
+        "count": 10,
+        "registered": 10,
+        "loaded": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 152,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": true,
+        "location": "HUB",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1652,
+        "delta": 402,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      },
+      "hotToggle": {
+        "off": 0,
+        "on": 10,
+        "hub5Restore": 0,
+        "hub5Apply": 10,
+        "hub5RestoreResult": 10,
+        "hub5ApplyResult": 10
+      }
+    },
+    "despues": {
+      "flag": "activo por defecto (window.__DDM_HUB_T05 indefinido)",
+      "loadMs": 1406,
+      "render": {
+        "frames": 40,
+        "medianMs": 16.7,
+        "p90Ms": 50,
+        "minMs": 16.6,
+        "maxMs": 50.1
+      },
+      "drawKeysT05": [
+        "HUB|T05-01",
+        "HUB|T05-02",
+        "HUB|T05-03",
+        "HUB|T05-04",
+        "HUB|T05-05",
+        "HUB|T05-06",
+        "HUB|T05-07",
+        "HUB|T05-08",
+        "HUB|T05-09",
+        "HUB|T05-10",
+        "MENU|T05-01",
+        "MENU|T05-02",
+        "MENU|T05-03",
+        "MENU|T05-04",
+        "MENU|T05-05",
+        "MENU|T05-06",
+        "MENU|T05-07",
+        "MENU|T05-08",
+        "MENU|T05-09",
+        "MENU|T05-10"
+      ],
+      "onScreenT05": [
+        "HUB|T05-01",
+        "HUB|T05-02",
+        "HUB|T05-03",
+        "HUB|T05-04",
+        "HUB|T05-05",
+        "HUB|T05-06",
+        "HUB|T05-07",
+        "HUB|T05-08",
+        "HUB|T05-09",
+        "HUB|T05-10",
+        "MENU|T05-05",
+        "MENU|T05-06",
+        "MENU|T05-07",
+        "MENU|T05-08",
+        "MENU|T05-09",
+        "MENU|T05-10"
+      ],
+      "hub5": {
+        "count": 10,
+        "registered": 10,
+        "loaded": 10,
+        "exactSize": 10,
+        "enabled": true,
+        "errors": []
+      },
+      "canvasCountBase": 27,
+      "v5Keys": 152,
+      "artPackStatus": "applied",
+      "hubAudit": {
+        "ok": true,
+        "version": "3.5.0-hub-proto",
+        "saveKey": "dmo_hub_v1",
+        "zonesCount": 6,
+        "stationsCount": 11,
+        "inHub": false,
+        "location": "CAMPAIGN_ROOM",
+        "mode": "EXPLORATION",
+        "unlockedCircles": [
+          0
+        ],
+        "officialUntainted": false
+      },
+      "pageErrors": [],
+      "consoleErrors": [
+        "Failed to load resource: the server responded with a status of 404 (File not found)",
+        "Failed to load resource: the server responded with a status of 404 (File not found)"
+      ],
+      "localHttpErrors": [],
+      "externalCloudflare404": [
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+        },
+        {
+          "status": 404,
+          "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+        }
+      ],
+      "movement": {
+        "pxBefore": 1250,
+        "pxAfter": 1659,
+        "delta": 409,
+        "withinWorld": true
+      },
+      "collision": {
+        "from": 1720,
+        "afterHoldingD": 1795,
+        "delta": 75,
+        "blockedBeforeBarCollider": true
+      }
+    }
+  },
+  "performance": {
+    "generatedAt": "2026-11-04T00:19:03.172Z",
+    "antes": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": 16.6,
+      "maxMs": 50
+    },
+    "control": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": 16.6,
+      "maxMs": 50.1
+    },
+    "despues": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 50,
+      "minMs": 16.6,
+      "maxMs": 50.1
+    },
+    "loadCost": {
+      "startedAt": 1793751504627,
+      "appliedAt": 1793751504627,
+      "finishedAt": 1793751504858,
+      "hub5AppliedAt": 1793751504858,
+      "totalLoadMs": 231,
+      "hub5LoadMs": 231
+    },
+    "loadMs": {
+      "antes": 1469,
+      "control": 1287,
+      "despues": 1406
+    },
+    "hubFloorDraws": {
+      "antes": 1028,
+      "control": 1473,
+      "despues": 988
+    },
+    "note": "Coste de carga separado del coste de render; T02 performance gate sigue pendiente."
+  },
+  "visualDiff": {
+    "assetsWithPixelConfirmation": 10,
+    "assetsFailed": [],
+    "minSignalPct": 11.094,
+    "maxNoisePct": 1.392,
+    "pairsGenerated": 10,
+    "state": "APROBADO"
+  },
+  "alphaVerification": {
+    "verified": 10,
+    "failed": [],
+    "state": "APROBADO"
+  },
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga de los diez assets: 10/10 PNG por HTTP 200, load() y registro V5",
+      "state": "APROBADO"
+    },
+    {
+      "id": 2,
+      "check": "Visibilidad: 10/10 drawImage medidos en el canvas de mundo, A/B 0→10→0→10",
+      "state": "APROBADO"
+    },
+    {
+      "id": 3,
+      "check": "Escala y dimensiones: aspecto nativo conservado, sin deformación",
+      "state": "APROBADO"
+    },
+    {
+      "id": 4,
+      "check": "Perspectiva isométrica: misma proyección, pivote y Y-sort que T01–T04",
+      "state": "APROBADO"
+    },
+    {
+      "id": 5,
+      "check": "Transparencias y halos: alfa real, sin franja blanca ni halo exterior",
+      "state": "APROBADO"
+    },
+    {
+      "id": 6,
+      "check": "Orden de capas y oclusión: Y-sort compartido, sin canvas nuevo ni sombra en colgantes",
+      "state": "APROBADO"
+    },
+    {
+      "id": 7,
+      "check": "Movimiento del jugador: idéntico con el flag activado y desactivado",
+      "state": "APROBADO"
+    },
+    {
+      "id": 8,
+      "check": "Colisiones: sin cambios de hitbox, auditoría del HUB idéntica en las 3 fases",
+      "state": "APROBADO"
+    },
+    {
+      "id": 9,
+      "check": "Puertas: ciclo noche/ronda, sala real r23 y arquitectura intacta",
+      "state": "APROBADO"
+    },
+    {
+      "id": 10,
+      "check": "Estaciones: 11 intactas, apertura y cierre de modal sin cambios",
+      "state": "APROBADO"
+    },
+    {
+      "id": 11,
+      "check": "Interacciones existentes: campaña, disparo y transición sin regresión",
+      "state": "APROBADO"
+    },
+    {
+      "id": 12,
+      "check": "Regresión T01–T04: 10/10, 10/10, 13/13, 142 claves base y cachés intactas",
+      "state": "APROBADO"
+    },
+    {
+      "id": 13,
+      "check": "Errores JavaScript y de carga: 0 errores JS, 0 404 locales, 0 errores de loader",
+      "state": "APROBADO"
+    },
+    {
+      "id": 14,
+      "check": "Rendimiento: coste de render separado del coste de carga (sin cerrar el gate de T02)",
+      "state": "APROBADO"
+    }
+  ],
+  "summary": {
+    "APROBADO": 14,
+    "FALLIDO": 0,
+    "BLOQUEADO": 0,
+    "NO_VERIFICADO": 0,
+    "UNIDADES_INTEGRADAS": 10,
+    "UNIDADES_CON_DRAWIMAGE": 10,
+    "UNIDADES_CON_PIXEL_DIFF": 10
+  },
+  "finalVerdict": "APROBADO"
+}

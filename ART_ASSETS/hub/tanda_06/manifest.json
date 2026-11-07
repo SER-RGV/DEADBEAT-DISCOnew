@@ -1,0 +1,1353 @@
+{
+  "tanda": "06",
+  "title": "HUB · TANDA 06 — Envolvente arquitectónica, perspectiva y atmósfera (10 assets)",
+  "build": "DEADBEAT_DISCO.ART.html",
+  "integrationFiles": [
+    "ART_PACK/art_pack.js",
+    "DEADBEAT_DISCO.ART.html"
+  ],
+  "loader": "window.__DDM_V5_IMG[alias h06_*] mediante load() de ART_PACK/art_pack.js",
+  "renderer": "hubDecor -> addHubCustomProp -> Lc (Y-sort existente)",
+  "flag": "window.__DDM_HUB_T06 !== false",
+  "cameraSource": "ART_EVIDENCE/hub/tanda_06/camera_audit.json + composicion.json",
+  "projection": "ortográfica oblicua 2.5D, zoom 0,9375, a=d, b=c=0; sin imponer isometría",
+  "dimensionSource": "bbox alfa MEDIDO de cada fuente; escala uniforme, sin deformación; anchos mundo derivados del aspecto real y anclajes recalculados para que los 3 tramos del muro norte abuten",
+  "preparation": "ART_TOOLS/prepare_hub_tanda_06.py · bg_color/crop_alpha de prepare_tanda_02.py · clave por conectividad (flood-fill desde borde) propia de T06 · despill_dark de prepare_hub_tanda_05.py · pad transparente para bordes limpios",
+  "policy": "10 assets NUEVOS; no se repite ningún recurso de TANDA 01-05. Sin cámara, proyección, geometría general, colisiones, puertas, estaciones, interacciones, progresión, combate, HUD, canvas adicional ni motor paralelo.",
+  "count": 10,
+  "finalPngFiles": 10,
+  "sourceFiles": 10,
+  "integrationState": "INTEGRADO_VALIDADO — 10/10 recursos cargados, 14/14 anclajes medidos en el HUB real, 14/14 checks APROBADO y 10/10 confirmados por diff de píxel OFF/ON",
+  "assets": [
+    {
+      "id": "T06-01",
+      "name": "paramento_norte_oeste",
+      "alias": "h06_paramento_norte_o",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_01_paramento_norte_o.png",
+      "sourceSha256": "6159222e4fe76474bf78daa1a5c43610a437e4ccf656d3d220b931b67ae8f9f0",
+      "file": "ART_ASSETS/hub/tanda_06/01_paramento_norte_o/final/hub_t06_01_paramento_norte_o.png",
+      "sha256": "9c28c8ebdcb4534d47a02223b83e78ba8b9a3a2e246ec645db0d7f892e89c50c",
+      "bytes": 82506,
+      "width": 391,
+      "height": 162,
+      "expected": [
+        391,
+        162
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 391,
+        "height": 162,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 8486,
+        "partialPx": 2681,
+        "opaquePx": 52001,
+        "coveragePct": 86.6,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1584,
+          672
+        ],
+        "alphaBBox": [
+          1464,
+          579
+        ],
+        "backgroundDetected": [
+          17,
+          21,
+          21
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "A · Envolvente / paramentos",
+      "classification": "A · Envolvente / paramentos",
+      "function": "Tramo oeste del muro norte; cierra el perímetro tras la cabina DJ.",
+      "why": "El HUB solo tiene suelo cacheado y ribete de Rs.edges: no existe pared vertical. La caché dibuja la pasarela norte en mundo (470,277)…(2030,333), que es la línea de base real de este paramento.",
+      "orientationSpatial": "Horizontal sobre eje X; cara sur hacia el interior; pilar en extremo O",
+      "visibleFace": "SUR (+Y)",
+      "plane": "Muro norte · fachada vertical + coronación",
+      "relationToCameraAndExisting": "Continuidad: abuta con T06-02 por su borde E; la cornisa y el zócalo T06-10 son comunes a los 3 tramos. Se dibuja ANTES que la cabina DJ (sortY 330 < 486), por lo que el shrine ocluye correctamente la fachada.",
+      "atmosphere": "Luz principal magenta desde abajo; secundaria cian en la cara superior; zonas oscuras en los paneles; sin saturación.",
+      "location": {
+        "x": 681,
+        "y": 330,
+        "worldH": 150,
+        "worldBox": [
+          500,
+          180,
+          362,
+          150
+        ],
+        "sortY": 330,
+        "plane": "Muro norte · fachada vertical + coronación",
+        "face": "SUR (+Y)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          391,
+          162
+        ],
+        "worldH": 150,
+        "worldW": 362,
+        "aspect": 2.41358,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(150*391/162) = 362"
+      },
+      "anchor": {
+        "x": 681,
+        "y": 330,
+        "worldH": 150,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 133,
+        "onScreenDraws": 133,
+        "fullVisibleZones": [
+          "bar",
+          "vip_oeste"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 66.294,
+        "pixelDiffNoisePct": 0.685,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-02",
+      "name": "paramento_norte_central",
+      "alias": "h06_paramento_norte_c",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_02_paramento_norte_c.png",
+      "sourceSha256": "460b6ab79590d6ab28220d4c409468b57c3a0cf2a6074d64cb66acc9d9ab43fd",
+      "file": "ART_ASSETS/hub/tanda_06/02_paramento_norte_c/final/hub_t06_02_paramento_norte_c.png",
+      "sha256": "24fab56835a613d784b4a0098fa1132a33cd73475d5ca933f7ae548f53c3bbba",
+      "bytes": 111927,
+      "width": 544,
+      "height": 162,
+      "expected": [
+        544,
+        162
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 544,
+        "height": 162,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 9794,
+        "partialPx": 4187,
+        "opaquePx": 73860,
+        "coveragePct": 88.89,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          1228,
+          346
+        ],
+        "backgroundDetected": [
+          18,
+          15,
+          21
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "A · Envolvente / paramentos",
+      "classification": "A · Envolvente / paramentos",
+      "function": "Tramo central del muro norte con hornacina art-déco tras el DJ.",
+      "why": "El rótulo diegético «LA DISCOTECA · DJ STAGE» se dibuja en mundo (1250,326) en la capa aérea; necesita una fachada real detrás en lugar de suelo infinito.",
+      "orientationSpatial": "Horizontal sobre eje X; cara sur; hornacina central simétrica",
+      "visibleFace": "SUR (+Y)",
+      "plane": "Muro norte · fachada vertical + coronación",
+      "relationToCameraAndExisting": "Abuta con T06-01 por O y T06-03 por E; mismo sortY=330. La viga T06-08 y el zócalo T06-10 se dibujan después y comparten eje x=1250.",
+      "atmosphere": "Hornacina violeta/cian como luz secundaria; neón rosa en la base; oro envejecido en la cornisa.",
+      "location": {
+        "x": 1114,
+        "y": 330,
+        "worldH": 150,
+        "worldBox": [
+          862,
+          180,
+          504,
+          150
+        ],
+        "sortY": 330,
+        "plane": "Muro norte · fachada vertical + coronación",
+        "face": "SUR (+Y)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          544,
+          162
+        ],
+        "worldH": 150,
+        "worldW": 504,
+        "aspect": 3.35802,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(150*544/162) = 504"
+      },
+      "anchor": {
+        "x": 1114,
+        "y": 330,
+        "worldH": 150,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 298,
+        "onScreenDraws": 182,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "bar",
+          "vip_oeste",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 52.051,
+        "pixelDiffNoisePct": 0.569,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-03",
+      "name": "paramento_norte_este",
+      "alias": "h06_paramento_norte_e",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_03_paramento_norte_e.png",
+      "sourceSha256": "65e6975324a3c1c4f12652a99198bae5c4043d920dab69cbc00c870ed99c81df",
+      "file": "ART_ASSETS/hub/tanda_06/03_paramento_norte_e/final/hub_t06_03_paramento_norte_e.png",
+      "sha256": "04a634f69c0633dcb013b6f99c4581f43619723fd3e6c6412d577129643a4df6",
+      "bytes": 100308,
+      "width": 529,
+      "height": 162,
+      "expected": [
+        529,
+        162
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 529,
+        "height": 162,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 10022,
+        "partialPx": 2982,
+        "opaquePx": 72370,
+        "coveragePct": 88.31,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1584,
+          672
+        ],
+        "alphaBBox": [
+          1474,
+          428
+        ],
+        "backgroundDetected": [
+          17,
+          15,
+          21
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "A · Envolvente / paramentos",
+      "classification": "A · Envolvente / paramentos",
+      "function": "Tramo este del muro norte; cierra el perímetro sobre la zona VIP E.",
+      "why": "El flanco norte-este (x 1500…2000, y 180…330) está vacío en el HUB real; el cortinaje T06-09 cuelga de esta cornisa.",
+      "orientationSpatial": "Horizontal sobre eje X; cara sur; pilar en extremo E",
+      "visibleFace": "SUR (+Y)",
+      "plane": "Muro norte · fachada vertical + coronación",
+      "relationToCameraAndExisting": "Abuta con T06-02 por O. El machón T06-05 y el cortinaje T06-09 se apoyan en este tramo. Aplique amarillo ácido propio, sin reutilizar T02-10.",
+      "atmosphere": "Aplique amarillo ácido puntual; cian en coronación; magenta en base.",
+      "location": {
+        "x": 1611,
+        "y": 330,
+        "worldH": 150,
+        "worldBox": [
+          1366,
+          180,
+          490,
+          150
+        ],
+        "sortY": 330,
+        "plane": "Muro norte · fachada vertical + coronación",
+        "face": "SUR (+Y)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          529,
+          162
+        ],
+        "worldH": 150,
+        "worldW": 490,
+        "aspect": 3.26543,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(150*529/162) = 490"
+      },
+      "anchor": {
+        "x": 1611,
+        "y": 330,
+        "worldH": 150,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 298,
+        "onScreenDraws": 182,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "vip_este",
+        "pixelDiffSignalPct": 50.363,
+        "pixelDiffNoisePct": 1.992,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-04",
+      "name": "machon_esquina_noroeste",
+      "alias": "h06_machon_esquina_no",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_04_machon_esquina_no.png",
+      "sourceSha256": "77e484f34ee629fc013f57e25b127229df9f07ebbff1505a4c55234f4b0c421d",
+      "file": "ART_ASSETS/hub/tanda_06/04_machon_esquina_no/final/hub_t06_04_machon_esquina_no.png",
+      "sha256": "5d4214e9092d9a53c164d48b60229d8c24b71bc1649b8318c73549f1c4888cf7",
+      "bytes": 34122,
+      "width": 138,
+      "height": 162,
+      "expected": [
+        138,
+        162
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 138,
+        "height": 162,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 7826,
+        "partialPx": 1335,
+        "opaquePx": 13106,
+        "coveragePct": 64.99,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1024,
+          1024
+        ],
+        "alphaBBox": [
+          775,
+          924
+        ],
+        "backgroundDetected": [
+          7,
+          8,
+          12
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "B · Esquinas / uniones",
+      "classification": "B · Esquinas / uniones",
+      "function": "Machón de esquina NO: da espesor y continuidad al arranque del muro norte.",
+      "why": "El octágono real tiene cut=210, pero el pintor de esquinas pertenece a campaña; en el HUB la unión entre el tramo O y el perímetro O es solo una línea.",
+      "orientationSpatial": "Cara izquierda hacia NO, cara derecha frontal; inglete diagonal",
+      "visibleFace": "NO→SE (inglete 45°)",
+      "plane": "Machón de unión sobre paramento norte",
+      "relationToCameraAndExisting": "Se superpone al extremo O de T06-01 (mismo sortY=330, se dibuja después) para formar el inglete. No sustituye las columnas T01-06 ni T03-05.",
+      "atmosphere": "Neón rosa en cara frontal, cian en cara recedente; oro en el inglete.",
+      "location": {
+        "x": 600,
+        "y": 330,
+        "worldH": 150,
+        "worldBox": [
+          536,
+          180,
+          128,
+          150
+        ],
+        "sortY": 330,
+        "plane": "Machón de unión sobre paramento norte",
+        "face": "NO→SE (inglete 45°)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          138,
+          162
+        ],
+        "worldH": 150,
+        "worldW": 128,
+        "aspect": 0.85185,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(150*138/162) = 128"
+      },
+      "anchor": {
+        "x": 600,
+        "y": 330,
+        "worldH": 150,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 133,
+        "onScreenDraws": 133,
+        "fullVisibleZones": [
+          "bar",
+          "vip_oeste"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 75.696,
+        "pixelDiffNoisePct": 0.845,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-05",
+      "name": "machon_esquina_noreste",
+      "alias": "h06_machon_esquina_ne",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_05_machon_esquina_ne.png",
+      "sourceSha256": "2d0e3d54d1afd3ea6a7360d2bab9c765ca2cced43d74e2fddc0f66cec4b3be0d",
+      "file": "ART_ASSETS/hub/tanda_06/05_machon_esquina_ne/final/hub_t06_05_machon_esquina_ne.png",
+      "sha256": "8bde9d8cc906653db6cdc055ae3979a72848e2fdec92864389f30b0f2091832c",
+      "bytes": 26405,
+      "width": 120,
+      "height": 162,
+      "expected": [
+        120,
+        162
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 120,
+        "height": 162,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 6427,
+        "partialPx": 1322,
+        "opaquePx": 11592,
+        "coveragePct": 66.94,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1024,
+          1024
+        ],
+        "alphaBBox": [
+          608,
+          844
+        ],
+        "backgroundDetected": [
+          20,
+          21,
+          23
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "B · Esquinas / uniones",
+      "classification": "B · Esquinas / uniones",
+      "function": "Machón de esquina NE, simétrico del NO.",
+      "why": "Cierra la esquina norte-este real del octógono sin imponer una proyección nueva.",
+      "orientationSpatial": "Cara derecha hacia NE, cara izquierda frontal; inglete diagonal",
+      "visibleFace": "NE→SO (inglete 45°)",
+      "plane": "Machón de unión sobre paramento norte",
+      "relationToCameraAndExisting": "Se superpone al extremo E de T06-03; base común y mismo sortY. El cortinaje T06-09 cuelga 35 u a la izquierda.",
+      "atmosphere": "Cian en cara frontal, rosa en cara recedente; violeta en el capital.",
+      "location": {
+        "x": 1900,
+        "y": 330,
+        "worldH": 150,
+        "worldBox": [
+          1845,
+          180,
+          111,
+          150
+        ],
+        "sortY": 330,
+        "plane": "Machón de unión sobre paramento norte",
+        "face": "NE→SO (inglete 45°)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          120,
+          162
+        ],
+        "worldH": 150,
+        "worldW": 111,
+        "aspect": 0.74074,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(150*120/162) = 111"
+      },
+      "anchor": {
+        "x": 1900,
+        "y": 330,
+        "worldH": 150,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 255,
+        "onScreenDraws": 139,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "vip_oeste",
+          "vip_este"
+        ],
+        "pixelDiffZone": "vip_este",
+        "pixelDiffSignalPct": 59.004,
+        "pixelDiffNoisePct": 0.783,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-06",
+      "name": "paramento_oeste",
+      "alias": "h06_paramento_oeste",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_06_paramento_oeste.png",
+      "sourceSha256": "75533b0d258eb12d4721d006c5573b50d39a7d8284eb4d39192555799c75f9b5",
+      "file": "ART_ASSETS/hub/tanda_06/06_paramento_oeste/final/hub_t06_06_paramento_oeste.png",
+      "sha256": "1101e2722e751754bf99fdac2857ac94691ebc95cf3b823ae158d61a40c140c5",
+      "bytes": 69251,
+      "width": 110,
+      "height": 392,
+      "expected": [
+        110,
+        392
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 110,
+        "height": 392,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 9896,
+        "partialPx": 1640,
+        "opaquePx": 30860,
+        "coveragePct": 77.05,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          191,
+          744
+        ],
+        "backgroundDetected": [
+          19,
+          18,
+          23
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "A · Envolvente / paramentos",
+      "classification": "A · Envolvente / paramentos",
+      "function": "Paramento oeste entre el arsenal y el rincón arcade.",
+      "why": "El límite real x=290 solo tiene un ribete cian de Rs.edges; no hay fachada. El suelo T03-01 ocupa mundo [290,720,580,430], así que este tramo se ancla por debajo (y 780…1160) sin solaparlo.",
+      "orientationSpatial": "Vertical sobre eje Y; cara este hacia el interior; capa superior hacia -X",
+      "visibleFace": "ESTE (+X)",
+      "plane": "Muro oeste · fachada vertical estrecha + capa superior",
+      "relationToCameraAndExisting": "sortY=1160: se dibuja detrás de los props de y<1160 de la zona O. Se REPITE en y=780 y y=1540 (mismo asset, 3 tramos contiguos) para cubrir la arista real y=475…1375 sin huecos. No toca colisiones ni estaciones; solid:false.",
+      "atmosphere": "Luz rasante cálida desde el interior; neón rosa en el borde E; negro profundo en el fondo.",
+      "location": {
+        "x": 330,
+        "y": 1160,
+        "worldH": 380,
+        "worldBox": [
+          277,
+          780,
+          107,
+          380
+        ],
+        "sortY": 1160,
+        "plane": "Muro oeste · fachada vertical estrecha + capa superior",
+        "face": "ESTE (+X)",
+        "additionalAnchors": [
+          {
+            "x": 330,
+            "y": 780
+          },
+          {
+            "x": 330,
+            "y": 1540
+          }
+        ],
+        "additionalWorldBoxes": [
+          [
+            277,
+            400,
+            107,
+            380
+          ],
+          [
+            277,
+            1160,
+            107,
+            380
+          ]
+        ]
+      },
+      "dimensions": {
+        "png": [
+          110,
+          392
+        ],
+        "worldH": 380,
+        "worldW": 107,
+        "aspect": 0.28061,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(380*110/392) = 107"
+      },
+      "anchor": {
+        "x": 330,
+        "y": 1160,
+        "worldH": 380,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 1160
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 383,
+        "onScreenDraws": 383,
+        "fullVisibleZones": [
+          "bar",
+          "vip_oeste",
+          "vip_este",
+          "arcade",
+          "sellos",
+          "pared_oeste"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 52.937,
+        "pixelDiffNoisePct": 1.739,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-07",
+      "name": "paramento_este",
+      "alias": "h06_paramento_este",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_07_paramento_este.png",
+      "sourceSha256": "3fa643a77e5a3496b49b0d510279775faf7716bafb8f93125878cf1f6b1b4fa0",
+      "file": "ART_ASSETS/hub/tanda_06/07_paramento_este/final/hub_t06_07_paramento_este.png",
+      "sha256": "9713553749feebf17d1fb6ea9e880ae2f8780e4d90f0f6c6f82974fbd16b2bfb",
+      "bytes": 54336,
+      "width": 86,
+      "height": 392,
+      "expected": [
+        86,
+        392
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "bottom-center",
+      "verification": {
+        "width": 86,
+        "height": 392,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 10726,
+        "partialPx": 3740,
+        "opaquePx": 18877,
+        "coveragePct": 68.18,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          656,
+          1632
+        ],
+        "alphaBBox": [
+          291,
+          1504
+        ],
+        "backgroundDetected": [
+          10,
+          10,
+          15
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "A · Envolvente / paramentos",
+      "classification": "A · Envolvente / paramentos",
+      "function": "Paramento este, simétrico del oeste, tras la barra VIP.",
+      "why": "El límite real x=2210 carece de cara interior; el suelo T03-02 ocupa [1630,720,580,430] y queda por encima de este anclaje.",
+      "orientationSpatial": "Vertical sobre eje Y; cara oeste hacia el interior; capa superior hacia +X",
+      "visibleFace": "OESTE (-X)",
+      "plane": "Muro este · fachada vertical estrecha + capa superior",
+      "relationToCameraAndExisting": "Mismo sortY=1160 que T06-06; ninguno invade la pista central (x 700…1800). Se REPITE en y=780 y y=1540 para cubrir la arista y=475…1375 sin huecos. Sin colisiones.",
+      "atmosphere": "Luz fría cian desde el interior; oro en los nervios; violeta en sombra.",
+      "location": {
+        "x": 2170,
+        "y": 1160,
+        "worldH": 380,
+        "worldBox": [
+          2129,
+          780,
+          83,
+          380
+        ],
+        "sortY": 1160,
+        "plane": "Muro este · fachada vertical estrecha + capa superior",
+        "face": "OESTE (-X)",
+        "additionalAnchors": [
+          {
+            "x": 2170,
+            "y": 780
+          },
+          {
+            "x": 2170,
+            "y": 1540
+          }
+        ],
+        "additionalWorldBoxes": [
+          [
+            2129,
+            400,
+            83,
+            380
+          ],
+          [
+            2129,
+            1160,
+            83,
+            380
+          ]
+        ]
+      },
+      "dimensions": {
+        "png": [
+          86,
+          392
+        ],
+        "worldH": 380,
+        "worldW": 83,
+        "aspect": 0.21939,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(380*86/392) = 83"
+      },
+      "anchor": {
+        "x": 2170,
+        "y": 1160,
+        "worldH": 380,
+        "pivot": "bottom-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 1160
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 1013,
+        "onScreenDraws": 932,
+        "fullVisibleZones": [
+          "dj",
+          "bar",
+          "vip_oeste",
+          "vip_este",
+          "arcade",
+          "sellos",
+          "norte",
+          "pared_este"
+        ],
+        "pixelDiffZone": "vip_este",
+        "pixelDiffSignalPct": 46.047,
+        "pixelDiffNoisePct": 1.08,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-08",
+      "name": "viga_caseton_techo",
+      "alias": "h06_viga_caseton_techo",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_08_viga_caseton_techo.png",
+      "sourceSha256": "77a0c09e54c80d48362fd6dc020428cb6aa1cf4e09933c10c20fc045a7544751",
+      "file": "ART_ASSETS/hub/tanda_06/08_viga_caseton_techo/final/hub_t06_08_viga_caseton_techo.png",
+      "sha256": "f75691e95e282731e7ca6ea66035374d4970aa54fa5f79fc5e6ddb7f9235d38d",
+      "bytes": 76628,
+      "width": 587,
+      "height": 102,
+      "expected": [
+        587,
+        102
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "top-center",
+      "verification": {
+        "width": 587,
+        "height": 102,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 18408,
+        "partialPx": 3529,
+        "opaquePx": 37602,
+        "coveragePct": 69.26,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1584,
+          672
+        ],
+        "alphaBBox": [
+          1507,
+          236
+        ],
+        "backgroundDetected": [
+          12,
+          12,
+          14
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "C · Techos y elementos superiores",
+      "classification": "C · Techos y elementos superiores",
+      "function": "Fragmento de techo y viga con focos empotrados sobre el muro norte.",
+      "why": "La capa aérea existente solo tiene la araña central (1250,615) y haces de luz; no hay ninguna estructura de techo que explique de dónde cuelga.",
+      "orientationSpatial": "Horizontal sobre eje X, suspendida; solo se ve la cara inferior",
+      "visibleFace": "INFERIOR",
+      "plane": "Techo / viga vista · cara inferior y canto frontal",
+      "relationToCameraAndExisting": "Se dibuja DESPUÉS de los 3 paramentos (mismo sortY=330, orden de array) para que el canto frontal quede delante de la cornisa. t06hang=true: sin sombra de suelo. No crea efectos volumétricos dinámicos.",
+      "atmosphere": "Tres focos cálidos de intensidad moderada, línea cian en el canto; fondos casi negros.",
+      "location": {
+        "x": 1250,
+        "y": 330,
+        "worldH": 90,
+        "worldBox": [
+          991,
+          240,
+          518,
+          90
+        ],
+        "sortY": 330,
+        "plane": "Techo / viga vista · cara inferior y canto frontal",
+        "face": "INFERIOR",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          587,
+          102
+        ],
+        "worldH": 90,
+        "worldW": 518,
+        "aspect": 5.7549,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(90*587/102) = 518"
+      },
+      "anchor": {
+        "x": 1250,
+        "y": 330,
+        "worldH": 90,
+        "pivot": "top-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": true,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 330
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 298,
+        "onScreenDraws": 182,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "bar",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "norte",
+        "pixelDiffSignalPct": 44.457,
+        "pixelDiffNoisePct": 0.558,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-09",
+      "name": "cortinaje_acustico",
+      "alias": "h06_cortinaje_acustico",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_09_cortinaje_acustico.png",
+      "sourceSha256": "1227ca3fdc83642b5efd0b59ea72155e2ffb56f82f199743a7648b54adcdb296",
+      "file": "ART_ASSETS/hub/tanda_06/09_cortinaje_acustico/final/hub_t06_09_cortinaje_acustico.png",
+      "sha256": "db96f3554ab919bfe3e8ea73b40abc8f88ad3bd889a181f5e3d841384604cac5",
+      "bytes": 37859,
+      "width": 101,
+      "height": 242,
+      "expected": [
+        101,
+        242
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "top-center",
+      "verification": {
+        "width": 101,
+        "height": 242,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 6489,
+        "partialPx": 2833,
+        "opaquePx": 14788,
+        "coveragePct": 73.45,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          768,
+          1376
+        ],
+        "alphaBBox": [
+          476,
+          1226
+        ],
+        "backgroundDetected": [
+          16,
+          20,
+          24
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "C · Techos, cortinajes y remates",
+      "classification": "C · Techos, cortinajes y remates",
+      "function": "Cortinaje acústico que absorbe el muro norte-este y aporta material blando.",
+      "why": "Los únicos tejidos del HUB son los sofás VIP T01-07; no hay cortinaje arquitectónico. No repite el line array T05-08 (equipo, no tejido).",
+      "orientationSpatial": "Vertical, suspendido del borde superior; pliegues descendentes",
+      "visibleFace": "FRONTAL",
+      "plane": "Cortinaje / panel acústico colgado de la cornisa",
+      "relationToCameraAndExisting": "Anclaje superior en y=200 (bajo la cornisa de T06-03, base 330); t06hang=true → sin sombra de suelo ni flotación. sortY=430.",
+      "atmosphere": "Terciopelo burdeos con rim light rosa a la derecha y cian a la izquierda; fieltro oscuro detrás; brillo bajo.",
+      "location": {
+        "x": 1865,
+        "y": 430,
+        "worldH": 230,
+        "worldBox": [
+          1817,
+          200,
+          96,
+          230
+        ],
+        "sortY": 430,
+        "plane": "Cortinaje / panel acústico colgado de la cornisa",
+        "face": "FRONTAL",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          101,
+          242
+        ],
+        "worldH": 230,
+        "worldW": 96,
+        "aspect": 0.41736,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(230*101/242) = 96"
+      },
+      "anchor": {
+        "x": 1865,
+        "y": 430,
+        "worldH": 230,
+        "pivot": "top-center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": true,
+        "t06flat": false,
+        "pulse": null,
+        "sortY": 430
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 711,
+        "onScreenDraws": 255,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "vip_este",
+        "pixelDiffSignalPct": 67.377,
+        "pixelDiffNoisePct": 0.221,
+        "alphaState": "APROBADO"
+      }
+    },
+    {
+      "id": "T06-10",
+      "name": "zocalo_remate_suelo",
+      "alias": "h06_zocalo_remate_suelo",
+      "source": "ART_ASSETS/hub/tanda_06/_source/hub_t06_10_zocalo_remate_suelo.png",
+      "sourceSha256": "e232e00feef1f9478e70fa9e17e20df9bbbc9dbe8c1420ef7b36710f5fa5d8e7",
+      "file": "ART_ASSETS/hub/tanda_06/10_zocalo_remate_suelo/final/hub_t06_10_zocalo_remate_suelo.png",
+      "sha256": "17b5ab50ca313175fd68283e12f2f161f820b1b0ad502b5e6b50467495cb4164",
+      "bytes": 20833,
+      "width": 428,
+      "height": 48,
+      "expected": [
+        428,
+        48
+      ],
+      "mode": "RGBA",
+      "format": "PNG",
+      "pivot": "center",
+      "verification": {
+        "width": 428,
+        "height": 48,
+        "mode": "RGBA",
+        "format": "PNG",
+        "exactSize": true,
+        "alphaChannel": true,
+        "alphaExtrema": [
+          0,
+          255
+        ],
+        "transparentPx": 6826,
+        "partialPx": 3321,
+        "opaquePx": 10210,
+        "coveragePct": 66.77,
+        "cornersTransparent": true,
+        "whiteFringePx": 0,
+        "whiteFringePct": 0.0,
+        "borderClean": true
+      },
+      "preparation": {
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          1376,
+          119
+        ],
+        "backgroundDetected": [
+          17,
+          17,
+          19
+        ],
+        "tolerance": 10,
+        "mode": "flood-fill desde borde (tol=10) + unpremultiply despill sobre fondo negro; sin kill_exterior_halo: los paneles oscuros de las fachadas son legítimos",
+        "antiAlias": "GaussianBlur(0.5) + erosion 1px"
+      },
+      "category": "E · Remates y transiciones",
+      "classification": "E · Remates y transiciones",
+      "function": "Zócalo que asienta la fachada norte y evita la lectura de pared flotante.",
+      "why": "Es la unión real entre la línea de base y=330 de los paramentos y el suelo cacheado; sin ella la fachada parecería pegada encima del suelo.",
+      "orientationSpatial": "Horizontal sobre eje X, plano de suelo, bordes paralelos",
+      "visibleFace": "SUELO (cenital)",
+      "plane": "Suelo · remate / zócalo plano, sin altura",
+      "relationToCameraAndExisting": "t06flat=true: el hubDraw existente lo dibuja centrado en (x,y) como plano de suelo, SIN altura y SIN sombra. sortY=340, se dibuja el último de la familia norte. No modifica colisiones ni geometría.",
+      "atmosphere": "Doble filete de oro, línea cian, piedra pulida con reflejo magenta tenue.",
+      "location": {
+        "x": 1250,
+        "y": 340,
+        "worldH": 36,
+        "worldBox": [
+          1090,
+          322,
+          321,
+          36
+        ],
+        "sortY": 340,
+        "plane": "Suelo · remate / zócalo plano, sin altura",
+        "face": "SUELO (cenital)",
+        "additionalAnchors": [],
+        "additionalWorldBoxes": []
+      },
+      "dimensions": {
+        "png": [
+          428,
+          48
+        ],
+        "worldH": 36,
+        "worldW": 321,
+        "aspect": 8.91667,
+        "scale": "uniforme 0,9375 (cámara)",
+        "deformed": false,
+        "derivation": "dw = round(worldH * pngW / pngH) = round(36*428/48) = 321"
+      },
+      "anchor": {
+        "x": 1250,
+        "y": 340,
+        "worldH": 36,
+        "pivot": "center",
+        "flip": false,
+        "solid": false,
+        "tall": false,
+        "t06hang": false,
+        "t06flat": true,
+        "pulse": null,
+        "sortY": 340
+      },
+      "renderer": "hubDecor -> addHubCustomProp -> Lc",
+      "integrationState": "INTEGRADO_VALIDADO",
+      "validation": {
+        "state": "APROBADO",
+        "drawCalls": 376,
+        "onScreenDraws": 182,
+        "fullVisibleZones": [
+          "centro",
+          "dj",
+          "bar",
+          "vip_oeste",
+          "vip_este",
+          "pared_oeste",
+          "norte"
+        ],
+        "pixelDiffZone": "vip_oeste",
+        "pixelDiffSignalPct": 10.934,
+        "pixelDiffNoisePct": 0.02,
+        "alphaState": "APROBADO"
+      }
+    }
+  ],
+  "northWall": {
+    "startX": 500,
+    "endX": 1856,
+    "segments": [
+      {
+        "id": "T06-01",
+        "x": 681,
+        "dw": 362
+      },
+      {
+        "id": "T06-02",
+        "x": 1114,
+        "dw": 504
+      },
+      {
+        "id": "T06-03",
+        "x": 1611,
+        "dw": 490
+      }
+    ],
+    "abutmentGaps": 0,
+    "note": "Anclajes recalculados con anchos medidos; 0 huecos."
+  },
+  "verifiedAt": "2026-11-04T01:53:30.096319+00:00",
+  "qa": {
+    "report": "ART_EVIDENCE/hub/tanda_06/report.json",
+    "summary": "14/14 APROBADO",
+    "drawCalls": "ART_EVIDENCE/hub/tanda_06/draw_calls.json",
+    "visualDiff": "ART_EVIDENCE/hub/tanda_06/visual_diff.json",
+    "composition": "ART_EVIDENCE/hub/tanda_06/composicion.json (14 cajas)",
+    "method": "proxy de solo lectura sobre drawImage + page.screenshot() en Chromium/Playwright, A/B reversible con window.__DDM_HUB_T06"
+  }
+}

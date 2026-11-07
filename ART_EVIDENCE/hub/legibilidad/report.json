@@ -1,0 +1,244 @@
+{
+  "tanda": "MODIFICACIÓN PRIORITARIA · legibilidad y reconstrucción espacial del HUB",
+  "generatedAt": "2026-11-04T09:45:00",
+  "estado": "AUDITORÍA COMPLETADA · P1/P2 PROBADAS · P3–P5 EN PROPUESTA SIN IMPLEMENTAR",
+  "juegoModificado": false,
+  "htmlSha256": "3e82dc77b9fd4c59d01e016628b204b1b07042c7f8f9085de3433141e5429011",
+  "artPackModificado": false,
+  "assetsNuevos": 0,
+  "propsNuevos": 0,
+  "t09Desactivada": true,
+  "capturas": {
+    "sweep": 16,
+    "ab": 21,
+    "prueba": 12,
+    "descenso": 9
+  },
+  "incidencias": {
+    "total": 79,
+    "clasificacion": {
+      "AMBIENTAL": 29,
+      "REDUNDANTE": 8,
+      "ESENCIAL": 6,
+      "FUNCIONAL": 21,
+      "MAL UBICADO": 8,
+      "PENDIENTE DE CORREGIR": 7
+    },
+    "prioridades": {
+      "P1": 33,
+      "P2": 38,
+      "P3": 8
+    },
+    "densidadPropsPorZona": {
+      "A": 20,
+      "B": 8,
+      "C": 6,
+      "D": 10,
+      "E": 14,
+      "F": 4
+    }
+  },
+  "niebla": {
+    "fuentePrincipal": "S-02 bloom DMO_ATMOS (screen, opacity CSS 1.00)",
+    "evidencia": "base 69,97 -> sin_atmos 55,86 (-14,11); bloom_035 60,67; grade/grain y vignette casi sin efecto; T08 sin efecto en el centro",
+    "noEsNiebla": [
+      "S-03 vignette",
+      "S-05 humo/ceniza T08 (profundidad, sólo en sur)",
+      "patrón de suelo (saturación, no niebla)"
+    ]
+  },
+  "correccion": {
+    "realizada": true,
+    "invasiva": false,
+    "htmlRestaurado": true,
+    "cambios": [
+      "bloom opacity 1.00 -> 0.30",
+      "vignette opacity 1.00 -> 0.45",
+      "grade 1.0 -> 0.35",
+      "grain 0.016 -> 0.006",
+      "9 props REDUNDANTES/MAL UBICADOS ocultados con prop.hidden"
+    ],
+    "resultado": "media -8,22 a -11,71; contraste +0,26 a +0,52; bordes +0,22 a +1,05; 0 pageerror; restauración 9 -> 0 props ocultos",
+    "limite": "La corrección de P3/P4 (orientación, precipicio, conexión grieta-descenso) NO se ha aplicado: requiere propuesta y autorización."
+  },
+  "metricasCorreccion": [
+    {
+      "id": "centro",
+      "antes": {
+        "media": 69.9,
+        "contraste": 48.77,
+        "bordes": 39.48,
+        "oscuro": 48.38
+      },
+      "despues": {
+        "media": 59.91,
+        "contraste": 49.03,
+        "bordes": 40.42,
+        "oscuro": 57.74
+      },
+      "dMedia": -9.99,
+      "dContraste": 0.26,
+      "dBordes": 0.94
+    },
+    {
+      "id": "norte",
+      "antes": {
+        "media": 69.66,
+        "contraste": 48.23,
+        "bordes": 39.82,
+        "oscuro": 48.78
+      },
+      "despues": {
+        "media": 60.83,
+        "contraste": 48.69,
+        "bordes": 40.04,
+        "oscuro": 57.65
+      },
+      "dMedia": -8.83,
+      "dContraste": 0.46,
+      "dBordes": 0.22
+    },
+    {
+      "id": "nw",
+      "antes": {
+        "media": 76.15,
+        "contraste": 48.73,
+        "bordes": 40.65,
+        "oscuro": 43.43
+      },
+      "despues": {
+        "media": 64.44,
+        "contraste": 49.25,
+        "bordes": 41.7,
+        "oscuro": 53.92
+      },
+      "dMedia": -11.71,
+      "dContraste": 0.52,
+      "dBordes": 1.05
+    },
+    {
+      "id": "este",
+      "antes": {
+        "media": 69.4,
+        "contraste": 48.06,
+        "bordes": 41.37,
+        "oscuro": 45.82
+      },
+      "despues": {
+        "media": 60.24,
+        "contraste": 48.49,
+        "bordes": 41.75,
+        "oscuro": 55.81
+      },
+      "dMedia": -9.16,
+      "dContraste": 0.43,
+      "dBordes": 0.38
+    },
+    {
+      "id": "sur",
+      "antes": {
+        "media": 65.36,
+        "contraste": 47.71,
+        "bordes": 38.1,
+        "oscuro": 53.74
+      },
+      "despues": {
+        "media": 57.14,
+        "contraste": 48.03,
+        "bordes": 38.78,
+        "oscuro": 60.36
+      },
+      "dMedia": -8.22,
+      "dContraste": 0.32,
+      "dBordes": 0.68
+    },
+    {
+      "id": "borde",
+      "antes": {
+        "media": 66.35,
+        "contraste": 47.91,
+        "bordes": 38.01,
+        "oscuro": 53.54
+      },
+      "despues": {
+        "media": 57.64,
+        "contraste": 48.28,
+        "bordes": 38.53,
+        "oscuro": 60.49
+      },
+      "dMedia": -8.71,
+      "dContraste": 0.37,
+      "dBordes": 0.52
+    }
+  ],
+  "reversibilidad": [
+    {
+      "id": "centro",
+      "diffMedio": 3.63
+    },
+    {
+      "id": "sur",
+      "diffMedio": 15.994
+    }
+  ],
+  "descenso": {
+    "started": true,
+    "pageerrors": 0,
+    "fases": [
+      {
+        "ms": 250,
+        "location": "TRANSITION",
+        "t08Visible": true,
+        "winH": 267.7
+      },
+      {
+        "ms": 500,
+        "location": "TRANSITION",
+        "t08Visible": true,
+        "winH": 367.2
+      },
+      {
+        "ms": 900,
+        "location": "TRANSITION",
+        "t08Visible": true,
+        "winH": 297.1
+      },
+      {
+        "ms": 1400,
+        "location": "TRANSITION",
+        "t08Visible": true,
+        "winH": 183.6
+      },
+      {
+        "ms": 2000,
+        "location": "CAMPAIGN_ROOM",
+        "t08Visible": false,
+        "winH": -191.7
+      },
+      {
+        "ms": 2800,
+        "location": "CAMPAIGN_ROOM",
+        "t08Visible": false,
+        "winH": -176.3
+      },
+      {
+        "ms": 3600,
+        "location": "CAMPAIGN_ROOM",
+        "t08Visible": false,
+        "winH": -168.8
+      },
+      {
+        "ms": 4600,
+        "location": "CAMPAIGN_ROOM",
+        "t08Visible": false,
+        "winH": -168.8
+      }
+    ]
+  },
+  "bloqueoCritico": "El acceso lift NO está físicamente conectado a la grieta; se presenta propuesta antes de modificar (ART_PROPUESTA_CORRECCION_PRECIPICIO.md).",
+  "documentos": [
+    "ART_AUDITORIA_LEGIBILIDAD_HUB.md",
+    "ART_PROPUESTA_CORRECCION_PRECIPICIO.md"
+  ],
+  "siguientePaso": "Autorizar o ajustar los apartados A–F de la propuesta."
+}

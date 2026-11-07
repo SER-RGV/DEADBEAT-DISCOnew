@@ -1,0 +1,84 @@
+{
+  "tanda": "09",
+  "generatedAt": "2026-11-04T09:05:15",
+  "esquema": {
+    "activity": "actividad base heredada de T01/T07; nunca se elimina",
+    "anchor": "x/y original del prop; inmutable en los 4 ambientDancers (sus stations dancer_* nacen de ahí)",
+    "state": "ACTIVE | PAUSE | SHIFT | OBSERVE | RESUME",
+    "tLeft": "segundos restantes del estado; se decrementa con el dt compartido",
+    "variation": "seed determinista por índice (sin Math.random): desfases y duraciones individuales",
+    "intensity": "multiplicador de bounce/lean/velocidad de frame, con transición suave",
+    "facing": "flip objetivo; se interpola, nunca se invierte en un fotograma",
+    "offset": "dx/dy acotados; easing smoothstep; vuelta siempre al anchor",
+    "holdOffset": "desfase de reloj para CONGELAR el frame sin reiniciar phase; se recupera en ~0,5 s",
+    "transitionT": "0,35–0,55 s de suavizado en TODAS las transiciones"
+  },
+  "transiciones": [
+    "ACTIVE → PAUSE → ACTIVE",
+    "ACTIVE → SHIFT → ACTIVE",
+    "ACTIVE → OBSERVE → ACTIVE",
+    "ACTIVE → RESUME → ACTIVE (tras acontecimiento)"
+  ],
+  "observado": {
+    "estados": [
+      "ACTIVE",
+      "OBSERVE",
+      "PAUSE",
+      "POSTURE",
+      "RESUME",
+      "SHIFT",
+      "WAIT"
+    ],
+    "combinaciones": 136,
+    "cambiosSimultaneosMax": 4,
+    "ciclosPorNPC": {
+      "hub_ambient_dancer_nw": 11,
+      "hub_ambient_dancer_ne": 9,
+      "hub_ambient_dancer_sw": 12,
+      "hub_ambient_clubber_bar": 8,
+      "t07_danza_01": 18,
+      "t07_danza_02": 14,
+      "t07_charla_01": 12,
+      "t07_charla_02": 10,
+      "t07_descanso": 7,
+      "t07_recorrido": 9
+    },
+    "cambiosPorNPC": {
+      "hub_ambient_dancer_nw": 23,
+      "hub_ambient_dancer_ne": 18,
+      "hub_ambient_dancer_sw": 25,
+      "hub_ambient_clubber_bar": 17,
+      "t07_danza_01": 38,
+      "t07_danza_02": 28,
+      "t07_charla_01": 25,
+      "t07_charla_02": 21,
+      "t07_descanso": 14,
+      "t07_recorrido": 19
+    },
+    "pausas": 114,
+    "desplazamientos": 16,
+    "observaciones": 22,
+    "reanudaciones": 5,
+    "saludos": 0
+  },
+  "acontecimientos": {
+    "definidos": 7,
+    "observados": [
+      "conversation_ends",
+      "group_start",
+      "arcade_watch"
+    ],
+    "disparados": 3,
+    "completados": 3,
+    "simultaneosMax": 1,
+    "gapMin_s": 25,
+    "duracionMax_s": 5.5,
+    "reversible": true
+  },
+  "continuidad": {
+    "framesJump": 0,
+    "sonda_ms": 33,
+    "muestras": 180,
+    "mecanismo": "holdOffset: congelación exacta + recuperación en 1,2 s"
+  }
+}

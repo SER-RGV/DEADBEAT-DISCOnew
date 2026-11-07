@@ -1,0 +1,773 @@
+{
+  "started": "2026-11-02T23:24:32.530Z",
+  "console": [
+    {
+      "t": 1793661886292,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793661886292,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ],
+  "pageerrors": [],
+  "requests": [
+    {
+      "t": 1793661872674,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html",
+      "type": "document"
+    },
+    {
+      "t": 1793661886262,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "type": "script"
+    },
+    {
+      "t": 1793661886262,
+      "method": "GET",
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "type": "script"
+    }
+  ],
+  "requestfailed": [
+    {
+      "t": 1793661886292,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    },
+    {
+      "t": 1793661886292,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+      "failure": "net::ERR_ABORTED",
+      "type": "script"
+    }
+  ],
+  "httpErrors": [
+    {
+      "t": 1793661886292,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "t": 1793661886292,
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "frames": [
+    {
+      "t": 1793661885144,
+      "url": "about:blank"
+    },
+    {
+      "t": 1793661885151,
+      "url": "about:blank"
+    }
+  ],
+  "crashes": [],
+  "steps": [],
+  "loadMs": 15122,
+  "initial": {
+    "ts": 1793661918826,
+    "hub": {
+      "location": "HUB",
+      "inHub": true,
+      "transitionLock": false,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "modalOpen": false,
+      "saveWrites": 2
+    },
+    "cine": {
+      "active": false,
+      "skips": 1,
+      "completes": 0,
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      },
+      "subtitle": null,
+      "lastReason": "skip"
+    },
+    "floorDropExtra": [
+      "version",
+      "state",
+      "setDurationMode",
+      "timeline",
+      "timelines",
+      "verifyContinuity",
+      "demoLiftDrop",
+      "demoSkyfall",
+      "profiles"
+    ],
+    "read": {
+      "running": true,
+      "zone": "THE LAST AFTERPARTY · REFUGIO DEL CLUB",
+      "kills": 0,
+      "score": 0,
+      "enemies": 0,
+      "x": 1250,
+      "y": 965,
+      "paused": false
+    },
+    "dbg": {
+      "balas": 0,
+      "enemies": 0,
+      "px": 1250,
+      "py": 965,
+      "round": 1,
+      "lives": 3,
+      "invuln": false
+    },
+    "shotsFired": 0,
+    "shotsHit": 0,
+    "bulletsCount": 0,
+    "bulletsTail": [],
+    "waLen": null,
+    "waTail": null,
+    "frames": 222,
+    "eventsCount": 17,
+    "eventsTail": [
+      {
+        "t": 1793661887802,
+        "phase": "bubble",
+        "type": "mouseup",
+        "target": "DIV",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661887802,
+        "phase": "capture",
+        "type": "click",
+        "target": "DIV",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661887859,
+        "phase": "bubble",
+        "type": "click",
+        "target": "DIV",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661888468,
+        "phase": "capture",
+        "type": "keydown",
+        "target": "ddc-gate",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Enter",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661888470,
+        "phase": "capture",
+        "type": "click",
+        "target": "start-btn",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 0,
+        "y": 0,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661889209,
+        "phase": "bubble",
+        "type": "click",
+        "target": "start-btn",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 0,
+        "y": 0,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661914508,
+        "phase": "capture",
+        "type": "keyup",
+        "target": "ddc-gate",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Enter",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661915415,
+        "phase": "capture",
+        "type": "keydown",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661918216,
+        "phase": "capture",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661918216,
+        "phase": "bubble",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      }
+    ],
+    "gp": {
+      "active": "keyboard",
+      "fire": false,
+      "connected": false,
+      "supported": true
+    },
+    "dungeon": {
+      "current": "r0",
+      "visited": 0,
+      "secured": 0,
+      "rooms": 12
+    },
+    "bodyClass": "dmo-in-hub dmo-hub-peace"
+  },
+  "startCall": "true",
+  "completed": true,
+  "durationMs": 57158,
+  "atArrival": {
+    "ts": 1793661976003,
+    "hub": {
+      "location": "CAMPAIGN_ROOM",
+      "inHub": false,
+      "transitionLock": false,
+      "transitionsCompleted": 1,
+      "transitionErrors": 0,
+      "modalOpen": false,
+      "saveWrites": 3
+    },
+    "cine": {
+      "active": false,
+      "skips": 1,
+      "completes": 0,
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      },
+      "subtitle": null,
+      "lastReason": "skip"
+    },
+    "floorDropExtra": [
+      "version",
+      "state",
+      "setDurationMode",
+      "timeline",
+      "timelines",
+      "verifyContinuity",
+      "demoLiftDrop",
+      "demoSkyfall",
+      "profiles"
+    ],
+    "read": {
+      "running": true,
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "kills": 0,
+      "score": 0,
+      "enemies": 0,
+      "x": 1250,
+      "y": 863,
+      "paused": false
+    },
+    "dbg": {
+      "balas": 0,
+      "enemies": 0,
+      "px": 1250,
+      "py": 863,
+      "round": 1,
+      "lives": 3,
+      "invuln": false
+    },
+    "shotsFired": 0,
+    "shotsHit": 0,
+    "bulletsCount": 0,
+    "bulletsTail": [],
+    "waLen": null,
+    "waTail": null,
+    "frames": 400,
+    "eventsCount": 17,
+    "eventsTail": [
+      {
+        "t": 1793661887802,
+        "phase": "bubble",
+        "type": "mouseup",
+        "target": "DIV",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661887802,
+        "phase": "capture",
+        "type": "click",
+        "target": "DIV",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661887859,
+        "phase": "bubble",
+        "type": "click",
+        "target": "DIV",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 640,
+        "y": 450,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661888468,
+        "phase": "capture",
+        "type": "keydown",
+        "target": "ddc-gate",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Enter",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661888470,
+        "phase": "capture",
+        "type": "click",
+        "target": "start-btn",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 0,
+        "y": 0,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661889209,
+        "phase": "bubble",
+        "type": "click",
+        "target": "start-btn",
+        "pointerType": null,
+        "button": 0,
+        "nullable": null,
+        "x": 0,
+        "y": 0,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661914508,
+        "phase": "capture",
+        "type": "keyup",
+        "target": "ddc-gate",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Enter",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661915415,
+        "phase": "capture",
+        "type": "keydown",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661918216,
+        "phase": "capture",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793661918216,
+        "phase": "bubble",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "Escape",
+        "prevented": false,
+        "cancelable": true
+      }
+    ],
+    "gp": {
+      "active": "keyboard",
+      "fire": false,
+      "connected": false,
+      "supported": true
+    },
+    "dungeon": {
+      "current": "r0",
+      "visited": 1,
+      "secured": 1,
+      "rooms": 12
+    },
+    "bodyClass": "dmo-floor-stamp-active"
+  },
+  "movement": {
+    "px0": 1250,
+    "px1": 1275,
+    "deltaNatural": 25,
+    "px2b": 1275,
+    "px2": 1583,
+    "deltaForced": 308
+  },
+  "spawn": "true",
+  "shoot": {
+    "beforeShots": 0,
+    "afterShots": 1,
+    "deltaShots": 1,
+    "deltaBullets": 1,
+    "waLen": 1,
+    "framesDelta": 2
+  },
+  "Q": {
+    "killsBefore": 0,
+    "killsAfter": 1,
+    "delta": 1,
+    "scoreBefore": 0,
+    "scoreAfter": 28,
+    "deltaScore": 28
+  },
+  "final": {
+    "ts": 1793662025276,
+    "hub": {
+      "location": "CAMPAIGN_ROOM",
+      "inHub": false,
+      "transitionLock": false,
+      "transitionsCompleted": 1,
+      "transitionErrors": 0,
+      "modalOpen": false,
+      "saveWrites": 3
+    },
+    "cine": {
+      "active": false,
+      "skips": 1,
+      "completes": 0,
+      "floorDrop": {
+        "active": false,
+        "phase": "idle",
+        "stage": "idle",
+        "hubIntroMode": false
+      },
+      "subtitle": null,
+      "lastReason": "skip"
+    },
+    "floorDropExtra": [
+      "version",
+      "state",
+      "setDurationMode",
+      "timeline",
+      "timelines",
+      "verifyContinuity",
+      "demoLiftDrop",
+      "demoSkyfall",
+      "profiles"
+    ],
+    "read": {
+      "running": true,
+      "zone": "VESTÍBULO DE TURNOS · ENTRADA SEGURA",
+      "kills": 1,
+      "score": 28,
+      "enemies": 0,
+      "x": 1583.1338,
+      "y": 863,
+      "paused": false
+    },
+    "dbg": {
+      "balas": 0,
+      "enemies": 0,
+      "px": 1583,
+      "py": 863,
+      "round": 1,
+      "lives": 3,
+      "invuln": false
+    },
+    "shotsFired": 1,
+    "shotsHit": 0,
+    "bulletsCount": 1,
+    "bulletsTail": [
+      {
+        "t": 1793662023350,
+        "x": 1541,
+        "y": 803,
+        "vx": -751,
+        "vy": 119,
+        "r": 3.2,
+        "weaponId": "m1911",
+        "serial": 2,
+        "arrLen": 0
+      }
+    ],
+    "waLen": 1,
+    "waTail": [
+      {
+        "x": 1501,
+        "y": 809,
+        "life": 0.05
+      }
+    ],
+    "frames": 563,
+    "eventsCount": 35,
+    "eventsTail": [
+      {
+        "t": 1793662023343,
+        "phase": "capture",
+        "type": "pointerdown",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662023346,
+        "phase": "bubble",
+        "type": "pointerdown",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": true,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024050,
+        "phase": "capture",
+        "type": "pointerup",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024050,
+        "phase": "bubble",
+        "type": "pointerup",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": true,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024050,
+        "phase": "capture",
+        "type": "click",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024050,
+        "phase": "bubble",
+        "type": "click",
+        "target": "game",
+        "pointerType": "mouse",
+        "button": 0,
+        "nullable": null,
+        "x": 760,
+        "y": 420,
+        "key": null,
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024363,
+        "phase": "capture",
+        "type": "keydown",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "q",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024363,
+        "phase": "bubble",
+        "type": "keydown",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "q",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024367,
+        "phase": "capture",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "q",
+        "prevented": false,
+        "cancelable": true
+      },
+      {
+        "t": 1793662024367,
+        "phase": "bubble",
+        "type": "keyup",
+        "target": "BODY",
+        "pointerType": null,
+        "nullable": null,
+        "key": "q",
+        "prevented": false,
+        "cancelable": true
+      }
+    ],
+    "gp": {
+      "active": "keyboard",
+      "fire": false,
+      "connected": false,
+      "supported": true
+    },
+    "dungeon": {
+      "current": "r0",
+      "visited": 1,
+      "secured": 1,
+      "rooms": 12
+    },
+    "bodyClass": ""
+  },
+  "consoleErrors": [
+    {
+      "t": 1793661886292,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    },
+    {
+      "t": 1793661886292,
+      "type": "error",
+      "text": "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "loc": {
+        "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+        "line": 0,
+        "column": 0,
+        "lineNumber": 0,
+        "columnNumber": 0
+      }
+    }
+  ]
+}

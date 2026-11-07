@@ -1,0 +1,70 @@
+{
+  "tanda": "08",
+  "title": "El abismo vivo",
+  "generatedAt": "2026-11-04T04:45:28",
+  "status": "INTEGRADO_VALIDADO",
+  "verdict": "APROBADO",
+  "assets": {
+    "count": 10,
+    "allValid": true,
+    "exactSize": 10,
+    "hashesMatched": 10,
+    "discrepancies": []
+  },
+  "composition": {
+    "verdict": "APROBADA",
+    "checks": "16/16"
+  },
+  "qa": {
+    "total": 37,
+    "tally": {
+      "APROBADO": 33,
+      "NO VERIFICADO": 4
+    },
+    "failed": 0
+  },
+  "evidence": {
+    "directory": "ART_EVIDENCE/hub/tanda_08/",
+    "files": 52,
+    "qa": "qa_tanda08.json",
+    "hashes": "hashes.json",
+    "depthMap": "mapa_profundidad.json",
+    "composition": "composition_proof.json"
+  },
+  "integration": {
+    "html": "DEADBEAT_DISCO.ART.html :: TANDA08:BEGIN/END (módulo T08 + T08.install())",
+    "pack": "ART_PACK/art_pack.js :: HUB8_ASSETS/loadHub8()/API hub8*",
+    "version": "fase1-…+hub-tanda08",
+    "v5KeysBefore": 168,
+    "v5KeysAfter": 178,
+    "hooks": [
+      "zf (cutaway, grieta, brasas/ceniza)",
+      "Tf (dt del motor)"
+    ],
+    "flag": "window.__DDM_HUB_T08 = false",
+    "camera": "sin modificar (zoom .9375, límites x[883,1617] y[655,1195])",
+    "canvas": 27,
+    "sequencers": 1,
+    "descent": "shaftOpen/stairProgress reales de floorDropAnim",
+    "newSystems": [
+      "sin canvas",
+      "sin motor",
+      "sin cámara",
+      "sin loader",
+      "sin rAF",
+      "sin temporizador propio",
+      "sin audio",
+      "sin colisiones",
+      "sin geometría",
+      "sin estaciones",
+      "sin progresión",
+      "sin NPC/criaturas/enemigos"
+    ]
+  },
+  "noVerificado": [
+    "T08-33 · coste de frame medido en Chromium headless (NO extrapolable a hardware real)",
+    "T08-35 · vídeo continuo y mando físico en hardware real",
+    "T08-36 · audio audible (altavoces) y latencia real",
+    "T08-37 · rendimiento sostenido / regresión visual formal completa T01–07 en hardware real"
+  ]
+}
