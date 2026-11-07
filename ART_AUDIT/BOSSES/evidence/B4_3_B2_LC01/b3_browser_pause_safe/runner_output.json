@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "httpStatus": 200,
+  "patterns": [
+    {
+      "pattern": "burst",
+      "warn": 0.82,
+      "fsm": "TELEGRAPH",
+      "capture": "burst_telegraph.png"
+    },
+    {
+      "pattern": "spiral",
+      "warn": 1.1,
+      "fsm": "TELEGRAPH",
+      "capture": "spiral_telegraph.png"
+    }
+  ],
+  "before": "TELEGRAPH",
+  "after": "ENRAGED",
+  "phase": "berserk",
+  "sweepCleared": true,
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "localFailures": [],
+  "ignoredHostResponses": [
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ]
+}

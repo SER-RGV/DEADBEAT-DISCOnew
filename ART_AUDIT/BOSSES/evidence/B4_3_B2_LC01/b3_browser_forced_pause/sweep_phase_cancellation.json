@@ -1,0 +1,510 @@
+{
+  "test": "B3 active HTML Chromium: scheduler telegraphs, geometry and phase cancellation",
+  "status": "PASS",
+  "httpStatus": 200,
+  "url": "http://127.0.0.1:4176/DEADBEAT_DISCO.ART.html",
+  "patternCaptures": [
+    {
+      "pattern": "burst",
+      "file": "burst_telegraph.png",
+      "evidence": "actual active game canvas from #game after scheduler tick/render1",
+      "resident": "pogo",
+      "phase": "ranged",
+      "warn": 0.82,
+      "aim": 3.041924001098631,
+      "gap": 2.945243112740431,
+      "fsm": "TELEGRAPH",
+      "overlayHidden": true,
+      "game": {
+        "round": 55,
+        "night": 55,
+        "waveMode": "rush",
+        "roundModifier": null,
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 0.1,
+          "hp": 204,
+          "freeze": 0,
+          "phaseT": 99.95
+        },
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 936,
+        "pickups": []
+      }
+    },
+    {
+      "pattern": "spiral",
+      "file": "spiral_telegraph.png",
+      "evidence": "actual active game canvas from #game after scheduler tick/render1",
+      "resident": "pogo",
+      "phase": "ranged",
+      "warn": 1.1,
+      "aim": 2.9159268871804533,
+      "gap": 2.945243112740431,
+      "fsm": "TELEGRAPH",
+      "overlayHidden": true,
+      "game": {
+        "round": 55,
+        "night": 55,
+        "waveMode": "rush",
+        "roundModifier": null,
+        "boss": true,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 4,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": {
+          "phase": "ranged",
+          "variant": "sweeper",
+          "entrance": 0,
+          "atk": 999,
+          "waveT": 0.2,
+          "hp": 204,
+          "freeze": 0,
+          "phaseT": 99.95
+        },
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 952,
+        "pickups": []
+      }
+    }
+  ],
+  "phaseBefore": {
+    "resident": "pogo",
+    "phase": "sweep",
+    "sweep": {
+      "t": 0.05,
+      "a0": 5.839797297922649,
+      "dir": -1,
+      "arc": 2.4,
+      "warn": 0.9,
+      "fire": 1.4
+    },
+    "fsm": "TELEGRAPH",
+    "pattern": "sweep"
+  },
+  "phaseAfter": {
+    "volleyEvent": {
+      "phase": "volley",
+      "sweep": null,
+      "fsm": "PHASE_TRANSITION"
+    },
+    "beforeBerserk": {
+      "phase": "sweep",
+      "sweep": {
+        "t": 0.05,
+        "warn": 0.9
+      },
+      "fsm": "TELEGRAPH"
+    },
+    "phaseEvent": {
+      "phase": "berserk",
+      "sweep": null,
+      "fsm": "PHASE_TRANSITION"
+    },
+    "phaseAfterPulse": "berserk",
+    "sweepAfterPulse": null,
+    "fsmAfterPulse": "ENRAGED",
+    "events": [
+      {
+        "seq": 1,
+        "t": 0.05,
+        "type": "state.exit",
+        "state": "OBSERVING",
+        "detail": {
+          "state": "IDLE",
+          "to": "OBSERVING"
+        }
+      },
+      {
+        "seq": 2,
+        "t": 0.05,
+        "type": "state.enter",
+        "state": "OBSERVING",
+        "detail": {
+          "from": "IDLE",
+          "to": "OBSERVING",
+          "pattern": null,
+          "phase": "ranged"
+        }
+      },
+      {
+        "seq": 3,
+        "t": 0.05,
+        "type": "telegraph.start",
+        "state": "OBSERVING",
+        "detail": {
+          "pattern": "burst",
+          "warn": 0.82
+        }
+      },
+      {
+        "seq": 4,
+        "t": 0.05,
+        "type": "state.exit",
+        "state": "TELEGRAPH",
+        "detail": {
+          "state": "OBSERVING",
+          "to": "TELEGRAPH"
+        }
+      },
+      {
+        "seq": 5,
+        "t": 0.05,
+        "type": "state.enter",
+        "state": "TELEGRAPH",
+        "detail": {
+          "from": "OBSERVING",
+          "to": "TELEGRAPH",
+          "pattern": "burst",
+          "phase": "ranged"
+        }
+      },
+      {
+        "seq": 6,
+        "t": 0.2,
+        "type": "state.exit",
+        "state": "ATTACK",
+        "detail": {
+          "state": "TELEGRAPH",
+          "to": "ATTACK"
+        }
+      },
+      {
+        "seq": 7,
+        "t": 0.2,
+        "type": "state.enter",
+        "state": "ATTACK",
+        "detail": {
+          "from": "TELEGRAPH",
+          "to": "ATTACK",
+          "pattern": "burst",
+          "phase": "ranged"
+        }
+      },
+      {
+        "seq": 8,
+        "t": 0.2,
+        "type": "telegraph.start",
+        "state": "ATTACK",
+        "detail": {
+          "pattern": "spiral",
+          "warn": 1.1
+        }
+      },
+      {
+        "seq": 9,
+        "t": 0.2,
+        "type": "state.exit",
+        "state": "TELEGRAPH",
+        "detail": {
+          "state": "ATTACK",
+          "to": "TELEGRAPH"
+        }
+      },
+      {
+        "seq": 10,
+        "t": 0.2,
+        "type": "state.enter",
+        "state": "TELEGRAPH",
+        "detail": {
+          "from": "ATTACK",
+          "to": "TELEGRAPH",
+          "pattern": "spiral",
+          "phase": "ranged"
+        }
+      },
+      {
+        "seq": 11,
+        "t": 0.5833,
+        "type": "attack.interrupted",
+        "state": "TELEGRAPH",
+        "detail": {
+          "pattern": "sweep",
+          "reason": "phase-transition"
+        }
+      },
+      {
+        "seq": 12,
+        "t": 0.5833,
+        "type": "phase.change",
+        "state": "TELEGRAPH",
+        "detail": {
+          "phase": "volley"
+        }
+      },
+      {
+        "seq": 13,
+        "t": 0.5833,
+        "type": "state.exit",
+        "state": "PHASE_TRANSITION",
+        "detail": {
+          "state": "TELEGRAPH",
+          "to": "PHASE_TRANSITION"
+        }
+      },
+      {
+        "seq": 14,
+        "t": 0.5833,
+        "type": "state.enter",
+        "state": "PHASE_TRANSITION",
+        "detail": {
+          "from": "TELEGRAPH",
+          "to": "PHASE_TRANSITION",
+          "pattern": null,
+          "phase": "volley"
+        }
+      },
+      {
+        "seq": 15,
+        "t": 0.8833,
+        "type": "state.exit",
+        "state": "OBSERVING",
+        "detail": {
+          "state": "PHASE_TRANSITION",
+          "to": "OBSERVING"
+        }
+      },
+      {
+        "seq": 16,
+        "t": 0.8833,
+        "type": "state.enter",
+        "state": "OBSERVING",
+        "detail": {
+          "from": "PHASE_TRANSITION",
+          "to": "OBSERVING",
+          "pattern": null,
+          "phase": "volley"
+        }
+      },
+      {
+        "seq": 17,
+        "t": 1.0333,
+        "type": "state.exit",
+        "state": "TELEGRAPH",
+        "detail": {
+          "state": "OBSERVING",
+          "to": "TELEGRAPH"
+        }
+      },
+      {
+        "seq": 18,
+        "t": 1.0333,
+        "type": "state.enter",
+        "state": "TELEGRAPH",
+        "detail": {
+          "from": "OBSERVING",
+          "to": "TELEGRAPH",
+          "pattern": "sweep",
+          "phase": "volley"
+        }
+      },
+      {
+        "seq": 19,
+        "t": 1.0833,
+        "type": "attack.interrupted",
+        "state": "TELEGRAPH",
+        "detail": {
+          "pattern": "sweep",
+          "reason": "phase-transition"
+        }
+      },
+      {
+        "seq": 20,
+        "t": 1.0833,
+        "type": "phase.change",
+        "state": "TELEGRAPH",
+        "detail": {
+          "phase": "berserk"
+        }
+      },
+      {
+        "seq": 21,
+        "t": 1.0833,
+        "type": "state.exit",
+        "state": "PHASE_TRANSITION",
+        "detail": {
+          "state": "TELEGRAPH",
+          "to": "PHASE_TRANSITION"
+        }
+      },
+      {
+        "seq": 22,
+        "t": 1.0833,
+        "type": "state.enter",
+        "state": "PHASE_TRANSITION",
+        "detail": {
+          "from": "TELEGRAPH",
+          "to": "PHASE_TRANSITION",
+          "pattern": null,
+          "phase": "berserk"
+        }
+      },
+      {
+        "seq": 23,
+        "t": 1.3833,
+        "type": "state.exit",
+        "state": "ENRAGED",
+        "detail": {
+          "state": "PHASE_TRANSITION",
+          "to": "ENRAGED"
+        }
+      },
+      {
+        "seq": 24,
+        "t": 1.3833,
+        "type": "state.enter",
+        "state": "ENRAGED",
+        "detail": {
+          "from": "PHASE_TRANSITION",
+          "to": "ENRAGED",
+          "pattern": null,
+          "phase": "berserk"
+        }
+      }
+    ]
+  },
+  "pausePrecondition": {
+    "before": {
+      "game": {
+        "x": 1250,
+        "y": 930.3448275862066,
+        "r": 14,
+        "round": 55,
+        "kills": 0,
+        "score": 0,
+        "lives": 4,
+        "running": true,
+        "paused": true,
+        "choosing": false,
+        "bossActive": false,
+        "enemies": 0,
+        "weapon": "M1911",
+        "rave": false,
+        "hype": 0,
+        "combo": 1,
+        "maxCombo": 1,
+        "raves": 0,
+        "waveMode": "rush",
+        "roundModifier": null,
+        "playerLevel": 1,
+        "zone": "CÁMARA DEL POGO · OCTÓGONO TÁCTICO",
+        "night": 55
+      },
+      "pauseVisible": true,
+      "resumeButtonVisible": true
+    },
+    "after": {
+      "game": {
+        "x": 1250,
+        "y": 930.3448275862066,
+        "r": 14,
+        "round": 55,
+        "kills": 0,
+        "score": 0,
+        "lives": 4,
+        "running": true,
+        "paused": false,
+        "choosing": false,
+        "bossActive": false,
+        "enemies": 0,
+        "weapon": "M1911",
+        "rave": false,
+        "hype": 0,
+        "combo": 1,
+        "maxCombo": 1,
+        "raves": 0,
+        "waveMode": "rush",
+        "roundModifier": null,
+        "playerLevel": 1,
+        "zone": "CÁMARA DEL POGO · OCTÓGONO TÁCTICO",
+        "night": 55
+      },
+      "pauseVisible": false
+    },
+    "resumeAction": "resume-button"
+  },
+  "result": "PASS: the real scheduler selected burst and spiral telegraphs; Ch renders ±0.115 rad burst rays and ±0.62 rad spiral corridor boundaries. The real non-final volley and berserk transitions clear entity.sweep; B2 emits its existing phase/interruption notifications and settles in ENRAGED, without stale TELEGRAPH.",
+  "fixture": "Only QA harness inputs were set (single-pattern profile override for capture; Pogo ranged phaseTimer=0; then HP=1). wh()/Th(), zone/sweep scheduler, phase threshold branch, renderer, and B2 FSM remained actual game code.",
+  "naturalAttackEvidence": "ART_AUDIT/BOSSES/evidence/B2_animation/browser_integration.json: natural Andén fan scheduler cycle; this QA run does not claim natural cycles for all ten bosses.",
+  "captures": [
+    "burst_telegraph.png",
+    "spiral_telegraph.png"
+  ],
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "localFailures": [],
+  "ignoredHostResponses": [
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "humanPlaytest": false,
+  "allTenAttackCyclesVerified": false
+}

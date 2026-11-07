@@ -1,0 +1,391 @@
+{
+  "suite": "B2-LC-01 deterministic sweep recovery event integrity",
+  "status": "PASS",
+  "assertions": 64,
+  "profileCount": 4,
+  "profiles": [
+    {
+      "resident": "pogo",
+      "attackId": "phase.sweep",
+      "runtimePatternLabel": "sweep",
+      "previousPattern": "fan",
+      "nextPattern": "fan",
+      "initialState": "IDLE",
+      "previousRecovery": {
+        "start": {
+          "seq": 8,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "fan"
+        },
+        "end": {
+          "seq": 15,
+          "t": 0.8,
+          "state": "WINDUP",
+          "pattern": "fan",
+          "startSeq": 8
+        }
+      },
+      "sweep": {
+        "attackEvents": [
+          {
+            "seq": 16,
+            "t": 0.95,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 19,
+            "t": 2.35,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "recoveryStarts": [
+          {
+            "seq": 20,
+            "t": 2.35,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "recoveryEnds": [
+          {
+            "seq": 23,
+            "t": 2.65,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 20
+          }
+        ],
+        "stateAtRecoveryStart": "ATTACK_RECOVERY",
+        "states": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "finalState": "OBSERVING"
+      },
+      "consecutivePattern": "fan",
+      "consecutiveRecovery": {
+        "start": {
+          "seq": 33,
+          "pattern": "fan"
+        },
+        "end": {
+          "seq": 36,
+          "pattern": "fan",
+          "startSeq": 33
+        }
+      },
+      "cancellation": {
+        "preFire": {
+          "startState": "TELEGRAPH",
+          "endState": "PHASE_TRANSITION",
+          "recoveryEvents": 0
+        },
+        "midFire": {
+          "attackState": "ATTACK",
+          "endState": "PHASE_TRANSITION",
+          "interruptionCount": 1,
+          "recoveryEvents": 0
+        }
+      },
+      "reset": "clean"
+    },
+    {
+      "resident": "matarife",
+      "attackId": "phase.sweep",
+      "runtimePatternLabel": "sweep",
+      "previousPattern": "burst",
+      "nextPattern": "fan",
+      "initialState": "IDLE",
+      "previousRecovery": {
+        "start": {
+          "seq": 63,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "burst"
+        },
+        "end": {
+          "seq": 70,
+          "t": 0.95,
+          "state": "WINDUP",
+          "pattern": "burst",
+          "startSeq": 63
+        }
+      },
+      "sweep": {
+        "attackEvents": [
+          {
+            "seq": 71,
+            "t": 0.95,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 74,
+            "t": 2.35,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "recoveryStarts": [
+          {
+            "seq": 75,
+            "t": 2.35,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "recoveryEnds": [
+          {
+            "seq": 78,
+            "t": 2.65,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 75
+          }
+        ],
+        "stateAtRecoveryStart": "ATTACK_RECOVERY",
+        "states": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "finalState": "OBSERVING"
+      },
+      "consecutivePattern": "fan",
+      "consecutiveRecovery": {
+        "start": {
+          "seq": 88,
+          "pattern": "fan"
+        },
+        "end": {
+          "seq": 91,
+          "pattern": "fan",
+          "startSeq": 88
+        }
+      },
+      "cancellation": {
+        "preFire": {
+          "startState": "TELEGRAPH",
+          "endState": "PHASE_TRANSITION",
+          "recoveryEvents": 0
+        },
+        "midFire": {
+          "attackState": "ATTACK",
+          "endState": "PHASE_TRANSITION",
+          "interruptionCount": 1,
+          "recoveryEvents": 0
+        }
+      },
+      "reset": "clean"
+    },
+    {
+      "resident": "traidor",
+      "attackId": "phase.sweep",
+      "runtimePatternLabel": "sweep",
+      "previousPattern": "burst",
+      "nextPattern": "burst",
+      "initialState": "IDLE",
+      "previousRecovery": {
+        "start": {
+          "seq": 118,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "burst"
+        },
+        "end": {
+          "seq": 123,
+          "t": 0.95,
+          "state": "TELEGRAPH",
+          "pattern": "burst",
+          "startSeq": 118
+        }
+      },
+      "sweep": {
+        "attackEvents": [
+          {
+            "seq": 126,
+            "t": 1.4,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 129,
+            "t": 2.8,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "recoveryStarts": [
+          {
+            "seq": 130,
+            "t": 2.8,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "recoveryEnds": [
+          {
+            "seq": 133,
+            "t": 3.1,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 130
+          }
+        ],
+        "stateAtRecoveryStart": "ATTACK_RECOVERY",
+        "states": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "finalState": "OBSERVING"
+      },
+      "consecutivePattern": "burst",
+      "consecutiveRecovery": {
+        "start": {
+          "seq": 143,
+          "pattern": "burst"
+        },
+        "end": {
+          "seq": 146,
+          "pattern": "burst",
+          "startSeq": 143
+        }
+      },
+      "cancellation": {
+        "preFire": {
+          "startState": "TELEGRAPH",
+          "endState": "PHASE_TRANSITION",
+          "recoveryEvents": 0
+        },
+        "midFire": {
+          "attackState": "ATTACK",
+          "endState": "PHASE_TRANSITION",
+          "interruptionCount": 1,
+          "recoveryEvents": 0
+        }
+      },
+      "reset": "clean"
+    },
+    {
+      "resident": "nucleo",
+      "attackId": "phase.sweep",
+      "runtimePatternLabel": "sweep",
+      "previousPattern": "ring",
+      "nextPattern": "burst",
+      "initialState": "IDLE",
+      "previousRecovery": {
+        "start": {
+          "seq": 173,
+          "t": 0,
+          "state": "ATTACK",
+          "pattern": "ring"
+        },
+        "end": {
+          "seq": 183,
+          "t": 1.05,
+          "state": "ATTACK",
+          "pattern": "ring",
+          "startSeq": 173
+        }
+      },
+      "sweep": {
+        "attackEvents": [
+          {
+            "seq": 180,
+            "t": 1,
+            "state": "WINDUP",
+            "type": "attack.start",
+            "pattern": "sweep"
+          },
+          {
+            "seq": 184,
+            "t": 2.4,
+            "state": "ATTACK",
+            "type": "attack.end",
+            "pattern": "sweep",
+            "completed": true
+          }
+        ],
+        "recoveryStarts": [
+          {
+            "seq": 185,
+            "t": 2.4,
+            "state": "ATTACK",
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        ],
+        "recoveryEnds": [
+          {
+            "seq": 188,
+            "t": 2.7,
+            "state": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "startSeq": 185
+          }
+        ],
+        "stateAtRecoveryStart": "ATTACK_RECOVERY",
+        "states": [
+          "TELEGRAPH",
+          "WINDUP",
+          "ATTACK",
+          "ATTACK_RECOVERY",
+          "OBSERVING"
+        ],
+        "finalState": "OBSERVING"
+      },
+      "consecutivePattern": "burst",
+      "consecutiveRecovery": {
+        "start": {
+          "seq": 198,
+          "pattern": "burst"
+        },
+        "end": {
+          "seq": 201,
+          "pattern": "burst",
+          "startSeq": 198
+        }
+      },
+      "cancellation": {
+        "preFire": {
+          "startState": "TELEGRAPH",
+          "endState": "PHASE_TRANSITION",
+          "recoveryEvents": 0
+        },
+        "midFire": {
+          "attackState": "ATTACK",
+          "endState": "PHASE_TRANSITION",
+          "interruptionCount": 1,
+          "recoveryEvents": 0
+        }
+      },
+      "reset": "clean"
+    }
+  ],
+  "deterministicOnly": true,
+  "combatTimingOrBehaviorChanged": false,
+  "note": "Directly drives the existing B2 observer with scheduler-shaped sweep snapshots; it is not a natural-gameplay or human-playtest claim."
+}

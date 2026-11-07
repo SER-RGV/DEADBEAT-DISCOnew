@@ -1,0 +1,15 @@
+{
+  "gate": "BOSS-T02 real-GPU performance comparison",
+  "status": "BLOCKED",
+  "valid_comparison_run": false,
+  "reason": "The sandbox exposes no GPU device and the mandated Chromium build explicitly uses SwiftShader.",
+  "T02_status": "INTEGRATED_AND_VERIFIED_NOT_CLOSED",
+  "T02_integration": "16/16 checks passed",
+  "T01_regression": "17/17 checks passed",
+  "assets_hash_dimensions": "10/10 passed",
+  "new_real_gpu_passes": 0,
+  "new_real_gpu_configurations": 0,
+  "variability": "Not measured; no valid GPU samples exist.",
+  "next_required_action": "Run the paired T01/T02 matrix on a machine with a hardware-accelerated GPU, same browser/GPU/resolution/scene/camera/entity/effects/warm-up/measurement durations, with repeated passes per configuration.",
+  "forbidden_inference": "Do not use or compare the legacy SwiftShader FPS values as evidence of real-GPU performance or regression."
+}

@@ -1,0 +1,1752 @@
+{
+  "suite": "B4.2 B2 lifecycle-to-pattern reconciliation",
+  "status": "PASS_WITH_FINDING",
+  "joinAllowanceSeconds": 0.2,
+  "profileResults": [
+    {
+      "resident": "anden",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "fan",
+          "selectedAt": 2.05,
+          "endedAt": 2.9,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 2.95,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 2.95,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 2.95,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "burst",
+          "selectedAt": 5.3,
+          "endedAt": 6.6,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 6.25,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.65,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 6.65,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "ring",
+          "selectedAt": 9.15,
+          "endedAt": 10.25,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 10.3,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 10.3,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 10.3,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "fan",
+          "selectedAt": 12.9,
+          "endedAt": 13.75,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 13.8,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 13.8,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 13.8,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 4
+      },
+      "selectionSequence": [
+        "fan",
+        "burst",
+        "ring",
+        "fan"
+      ]
+    },
+    {
+      "resident": "magneta",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "burst",
+          "selectedAt": 2.05,
+          "endedAt": 3.35,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 3,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 3.4,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 3.4,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "fan",
+          "selectedAt": 5.85,
+          "endedAt": 6.7,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 6.75,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.75,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 6.75,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "ring",
+          "selectedAt": 9,
+          "endedAt": 10.1,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 10.15,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 10.15,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 10.15,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "burst",
+          "selectedAt": 12.7,
+          "endedAt": 14,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 13.65,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 14.05,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 14.05,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 4
+      },
+      "selectionSequence": [
+        "burst",
+        "fan",
+        "ring",
+        "burst"
+      ]
+    },
+    {
+      "resident": "bufe",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "burst",
+          "selectedAt": 3.35,
+          "endedAt": 4.65,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 4.3,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 4.7,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 4.7,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "ring",
+          "selectedAt": 7,
+          "endedAt": 8.1,
+          "outcome": "normal-completion",
+          "attempted": 14,
+          "accepted": 14,
+          "created": 14,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 8.15,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 8.15,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 14,
+              "accepted": 14,
+              "created": 14
+            }
+          },
+          "matchedRecoveryStart": 8.15,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "spiral",
+          "selectedAt": 10.55,
+          "endedAt": 13.05,
+          "outcome": "normal-completion",
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "schedulerPatternSlots": 20,
+          "matchedAttackStart": 11.75,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 13.1,
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          "matchedRecoveryStart": 13.1,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "burst",
+          "selectedAt": 15.6,
+          "endedAt": null,
+          "outcome": "active-at-horizon",
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "schedulerPatternSlots": 0,
+          "matchedAttackStart": null,
+          "matchedTerminal": null,
+          "matchedRecoveryStart": null,
+          "noFalseLifecycleForZeroAttempt": true,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 3,
+        "attack.end": 3,
+        "attack.interrupted": 0,
+        "recovery.start": 3
+      },
+      "selectionSequence": [
+        "burst",
+        "ring",
+        "spiral",
+        "burst"
+      ]
+    },
+    {
+      "resident": "cajero",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "ring",
+          "selectedAt": 2.05,
+          "endedAt": 3.15,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 3.2,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 3.2,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 3.2,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "fan",
+          "selectedAt": 5.75,
+          "endedAt": 6.6,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 6.65,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.65,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 6.65,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "spiral",
+          "selectedAt": 8.9,
+          "endedAt": 11.4,
+          "outcome": "normal-completion",
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "schedulerPatternSlots": 20,
+          "matchedAttackStart": 10.1,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 11.45,
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          "matchedRecoveryStart": 11.45,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "ring",
+          "selectedAt": 14.1,
+          "endedAt": 15.2,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 15.25,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 15.25,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 15.25,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 4
+      },
+      "selectionSequence": [
+        "ring",
+        "fan",
+        "spiral",
+        "ring"
+      ]
+    },
+    {
+      "resident": "pogo",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "burst",
+          "selectedAt": 2.05,
+          "endedAt": 3.35,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 3,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 3.4,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 3.4,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "fan",
+          "selectedAt": 5.75,
+          "endedAt": 6.6,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 6.65,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.65,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 6.65,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "spiral",
+          "selectedAt": 11.45,
+          "endedAt": 13.95,
+          "outcome": "normal-completion",
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "schedulerPatternSlots": 20,
+          "matchedAttackStart": 12.65,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 14,
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          "matchedRecoveryStart": 14,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 3,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 3
+      },
+      "selectionSequence": [
+        "burst",
+        "fan",
+        "spiral"
+      ]
+    },
+    {
+      "resident": "oficiante",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "summon",
+          "selectedAt": 2.05,
+          "endedAt": 3.3,
+          "outcome": "normal-completion",
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "schedulerPatternSlots": 2,
+          "matchedAttackStart": 3.35,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 3.35,
+            "detail": {
+              "pattern": "summon",
+              "completed": true,
+              "recover": 1.2,
+              "reason": null
+            }
+          },
+          "matchedRecoveryStart": 3.35,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "ring",
+          "selectedAt": 5.9,
+          "endedAt": 7,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 7.05,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 7.05,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 7.05,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "spiral",
+          "selectedAt": 9.45,
+          "endedAt": 11.95,
+          "outcome": "normal-completion",
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "schedulerPatternSlots": 20,
+          "matchedAttackStart": 10.65,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 12,
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          "matchedRecoveryStart": 12,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "summon",
+          "selectedAt": 14.5,
+          "endedAt": 15.75,
+          "outcome": "normal-completion",
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "schedulerPatternSlots": 2,
+          "matchedAttackStart": 15.8,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 15.8,
+            "detail": {
+              "pattern": "summon",
+              "completed": true,
+              "recover": 1.2,
+              "reason": null
+            }
+          },
+          "matchedRecoveryStart": 15.8,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 4
+      },
+      "selectionSequence": [
+        "summon",
+        "ring",
+        "spiral",
+        "summon"
+      ]
+    },
+    {
+      "resident": "matarife",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "spiral",
+          "selectedAt": 2.05,
+          "endedAt": 4.55,
+          "outcome": "normal-completion",
+          "attempted": 17,
+          "accepted": 17,
+          "created": 17,
+          "schedulerPatternSlots": 20,
+          "matchedAttackStart": 3.25,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 4.6,
+            "detail": {
+              "pattern": "spiral",
+              "completed": true,
+              "recover": 1.15,
+              "reason": null,
+              "attempted": 17,
+              "accepted": 17,
+              "created": 17
+            }
+          },
+          "matchedRecoveryStart": 4.6,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "burst",
+          "selectedAt": 6.95,
+          "endedAt": 8.25,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 7.9,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 8.3,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 8.3,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "fan",
+          "selectedAt": 13.05,
+          "endedAt": 13.9,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 13.95,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 13.95,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 13.95,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "spiral",
+          "selectedAt": 15.95,
+          "endedAt": null,
+          "outcome": "active-at-horizon",
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "schedulerPatternSlots": 0,
+          "matchedAttackStart": null,
+          "matchedTerminal": null,
+          "matchedRecoveryStart": null,
+          "noFalseLifecycleForZeroAttempt": true,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 3
+      },
+      "selectionSequence": [
+        "spiral",
+        "burst",
+        "fan",
+        "spiral"
+      ]
+    },
+    {
+      "resident": "imitador",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "fan",
+          "selectedAt": 2.05,
+          "endedAt": 2.9,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 2.95,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 2.95,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 2.95,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "ring",
+          "selectedAt": 5.15,
+          "endedAt": 6.25,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 6.3,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.3,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 6.3,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "burst",
+          "selectedAt": 8.75,
+          "endedAt": 10.05,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 9.7,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 10.1,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 10.1,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "fan",
+          "selectedAt": 12.45,
+          "endedAt": 13.3,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 13.35,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 13.35,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 13.35,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 5,
+          "pattern": "ring",
+          "selectedAt": 15.55,
+          "endedAt": null,
+          "outcome": "active-at-horizon",
+          "attempted": 0,
+          "accepted": 0,
+          "created": 0,
+          "schedulerPatternSlots": 0,
+          "matchedAttackStart": null,
+          "matchedTerminal": null,
+          "matchedRecoveryStart": null,
+          "noFalseLifecycleForZeroAttempt": true,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 5,
+      "attackLifecycleEvents": {
+        "attack.start": 4,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 4
+      },
+      "selectionSequence": [
+        "fan",
+        "ring",
+        "burst",
+        "fan",
+        "ring"
+      ]
+    },
+    {
+      "resident": "traidor",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "ring",
+          "selectedAt": 2.05,
+          "endedAt": 3.15,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 3.2,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 3.2,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 3.2,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "burst",
+          "selectedAt": 5.55,
+          "endedAt": 6.85,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 6.5,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.9,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 6.9,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "spiral",
+          "selectedAt": 11.75,
+          "endedAt": 13.8,
+          "outcome": "cancelled-or-interrupted",
+          "attempted": 10,
+          "accepted": 10,
+          "created": 10,
+          "schedulerPatternSlots": 12,
+          "matchedAttackStart": 12.95,
+          "matchedTerminal": {
+            "type": "attack.interrupted",
+            "time": 13.85,
+            "detail": {
+              "pattern": "spiral",
+              "completed": false,
+              "recover": 0,
+              "reason": "partial-emission",
+              "attempted": 10,
+              "accepted": 10,
+              "created": 10
+            }
+          },
+          "matchedRecoveryStart": null,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "ring",
+          "selectedAt": 14.45,
+          "endedAt": 15.55,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 15.6,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 15.6,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 15.6,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 5,
+        "attack.end": 4,
+        "attack.interrupted": 1,
+        "recovery.start": 3
+      },
+      "selectionSequence": [
+        "ring",
+        "burst",
+        "spiral",
+        "ring"
+      ]
+    },
+    {
+      "resident": "nucleo",
+      "runs": [
+        {
+          "runId": 1,
+          "pattern": "fan",
+          "selectedAt": 2.05,
+          "endedAt": 2.9,
+          "outcome": "normal-completion",
+          "attempted": 5,
+          "accepted": 5,
+          "created": 5,
+          "schedulerPatternSlots": 5,
+          "matchedAttackStart": 2.95,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 2.95,
+            "detail": {
+              "pattern": "fan",
+              "completed": true,
+              "recover": 0.8,
+              "reason": null,
+              "attempted": 5,
+              "accepted": 5,
+              "created": 5
+            }
+          },
+          "matchedRecoveryStart": 2.95,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 2,
+          "pattern": "ring",
+          "selectedAt": 5.05,
+          "endedAt": 6.15,
+          "outcome": "normal-completion",
+          "attempted": 15,
+          "accepted": 15,
+          "created": 15,
+          "schedulerPatternSlots": 18,
+          "matchedAttackStart": 6.2,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 6.2,
+            "detail": {
+              "pattern": "ring",
+              "completed": true,
+              "recover": 1.05,
+              "reason": null,
+              "attempted": 15,
+              "accepted": 15,
+              "created": 15
+            }
+          },
+          "matchedRecoveryStart": 6.2,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 3,
+          "pattern": "burst",
+          "selectedAt": 11.15,
+          "endedAt": 12.45,
+          "outcome": "normal-completion",
+          "attempted": 9,
+          "accepted": 9,
+          "created": 9,
+          "schedulerPatternSlots": 9,
+          "matchedAttackStart": 12.1,
+          "matchedTerminal": {
+            "type": "attack.end",
+            "time": 12.5,
+            "detail": {
+              "pattern": "burst",
+              "completed": true,
+              "recover": 0.95,
+              "reason": null,
+              "attempted": 9,
+              "accepted": 9,
+              "created": 9
+            }
+          },
+          "matchedRecoveryStart": 12.5,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        },
+        {
+          "runId": 4,
+          "pattern": "spiral",
+          "selectedAt": 14.75,
+          "endedAt": null,
+          "outcome": "active-at-horizon",
+          "attempted": 2,
+          "accepted": 2,
+          "created": 2,
+          "schedulerPatternSlots": 2,
+          "matchedAttackStart": 15.95,
+          "matchedTerminal": null,
+          "matchedRecoveryStart": null,
+          "noFalseLifecycleForZeroAttempt": false,
+          "matchPass": true
+        }
+      ],
+      "patternRunCount": 4,
+      "attackLifecycleEvents": {
+        "attack.start": 5,
+        "attack.end": 4,
+        "attack.interrupted": 0,
+        "recovery.start": 3
+      },
+      "selectionSequence": [
+        "fan",
+        "ring",
+        "burst",
+        "spiral"
+      ]
+    }
+  ],
+  "sweeps": [
+    {
+      "resident": "pogo",
+      "events": [
+        {
+          "time": 7.55,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "time": 8.95,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        }
+      ]
+    },
+    {
+      "resident": "matarife",
+      "events": [
+        {
+          "time": 9.2,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "time": 10.6,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        }
+      ]
+    },
+    {
+      "resident": "traidor",
+      "events": [
+        {
+          "time": 8.25,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "time": 9.65,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        }
+      ]
+    },
+    {
+      "resident": "nucleo",
+      "events": [
+        {
+          "time": 7.1,
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "time": 8.5,
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        }
+      ]
+    }
+  ],
+  "aggregate": {
+    "profileCount": 10,
+    "patternRunCount": 40,
+    "patternRunOutcomes": {
+      "normal-completion": 35,
+      "active-at-horizon": 4,
+      "cancelled-or-interrupted": 1
+    },
+    "attempted": 372,
+    "accepted": 372,
+    "created": 372,
+    "schedulerPatternSlots": 424,
+    "b2LifecycleEventCounts": {
+      "attack.start": 41,
+      "attack.end": 39,
+      "recovery.start": 35,
+      "recovery.end": 36,
+      "attack.interrupted": 1
+    },
+    "sweepLifecyclePairs": 4,
+    "overlapCount": 0,
+    "unmatchedOrDuplicateCount": 0,
+    "openAtHorizon": [
+      {
+        "resident": "nucleo",
+        "pattern": "spiral",
+        "startedAt": 15.95,
+        "reason": "still active at 16-second sample horizon"
+      }
+    ],
+    "joinAllowanceSeconds": 0.2
+  },
+  "anomalies": [],
+  "overlaps": [],
+  "sweepReconciliation": [
+    {
+      "resident": "pogo",
+      "previousRecoveryStart": {
+        "tick": 133,
+        "time": 6.65,
+        "type": "recovery.start",
+        "detail": {
+          "pattern": "fan",
+          "duration": 0.8
+        }
+      },
+      "sweepAttackStart": {
+        "tick": 151,
+        "time": 7.55,
+        "type": "attack.start",
+        "detail": {
+          "pattern": "sweep",
+          "source": "existing-sweep-window"
+        }
+      },
+      "sweepAttackEnd": {
+        "tick": 179,
+        "time": 8.95,
+        "type": "attack.end",
+        "detail": {
+          "pattern": "sweep",
+          "completed": true,
+          "recover": 0.2999999999999998
+        }
+      },
+      "sweepRecoveryStartEvents": [],
+      "recoveryEndTaggedSweep": [
+        {
+          "tick": 148,
+          "time": 7.4,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 186,
+          "time": 9.3,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndBeforeSweepAttackEnd": [
+        {
+          "tick": 148,
+          "time": 7.4,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndAfterSweepAttackEnd": [
+        {
+          "tick": 186,
+          "time": 9.3,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "stateEnteredAttackRecoveryAfterSweepEnd": [
+        {
+          "tick": 179,
+          "time": 8.95,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        }
+      ],
+      "recoveryStartMissing": true,
+      "priorRecoveryEndMisattributedToSweep": true,
+      "actualSweepTailRecoveryEnd": true
+    },
+    {
+      "resident": "matarife",
+      "previousRecoveryStart": {
+        "tick": 166,
+        "time": 8.3,
+        "type": "recovery.start",
+        "detail": {
+          "pattern": "burst",
+          "duration": 0.95
+        }
+      },
+      "sweepAttackStart": {
+        "tick": 184,
+        "time": 9.2,
+        "type": "attack.start",
+        "detail": {
+          "pattern": "sweep",
+          "source": "existing-sweep-window"
+        }
+      },
+      "sweepAttackEnd": {
+        "tick": 212,
+        "time": 10.6,
+        "type": "attack.end",
+        "detail": {
+          "pattern": "sweep",
+          "completed": true,
+          "recover": 0.2999999999999998
+        }
+      },
+      "sweepRecoveryStartEvents": [],
+      "recoveryEndTaggedSweep": [
+        {
+          "tick": 184,
+          "time": 9.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 219,
+          "time": 10.95,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndBeforeSweepAttackEnd": [
+        {
+          "tick": 184,
+          "time": 9.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndAfterSweepAttackEnd": [
+        {
+          "tick": 219,
+          "time": 10.95,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "stateEnteredAttackRecoveryAfterSweepEnd": [
+        {
+          "tick": 212,
+          "time": 10.6,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        }
+      ],
+      "recoveryStartMissing": true,
+      "priorRecoveryEndMisattributedToSweep": true,
+      "actualSweepTailRecoveryEnd": true
+    },
+    {
+      "resident": "traidor",
+      "previousRecoveryStart": {
+        "tick": 138,
+        "time": 6.9,
+        "type": "recovery.start",
+        "detail": {
+          "pattern": "burst",
+          "duration": 0.95
+        }
+      },
+      "sweepAttackStart": {
+        "tick": 165,
+        "time": 8.25,
+        "type": "attack.start",
+        "detail": {
+          "pattern": "sweep",
+          "source": "existing-sweep-window"
+        }
+      },
+      "sweepAttackEnd": {
+        "tick": 193,
+        "time": 9.65,
+        "type": "attack.end",
+        "detail": {
+          "pattern": "sweep",
+          "completed": true,
+          "recover": 0.2999999999999998
+        }
+      },
+      "sweepRecoveryStartEvents": [],
+      "recoveryEndTaggedSweep": [
+        {
+          "tick": 156,
+          "time": 7.8,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 200,
+          "time": 10,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndBeforeSweepAttackEnd": [
+        {
+          "tick": 156,
+          "time": 7.8,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndAfterSweepAttackEnd": [
+        {
+          "tick": 200,
+          "time": 10,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "stateEnteredAttackRecoveryAfterSweepEnd": [
+        {
+          "tick": 193,
+          "time": 9.65,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        }
+      ],
+      "recoveryStartMissing": true,
+      "priorRecoveryEndMisattributedToSweep": true,
+      "actualSweepTailRecoveryEnd": true
+    },
+    {
+      "resident": "nucleo",
+      "previousRecoveryStart": {
+        "tick": 124,
+        "time": 6.2,
+        "type": "recovery.start",
+        "detail": {
+          "pattern": "ring",
+          "duration": 1.05
+        }
+      },
+      "sweepAttackStart": {
+        "tick": 142,
+        "time": 7.1,
+        "type": "attack.start",
+        "detail": {
+          "pattern": "sweep",
+          "source": "existing-sweep-window"
+        }
+      },
+      "sweepAttackEnd": {
+        "tick": 170,
+        "time": 8.5,
+        "type": "attack.end",
+        "detail": {
+          "pattern": "sweep",
+          "completed": true,
+          "recover": 0.2999999999999998
+        }
+      },
+      "sweepRecoveryStartEvents": [],
+      "recoveryEndTaggedSweep": [
+        {
+          "tick": 144,
+          "time": 7.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        },
+        {
+          "tick": 177,
+          "time": 8.85,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndBeforeSweepAttackEnd": [
+        {
+          "tick": 144,
+          "time": 7.2,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "recoveryEndAfterSweepAttackEnd": [
+        {
+          "tick": 177,
+          "time": 8.85,
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep"
+          }
+        }
+      ],
+      "stateEnteredAttackRecoveryAfterSweepEnd": [
+        {
+          "tick": 170,
+          "time": 8.5,
+          "type": "state.enter",
+          "detail": {
+            "from": "ATTACK",
+            "to": "ATTACK_RECOVERY",
+            "pattern": "sweep",
+            "phase": "sweep"
+          }
+        }
+      ],
+      "recoveryStartMissing": true,
+      "priorRecoveryEndMisattributedToSweep": true,
+      "actualSweepTailRecoveryEnd": true
+    }
+  ],
+  "finding": {
+    "id": "B2-LC-01",
+    "classification": "Reproducible B2 recovery-event contract gap / recovery-end misattribution; not an R1 projectile emission, scheduler completion, or gameplay cooldown defect.",
+    "scope": "B2 event metadata for natural sweep recovery; no R2/R3 classification change.",
+    "reproducedIn": [
+      "pogo",
+      "matarife",
+      "traidor",
+      "nucleo"
+    ],
+    "observedCounts": {
+      "naturalSweepStarts": 4,
+      "attackEnds": 4,
+      "matchingRecoveryStartEvents": 0,
+      "recoveryEndTaggedSweepBeforeSweepEnd": 4,
+      "actualTailRecoveryEnds": 4
+    },
+    "mechanism": "During each natural sweep, the preceding pattern recovery timer remains live while syncCombatSignals changes rec.pattern to sweep. advance() later emits recovery.end using rec.pattern, so the prior recovery end is tagged sweep. When the sweep reaches its fire tail, the normal sweep branch emits attack.end and sets rec.recovery but does not emit recovery.start; the later sweep-removal branch only emits recovery.start if rec.attackActive is still true, which is already false after the normal fire-window end. The FSM still enters ATTACK_RECOVERY and emits recovery.end for the 0.3-second sweep tail.",
+    "sourceLocations": "boss_animation_state_machine.js:257-271 (sweep pattern/recovery and attack.end; no recovery.start); 273-279 (recovery.start only if attackActive on sweep removal); 343-345 (recovery.end uses current rec.pattern).",
+    "impact": "Pattern attacks retain one start/end/recovery.start per normal completed run. Sweep attacks each have one start/end, one subsequent ATTACK_RECOVERY state and a tail recovery.end; however B2 emits no recovery.start for the sweep tail and emits one preceding recovery.end tagged as sweep. No duplicate attack starts/terminals, projectile counter mismatch, or attack overlap was found.",
+    "action": "No code changes under B4.2. Documented for owner triage; stop advancement pending authorization."
+  },
+  "checks": {
+    "patternStartTerminalReconciliation": "PASS",
+    "noDuplicateOrUnmatchedAttackLifecycleEvents": "PASS",
+    "singleActiveAttackNoOverlap": "PASS",
+    "horizonOpenRunExplained": "PASS",
+    "naturalSweepRecoverySignals": "FINDING_B2_LC_01"
+  }
+}

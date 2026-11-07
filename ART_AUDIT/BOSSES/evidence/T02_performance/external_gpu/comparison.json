@@ -1,0 +1,17 @@
+{
+  "status": "BLOCKED_NO_REAL_GPU",
+  "comparison_run": false,
+  "comparison_made": false,
+  "valid_real_gpu_passes": {
+    "T01": 0,
+    "T01_plus_BOSS_T02": 0
+  },
+  "paired_passes": 0,
+  "metrics": null,
+  "variability": null,
+  "outliers": [],
+  "regression_verdict": "NONE",
+  "reason": "The sandbox exposes no physical GPU and Chromium reports SwiftShader. No external hardware-GPU run was performed.",
+  "legacy_swiftshader_data_used": false,
+  "next_step": "Collect at least five valid passes per configuration in five alternating pairs on real hardware, then review manually under the existing gate policy."
+}

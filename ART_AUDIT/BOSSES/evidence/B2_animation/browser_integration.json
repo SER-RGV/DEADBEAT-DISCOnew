@@ -1,0 +1,1539 @@
+{
+  "test": "B2 live browser integration",
+  "httpStatus": 200,
+  "runtime": {
+    "api": "2.87.0",
+    "loader": "applied",
+    "stateCount": 13,
+    "profiles": [
+      "anden",
+      "magneta",
+      "bufe",
+      "cajero",
+      "pogo",
+      "oficiante",
+      "matarife",
+      "imitador",
+      "traidor",
+      "nucleo"
+    ]
+  },
+  "residentCoverage": [
+    {
+      "circle": 0,
+      "resident": "anden",
+      "final": false,
+      "artId": "resident_01_anden",
+      "state": "OBSERVING",
+      "profile": "anden",
+      "legacy": "idle"
+    },
+    {
+      "circle": 1,
+      "resident": "magneta",
+      "final": false,
+      "artId": "resident_02_magneta",
+      "state": "OBSERVING",
+      "profile": "magneta",
+      "legacy": "idle"
+    },
+    {
+      "circle": 2,
+      "resident": "bufe",
+      "final": false,
+      "artId": "resident_03_bufe",
+      "state": "OBSERVING",
+      "profile": "bufe",
+      "legacy": "idle"
+    },
+    {
+      "circle": 3,
+      "resident": "cajero",
+      "final": false,
+      "artId": "resident_04_cajero",
+      "state": "OBSERVING",
+      "profile": "cajero",
+      "legacy": "idle"
+    },
+    {
+      "circle": 4,
+      "resident": "pogo",
+      "final": false,
+      "artId": "resident_05_pogo",
+      "state": "OBSERVING",
+      "profile": "pogo",
+      "legacy": "idle"
+    },
+    {
+      "circle": 5,
+      "resident": "oficiante",
+      "final": false,
+      "artId": "resident_06_oficiante",
+      "state": "OBSERVING",
+      "profile": "oficiante",
+      "legacy": "idle"
+    },
+    {
+      "circle": 6,
+      "resident": "matarife",
+      "final": false,
+      "artId": "resident_07_matarife",
+      "state": "OBSERVING",
+      "profile": "matarife",
+      "legacy": "idle"
+    },
+    {
+      "circle": 7,
+      "resident": "imitador",
+      "final": false,
+      "artId": "resident_08_imitador",
+      "state": "OBSERVING",
+      "profile": "imitador",
+      "legacy": "idle"
+    },
+    {
+      "circle": 8,
+      "resident": "traidor",
+      "final": false,
+      "artId": "resident_09_traidor",
+      "state": "OBSERVING",
+      "profile": "traidor",
+      "legacy": "idle"
+    },
+    {
+      "circle": 9,
+      "resident": "nucleo",
+      "final": true,
+      "artId": "boss_09_nucleofinal",
+      "state": "OBSERVING",
+      "profile": "nucleo",
+      "legacy": "idle"
+    }
+  ],
+  "liveBoss": {
+    "resident": "anden",
+    "phase": "chase",
+    "attackTimer": 2.05,
+    "entrance": 0
+  },
+  "observedLiveStates": [
+    "OBSERVING",
+    "MOVING",
+    "TELEGRAPH",
+    "WINDUP",
+    "ATTACK"
+  ],
+  "trace": [
+    {
+      "i": 0,
+      "state": "OBSERVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": [
+        "state.exit",
+        "state.enter"
+      ]
+    },
+    {
+      "i": 1,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": [
+        "state.exit",
+        "state.enter"
+      ]
+    },
+    {
+      "i": 2,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 3,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 4,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 5,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 6,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 7,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 8,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 9,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 10,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 11,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 12,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 13,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 14,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 15,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 16,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 17,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 18,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 19,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 20,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 21,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 22,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 23,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 24,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 25,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 26,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 27,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 28,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 29,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 30,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 31,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 32,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 33,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 34,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 35,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 36,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 37,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 38,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 39,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 40,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 41,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 42,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 43,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 44,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 45,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 46,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 47,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 48,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 49,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 50,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 51,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 52,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 53,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 54,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 55,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 56,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 57,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 58,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 59,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 60,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 61,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 62,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 63,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 64,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 65,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 66,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 67,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 68,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 69,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 70,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 71,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 72,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 73,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 74,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 75,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 76,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 77,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 78,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 79,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 80,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 81,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 82,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 83,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 84,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 85,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 86,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 87,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 88,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 89,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 90,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 91,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 92,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 93,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 94,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 95,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 96,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 97,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 98,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 99,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 100,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 101,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 102,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 103,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 104,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 105,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 106,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 107,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 108,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 109,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 110,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 111,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 112,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 113,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 114,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 115,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 116,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 117,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 118,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 119,
+      "state": "MOVING",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": []
+    },
+    {
+      "i": 120,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.8,
+      "events": [
+        "telegraph.start",
+        "state.exit",
+        "state.enter"
+      ]
+    },
+    {
+      "i": 121,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.8,
+      "events": []
+    },
+    {
+      "i": 122,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.8,
+      "events": []
+    },
+    {
+      "i": 123,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.8,
+      "events": []
+    },
+    {
+      "i": 124,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.8,
+      "events": []
+    },
+    {
+      "i": 125,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 126,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 127,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 128,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 129,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 130,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 131,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 132,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.75,
+      "events": []
+    },
+    {
+      "i": 133,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.7,
+      "events": []
+    },
+    {
+      "i": 134,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.7,
+      "events": []
+    },
+    {
+      "i": 135,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.6499999999999999,
+      "events": []
+    },
+    {
+      "i": 136,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.6499999999999999,
+      "events": []
+    },
+    {
+      "i": 137,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.6499999999999999,
+      "events": []
+    },
+    {
+      "i": 138,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.6499999999999999,
+      "events": []
+    },
+    {
+      "i": 139,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 140,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 141,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 142,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 143,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 144,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 145,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5999999999999999,
+      "events": []
+    },
+    {
+      "i": 146,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5499999999999998,
+      "events": []
+    },
+    {
+      "i": 147,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.5499999999999998,
+      "events": []
+    },
+    {
+      "i": 148,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.49999999999999983,
+      "events": []
+    },
+    {
+      "i": 149,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.49999999999999983,
+      "events": []
+    },
+    {
+      "i": 150,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.49999999999999983,
+      "events": []
+    },
+    {
+      "i": 151,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.49999999999999983,
+      "events": []
+    },
+    {
+      "i": 152,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.49999999999999983,
+      "events": []
+    },
+    {
+      "i": 153,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 154,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 155,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 156,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 157,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 158,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 159,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.44999999999999984,
+      "events": []
+    },
+    {
+      "i": 160,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.39999999999999986,
+      "events": []
+    },
+    {
+      "i": 161,
+      "state": "TELEGRAPH",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.2667000000000115,
+      "events": []
+    },
+    {
+      "i": 162,
+      "state": "WINDUP",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.1834000000000231,
+      "events": [
+        "state.exit",
+        "state.enter"
+      ]
+    },
+    {
+      "i": 163,
+      "state": "WINDUP",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.0999999999999998,
+      "events": []
+    },
+    {
+      "i": 164,
+      "state": "WINDUP",
+      "phase": "chase",
+      "pattern": "fan",
+      "warn": 0.016600000000005617,
+      "events": []
+    },
+    {
+      "i": 165,
+      "state": "ATTACK",
+      "phase": "chase",
+      "pattern": null,
+      "warn": 0,
+      "events": [
+        "state.exit",
+        "state.enter",
+        "attack.start",
+        "attack.end",
+        "recovery.start",
+        "state.exit",
+        "state.enter"
+      ]
+    }
+  ],
+  "combatEvents": [
+    {
+      "seq": 25,
+      "t": 2.05,
+      "type": "telegraph.start",
+      "state": "MOVING",
+      "detail": {
+        "pattern": "fan",
+        "warn": 0.8
+      }
+    },
+    {
+      "seq": 32,
+      "t": 2.8666,
+      "type": "attack.start",
+      "state": "OBSERVING",
+      "detail": {
+        "pattern": "fan",
+        "source": "Th-projectile-or-hazard-emission"
+      }
+    },
+    {
+      "seq": 33,
+      "t": 2.8666,
+      "type": "attack.end",
+      "state": "OBSERVING",
+      "detail": {
+        "pattern": "fan",
+        "completed": true,
+        "recover": 0.8,
+        "reason": null
+      }
+    },
+    {
+      "seq": 34,
+      "t": 2.8666,
+      "type": "recovery.start",
+      "state": "OBSERVING",
+      "detail": {
+        "pattern": "fan",
+        "duration": 0.8
+      }
+    }
+  ],
+  "visualCapture": true,
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "badResponses": [],
+  "ignoredResponses": [
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:4176/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "classification": "Actual game HTML/browser integration with real boss constructors and running Th/Ao attack loop. Automated signals are not human gameplay fairness/readability or GPU validation."
+}

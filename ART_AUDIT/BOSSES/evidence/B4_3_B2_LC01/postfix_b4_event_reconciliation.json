@@ -1,0 +1,246 @@
+{
+  "suite": "B4 B4.3 active-HTML ten-profile Chromium run: sweep recovery event excerpt",
+  "source": "evidence/B4_3_B2_LC01/b4_chromium_canonical/scenario_matrix.json",
+  "runner": "canonical B4 gameplay/step/assertion body; only root and output paths redirected; event history is the FSM existing max-32 buffer and canonical schema mapping omits top-level seq/t/state.",
+  "profiles": [
+    {
+      "resident": "pogo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "fan",
+      "actualPhaseChanges": [
+        {
+          "t": 3.4,
+          "from": "chase",
+          "to": "ranged"
+        },
+        {
+          "t": 6.65,
+          "from": "ranged",
+          "to": "sweep"
+        },
+        {
+          "t": 9.25,
+          "from": "sweep",
+          "to": "chase"
+        },
+        {
+          "t": 14,
+          "from": "chase",
+          "to": "ranged"
+        }
+      ],
+      "eventBufferLength": 32,
+      "eventBufferCap": 32,
+      "relevantEvents": [
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "fan",
+            "startSeq": 33
+          }
+        },
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep",
+            "startSeq": 45
+          }
+        }
+      ],
+      "sweepRecoveryEndRefs": [
+        {
+          "startSeq": 45,
+          "pattern": "sweep"
+        }
+      ],
+      "sweepRecoveryStartVisibleInBuffer": true,
+      "note": "If a start is absent from this end-of-sample 32-event buffer, it is not evidence of omission; use regression_lc01_64.json for complete per-cycle deterministic sequence and baseline_sweeper_event_traces.json for pre-fix live events."
+    },
+    {
+      "resident": "matarife",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "burst",
+      "actualPhaseChanges": [
+        {
+          "t": 4.6,
+          "from": "chase",
+          "to": "ranged"
+        },
+        {
+          "t": 8.3,
+          "from": "ranged",
+          "to": "sweep"
+        },
+        {
+          "t": 10.9,
+          "from": "sweep",
+          "to": "chase"
+        },
+        {
+          "t": 14.5,
+          "from": "chase",
+          "to": "ranged"
+        }
+      ],
+      "eventBufferLength": 32,
+      "eventBufferCap": 32,
+      "relevantEvents": [
+        {
+          "type": "attack.start",
+          "detail": {
+            "pattern": "sweep",
+            "source": "existing-sweep-window"
+          }
+        },
+        {
+          "type": "attack.end",
+          "detail": {
+            "pattern": "sweep",
+            "completed": true,
+            "recover": 0.2999999999999998
+          }
+        },
+        {
+          "type": "recovery.start",
+          "detail": {
+            "pattern": "sweep",
+            "duration": 0.2999999999999998
+          }
+        },
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep",
+            "startSeq": 47
+          }
+        }
+      ],
+      "sweepRecoveryEndRefs": [
+        {
+          "startSeq": 47,
+          "pattern": "sweep"
+        }
+      ],
+      "sweepRecoveryStartVisibleInBuffer": true,
+      "note": "If a start is absent from this end-of-sample 32-event buffer, it is not evidence of omission; use regression_lc01_64.json for complete per-cycle deterministic sequence and baseline_sweeper_event_traces.json for pre-fix live events."
+    },
+    {
+      "resident": "traidor",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "burst",
+      "actualPhaseChanges": [
+        {
+          "t": 3.25,
+          "from": "chase",
+          "to": "ranged"
+        },
+        {
+          "t": 6.9,
+          "from": "ranged",
+          "to": "sweep"
+        },
+        {
+          "t": 9.5,
+          "from": "sweep",
+          "to": "chase"
+        },
+        {
+          "t": 13.85,
+          "from": "chase",
+          "to": "ranged"
+        }
+      ],
+      "eventBufferLength": 32,
+      "eventBufferCap": 32,
+      "relevantEvents": [
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep",
+            "startSeq": 49
+          }
+        }
+      ],
+      "sweepRecoveryEndRefs": [
+        {
+          "startSeq": 49,
+          "pattern": "sweep"
+        }
+      ],
+      "sweepRecoveryStartVisibleInBuffer": false,
+      "note": "If a start is absent from this end-of-sample 32-event buffer, it is not evidence of omission; use regression_lc01_64.json for complete per-cycle deterministic sequence and baseline_sweeper_event_traces.json for pre-fix live events."
+    },
+    {
+      "resident": "nucleo",
+      "canonicalAttackId": "phase.sweep",
+      "runtimePattern": "sweep",
+      "precedingPattern": "ring",
+      "actualPhaseChanges": [
+        {
+          "t": 3.25,
+          "from": "chase",
+          "to": "ranged"
+        },
+        {
+          "t": 6.2,
+          "from": "ranged",
+          "to": "sweep"
+        },
+        {
+          "t": 8.8,
+          "from": "sweep",
+          "to": "chase"
+        },
+        {
+          "t": 12.5,
+          "from": "chase",
+          "to": "ranged"
+        }
+      ],
+      "eventBufferLength": 32,
+      "eventBufferCap": 32,
+      "relevantEvents": [
+        {
+          "type": "recovery.end",
+          "detail": {
+            "pattern": "sweep",
+            "startSeq": 47
+          }
+        }
+      ],
+      "sweepRecoveryEndRefs": [
+        {
+          "startSeq": 47,
+          "pattern": "sweep"
+        }
+      ],
+      "sweepRecoveryStartVisibleInBuffer": false,
+      "note": "If a start is absent from this end-of-sample 32-event buffer, it is not evidence of omission; use regression_lc01_64.json for complete per-cycle deterministic sequence and baseline_sweeper_event_traces.json for pre-fix live events."
+    }
+  ]
+}

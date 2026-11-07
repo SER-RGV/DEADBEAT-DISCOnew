@@ -1,0 +1,102 @@
+{
+  "test": "boss_zone_max_b1_current_behavior",
+  "sourceCoupled": true,
+  "filesRead": [
+    "DEADBEAT_DISCO.ART.html"
+  ],
+  "yeProfiles": 10,
+  "circleResidents": 9,
+  "nucleusAlsoPresentInYe": true,
+  "affectedProfiles": 4,
+  "duSourceOffset": 4559777,
+  "zoneProfileMaxReadByDu": false,
+  "cases": [
+    {
+      "group": "hunter",
+      "profile": "anden",
+      "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+    },
+    {
+      "group": "hunter",
+      "profile": "magneta",
+      "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+    },
+    {
+      "group": "pulse",
+      "profile": "bufe",
+      "type": "fire",
+      "declaredMax": 2,
+      "currentAdded": 3,
+      "outcome": "KNOWN_PROFILE_MISMATCH"
+    },
+    {
+      "group": "hunter",
+      "profile": "cajero",
+      "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+    },
+    {
+      "group": "sweeper",
+      "profile": "pogo",
+      "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+    },
+    {
+      "group": "pulse",
+      "profile": "oficiante",
+      "type": "elec",
+      "declaredMax": 2,
+      "currentAdded": 2,
+      "outcome": "MATCHES_CURRENT_CAP"
+    },
+    {
+      "group": "sweeper",
+      "profile": "matarife",
+      "type": "fire",
+      "declaredMax": 3,
+      "currentAdded": 3,
+      "outcome": "MATCHES_CURRENT_CAP"
+    },
+    {
+      "group": "hunter",
+      "profile": "imitador",
+      "outcome": "NO_RESIDENT_ZONES_CONFIGURED"
+    },
+    {
+      "group": "sweeper",
+      "profile": "traidor",
+      "type": "elec",
+      "declaredMax": 2,
+      "currentAdded": 2,
+      "outcome": "MATCHES_CURRENT_CAP"
+    },
+    {
+      "group": "final",
+      "profile": "nucleo",
+      "stage": 2,
+      "type": "elec",
+      "currentAdded": 2,
+      "outcome": "GLOBAL_CAP"
+    },
+    {
+      "group": "final",
+      "profile": "nucleo",
+      "stage": 3,
+      "type": "fire",
+      "currentAdded": 3,
+      "outcome": "GLOBAL_CAP"
+    },
+    {
+      "group": "global-cap interaction",
+      "targetType": "fire",
+      "existingType": "elec",
+      "added": 2,
+      "outcome": "TOTAL_ZONE_COUNT_LIMITS_PLACEMENT"
+    },
+    {
+      "group": "global-cap interaction",
+      "targetType": "elec",
+      "existingType": "fire",
+      "added": 1,
+      "outcome": "TOTAL_ZONE_COUNT_LIMITS_PLACEMENT"
+    }
+  ]
+}

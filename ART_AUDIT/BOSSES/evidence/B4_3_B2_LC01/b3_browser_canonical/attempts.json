@@ -1,0 +1,25 @@
+{
+  "suite": "B3 canonical gameplay-body Chromium runner, output-isolated copy",
+  "canonicalRunner": "ART_TOOLS/qa/test_boss_telegraph_browser_b3.js",
+  "canonicalRunnerSha256": "96f669fdc8dde9bd995611f512fa0d689d5fd57e2885ebb7c99d2dd20f11b42e",
+  "temporaryCopyDifferences": [
+    "root resolved from process.cwd() instead of __dirname",
+    "evidence output redirected to ART_AUDIT/BOSSES/evidence/B4_3_B2_LC01/b3_browser_canonical"
+  ],
+  "attempts": [
+    {
+      "attempt": 1,
+      "result": "FAIL",
+      "elapsedMs": 74490,
+      "failure": "Burst pattern was not selected after the canonical runner's one real scheduler tick; observed resident=pogo, phase=ranged, pattern empty, warning=0, FSM=OBSERVING. The test failed before pattern/renderer assertions."
+    },
+    {
+      "attempt": 2,
+      "result": "FAIL",
+      "elapsedMs": 63796,
+      "failure": "Same burst-selection assertion; observed resident=pogo, phase=ranged, pattern empty, warning=0, FSM=OBSERVING. Full stderr is in runner_stderr.log."
+    }
+  ],
+  "classification": "Canonical Chromium integration did not pass in B4.3. The observed failure is at the scheduler-fixture selection step; no conclusion is made that the B2 recovery correction caused it. A separate pause-safe diagnostic copy is recorded separately if it passes.",
+  "humanPlaytest": false
+}
