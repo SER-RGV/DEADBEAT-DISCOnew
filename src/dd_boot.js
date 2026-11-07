@@ -28,6 +28,9 @@
 
   /* ---------------------------------------------------------------- estado */
   var STATES = ["BOOT", "LOADING", "INTRO", "MAIN_MENU", "SUBMENU", "EXIT", "PLAYING"];
+  /* Pasos cuya ausencia NO es degradable: sin ellos el menú existe pero no puede
+     ejecutar ninguna acción. El modo seguro no puede saltárselos. */
+  var ESSENTIAL_IDS = ["engine", "assets", "images", "ui"];
   var state = {
     current: "BOOT",
     started: false,
@@ -424,12 +427,37 @@
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
       if (retry) retry.onclick = function () { audio.ui("ok"); location.reload(); };
-      if (safe) safe.onclick = function () {
-        audio.ui("ok");
-        state.allowSafeMode = true;
-        if (el.err) el.err.hidden = true;
-        boot().catch(function (e2) { showError(e2); });
-      };
+      if (safe) {
+        /* El modo seguro SÓLO relaja los pasos no esenciales. Si lo que falta es
+           indispensable (motor, recursos, sistema de menú), reintentar en modo
+           seguro produciría un menú decorativo que no puede actuar: en ese caso
+           el botón se desactiva y se explica por qué, en lugar de ofrecer una
+           salida falsa. */
+        var indispensable = state.criticalErrors.filter(function (e) {
+          return e.fatal && ESSENTIAL_IDS.indexOf(e.id) >= 0;
+        });
+        var blocked = indispensable.length > 0;
+        safe.disabled = blocked;
+        safe.setAttribute("aria-disabled", blocked ? "true" : "false");
+        safe.title = blocked
+          ? "Falta un recurso indispensable (" + indispensable.map(function (e) { return e.id; }).join(", ") + "). El modo seguro no puede sustituirlo."
+          : "";
+        safe.textContent = blocked ? "MODO SEGURO NO DISPONIBLE" : "MODO SEGURO";
+        if (blocked) {
+          if (el.errBody) {
+            el.errBody.textContent = msg +
+              " · Falta un recurso indispensable (" + indispensable.map(function (e) { return e.id; }).join(", ") +
+              "): el modo seguro no puede continuar sin él. Usa REINTENTAR.";
+          }
+        }
+        safe.onclick = function () {
+          if (blocked) { audio.ui("back"); return; }
+          audio.ui("ok");
+          state.allowSafeMode = true;
+          if (el.err) el.err.hidden = true;
+          boot().catch(function (e2) { showError(e2); });
+        };
+      }
     }
     emit("error", { message: msg, errors: state.criticalErrors.slice() });
   }
@@ -440,6 +468,10 @@
     document.body.classList.add("dd-booting");
     document.body.setAttribute("data-dd-state", "boot");
     setState("BOOT");
+    /* BOOT -> LOADING: el estado de carga se declara al empezar a ejecutar los
+       pasos reales, no antes. Se entra aquí y no en el render para que la
+       transición sea observable y auditable. NUNCA se declara sin pasos. */
+    setState("LOADING");
     buildBootUI();
     renderSteps();
     setProgress(0, "PREPARANDO EL CLUB");

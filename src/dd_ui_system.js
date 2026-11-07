@@ -257,9 +257,42 @@
         var sb = el("start-btn");
         if (sb) { try { sb.click(); } catch (e) {} }
       }
-      window.DD_BOOT.enterGame();
-      uiState.busy = false;
-      if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+
+      /* PLAYING sólo si el motor está REALMENTE en marcha. Antes se declaraba
+         siempre, incluso con startRun() devolviendo false: el jugador veía el
+         estado de partida sobre un motor parado. Se comprueba el motor y se
+         espera brevemente a que confirme, sin bloquear la UI para siempre. */
+      var verify = function () {
+        try {
+          if (window.DD_HUB && window.DD_HUB.isActive()) return true;
+          if (br && typeof br.isRunning === "function") return !!br.isRunning();
+          if (br && typeof br.getSnapshot === "function") {
+            var snap = br.getSnapshot();
+            return !!(snap && (snap.running || snap.isRunning));
+          }
+        } catch (e) {}
+        return false;
+      };
+
+      var confirm = function (t0) {
+        if (verify()) {
+          window.DD_BOOT.enterGame();
+          uiState.busy = false;
+          if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+          return;
+        }
+        if (Date.now() - t0 < 3000) { setTimeout(function () { confirm(t0); }, 120); return; }
+        /* El motor no arrancó: se devuelve al menú con un aviso honesto en vez
+           de fingir una partida en curso. */
+        uiState.busy = false;
+        console.warn("[DD_UI] el motor no arrancó; se cancela la entrada en partida");
+        if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
+        if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") window.DD_BOOT.exitGameToMenu();
+        if (typeof showDialogue === "function") {
+          showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+        }
+      };
+      confirm(Date.now());
     };
 
     var guard = null, lastElapsed = -1, lastAdvance = Date.now();

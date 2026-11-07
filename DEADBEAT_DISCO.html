@@ -7832,6 +7832,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
   /* ---------------------------------------------------------------- estado */
   var STATES = ["BOOT", "LOADING", "INTRO", "MAIN_MENU", "SUBMENU", "EXIT", "PLAYING"];
+  /* Pasos cuya ausencia NO es degradable: sin ellos el menú existe pero no puede
+     ejecutar ninguna acción. El modo seguro no puede saltárselos. */
+  var ESSENTIAL_IDS = ["engine", "assets", "images", "ui"];
   var state = {
     current: "BOOT",
     started: false,
@@ -8228,12 +8231,37 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
       if (retry) retry.onclick = function () { audio.ui("ok"); location.reload(); };
-      if (safe) safe.onclick = function () {
-        audio.ui("ok");
-        state.allowSafeMode = true;
-        if (el.err) el.err.hidden = true;
-        boot().catch(function (e2) { showError(e2); });
-      };
+      if (safe) {
+        /* El modo seguro SÓLO relaja los pasos no esenciales. Si lo que falta es
+           indispensable (motor, recursos, sistema de menú), reintentar en modo
+           seguro produciría un menú decorativo que no puede actuar: en ese caso
+           el botón se desactiva y se explica por qué, en lugar de ofrecer una
+           salida falsa. */
+        var indispensable = state.criticalErrors.filter(function (e) {
+          return e.fatal && ESSENTIAL_IDS.indexOf(e.id) >= 0;
+        });
+        var blocked = indispensable.length > 0;
+        safe.disabled = blocked;
+        safe.setAttribute("aria-disabled", blocked ? "true" : "false");
+        safe.title = blocked
+          ? "Falta un recurso indispensable (" + indispensable.map(function (e) { return e.id; }).join(", ") + "). El modo seguro no puede sustituirlo."
+          : "";
+        safe.textContent = blocked ? "MODO SEGURO NO DISPONIBLE" : "MODO SEGURO";
+        if (blocked) {
+          if (el.errBody) {
+            el.errBody.textContent = msg +
+              " · Falta un recurso indispensable (" + indispensable.map(function (e) { return e.id; }).join(", ") +
+              "): el modo seguro no puede continuar sin él. Usa REINTENTAR.";
+          }
+        }
+        safe.onclick = function () {
+          if (blocked) { audio.ui("back"); return; }
+          audio.ui("ok");
+          state.allowSafeMode = true;
+          if (el.err) el.err.hidden = true;
+          boot().catch(function (e2) { showError(e2); });
+        };
+      }
     }
     emit("error", { message: msg, errors: state.criticalErrors.slice() });
   }
@@ -8244,6 +8272,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     document.body.classList.add("dd-booting");
     document.body.setAttribute("data-dd-state", "boot");
     setState("BOOT");
+    /* BOOT -> LOADING: el estado de carga se declara al empezar a ejecutar los
+       pasos reales, no antes. Se entra aquí y no en el render para que la
+       transición sea observable y auditable. NUNCA se declara sin pasos. */
+    setState("LOADING");
     buildBootUI();
     renderSteps();
     setProgress(0, "PREPARANDO EL CLUB");
@@ -10574,9 +10606,42 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         var sb = el("start-btn");
         if (sb) { try { sb.click(); } catch (e) {} }
       }
-      window.DD_BOOT.enterGame();
-      uiState.busy = false;
-      if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+
+      /* PLAYING sólo si el motor está REALMENTE en marcha. Antes se declaraba
+         siempre, incluso con startRun() devolviendo false: el jugador veía el
+         estado de partida sobre un motor parado. Se comprueba el motor y se
+         espera brevemente a que confirme, sin bloquear la UI para siempre. */
+      var verify = function () {
+        try {
+          if (window.DD_HUB && window.DD_HUB.isActive()) return true;
+          if (br && typeof br.isRunning === "function") return !!br.isRunning();
+          if (br && typeof br.getSnapshot === "function") {
+            var snap = br.getSnapshot();
+            return !!(snap && (snap.running || snap.isRunning));
+          }
+        } catch (e) {}
+        return false;
+      };
+
+      var confirm = function (t0) {
+        if (verify()) {
+          window.DD_BOOT.enterGame();
+          uiState.busy = false;
+          if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+          return;
+        }
+        if (Date.now() - t0 < 3000) { setTimeout(function () { confirm(t0); }, 120); return; }
+        /* El motor no arrancó: se devuelve al menú con un aviso honesto en vez
+           de fingir una partida en curso. */
+        uiState.busy = false;
+        console.warn("[DD_UI] el motor no arrancó; se cancela la entrada en partida");
+        if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
+        if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") window.DD_BOOT.exitGameToMenu();
+        if (typeof showDialogue === "function") {
+          showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+        }
+      };
+      confirm(Date.now());
     };
 
     var guard = null, lastElapsed = -1, lastAdvance = Date.now();
