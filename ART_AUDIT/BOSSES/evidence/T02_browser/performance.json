@@ -1,0 +1,118 @@
+{
+  "url": "http://127.0.0.1:4173/DEADBEAT_DISCO.ART.html",
+  "startedAt": "2026-11-03T14:24:08.142Z",
+  "environment": {
+    "browser": "Chromium via @sparticuz/chromium",
+    "renderer": "software/SwiftShader expected in this sandbox"
+  },
+  "checks": {
+    "httpOk": true,
+    "packApplied": true,
+    "inGameRoom": true,
+    "allTenAssetsCached": true,
+    "noPageErrors": true
+  },
+  "httpStatus": 200,
+  "boot": {
+    "pack": "applied",
+    "game": {
+      "running": true,
+      "paused": false,
+      "dying": false,
+      "lives": 4,
+      "maxLives": 4,
+      "shield": 0,
+      "bombs": 3,
+      "boosts": 3,
+      "round": 11,
+      "kills": 0,
+      "score": 0,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "weapon": "M1911",
+      "level": 1,
+      "bossBar": 1,
+      "interlude": false,
+      "riskModal": false,
+      "overlay": false
+    },
+    "room": "CAMPAIGN_ROOM",
+    "bossId": "boss_05_fusioncosmica",
+    "bossDraws": 0,
+    "assets": [
+      {
+        "id": "bosses/boss_05_fusioncosmica_attack_00.png",
+        "cacheKey": "boss_05_fusioncosmica_attack",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_05_fusioncosmica_attack_01.png",
+        "cacheKey": "boss_05_fusioncosmica_attack1",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_05_fusioncosmica_hit_00.png",
+        "cacheKey": "boss_05_fusioncosmica_hit",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_05_fusioncosmica_death_00.png",
+        "cacheKey": "boss_05_fusioncosmica_death",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_06_djabismo_attack_00.png",
+        "cacheKey": "boss_06_djabismo_attack",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_06_djabismo_attack_01.png",
+        "cacheKey": "boss_06_djabismo_attack1",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_06_djabismo_hit_00.png",
+        "cacheKey": "boss_06_djabismo_hit",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_06_djabismo_death_00.png",
+        "cacheKey": "boss_06_djabismo_death",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_07_altavoztitan_attack_00.png",
+        "cacheKey": "boss_07_altavoztitan_attack",
+        "loaded": true
+      },
+      {
+        "id": "bosses/boss_07_altavoztitan_attack_01.png",
+        "cacheKey": "boss_07_altavoztitan_attack1",
+        "loaded": true
+      }
+    ]
+  },
+  "frame": {
+    "samples": 89,
+    "meanMs": 576.57,
+    "medianMs": 300,
+    "p95Ms": 833.4,
+    "maxMs": 23649.1,
+    "framesOver50ms": 52,
+    "approxFps": 1.7
+  },
+  "asset": {
+    "count": 10,
+    "totalBytes": 3254718,
+    "loaded": 10
+  },
+  "errors": [],
+  "baseline": {
+    "paired": false,
+    "reference": "T01 report measured ~1.7 FPS under the same software-rendered Chromium sandbox, but was not a paired A/B run",
+    "status": "INCONCLUSIVE"
+  },
+  "performanceAssessment": "The frame-pacing number is environment-limited by SwiftShader and has no matched baseline; report as inconclusive, not as a regression or acceptable real-GPU result.",
+  "finishedAt": "2026-11-03T14:26:42.753Z"
+}

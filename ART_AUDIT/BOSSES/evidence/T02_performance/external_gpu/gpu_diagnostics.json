@@ -1,0 +1,27 @@
+{
+  "status": "BLOCKED_SOFTWARE_RENDERER",
+  "hardware_gpu_verified": false,
+  "captured_at_utc": "2026-11-03T15:11:05Z",
+  "evidence_source": "Existing T02 performance-gate environment probe, ../environment.json",
+  "webgl": {
+    "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+    "classification": "software renderer; not hardware acceleration"
+  },
+  "host_gpu_visibility": {
+    "dev_dri": "absent",
+    "nvidia_smi": "not installed",
+    "lspci": "not installed; no PCI GPU enumeration available"
+  },
+  "chrome_system_info": {
+    "queried_for_this_external_gpu_package": false,
+    "physical_adapter": null,
+    "reason": "The recorded run used a SwiftShader-only Chromium process in a KVM sandbox with no exposed GPU device."
+  },
+  "chrome_gpu_page": {
+    "queried_for_this_external_gpu_package": false,
+    "reason": "No external hardware-GPU diagnostics were available; the harness requires WebGL and Chrome diagnostics to corroborate on the external host."
+  },
+  "decision": "BLOCKED_NO_REAL_GPU",
+  "benchmark_started": false,
+  "gpu_performance_metrics_collected": false
+}
