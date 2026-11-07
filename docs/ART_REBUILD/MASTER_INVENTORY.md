@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T11:39:54Z
+- **Última actualización:** 2026-11-07T11:54:20Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **175 / 330** recursos verificados en motor real
+- **Progreso global:** **185 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -11,12 +11,12 @@
 | `bosses` | 42 | 40 | 40 | 40 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
-| `effects` | 20 | 0 | 0 | 0 |
+| `effects` | 20 | 9 | 9 | 9 |
 | `enemies` | 24 | 24 | 24 | 24 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
 | `logos` | 2 | 2 | 2 | 2 |
-| `pickups` | 20 | 19 | 19 | 19 |
+| `pickups` | 20 | 20 | 20 | 20 |
 | `props` | 30 | 30 | 30 | 30 |
 | `ui` | 14 | 13 | 13 | 13 |
 | `walls` | 10 | 10 | 10 | 10 |
@@ -201,16 +201,16 @@
 | 173 | TANDA_18 | `rogue:echo` | Reliquia · Vinilo Retrovisor | `pickups` | `assets/pickups/relic_echo.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 174 | TANDA_18 | `rogue:coil` | Reliquia · Bobina Infernal | `pickups` | `assets/pickups/relic_coil.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
 | 175 | TANDA_18 | `rogue:prism` | Reliquia · Prisma de Humo | `pickups` | `assets/pickups/relic_prism.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
-| 176 | TANDA_18 | `rogue:tempo` | Reliquia · Metrónomo Negro | `pickups` | `assets/pickups/relic_tempo.png` | 160x160 | PENDING | PENDING | PENDING |
-| 177 | TANDA_18 | `atlas:projectile_slug` | Proyectil · Bala Cinética Dorada | `effects` | `assets/effects/proj_slug.png` | 160x96 | PENDING | PENDING | PENDING |
-| 178 | TANDA_18 | `atlas:projectile_heavy` | Proyectil · Calibre Pesado Ámbar | `effects` | `assets/effects/proj_heavy.png` | 192x96 | PENDING | PENDING | PENDING |
-| 179 | TANDA_18 | `atlas:projectile_pellet` | Proyectil · Perdigón Incandescente | `effects` | `assets/effects/proj_pellet.png` | 128x96 | PENDING | PENDING | PENDING |
-| 180 | TANDA_18 | `atlas:projectile_cryo` | Proyectil · Pulso Criogénico Cian | `effects` | `assets/effects/proj_cryo.png` | 160x96 | PENDING | PENDING | PENDING |
-| 181 | TANDA_19 | `atlas:projectile_plasma` | Proyectil · Haz de Plasma Magenta | `effects` | `assets/effects/proj_plasma.png` | 224x96 | PENDING | PENDING | PENDING |
-| 182 | TANDA_19 | `atlas:projectile_ricochet` | Proyectil · Rebote Sónico Cian | `effects` | `assets/effects/proj_ricochet.png` | 192x96 | PENDING | PENDING | PENDING |
-| 183 | TANDA_19 | `atlas:projectile_lane` | Proyectil · Onda Hoja Violeta | `effects` | `assets/effects/proj_lane.png` | 224x96 | PENDING | PENDING | PENDING |
-| 184 | TANDA_19 | `atlas:projectile_flame` | Proyectil · Llamarada Infernal | `effects` | `assets/effects/proj_flame.png` | 192x160 | PENDING | PENDING | PENDING |
-| 185 | TANDA_19 | `atlas:projectile_rail` | Proyectil · Riel Hiperveloz Violeta | `effects` | `assets/effects/proj_rail.png` | 256x96 | PENDING | PENDING | PENDING |
+| 176 | TANDA_18 | `rogue:tempo` | Reliquia · Metrónomo Negro | `pickups` | `assets/pickups/relic_tempo.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 177 | TANDA_18 | `atlas:projectile_slug` | Proyectil · Bala Cinética Dorada | `effects` | `assets/effects/proj_slug.png` | 160x96 | DONE | INTEGRATED | VERIFIED |
+| 178 | TANDA_18 | `atlas:projectile_heavy` | Proyectil · Calibre Pesado Ámbar | `effects` | `assets/effects/proj_heavy.png` | 192x96 | DONE | INTEGRATED | VERIFIED |
+| 179 | TANDA_18 | `atlas:projectile_pellet` | Proyectil · Perdigón Incandescente | `effects` | `assets/effects/proj_pellet.png` | 128x96 | DONE | INTEGRATED | VERIFIED |
+| 180 | TANDA_18 | `atlas:projectile_cryo` | Proyectil · Pulso Criogénico Cian | `effects` | `assets/effects/proj_cryo.png` | 160x96 | DONE | INTEGRATED | VERIFIED |
+| 181 | TANDA_19 | `atlas:projectile_plasma` | Proyectil · Haz de Plasma Magenta | `effects` | `assets/effects/proj_plasma.png` | 224x96 | DONE | INTEGRATED | VERIFIED |
+| 182 | TANDA_19 | `atlas:projectile_ricochet` | Proyectil · Rebote Sónico Cian | `effects` | `assets/effects/proj_ricochet.png` | 192x96 | DONE | INTEGRATED | VERIFIED |
+| 183 | TANDA_19 | `atlas:projectile_lane` | Proyectil · Onda Hoja Violeta | `effects` | `assets/effects/proj_lane.png` | 224x96 | DONE | INTEGRATED | VERIFIED |
+| 184 | TANDA_19 | `atlas:projectile_flame` | Proyectil · Llamarada Infernal | `effects` | `assets/effects/proj_flame.png` | 192x160 | DONE | INTEGRATED | VERIFIED |
+| 185 | TANDA_19 | `atlas:projectile_rail` | Proyectil · Riel Hiperveloz Violeta | `effects` | `assets/effects/proj_rail.png` | 256x96 | DONE | INTEGRATED | VERIFIED |
 | 186 | TANDA_19 | `atlas:projectile_homing` | Proyectil · Orbe Rastreador Rosa | `effects` | `assets/effects/proj_homing.png` | 192x96 | PENDING | PENDING | PENDING |
 | 187 | TANDA_19 | `vfx:muzzle_gold` | VFX · Fogonazo Disparo Dorado | `effects` | `assets/effects/vfx_muzzle_gold.png` | 192x160 | PENDING | PENDING | PENDING |
 | 188 | TANDA_19 | `vfx:muzzle_plasma` | VFX · Fogonazo Neón Magenta | `effects` | `assets/effects/vfx_muzzle_plasma.png` | 192x160 | PENDING | PENDING | PENDING |

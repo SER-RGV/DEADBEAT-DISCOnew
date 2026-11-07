@@ -21,3 +21,4 @@
 - **2026-11-07T11:11:59Z** · TANDA_15 completada (10/10). TANDA_16 integrada parcialmente (5/10): Traidor y Nucleo hit/death, más idle de Nucleo. Generación de `boss_09_nucleo_attack` falló; quedan ese boss attack y cuatro pickups. 155/160 recursos verificados.
 - **2026-11-07T11:17:40Z** · TANDA_16 completada (10/10). TANDA_17 integrada parcialmente (5/10): pickups de boost, escudo, daño, fuego y velocidad; 165/170 recursos verificados. Restan turret, companion, mutation y dos reliquias.
 - **2026-11-07T11:39:54Z** · TANDA_17 completada (10/10). TANDA_18 integrada parcialmente (5/10): reliquias magnet, pact, echo, coil y prism; 175/180 recursos verificados. Pendientes relic_tempo y cuatro proyectiles.
+- **2026-11-07T11:54:20Z** · TANDA_18 completada (10/10). TANDA_19 integrada parcialmente (5/10): cinco proyectiles (plasma, ricochet, lane, flame, rail); 185/190 recursos verificados. Pendientes proj_homing y cuatro VFX.
