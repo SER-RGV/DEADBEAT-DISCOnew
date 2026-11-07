@@ -1,0 +1,62 @@
+{
+  "tanda": "HUB-02",
+  "date": "2026-11-03",
+  "build": "DEADBEAT_DISCO.ART.html",
+  "method": "ART_TOOLS/qa/hub_tanda_02_audit.js · Chromium 131 + Playwright 1.58.2 · 1280x900 · 10 zonas con DMO.debug.teleport · conteo reiniciado ya dentro del HUB",
+  "evidence": "ART_EVIDENCE/hub/tanda_02/audit_runtime.json + audit_<zona>.png",
+  "measured": {
+    "v5Keys": 118,
+    "slotsDrawnPerFrameInHub": 21,
+    "slotsTaggedTanda01": 8,
+    "hubAudit": { "ok": true, "location": "HUB", "zones": 6, "stations": 11 },
+    "pageErrors": 0,
+    "preexistingCloudflare404": 2
+  },
+  "classes": {
+    "1": "EXISTENTE Y CORRECTO",
+    "2": "EXISTENTE PERO NECESITA MEJORA",
+    "3": "INCOMPLETO",
+    "4": "AUSENTE",
+    "5": "INTERACTIVO",
+    "6": "PENDIENTE DE VALIDACIÓN"
+  },
+  "note": "El pliego enumera 7 puntos, pero el 7 es el apartado de dirección artística, no una clase. INTERACTIVO es superimpuesta.",
+  "items": [
+    { "slot": "t3b_material_01", "id": "HUB-01", "size": [512, 512], "class": ["1"], "decision": "conservar" },
+    { "slot": "hub_pista_medallion", "id": "HUB-02", "size": [760, 430], "class": ["1"], "decision": "conservar" },
+    { "slot": "wall_stained_glass_arch", "id": "HUB-03", "size": [120, 176], "class": ["6"], "decision": "conservar; desviacion de caja preexistente" },
+    { "slot": "hub_dj_shrine", "id": "HUB-04", "size": [720, 392], "class": ["1", "5"], "decision": "conservar" },
+    { "slot": "hub_bar_shrine", "id": "HUB-05", "size": [380, 313], "class": ["1", "5"], "decision": "conservar" },
+    { "slot": "club_speaker_tower_prop", "id": "HUB-06", "size": [76, 148], "class": ["1"], "decision": "conservar" },
+    { "slot": "hub_vip_booth_nw / hub_vip_booth_ne", "id": "HUB-07", "size": [224, 172], "class": ["1"], "decision": "conservar" },
+    { "slot": "hub_disco_chandelier", "id": "HUB-08", "size": [67, 152], "class": ["1"], "decision": "conservar" },
+    { "slot": "hub_abyss_stair_crack", "id": "HUB-09", "size": [320, 175], "class": ["1", "5"], "decision": "conservar" },
+    { "slot": "hub_trophy_board_prop", "id": "HUB-10", "size": [167, 136], "class": ["1"], "decision": "conservar" },
+    { "slot": "hub_fox_crest_emblem", "size": [560, 332], "class": ["1"], "decision": "conservar; compartido con HUD/portada/victoria" },
+    { "slot": "wall_neon_club_crest", "size": [84, 84], "class": ["1"], "decision": "conservar; servido por arquitectura TANDA 02 A10" },
+    { "slot": "decor_neon_rug / decor_neon_painting / decor_chrome_railing / decor_potted_palm", "class": ["1"], "decision": "conservar; assets de la TANDA 01 en caché" },
+    { "slot": "hub_clubber_dancer_a / hub_clubber_dancer_b / hub_cliente000_npc", "class": ["1", "6"], "decision": "no sustituir; personajes animados" },
+    { "slot": "hub_arcade_shrine", "size": [264, 239], "class": ["2", "5"], "zone": "F1 Rincon Arcade (655,1210)", "decision": "SELECCIONADO T02-01" },
+    { "slot": "hub_arsenal_shrine", "size": [360, 253], "class": ["2", "5"], "zone": "D Arsenal de Caronte (590,845)", "decision": "SELECCIONADO T02-02" },
+    { "slot": "hub_seals_shrine", "size": [244, 237], "class": ["2", "5"], "zone": "F2 Espejo de los Sellos (1845,1210)", "decision": "SELECCIONADO T02-03" },
+    { "slot": "club_vending_machine_prop", "size": [100, 152], "class": ["2"], "zone": "este (2048,692)", "decision": "SELECCIONADO T02-04" },
+    { "slot": "club_water_cooler_prop", "size": [61, 136], "class": ["2"], "zone": "oeste (452,692)", "decision": "SELECCIONADO T02-05" },
+    { "slot": "limbo_bench_prop", "size": [256, 198], "class": ["2"], "zone": "bancos del descenso (1037,1178)", "decision": "SELECCIONADO T02-06" },
+    { "slot": "club_neon_planter_prop", "size": [96, 108], "class": ["2"], "zone": "4 jardineras (1005/1495 x 702/1178)", "decision": "SELECCIONADO T02-07 variante" },
+    { "slot": "descent_abyssal_lift_pad", "size": [198, 104], "class": ["2", "5"], "zone": "plataforma de descenso y puertas", "decision": "SELECCIONADO T02-08" },
+    { "slot": "wall_ceiling_neon_fixture", "size": [148, 38], "class": ["2"], "zone": "techo/muro, caché de pared (fn=168)", "decision": "SELECCIONADO T02-09" },
+    { "slot": "club_wall_sconce_side", "size": [48, 60], "class": ["2"], "zone": "apliques de arista, caché (fn=228)", "decision": "SELECCIONADO T02-10" },
+    { "slot": "hub_vip_booth_lounge", "class": ["4"], "decision": "no activar; clave consultada en banner, no dibujada en HUB" },
+    { "slot": "club_roadcase_crate_prop / club_wall_sconce_torch / prop_bench_vertical / prop_table_vertical / hub_hell_elevator", "class": ["4"], "decision": "registrados pero 0 dibujos en HUB; no activar sin pintor" },
+    { "slot": "panos de suelo perimetrales O/E/S y corredor norte", "class": ["3"], "decision": "no rellenar; propuesta TANDA 03" },
+    { "slot": "animacion de mobiliario / senaletica dinamica", "class": ["6"], "decision": "propuesta documentada, no implementada" },
+    { "slot": "limbo_floor_medallion / limbo_gate_stage / wall_limbo_ticket_window", "class": ["6"], "decision": "caché de arranque, pertenencia al HUB no confirmada; no tocar" }
+  ],
+  "selected": ["hub_arcade_shrine", "hub_arsenal_shrine", "hub_seals_shrine", "club_vending_machine_prop", "club_water_cooler_prop", "limbo_bench_prop", "club_neon_planter_prop", "descent_abyssal_lift_pad", "wall_ceiling_neon_fixture", "club_wall_sconce_side"],
+  "tanda01Incidents": {
+    "hub01_loaderResolves_0": "esperable: entra por __T3B_IMAGES[1]/createPattern, no por __DDM_GET_V5. Sin impacto: los 10 slots nuevos son V5.",
+    "hub03_deviation_26_92pct": "transformacion 135x156 preexistente del pintor de muros; el PNG no esta deformado. Sin impacto: no se usa ese slot. No se modifica el motor.",
+    "tile_seam_12_57": "diferencia media de borde del tile HUB-01 tras half-tile offset. Sin impacto: la TANDA 02 no genera tiles.",
+    "cloudflare_404_x2": "preexistentes, sin pageerror ni 404 locales. Se excluyen de la comprobacion 3 y se cuentan aparte. No se eliminan scripts."
+  }
+}

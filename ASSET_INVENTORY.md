@@ -85,3 +85,88 @@ Las dimensiones finales **son exactamente las del recurso original** para no alt
 - Las 13 URIs `INLINE_JS` no tienen clave legible: se identifican por offset en el HTML y se conservan; su consumidor exacto no se ha mapeado uno a uno → **PARCIALMENTE VERIFICADO**.
 - `codeRefs=0` en `__HD_DATA` y `__T3B_IMAGES` no significa «sin uso»: el código construye las claves dinámicamente (`"weapons/weapon_"+wid+".png"`) o accede por índice. Se verificó leyendo los consumidores, no solo contando literales.
 - El estado visual de los 286 recursos no seleccionados se ha revisado por decodificación, **no** uno a uno en pantalla → **PARCIALMENTE VERIFICADO**.
+
+---
+
+## 7. HUB · Tanda 01 (añadido 2026-11-03)
+
+Nueva familia externa de 10 PNG en `ART_ASSETS/hub/tanda_01/` con sus 10 fuentes en `_source/` y manifiesto máquina `manifest.json` (SHA-256, bytes, dimensiones, modo, alfa, cobertura, bordes, halo, slot, loader, clasificación, rol, caja de dibujo, anclaje y preparación). Se suma a las 300 URIs `data:` auditadas en las secciones anteriores; **no se eliminó ni sustituyó ningún recurso embebido**: los originales se conservan en `ORIGINALS` / `HUB_ORIGINALS` dentro de `ART_PACK/art_pack.js` y se pueden restaurar con `hubRestore()` / `restoreArch()`.
+
+| ID | Final | Dimensiones | Modo | Slot | Clasificación |
+|---|---|---|---|---|---|
+| HUB-01 | `hub_01_suelo_central.png` | 512×512 | RGB | `t3b_material_01` | Arquitectónico / Funcional |
+| HUB-02 | `hub_02_pista_central.png` | 760×430 | RGBA | `hub_pista_medallion` | Decorativo |
+| HUB-03 | `hub_03_paredes.png` | 120×176 | RGBA | `wall_stained_glass_arch` | Arquitectónico |
+| HUB-04 | `hub_04_cabina_dj.png` | 720×392 | RGBA | `hub_dj_shrine` | Interactivo |
+| HUB-05 | `hub_05_barra_bebidas.png` | 380×313 | RGBA | `hub_bar_shrine` | Interactivo |
+| HUB-06 | `hub_06_columnas.png` | 76×148 | RGBA | `club_speaker_tower_prop` | Arquitectónico |
+| HUB-07 | `hub_07_sofas_asientos.png` | 224×172 | RGBA | `hub_vip_booth_nw` + `_ne` | Decorativo |
+| HUB-08 | `hub_08_luminarias_neones.png` | 67×152 | RGBA | `hub_disco_chandelier` | Funcional / Decorativo |
+| HUB-09 | `hub_09_puertas_accesos.png` | 320×175 | RGBA | `hub_abyss_stair_crack` | Interactivo / Funcional |
+| HUB-10 | `hub_10_decoracion_ambiental.png` | 167×136 | RGBA | `hub_trophy_board_prop` | Decorativo |
+
+Evidencias: `ART_EVIDENCE/hub/tanda_01/`. Informe: `ART_TANDA_01_HUB_REPORT.md`. Hashes del cambio: `ART_EVIDENCE/hub/tanda_01/hashes.json`.
+
+---
+
+## 8. HUB · Tanda 02 (añadido 2026-11-03)
+
+Inventario de necesidades previo: `ART_AUDIT/hub_tanda_02_needs_inventory.json` (6 clases + `INTERACTIVO` superimpuesta). Auditoría visual: `ART_HUB_TANDA_02_AUDIT.md` con 10 capturas `audit_*.png` y `audit_runtime.json` (21 slots dibujados en el HUB, 118 claves V5, 6 zonas, 11 estaciones). Dimensiones **medidas** en el registro V5 del HUB, no estimadas.
+
+| ID | Archivo final | Dimensiones | Modo | Slot V5 | Función / ubicación | Clase |
+|---|---|---|---|---|---|---|
+| T02-01 | `hub_t02_01_arcade.png` | 264×239 | RGBA | `hub_arcade_shrine` | Recreativas, zona F1 (655,1210) | 2 + 5 |
+| T02-02 | `hub_t02_02_arsenal.png` | 360×253 | RGBA | `hub_arsenal_shrine` | Arsenal, zona D (590,845) | 2 + 5 |
+| T02-03 | `hub_t02_03_seals.png` | 244×237 | RGBA | `hub_seals_shrine` | Espejo de Sellos, zona F2 (1845,1210) | 2 + 5 |
+| T02-04 | `hub_t02_04_vending.png` | 100×152 | RGBA | `club_vending_machine_prop` | Expendedora este (2048,692), compartida | 2 |
+| T02-05 | `hub_t02_05_cooler.png` | 61×136 | RGBA | `club_water_cooler_prop` | Dispensador oeste (452,692), compartida | 2 |
+| T02-06 | `hub_t02_06_bench.png` | 256×198 | RGBA | `limbo_bench_prop` | Bancos del descenso (1037,1178) | 2 |
+| T02-07 | `hub_t02_07_planter.png` | 96×108 | RGBA | `club_neon_planter_prop` | 4 jardineras (966,614), compartida | 2 |
+| T02-08 | `hub_t02_08_liftpad.png` | 198×104 | RGBA | `descent_abyssal_lift_pad` | Plataforma de descenso, puertas de sala | 2 + 5 |
+| T02-09 | `hub_t02_09_ceiling_fixture.png` | 148×38 | RGBA | `wall_ceiling_neon_fixture` | Neón horizontal de techo/muro, capa cacheada | 2 |
+| T02-10 | `hub_t02_10_sconce.png` | 48×60 | RGBA | `club_wall_sconce_side` | Aplique lateral, capa de aristas cacheada | 2 |
+
+Cada fila tiene en `ART_ASSETS/hub/tanda_02/manifest.json`: fuente original (`_source/`), SHA-256, caja medida, anclaje, pivote, escala, clasificación, rol, transparencia, bordes y halo. T02-04 documenta `sourceCrop=[510,0,925,768]` para aislar una expendedora sin modificar la fuente.
+
+**Conservación:** los 10 assets, 10 fuentes, el manifiesto y las evidencias de la TANDA 01 permanecen intactos; no se movió ni renombró ningún archivo anterior. Integración en `ART_PACK/art_pack.js` (único archivo de código modificado). Evidencias: `ART_EVIDENCE/hub/tanda_02/`. Informe: `ART_TANDA_02_HUB_REPORT.md`. Hashes de la entrega: `ART_EVIDENCE/hub/tanda_02/hashes.json`.
+
+---
+
+## HUB · TANDA 03 — Inventario (8 unidades / 13 PNG finales)
+
+Ruta: `ART_ASSETS/hub/tanda_03/<carpeta>/{source,final}/`. Manifiesto: `ART_ASSETS/hub/tanda_03/manifest.json` con dimensiones y SHA-256 **medidos**, clasificación, rol, rectángulo mundo, anclaje, pivote, escala, transparencia y **estado de integración**.
+
+| ID | Unidad | Finales | Dimensiones reales | Slot / sistema | Estado |
+|---|---|---|---|---|---|
+| T03-01 | `HUB_FLOOR_PATCH_O` | `hub_floor_patch_o.png` | 580×430 | `__T3B_HUB_QA` suelo 1920×1320 en (290,265), caja `[290,720,580,430]` | BLOQUEADO (sin slot) |
+| T03-02 | `HUB_FLOOR_PATCH_E` | `hub_floor_patch_e.png` | 580×430 | caja `[1630,720,580,430]` | BLOQUEADO (sin slot) |
+| T03-03 | `HUB_FLOOR_PATCH_S_CRACK` | `hub_floor_patch_s_crack.png` | 760×329 | grieta `[1085,1256,330,180]`, borde sur 1585 | BLOQUEADO (sin slot) |
+| T03-04 | `HUB_FLOOR_NORTH_DJ` | `hub_floor_north_dj.png` | 760×224 | DJ `[1058,280,384,209]` | BLOQUEADO (sin slot) |
+| T03-05 | `HUB_PLANTER_VARIANT_02` | `hub_planter_variant_02.png` | 96×108 | natural de `club_neon_planter_prop` (T02) | BLOQUEADO (sin 2.º slot) |
+| T03-06 | `HUB_BENCH_VARIANT_02` | `hub_bench_variant_02.png` | 256×198 | natural de `limbo_bench_prop` (T02) | BLOQUEADO (sin 2.º slot) |
+| T03-07 | `HUB_VIP_BOOTH_LOUNGE` | `hub_vip_booth_lounge.png` | 216×136 | `hub_vip_booth_lounge`, caja real 108×68 ×4 en `d.menu` del MENÚ | BLOQUEADO (renderer inactivo, D-07) |
+| T03-08 | `HUB_ZONE_SIGNAGE` | 6 × `hub_zone_signage_{a..f}_*.png` | 192×128 c/u | sin slot V5 declarado explícitamente | BLOQUEADO (sin slot) |
+
+Todos se cargan con `load()` y se registran en `window.__DDM_V5_IMG` con alias `h03_*` trazables (más `hub_vip_booth_lounge`). **Registro ≠ integración**: 8/8 unidades están `BLOQUEADO` para render y `NO VERIFICADO` para visibilidad en producción. 13/13 `exactSize`, RGBA, esquinas transparentes, halo ≤ 0,11 %. Las 8 fuentes originales se conservan íntegras. Hashes de entrega: `ART_EVIDENCE/hub/tanda_03/hashes.json` (152 entradas, 0 discrepancias). Capturas individuales: `ART_EVIDENCE/hub/tanda_03/asset_01…13_*.png` y `hoja_recursos_tanda_03.jpg` (**evidencia de archivo, no in-game**).
+
+**Conservación:** TANDA 01 y TANDA 02 (21 archivos por tanda, 10 fuentes y 10 finales cada una), HTML activo y backups intactos. Único archivo de código modificado: `ART_PACK/art_pack.js`.
+
+<!-- TANDA08:INVENTORY -->
+## HUB · TANDA 08 — Inventario (10 unidades / 10 PNG finales)
+
+Ruta: `ART_ASSETS/hub/tanda_08/<carpeta>/final/`. Manifiesto: `ART_ASSETS/hub/tanda_08/manifest.json` (`INTEGRADO_VALIDADO`) con dimensiones y SHA-256 **medidos**, plano de profundidad, pivote centro, anclaje de cámara, función visual y verificación de alfa. Fuentes en `_source/`.
+
+| ID | Alias V5 | Dimensiones | Plano | Estado |
+|---|---|---|---|---|
+| T08-01 | `h08_pared_cercana_izq` | 900×300 | P1 cercano | INTEGRADO_VALIDADO |
+| T08-02 | `h08_pared_cercana_der` | 900×300 | P1 cercano | INTEGRADO_VALIDADO |
+| T08-03 | `h08_estrato_medio` | 1600×220 | P2 medio | INTEGRADO_VALIDADO |
+| T08-04 | `h08_columna_natural` | 300×460 | P2 medio | INTEGRADO_VALIDADO |
+| T08-05 | `h08_plataforma_suspendida` | 700×260 | P3 intermedio | INTEGRADO_VALIDADO |
+| T08-06 | `h08_pared_lejana` | 1600×180 | P4 lejano | INTEGRADO_VALIDADO |
+| T08-07 | `h08_rocas_suspendidas` | 900×260 | P3 intermedio | INTEGRADO_VALIDADO |
+| T08-08 | `h08_cavidades_lejanas` | 1600×160 | P4 lejano | INTEGRADO_VALIDADO |
+| T08-09 | `h08_luces_abismo` | 1200×200 | P5 fondo | INTEGRADO_VALIDADO |
+| T08-10 | `h08_humo_infernal` | 360×640 | Ambiente | INTEGRADO_VALIDADO |
+
+10/10 `exactSize`, RGBA con alfa real, esquinas transparentes, halo claro 0,0 %. Se registran con el MISMO `load()` en `window.__DDM_V5_IMG` (alias `h08_*`) y se dibujan **en espacio de pantalla** desde el hook `zf`, no como props de mundo: no alteran Y-sort, colisiones ni geometría. Hashes: `ART_EVIDENCE/hub/tanda_08/hashes.json` (10/10, 0 discrepancias). Comparativas A/B: `t08_AB_ON_*/OFF_*.jpg` y `t08_comparativa_*.jpg`.

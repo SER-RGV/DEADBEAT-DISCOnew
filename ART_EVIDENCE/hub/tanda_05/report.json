@@ -1,0 +1,3915 @@
+{
+  "tanda": "05",
+  "title": "HUB · TANDA 05 — Equipamiento, vida ambiental e interactividad (10 assets)",
+  "generatedAt": "2026-11-04T00:19:03.170Z",
+  "environment": {
+    "chromium": "131.0.6778.0",
+    "playwrightCore": "1.58.2",
+    "viewport": [
+      1280,
+      900
+    ],
+    "deviceScaleFactor": 1,
+    "renderer": "SwiftShader / --use-gl=swiftshader",
+    "url": "http://127.0.0.1:8123/",
+    "camera": "DMO.debug.teleport(x,y) · 10 zonas idénticas en las 3 fases",
+    "capture": "page.screenshot()",
+    "bootToHub": "click(640,450)+Enter+Escape 2800 ms"
+  },
+  "integration": {
+    "htmlSha256": "167a781261cf169cc4103b9f09b4a2d47a07cfde198fa6510180cc25497033c4",
+    "artPackSha256": "335a4672c935afadf8a509f027f6177e2b099d095dc651b6c2a7601ddc4ca051",
+    "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05",
+    "flag": "window.__DDM_HUB_T05 !== false",
+    "loader": "ART_PACK/art_pack.js :: load() -> __DDM_V5_IMG[h05_*]",
+    "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc (Y-sort)",
+    "markers": {
+      "begin": 3,
+      "end": 3,
+      "t04begin": 4,
+      "hub5Blocks": 1,
+      "t05Decor": 10,
+      "hang": 4,
+      "solidFalse": true,
+      "noShadowForHang": true,
+      "flag": true
+    }
+  },
+  "baseline": {
+    "v5KeysT04": 142,
+    "canvasCountBase": 27,
+    "stationsCount": 11,
+    "zonesCount": 6
+  },
+  "phases": [
+    "antes",
+    "control",
+    "despues"
+  ],
+  "integrationCriterion": "10/10 drawImage efectivos en el canvas de mundo 1280x900 del HUB + caja en pantalla + confirmación de píxel OFF/ON en caliente. El registro V5 NO basta.",
+  "summary": {
+    "APROBADO": 14,
+    "FALLIDO": 0,
+    "BLOQUEADO": 0,
+    "NO_VERIFICADO": 0,
+    "UNIDADES_INTEGRADAS": 10,
+    "UNIDADES_CON_DRAWIMAGE": 10,
+    "UNIDADES_CON_PIXEL_DIFF": 10
+  },
+  "checks": [
+    {
+      "id": 1,
+      "check": "Carga de los diez assets: 10/10 PNG por HTTP 200, load() y registro V5",
+      "state": "APROBADO",
+      "detail": {
+        "http200": [
+          "hub_t05_01_garra_del_limbo.png",
+          "hub_t05_02_banco_del_olvido.png",
+          "hub_t05_03_subwoofer_stack.png",
+          "hub_t05_04_video_wall.png",
+          "hub_t05_05_consola_aux.png",
+          "hub_t05_06_neon_ultimo_trago.png",
+          "hub_t05_07_cartel_ultima_sesion.png",
+          "hub_t05_08_line_array.png",
+          "hub_t05_09_cordon_vip.png",
+          "hub_t05_10_confesionario.png"
+        ],
+        "http200Count": 10,
+        "assetResponsesOtherThan200": [],
+        "hub5": {
+          "count": 10,
+          "registered": 10,
+          "loaded": 10,
+          "exactSize": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "hub5Aliases": [
+          {
+            "id": "T05-01",
+            "alias": "h05_garra_del_limbo",
+            "natural": [
+              147,
+              280
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-02",
+            "alias": "h05_banco_del_olvido",
+            "natural": [
+              133,
+              240
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-03",
+            "alias": "h05_subwoofer_stack",
+            "natural": [
+              253,
+              160
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-04",
+            "alias": "h05_video_wall",
+            "natural": [
+              249,
+              144
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-05",
+            "alias": "h05_consola_aux",
+            "natural": [
+              150,
+              140
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-06",
+            "alias": "h05_neon_ultimo_trago",
+            "natural": [
+              201,
+              192
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-07",
+            "alias": "h05_cartel_ultima_sesion",
+            "natural": [
+              196,
+              130
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-08",
+            "alias": "h05_line_array",
+            "natural": [
+              68,
+              178
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-09",
+            "alias": "h05_cordon_vip",
+            "natural": [
+              128,
+              120
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          },
+          {
+            "id": "T05-10",
+            "alias": "h05_confesionario",
+            "natural": [
+              158,
+              260
+            ],
+            "exactSize": true,
+            "loaderResolves": 1,
+            "aliasLive": true
+          }
+        ],
+        "v5Keys": {
+          "antes": 152,
+          "control": 152,
+          "despues": 152,
+          "baselineT04": 142,
+          "added": 10
+        },
+        "artPack": {
+          "status": "applied",
+          "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05",
+          "errors": []
+        },
+        "hub5AtBootAntes": {
+          "count": 10,
+          "registered": 10,
+          "loaded": 10,
+          "exactSize": 10,
+          "enabled": true,
+          "errors": []
+        },
+        "loadCost": {
+          "startedAt": 1793751504627,
+          "appliedAt": 1793751504627,
+          "finishedAt": 1793751504858,
+          "hub5AppliedAt": 1793751504858,
+          "totalLoadMs": 231,
+          "hub5LoadMs": 231
+        },
+        "loadMs": {
+          "antes": 1469,
+          "control": 1287,
+          "despues": 1406
+        },
+        "note": "El flag __DDM_HUB_T05 desactiva SOLO el render: en ANTES los 10 PNG también se cargan y registran (142+10=152 claves V5). Prueba de CARGA, no prueba VISUAL."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "antes_runtime.json",
+        "control_runtime.json",
+        "verificacion_carga.json"
+      ]
+    },
+    {
+      "id": 2,
+      "check": "Visibilidad: 10/10 drawImage medidos en el canvas de mundo, A/B 0→10→0→10",
+      "state": "APROBADO",
+      "detail": {
+        "drawKeysDespues": [
+          "HUB|T05-01",
+          "HUB|T05-02",
+          "HUB|T05-03",
+          "HUB|T05-04",
+          "HUB|T05-05",
+          "HUB|T05-06",
+          "HUB|T05-07",
+          "HUB|T05-08",
+          "HUB|T05-09",
+          "HUB|T05-10"
+        ],
+        "drawKeysAntes": [],
+        "drawKeysControlOff": [],
+        "drawKeysControlOn": [
+          "HUB|T05-01",
+          "HUB|T05-02",
+          "HUB|T05-03",
+          "HUB|T05-04",
+          "HUB|T05-05",
+          "HUB|T05-06",
+          "HUB|T05-07",
+          "HUB|T05-08",
+          "HUB|T05-09",
+          "HUB|T05-10"
+        ],
+        "drawKeysHub5Restore": [],
+        "drawKeysHub5Apply": [
+          "HUB|T05-01",
+          "HUB|T05-02",
+          "HUB|T05-03",
+          "HUB|T05-04",
+          "HUB|T05-05",
+          "HUB|T05-06",
+          "HUB|T05-07",
+          "HUB|T05-08",
+          "HUB|T05-09",
+          "HUB|T05-10"
+        ],
+        "preBootWorldDrawsNotCounted": {
+          "keys": [
+            "MENU|HUB-02",
+            "MENU|HUB-03",
+            "MENU|HUB-04",
+            "MENU|HUB-05",
+            "MENU|HUB-06",
+            "MENU|HUB-07",
+            "MENU|HUB-08",
+            "MENU|HUB-09",
+            "MENU|HUB-10",
+            "MENU|T02-01",
+            "MENU|T02-02",
+            "MENU|T02-03",
+            "MENU|T02-04",
+            "MENU|T02-05",
+            "MENU|T02-06",
+            "MENU|T02-07",
+            "MENU|T02-08",
+            "MENU|T02-09",
+            "MENU|T02-10",
+            "MENU|T03-01",
+            "MENU|T03-02",
+            "MENU|T03-03",
+            "MENU|T03-04",
+            "MENU|T03-05",
+            "MENU|T03-06",
+            "MENU|T03-07",
+            "MENU|T03-08-A",
+            "MENU|T03-08-B",
+            "MENU|T03-08-C",
+            "MENU|T03-08-D",
+            "MENU|T03-08-E",
+            "MENU|T03-08-F",
+            "MENU|T05-01",
+            "MENU|T05-02",
+            "MENU|T05-03",
+            "MENU|T05-04",
+            "MENU|T05-05",
+            "MENU|T05-06",
+            "MENU|T05-07",
+            "MENU|T05-08",
+            "MENU|T05-09",
+            "MENU|T05-10"
+          ],
+          "totalDraws": 1345,
+          "canvas": "1280x900 (mundo del HUB detrás de la portada)",
+          "note": "No se cuentan como integración; tampoco se dibuja T05 en menu-canvas54 (960x540) ni en otro canvas."
+        },
+        "t05DrawsOutsideWorldCanvas": [],
+        "hub5RestoreResult": 10,
+        "hub5ApplyResult": 10,
+        "perUnitOnScreen": [
+          {
+            "artId": "T05-01",
+            "drawCalls": 513,
+            "onScreen": 172,
+            "sampleBox": [
+              -149,
+              596,
+              -60,
+              764
+            ]
+          },
+          {
+            "artId": "T05-02",
+            "drawCalls": 726,
+            "onScreen": 387,
+            "sampleBox": [
+              1342,
+              483,
+              1420,
+              624
+            ]
+          },
+          {
+            "artId": "T05-03",
+            "drawCalls": 748,
+            "onScreen": 349,
+            "sampleBox": [
+              228,
+              -173,
+              406,
+              -61
+            ]
+          },
+          {
+            "artId": "T05-04",
+            "drawCalls": 541,
+            "onScreen": 225,
+            "sampleBox": [
+              842,
+              -201,
+              1020,
+              -98
+            ]
+          },
+          {
+            "artId": "T05-05",
+            "drawCalls": 755,
+            "onScreen": 748,
+            "sampleBox": [
+              895,
+              -42,
+              965,
+              24
+            ]
+          },
+          {
+            "artId": "T05-06",
+            "drawCalls": 705,
+            "onScreen": 643,
+            "sampleBox": [
+              1212,
+              46,
+              1307,
+              136
+            ]
+          },
+          {
+            "artId": "T05-07",
+            "drawCalls": 530,
+            "onScreen": 501,
+            "sampleBox": [
+              -54,
+              136,
+              116,
+              249
+            ]
+          },
+          {
+            "artId": "T05-08",
+            "drawCalls": 889,
+            "onScreen": 876,
+            "sampleBox": [
+              610,
+              52,
+              671,
+              211
+            ]
+          },
+          {
+            "artId": "T05-09",
+            "drawCalls": 759,
+            "onScreen": 748,
+            "sampleBox": [
+              301,
+              -14,
+              380,
+              61
+            ]
+          },
+          {
+            "artId": "T05-10",
+            "drawCalls": 887,
+            "onScreen": 645,
+            "sampleBox": [
+              1034,
+              52,
+              1119,
+              192
+            ]
+          }
+        ],
+        "canvasPerUnit": {
+          "HUB|T05-01": [
+            "1280x900"
+          ],
+          "HUB|T05-02": [
+            "1280x900"
+          ],
+          "HUB|T05-03": [
+            "1280x900"
+          ],
+          "HUB|T05-04": [
+            "1280x900"
+          ],
+          "HUB|T05-05": [
+            "1280x900"
+          ],
+          "HUB|T05-06": [
+            "1280x900"
+          ],
+          "HUB|T05-07": [
+            "1280x900"
+          ],
+          "HUB|T05-08": [
+            "1280x900"
+          ],
+          "HUB|T05-09": [
+            "1280x900"
+          ],
+          "HUB|T05-10": [
+            "1280x900"
+          ]
+        },
+        "wrongCanvas": [],
+        "fullVisibilityByAsset": {
+          "T05-01": [
+            "vip_este",
+            "arcade",
+            "sellos"
+          ],
+          "T05-02": [
+            "dj",
+            "bar",
+            "arcade",
+            "sellos",
+            "norte"
+          ],
+          "T05-03": [
+            "centro",
+            "bar",
+            "pared_oeste"
+          ],
+          "T05-04": [
+            "centro",
+            "vip_oeste",
+            "vip_este",
+            "pared_oeste",
+            "norte"
+          ],
+          "T05-05": [
+            "centro",
+            "dj",
+            "vip_oeste",
+            "vip_este",
+            "pared_oeste"
+          ],
+          "T05-06": [
+            "dj",
+            "bar",
+            "vip_oeste",
+            "vip_este",
+            "norte"
+          ],
+          "T05-07": [
+            "bar",
+            "vip_oeste",
+            "sellos"
+          ],
+          "T05-08": [
+            "centro",
+            "dj",
+            "bar",
+            "vip_oeste",
+            "sellos",
+            "pared_oeste",
+            "norte",
+            "pared_este"
+          ],
+          "T05-09": [
+            "centro",
+            "bar",
+            "pared_oeste"
+          ],
+          "T05-10": [
+            "centro",
+            "dj",
+            "vip_oeste",
+            "pared_oeste",
+            "norte",
+            "pared_este"
+          ]
+        },
+        "flag": {
+          "antes": false,
+          "controlOn": true,
+          "controlOff": false
+        },
+        "worldCanvasRect": [
+          0,
+          0,
+          1280,
+          900,
+          1280,
+          900
+        ],
+        "pixelConfirmation": {
+          "state": "APROBADO",
+          "assetsConfirmed": 10,
+          "minSignalPct": 11.094,
+          "maxNoisePct": 1.392,
+          "evidence": "visual_diff.json",
+          "method": "tripletas OFF/OFF/ON por zona en el MISMO contexto"
+        },
+        "note": "Criterio: drawImage real en HUB, no en el canvas del MENÚ (960x540). El registro V5 por sí solo NO aprueba."
+      },
+      "evidence": [
+        "draw_calls.json",
+        "control_off_a_centro.png",
+        "control_on_centro.png",
+        "despues_01_hub.png",
+        "visual_diff.json"
+      ]
+    },
+    {
+      "id": 3,
+      "check": "Escala y dimensiones: aspecto nativo conservado, sin deformación",
+      "state": "APROBADO",
+      "detail": {
+        "rows": [
+          {
+            "artId": "T05-01",
+            "natural": [
+              147,
+              280
+            ],
+            "worldH": 180,
+            "computedDw": 95,
+            "computedWorldBox": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "measuredArgs": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "expectedArgs": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "argsOk": true,
+            "screenBox": [
+              -149,
+              596,
+              -60,
+              764
+            ],
+            "screenRatio": 0.5298,
+            "expectedRatio": 0.5278,
+            "ratioOk": true,
+            "hub5Natural": [
+              147,
+              280
+            ],
+            "hub5WorldBox": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "manifestWorldBox": [
+              408,
+              1130,
+              94,
+              180
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-02",
+            "natural": [
+              133,
+              240
+            ],
+            "worldH": 150,
+            "computedDw": 83,
+            "computedWorldBox": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "measuredArgs": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "expectedArgs": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "argsOk": true,
+            "screenBox": [
+              1342,
+              483,
+              1420,
+              624
+            ],
+            "screenRatio": 0.5532,
+            "expectedRatio": 0.5533,
+            "ratioOk": true,
+            "hub5Natural": [
+              133,
+              240
+            ],
+            "hub5WorldBox": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "manifestWorldBox": [
+              1999,
+              1010,
+              83,
+              150
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-03",
+            "natural": [
+              253,
+              160
+            ],
+            "worldH": 120,
+            "computedDw": 190,
+            "computedWorldBox": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "measuredArgs": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "expectedArgs": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "argsOk": true,
+            "screenBox": [
+              228,
+              -173,
+              406,
+              -61
+            ],
+            "screenRatio": 1.5893,
+            "expectedRatio": 1.5833,
+            "ratioOk": true,
+            "hub5Natural": [
+              253,
+              160
+            ],
+            "hub5WorldBox": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "manifestWorldBox": [
+              810,
+              310,
+              190,
+              120
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-04",
+            "natural": [
+              249,
+              144
+            ],
+            "worldH": 110,
+            "computedDw": 190,
+            "computedWorldBox": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "measuredArgs": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "expectedArgs": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "argsOk": true,
+            "screenBox": [
+              842,
+              -201,
+              1020,
+              -98
+            ],
+            "screenRatio": 1.7282,
+            "expectedRatio": 1.7273,
+            "ratioOk": true,
+            "hub5Natural": [
+              249,
+              144
+            ],
+            "hub5WorldBox": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "manifestWorldBox": [
+              1465,
+              250,
+              190,
+              110
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-05",
+            "natural": [
+              150,
+              140
+            ],
+            "worldH": 70,
+            "computedDw": 75,
+            "computedWorldBox": [
+              1523,
+              450,
+              75,
+              70
+            ],
+            "measuredArgs": [
+              0,
+              0,
+              75,
+              70
+            ],
+            "expectedArgs": [
+              0,
+              0,
+              75,
+              70
+            ],
+            "argsOk": true,
+            "screenBox": [
+              895,
+              -42,
+              965,
+              24
+            ],
+            "screenRatio": 1.0606,
+            "expectedRatio": 1.0714,
+            "ratioOk": true,
+            "hub5Natural": [
+              150,
+              140
+            ],
+            "hub5WorldBox": [
+              1523,
+              450,
+              75,
+              70
+            ],
+            "manifestWorldBox": [
+              1523,
+              450,
+              75,
+              70
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-06",
+            "natural": [
+              201,
+              192
+            ],
+            "worldH": 96,
+            "computedDw": 101,
+            "computedWorldBox": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "measuredArgs": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "expectedArgs": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "argsOk": true,
+            "screenBox": [
+              1212,
+              46,
+              1307,
+              136
+            ],
+            "screenRatio": 1.0556,
+            "expectedRatio": 1.0521,
+            "ratioOk": true,
+            "hub5Natural": [
+              201,
+              192
+            ],
+            "hub5WorldBox": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "manifestWorldBox": [
+              1860,
+              544,
+              100,
+              96
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-07",
+            "natural": [
+              196,
+              130
+            ],
+            "worldH": 120,
+            "computedDw": 181,
+            "computedWorldBox": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "measuredArgs": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "expectedArgs": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "argsOk": true,
+            "screenBox": [
+              -54,
+              136,
+              116,
+              249
+            ],
+            "screenRatio": 1.5044,
+            "expectedRatio": 1.5083,
+            "ratioOk": true,
+            "hub5Natural": [
+              196,
+              130
+            ],
+            "hub5WorldBox": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "manifestWorldBox": [
+              510,
+              640,
+              181,
+              120
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-08",
+            "natural": [
+              68,
+              178
+            ],
+            "worldH": 170,
+            "computedDw": 65,
+            "computedWorldBox": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "measuredArgs": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "expectedArgs": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "argsOk": true,
+            "screenBox": [
+              610,
+              52,
+              671,
+              211
+            ],
+            "screenRatio": 0.3836,
+            "expectedRatio": 0.3824,
+            "ratioOk": true,
+            "hub5Natural": [
+              68,
+              178
+            ],
+            "hub5WorldBox": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "manifestWorldBox": [
+              1218,
+              550,
+              65,
+              170
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-09",
+            "natural": [
+              128,
+              120
+            ],
+            "worldH": 80,
+            "computedDw": 85,
+            "computedWorldBox": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "measuredArgs": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "expectedArgs": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "argsOk": true,
+            "screenBox": [
+              301,
+              -14,
+              380,
+              61
+            ],
+            "screenRatio": 1.0533,
+            "expectedRatio": 1.0625,
+            "ratioOk": true,
+            "hub5Natural": [
+              128,
+              120
+            ],
+            "hub5WorldBox": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "manifestWorldBox": [
+              888,
+              480,
+              85,
+              80
+            ],
+            "exactSize": true,
+            "deformed": false
+          },
+          {
+            "artId": "T05-10",
+            "natural": [
+              158,
+              260
+            ],
+            "worldH": 150,
+            "computedDw": 91,
+            "computedWorldBox": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "measuredArgs": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "expectedArgs": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "argsOk": true,
+            "screenBox": [
+              1034,
+              52,
+              1119,
+              192
+            ],
+            "screenRatio": 0.6071,
+            "expectedRatio": 0.6067,
+            "ratioOk": true,
+            "hub5Natural": [
+              158,
+              260
+            ],
+            "hub5WorldBox": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "manifestWorldBox": [
+              1670,
+              550,
+              91,
+              150
+            ],
+            "exactSize": true,
+            "deformed": false
+          }
+        ],
+        "derivation": "dw = Math.round(worldH * naturalWidth / naturalHeight); caja mundo = [x-(dw>>1), y-worldH, dw, worldH]; el renderer usa drawImage(im, dx, dy, dw, dh).",
+        "flipNote": "T05-05 usa flip:true -> translate/scale(-1,1) y drawImage(im,0,0,dw,dh); sus args son LOCALES pero la caja de pantalla se mide con getTransform().",
+        "manifestRoundingNote": [
+          {
+            "artId": "T05-01",
+            "manifest": [
+              408,
+              1130,
+              94,
+              180
+            ],
+            "runtime": [
+              408,
+              1130,
+              95,
+              180
+            ],
+            "hub5": [
+              408,
+              1130,
+              95,
+              180
+            ]
+          },
+          {
+            "artId": "T05-06",
+            "manifest": [
+              1860,
+              544,
+              100,
+              96
+            ],
+            "runtime": [
+              1860,
+              544,
+              101,
+              96
+            ],
+            "hub5": [
+              1860,
+              544,
+              101,
+              96
+            ]
+          }
+        ],
+        "note": "El manifiesto se generó con redondeo Python (banker's) y el renderer usa Math.round de JS: difiere 1 px de ancho en los assets con .5 (se documenta y se corrige como metadato en finalize, sin regenerar PNG)."
+      },
+      "evidence": [
+        "ART_ASSETS/hub/tanda_05/manifest.json",
+        "despues_runtime_full.json",
+        "draw_calls.json"
+      ]
+    },
+    {
+      "id": 4,
+      "check": "Perspectiva isométrica: misma proyección, pivote y Y-sort que T01–T04",
+      "state": "APROBADO",
+      "detail": {
+        "worldProjection": "El HUB usa cámara 2D con escala uniforme y orden de profundidad por sortY (Y-sort), sin matriz de cizalla. T05 comparte EXACTAMENTE esa cámara.",
+        "uniformProjection": true,
+        "cameraScale": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -435.7499885559082
+        },
+        "cameraMismatches": [],
+        "projectionMismatches": [],
+        "existingPropsWithSameCameraMatrix": 246,
+        "ySortPairs": 273,
+        "ySortViolations": [],
+        "anchorsY": {
+          "T05-01": 1310,
+          "T05-02": 1160,
+          "T05-03": 430,
+          "T05-04": 360,
+          "T05-05": 520,
+          "T05-06": 640,
+          "T05-07": 760,
+          "T05-08": 720,
+          "T05-09": 560,
+          "T05-10": 700
+        },
+        "addHubCustomProp": {
+          "solid": false,
+          "tall": false,
+          "sortY": "dc.y",
+          "hubDecorEntries": 10,
+          "existingRenderer": true
+        },
+        "note": "No se verifica una proyección isométrica matemática nueva: se verifica que los 10 props participan de la MISMA proyección del mundo y del MISMO Y-sort que los props existentes, con pivote bottom-center. T05-05 se valida proyectando su caja mundo a través de la cámara."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "despues_centro.jpg",
+        "ART_HUB_TANDA_05_MATRIX.md"
+      ]
+    },
+    {
+      "id": 5,
+      "check": "Transparencias y halos: alfa real, sin franja blanca ni halo exterior",
+      "state": "APROBADO",
+      "detail": {
+        "staticVerification": [
+          {
+            "artId": "T05-01",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0.11,
+            "coveragePct": 66.04
+          },
+          {
+            "artId": "T05-02",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 65.15
+          },
+          {
+            "artId": "T05-03",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 37.97
+          },
+          {
+            "artId": "T05-04",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 60.51
+          },
+          {
+            "artId": "T05-05",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 41.22
+          },
+          {
+            "artId": "T05-06",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 33.47
+          },
+          {
+            "artId": "T05-07",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 69.34
+          },
+          {
+            "artId": "T05-08",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 45.37
+          },
+          {
+            "artId": "T05-09",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 29.3
+          },
+          {
+            "artId": "T05-10",
+            "rgbMode": "RGBA",
+            "alphaExtrema": [
+              0,
+              255
+            ],
+            "cornersTransparent": true,
+            "borderClean": true,
+            "whiteFringePct": 0,
+            "coveragePct": 79.36
+          }
+        ],
+        "runtimeAlpha": [
+          {
+            "artId": "T05-01",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-02",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-03",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-04",
+            "min": 0.64,
+            "max": 1,
+            "pulse": true
+          },
+          {
+            "artId": "T05-05",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-06",
+            "min": 0.64,
+            "max": 1,
+            "pulse": true
+          },
+          {
+            "artId": "T05-07",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-08",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-09",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          },
+          {
+            "artId": "T05-10",
+            "min": 1,
+            "max": 1,
+            "pulse": false
+          }
+        ],
+        "pulseAssets": [
+          "T05-04",
+          "T05-06"
+        ],
+        "byteLevelRecheck": {
+          "verified": 10,
+          "failed": [],
+          "state": "APROBADO"
+        },
+        "note": "Pulso ambiental sobre ctx.globalAlpha existente (0,82+0,18·sin) para T05-04 y T05-06; el resto se dibuja con alfa 1. No se crea sistema de animación nuevo."
+      },
+      "evidence": [
+        "ART_ASSETS/hub/tanda_05/manifest.json",
+        "alpha_verification.json",
+        "control_on_centro.png"
+      ]
+    },
+    {
+      "id": 6,
+      "check": "Orden de capas y oclusión: Y-sort compartido, sin canvas nuevo ni sombra en colgantes",
+      "state": "APROBADO",
+      "detail": {
+        "ySortPairs": 273,
+        "ySortViolations": [],
+        "hangingAssets": [
+          "T05-04",
+          "T05-06",
+          "T05-07",
+          "T05-08"
+        ],
+        "hangingCount": 4,
+        "shadowSuppression": true,
+        "hubT05Flag": true,
+        "sharedDepthQueueWithExistingProps": true,
+        "fullVisibilityByAsset": {
+          "T05-01": [
+            "vip_este",
+            "arcade",
+            "sellos"
+          ],
+          "T05-02": [
+            "dj",
+            "bar",
+            "arcade",
+            "sellos",
+            "norte"
+          ],
+          "T05-03": [
+            "centro",
+            "bar",
+            "pared_oeste"
+          ],
+          "T05-04": [
+            "centro",
+            "vip_oeste",
+            "vip_este",
+            "pared_oeste",
+            "norte"
+          ],
+          "T05-05": [
+            "centro",
+            "dj",
+            "vip_oeste",
+            "vip_este",
+            "pared_oeste"
+          ],
+          "T05-06": [
+            "dj",
+            "bar",
+            "vip_oeste",
+            "vip_este",
+            "norte"
+          ],
+          "T05-07": [
+            "bar",
+            "vip_oeste",
+            "sellos"
+          ],
+          "T05-08": [
+            "centro",
+            "dj",
+            "bar",
+            "vip_oeste",
+            "sellos",
+            "pared_oeste",
+            "norte",
+            "pared_este"
+          ],
+          "T05-09": [
+            "centro",
+            "bar",
+            "pared_oeste"
+          ],
+          "T05-10": [
+            "centro",
+            "dj",
+            "vip_oeste",
+            "pared_oeste",
+            "norte",
+            "pared_este"
+          ]
+        },
+        "newCanvases": 0,
+        "newEngines": 0,
+        "newCaches": 0,
+        "pixelOcclusionCheck": {
+          "assetsWithPixelConfirmation": 10,
+          "assetsFailed": [],
+          "minSignalPct": 11.094,
+          "maxNoisePct": 1.392,
+          "pairsGenerated": 10,
+          "state": "APROBADO"
+        },
+        "note": "Todos los props T05 entran en la MISMA cola de profundidad (Lc: solid:false, tall:false, sortY=dc.y). Los 4 colgantes omiten la sombra Vb; los 6 restantes la conservan. No se añade capa, canvas, motor ni caché."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "visual_diff.json",
+        "comparativa_control_off_on.jpg"
+      ]
+    },
+    {
+      "id": 7,
+      "check": "Movimiento del jugador: idéntico con el flag activado y desactivado",
+      "state": "APROBADO",
+      "detail": {
+        "antes": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "control": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "despues": {
+          "pxBefore": 1250,
+          "pxAfter": 1659,
+          "delta": 409,
+          "withinWorld": true
+        },
+        "procedure": "teleport(1250,965) + tecla d 900 ms + tick(0.016,60)",
+        "note": "Los 10 props son solid:false: no añaden colisiones ni bloquean la circulación."
+      },
+      "evidence": [
+        "despues_tras_movimiento.jpg",
+        "antes_tras_movimiento.jpg"
+      ]
+    },
+    {
+      "id": 8,
+      "check": "Colisiones: sin cambios de hitbox, auditoría del HUB idéntica en las 3 fases",
+      "state": "APROBADO",
+      "detail": {
+        "collision": {
+          "antes": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          },
+          "control": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          },
+          "despues": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          }
+        },
+        "hubAudit": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "stations": [
+          [
+            "lift",
+            1250,
+            1365
+          ],
+          [
+            "dj",
+            1250,
+            525
+          ],
+          [
+            "arsenal",
+            705,
+            855
+          ],
+          [
+            "bar",
+            1790,
+            855
+          ],
+          [
+            "arcade",
+            655,
+            1135
+          ],
+          [
+            "seals",
+            1845,
+            1135
+          ],
+          [
+            "dancer_0",
+            1030,
+            785
+          ],
+          [
+            "dancer_1",
+            1470,
+            785
+          ],
+          [
+            "dancer_2",
+            1015,
+            1085
+          ],
+          [
+            "dancer_3",
+            1965,
+            918
+          ],
+          [
+            "cliente000",
+            785,
+            600
+          ]
+        ],
+        "solidFalse": true,
+        "newColliders": 0,
+        "officialUntainted": false,
+        "officialUntaintedNote": "false por el uso de teleport/debug del arnés, NO por los assets: aparece igual en ANTES, CONTROL y DESPUES.",
+        "forbiddenAddedCalls": []
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 9,
+      "check": "Puertas: ciclo noche/ronda, sala real r23 y arquitectura intacta",
+      "state": "APROBADO",
+      "detail": {
+        "closed": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 0,
+          "floor": 3
+        },
+        "open": {
+          "current": "r23",
+          "role": "combat",
+          "secured": 1,
+          "floor": 3
+        },
+        "setNight": {
+          "via": "setNight",
+          "ok": true
+        },
+        "clearRound": "true",
+        "architecture": {
+          "version": "fase1-tanda02",
+          "loader": "window.__DDM_V5_IMG[slot] -> window.__DDM_GET_V5(slot)",
+          "enabled": true,
+          "applied": 10,
+          "count": 10,
+          "originalsPreserved": 10,
+          "errors": [],
+          "assets": [
+            {
+              "id": "A01",
+              "name": "wall_straight",
+              "slot": "wall_stained_glass_arch",
+              "alias": "t02_A01_wall_straight",
+              "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+              "expected": [
+                120,
+                176
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                120,
+                176
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A02",
+              "name": "wall_corner_inner",
+              "slot": "wall_limbo_ticket_window",
+              "alias": "t02_A02_wall_corner_inner",
+              "file": "ART_ASSETS/tanda_02/wall_corner_inner.png",
+              "expected": [
+                144,
+                144
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                144,
+                144
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A03",
+              "name": "wall_corner_outer",
+              "slot": "wall_avaricia_vault_door",
+              "alias": "t02_A03_wall_corner_outer",
+              "file": "ART_ASSETS/tanda_02/wall_corner_outer.png",
+              "expected": [
+                150,
+                86
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                150,
+                86
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A04",
+              "name": "wall_end_cap",
+              "slot": "wall_traicion_glacier_panel",
+              "alias": "t02_A04_wall_end_cap",
+              "file": "ART_ASSETS/tanda_02/wall_end_cap.png",
+              "expected": [
+                124,
+                64
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                124,
+                64
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A05",
+              "name": "wall_pillar",
+              "slot": "nucleo_pillar_prop",
+              "alias": "t02_A05_wall_pillar",
+              "file": "ART_ASSETS/tanda_02/wall_pillar.png",
+              "expected": [
+                204,
+                505
+              ],
+              "pivot": "bottom-center",
+              "loaded": true,
+              "natural": [
+                204,
+                505
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A06",
+              "name": "door_closed",
+              "slot": "campaign_door_leaf",
+              "alias": "t02_A06_door_closed",
+              "file": "ART_ASSETS/tanda_02/door_closed.png",
+              "expected": [
+                76,
+                54
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                76,
+                54
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A07",
+              "name": "door_open",
+              "slot": "campaign_door_side_leaf",
+              "alias": "t02_A07_door_open",
+              "file": "ART_ASSETS/tanda_02/door_open.png",
+              "expected": [
+                52,
+                136
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                52,
+                136
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A08",
+              "name": "doorway_frame",
+              "slot": "campaign_door_frame",
+              "alias": "t02_A08_doorway_frame",
+              "file": "ART_ASSETS/tanda_02/doorway_frame.png",
+              "expected": [
+                196,
+                124
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                124
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A09",
+              "name": "threshold_entry",
+              "slot": "campaign_door_south_gate",
+              "alias": "t02_A09_threshold_entry",
+              "file": "ART_ASSETS/tanda_02/threshold_entry.png",
+              "expected": [
+                196,
+                67
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                196,
+                67
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            },
+            {
+              "id": "A10",
+              "name": "wall_neon_detail",
+              "slot": "wall_neon_club_crest",
+              "alias": "t02_A10_wall_neon_detail",
+              "file": "ART_ASSETS/tanda_02/wall_neon_detail.png",
+              "expected": [
+                84,
+                84
+              ],
+              "pivot": "center",
+              "loaded": true,
+              "natural": [
+                84,
+                84
+              ],
+              "exactSize": true,
+              "live": true,
+              "loaderResolves": true,
+              "aliasRegistered": true,
+              "originalPreserved": true
+            }
+          ],
+          "stateNote": "El pintor real $b/_b (paneles por edge) y Bg (puertas) consultan estas claves; geometria, colisiones y sortY permanecen en el motor."
+        },
+        "note": "setNight(24) y clearRound() sobre las APIs existentes; no se modifica ninguna puerta."
+      },
+      "evidence": [
+        "doors_closed.jpg",
+        "doors_open.jpg",
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": 10,
+      "check": "Estaciones: 11 intactas, apertura y cierre de modal sin cambios",
+      "state": "APROBADO",
+      "detail": {
+        "count": 11,
+        "ids": [
+          "lift",
+          "dj",
+          "arsenal",
+          "bar",
+          "arcade",
+          "seals",
+          "dancer_0",
+          "dancer_1",
+          "dancer_2",
+          "dancer_3",
+          "cliente000"
+        ],
+        "interaction": {
+          "stationsBefore": 11,
+          "open": "true",
+          "active": "bar",
+          "close": "true",
+          "activeAfter": null
+        },
+        "note": "No se crea ninguna estación nueva: los 4 objetos funcionales son solo apariencia; su interacción real queda como PROPUESTA documentada, no implementada."
+      },
+      "evidence": [
+        "estacion_bar.jpg",
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": 11,
+      "check": "Interacciones existentes: campaña, disparo y transición sin regresión",
+      "state": "APROBADO",
+      "detail": {
+        "campaign": {
+          "completed": true
+        },
+        "campaignStart": "true",
+        "shooting": {
+          "before": 0,
+          "after": 4,
+          "delta": 4
+        },
+        "campaignRegression": {
+          "location": "CAMPAIGN_ROOM",
+          "inHub": false
+        },
+        "modifiedTrackedFiles": [
+          "ART_PACK/art_pack.js",
+          "DEADBEAT_DISCO.ART.html"
+        ],
+        "addedLinesChecked": 204,
+        "forbiddenAddedCalls": [],
+        "interactionProposals": [
+          {
+            "asset": "T05-01",
+            "proposal": "Máquina de garra con premio; requiere lógica de interacción, inventario y economía. NO IMPLEMENTADA.",
+            "state": "NO VERIFICADO"
+          },
+          {
+            "asset": "T05-02",
+            "proposal": "Banco del olvido / terminal narrativa; requiere diálogo y guardado. NO IMPLEMENTADA.",
+            "state": "NO VERIFICADO"
+          },
+          {
+            "asset": "T05-05",
+            "proposal": "Consola auxiliar; requiere sistema de estaciones nuevo. NO IMPLEMENTADA.",
+            "state": "NO VERIFICADO"
+          },
+          {
+            "asset": "T05-10",
+            "proposal": "Confesionario de quejas; requiere UI y persistencia. NO IMPLEMENTADA.",
+            "state": "NO VERIFICADO"
+          }
+        ],
+        "note": "T05 NO crea sistemas de interacción. Se comprueba que las interacciones EXISTENTES siguen funcionando y que el diff no añade estaciones, colisiones, guardado, audio ni escuchas nuevas.",
+        "diffScopeEvidence": "diff_scope.json / integridad_t01_t04.json"
+      },
+      "evidence": [
+        "regresion_campaign.jpg",
+        "estacion_bar.jpg",
+        "diff_scope.json"
+      ]
+    },
+    {
+      "id": 12,
+      "check": "Regresión T01–T04: 10/10, 10/10, 13/13, 142 claves base y cachés intactas",
+      "state": "APROBADO",
+      "detail": {
+        "t01": {
+          "applied": 10,
+          "count": 10
+        },
+        "t02": {
+          "applied": 10,
+          "count": 10
+        },
+        "t03": {
+          "registered": 13,
+          "loaded": 13,
+          "t04DistinctTagsMeasured": 13,
+          "tags": [
+            "T03-01",
+            "T03-02",
+            "T03-03",
+            "T03-04",
+            "T03-05",
+            "T03-06",
+            "T03-07",
+            "T03-08-A",
+            "T03-08-B",
+            "T03-08-C",
+            "T03-08-D",
+            "T03-08-E",
+            "T03-08-F"
+          ]
+        },
+        "previousDistinctTags": 32,
+        "previousTags": [
+          "HUB-02",
+          "HUB-03",
+          "HUB-04",
+          "HUB-05",
+          "HUB-06",
+          "HUB-07",
+          "HUB-08",
+          "HUB-09",
+          "HUB-10",
+          "T02-01",
+          "T02-02",
+          "T02-03",
+          "T02-04",
+          "T02-05",
+          "T02-06",
+          "T02-07",
+          "T02-08",
+          "T02-09",
+          "T02-10",
+          "T03-01",
+          "T03-02",
+          "T03-03",
+          "T03-04",
+          "T03-05",
+          "T03-06",
+          "T03-07",
+          "T03-08-A",
+          "T03-08-B",
+          "T03-08-C",
+          "T03-08-D",
+          "T03-08-E",
+          "T03-08-F"
+        ],
+        "previousDrawKeysAllPhases": 66,
+        "v5Keys": {
+          "antes": 152,
+          "despues": 152,
+          "baseline": 142
+        },
+        "architecture": {
+          "applied": 10,
+          "errors": []
+        },
+        "player": {
+          "version": "tanda03-faseD.2",
+          "poses": 12,
+          "errors": []
+        },
+        "hubFloor": {
+          "antes": {
+            "revision": 30,
+            "builds": 1,
+            "draws": 1028,
+            "available": true
+          },
+          "control": {
+            "revision": 32,
+            "builds": 3,
+            "draws": 1473,
+            "available": true
+          },
+          "despues": {
+            "revision": 30,
+            "builds": 1,
+            "draws": 988,
+            "available": true
+          }
+        },
+        "t3b": {
+          "enabled": true,
+          "errors": [],
+          "routes": [
+            "campaign",
+            "hub"
+          ]
+        },
+        "canvasCountBase": {
+          "antes": 27,
+          "control": 27,
+          "despues": 27
+        },
+        "markersT04": 4,
+        "markersT05": [
+          3,
+          3
+        ],
+        "newCanvases": 0,
+        "newCaches": 0,
+        "newEngines": 0,
+        "newLoaders": 0,
+        "note": "Los 10 alias h05_* se SUMAN a las 142 claves V5 de T04 (152). No se sustituye ningún recurso anterior."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "comprobacion_caches.json",
+        "integridad_t01_t04.json"
+      ]
+    },
+    {
+      "id": 13,
+      "check": "Errores JavaScript y de carga: 0 errores JS, 0 404 locales, 0 errores de loader",
+      "state": "APROBADO",
+      "detail": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsAntes": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsControl": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "knownCloudflare404": [
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+          },
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+          }
+        ],
+        "unexpectedLocalHttpErrors": [],
+        "requestFailed": [
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "failure": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "failure": "net::ERR_ABORTED"
+          }
+        ],
+        "unexpectedJsErrors": [],
+        "hub5Errors": [],
+        "artPackErrors": [],
+        "proxyErrors": [],
+        "note": "2 rutas /cdn-cgi/challenge-platform/ externas y preexistentes producen los únicos mensajes de consola; 0 404 locales y 0 pageerror reales."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 14,
+      "check": "Rendimiento: coste de render separado del coste de carga (sin cerrar el gate de T02)",
+      "state": "APROBADO",
+      "detail": {
+        "antes": {
+          "frames": 40,
+          "medianMs": 16.7,
+          "p90Ms": 33.4,
+          "minMs": 16.6,
+          "maxMs": 50
+        },
+        "control": {
+          "frames": 40,
+          "medianMs": 16.7,
+          "p90Ms": 33.4,
+          "minMs": 16.6,
+          "maxMs": 50.1
+        },
+        "despues": {
+          "frames": 40,
+          "medianMs": 16.7,
+          "p90Ms": 50,
+          "minMs": 16.6,
+          "maxMs": 50.1
+        },
+        "ratioMedian": 1,
+        "threshold": "ratio <= 1,25 y |delta mediana| <= 4 ms",
+        "framesPerPhase": 40,
+        "loadCost": {
+          "startedAt": 1793751504627,
+          "appliedAt": 1793751504627,
+          "finishedAt": 1793751504858,
+          "hub5AppliedAt": 1793751504858,
+          "totalLoadMs": 231,
+          "hub5LoadMs": 231
+        },
+        "loadMs": {
+          "antes": 1469,
+          "control": 1287,
+          "despues": 1406
+        },
+        "hubFloorDraws": {
+          "antes": 1028,
+          "control": 1473,
+          "despues": 988
+        },
+        "note": "Coste de CARGA (10 PNG, una sola vez por load()) separado del coste de RENDER (mediana de 40 rAF en el HUB, misma cámara). Las variaciones de frame se observan también entre ANTES y CONTROL y NO se atribuyen a los assets: entorno SwiftShader por software. Este check NO cierra el performance gate pendiente de T02, que el usuario mantiene abierto."
+      },
+      "evidence": [
+        "performance.json",
+        "resultados_ab.json"
+      ]
+    }
+  ],
+  "perUnit": [
+    {
+      "artId": "T05-01",
+      "name": "garra_del_limbo",
+      "alias": "h05_garra_del_limbo",
+      "category": "A · Máquinas y entretenimiento",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "expected": [
+        147,
+        280
+      ],
+      "anchor": {
+        "x": 455,
+        "y": 1310,
+        "worldH": 180,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        408,
+        1130,
+        95,
+        180
+      ],
+      "drawCalls": 513,
+      "onScreen": 172,
+      "sample": {
+        "args": [
+          408,
+          1130,
+          95,
+          180
+        ],
+        "box": [
+          -149,
+          596,
+          -60,
+          764
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-02",
+      "name": "banco_del_olvido",
+      "alias": "h05_banco_del_olvido",
+      "category": "A/D · Máquinas y terminales",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "expected": [
+        133,
+        240
+      ],
+      "anchor": {
+        "x": 2040,
+        "y": 1160,
+        "worldH": 150,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1999,
+        1010,
+        83,
+        150
+      ],
+      "drawCalls": 726,
+      "onScreen": 387,
+      "sample": {
+        "args": [
+          1999,
+          1010,
+          83,
+          150
+        ],
+        "box": [
+          1342,
+          483,
+          1420,
+          624
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-03",
+      "name": "subwoofer_stack",
+      "alias": "h05_subwoofer_stack",
+      "category": "B · Equipamiento de discoteca",
+      "interactiveClass": "Decorativo / equipamiento",
+      "expected": [
+        253,
+        160
+      ],
+      "anchor": {
+        "x": 905,
+        "y": 430,
+        "worldH": 120,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        810,
+        310,
+        190,
+        120
+      ],
+      "drawCalls": 748,
+      "onScreen": 349,
+      "sample": {
+        "args": [
+          810,
+          310,
+          190,
+          120
+        ],
+        "box": [
+          228,
+          -173,
+          406,
+          -61
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-04",
+      "name": "video_wall",
+      "alias": "h05_video_wall",
+      "category": "B/C · Equipamiento audiovisual y decoración",
+      "interactiveClass": "Ambiental animado",
+      "expected": [
+        249,
+        144
+      ],
+      "anchor": {
+        "x": 1560,
+        "y": 360,
+        "worldH": 110,
+        "flip": false,
+        "pulse": 0.7,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1465,
+        250,
+        190,
+        110
+      ],
+      "drawCalls": 541,
+      "onScreen": 225,
+      "sample": {
+        "args": [
+          1465,
+          250,
+          190,
+          110
+        ],
+        "box": [
+          842,
+          -201,
+          1020,
+          -98
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -435.5763816833496
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 0.64,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-05",
+      "name": "consola_auxiliar",
+      "alias": "h05_consola_aux",
+      "category": "B · Equipamiento de discoteca",
+      "interactiveClass": "Funcional / decorativo",
+      "expected": [
+        150,
+        140
+      ],
+      "anchor": {
+        "x": 1560,
+        "y": 520,
+        "worldH": 70,
+        "flip": true,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1523,
+        450,
+        75,
+        70
+      ],
+      "drawCalls": 755,
+      "onScreen": 748,
+      "sample": {
+        "args": [
+          0,
+          0,
+          75,
+          70
+        ],
+        "box": [
+          895,
+          -42,
+          965,
+          24
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": -0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": 965.3125,
+          "f": -41.9999885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-06",
+      "name": "neon_ultimo_trago",
+      "alias": "h05_neon_ultimo_trago",
+      "category": "C · Decoración ambiental",
+      "interactiveClass": "Ambiental animado",
+      "expected": [
+        201,
+        192
+      ],
+      "anchor": {
+        "x": 1910,
+        "y": 640,
+        "worldH": 96,
+        "flip": false,
+        "pulse": 1.4,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1860,
+        544,
+        101,
+        96
+      ],
+      "drawCalls": 705,
+      "onScreen": 643,
+      "sample": {
+        "args": [
+          1860,
+          544,
+          101,
+          96
+        ],
+        "box": [
+          1212,
+          46,
+          1307,
+          136
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 0.64,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-07",
+      "name": "cartel_ultima_sesion",
+      "alias": "h05_cartel_ultima_sesion",
+      "category": "C · Decoración ambiental / objeto narrativo",
+      "interactiveClass": "Decorativo narrativo",
+      "expected": [
+        196,
+        130
+      ],
+      "anchor": {
+        "x": 600,
+        "y": 760,
+        "worldH": 120,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        510,
+        640,
+        181,
+        120
+      ],
+      "drawCalls": 530,
+      "onScreen": 501,
+      "sample": {
+        "args": [
+          510,
+          640,
+          181,
+          120
+        ],
+        "box": [
+          -54,
+          136,
+          116,
+          249
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-08",
+      "name": "line_array_colgante",
+      "alias": "h05_line_array",
+      "category": "B/C · Equipamiento / elemento colgante",
+      "interactiveClass": "Arquitectónico / ambiental",
+      "expected": [
+        68,
+        178
+      ],
+      "anchor": {
+        "x": 1250,
+        "y": 720,
+        "worldH": 170,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1218,
+        550,
+        65,
+        170
+      ],
+      "drawCalls": 889,
+      "onScreen": 876,
+      "sample": {
+        "args": [
+          1218,
+          550,
+          65,
+          170
+        ],
+        "box": [
+          610,
+          52,
+          671,
+          211
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-09",
+      "name": "cordon_vip",
+      "alias": "h05_cordon_vip",
+      "category": "C/D · Decoración y circulación",
+      "interactiveClass": "Arquitectónico (sin collider)",
+      "expected": [
+        128,
+        120
+      ],
+      "anchor": {
+        "x": 930,
+        "y": 560,
+        "worldH": 80,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        888,
+        480,
+        85,
+        80
+      ],
+      "drawCalls": 759,
+      "onScreen": 748,
+      "sample": {
+        "args": [
+          888,
+          480,
+          85,
+          80
+        ],
+        "box": [
+          301,
+          -14,
+          380,
+          61
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    },
+    {
+      "artId": "T05-10",
+      "name": "confesionario_neon",
+      "alias": "h05_confesionario",
+      "category": "A/D · Dispositivo del universo / interactividad potencial",
+      "interactiveClass": "Funcional (sin lógica nueva)",
+      "expected": [
+        158,
+        260
+      ],
+      "anchor": {
+        "x": 1715,
+        "y": 700,
+        "worldH": 150,
+        "flip": false,
+        "pulse": null,
+        "solid": false,
+        "tall": false
+      },
+      "computedWorldBox": [
+        1670,
+        550,
+        91,
+        150
+      ],
+      "drawCalls": 887,
+      "onScreen": 645,
+      "sample": {
+        "args": [
+          1670,
+          550,
+          91,
+          150
+        ],
+        "box": [
+          1034,
+          52,
+          1119,
+          192
+        ],
+        "canvas": [
+          1280,
+          900
+        ],
+        "matrix": {
+          "a": 0.9375,
+          "b": 0,
+          "c": 0,
+          "d": 0.9375,
+          "e": -531.875,
+          "f": -463.8749885559082
+        }
+      },
+      "canvas": [
+        "1280x900"
+      ],
+      "minAlpha": 1,
+      "maxAlpha": 1,
+      "integrated": true
+    }
+  ],
+  "fullVisibility": {
+    "T05-01": [
+      "vip_este",
+      "arcade",
+      "sellos"
+    ],
+    "T05-02": [
+      "dj",
+      "bar",
+      "arcade",
+      "sellos",
+      "norte"
+    ],
+    "T05-03": [
+      "centro",
+      "bar",
+      "pared_oeste"
+    ],
+    "T05-04": [
+      "centro",
+      "vip_oeste",
+      "vip_este",
+      "pared_oeste",
+      "norte"
+    ],
+    "T05-05": [
+      "centro",
+      "dj",
+      "vip_oeste",
+      "vip_este",
+      "pared_oeste"
+    ],
+    "T05-06": [
+      "dj",
+      "bar",
+      "vip_oeste",
+      "vip_este",
+      "norte"
+    ],
+    "T05-07": [
+      "bar",
+      "vip_oeste",
+      "sellos"
+    ],
+    "T05-08": [
+      "centro",
+      "dj",
+      "bar",
+      "vip_oeste",
+      "sellos",
+      "pared_oeste",
+      "norte",
+      "pared_este"
+    ],
+    "T05-09": [
+      "centro",
+      "bar",
+      "pared_oeste"
+    ],
+    "T05-10": [
+      "centro",
+      "dj",
+      "vip_oeste",
+      "pared_oeste",
+      "norte",
+      "pared_este"
+    ]
+  },
+  "controlBoxes": {
+    "T05-04": {
+      "centro": [
+        842,
+        -201,
+        1020,
+        -98
+      ],
+      "dj": [
+        820,
+        70,
+        998,
+        173
+      ],
+      "bar": [
+        497,
+        -181,
+        675,
+        -78
+      ],
+      "vip_oeste": [
+        1186,
+        70,
+        1364,
+        173
+      ],
+      "vip_este": [
+        497,
+        70,
+        675,
+        173
+      ],
+      "norte": [
+        842,
+        70,
+        1020,
+        173
+      ]
+    },
+    "T05-03": {
+      "centro": [
+        228,
+        -145,
+        406,
+        -33
+      ],
+      "dj": [
+        206,
+        127,
+        384,
+        239
+      ],
+      "bar": [
+        -117,
+        -125,
+        61,
+        -12
+      ],
+      "vip_oeste": [
+        572,
+        127,
+        750,
+        239
+      ],
+      "vip_este": [
+        -117,
+        127,
+        61,
+        239
+      ],
+      "pared_oeste": [
+        572,
+        -173,
+        750,
+        -61
+      ],
+      "norte": [
+        228,
+        127,
+        406,
+        239
+      ],
+      "pared_este": [
+        -117,
+        -173,
+        61,
+        -61
+      ]
+    },
+    "T05-05": {
+      "centro": [
+        895,
+        -14,
+        965,
+        52
+      ],
+      "dj": [
+        873,
+        258,
+        943,
+        323
+      ],
+      "bar": [
+        551,
+        7,
+        621,
+        72
+      ],
+      "vip_oeste": [
+        1239,
+        258,
+        1310,
+        323
+      ],
+      "vip_este": [
+        551,
+        258,
+        621,
+        323
+      ],
+      "pared_oeste": [
+        1239,
+        -42,
+        1310,
+        24
+      ],
+      "norte": [
+        895,
+        258,
+        965,
+        323
+      ],
+      "pared_este": [
+        551,
+        -42,
+        621,
+        24
+      ]
+    },
+    "T05-09": {
+      "centro": [
+        301,
+        14,
+        380,
+        89
+      ],
+      "dj": [
+        279,
+        286,
+        358,
+        361
+      ],
+      "bar": [
+        -44,
+        35,
+        36,
+        110
+      ],
+      "vip_oeste": [
+        645,
+        286,
+        725,
+        361
+      ],
+      "vip_este": [
+        -44,
+        286,
+        36,
+        361
+      ],
+      "pared_oeste": [
+        645,
+        -14,
+        725,
+        61
+      ],
+      "norte": [
+        301,
+        286,
+        380,
+        361
+      ],
+      "pared_este": [
+        -44,
+        -14,
+        36,
+        61
+      ]
+    },
+    "T05-06": {
+      "centro": [
+        1212,
+        74,
+        1307,
+        164
+      ],
+      "dj": [
+        1190,
+        346,
+        1285,
+        436
+      ],
+      "bar": [
+        867,
+        95,
+        962,
+        185
+      ],
+      "vip_este": [
+        867,
+        346,
+        962,
+        436
+      ],
+      "sellos": [
+        867,
+        -160,
+        962,
+        -70
+      ],
+      "norte": [
+        1212,
+        346,
+        1307,
+        436
+      ],
+      "pared_este": [
+        867,
+        46,
+        962,
+        136
+      ]
+    },
+    "T05-10": {
+      "centro": [
+        1034,
+        80,
+        1119,
+        221
+      ],
+      "dj": [
+        1012,
+        352,
+        1097,
+        492
+      ],
+      "bar": [
+        689,
+        100,
+        775,
+        241
+      ],
+      "vip_oeste": [
+        1378,
+        352,
+        1463,
+        492
+      ],
+      "vip_este": [
+        689,
+        352,
+        775,
+        492
+      ],
+      "arcade": [
+        1378,
+        -155,
+        1463,
+        -14
+      ],
+      "sellos": [
+        689,
+        -155,
+        775,
+        -14
+      ],
+      "pared_oeste": [
+        1378,
+        52,
+        1463,
+        192
+      ],
+      "norte": [
+        1034,
+        352,
+        1119,
+        492
+      ],
+      "pared_este": [
+        689,
+        52,
+        775,
+        192
+      ]
+    },
+    "T05-08": {
+      "centro": [
+        610,
+        80,
+        671,
+        239
+      ],
+      "dj": [
+        588,
+        352,
+        649,
+        511
+      ],
+      "bar": [
+        266,
+        100,
+        327,
+        260
+      ],
+      "vip_oeste": [
+        954,
+        352,
+        1015,
+        511
+      ],
+      "vip_este": [
+        266,
+        352,
+        327,
+        511
+      ],
+      "arcade": [
+        954,
+        -155,
+        1015,
+        5
+      ],
+      "sellos": [
+        266,
+        -155,
+        327,
+        5
+      ],
+      "pared_oeste": [
+        954,
+        52,
+        1015,
+        211
+      ],
+      "norte": [
+        610,
+        352,
+        671,
+        511
+      ],
+      "pared_este": [
+        266,
+        52,
+        327,
+        211
+      ]
+    },
+    "T05-07": {
+      "centro": [
+        -54,
+        164,
+        116,
+        277
+      ],
+      "dj": [
+        -76,
+        436,
+        94,
+        548
+      ],
+      "vip_oeste": [
+        291,
+        436,
+        460,
+        548
+      ],
+      "arcade": [
+        291,
+        -70,
+        460,
+        42
+      ],
+      "pared_oeste": [
+        291,
+        136,
+        460,
+        249
+      ],
+      "norte": [
+        -54,
+        436,
+        116,
+        548
+      ]
+    },
+    "T05-02": {
+      "centro": [
+        1342,
+        511,
+        1420,
+        652
+      ],
+      "dj": [
+        1320,
+        783,
+        1398,
+        923
+      ],
+      "bar": [
+        998,
+        532,
+        1076,
+        672
+      ],
+      "vip_este": [
+        998,
+        783,
+        1076,
+        923
+      ],
+      "sellos": [
+        998,
+        277,
+        1076,
+        417
+      ],
+      "norte": [
+        1342,
+        783,
+        1420,
+        923
+      ],
+      "pared_este": [
+        998,
+        483,
+        1076,
+        624
+      ]
+    },
+    "T05-01": {
+      "centro": [
+        -149,
+        624,
+        -60,
+        792
+      ],
+      "dj": [
+        -171,
+        895,
+        -82,
+        1064
+      ],
+      "vip_oeste": [
+        195,
+        895,
+        284,
+        1064
+      ],
+      "arcade": [
+        195,
+        389,
+        284,
+        558
+      ],
+      "pared_oeste": [
+        195,
+        596,
+        284,
+        764
+      ],
+      "norte": [
+        -149,
+        895,
+        -60,
+        1064
+      ]
+    }
+  },
+  "camera": {
+    "uniformProjection": true,
+    "cameraMismatches": [],
+    "projectionMismatches": [],
+    "existingPropComparisons": 246,
+    "ySortPairs": 273,
+    "ySortViolations": []
+  },
+  "historicalIncidences": [
+    {
+      "id": "HUB-01",
+      "title": "loaderResolves=0 (T01)",
+      "state": "PREEXISTENTE",
+      "affectsT05": false,
+      "detail": "T05 mide loaderResolves=1 en los 10 alias; no se corrige el histórico de T01."
+    },
+    {
+      "id": "HUB-03",
+      "title": "Desviación dimensional 26,92 % (T03)",
+      "state": "PREEXISTENTE",
+      "affectsT05": false,
+      "detail": "T05 mide 10/10 exactSize y aspecto nativo; el histórico de T03 se conserva."
+    },
+    {
+      "id": "T01-COSTURA",
+      "title": "Costura del tile 12,57 (T01)",
+      "state": "PREEXISTENTE",
+      "affectsT05": false,
+      "detail": "T05 no produce tiles ni toca el suelo."
+    },
+    {
+      "id": "T04-PLACA-C",
+      "title": "Rozamiento 3–5 px de placa C (T04)",
+      "state": "PREEXISTENTE",
+      "affectsT05": false,
+      "detail": "No se ha modificado; las capturas de T05 siguen mostrando la placa completa."
+    },
+    {
+      "id": "T02-GATE",
+      "title": "Performance gate pendiente de T02",
+      "state": "PENDIENTE",
+      "affectsT05": false,
+      "detail": "El check 14 mide el coste de T05 pero NO cierra el gate de T02; sigue pendiente de cierre formal."
+    }
+  ],
+  "interactionProposals": [
+    {
+      "asset": "T05-01",
+      "proposal": "Máquina de garra con premio; requiere lógica de interacción, inventario y economía. NO IMPLEMENTADA.",
+      "state": "NO VERIFICADO"
+    },
+    {
+      "asset": "T05-02",
+      "proposal": "Banco del olvido / terminal narrativa; requiere diálogo y guardado. NO IMPLEMENTADA.",
+      "state": "NO VERIFICADO"
+    },
+    {
+      "asset": "T05-05",
+      "proposal": "Consola auxiliar; requiere sistema de estaciones nuevo. NO IMPLEMENTADA.",
+      "state": "NO VERIFICADO"
+    },
+    {
+      "asset": "T05-10",
+      "proposal": "Confesionario de quejas; requiere UI y persistencia. NO IMPLEMENTADA.",
+      "state": "NO VERIFICADO"
+    }
+  ],
+  "incidences": {
+    "worldBoxRounding": [
+      {
+        "artId": "T05-01",
+        "manifest": [
+          408,
+          1130,
+          94,
+          180
+        ],
+        "runtime": [
+          408,
+          1130,
+          95,
+          180
+        ],
+        "hub5": [
+          408,
+          1130,
+          95,
+          180
+        ]
+      },
+      {
+        "artId": "T05-06",
+        "manifest": [
+          1860,
+          544,
+          100,
+          96
+        ],
+        "runtime": [
+          1860,
+          544,
+          101,
+          96
+        ],
+        "hub5": [
+          1860,
+          544,
+          101,
+          96
+        ]
+      }
+    ],
+    "t0508": "T05-08 conserva la composición VERTICAL (68x178) con escala ajustada a su bbox alfa; NO se regeneró en horizontal por el límite de 10 generaciones de imagen del turno de producción.",
+    "officialUntainted": "false por teleport/debug del arnés, idéntico en las 3 fases; no es una regresión.",
+    "cloudflare404": "2 rutas externas preexistentes; 0 404 locales."
+  },
+  "evidence": {
+    "report": "report.json",
+    "drawCalls": "draw_calls.json",
+    "performance": "performance.json",
+    "ab": "resultados_ab.json",
+    "visualDiff": "visual_diff.json",
+    "hashes": "hashes.json",
+    "runtime": [
+      "antes_runtime.json",
+      "control_runtime.json",
+      "despues_runtime_full.json"
+    ]
+  },
+  "finalizedAt": "2026-11-04T00:24:01.270076+00:00",
+  "finalVerdict": "APROBADO",
+  "evidenceInventory": {
+    "RESUMEN_ARCHIVOS_TANDA_05.md": {
+      "bytes": 3379
+    },
+    "alpha_verification.json": {
+      "bytes": 9484
+    },
+    "antes_00_menu.jpg": {
+      "bytes": 223614
+    },
+    "antes_01_hub.png": {
+      "bytes": 2022574
+    },
+    "antes_arcade.jpg": {
+      "bytes": 396509
+    },
+    "antes_bar.jpg": {
+      "bytes": 421812
+    },
+    "antes_centro.jpg": {
+      "bytes": 427599
+    },
+    "antes_dj.jpg": {
+      "bytes": 421761
+    },
+    "antes_norte.jpg": {
+      "bytes": 420216
+    },
+    "antes_pared_este.jpg": {
+      "bytes": 415660
+    },
+    "antes_pared_oeste.jpg": {
+      "bytes": 415199
+    },
+    "antes_runtime.json": {
+      "bytes": 1451164
+    },
+    "antes_sellos.jpg": {
+      "bytes": 391608
+    },
+    "antes_tras_movimiento.jpg": {
+      "bytes": 420235
+    },
+    "antes_vip_este.jpg": {
+      "bytes": 407136
+    },
+    "antes_vip_oeste.jpg": {
+      "bytes": 413532
+    },
+    "audit_arcade.png": {
+      "bytes": 1865353
+    },
+    "audit_arsenal.png": {
+      "bytes": 2013305
+    },
+    "audit_bar.png": {
+      "bytes": 2000020
+    },
+    "audit_centro.png": {
+      "bytes": 2022621
+    },
+    "audit_descenso.png": {
+      "bytes": 1900815
+    },
+    "audit_dj.png": {
+      "bytes": 1909496
+    },
+    "audit_norte.png": {
+      "bytes": 1915166
+    },
+    "audit_pared_este.png": {
+      "bytes": 1998850
+    },
+    "audit_pared_oeste.png": {
+      "bytes": 2012442
+    },
+    "audit_runtime.json": {
+      "bytes": 118995
+    },
+    "audit_sellos.png": {
+      "bytes": 1836215
+    },
+    "audit_vip_este.png": {
+      "bytes": 1884148
+    },
+    "audit_vip_oeste.png": {
+      "bytes": 1894344
+    },
+    "comparativa_antes_despues.jpg": {
+      "bytes": 584345
+    },
+    "comparativa_arcade.jpg": {
+      "bytes": 221322
+    },
+    "comparativa_bar.jpg": {
+      "bytes": 233839
+    },
+    "comparativa_centro.jpg": {
+      "bytes": 237619
+    },
+    "comparativa_control_arcade.jpg": {
+      "bytes": 170447
+    },
+    "comparativa_control_bar.jpg": {
+      "bytes": 185662
+    },
+    "comparativa_control_centro.jpg": {
+      "bytes": 187954
+    },
+    "comparativa_control_dj.jpg": {
+      "bytes": 184046
+    },
+    "comparativa_control_norte.jpg": {
+      "bytes": 183242
+    },
+    "comparativa_control_off_on.jpg": {
+      "bytes": 240674
+    },
+    "comparativa_control_pared_este.jpg": {
+      "bytes": 185330
+    },
+    "comparativa_control_pared_oeste.jpg": {
+      "bytes": 183704
+    },
+    "comparativa_control_sellos.jpg": {
+      "bytes": 169408
+    },
+    "comparativa_control_vip_este.jpg": {
+      "bytes": 178549
+    },
+    "comparativa_control_vip_oeste.jpg": {
+      "bytes": 180273
+    },
+    "comparativa_dj.jpg": {
+      "bytes": 232529
+    },
+    "comparativa_norte.jpg": {
+      "bytes": 231494
+    },
+    "comparativa_pared_este.jpg": {
+      "bytes": 230821
+    },
+    "comparativa_pared_oeste.jpg": {
+      "bytes": 231637
+    },
+    "comparativa_sellos.jpg": {
+      "bytes": 218932
+    },
+    "comparativa_vip_este.jpg": {
+      "bytes": 225729
+    },
+    "comparativa_vip_oeste.jpg": {
+      "bytes": 227762
+    },
+    "comprobacion_caches.json": {
+      "bytes": 7357
+    },
+    "control_00_menu.jpg": {
+      "bytes": 237215
+    },
+    "control_01_hub.png": {
+      "bytes": 2029001
+    },
+    "control_off_a_arcade.jpg": {
+      "bytes": 387801
+    },
+    "control_off_a_bar.jpg": {
+      "bytes": 421083
+    },
+    "control_off_a_centro.jpg": {
+      "bytes": 427477
+    },
+    "control_off_a_centro.png": {
+      "bytes": 2020953
+    },
+    "control_off_a_dj.jpg": {
+      "bytes": 422716
+    },
+    "control_off_a_norte.jpg": {
+      "bytes": 420031
+    },
+    "control_off_a_pared_este.jpg": {
+      "bytes": 417619
+    },
+    "control_off_a_pared_oeste.jpg": {
+      "bytes": 415355
+    },
+    "control_off_a_sellos.jpg": {
+      "bytes": 383076
+    },
+    "control_off_a_vip_este.jpg": {
+      "bytes": 406492
+    },
+    "control_off_a_vip_oeste.jpg": {
+      "bytes": 411220
+    },
+    "control_off_b_arcade.jpg": {
+      "bytes": 386368
+    },
+    "control_off_b_bar.jpg": {
+      "bytes": 421632
+    },
+    "control_off_b_centro.jpg": {
+      "bytes": 427474
+    },
+    "control_off_b_centro.png": {
+      "bytes": 2021559
+    },
+    "control_off_b_dj.jpg": {
+      "bytes": 422816
+    },
+    "control_off_b_norte.jpg": {
+      "bytes": 419759
+    },
+    "control_off_b_pared_este.jpg": {
+      "bytes": 417762
+    },
+    "control_off_b_pared_oeste.jpg": {
+      "bytes": 415465
+    },
+    "control_off_b_sellos.jpg": {
+      "bytes": 382491
+    },
+    "control_off_b_vip_este.jpg": {
+      "bytes": 406794
+    },
+    "control_off_b_vip_oeste.jpg": {
+      "bytes": 411493
+    },
+    "control_on_arcade.jpg": {
+      "bytes": 387663
+    },
+    "control_on_bar.jpg": {
+      "bytes": 423023
+    },
+    "control_on_centro.jpg": {
+      "bytes": 428740
+    },
+    "control_on_centro.png": {
+      "bytes": 2028701
+    },
+    "control_on_dj.jpg": {
+      "bytes": 426656
+    },
+    "control_on_norte.jpg": {
+      "bytes": 424858
+    },
+    "control_on_pared_este.jpg": {
+      "bytes": 419325
+    },
+    "control_on_pared_oeste.jpg": {
+      "bytes": 417587
+    },
+    "control_on_sellos.jpg": {
+      "bytes": 381467
+    },
+    "control_on_vip_este.jpg": {
+      "bytes": 409817
+    },
+    "control_on_vip_oeste.jpg": {
+      "bytes": 414196
+    },
+    "control_runtime.json": {
+      "bytes": 2056037
+    },
+    "despues_00_menu.jpg": {
+      "bytes": 225310
+    },
+    "despues_01_hub.png": {
+      "bytes": 2029506
+    },
+    "despues_arcade.jpg": {
+      "bytes": 397840
+    },
+    "despues_bar.jpg": {
+      "bytes": 422927
+    },
+    "despues_centro.jpg": {
+      "bytes": 428649
+    },
+    "despues_dj.jpg": {
+      "bytes": 424762
+    },
+    "despues_norte.jpg": {
+      "bytes": 422927
+    },
+    "despues_pared_este.jpg": {
+      "bytes": 416866
+    },
+    "despues_pared_oeste.jpg": {
+      "bytes": 420879
+    },
+    "despues_runtime_full.json": {
+      "bytes": 2850812
+    },
+    "despues_sellos.jpg": {
+      "bytes": 392279
+    },
+    "despues_tras_movimiento.jpg": {
+      "bytes": 421490
+    },
+    "despues_vip_este.jpg": {
+      "bytes": 412056
+    },
+    "despues_vip_oeste.jpg": {
+      "bytes": 416278
+    },
+    "diff_scope.json": {
+      "bytes": 1464
+    },
+    "doors_closed.jpg": {
+      "bytes": 462100
+    },
+    "doors_open.jpg": {
+      "bytes": 466190
+    },
+    "draw_calls.json": {
+      "bytes": 20400
+    },
+    "estacion_bar.jpg": {
+      "bytes": 421394
+    },
+    "hashes.json": {
+      "bytes": 26194
+    },
+    "incidencias.json": {
+      "bytes": 5010
+    },
+    "integridad_t01_t04.json": {
+      "bytes": 1047
+    },
+    "performance.json": {
+      "bytes": 850
+    },
+    "qa_finalize.log": {
+      "bytes": 525
+    },
+    "qa_validation.log": {
+      "bytes": 1643
+    },
+    "regresion_campaign.jpg": {
+      "bytes": 466251
+    },
+    "report.json": {
+      "bytes": 87857
+    },
+    "resultados_ab.json": {
+      "bytes": 11422
+    },
+    "verificacion_carga.json": {
+      "bytes": 7801
+    },
+    "version_probe.json": {
+      "bytes": 907
+    },
+    "visual_diff.json": {
+      "bytes": 14600
+    }
+  }
+}

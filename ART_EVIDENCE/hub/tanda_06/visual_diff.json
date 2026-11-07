@@ -1,0 +1,812 @@
+{
+  "generatedAt": "2026-11-04T01:53:30.096319+00:00",
+  "method": "ImageChops.difference -> L; umbral >16 para cambio fuerte. Dos capturas OFF consecutivas (ruido de frame/SwiftShader) frente a OFF->ON EN CALIENTE, mismo contexto y misma cámara. Pillow puro, sin numpy.",
+  "criterion": "Por asset: señal >=5 % de la parte visible de su caja, >=200 px cambiados y señal >= max(3*ruido, 5 %). T06-06/07 y T06-10 tienen caja parcialmente recortada por el viewport: se mide la intersección visible (>=20 px).",
+  "pairs": {
+    "centro": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 0.9861,
+      "maxDiff": 186,
+      "changedPx": 16591,
+      "changedPct": 1.44,
+      "strongPx": 2005,
+      "strongPct": 0.174,
+      "changedBBox": [
+        40,
+        24,
+        1275,
+        783
+      ],
+      "comparativa": "comparativa_centro.jpg",
+      "comparativaBytes": 238074,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "dj": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 4.6768,
+      "maxDiff": 207,
+      "changedPx": 128364,
+      "changedPct": 11.143,
+      "strongPx": 78990,
+      "strongPct": 6.857,
+      "changedBBox": [
+        0,
+        9,
+        1280,
+        885
+      ],
+      "comparativa": "comparativa_dj.jpg",
+      "comparativaBytes": 232225,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "bar": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.7486,
+      "maxDiff": 187,
+      "changedPx": 51990,
+      "changedPct": 4.513,
+      "strongPx": 32441,
+      "strongPct": 2.816,
+      "changedBBox": [
+        42,
+        0,
+        1192,
+        900
+      ],
+      "comparativa": "comparativa_bar.jpg",
+      "comparativaBytes": 233209,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "vip_oeste": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.7602,
+      "maxDiff": 207,
+      "changedPx": 153497,
+      "changedPct": 13.324,
+      "strongPx": 111301,
+      "strongPct": 9.662,
+      "changedBBox": [
+        78,
+        3,
+        1280,
+        900
+      ],
+      "comparativa": "comparativa_vip_oeste.jpg",
+      "comparativaBytes": 228173,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "vip_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.2487,
+      "maxDiff": 255,
+      "changedPx": 147144,
+      "changedPct": 12.773,
+      "strongPx": 102964,
+      "strongPct": 8.938,
+      "changedBBox": [
+        0,
+        8,
+        1197,
+        900
+      ],
+      "comparativa": "comparativa_vip_este.jpg",
+      "comparativaBytes": 225009,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "arcade": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.4557,
+      "maxDiff": 211,
+      "changedPx": 47172,
+      "changedPct": 4.095,
+      "strongPx": 30102,
+      "strongPct": 2.613,
+      "changedBBox": [
+        78,
+        0,
+        1223,
+        767
+      ],
+      "comparativa": "comparativa_arcade.jpg",
+      "comparativaBytes": 216203,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "sellos": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.2564,
+      "maxDiff": 190,
+      "changedPx": 42796,
+      "changedPct": 3.715,
+      "strongPx": 27748,
+      "strongPct": 2.409,
+      "changedBBox": [
+        9,
+        0,
+        1191,
+        767
+      ],
+      "comparativa": "comparativa_sellos.jpg",
+      "comparativaBytes": 218868,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "pared_oeste": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 3.1363,
+      "maxDiff": 203,
+      "changedPx": 61996,
+      "changedPct": 5.382,
+      "strongPx": 39194,
+      "strongPct": 3.402,
+      "changedBBox": [
+        78,
+        0,
+        1255,
+        900
+      ],
+      "comparativa": "comparativa_pared_oeste.jpg",
+      "comparativaBytes": 233097,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "norte": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 5.7826,
+      "maxDiff": 255,
+      "changedPx": 152854,
+      "changedPct": 13.269,
+      "strongPx": 97118,
+      "strongPct": 8.43,
+      "changedBBox": [
+        0,
+        9,
+        1280,
+        896
+      ],
+      "comparativa": "comparativa_norte.jpg",
+      "comparativaBytes": 232203,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    },
+    "pared_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 2.7104,
+      "maxDiff": 193,
+      "changedPx": 53809,
+      "changedPct": 4.671,
+      "strongPx": 32518,
+      "strongPct": 2.823,
+      "changedBBox": [
+        56,
+        0,
+        1194,
+        900
+      ],
+      "comparativa": "comparativa_pared_este.jpg",
+      "comparativaBytes": 230711,
+      "note": "Informativa: arranques distintos, incluye ruido de frame. NO se usa para aprobar la integración."
+    }
+  },
+  "noiseBaseline": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 0.5417,
+    "maxDiff": 168,
+    "changedPx": 19685,
+    "changedPct": 1.709,
+    "strongPx": 2470,
+    "strongPct": 0.214,
+    "changedBBox": [
+      158,
+      4,
+      1223,
+      615
+    ],
+    "description": "Dos fotogramas con __DDM_HUB_T06=false, mismo contexto y misma cámara: ruido de frame del render por software."
+  },
+  "cleanHotToggle": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 0.6884,
+    "maxDiff": 174,
+    "changedPx": 32217,
+    "changedPct": 2.797,
+    "strongPx": 2142,
+    "strongPct": 0.186,
+    "changedBBox": [
+      158,
+      3,
+      1280,
+      615
+    ],
+    "description": "Mismo contexto, misma cámara, solo cambia el flag __DDM_HUB_T06 de false a true. Comparativa A/B limpia."
+  },
+  "assets": {
+    "T06-01": {
+      "zone": "vip_oeste",
+      "box": [
+        281,
+        5,
+        621,
+        145
+      ],
+      "fullBox": [
+        281,
+        5,
+        621,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          340,
+          140
+        ],
+        "meanDiff": 0.4683,
+        "maxDiff": 118,
+        "changedPx": 545,
+        "changedPct": 1.145,
+        "strongPx": 326,
+        "strongPct": 0.685,
+        "changedBBox": [
+          41,
+          0,
+          332,
+          88
+        ]
+      },
+      "signal": {
+        "size": [
+          340,
+          140
+        ],
+        "meanDiff": 38.1154,
+        "maxDiff": 210,
+        "changedPx": 36626,
+        "changedPct": 76.945,
+        "strongPx": 31556,
+        "strongPct": 66.294,
+        "changedBBox": [
+          6,
+          5,
+          334,
+          135
+        ]
+      },
+      "ratio": 96.8,
+      "state": "APROBADO"
+    },
+    "T06-02": {
+      "zone": "vip_oeste",
+      "box": [
+        621,
+        5,
+        1093,
+        145
+      ],
+      "fullBox": [
+        621,
+        5,
+        1093,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          472,
+          140
+        ],
+        "meanDiff": 0.4931,
+        "maxDiff": 114,
+        "changedPx": 607,
+        "changedPct": 0.919,
+        "strongPx": 376,
+        "strongPct": 0.569,
+        "changedBBox": [
+          9,
+          0,
+          467,
+          89
+        ]
+      },
+      "signal": {
+        "size": [
+          472,
+          140
+        ],
+        "meanDiff": 29.2259,
+        "maxDiff": 198,
+        "changedPx": 42787,
+        "changedPct": 64.75,
+        "strongPx": 34395,
+        "strongPct": 52.051,
+        "changedBBox": [
+          5,
+          5,
+          472,
+          140
+        ]
+      },
+      "ratio": 91.5,
+      "state": "APROBADO"
+    },
+    "T06-03": {
+      "zone": "vip_este",
+      "box": [
+        404,
+        5,
+        864,
+        145
+      ],
+      "fullBox": [
+        404,
+        5,
+        864,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          460,
+          140
+        ],
+        "meanDiff": 1.4573,
+        "maxDiff": 97,
+        "changedPx": 3780,
+        "changedPct": 5.87,
+        "strongPx": 1283,
+        "strongPct": 1.992,
+        "changedBBox": [
+          48,
+          2,
+          451,
+          140
+        ]
+      },
+      "signal": {
+        "size": [
+          460,
+          140
+        ],
+        "meanDiff": 26.8885,
+        "maxDiff": 198,
+        "changedPx": 45047,
+        "changedPct": 69.949,
+        "strongPx": 32434,
+        "strongPct": 50.363,
+        "changedBBox": [
+          0,
+          5,
+          460,
+          140
+        ]
+      },
+      "ratio": 25.3,
+      "state": "APROBADO"
+    },
+    "T06-04": {
+      "zone": "vip_oeste",
+      "box": [
+        315,
+        5,
+        435,
+        145
+      ],
+      "fullBox": [
+        315,
+        5,
+        435,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          120,
+          140
+        ],
+        "meanDiff": 0.5405,
+        "maxDiff": 103,
+        "changedPx": 199,
+        "changedPct": 1.185,
+        "strongPx": 142,
+        "strongPct": 0.845,
+        "changedBBox": [
+          7,
+          0,
+          119,
+          88
+        ]
+      },
+      "signal": {
+        "size": [
+          120,
+          140
+        ],
+        "meanDiff": 42.6098,
+        "maxDiff": 210,
+        "changedPx": 14734,
+        "changedPct": 87.702,
+        "strongPx": 12717,
+        "strongPct": 75.696,
+        "changedBBox": [
+          0,
+          5,
+          120,
+          135
+        ]
+      },
+      "ratio": 89.6,
+      "state": "APROBADO"
+    },
+    "T06-05": {
+      "zone": "vip_este",
+      "box": [
+        853,
+        5,
+        957,
+        145
+      ],
+      "fullBox": [
+        853,
+        5,
+        957,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          104,
+          140
+        ],
+        "meanDiff": 0.5258,
+        "maxDiff": 96,
+        "changedPx": 174,
+        "changedPct": 1.195,
+        "strongPx": 114,
+        "strongPct": 0.783,
+        "changedBBox": [
+          1,
+          2,
+          97,
+          63
+        ]
+      },
+      "signal": {
+        "size": [
+          104,
+          140
+        ],
+        "meanDiff": 30.3854,
+        "maxDiff": 164,
+        "changedPx": 10450,
+        "changedPct": 71.772,
+        "strongPx": 8591,
+        "strongPct": 59.004,
+        "changedBBox": [
+          0,
+          5,
+          98,
+          140
+        ]
+      },
+      "ratio": 75.4,
+      "state": "APROBADO"
+    },
+    "T06-06": {
+      "zone": "vip_oeste",
+      "box": [
+        72,
+        567,
+        172,
+        900
+      ],
+      "fullBox": [
+        72,
+        567,
+        172,
+        923
+      ],
+      "clipped": true,
+      "noise": {
+        "size": [
+          100,
+          333
+        ],
+        "meanDiff": 1.7098,
+        "maxDiff": 142,
+        "changedPx": 739,
+        "changedPct": 2.219,
+        "strongPx": 579,
+        "strongPct": 1.739,
+        "changedBBox": [
+          10,
+          0,
+          100,
+          333
+        ]
+      },
+      "signal": {
+        "size": [
+          100,
+          333
+        ],
+        "meanDiff": 31.1469,
+        "maxDiff": 186,
+        "changedPx": 21517,
+        "changedPct": 64.616,
+        "strongPx": 17628,
+        "strongPct": 52.937,
+        "changedBBox": [
+          6,
+          1,
+          95,
+          333
+        ]
+      },
+      "ratio": 30.4,
+      "state": "APROBADO"
+    },
+    "T06-07": {
+      "zone": "vip_este",
+      "box": [
+        1120,
+        567,
+        1197,
+        900
+      ],
+      "fullBox": [
+        1120,
+        567,
+        1197,
+        923
+      ],
+      "clipped": true,
+      "noise": {
+        "size": [
+          77,
+          333
+        ],
+        "meanDiff": 0.7501,
+        "maxDiff": 140,
+        "changedPx": 407,
+        "changedPct": 1.587,
+        "strongPx": 277,
+        "strongPct": 1.08,
+        "changedBBox": [
+          0,
+          10,
+          76,
+          326
+        ]
+      },
+      "signal": {
+        "size": [
+          77,
+          333
+        ],
+        "meanDiff": 26.4021,
+        "maxDiff": 172,
+        "changedPx": 14307,
+        "changedPct": 55.797,
+        "strongPx": 11807,
+        "strongPct": 46.047,
+        "changedBBox": [
+          5,
+          1,
+          71,
+          333
+        ]
+      },
+      "ratio": 42.6,
+      "state": "APROBADO"
+    },
+    "T06-08": {
+      "zone": "norte",
+      "box": [
+        397,
+        61,
+        883,
+        145
+      ],
+      "fullBox": [
+        397,
+        61,
+        883,
+        145
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          486,
+          84
+        ],
+        "meanDiff": 0.8091,
+        "maxDiff": 144,
+        "changedPx": 795,
+        "changedPct": 1.947,
+        "strongPx": 228,
+        "strongPct": 0.558,
+        "changedBBox": [
+          234,
+          25,
+          486,
+          83
+        ]
+      },
+      "signal": {
+        "size": [
+          486,
+          84
+        ],
+        "meanDiff": 27.5041,
+        "maxDiff": 207,
+        "changedPx": 23853,
+        "changedPct": 58.429,
+        "strongPx": 18149,
+        "strongPct": 44.457,
+        "changedBBox": [
+          0,
+          0,
+          486,
+          84
+        ]
+      },
+      "ratio": 79.7,
+      "state": "APROBADO"
+    },
+    "T06-09": {
+      "zone": "vip_este",
+      "box": [
+        827,
+        23,
+        917,
+        239
+      ],
+      "fullBox": [
+        827,
+        23,
+        917,
+        239
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          90,
+          216
+        ],
+        "meanDiff": 0.201,
+        "maxDiff": 96,
+        "changedPx": 65,
+        "changedPct": 0.334,
+        "strongPx": 43,
+        "strongPct": 0.221,
+        "changedBBox": [
+          27,
+          14,
+          90,
+          45
+        ]
+      },
+      "signal": {
+        "size": [
+          90,
+          216
+        ],
+        "meanDiff": 33.2405,
+        "maxDiff": 207,
+        "changedPx": 15443,
+        "changedPct": 79.439,
+        "strongPx": 13098,
+        "strongPct": 67.377,
+        "changedBBox": [
+          0,
+          0,
+          90,
+          211
+        ]
+      },
+      "ratio": 304.9,
+      "state": "APROBADO"
+    },
+    "T06-10": {
+      "zone": "vip_oeste",
+      "box": [
+        834,
+        138,
+        1135,
+        172
+      ],
+      "fullBox": [
+        834,
+        138,
+        1135,
+        172
+      ],
+      "clipped": false,
+      "noise": {
+        "size": [
+          301,
+          34
+        ],
+        "meanDiff": 0.1452,
+        "maxDiff": 29,
+        "changedPx": 4,
+        "changedPct": 0.039,
+        "strongPx": 2,
+        "strongPct": 0.02,
+        "changedBBox": [
+          43,
+          17,
+          44,
+          19
+        ]
+      },
+      "signal": {
+        "size": [
+          301,
+          34
+        ],
+        "meanDiff": 6.3551,
+        "maxDiff": 175,
+        "changedPx": 1542,
+        "changedPct": 15.067,
+        "strongPx": 1119,
+        "strongPct": 10.934,
+        "changedBBox": [
+          0,
+          0,
+          297,
+          28
+        ]
+      },
+      "ratio": 546.7,
+      "state": "APROBADO"
+    }
+  },
+  "summary": {
+    "assetsWithPixelConfirmation": 10,
+    "assetsFailed": [],
+    "minSignalPct": 10.934,
+    "maxSignalPct": 75.696,
+    "maxNoisePct": 1.992,
+    "pairsGenerated": 10,
+    "controlPairsGenerated": 6,
+    "state": "APROBADO"
+  },
+  "index": {
+    "file": "comparativa_antes_despues.jpg",
+    "bytes": 583298,
+    "pairs": 10
+  }
+}

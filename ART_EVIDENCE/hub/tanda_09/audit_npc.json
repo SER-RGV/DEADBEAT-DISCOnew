@@ -1,0 +1,2526 @@
+{
+  "phase": "F0 · auditoría (sólo lectura)",
+  "generatedAt": "2026-11-04T05:35:13.708Z",
+  "inventory": {
+    "propObjectsCount": 62,
+    "npcProps": [
+      {
+        "id": "hub_ambient_dancer_nw",
+        "x": 1030,
+        "y": 785,
+        "sortY": 785,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_dancer_ne",
+        "x": 1470,
+        "y": 785,
+        "sortY": 785,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_dancer_sw",
+        "x": 1015,
+        "y": 1085,
+        "sortY": 1085,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_clubber_bar",
+        "x": 1965,
+        "y": 918,
+        "sortY": 918,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_danza_01",
+        "x": 1120,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_danza_02",
+        "x": 1380,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_charla_01",
+        "x": 1690,
+        "y": 1010,
+        "sortY": 1012,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_charla_02",
+        "x": 1780,
+        "y": 1010,
+        "sortY": 1012,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_descanso",
+        "x": 1910,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_recorrido",
+        "x": 900,
+        "y": 700,
+        "sortY": 702,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "narr_cliente000",
+        "x": 785,
+        "y": 560,
+        "sortY": 578,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      }
+    ],
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "hubState": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 2.63,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "v5Count": 178,
+    "npcSprites": {
+      "hub_cliente000_npc": {
+        "w": 96,
+        "h": 232,
+        "complete": true
+      },
+      "hub_clubber_dancer_a": {
+        "w": 109,
+        "h": 232,
+        "complete": true
+      },
+      "hub_clubber_dancer_b": {
+        "w": 131,
+        "h": 232,
+        "complete": true
+      },
+      "hub_bartender_npc": {
+        "w": 95,
+        "h": 232,
+        "complete": true
+      },
+      "hub_bouncer_npc": {
+        "w": 101,
+        "h": 232,
+        "complete": true
+      }
+    },
+    "t07": {
+      "version": "3.9.0-tanda07",
+      "enabled": true,
+      "clock": 3.3,
+      "flag": "ON",
+      "arrival": {
+        "active": false,
+        "pending": false,
+        "t": 1.85,
+        "dur": 1.85,
+        "reason": "hub-entry",
+        "plays": 1,
+        "completes": 1,
+        "restored": true
+      },
+      "descent": {
+        "active": false,
+        "frames": 0,
+        "completions": 0,
+        "lastKind": "",
+        "samples": []
+      },
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "x": 1120,
+          "y": 900,
+          "h": 96,
+          "phase": 0.35,
+          "rate": 1,
+          "flip": false,
+          "col": "#ec4899",
+          "lastFrame": 2,
+          "lastReact": 0.467,
+          "lastX": 1118,
+          "lastFlip": false
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "x": 1380,
+          "y": 900,
+          "h": 96,
+          "phase": 2.15,
+          "rate": 0.86,
+          "flip": true,
+          "col": "#22d3ee",
+          "lastFrame": 2,
+          "lastReact": 0.467,
+          "lastX": 1377,
+          "lastFlip": true
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "x": 1690,
+          "y": 1010,
+          "h": 92,
+          "phase": 0.8,
+          "rate": 0.55,
+          "flip": false,
+          "col": "#f472b6",
+          "lastFrame": 0,
+          "lastReact": 0,
+          "lastX": 1690,
+          "lastFlip": false
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "x": 1780,
+          "y": 1010,
+          "h": 92,
+          "phase": 2.6,
+          "rate": 0.48,
+          "flip": true,
+          "col": "#67e8f9",
+          "lastFrame": 0,
+          "lastReact": 0,
+          "lastX": 1780,
+          "lastFlip": true
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "x": 1910,
+          "y": 900,
+          "h": 88,
+          "phase": 1.4,
+          "rate": 0.3,
+          "flip": false,
+          "col": "#a855f7",
+          "lastFrame": 0,
+          "lastReact": 0,
+          "lastX": 1910,
+          "lastFlip": false
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "x": 900,
+          "y": 700,
+          "h": 94,
+          "phase": 3.3,
+          "rate": 0.72,
+          "flip": false,
+          "col": "#fde047",
+          "span": 62,
+          "lastFrame": 3,
+          "lastReact": 0,
+          "lastX": 914,
+          "lastFlip": false
+        }
+      ],
+      "lastLocation": "HUB",
+      "counts": {
+        "geography": 78,
+        "ambient": 78,
+        "screen": 42,
+        "descentScreen": 0,
+        "updates": 78
+      },
+      "errors": [],
+      "lastError": "",
+      "assets": [
+        {
+          "slot": "h07_labio_acantilado",
+          "loaded": true
+        },
+        {
+          "slot": "h07_estrato_rococo",
+          "loaded": true
+        },
+        {
+          "slot": "h07_apertura_profundidad",
+          "loaded": true
+        },
+        {
+          "slot": "h07_exterior_infernal",
+          "loaded": true
+        },
+        {
+          "slot": "h07_pozo_capas",
+          "loaded": true
+        },
+        {
+          "slot": "h07_panorama_acantilado",
+          "loaded": true
+        }
+      ],
+      "audioTouched": false,
+      "cameraTouched": false,
+      "newCanvases": 0,
+      "newRAF": 0,
+      "hooksInstalled": true
+    },
+    "t07audit": {
+      "ok": true,
+      "assetsLoaded": 6,
+      "actors": 6,
+      "activities": {
+        "dance": 2,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "errors": [],
+      "counts": {
+        "geography": 78,
+        "ambient": 78,
+        "screen": 42,
+        "descentScreen": 0,
+        "updates": 78
+      }
+    },
+    "t08": {
+      "version": "4.0.0-tanda08",
+      "enabled": true,
+      "flag": "ON",
+      "clock": 3.3,
+      "frames": 0,
+      "updates": 78,
+      "visible": false,
+      "winTop": 1021.9,
+      "winH": -121.9,
+      "expand": 0,
+      "descentP": 0,
+      "draws": {
+        "bands": 0,
+        "objects": 0,
+        "smoke": 0,
+        "embers": 0,
+        "ash": 0,
+        "glows": 0
+      },
+      "errors": [],
+      "lastError": "",
+      "camera": {
+        "x": 1250,
+        "y": 975,
+        "zoom": 0.9375
+      },
+      "assets": [
+        {
+          "key": "paredIzq",
+          "alias": "h08_pared_cercana_izq",
+          "loaded": true
+        },
+        {
+          "key": "paredDer",
+          "alias": "h08_pared_cercana_der",
+          "loaded": true
+        },
+        {
+          "key": "estrato",
+          "alias": "h08_estrato_medio",
+          "loaded": true
+        },
+        {
+          "key": "columna",
+          "alias": "h08_columna_natural",
+          "loaded": true
+        },
+        {
+          "key": "plataforma",
+          "alias": "h08_plataforma_suspendida",
+          "loaded": true
+        },
+        {
+          "key": "paredLejana",
+          "alias": "h08_pared_lejana",
+          "loaded": true
+        },
+        {
+          "key": "rocas",
+          "alias": "h08_rocas_suspendidas",
+          "loaded": true
+        },
+        {
+          "key": "cavidades",
+          "alias": "h08_cavidades_lejanas",
+          "loaded": true
+        },
+        {
+          "key": "luces",
+          "alias": "h08_luces_abismo",
+          "loaded": true
+        },
+        {
+          "key": "humo",
+          "alias": "h08_humo_infernal",
+          "loaded": true
+        }
+      ],
+      "boxes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "x": -115.2,
+          "y": 1014.6,
+          "w": 1510.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "x": -78.6,
+          "y": 977.1,
+          "w": 1437.2,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "x": -42,
+          "y": 950.2,
+          "w": 1364,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "x": -8.2,
+          "y": 928,
+          "w": 1296.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "x": 17.2,
+          "y": 912.4,
+          "w": 1245.7,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.3
+        }
+      ],
+      "embers": [
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.173
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.346
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.519
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.692
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.865
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.038
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.211
+        }
+      ]
+    },
+    "music": {
+      "version": "3.8.0-music",
+      "state": "HUB",
+      "prev": "MENU",
+      "since": 3.25,
+      "key": "hub_afterparty",
+      "pendingKey": null,
+      "bpm": 114,
+      "ctx": "running",
+      "sequencers": 1,
+      "coverPlaying": false,
+      "filterHz": 20000,
+      "filterTarget": 20000,
+      "transGain": 1,
+      "wired": true,
+      "graphFallback": false,
+      "hubModal": false,
+      "hubMilestones": 0,
+      "invasion": false,
+      "descent": null,
+      "descentCount": 0,
+      "landingCount": 0,
+      "lastLanding": null,
+      "keyRequests": 2,
+      "immediateSwitches": 2,
+      "coverStops": 0,
+      "missing": [],
+      "voices": {
+        "live": 3,
+        "dropped": 0,
+        "load": 0.05
+      },
+      "errors": []
+    },
+    "atmos": {
+      "version": "9.2.0-atmos",
+      "ready": true,
+      "enabled": true,
+      "frames": 82,
+      "fps": 19,
+      "degraded": true,
+      "layers": {
+        "bloom": [
+          427,
+          300,
+          "screen"
+        ],
+        "vignette": [
+          427,
+          300,
+          "normal"
+        ]
+      },
+      "config": {
+        "bloom": 1,
+        "bloomScale": 6,
+        "bloomEvery": 3,
+        "vignette": 0.34,
+        "grain": 0.016,
+        "grade": 1,
+        "overlayDiv": 3
+      }
+    },
+    "camera": {
+      "x": 1250,
+      "y": 975,
+      "zoom": 0.9375,
+      "viewW": 1365,
+      "viewH": 960,
+      "lead": {
+        "x": 0,
+        "y": 10
+      }
+    },
+    "canvasCount": 27,
+    "globals": [
+      "DMO",
+      "DMO_ART_DIRECTION",
+      "DMO_ART_PACK",
+      "DMO_ART_TEST",
+      "DMO_ATMOS",
+      "DMO_BOOT46",
+      "DMO_CINE",
+      "DMO_DUNGEON",
+      "DMO_FLOOR_ANIM",
+      "DMO_HUB",
+      "DMO_HUB_T07",
+      "DMO_HUB_T08",
+      "DMO_ILT",
+      "DMO_INFERNAL_ART",
+      "DMO_LAYOUT",
+      "DMO_MASTER_RECONSTRUCTION",
+      "DMO_MUSIC",
+      "DMO_ORGANIC_DEBUG",
+      "DMO_PROG",
+      "DMO_REFERENCE_ROOM_ASSETS",
+      "DMO_SEMI2D",
+      "DMO_STORY",
+      "DMO_V88",
+      "__DDM_ART_V84",
+      "__DDM_DECOR_STATE",
+      "__DDM_DRAW_ROUTE_SHRINES",
+      "__DDM_GET_V5",
+      "__DDM_LUJURIA_BALL_READY",
+      "__DDM_MASTER_V4",
+      "__DDM_PAINT_MATERIAL",
+      "__DDM_PROP_SORT_Y",
+      "__DDM_T07",
+      "__DDM_V5_IMG",
+      "__DDM_V5_MED_NO_SKULL",
+      "__DDM_V5_TINT",
+      "__ILT_DATA",
+      "__ILT_DRAW",
+      "__T3B",
+      "__T3B_HUB_QA",
+      "__T3B_IMAGES"
+    ]
+  },
+  "cycles": [
+    {
+      "clock": 3.333,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1378,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 916,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 3.583,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1117,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1378,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 930,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 3.833,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1117,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1379,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 942,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 4.066,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1117,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1379,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 2,
+          "lastX": 951,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 4.3,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1117,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1380,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 958,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 4.583,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1381,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 962,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 4.766,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1381,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 962,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 4.916,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1381,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 960,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 5.183,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1119,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1382,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 2,
+          "lastX": 955,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 5.433,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1120,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1383,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 946,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 5.65,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1121,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1383,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 937,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 5.899,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1122,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1383,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 924,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 6.166,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1122,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1383,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 2,
+          "lastX": 908,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 6.449,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1123,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1383,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 891,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 6.699,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1123,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1382,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 877,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 6.949,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1123,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1382,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 863,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 7.199,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1123,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1381,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 2,
+          "lastX": 852,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 7.466,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1122,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1381,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 844,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 7.733,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1122,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1380,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 839,
+          "lastFlip": true,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 7.982,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1121,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1379,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 1,
+          "lastX": 838,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 8.216,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1120,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1379,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 2,
+          "lastX": 841,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 8.483,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1119,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 3,
+          "lastX": 1378,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 3,
+          "lastX": 847,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 8.749,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 0,
+          "lastX": 1377,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 857,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    },
+    {
+      "clock": 8.999,
+      "actors": [
+        {
+          "id": "t07_danza_01",
+          "act": "dance",
+          "lastFrame": 2,
+          "lastX": 1118,
+          "lastFlip": false,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "act": "dance",
+          "lastFrame": 1,
+          "lastX": 1377,
+          "lastFlip": true,
+          "lastReact": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "act": "talk",
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastFlip": true,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_descanso",
+          "act": "rest",
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastFlip": false,
+          "lastReact": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "act": "walk",
+          "lastFrame": 0,
+          "lastX": 869,
+          "lastFlip": false,
+          "lastReact": 0
+        }
+      ]
+    }
+  ],
+  "cycleSummary": [
+    {
+      "id": "t07_danza_01",
+      "distinctFrames": 4,
+      "frameChanges": 22,
+      "distinctX": 7,
+      "xSpan": 6,
+      "flipChanges": 0,
+      "activitiesObserved": [
+        "dance"
+      ]
+    },
+    {
+      "id": "t07_danza_02",
+      "distinctFrames": 4,
+      "frameChanges": 22,
+      "distinctX": 7,
+      "xSpan": 6,
+      "flipChanges": 0,
+      "activitiesObserved": [
+        "dance"
+      ]
+    },
+    {
+      "id": "t07_charla_01",
+      "distinctFrames": 1,
+      "frameChanges": 0,
+      "distinctX": 1,
+      "xSpan": 0,
+      "flipChanges": 0,
+      "activitiesObserved": [
+        "talk"
+      ]
+    },
+    {
+      "id": "t07_charla_02",
+      "distinctFrames": 1,
+      "frameChanges": 0,
+      "distinctX": 1,
+      "xSpan": 0,
+      "flipChanges": 0,
+      "activitiesObserved": [
+        "talk"
+      ]
+    },
+    {
+      "id": "t07_descanso",
+      "distinctFrames": 1,
+      "frameChanges": 0,
+      "distinctX": 1,
+      "xSpan": 0,
+      "flipChanges": 0,
+      "activitiesObserved": [
+        "rest"
+      ]
+    },
+    {
+      "id": "t07_recorrido",
+      "distinctFrames": 4,
+      "frameChanges": 21,
+      "distinctX": 23,
+      "xSpan": 124,
+      "flipChanges": 2,
+      "activitiesObserved": [
+        "walk"
+      ]
+    }
+  ],
+  "reactions": [
+    {
+      "label": "lejos",
+      "camera": [
+        1250,
+        965
+      ],
+      "target": "t07_danza_01",
+      "react": 0.467,
+      "all": [
+        {
+          "id": "t07_danza_01",
+          "react": 0.467
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0.467
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ]
+    },
+    {
+      "label": "cerca_danza",
+      "camera": [
+        1120,
+        900
+      ],
+      "target": "t07_danza_01",
+      "react": 1,
+      "all": [
+        {
+          "id": "t07_danza_01",
+          "react": 1
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ]
+    },
+    {
+      "label": "cerca_charla",
+      "camera": [
+        1690,
+        1010
+      ],
+      "target": "t07_charla_01",
+      "react": 1,
+      "all": [
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 1
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 1
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ]
+    },
+    {
+      "label": "cerca_descanso",
+      "camera": [
+        1910,
+        900
+      ],
+      "target": "t07_descanso",
+      "react": 1,
+      "all": [
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0.112
+        },
+        {
+          "id": "t07_descanso",
+          "react": 1
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ]
+    }
+  ],
+  "zoneCaptures": [
+    {
+      "id": "zona_A_centro",
+      "requested": [
+        1250,
+        965
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 975,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_A_centro.jpg"
+    },
+    {
+      "id": "zona_A_vip_nw",
+      "requested": [
+        883,
+        700
+      ],
+      "camera": {
+        "x": 883,
+        "y": 710,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_A_vip_nw.jpg"
+    },
+    {
+      "id": "zona_B_cabina_dj",
+      "requested": [
+        1250,
+        665
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 675,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_B_cabina_dj.jpg"
+    },
+    {
+      "id": "zona_D_arsenal",
+      "requested": [
+        883,
+        900
+      ],
+      "camera": {
+        "x": 883,
+        "y": 910,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_D_arsenal.jpg"
+    },
+    {
+      "id": "zona_E_barra",
+      "requested": [
+        1617,
+        900
+      ],
+      "camera": {
+        "x": 1617,
+        "y": 910,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_E_barra.jpg"
+    },
+    {
+      "id": "zona_F_arcade",
+      "requested": [
+        883,
+        1130
+      ],
+      "camera": {
+        "x": 883,
+        "y": 1140,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_F_arcade.jpg"
+    },
+    {
+      "id": "zona_F_espejo",
+      "requested": [
+        1617,
+        1130
+      ],
+      "camera": {
+        "x": 1617,
+        "y": 1140,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_F_espejo.jpg"
+    },
+    {
+      "id": "zona_C_grieta_sur",
+      "requested": [
+        1250,
+        1195
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_zona_C_grieta_sur.jpg"
+    },
+    {
+      "id": "borde_acantilado",
+      "requested": [
+        1250,
+        1195
+      ],
+      "camera": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375,
+        "viewW": 1365,
+        "viewH": 960,
+        "lead": {
+          "x": 0,
+          "y": 10
+        }
+      },
+      "inHub": true,
+      "file": "audit_borde_acantilado.jpg"
+    }
+  ],
+  "reducedMotion": {
+    "pageerrors": [],
+    "frames0": [
+      {
+        "id": "t07_danza_01",
+        "f": 0,
+        "x": 1120
+      },
+      {
+        "id": "t07_danza_02",
+        "f": 0,
+        "x": 1380
+      },
+      {
+        "id": "t07_charla_01",
+        "f": 0,
+        "x": 1690
+      },
+      {
+        "id": "t07_charla_02",
+        "f": 0,
+        "x": 1780
+      },
+      {
+        "id": "t07_descanso",
+        "f": 0,
+        "x": 1910
+      },
+      {
+        "id": "t07_recorrido",
+        "f": 0,
+        "x": 900
+      }
+    ],
+    "frames1": [
+      {
+        "id": "t07_danza_01",
+        "f": 0,
+        "x": 1120
+      },
+      {
+        "id": "t07_danza_02",
+        "f": 0,
+        "x": 1380
+      },
+      {
+        "id": "t07_charla_01",
+        "f": 0,
+        "x": 1690
+      },
+      {
+        "id": "t07_charla_02",
+        "f": 0,
+        "x": 1780
+      },
+      {
+        "id": "t07_descanso",
+        "f": 0,
+        "x": 1910
+      },
+      {
+        "id": "t07_recorrido",
+        "f": 0,
+        "x": 900
+      }
+    ],
+    "static": true
+  },
+  "pageerrors": [],
+  "warns": []
+}

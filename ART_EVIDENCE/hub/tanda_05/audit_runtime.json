@@ -1,0 +1,4755 @@
+{
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)",
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+  ],
+  "httpErrors": [
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+    },
+    {
+      "status": 404,
+      "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+    }
+  ],
+  "assetResponses": [],
+  "screenshots": {
+    "audit_centro.png": 2022621,
+    "audit_dj.png": 1909496,
+    "audit_bar.png": 2000020,
+    "audit_vip_oeste.png": 1894344,
+    "audit_vip_este.png": 1884148,
+    "audit_arcade.png": 1865353,
+    "audit_sellos.png": 1836215,
+    "audit_descenso.png": 1900815,
+    "audit_arsenal.png": 2013305,
+    "audit_pared_este.png": 1998850,
+    "audit_pared_oeste.png": 2012442,
+    "audit_norte.png": 1915166
+  },
+  "htmlStatus": 200,
+  "loadMs": 1850,
+  "bootProbe": {
+    "ts": "2026-11-03T23:08:50.878Z",
+    "url": "http://127.0.0.1:8123/",
+    "readyState": "complete",
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 3.15,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": true
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "artPack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03",
+      "status": "applied",
+      "startedAt": 1793747324510,
+      "appliedAt": 1793747324510,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793747324646,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "hub3": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "productionUnits": 8,
+        "files": 13,
+        "registered": 13,
+        "registeredDrawSlots": 1,
+        "verifiedDraws": 0,
+        "blocked": 13,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)",
+        "note": "13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). 0 drawImage verificados en produccion. HTML intacto.",
+        "appliedAt": 1793747324706
+      },
+      "hub3Boot": {
+        "registered": 13,
+        "at": 1793747324706
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793747324739,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793747324839
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 10,
+        "enabled": true,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793747324871
+      },
+      "finishedAt": 1793747324871
+    },
+    "hub1": {
+      "version": "hub-tanda01",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 9,
+      "errors": [],
+      "assets": [
+        {
+          "id": "HUB-01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "managedBy": "MANIFEST/T01",
+          "slots": [
+            "t3b_material_01"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 0,
+          "classification": "Arquitectónico / Funcional",
+          "role": "Superficie principal del HUB (patrón repeat 512x512).",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-02",
+          "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_pista_medallion"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Alfombra / medallón de identidad de la pista central.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            760,
+            430
+          ],
+          "natural": [
+            760,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-03",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "loader": "V5",
+          "managedBy": "ARCHITECTURE/T02",
+          "slots": [
+            "wall_stained_glass_arch"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Panel de muro modular: delimita y da profundidad al perímetro.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            120,
+            176
+          ],
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-04",
+          "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_dj_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Cabina del DJ, elemento protagonista (estación dj).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            720,
+            392
+          ],
+          "natural": [
+            720,
+            392
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-05",
+          "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_bar_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            380,
+            313
+          ],
+          "natural": [
+            380,
+            313
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-06",
+          "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "club_speaker_tower_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Columnas estructurales / torres acústicas: ritmo y volumen.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            76,
+            148
+          ],
+          "natural": [
+            76,
+            148
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-07",
+          "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_vip_booth_nw",
+            "hub_vip_booth_ne"
+          ],
+          "slotsLive": 2,
+          "loaderResolves": 2,
+          "classification": "Decorativo",
+          "role": "Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            224,
+            172
+          ],
+          "natural": [
+            224,
+            172
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-08",
+          "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_disco_chandelier"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Decorativo",
+          "role": "Luminaria colgante de neón: iluminación ambiental sobre la pista.",
+          "pivot": "top-center",
+          "alpha": true,
+          "expected": [
+            67,
+            152
+          ],
+          "natural": [
+            67,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-09",
+          "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_abyss_stair_crack"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Funcional",
+          "role": "Portal de descenso: acceso a otras zonas. No toca Ot.openT.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            320,
+            175
+          ],
+          "natural": [
+            320,
+            175
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-10",
+          "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_trophy_board_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            167,
+            136
+          ],
+          "natural": [
+            167,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Todos los slots son consumidos por los pintores reales del HUB; geometria, colisiones, sortY, puertas y camara permanecen en el motor."
+    },
+    "hub2": {
+      "version": "hub-tanda02",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 10,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T02-01",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arcade_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Mobiliario secundario",
+          "role": "Banco de recreativas del Rincon Arcade (zona F1).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            264,
+            239
+          ],
+          "natural": [
+            264,
+            239
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-02",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arsenal_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Mobiliario funcional",
+          "role": "Mostrador del Arsenal de Caronte (zona D).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            360,
+            253
+          ],
+          "natural": [
+            360,
+            253
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-03",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+          "loader": "V5",
+          "slots": [
+            "hub_seals_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Objeto narrativo",
+          "role": "Espejo de los Sellos (zona F2).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            244,
+            237
+          ],
+          "natural": [
+            244,
+            237
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-04",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+          "loader": "V5",
+          "slots": [
+            "club_vending_machine_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Equipamiento de discoteca",
+          "role": "Maquina expendedora del lado este.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            100,
+            152
+          ],
+          "natural": [
+            100,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-05",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+          "loader": "V5",
+          "slots": [
+            "club_water_cooler_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Objeto narrativo",
+          "role": "Dispensador de agua del lado oeste.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            61,
+            136
+          ],
+          "natural": [
+            61,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-06",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+          "loader": "V5",
+          "slots": [
+            "limbo_bench_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Mobiliario secundario",
+          "role": "Bancos gemelos junto al descenso.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-07",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+          "loader": "V5",
+          "slots": [
+            "club_neon_planter_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Variante visual",
+          "role": "Cuatro jardineras fijas del HUB.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-08",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+          "loader": "V5",
+          "slots": [
+            "descent_abyssal_lift_pad"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Interactivo",
+          "role": "Plataforma de descenso y puertas de sala.",
+          "pivot": "center",
+          "cachedLayer": false,
+          "expected": [
+            198,
+            104
+          ],
+          "natural": [
+            198,
+            104
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-09",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+          "loader": "V5",
+          "slots": [
+            "wall_ceiling_neon_fixture"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectonico / Iluminacion",
+          "role": "Barra de neon horizontal de techo/muro (capa de pared en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            148,
+            38
+          ],
+          "natural": [
+            148,
+            38
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-10",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+          "loader": "V5",
+          "slots": [
+            "club_wall_sconce_side"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectonico / Senalizacion luminosa",
+          "role": "Apliques laterales de pared (capa de aristas en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            48,
+            60
+          ],
+          "natural": [
+            48,
+            60
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Solo se sustituye el Image de slots que el motor ya dibuja; geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor."
+    },
+    "hub3": {
+      "version": "hub-tanda03",
+      "count": 13,
+      "productionUnits": 8,
+      "enabled": true,
+      "registered": 13,
+      "loaded": 13,
+      "exactSize": 13,
+      "blocked": 13,
+      "verifiedDraws": 0,
+      "registeredDrawSlots": 1,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T03-01",
+          "unit": "HUB_FLOOR_PATCH_O",
+          "file": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/final/hub_floor_patch_o.png",
+          "alias": "h03_floor_patch_o",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "OESTE",
+          "worldBox": [
+            290,
+            720,
+            580,
+            430
+          ],
+          "expected": [
+            580,
+            430
+          ],
+          "natural": [
+            580,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-02",
+          "unit": "HUB_FLOOR_PATCH_E",
+          "file": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/final/hub_floor_patch_e.png",
+          "alias": "h03_floor_patch_e",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "ESTE",
+          "worldBox": [
+            1630,
+            720,
+            580,
+            430
+          ],
+          "expected": [
+            580,
+            430
+          ],
+          "natural": [
+            580,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-03",
+          "unit": "HUB_FLOOR_PATCH_S_CRACK",
+          "file": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png",
+          "alias": "h03_floor_patch_s_crack",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "SUR",
+          "worldBox": [
+            870,
+            1256,
+            760,
+            329
+          ],
+          "expected": [
+            760,
+            329
+          ],
+          "natural": [
+            760,
+            329
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-04",
+          "unit": "HUB_FLOOR_NORTH_DJ",
+          "file": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/final/hub_floor_north_dj.png",
+          "alias": "h03_floor_north_dj",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "NORTE",
+          "worldBox": [
+            870,
+            265,
+            760,
+            224
+          ],
+          "expected": [
+            760,
+            224
+          ],
+          "natural": [
+            760,
+            224
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-05",
+          "unit": "HUB_PLANTER_VARIANT_02",
+          "file": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/final/hub_planter_variant_02.png",
+          "alias": "h03_planter_variant_02",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Mobiliario / Variante (Familia B)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-06",
+          "unit": "HUB_BENCH_VARIANT_02",
+          "file": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/final/hub_bench_variant_02.png",
+          "alias": "h03_bench_variant_02",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Mobiliario / Variante (Familia B)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-07",
+          "unit": "HUB_VIP_BOOTH_LOUNGE",
+          "file": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/final/hub_vip_booth_lounge.png",
+          "alias": "h03_vip_booth_lounge",
+          "aliasLive": true,
+          "slots": [
+            "hub_vip_booth_lounge"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "drawSlot": "hub_vip_booth_lounge",
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Espacio VIP / Setpiece de MENU (Familia C)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            216,
+            136
+          ],
+          "natural": [
+            216,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-A",
+          "unit": "HUB_ZONE_SIGNAGE/A",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+          "alias": "h03_zone_signage_a",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-B",
+          "unit": "HUB_ZONE_SIGNAGE/B",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+          "alias": "h03_zone_signage_b",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-C",
+          "unit": "HUB_ZONE_SIGNAGE/C",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+          "alias": "h03_zone_signage_c",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-D",
+          "unit": "HUB_ZONE_SIGNAGE/D",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+          "alias": "h03_zone_signage_d",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-E",
+          "unit": "HUB_ZONE_SIGNAGE/E",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+          "alias": "h03_zone_signage_e",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-F",
+          "unit": "HUB_ZONE_SIGNAGE/F",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+          "alias": "h03_zone_signage_f",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "13/13 PNG registrados; 8/8 unidades BLOQUEADAS para render. El unico pintor del codigo (MENU) no esta activo en el build (D-07): 0 drawImage medidos. No se inventa render nuevo ni se toca el HTML."
+    },
+    "v5Keys": 142,
+    "v5KeysSample": [
+      "abyssal_portal_pad",
+      "allied_combat_turret",
+      "avaricia_floor_medallion",
+      "avaricia_roulette_prop",
+      "avaricia_slot_vault",
+      "avaricia_vault_stage",
+      "campaign_door_diag_gate",
+      "campaign_door_frame",
+      "campaign_door_leaf",
+      "campaign_door_side_frame",
+      "campaign_door_side_leaf",
+      "campaign_door_south_gate",
+      "campaign_loot_chest",
+      "campaign_shop_cabina",
+      "campaign_weapon_rack",
+      "cine_pa_horn_speaker",
+      "club_neon_planter_prop",
+      "club_roadcase_crate_prop",
+      "club_speaker_tower_prop",
+      "club_vending_machine_prop",
+      "club_wall_sconce_side",
+      "club_wall_sconce_torch",
+      "club_water_cooler_prop",
+      "combat_proximity_mine",
+      "decor_chrome_railing",
+      "decor_neon_painting",
+      "decor_neon_rug",
+      "decor_potted_palm",
+      "descent_abyssal_lift_pad",
+      "fraude_card_table_prop",
+      "fraude_floor_medallion",
+      "fraude_mirror_prop",
+      "fraude_mirror_stage",
+      "gula_banquet_stage",
+      "gula_banquet_table",
+      "gula_cauldron_prop",
+      "gula_floor_medallion",
+      "h01_hub_02",
+      "h01_hub_04",
+      "h01_hub_05",
+      "h01_hub_06",
+      "h01_hub_07",
+      "h01_hub_08",
+      "h01_hub_09",
+      "h01_hub_10",
+      "h02_t02_01",
+      "h02_t02_02",
+      "h02_t02_03",
+      "h02_t02_04",
+      "h02_t02_05",
+      "h02_t02_06",
+      "h02_t02_07",
+      "h02_t02_08",
+      "h02_t02_09",
+      "h02_t02_10",
+      "h03_bench_variant_02",
+      "h03_floor_north_dj",
+      "h03_floor_patch_e",
+      "h03_floor_patch_o",
+      "h03_floor_patch_s_crack",
+      "h03_planter_variant_02",
+      "h03_vip_booth_lounge",
+      "h03_zone_signage_a",
+      "h03_zone_signage_b",
+      "h03_zone_signage_c",
+      "h03_zone_signage_d",
+      "h03_zone_signage_e",
+      "h03_zone_signage_f",
+      "herejia_altar_stage",
+      "herejia_floor_medallion",
+      "herejia_pew_prop",
+      "herejia_reliquary_prop",
+      "hub_abyss_stair_crack",
+      "hub_arcade_shrine",
+      "hub_arsenal_shrine",
+      "hub_bar_shrine",
+      "hub_bartender_npc",
+      "hub_bouncer_npc",
+      "hub_cliente000_npc",
+      "hub_clubber_dancer_a",
+      "hub_clubber_dancer_b",
+      "hub_disco_chandelier",
+      "hub_dj_shrine",
+      "hub_fox_crest_emblem",
+      "hub_hell_elevator",
+      "hub_pista_medallion",
+      "hub_seals_shrine",
+      "hub_trophy_board_prop",
+      "hub_vip_booth_lounge",
+      "hub_vip_booth_ne",
+      "hub_vip_booth_nw",
+      "ira_brazier_prop",
+      "ira_floor_medallion",
+      "ira_furnace_stage",
+      "ira_speaker_stack_prop",
+      "limbo_bench_prop",
+      "limbo_floor_medallion",
+      "limbo_gate_stage",
+      "limbo_turnstile_prop",
+      "lujuria_boudoir_stage",
+      "lujuria_divan_prop",
+      "lujuria_table_prop",
+      "nucleo_cathedral_stage",
+      "nucleo_console_prop",
+      "nucleo_floor_mandala",
+      "nucleo_pillar_prop",
+      "objective_energy_orb",
+      "objective_generator_pylon",
+      "player_aegis_shield_aura",
+      "prop_bench_vertical",
+      "prop_table_vertical",
+      "route_chest_pedestal",
+      "route_elite_blood_altar",
+      "stage_abyssal_pit_trap",
+      "stage_sonic_barrier_prop",
+      "t02_A01_wall_straight",
+      "t02_A02_wall_corner_inner",
+      "t02_A03_wall_corner_outer",
+      "t02_A04_wall_end_cap",
+      "t02_A05_wall_pillar",
+      "t02_A06_door_closed",
+      "t02_A07_door_open",
+      "t02_A08_doorway_frame",
+      "t02_A09_threshold_entry",
+      "t02_A10_wall_neon_detail",
+      "traicion_abyss_stage",
+      "traicion_cryopod_prop",
+      "traicion_floor_medallion",
+      "traicion_ice_spike_prop",
+      "violencia_biolab_stage",
+      "violencia_biovat_prop",
+      "violencia_floor_medallion",
+      "violencia_surgical_table_prop",
+      "wall_avaricia_vault_door",
+      "wall_ceiling_neon_fixture",
+      "wall_gula_bottle_rack",
+      "wall_ira_furnace_vent",
+      "wall_limbo_ticket_window",
+      "wall_neon_club_crest",
+      "wall_stained_glass_arch",
+      "wall_traicion_glacier_panel",
+      "wall_violencia_specimen_vat"
+    ],
+    "canvasCount": 27,
+    "canvasCountBase": 27,
+    "t3b": {
+      "enabled": true,
+      "revision": 29,
+      "routes": [
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign"
+      ]
+    },
+    "hubFloor": {
+      "revision": 29,
+      "builds": 1,
+      "draws": 152,
+      "available": true
+    },
+    "menu54": {
+      "frames": 0,
+      "resizes": 0,
+      "w": 0,
+      "h": 0,
+      "fps": 30,
+      "fixtures": 0,
+      "phase": "apagado",
+      "drops": 0,
+      "reduced": false,
+      "visible": false
+    },
+    "debug": {
+      "round": 1,
+      "night": 1,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "boss": false,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1,
+      "lives": 3,
+      "invuln": false,
+      "enemies": 0,
+      "bossInfo": null,
+      "conos": 0,
+      "balas": 0,
+      "balasArr": [],
+      "dodge": {
+        "precise": 0,
+        "chains": 0,
+        "best": 0,
+        "chain": 0,
+        "byKind": {},
+        "activas": 0,
+        "fx": 0,
+        "lastKind": "",
+        "lastMin": -1,
+        "lastLife": 0,
+        "th": {
+          "laser": 38,
+          "dash": 30,
+          "charge": 34,
+          "volley": 26,
+          "cone": 30
+        }
+      },
+      "px": 1250,
+      "py": 965,
+      "pickups": []
+    },
+    "draws": {
+      "T02-09": 43,
+      "T02-10": 28,
+      "T02-05": 155,
+      "T02-07": 626,
+      "HUB-03": 18,
+      "T03-01": 152,
+      "T03-02": 152,
+      "T03-03": 152,
+      "T03-04": 152,
+      "HUB-02": 1,
+      "T02-08": 152,
+      "HUB-10": 152,
+      "HUB-04": 152,
+      "HUB-06": 304,
+      "HUB-07": 304,
+      "T02-04": 152,
+      "T03-07": 152,
+      "T02-02": 152,
+      "HUB-05": 152,
+      "T03-05": 152,
+      "T03-06": 152,
+      "T02-03": 152,
+      "T02-01": 152,
+      "T02-06": 304,
+      "HUB-09": 152,
+      "HUB-08": 152,
+      "T03-08-A": 152,
+      "T03-08-B": 152,
+      "T03-08-C": 152,
+      "T03-08-D": 152,
+      "T03-08-E": 152,
+      "T03-08-F": 152
+    },
+    "byZone": {
+      "boot": {
+        "T02-09": 43,
+        "T02-10": 28,
+        "T02-05": 155,
+        "T02-07": 626,
+        "HUB-03": 18,
+        "T03-01": 152,
+        "T03-02": 152,
+        "T03-03": 152,
+        "T03-04": 152,
+        "HUB-02": 1,
+        "T02-08": 152,
+        "HUB-10": 152,
+        "HUB-04": 152,
+        "HUB-06": 304,
+        "HUB-07": 304,
+        "T02-04": 152,
+        "T03-07": 152,
+        "T02-02": 152,
+        "HUB-05": 152,
+        "T03-05": 152,
+        "T03-06": 152,
+        "T02-03": 152,
+        "T02-01": 152,
+        "T02-06": 304,
+        "HUB-09": 152,
+        "HUB-08": 152,
+        "T03-08-A": 152,
+        "T03-08-B": 152,
+        "T03-08-C": 152,
+        "T03-08-D": 152,
+        "T03-08-E": 152,
+        "T03-08-F": 152
+      }
+    },
+    "canvasSizes": {
+      "T02-09": [
+        2500,
+        1850
+      ],
+      "T02-10": [
+        2500,
+        1850
+      ],
+      "T02-05": [
+        1280,
+        900
+      ],
+      "T02-07": [
+        1280,
+        900
+      ],
+      "HUB-03": [
+        2500,
+        1850
+      ],
+      "T03-01": [
+        1280,
+        900
+      ],
+      "T03-02": [
+        1280,
+        900
+      ],
+      "T03-03": [
+        1280,
+        900
+      ],
+      "T03-04": [
+        1280,
+        900
+      ],
+      "HUB-02": [
+        760,
+        430
+      ],
+      "T02-08": [
+        1280,
+        900
+      ],
+      "HUB-10": [
+        1280,
+        900
+      ],
+      "HUB-04": [
+        1280,
+        900
+      ],
+      "HUB-06": [
+        1280,
+        900
+      ],
+      "HUB-07": [
+        1280,
+        900
+      ],
+      "T02-04": [
+        1280,
+        900
+      ],
+      "T03-07": [
+        1280,
+        900
+      ],
+      "T02-02": [
+        1280,
+        900
+      ],
+      "HUB-05": [
+        1280,
+        900
+      ],
+      "T03-05": [
+        1280,
+        900
+      ],
+      "T03-06": [
+        1280,
+        900
+      ],
+      "T02-03": [
+        1280,
+        900
+      ],
+      "T02-01": [
+        1280,
+        900
+      ],
+      "T02-06": [
+        1280,
+        900
+      ],
+      "HUB-09": [
+        1280,
+        900
+      ],
+      "HUB-08": [
+        1280,
+        900
+      ],
+      "T03-08-A": [
+        1280,
+        900
+      ],
+      "T03-08-B": [
+        1280,
+        900
+      ],
+      "T03-08-C": [
+        1280,
+        900
+      ],
+      "T03-08-D": [
+        1280,
+        900
+      ],
+      "T03-08-E": [
+        1280,
+        900
+      ],
+      "T03-08-F": [
+        1280,
+        900
+      ]
+    },
+    "pageErrors": []
+  },
+  "zones": {
+    "centro": {
+      "draws": {
+        "T03-01": 29,
+        "T03-02": 29,
+        "T03-03": 29,
+        "T03-04": 29,
+        "T02-08": 29,
+        "HUB-10": 29,
+        "HUB-04": 29,
+        "HUB-06": 58,
+        "HUB-07": 58,
+        "T02-05": 29,
+        "T02-04": 29,
+        "T02-07": 116,
+        "T03-07": 29,
+        "T02-02": 29,
+        "HUB-05": 29,
+        "T03-05": 29,
+        "T03-06": 29,
+        "T02-03": 29,
+        "T02-01": 29,
+        "T02-06": 58,
+        "HUB-09": 29,
+        "HUB-08": 29,
+        "T03-08-A": 29,
+        "T03-08-B": 29,
+        "T03-08-C": 29,
+        "T03-08-D": 29,
+        "T03-08-E": 29,
+        "T03-08-F": 29
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 935,
+        "pickups": []
+      }
+    },
+    "dj": {
+      "draws": {
+        "T03-01": 25,
+        "T03-02": 25,
+        "T03-03": 25,
+        "T03-04": 25,
+        "T02-08": 25,
+        "HUB-10": 25,
+        "HUB-04": 25,
+        "HUB-06": 50,
+        "HUB-07": 50,
+        "T02-05": 25,
+        "T02-04": 25,
+        "T02-07": 100,
+        "T03-07": 25,
+        "T02-02": 25,
+        "HUB-05": 25,
+        "T03-05": 25,
+        "T03-06": 25,
+        "T02-03": 25,
+        "T02-01": 25,
+        "T02-06": 50,
+        "HUB-08": 25,
+        "T03-08-A": 25,
+        "T03-08-B": 25,
+        "T03-08-C": 25,
+        "T03-08-D": 25,
+        "T03-08-E": 25,
+        "T03-08-F": 25
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1273,
+        "py": 513,
+        "pickups": []
+      }
+    },
+    "bar": {
+      "draws": {
+        "T03-01": 21,
+        "T03-02": 21,
+        "T03-03": 21,
+        "T03-04": 21,
+        "T02-08": 21,
+        "HUB-10": 21,
+        "HUB-04": 21,
+        "HUB-06": 42,
+        "HUB-07": 42,
+        "T02-04": 21,
+        "T02-07": 85,
+        "T03-07": 21,
+        "HUB-05": 21,
+        "T03-06": 21,
+        "T02-03": 21,
+        "T02-01": 21,
+        "T02-06": 42,
+        "HUB-09": 21,
+        "HUB-08": 21,
+        "T03-08-A": 21,
+        "T03-08-B": 21,
+        "T03-08-C": 21,
+        "T03-08-D": 21,
+        "T03-08-E": 21,
+        "T03-08-F": 21,
+        "HUB-03": 9,
+        "T02-09": 15,
+        "T02-10": 10,
+        "T02-05": 1
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1933,
+        "py": 913,
+        "pickups": []
+      }
+    },
+    "vip_oeste": {
+      "draws": {
+        "T03-01": 30,
+        "T03-02": 30,
+        "T03-03": 30,
+        "T03-04": 30,
+        "T02-08": 30,
+        "HUB-10": 30,
+        "HUB-04": 30,
+        "HUB-06": 60,
+        "HUB-07": 60,
+        "T02-05": 30,
+        "T02-07": 120,
+        "T03-07": 30,
+        "T02-02": 30,
+        "T03-05": 30,
+        "T02-01": 30,
+        "T02-06": 60,
+        "HUB-08": 30,
+        "T03-08-A": 30,
+        "T03-08-B": 30,
+        "T03-08-C": 30,
+        "T03-08-D": 30,
+        "T03-08-E": 30,
+        "T03-08-F": 30
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 802,
+        "py": 596,
+        "pickups": []
+      }
+    },
+    "vip_este": {
+      "draws": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-04": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "HUB-05": 34,
+        "T03-06": 34,
+        "T02-03": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1732,
+        "py": 596,
+        "pickups": []
+      }
+    },
+    "arcade": {
+      "draws": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-07": 68,
+        "T02-05": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "T02-02": 34,
+        "T03-05": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 678,
+        "py": 1278,
+        "pickups": []
+      }
+    },
+    "sellos": {
+      "draws": {
+        "T03-01": 33,
+        "T03-02": 33,
+        "T03-03": 33,
+        "T03-04": 33,
+        "T02-08": 33,
+        "HUB-07": 66,
+        "T02-04": 33,
+        "T02-07": 132,
+        "T03-07": 33,
+        "HUB-05": 33,
+        "T03-06": 33,
+        "T02-03": 33,
+        "T02-01": 33,
+        "T02-06": 66,
+        "HUB-09": 33,
+        "HUB-08": 33,
+        "T03-08-A": 33,
+        "T03-08-B": 33,
+        "T03-08-C": 33,
+        "T03-08-D": 33,
+        "T03-08-E": 33,
+        "T03-08-F": 33
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1868,
+        "py": 1278,
+        "pickups": []
+      }
+    },
+    "descenso": {
+      "draws": {
+        "T03-01": 31,
+        "T03-02": 31,
+        "T03-03": 31,
+        "T03-04": 31,
+        "T02-08": 31,
+        "HUB-07": 62,
+        "T02-05": 31,
+        "T02-04": 31,
+        "T02-07": 124,
+        "T03-07": 31,
+        "T02-02": 31,
+        "HUB-05": 31,
+        "T03-05": 31,
+        "T03-06": 31,
+        "T02-03": 31,
+        "T02-01": 31,
+        "T02-06": 62,
+        "HUB-09": 31,
+        "HUB-08": 31,
+        "T03-08-A": 31,
+        "T03-08-B": 31,
+        "T03-08-C": 31,
+        "T03-08-D": 31,
+        "T03-08-E": 31,
+        "T03-08-F": 31
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 1365,
+        "pickups": []
+      }
+    },
+    "arsenal": {
+      "draws": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-05": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "T02-02": 34,
+        "T03-05": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 613,
+        "py": 913,
+        "pickups": []
+      }
+    },
+    "pared_este": {
+      "draws": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-04": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "HUB-05": 34,
+        "T03-06": 34,
+        "T02-03": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 2050,
+        "py": 965,
+        "pickups": []
+      }
+    },
+    "pared_oeste": {
+      "draws": {
+        "T03-01": 32,
+        "T03-02": 32,
+        "T03-03": 32,
+        "T03-04": 32,
+        "T02-08": 32,
+        "HUB-10": 32,
+        "HUB-04": 32,
+        "HUB-06": 64,
+        "HUB-07": 64,
+        "T02-05": 32,
+        "T02-07": 128,
+        "T03-07": 32,
+        "T02-02": 32,
+        "T03-05": 32,
+        "T02-01": 32,
+        "T02-06": 64,
+        "HUB-09": 32,
+        "HUB-08": 32,
+        "T03-08-A": 32,
+        "T03-08-B": 32,
+        "T03-08-C": 32,
+        "T03-08-D": 32,
+        "T03-08-E": 32,
+        "T03-08-F": 32
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 450,
+        "py": 965,
+        "pickups": []
+      }
+    },
+    "norte": {
+      "draws": {
+        "T03-01": 33,
+        "T03-02": 33,
+        "T03-03": 33,
+        "T03-04": 33,
+        "T02-08": 33,
+        "HUB-10": 33,
+        "HUB-04": 33,
+        "HUB-06": 66,
+        "HUB-07": 66,
+        "T02-05": 33,
+        "T02-04": 33,
+        "T02-07": 132,
+        "T03-07": 33,
+        "T02-02": 33,
+        "HUB-05": 33,
+        "T03-05": 33,
+        "T03-06": 33,
+        "T02-03": 33,
+        "T02-01": 33,
+        "T02-06": 66,
+        "HUB-08": 33,
+        "T03-08-A": 33,
+        "T03-08-B": 33,
+        "T03-08-C": 33,
+        "T03-08-D": 33,
+        "T03-08-E": 33,
+        "T03-08-F": 33
+      },
+      "debug": {
+        "round": 1,
+        "night": 1,
+        "waveMode": "standard",
+        "roundModifier": null,
+        "boss": false,
+        "combo": 1,
+        "hype": 0,
+        "rave": false,
+        "playerLevel": 1,
+        "lives": 3,
+        "invuln": false,
+        "enemies": 0,
+        "bossInfo": null,
+        "conos": 0,
+        "balas": 0,
+        "balasArr": [],
+        "dodge": {
+          "precise": 0,
+          "chains": 0,
+          "best": 0,
+          "chain": 0,
+          "byKind": {},
+          "activas": 0,
+          "fx": 0,
+          "lastKind": "",
+          "lastMin": -1,
+          "lastLife": 0,
+          "th": {
+            "laser": 38,
+            "dash": 30,
+            "charge": 34,
+            "volley": 26,
+            "cone": 30
+          }
+        },
+        "px": 1250,
+        "py": 330,
+        "pickups": []
+      }
+    }
+  },
+  "finalProbe": {
+    "ts": "2026-11-03T23:09:01.732Z",
+    "url": "http://127.0.0.1:8123/",
+    "readyState": "complete",
+    "hub": {
+      "version": "3.5.0-hub-proto",
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "transitionLock": false,
+      "modalOpen": false,
+      "activeStationId": null,
+      "selectedCircle": 0,
+      "unlockedCircles": [
+        0
+      ],
+      "defeatedResidents": [],
+      "completedInvasions": [],
+      "visitPeaceTimer": 19.41,
+      "invasionWarning": false,
+      "invasionActive": false,
+      "extractionAvailable": false,
+      "extractionBeacon": null,
+      "storageAvailable": true,
+      "lastCorruptionRecovered": false,
+      "saveWrites": 2,
+      "transitionsCompleted": 0,
+      "transitionErrors": 0,
+      "officialUntainted": false
+    },
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": false
+    },
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "artPack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03",
+      "status": "applied",
+      "startedAt": 1793747324510,
+      "appliedAt": 1793747324510,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793747324646,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "hub3": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "productionUnits": 8,
+        "files": 13,
+        "registered": 13,
+        "registeredDrawSlots": 1,
+        "verifiedDraws": 0,
+        "blocked": 13,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)",
+        "note": "13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). 0 drawImage verificados en produccion. HTML intacto.",
+        "appliedAt": 1793747324706
+      },
+      "hub3Boot": {
+        "registered": 13,
+        "at": 1793747324706
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793747324739,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793747324839
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 10,
+        "enabled": true,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793747324871
+      },
+      "finishedAt": 1793747324871
+    },
+    "hub1": {
+      "version": "hub-tanda01",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 9,
+      "errors": [],
+      "assets": [
+        {
+          "id": "HUB-01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "managedBy": "MANIFEST/T01",
+          "slots": [
+            "t3b_material_01"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 0,
+          "classification": "Arquitectónico / Funcional",
+          "role": "Superficie principal del HUB (patrón repeat 512x512).",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-02",
+          "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_pista_medallion"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Alfombra / medallón de identidad de la pista central.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            760,
+            430
+          ],
+          "natural": [
+            760,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-03",
+          "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+          "loader": "V5",
+          "managedBy": "ARCHITECTURE/T02",
+          "slots": [
+            "wall_stained_glass_arch"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Panel de muro modular: delimita y da profundidad al perímetro.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            120,
+            176
+          ],
+          "natural": [
+            120,
+            176
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-04",
+          "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_dj_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Cabina del DJ, elemento protagonista (estación dj).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            720,
+            392
+          ],
+          "natural": [
+            720,
+            392
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-05",
+          "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_bar_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo",
+          "role": "Barra «EL ÚLTIMO TRAGO», zona diferenciada (estación bar).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            380,
+            313
+          ],
+          "natural": [
+            380,
+            313
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-06",
+          "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "club_speaker_tower_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectónico",
+          "role": "Columnas estructurales / torres acústicas: ritmo y volumen.",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            76,
+            148
+          ],
+          "natural": [
+            76,
+            148
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-07",
+          "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_vip_booth_nw",
+            "hub_vip_booth_ne"
+          ],
+          "slotsLive": 2,
+          "loaderResolves": 2,
+          "classification": "Decorativo",
+          "role": "Sofás VIP: zona de descanso en ambas alcobas norte (un PNG, dos slots).",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            224,
+            172
+          ],
+          "natural": [
+            224,
+            172
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-08",
+          "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_disco_chandelier"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Decorativo",
+          "role": "Luminaria colgante de neón: iluminación ambiental sobre la pista.",
+          "pivot": "top-center",
+          "alpha": true,
+          "expected": [
+            67,
+            152
+          ],
+          "natural": [
+            67,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-09",
+          "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_abyss_stair_crack"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Funcional",
+          "role": "Portal de descenso: acceso a otras zonas. No toca Ot.openT.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            320,
+            175
+          ],
+          "natural": [
+            320,
+            175
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "HUB-10",
+          "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+          "loader": "V5",
+          "managedBy": "HUB",
+          "slots": [
+            "hub_trophy_board_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo",
+          "role": "Tablón de trofeos / muro de la vergüenza: humor negro y personalidad.",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            167,
+            136
+          ],
+          "natural": [
+            167,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Todos los slots son consumidos por los pintores reales del HUB; geometria, colisiones, sortY, puertas y camara permanecen en el motor."
+    },
+    "hub2": {
+      "version": "hub-tanda02",
+      "count": 10,
+      "enabled": true,
+      "applied": 10,
+      "slotsApplied": 10,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T02-01",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arcade_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Mobiliario secundario",
+          "role": "Banco de recreativas del Rincon Arcade (zona F1).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            264,
+            239
+          ],
+          "natural": [
+            264,
+            239
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-02",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+          "loader": "V5",
+          "slots": [
+            "hub_arsenal_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Mobiliario funcional",
+          "role": "Mostrador del Arsenal de Caronte (zona D).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            360,
+            253
+          ],
+          "natural": [
+            360,
+            253
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-03",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+          "loader": "V5",
+          "slots": [
+            "hub_seals_shrine"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Interactivo / Objeto narrativo",
+          "role": "Espejo de los Sellos (zona F2).",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            244,
+            237
+          ],
+          "natural": [
+            244,
+            237
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-04",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+          "loader": "V5",
+          "slots": [
+            "club_vending_machine_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Equipamiento de discoteca",
+          "role": "Maquina expendedora del lado este.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            100,
+            152
+          ],
+          "natural": [
+            100,
+            152
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-05",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+          "loader": "V5",
+          "slots": [
+            "club_water_cooler_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Objeto narrativo",
+          "role": "Dispensador de agua del lado oeste.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            61,
+            136
+          ],
+          "natural": [
+            61,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-06",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+          "loader": "V5",
+          "slots": [
+            "limbo_bench_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Mobiliario secundario",
+          "role": "Bancos gemelos junto al descenso.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-07",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+          "loader": "V5",
+          "slots": [
+            "club_neon_planter_prop"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Decorativo / Variante visual",
+          "role": "Cuatro jardineras fijas del HUB.",
+          "pivot": "bottom-center",
+          "cachedLayer": false,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-08",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+          "loader": "V5",
+          "slots": [
+            "descent_abyssal_lift_pad"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Funcional / Interactivo",
+          "role": "Plataforma de descenso y puertas de sala.",
+          "pivot": "center",
+          "cachedLayer": false,
+          "expected": [
+            198,
+            104
+          ],
+          "natural": [
+            198,
+            104
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-09",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+          "loader": "V5",
+          "slots": [
+            "wall_ceiling_neon_fixture"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectonico / Iluminacion",
+          "role": "Barra de neon horizontal de techo/muro (capa de pared en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            148,
+            38
+          ],
+          "natural": [
+            148,
+            38
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T02-10",
+          "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+          "loader": "V5",
+          "slots": [
+            "club_wall_sconce_side"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "classification": "Arquitectonico / Senalizacion luminosa",
+          "role": "Apliques laterales de pared (capa de aristas en cache).",
+          "pivot": "center",
+          "cachedLayer": true,
+          "expected": [
+            48,
+            60
+          ],
+          "natural": [
+            48,
+            60
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "live": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "Solo se sustituye el Image de slots que el motor ya dibuja; geometria, colisiones, sortY, puertas, estaciones y camara permanecen en el motor."
+    },
+    "hub3": {
+      "version": "hub-tanda03",
+      "count": 13,
+      "productionUnits": 8,
+      "enabled": true,
+      "registered": 13,
+      "loaded": 13,
+      "exactSize": 13,
+      "blocked": 13,
+      "verifiedDraws": 0,
+      "registeredDrawSlots": 1,
+      "errors": [],
+      "assets": [
+        {
+          "id": "T03-01",
+          "unit": "HUB_FLOOR_PATCH_O",
+          "file": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/final/hub_floor_patch_o.png",
+          "alias": "h03_floor_patch_o",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "OESTE",
+          "worldBox": [
+            290,
+            720,
+            580,
+            430
+          ],
+          "expected": [
+            580,
+            430
+          ],
+          "natural": [
+            580,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-02",
+          "unit": "HUB_FLOOR_PATCH_E",
+          "file": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/final/hub_floor_patch_e.png",
+          "alias": "h03_floor_patch_e",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "ESTE",
+          "worldBox": [
+            1630,
+            720,
+            580,
+            430
+          ],
+          "expected": [
+            580,
+            430
+          ],
+          "natural": [
+            580,
+            430
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-03",
+          "unit": "HUB_FLOOR_PATCH_S_CRACK",
+          "file": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png",
+          "alias": "h03_floor_patch_s_crack",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "SUR",
+          "worldBox": [
+            870,
+            1256,
+            760,
+            329
+          ],
+          "expected": [
+            760,
+            329
+          ],
+          "natural": [
+            760,
+            329
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-04",
+          "unit": "HUB_FLOOR_NORTH_DJ",
+          "file": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/final/hub_floor_north_dj.png",
+          "alias": "h03_floor_north_dj",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Arquitectonico / Suelo (Familia A)",
+          "orientation": "NORTE",
+          "worldBox": [
+            870,
+            265,
+            760,
+            224
+          ],
+          "expected": [
+            760,
+            224
+          ],
+          "natural": [
+            760,
+            224
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-05",
+          "unit": "HUB_PLANTER_VARIANT_02",
+          "file": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/final/hub_planter_variant_02.png",
+          "alias": "h03_planter_variant_02",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Mobiliario / Variante (Familia B)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            96,
+            108
+          ],
+          "natural": [
+            96,
+            108
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-06",
+          "unit": "HUB_BENCH_VARIANT_02",
+          "file": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/final/hub_bench_variant_02.png",
+          "alias": "h03_bench_variant_02",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Mobiliario / Variante (Familia B)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            256,
+            198
+          ],
+          "natural": [
+            256,
+            198
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-07",
+          "unit": "HUB_VIP_BOOTH_LOUNGE",
+          "file": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/final/hub_vip_booth_lounge.png",
+          "alias": "h03_vip_booth_lounge",
+          "aliasLive": true,
+          "slots": [
+            "hub_vip_booth_lounge"
+          ],
+          "slotsLive": 1,
+          "loaderResolves": 1,
+          "drawSlot": "hub_vip_booth_lounge",
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Espacio VIP / Setpiece de MENU (Familia C)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            216,
+            136
+          ],
+          "natural": [
+            216,
+            136
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-A",
+          "unit": "HUB_ZONE_SIGNAGE/A",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+          "alias": "h03_zone_signage_a",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-B",
+          "unit": "HUB_ZONE_SIGNAGE/B",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+          "alias": "h03_zone_signage_b",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-C",
+          "unit": "HUB_ZONE_SIGNAGE/C",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+          "alias": "h03_zone_signage_c",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-D",
+          "unit": "HUB_ZONE_SIGNAGE/D",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+          "alias": "h03_zone_signage_d",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-E",
+          "unit": "HUB_ZONE_SIGNAGE/E",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+          "alias": "h03_zone_signage_e",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        },
+        {
+          "id": "T03-08-F",
+          "unit": "HUB_ZONE_SIGNAGE/F",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+          "alias": "h03_zone_signage_f",
+          "aliasLive": true,
+          "slots": [],
+          "slotsLive": 0,
+          "loaderResolves": 0,
+          "drawSlot": null,
+          "blocked": true,
+          "visibleInGame": false,
+          "rendererInactiveD07": false,
+          "classification": "Senaletica diegetica / Sistema (Familia D)",
+          "orientation": null,
+          "worldBox": null,
+          "expected": [
+            192,
+            128
+          ],
+          "natural": [
+            192,
+            128
+          ],
+          "exactSize": true,
+          "loaded": true,
+          "registered": true,
+          "originalsPreserved": true
+        }
+      ],
+      "note": "13/13 PNG registrados; 8/8 unidades BLOQUEADAS para render. El unico pintor del codigo (MENU) no esta activo en el build (D-07): 0 drawImage medidos. No se inventa render nuevo ni se toca el HTML."
+    },
+    "v5Keys": 142,
+    "v5KeysSample": [
+      "abyssal_portal_pad",
+      "allied_combat_turret",
+      "avaricia_floor_medallion",
+      "avaricia_roulette_prop",
+      "avaricia_slot_vault",
+      "avaricia_vault_stage",
+      "campaign_door_diag_gate",
+      "campaign_door_frame",
+      "campaign_door_leaf",
+      "campaign_door_side_frame",
+      "campaign_door_side_leaf",
+      "campaign_door_south_gate",
+      "campaign_loot_chest",
+      "campaign_shop_cabina",
+      "campaign_weapon_rack",
+      "cine_pa_horn_speaker",
+      "club_neon_planter_prop",
+      "club_roadcase_crate_prop",
+      "club_speaker_tower_prop",
+      "club_vending_machine_prop",
+      "club_wall_sconce_side",
+      "club_wall_sconce_torch",
+      "club_water_cooler_prop",
+      "combat_proximity_mine",
+      "decor_chrome_railing",
+      "decor_neon_painting",
+      "decor_neon_rug",
+      "decor_potted_palm",
+      "descent_abyssal_lift_pad",
+      "fraude_card_table_prop",
+      "fraude_floor_medallion",
+      "fraude_mirror_prop",
+      "fraude_mirror_stage",
+      "gula_banquet_stage",
+      "gula_banquet_table",
+      "gula_cauldron_prop",
+      "gula_floor_medallion",
+      "h01_hub_02",
+      "h01_hub_04",
+      "h01_hub_05",
+      "h01_hub_06",
+      "h01_hub_07",
+      "h01_hub_08",
+      "h01_hub_09",
+      "h01_hub_10",
+      "h02_t02_01",
+      "h02_t02_02",
+      "h02_t02_03",
+      "h02_t02_04",
+      "h02_t02_05",
+      "h02_t02_06",
+      "h02_t02_07",
+      "h02_t02_08",
+      "h02_t02_09",
+      "h02_t02_10",
+      "h03_bench_variant_02",
+      "h03_floor_north_dj",
+      "h03_floor_patch_e",
+      "h03_floor_patch_o",
+      "h03_floor_patch_s_crack",
+      "h03_planter_variant_02",
+      "h03_vip_booth_lounge",
+      "h03_zone_signage_a",
+      "h03_zone_signage_b",
+      "h03_zone_signage_c",
+      "h03_zone_signage_d",
+      "h03_zone_signage_e",
+      "h03_zone_signage_f",
+      "herejia_altar_stage",
+      "herejia_floor_medallion",
+      "herejia_pew_prop",
+      "herejia_reliquary_prop",
+      "hub_abyss_stair_crack",
+      "hub_arcade_shrine",
+      "hub_arsenal_shrine",
+      "hub_bar_shrine",
+      "hub_bartender_npc",
+      "hub_bouncer_npc",
+      "hub_cliente000_npc",
+      "hub_clubber_dancer_a",
+      "hub_clubber_dancer_b",
+      "hub_disco_chandelier",
+      "hub_dj_shrine",
+      "hub_fox_crest_emblem",
+      "hub_hell_elevator",
+      "hub_pista_medallion",
+      "hub_seals_shrine",
+      "hub_trophy_board_prop",
+      "hub_vip_booth_lounge",
+      "hub_vip_booth_ne",
+      "hub_vip_booth_nw",
+      "ira_brazier_prop",
+      "ira_floor_medallion",
+      "ira_furnace_stage",
+      "ira_speaker_stack_prop",
+      "limbo_bench_prop",
+      "limbo_floor_medallion",
+      "limbo_gate_stage",
+      "limbo_turnstile_prop",
+      "lujuria_boudoir_stage",
+      "lujuria_divan_prop",
+      "lujuria_table_prop",
+      "nucleo_cathedral_stage",
+      "nucleo_console_prop",
+      "nucleo_floor_mandala",
+      "nucleo_pillar_prop",
+      "objective_energy_orb",
+      "objective_generator_pylon",
+      "player_aegis_shield_aura",
+      "prop_bench_vertical",
+      "prop_table_vertical",
+      "route_chest_pedestal",
+      "route_elite_blood_altar",
+      "stage_abyssal_pit_trap",
+      "stage_sonic_barrier_prop",
+      "t02_A01_wall_straight",
+      "t02_A02_wall_corner_inner",
+      "t02_A03_wall_corner_outer",
+      "t02_A04_wall_end_cap",
+      "t02_A05_wall_pillar",
+      "t02_A06_door_closed",
+      "t02_A07_door_open",
+      "t02_A08_doorway_frame",
+      "t02_A09_threshold_entry",
+      "t02_A10_wall_neon_detail",
+      "traicion_abyss_stage",
+      "traicion_cryopod_prop",
+      "traicion_floor_medallion",
+      "traicion_ice_spike_prop",
+      "violencia_biolab_stage",
+      "violencia_biovat_prop",
+      "violencia_floor_medallion",
+      "violencia_surgical_table_prop",
+      "wall_avaricia_vault_door",
+      "wall_ceiling_neon_fixture",
+      "wall_gula_bottle_rack",
+      "wall_ira_furnace_vent",
+      "wall_limbo_ticket_window",
+      "wall_neon_club_crest",
+      "wall_stained_glass_arch",
+      "wall_traicion_glacier_panel",
+      "wall_violencia_specimen_vat"
+    ],
+    "canvasCount": 27,
+    "canvasCountBase": 27,
+    "t3b": {
+      "enabled": true,
+      "revision": 29,
+      "routes": [
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "campaign",
+        "hub",
+        "campaign",
+        "campaign"
+      ]
+    },
+    "hubFloor": {
+      "revision": 29,
+      "builds": 1,
+      "draws": 524,
+      "available": true
+    },
+    "menu54": {
+      "frames": 0,
+      "resizes": 0,
+      "w": 0,
+      "h": 0,
+      "fps": 30,
+      "fixtures": 0,
+      "phase": "apagado",
+      "drops": 0,
+      "reduced": false,
+      "visible": false
+    },
+    "debug": {
+      "round": 1,
+      "night": 1,
+      "waveMode": "standard",
+      "roundModifier": null,
+      "boss": false,
+      "combo": 1,
+      "hype": 0,
+      "rave": false,
+      "playerLevel": 1,
+      "lives": 3,
+      "invuln": false,
+      "enemies": 0,
+      "bossInfo": null,
+      "conos": 0,
+      "balas": 0,
+      "balasArr": [],
+      "dodge": {
+        "precise": 0,
+        "chains": 0,
+        "best": 0,
+        "chain": 0,
+        "byKind": {},
+        "activas": 0,
+        "fx": 0,
+        "lastKind": "",
+        "lastMin": -1,
+        "lastLife": 0,
+        "th": {
+          "laser": 38,
+          "dash": 30,
+          "charge": 34,
+          "volley": 26,
+          "cone": 30
+        }
+      },
+      "px": 1250,
+      "py": 330,
+      "pickups": []
+    },
+    "draws": {
+      "T02-09": 58,
+      "T02-10": 38,
+      "T02-05": 406,
+      "T02-07": 2115,
+      "HUB-03": 27,
+      "T03-01": 524,
+      "T03-02": 524,
+      "T03-03": 524,
+      "T03-04": 524,
+      "HUB-02": 1,
+      "T02-08": 524,
+      "HUB-10": 425,
+      "HUB-04": 425,
+      "HUB-06": 850,
+      "HUB-07": 1048,
+      "T02-04": 394,
+      "T03-07": 524,
+      "T02-02": 402,
+      "HUB-05": 394,
+      "T03-05": 402,
+      "T03-06": 394,
+      "T02-03": 394,
+      "T02-01": 524,
+      "T02-06": 1048,
+      "HUB-09": 402,
+      "HUB-08": 524,
+      "T03-08-A": 524,
+      "T03-08-B": 524,
+      "T03-08-C": 524,
+      "T03-08-D": 524,
+      "T03-08-E": 524,
+      "T03-08-F": 524
+    },
+    "byZone": {
+      "boot": {
+        "T02-09": 43,
+        "T02-10": 28,
+        "T02-05": 156,
+        "T02-07": 630,
+        "HUB-03": 18,
+        "T03-01": 153,
+        "T03-02": 153,
+        "T03-03": 153,
+        "T03-04": 153,
+        "HUB-02": 1,
+        "T02-08": 153,
+        "HUB-10": 153,
+        "HUB-04": 153,
+        "HUB-06": 306,
+        "HUB-07": 306,
+        "T02-04": 153,
+        "T03-07": 153,
+        "T02-02": 153,
+        "HUB-05": 153,
+        "T03-05": 153,
+        "T03-06": 153,
+        "T02-03": 153,
+        "T02-01": 153,
+        "T02-06": 306,
+        "HUB-09": 153,
+        "HUB-08": 153,
+        "T03-08-A": 153,
+        "T03-08-B": 153,
+        "T03-08-C": 153,
+        "T03-08-D": 153,
+        "T03-08-E": 153,
+        "T03-08-F": 153
+      },
+      "centro": {
+        "T03-01": 29,
+        "T03-02": 29,
+        "T03-03": 29,
+        "T03-04": 29,
+        "T02-08": 29,
+        "HUB-10": 29,
+        "HUB-04": 29,
+        "HUB-06": 58,
+        "HUB-07": 58,
+        "T02-05": 29,
+        "T02-04": 29,
+        "T02-07": 116,
+        "T03-07": 29,
+        "T02-02": 29,
+        "HUB-05": 29,
+        "T03-05": 29,
+        "T03-06": 29,
+        "T02-03": 29,
+        "T02-01": 29,
+        "T02-06": 58,
+        "HUB-09": 29,
+        "HUB-08": 29,
+        "T03-08-A": 29,
+        "T03-08-B": 29,
+        "T03-08-C": 29,
+        "T03-08-D": 29,
+        "T03-08-E": 29,
+        "T03-08-F": 29
+      },
+      "dj": {
+        "T03-01": 25,
+        "T03-02": 25,
+        "T03-03": 25,
+        "T03-04": 25,
+        "T02-08": 25,
+        "HUB-10": 25,
+        "HUB-04": 25,
+        "HUB-06": 50,
+        "HUB-07": 50,
+        "T02-05": 25,
+        "T02-04": 25,
+        "T02-07": 100,
+        "T03-07": 25,
+        "T02-02": 25,
+        "HUB-05": 25,
+        "T03-05": 25,
+        "T03-06": 25,
+        "T02-03": 25,
+        "T02-01": 25,
+        "T02-06": 50,
+        "HUB-08": 25,
+        "T03-08-A": 25,
+        "T03-08-B": 25,
+        "T03-08-C": 25,
+        "T03-08-D": 25,
+        "T03-08-E": 25,
+        "T03-08-F": 25
+      },
+      "bar": {
+        "T03-01": 21,
+        "T03-02": 21,
+        "T03-03": 21,
+        "T03-04": 21,
+        "T02-08": 21,
+        "HUB-10": 21,
+        "HUB-04": 21,
+        "HUB-06": 42,
+        "HUB-07": 42,
+        "T02-04": 21,
+        "T02-07": 85,
+        "T03-07": 21,
+        "HUB-05": 21,
+        "T03-06": 21,
+        "T02-03": 21,
+        "T02-01": 21,
+        "T02-06": 42,
+        "HUB-09": 21,
+        "HUB-08": 21,
+        "T03-08-A": 21,
+        "T03-08-B": 21,
+        "T03-08-C": 21,
+        "T03-08-D": 21,
+        "T03-08-E": 21,
+        "T03-08-F": 21,
+        "HUB-03": 9,
+        "T02-09": 15,
+        "T02-10": 10,
+        "T02-05": 1
+      },
+      "vip_oeste": {
+        "T03-01": 30,
+        "T03-02": 30,
+        "T03-03": 30,
+        "T03-04": 30,
+        "T02-08": 30,
+        "HUB-10": 30,
+        "HUB-04": 30,
+        "HUB-06": 60,
+        "HUB-07": 60,
+        "T02-05": 30,
+        "T02-07": 120,
+        "T03-07": 30,
+        "T02-02": 30,
+        "T03-05": 30,
+        "T02-01": 30,
+        "T02-06": 60,
+        "HUB-08": 30,
+        "T03-08-A": 30,
+        "T03-08-B": 30,
+        "T03-08-C": 30,
+        "T03-08-D": 30,
+        "T03-08-E": 30,
+        "T03-08-F": 30
+      },
+      "vip_este": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-04": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "HUB-05": 34,
+        "T03-06": 34,
+        "T02-03": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "arcade": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-07": 68,
+        "T02-05": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "T02-02": 34,
+        "T03-05": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "sellos": {
+        "T03-01": 33,
+        "T03-02": 33,
+        "T03-03": 33,
+        "T03-04": 33,
+        "T02-08": 33,
+        "HUB-07": 66,
+        "T02-04": 33,
+        "T02-07": 132,
+        "T03-07": 33,
+        "HUB-05": 33,
+        "T03-06": 33,
+        "T02-03": 33,
+        "T02-01": 33,
+        "T02-06": 66,
+        "HUB-09": 33,
+        "HUB-08": 33,
+        "T03-08-A": 33,
+        "T03-08-B": 33,
+        "T03-08-C": 33,
+        "T03-08-D": 33,
+        "T03-08-E": 33,
+        "T03-08-F": 33
+      },
+      "descenso": {
+        "T03-01": 32,
+        "T03-02": 32,
+        "T03-03": 32,
+        "T03-04": 32,
+        "T02-08": 32,
+        "HUB-07": 64,
+        "T02-05": 32,
+        "T02-04": 32,
+        "T02-07": 128,
+        "T03-07": 32,
+        "T02-02": 32,
+        "HUB-05": 32,
+        "T03-05": 32,
+        "T03-06": 32,
+        "T02-03": 32,
+        "T02-01": 32,
+        "T02-06": 64,
+        "HUB-09": 32,
+        "HUB-08": 32,
+        "T03-08-A": 32,
+        "T03-08-B": 32,
+        "T03-08-C": 32,
+        "T03-08-D": 32,
+        "T03-08-E": 32,
+        "T03-08-F": 32
+      },
+      "arsenal": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-05": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "T02-02": 34,
+        "T03-05": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "pared_este": {
+        "T03-01": 34,
+        "T03-02": 34,
+        "T03-03": 34,
+        "T03-04": 34,
+        "T02-08": 34,
+        "HUB-10": 34,
+        "HUB-04": 34,
+        "HUB-06": 68,
+        "HUB-07": 68,
+        "T02-04": 34,
+        "T02-07": 136,
+        "T03-07": 34,
+        "HUB-05": 34,
+        "T03-06": 34,
+        "T02-03": 34,
+        "T02-01": 34,
+        "T02-06": 68,
+        "HUB-09": 34,
+        "HUB-08": 34,
+        "T03-08-A": 34,
+        "T03-08-B": 34,
+        "T03-08-C": 34,
+        "T03-08-D": 34,
+        "T03-08-E": 34,
+        "T03-08-F": 34
+      },
+      "pared_oeste": {
+        "T03-01": 32,
+        "T03-02": 32,
+        "T03-03": 32,
+        "T03-04": 32,
+        "T02-08": 32,
+        "HUB-10": 32,
+        "HUB-04": 32,
+        "HUB-06": 64,
+        "HUB-07": 64,
+        "T02-05": 32,
+        "T02-07": 128,
+        "T03-07": 32,
+        "T02-02": 32,
+        "T03-05": 32,
+        "T02-01": 32,
+        "T02-06": 64,
+        "HUB-09": 32,
+        "HUB-08": 32,
+        "T03-08-A": 32,
+        "T03-08-B": 32,
+        "T03-08-C": 32,
+        "T03-08-D": 32,
+        "T03-08-E": 32,
+        "T03-08-F": 32
+      },
+      "norte": {
+        "T03-01": 33,
+        "T03-02": 33,
+        "T03-03": 33,
+        "T03-04": 33,
+        "T02-08": 33,
+        "HUB-10": 33,
+        "HUB-04": 33,
+        "HUB-06": 66,
+        "HUB-07": 66,
+        "T02-05": 33,
+        "T02-04": 33,
+        "T02-07": 132,
+        "T03-07": 33,
+        "T02-02": 33,
+        "HUB-05": 33,
+        "T03-05": 33,
+        "T03-06": 33,
+        "T02-03": 33,
+        "T02-01": 33,
+        "T02-06": 66,
+        "HUB-08": 33,
+        "T03-08-A": 33,
+        "T03-08-B": 33,
+        "T03-08-C": 33,
+        "T03-08-D": 33,
+        "T03-08-E": 33,
+        "T03-08-F": 33
+      }
+    },
+    "canvasSizes": {
+      "T02-09": [
+        2500,
+        1850
+      ],
+      "T02-10": [
+        2500,
+        1850
+      ],
+      "T02-05": [
+        1280,
+        900
+      ],
+      "T02-07": [
+        1280,
+        900
+      ],
+      "HUB-03": [
+        2500,
+        1850
+      ],
+      "T03-01": [
+        1280,
+        900
+      ],
+      "T03-02": [
+        1280,
+        900
+      ],
+      "T03-03": [
+        1280,
+        900
+      ],
+      "T03-04": [
+        1280,
+        900
+      ],
+      "HUB-02": [
+        760,
+        430
+      ],
+      "T02-08": [
+        1280,
+        900
+      ],
+      "HUB-10": [
+        1280,
+        900
+      ],
+      "HUB-04": [
+        1280,
+        900
+      ],
+      "HUB-06": [
+        1280,
+        900
+      ],
+      "HUB-07": [
+        1280,
+        900
+      ],
+      "T02-04": [
+        1280,
+        900
+      ],
+      "T03-07": [
+        1280,
+        900
+      ],
+      "T02-02": [
+        1280,
+        900
+      ],
+      "HUB-05": [
+        1280,
+        900
+      ],
+      "T03-05": [
+        1280,
+        900
+      ],
+      "T03-06": [
+        1280,
+        900
+      ],
+      "T02-03": [
+        1280,
+        900
+      ],
+      "T02-01": [
+        1280,
+        900
+      ],
+      "T02-06": [
+        1280,
+        900
+      ],
+      "HUB-09": [
+        1280,
+        900
+      ],
+      "HUB-08": [
+        1280,
+        900
+      ],
+      "T03-08-A": [
+        1280,
+        900
+      ],
+      "T03-08-B": [
+        1280,
+        900
+      ],
+      "T03-08-C": [
+        1280,
+        900
+      ],
+      "T03-08-D": [
+        1280,
+        900
+      ],
+      "T03-08-E": [
+        1280,
+        900
+      ],
+      "T03-08-F": [
+        1280,
+        900
+      ]
+    },
+    "pageErrors": []
+  },
+  "htmlSha256": "f3f5e15d06492fb3b511b6c8d8f3c7d3be51f93332d6408d47a432ac744c9865",
+  "artPackSha256": "1df28db436b629610ae47e9a5390e742f48928620d0bd19fa8b4cfdb86d8c8e1",
+  "environment": {
+    "chromium": "131.0.6778.0",
+    "playwrightCore": "1.58.2",
+    "viewport": [
+      1280,
+      900
+    ],
+    "deviceScaleFactor": 1,
+    "renderer": "SwiftShader",
+    "url": "http://127.0.0.1:8123/",
+    "previewPid": "4783 (no reiniciado)",
+    "zones": [
+      "centro",
+      "dj",
+      "bar",
+      "vip_oeste",
+      "vip_este",
+      "arcade",
+      "sellos",
+      "descenso",
+      "arsenal",
+      "pared_este",
+      "pared_oeste",
+      "norte"
+    ]
+  }
+}

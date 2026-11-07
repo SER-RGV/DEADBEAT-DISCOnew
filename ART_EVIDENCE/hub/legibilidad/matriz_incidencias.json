@@ -1,0 +1,1063 @@
+{
+  "tanda": "MODIFICACIÓN PRIORITARIA · legibilidad",
+  "generatedAt": "2026-11-04T09:35:40",
+  "fase": "F0 · auditoría visual de T01–T08 (T09 desactivada con su flag)",
+  "total": 79,
+  "clasificacion": {
+    "AMBIENTAL": 29,
+    "REDUNDANTE": 8,
+    "ESENCIAL": 6,
+    "FUNCIONAL": 21,
+    "MAL UBICADO": 8,
+    "PENDIENTE DE CORREGIR": 7
+  },
+  "densidadPropsPorZona": {
+    "A": 20,
+    "B": 8,
+    "C": 6,
+    "D": 10,
+    "E": 14,
+    "F": 4
+  },
+  "prioridades": {
+    "P1": 33,
+    "P2": 38,
+    "P3": 8
+  },
+  "niebla": {
+    "fuentePrincipal": "S-02 bloom DMO_ATMOS (screen, opacity CSS 1.00)",
+    "evidencia": "base 69,97 -> sin_atmos 55,86 (-14,11); bloom_035 60,67; grade/grain y vignette casi sin efecto; T08 sin efecto en el centro",
+    "noEsNiebla": [
+      "S-03 vignette",
+      "S-05 humo/ceniza T08 (profundidad, sólo en sur)",
+      "patrón de suelo (saturación, no niebla)"
+    ]
+  },
+  "correccionProbada": {
+    "realizada": true,
+    "invasiva": false,
+    "htmlRestaurado": true,
+    "cambios": [
+      "bloom opacity 1.00 -> 0.30",
+      "vignette opacity 1.00 -> 0.45",
+      "grade 1.0 -> 0.35",
+      "grain 0.016 -> 0.006",
+      "9 props REDUNDANTES/MAL UBICADOS ocultados con prop.hidden"
+    ],
+    "resultado": "media -8,22 a -11,71; contraste +0,26 a +0,52; bordes +0,22 a +1,05; 0 pageerror; restauración 9 -> 0 props ocultos",
+    "limite": "La corrección de P3/P4 (orientación, precipicio, conexión grieta-descenso) NO se ha aplicado: requiere propuesta y autorización."
+  },
+  "densidadPorZona": {},
+  "rows": [
+    {
+      "id": "hub_decor_t06_04",
+      "tipo": "prop",
+      "coords": [
+        600,
+        330
+      ],
+      "zona": "B",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_01",
+      "tipo": "prop",
+      "coords": [
+        681,
+        330
+      ],
+      "zona": "B",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_02",
+      "tipo": "prop",
+      "coords": [
+        1114,
+        330
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_08",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        330
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_03",
+      "tipo": "prop",
+      "coords": [
+        1611,
+        330
+      ],
+      "zona": "B",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_05",
+      "tipo": "prop",
+      "coords": [
+        1900,
+        330
+      ],
+      "zona": "B",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_10",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        340
+      ],
+      "zona": "A",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Solapa en 10 u con hub_decor_t06_08 en (1250,330); mismo eje central. Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_decor_t05_04",
+      "tipo": "prop",
+      "coords": [
+        1560,
+        360
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_03",
+      "tipo": "prop",
+      "coords": [
+        905,
+        430
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_09",
+      "tipo": "prop",
+      "coords": [
+        1865,
+        430
+      ],
+      "zona": "B",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_dj_booth",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        445
+      ],
+      "zona": "A",
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Ancla de identidad o del acceso al descenso. Conservar sin cambios.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "narr_board",
+      "tipo": "prop",
+      "coords": [
+        1000,
+        455
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_dj_speaker_L",
+      "tipo": "prop",
+      "coords": [
+        1064,
+        455
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_dj_speaker_R",
+      "tipo": "prop",
+      "coords": [
+        1436,
+        455
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_speaker_w",
+      "tipo": "prop",
+      "coords": [
+        985,
+        502
+      ],
+      "zona": "A",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Altavoz decorativo duplicado; los funcionales son hub_dj_speaker_L/R. Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_decor_speaker_e",
+      "tipo": "prop",
+      "coords": [
+        1515,
+        502
+      ],
+      "zona": "A",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Altavoz decorativo duplicado; los funcionales son hub_dj_speaker_L/R. Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_decor_t05_05",
+      "tipo": "prop",
+      "coords": [
+        1560,
+        520
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_vip_sofa_nw",
+      "tipo": "prop",
+      "coords": [
+        785,
+        545
+      ],
+      "zona": "B",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_vip_sofa_ne",
+      "tipo": "prop",
+      "coords": [
+        1715,
+        545
+      ],
+      "zona": "B",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "narr_cliente000",
+      "tipo": "prop",
+      "coords": [
+        785,
+        560
+      ],
+      "zona": "B",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_09",
+      "tipo": "prop",
+      "coords": [
+        930,
+        560
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_06",
+      "tipo": "prop",
+      "coords": [
+        1910,
+        640
+      ],
+      "zona": "E",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_cooler_w",
+      "tipo": "prop",
+      "coords": [
+        452,
+        692
+      ],
+      "zona": "D",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_vending_e",
+      "tipo": "prop",
+      "coords": [
+        2048,
+        692
+      ],
+      "zona": "E",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "t07_recorrido",
+      "tipo": "prop",
+      "coords": [
+        900,
+        700
+      ],
+      "zona": "F",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_10",
+      "tipo": "prop",
+      "coords": [
+        1715,
+        700
+      ],
+      "zona": "E",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_planter_nw",
+      "tipo": "prop",
+      "coords": [
+        1005,
+        702
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_planter_ne",
+      "tipo": "prop",
+      "coords": [
+        1495,
+        702
+      ],
+      "zona": "A",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_08",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        720
+      ],
+      "zona": "A",
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "En el eje central (1250,720), entre cabina y medallón: compite con la pista. Corrección mínima: reubicar u ocultar, reversible.",
+      "correccionMinima": "Reubicar/ocultar, reversible"
+    },
+    {
+      "id": "hub_decor_t05_07",
+      "tipo": "prop",
+      "coords": [
+        600,
+        760
+      ],
+      "zona": "D",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_vip_lounge",
+      "tipo": "prop",
+      "coords": [
+        785,
+        760
+      ],
+      "zona": "D",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_06_rep1",
+      "tipo": "prop",
+      "coords": [
+        330,
+        780
+      ],
+      "zona": "D",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "2ª instancia del mismo asset de pared (y780). Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_decor_t06_07_rep1",
+      "tipo": "prop",
+      "coords": [
+        2170,
+        780
+      ],
+      "zona": "E",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "2ª instancia del mismo asset de pared (y780). Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_ambient_dancer_nw",
+      "tipo": "prop",
+      "coords": [
+        1030,
+        785
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_ambient_dancer_ne",
+      "tipo": "prop",
+      "coords": [
+        1470,
+        785
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_arsenal_counter",
+      "tipo": "prop",
+      "coords": [
+        590,
+        845
+      ],
+      "zona": "D",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_bar_counter",
+      "tipo": "prop",
+      "coords": [
+        1910,
+        845
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_planter_v02",
+      "tipo": "prop",
+      "coords": [
+        452,
+        900
+      ],
+      "zona": "D",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Jardinera extra a 208 u de hub_decor_planter_nw/cooler_w. Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "t07_danza_01",
+      "tipo": "prop",
+      "coords": [
+        1120,
+        900
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "t07_danza_02",
+      "tipo": "prop",
+      "coords": [
+        1380,
+        900
+      ],
+      "zona": "A",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "t07_descanso",
+      "tipo": "prop",
+      "coords": [
+        1910,
+        900
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_bench_v02",
+      "tipo": "prop",
+      "coords": [
+        2048,
+        900
+      ],
+      "zona": "E",
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Banco extra junto a vending_e, sin estación asociada. Corrección mínima: ocultar (prop.hidden), reversible; NO borrar.",
+      "correccionMinima": "Ocultar instancia (prop.hidden), reversible"
+    },
+    {
+      "id": "hub_ambient_clubber_bar",
+      "tipo": "prop",
+      "coords": [
+        1965,
+        918
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "t07_charla_01",
+      "tipo": "prop",
+      "coords": [
+        1690,
+        1010
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "t07_charla_02",
+      "tipo": "prop",
+      "coords": [
+        1780,
+        1010
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_ambient_dancer_sw",
+      "tipo": "prop",
+      "coords": [
+        1015,
+        1085
+      ],
+      "zona": "F",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_06",
+      "tipo": "prop",
+      "coords": [
+        330,
+        1160
+      ],
+      "zona": "D",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_02",
+      "tipo": "prop",
+      "coords": [
+        2040,
+        1160
+      ],
+      "zona": "E",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_07",
+      "tipo": "prop",
+      "coords": [
+        2170,
+        1160
+      ],
+      "zona": "E",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_planter_sw",
+      "tipo": "prop",
+      "coords": [
+        1005,
+        1178
+      ],
+      "zona": "F",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_planter_se",
+      "tipo": "prop",
+      "coords": [
+        1495,
+        1178
+      ],
+      "zona": "F",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_arcade_bank",
+      "tipo": "prop",
+      "coords": [
+        655,
+        1210
+      ],
+      "zona": "D",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_seals_mirror",
+      "tipo": "prop",
+      "coords": [
+        1845,
+        1210
+      ],
+      "zona": "E",
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Estación, mobiliario jugable o NPC existente. Conservar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_bench_w",
+      "tipo": "prop",
+      "coords": [
+        1085,
+        1252
+      ],
+      "zona": "C",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_bench_e",
+      "tipo": "prop",
+      "coords": [
+        1415,
+        1252
+      ],
+      "zona": "C",
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Decoración de ambiente; revisar densidad por zona, no eliminar.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t05_01",
+      "tipo": "prop",
+      "coords": [
+        455,
+        1310
+      ],
+      "zona": "D",
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "En (455,1310), dentro de la franja sur que debe leerse como borde. Corrección mínima: reubicar u ocultar, reversible.",
+      "correccionMinima": "Reubicar/ocultar, reversible"
+    },
+    {
+      "id": "hub_lift_pylon_L",
+      "tipo": "prop",
+      "coords": [
+        1126,
+        1365
+      ],
+      "zona": "C",
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Ancla de identidad o del acceso al descenso. Conservar sin cambios.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "narr_lift_aura",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        1365
+      ],
+      "zona": "C",
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Ancla de identidad o del acceso al descenso. Conservar sin cambios.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_lift_pylon_R",
+      "tipo": "prop",
+      "coords": [
+        1374,
+        1365
+      ],
+      "zona": "C",
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Ancla de identidad o del acceso al descenso. Conservar sin cambios.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "narr_scorch",
+      "tipo": "prop",
+      "coords": [
+        1250,
+        1378
+      ],
+      "zona": "C",
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Ancla de identidad o del acceso al descenso. Conservar sin cambios.",
+      "correccionMinima": "Ninguna"
+    },
+    {
+      "id": "hub_decor_t06_06_rep2",
+      "tipo": "prop",
+      "coords": [
+        330,
+        1540
+      ],
+      "zona": "D",
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "En (330,1540), por debajo del borde del acantilado: decoración flotando en el vacío. Corrección mínima: reubicar u ocultar, reversible.",
+      "correccionMinima": "Reubicar/ocultar, reversible"
+    },
+    {
+      "id": "hub_decor_t06_07_rep2",
+      "tipo": "prop",
+      "coords": [
+        2170,
+        1540
+      ],
+      "zona": "E",
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "En (2170,1540), por debajo del borde del acantilado: decoración flotando en el vacío. Corrección mínima: reubicar u ocultar, reversible.",
+      "correccionMinima": "Reubicar/ocultar, reversible"
+    },
+    {
+      "id": "S-01",
+      "tipo": "sistema",
+      "nombre": "Patrón de suelo art-déco (abanicos dorados)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "Cubre TODA la superficie con la misma densidad de líneas; no hay jerarquía entre pista, corredores y borde. Es la principal fuente de saturación.",
+      "correccionMinima": "Atenuar contraste/alfa del patrón FUERA de la pista (sur y corredores) con un gradiente; conservar la pista intacta.",
+      "evidencia": "sweep_01_centro_spawn.jpg, sweep_10_borde_acantilado.jpg"
+    },
+    {
+      "id": "S-02",
+      "tipo": "sistema",
+      "nombre": "DMO_ATMOS · capa bloom (screen, opacity 1.00)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P2",
+      "observacion": "Añade +14 de luminancia media al centro (69,97 -> 55,86 al desactivar atmósfera) sin aumentar detalle: velo tipo niebla. CFG.bloom=1.0 NO es un regulador de opacidad, sólo un interruptor; la opacidad real es CSS del canvas.",
+      "correccionMinima": "Fijar opacity 0.30 en #ilt-atmos-bloom. Medido: media 69,97 -> 60,67; contraste 48,81 -> 48,93; bordes 39,56 -> 40,38.",
+      "evidencia": "metricas_ab.json, ab_sin_atmos_centro.jpg, ab_bloom_035_centro.jpg"
+    },
+    {
+      "id": "S-03",
+      "tipo": "sistema",
+      "nombre": "DMO_ATMOS · vignette (0.34)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Sólo oscurece bordes; centro casi idéntico (69,97 -> 69,65 con opacity 0.40). No es la niebla.",
+      "correccionMinima": "Mantener; como mucho opacity 0.45 para no cerrar los bordes del escenario.",
+      "evidencia": "metricas_ab.json, ab_vig_040_centro.jpg"
+    },
+    {
+      "id": "S-04",
+      "tipo": "sistema",
+      "nombre": "DMO_ATMOS · grade + grain",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "REDUNDANTE",
+      "prioridad": "P2",
+      "observacion": "Variación despreciable (69,97 -> 69,49 al anularlos). Tinte magenta/cian y grano añaden ruido sin información.",
+      "correccionMinima": "Reducir grade 1.0 -> 0.35 y grain 0.016 -> 0.006.",
+      "evidencia": "metricas_ab.json, ab_sin_grade_grano_centro.jpg"
+    },
+    {
+      "id": "S-05",
+      "tipo": "sistema",
+      "nombre": "T08 · humo infernal / ceniza / brasas",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P2",
+      "observacion": "Sólo se dibuja cuando el cutaway es visible (sur). En el centro no afecta (sin_T08: 70,40 vs base 69,97). No es la niebla general.",
+      "correccionMinima": "Conservar: es profundidad, no niebla. No confundir con S-02.",
+      "evidencia": "metricas_ab.json, sweep_01 vs sweep_10"
+    },
+    {
+      "id": "S-06",
+      "tipo": "sistema",
+      "nombre": "Etiquetas HUD de zona/estación",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "Solapamientos: «LA DISCOTECA / DJ STAGE» con «CABINA · VIRGILIO»; «GRIETA DE DESCENSO» con «0/8 ... DESCENSO» y la flecha. Texto compite con la grieta.",
+      "correccionMinima": "Reducir a una etiqueta por punto de interés y desplazar el prompt de la grieta por encima de la abertura.",
+      "evidencia": "sweep_03_noroste_vip.jpg, sweep_10_borde_acantilado.jpg"
+    },
+    {
+      "id": "S-07",
+      "tipo": "sistema",
+      "nombre": "Cabina DJ / escenario (plataforma superior)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "Se lee como un rectángulo plano inclinado apoyado sobre el suelo, sin anclaje vertical ni sombra de contacto.",
+      "correccionMinima": "Corregir anclaje y sombra de contacto con la cámara real; NO estirar la ilustración ni mover la cámara.",
+      "evidencia": "sweep_03_noroste_vip.jpg"
+    },
+    {
+      "id": "S-08",
+      "tipo": "sistema",
+      "nombre": "Abanico/estela del arsenal (zona D)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "Gran abanico dorado plano que cruza el suelo y el mostrador; parece una pegatina sin volumen.",
+      "correccionMinima": "Reducir escala, anclar al mostrador y añadir oclusión; revisar orientación respecto a la cámara.",
+      "evidencia": "sweep_03_noroste_vip.jpg, sweep_05_oeste_arsenal.jpg"
+    },
+    {
+      "id": "S-09",
+      "tipo": "sistema",
+      "nombre": "Sofás VIP y altares arcade/sellos",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "AMBIENTAL",
+      "prioridad": "P3",
+      "observacion": "Se leen como marcos/ilustraciones frontales sobre un suelo en perspectiva; contraste de escala discutible.",
+      "correccionMinima": "Revisar individualmente orientación y pivote; corregir sólo lo que se confirme con cámara real.",
+      "evidencia": "sweep_03_noroste_vip.jpg, sweep_07_suroeste_arcade.jpg"
+    },
+    {
+      "id": "S-10",
+      "tipo": "sistema",
+      "nombre": "Borde del acantilado",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "No existe un borde legible: el patrón de suelo continúa hasta la línea magenta horizontal y más allá. La cámara está fijada en y~1198 y el jugador no ve dónde termina el terreno.",
+      "correccionMinima": "Crear una franja de terminación (labio rocoso + sombra de caída) en el borde sur antes del vacío. Sin tocar la cámara.",
+      "evidencia": "sweep_10_borde_acantilado.jpg, descenso_0500.jpg"
+    },
+    {
+      "id": "S-11",
+      "tipo": "sistema",
+      "nombre": "hub_abyss_stair_crack (grieta decorativa)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "Dibujada como decal de 330 px en (1250,1436) sobre un suelo intacto, con un icono «III / DESCENSO» y un prompt HUD. No comunica profundidad ni abertura.",
+      "correccionMinima": "Convertirla en abertura geográfica: recortar el suelo en su interior, añadir labio, paredes descendentes y luz inferior.",
+      "evidencia": "sweep_10_borde_acantilado.jpg, descenso_0500.jpg"
+    },
+    {
+      "id": "S-12",
+      "tipo": "sistema",
+      "nombre": "Estación lift (1250,1365, r142)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "FUNCIONAL",
+      "prioridad": "P1",
+      "observacion": "Funciona: startCampaignFromHub(0) dispara T07/T08, 94 fotogramas de descenso y llega a CAMPAIGN_ROOM. Pero NO está físicamente conectada a la grieta: es un radio lógico + HUD.",
+      "correccionMinima": "Conectar el radio a la abertura visual (mismo centro, mismo labio) sin cambiar progresión ni crear segunda transición.",
+      "evidencia": "auditoria_descenso.json, descenso_0500.jpg"
+    },
+    {
+      "id": "S-13",
+      "tipo": "sistema",
+      "nombre": "T08 cutaway (5 planos)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "Durante el descenso se abre una VENTANA RECTANGULAR bajo un suelo que sigue intacto; el patrón dorado continúa a ambos lados de la ventana. La profundidad existe, pero no nace de la geografía.",
+      "correccionMinima": "Hacer que la ventana nazca de la grieta: mismo eje, mismo labio, sin corte horizontal recto.",
+      "evidencia": "descenso_0500.jpg, descenso_0900.jpg"
+    },
+    {
+      "id": "S-14",
+      "tipo": "sistema",
+      "nombre": "Línea magenta horizontal (y~710 en pantalla)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P3",
+      "observacion": "Límite recto de alto contraste que separa HUB de abismo como dos capas pegadas, no como un precipicio.",
+      "correccionMinima": "Sustituir por un labio rocoso irregular con sombra proyectada; mantener el color como acento, no como borde.",
+      "evidencia": "sweep_10_borde_acantilado.jpg"
+    },
+    {
+      "id": "S-15",
+      "tipo": "sistema",
+      "nombre": "Decoración T06 al sur del borde (y1540)",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "MAL UBICADO",
+      "prioridad": "P2",
+      "observacion": "Dos props decorativos por debajo del acantilado, en zona que debería ser vacío.",
+      "correccionMinima": "Ocultar o reubicar por encima del labio; reversible.",
+      "evidencia": "auditoria_legibilidad.json (propsSouth)"
+    },
+    {
+      "id": "S-17",
+      "tipo": "sistema",
+      "nombre": "Medallón del zorro y anillos de la pista",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "ESENCIAL",
+      "prioridad": "P1",
+      "observacion": "Identidad inequívoca de «discoteca». Es el único elemento que debe dominar el plano principal.",
+      "correccionMinima": "Conservar intacto; reducir el contraste del patrón que lo rodea para que destaque.",
+      "evidencia": "sweep_01_centro_spawn.jpg"
+    },
+    {
+      "id": "S-16",
+      "tipo": "sistema",
+      "nombre": "Jerarquía de planos",
+      "coords": null,
+      "zona": null,
+      "clasificacion": "PENDIENTE DE CORREGIR",
+      "prioridad": "P1",
+      "observacion": "No hay separación: suelo, decoración, NPC, arquitectura y abismo comparten el mismo contraste y la misma densidad de línea.",
+      "correccionMinima": "Contraste decreciente por plano: jugador/pista > NPC/POI > arquitectura > grieta/abismo.",
+      "evidencia": "sweep_sheet.png, correccion_sheet.png"
+    }
+  ]
+}

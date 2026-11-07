@@ -1,0 +1,29 @@
+{
+  "antes": {
+    "frames": 40,
+    "medianMs": 16.7,
+    "p90Ms": 50,
+    "minMs": 16.5,
+    "maxMs": 50
+  },
+  "control": {
+    "frames": 40,
+    "medianMs": 33.3,
+    "p90Ms": 49.9,
+    "minMs": 16.6,
+    "maxMs": 50
+  },
+  "despues": {
+    "frames": 40,
+    "medianMs": 33.3,
+    "p90Ms": 33.4,
+    "minMs": 16.6,
+    "maxMs": 50
+  },
+  "loadMs": {
+    "antes": 1645,
+    "control": 1566,
+    "despues": 1349
+  },
+  "note": "Coste de carga separado del de render; 40 rAF por fase. NO cierra el gate de T02."
+}

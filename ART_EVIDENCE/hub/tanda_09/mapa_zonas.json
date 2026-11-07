@@ -1,0 +1,341 @@
+{
+  "tanda": "09",
+  "phase": "F0 · mapa real de zonas",
+  "generatedAt": "2026-11-04T05:38:18",
+  "officialZones": 6,
+  "stations": [
+    {
+      "id": "lift",
+      "zone": "C",
+      "label": "GRIETA DE DESCENSO",
+      "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+      "x": 1250,
+      "y": 1365,
+      "radius": 142,
+      "color": "#22d3ee"
+    },
+    {
+      "id": "dj",
+      "zone": "B",
+      "label": "CABINA · VIRGILIO",
+      "prompt": "HABLAR CON VIRGILIO",
+      "x": 1250,
+      "y": 525,
+      "radius": 132,
+      "color": "#f43f5e"
+    },
+    {
+      "id": "arsenal",
+      "zone": "D",
+      "label": "ARSENAL DE CARONTE",
+      "prompt": "ARMAS Y MEJORAS",
+      "x": 705,
+      "y": 855,
+      "radius": 136,
+      "color": "#facc15"
+    },
+    {
+      "id": "bar",
+      "zone": "E",
+      "label": "BARRA «EL ÚLTIMO TRAGO»",
+      "prompt": "CHARLAR EN LA BARRA",
+      "x": 1790,
+      "y": 855,
+      "radius": 136,
+      "color": "#f472b6"
+    },
+    {
+      "id": "arcade",
+      "zone": "F",
+      "label": "RINCÓN ARCADE",
+      "prompt": "RÉCORDS DEL CLUB",
+      "x": 655,
+      "y": 1135,
+      "radius": 124,
+      "color": "#38bdf8"
+    },
+    {
+      "id": "seals",
+      "zone": "F",
+      "label": "ESPEJO DE LOS SELLOS",
+      "prompt": "CONSULTAR SELLOS OCULTOS",
+      "x": 1845,
+      "y": 1135,
+      "radius": 124,
+      "color": "#c084fc"
+    },
+    {
+      "id": "dancer_0",
+      "dancerId": "hub_ambient_dancer_nw",
+      "quiet": true,
+      "zone": "A",
+      "label": "CLIENTE DEL REFUGIO",
+      "prompt": "CRUZAR DOS PALABRAS",
+      "x": 1030,
+      "y": 785,
+      "radius": 64,
+      "color": "#94a3b8"
+    },
+    {
+      "id": "dancer_1",
+      "dancerId": "hub_ambient_dancer_ne",
+      "quiet": true,
+      "zone": "A",
+      "label": "CLIENTE DEL REFUGIO",
+      "prompt": "CRUZAR DOS PALABRAS",
+      "x": 1470,
+      "y": 785,
+      "radius": 64,
+      "color": "#94a3b8"
+    },
+    {
+      "id": "dancer_2",
+      "dancerId": "hub_ambient_dancer_sw",
+      "quiet": true,
+      "zone": "A",
+      "label": "CLIENTE DEL REFUGIO",
+      "prompt": "CRUZAR DOS PALABRAS",
+      "x": 1015,
+      "y": 1085,
+      "radius": 64,
+      "color": "#94a3b8"
+    },
+    {
+      "id": "dancer_3",
+      "dancerId": "hub_ambient_clubber_bar",
+      "quiet": true,
+      "zone": "A",
+      "label": "CLIENTE DEL REFUGIO",
+      "prompt": "CRUZAR DOS PALABRAS",
+      "x": 1965,
+      "y": 918,
+      "radius": 64,
+      "color": "#94a3b8"
+    },
+    {
+      "id": "cliente000",
+      "zone": "A",
+      "label": "EL CLIENTE 000",
+      "prompt": "SENTARSE UN MOMENTO",
+      "x": 785,
+      "y": 600,
+      "radius": 110,
+      "color": "#a78bfa"
+    }
+  ],
+  "note": "No existen zonas llamadas Entrada, Zona de descanso, Corredores o Acantilado. La entrada es el spawn (1250,965) en zona A; el descanso son sofás/bancos dentro de A/E; el acantilado es la franja sur y1470..1585 de T07/T08.",
+  "zones": [
+    {
+      "codigo": "A",
+      "nombreReal": "Plaza central / pista + sofá VIP noroeste (ZONA A · SOFÁ VIP NOROESTE)",
+      "centro": [
+        1250,
+        965
+      ],
+      "puntos": [
+        [
+          "spawn jugador",
+          1250,
+          965
+        ],
+        [
+          "dancer_0",
+          1030,
+          785
+        ],
+        [
+          "dancer_1",
+          1470,
+          785
+        ],
+        [
+          "dancer_2",
+          1015,
+          1085
+        ],
+        [
+          "sofá VIP NW",
+          785,
+          545
+        ],
+        [
+          "sofá VIP NE",
+          1715,
+          545
+        ],
+        [
+          "cliente000",
+          785,
+          600
+        ]
+      ],
+      "npc": [
+        "hub_ambient_dancer_nw",
+        "hub_ambient_dancer_ne",
+        "hub_ambient_dancer_sw",
+        "t07_danza_01",
+        "t07_danza_02",
+        "narr_cliente000"
+      ],
+      "identidadObjetivo": "Energía y actividad, con pausas que eviten bucle",
+      "estado": "OCUPADA (6 NPC)"
+    },
+    {
+      "codigo": "B",
+      "nombreReal": "Cabina acústica norte (ZONA B · CABINA ACÚSTICA NORTE)",
+      "centro": [
+        1250,
+        525
+      ],
+      "puntos": [
+        [
+          "cabina DJ",
+          1250,
+          445
+        ],
+        [
+          "dj station",
+          1250,
+          525
+        ]
+      ],
+      "npc": [],
+      "identidadObjetivo": "Foco musical / llegada",
+      "estado": "SIN NPC AMBIENTAL (Virgilio es NPC de historia)"
+    },
+    {
+      "codigo": "C",
+      "nombreReal": "Grieta sur / escalera de caracol (ZONA C · GRIETA SUR)",
+      "centro": [
+        1250,
+        1365
+      ],
+      "puntos": [
+        [
+          "lift",
+          1250,
+          1365
+        ],
+        [
+          "borde acantilado",
+          1250,
+          1585
+        ]
+      ],
+      "npc": [],
+      "identidadObjetivo": "Contemplación y tensión",
+      "estado": "SIN NPC PERMANENTE; evento raro de observación"
+    },
+    {
+      "codigo": "D",
+      "nombreReal": "Arsenal de Caronte / armería oeste (ZONA D)",
+      "centro": [
+        705,
+        855
+      ],
+      "puntos": [
+        [
+          "arsenal",
+          705,
+          855
+        ],
+        [
+          "mostrador",
+          590,
+          845
+        ]
+      ],
+      "npc": [
+        "t07_recorrido"
+      ],
+      "identidadObjetivo": "Tránsito y curiosidad",
+      "estado": "1 NPC en corredor limítrofe (900,700)"
+    },
+    {
+      "codigo": "E",
+      "nombreReal": "Barra «El Último Trago» / reservado este (ZONA E)",
+      "centro": [
+        1790,
+        855
+      ],
+      "puntos": [
+        [
+          "bar",
+          1790,
+          855
+        ],
+        [
+          "mostrador",
+          1910,
+          845
+        ]
+      ],
+      "npc": [
+        "hub_ambient_clubber_bar",
+        "t07_charla_01",
+        "t07_charla_02",
+        "t07_descanso"
+      ],
+      "identidadObjetivo": "Conversación, espera y descanso",
+      "estado": "OCUPADA (4 NPC)"
+    },
+    {
+      "codigo": "F",
+      "nombreReal": "Rincón Arcade suroeste + Espejo de los Sellos sureste (ZONA F)",
+      "centro": [
+        655,
+        1135
+      ],
+      "puntos": [
+        [
+          "arcade",
+          655,
+          1135
+        ],
+        [
+          "banco arcade",
+          655,
+          1210
+        ],
+        [
+          "seals",
+          1845,
+          1135
+        ],
+        [
+          "espejo",
+          1845,
+          1210
+        ]
+      ],
+      "npc": [],
+      "identidadObjetivo": "Curiosidad y entretenimiento",
+      "estado": "SIN NPC PROPIO; se resuelve con orientación de hub_ambient_dancer_sw"
+    },
+    {
+      "codigo": "—",
+      "nombreReal": "Corredores / anillo perimetral (NO es zona oficial)",
+      "centro": [
+        1250,
+        925
+      ],
+      "puntos": [
+        [
+          "bancos W/E",
+          1085,
+          1252
+        ],
+        [
+          "bancos E",
+          1415,
+          1252
+        ]
+      ],
+      "npc": [
+        "t07_recorrido"
+      ],
+      "identidadObjetivo": "Tránsito",
+      "estado": "Sin sistema de patrulla; único seno ±62 u"
+    }
+  ]
+}

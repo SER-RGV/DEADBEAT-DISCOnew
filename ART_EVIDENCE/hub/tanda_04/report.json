@@ -1,0 +1,2550 @@
+{
+  "tanda": "04",
+  "title": "HUB RENDER INTEGRATION — activación de los 13 PNG de TANDA 03",
+  "generatedAt": "2026-11-03T22:53:09.770Z",
+  "environment": {
+    "chromium": "131.0.6778.0",
+    "playwrightCore": "1.58.2",
+    "viewport": [
+      1280,
+      900
+    ],
+    "deviceScaleFactor": 1,
+    "renderer": "SwiftShader / --use-gl=swiftshader",
+    "url": "http://127.0.0.1:8123/",
+    "camera": "DMO.debug.teleport(x,y) · 10 zonas idénticas en las 3 fases"
+  },
+  "baseline": {
+    "htmlBeforeSha": "f231cfc7e2c634095d767e321d71155d1a9a9c6c661a008274e5989d97230723",
+    "htmlAfterSha": "f3f5e15d06492fb3b511b6c8d8f3c7d3be51f93332d6408d47a432ac744c9865",
+    "artPackSha": "1df28db436b629610ae47e9a5390e742f48928620d0bd19fa8b4cfdb86d8c8e1"
+  },
+  "phases": [
+    "antes",
+    "control",
+    "despues"
+  ],
+  "integrationCriterion": ">=1 drawImage efectivo por unidad en el canvas de mundo del HUB; registro V5 NO basta",
+  "summary": {
+    "APROBADO": 12,
+    "FALLIDO": 0,
+    "UNIDADES_INTEGRADAS": 13,
+    "UNIDADES_BLOQUEADAS": 0,
+    "NO_VERIFICADO": 0
+  },
+  "verdict": {
+    "APROBADO": [
+      "T03-01",
+      "T03-02",
+      "T03-03",
+      "T03-04",
+      "T03-05",
+      "T03-06",
+      "T03-07",
+      "T03-08-A",
+      "T03-08-B",
+      "T03-08-C",
+      "T03-08-D",
+      "T03-08-E",
+      "T03-08-F"
+    ],
+    "BLOQUEADO": [],
+    "NO_VERIFICADO": []
+  },
+  "checks": [
+    {
+      "id": 1,
+      "check": "Integridad del HTML, del art pack y de las APIs existentes",
+      "state": "APROBADO",
+      "detail": {
+        "htmlShaBefore": "f231cfc7e2c634095d767e321d71155d1a9a9c6c661a008274e5989d97230723",
+        "htmlShaAfter": "f3f5e15d06492fb3b511b6c8d8f3c7d3be51f93332d6408d47a432ac744c9865",
+        "artPackSha": "1df28db436b629610ae47e9a5390e742f48928620d0bd19fa8b4cfdb86d8c8e1",
+        "artPackUnchanged": true,
+        "markerBlocks": {
+          "begin": 4,
+          "end": 4
+        },
+        "htmlDeltaBytes": 3281,
+        "htmlInsertions": 59,
+        "htmlDeletions": 2,
+        "filesModified": [
+          "DEADBEAT_DISCO.ART.html"
+        ],
+        "jsFilesModified": [],
+        "status": "applied",
+        "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03",
+        "v5Keys": 142,
+        "canvasCountBase": {
+          "antes": 27,
+          "control": 27,
+          "despues": 27
+        },
+        "note": "TANDA 04 modifica SOLO el HTML activo (3 bloques entre marcadores). ART_PACK/art_pack.js queda byte a byte idéntico: se mantienen __DDM_V5_IMG, load() y todas las APIs."
+      },
+      "evidence": [
+        "baseline.json",
+        "matriz_integracion.json",
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": 2,
+      "check": "Recursos cargados: 13/13 PNG, 8 unidades, registro V5 intacto",
+      "state": "APROBADO",
+      "detail": {
+        "units": 8,
+        "finalPngFiles": 13,
+        "http200": 13,
+        "files": [
+          "hub_bench_variant_02.png",
+          "hub_floor_north_dj.png",
+          "hub_floor_patch_e.png",
+          "hub_floor_patch_o.png",
+          "hub_floor_patch_s_crack.png",
+          "hub_planter_variant_02.png",
+          "hub_vip_booth_lounge.png",
+          "hub_zone_signage_a_pista.png",
+          "hub_zone_signage_b_cabina_dj.png",
+          "hub_zone_signage_c_descenso.png",
+          "hub_zone_signage_d_arsenal.png",
+          "hub_zone_signage_e_barra.png",
+          "hub_zone_signage_f_arcade.png"
+        ],
+        "registered": 13,
+        "loaded": 13,
+        "exactSize": 13,
+        "v5Keys": 142,
+        "errors": [],
+        "loader": "load() de ART_PACK/art_pack.js -> window.__DDM_V5_IMG[h03_*] (sin loader paralelo)",
+        "note": "TANDA 04 NO produce assets nuevos: reutiliza los 13 PNG finales de TANDA 03 ya validados."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "antes_runtime.json",
+        "control_runtime.json"
+      ]
+    },
+    {
+      "id": 3,
+      "check": "Ausencia de errores JavaScript y de 404 locales",
+      "state": "APROBADO",
+      "detail": {
+        "pageErrors": [],
+        "consoleErrors": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsAntes": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "consoleErrorsControl": [
+          "Failed to load resource: the server responded with a status of 404 (File not found)",
+          "Failed to load resource: the server responded with a status of 404 (File not found)"
+        ],
+        "knownCloudflare404": [
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872"
+          },
+          {
+            "status": 404,
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e"
+          }
+        ],
+        "unexpectedLocalHttpErrors": [],
+        "requestFailed": [
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a54578e76f52d872",
+            "failure": "net::ERR_ABORTED"
+          },
+          {
+            "url": "http://127.0.0.1:8123/cdn-cgi/challenge-platform/scripts/jsd/main.js?ray=a545cfe0d8d4c69e",
+            "failure": "net::ERR_ABORTED"
+          }
+        ],
+        "excludedUnexpectedJs": [],
+        "hub3Errors": []
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "control_runtime.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 4,
+      "check": "Criterio de integración: >=1 drawImage efectivo por unidad en el renderer del HUB",
+      "state": "APROBADO",
+      "detail": {
+        "unitsIntegrated": 13,
+        "expected": 13,
+        "drawKeysDespues": [
+          "T03-01",
+          "T03-02",
+          "T03-03",
+          "T03-04",
+          "T03-05",
+          "T03-06",
+          "T03-07",
+          "T03-08-A",
+          "T03-08-B",
+          "T03-08-C",
+          "T03-08-D",
+          "T03-08-E",
+          "T03-08-F"
+        ],
+        "drawKeysAntes": [],
+        "drawKeysControlOff": [],
+        "drawKeysControlOn": 13,
+        "drawKeysHub3Restore": [],
+        "drawKeysHub3Apply": 13,
+        "drawKeysMenu": [],
+        "canvasOfT04": [
+          "1280x900"
+        ],
+        "wrongCanvasDraws": [],
+        "hub3RestoreResult": 13,
+        "hub3ApplyResult": 13,
+        "flagAntes": false,
+        "note": "Los 13 PNG se dibujan en el canvas de MUNDO del HUB (1280x900), nunca en menu-canvas54 (960x540). ANTES=0, CONTROL off=0, CONTROL on=13, restore=0, apply=13. El pintor del menú NO se cuenta."
+      },
+      "evidence": [
+        "draw_calls.json",
+        "control_02_off.png",
+        "control_03_on.png",
+        "despues_01_hub.png"
+      ]
+    },
+    {
+      "id": 5,
+      "check": "Visibilidad real: ninguna unidad oculta, ninguna señal recortada",
+      "state": "APROBADO",
+      "detail": {
+        "perUnitOnScreen": [
+          {
+            "artId": "T03-01",
+            "onScreen": 384,
+            "sampleBox": [
+              -260,
+              211,
+              284,
+              614
+            ]
+          },
+          {
+            "artId": "T03-02",
+            "onScreen": 561,
+            "sampleBox": [
+              996,
+              211,
+              1540,
+              614
+            ]
+          },
+          {
+            "artId": "T03-03",
+            "onScreen": 561,
+            "sampleBox": [
+              284,
+              714,
+              996,
+              1022
+            ]
+          },
+          {
+            "artId": "T03-04",
+            "onScreen": 400,
+            "sampleBox": [
+              284,
+              -215,
+              996,
+              -5
+            ]
+          },
+          {
+            "artId": "T03-05",
+            "onScreen": 95,
+            "sampleBox": [
+              -145,
+              297,
+              -72,
+              380
+            ]
+          },
+          {
+            "artId": "T03-06",
+            "onScreen": 291,
+            "sampleBox": [
+              1343,
+              311,
+              1433,
+              380
+            ]
+          },
+          {
+            "artId": "T03-07",
+            "onScreen": 364,
+            "sampleBox": [
+              103,
+              121,
+              305,
+              249
+            ]
+          },
+          {
+            "artId": "T03-08-A",
+            "onScreen": 524,
+            "sampleBox": [
+              366,
+              66,
+              501,
+              156
+            ]
+          },
+          {
+            "artId": "T03-08-B",
+            "onScreen": 524,
+            "sampleBox": [
+              573,
+              -60,
+              708,
+              30
+            ]
+          },
+          {
+            "artId": "T03-08-C",
+            "onScreen": 396,
+            "sampleBox": [
+              573,
+              814,
+              708,
+              904
+            ]
+          },
+          {
+            "artId": "T03-08-D",
+            "onScreen": 346,
+            "sampleBox": [
+              62,
+              268,
+              197,
+              358
+            ]
+          },
+          {
+            "artId": "T03-08-E",
+            "onScreen": 522,
+            "sampleBox": [
+              1079,
+              268,
+              1214,
+              358
+            ]
+          },
+          {
+            "artId": "T03-08-F",
+            "onScreen": 341,
+            "sampleBox": [
+              15,
+              598,
+              150,
+              688
+            ]
+          }
+        ],
+        "signVisibility": [
+          {
+            "artId": "T03-08-A",
+            "v5Key": "h03_zone_signage_a",
+            "anchor": [
+              958,
+              565
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "bar",
+              "vip_oeste",
+              "vip_este",
+              "arsenal",
+              "pared_este"
+            ],
+            "full": 7,
+            "partial": 3,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-B",
+            "v5Key": "h03_zone_signage_b",
+            "anchor": [
+              1178,
+              431
+            ],
+            "fullyVisibleZones": [
+              "dj",
+              "vip_oeste",
+              "vip_este"
+            ],
+            "full": 3,
+            "partial": 7,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-C",
+            "v5Key": "h03_zone_signage_c",
+            "anchor": [
+              1178,
+              1363
+            ],
+            "fullyVisibleZones": [
+              "arcade",
+              "sellos",
+              "descenso"
+            ],
+            "full": 3,
+            "partial": 7,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-D",
+            "v5Key": "h03_zone_signage_d",
+            "anchor": [
+              633,
+              781
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "vip_oeste",
+              "arcade",
+              "descenso",
+              "arsenal"
+            ],
+            "full": 6,
+            "partial": 4,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-E",
+            "v5Key": "h03_zone_signage_e",
+            "anchor": [
+              1718,
+              781
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "bar",
+              "vip_este",
+              "sellos",
+              "descenso",
+              "pared_este"
+            ],
+            "full": 7,
+            "partial": 3,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-F",
+            "v5Key": "h03_zone_signage_f",
+            "anchor": [
+              583,
+              1133
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "arcade",
+              "descenso",
+              "arsenal"
+            ],
+            "full": 4,
+            "partial": 6,
+            "hidden": false
+          }
+        ],
+        "floorOnScreen": [
+          384,
+          561,
+          561,
+          400
+        ],
+        "menuCanvas": [
+          960,
+          540
+        ],
+        "menu54": {
+          "frames": 0,
+          "resizes": 0,
+          "w": 0,
+          "h": 0,
+          "fps": 30,
+          "fixtures": 0,
+          "phase": "apagado",
+          "drops": 0,
+          "reduced": false,
+          "visible": false
+        },
+        "t04DrawsOutsideWorldCanvas": [],
+        "t04DrawsInMenu": [],
+        "note": "La capa aérea se dibuja DESPUÉS de los props, por lo que ninguna placa queda tapada. Cada una está COMPLETA dentro del viewport en al menos una de las 10 zonas. El renderer de píxeles del menú puede activarse 0 o 1 vez por timing del boot (comportamiento preexistente, medido y registrado): NO se usa como condición y NO dibuja ningún asset de TANDA 04. La integración se exige EXCLUSIVAMENTE en el canvas de mundo 1280x900 del HUB."
+      },
+      "evidence": [
+        "despues_centro.png",
+        "despues_dj.png",
+        "despues_descenso.png",
+        "despues_arsenal.png"
+      ]
+    },
+    {
+      "id": 6,
+      "check": "Suelos: continuidad, orientación y ausencia de solapamientos",
+      "state": "APROBADO",
+      "detail": {
+        "floorBoxes": [
+          {
+            "artId": "T03-01",
+            "orientation": "OESTE",
+            "worldBox": [
+              290,
+              720,
+              580,
+              430
+            ],
+            "measuredDrawArgs": [
+              290,
+              720,
+              580,
+              430
+            ]
+          },
+          {
+            "artId": "T03-02",
+            "orientation": "ESTE",
+            "worldBox": [
+              1630,
+              720,
+              580,
+              430
+            ],
+            "measuredDrawArgs": [
+              1630,
+              720,
+              580,
+              430
+            ]
+          },
+          {
+            "artId": "T03-03",
+            "orientation": "SUR",
+            "worldBox": [
+              870,
+              1256,
+              760,
+              329
+            ],
+            "measuredDrawArgs": [
+              870,
+              1256,
+              760,
+              329
+            ]
+          },
+          {
+            "artId": "T03-04",
+            "orientation": "NORTE",
+            "worldBox": [
+              870,
+              265,
+              760,
+              224
+            ],
+            "measuredDrawArgs": [
+              870,
+              265,
+              760,
+              224
+            ]
+          }
+        ],
+        "overlaps": [],
+        "withinPolygonPs": true,
+        "argsMatchMatrix": true,
+        "renderer": "drawHubFloorLayer() / hook Wf, tras hubCachedFloorCv (1920x1320 en 290,265)",
+        "note": "Las 4 cajas medidas son disjuntas y caben en Ps=(290,265,1920,1320). Orientación O/E/S/N conservada; continuidad con la grieta y la zona DJ sin tocar geometría ni colisiones."
+      },
+      "evidence": [
+        "despues_centro.png",
+        "despues_descenso.png",
+        "despues_dj.png",
+        "matriz_integracion.json"
+      ]
+    },
+    {
+      "id": 7,
+      "check": "Mobiliario y VIP: escala, anclaje y ausencia de cambios de hitbox",
+      "state": "APROBADO",
+      "detail": {
+        "props": [
+          {
+            "artId": "T03-05",
+            "anchor": "bottom-center (452,900), h=88, flip=False",
+            "drawArgs": [
+              413,
+              812,
+              78,
+              88
+            ],
+            "natural": [
+              96,
+              108
+            ],
+            "derivation": "x derivado de hub_decor_cooler_w (452,692); y=900 dentro del paño O [720..1150]; h=88 idéntico a las 4 jardineras reales"
+          },
+          {
+            "artId": "T03-06",
+            "anchor": "bottom-center (2048,900), h=74, flip=True",
+            "drawArgs": [
+              0,
+              0,
+              96,
+              74
+            ],
+            "natural": [
+              256,
+              198
+            ],
+            "derivation": "x derivado de hub_decor_vending_e (2048,692); y=900 dentro del paño E [720..1150]; h=74 idéntico a los 2 bancos reales"
+          },
+          {
+            "artId": "T03-07",
+            "anchor": "bottom-center (785,760), h=136, flip=False",
+            "drawArgs": [
+              677,
+              624,
+              216,
+              136
+            ],
+            "natural": [
+              216,
+              136
+            ],
+            "derivation": "x derivado de hub_vip_sofa_nw (785,545) y cliente000 (785,600); y=760 deja 25 px bajo la imagen T01 (439..599) sin solaparla; h=136 = altura natural del PNG"
+          }
+        ],
+        "geometryDerivation": [
+          {
+            "artId": "T03-05",
+            "decor": {
+              "slot": "h03_planter_variant_02",
+              "x": 452,
+              "y": 900,
+              "h": 88
+            },
+            "natural": [
+              96,
+              108
+            ],
+            "computedDw": 78,
+            "computedWorldBox": [
+              413,
+              812,
+              78,
+              88
+            ]
+          },
+          {
+            "artId": "T03-06",
+            "decor": {
+              "slot": "h03_bench_variant_02",
+              "x": 2048,
+              "y": 900,
+              "h": 74
+            },
+            "natural": [
+              256,
+              198
+            ],
+            "computedDw": 96,
+            "computedWorldBox": [
+              2000,
+              826,
+              96,
+              74
+            ]
+          },
+          {
+            "artId": "T03-07",
+            "decor": {
+              "slot": "h03_vip_booth_lounge",
+              "x": 785,
+              "y": 760,
+              "h": 136
+            },
+            "natural": [
+              216,
+              136
+            ],
+            "computedDw": 216,
+            "computedWorldBox": [
+              677,
+              624,
+              216,
+              136
+            ]
+          }
+        ],
+        "geometryMatchesMatrix": true,
+        "flippedPropNote": "T03-06 usa flip:true -> ctx.translate/scale(-1,1) y drawImage(im,0,0,dw,dh); el proxy registra esas coordenadas LOCALES (0,0,96,74), pero la caja de PANTALLA se calcula con getTransform() y es correcta. La escala/anclaje se verifica por derivacion geometrica contra hubDecor y la matriz.",
+        "solidFalse": true,
+        "collisionAntes": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionControl": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "collisionDespues": {
+          "from": 1720,
+          "afterHoldingD": 1795,
+          "delta": 75,
+          "blockedBeforeBarCollider": true
+        },
+        "movementAntes": {
+          "pxBefore": 1250,
+          "pxAfter": 1652,
+          "delta": 402,
+          "withinWorld": true
+        },
+        "movementDespues": {
+          "pxBefore": 1250,
+          "pxAfter": 1655,
+          "delta": 405,
+          "withinWorld": true
+        },
+        "hubAudit": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "stations": [
+          [
+            "lift",
+            1250,
+            1365
+          ],
+          [
+            "dj",
+            1250,
+            525
+          ],
+          [
+            "arsenal",
+            705,
+            855
+          ],
+          [
+            "bar",
+            1790,
+            855
+          ],
+          [
+            "arcade",
+            655,
+            1135
+          ],
+          [
+            "seals",
+            1845,
+            1135
+          ],
+          [
+            "dancer_0",
+            1030,
+            785
+          ],
+          [
+            "dancer_1",
+            1470,
+            785
+          ],
+          [
+            "dancer_2",
+            1015,
+            1085
+          ],
+          [
+            "dancer_3",
+            1965,
+            918
+          ],
+          [
+            "cliente000",
+            785,
+            600
+          ]
+        ],
+        "vipNote": "T03-07 se dibuja en el HUB en (677,624,216,136). NO se cuenta el pintor del menú (FASE 1 §4)."
+      },
+      "evidence": [
+        "despues_vip_oeste.png",
+        "despues_pared_este.png",
+        "despues_arsenal.png"
+      ]
+    },
+    {
+      "id": 8,
+      "check": "Señalética: 6 anclajes, 6 referencias diferenciadas, 0 ocultas",
+      "state": "APROBADO",
+      "detail": {
+        "anchors": [
+          {
+            "artId": "T03-08-A",
+            "zone": "A",
+            "anchor": [
+              958,
+              565
+            ],
+            "v5Key": "h03_zone_signage_a",
+            "derivation": "top-left (958,565) desde estación dancer_0 (1030,785) con signY=701"
+          },
+          {
+            "artId": "T03-08-B",
+            "zone": "B",
+            "anchor": [
+              1178,
+              431
+            ],
+            "v5Key": "h03_zone_signage_b",
+            "derivation": "top-left (1178,431) desde estación dj (1250,525) con signY=567"
+          },
+          {
+            "artId": "T03-08-C",
+            "zone": "C",
+            "anchor": [
+              1178,
+              1363
+            ],
+            "v5Key": "h03_zone_signage_c",
+            "derivation": "top-left (1178,1363) desde estación lift (1250,1365) con signY=1499"
+          },
+          {
+            "artId": "T03-08-D",
+            "zone": "D",
+            "anchor": [
+              633,
+              781
+            ],
+            "v5Key": "h03_zone_signage_d",
+            "derivation": "top-left (633,781) desde estación arsenal (705,855) con signY=917"
+          },
+          {
+            "artId": "T03-08-E",
+            "zone": "E",
+            "anchor": [
+              1718,
+              781
+            ],
+            "v5Key": "h03_zone_signage_e",
+            "derivation": "top-left (1718,781) desde estación bar (1790,855) con signY=917"
+          },
+          {
+            "artId": "T03-08-F",
+            "zone": "F",
+            "anchor": [
+              583,
+              1133
+            ],
+            "v5Key": "h03_zone_signage_f",
+            "derivation": "top-left (583,1133) desde estación arcade (655,1135) con signY=1269"
+          }
+        ],
+        "distinctAnchors": 6,
+        "distinctV5Keys": 6,
+        "fullyVisible": [
+          {
+            "artId": "T03-08-A",
+            "v5Key": "h03_zone_signage_a",
+            "anchor": [
+              958,
+              565
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "bar",
+              "vip_oeste",
+              "vip_este",
+              "arsenal",
+              "pared_este"
+            ],
+            "full": 7,
+            "partial": 3,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-B",
+            "v5Key": "h03_zone_signage_b",
+            "anchor": [
+              1178,
+              431
+            ],
+            "fullyVisibleZones": [
+              "dj",
+              "vip_oeste",
+              "vip_este"
+            ],
+            "full": 3,
+            "partial": 7,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-C",
+            "v5Key": "h03_zone_signage_c",
+            "anchor": [
+              1178,
+              1363
+            ],
+            "fullyVisibleZones": [
+              "arcade",
+              "sellos",
+              "descenso"
+            ],
+            "full": 3,
+            "partial": 7,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-D",
+            "v5Key": "h03_zone_signage_d",
+            "anchor": [
+              633,
+              781
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "vip_oeste",
+              "arcade",
+              "descenso",
+              "arsenal"
+            ],
+            "full": 6,
+            "partial": 4,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-E",
+            "v5Key": "h03_zone_signage_e",
+            "anchor": [
+              1718,
+              781
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "dj",
+              "bar",
+              "vip_este",
+              "sellos",
+              "descenso",
+              "pared_este"
+            ],
+            "full": 7,
+            "partial": 3,
+            "hidden": false
+          },
+          {
+            "artId": "T03-08-F",
+            "v5Key": "h03_zone_signage_f",
+            "anchor": [
+              583,
+              1133
+            ],
+            "fullyVisibleZones": [
+              "centro",
+              "arcade",
+              "descenso",
+              "arsenal"
+            ],
+            "full": 4,
+            "partial": 6,
+            "hidden": false
+          }
+        ],
+        "sameScale": [
+          144,
+          96
+        ],
+        "note": "6 zonas A-F -> 6 estaciones reales -> 6 signY reales -> 6 coordenadas distintas; 6 claves V5 distintas. Todas en la capa aérea, por encima de props."
+      },
+      "evidence": [
+        "despues_centro.png",
+        "despues_dj.png",
+        "despues_descenso.png",
+        "despues_arsenal.png",
+        "despues_bar.png",
+        "despues_arcade.png"
+      ]
+    },
+    {
+      "id": 9,
+      "check": "Cachés de ambas capas y canvas: sin segundo motor, sin canvas nuevo",
+      "state": "APROBADO",
+      "detail": {
+        "hubFloor": {
+          "antes": {
+            "revision": 30,
+            "builds": 2,
+            "draws": 841,
+            "available": true
+          },
+          "control": {
+            "revision": 36,
+            "builds": 6,
+            "draws": 626,
+            "available": true
+          },
+          "despues": {
+            "revision": 30,
+            "builds": 2,
+            "draws": 766,
+            "available": true
+          }
+        },
+        "t3b": {
+          "enabled": true,
+          "revision": 30,
+          "routes": [
+            "campaign",
+            "hub"
+          ],
+          "lastInvalidation": "toggle:true",
+          "errors": []
+        },
+        "canvasCountBase": {
+          "antes": 27,
+          "control": 27,
+          "despues": 27
+        },
+        "newCanvases": 0,
+        "newCaches": 0,
+        "newEngines": 0,
+        "note": "__T3B_HUB_QA (suelo 1920x1320) y __DDM_PAINT_MATERIAL (rutas hub + campaign) siguen activos. No se crea segundo sistema de cachés."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "comprobacion_caches.json"
+      ]
+    },
+    {
+      "id": 10,
+      "check": "Regresión: colisiones, puertas, estaciones, disparo y CAMPAIGN_ROOM",
+      "state": "APROBADO",
+      "detail": {
+        "movement": {
+          "antes": {
+            "pxBefore": 1250,
+            "pxAfter": 1652,
+            "delta": 402,
+            "withinWorld": true
+          },
+          "control": {
+            "pxBefore": 1250,
+            "pxAfter": 1652,
+            "delta": 402,
+            "withinWorld": true
+          },
+          "despues": {
+            "pxBefore": 1250,
+            "pxAfter": 1655,
+            "delta": 405,
+            "withinWorld": true
+          }
+        },
+        "collision": {
+          "antes": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          },
+          "control": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          },
+          "despues": {
+            "from": 1720,
+            "afterHoldingD": 1795,
+            "delta": 75,
+            "blockedBeforeBarCollider": true
+          }
+        },
+        "interaction": {
+          "stationsBefore": 11,
+          "open": "true",
+          "active": "bar",
+          "close": "true",
+          "activeAfter": null
+        },
+        "campaign": {
+          "completed": true
+        },
+        "doors": {
+          "closed": {
+            "current": "r23",
+            "role": "combat",
+            "secured": 0,
+            "floor": 3
+          },
+          "open": {
+            "current": "r23",
+            "role": "combat",
+            "secured": 1,
+            "floor": 3
+          },
+          "setNight": {
+            "via": "setNight",
+            "ok": true
+          },
+          "clearRound": "true",
+          "securedTransition": [
+            0,
+            1
+          ],
+          "note": "El flag secured puede llegar a 1 antes de la primera sonda si el tick completa la sala; se registra pero NO se usa como aserción (dependiente de timing), igual que en el arnés de TANDA 03. Se comprueba la sala real r23, la llamada a setNight(24), clearRound(), las dos capturas y que la arquitectura sigue aplicada."
+        },
+        "shooting": {
+          "before": 0,
+          "after": 4,
+          "delta": 4
+        },
+        "campaignRegression": {
+          "location": "CAMPAIGN_ROOM",
+          "inHub": false
+        }
+      },
+      "evidence": [
+        "doors_closed.png",
+        "doors_open.png",
+        "regresion_campaign.png",
+        "despues_tras_movimiento.png"
+      ]
+    },
+    {
+      "id": 11,
+      "check": "Regresión T01 10/10, T02 10/10, V5 y arquitectura intactas",
+      "state": "APROBADO",
+      "detail": {
+        "t01": {
+          "applied": 10,
+          "count": 10
+        },
+        "t02": {
+          "applied": 10,
+          "count": 10
+        },
+        "architecture": {
+          "applied": 10,
+          "errors": []
+        },
+        "player": {
+          "version": "tanda03-faseD.2",
+          "poses": 12,
+          "errors": []
+        },
+        "v5Keys": 142,
+        "hubAuditAntes": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "hubAuditDespues": {
+          "ok": true,
+          "version": "3.5.0-hub-proto",
+          "saveKey": "dmo_hub_v1",
+          "zonesCount": 6,
+          "stationsCount": 11,
+          "inHub": true,
+          "location": "HUB",
+          "mode": "EXPLORATION",
+          "unlockedCircles": [
+            0
+          ],
+          "officialUntainted": false
+        },
+        "note": "Las 13 claves nuevas no sustituyen ningún recurso de T01/T02: solo se añaden dibujos en capas existentes."
+      },
+      "evidence": [
+        "despues_runtime_full.json",
+        "antes_runtime.json"
+      ]
+    },
+    {
+      "id": 12,
+      "check": "Performance gate: coste de render separado del coste de carga",
+      "state": "APROBADO",
+      "detail": {
+        "antes": {
+          "frames": 40,
+          "medianMs": 16.7,
+          "p90Ms": 33.4,
+          "minMs": 16.6,
+          "maxMs": 50
+        },
+        "control": {
+          "frames": 40,
+          "medianMs": 16.8,
+          "p90Ms": 33.4,
+          "minMs": 16.6,
+          "maxMs": 50
+        },
+        "despues": {
+          "frames": 40,
+          "medianMs": 16.7,
+          "p90Ms": 33.3,
+          "minMs": 16.6,
+          "maxMs": 50
+        },
+        "ratioMedian": 1,
+        "threshold": "ratio <= 1,25 y |delta mediana| <= 4 ms",
+        "loadCost": {
+          "startedAt": 1793746356599,
+          "hub3AppliedAt": 1793746356796,
+          "hub3BootAt": 1793746356796,
+          "deltaMs": 197
+        },
+        "loadMs": {
+          "antes": 1396,
+          "control": 1649,
+          "despues": 1638
+        },
+        "note": "Coste de CARGA (13 PNG, una sola vez por load()) medido aparte del coste de RENDER (mediana de 40 rAF en el HUB, misma cámara). Las variaciones se observan también entre ANTES y CONTROL y no se atribuyen a los assets: entorno SwiftShader por software. Cierra el performance gate pendiente de T02 sin relajar el arnés."
+      },
+      "evidence": [
+        "performance.json",
+        "resultados_ab.json"
+      ]
+    }
+  ],
+  "perUnit": [
+    {
+      "artId": "T03-01",
+      "unit": "HUB_FLOOR_PATCH_O",
+      "v5Key": "h03_floor_patch_o",
+      "family": "A · SUELOS",
+      "renderer": "drawHubFloorLayer() / Wf",
+      "worldBox": [
+        290,
+        720,
+        580,
+        430
+      ],
+      "drawCalls": 656,
+      "onScreen": 384,
+      "sample": {
+        "args": [
+          290,
+          720,
+          580,
+          430
+        ],
+        "box": [
+          -260,
+          211,
+          284,
+          614
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-02",
+      "unit": "HUB_FLOOR_PATCH_E",
+      "v5Key": "h03_floor_patch_e",
+      "family": "A · SUELOS",
+      "renderer": "drawHubFloorLayer() / Wf",
+      "worldBox": [
+        1630,
+        720,
+        580,
+        430
+      ],
+      "drawCalls": 656,
+      "onScreen": 561,
+      "sample": {
+        "args": [
+          1630,
+          720,
+          580,
+          430
+        ],
+        "box": [
+          996,
+          211,
+          1540,
+          614
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-03",
+      "unit": "HUB_FLOOR_PATCH_S_CRACK",
+      "v5Key": "h03_floor_patch_s_crack",
+      "family": "A · SUELOS",
+      "renderer": "drawHubFloorLayer() / Wf",
+      "worldBox": [
+        870,
+        1256,
+        760,
+        329
+      ],
+      "drawCalls": 656,
+      "onScreen": 561,
+      "sample": {
+        "args": [
+          870,
+          1256,
+          760,
+          329
+        ],
+        "box": [
+          284,
+          714,
+          996,
+          1022
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-04",
+      "unit": "HUB_FLOOR_NORTH_DJ",
+      "v5Key": "h03_floor_north_dj",
+      "family": "A · SUELOS",
+      "renderer": "drawHubFloorLayer() / Wf",
+      "worldBox": [
+        870,
+        265,
+        760,
+        224
+      ],
+      "drawCalls": 656,
+      "onScreen": 400,
+      "sample": {
+        "args": [
+          870,
+          265,
+          760,
+          224
+        ],
+        "box": [
+          284,
+          -215,
+          996,
+          -5
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-05",
+      "unit": "HUB_PLANTER_VARIANT_02",
+      "v5Key": "h03_planter_variant_02",
+      "family": "B · MOBILIARIO",
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "worldBox": [
+        413,
+        812,
+        78,
+        88
+      ],
+      "drawCalls": 369,
+      "onScreen": 95,
+      "sample": {
+        "args": [
+          413,
+          812,
+          78,
+          88
+        ],
+        "box": [
+          -145,
+          297,
+          -72,
+          380
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-06",
+      "unit": "HUB_BENCH_VARIANT_02",
+      "v5Key": "h03_bench_variant_02",
+      "family": "B · MOBILIARIO",
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "worldBox": [
+        2000,
+        826,
+        96,
+        74
+      ],
+      "drawCalls": 561,
+      "onScreen": 291,
+      "sample": {
+        "args": [
+          0,
+          0,
+          96,
+          74
+        ],
+        "box": [
+          1343,
+          311,
+          1433,
+          380
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-07",
+      "unit": "HUB_VIP_BOOTH_LOUNGE",
+      "v5Key": "h03_vip_booth_lounge",
+      "family": "C · VIP",
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "worldBox": [
+        677,
+        624,
+        216,
+        136
+      ],
+      "drawCalls": 653,
+      "onScreen": 364,
+      "sample": {
+        "args": [
+          677,
+          624,
+          216,
+          136
+        ],
+        "box": [
+          103,
+          121,
+          305,
+          249
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-A",
+      "unit": "HUB_ZONE_SIGNAGE/A · PISTA",
+      "v5Key": "h03_zone_signage_a",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        958,
+        565,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 524,
+      "sample": {
+        "args": [
+          958,
+          565,
+          144,
+          96
+        ],
+        "box": [
+          366,
+          66,
+          501,
+          156
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-B",
+      "unit": "HUB_ZONE_SIGNAGE/B · CABINA DJ",
+      "v5Key": "h03_zone_signage_b",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        1178,
+        431,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 524,
+      "sample": {
+        "args": [
+          1178,
+          431,
+          144,
+          96
+        ],
+        "box": [
+          573,
+          -60,
+          708,
+          30
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-C",
+      "unit": "HUB_ZONE_SIGNAGE/C · DESCENSO",
+      "v5Key": "h03_zone_signage_c",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        1178,
+        1363,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 396,
+      "sample": {
+        "args": [
+          1178,
+          1363,
+          144,
+          96
+        ],
+        "box": [
+          573,
+          814,
+          708,
+          904
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-D",
+      "unit": "HUB_ZONE_SIGNAGE/D · ARSENAL",
+      "v5Key": "h03_zone_signage_d",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        633,
+        781,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 346,
+      "sample": {
+        "args": [
+          633,
+          781,
+          144,
+          96
+        ],
+        "box": [
+          62,
+          268,
+          197,
+          358
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-E",
+      "unit": "HUB_ZONE_SIGNAGE/E · BARRA",
+      "v5Key": "h03_zone_signage_e",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        1718,
+        781,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 522,
+      "sample": {
+        "args": [
+          1718,
+          781,
+          144,
+          96
+        ],
+        "box": [
+          1079,
+          268,
+          1214,
+          358
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    },
+    {
+      "artId": "T03-08-F",
+      "unit": "HUB_ZONE_SIGNAGE/F · ARCADE",
+      "v5Key": "h03_zone_signage_f",
+      "family": "D · SEÑALÉTICA",
+      "renderer": "drawHubAerialLayer() / Ph",
+      "worldBox": [
+        583,
+        1133,
+        144,
+        96
+      ],
+      "drawCalls": 617,
+      "onScreen": 341,
+      "sample": {
+        "args": [
+          583,
+          1133,
+          144,
+          96
+        ],
+        "box": [
+          15,
+          598,
+          150,
+          688
+        ],
+        "canvas": [
+          1280,
+          900
+        ]
+      },
+      "canvas": [
+        1280,
+        900
+      ],
+      "integrated": true
+    }
+  ],
+  "signVisibility": [
+    {
+      "artId": "T03-08-A",
+      "v5Key": "h03_zone_signage_a",
+      "anchor": [
+        958,
+        565
+      ],
+      "fullyVisibleZones": [
+        "centro",
+        "dj",
+        "bar",
+        "vip_oeste",
+        "vip_este",
+        "arsenal",
+        "pared_este"
+      ],
+      "full": 7,
+      "partial": 3,
+      "hidden": false
+    },
+    {
+      "artId": "T03-08-B",
+      "v5Key": "h03_zone_signage_b",
+      "anchor": [
+        1178,
+        431
+      ],
+      "fullyVisibleZones": [
+        "dj",
+        "vip_oeste",
+        "vip_este"
+      ],
+      "full": 3,
+      "partial": 7,
+      "hidden": false
+    },
+    {
+      "artId": "T03-08-C",
+      "v5Key": "h03_zone_signage_c",
+      "anchor": [
+        1178,
+        1363
+      ],
+      "fullyVisibleZones": [
+        "arcade",
+        "sellos",
+        "descenso"
+      ],
+      "full": 3,
+      "partial": 7,
+      "hidden": false
+    },
+    {
+      "artId": "T03-08-D",
+      "v5Key": "h03_zone_signage_d",
+      "anchor": [
+        633,
+        781
+      ],
+      "fullyVisibleZones": [
+        "centro",
+        "dj",
+        "vip_oeste",
+        "arcade",
+        "descenso",
+        "arsenal"
+      ],
+      "full": 6,
+      "partial": 4,
+      "hidden": false
+    },
+    {
+      "artId": "T03-08-E",
+      "v5Key": "h03_zone_signage_e",
+      "anchor": [
+        1718,
+        781
+      ],
+      "fullyVisibleZones": [
+        "centro",
+        "dj",
+        "bar",
+        "vip_este",
+        "sellos",
+        "descenso",
+        "pared_este"
+      ],
+      "full": 7,
+      "partial": 3,
+      "hidden": false
+    },
+    {
+      "artId": "T03-08-F",
+      "v5Key": "h03_zone_signage_f",
+      "anchor": [
+        583,
+        1133
+      ],
+      "fullyVisibleZones": [
+        "centro",
+        "arcade",
+        "descenso",
+        "arsenal"
+      ],
+      "full": 4,
+      "partial": 6,
+      "hidden": false
+    }
+  ],
+  "integrationMatrix": [
+    {
+      "family": "A · SUELOS",
+      "artId": "T03-01",
+      "unit": "HUB_FLOOR_PATCH_O",
+      "v5Key": "h03_floor_patch_o",
+      "file": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/final/hub_floor_patch_o.png",
+      "natural": [
+        580,
+        430
+      ],
+      "orientation": "OESTE",
+      "worldBox": [
+        290,
+        720,
+        580,
+        430
+      ],
+      "drawArgs": [
+        290,
+        720,
+        580,
+        430
+      ],
+      "renderer": "drawHubFloorLayer() / Wf",
+      "anchor": "top-left de la caja mundo medida en manifest T03",
+      "slot": "drawHubFloorLayer() tras hubCachedFloorCv",
+      "derivation": "worldBox medido en T03 a partir de Ps=(290,265,1920,1320) y de las estaciones reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 682,
+      "onScreenDraws": 397,
+      "measuredDrawArgs": [
+        290,
+        720,
+        580,
+        430
+      ],
+      "screenBox": [
+        -260,
+        211,
+        284,
+        614
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "A · SUELOS",
+      "artId": "T03-02",
+      "unit": "HUB_FLOOR_PATCH_E",
+      "v5Key": "h03_floor_patch_e",
+      "file": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/final/hub_floor_patch_e.png",
+      "natural": [
+        580,
+        430
+      ],
+      "orientation": "ESTE",
+      "worldBox": [
+        1630,
+        720,
+        580,
+        430
+      ],
+      "drawArgs": [
+        1630,
+        720,
+        580,
+        430
+      ],
+      "renderer": "drawHubFloorLayer() / Wf",
+      "anchor": "top-left de la caja mundo medida en manifest T03",
+      "slot": "drawHubFloorLayer() tras hubCachedFloorCv",
+      "derivation": "worldBox medido en T03 a partir de Ps=(290,265,1920,1320) y de las estaciones reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 682,
+      "onScreenDraws": 588,
+      "measuredDrawArgs": [
+        1630,
+        720,
+        580,
+        430
+      ],
+      "screenBox": [
+        996,
+        211,
+        1540,
+        614
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "A · SUELOS",
+      "artId": "T03-03",
+      "unit": "HUB_FLOOR_PATCH_S_CRACK",
+      "v5Key": "h03_floor_patch_s_crack",
+      "file": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png",
+      "natural": [
+        760,
+        329
+      ],
+      "orientation": "SUR",
+      "worldBox": [
+        870,
+        1256,
+        760,
+        329
+      ],
+      "drawArgs": [
+        870,
+        1256,
+        760,
+        329
+      ],
+      "renderer": "drawHubFloorLayer() / Wf",
+      "anchor": "top-left de la caja mundo medida en manifest T03",
+      "slot": "drawHubFloorLayer() tras hubCachedFloorCv",
+      "derivation": "worldBox medido en T03 a partir de Ps=(290,265,1920,1320) y de las estaciones reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 682,
+      "onScreenDraws": 591,
+      "measuredDrawArgs": [
+        870,
+        1256,
+        760,
+        329
+      ],
+      "screenBox": [
+        284,
+        714,
+        996,
+        1022
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "A · SUELOS",
+      "artId": "T03-04",
+      "unit": "HUB_FLOOR_NORTH_DJ",
+      "v5Key": "h03_floor_north_dj",
+      "file": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/final/hub_floor_north_dj.png",
+      "natural": [
+        760,
+        224
+      ],
+      "orientation": "NORTE",
+      "worldBox": [
+        870,
+        265,
+        760,
+        224
+      ],
+      "drawArgs": [
+        870,
+        265,
+        760,
+        224
+      ],
+      "renderer": "drawHubFloorLayer() / Wf",
+      "anchor": "top-left de la caja mundo medida en manifest T03",
+      "slot": "drawHubFloorLayer() tras hubCachedFloorCv",
+      "derivation": "worldBox medido en T03 a partir de Ps=(290,265,1920,1320) y de las estaciones reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 682,
+      "onScreenDraws": 402,
+      "measuredDrawArgs": [
+        870,
+        265,
+        760,
+        224
+      ],
+      "screenBox": [
+        284,
+        -215,
+        996,
+        -5
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "B · MOBILIARIO",
+      "artId": "T03-05",
+      "unit": "HUB_PLANTER_VARIANT_02",
+      "v5Key": "h03_planter_variant_02",
+      "file": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/final/hub_planter_variant_02.png",
+      "natural": [
+        96,
+        108
+      ],
+      "orientation": "frontal isométrico",
+      "worldBox": [
+        413,
+        812,
+        78,
+        88
+      ],
+      "drawArgs": [
+        413,
+        812,
+        78,
+        88
+      ],
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "anchor": "bottom-center (452,900), h=88, flip=False",
+      "slot": "hubDecor[T03-05] → addHubCustomProp → Lc",
+      "derivation": "x derivado de hub_decor_cooler_w (452,692); y=900 dentro del paño O [720..1150]; h=88 idéntico a las 4 jardineras reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 378,
+      "onScreenDraws": 94,
+      "measuredDrawArgs": [
+        413,
+        812,
+        78,
+        88
+      ],
+      "screenBox": [
+        -145,
+        297,
+        -72,
+        380
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "B · MOBILIARIO",
+      "artId": "T03-06",
+      "unit": "HUB_BENCH_VARIANT_02",
+      "v5Key": "h03_bench_variant_02",
+      "file": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/final/hub_bench_variant_02.png",
+      "natural": [
+        256,
+        198
+      ],
+      "orientation": "frontal isométrico",
+      "worldBox": [
+        2000,
+        826,
+        96,
+        74
+      ],
+      "drawArgs": [
+        2000,
+        826,
+        96,
+        74
+      ],
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "anchor": "bottom-center (2048,900), h=74, flip=True",
+      "slot": "hubDecor[T03-06] → addHubCustomProp → Lc",
+      "derivation": "x derivado de hub_decor_vending_e (2048,692); y=900 dentro del paño E [720..1150]; h=74 idéntico a los 2 bancos reales",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 588,
+      "onScreenDraws": 307,
+      "measuredDrawArgs": [
+        0,
+        0,
+        96,
+        74
+      ],
+      "screenBox": [
+        1343,
+        311,
+        1433,
+        380
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "C · VIP",
+      "artId": "T03-07",
+      "unit": "HUB_VIP_BOOTH_LOUNGE",
+      "v5Key": "h03_vip_booth_lounge",
+      "file": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/final/hub_vip_booth_lounge.png",
+      "natural": [
+        216,
+        136
+      ],
+      "orientation": "frontal",
+      "worldBox": [
+        677,
+        624,
+        216,
+        136
+      ],
+      "drawArgs": [
+        677,
+        624,
+        216,
+        136
+      ],
+      "renderer": "hubDecor / Lc (addHubCustomProp, solid:false)",
+      "anchor": "bottom-center (785,760), h=136, flip=False",
+      "slot": "hubDecor[T03-07] → addHubCustomProp → Lc",
+      "derivation": "x derivado de hub_vip_sofa_nw (785,545) y cliente000 (785,600); y=760 deja 25 px bajo la imagen T01 (439..599) sin solaparla; h=136 = altura natural del PNG",
+      "note": "NO se reutiliza cp()/d.menu del MENÚ (FASE 1 §4). Clave hub_vip_booth_lounge sigue registrada para compatibilidad.",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 679,
+      "onScreenDraws": 376,
+      "measuredDrawArgs": [
+        677,
+        624,
+        216,
+        136
+      ],
+      "screenBox": [
+        103,
+        121,
+        305,
+        249
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-A",
+      "unit": "HUB_ZONE_SIGNAGE/A · PISTA",
+      "v5Key": "h03_zone_signage_a",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        958,
+        565,
+        144,
+        96
+      ],
+      "drawArgs": [
+        958,
+        565,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (958,565) desde estación dancer_0 (1030,785) con signY=701",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "A",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 535,
+      "measuredDrawArgs": [
+        958,
+        565,
+        144,
+        96
+      ],
+      "screenBox": [
+        366,
+        66,
+        501,
+        156
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-B",
+      "unit": "HUB_ZONE_SIGNAGE/B · CABINA DJ",
+      "v5Key": "h03_zone_signage_b",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        1178,
+        431,
+        144,
+        96
+      ],
+      "drawArgs": [
+        1178,
+        431,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (1178,431) desde estación dj (1250,525) con signY=567",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "B",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 535,
+      "measuredDrawArgs": [
+        1178,
+        431,
+        144,
+        96
+      ],
+      "screenBox": [
+        573,
+        -60,
+        708,
+        30
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-C",
+      "unit": "HUB_ZONE_SIGNAGE/C · DESCENSO",
+      "v5Key": "h03_zone_signage_c",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        1178,
+        1363,
+        144,
+        96
+      ],
+      "drawArgs": [
+        1178,
+        1363,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (1178,1363) desde estación lift (1250,1365) con signY=1499",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "C",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 418,
+      "measuredDrawArgs": [
+        1178,
+        1363,
+        144,
+        96
+      ],
+      "screenBox": [
+        573,
+        814,
+        708,
+        904
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-D",
+      "unit": "HUB_ZONE_SIGNAGE/D · ARSENAL",
+      "v5Key": "h03_zone_signage_d",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        633,
+        781,
+        144,
+        96
+      ],
+      "drawArgs": [
+        633,
+        781,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (633,781) desde estación arsenal (705,855) con signY=917",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "D",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 357,
+      "measuredDrawArgs": [
+        633,
+        781,
+        144,
+        96
+      ],
+      "screenBox": [
+        62,
+        268,
+        197,
+        358
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-E",
+      "unit": "HUB_ZONE_SIGNAGE/E · BARRA",
+      "v5Key": "h03_zone_signage_e",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        1718,
+        781,
+        144,
+        96
+      ],
+      "drawArgs": [
+        1718,
+        781,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (1718,781) desde estación bar (1790,855) con signY=917",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "E",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 547,
+      "measuredDrawArgs": [
+        1718,
+        781,
+        144,
+        96
+      ],
+      "screenBox": [
+        1079,
+        268,
+        1214,
+        358
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    },
+    {
+      "family": "D · SEÑALÉTICA",
+      "artId": "T03-08-F",
+      "unit": "HUB_ZONE_SIGNAGE/F · ARCADE",
+      "v5Key": "h03_zone_signage_f",
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+      "natural": [
+        192,
+        128
+      ],
+      "orientation": "placa mural, mismo escalado 144×96",
+      "worldBox": [
+        583,
+        1133,
+        144,
+        96
+      ],
+      "drawArgs": [
+        583,
+        1133,
+        144,
+        96
+      ],
+      "renderer": "drawHubAerialLayer() / Ph",
+      "anchor": "top-left (583,1133) desde estación arcade (655,1135) con signY=1269",
+      "slot": "drawHubAerialLayer() tras los rótulos de neón existentes",
+      "derivation": "signY = fórmula real del HTML (líneas 9577-9582); placa 136 px por encima del letrero diegético, 144×96 en las 6 zonas",
+      "zone": "F",
+      "state": "PENDIENTE",
+      "integrationState": "INTEGRADO",
+      "drawCalls": 641,
+      "onScreenDraws": 350,
+      "measuredDrawArgs": [
+        583,
+        1133,
+        144,
+        96
+      ],
+      "screenBox": [
+        15,
+        598,
+        150,
+        688
+      ],
+      "canvas": [
+        1280,
+        900
+      ]
+    }
+  ],
+  "blockers": [],
+  "incidences": {
+    "d07": "El pintor VIP del MENÚ no se reutilizó (puede activarse 0 o 1 vez por timing del boot, sin dibujar ningún asset T04). T03-07 se integró en el HUB por hubDecor/addHubCustomProp.",
+    "t02PerformanceGate": "Cerrado en el check 12 con medición A/B de 40 rAF y coste de carga separado.",
+    "cloudflare404": "2 rutas externas preexistentes; 0 404 locales",
+    "aesthetic": "Las placas se dibujan en la capa aérea por encima de los props; en la zona de descenso la placa C roza el rótulo de neón existente (solapamiento de ~3 px de borde, sin ocultar texto).",
+    "noNewSystems": "Sin segundo motor, canvas alternativo, caché nueva, loader paralelo ni sistema de dibujo independiente."
+  },
+  "evidence": {
+    "drawCalls": "draw_calls.json",
+    "slotsMatrix": "matriz_integracion.json",
+    "report": "report.json",
+    "performance": "performance.json",
+    "runtime": [
+      "antes_runtime.json",
+      "control_runtime.json",
+      "despues_runtime_full.json"
+    ]
+  },
+  "finalizedAt": "2026-11-03T23:00:48.013425+00:00",
+  "evidenceInventory": {
+    "directory": "ART_EVIDENCE/hub/tanda_04/",
+    "fileCount": 83,
+    "bytes": 94321888,
+    "hashesCount": 114,
+    "hashMismatches": 0,
+    "visualPairs": 10,
+    "hubRealCaptures": [
+      "hub_real_centro.jpg",
+      "hub_real_dj.jpg",
+      "hub_real_bar.jpg",
+      "hub_real_vip_oeste.jpg",
+      "hub_real_vip_este.jpg",
+      "hub_real_arcade.jpg",
+      "hub_real_sellos.jpg",
+      "hub_real_descenso.jpg",
+      "hub_real_arsenal.jpg",
+      "hub_real_pared_este.jpg"
+    ],
+    "artifacts": [
+      "report.json",
+      "baseline.json",
+      "matriz_integracion.json",
+      "draw_calls.json",
+      "performance.json",
+      "resultados_ab.json",
+      "verificacion_carga.json",
+      "comprobacion_caches.json",
+      "visual_diff.json",
+      "incidencias.json",
+      "version_probe.json",
+      "hashes.json",
+      "comparativa_antes_despues.jpg",
+      "comparativa_control_off_on.jpg"
+    ]
+  }
+}

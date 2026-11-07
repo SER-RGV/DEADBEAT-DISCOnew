@@ -1,0 +1,740 @@
+{
+  "tanda": "HUB-02",
+  "title": "Reconstrucción integral de escenarios · HUB · Tanda 02 (10 assets)",
+  "build": "DEADBEAT_DISCO.ART.html",
+  "integrationFile": "ART_PACK/art_pack.js",
+  "loader": "window.__DDM_V5_IMG[slot] / __DDM_GET_V5(slot) (registro existente)",
+  "dimensionSource": "ART_EVIDENCE/hub/tanda_02/audit_runtime.json (registrySizes medido en HUB real) + ART_AUDIT/asset_inventory.json",
+  "preparation": "ART_TOOLS/prepare_hub_tanda_02.py · build_alpha/crop_alpha de prepare_tanda_02.py · contain + pivote · descontaminación de croma",
+  "sharedSystems": "6 slots son compartidos con el pintor de aristas/puertas de salas de campaña; solo cambia el Image, no la geometría ni la lógica. Ver ART_HUB_TANDA_02_AUDIT.md §3.",
+  "count": 10,
+  "assets": [
+    {
+      "id": "T02-01",
+      "name": "maquinas_recreativas",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_01_arcade.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_01_arcade.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 111338,
+      "sha256": "6c9217cad45dd716d21919a48b782ca4fab364957940602dd22ca932c99dcbf6",
+      "slot": "hub_arcade_shrine",
+      "loader": "V5",
+      "classification": "Interactivo / Mobiliario secundario",
+      "role": "Banco de recreativas del Rincón Arcade (zona F1, 655,1210); estación F.",
+      "measuredDrawBox": [
+        0,
+        0,
+        236,
+        214
+      ],
+      "anchor": "bottom-center; hubDraw() calcula sh=236*naturalHeight/naturalWidth",
+      "sharedWith": "HUB + banner de sala de campaña (mismo slot de arte)",
+      "cachedLayer": false,
+      "note": "Dos cabinas art-déco con marquesina en abanico y CRT cian/magenta. No se añade interacción.",
+      "preparation": {
+        "scale": 0.32473,
+        "placed": [
+          230,
+          239
+        ],
+        "offset": [
+          17,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          708,
+          736
+        ],
+        "backgroundDetected": [
+          242,
+          242,
+          231
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 264,
+      "height": 239,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 22846,
+      "partialPx": 3850,
+      "opaquePx": 35534,
+      "coveragePct": 63.79,
+      "cornersTransparent": true,
+      "whiteFringePx": 7,
+      "whiteFringePct": 0.18,
+      "borderClean": true
+    },
+    {
+      "id": "T02-02",
+      "name": "arsenal_mostrador",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_02_arsenal.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_02_arsenal.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 142002,
+      "sha256": "b9a895ac359831a024ac97d2f9a1584ba4a12083fa51e568ee3d36314abe02c2",
+      "slot": "hub_arsenal_shrine",
+      "loader": "V5",
+      "classification": "Interactivo / Mobiliario funcional",
+      "role": "Mostrador del Arsenal de Caronte (zona D, 590,845); estación D.",
+      "measuredDrawBox": [
+        0,
+        0,
+        276,
+        194
+      ],
+      "anchor": "bottom-center; sw=276, sh=276*naturalHeight/naturalWidth",
+      "sharedWith": "Solo HUB (clave pre-cableada en addHubCustomProp)",
+      "cachedLayer": false,
+      "note": "Vitrina con tres armas estilizadas sobre terciopelo. Colisionador 184x86 intacto.",
+      "preparation": {
+        "scale": 0.33333,
+        "placed": [
+          360,
+          238
+        ],
+        "offset": [
+          0,
+          15
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1080,
+          713
+        ],
+        "backgroundDetected": [
+          241,
+          240,
+          235
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 360,
+      "height": 253,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 35080,
+      "partialPx": 3489,
+      "opaquePx": 52085,
+      "coveragePct": 61.48,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-03",
+      "name": "espejo_sellos",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_03_seals.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_03_seals.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 69059,
+      "sha256": "bc853376adb83588fbc28f3aa9b5516572009b432bf125fb862afddfae53813b",
+      "slot": "hub_seals_shrine",
+      "loader": "V5",
+      "classification": "Interactivo / Objeto narrativo",
+      "role": "Espejo de los Sellos (zona F2, 1845,1210); estación F.",
+      "measuredDrawBox": [
+        1737,
+        1040,
+        216,
+        210
+      ],
+      "anchor": "bottom-center; sw=216, sh=216*naturalHeight/naturalWidth",
+      "sharedWith": "HUB + banner de sala de campaña",
+      "cachedLayer": false,
+      "note": "Marco en sunburst con tres alveolos de sello. El aura y el contador de sellos siguen en el motor.",
+      "preparation": {
+        "scale": 0.3338,
+        "placed": [
+          147,
+          237
+        ],
+        "offset": [
+          48,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          439,
+          710
+        ],
+        "backgroundDetected": [
+          236,
+          236,
+          225
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 244,
+      "height": 237,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 33025,
+      "partialPx": 2417,
+      "opaquePx": 22052,
+      "coveragePct": 42.89,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-04",
+      "name": "maquina_expendedora",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_04_vending.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_04_vending.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 25228,
+      "sha256": "19b9e5ef77ca82c295a4a18441e66f8a63609f13cf9c127ceb0f489c0e5fb836",
+      "slot": "club_vending_machine_prop",
+      "loader": "V5",
+      "classification": "Decorativo / Equipamiento de discoteca",
+      "role": "Expendedora del lado este (2048,692) y decor de aristas de sala.",
+      "measuredDrawBox": [
+        0,
+        0,
+        78,
+        118
+      ],
+      "anchor": "bottom-center; dh=118, dw=118*naturalWidth/naturalHeight",
+      "sharedWith": "HUB + pintor de aristas de salas de campaña",
+      "cachedLayer": false,
+      "note": "La fuente generada traía dos máquinas; sourceCrop aísla una sin borrar la fuente original.",
+      "preparation": {
+        "scale": 0.21229,
+        "placed": [
+          72,
+          152
+        ],
+        "offset": [
+          14,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          341,
+          716
+        ],
+        "backgroundDetected": [
+          246,
+          243,
+          226
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination",
+        "sourceCrop": [
+          510,
+          0,
+          925,
+          768
+        ],
+        "sourceCropReason": "la fuente generada contenía dos expendedoras; el slot pinta una. Fuente original conservada íntegra."
+      },
+      "width": 100,
+      "height": 152,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 5788,
+      "partialPx": 1542,
+      "opaquePx": 7666,
+      "coveragePct": 61.92,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-05",
+      "name": "dispensador_agua",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_05_cooler.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_05_cooler.png",
+      "sourceSize": [
+        1200,
+        896
+      ],
+      "bytes": 10450,
+      "sha256": "53eac5803f7657c2ad045e17e83ed2f87db8e9c48682c365c4637f7f7fb203ec",
+      "slot": "club_water_cooler_prop",
+      "loader": "V5",
+      "classification": "Decorativo / Objeto narrativo",
+      "role": "Dispensador del lado oeste (452,692) y decor de aristas.",
+      "measuredDrawBox": [
+        429,
+        588,
+        47,
+        104
+      ],
+      "anchor": "bottom-center; dh=104, dw=104*naturalWidth/naturalHeight",
+      "sharedWith": "HUB + pintor de aristas de salas de campaña",
+      "cachedLayer": false,
+      "note": "Humor negro: botella cian con halo de 'agua bendita'. Sin texto generado.",
+      "preparation": {
+        "scale": 0.16,
+        "placed": [
+          38,
+          136
+        ],
+        "offset": [
+          11,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1200,
+          896
+        ],
+        "alphaBBox": [
+          238,
+          850
+        ],
+        "backgroundDetected": [
+          243,
+          242,
+          233
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 61,
+      "height": 136,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 4604,
+      "partialPx": 843,
+      "opaquePx": 2779,
+      "coveragePct": 44.5,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-06",
+      "name": "bancos_descanso",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_06_bench.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_06_bench.png",
+      "sourceSize": [
+        1376,
+        768
+      ],
+      "bytes": 75548,
+      "sha256": "7469f880615c8341f3458ce4dd7b90cff3e85f2501eedf1db727a8b4415e423b",
+      "slot": "limbo_bench_prop",
+      "loader": "V5",
+      "classification": "Decorativo / Mobiliario secundario",
+      "role": "Bancos gemelos junto al descenso (1037,1178).",
+      "measuredDrawBox": [
+        1037,
+        1178,
+        96,
+        74
+      ],
+      "anchor": "bottom-center; dw=96, dh=96*naturalHeight/naturalWidth",
+      "sharedWith": "HUB + salas de campaña (mismo slot de arte)",
+      "cachedLayer": false,
+      "note": "Banqueta art-déco con respaldo en abanico; variante de mobiliario, no elemento de relleno.",
+      "preparation": {
+        "scale": 0.26722,
+        "placed": [
+          256,
+          181
+        ],
+        "offset": [
+          0,
+          17
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          958,
+          678
+        ],
+        "backgroundDetected": [
+          244,
+          244,
+          238
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 256,
+      "height": 198,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 21089,
+      "partialPx": 2154,
+      "opaquePx": 27213,
+      "coveragePct": 58.39,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-07",
+      "name": "jardinera_neon",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_07_planter.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_07_planter.png",
+      "sourceSize": [
+        1024,
+        1024
+      ],
+      "bytes": 21053,
+      "sha256": "4c26fb35d36f429bd15243a6104a2fc52fa1d888f529a1e9ecedcdf579a56417",
+      "slot": "club_neon_planter_prop",
+      "loader": "V5",
+      "classification": "Decorativo / Variante visual",
+      "role": "Cuatro jardineras fijas (1005/1495 × 702/1178) y aristas de sala.",
+      "measuredDrawBox": [
+        966,
+        614,
+        78,
+        88
+      ],
+      "anchor": "bottom-center; dh=88, dw=88*naturalWidth/naturalHeight",
+      "sharedWith": "HUB + pintor de aristas de salas de campaña",
+      "cachedLayer": false,
+      "note": "Variante de la familia: follaje violeta con puntas cian/magenta y cráneo oculto.",
+      "preparation": {
+        "scale": 0.11921,
+        "placed": [
+          78,
+          108
+        ],
+        "offset": [
+          9,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1024,
+          1024
+        ],
+        "alphaBBox": [
+          652,
+          906
+        ],
+        "backgroundDetected": [
+          242,
+          241,
+          236
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 96,
+      "height": 108,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 4305,
+      "partialPx": 1486,
+      "opaquePx": 4449,
+      "coveragePct": 58.48,
+      "cornersTransparent": true,
+      "whiteFringePx": 1,
+      "whiteFringePct": 0.07,
+      "borderClean": true
+    },
+    {
+      "id": "T02-08",
+      "name": "plataforma_descenso",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_08_liftpad.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_08_liftpad.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 34003,
+      "sha256": "1d33eb915b71a9b7c0155cb0bb178f551ea370d7a72d9ee33d5b44e347e67a64",
+      "slot": "descent_abyssal_lift_pad",
+      "loader": "V5",
+      "classification": "Funcional / Interactivo",
+      "role": "Plataforma de descenso; dibujada también en las puertas de sala.",
+      "measuredDrawBox": [
+        -99,
+        -52,
+        198,
+        104
+      ],
+      "anchor": "center; drawImage(lp,-92,-48,184,96) tras translate/rotate",
+      "sharedWith": "HUB + puertas de salas de campaña",
+      "cachedLayer": false,
+      "note": "Diamante 2:1 enrasado. No se cambia Ot.openT ni la lógica de plunge.",
+      "preparation": {
+        "scale": 0.15294,
+        "placed": [
+          192,
+          104
+        ],
+        "offset": [
+          3,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1257,
+          680
+        ],
+        "backgroundDetected": [
+          242,
+          242,
+          231
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 198,
+      "height": 104,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 9885,
+      "partialPx": 1199,
+      "opaquePx": 9385,
+      "coveragePct": 52.0,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "T02-09",
+      "name": "luminaria_techo",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_09_ceiling_fixture.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_09_ceiling_fixture.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 8157,
+      "sha256": "ca716fe4999b96c17f8d2032c838656f507511d52a8e66ecf4422eac0ae851cc",
+      "slot": "wall_ceiling_neon_fixture",
+      "loader": "V5 (capa de pared en caché)",
+      "classification": "Arquitectónico / Iluminación",
+      "role": "Barra de neón horizontal de techo/muro, pintada en la caché de pared.",
+      "measuredDrawBox": [
+        52,
+        -177,
+        116,
+        30
+      ],
+      "anchor": "top-center; drawImage(nf, i-58, 12-l, 116, 30)",
+      "sharedWith": "HUB + salas de campaña (pintor $b/_b)",
+      "cachedLayer": true,
+      "note": "Se invalida la caché con DMO_INFERNAL_ART.invalidate() (API existente) para que se redibuje.",
+      "preparation": {
+        "scale": 0.09383,
+        "placed": [
+          121,
+          38
+        ],
+        "offset": [
+          13,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1287,
+          405
+        ],
+        "backgroundDetected": [
+          243,
+          244,
+          233
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 148,
+      "height": 38,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 3212,
+      "partialPx": 1265,
+      "opaquePx": 1046,
+      "coveragePct": 42.89,
+      "cornersTransparent": true,
+      "whiteFringePx": 2,
+      "whiteFringePct": 0.16,
+      "borderClean": true
+    },
+    {
+      "id": "T02-10",
+      "name": "aplique_pared",
+      "file": "ART_ASSETS/hub/tanda_02/hub_t02_10_sconce.png",
+      "source": "ART_ASSETS/hub/tanda_02/_source/hub_t02_10_sconce.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 5644,
+      "sha256": "14ee2120a61a71649dfac35349e88b9e91963e99620c558c91421e4b4e12ccf9",
+      "slot": "club_wall_sconce_side",
+      "loader": "V5 (capa de aristas en caché)",
+      "classification": "Arquitectónico / Señalización luminosa",
+      "role": "Apliques laterales de pared; 228 consultas __DDM_GET_V5 en el barrido del HUB.",
+      "measuredDrawBox": [
+        0,
+        -42,
+        38,
+        48
+      ],
+      "anchor": "top-left; drawImage(ss, wx-6, wy-42, 38, 48)",
+      "sharedWith": "HUB + salas de campaña (pintor de aristas)",
+      "cachedLayer": true,
+      "note": "Pantalla de cristal violeta con luz cian/rosa. No añade fuentes de luz nuevas al sistema.",
+      "preparation": {
+        "scale": 0.09288,
+        "placed": [
+          35,
+          60
+        ],
+        "offset": [
+          6,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          378,
+          646
+        ],
+        "backgroundDetected": [
+          246,
+          247,
+          240
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 48,
+      "height": 60,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 1293,
+      "partialPx": 469,
+      "opaquePx": 1051,
+      "coveragePct": 55.1,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    }
+  ]
+}

@@ -1,0 +1,1474 @@
+{
+  "tanda": "HUB-03",
+  "title": "Reconstrucción del entorno del HUB · Tanda 03 (suelos, mobiliario, lounge VIP y señalética)",
+  "build": "DEADBEAT_DISCO.ART.html (INTACTO)",
+  "integrationFile": "ART_PACK/art_pack.js (bloque HUB3_* independiente)",
+  "loader": "window.__DDM_V5_IMG[slot] / __DDM_GET_V5(slot) — registro y load() existentes",
+  "dimensionSource": "ART_EVIDENCE/hub/tanda_03/audit_runtime.json + geometry_probe.json + slot_probe.json; rectángulos mundo medidos en runtime",
+  "preparation": "ART_TOOLS/prepare_hub_tanda_03.py · build_alpha/crop_alpha de prepare_tanda_02.py · contain + pivote · descontaminación de croma",
+  "productionUnits": 8,
+  "finalPngFiles": 13,
+  "count": 8,
+  "integrationPolicy": "Los 8 objetivos se producen, cargan con load() y registran en el MISMO window.__DDM_V5_IMG con alias h03_*. La integración de RENDER está BLOQUEADA en los 8: 7 no tienen slot y T03-07 tiene un pintor en el código cuyo renderer no está activo en el build (D-07). Registro ≠ integración. HTML intacto (D-01/D-05/D-07).",
+  "assets": [
+    {
+      "id": "T03-01",
+      "name": "pano_suelo_oeste",
+      "source": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/source/hub_t03_01_floor_o.png",
+      "sourceSize": [
+        1376,
+        768
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Arquitectónico / Suelo (Familia A)",
+      "role": "Paño perimetral OESTE entre el medallón y el muro; zona D/arsenal (705,855).",
+      "orientation": "OESTE",
+      "worldBox": [
+        290,
+        720,
+        580,
+        430
+      ],
+      "anchor": "center; rectángulo mundo propuesto, sin pintor",
+      "dimensionSource": "Rectángulo mundo medido: suelo 1920x1320 en (290,265); medallón 760x430 centrado en (1250,935) -> x 290..870, y 720..1150.",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Abanico radial art-déco en mármol obsidiana con latón y vetas magenta/cian. El pliego lo llama 'oriental'; el código y el informe T02 lo sitúan al OESTE (discrepancia D-02).",
+      "preparation": {
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          1220,
+          700
+        ],
+        "backgroundDetected": [
+          236,
+          236,
+          227
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 26976,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          580,
+          333
+        ],
+        "scale": 0.47541,
+        "offset": [
+          0,
+          48
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 580,
+      "height": 430,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 156615,
+      "partialPx": 17690,
+      "opaquePx": 72522,
+      "coveragePct": 37.2,
+      "cornersTransparent": true,
+      "whiteFringePx": 2,
+      "whiteFringePct": 0.01,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/01_floor_patch_o/final/hub_floor_patch_o.png",
+      "bytes": 263182,
+      "sha256": "bbf8e98cca7943cd2083e4d2d9f841d1c1c1677bb9a722797edf8b4fea8a3795",
+      "sourceSha256": "0578f0405c98bff4c0b63326b92366fd2395be386ff86d3fabc17fe11718b30d"
+    },
+    {
+      "id": "T03-02",
+      "name": "pano_suelo_este",
+      "source": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/source/hub_t03_02_floor_e.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Arquitectónico / Suelo (Familia A)",
+      "role": "Paño perimetral ESTE entre el medallón y el muro; zona E/barra (1790,855) y expendedora (2048,692).",
+      "orientation": "ESTE",
+      "worldBox": [
+        1630,
+        720,
+        580,
+        430
+      ],
+      "anchor": "center; rectángulo mundo propuesto, sin pintor",
+      "dimensionSource": "Rectángulo mundo medido: x 1630..2210, y 720..1150 (simétrico del Oeste respecto a cx=1250).",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Misma familia de mármol/latón/esmalte pero composición de chevrones anidados y arcos violeta/cian; no repite el patrón del Oeste ni la textura de T01.",
+      "preparation": {
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1327,
+          706
+        ],
+        "backgroundDetected": [
+          238,
+          238,
+          232
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 11907,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          580,
+          309
+        ],
+        "scale": 0.43708,
+        "offset": [
+          0,
+          60
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 580,
+      "height": 430,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 158734,
+      "partialPx": 9630,
+      "opaquePx": 79663,
+      "coveragePct": 36.35,
+      "cornersTransparent": true,
+      "whiteFringePx": 11,
+      "whiteFringePct": 0.11,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/02_floor_patch_e/final/hub_floor_patch_e.png",
+      "bytes": 246307,
+      "sha256": "dc010fd826ea778803f1e7c2c640344ad99ae4781ee87dae670bd68d23cd7775",
+      "sourceSha256": "eddff144c7aafb6417fa8bb69d6dfec90c089aef104e19f4a4611ce6b7ec8e7d"
+    },
+    {
+      "id": "T03-03",
+      "name": "pano_suelo_sur_grieta",
+      "source": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/source/hub_t03_03_floor_s_crack.png",
+      "sourceSize": [
+        1456,
+        720
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Arquitectónico / Suelo (Familia A)",
+      "role": "Banda meridional posterior a la grieta de descenso (estación C, 1250,1365).",
+      "orientation": "SUR",
+      "worldBox": [
+        870,
+        1256,
+        760,
+        329
+      ],
+      "anchor": "center; rectángulo mundo propuesto, sin pintor",
+      "dimensionSource": "Caja medida de hub_abyss_stair_crack [1085,1256,330,180] y borde sur del suelo y=1585 -> x 870..1630, y 1256..1585.",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Fisuras cian que continúan visualmente la fractura existente. No se modifica la geometría, la caja ni las colisiones de la grieta.",
+      "preparation": {
+        "sourceSize": [
+          1456,
+          720
+        ],
+        "alphaBBox": [
+          1232,
+          663
+        ],
+        "backgroundDetected": [
+          242,
+          243,
+          234
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 12050,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          611,
+          329
+        ],
+        "scale": 0.49623,
+        "offset": [
+          74,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 760,
+      "height": 329,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 137390,
+      "partialPx": 5502,
+      "opaquePx": 106348,
+      "coveragePct": 45.05,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/03_floor_patch_s_crack/final/hub_floor_patch_s_crack.png",
+      "bytes": 247524,
+      "sha256": "f8738946a0875e2ef8618185a6efaa60bf35dbd91cd8871c47f5b9601d75977d",
+      "sourceSha256": "87a4923d773f047522b251f7f12a6c8375cfe258d9c412460091717ad937180f"
+    },
+    {
+      "id": "T03-04",
+      "name": "pano_suelo_norte_dj",
+      "source": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/source/hub_t03_04_floor_north_dj.png",
+      "sourceSize": [
+        1456,
+        720
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Arquitectónico / Suelo (Familia A)",
+      "role": "Corredor norte junto a la cabina del DJ (estación B, 1250,525).",
+      "orientation": "NORTE",
+      "worldBox": [
+        870,
+        265,
+        760,
+        224
+      ],
+      "anchor": "center; rectángulo mundo propuesto, sin pintor",
+      "dimensionSource": "Borde superior del suelo y=265 y caja medida de hub_dj_shrine [1058,280,384,209] -> x 870..1630, y 265..489.",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Motivo de onda/ecualizador incrustado en el pavimento: relación con la zona musical sin convertirse en decoración independiente ni en señal de HUD.",
+      "preparation": {
+        "sourceSize": [
+          1456,
+          720
+        ],
+        "alphaBBox": [
+          1333,
+          617
+        ],
+        "backgroundDetected": [
+          239,
+          239,
+          234
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 21627,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          484,
+          224
+        ],
+        "scale": 0.36305,
+        "offset": [
+          138,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 760,
+      "height": 224,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 113343,
+      "partialPx": 8245,
+      "opaquePx": 47366,
+      "coveragePct": 33.42,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/04_floor_north_dj/final/hub_floor_north_dj.png",
+      "bytes": 142819,
+      "sha256": "4dad9e805d9f2d16333b2eec1bf4453ecab3a774450c817ba24c9fbba4f8aee6",
+      "sourceSha256": "ca3e85b866cc072cea76dba8149f5b7ef97036c64bf2b67fd6559341aa47be96"
+    },
+    {
+      "id": "T03-05",
+      "name": "jardinera_variante_02",
+      "source": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/source/hub_t03_05_planter_v02.png",
+      "sourceSize": [
+        1456,
+        720
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Mobiliario / Variante (Familia B)",
+      "role": "Segunda variante de jardinera para las 4 instancias de hubDecor (1005/1495 x 702/1178).",
+      "orientation": null,
+      "worldBox": null,
+      "anchor": "bottom-center; mismo pivote que el slot de T02",
+      "dimensionSource": "Dimensiones naturales EXACTAS del slot V5 club_neon_planter_prop (96x108, caja 78x88), medidas en audit_runtime.json.",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Silueta diferenciada: urna acanalada alta sobre plinto escalonado, frente a la tina baja de T02. Mismo anclaje bottom-center y mismo tamaño de slot; no se añade colisionador.",
+      "preparation": {
+        "sourceSize": [
+          1456,
+          720
+        ],
+        "alphaBBox": [
+          283,
+          657
+        ],
+        "backgroundDetected": [
+          238,
+          238,
+          233
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 6916,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          47,
+          108
+        ],
+        "scale": 0.16438,
+        "offset": [
+          24,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 96,
+      "height": 108,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 7003,
+      "partialPx": 1057,
+      "opaquePx": 2195,
+      "coveragePct": 32.46,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/05_planter_variant_02/final/hub_planter_variant_02.png",
+      "bytes": 11486,
+      "sha256": "9bf81d78c016623cea2c033b97e65c048af085055791c916f7295a45f642d4b9",
+      "sourceSha256": "bae8260c2bf52ad679bc5a210d8831cbd2b03facd33aaf8f5c17fdb5e6d2bf38"
+    },
+    {
+      "id": "T03-06",
+      "name": "banco_variante_02",
+      "source": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/source/hub_t03_06_bench_v02.png",
+      "sourceSize": [
+        1456,
+        720
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Mobiliario / Variante (Familia B)",
+      "role": "Segunda variante de banco para las 2 instancias de hubDecor (1085/1415, 1252).",
+      "orientation": null,
+      "worldBox": null,
+      "anchor": "bottom-center; mismo pivote que el slot de T02",
+      "dimensionSource": "Dimensiones naturales EXACTAS del slot V5 limbo_bench_prop (256x198, caja 96x74), medidas en audit_runtime.json.",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Respaldo en abanico con nervios radiales y medallón, frente al banco liso de T02. Proporciones funcionales y anclaje compatibles; sin cambios de colisión ni interacción.",
+      "preparation": {
+        "sourceSize": [
+          1456,
+          720
+        ],
+        "alphaBBox": [
+          781,
+          604
+        ],
+        "backgroundDetected": [
+          239,
+          239,
+          230
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 69489,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          256,
+          198
+        ],
+        "scale": 0.32778,
+        "offset": [
+          0,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 256,
+      "height": 198,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 23033,
+      "partialPx": 7087,
+      "opaquePx": 19522,
+      "coveragePct": 54.56,
+      "cornersTransparent": true,
+      "whiteFringePx": 1,
+      "whiteFringePct": 0.01,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/06_bench_variant_02/final/hub_bench_variant_02.png",
+      "bytes": 74691,
+      "sha256": "45b00785a3d3c21efe27d0f1258b57f2bcbb207bcd08e0643ee726b534aac357",
+      "sourceSha256": "cc1321315a8237863de9410ae067e5476d33e02abb5e7362f823dc10a7be8275"
+    },
+    {
+      "id": "T03-07",
+      "name": "vip_booth_lounge",
+      "source": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/source/hub_t03_07_vip_lounge.png",
+      "sourceSize": [
+        1312,
+        816
+      ],
+      "slot": "hub_vip_booth_lounge",
+      "drawSlot": "hub_vip_booth_lounge",
+      "loader": "V5",
+      "classification": "Espacio VIP / Setpiece de menú (Familia C)",
+      "role": "Alcoba VIP dibujada 4 veces (2 lados x 2 filas) en el banner 'pixel-club' del MENÚ, caja 108x68.",
+      "orientation": null,
+      "worldBox": null,
+      "anchor": "center; drawImage(vb, 32, 284, 108, 68) x4 en menú",
+      "dimensionSource": "Caja de dibujo REAL 108x68 medida con slot_probe.json (vipDrawsMenu=4, vipBoxMenu=[32,284,108,68]); archivo a 2x (216x136) conservando el aspecto 108/68=1.588 sin deformación.",
+      "integrationState": "BLOQUEADO — registro V5 y loader reales, pero el renderer del MENÚ está inactivo en el build (D-07); visibilidad NO VERIFICADA",
+      "visibleInGame": false,
+      "referenceSystem": "DMO_V5 / banner pixel-club del MENÚ (d.menu 768x500, renderer inactivo)",
+      "note": "ÚNICO objetivo con clave V5 y pintor en el código (banner del menú 768x500, 4 drawImage de 108x68), NO en el HUB. D-07: ese renderer no está activo en el build en ejecución (0 dibujos medidos en 5 arranques); la integración de render queda BLOQUEADA y la visibilidad en producción NO VERIFICADA. No se declara 'nuevo espacio VIP en el HUB'.",
+      "preparation": {
+        "sourceSize": [
+          1312,
+          816
+        ],
+        "alphaBBox": [
+          696,
+          497
+        ],
+        "backgroundDetected": [
+          238,
+          239,
+          233
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 3184,
+        "mode": "contain + chroma decontamination",
+        "placed": [
+          190,
+          136
+        ],
+        "scale": 0.27364,
+        "offset": [
+          13,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [],
+      "width": 216,
+      "height": 136,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 6546,
+      "partialPx": 2031,
+      "opaquePx": 20530,
+      "coveragePct": 77.72,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true,
+      "file": "ART_ASSETS/hub/tanda_03/07_vip_booth_lounge/final/hub_vip_booth_lounge.png",
+      "bytes": 41023,
+      "sha256": "43af6e821b21d7da1593ac675a198d08a1a70a43155b7e39206770979a67a886",
+      "sourceSha256": "c9b4c187860b232416f87ad8c86e56afafb628f99375ef0c22ab807d9558201c"
+    },
+    {
+      "id": "T03-08",
+      "name": "sistema_senaletica_6_zonas",
+      "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+      "sourceSize": [
+        1264,
+        848
+      ],
+      "slot": null,
+      "drawSlot": null,
+      "loader": "V5 (registro; sin pintor)",
+      "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+      "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+      "orientation": null,
+      "worldBox": null,
+      "anchor": "center; rectángulo mundo propuesto, sin pintor",
+      "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+      "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+      "visibleInGame": false,
+      "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+      "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+      "preparation": {
+        "sourceSize": [
+          1264,
+          848
+        ],
+        "alphaBBox": [
+          824,
+          628
+        ],
+        "backgroundDetected": [
+          238,
+          238,
+          233
+        ],
+        "threshold": 18,
+        "haloPixelsRemoved": 72780,
+        "mode": "contain + exterior halo flood-fill + unpremultiply despill",
+        "expected": [
+          192,
+          128
+        ],
+        "pivot": "center",
+        "deformed": false
+      },
+      "files": [
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+          "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+          "bytes": 40581,
+          "width": 192,
+          "height": 128,
+          "zone": "A"
+        },
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+          "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+          "bytes": 40748,
+          "width": 192,
+          "height": 128,
+          "zone": "B"
+        },
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+          "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+          "bytes": 40645,
+          "width": 192,
+          "height": 128,
+          "zone": "C"
+        },
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+          "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+          "bytes": 41237,
+          "width": 192,
+          "height": 128,
+          "zone": "D"
+        },
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+          "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+          "bytes": 40996,
+          "width": 192,
+          "height": 128,
+          "zone": "E"
+        },
+        {
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+          "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+          "bytes": 41113,
+          "width": 192,
+          "height": 128,
+          "zone": "F"
+        }
+      ],
+      "variants": [
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3559,
+          "opaquePx": 15422,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "A",
+          "roman": "I",
+          "label": "PISTA",
+          "accentRGB": [
+            244,
+            63,
+            94
+          ],
+          "stationReference": "dancer_0 (1030,785)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+          "bytes": 40581,
+          "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524"
+        },
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3526,
+          "opaquePx": 15464,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "B",
+          "roman": "II",
+          "label": "CABINA DJ",
+          "accentRGB": [
+            34,
+            211,
+            238
+          ],
+          "stationReference": "dj (1250,525)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+          "bytes": 40748,
+          "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3"
+        },
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3531,
+          "opaquePx": 15457,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "C",
+          "roman": "III",
+          "label": "DESCENSO",
+          "accentRGB": [
+            168,
+            85,
+            247
+          ],
+          "stationReference": "lift (1250,1365)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+          "bytes": 40645,
+          "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759"
+        },
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3545,
+          "opaquePx": 15443,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "D",
+          "roman": "IV",
+          "label": "ARSENAL",
+          "accentRGB": [
+            253,
+            224,
+            71
+          ],
+          "stationReference": "arsenal (705,855)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+          "bytes": 41237,
+          "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9"
+        },
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3559,
+          "opaquePx": 15422,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "E",
+          "roman": "V",
+          "label": "BARRA",
+          "accentRGB": [
+            236,
+            72,
+            153
+          ],
+          "stationReference": "bar (1790,855)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+          "bytes": 40996,
+          "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0"
+        },
+        {
+          "id": "T03-08",
+          "name": "sistema_senaletica_6_zonas",
+          "source": "ART_ASSETS/hub/tanda_03/08_zone_signage/source/hub_t03_08_signage_master.png",
+          "sourceSize": [
+            1264,
+            848
+          ],
+          "slot": null,
+          "drawSlot": null,
+          "loader": "V5 (registro; sin pintor)",
+          "classification": "Señalética diegética / Sistema de 6 variantes (Familia D)",
+          "role": "Sistema de señalética física para las 6 zonas A-F del HUB. Una unidad de producción con 6 variantes.",
+          "orientation": null,
+          "worldBox": null,
+          "anchor": "center; rectángulo mundo propuesto, sin pintor",
+          "dimensionSource": "SIN slot V5 medido (discrepancia D-01). El tamaño consignado 192x128 es el tamaño REAL del archivo final verificado con Pillow; escala de referencia tomada de hub_trophy_board_prop (167x136, caja 156x127) y wall_neon_club_crest (84x84, caja 48x48).",
+          "integrationState": "BLOQUEADO — sin slot de dibujo en el HUB; requiere autorización para modificar el HTML",
+          "visibleInGame": false,
+          "referenceSystem": "__T3B capa de suelo cacheada / hubDecor / capa aérea (sin punto de inserción público)",
+          "note": "Placa física de latón con cartela central, sin texto en la fuente. Las 6 variantes comparten tipografía, materiales, iluminación, jerarquía, lenguaje gráfico y escala; cada zona recibe color de neón y numeral propios. No modifica navegación, puertas ni desbloqueo.",
+          "preparation": {
+            "sourceSize": [
+              1264,
+              848
+            ],
+            "alphaBBox": [
+              824,
+              628
+            ],
+            "backgroundDetected": [
+              238,
+              238,
+              233
+            ],
+            "threshold": 18,
+            "haloPixelsRemoved": 72780,
+            "mode": "contain + recolor neón + cartela",
+            "expected": [
+              192,
+              128
+            ],
+            "placed": [
+              168,
+              128
+            ],
+            "scale": 0.20382,
+            "offset": [
+              12,
+              0
+            ],
+            "pivot": "center",
+            "deformed": false
+          },
+          "files": [
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_a_pista.png",
+              "sha256": "11fabb684c3f0484ea3e80f3ca65b3f8bd0565b35596d596a51bd35b5abb1524",
+              "bytes": 40581,
+              "width": 192,
+              "height": 128,
+              "zone": "A"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_b_cabina_dj.png",
+              "sha256": "b02ed185c4cadce98f3fb14ef9231ac2ecc49404862dd2da6dee2162f10ae3c3",
+              "bytes": 40748,
+              "width": 192,
+              "height": 128,
+              "zone": "B"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_c_descenso.png",
+              "sha256": "78ba33d763edfaed31457c47d1a96f4651d056e34e6ea8f4adaea3d27b3e9759",
+              "bytes": 40645,
+              "width": 192,
+              "height": 128,
+              "zone": "C"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_d_arsenal.png",
+              "sha256": "c83b6a75dc17e9b17db72fb891da2ffd5722e63bc9ccffaadf8f913f2d75b0e9",
+              "bytes": 41237,
+              "width": 192,
+              "height": 128,
+              "zone": "D"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_e_barra.png",
+              "sha256": "b0075fc9ef82ccff34b20e7f04314509ffb57196429addc77bf0cc513f1590f0",
+              "bytes": 40996,
+              "width": 192,
+              "height": 128,
+              "zone": "E"
+            },
+            {
+              "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+              "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de",
+              "bytes": 41113,
+              "width": 192,
+              "height": 128,
+              "zone": "F"
+            }
+          ],
+          "width": 192,
+          "height": 128,
+          "mode": "RGBA",
+          "format": "PNG",
+          "exactSize": true,
+          "alphaChannel": true,
+          "alphaExtrema": [
+            0,
+            255
+          ],
+          "transparentPx": 5019,
+          "partialPx": 3556,
+          "opaquePx": 15427,
+          "coveragePct": 79.58,
+          "cornersTransparent": true,
+          "whiteFringePx": 2,
+          "whiteFringePct": 0.06,
+          "borderClean": true,
+          "variantOf": "T03-08",
+          "zone": "F",
+          "roman": "VI",
+          "label": "ARCADE",
+          "accentRGB": [
+            129,
+            140,
+            248
+          ],
+          "stationReference": "arcade (655,1135) / seals (1845,1135)",
+          "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/hub_zone_signage_f_arcade.png",
+          "bytes": 41113,
+          "sha256": "f26f7c9b3d70416b1273e787d5e206b70d21c5c72dc7b9658289f0acf8c554de"
+        }
+      ],
+      "width": 192,
+      "height": 128,
+      "exactSize": true,
+      "file": "ART_ASSETS/hub/tanda_03/08_zone_signage/final/ (6 variantes)",
+      "bytes": 245320,
+      "sha256": null,
+      "sha256Note": "Un sistema: SHA-256 individual por variante en `variants[]` y `files[]`."
+    }
+  ]
+}

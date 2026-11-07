@@ -1,0 +1,1940 @@
+{
+  "generatedAt": "2026-11-04T06:13:10.563Z",
+  "config": {
+    "samples": 400,
+    "sampleMs": 250,
+    "durationSec": 100
+  },
+  "base": {
+    "propCount": 62,
+    "npcProps": [
+      {
+        "id": "hub_ambient_dancer_nw",
+        "x": 1030,
+        "y": 785,
+        "sortY": 785,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_dancer_ne",
+        "x": 1470,
+        "y": 785,
+        "sortY": 785,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_dancer_sw",
+        "x": 1015,
+        "y": 1085,
+        "sortY": 1085,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "hub_ambient_clubber_bar",
+        "x": 1965,
+        "y": 918,
+        "sortY": 918,
+        "r": 22,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_danza_01",
+        "x": 1120,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_danza_02",
+        "x": 1380,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_charla_01",
+        "x": 1690,
+        "y": 1010,
+        "sortY": 1012,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_charla_02",
+        "x": 1780,
+        "y": 1010,
+        "sortY": 1012,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_descanso",
+        "x": 1910,
+        "y": 900,
+        "sortY": 902,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "t07_recorrido",
+        "x": 900,
+        "y": 700,
+        "sortY": 702,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      },
+      {
+        "id": "narr_cliente000",
+        "x": 785,
+        "y": 560,
+        "sortY": 578,
+        "r": 20,
+        "solid": false,
+        "tall": true,
+        "hubCustom": true,
+        "hasHubDraw": true
+      }
+    ],
+    "stations": [
+      {
+        "id": "lift",
+        "zone": "C",
+        "label": "GRIETA DE DESCENSO",
+        "prompt": "ELEGIR CÍRCULO DE DESCENSO",
+        "x": 1250,
+        "y": 1365,
+        "radius": 142,
+        "color": "#22d3ee"
+      },
+      {
+        "id": "dj",
+        "zone": "B",
+        "label": "CABINA · VIRGILIO",
+        "prompt": "HABLAR CON VIRGILIO",
+        "x": 1250,
+        "y": 525,
+        "radius": 132,
+        "color": "#f43f5e"
+      },
+      {
+        "id": "arsenal",
+        "zone": "D",
+        "label": "ARSENAL DE CARONTE",
+        "prompt": "ARMAS Y MEJORAS",
+        "x": 705,
+        "y": 855,
+        "radius": 136,
+        "color": "#facc15"
+      },
+      {
+        "id": "bar",
+        "zone": "E",
+        "label": "BARRA «EL ÚLTIMO TRAGO»",
+        "prompt": "CHARLAR EN LA BARRA",
+        "x": 1790,
+        "y": 855,
+        "radius": 136,
+        "color": "#f472b6"
+      },
+      {
+        "id": "arcade",
+        "zone": "F",
+        "label": "RINCÓN ARCADE",
+        "prompt": "RÉCORDS DEL CLUB",
+        "x": 655,
+        "y": 1135,
+        "radius": 124,
+        "color": "#38bdf8"
+      },
+      {
+        "id": "seals",
+        "zone": "F",
+        "label": "ESPEJO DE LOS SELLOS",
+        "prompt": "CONSULTAR SELLOS OCULTOS",
+        "x": 1845,
+        "y": 1135,
+        "radius": 124,
+        "color": "#c084fc"
+      },
+      {
+        "id": "dancer_0",
+        "dancerId": "hub_ambient_dancer_nw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1030,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_1",
+        "dancerId": "hub_ambient_dancer_ne",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1470,
+        "y": 785,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_2",
+        "dancerId": "hub_ambient_dancer_sw",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1015,
+        "y": 1085,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "dancer_3",
+        "dancerId": "hub_ambient_clubber_bar",
+        "quiet": true,
+        "zone": "A",
+        "label": "CLIENTE DEL REFUGIO",
+        "prompt": "CRUZAR DOS PALABRAS",
+        "x": 1965,
+        "y": 918,
+        "radius": 64,
+        "color": "#94a3b8"
+      },
+      {
+        "id": "cliente000",
+        "zone": "A",
+        "label": "EL CLIENTE 000",
+        "prompt": "SENTARSE UN MOMENTO",
+        "x": 785,
+        "y": 600,
+        "radius": 110,
+        "color": "#a78bfa"
+      }
+    ],
+    "hubAudit": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "t07": {
+      "ok": true,
+      "assetsLoaded": 6,
+      "actors": 6,
+      "activities": {
+        "dance": 2,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "errors": [],
+      "counts": {
+        "geography": 70,
+        "ambient": 70,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 70
+      }
+    },
+    "t08": {
+      "version": "4.0.0-tanda08",
+      "enabled": true,
+      "flag": "ON",
+      "clock": 2.92,
+      "frames": 0,
+      "updates": 70,
+      "visible": false,
+      "winTop": 1021.9,
+      "winH": -121.9,
+      "expand": 0,
+      "descentP": 0,
+      "draws": {
+        "bands": 0,
+        "objects": 0,
+        "smoke": 0,
+        "embers": 0,
+        "ash": 0,
+        "glows": 0
+      },
+      "errors": [],
+      "lastError": "",
+      "camera": {
+        "x": 1250,
+        "y": 975,
+        "zoom": 0.9375
+      },
+      "assets": [
+        {
+          "key": "paredIzq",
+          "alias": "h08_pared_cercana_izq",
+          "loaded": true
+        },
+        {
+          "key": "paredDer",
+          "alias": "h08_pared_cercana_der",
+          "loaded": true
+        },
+        {
+          "key": "estrato",
+          "alias": "h08_estrato_medio",
+          "loaded": true
+        },
+        {
+          "key": "columna",
+          "alias": "h08_columna_natural",
+          "loaded": true
+        },
+        {
+          "key": "plataforma",
+          "alias": "h08_plataforma_suspendida",
+          "loaded": true
+        },
+        {
+          "key": "paredLejana",
+          "alias": "h08_pared_lejana",
+          "loaded": true
+        },
+        {
+          "key": "rocas",
+          "alias": "h08_rocas_suspendidas",
+          "loaded": true
+        },
+        {
+          "key": "cavidades",
+          "alias": "h08_cavidades_lejanas",
+          "loaded": true
+        },
+        {
+          "key": "luces",
+          "alias": "h08_luces_abismo",
+          "loaded": true
+        },
+        {
+          "key": "humo",
+          "alias": "h08_humo_infernal",
+          "loaded": true
+        }
+      ],
+      "boxes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "x": -115.2,
+          "y": 1014.6,
+          "w": 1510.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "x": -78.6,
+          "y": 977.1,
+          "w": 1437.2,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "x": -42,
+          "y": 950.2,
+          "w": 1364,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "x": -8.2,
+          "y": 928,
+          "w": 1296.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "x": 17.2,
+          "y": 912.4,
+          "w": 1245.7,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.3
+        }
+      ],
+      "embers": [
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.173
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.346
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.519
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.692
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.865
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.038
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.211
+        }
+      ]
+    },
+    "pack": {
+      "version": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07+hub-tanda08",
+      "status": "applied",
+      "startedAt": 1793772657408,
+      "appliedAt": 1793772657408,
+      "base": "ART_ASSETS/tanda_01/",
+      "assets": [
+        {
+          "id": "t3b_material_00",
+          "file": "ART_ASSETS/tanda_01/floor_00_obsidian_vein.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[0] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_01",
+          "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[1] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "t3b_material_02",
+          "file": "ART_ASSETS/tanda_01/floor_02_gilded_mosaic.png",
+          "loader": "T3B",
+          "pivot": "tile",
+          "alpha": false,
+          "expected": [
+            512,
+            512
+          ],
+          "natural": [
+            512,
+            512
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__T3B_IMAGES[2] + __T3B.reload() + setEnabled(true)"
+        },
+        {
+          "id": "hub_fox_crest_emblem",
+          "file": "ART_ASSETS/tanda_01/hub_fox_crest_emblem.png",
+          "loader": "V5",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            560,
+            332
+          ],
+          "natural": [
+            560,
+            332
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[hub_fox_crest_emblem] = Image"
+        },
+        {
+          "id": "decor_neon_rug",
+          "file": "ART_ASSETS/tanda_01/decor_neon_rug.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            456,
+            243
+          ],
+          "natural": [
+            456,
+            243
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_neon_rug] = Image"
+        },
+        {
+          "id": "decor_potted_palm",
+          "file": "ART_ASSETS/tanda_01/decor_potted_palm.png",
+          "loader": "V5",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            209,
+            147
+          ],
+          "natural": [
+            209,
+            147
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__DDM_V5_IMG[decor_potted_palm] = Image"
+        },
+        {
+          "id": "boss_01_anden",
+          "file": "ART_ASSETS/tanda_01/boss_01_anden.png",
+          "loader": "ILT",
+          "pivot": "bottom-center",
+          "alpha": true,
+          "expected": [
+            400,
+            386
+          ],
+          "natural": [
+            400,
+            386
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "DMO_ILT.images/ready/meta[boss_01_anden]"
+        },
+        {
+          "id": "weapons/weapon_m1911.png",
+          "file": "ART_ASSETS/tanda_01/weapon_m1911.png",
+          "loader": "HD",
+          "pivot": "center",
+          "alpha": true,
+          "expected": [
+            160,
+            87
+          ],
+          "natural": [
+            160,
+            87
+          ],
+          "applied": true,
+          "loaded": true,
+          "exactSize": true,
+          "note": "__HD_DATA[weapons/weapon_m1911.png] + __HD_EXTRA cache"
+        }
+      ],
+      "errors": [],
+      "t3bEnabled": true,
+      "iltEnabled": true,
+      "player": {
+        "version": "tanda03-faseD.2",
+        "ready": true,
+        "appliedAt": 1793772657539,
+        "anatomyCaptured": 10,
+        "assets": 8,
+        "poses": 12,
+        "sequenceSlots": 8,
+        "loader": "window.__HD_ASSETS.images[PLAYER_ASSET_MAP] -> ensureHdImg() -> Pf()",
+        "hook": "window.DMO.playerAnim: state / upperPose / stridePhase / walkFrame / waistSplitActive"
+      },
+      "hub3": {
+        "version": "hub-tanda03",
+        "count": 13,
+        "productionUnits": 8,
+        "files": 13,
+        "registered": 13,
+        "registeredDrawSlots": 1,
+        "verifiedDraws": 0,
+        "blocked": 13,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h03_*] y __DDM_GET_V5(hub_vip_booth_lounge)",
+        "note": "13/13 PNG cargados y registrados. Integracion de RENDER BLOQUEADA en las 8 unidades: 7 sin slot y el pintor del MENU inactivo (D-07). 0 drawImage verificados en produccion. HTML intacto.",
+        "appliedAt": 1793772657576
+      },
+      "hub3Boot": {
+        "registered": 13,
+        "at": 1793772657576
+      },
+      "architecture": {
+        "version": "fase1-tanda02",
+        "count": 10,
+        "applied": 10,
+        "enabled": true,
+        "appliedAt": 1793772657594,
+        "loader": "__DDM_V5_IMG -> __DDM_GET_V5"
+      },
+      "hub": {
+        "version": "hub-tanda01",
+        "count": 10,
+        "slotsApplied": 9,
+        "enabled": true,
+        "loader": "__T3B_IMAGES[1] + __T3B.reload(1) / __DDM_V5_IMG[slot]",
+        "appliedAt": 1793772657614
+      },
+      "hub2": {
+        "version": "hub-tanda02",
+        "count": 10,
+        "slotsApplied": 10,
+        "enabled": true,
+        "loader": "__DDM_V5_IMG[slot] -> __DDM_GET_V5(slot)",
+        "appliedAt": 1793772657635
+      },
+      "hub5": {
+        "version": "hub-tanda05",
+        "count": 10,
+        "productionUnits": 10,
+        "files": 10,
+        "registered": 10,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h05_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+        "flag": "window.__DDM_HUB_T05 !== false",
+        "note": "10/10 PNG cargados y registrados. Integracion de render en el HUB real por los pintores existentes. Sin segundo motor.",
+        "appliedAt": 1793772657658
+      },
+      "hub6": {
+        "version": "hub-tanda06",
+        "count": 10,
+        "productionUnits": 10,
+        "files": 10,
+        "registered": 10,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h06_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hubDecor -> addHubCustomProp -> Lc",
+        "flag": "window.__DDM_HUB_T06 !== false",
+        "note": "10/10 PNG de envolvente cargados y registrados. Sin segundo motor, sin canvas adicional, sin cambio de camara ni proyeccion.",
+        "appliedAt": 1793772657682
+      },
+      "hub7": {
+        "version": "hub-tanda07",
+        "count": 6,
+        "productionUnits": 6,
+        "files": 6,
+        "registered": 6,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h07_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hooks Wf/Ph/zf (T07)",
+        "flag": "window.__DDM_HUB_T07 !== false",
+        "note": "6/6 assets T07 en el MISMO registro V5 y MISMO load(). Sin segundo motor, canvas, cámara ni audio.",
+        "appliedAt": 1793772657708
+      },
+      "hub8": {
+        "version": "hub-tanda08",
+        "count": 10,
+        "productionUnits": 10,
+        "files": 10,
+        "registered": 10,
+        "enabled": true,
+        "loader": "load() -> __DDM_V5_IMG[alias h08_*]",
+        "renderer": "DEADBEAT_DISCO.ART.html :: hooks zf/Tf (T08)",
+        "flag": "window.__DDM_HUB_T08 !== false",
+        "note": "10/10 assets T08 en el MISMO registro V5 y MISMO load(). Cutaway en espacio de pantalla, sin cámara/canvas/audio nuevos.",
+        "appliedAt": 1793772657749
+      },
+      "finishedAt": 1793772657749
+    },
+    "v5": 182,
+    "canvas": 27,
+    "observeProps": 11,
+    "t09audit": {
+      "ok": true,
+      "wrapped": 10,
+      "hooksInstalled": true,
+      "assetsLoaded": 4,
+      "npcs": 10,
+      "activities": {
+        "dance": 6,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "distinctDurations": 10,
+      "events": 7,
+      "errors": [],
+      "updates": 70,
+      "draws": 700,
+      "delegated": 0
+    },
+    "timers": {
+      "intervals": 0
+    }
+  },
+  "after": {
+    "t09": {
+      "version": "4.0.0-tanda09",
+      "enabled": true,
+      "flag": "ON",
+      "clock": 106.99,
+      "updates": 3330,
+      "draws": 33300,
+      "delegated": 0,
+      "wrapped": 10,
+      "installed": true,
+      "hooksInstalled": true,
+      "worldLive": true,
+      "reduced": false,
+      "event": null,
+      "eventGap": 21.08,
+      "eventsFired": 3,
+      "eventsCompleted": 3,
+      "eventIndex": 3,
+      "counts": {
+        "pauses": 114,
+        "shifts": 16,
+        "observes": 22,
+        "greetings": 0,
+        "resumes": 5
+      },
+      "assets": [
+        {
+          "slot": "t09_rest_seated",
+          "loaded": true
+        },
+        {
+          "slot": "t09_observe",
+          "loaded": true
+        },
+        {
+          "slot": "t09_greeting",
+          "loaded": true
+        },
+        {
+          "slot": "t09_wait",
+          "loaded": true
+        }
+      ],
+      "records": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "zone": "A",
+          "act": "dance",
+          "state": "ACTIVE",
+          "intensity": 0.648,
+          "tIntensity": 0.817,
+          "faceMix": 0,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 1.003,
+          "pose": null,
+          "eventId": null,
+          "cycles": 11,
+          "changes": 23,
+          "lastFrame": 1,
+          "lastX": 1029,
+          "lastReact": 0,
+          "lastSprite": "hub_clubber_dancer_a"
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "zone": "A",
+          "act": "dance",
+          "state": "ACTIVE",
+          "intensity": 0.942,
+          "tIntensity": 0.942,
+          "faceMix": 1,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.027,
+          "pose": null,
+          "eventId": null,
+          "cycles": 9,
+          "changes": 18,
+          "lastFrame": 0,
+          "lastX": 1470,
+          "lastReact": 0,
+          "lastSprite": "hub_clubber_dancer_b"
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "zone": "A/F",
+          "act": "dance",
+          "state": "ACTIVE",
+          "intensity": 0.696,
+          "tIntensity": 0.702,
+          "faceMix": 0,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.259,
+          "pose": null,
+          "eventId": null,
+          "cycles": 12,
+          "changes": 25,
+          "lastFrame": 0,
+          "lastX": 1017,
+          "lastReact": 0,
+          "lastSprite": "hub_clubber_dancer_a"
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "zone": "E",
+          "act": "dance",
+          "state": "WAIT",
+          "intensity": 0.186,
+          "tIntensity": 0.12,
+          "faceMix": 0,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.983,
+          "pose": "t09_wait",
+          "eventId": null,
+          "cycles": 8,
+          "changes": 17,
+          "lastFrame": 0,
+          "lastX": 1965,
+          "lastReact": 0,
+          "lastSprite": "t09_wait"
+        },
+        {
+          "id": "t07_danza_01",
+          "zone": "A",
+          "act": "dance",
+          "state": "SHIFT",
+          "intensity": 0.533,
+          "tIntensity": 1.128,
+          "faceMix": 0,
+          "dx": -4.88,
+          "dy": -2.34,
+          "holdOffset": 0.858,
+          "pose": null,
+          "eventId": null,
+          "cycles": 19,
+          "changes": 39,
+          "lastFrame": 2,
+          "lastX": 1114,
+          "lastReact": 0.351,
+          "lastSprite": "v5-frame-2"
+        },
+        {
+          "id": "t07_danza_02",
+          "zone": "A",
+          "act": "dance",
+          "state": "ACTIVE",
+          "intensity": 0.808,
+          "tIntensity": 0.808,
+          "faceMix": 1,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.012,
+          "pose": null,
+          "eventId": null,
+          "cycles": 14,
+          "changes": 28,
+          "lastFrame": 1,
+          "lastX": 1381,
+          "lastReact": 0.252,
+          "lastSprite": "v5-frame-1"
+        },
+        {
+          "id": "t07_charla_01",
+          "zone": "E",
+          "act": "talk",
+          "state": "PAUSE",
+          "intensity": 0.324,
+          "tIntensity": 0.12,
+          "faceMix": 0,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.2,
+          "pose": null,
+          "eventId": null,
+          "cycles": 12,
+          "changes": 26,
+          "lastFrame": 0,
+          "lastX": 1690,
+          "lastReact": 0,
+          "lastSprite": "v5-frame-0"
+        },
+        {
+          "id": "t07_charla_02",
+          "zone": "E",
+          "act": "talk",
+          "state": "ACTIVE",
+          "intensity": 0.372,
+          "tIntensity": 0.372,
+          "faceMix": 1,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.005,
+          "pose": null,
+          "eventId": null,
+          "cycles": 10,
+          "changes": 21,
+          "lastFrame": 0,
+          "lastX": 1780,
+          "lastReact": 0,
+          "lastSprite": "v5-frame-0"
+        },
+        {
+          "id": "t07_descanso",
+          "zone": "E",
+          "act": "rest",
+          "state": "ACTIVE",
+          "intensity": 0.27,
+          "tIntensity": 0.27,
+          "faceMix": 0,
+          "dx": 0,
+          "dy": 0,
+          "holdOffset": 0.001,
+          "pose": "t09_rest_seated",
+          "eventId": null,
+          "cycles": 7,
+          "changes": 14,
+          "lastFrame": 0,
+          "lastX": 1910,
+          "lastReact": 0,
+          "lastSprite": "t09_rest_seated"
+        },
+        {
+          "id": "t07_recorrido",
+          "zone": "D/A",
+          "act": "walk",
+          "state": "OBSERVE",
+          "intensity": 0.062,
+          "tIntensity": 0.05,
+          "faceMix": 0,
+          "dx": -0.22,
+          "dy": 0.13,
+          "holdOffset": 1.783,
+          "pose": "t09_observe",
+          "eventId": null,
+          "cycles": 9,
+          "changes": 19,
+          "lastFrame": 1,
+          "lastX": 877,
+          "lastReact": 0,
+          "lastSprite": "t09_observe"
+        }
+      ],
+      "errors": [],
+      "lastError": "",
+      "noNewProps": true,
+      "accumulators": 1,
+      "intervalsPerNPC": 0,
+      "newCanvases": 0
+    },
+    "audit": {
+      "ok": true,
+      "wrapped": 10,
+      "hooksInstalled": true,
+      "assetsLoaded": 4,
+      "npcs": 10,
+      "activities": {
+        "dance": 6,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "distinctDurations": 10,
+      "events": 7,
+      "errors": [],
+      "updates": 3330,
+      "draws": 33300,
+      "delegated": 0
+    },
+    "t07": {
+      "ok": true,
+      "assetsLoaded": 6,
+      "actors": 6,
+      "activities": {
+        "dance": 2,
+        "talk": 2,
+        "rest": 1,
+        "walk": 1
+      },
+      "errors": [],
+      "counts": {
+        "geography": 3330,
+        "ambient": 3330,
+        "screen": 43,
+        "descentScreen": 0,
+        "updates": 3330
+      }
+    },
+    "hub": {
+      "ok": true,
+      "version": "3.5.0-hub-proto",
+      "saveKey": "dmo_hub_v1",
+      "zonesCount": 6,
+      "stationsCount": 11,
+      "inHub": true,
+      "location": "HUB",
+      "mode": "EXPLORATION",
+      "unlockedCircles": [
+        0
+      ],
+      "officialUntainted": true
+    },
+    "t08": {
+      "version": "4.0.0-tanda08",
+      "enabled": true,
+      "flag": "ON",
+      "clock": 106.99,
+      "frames": 0,
+      "updates": 3330,
+      "visible": false,
+      "winTop": 1021.9,
+      "winH": -121.9,
+      "expand": 0,
+      "descentP": 0,
+      "draws": {
+        "bands": 0,
+        "objects": 0,
+        "smoke": 0,
+        "embers": 0,
+        "ash": 0,
+        "glows": 0
+      },
+      "errors": [],
+      "lastError": "",
+      "camera": {
+        "x": 1250,
+        "y": 975,
+        "zoom": 0.9375
+      },
+      "assets": [
+        {
+          "key": "paredIzq",
+          "alias": "h08_pared_cercana_izq",
+          "loaded": true
+        },
+        {
+          "key": "paredDer",
+          "alias": "h08_pared_cercana_der",
+          "loaded": true
+        },
+        {
+          "key": "estrato",
+          "alias": "h08_estrato_medio",
+          "loaded": true
+        },
+        {
+          "key": "columna",
+          "alias": "h08_columna_natural",
+          "loaded": true
+        },
+        {
+          "key": "plataforma",
+          "alias": "h08_plataforma_suspendida",
+          "loaded": true
+        },
+        {
+          "key": "paredLejana",
+          "alias": "h08_pared_lejana",
+          "loaded": true
+        },
+        {
+          "key": "rocas",
+          "alias": "h08_rocas_suspendidas",
+          "loaded": true
+        },
+        {
+          "key": "cavidades",
+          "alias": "h08_cavidades_lejanas",
+          "loaded": true
+        },
+        {
+          "key": "luces",
+          "alias": "h08_luces_abismo",
+          "loaded": true
+        },
+        {
+          "key": "humo",
+          "alias": "h08_humo_infernal",
+          "loaded": true
+        }
+      ],
+      "boxes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "x": -115.2,
+          "y": 1014.6,
+          "w": 1510.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "x": -78.6,
+          "y": 977.1,
+          "w": 1437.2,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "x": -42,
+          "y": 950.2,
+          "w": 1364,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "x": -8.2,
+          "y": 928,
+          "w": 1296.4,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "x": 17.2,
+          "y": 912.4,
+          "w": 1245.7,
+          "h": 6,
+          "dx": 0,
+          "alpha": 0.3
+        }
+      ],
+      "embers": [
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.173
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.346
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.519
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.692
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.865
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.038
+        },
+        {
+          "x": 0,
+          "y": 0,
+          "t": 0.211
+        }
+      ]
+    },
+    "canvas": 27,
+    "v5": 182,
+    "props": 62
+  },
+  "perId": {
+    "hub_ambient_dancer_nw": {
+      "states": [
+        "ACTIVE",
+        "PAUSE",
+        "RESUME"
+      ],
+      "changes": 23,
+      "cycles": 11,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 52,
+        "1": 164,
+        "2": 183
+      },
+      "xMaxDelta": 2,
+      "xSpan": 8,
+      "xMin": 1026,
+      "xMax": 1034,
+      "intensities": 79,
+      "faceMidPct": 2.3,
+      "poses": [],
+      "frozenFrames": 52,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "hub_ambient_dancer_ne": {
+      "states": [
+        "ACTIVE",
+        "PAUSE"
+      ],
+      "changes": 18,
+      "cycles": 9,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 78,
+        "1": 157,
+        "2": 164
+      },
+      "xMaxDelta": 2,
+      "xSpan": 6,
+      "xMin": 1467,
+      "xMax": 1473,
+      "intensities": 73,
+      "faceMidPct": 1.5,
+      "poses": [],
+      "frozenFrames": 78,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "hub_ambient_dancer_sw": {
+      "states": [
+        "ACTIVE",
+        "OBSERVE",
+        "RESUME"
+      ],
+      "changes": 25,
+      "cycles": 12,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 100,
+        "1": 138,
+        "2": 161
+      },
+      "xMaxDelta": 2,
+      "xSpan": 6,
+      "xMin": 1012,
+      "xMax": 1018,
+      "intensities": 77,
+      "faceMidPct": 5.8,
+      "poses": [
+        "t09_observe"
+      ],
+      "frozenFrames": 100,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "hub_ambient_clubber_bar": {
+      "states": [
+        "ACTIVE",
+        "WAIT"
+      ],
+      "changes": 17,
+      "cycles": 8,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 88,
+        "1": 156,
+        "2": 155
+      },
+      "xMaxDelta": 2,
+      "xSpan": 6,
+      "xMin": 1962,
+      "xMax": 1968,
+      "intensities": 64,
+      "faceMidPct": 3.5,
+      "poses": [
+        "t09_wait"
+      ],
+      "frozenFrames": 88,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "t07_danza_01": {
+      "states": [
+        "ACTIVE",
+        "PAUSE",
+        "SHIFT",
+        "RESUME"
+      ],
+      "changes": 38,
+      "cycles": 18,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 75,
+        "1": 134,
+        "2": 190
+      },
+      "xMaxDelta": 7,
+      "xSpan": 36,
+      "xMin": 1101,
+      "xMax": 1137,
+      "intensities": 95,
+      "faceMidPct": 1.3,
+      "poses": [],
+      "frozenFrames": 75,
+      "offsetsMax": 15.8,
+      "reactMax": 0.544
+    },
+    "t07_danza_02": {
+      "states": [
+        "ACTIVE",
+        "PAUSE",
+        "SHIFT"
+      ],
+      "changes": 28,
+      "cycles": 14,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 91,
+        "1": 174,
+        "2": 134
+      },
+      "xMaxDelta": 7,
+      "xSpan": 33,
+      "xMin": 1363,
+      "xMax": 1396,
+      "intensities": 83,
+      "faceMidPct": 2.5,
+      "poses": [],
+      "frozenFrames": 91,
+      "offsetsMax": 14.45,
+      "reactMax": 0.371
+    },
+    "t07_charla_01": {
+      "states": [
+        "ACTIVE",
+        "PAUSE",
+        "RESUME"
+      ],
+      "changes": 25,
+      "cycles": 12,
+      "frameMaxDelta": 0,
+      "frameDeltaHist": {
+        "0": 399
+      },
+      "xMaxDelta": 0,
+      "xSpan": 0,
+      "xMin": 1690,
+      "xMax": 1690,
+      "intensities": 58,
+      "faceMidPct": 1.5,
+      "poses": [],
+      "frozenFrames": 399,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "t07_charla_02": {
+      "states": [
+        "ACTIVE",
+        "PAUSE",
+        "RESUME"
+      ],
+      "changes": 21,
+      "cycles": 10,
+      "frameMaxDelta": 0,
+      "frameDeltaHist": {
+        "0": 399
+      },
+      "xMaxDelta": 0,
+      "xSpan": 0,
+      "xMin": 1780,
+      "xMax": 1780,
+      "intensities": 54,
+      "faceMidPct": 1.5,
+      "poses": [
+        "t09_greeting"
+      ],
+      "frozenFrames": 399,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "t07_descanso": {
+      "states": [
+        "ACTIVE",
+        "POSTURE"
+      ],
+      "changes": 14,
+      "cycles": 7,
+      "frameMaxDelta": 0,
+      "frameDeltaHist": {
+        "0": 399
+      },
+      "xMaxDelta": 0,
+      "xSpan": 0,
+      "xMin": 1910,
+      "xMax": 1910,
+      "intensities": 36,
+      "faceMidPct": 0.8,
+      "poses": [
+        "t09_rest_seated"
+      ],
+      "frozenFrames": 399,
+      "offsetsMax": 0,
+      "reactMax": 0
+    },
+    "t07_recorrido": {
+      "states": [
+        "ACTIVE",
+        "OBSERVE",
+        "SHIFT"
+      ],
+      "changes": 19,
+      "cycles": 9,
+      "frameMaxDelta": 2,
+      "frameDeltaHist": {
+        "0": 92,
+        "1": 247,
+        "2": 60
+      },
+      "xMaxDelta": 26,
+      "xSpan": 130,
+      "xMin": 832,
+      "xMax": 962,
+      "intensities": 67,
+      "faceMidPct": 10.5,
+      "poses": [
+        "t09_observe"
+      ],
+      "frozenFrames": 92,
+      "offsetsMax": 13.93,
+      "reactMax": 0
+    }
+  },
+  "derived": {
+    "distinctStateCombos": 136,
+    "maxSimultaneousChanges": 4,
+    "activeEvents": [
+      "conversation_ends",
+      "group_start",
+      "arcade_watch"
+    ],
+    "eventsFired": 3,
+    "eventsCompleted": 3,
+    "counts": {
+      "pauses": 114,
+      "shifts": 16,
+      "observes": 22,
+      "greetings": 0,
+      "resumes": 5
+    },
+    "clock": 106.99,
+    "updates": 3330,
+    "draws": 33300,
+    "delegated": 0,
+    "drawsPerUpdate": 10,
+    "pageerrors": [],
+    "warns": []
+  },
+  "flag": {
+    "off": {
+      "flag": "OFF",
+      "draws": 33300,
+      "delegated": 260,
+      "recordsActive": 6
+    },
+    "on2": {
+      "flag": "ON",
+      "draws": 33570,
+      "delegated": 300
+    }
+  },
+  "reactions": [
+    {
+      "label": "spawn",
+      "x": 1250,
+      "y": 965,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0.296
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0.27
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    },
+    {
+      "label": "junto_a_danza",
+      "x": 1120,
+      "y": 900,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0.9
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    },
+    {
+      "label": "junto_a_charla",
+      "x": 1690,
+      "y": 1010,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0.45
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0.25
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    },
+    {
+      "label": "junto_a_descanso",
+      "x": 1910,
+      "y": 900,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0.028
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    },
+    {
+      "label": "zona_C",
+      "x": 1250,
+      "y": 1300,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    },
+    {
+      "label": "zona_F",
+      "x": 655,
+      "y": 1135,
+      "worldLive": true,
+      "r": [
+        {
+          "id": "hub_ambient_dancer_nw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_ne",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_dancer_sw",
+          "react": 0
+        },
+        {
+          "id": "hub_ambient_clubber_bar",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_01",
+          "react": 0
+        },
+        {
+          "id": "t07_danza_02",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_01",
+          "react": 0
+        },
+        {
+          "id": "t07_charla_02",
+          "react": 0
+        },
+        {
+          "id": "t07_descanso",
+          "react": 0
+        },
+        {
+          "id": "t07_recorrido",
+          "react": 0
+        }
+      ],
+      "hubMode": "EXPLORATION"
+    }
+  ],
+  "playerMove": {
+    "camX": 1360,
+    "hubMode": "EXPLORATION",
+    "worldLive": true
+  },
+  "beforeMove": {
+    "camX": 1250
+  },
+  "caps": [
+    {
+      "id": "zona_A",
+      "file": "qa_zona_A.jpg",
+      "camera": [
+        1250,
+        965
+      ]
+    },
+    {
+      "id": "zona_B_dj",
+      "file": "qa_zona_B_dj.jpg",
+      "camera": [
+        1250,
+        665
+      ]
+    },
+    {
+      "id": "zona_C_grieta",
+      "file": "qa_zona_C_grieta.jpg",
+      "camera": [
+        1250,
+        1195
+      ]
+    },
+    {
+      "id": "zona_D_arsenal",
+      "file": "qa_zona_D_arsenal.jpg",
+      "camera": [
+        883,
+        900
+      ]
+    },
+    {
+      "id": "zona_E_barra",
+      "file": "qa_zona_E_barra.jpg",
+      "camera": [
+        1617,
+        900
+      ]
+    },
+    {
+      "id": "zona_F_arcade",
+      "file": "qa_zona_F_arcade.jpg",
+      "camera": [
+        883,
+        1130
+      ]
+    }
+  ],
+  "poseCaps": [
+    {
+      "slot": "t09_rest_seated",
+      "poseInRecord": "t09_rest_seated",
+      "size": [
+        131,
+        232
+      ],
+      "file": "qa_sprite_t09_rest_seated.jpg"
+    },
+    {
+      "slot": "t09_observe",
+      "poseInRecord": "t09_observe",
+      "size": [
+        131,
+        232
+      ],
+      "file": "qa_sprite_t09_observe.jpg"
+    },
+    {
+      "slot": "t09_greeting",
+      "poseInRecord": "t09_greeting",
+      "size": [
+        131,
+        232
+      ],
+      "file": "qa_sprite_t09_greeting.jpg"
+    },
+    {
+      "slot": "t09_wait",
+      "poseInRecord": "t09_wait",
+      "size": [
+        131,
+        232
+      ],
+      "file": "qa_sprite_t09_wait.jpg"
+    }
+  ],
+  "reduced": {
+    "pageerrors": [],
+    "static": true,
+    "draws": 0,
+    "delegated": 880,
+    "flag": "ON"
+  }
+}

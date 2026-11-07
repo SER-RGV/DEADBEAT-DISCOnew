@@ -1,0 +1,54 @@
+{
+  "chromium": "131.0.6778.0",
+  "playwright": "1.58.2",
+  "loadMs": {
+    "antes": 1486,
+    "control": 1320,
+    "despues": 1351
+  },
+  "render": {
+    "antes": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 50,
+      "minMs": -2.7,
+      "maxMs": 50
+    },
+    "control": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": -2.2,
+      "maxMs": 33.4
+    },
+    "despues": {
+      "frames": 40,
+      "medianMs": 16.7,
+      "p90Ms": 33.4,
+      "minMs": -4,
+      "maxMs": 33.4
+    }
+  },
+  "loadCost": {
+    "antes": {
+      "startedAt": 1793718238414,
+      "hub3AppliedAt": 1793718238613,
+      "hub3BootAt": 1793718238614,
+      "deltaMs": 199
+    },
+    "control": {
+      "startedAt": 1793718264593,
+      "hub3AppliedAt": 1793718264716,
+      "hub3BootAt": 1793718264716,
+      "deltaMs": 123
+    },
+    "despues": {
+      "startedAt": 1793718282166,
+      "hub3AppliedAt": 1793718282282,
+      "hub3BootAt": 1793718282282,
+      "deltaMs": 116
+    }
+  },
+  "environment": "Chromium headless 131.0.6778.0 · SwiftShader (GPU por software) · 1280x900 · deviceScaleFactor 1",
+  "interpretation": "La carga de los 13 PNG es coste único de arranque; el render del HUB no cambia porque 12/13 recursos no se dibujan y el único slot nuevo pertenece al canvas del MENÚ. Las desviaciones de rAF se comparan también entre ANTES y CONTROL y no se atribuyen a los assets."
+}

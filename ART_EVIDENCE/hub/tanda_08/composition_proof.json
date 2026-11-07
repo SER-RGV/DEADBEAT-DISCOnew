@@ -1,0 +1,1807 @@
+{
+  "generatedAt": "2026-11-04T04:19:32.024Z",
+  "phase": "F1 · prueba de composición (SIN assets)",
+  "url": "http://127.0.0.1:8123/t08_composition.html",
+  "total": 16,
+  "passed": 16,
+  "failed": 0,
+  "verdict": "APROBADA",
+  "checks": [
+    {
+      "id": "C-01",
+      "name": "el prototipo no toca el registro V5 ni añade canvas",
+      "ok": true,
+      "detail": {
+        "status": "applied",
+        "v5": 168,
+        "canvases": 27,
+        "planes": [
+          {
+            "id": "P1_cercano",
+            "d": 0,
+            "factor": 0.92,
+            "alpha": 0.98
+          },
+          {
+            "id": "P2_medio",
+            "d": 0.26,
+            "factor": 0.66,
+            "alpha": 0.82
+          },
+          {
+            "id": "P3_intermedio",
+            "d": 0.52,
+            "factor": 0.4,
+            "alpha": 0.62
+          },
+          {
+            "id": "P4_lejano",
+            "d": 0.76,
+            "factor": 0.2,
+            "alpha": 0.42
+          },
+          {
+            "id": "P5_fondo",
+            "d": 0.94,
+            "factor": 0.08,
+            "alpha": 0.3
+          }
+        ]
+      }
+    },
+    {
+      "id": "C-02",
+      "name": "5 planos de profundidad definidos con factores decrecientes",
+      "ok": true,
+      "detail": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "alpha": 0.3
+        }
+      ]
+    },
+    {
+      "id": "C-03",
+      "name": "en el borde sur el cutaway es visible y tiene altura útil",
+      "ok": true,
+      "detail": {
+        "visible": true,
+        "winTop": 815.6,
+        "winH": 84.4
+      }
+    },
+    {
+      "id": "C-04",
+      "name": "los 5 planos quedan DEBAJO del borde (no tapan superficie transitable)",
+      "ok": true,
+      "detail": [
+        {
+          "id": "P1_cercano",
+          "y": 820.7,
+          "h": 25.3
+        },
+        {
+          "id": "P2_medio",
+          "y": 846.7,
+          "h": 20.9
+        },
+        {
+          "id": "P3_intermedio",
+          "y": 865.3,
+          "h": 16.5
+        },
+        {
+          "id": "P4_lejano",
+          "y": 880.6,
+          "h": 12.5
+        },
+        {
+          "id": "P5_fondo",
+          "y": 891.4,
+          "h": 9.4
+        }
+      ]
+    },
+    {
+      "id": "C-05",
+      "name": "planos ordenados en profundidad, altura y contraste decrecientes",
+      "ok": true,
+      "detail": [
+        {
+          "id": "P1_cercano",
+          "y": 820.7,
+          "h": 25.3,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "y": 846.7,
+          "h": 20.9,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "y": 865.3,
+          "h": 16.5,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "y": 880.6,
+          "h": 12.5,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "y": 891.4,
+          "h": 9.4,
+          "alpha": 0.3
+        }
+      ]
+    },
+    {
+      "id": "C-06",
+      "name": "ningún plano flota: todos terminan dentro del trapezoide",
+      "ok": true,
+      "detail": [
+        846,
+        867.6,
+        881.8,
+        893.1,
+        900.8
+      ]
+    },
+    {
+      "id": "C-07",
+      "name": "parallax coherente: el desplazamiento disminuye con la distancia",
+      "ok": true,
+      "detail": {
+        "deltaCamX": 734,
+        "displacement": [
+          633,
+          454.2,
+          275.2,
+          137.6,
+          55
+        ]
+      }
+    },
+    {
+      "id": "C-08",
+      "name": "en el centro del HUB el cutaway queda fuera de pantalla (sin intrusión)",
+      "ok": true,
+      "detail": {
+        "winTop": 1013.4,
+        "visible": false
+      }
+    },
+    {
+      "id": "C-09",
+      "name": "0 errores del prototipo en las 8 posiciones",
+      "ok": true,
+      "detail": {
+        "proto": [],
+        "page": []
+      }
+    },
+    {
+      "id": "C-10",
+      "name": "A/B cambia la franja del abismo de forma medible y sin pantalla negra",
+      "ok": true,
+      "detail": {
+        "on": 48.65,
+        "off": 48.91,
+        "stripDiff": 20.62
+      }
+    },
+    {
+      "id": "C-16",
+      "name": "las brasas se ANIMAN (posición/t cambian) y quedan confinadas al abismo",
+      "ok": true,
+      "detail": {
+        "clock": [
+          13.36,
+          14.26
+        ],
+        "moved": 8,
+        "confined": true
+      }
+    },
+    {
+      "id": "C-11",
+      "name": "el descenso abre el abismo con shaftOpen real (sin temporizador nuevo)",
+      "ok": true,
+      "detail": {
+        "started": true,
+        "maxExpand": 260,
+        "maxWin": 373,
+        "normalWinH": 84.4
+      }
+    },
+    {
+      "id": "C-12",
+      "name": "ningún fotograma negro durante la expansión",
+      "ok": true,
+      "detail": {
+        "min": 39.48
+      }
+    },
+    {
+      "id": "C-13",
+      "name": "el cutaway se retira al cargar CAMPAIGN_ROOM (no tapa LIMBO)",
+      "ok": true,
+      "detail": [
+        {
+          "i": 12,
+          "visible": false
+        },
+        {
+          "i": 13,
+          "visible": false
+        },
+        {
+          "i": 14,
+          "visible": false
+        },
+        {
+          "i": 15,
+          "visible": false
+        }
+      ]
+    },
+    {
+      "id": "C-14",
+      "name": "0 pageerror en toda la prueba de composición",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "id": "C-15",
+      "name": "Yc.reduced detectado y geometría estable",
+      "ok": true,
+      "detail": {
+        "reduced": true,
+        "visible": true,
+        "errs": []
+      }
+    }
+  ],
+  "evidence": {
+    "boot": {
+      "status": "applied",
+      "v5": 168,
+      "canvases": 27,
+      "planes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "alpha": 0.3
+        }
+      ]
+    },
+    "geoms": [
+      {
+        "id": "00_centro",
+        "req": [
+          1250,
+          975
+        ],
+        "d": {
+          "visible": false,
+          "winTop": 1013.4,
+          "winH": -113.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1250,
+            "y": 984,
+            "zoom": 0.9375
+          },
+          "frames": 0,
+          "clock": 4.1,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.173,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.346,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.519,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.692,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.865,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.038,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.211,
+              "a": 0
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -115.2,
+              "y": 1006.6,
+              "w": 1510.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -78.6,
+              "y": 971.7,
+              "w": 1437.2,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -42,
+              "y": 946.7,
+              "w": 1364,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -8.2,
+              "y": 926,
+              "w": 1296.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 17.2,
+              "y": 911.5,
+              "w": 1245.7,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "01_aproximacion",
+        "req": [
+          1250,
+          1100
+        ],
+        "d": {
+          "visible": false,
+          "winTop": 896.3,
+          "winH": 3.8,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1250,
+            "y": 1109,
+            "zoom": 0.9375
+          },
+          "frames": 0,
+          "clock": 5.9,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.173,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.346,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.519,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.692,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.865,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.038,
+              "a": 0
+            },
+            {
+              "x": 0,
+              "y": 0,
+              "t": 0.211,
+              "a": 0
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -115.2,
+              "y": 896.5,
+              "w": 1510.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -78.6,
+              "y": 897.6,
+              "w": 1437.2,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -42,
+              "y": 898.5,
+              "w": 1364,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -8.2,
+              "y": 899.1,
+              "w": 1296.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 17.2,
+              "y": 899.6,
+              "w": 1245.7,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "02_borde_sur",
+        "req": [
+          1250,
+          1195
+        ],
+        "d": {
+          "visible": true,
+          "winTop": 815.6,
+          "winH": 84.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1250,
+            "y": 1195,
+            "zoom": 0.9375
+          },
+          "frames": 11,
+          "clock": 6.3,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": -117.1,
+              "y": 898.2,
+              "t": 0.022,
+              "a": 0.333
+            },
+            {
+              "x": 86.5,
+              "y": 884,
+              "t": 0.2,
+              "a": 0.272
+            },
+            {
+              "x": 244.3,
+              "y": 869.7,
+              "t": 0.378,
+              "a": 0.211
+            },
+            {
+              "x": 326.1,
+              "y": 855.4,
+              "t": 0.557,
+              "a": 0.151
+            },
+            {
+              "x": 491.5,
+              "y": 841.1,
+              "t": 0.735,
+              "a": 0.09
+            },
+            {
+              "x": 620.7,
+              "y": 826.8,
+              "t": 0.913,
+              "a": 0.03
+            },
+            {
+              "x": 762.2,
+              "y": 892.7,
+              "t": 0.091,
+              "a": 0.309
+            },
+            {
+              "x": 879.6,
+              "y": 881.3,
+              "t": 0.233,
+              "a": 0.261
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -115.2,
+              "y": 820.7,
+              "w": 1510.4,
+              "h": 25.3,
+              "dx": 0,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -78.6,
+              "y": 846.7,
+              "w": 1437.2,
+              "h": 20.9,
+              "dx": 0,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -42,
+              "y": 865.3,
+              "w": 1364,
+              "h": 16.5,
+              "dx": 0,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -8.2,
+              "y": 880.6,
+              "w": 1296.4,
+              "h": 12.5,
+              "dx": 0,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 17.2,
+              "y": 891.4,
+              "w": 1245.7,
+              "h": 9.4,
+              "dx": 0,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "03_sur_izq",
+        "req": [
+          883,
+          1195
+        ],
+        "d": {
+          "visible": true,
+          "winTop": 815.6,
+          "winH": 84.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 883,
+            "y": 1195,
+            "zoom": 0.9375
+          },
+          "frames": 38,
+          "clock": 7.93,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": 200,
+              "y": 891,
+              "t": 0.112,
+              "a": 0.302
+            },
+            {
+              "x": 229.3,
+              "y": 875.1,
+              "t": 0.311,
+              "a": 0.234
+            },
+            {
+              "x": 319.8,
+              "y": 859.1,
+              "t": 0.511,
+              "a": 0.166
+            },
+            {
+              "x": 642.4,
+              "y": 843.1,
+              "t": 0.71,
+              "a": 0.099
+            },
+            {
+              "x": 624.2,
+              "y": 827.1,
+              "t": 0.91,
+              "a": 0.031
+            },
+            {
+              "x": 682.1,
+              "y": 891.3,
+              "t": 0.109,
+              "a": 0.303
+            },
+            {
+              "x": 1078.7,
+              "y": 875.3,
+              "t": 0.308,
+              "a": 0.235
+            },
+            {
+              "x": 1021.7,
+              "y": 874.1,
+              "t": 0.323,
+              "a": 0.23
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": 201.3,
+              "y": 820.7,
+              "w": 1510.4,
+              "h": 25.3,
+              "dx": 316.5,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": 148.5,
+              "y": 846.7,
+              "w": 1437.2,
+              "h": 20.9,
+              "dx": 227.1,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": 95.6,
+              "y": 865.3,
+              "w": 1364,
+              "h": 16.5,
+              "dx": 137.6,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": 60.6,
+              "y": 880.6,
+              "w": 1296.4,
+              "h": 12.5,
+              "dx": 68.8,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 44.7,
+              "y": 891.4,
+              "w": 1245.7,
+              "h": 9.4,
+              "dx": 27.5,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "04_sur_der",
+        "req": [
+          1617,
+          1195
+        ],
+        "d": {
+          "visible": true,
+          "winTop": 815.6,
+          "winH": 84.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1617,
+            "y": 1195,
+            "zoom": 0.9375
+          },
+          "frames": 64,
+          "clock": 9.61,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": -430.9,
+              "y": 883.6,
+              "t": 0.204,
+              "a": 0.271
+            },
+            {
+              "x": -42.3,
+              "y": 865.9,
+              "t": 0.426,
+              "a": 0.195
+            },
+            {
+              "x": 179.6,
+              "y": 848.1,
+              "t": 0.647,
+              "a": 0.12
+            },
+            {
+              "x": 7.2,
+              "y": 830.4,
+              "t": 0.868,
+              "a": 0.045
+            },
+            {
+              "x": 344.8,
+              "y": 892.8,
+              "t": 0.09,
+              "a": 0.31
+            },
+            {
+              "x": 545.8,
+              "y": 875.1,
+              "t": 0.311,
+              "a": 0.234
+            },
+            {
+              "x": 447.6,
+              "y": 857.3,
+              "t": 0.532,
+              "a": 0.159
+            },
+            {
+              "x": 751.1,
+              "y": 866.7,
+              "t": 0.415,
+              "a": 0.199
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -431.7,
+              "y": 820.7,
+              "w": 1510.4,
+              "h": 25.3,
+              "dx": -316.5,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -305.7,
+              "y": 846.7,
+              "w": 1437.2,
+              "h": 20.9,
+              "dx": -227.1,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -179.6,
+              "y": 865.3,
+              "w": 1364,
+              "h": 16.5,
+              "dx": -137.6,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -77,
+              "y": 880.6,
+              "w": 1296.4,
+              "h": 12.5,
+              "dx": -68.8,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": -10.4,
+              "y": 891.4,
+              "w": 1245.7,
+              "h": 9.4,
+              "dx": -27.5,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "05_norte",
+        "req": [
+          1250,
+          655
+        ],
+        "d": {
+          "visible": false,
+          "winTop": 1313.4,
+          "winH": -413.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1250,
+            "y": 664,
+            "zoom": 0.9375
+          },
+          "frames": 86,
+          "clock": 11.51,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": -429.7,
+              "y": 876.9,
+              "t": 0.288,
+              "a": 0.242
+            },
+            {
+              "x": -44.3,
+              "y": 857.6,
+              "t": 0.529,
+              "a": 0.16
+            },
+            {
+              "x": 171.6,
+              "y": 838.3,
+              "t": 0.77,
+              "a": 0.078
+            },
+            {
+              "x": 5.8,
+              "y": 899.1,
+              "t": 0.011,
+              "a": 0.336
+            },
+            {
+              "x": 346.1,
+              "y": 879.8,
+              "t": 0.252,
+              "a": 0.254
+            },
+            {
+              "x": 553.5,
+              "y": 860.5,
+              "t": 0.493,
+              "a": 0.172
+            },
+            {
+              "x": 449.2,
+              "y": 841.2,
+              "t": 0.734,
+              "a": 0.09
+            },
+            {
+              "x": 750.5,
+              "y": 860,
+              "t": 0.499,
+              "a": 0.17
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -115.2,
+              "y": 1288.6,
+              "w": 1510.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -78.6,
+              "y": 1161.4,
+              "w": 1437.2,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -42,
+              "y": 1070.2,
+              "w": 1364,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -8.2,
+              "y": 994.9,
+              "w": 1296.4,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 17.2,
+              "y": 941.9,
+              "w": 1245.7,
+              "h": 6,
+              "dx": 0,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "06_oeste",
+        "req": [
+          883,
+          975
+        ],
+        "d": {
+          "visible": false,
+          "winTop": 1013.4,
+          "winH": -113.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 883,
+            "y": 984,
+            "zoom": 0.9375
+          },
+          "frames": 86,
+          "clock": 11.9,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": -429.7,
+              "y": 876.9,
+              "t": 0.288,
+              "a": 0.242
+            },
+            {
+              "x": -44.3,
+              "y": 857.6,
+              "t": 0.529,
+              "a": 0.16
+            },
+            {
+              "x": 171.6,
+              "y": 838.3,
+              "t": 0.77,
+              "a": 0.078
+            },
+            {
+              "x": 5.8,
+              "y": 899.1,
+              "t": 0.011,
+              "a": 0.336
+            },
+            {
+              "x": 346.1,
+              "y": 879.8,
+              "t": 0.252,
+              "a": 0.254
+            },
+            {
+              "x": 553.5,
+              "y": 860.5,
+              "t": 0.493,
+              "a": 0.172
+            },
+            {
+              "x": 449.2,
+              "y": 841.2,
+              "t": 0.734,
+              "a": 0.09
+            },
+            {
+              "x": 750.5,
+              "y": 860,
+              "t": 0.499,
+              "a": 0.17
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": 201.3,
+              "y": 1006.6,
+              "w": 1510.4,
+              "h": 6,
+              "dx": 316.5,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": 148.5,
+              "y": 971.7,
+              "w": 1437.2,
+              "h": 6,
+              "dx": 227.1,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": 95.6,
+              "y": 946.7,
+              "w": 1364,
+              "h": 6,
+              "dx": 137.6,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": 60.6,
+              "y": 926,
+              "w": 1296.4,
+              "h": 6,
+              "dx": 68.8,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": 44.7,
+              "y": 911.5,
+              "w": 1245.7,
+              "h": 6,
+              "dx": 27.5,
+              "alpha": 0.3
+            }
+          ]
+        }
+      },
+      {
+        "id": "07_este",
+        "req": [
+          1617,
+          975
+        ],
+        "d": {
+          "visible": false,
+          "winTop": 1013.4,
+          "winH": -113.4,
+          "expand": 0,
+          "descentP": 0,
+          "camera": {
+            "x": 1617,
+            "y": 984,
+            "zoom": 0.9375
+          },
+          "frames": 86,
+          "clock": 12.31,
+          "reduced": false,
+          "error": [],
+          "embers": [
+            {
+              "x": -429.7,
+              "y": 876.9,
+              "t": 0.288,
+              "a": 0.242
+            },
+            {
+              "x": -44.3,
+              "y": 857.6,
+              "t": 0.529,
+              "a": 0.16
+            },
+            {
+              "x": 171.6,
+              "y": 838.3,
+              "t": 0.77,
+              "a": 0.078
+            },
+            {
+              "x": 5.8,
+              "y": 899.1,
+              "t": 0.011,
+              "a": 0.336
+            },
+            {
+              "x": 346.1,
+              "y": 879.8,
+              "t": 0.252,
+              "a": 0.254
+            },
+            {
+              "x": 553.5,
+              "y": 860.5,
+              "t": 0.493,
+              "a": 0.172
+            },
+            {
+              "x": 449.2,
+              "y": 841.2,
+              "t": 0.734,
+              "a": 0.09
+            },
+            {
+              "x": 750.5,
+              "y": 860,
+              "t": 0.499,
+              "a": 0.17
+            }
+          ],
+          "boxes": [
+            {
+              "id": "P1_cercano",
+              "d": 0,
+              "factor": 0.92,
+              "x": -431.7,
+              "y": 1006.6,
+              "w": 1510.4,
+              "h": 6,
+              "dx": -316.5,
+              "alpha": 0.98
+            },
+            {
+              "id": "P2_medio",
+              "d": 0.26,
+              "factor": 0.66,
+              "x": -305.7,
+              "y": 971.7,
+              "w": 1437.2,
+              "h": 6,
+              "dx": -227.1,
+              "alpha": 0.82
+            },
+            {
+              "id": "P3_intermedio",
+              "d": 0.52,
+              "factor": 0.4,
+              "x": -179.6,
+              "y": 946.7,
+              "w": 1364,
+              "h": 6,
+              "dx": -137.6,
+              "alpha": 0.62
+            },
+            {
+              "id": "P4_lejano",
+              "d": 0.76,
+              "factor": 0.2,
+              "x": -77,
+              "y": 926,
+              "w": 1296.4,
+              "h": 6,
+              "dx": -68.8,
+              "alpha": 0.42
+            },
+            {
+              "id": "P5_fondo",
+              "d": 0.94,
+              "factor": 0.08,
+              "x": -10.4,
+              "y": 911.5,
+              "w": 1245.7,
+              "h": 6,
+              "dx": -27.5,
+              "alpha": 0.3
+            }
+          ]
+        }
+      }
+    ],
+    "luminance": {
+      "on": 48.65,
+      "off": 48.91,
+      "stripDiff": 20.62
+    },
+    "embers": {
+      "t0": 13.36,
+      "t1": 14.26,
+      "moved": 8,
+      "confined": true,
+      "sample0": [
+        {
+          "x": -115.1,
+          "y": 872.5,
+          "t": 0.344,
+          "a": 0.223
+        },
+        {
+          "x": 86.3,
+          "y": 852.1,
+          "t": 0.598,
+          "a": 0.137
+        },
+        {
+          "x": 235.8,
+          "y": 831.7,
+          "t": 0.852,
+          "a": 0.05
+        },
+        {
+          "x": 323.9,
+          "y": 891.5,
+          "t": 0.106,
+          "a": 0.304
+        },
+        {
+          "x": 490.8,
+          "y": 871.1,
+          "t": 0.361,
+          "a": 0.217
+        },
+        {
+          "x": 628.4,
+          "y": 850.7,
+          "t": 0.615,
+          "a": 0.131
+        },
+        {
+          "x": 764.5,
+          "y": 830.3,
+          "t": 0.869,
+          "a": 0.045
+        },
+        {
+          "x": 881.1,
+          "y": 855.5,
+          "t": 0.555,
+          "a": 0.151
+        }
+      ],
+      "sample1": [
+        {
+          "x": -116.3,
+          "y": 868.5,
+          "t": 0.393,
+          "a": 0.206
+        },
+        {
+          "x": 85.3,
+          "y": 847.2,
+          "t": 0.659,
+          "a": 0.116
+        },
+        {
+          "x": 238.9,
+          "y": 825.9,
+          "t": 0.925,
+          "a": 0.025
+        },
+        {
+          "x": 325.1,
+          "y": 884.7,
+          "t": 0.191,
+          "a": 0.275
+        },
+        {
+          "x": 492.2,
+          "y": 863.4,
+          "t": 0.457,
+          "a": 0.185
+        },
+        {
+          "x": 625.8,
+          "y": 842.1,
+          "t": 0.723,
+          "a": 0.094
+        },
+        {
+          "x": 763.3,
+          "y": 820.7,
+          "t": 0.989,
+          "a": 0.004
+        },
+        {
+          "x": 879.4,
+          "y": 851.6,
+          "t": 0.604,
+          "a": 0.135
+        }
+      ]
+    },
+    "descent": {
+      "started": true,
+      "samples": [
+        {
+          "i": 0,
+          "expand": 0,
+          "winTop": 815.6,
+          "winH": 84.4,
+          "visible": true,
+          "stairP": 0,
+          "shaftOpen": 0,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 48.77
+        },
+        {
+          "i": 1,
+          "expand": 0.1,
+          "winTop": 830.4,
+          "winH": 69.6,
+          "visible": true,
+          "stairP": 0,
+          "shaftOpen": 0.001,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 45.84
+        },
+        {
+          "i": 2,
+          "expand": 28.3,
+          "winTop": 746.6,
+          "winH": 153.4,
+          "visible": true,
+          "stairP": 0,
+          "shaftOpen": 0.109,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 44.22
+        },
+        {
+          "i": 3,
+          "expand": 123.9,
+          "winTop": 613,
+          "winH": 287,
+          "visible": true,
+          "stairP": 0.033,
+          "shaftOpen": 0.476,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.07
+        },
+        {
+          "i": 4,
+          "expand": 210.1,
+          "winTop": 550.3,
+          "winH": 349.7,
+          "visible": true,
+          "stairP": 0.144,
+          "shaftOpen": 0.808,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.49
+        },
+        {
+          "i": 5,
+          "expand": 258.5,
+          "winTop": 527,
+          "winH": 373,
+          "visible": true,
+          "stairP": 0.255,
+          "shaftOpen": 0.994,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.33
+        },
+        {
+          "i": 6,
+          "expand": 260,
+          "winTop": 542,
+          "winH": 358,
+          "visible": true,
+          "stairP": 0.332,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.85
+        },
+        {
+          "i": 7,
+          "expand": 260,
+          "winTop": 600.3,
+          "winH": 299.7,
+          "visible": true,
+          "stairP": 0.505,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 43
+        },
+        {
+          "i": 8,
+          "expand": 260,
+          "winTop": 631.9,
+          "winH": 268.1,
+          "visible": true,
+          "stairP": 0.596,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 43.19
+        },
+        {
+          "i": 9,
+          "expand": 260,
+          "winTop": 668,
+          "winH": 232,
+          "visible": true,
+          "stairP": 0.7,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.95
+        },
+        {
+          "i": 10,
+          "expand": 260,
+          "winTop": 704.9,
+          "winH": 195.1,
+          "visible": true,
+          "stairP": 0.811,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 42.68
+        },
+        {
+          "i": 11,
+          "expand": 260,
+          "winTop": 757,
+          "winH": 143,
+          "visible": true,
+          "stairP": 0.97,
+          "shaftOpen": 1,
+          "phase": "plunge",
+          "loc": "TRANSITION",
+          "lum": 41.63
+        },
+        {
+          "i": 12,
+          "expand": 0,
+          "winTop": 1118.3,
+          "winH": -218.3,
+          "visible": false,
+          "stairP": 0,
+          "shaftOpen": 1,
+          "phase": "skyfall",
+          "loc": "CAMPAIGN_ROOM",
+          "lum": 39.48
+        },
+        {
+          "i": 13,
+          "expand": 0,
+          "winTop": 1092.5,
+          "winH": -192.5,
+          "visible": false,
+          "stairP": 0.488,
+          "shaftOpen": 1,
+          "phase": "skyfall",
+          "loc": "CAMPAIGN_ROOM",
+          "lum": 39.63
+        },
+        {
+          "i": 14,
+          "expand": 0,
+          "winTop": 1096.9,
+          "winH": -196.9,
+          "visible": false,
+          "stairP": 0.804,
+          "shaftOpen": 1,
+          "phase": "skyfall",
+          "loc": "CAMPAIGN_ROOM",
+          "lum": 39.88
+        },
+        {
+          "i": 15,
+          "expand": 0,
+          "winTop": 1099.7,
+          "winH": -199.7,
+          "visible": false,
+          "stairP": 1,
+          "shaftOpen": 1,
+          "phase": "impact",
+          "loc": "CAMPAIGN_ROOM",
+          "lum": 42.95
+        }
+      ]
+    },
+    "reduced": {
+      "visible": true,
+      "winTop": 815.6,
+      "winH": 84.4,
+      "expand": 0,
+      "descentP": 0,
+      "camera": {
+        "x": 1250,
+        "y": 1195,
+        "zoom": 0.9375
+      },
+      "frames": 6,
+      "clock": 3.42,
+      "reduced": true,
+      "error": [],
+      "embers": [
+        {
+          "x": -113.8,
+          "y": 900,
+          "t": 0,
+          "a": 0.34
+        },
+        {
+          "x": 89.1,
+          "y": 886.1,
+          "t": 0.173,
+          "a": 0.281
+        },
+        {
+          "x": 235.7,
+          "y": 872.3,
+          "t": 0.346,
+          "a": 0.222
+        },
+        {
+          "x": 322.8,
+          "y": 858.4,
+          "t": 0.519,
+          "a": 0.164
+        },
+        {
+          "x": 487.8,
+          "y": 844.5,
+          "t": 0.692,
+          "a": 0.105
+        },
+        {
+          "x": 627.7,
+          "y": 830.7,
+          "t": 0.865,
+          "a": 0.046
+        },
+        {
+          "x": 765.6,
+          "y": 897,
+          "t": 0.038,
+          "a": 0.327
+        },
+        {
+          "x": 884.3,
+          "y": 883.1,
+          "t": 0.211,
+          "a": 0.268
+        }
+      ],
+      "boxes": [
+        {
+          "id": "P1_cercano",
+          "d": 0,
+          "factor": 0.92,
+          "x": -115.2,
+          "y": 820.7,
+          "w": 1510.4,
+          "h": 25.3,
+          "dx": 0,
+          "alpha": 0.98
+        },
+        {
+          "id": "P2_medio",
+          "d": 0.26,
+          "factor": 0.66,
+          "x": -78.6,
+          "y": 846.7,
+          "w": 1437.2,
+          "h": 20.9,
+          "dx": 0,
+          "alpha": 0.82
+        },
+        {
+          "id": "P3_intermedio",
+          "d": 0.52,
+          "factor": 0.4,
+          "x": -42,
+          "y": 865.3,
+          "w": 1364,
+          "h": 16.5,
+          "dx": 0,
+          "alpha": 0.62
+        },
+        {
+          "id": "P4_lejano",
+          "d": 0.76,
+          "factor": 0.2,
+          "x": -8.2,
+          "y": 880.6,
+          "w": 1296.4,
+          "h": 12.5,
+          "dx": 0,
+          "alpha": 0.42
+        },
+        {
+          "id": "P5_fondo",
+          "d": 0.94,
+          "factor": 0.08,
+          "x": 17.2,
+          "y": 891.4,
+          "w": 1245.7,
+          "h": 9.4,
+          "dx": 0,
+          "alpha": 0.3
+        }
+      ]
+    }
+  }
+}

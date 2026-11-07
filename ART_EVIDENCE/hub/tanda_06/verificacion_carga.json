@@ -1,0 +1,321 @@
+{
+  "generatedAt": "2026-11-04T01:53:30.096319+00:00",
+  "policy": "Sin regeneración: se recalculan los SHA de los 10 finales y 10 fuentes ya producidos y se comparan con el manifiesto.",
+  "finalPngFiles": 10,
+  "sourceFiles": 10,
+  "finalShaVerified": 10,
+  "sourceShaVerified": 10,
+  "finalShaMismatches": [],
+  "sourceShaMismatches": [],
+  "finalHashesStableAcrossPrepareRerun": true,
+  "rerunEvidence": "prepare_hub_tanda_06.py ejecutado 2 veces; hashes idénticos a /tmp/t6/final_hashes_before.json.",
+  "http200": [
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/01_paramento_norte_o/final/hub_t06_01_paramento_norte_o.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/02_paramento_norte_c/final/hub_t06_02_paramento_norte_c.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/03_paramento_norte_e/final/hub_t06_03_paramento_norte_e.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/04_machon_esquina_no/final/hub_t06_04_machon_esquina_no.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/05_machon_esquina_ne/final/hub_t06_05_machon_esquina_ne.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/06_paramento_oeste/final/hub_t06_06_paramento_oeste.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/07_paramento_este/final/hub_t06_07_paramento_este.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/08_viga_caseton_techo/final/hub_t06_08_viga_caseton_techo.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/09_cortinaje_acustico/final/hub_t06_09_cortinaje_acustico.png",
+    "http://127.0.0.1:8123/ART_ASSETS/hub/tanda_06/10_zocalo_remate_suelo/final/hub_t06_10_zocalo_remate_suelo.png"
+  ],
+  "httpNon200": [],
+  "hub6AtBoot": {
+    "count": 10,
+    "loaded": 10,
+    "registered": 10,
+    "exactSize": 10,
+    "enabled": true,
+    "errors": []
+  },
+  "hub6Runtime": {
+    "version": "hub-tanda06",
+    "count": 10,
+    "productionUnits": 10,
+    "enabled": true,
+    "registered": 10,
+    "loaded": 10,
+    "exactSize": 10,
+    "errors": [],
+    "assets": [
+      {
+        "id": "T06-01",
+        "unit": "paramento_norte_oeste",
+        "file": "ART_ASSETS/hub/tanda_06/01_paramento_norte_o/final/hub_t06_01_paramento_norte_o.png",
+        "alias": "h06_paramento_norte_o",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          391,
+          162
+        ],
+        "natural": [
+          391,
+          162
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          500,
+          180,
+          362,
+          150
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-02",
+        "unit": "paramento_norte_central",
+        "file": "ART_ASSETS/hub/tanda_06/02_paramento_norte_c/final/hub_t06_02_paramento_norte_c.png",
+        "alias": "h06_paramento_norte_c",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          544,
+          162
+        ],
+        "natural": [
+          544,
+          162
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          862,
+          180,
+          504,
+          150
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-03",
+        "unit": "paramento_norte_este",
+        "file": "ART_ASSETS/hub/tanda_06/03_paramento_norte_e/final/hub_t06_03_paramento_norte_e.png",
+        "alias": "h06_paramento_norte_e",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          529,
+          162
+        ],
+        "natural": [
+          529,
+          162
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          1366,
+          180,
+          490,
+          150
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-04",
+        "unit": "machon_esquina_noroeste",
+        "file": "ART_ASSETS/hub/tanda_06/04_machon_esquina_no/final/hub_t06_04_machon_esquina_no.png",
+        "alias": "h06_machon_esquina_no",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          138,
+          162
+        ],
+        "natural": [
+          138,
+          162
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          536,
+          180,
+          128,
+          150
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-05",
+        "unit": "machon_esquina_noreste",
+        "file": "ART_ASSETS/hub/tanda_06/05_machon_esquina_ne/final/hub_t06_05_machon_esquina_ne.png",
+        "alias": "h06_machon_esquina_ne",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          120,
+          162
+        ],
+        "natural": [
+          120,
+          162
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          1845,
+          180,
+          111,
+          150
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-06",
+        "unit": "paramento_oeste",
+        "file": "ART_ASSETS/hub/tanda_06/06_paramento_oeste/final/hub_t06_06_paramento_oeste.png",
+        "alias": "h06_paramento_oeste",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          110,
+          392
+        ],
+        "natural": [
+          110,
+          392
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          277,
+          780,
+          107,
+          380
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-07",
+        "unit": "paramento_este",
+        "file": "ART_ASSETS/hub/tanda_06/07_paramento_este/final/hub_t06_07_paramento_este.png",
+        "alias": "h06_paramento_este",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          86,
+          392
+        ],
+        "natural": [
+          86,
+          392
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          2129,
+          780,
+          83,
+          380
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-08",
+        "unit": "viga_caseton_techo",
+        "file": "ART_ASSETS/hub/tanda_06/08_viga_caseton_techo/final/hub_t06_08_viga_caseton_techo.png",
+        "alias": "h06_viga_caseton_techo",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          587,
+          102
+        ],
+        "natural": [
+          587,
+          102
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          991,
+          240,
+          518,
+          90
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-09",
+        "unit": "cortinaje_acustico",
+        "file": "ART_ASSETS/hub/tanda_06/09_cortinaje_acustico/final/hub_t06_09_cortinaje_acustico.png",
+        "alias": "h06_cortinaje_acustico",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          101,
+          242
+        ],
+        "natural": [
+          101,
+          242
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          1817,
+          200,
+          96,
+          230
+        ],
+        "originalsPreserved": true
+      },
+      {
+        "id": "T06-10",
+        "unit": "zocalo_remate_suelo",
+        "file": "ART_ASSETS/hub/tanda_06/10_zocalo_remate_suelo/final/hub_t06_10_zocalo_remate_suelo.png",
+        "alias": "h06_zocalo_remate_suelo",
+        "aliasLive": true,
+        "loaderResolves": 1,
+        "expected": [
+          428,
+          48
+        ],
+        "natural": [
+          428,
+          48
+        ],
+        "exactSize": true,
+        "loaded": true,
+        "registered": true,
+        "worldBox": [
+          1090,
+          304,
+          321,
+          36
+        ],
+        "originalsPreserved": true
+      }
+    ],
+    "note": "10/10 PNG de TANDA 06 en el MISMO registro V5 y MISMO load()."
+  },
+  "v5Keys": {
+    "antes": 162,
+    "control": 162,
+    "despues": 162,
+    "baselineT05": 152,
+    "added": 10
+  },
+  "artPackStatus": "applied",
+  "artPackVersion": "fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06",
+  "loadMs": {
+    "antes": 1645,
+    "control": 1566,
+    "despues": 1349
+  },
+  "loader": "ART_PACK/art_pack.js :: load() -> __DDM_V5_IMG[h06_*] (sin loader paralelo)"
+}

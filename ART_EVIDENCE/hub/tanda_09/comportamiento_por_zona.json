@@ -1,0 +1,104 @@
+{
+  "tanda": "09",
+  "generatedAt": "2026-11-04T09:05:15",
+  "nota": "Zonas oficiales reales A–F. Entrada/Descanso/Corredores/Acantilado no son zonas formales.",
+  "zonas": {
+    "A": {
+      "identidad": "Energía sostenida con pausas desincronizadas",
+      "npcs": 6,
+      "registros": [
+        "hub_ambient_dancer_nw",
+        "hub_ambient_dancer_ne",
+        "hub_ambient_dancer_sw",
+        "t07_danza_01",
+        "t07_danza_02"
+      ],
+      "estados": [
+        "ACTIVE",
+        "OBSERVE",
+        "PAUSE",
+        "RESUME",
+        "SHIFT"
+      ],
+      "capturas": [
+        "qa_zona_A.jpg"
+      ]
+    },
+    "B": {
+      "identidad": "Foco musical y llegada; quietud deliberada (sin NPC ambiental)",
+      "npcs": 0,
+      "registros": [],
+      "estados": [],
+      "capturas": [
+        "qa_zona_B_dj.jpg"
+      ]
+    },
+    "C": {
+      "identidad": "Contemplación y tensión; sólo un acontecimiento raro de observación",
+      "npcs": 0,
+      "registros": [],
+      "estados": [],
+      "capturas": [
+        "qa_zona_C_grieta.jpg"
+      ]
+    },
+    "D": {
+      "identidad": "Tránsito y curiosidad; único recorrido existente",
+      "npcs": 1,
+      "registros": [
+        "t07_recorrido"
+      ],
+      "estados": [
+        "ACTIVE",
+        "OBSERVE",
+        "SHIFT"
+      ],
+      "capturas": [
+        "qa_zona_D_arsenal.jpg"
+      ]
+    },
+    "E": {
+      "identidad": "Conversación, espera y descanso; movimiento mínimo",
+      "npcs": 4,
+      "registros": [
+        "hub_ambient_clubber_bar",
+        "t07_charla_01",
+        "t07_charla_02",
+        "t07_descanso"
+      ],
+      "estados": [
+        "ACTIVE",
+        "PAUSE",
+        "POSTURE",
+        "RESUME",
+        "WAIT"
+      ],
+      "capturas": [
+        "qa_zona_E_barra.jpg"
+      ]
+    },
+    "F": {
+      "identidad": "Curiosidad y entretenimiento por orientación, no por interacción",
+      "npcs": 0,
+      "registros": [],
+      "estados": [],
+      "capturas": [
+        "qa_zona_F_arcade.jpg"
+      ]
+    }
+  },
+  "capturas": [
+    "qa_zona_A.jpg",
+    "qa_zona_B_dj.jpg",
+    "qa_zona_C_grieta.jpg",
+    "qa_zona_D_arsenal.jpg",
+    "qa_zona_E_barra.jpg",
+    "qa_zona_F_arcade.jpg"
+  ],
+  "posturas": [
+    "qa_sprite_t09_rest_seated.jpg",
+    "qa_sprite_t09_observe.jpg",
+    "qa_sprite_t09_greeting.jpg",
+    "qa_sprite_t09_wait.jpg"
+  ]
+}

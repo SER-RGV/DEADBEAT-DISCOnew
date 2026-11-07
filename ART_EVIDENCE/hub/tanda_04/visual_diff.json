@@ -1,0 +1,237 @@
+{
+  "generatedAt": "2026-11-03T23:00:48.013425+00:00",
+  "method": "ImageChops.difference -> L; umbral >8 y >32 sobre 1280x900; métricas de píxel puras (sin numpy). Misma cámara por zona en las 3 fases.",
+  "pairs": {
+    "centro": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 5.6815,
+      "maxDiff": 226,
+      "changedPx": 119788,
+      "changedPct": 10.398,
+      "strongChangedPct": 6.009,
+      "changedBBox": [
+        0,
+        0,
+        1280,
+        900
+      ],
+      "comparativa": "comparativa_centro.jpg",
+      "comparativaBytes": 258425
+    },
+    "dj": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 5.5262,
+      "maxDiff": 216,
+      "changedPx": 111141,
+      "changedPct": 9.648,
+      "strongChangedPct": 5.656,
+      "changedBBox": [
+        0,
+        12,
+        1280,
+        900
+      ],
+      "comparativa": "comparativa_dj.jpg",
+      "comparativaBytes": 251800
+    },
+    "bar": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 4.7206,
+      "maxDiff": 222,
+      "changedPx": 85123,
+      "changedPct": 7.389,
+      "strongChangedPct": 4.497,
+      "changedBBox": [
+        39,
+        0,
+        1196,
+        900
+      ],
+      "comparativa": "comparativa_bar.jpg",
+      "comparativaBytes": 253395
+    },
+    "vip_oeste": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.7139,
+      "maxDiff": 250,
+      "changedPx": 127605,
+      "changedPct": 11.077,
+      "strongChangedPct": 6.781,
+      "changedBBox": [
+        84,
+        39,
+        1270,
+        900
+      ],
+      "comparativa": "comparativa_vip_oeste.jpg",
+      "comparativaBytes": 246911
+    },
+    "vip_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 5.3544,
+      "maxDiff": 250,
+      "changedPx": 92026,
+      "changedPct": 7.988,
+      "strongChangedPct": 5.123,
+      "changedBBox": [
+        24,
+        39,
+        1196,
+        900
+      ],
+      "comparativa": "comparativa_vip_este.jpg",
+      "comparativaBytes": 245036
+    },
+    "arcade": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.8184,
+      "maxDiff": 250,
+      "changedPx": 132496,
+      "changedPct": 11.501,
+      "strongChangedPct": 6.652,
+      "changedBBox": [
+        88,
+        0,
+        1271,
+        889
+      ],
+      "comparativa": "comparativa_arcade.jpg",
+      "comparativaBytes": 239990
+    },
+    "sellos": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.5314,
+      "maxDiff": 250,
+      "changedPx": 122322,
+      "changedPct": 10.618,
+      "strongChangedPct": 5.945,
+      "changedBBox": [
+        8,
+        0,
+        1196,
+        889
+      ],
+      "comparativa": "comparativa_sellos.jpg",
+      "comparativaBytes": 237518
+    },
+    "descenso": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 4.9616,
+      "maxDiff": 217,
+      "changedPx": 110229,
+      "changedPct": 9.568,
+      "strongChangedPct": 4.874,
+      "changedBBox": [
+        0,
+        0,
+        1280,
+        816
+      ],
+      "comparativa": "comparativa_descenso.jpg",
+      "comparativaBytes": 249973
+    },
+    "arsenal": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 6.5242,
+      "maxDiff": 217,
+      "changedPx": 133648,
+      "changedPct": 11.601,
+      "strongChangedPct": 6.743,
+      "changedBBox": [
+        84,
+        0,
+        1271,
+        900
+      ],
+      "comparativa": "comparativa_arsenal.jpg",
+      "comparativaBytes": 253929
+    },
+    "pared_este": {
+      "size": [
+        1280,
+        900
+      ],
+      "meanDiff": 5.0376,
+      "maxDiff": 222,
+      "changedPx": 97445,
+      "changedPct": 8.459,
+      "strongChangedPct": 4.781,
+      "changedBBox": [
+        8,
+        0,
+        1196,
+        900
+      ],
+      "comparativa": "comparativa_pared_este.jpg",
+      "comparativaBytes": 253654
+    }
+  },
+  "noiseBaseline": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 1.9151,
+    "maxDiff": 227,
+    "changedPx": 55659,
+    "changedPct": 4.832,
+    "strongChangedPct": 1.287,
+    "changedBBox": [
+      0,
+      2,
+      1280,
+      897
+    ],
+    "description": "ANTES (flag=false) vs CONTROL off (flag=false en caliente): sin assets integrados en ninguna de las dos. Mide ruido de frame / SwiftShader."
+  },
+  "hotToggle": {
+    "size": [
+      1280,
+      900
+    ],
+    "meanDiff": 6.0795,
+    "maxDiff": 226,
+    "changedPx": 132761,
+    "changedPct": 11.524,
+    "strongChangedPct": 6.023,
+    "changedBBox": [
+      0,
+      0,
+      1280,
+      900
+    ],
+    "description": "MISMO contexto, MISMA cámara, MISMO frame: solo cambia window.__DDM_HUB_T04 de false a true. Es la comparativa A/B limpia."
+  },
+  "index": {
+    "file": "comparativa_antes_despues.jpg",
+    "bytes": 628053,
+    "pairs": 10
+  }
+}

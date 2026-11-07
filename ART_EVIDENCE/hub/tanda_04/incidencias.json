@@ -1,0 +1,67 @@
+{
+  "generatedAt": "2026-11-03T23:00:48.013425+00:00",
+  "incidences": [
+    {
+      "id": "I-01",
+      "severity": "resuelta",
+      "state": "CERRADA",
+      "title": "D-07 de TANDA 03: pintor VIP del MENÚ inactivo",
+      "detail": "FASE 1 midió que #overlay.hidden envía el bucle a Qf() y que la portada visible es ddc-cover-js; DMO.menu54.frame() solo dibuja en #menu-canvas54 por API de depuración. No se reutilizó.",
+      "resolution": "T03-07 se integró por una ruta NUEVA y compatible del HUB: hubDecor -> addHubCustomProp/Lc, alias h03_vip_booth_lounge. El renderer del menú puede activarse 0 o 1 vez por timing del boot (comportamiento preexistente), pero registra 0 drawImage de TANDA 04 en MENÚ y 0 fuera del canvas de mundo 1280x900.",
+      "evidence": [
+        "ART_HUB_TANDA_04_AUDIT.md",
+        "draw_calls.json",
+        "despues_vip_oeste.png"
+      ]
+    },
+    {
+      "id": "I-02",
+      "severity": "resuelta",
+      "state": "CERRADA",
+      "title": "Performance gate pendiente de TANDA 02",
+      "detail": "El usuario marcó T02 con cierre pendiente de performance gate.",
+      "resolution": "Check 12 de la QA T04: 40 rAF por fase, mediana A/B y coste de carga medido por separado. T02 sigue descrita como \"cierre pendiente de performance gate\" en la entrega; no se declara cerrada.",
+      "evidence": [
+        "performance.json",
+        "resultados_ab.json"
+      ]
+    },
+    {
+      "id": "I-03",
+      "severity": "baja",
+      "state": "DOCUMENTADA",
+      "title": "Rozamiento de la placa C con un rótulo de neón existente",
+      "detail": "En la zona de descenso la placa C (1178,1363,144,96) roza ~3-5 px el borde superior del banner \"CIRCULOS · DESCENSO\" (y=1456). La placa queda COMPLETA y legible; el texto del banner sigue legible.",
+      "resolution": "No se corrige: moverla rompería la regla geométrica común de las 6 señales (136 px sobre signY) y no estaba autorizado cambiar la geometría ni los rótulos existentes.",
+      "evidence": [
+        "despues_descenso.png",
+        "comparativa_descenso.jpg"
+      ]
+    },
+    {
+      "id": "I-04",
+      "severity": "informativa",
+      "state": "PREEXISTENTE",
+      "title": "2 x 404 de /cdn-cgi/challenge-platform/",
+      "detail": "Rutas externas de Cloudflare presentes ya en T01/T02/T03.",
+      "resolution": "0 404 locales en las 3 fases. No se cuentan como error del build.",
+      "evidence": [
+        "despues_runtime_full.json"
+      ]
+    },
+    {
+      "id": "I-05",
+      "severity": "informativa",
+      "state": "CERRADA",
+      "title": "Variación de frame entre fases (SwiftShader)",
+      "detail": "Las diferencias de píxel includen ruido de frame del render por software.",
+      "resolution": "Se mide una línea base con DOS fotogramas sin integración (antes_01_hub vs control_02_off) y una comparativa limpia off/on EN CALIENTE en el mismo contexto; no se atribuye a los assets ninguna variación de SwiftShader.",
+      "evidence": [
+        "visual_diff.json",
+        "comparativa_control_off_on.jpg"
+      ]
+    }
+  ],
+  "openBlockers": 0,
+  "regressions": 0
+}

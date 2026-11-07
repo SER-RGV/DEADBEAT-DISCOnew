@@ -1,0 +1,345 @@
+{
+  "tanda": "09",
+  "phase": "F0 · inventario de NPC",
+  "generatedAt": "2026-11-04T05:38:18",
+  "source": "ART_EVIDENCE/hub/tanda_09/audit_npc.json",
+  "propObjects": 62,
+  "npcCount": 11,
+  "ambientDancersOriginales": 4,
+  "actoresT07": 6,
+  "narrativos": 1,
+  "npc": [
+    {
+      "id": "hub_ambient_dancer_nw",
+      "grupo": "T01 (4 ambientDancers originales)",
+      "x": 1030,
+      "y": 785,
+      "sortY": 785,
+      "zona": "A · pista NW / plaza central",
+      "anclaje": "dancer_0 (quiet station, r=64)",
+      "actividadActual": "dance · stepIdx = floor(zz*5.6+0.0)&3 sobre V5 hub_clubber_dancer_a",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "bounce ±2.5",
+        "Wb glow",
+        "flip"
+      ],
+      "estadoInicial": "flip=false, phase=0.0, dw=107, dh=100",
+      "compatibles": [
+        "dance",
+        "pause",
+        "observe",
+        "intensity-change",
+        "orientation-change"
+      ],
+      "reaccionActual": "NINGUNA (no mira al jugador)",
+      "restricciones": "solid:false, tall:true, r=22; x/y FIJOS: hub.stations dancer_0 se crea con estas coordenadas"
+    },
+    {
+      "id": "hub_ambient_dancer_ne",
+      "grupo": "T01 (4 ambientDancers originales)",
+      "x": 1470,
+      "y": 785,
+      "sortY": 785,
+      "zona": "A · pista NE",
+      "anclaje": "dancer_1 (quiet station, r=64)",
+      "actividadActual": "dance · stepIdx con phase=1.7, V5 hub_clubber_dancer_b",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "bounce ±2.5",
+        "Wb glow",
+        "flip"
+      ],
+      "estadoInicial": "flip=true, phase=1.7, dw=107, dh=100",
+      "compatibles": [
+        "dance",
+        "pause",
+        "observe",
+        "intensity-change",
+        "orientation-change"
+      ],
+      "reaccionActual": "NINGUNA",
+      "restricciones": "solid:false, tall:true, r=22; x/y FIJOS (station dancer_1)"
+    },
+    {
+      "id": "hub_ambient_dancer_sw",
+      "grupo": "T01 (4 ambientDancers originales)",
+      "x": 1015,
+      "y": 1085,
+      "sortY": 1085,
+      "zona": "A/F · pista SW, más cercano al Rincón Arcade",
+      "anclaje": "dancer_2 (quiet station, r=64)",
+      "actividadActual": "dance · stepIdx con phase=3.1, V5 hub_clubber_dancer_a",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "bounce ±2.5",
+        "Wb glow",
+        "flip"
+      ],
+      "estadoInicial": "flip=false, phase=3.1, dw=107, dh=100",
+      "compatibles": [
+        "dance",
+        "pause",
+        "observe (mirar máquinas)",
+        "intensity-change"
+      ],
+      "reaccionActual": "NINGUNA",
+      "restricciones": "solid:false, tall:true, r=22; x/y FIJOS (station dancer_2)"
+    },
+    {
+      "id": "hub_ambient_clubber_bar",
+      "grupo": "T01 (4 ambientDancers originales)",
+      "x": 1965,
+      "y": 918,
+      "sortY": 918,
+      "zona": "E · barra «El Último Trago»",
+      "anclaje": "dancer_3 (quiet station, r=64)",
+      "actividadActual": "dance · stepIdx con phase=2.4, V5 hub_clubber_dancer_b",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "bounce ±2.5",
+        "Wb glow",
+        "flip"
+      ],
+      "estadoInicial": "flip=true, phase=2.4, dw=105, dh=98",
+      "compatibles": [
+        "dance",
+        "wait (postura quieta)",
+        "gesture",
+        "pause",
+        "orientation-change"
+      ],
+      "reaccionActual": "NINGUNA",
+      "restricciones": "solid:false, tall:true, r=22; x/y FIJOS (station dancer_3); barra x1910,y845"
+    },
+    {
+      "id": "t07_danza_01",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 1120,
+      "y": 900,
+      "sortY": 902,
+      "zona": "A · pista central S",
+      "anclaje": "ninguna estación; pie en y=900",
+      "actividadActual": "dance · rate 1.00, phase 0.35, 4 frames alternando 2 V5",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "lean",
+        "bounce",
+        "flip",
+        "rotate"
+      ],
+      "estadoInicial": "flip=false, h=96, col #ec4899",
+      "compatibles": [
+        "dance",
+        "pause",
+        "intensity-change",
+        "short-shift ≤20 u"
+      ],
+      "reaccionActual": "react=clamp((185−dist)/85): flip hacia el jugador + lean + bounce (medido 0.467 en spawn / 1.0 al acercarse)",
+      "restricciones": "solid:false, tall:true, r=20; sin colisión; no estación"
+    },
+    {
+      "id": "t07_danza_02",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 1380,
+      "y": 900,
+      "sortY": 902,
+      "zona": "A · pista central S",
+      "anclaje": "ninguna estación; pie en y=900",
+      "actividadActual": "dance · rate 0.86, phase 2.15",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "lean",
+        "bounce",
+        "flip",
+        "rotate"
+      ],
+      "estadoInicial": "flip=true, h=96, col #22d3ee",
+      "compatibles": [
+        "dance",
+        "pause",
+        "intensity-change",
+        "short-shift ≤20 u"
+      ],
+      "reaccionActual": "react=clamp((185−dist)/85): flip + lean + bounce",
+      "restricciones": "solid:false, tall:true, r=20; sin colisión; no estación"
+    },
+    {
+      "id": "t07_charla_01",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 1690,
+      "y": 1010,
+      "sortY": 1012,
+      "zona": "E · corredor este / aproximación a barra",
+      "anclaje": "ninguna estación; pareja con t07_charla_02",
+      "actividadActual": "talk · rate 0.55, phase 0.80, sprite hub_bouncer_npc + 3 puntos de conversación",
+      "animaciones": [
+        "hub_bouncer_npc",
+        "lean",
+        "bounce",
+        "puntos de conversación (sin texto)",
+        "flip"
+      ],
+      "estadoInicial": "flip=false, h=92, col #f472b6, 1 solo frame",
+      "compatibles": [
+        "talk",
+        "pause",
+        "gesture",
+        "orientation-change",
+        "posture-change"
+      ],
+      "reaccionActual": "react=clamp((185−dist)/85): flip + lean + bounce (1.0 al acercarse)",
+      "restricciones": "solid:false, tall:true, r=20; SIN desplazamiento (pareja orientada)"
+    },
+    {
+      "id": "t07_charla_02",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 1780,
+      "y": 1010,
+      "sortY": 1012,
+      "zona": "E · corredor este / aproximación a barra",
+      "anclaje": "ninguna estación; pareja con t07_charla_01",
+      "actividadActual": "talk · rate 0.48, phase 2.60, sprite hub_clubber_dancer_b",
+      "animaciones": [
+        "hub_clubber_dancer_b",
+        "lean",
+        "bounce",
+        "puntos de conversación",
+        "flip"
+      ],
+      "estadoInicial": "flip=true, h=92, col #67e8f9, 1 solo frame",
+      "compatibles": [
+        "talk",
+        "pause",
+        "gesture",
+        "orientation-change",
+        "posture-change"
+      ],
+      "reaccionActual": "react=clamp((185−dist)/85): flip + lean + bounce",
+      "restricciones": "solid:false, tall:true, r=20; SIN desplazamiento (pareja orientada)"
+    },
+    {
+      "id": "t07_descanso",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 1910,
+      "y": 900,
+      "sortY": 902,
+      "zona": "E · barra, reservado este",
+      "anclaje": "ninguna estación; junto al mostrador x1910,y845",
+      "actividadActual": "rest · rate 0.30, phase 1.40, sprite hub_bartender_npc, alpha 0.86, lean 0.085",
+      "animaciones": [
+        "hub_bartender_npc",
+        "lean",
+        "bounce ±0.9",
+        "alpha"
+      ],
+      "estadoInicial": "flip=false, h=88, col #a855f7, 1 solo frame, DE PIE",
+      "compatibles": [
+        "rest",
+        "posture-change",
+        "pause",
+        "breathe"
+      ],
+      "reaccionActual": "NINGUNA APLICADA: el código excluye act === \"rest\" (lastReact se registra pero no se usa)",
+      "restricciones": "solid:false, tall:true, r=20; SIN desplazamiento; NO existe animación de sentado"
+    },
+    {
+      "id": "t07_recorrido",
+      "grupo": "T07 (6 actores ambientales)",
+      "x": 900,
+      "y": 700,
+      "sortY": 702,
+      "zona": "D/A · corredor oeste (tránsito)",
+      "anclaje": "ninguna estación; ruta seno ±62 u sobre S.clock",
+      "actividadActual": "walk · rate 0.72, phase 3.30, x = 900 + sin(S.clock*1.35*0.72+phase)*62, 4 frames",
+      "animaciones": [
+        "hub_clubber_dancer_a",
+        "hub_clubber_dancer_b",
+        "flip por cos(ph)",
+        "bounce",
+        "lean"
+      ],
+      "estadoInicial": "flip=false, h=94, col #fde047, span=62",
+      "compatibles": [
+        "walk",
+        "pause",
+        "observe",
+        "short-shift ≤25 u",
+        "rare route event"
+      ],
+      "reaccionActual": "react=clamp((185−dist)/85): flip + lean + bounce",
+      "restricciones": "solid:false, tall:true, r=20; único desplazamiento existente; NO hay sistema de patrulla"
+    },
+    {
+      "id": "narr_cliente000",
+      "grupo": "NPC narrativo (fuera del sistema ambiental)",
+      "x": 785,
+      "y": 560,
+      "sortY": 578,
+      "zona": "A · sofá VIP noroeste",
+      "anclaje": "station cliente000 (r=110) + sofá hub_vip_sofa_nw",
+      "actividadActual": "estático · breathe = sin(Z*1.6)*1.5, sprite hub_cliente000_npc, tarjeta de historia",
+      "animaciones": [
+        "hub_cliente000_npc",
+        "breathe",
+        "crest/bunny",
+        "tarjeta de traidor"
+      ],
+      "estadoInicial": "x=785,y=560, estación narrativa con diálogo",
+      "compatibles": [
+        "NINGUNA nueva: NPC de historia con diálogo"
+      ],
+      "reaccionActual": "NINGUNA (abre diálogo por estación, no ambiental)",
+      "restricciones": "INTOCABLE en T09: vinculado a NARR/storyState, estación y diálogo"
+    }
+  ],
+  "sprites": {
+    "hub_cliente000_npc": {
+      "w": 96,
+      "h": 232,
+      "complete": true
+    },
+    "hub_clubber_dancer_a": {
+      "w": 109,
+      "h": 232,
+      "complete": true
+    },
+    "hub_clubber_dancer_b": {
+      "w": 131,
+      "h": 232,
+      "complete": true
+    },
+    "hub_bartender_npc": {
+      "w": 95,
+      "h": 232,
+      "complete": true
+    },
+    "hub_bouncer_npc": {
+      "w": 101,
+      "h": 232,
+      "complete": true
+    }
+  },
+  "animationReality": {
+    "framesBySprite": "Los 5 sprites V5 son imágenes ÚNICAS de pie (95–131 × 232 px); NO son hojas de frames.",
+    "danceFrames": "stepIdx = floor(zz*5.6 + phase)&3 → 4 índices, pero sólo 2 imágenes (a/b) alternadas por paridad.",
+    "talkRestFrames": "1 solo frame: talk/rest no alternan sprite; sólo lean/bounce/alpha procedimentales.",
+    "directions": "flip horizontal por ctx.scale(-1,1); no hay sprites por dirección (N/S/E/O).",
+    "pivot": "pie: drawImage(im, -w/2, -h, w, h) tras translate(x, y+offset); sombra elíptica en (x,y).",
+    "transitions": "No hay máquina de estados ni transiciones: la actividad (act) es FIJA desde installActors().",
+    "reducedMotion": "Yc.reduced congela stepIdx=0, bounce=0, lean=0; verificado estático en 2 muestras."
+  },
+  "counts": {
+    "v5": 178,
+    "canvas": 27,
+    "stations": 11,
+    "zones": 6,
+    "sequencers": 1
+  }
+}

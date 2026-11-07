@@ -1,0 +1,705 @@
+{
+  "tanda": "HUB-01",
+  "title": "Reconstrucción de escenarios · HUB · Tanda 01 (10 assets)",
+  "build": "DEADBEAT_DISCO.ART.html",
+  "integrationFile": "ART_PACK/art_pack.js",
+  "loader": "window.__T3B_IMAGES[1] + __T3B.reload(1) / window.__DDM_V5_IMG[slot] (registros existentes)",
+  "dimensionSource": "ART_AUDIT/asset_inventory.json + ART_TOOLS/qa/hub_tanda_01_probe.js (medición drawImage en HUB real)",
+  "preparation": "ART_TOOLS/prepare_hub_tanda_01.py · build_alpha/crop_alpha reutilizados de prepare_tanda_02.py · contain + pivote · RGB opaco solo para el tile",
+  "count": 10,
+  "assets": [
+    {
+      "id": "HUB-01",
+      "name": "suelo_central",
+      "file": "ART_ASSETS/hub/tanda_01/hub_01_suelo_central.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_01_suelo_central.png",
+      "sourceSize": [
+        1024,
+        1024
+      ],
+      "bytes": 502490,
+      "sha256": "be83f288b51b05b869e4c6dae75b45ca8a2335ef98af328dcd293c70d230bf9c",
+      "slot": "t3b_material_01",
+      "loader": "T3B",
+      "classification": "Arquitectónico / Funcional",
+      "role": "Superficie principal del HUB. Patrón repeat de __DDM_PAINT_MATERIAL(c,1,0,0,1920,1320) en ensureHubArtAssets().",
+      "measuredDrawBox": [
+        0,
+        0,
+        1920,
+        1320
+      ],
+      "anchor": "tile 512x512; origen (0,0) del canvas de suelo HUB; repeat sin offset",
+      "note": "Único recurso sin alfa: un tile con alpha crearía huecos en el patrón. Bordes igualados para repetición sin costura.",
+      "preparation": {
+        "scale": 0.5,
+        "mode": "opaque-resize+seamless",
+        "sourceSize": [
+          1024,
+          1024
+        ],
+        "deformed": false
+      },
+      "width": 512,
+      "height": 512,
+      "mode": "RGB",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": false,
+      "transparentPx": 0,
+      "opaquePx": 262144,
+      "cornersTransparent": false,
+      "whiteFringePx": 0,
+      "borderClean": true,
+      "tileSeams": {
+        "edgeMismatchBefore": 14.5,
+        "edgeMismatchAfter": 12.57,
+        "method": "half-tile offset + feathered center cross (ImageChops.offset)"
+      }
+    },
+    {
+      "id": "HUB-02",
+      "name": "pista_central",
+      "file": "ART_ASSETS/hub/tanda_01/hub_02_pista_central.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_02_pista_central.png",
+      "sourceSize": [
+        1376,
+        768
+      ],
+      "bytes": 567418,
+      "sha256": "a465d84662990f9115d59303489118609eadd2f4df93f0994c6e96d71d249878",
+      "slot": "hub_pista_medallion",
+      "loader": "V5",
+      "classification": "Decorativo",
+      "role": "Identidad visual del espacio: medallón/alfombra de la pista central, bajo el escudo del zorro.",
+      "measuredDrawBox": [
+        916,
+        746,
+        668,
+        378
+      ],
+      "anchor": "center; drawImage(cx-334, cy-ph/2, 668, 378) con cx=1250, cy=935",
+      "note": "El motor aplica un filtro que borra píxeles rojizos en el rectángulo central (34.5%-65.5% x, 24%-70% y): el centro se ha generado en cian/oro/violeta, sin magenta.",
+      "preparation": {
+        "scale": 0.64407,
+        "placed": [
+          760,
+          423
+        ],
+        "offset": [
+          0,
+          3
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1376,
+          768
+        ],
+        "alphaBBox": [
+          1180,
+          656
+        ],
+        "backgroundDetected": [
+          254,
+          254,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 760,
+      "height": 430,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 73831,
+      "partialPx": 6317,
+      "opaquePx": 245488,
+      "coveragePct": 77.41,
+      "cornersTransparent": true,
+      "whiteFringePx": 283,
+      "whiteFringePct": 4.48,
+      "borderClean": true,
+      "medallionFilterCompat": {
+        "rect": [
+          262,
+          103,
+          498,
+          301
+        ],
+        "pixelsRecolored": 2434,
+        "residualErasablePx": 0,
+        "reason": "filtro drawHubFloorLayer / __DDM_V5_MED_NO_SKULL"
+      }
+    },
+    {
+      "id": "HUB-03",
+      "name": "paredes",
+      "file": "ART_ASSETS/hub/tanda_01/hub_03_paredes.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_03_paredes.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 33113,
+      "sha256": "aa80a0575cfaa24f8705c0b0418638b84b7b2cf2fb9509e9d4de6fff9334e4cd",
+      "slot": "wall_stained_glass_arch",
+      "loader": "V5 (familia modular Tanda 02)",
+      "classification": "Arquitectónico",
+      "role": "Delimitar y dar profundidad: panel recto repetido por el pintor de muros $b/_b en el perímetro del HUB.",
+      "measuredDrawBox": [
+        40,
+        -178,
+        135,
+        156
+      ],
+      "anchor": "bottom-center; el pintor por edge aplica su propia transform y sortY",
+      "note": "Proporción nativa 120x176 conservada. La transformación 135x156 del pintor es previa y no se modifica; el panel se dibuja simétrico para tolerarla.",
+      "preparation": {
+        "scale": 0.23656,
+        "placed": [
+          100,
+          176
+        ],
+        "offset": [
+          10,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          423,
+          744
+        ],
+        "backgroundDetected": [
+          254,
+          254,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 120,
+      "height": 176,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 6365,
+      "partialPx": 1386,
+      "opaquePx": 13287,
+      "coveragePct": 69.86,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-04",
+      "name": "cabina_dj",
+      "file": "ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_04_cabina_dj.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 279131,
+      "sha256": "6bb6939d0f341f59fb60df29627c19432650d21ac866267a10890face6472398",
+      "slot": "hub_dj_shrine",
+      "loader": "V5",
+      "classification": "Interactivo",
+      "role": "Elemento protagonista del escenario; estación DJ (1250,445), solid 236x84.",
+      "measuredDrawBox": [
+        1058,
+        280,
+        384,
+        209
+      ],
+      "anchor": "bottom-center; sh=384*naturalHeight/naturalWidth, base en p.y+44=489",
+      "note": "No se toca la estación ni el sistema musical: solo la imagen consumida por hubDraw().",
+      "preparation": {
+        "scale": 0.59036,
+        "placed": [
+          614,
+          392
+        ],
+        "offset": [
+          53,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1040,
+          664
+        ],
+        "backgroundDetected": [
+          254,
+          255,
+          253
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 720,
+      "height": 392,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 151728,
+      "partialPx": 5260,
+      "opaquePx": 124047,
+      "coveragePct": 46.24,
+      "cornersTransparent": true,
+      "whiteFringePx": 224,
+      "whiteFringePct": 4.26,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-05",
+      "name": "barra_bebidas",
+      "file": "ART_ASSETS/hub/tanda_01/hub_05_barra_bebidas.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_05_barra_bebidas.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 134152,
+      "sha256": "6a8b6b96e2408d96a6df0f5de3934e033e4ee6bf1653ce323754c1f662a1de41",
+      "slot": "hub_bar_shrine",
+      "loader": "V5",
+      "classification": "Interactivo",
+      "role": "Zona diferenciada 'EL ÚLTIMO TRAGO' (1910,845), solid 196x86.",
+      "measuredDrawBox": [
+        1767,
+        659,
+        286,
+        236
+      ],
+      "anchor": "bottom-center; sh=286*naturalHeight/naturalWidth, base en p.y+50=895",
+      "note": "El colisionador 196x86 permanece en el motor; la imagen no añade ni bloquea paso.",
+      "preparation": {
+        "scale": 0.41485,
+        "placed": [
+          380,
+          273
+        ],
+        "offset": [
+          0,
+          40
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          916,
+          657
+        ],
+        "backgroundDetected": [
+          254,
+          255,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 380,
+      "height": 313,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 54181,
+      "partialPx": 4866,
+      "opaquePx": 59212,
+      "coveragePct": 54.45,
+      "cornersTransparent": true,
+      "whiteFringePx": 17,
+      "whiteFringePct": 0.35,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-06",
+      "name": "columnas",
+      "file": "ART_ASSETS/hub/tanda_01/hub_06_columnas.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_06_columnas.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 9503,
+      "sha256": "ab9b4532265d131d61678f03e41e6382dbfc6c9559ea4ab77ac168fc822b29bf",
+      "slot": "club_speaker_tower_prop",
+      "loader": "V5",
+      "classification": "Arquitectónico",
+      "role": "Reforzar arquitectura y volumen: columnas/torres acústicas que flanquean escenario y muros.",
+      "measuredDrawBox": [
+        954,
+        380,
+        63,
+        122
+      ],
+      "anchor": "bottom-center; dibujada por el pintor de props V5 con su sortY",
+      "note": "Columna art-déco con rejilla de altavoz integrada: misma familia que la cabina y el bar.",
+      "preparation": {
+        "scale": 0.21295,
+        "placed": [
+          39,
+          148
+        ],
+        "offset": [
+          18,
+          0
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          181,
+          695
+        ],
+        "backgroundDetected": [
+          254,
+          254,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 76,
+      "height": 148,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 7265,
+      "partialPx": 1035,
+      "opaquePx": 2903,
+      "coveragePct": 35.41,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-07",
+      "name": "sofas_asientos",
+      "file": "ART_ASSETS/hub/tanda_01/hub_07_sofas_asientos.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_07_sofas_asientos.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 44430,
+      "sha256": "b425cdc49f1a01bbb4ce63bf90f2bdd38220fc65a03e066d0f1956345c9f8637",
+      "slot": [
+        "hub_vip_booth_nw",
+        "hub_vip_booth_ne"
+      ],
+      "loader": "V5",
+      "classification": "Decorativo",
+      "role": "Zona de descanso VIP en las dos alcobas norte (785,545) y (1715,545).",
+      "measuredDrawBox": [
+        681,
+        439,
+        208,
+        160
+      ],
+      "anchor": "bottom-center; sh=208*naturalHeight/naturalWidth, base en p.y+54",
+      "note": "Un único PNG registrado en los dos slots de alcoba. El motor calcula la altura por aspecto natural, así que no hay deformación; la alcoba NE queda 23 px más alta.",
+      "preparation": {
+        "scale": 0.18065,
+        "placed": [
+          224,
+          119
+        ],
+        "offset": [
+          0,
+          53
+        ],
+        "pivot": "bottom-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1240,
+          657
+        ],
+        "backgroundDetected": [
+          254,
+          254,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 224,
+      "height": 172,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 18371,
+      "partialPx": 1442,
+      "opaquePx": 18492,
+      "coveragePct": 52.32,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-08",
+      "name": "luminarias_neones",
+      "file": "ART_ASSETS/hub/tanda_01/hub_08_luminarias_neones.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_08_luminarias_neones.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 12196,
+      "sha256": "baa356a7cb815751c0acf36e0b6a51dd87e0d8b1327d0fbeb5644da55af94eaf",
+      "slot": "hub_disco_chandelier",
+      "loader": "V5",
+      "classification": "Funcional / Decorativo",
+      "role": "Iluminación ambiental sobre la pista: lámpara colgante en (1250,615).",
+      "measuredDrawBox": [
+        1217,
+        575,
+        66,
+        150
+      ],
+      "anchor": "top-center; drawImage(dbX-33, dbY-40, 66, 150); la cadena queda arriba",
+      "note": "El halo lo calcula el motor con Wb(); el PNG no hornea sombras ni bloom de fondo.",
+      "preparation": {
+        "scale": 0.20541,
+        "placed": [
+          38,
+          152
+        ],
+        "offset": [
+          14,
+          0
+        ],
+        "pivot": "top-center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          185,
+          740
+        ],
+        "backgroundDetected": [
+          253,
+          253,
+          253
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 67,
+      "height": 152,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 6235,
+      "partialPx": 1631,
+      "opaquePx": 2103,
+      "coveragePct": 38.78,
+      "cornersTransparent": true,
+      "whiteFringePx": 15,
+      "whiteFringePct": 0.92,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-09",
+      "name": "puertas_accesos",
+      "file": "ART_ASSETS/hub/tanda_01/hub_09_puertas_accesos.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_09_puertas_accesos.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 70620,
+      "sha256": "c962b472b3b9cca26e1e1fd9aaf540434fa34725cd645d8e97c328b9827b8edf",
+      "slot": "hub_abyss_stair_crack",
+      "loader": "V5",
+      "classification": "Interactivo / Funcional",
+      "role": "Acceso de descenso a otras zonas (sur del HUB).",
+      "measuredDrawBox": [
+        1085,
+        1256,
+        330,
+        180
+      ],
+      "anchor": "center; diamante 2:1 enrasado con el suelo, sin colisionador nuevo",
+      "note": "No se sustituye ninguna hoja de puerta: la lógica de apertura Ot.openT y los slots campaign_door_* de la Tanda 02 quedan intactos.",
+      "preparation": {
+        "scale": 0.24005,
+        "placed": [
+          301,
+          175
+        ],
+        "offset": [
+          9,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          1252,
+          729
+        ],
+        "backgroundDetected": [
+          254,
+          255,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 320,
+      "height": 175,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 27399,
+      "partialPx": 1858,
+      "opaquePx": 26562,
+      "coveragePct": 51.07,
+      "cornersTransparent": true,
+      "whiteFringePx": 0,
+      "whiteFringePct": 0.0,
+      "borderClean": true
+    },
+    {
+      "id": "HUB-10",
+      "name": "decoracion_ambiental",
+      "file": "ART_ASSETS/hub/tanda_01/hub_10_decoracion_ambiental.png",
+      "source": "ART_ASSETS/hub/tanda_01/_source/hub_10_decoracion_ambiental.png",
+      "sourceSize": [
+        1408,
+        768
+      ],
+      "bytes": 32177,
+      "sha256": "1deac18fa631c4e3ccbde755a2c941aa7b1559816ef22ab129c6cea09caad390",
+      "slot": "hub_trophy_board_prop",
+      "loader": "V5",
+      "classification": "Decorativo",
+      "role": "Completar identidad visual: tablón de trofeos / muro de la vergüenza junto al escenario.",
+      "measuredDrawBox": [
+        922,
+        337,
+        156,
+        127
+      ],
+      "anchor": "center; prop de pared dibujado por el pintor V5",
+      "note": "Humor negro: bola de discoteca agrietada, cráneo y disco de oro doblado. Sin texto generado.",
+      "preparation": {
+        "scale": 0.19625,
+        "placed": [
+          141,
+          136
+        ],
+        "offset": [
+          13,
+          0
+        ],
+        "pivot": "center",
+        "deformed": false,
+        "sourceSize": [
+          1408,
+          768
+        ],
+        "alphaBBox": [
+          717,
+          693
+        ],
+        "backgroundDetected": [
+          254,
+          255,
+          254
+        ],
+        "threshold": 18,
+        "mode": "contain + chroma decontamination"
+      },
+      "width": 167,
+      "height": 136,
+      "mode": "RGBA",
+      "format": "PNG",
+      "exactSize": true,
+      "alphaChannel": true,
+      "alphaExtrema": [
+        0,
+        255
+      ],
+      "transparentPx": 7879,
+      "partialPx": 1121,
+      "opaquePx": 13488,
+      "coveragePct": 65.31,
+      "cornersTransparent": true,
+      "whiteFringePx": 15,
+      "whiteFringePct": 1.34,
+      "borderClean": true
+    }
+  ]
+}

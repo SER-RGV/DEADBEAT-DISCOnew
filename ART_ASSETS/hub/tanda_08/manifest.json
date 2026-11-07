@@ -1,0 +1,508 @@
+{
+  "tanda": "08",
+  "title": "El abismo vivo",
+  "phase": "FASE 5 · cerrada",
+  "status": "INTEGRADO_VALIDADO",
+  "generated": "2026-11-04T04:31:45",
+  "source": "generate_image + ART_TOOLS/prepare_hub_tanda_08.py",
+  "compositionProof": "ART_EVIDENCE/hub/tanda_08/composition_proof.json (16/16 APROBADA)",
+  "pipeline": [
+    "recorte automático por luminancia en objetos",
+    "resize LANCZOS a tamaño exacto",
+    "gradación de brillo/saturación por plano de profundidad",
+    "máscara de alfa (banda / objeto / humo)",
+    "despill oscuro en semitransparentes",
+    "blur de antialias"
+  ],
+  "rules": [
+    "sin NPC, criaturas ni enemigos",
+    "sin pixel art",
+    "sin halos claros",
+    "transparencia real",
+    "las dos paredes próximas son fuentes distintas",
+    "planos lejanos con menos contraste que los cercanos"
+  ],
+  "npcSpritesGenerated": 0,
+  "count": 10,
+  "assets": [
+    {
+      "id": "T08-01",
+      "alias": "h08_pared_cercana_izq",
+      "unit": "Pared rocosa próxima izquierda",
+      "plane": "P1 cercano",
+      "file": "ART_ASSETS/hub/tanda_08/01_pared_izq/final/hub_t08_01_pared_izq.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_01_pared_cercana_izq.png",
+      "expected": [
+        900,
+        300
+      ],
+      "natural": [
+        900,
+        300
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 1.0,
+      "saturation": 1.0,
+      "pivot": "centro",
+      "anchor": "factor .92 · anclada al borde sur y1585",
+      "visualFunction": "Máxima definición; arranca del labio T07 y converge al abismo",
+      "sha256": "22869478ccd409c35f9f9f5a6bdc974a9d32ca1e921ca9deb25e51aee205f395",
+      "bytes": 526895,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 58.34,
+        "transparentPct": 1.89,
+        "semiTransparentSampled": 22535,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 35.36
+      }
+    },
+    {
+      "id": "T08-02",
+      "alias": "h08_pared_cercana_der",
+      "unit": "Pared rocosa próxima derecha (silueta distinta)",
+      "plane": "P1 cercano",
+      "file": "ART_ASSETS/hub/tanda_08/02_pared_der/final/hub_t08_02_pared_der.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_02_pared_cercana_der.png",
+      "expected": [
+        900,
+        300
+      ],
+      "natural": [
+        900,
+        300
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 1.0,
+      "saturation": 1.0,
+      "pivot": "centro",
+      "anchor": "factor .92 · anclada al borde sur y1585",
+      "visualFunction": "Evita repetición evidente; contrapunto cian/magenta",
+      "sha256": "e5645a7e04057fd9b22ba804e6ea03e1808990b0d91dc2c5a30443e19944dcd3",
+      "bytes": 425894,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 58.34,
+        "transparentPct": 1.89,
+        "semiTransparentSampled": 22535,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 23.68
+      }
+    },
+    {
+      "id": "T08-03",
+      "alias": "h08_estrato_medio",
+      "unit": "Estrato geológico intermedio",
+      "plane": "P2 medio",
+      "file": "ART_ASSETS/hub/tanda_08/03_estrato/final/hub_t08_03_estrato.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_03_estrato_medio.png",
+      "expected": [
+        1600,
+        220
+      ],
+      "natural": [
+        1600,
+        220
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 0.82,
+      "saturation": 0.92,
+      "pivot": "centro",
+      "anchor": "factor .66 · banda horizontal completa",
+      "visualFunction": "Continuidad del terreno T07 por debajo del borde",
+      "sha256": "fdd2a81ea65c67b6bce9f42d5e88c849bd5d1e3f35cd191ac8f564bff13d49f4",
+      "bytes": 398241,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 59.07,
+        "transparentPct": 2.29,
+        "semiTransparentSampled": 28211,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 22.01
+      }
+    },
+    {
+      "id": "T08-04",
+      "alias": "h08_columna_natural",
+      "unit": "Columna natural de basalto",
+      "plane": "P2 medio",
+      "file": "ART_ASSETS/hub/tanda_08/04_columna/final/hub_t08_04_columna.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_04_columna_natural.png",
+      "expected": [
+        300,
+        460
+      ],
+      "natural": [
+        300,
+        460
+      ],
+      "mode": "RGBA",
+      "mask": "object",
+      "bright": 0.95,
+      "saturation": 0.95,
+      "pivot": "centro",
+      "anchor": "factor .66 · 2 instancias, escala 1.0 / 0.72",
+      "visualFunction": "Escala vertical y lectura de distancia media",
+      "sha256": "1fc9d6e28357dd432bb9230780a42e559255f8965b4a80bf2346626bf112adc9",
+      "bytes": 132984,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 0.16,
+        "transparentPct": 61.9,
+        "semiTransparentSampled": 7963,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 16.13
+      }
+    },
+    {
+      "id": "T08-05",
+      "alias": "h08_plataforma_suspendida",
+      "unit": "Plataforma rocosa suspendida",
+      "plane": "P3 intermedio",
+      "file": "ART_ASSETS/hub/tanda_08/05_plataforma/final/hub_t08_05_plataforma.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_05_plataforma_suspendida.png",
+      "expected": [
+        700,
+        260
+      ],
+      "natural": [
+        700,
+        260
+      ],
+      "mode": "RGBA",
+      "mask": "object",
+      "bright": 0.9,
+      "saturation": 0.92,
+      "pivot": "centro",
+      "anchor": "factor .40 · balanceo suave",
+      "visualFunction": "Elemento suspendido con vida propia, sin criaturas",
+      "sha256": "3f2d9c28dc65a2bc4631f371c52f7855a707420344fd2c9b4e1f0724e07ddfb6",
+      "bytes": 180234,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 0.0,
+        "transparentPct": 51.88,
+        "semiTransparentSampled": 15281,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 15.18
+      }
+    },
+    {
+      "id": "T08-06",
+      "alias": "h08_pared_lejana",
+      "unit": "Pared cavernaria lejana",
+      "plane": "P4 lejano",
+      "file": "ART_ASSETS/hub/tanda_08/06_pared_lejana/final/hub_t08_06_pared_lejana.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_06_pared_lejana.png",
+      "expected": [
+        1600,
+        180
+      ],
+      "natural": [
+        1600,
+        180
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 0.46,
+      "saturation": 0.62,
+      "pivot": "centro",
+      "anchor": "factor .20 · banda horizontal completa",
+      "visualFunction": "Menor contraste; atmósfera y disolución de formas",
+      "sha256": "ae8048bee761925029fe1c10ed2415db8c7b1ea983828a9589feb6fe1423191f",
+      "bytes": 131052,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 58.16,
+        "transparentPct": 1.63,
+        "semiTransparentSampled": 23402,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 11.9
+      }
+    },
+    {
+      "id": "T08-07",
+      "alias": "h08_rocas_suspendidas",
+      "unit": "Agrupación de rocas flotantes",
+      "plane": "P3 intermedio",
+      "file": "ART_ASSETS/hub/tanda_08/07_rocas/final/hub_t08_07_rocas.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_07_rocas_suspendidas.png",
+      "expected": [
+        900,
+        260
+      ],
+      "natural": [
+        900,
+        260
+      ],
+      "mode": "RGBA",
+      "mask": "object",
+      "bright": 0.88,
+      "saturation": 0.92,
+      "pivot": "centro",
+      "anchor": "factor .40 · 2 instancias con escala y volteo distintos",
+      "visualFunction": "Movimiento lejano y siluetas de escala",
+      "sha256": "98f9b9ceb29fda869cfe08a016d53949ad4c3c5f26cfd87a9c5ee2013150f674",
+      "bytes": 210730,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 0.01,
+        "transparentPct": 70.52,
+        "semiTransparentSampled": 11677,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 10.99
+      }
+    },
+    {
+      "id": "T08-08",
+      "alias": "h08_cavidades_lejanas",
+      "unit": "Cavidades y arcos lejanos",
+      "plane": "P4 lejano",
+      "file": "ART_ASSETS/hub/tanda_08/08_cavidades/final/hub_t08_08_cavidades.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_08_cavidades_lejanas.png",
+      "expected": [
+        1600,
+        160
+      ],
+      "natural": [
+        1600,
+        160
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 0.52,
+      "saturation": 0.66,
+      "pivot": "centro",
+      "anchor": "factor .20 · banda horizontal completa",
+      "visualFunction": "Segunda lectura de profundidad, casi monocroma",
+      "sha256": "75770be0c05e0474628ca92b620a3b6c11a6f3e1f22106f31b4aa1527cb6d7f1",
+      "bytes": 138970,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 58.66,
+        "transparentPct": 1.76,
+        "semiTransparentSampled": 19918,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 13.78
+      }
+    },
+    {
+      "id": "T08-09",
+      "alias": "h08_luces_abismo",
+      "unit": "Fuentes de luz infernal en el fondo",
+      "plane": "P5 fondo",
+      "file": "ART_ASSETS/hub/tanda_08/09_luces/final/hub_t08_09_luces.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_09_luces_abismo.png",
+      "expected": [
+        1200,
+        200
+      ],
+      "natural": [
+        1200,
+        200
+      ],
+      "mode": "RGBA",
+      "mask": "band",
+      "bright": 1.0,
+      "saturation": 1.0,
+      "pivot": "centro",
+      "anchor": "factor .08 · banda inferior",
+      "visualFunction": "Interpretar la distancia con luces diminutas; crece con shaftOpen",
+      "sha256": "eb2d80433da032755f993ee3a4c0613838ff06ea572cb3a243c07ca539e849fa",
+      "bytes": 241949,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 57.71,
+        "transparentPct": 1.51,
+        "semiTransparentSampled": 20143,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 11.16
+      }
+    },
+    {
+      "id": "T08-10",
+      "alias": "h08_humo_infernal",
+      "unit": "Columna de humo infernal",
+      "plane": "ambiente",
+      "file": "ART_ASSETS/hub/tanda_08/10_humo/final/hub_t08_10_humo.png",
+      "source": "ART_ASSETS/hub/tanda_08/_source/hub_t08_10_humo_infernal.png",
+      "expected": [
+        360,
+        640
+      ],
+      "natural": [
+        360,
+        640
+      ],
+      "mode": "RGBA",
+      "mask": "smoke",
+      "bright": 0.92,
+      "saturation": 0.9,
+      "pivot": "centro",
+      "anchor": "espacio de pantalla · 4 columnas, escalas y derivas distintas",
+      "visualFunction": "Corrientes lentas con densidad variable, integradas con las luces",
+      "sha256": "208d6c6546741bbd795cb08a20d9ab88db7d047cd811170c36ff633328f4276e",
+      "bytes": 185988,
+      "verification": {
+        "exactSize": true,
+        "mode": "RGBA",
+        "cornersTransparent": true,
+        "corners": [
+          0,
+          0,
+          0,
+          0
+        ],
+        "opaquePct": 0.75,
+        "transparentPct": 58.58,
+        "semiTransparentSampled": 18687,
+        "whiteFringePct": 0.0,
+        "borderClean": true,
+        "alphaReal": true,
+        "meanLuminance": 23.09
+      }
+    }
+  ],
+  "allValid": true,
+  "integratedAt": "2026-11-04T04:45:28",
+  "integration": {
+    "html": "DEADBEAT_DISCO.ART.html :: TANDA08:BEGIN/END (módulo T08 + T08.install())",
+    "pack": "ART_PACK/art_pack.js :: HUB8_ASSETS/loadHub8()/API hub8*",
+    "version": "fase1-…+hub-tanda08",
+    "v5KeysBefore": 168,
+    "v5KeysAfter": 178,
+    "hooks": [
+      "zf (cutaway, grieta, brasas/ceniza)",
+      "Tf (dt del motor)"
+    ],
+    "flag": "window.__DDM_HUB_T08 = false",
+    "camera": "sin modificar (zoom .9375, límites x[883,1617] y[655,1195])",
+    "canvas": 27,
+    "sequencers": 1,
+    "descent": "shaftOpen/stairProgress reales de floorDropAnim",
+    "newSystems": [
+      "sin canvas",
+      "sin motor",
+      "sin cámara",
+      "sin loader",
+      "sin rAF",
+      "sin temporizador propio",
+      "sin audio",
+      "sin colisiones",
+      "sin geometría",
+      "sin estaciones",
+      "sin progresión",
+      "sin NPC/criaturas/enemigos"
+    ]
+  },
+  "qa": {
+    "verdict": "APROBADO",
+    "total": 37,
+    "tally": {
+      "APROBADO": 33,
+      "NO VERIFICADO": 4
+    },
+    "automated": 33,
+    "failed": 0,
+    "evidence": "ART_EVIDENCE/hub/tanda_08/qa_tanda08.json"
+  },
+  "composition": {
+    "verdict": "APROBADA",
+    "total": 16,
+    "passed": 16,
+    "evidence": "ART_EVIDENCE/hub/tanda_08/composition_proof.json"
+  }
+}

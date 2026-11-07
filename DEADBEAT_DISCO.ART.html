@@ -7073,6 +7073,1919 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
     }
 
     (function initDmoHubV35() {
+
+      /* === TANDA07:BEGIN · MÓDULO «EL UMBRAL DEL INFIERNO» =====================
+         Fase 2 (llegada) · Fase 3 (vida NPC) · Fase 4 (descenso).
+         NO crea motor, canvas, cámara, sistema de audio ni rAF nuevo.
+         Solo reutiliza: addHubCustomProp -> Lc (Y-sort), los hooks Wf/Ph/zf/Tf
+         ya encadenados, el reloj Z, Yc.reduced y los V5 existentes.
+         Los 6 assets T07 entran por el MISMO registro __DDM_V5_IMG.
+         Reversible con window.__DDM_HUB_T07 = false.
+         ===================================================================== */
+      const T07 = (function () {
+        const VER = '3.9.0-tanda07';
+        const S = {
+          version: VER, enabled: true, clock: 0,
+          arrival: { active: false, pending: false, t: 0, dur: 1.85, reason: '', plays: 0,
+                     completes: 0, restored: true },
+          descent: { active: false, frames: 0, completions: 0, samples: [],
+                     lastKind: '' },
+          actors: [], lastLocation: null,
+          counts: { geography: 0, ambient: 0, screen: 0, descentScreen: 0, updates: 0 },
+          errors: [], lastError: ''
+        };
+        function note(e) {
+          try {
+            S.errors.push(String(e && (e.message || e) || e));
+            if (S.errors.length > 24) S.errors.shift();
+            S.lastError = S.errors[S.errors.length - 1];
+          } catch (_) {}
+        }
+        function on() { return S.enabled && window.__DDM_HUB_T07 !== false; }
+        function hs() {
+          try { return window.DMO_HUB && window.DMO_HUB.state ? window.DMO_HUB.state() : null; }
+          catch (e) { return null; }
+        }
+        function cineOn() {
+          try { return !!(window.DMO_CINE && window.DMO_CINE.state && window.DMO_CINE.state().active); }
+          catch (e) { return false; }
+        }
+        function v5(k) {
+          try { const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[k];
+                return (im && im.complete && im.naturalWidth > 0) ? im : null; }
+          catch (e) { return null; }
+        }
+        function inHubWorld() {
+          const q = hs();
+          if (!q) return false;
+          return !!(q.inHub && (q.location === 'HUB' || q.location === 'TRANSITION'));
+        }
+        function reduced() { try { return !!Yc.reduced; } catch (e) { return false; } }
+        function zz() { try { return (hub.ambientFrozenAt != null) ? hub.ambientFrozenAt : Z; } catch (e) { return Z; } }
+
+        /* --- FASE 2 · llegada breve, repetible y SIN bloqueo de control ------ */
+        function startArrival(reason) {
+          if (!on()) return false;
+          const q = hs();
+          if (!q || !q.inHub || q.location !== 'HUB') return false;
+          S.arrival.active = true;
+          S.arrival.t = 0;
+          S.arrival.dur = reduced() ? 0.95 : 1.85;
+          S.arrival.reason = reason || 'manual';
+          S.arrival.plays++;
+          S.arrival.pending = false;
+          S.arrival.restored = false;
+          // NO se toca hub.transitionLock, ni pa/Mu/Qr, ni DMO_CINE, ni DMO_MUSIC.
+          // El control sigue activo durante toda la transición.
+          return true;
+        }
+
+        /* --- FASE 3 · actores NPC (5 actividades, sin IA) ------------------- */
+        const ACTORS = [
+          { id: 't07_danza_01',  act: 'dance', x: 1120, y: 900,  h: 96, phase: 0.35, rate: 1.00, flip: false, col: '#ec4899' },
+          { id: 't07_danza_02',  act: 'dance', x: 1380, y: 900,  h: 96, phase: 2.15, rate: 0.86, flip: true,  col: '#22d3ee' },
+          { id: 't07_charla_01', act: 'talk',  x: 1690, y: 1010, h: 92, phase: 0.80, rate: 0.55, flip: false, col: '#f472b6' },
+          { id: 't07_charla_02', act: 'talk',  x: 1780, y: 1010, h: 92, phase: 2.60, rate: 0.48, flip: true,  col: '#67e8f9' },
+          { id: 't07_descanso',  act: 'rest',  x: 1910, y: 900,  h: 88, phase: 1.40, rate: 0.30, flip: false, col: '#a855f7' },
+          { id: 't07_recorrido', act: 'walk',  x: 900,  y: 700,  h: 94, phase: 3.30, rate: 0.72, flip: false, col: '#fde047', span: 62 }
+        ];
+        function spriteFor(a, frame) {
+          if (a.act === 'rest') return v5('hub_bartender_npc') || v5('hub_cliente000_npc') || v5('hub_clubber_dancer_a');
+          if (a.act === 'talk') return (a.flip ? v5('hub_clubber_dancer_b') : v5('hub_bouncer_npc')) || v5('hub_clubber_dancer_a');
+          /* dance / walk: alterna los DOS V5 ya existentes, igual que
+             drawFigurant() de la intro. stepIdx usa el MISMO mecanismo
+             Math.floor(t*rate + phase) & 3 del HUB. */
+          return (frame & 1) ? (v5('hub_clubber_dancer_b') || v5('hub_clubber_dancer_a'))
+                             : (v5('hub_clubber_dancer_a') || v5('hub_clubber_dancer_b'));
+        }
+        function installActors() {
+          if (!on()) return 0;
+          S.actors.length = 0;
+          for (let i = 0; i < ACTORS.length; i++) {
+            const a = ACTORS[i];
+            const rec = Object.assign({}, a, { lastFrame: 0, lastReact: 0, lastX: a.x, lastFlip: a.flip });
+            S.actors.push(rec);
+            (function (a, rec) {
+              addHubCustomProp({
+                id: a.id, kind: 'circle', x: a.x, y: a.y, r: 20,
+                solid: false, tall: true, sortY: a.y + 2,
+                hubDraw: function (ctx) {
+                  if (window.__DDM_HUB_T07 === false) return;
+                  const t = zz(), red = reduced();
+                  const px = (typeof ye !== 'undefined' && ye) ? ye.x : 1250;
+                  const py = (typeof ye !== 'undefined' && ye) ? ye.y : 965;
+                  const dx = px - a.x, dy = py - a.y;
+                  const dist = Math.sqrt(dx * dx + dy * dy);
+                  const react = red ? 0 : Math.max(0, Math.min(1, (185 - dist) / 85));
+                  let x = a.x, y = a.y, flip = a.flip, lean = 0, bounce = 0, frame = 0, alpha = 0.98;
+                  const rate = a.rate;
+                  if (a.act === 'dance') {
+                    frame = red ? 0 : (Math.floor(t * 5.6 * rate + a.phase) & 3);
+                    bounce = red ? 0 : Math.round(Math.abs(Math.sin(t * 6.8 * rate + a.phase)) * 3.2);
+                    lean = red ? 0 : Math.sin(t * 3.3 * rate + a.phase) * 0.065;
+                    if (!red) x += Math.sin(t * 1.1 * rate + a.phase) * 3.0;
+                  } else if (a.act === 'talk') {
+                    lean = red ? 0 : Math.sin(t * 1.5 * rate + a.phase) * 0.035;
+                    bounce = red ? 0 : Math.round(Math.sin(t * 2.2 * rate + a.phase) * 1.2);
+                  } else if (a.act === 'rest') {
+                    lean = red ? 0 : 0.085 + Math.sin(t * 0.55 * rate + a.phase) * 0.012;
+                    bounce = red ? 0 : Math.round(Math.sin(t * 1.1 * rate + a.phase) * 0.9);
+                    alpha = 0.86;
+                  } else if (a.act === 'walk') {
+                    /* Reloj real acumulado en update(dt): el reloj artístico Z
+                       avanza demasiado despacio para un recorrido visible. */
+                    const wt = red ? 0 : S.clock;
+                    const ph = wt * 1.35 * rate + a.phase;
+                    if (!red) x += Math.sin(ph) * (a.span || 60);
+                    flip = red ? a.flip : (Math.cos(ph) < 0);
+                    frame = red ? 0 : (Math.floor(t * 5.2 * rate + a.phase) & 3);
+                    bounce = red ? 0 : Math.round(Math.abs(Math.sin(t * 6.2 * rate + a.phase)) * 2.2);
+                  }
+                  /* Reacción al jugador: gira + saludo leve. Sin IA, sin
+                     máquina de estados, sin cambio de estación ni colisión. */
+                  if (react > 0 && a.act !== 'rest') {
+                    flip = dx < 0;
+                    lean += react * 0.05 * (0.6 + 0.4 * Math.sin(t * 3.1 + a.phase));
+                    bounce += Math.round(react * 1.5);
+                  }
+                  rec.lastFrame = frame;
+                  rec.lastReact = +react.toFixed(3);
+                  rec.lastX = Math.round(x);
+                  rec.lastFlip = !!flip;
+                  const im = spriteFor(a, frame);
+                  ctx.save();
+                  ctx.imageSmoothingEnabled = true;
+                  ctx.fillStyle = 'rgba(2,6,23,0.42)';
+                  ctx.beginPath(); ctx.ellipse(x, y, 15, 6, 0, 0, Math.PI * 2); ctx.fill();
+                  ctx.globalAlpha = alpha;
+                  ctx.translate(Math.round(x), Math.round(y + 3 - bounce));
+                  ctx.rotate(lean);
+                  if (flip) ctx.scale(-1, 1);
+                  const hh = a.h;
+                  const ww = Math.round(hh * (im ? im.naturalWidth / im.naturalHeight : 0.47));
+                  if (im) ctx.drawImage(im, Math.round(-ww * 0.5), -hh, ww, hh);
+                  else { ctx.fillStyle = '#f43f5e'; ctx.fillRect(-14, -hh, 28, hh); }
+                  ctx.restore();
+                  /* Marcas de conversación (puntos, SIN texto/diálogo) */
+                  if (a.act === 'talk' && !red) {
+                    const s = Math.floor(t * 2.4 * rate + a.phase) % 3;
+                    ctx.save(); ctx.globalAlpha = 0.65; ctx.fillStyle = a.col;
+                    for (let k = 0; k < 3; k++) {
+                      ctx.beginPath();
+                      ctx.arc(x + (k - 1) * 7, y - a.h - 12 - (s === k ? 3 : 0), 1.8, 0, Math.PI * 2);
+                      ctx.fill();
+                    }
+                    ctx.restore();
+                  }
+                }
+              });
+            })(a, rec);
+          }
+          return ACTORS.length;
+        }
+
+        /* --- FASE 2/4 · geografía estática (Wf, coordenadas MUNDO) ---------- */
+        function drawGeography() {
+          if (!on() || !inHubWorld()) return;
+          const lab = v5('h07_labio_acantilado');
+          const est = v5('h07_estrato_rococo');
+          const ape = v5('h07_apertura_profundidad');
+          if (!lab && !est && !ape) return;
+          const c = g;
+          c.save();
+          c.imageSmoothingEnabled = true;
+          /* 1) Se elimina el suelo genérico bajo el borde sur (y>1585 queda
+                FUERA de la caché 1920x1320 y del clip Ls(g)). */
+          const bg = c.createLinearGradient(0, 1580, 0, 1770);
+          bg.addColorStop(0, 'rgba(10,7,20,0.72)');
+          bg.addColorStop(0.45, 'rgba(5,4,12,0.93)');
+          bg.addColorStop(1, '#010106');
+          c.fillStyle = bg; c.fillRect(180, 1580, 2140, 190);
+          /* 2) COTA -02 · pared rocosa por estratos */
+          if (est) c.drawImage(est, 200, 1585, 2100, 110);
+          /* 3) Abertura: la grieta continúa hacia las profundidades */
+          if (ape) c.drawImage(ape, 1040, 1560, 420, 260);
+          /* 4) COTA -01 · labio del acantilado sobre el suelo transitable */
+          if (lab) c.drawImage(lab, 500, 1470, 1500, 115);
+          /* 5) Ingletes de continuidad con los paramentos T06 (y=1540) */
+          c.fillStyle = 'rgba(12,8,24,0.90)';
+          c.beginPath();
+          c.moveTo(290, 1540); c.lineTo(500, 1585); c.lineTo(500, 1680); c.lineTo(290, 1600);
+          c.closePath(); c.fill();
+          c.beginPath();
+          c.moveTo(2210, 1540); c.lineTo(2000, 1585); c.lineTo(2000, 1680); c.lineTo(2210, 1600);
+          c.closePath(); c.fill();
+          /* 6) Luz estática de profundidad bajo la abertura */
+          const gl = c.createRadialGradient(1250, 1630, 8, 1250, 1630, 190);
+          gl.addColorStop(0, 'rgba(251,146,60,0.20)');
+          gl.addColorStop(0.55, 'rgba(34,211,238,0.07)');
+          gl.addColorStop(1, 'rgba(2,3,10,0)');
+          c.fillStyle = gl; c.fillRect(1030, 1560, 440, 200);
+          c.restore();
+          S.counts.geography++;
+        }
+
+        /* --- FASE 2/4 · animación ambiental (Ph, coordenadas MUNDO) --------- */
+        function drawAmbient() {
+          if (!on()) return;
+          const show = inHubWorld() || (typeof floorDropAnim !== 'undefined' && floorDropAnim && floorDropAnim.active);
+          if (!show) return;
+          const c = g, t = reduced() ? 4.2 : zz(), hubNow = inHubWorld();
+          c.save();
+          if (hubNow) {
+            const pulse = 0.5 + 0.5 * Math.sin(t * 1.35 + 0.7);
+            const gl = c.createRadialGradient(1250, 1620, 10, 1250, 1620, 210);
+            gl.addColorStop(0, 'rgba(251,146,60,' + (0.10 + 0.06 * pulse).toFixed(3) + ')');
+            gl.addColorStop(0.6, 'rgba(34,211,238,' + (0.04 + 0.03 * pulse).toFixed(3) + ')');
+            gl.addColorStop(1, 'rgba(2,3,10,0)');
+            c.fillStyle = gl; c.fillRect(1020, 1545, 460, 220);
+            /* Brasas ascendentes: deterministas por índice, sin random/frame */
+            for (let i = 0; i < 26; i++) {
+              const sx = 320 + ((i * 149) % 1860);
+              const speed = 14 + (i % 5) * 5;
+              const sy = 1675 - ((t * speed + i * 37) % 145);
+              const fade = Math.max(0, 1 - (1675 - sy) / 145);
+              c.globalAlpha = (0.18 + 0.34 * fade) * (0.6 + 0.4 * Math.sin(t * 2 + i));
+              c.fillStyle = (i % 3 === 0) ? '#67e8f9' : (i % 3 === 1 ? '#fb923c' : '#f472b6');
+              const sz = 1.6 + (i % 3) * 0.7;
+              c.fillRect(Math.round(sx), Math.round(sy), sz, sz * 1.7);
+            }
+            c.globalAlpha = 1;
+            /* Polvo iluminado sobre el labio */
+            for (let i = 0; i < 14; i++) {
+              const sx = 560 + ((i * 211) % 1380) + Math.sin(t * 0.7 + i) * 9;
+              const sy = 1480 + ((i * 53 + Math.sin(t * 0.9 + i) * 12) % 95);
+              c.globalAlpha = 0.10 + 0.10 * (0.5 + 0.5 * Math.sin(t * 1.6 + i * 1.3));
+              c.fillStyle = i % 2 ? '#fde047' : '#f472b6';
+              c.fillRect(Math.round(sx), Math.round(sy), 2, 2);
+            }
+            c.globalAlpha = 1;
+          }
+          c.restore();
+          S.counts.ambient++;
+        }
+
+        /* --- FASE 2/4 · pantalla (zf, ANTES del HUD; coords de PANTALLA) ----
+           Se dibuja antes de prevZf para no tapar el HUD. Nunca pantalla
+           negra: todos los alfas son parciales y el mundo sigue visible. */
+        function drawScreen() {
+          if (!on()) return;
+          const c = g;
+          const W = c.canvas ? c.canvas.width : 1280;
+          const H = c.canvas ? c.canvas.height : 900;
+          const a = S.arrival;
+          const fd = (typeof floorDropAnim !== 'undefined') ? floorDropAnim : null;
+          if (!a.active && !(fd && fd.active)) return;
+          c.save();
+          c.setTransform(1, 0, 0, 1, 0, 0);
+          c.imageSmoothingEnabled = true;
+          if (a.active) {
+            const u = Math.max(0, Math.min(1, a.t / a.dur));
+            const ext = v5('h07_exterior_infernal');
+            const pan = v5('h07_panorama_acantilado');
+            if (ext) { c.globalAlpha = 0.68 * Math.pow(1 - u, 1.35); c.drawImage(ext, 0, 0, W, H); }
+            if (pan && u > 0.28 && u < 0.82) {
+              c.globalAlpha = 0.30 * Math.sin(Math.PI * (u - 0.28) / 0.54);
+              c.drawImage(pan, 0, 0, W, H);
+            }
+            /* Luces del club que se encienden progresivamente */
+            c.globalCompositeOperation = 'lighter';
+            for (let i = 0; i < 5; i++) {
+              const lx = W * (0.16 + i * 0.17), ly = H * (0.30 + (i % 2) * 0.16);
+              const rr = 90 + (i % 3) * 55;
+              const lg = c.createRadialGradient(lx, ly, 2, lx, ly, rr);
+              lg.addColorStop(0, 'rgba(' + (i % 2 ? '34,211,238' : '244,114,182') + ',' + (0.10 * u).toFixed(3) + ')');
+              lg.addColorStop(1, 'rgba(0,0,0,0)');
+              c.fillStyle = lg; c.fillRect(lx - rr, ly - rr, rr * 2, rr * 2);
+            }
+            c.globalCompositeOperation = 'source-over';
+            for (let i = 0; i < 20; i++) {
+              const sx = (i * 137 + 41) % W;
+              const sy = H - ((a.t * (36 + (i % 4) * 16) + i * 53) % (H * 0.8));
+              c.globalAlpha = 0.30 * (1 - u);
+              c.fillStyle = i % 3 ? '#fb923c' : '#67e8f9';
+              c.fillRect(Math.round(sx), Math.round(sy), 2, 3);
+            }
+            c.globalAlpha = 0.42 * (1 - u);
+            const vg = c.createRadialGradient(W / 2, H / 2, H * 0.18, W / 2, H / 2, H * 0.78);
+            vg.addColorStop(0, 'rgba(2,3,10,0)');
+            vg.addColorStop(1, 'rgba(2,3,10,1)');
+            c.fillStyle = vg; c.fillRect(0, 0, W, H);
+            c.globalAlpha = 1;
+          }
+          if (fd && fd.active && (fd.phase === 'plunge' || fd.phase === 'skyfall')) {
+            /* Progreso REAL: el API público expone stairP, pero el objeto
+               interno guarda stairProgress / shaftOpen. Se toma el máximo
+               para que el parallax avance en TODAS las fases. */
+            const sp = Number(fd.stairProgress) || 0;
+            const so = Number(fd.shaftOpen) || 0;
+            const sky = (fd.phase === 'skyfall') ? 0.92 : 0;
+            const p = Math.max(0, Math.min(1, Math.max(sp, so * 0.8, sky)));
+            const shaft = v5('h07_pozo_capas');
+            const t = reduced() ? 2.5 : zz();
+            if (shaft) {
+              const off = ((t * 26 + p * 210) % H);
+              c.globalAlpha = 0.27 + 0.15 * p;
+              c.drawImage(shaft, -W * 0.06, -off, W * 1.12, H * 1.35);
+              c.drawImage(shaft, -W * 0.06, H - off, W * 1.12, H * 1.35);
+            }
+            c.globalAlpha = 1;
+            const dg = c.createLinearGradient(0, 0, 0, H);
+            dg.addColorStop(0, 'rgba(34,211,238,' + (0.05 + 0.04 * (1 - p)).toFixed(3) + ')');
+            dg.addColorStop(0.5, 'rgba(8,6,20,0.06)');
+            dg.addColorStop(1, 'rgba(1,2,8,' + (0.16 + 0.18 * p).toFixed(3) + ')');
+            c.fillStyle = dg; c.fillRect(0, 0, W, H);
+            /* Haz de luz que se estrecha al descender (continuidad arriba) */
+            const beam = c.createLinearGradient(W * 0.5 - 120, 0, W * 0.5 + 120, 0);
+            beam.addColorStop(0, 'rgba(34,211,238,0)');
+            beam.addColorStop(0.5, 'rgba(103,232,249,' + (0.045 + 0.055 * (1 - p)).toFixed(3) + ')');
+            beam.addColorStop(1, 'rgba(34,211,238,0)');
+            c.fillStyle = beam; c.fillRect(W * 0.5 - 120, 0, 240, H * 0.62);
+            for (let i = 0; i < 18; i++) {
+              const sx = (i * 191 + 67) % W;
+              const sy = H - ((t * (55 + (i % 5) * 22) + i * 71) % H);
+              c.globalAlpha = 0.16 + 0.20 * p;
+              c.fillStyle = i % 3 === 0 ? '#67e8f9' : '#fb923c';
+              c.fillRect(Math.round(sx), Math.round(sy), 1.6, 5 + (i % 3) * 2);
+            }
+            c.globalAlpha = 1;
+            S.counts.descentScreen++;
+          }
+          c.restore();
+          S.counts.screen++;
+        }
+
+        /* --- Tf · estado (sin bucle propio) -------------------------------- */
+        function update(dt) {
+          S.counts.updates++;
+          S.clock += Math.max(0, Math.min(0.1, Number(dt) || 0.016));
+          const q = hs(), loc = q ? q.location : null;
+          /* Sólo se considera «llegada» volver desde CAMPAIGN_ROOM / TRANSITION
+             (o el primer arranque). Los modales de estación NO cambian
+             hub.location, por lo que no disparan la transición. */
+          if (loc && loc !== S.lastLocation) {
+            if (loc === 'HUB' && (S.lastLocation === null ||
+                S.lastLocation === 'CAMPAIGN_ROOM' || S.lastLocation === 'TRANSITION')) {
+              S.arrival.pending = true;
+            }
+            S.lastLocation = loc;
+          }
+          /* Espera a que termine la intro y a que el control esté libre,
+             sin imponer NINGÚN bloqueo por nuestra parte. */
+          if (S.arrival.pending && q && q.inHub && q.location === 'HUB' &&
+              q.mode === 'EXPLORATION' && !q.transitionLock && !cineOn()) {
+            startArrival('hub-entry');
+          }
+          const a = S.arrival;
+          if (a.active) {
+            a.t += Math.max(0, Math.min(0.1, Number(dt) || 0.016));
+            if (!a.restored && a.t > 0.25) a.restored = true;
+            if (a.t >= a.dur) { a.active = false; a.completes++; a.t = a.dur; }
+          }
+          try {
+            const fd = (typeof floorDropAnim !== 'undefined') ? floorDropAnim : null;
+            const act = !!(fd && fd.active);
+            if (act) {
+              if (!S.descent.active) { S.descent.samples.length = 0; S.descent.frames = 0; }
+              S.descent.active = true; S.descent.frames++;
+              S.descent.lastKind = fd.transitionKind || '';
+              if (S.descent.samples.length < 160) S.descent.samples.push({
+                phase: fd.phase || '', stage: fd.stage || '',
+                stairP: +(Number(fd.stairProgress) || 0).toFixed(3),
+                shaftOpen: +(Number(fd.shaftOpen) || 0).toFixed(3),
+                plungeOffsetY: +(Number(fd.plungeOffsetY) || 0).toFixed(1),
+                toHub: !!fd.toHub, kind: fd.transitionKind || ''
+              });
+            } else if (S.descent.active) {
+              S.descent.active = false; S.descent.completions++;
+            }
+          } catch (e) { note(e); }
+        }
+
+        /* --- Enganches: se instalan EN TIEMPO DE ARRANQUE desde
+           buildHubSpace(), cuando TODAS las cadenas Wf/Ph/zf/Tf de
+           TANDA 01-06, CINE, música y v3.5 ya están montadas. Así T07
+           queda el ÚLTIMO de cada cadena sin reescribir el motor. */
+        let hooksInstalled = false;
+        function installHooks() {
+          if (hooksInstalled) return false;
+          hooksInstalled = true;
+          const safe = function (fn, tag) {
+            try { fn(); } catch (e) { note(tag + ': ' + (e && e.message || e)); }
+          };
+          const prevWf = Wf;
+          Wf = function () {
+            const r = prevWf.apply(this, arguments);
+            safe(function () { drawGeography(); }, 'Wf');
+            return r;
+          };
+          const prevPh = Ph;
+          Ph = function () {
+            const r = prevPh.apply(this, arguments);
+            safe(function () { drawAmbient(); }, 'Ph');
+            return r;
+          };
+          const prevZf = zf;
+          zf = function () {
+            safe(function () { drawScreen(); }, 'zf');
+            return prevZf.apply(this, arguments);
+          };
+          const prevTf = Tf;
+          Tf = function (dt) {
+            const r = prevTf.apply(this, arguments);
+            safe(function () { update(dt); }, 'Tf');
+            return r;
+          };
+          return true;
+        }
+
+        function snapshot() {
+          return JSON.parse(JSON.stringify({
+            version: VER, enabled: S.enabled, clock: +S.clock.toFixed(2),
+            flag: window.__DDM_HUB_T07 === false ? 'OFF' : 'ON',
+            arrival: S.arrival,
+            descent: { active: S.descent.active, frames: S.descent.frames,
+                       completions: S.descent.completions,
+                       lastKind: S.descent.lastKind, samples: S.descent.samples.slice(-32) },
+            actors: S.actors,
+            lastLocation: S.lastLocation, counts: S.counts,
+            errors: S.errors.slice(), lastError: S.lastError,
+            assets: ['h07_labio_acantilado', 'h07_estrato_rococo',
+                     'h07_apertura_profundidad', 'h07_exterior_infernal',
+                     'h07_pozo_capas', 'h07_panorama_acantilado']
+                    .map(function (k) { return { slot: k, loaded: !!v5(k) }; }),
+            audioTouched: false, cameraTouched: false, newCanvases: 0, newRAF: 0,
+            hooksInstalled: hooksInstalled
+          }));
+        }
+        return { VER: VER, S: S, on: on, note: note, startArrival: startArrival,
+                 installActors: installActors, installHooks: installHooks,
+                 drawGeography: drawGeography,
+                 drawAmbient: drawAmbient, drawScreen: drawScreen,
+                 update: update, snapshot: snapshot,
+                 actors: function () { return S.actors.map(function (a) { return Object.assign({}, a); }); } };
+      })();
+      window.__DDM_T07 = T07;
+      window.DMO_HUB_T07 = Object.freeze({
+        version: T07.VER,
+        state: function () { return T07.snapshot(); },
+        actors: T07.actors,
+        replayArrival: function () { return T07.startArrival('manual'); },
+        setEnabled: function (v) { T07.S.enabled = !!v; return T07.S.enabled; },
+        audit: function () {
+          const s = T07.snapshot();
+          return { ok: s.errors.length === 0 && s.assets.every(function (a) { return a.loaded; }),
+                   assetsLoaded: s.assets.filter(function (a) { return a.loaded; }).length,
+                   actors: s.actors.length, activities: s.actors.reduce(function (m, a) {
+                     m[a.act] = (m[a.act] || 0) + 1; return m; }, {}),
+                   errors: s.errors.slice(), counts: s.counts };
+        }
+      });
+      /* === TANDA07:END (módulo) ============================================= */
+      /* === TANDA08:BEGIN · MÓDULO «EL ABISMO VIVO» ================================
+         Fase 3 (integración) + Fase 4 (animación ambiental).
+         La geometría es la APROBADA en composition_proof.json (16/16): cutaway
+         en espacio de pantalla anclado al borde real y1585, 5 planos con
+         parallax derivado de DMO.camera(), expansión gobernada por el
+         shaftOpen REAL de floorDropAnim y retirada al cargar CAMPAIGN_ROOM.
+
+         NO crea motor, canvas, cámara, sistema de audio, rAF, loader,
+         colisiones, geometría transitable, puertas, estaciones ni progresión.
+         Reutiliza: registro __DDM_V5_IMG, hooks zf/Tf ya encadenados, reloj
+         Z / dt del motor, Yc.reduced y floorDropAnim.
+         Reversible con window.__DDM_HUB_T08 = false (no afecta T01–T07).
+         ===================================================================== */
+      const T08 = (function () {
+        const VER = '4.0.0-tanda08';
+        const REF = { x: 1250, y: 1195 };
+        const PLANES = [
+          { id: 'P1_cercano',    d: 0.00, factor: 0.92, alpha: 0.98 },
+          { id: 'P2_medio',      d: 0.26, factor: 0.66, alpha: 0.82 },
+          { id: 'P3_intermedio', d: 0.52, factor: 0.40, alpha: 0.62 },
+          { id: 'P4_lejano',     d: 0.76, factor: 0.20, alpha: 0.42 },
+          { id: 'P5_fondo',      d: 0.94, factor: 0.08, alpha: 0.30 }
+        ];
+        const A = {
+          paredIzq: 'h08_pared_cercana_izq', paredDer: 'h08_pared_cercana_der',
+          estrato: 'h08_estrato_medio', columna: 'h08_columna_natural',
+          plataforma: 'h08_plataforma_suspendida', paredLejana: 'h08_pared_lejana',
+          rocas: 'h08_rocas_suspendidas', cavidades: 'h08_cavidades_lejanas',
+          luces: 'h08_luces_abismo', humo: 'h08_humo_infernal'
+        };
+        const S = {
+          version: VER, enabled: true, clock: 0, frames: 0, updates: 0,
+          visible: false, winTop: 0, winH: 0, expand: 0, descentP: 0,
+          draws: { bands: 0, objects: 0, smoke: 0, embers: 0, ash: 0, glows: 0 },
+          errors: [], lastError: ''
+        };
+        /* --- Objetos PREASIGNADOS: cero allocations por fotograma ----------- */
+        const EMB = [], ASH = [], SMOKE = [], FAR = [];
+        for (let i = 0; i < 56; i++) EMB.push({
+          seed: i, t: (i * 0.173) % 1, spd: 0.050 + (i % 7) * 0.013,
+          lane: ((i * 97) % 1000) / 1000, band: i % 3,
+          size: 1.1 + (i % 4) * 0.6, x: 0, y: 0, a: 0
+        });
+        for (let i = 0; i < 26; i++) ASH.push({
+          t: (i * 0.211) % 1, lane: ((i * 173) % 1000) / 1000,
+          drift: 0.35 + (i % 5) * 0.13, size: 0.8 + (i % 3) * 0.5,
+          x: 0, y: 0, a: 0
+        });
+        for (let i = 0; i < 4; i++) SMOKE.push({
+          lane: 0.16 + i * 0.22, scale: 0.72 + (i % 3) * 0.17,
+          phase: i * 1.7, sway: 5 + i * 2, alpha: 0.13 + (i % 3) * 0.025
+        });
+        for (let i = 0; i < 3; i++) FAR.push({
+          lane: 0.30 + i * 0.20, phase: i * 2.1, speed: 0.045 + i * 0.012
+        });
+
+        function note(e) {
+          try {
+            S.errors.push(String(e && (e.message || e) || e));
+            if (S.errors.length > 24) S.errors.shift();
+            S.lastError = S.errors[S.errors.length - 1];
+          } catch (_) {}
+        }
+        function on() { return S.enabled && window.__DDM_HUB_T08 !== false; }
+        function v5(k) {
+          try { const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[k];
+                return (im && im.complete && im.naturalWidth > 0) ? im : null; }
+          catch (e) { return null; }
+        }
+        function cam() { try { return window.DMO.camera(); } catch (e) { return { x: 1250, y: 1195, zoom: 0.9375 }; } }
+        function reduced() { try { return !!Yc.reduced; } catch (e) { return false; } }
+        function zz() { try { return (hub.ambientFrozenAt != null) ? hub.ambientFrozenAt : Z; } catch (e) { return Z; } }
+        function hubLoc() { try { return window.DMO_HUB.state().location; } catch (e) { return 'HUB'; } }
+        function descent() {
+          try {
+            const f = floorDropAnim;
+            if (!f || !f.active || hubLoc() === 'CAMPAIGN_ROOM') return { open: 0, p: 0 };
+            return { open: Math.max(0, Math.min(1, Number(f.shaftOpen) || 0)),
+                     p: Math.max(0, Math.min(1, Number(f.stairProgress) || 0)) };
+          } catch (e) { return { open: 0, p: 0 }; }
+        }
+        function geom() {
+          const cm = cam(), W = g.canvas ? g.canvas.width : 1280, H = g.canvas ? g.canvas.height : 900;
+          const de = descent();
+          const edge = 450 + cm.zoom * (1585 - cm.y);
+          const expand = 260 * de.open;
+          const T = edge - expand, Wh = H - T;
+          S.winTop = T; S.winH = Wh; S.expand = expand; S.descentP = de.p;
+          S.visible = Wh > 10 && T < H &&
+                      (hubLoc() === 'HUB' || hubLoc() === 'TRANSITION');
+          const boxes = PLANES.map(function (P) {
+            const y = T + Wh * (0.06 + 0.88 * Math.pow(P.d, 0.78));
+            const h = Math.max(6, Wh * (0.30 - 0.20 * P.d));
+            const dx = -cm.zoom * (cm.x - REF.x) * P.factor;
+            const w = W * (1.18 - 0.22 * P.d);
+            return { id: P.id, d: P.d, factor: P.factor, alpha: P.alpha,
+                     x: (W - w) * 0.5 + dx, y: y, w: w, h: h, dx: dx };
+          });
+          return { cm: cm, W: W, H: H, T: T, Wh: Wh, de: de, boxes: boxes };
+        }
+        /* El progreso del descenso es el REAL; el reloj ambiental usa el dt
+           del motor (como T07), NO un temporizador independiente. */
+        function update(dt) {
+          S.updates++;
+          S.clock += Math.max(0, Math.min(0.1, Number(dt) || 0.016));
+          if (reduced()) return;
+          const q = geom();
+          if (!S.visible) return;             /* no se actualiza lo invisible */
+          const den = 1 + q.de.p * 1.4;
+          for (let i = 0; i < EMB.length; i++) {
+            const e = EMB[i]; e.t += dt * e.spd * den;
+            if (e.t > 1) e.t -= Math.floor(e.t);
+          }
+          for (let i = 0; i < ASH.length; i++) {
+            const a = ASH[i]; a.t += dt * 0.021 * den;
+            if (a.t > 1) a.t -= Math.floor(a.t);
+          }
+          for (let i = 0; i < FAR.length; i++) {
+            FAR[i].phase += dt * FAR[i].speed;
+          }
+        }
+        function band(key, b, hh, alpha, additive) {
+          const im = v5(key); if (!im) return;
+          const c = g;
+          c.globalAlpha = alpha;
+          if (additive) c.globalCompositeOperation = 'lighter';
+          c.drawImage(im, b.x, b.y - hh * 0.22, b.w, hh);
+          if (additive) c.globalCompositeOperation = 'source-over';
+          c.globalAlpha = 1; S.draws.bands++;
+        }
+        function object(key, x, y, w, h, alpha, flip) {
+          const im = v5(key); if (!im) return;
+          const c = g;
+          c.globalAlpha = alpha;
+          if (flip) {
+            c.save(); c.translate(x + w, y); c.scale(-1, 1);
+            c.drawImage(im, 0, 0, w, h); c.restore();
+          } else c.drawImage(im, x, y, w, h);
+          c.globalAlpha = 1; S.draws.objects++;
+        }
+        function glow(x, y, r, rgb, a) {
+          const c = g, lg = c.createRadialGradient(x, y, 1, x, y, r);
+          lg.addColorStop(0, 'rgba(' + rgb + ',' + a.toFixed(3) + ')');
+          lg.addColorStop(1, 'rgba(' + rgb + ',0)');
+          c.globalCompositeOperation = 'lighter';
+          c.fillStyle = lg; c.fillRect(x - r, y - r, r * 2, r * 2);
+          c.globalCompositeOperation = 'source-over';
+          S.draws.glows++;
+        }
+        /* Resplandor DENTRO de la grieta: aditivo, no tapa el marco ni el
+           panel III · DESCENSO (la elipse interior queda por encima de él). */
+        function drawFissure() {
+          const cm = cam();
+          if (hubLoc() === 'CAMPAIGN_ROOM') return;
+          const cx = 640 + cm.zoom * (1250 - cm.x);
+          const cy = 450 + cm.zoom * (1342 - cm.y);
+          const rx = 92 * cm.zoom, ry = 34 * cm.zoom;
+          if (cy + ry < 0 || cy - ry > g.canvas.height) return;
+          const c = g, t = reduced() ? 2.2 : zz();
+          const pulse = reduced() ? 0.5 : 0.5 + 0.5 * Math.sin(t * 0.5 + 1.2);
+          const de = descent();
+          c.save(); c.setTransform(1, 0, 0, 1, 0, 0);
+          c.beginPath(); c.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2); c.clip();
+          c.globalCompositeOperation = 'lighter';
+          const lg = c.createRadialGradient(cx, cy + ry * 0.45, 2, cx, cy + ry * 0.45, rx * 1.15);
+          lg.addColorStop(0, 'rgba(251,146,60,' + (0.17 + 0.09 * pulse + 0.12 * de.open).toFixed(3) + ')');
+          lg.addColorStop(0.45, 'rgba(34,211,238,0.075)');
+          lg.addColorStop(1, 'rgba(2,3,10,0)');
+          c.fillStyle = lg; c.fillRect(cx - rx, cy - ry, rx * 2, ry * 2);
+          /* Una banda diminuta de luces lejanas en el fondo del agujero: el
+             interior deja de ser un negro plano y sugiere distancia real. */
+          const lights = v5(A.luces);
+          if (lights) {
+            c.globalAlpha = 0.26 + 0.16 * de.open;
+            c.drawImage(lights, cx - rx, cy + ry * 0.05, rx * 2, ry * 0.95);
+            c.globalAlpha = 1;
+          }
+          c.globalCompositeOperation = 'source-over';
+          c.restore();
+          /* Brasas que emergen de la grieta: 5 puntos mínimos, mitad superior
+             de la elipse (por encima del panel III · DESCENSO). */
+          if (!reduced()) {
+            c.save(); c.setTransform(1, 0, 0, 1, 0, 0);
+            c.beginPath(); c.ellipse(cx, cy - ry * 0.25, rx * 0.82, ry * 0.58, 0, 0, Math.PI * 2); c.clip();
+            for (let i = 0; i < 5; i++) {
+              const u = (t * (0.16 + i * 0.031) + i * 0.21) % 1;
+              const ex = cx + Math.sin(t * 0.7 + i * 2.1 + de.open) * rx * 0.55 + (i - 2) * rx * 0.16;
+              const ey = cy + ry * 0.34 - u * ry * 0.92;
+              c.globalAlpha = (1 - u) * 0.34;
+              c.fillStyle = i % 2 ? '#67e8f9' : '#fb923c';
+              c.fillRect(Math.round(ex), Math.round(ey), 1.6, 2.8);
+            }
+            c.globalAlpha = 1; c.restore();
+          }
+        }
+        function drawCutaway() {
+          const q = geom();
+          if (!S.visible) return;
+          const c = g, W = q.W, H = q.H, T = q.T, Wh = q.Wh, B = q.boxes, de = q.de;
+          const t = reduced() ? 2.2 : zz();
+          c.save(); c.setTransform(1, 0, 0, 1, 0, 0);
+          c.imageSmoothingEnabled = true;
+          c.beginPath();
+          /* === MODIFICACIÓN PRIORITARIA:CLIP:BEGIN ==================================
+             Con el flag activo, T08 recorta el cutaway con la boca REAL de la
+             grieta (posición en pantalla derivada de la cámara). Con false,
+             `clipCutaway` devuelve false y se usa la trayectoria original. */
+          if (!(window.DMO_HUB_LEGIBILIDAD &&
+                window.DMO_HUB_LEGIBILIDAD.clipCutaway &&
+                window.DMO_HUB_LEGIBILIDAD.clipCutaway(c, q))) {
+          /* === MODIFICACIÓN PRIORITARIA:CLIP:IFEND ================================= */
+          c.moveTo(-40, T); c.lineTo(W + 40, T);
+          c.lineTo(W * 0.66, H + 20); c.lineTo(W * 0.34, H + 20);
+          c.closePath(); c.clip();
+          /* === MODIFICACIÓN PRIORITARIA:CLIP:END =================================== */
+          }
+          const bg = c.createLinearGradient(0, T, 0, H);
+          bg.addColorStop(0, 'rgba(9,6,20,0.94)');
+          bg.addColorStop(0.6, 'rgba(4,5,16,0.97)');
+          bg.addColorStop(1, 'rgba(2,3,10,0.99)');
+          c.fillStyle = bg; c.fillRect(0, T, W, H - T);
+
+          /* --- P5 · fuentes de luz infernales al fondo ---------------------- */
+          band(A.luces, B[4], Wh * 0.42, 0.34 + 0.44 * de.open, true);
+          for (let i = 0; i < FAR.length; i++) {
+            const f = FAR[i];
+            const lx = W * f.lane + Math.sin(f.phase) * 16 * (1 - i * 0.2);
+            const ly = H - 22 - (i % 2) * 12;
+            glow(lx, ly, 10 + 15 * de.open, i === 1 ? '34,211,238' : '251,146,60',
+                 0.10 + 0.13 * de.open);
+          }
+          /* --- P4 · pared lejana + cavidades (menor contraste) -------------- */
+          const farBoost = 1 + de.open * 0.55;
+          band(A.cavidades, B[3], Wh * 0.34, B[3].alpha * 0.82 * farBoost, false);
+          band(A.paredLejana, { x: B[2].x, y: B[3].y - Wh * 0.13, w: B[2].w },
+               Wh * 0.30, B[3].alpha * 0.78 * farBoost, false);
+          /* --- P3 · rocas suspendidas + plataforma (con balanceo) ----------- */
+          const sway = reduced() ? 0 : Math.sin(t * 0.22) * 5;
+          const b3 = B[2];
+          object(A.rocas, b3.x + b3.w * 0.08 + Math.sin(t * 0.11) * 4,
+                 b3.y - Wh * 0.13, b3.w * 0.30, Wh * 0.34, b3.alpha * 0.9, false);
+          object(A.rocas, b3.x + b3.w * 0.68 + Math.sin(t * 0.09 + 2) * 3,
+                 b3.y - Wh * 0.09, b3.w * 0.20, Wh * 0.23, b3.alpha * 0.7, true);
+          object(A.plataforma, b3.x + b3.w * 0.36 + sway, b3.y - Wh * 0.16,
+                 b3.w * 0.32, Wh * 0.27, b3.alpha, false);
+          /* --- P2 · estrato + columnas ------------------------------------- */
+          band(A.estrato, B[1], Wh * 0.42, B[1].alpha, false);
+          const b2 = B[1];
+          object(A.columna, b2.x + b2.w * 0.19, b2.y - Wh * 0.10,
+                 b2.w * 0.085, Wh * 0.46, b2.alpha * 0.92, false);
+          object(A.columna, b2.x + b2.w * 0.76 + Math.sin(t * 0.13) * 3,
+                 b2.y - Wh * 0.06, b2.w * 0.062, Wh * 0.34, b2.alpha * 0.78, true);
+          /* --- humo infernal: corrientes lentas, densidad variable --------- */
+          const hs = Wh * 0.56;
+          for (let i = 0; i < SMOKE.length; i++) {
+            const s = SMOKE[i];
+            const im = v5(A.humo); if (!im) break;
+            const drift = reduced() ? 0 : Math.sin(t * 0.17 + s.phase) * s.sway;
+            const dens = s.alpha * (0.72 + 0.28 * Math.sin(t * 0.23 + s.phase)) * (1 + de.p * 0.35);
+            c.globalAlpha = Math.max(0.04, dens);
+            c.drawImage(im, W * s.lane + drift + B[3].dx * 0.5,
+                        H - hs * s.scale - (reduced() ? 0 : (t * 5 * (i + 1)) % 14),
+                        W * 0.16 * s.scale, hs * s.scale);
+            c.globalAlpha = 1; S.draws.smoke++;
+          }
+          /* --- P1 · paredes próximas con máxima definición ------------------ */
+          /* Las paredes se reservan los tercios laterales: el centro queda
+             ABIERTO para que se lean las profundidades. Si cubrieran todo el
+             ancho, el abismo parecería un suelo rocoso más. */
+          const b1 = B[0], nw = W * 0.36, nh = Wh * 0.95;
+          object(A.paredIzq, -34 + b1.dx * 0.25, T - 2, nw, nh, b1.alpha * 0.92, false);
+          object(A.paredDer, W * 0.64 + b1.dx * 0.25, T - 2, nw, nh, b1.alpha * 0.92, true);
+          /* Vacío central: oscurece el centro sin tapar los planos lejanos. */
+          const vg = c.createLinearGradient(0, T, 0, H);
+          vg.addColorStop(0, 'rgba(2,3,10,0)');
+          vg.addColorStop(0.45, 'rgba(2,3,10,0.28)');
+          vg.addColorStop(1, 'rgba(2,3,10,0.58)');
+          c.save();
+          c.beginPath();
+          c.moveTo(W * 0.30, T); c.lineTo(W * 0.70, T);
+          c.lineTo(W * 0.61, H); c.lineTo(W * 0.39, H);
+          c.closePath(); c.clip();
+          c.fillStyle = vg; c.fillRect(0, T, W, H - T);
+          c.restore();
+          /* --- luces profundas: laten SÓLO dentro del abismo --------------- */
+          c.globalCompositeOperation = 'lighter';
+          for (let k = 0; k < 7; k++) {
+            const lx = W * (0.36 + (k * 0.137) % 0.30) + Math.sin(t * 0.08 + k) * 6;
+            const ly = H - 16 - (k % 3) * 9;
+            const rr = 11 + 17 * de.open + 4 * (reduced() ? 0.5 : Math.sin(t * 0.6));
+            glow(lx, ly, rr, '251,146,60', 0.11 + 0.17 * de.open);
+          }
+          c.globalCompositeOperation = 'source-over';
+          c.globalAlpha = 1;
+          c.restore();
+          S.frames++;
+        }
+        /* Brasas, ceniza y motas: confinadas al cutaway, lejos del jugador y
+           de los NPC. Se dibujan antes del HUD (zf). */
+        function drawAmbient() {
+          const q = geom();
+          if (!S.visible) return;
+          const c = g, W = q.W, H = q.H, T = q.T, Wh = q.Wh, B = q.boxes, de = q.de;
+          c.save(); c.setTransform(1, 0, 0, 1, 0, 0);
+          for (let i = 0; i < EMB.length; i++) {
+            const e = EMB[i], b = B[e.band];
+            const x = b.x + b.w * e.lane + Math.sin(S.clock * 0.7 + i) * (2 + e.band * 3);
+            const y = H - e.t * Wh * (0.95 + 0.15 * de.open);
+            e.x = x; e.y = y; e.a = Math.max(0, (1 - e.t) * (0.32 + 0.22 * de.open));
+            if (y < T + 2 || y > H || x < 0 || x > W) continue;
+            c.globalAlpha = e.a;
+            c.fillStyle = i % 5 === 0 ? '#67e8f9' : (i % 3 === 0 ? '#f472b6' : '#fb923c');
+            c.fillRect(Math.round(x), Math.round(y), e.size, e.size * 1.8);
+            S.draws.embers++;
+          }
+          for (let i = 0; i < ASH.length; i++) {
+            const a = ASH[i];
+            const x = W * (0.20 + 0.60 * a.lane) + Math.sin(S.clock * a.drift + i) * 26;
+            const y = T + Wh * (0.18 + 0.72 * a.t);
+            a.x = x; a.y = y; a.a = 0.10 * (1 - a.t);
+            if (y < T + 2 || y > H) continue;
+            c.globalAlpha = a.a; c.fillStyle = '#c4b5fd';
+            c.fillRect(Math.round(x), Math.round(y), a.size, a.size);
+            S.draws.ash++;
+          }
+          c.globalAlpha = 1;
+          c.restore();
+        }
+        let installed = false;
+        function install() {
+          if (installed) return false;
+          installed = true;
+          const safe = function (fn, tag) {
+            try { fn(); } catch (e) { note(tag + ': ' + (e && e.message || e)); }
+          };
+          /* T08 se monta DESPUÉS de T07: prevZf es el wrapper de T07, de modo
+             que el cutaway queda debajo de los overlays de descenso y del HUD. */
+          const prevZf = zf;
+          zf = function () {
+            if (on()) {
+              safe(drawFissure, 'zf/fissure');
+              safe(drawCutaway, 'zf/cutaway');
+              safe(drawAmbient, 'zf/ambient');
+            }
+            return prevZf.apply(this, arguments);
+          };
+          const prevTf = Tf;
+          Tf = function (dt) {
+            const r = prevTf.apply(this, arguments);
+            if (on()) safe(function () { update(dt); }, 'Tf');
+            return r;
+          };
+          return true;
+        }
+        function snapshot() {
+          const q = geom();
+          return JSON.parse(JSON.stringify({
+            version: VER, enabled: S.enabled,
+            flag: window.__DDM_HUB_T08 === false ? 'OFF' : 'ON',
+            clock: +S.clock.toFixed(2), frames: S.frames, updates: S.updates,
+            visible: S.visible, winTop: +S.winTop.toFixed(1), winH: +S.winH.toFixed(1),
+            expand: +S.expand.toFixed(1), descentP: +S.descentP.toFixed(3),
+            draws: S.draws, errors: S.errors.slice(), lastError: S.lastError,
+            camera: { x: q.cm.x, y: q.cm.y, zoom: q.cm.zoom },
+            assets: Object.keys(A).map(function (k) { return { key: k, alias: A[k], loaded: !!v5(A[k]) }; }),
+            boxes: q.boxes.map(function (b) {
+              return { id: b.id, d: b.d, factor: b.factor, x: +b.x.toFixed(1),
+                       y: +b.y.toFixed(1), w: +b.w.toFixed(1), h: +b.h.toFixed(1),
+                       dx: +b.dx.toFixed(1), alpha: b.alpha };
+            }),
+            embers: EMB.slice(0, 8).map(function (e) {
+              return { x: +e.x.toFixed(1), y: +e.y.toFixed(1), t: +e.t.toFixed(3) };
+            })
+          }));
+        }
+        window.DMO_HUB_T08 = Object.freeze({
+          state: snapshot, debug: snapshot,
+          setEnabled: function (v) { S.enabled = !!v; return S.enabled; },
+          planes: PLANES, aliases: A
+        });
+        return { install: install, state: snapshot };
+      })();
+      /* === TANDA08:END (módulo) ============================================== */
+/* === TANDA09:BEGIN · MÓDULO «EL HUB COMO LUGAR HABITADO» ======================
+   Fase 2 · rutinas / Fase 3 · integración por zona / Fase 4 · acontecimientos.
+
+   NO es un sistema de NPC paralelo:
+     * mismos 10 props (4 ambientDancers T01 + 6 actores T07), mismos ids;
+     * mismo registro addHubCustomProp -> Lc -> Y-sort, mismos sprites V5;
+     * UN único acumulador dt desde UN hook Tf encadenado tras T08;
+     * sin props nuevos, sin intervalos, sin rAF, sin canvas, sin colisiones,
+       sin cámara, sin audio, sin Director, sin progresión, sin diálogos.
+
+   Se envuelve prop.hubDraw guardando el original. Con
+   window.__DDM_HUB_T09 === false (o movimiento reducido, o fuera del HUB)
+   el wrapper DELEGA ÍNTEGRAMENTE en el pintor original de T01–T08:
+   ni rutinas, ni acontecimientos, ni cambios de actividad.
+
+   Continuidad: stepIdx usa SIEMPRE el mismo reloj artístico zz(); la pausa
+   congela el frame con holdOffset (sin reiniciar phase) y lo recupera con
+   suavizado. Orientación, intensidad y desplazamiento se interpolan.
+   ========================================================================== */
+const T09 = (function () {
+  const VER = '4.0.0-tanda09';
+  const ASSETS = [
+    { slot: 't09_rest_seated', file: 'ART_ASSETS/hub/tanda_09/01_descanso/final/hub_t09_01_descanso.png' },
+    { slot: 't09_observe',     file: 'ART_ASSETS/hub/tanda_09/02_observador/final/hub_t09_02_observador.png' },
+    { slot: 't09_greeting',    file: 'ART_ASSETS/hub/tanda_09/03_gesto/final/hub_t09_03_gesto.png' },
+    { slot: 't09_wait',        file: 'ART_ASSETS/hub/tanda_09/04_espera/final/hub_t09_04_espera.png' }
+  ];
+  const S = {
+    version: VER, enabled: true, clock: 0, updates: 0, draws: 0, delegated: 0,
+    wrapped: 0, installed: false, hooksInstalled: false, assetsRequested: false,
+    records: [], assets: {}, errors: [], event: null, eventGap: 25,
+    eventIndex: 0, eventsFired: 0, eventsCompleted: 0, lastError: '',
+    counts: { pauses: 0, shifts: 0, observes: 0, greetings: 0, resumes: 0 }
+  };
+
+  /* --- definiciones: MISMOS 10 props de T01/T07 (narr_cliente000 excluido) --- */
+  /* durAct/durPause en s · iMin/iMax intensidad · shift en u · react peso 0..1 */
+  const DEFS = [
+    { id:'hub_ambient_dancer_nw',  kind:'amb', zone:'A',   act:'dance', x:1030, y:785,  h:96,  dh:100, phase:0.0, rate:1.00, flip:false, col:'#ec4899', index:0,
+      durAct:7.5, durPause:1.4, iMin:.70, iMax:1.10, shift:0,  react:0,    pauseAct:'PAUSE',   pose:null,             events:['group_start'] },
+    { id:'hub_ambient_dancer_ne',  kind:'amb', zone:'A',   act:'dance', x:1470, y:785,  h:96,  dh:100, phase:1.7, rate:1.00, flip:true,  col:'#22d3ee', index:1,
+      durAct:9.2, durPause:2.1, iMin:.60, iMax:1.15, shift:0,  react:0,    pauseAct:'PAUSE',   pose:null,             events:['two_positions'] },
+    { id:'hub_ambient_dancer_sw',  kind:'amb', zone:'A/F', act:'dance', x:1015, y:1085, h:96,  dh:100, phase:3.1, rate:1.00, flip:false, col:'#a855f7', index:2,
+      durAct:6.8, durPause:1.8, iMin:.55, iMax:.95,  shift:0,  react:0,    pauseAct:'OBSERVE', pose:'t09_observe',    events:['arcade_watch'] },
+    { id:'hub_ambient_clubber_bar',kind:'amb', zone:'E',   act:'dance', x:1965, y:918,  h:96,  dh:98,  phase:2.4, rate:1.00, flip:true,  col:'#f472b6', index:3,
+      durAct:8.4, durPause:2.6, iMin:.45, iMax:.90,  shift:0,  react:0,    pauseAct:'WAIT',    pose:'t09_wait',       events:['bar_shift'] },
+    { id:'t07_danza_01',           kind:'t07', zone:'A',   act:'dance', x:1120, y:900,  h:96,  dh:0,   phase:0.35,rate:1.00, flip:false, col:'#ec4899', index:-1,
+      durAct:5.6, durPause:1.2, iMin:.75, iMax:1.20, shift:18, react:.90,  pauseAct:'PAUSE',   pose:null,             events:['group_start'] },
+    { id:'t07_danza_02',           kind:'t07', zone:'A',   act:'dance', x:1380, y:900,  h:96,  dh:0,   phase:2.15,rate:0.86, flip:true,  col:'#22d3ee', index:-1,
+      durAct:7.1, durPause:1.7, iMin:.70, iMax:1.10, shift:18, react:.55,  pauseAct:'PAUSE',   pose:null,             events:['two_positions'] },
+    { id:'t07_charla_01',          kind:'t07', zone:'E',   act:'talk',  x:1690, y:1010, h:92,  dh:0,   phase:0.80,rate:0.55, flip:false, col:'#f472b6', index:-1,
+      durAct:6.2, durPause:2.2, iMin:.40, iMax:.75,  shift:0,  react:.45,  pauseAct:'PAUSE',   pose:null,             events:['conversation_ends'] },
+    { id:'t07_charla_02',          kind:'t07', zone:'E',   act:'talk',  x:1780, y:1010, h:92,  dh:0,   phase:2.60,rate:0.48, flip:true,  col:'#67e8f9', index:-1,
+      durAct:8.0, durPause:1.9, iMin:.35, iMax:.70,  shift:0,  react:.25,  pauseAct:'PAUSE',   pose:null,             events:['conversation_ends'] },
+    { id:'t07_descanso',           kind:'t07', zone:'E',   act:'rest',  x:1910, y:900,  h:88,  dh:0,   phase:1.40,rate:0.30, flip:false, col:'#a855f7', index:-1,
+      durAct:11.0,durPause:3.0, iMin:.25, iMax:.45,  shift:0,  react:0,    pauseAct:'POSTURE', pose:'t09_rest_seated',events:['posture_change'], basePose:'t09_rest_seated' },
+    { id:'t07_recorrido',          kind:'t07', zone:'D/A', act:'walk',  x:900,  y:700,  h:94,  dh:0,   phase:3.30,rate:0.72, flip:false, col:'#fde047', index:-1,
+      durAct:9.5, durPause:2.4, iMin:.55, iMax:.95,  shift:25, react:.35,  pauseAct:'OBSERVE', pose:'t09_observe',    events:['cliff_watch'], span:62 }
+  ];
+
+  /* --- acontecimientos: uno simultáneo, raros, breves, reversibles ---------- */
+  const EVENTS = [
+    { id:'conversation_ends', dur:4.0, npcs:['t07_charla_01','t07_charla_02'],
+      ov:{ 't07_charla_01':{ i:.12, face:0, pose:null }, 't07_charla_02':{ i:.45, face:1, pose:'t09_greeting' } } },
+    { id:'group_start', dur:4.5, npcs:['hub_ambient_dancer_nw','t07_danza_01'],
+      ov:{ 'hub_ambient_dancer_nw':{ i:1.20, face:0, pose:null }, 't07_danza_01':{ i:1.20, face:1, pose:null } } },
+    { id:'arcade_watch', dur:5.0, npcs:['hub_ambient_dancer_sw'],
+      ov:{ 'hub_ambient_dancer_sw':{ i:.06, face:1, pose:'t09_observe' } } },
+    { id:'bar_shift', dur:3.5, npcs:['hub_ambient_clubber_bar'],
+      ov:{ 'hub_ambient_clubber_bar':{ i:.08, face:0, pose:'t09_wait' } } },
+    { id:'two_positions', dur:5.5, npcs:['hub_ambient_dancer_ne','t07_danza_02'],
+      ov:{ 'hub_ambient_dancer_ne':{ i:.85, face:0, pose:null, dx:-14 }, 't07_danza_02':{ i:.85, face:1, pose:null, dx:14 } } },
+    { id:'cliff_watch', dur:4.5, npcs:['t07_recorrido'],
+      ov:{ 't07_recorrido':{ i:.05, face:0, pose:'t09_observe' } } },
+    { id:'posture_change', dur:3.0, npcs:['t07_descanso'],
+      ov:{ 't07_descanso':{ i:.45, face:0, pose:'hub_bartender_npc' } } }
+  ];
+
+  function note(tag, e) {
+    try {
+      const m = tag + ': ' + String(e && (e.message || e) || e);
+      S.errors.push(m); if (S.errors.length > 24) S.errors.shift();
+      S.lastError = m;
+    } catch (_) {}
+  }
+  function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+  function ease(u) { u = clamp(u, 0, 1); return u * u * (3 - 2 * u); }
+  /* variación DETERMINISTA: sin Math.random */
+  function hash(n) { const x = Math.sin(n * 127.1 + 311.7) * 43758.5453; return x - Math.floor(x); }
+  function hs() { try { return window.DMO_HUB && window.DMO_HUB.state ? window.DMO_HUB.state() : null; } catch (e) { return null; } }
+  function cineOn() { try { return !!(window.DMO_CINE && window.DMO_CINE.state && window.DMO_CINE.state().active); } catch (e) { return false; } }
+  function reduced() { try { return !!Yc.reduced; } catch (e) { return false; } }
+  function zz() { try { return (hub.ambientFrozenAt != null) ? hub.ambientFrozenAt : Z; } catch (e) { return Z; } }
+  function t07clock() { try { return window.__DDM_T07.S.clock; } catch (e) { return S.clock; } }
+  function v5(k) {
+    try { const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[k];
+          return (im && im.complete && im.naturalWidth > 0) ? im : null; } catch (e) { return null; }
+  }
+  function on() { return S.enabled && window.__DDM_HUB_T09 !== false && !reduced(); }
+  function onFor(kind) { return on() && (kind !== 't07' || window.__DDM_HUB_T07 !== false); }
+  function worldLive() {
+    const q = hs();
+    if (!q || !q.inHub) return false;
+    if (q.location !== 'HUB' && q.location !== 'TRANSITION') return false;
+    if (q.mode && q.mode !== 'EXPLORATION') return false;
+    if (q.modalOpen) return false;
+    if (q.transitionLock) return false;
+    if (cineOn()) return false;
+    try { if (floorDropAnim && floorDropAnim.active) return false; } catch (e) {}
+    try { if (window.__DDM_T07.S.arrival.active) return false; } catch (e) {}
+    return true;
+  }
+  function props() {
+    /* IMPORTANTE: window.DMO_LAYOUT.propObjects() está envuelto en oA()/tA()
+       y devuelve un CLON PROFUNDO. Para enganchar el pintor hay que usar el
+       array REAL `tc` (el mismo que recorre el renderer Lc y que usa
+       addHubCustomProp). Sólo lectura: no se añaden ni eliminan props. */
+    try { if (typeof tc !== 'undefined' && Array.isArray(tc)) return tc; } catch (e) {}
+    try {
+      const f = window.DMO_LAYOUT && window.DMO_LAYOUT.propObjects;
+      if (typeof f === 'function') { const a = f(); if (Array.isArray(a)) return a; }
+    } catch (e) {}
+    return [];
+  }
+
+  /* --- recursos: carga PEREZOSA (con flag=false en arranque no se pide nada) */
+  function ensureAssets() {
+    if (!on() || S.assetsRequested) return;
+    S.assetsRequested = true;
+    for (let i = 0; i < ASSETS.length; i++) {
+      (function (a) {
+        try {
+          const im = new Image(); im.decoding = 'async';
+          im.onload = function () {
+            S.assets[a.slot] = im;
+            try { if (window.__DDM_V5_IMG) window.__DDM_V5_IMG[a.slot] = im; } catch (e) {}
+          };
+          im.onerror = function () { note('asset', a.file); };
+          im.src = a.file;
+        } catch (e) { note('asset', e); }
+      })(ASSETS[i]);
+    }
+  }
+  function sprite(k) {
+    if (!k) return null;
+    const t = S.assets[k]; if (t && t.complete && t.naturalWidth > 0) return t;
+    return v5(k);   /* fallback a los sprites V5 originales */
+  }
+
+  /* --- registros ---------------------------------------------------------- */
+  function makeRecords() {
+    S.records.length = 0;
+    for (let i = 0; i < DEFS.length; i++) {
+      const d = DEFS[i], seed = hash(i + 1.7);
+      S.records.push({
+        def: d, id: d.id, seed: seed, prop: null, orig: null,
+        state: 'ACTIVE', tLeft: d.durAct * (0.72 + 0.5 * seed),
+        cycles: 0, changes: 0,
+        intensity: 1, tIntensity: 1,
+        faceMix: d.flip ? 1 : 0, tFaceMix: d.flip ? 1 : 0,
+        baseFace: d.flip ? 1 : 0,
+        dx: 0, dy: 0, tdx: 0, tdy: 0,
+        holdOffset: 0, tHold: 0, holdClock: 0, tClockHold: 0,
+        freezeT: null, freezeC: null,
+        pose: d.basePose || null, eventId: null,
+        lastSprite: '', lastFrame: -1, lastX: d.x, lastReact: 0,
+        lastIntensity: 1, lastState: 'ACTIVE'
+      });
+    }
+  }
+
+  /* --- máquina de estados (UN dt compartido) ------------------------------- */
+  function enterState(r, state) {
+    const d = r.def, n = r.cycles + r.seed * 10;
+    r.state = state; r.changes++; r.lastState = state;
+    if (state === 'ACTIVE') {
+      r.tLeft = d.durAct * (0.72 + 0.56 * hash(n + 1));
+      r.tIntensity = d.iMin + (d.iMax - d.iMin) * hash(n + 2);
+      r.freezeT = null; r.freezeC = null;
+      r.pose = d.basePose || null;
+      r.tdx = 0; r.tdy = 0;
+      /* alternancia compatible de orientación, nunca brusca */
+      r.tFaceMix = (hash(n + 3) > 0.72) ? (d.flip ? 0 : 1) : (d.flip ? 1 : 0);
+      r.baseFace = r.tFaceMix;
+      /* los 3 actores con desplazamiento corto entran a veces en SHIFT */
+      if (d.shift > 0 && hash(n + 4) > 0.62) {
+        r.state = 'SHIFT'; r.lastState = 'SHIFT'; S.counts.shifts++;
+        r.tLeft = 2.0 + 1.4 * hash(n + 5);
+        r.tdx = (hash(n + 6) > 0.5 ? 1 : -1) * d.shift * (0.55 + 0.35 * hash(n + 7));
+        r.tdy = (hash(n + 8) > 0.5 ? 1 : -1) * Math.min(8, d.shift * 0.35);
+      }
+    } else if (state === 'PAUSE' || state === 'WAIT' || state === 'OBSERVE' || state === 'POSTURE') {
+      r.tLeft = d.durPause * (0.75 + 0.5 * hash(n + 9));
+      r.tIntensity = (state === 'POSTURE') ? 0.55 : (state === 'OBSERVE' ? 0.05 : 0.12);
+      r.freezeT = zz(); r.freezeC = t07clock();
+      r.pose = d.pose;
+      r.tdx = 0; r.tdy = 0;
+      if (state === 'OBSERVE') { r.tFaceMix = d.flip ? 0 : 1; S.counts.observes++; }
+      if (state === 'WAIT') r.tFaceMix = d.flip ? 0 : 1;
+      r.baseFace = r.tFaceMix;
+      S.counts.pauses++;
+    } else if (state === 'RESUME') {
+      r.tLeft = 0.55; r.tIntensity = d.iMin + (d.iMax - d.iMin) * 0.5;
+      r.freezeT = null; r.freezeC = null; r.pose = d.basePose || null;
+      r.tdx = 0; r.tdy = 0; S.counts.resumes++;
+    }
+  }
+
+  function update(dt) {
+    S.updates++;
+    const raw = Number(dt) || 0.016;
+    const step = clamp(raw, 0, 0.1);
+    S.clock += step;
+    /* Se reengancha sobre los props vivos antes de cualquier otra cosa. */
+    if (on()) { try { wrapProps(); } catch (e) { note('wrap', e); } }
+    if (!on() || !worldLive()) return;
+    ensureAssets();
+    const z = zz(), c = t07clock();
+    const k = Math.min(1, step / 0.45);
+    const kFace = Math.min(1, step / 0.22);
+    const kHold = Math.min(1, step / 1.2);   /* recuperación lenta: sin saltos de frame */
+
+    /* --- acontecimientos (uno a la vez, separación >= 25 s) ---------------- */
+    if (S.event) {
+      S.event.tLeft -= step;
+      if (S.event.tLeft <= 0) { S.event = null; S.eventsCompleted++; S.eventGap = 25 + 4 * (S.eventIndex % 3); }
+    } else {
+      S.eventGap -= step;
+      if (S.eventGap <= 0) {
+        const ev = EVENTS[S.eventIndex % EVENTS.length];
+        S.eventIndex++; S.eventsFired++;
+        S.event = { id: ev.id, tLeft: ev.dur, dur: ev.dur, npcs: ev.npcs, ov: ev.ov };
+      }
+    }
+
+    for (let i = 0; i < S.records.length; i++) {
+      const r = S.records[i];
+      /* transiciones suaves (sin reinicios ni saltos) */
+      r.intensity += (r.tIntensity - r.intensity) * k;
+      r.faceMix += (r.tFaceMix - r.faceMix) * kFace;
+      r.dx += (r.tdx - r.dx) * k;
+      r.dy += (r.tdy - r.dy) * k;
+      r.tHold = (r.freezeT != null) ? Math.max(0, z - r.freezeT) : 0;
+      r.tClockHold = (r.freezeC != null) ? Math.max(0, c - r.freezeC) : 0;
+      /* Congelación EXACTA durante la pausa; al reanudar, el desfase decae
+         lentamente (tEff recupera el reloj real SIN reiniciar phase y SIN
+         saltar frames). Es una aceleración suave, no un corte. */
+      if (r.freezeT != null) { r.holdOffset = r.tHold; r.holdClock = r.tClockHold; }
+      else {
+        r.holdOffset += (0 - r.holdOffset) * kHold;
+        r.holdClock += (0 - r.holdClock) * kHold;
+      }
+
+      const ev = (S.event && S.event.npcs.indexOf(r.id) >= 0) ? S.event.ov[r.id] : null;
+      if (ev) {
+        if (r.eventId !== S.event.id) { r.eventId = S.event.id; }
+        r.tIntensity = ev.i;
+        r.tFaceMix = ev.face;
+        r.pose = ev.pose;
+        r.tdx = ev.dx || 0; r.tdy = 0;
+        r.freezeT = (ev.i < 0.15) ? (r.freezeT != null ? r.freezeT : z) : null;
+        r.freezeC = (ev.i < 0.15) ? (r.freezeC != null ? r.freezeC : c) : null;
+      } else if (r.eventId) {
+        r.eventId = null;
+        enterState(r, 'RESUME');
+      } else {
+        r.tLeft -= step;
+        if (r.tLeft <= 0) {
+          if (r.state === 'ACTIVE' || r.state === 'SHIFT' || r.state === 'RESUME') {
+            enterState(r, r.def.pauseAct);
+          } else {
+            r.cycles++;
+            enterState(r, 'ACTIVE');
+          }
+        }
+      }
+      /* --- orientación guiada (UNA sola transición suave por cambio) --------
+         Prioridad: reacción conservada de T07 > dirección del recorrido >
+         orientación base del estado. Nunca se deja un valor intermedio
+         sostenido: faceMix siempre converge a 0 o 1. */
+      if (!ev) {
+        let guided = -1;
+        if (r.def.react > 0 && r.def.act !== 'rest') {
+          const qx = (typeof ye !== 'undefined' && ye) ? ye.x : 1250;
+          const qy = (typeof ye !== 'undefined' && ye) ? ye.y : 965;
+          const ex = qx - (r.def.x + r.dx), ey = qy - (r.def.y + r.dy);
+          const dist = Math.sqrt(ex * ex + ey * ey);
+          const w = clamp((185 - dist) / 85, 0, 1) * r.def.react;
+          if (w > 0.30) guided = ex < 0 ? 1 : 0;
+          /* Dejar libre el paso: sin offset cuando el jugador está encima. */
+          if (dist < 70) { r.tdx = 0; r.tdy = 0; }
+        }
+        if (guided < 0 && r.def.act === 'walk') {
+          const ph = c * 1.35 * r.def.rate + r.def.phase;
+          guided = Math.cos(ph) < 0 ? 1 : 0;
+        }
+        r.tFaceMix = guided >= 0 ? guided : r.baseFace;
+      }
+      r.lastIntensity = r.intensity;
+    }
+  }
+
+  /* --- pintor: réplica del render existente + estados ---------------------- */
+  function glow(ctx, x, y, radius, color) {
+    try { if (typeof Wb === 'function') { Wb(ctx, x, y, radius, color, 0.16); return; } } catch (e) {}
+    try {
+      const gr = ctx.createRadialGradient(x, y, 0, x, y, radius);
+      gr.addColorStop(0, 'rgba(236,72,153,0.16)'); gr.addColorStop(1, 'rgba(236,72,153,0)');
+      ctx.fillStyle = gr; ctx.beginPath(); ctx.arc(x, y, radius, 0, Math.PI * 2); ctx.fill();
+    } catch (e) {}
+  }
+  function baseV5(r, frame) {
+    const d = r.def;
+    if (d.act === 'rest') return v5('hub_bartender_npc') || v5('hub_cliente000_npc') || v5('hub_clubber_dancer_a');
+    if (d.act === 'talk') return (d.flip ? v5('hub_clubber_dancer_b') : v5('hub_bouncer_npc')) || v5('hub_clubber_dancer_a');
+    if (d.kind === 'amb') return v5((d.index % 2 === 0) ? 'hub_clubber_dancer_a' : 'hub_clubber_dancer_b');
+    return (frame & 1) ? (v5('hub_clubber_dancer_b') || v5('hub_clubber_dancer_a'))
+                       : (v5('hub_clubber_dancer_a') || v5('hub_clubber_dancer_b'));
+  }
+  function draw(ctx, r) {
+    const d = r.def;
+    const tEff = zz() - r.holdOffset;
+    const cEff = t07clock() - r.holdClock;
+    const I = clamp(r.intensity, 0, 1.3);
+    const px = (typeof ye !== 'undefined' && ye) ? ye.x : 1250;
+    const py = (typeof ye !== 'undefined' && ye) ? ye.y : 965;
+    let x = d.x + r.dx, y = d.y + r.dy;
+    let lean = 0, bounce = 0, frame = 0, alpha = d.act === 'rest' ? 0.86 : 0.98;
+    let faceMix = r.faceMix;
+
+    if (reduced()) { /* nunca debería llegar aquí: on() ya delega */ }
+    if (d.act === 'dance') {
+      frame = Math.floor(tEff * 5.6 * d.rate + d.phase) & 3;
+      bounce = Math.round(Math.abs(Math.sin(tEff * 6.8 * d.rate + d.phase)) * (d.kind === 'amb' ? 2.5 : 3.2) * I);
+      lean = Math.sin(tEff * 3.3 * d.rate + d.phase) * 0.065 * I;
+      x += Math.sin(tEff * 1.1 * d.rate + d.phase) * 3.0 * I;
+    } else if (d.act === 'talk') {
+      lean = Math.sin(tEff * 1.5 * d.rate + d.phase) * 0.035 * I;
+      bounce = Math.round(Math.sin(tEff * 2.2 * d.rate + d.phase) * 1.2 * I);
+    } else if (d.act === 'rest') {
+      lean = (0.085 + Math.sin(tEff * 0.55 * d.rate + d.phase) * 0.012) * I;
+      bounce = Math.round(Math.sin(tEff * 1.1 * d.rate + d.phase) * 0.9 * I);
+    } else if (d.act === 'walk') {
+      const ph = cEff * 1.35 * d.rate + d.phase;
+      x += Math.sin(ph) * (d.span || 62) * (0.35 + 0.65 * I);
+      frame = Math.floor(tEff * 5.2 * d.rate + d.phase) & 3;
+      bounce = Math.round(Math.abs(Math.sin(tEff * 6.2 * d.rate + d.phase)) * 2.2 * I);
+    }
+
+    /* Reacciones CONSERVADAS de T07, con peso individual. rest excluido. */
+    let react = 0, pose = r.pose;
+    if (d.react > 0 && d.act !== 'rest') {
+      const dx = px - x, dy = py - y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      react = clamp((185 - dist) / 85, 0, 1) * d.react;
+      if (react > 0.02) {
+        lean += react * 0.05 * (0.6 + 0.4 * Math.sin(tEff * 3.1 + d.phase));
+        bounce += Math.round(react * 1.5);
+        if (react > 0.70 && d.act === 'talk') { pose = 't09_greeting'; S.counts.greetings++; }
+      }
+    }
+    let im = sprite(pose) || baseV5(r, frame);
+    r.lastSprite = pose || (d.kind === 'amb' ? ((d.index % 2 === 0) ? 'hub_clubber_dancer_a' : 'hub_clubber_dancer_b') : 'v5-frame-' + frame);
+    r.lastFrame = frame; r.lastX = Math.round(x); r.lastReact = +react.toFixed(3);
+
+    ctx.save();
+    ctx.imageSmoothingEnabled = d.kind === 't07';
+    ctx.fillStyle = 'rgba(2,6,23,0.42)';
+    ctx.beginPath(); ctx.ellipse(x, y, d.kind === 'amb' ? 16 : 15, d.kind === 'amb' ? 6.5 : 6, 0, 0, Math.PI * 2); ctx.fill();
+    if (d.kind === 'amb') glow(ctx, x, y - 24, 44, (d.index % 2 === 0) ? '#ec4899' : '#22d3ee');
+    ctx.globalAlpha = alpha;
+    ctx.translate(Math.round(x), Math.round(y + (d.kind === 'amb' ? 4 : 3) - bounce));
+    ctx.rotate(lean);
+    const sx = 1 - 2 * clamp(faceMix, 0, 1);
+    if (Math.abs(sx) > 0.02) ctx.scale(sx, 1); else ctx.scale(0.02, 1);
+    const hh = d.kind === 'amb' ? 96 : d.h;
+    const ww = Math.round(hh * (im ? im.naturalWidth / im.naturalHeight : 0.47));
+    if (im) ctx.drawImage(im, Math.round(-ww * 0.5), -hh, ww, hh);
+    else { ctx.fillStyle = '#f43f5e'; ctx.fillRect(-14, -hh, 28, hh); }
+    ctx.restore();
+
+    /* puntos de conversación (sin texto, como T07) */
+    if (d.act === 'talk' && !reduced() && I > 0.3) {
+      const s = Math.floor(tEff * 2.4 * d.rate + d.phase) % 3;
+      ctx.save(); ctx.globalAlpha = 0.65 * I; ctx.fillStyle = d.col;
+      for (let q = 0; q < 3; q++) {
+        ctx.beginPath();
+        ctx.arc(x + (q - 1) * 7, y - hh - 12 - (s === q ? 3 : 0), 1.8, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.restore();
+    }
+    S.draws++;
+  }
+
+  /* --- instalación: envuelve los MISMOS props, guarda el original ---------- */
+  function wrapProps() {
+    /* ENGANCHE PEREZOSO: buildHubSpace() puede RECREAR el array de props
+       después de T09.install(), así que se reengancha cada ciclo sobre los
+       objetos VIVOS que el renderer Lc va a usar. Sin props nuevos. */
+    const list = props(); let n = 0;
+    for (let i = 0; i < DEFS.length; i++) {
+      const r = S.records[i];
+      let found = null;
+      for (let j = 0; j < list.length; j++) {
+        if (list[j] && list[j].id === r.id) { found = list[j]; break; }
+      }
+      if (!found) continue;
+      if (found.__t09Wrapped && r.prop === found) { n++; continue; }
+      const orig = found.__t09Wrapped ? found.__t09Orig : found.hubDraw;
+      if (typeof orig !== 'function') continue;
+      found.__t09Orig = orig;
+      found.__t09Wrapped = true;
+      r.prop = found; r.orig = orig;
+      found.hubDraw = function (ctx, p) {
+        if (!onFor(r.def.kind)) { S.delegated++; return orig.call(this, ctx, p); }
+        try { draw(ctx, r); } catch (e) { note('draw/' + r.id, e); return orig.call(this, ctx, p); }
+      };
+      n++;
+    }
+    S.wrapped = n;
+    return n;
+  }
+  function installHooks() {
+    if (S.hooksInstalled) return false;
+    S.hooksInstalled = true;
+    const prevTf = Tf;
+    Tf = function (dt) {
+      const out = prevTf.apply(this, arguments);
+      try { update(dt); } catch (e) { note('update', e); }
+      return out;
+    };
+    return true;
+  }
+  function install() {
+    if (!S.records.length) makeRecords();
+    let n = 0;
+    try { n = wrapProps(); } catch (e) { note('wrap', e); }
+    try { installHooks(); } catch (e) { note('hooks', e); }
+    S.installed = true;
+    return n;
+  }
+
+  /* --- API de QA (sólo lectura + flag) ------------------------------------ */
+  function snapshot() {
+    return JSON.parse(JSON.stringify({
+      version: VER, enabled: S.enabled,
+      flag: window.__DDM_HUB_T09 === false ? 'OFF' : 'ON',
+      clock: +S.clock.toFixed(2), updates: S.updates, draws: S.draws,
+      delegated: S.delegated, wrapped: S.wrapped, installed: S.installed,
+      hooksInstalled: S.hooksInstalled,
+      worldLive: worldLive(), reduced: reduced(),
+      event: S.event ? { id: S.event.id, tLeft: +S.event.tLeft.toFixed(2), npcs: S.event.npcs } : null,
+      eventGap: +S.eventGap.toFixed(2), eventsFired: S.eventsFired,
+      eventsCompleted: S.eventsCompleted, eventIndex: S.eventIndex,
+      counts: S.counts,
+      assets: ASSETS.map(function (a) { return { slot: a.slot, loaded: !!sprite(a.slot) && !!S.assets[a.slot] }; }),
+      records: S.records.map(function (r) {
+        return { id: r.id, zone: r.def.zone, act: r.def.act, state: r.state,
+                 intensity: +r.intensity.toFixed(3), tIntensity: +r.tIntensity.toFixed(3),
+                 faceMix: +r.faceMix.toFixed(3), dx: +r.dx.toFixed(2), dy: +r.dy.toFixed(2),
+                 holdOffset: +r.holdOffset.toFixed(3), pose: r.pose, eventId: r.eventId,
+                 cycles: r.cycles, changes: r.changes, lastFrame: r.lastFrame,
+                 lastX: r.lastX, lastReact: r.lastReact, lastSprite: r.lastSprite };
+      }),
+      errors: S.errors.slice(), lastError: S.lastError,
+      noNewProps: true, accumulators: 1, intervalsPerNPC: 0, newCanvases: 0
+    }));
+  }
+  return { VER: VER, S: S, DEFS: DEFS, EVENTS: EVENTS, install: install,
+           state: snapshot, wrapProps: wrapProps, draw: draw, update: update };
+})();
+window.__DDM_T09 = T09;
+window.DMO_HUB_T09 = Object.freeze({
+  version: T09.VER, state: T09.state, debug: T09.state,
+  setEnabled: function (v) { T09.S.enabled = !!v; return T09.S.enabled; },
+  events: function () { return T09.EVENTS.map(function (e) { return { id: e.id, dur: e.dur, npcs: e.npcs.slice() }; }); },
+  audit: function () {
+    const s = T09.state();
+    return { ok: s.errors.length === 0 && s.wrapped === 10 && s.hooksInstalled,
+             wrapped: s.wrapped, hooksInstalled: s.hooksInstalled,
+             assetsLoaded: s.assets.filter(function (a) { return a.loaded; }).length,
+             npcs: s.records.length, activities: s.records.reduce(function (m, r) {
+               m[r.act] = (m[r.act] || 0) + 1; return m; }, {}),
+             distinctDurations: new Set(T09.DEFS.map(function (d) { return d.durAct + '/' + d.durPause; })).size,
+             events: T09.EVENTS.length, errors: s.errors.slice(),
+             updates: s.updates, draws: s.draws, delegated: s.delegated };
+  }
+});
+/* === TANDA09:END (módulo) ================================================== */
+/* === MODIFICACIÓN PRIORITARIA:INICIO · MÓDULO «LEGIBILIDAD Y GEOGRAFÍA DEL HUB» =====
+   A–F autorizados el 2026-11-04 tras la auditoría visual T01–T08.
+
+   PRINCIPIO: NO se añade nada. Se ordena, atenúa, ancla, recorta y conecta lo
+   que ya existe. Cero assets nuevos, cero props nuevos, cero sistemas nuevos,
+   cero cambios de cámara, motor, Director, combate, progresión ni audio.
+   La transición sigue siendo `startCampaignFromHub(0)` + T07/T08, SIN segunda
+   transición y SIN puerta nueva.
+
+   Reversible con `window.__DDM_HUB_LEGIBILIDAD === false`:
+     * se restauran `style.opacity`, `CFG.grade/grain` y `prop.hidden`;
+     * los envoltorios delegan íntegramente en los pintores T01–T09;
+     * `clipCutaway()` devuelve false y T08 usa su trayectoria original.
+
+   Respeta `__DDM_HUB_T07`, `__DDM_HUB_T08`, `__DDM_HUB_T09` y `Yc.reduced`.
+   El módulo se inserta DENTRO de `initDmoHubV35()` para poder envolver las
+   funciones ya existentes de ese mismo ámbito (`drawHubFloorLayer`,
+   `drawPixelNeonBanner`, `drawDiegeticSign`, `zf`) sin reescribir el motor.
+   ================================================================================ */
+const LEG = (function () {
+  const VER = '1.0.0-legibilidad';
+  /* A · niebla y redundancia (valores medidos en la prueba visual P1/P2) */
+  const BLOOM = 0.30, VIG = 0.45, GRADE = 0.35, GRAIN = 0.006;
+  const HIDE = [
+    'hub_decor_t06_10', 'hub_decor_t06_06_rep1', 'hub_decor_t06_06_rep2',
+    'hub_decor_t06_07_rep1', 'hub_decor_t06_07_rep2', 'hub_decor_planter_v02',
+    'hub_decor_bench_v02', 'hub_decor_speaker_w', 'hub_decor_speaker_e'
+  ];
+  /* Geografía existente T07 que se REUTILIZA, no se sustituye */
+  const CX = 1250, LIP_Y = 1470, MOUTH_Y = 1420, ABYSS_Y = 1585;
+
+  const S = {
+    enabled: window.__DDM_HUB_LEGIBILIDAD !== false,
+    installed: false, wrappers: 0, draws: 0, screenDraws: 0, clips: 0,
+    frames: 0, lastOn: null, worldTr: null, liftSign: null,
+    hidden: 0, atmosApplied: false,
+    bannersHidden: 0, signsHidden: 0, errors: [], lastError: ''
+  };
+  const saved = { bloom: null, vig: null, grade: null, grain: null };
+  let bound = null, savedHidden = [];
+
+  function note(tag, e) {
+    try {
+      const m = tag + ': ' + String((e && (e.message || e)) || e);
+      S.errors.push(m); if (S.errors.length > 24) S.errors.shift(); S.lastError = m;
+    } catch (_) {}
+  }
+  function on() { return S.enabled && window.__DDM_HUB_LEGIBILIDAD !== false; }
+  function geoOn() {
+    return on() && window.__DDM_HUB_T07 !== false && window.__DDM_HUB_T08 !== false;
+  }
+  function openness() {
+    try {
+      const t = window.DMO_HUB_T08 && window.DMO_HUB_T08.state();
+      return Math.max(0, Math.min(1, (Number(t && t.expand) || 0) / 260));
+    } catch (e) { return 0; }
+  }
+  function props() {
+    /* `tc` es el array VIVO que recorre Lc; DMO_LAYOUT.propObjects() es un clon. */
+    try { if (typeof tc !== 'undefined' && Array.isArray(tc)) return tc; } catch (e) {}
+    return [];
+  }
+
+  /* ---- A1–A3 · atmósfera (guarda y restaura estado original) ---------------- */
+  function applyAtmos() {
+    if (S.atmosApplied) return;
+    try {
+      const bl = document.getElementById('ilt-atmos-bloom');
+      const vg = document.getElementById('ilt-atmos-vig');
+      if (bl) { saved.bloom = bl.style.opacity; bl.style.opacity = String(BLOOM); }
+      if (vg) { saved.vig = vg.style.opacity; vg.style.opacity = String(VIG); }
+      const cfg = window.DMO_ATMOS && window.DMO_ATMOS.config;
+      if (cfg) {
+        saved.grade = cfg.grade; saved.grain = cfg.grain;
+        cfg.grade = GRADE; cfg.grain = GRAIN;
+      }
+      S.atmosApplied = true;
+    } catch (e) { note('atmos/apply', e); }
+  }
+  function restoreAtmos() {
+    if (!S.atmosApplied) return;
+    try {
+      const bl = document.getElementById('ilt-atmos-bloom');
+      const vg = document.getElementById('ilt-atmos-vig');
+      if (bl && saved.bloom !== null) bl.style.opacity = saved.bloom;
+      if (vg && saved.vig !== null) vg.style.opacity = saved.vig;
+      const cfg = window.DMO_ATMOS && window.DMO_ATMOS.config;
+      if (cfg) {
+        if (saved.grade !== null) cfg.grade = saved.grade;
+        if (saved.grain !== null) cfg.grain = saved.grain;
+      }
+    } catch (e) { note('atmos/restore', e); }
+    saved.bloom = saved.vig = saved.grade = saved.grain = null;
+    S.atmosApplied = false;
+  }
+
+  /* ---- A4/C5 · visibilidad reversible de props (ninguno se elimina) --------- */
+  function releaseProps() {
+    for (let i = 0; i < savedHidden.length; i++) {
+      const r = savedHidden[i];
+      try { if (r.had) r.p.hidden = r.v; else delete r.p.hidden; } catch (e) {}
+    }
+    savedHidden.length = 0; bound = null; S.hidden = 0;
+  }
+  function syncProps() {
+    const list = props();
+    if (list === bound) return;
+    releaseProps();
+    bound = list;
+    for (let i = 0; i < list.length; i++) {
+      const p = list[i];
+      if (!p || HIDE.indexOf(p.id) < 0) continue;
+      savedHidden.push({ p: p, v: p.hidden, had: Object.prototype.hasOwnProperty.call(p, 'hidden') });
+      p.hidden = true;
+    }
+    S.hidden = savedHidden.length;
+  }
+  function sync() {
+    if (on()) { applyAtmos(); syncProps(); }
+    else { restoreAtmos(); releaseProps(); }
+  }
+
+  /* ---- B1 · jerarquía del suelo: el patrón se atenúa fuera de la pista ------
+     Se dibuja en Wf, ANTES de props/NPC/jugador: nadie pierde contraste.
+     El medallón queda intacto (el velo empieza en y=1080 con alfa 0). */
+  function floorVeil(c) {
+    c.save();
+    c.globalCompositeOperation = 'source-over';
+    const south = c.createLinearGradient(0, 1080, 0, 1585);
+    south.addColorStop(0.00, 'rgba(3,4,12,0)');
+    south.addColorStop(0.48, 'rgba(3,4,12,0.16)');
+    south.addColorStop(0.78, 'rgba(3,4,12,0.34)');
+    south.addColorStop(1.00, 'rgba(3,4,12,0.46)');
+    c.fillStyle = south; c.fillRect(290, 1080, 1920, 505);
+    const west = c.createLinearGradient(290, 0, 790, 0);
+    west.addColorStop(0, 'rgba(3,4,12,0.26)'); west.addColorStop(1, 'rgba(3,4,12,0)');
+    c.fillStyle = west; c.fillRect(290, 560, 500, 900);
+    const east = c.createLinearGradient(1710, 0, 2210, 0);
+    east.addColorStop(0, 'rgba(3,4,12,0)'); east.addColorStop(1, 'rgba(3,4,12,0.26)');
+    c.fillStyle = east; c.fillRect(1710, 560, 500, 900);
+    c.restore();
+  }
+
+  /* ---- C1/C3 · anclaje: sombra de contacto, SIN estirar ni rotar ilustraciones */
+  function contact(c, x, y, rx, ry) {
+    c.save();
+    for (let k = 0; k < 3; k++) {
+      c.globalAlpha = 0.20 - k * 0.055;
+      c.fillStyle = '#02030a';
+      c.beginPath();
+      c.ellipse(x, y + k * 2, rx * (1 + k * 0.16), ry * (1 + k * 0.30), 0, 0, Math.PI * 2);
+      c.fill();
+    }
+    c.restore();
+  }
+  function anchors(c) {
+    contact(c, 1250, 462, 168, 20);   /* cabina DJ / muro norte */
+    contact(c, 590, 866, 128, 18);    /* mostrador arsenal */
+    contact(c, 1910, 866, 132, 18);   /* barra */
+    contact(c, 785, 560, 96, 14);     /* sofá VIP NO */
+    contact(c, 1715, 560, 96, 14);    /* sofá VIP NE */
+    contact(c, 655, 1224, 104, 16);   /* altares arcade */
+    contact(c, 1845, 1224, 96, 16);   /* espejo de los sellos */
+    /* C2 · el gran abanico dorado del arsenal competía con el mostrador.
+       Se atenúa con oclusión local (NO se reescala ni se estira el asset
+       T04, para no modificar T01–08) y se ancla al mostrador con su sombra. */
+    c.save();
+    const occ = c.createRadialGradient(590, 905, 30, 590, 905, 250);
+    occ.addColorStop(0, 'rgba(3,4,12,0.34)');
+    occ.addColorStop(0.62, 'rgba(3,4,12,0.20)');
+    occ.addColorStop(1, 'rgba(3,4,12,0)');
+    c.fillStyle = occ;
+    c.fillRect(340, 760, 500, 290);
+    c.restore();
+  }
+
+  function jag(x) {
+    return LIP_Y - 12 + 8 * Math.sin(x * 0.021) + 5 * Math.sin(x * 0.057 + 1.3)
+           + 3 * Math.sin(x * 0.133 + 0.6);
+  }
+  function halfWidth(open) { return 150 + 40 * open; }
+
+  /* ---- D6/E3 · acento cian continuo desde la pista hasta la boca.
+     Reutiliza el color de la estación `lift`; no crea HUD ni flechas. */
+  function signal(c) {
+    c.save();
+    const path = c.createLinearGradient(0, 1190, 0, MOUTH_Y);
+    path.addColorStop(0, 'rgba(34,211,238,0)');
+    path.addColorStop(0.55, 'rgba(34,211,238,0.10)');
+    path.addColorStop(1, 'rgba(34,211,238,0.20)');
+    c.fillStyle = path;
+    c.beginPath();
+    c.moveTo(CX - 118, 1190); c.lineTo(CX + 118, 1190);
+    c.lineTo(CX + 52, MOUTH_Y); c.lineTo(CX - 52, MOUTH_Y);
+    c.closePath(); c.fill();
+    c.restore();
+  }
+
+  /* Escalera de caracol descendente: mismo lenguaje que el fallback v7.7
+     (escalones oscuros con filo cian), reutilizado SIN nuevo asset. */
+  function spiral(c, y0, y1, rad0, rad1) {
+    for (let k = 15; k >= 0; k--) {
+      const u = k / 15;
+      const ang = k * 0.62 + 0.4;
+      const rad = rad0 + (rad1 - rad0) * (1 - u);
+      const sx = CX + Math.cos(ang) * rad * 0.86;
+      const sy = y0 + (y1 - y0) * u + Math.sin(ang) * rad * 0.26;
+      const sw = 26 + (1 - u) * 26;
+      c.globalAlpha = 0.95;
+      c.fillStyle = k > 9 ? '#241a3f' : '#33265a';
+      c.fillRect(Math.round(sx - sw / 2), Math.round(sy), sw, 10);
+      c.fillStyle = '#22d3ee';
+      c.globalAlpha = 0.42 + 0.26 * (1 - u);
+      c.fillRect(Math.round(sx - sw / 2), Math.round(sy), sw, 2);
+    }
+    c.globalAlpha = 1;
+  }
+
+  /* ---- D1/D3/D4/D5 · la grieta pasa a ser GEOGRAFÍA: boca, grosor,
+     profundidad, escalera y luz inferior. Se dibuja en Wf (por DEBAJO de
+     props y jugador) para que el panel «III · DESCENSO» siga en primer plano. */
+  function chasm(c, open) {
+    const half = halfWidth(open);
+    const topY = MOUTH_Y - 18 * open;
+    c.save();
+    c.globalCompositeOperation = 'source-over';
+    c.beginPath();
+    c.moveTo(CX - half * 0.94, topY);
+    c.lineTo(CX - half * 1.02, topY + 46);
+    c.lineTo(CX - half * 1.12, LIP_Y + 6);
+    c.lineTo(CX - half * 1.34, ABYSS_Y);
+    c.lineTo(CX - half * 1.52, ABYSS_Y + 150);
+    c.lineTo(CX + half * 1.52, ABYSS_Y + 150);
+    c.lineTo(CX + half * 1.34, ABYSS_Y);
+    c.lineTo(CX + half * 1.12, LIP_Y + 6);
+    c.lineTo(CX + half * 1.02, topY + 46);
+    c.lineTo(CX + half * 0.94, topY);
+    c.closePath();
+    const hole = c.createLinearGradient(0, topY, 0, ABYSS_Y + 150);
+    hole.addColorStop(0.00, '#04030b');
+    hole.addColorStop(0.42, 'rgba(7,5,17,0.98)');
+    hole.addColorStop(0.78, 'rgba(12,6,20,0.96)');
+    hole.addColorStop(1.00, 'rgba(28,10,18,0.92)');
+    c.fillStyle = hole; c.fill();
+    c.strokeStyle = 'rgba(126,74,168,0.22)'; c.lineWidth = 4; c.stroke();
+    c.save();
+    c.clip();
+    for (const s of [-1, 1]) {
+      for (let i = 0; i < 9; i++) {
+        const y = topY + 24 + i * 34;
+        const hw = half * (0.72 + i * 0.105);
+        c.globalAlpha = 0.34 - i * 0.02;
+        c.fillStyle = i % 3 === 0 ? '#7c3a2e' : '#241a3f';
+        c.beginPath();
+        c.moveTo(CX + s * hw, y);
+        c.lineTo(CX + s * (hw + 26), y + 9);
+        c.lineTo(CX + s * (hw + 12), y + 21);
+        c.closePath(); c.fill();
+      }
+    }
+    spiral(c, topY + 56, ABYSS_Y + 90, 96, 26);
+    const glow = c.createRadialGradient(CX, 1630, 6, CX, 1630, 210);
+    glow.addColorStop(0, 'rgba(251,146,60,0.32)');
+    glow.addColorStop(0.5, 'rgba(34,211,238,0.10)');
+    glow.addColorStop(1, 'rgba(2,3,10,0)');
+    c.globalAlpha = 1; c.fillStyle = glow;
+    c.fillRect(CX - 220, 1500, 440, 280);
+    c.restore();
+    c.restore();
+  }
+
+  /* ---- C4/D2/E1 · labio rocoso irregular con sombra de caída.
+     Se dibuja en zf (DESPUÉS del borde neón recto de la arquitectura, pero
+     ANTES del HUD) para SUSTITUIR la línea magenta por geografía con grosor.
+     Después se reabre la boca con `mouthCut` para que el hueco la atraviese. */
+  function lip(c) {
+    c.save();
+    c.globalCompositeOperation = 'source-over';
+    const x0 = 300, x1 = 2200;
+    c.beginPath();
+    c.moveTo(x0, jag(x0));
+    for (let x = x0 + 20; x <= x1; x += 20) c.lineTo(x, jag(x));
+    c.lineTo(x1, jag(x1));
+    c.lineTo(x1, 1532); c.lineTo(x0, 1532);
+    c.closePath();
+    const face = c.createLinearGradient(0, 1450, 0, 1532);
+    face.addColorStop(0.00, 'rgba(26,16,40,0.97)');
+    face.addColorStop(0.34, 'rgba(12,8,24,0.95)');
+    face.addColorStop(1.00, 'rgba(4,3,12,0.88)');
+    c.fillStyle = face; c.fill();
+    /* estratos: reutiliza el lenguaje rocoso de T07, sin asset nuevo */
+    for (let i = 0; i < 4; i++) {
+      c.globalAlpha = 0.16 - i * 0.025;
+      c.strokeStyle = i % 2 ? '#7c3a2e' : '#6d28d9';
+      c.lineWidth = 2;
+      c.beginPath();
+      c.moveTo(x0, 1482 + i * 14);
+      for (let x = x0 + 30; x <= x1; x += 30) {
+        c.lineTo(x, 1482 + i * 14 + Math.sin(x * 0.018 + i) * 3);
+      }
+      c.stroke();
+    }
+    c.globalAlpha = 1;
+    /* sombra de caída + filo iluminado: grosor legible del borde */
+    c.save();
+    c.beginPath();
+    c.moveTo(x0, jag(x0));
+    for (let x = x0 + 20; x <= x1; x += 20) c.lineTo(x, jag(x));
+    c.lineWidth = 9; c.globalAlpha = 0.20;
+    c.strokeStyle = '#02030a'; c.translate(0, 10); c.stroke();
+    c.restore();
+    c.beginPath();
+    c.moveTo(x0, jag(x0));
+    for (let x = x0 + 20; x <= x1; x += 20) c.lineTo(x, jag(x));
+    c.lineWidth = 3; c.strokeStyle = 'rgba(244,114,182,0.36)'; c.stroke();
+    c.restore();
+  }
+
+  /* Reabre el hueco por encima de la capa del labio: el terreno TERMINA
+     aquí y la escalera baja hacia la luz inferior. */
+  function mouthCut(c, open) {
+    const half = halfWidth(open);
+    /* Borde IRREGULAR (no recto): 9 vértices por lado con perturbación fija. */
+    const L = [], R = [];
+    for (let i = 0; i <= 9; i++) {
+      const u = i / 9;
+      const y = 1442 + u * 220;
+      const hw = half * (0.98 + 0.40 * u) + Math.sin(i * 2.7 + 0.6) * 11 * u;
+      L.push([CX - hw, y]); R.push([CX + hw, y]);
+    }
+    c.save();
+    c.globalCompositeOperation = 'source-over';
+    c.beginPath();
+    c.moveTo(L[0][0], L[0][1]);
+    for (let i = 1; i < L.length; i++) c.lineTo(L[i][0], L[i][1]);
+    for (let i = R.length - 1; i >= 0; i--) c.lineTo(R[i][0], R[i][1]);
+    c.closePath();
+    const hole = c.createLinearGradient(0, 1442, 0, 1662);
+    hole.addColorStop(0.00, '#04030b');
+    hole.addColorStop(0.55, 'rgba(7,5,17,0.98)');
+    hole.addColorStop(1.00, 'rgba(30,10,18,0.94)');
+    c.fillStyle = hole; c.fill();
+    c.save(); c.clip();
+    /* paredes rocosas con grosor, mismas tonalidades de T07/T08 */
+    for (const s of [-1, 1]) {
+      for (let i = 0; i < 8; i++) {
+        const u = i / 8, y = 1458 + u * 196;
+        const hw = half * (1.00 + 0.36 * u);
+        c.globalAlpha = 0.34 - u * 0.16;
+        c.fillStyle = i % 3 === 0 ? '#7c3a2e' : '#241a3f';
+        c.beginPath();
+        c.moveTo(CX + s * hw, y);
+        c.lineTo(CX + s * (hw + 30), y + 12);
+        c.lineTo(CX + s * (hw + 14), y + 26);
+        c.closePath(); c.fill();
+      }
+    }
+    spiral(c, 1470, 1620, 88, 22);
+    /* luz cálida de las profundidades: ya usada por T07 en (1250,1630) */
+    const glow = c.createRadialGradient(CX, 1630, 6, CX, 1630, 230);
+    glow.addColorStop(0, 'rgba(251,146,60,0.46)');
+    glow.addColorStop(0.45, 'rgba(34,211,238,0.10)');
+    glow.addColorStop(1, 'rgba(2,3,10,0)');
+    c.globalAlpha = 1; c.fillStyle = glow;
+    c.fillRect(CX - 230, 1480, 460, 260);
+    c.restore();
+    /* filos de roca: acento, NO contorno de pegatina */
+    for (const edge of [L, R]) {
+      c.beginPath();
+      c.moveTo(edge[0][0], edge[0][1]);
+      for (let i = 1; i < edge.length; i++) c.lineTo(edge[i][0], edge[i][1]);
+      c.globalAlpha = 0.30; c.lineWidth = 3;
+      c.strokeStyle = 'rgba(168,85,247,0.42)'; c.stroke();
+    }
+    c.globalAlpha = 1;
+    c.restore();
+  }
+
+  function worldCorrection() {
+    if (!geoOn()) return;
+    try {
+      if (typeof hub === 'undefined' || !hub.inHub) return;
+      const c = g, open = openness();
+      /* Guardamos el transform de MUNDO real de este fotograma: zf se ejecuta
+         con setTransform(identidad), así que el labio necesita esta matriz. */
+      try { S.worldTr = c.getTransform(); } catch (e) {}
+      c.save();              /* usa el transform de cámara REAL, sin modificarlo */
+      c.globalAlpha = 1;
+      c.globalCompositeOperation = 'source-over';
+      floorVeil(c);
+      anchors(c);
+      signal(c);
+      chasm(c, open);
+      c.restore();
+      S.draws++;
+    } catch (e) { note('world', e); }
+  }
+
+  function screenCorrection(tr) {
+    if (!geoOn()) return;
+    try {
+      if (typeof hub === 'undefined' || !hub.inHub) return;
+      const c = g, open = openness();
+      /* zf trabaja en espacio de PANTALLA (identidad). Se recupera la matriz
+         de mundo capturada en Wf; si falta, se reconstruye de la cámara real. */
+      let m = S.worldTr;
+      if (!m && tr && Math.abs(tr.a - 1) > 0.001) m = tr;
+      if (!m) {
+        const cm = cam(), W = c.canvas ? c.canvas.width : 1280,
+              H = c.canvas ? c.canvas.height : 900;
+        m = { a: cm.zoom, b: 0, c: 0, d: cm.zoom,
+              e: W * 0.5 - cm.zoom * cm.x, f: H * 0.5 - cm.zoom * cm.y };
+      }
+      c.save();
+      c.setTransform(m);
+      c.globalAlpha = 1;
+      c.globalCompositeOperation = 'source-over';
+      lip(c);
+      mouthCut(c, open);
+      /* E4 · el cartel de la grieta se repinta ENCIMA del labio con sus
+         argumentos reales (prompt, color y estado «cerca» del motor),
+         para que no desaparezca ni se duplique el texto. */
+      const quiet = (function () {
+        try { return !(floorDropAnim && floorDropAnim.active) && !hub.cineActive; }
+        catch (e) { return true; }
+      })();
+      if (quiet && S.liftSign && API.__orig_drawDiegeticSign) {
+        API.__orig_drawDiegeticSign.apply(c, S.liftSign);
+      }
+      c.restore();
+      S.screenDraws++;
+    } catch (e) { note('screen', e); }
+  }
+
+  /* ---- E1 · el cutaway T08 nace del HUECO, no de una línea horizontal fija.
+     Se engancha con 2 inserciones (0 eliminaciones) en `drawCutaway()`.
+     Con flag=false devuelve false y T08 usa su trayectoria ORIGINAL. */
+  function clipCutaway(c, q) {
+    if (!geoOn()) return false;
+    try {
+      const W = q.W, H = q.H, T = q.T, cm = q.cm, open = q.de.open || 0;
+      const cx = W * 0.5 + cm.zoom * (CX - cm.x);
+      const yTop = Math.min(T, 450 + cm.zoom * (MOUTH_Y - cm.y));
+      const halfTop = (118 + 62 * open) * cm.zoom;
+      const halfBot = W * 0.31;
+      const edges = [];
+      for (let i = 0; i <= 9; i++) {
+        const u = i / 9;
+        const y = yTop + (H + 20 - yTop) * u;
+        const hw = halfTop + (halfBot - halfTop) * Math.pow(u, 0.72);
+        edges.push([y, hw, Math.sin(i * 2.31 + 0.7) * 9 * u]);
+      }
+      c.beginPath();
+      c.moveTo(cx - edges[0][1], edges[0][0]);
+      for (let i = 1; i < edges.length; i++) c.lineTo(cx - edges[i][1] + edges[i][2], edges[i][0]);
+      for (let i = edges.length - 1; i >= 0; i--) c.lineTo(cx + edges[i][1] + edges[i][2], edges[i][0]);
+      c.closePath(); c.clip();
+      S.clips++;
+      return true;
+    } catch (e) { note('clip', e); return false; }
+  }
+
+  /* ---- B3 · una etiqueta por POI (sin borrar ningún asset) ------------------ */
+  function hideBanner(text) {
+    if (!on()) return false;
+    if (String(text).indexOf('CÍRCULOS · DESCENSO') >= 0) { S.bannersHidden++; return true; }
+    return false;
+  }
+  function hideSign(text, activeNear) {
+    if (!on()) return false;
+    /* El rótulo «LA DISCOTECA · DJ STAGE» y la placa «II · CABINA DJ» ya
+       identifican la cabina; se retira sólo el cartel pasivo «ZONA B».
+       El prompt de interacción ([E/A]) se conserva al acercarse. */
+    if (String(text).indexOf('CABINA · VIRGILIO') >= 0 && !activeNear) {
+      S.signsHidden++; return true;
+    }
+    return false;
+  }
+
+  /* ---- Envoltorios sobre funciones YA existentes del mismo ámbito -----------
+     No se usa eval: las funciones están declaradas en initDmoHubV35(), el
+     mismo ámbito léxico de este módulo, y sus enlaces son reasignables. */
+  function install() {
+    if (S.installed) return false;
+    S.installed = true;
+    const API = window.DMO_HUB_LEGIBILIDAD;
+    API.__orig_drawPixelNeonBanner = drawPixelNeonBanner;
+    API.__orig_drawDiegeticSign = drawDiegeticSign;
+    API.__orig_drawHubFloorLayer = drawHubFloorLayer;
+    drawPixelNeonBanner = function () {
+      if (hideBanner(arguments[1])) return;
+      return API.__orig_drawPixelNeonBanner.apply(this, arguments);
+    };
+    drawDiegeticSign = function () {
+      if (on() && String(arguments[0]).indexOf('GRIETA DE DESCENSO') >= 0) {
+        S.liftSign = Array.prototype.slice.call(arguments);
+      }
+      if (hideSign(arguments[0], arguments[5])) return;
+      return API.__orig_drawDiegeticSign.apply(this, arguments);
+    };
+    drawHubFloorLayer = function () {
+      const r = API.__orig_drawHubFloorLayer.apply(this, arguments);
+      worldCorrection();
+      return r;
+    };
+    /* zf se monta DESPUÉS de T08.install(): el labio y la boca quedan por
+       ENCIMA del borde neón y del cutaway, pero DEBAJO del HUD de V3.5. */
+    const prevZf = zf;
+    zf = function () {
+      let tr = null;
+      try { tr = g.getTransform(); } catch (e) {}
+      const r = prevZf.apply(this, arguments);
+      if (tr) screenCorrection(tr);
+      return r;
+    };
+    S.wrappers = 4;
+    /* Un único acumulador Tf: reenganche perezoso de props y estado del flag. */
+    const prevTf = Tf;
+    Tf = function (dt) {
+      const r = prevTf.apply(this, arguments);
+      try {
+        S.frames++;
+        if ((S.frames & 15) === 0 || on() !== S.lastOn) {
+          S.lastOn = on(); sync();
+        } else if (on() && bound !== props()) sync();
+      } catch (e) { note('update', e); }
+      return r;
+    };
+    sync();
+    return true;
+  }
+
+  function snapshot() {
+    const bl = document.getElementById('ilt-atmos-bloom');
+    const vg = document.getElementById('ilt-atmos-vig');
+    const cfg = (window.DMO_ATMOS && window.DMO_ATMOS.config) || {};
+    return JSON.parse(JSON.stringify({
+      version: VER, enabled: S.enabled,
+      flag: window.__DDM_HUB_LEGIBILIDAD === false ? 'OFF' : 'ON',
+      installed: S.installed, wrappers: S.wrappers, frames: S.frames,
+      draws: S.draws, screenDraws: S.screenDraws, clips: S.clips,
+      hidden: S.hidden, atmosApplied: S.atmosApplied,
+      bannersHidden: S.bannersHidden, signsHidden: S.signsHidden,
+      bloom: bl ? bl.style.opacity : null, vig: vg ? vg.style.opacity : null,
+      grade: cfg.grade, grain: cfg.grain,
+      props: props().length, hiddenIds: HIDE.slice(),
+      t07: window.__DDM_HUB_T07 !== false, t08: window.__DDM_HUB_T08 !== false,
+      t09: window.__DDM_HUB_T09 !== false,
+      errors: S.errors.slice(), lastError: S.lastError,
+      noNewAssets: true, noNewProps: true, cameraTouched: false,
+      progressionTouched: false, audioTouched: false
+    }));
+  }
+
+  const API = {
+    version: VER,
+    state: snapshot, audit: snapshot, debug: snapshot,
+    setEnabled: function (v) { S.enabled = !!v; sync(); return S.enabled; },
+    install: install,
+    clipCutaway: clipCutaway,
+    hideBanner: hideBanner,
+    hideSign: hideSign,
+    S: S
+  };
+  if (window.__DDM_HUB_LEGIBILIDAD === undefined) window.__DDM_HUB_LEGIBILIDAD = true;
+  window.DMO_HUB_LEGIBILIDAD = API;
+  return API;
+})();
+/* === MODIFICACIÓN PRIORITARIA:FIN · MÓDULO ==================================== */
+
+
       const HUB_VERSION = "3.5.0-hub-proto";
       const HUB_SAVE_KEY = "dmo_hub_v1";
       const HUB_SAVE_SCHEMA_VERSION = 1;
@@ -7908,18 +9821,81 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           { id: "hub_decor_speaker_w", slot: "club_speaker_tower_prop", x: 985, y: 502, h: 122, flip: false },
           { id: "hub_decor_speaker_e", slot: "club_speaker_tower_prop", x: 1515, y: 502, h: 122, flip: true },
           { id: "hub_decor_cooler_w", slot: "club_water_cooler_prop", x: 452, y: 692, h: 104, flip: false },
-          { id: "hub_decor_vending_e", slot: "club_vending_machine_prop", x: 2048, y: 692, h: 118, flip: true }
+          { id: "hub_decor_vending_e", slot: "club_vending_machine_prop", x: 2048, y: 692, h: 118, flip: true },
+          /* === TANDA04:BEGIN · 3 anclajes derivados (FASE 2) · solid:false ===
+             T03-05 / T03-06 / T03-07 conectados al renderer de props YA existente
+             (hubDecor -> addHubCustomProp -> Lc). solid:false => sin colliders,
+             sin cambios de hitbox ni de geometría. Reversible con el flag
+             window.__DDM_HUB_T04. Ver ART_HUB_TANDA_04_AUDIT.md / _MATRIX.md. */
+          { id: "hub_decor_planter_v02", slot: "h03_planter_variant_02", x: 452, y: 900, h: 88, flip: false, t04: "T03-05" },
+          { id: "hub_decor_bench_v02",   slot: "h03_bench_variant_02",   x: 2048, y: 900, h: 74, flip: true,  t04: "T03-06" },
+          { id: "hub_decor_vip_lounge",  slot: "h03_vip_booth_lounge",   x: 785, y: 760, h: 136, flip: false, t04: "T03-07" },
+          /* === TANDA05:BEGIN · 10 props nuevos en el array REAL hubDecor ===
+             Renderer existente addHubCustomProp -> Lc (Y-sort, solid:false,
+             tall:false). Coordenadas y alturas derivadas de la auditoría del
+             HUB real. Flag reversible window.__DDM_HUB_T05. Sin colisiones,
+             sin geometría nueva, sin sistemas de interacción. */
+          { id: "hub_decor_t05_01", slot: "h05_garra_del_limbo", x: 455, y: 1310, h: 180, flip: false, t05: "T05-01" },
+          { id: "hub_decor_t05_02", slot: "h05_banco_del_olvido", x: 2040, y: 1160, h: 150, flip: false, t05: "T05-02" },
+          { id: "hub_decor_t05_03", slot: "h05_subwoofer_stack", x: 905, y: 430, h: 120, flip: false, t05: "T05-03" },
+          { id: "hub_decor_t05_04", slot: "h05_video_wall", x: 1560, y: 360, h: 110, flip: false, t05: "T05-04", pulse: 0.7, t05hang: true },
+          { id: "hub_decor_t05_05", slot: "h05_consola_aux", x: 1560, y: 520, h: 70, flip: true, t05: "T05-05" },
+          { id: "hub_decor_t05_06", slot: "h05_neon_ultimo_trago", x: 1910, y: 640, h: 96, flip: false, t05: "T05-06", pulse: 1.4, t05hang: true },
+          { id: "hub_decor_t05_07", slot: "h05_cartel_ultima_sesion", x: 600, y: 760, h: 120, flip: false, t05: "T05-07", t05hang: true },
+          { id: "hub_decor_t05_08", slot: "h05_line_array", x: 1250, y: 720, h: 170, flip: false, t05: "T05-08", t05hang: true },
+          { id: "hub_decor_t05_09", slot: "h05_cordon_vip", x: 930, y: 560, h: 80, flip: false, t05: "T05-09" },
+          { id: "hub_decor_t05_10", slot: "h05_confesionario", x: 1715, y: 700, h: 150, flip: false, t05: "T05-10" },
+          /* === TANDA05:END === */
+          /* === TANDA06:BEGIN · 10 props de envolvente en el array REAL hubDecor ===
+             Renderer existente addHubCustomProp -> Lc (Y-sort, solid:false, tall:false).
+             Coordenadas/anchos MEDIDOS en manifest.json y composicion.json; caras
+             visibles segun la auditoria de camara. t06hang = sin sombra de suelo
+             (viga/cortinaje); t06flat = plano de suelo sin altura (zocalo).
+             Flag reversible window.__DDM_HUB_T06. Sin colisiones ni geometria nueva. */
+          { id: "hub_decor_t06_01", slot: "h06_paramento_norte_o", x: 681, y: 330, h: 150, flip: false, t06: "T06-01" },
+          { id: "hub_decor_t06_02", slot: "h06_paramento_norte_c", x: 1114, y: 330, h: 150, flip: false, t06: "T06-02" },
+          { id: "hub_decor_t06_03", slot: "h06_paramento_norte_e", x: 1611, y: 330, h: 150, flip: false, t06: "T06-03" },
+          { id: "hub_decor_t06_04", slot: "h06_machon_esquina_no", x: 600, y: 330, h: 150, flip: false, t06: "T06-04" },
+          { id: "hub_decor_t06_05", slot: "h06_machon_esquina_ne", x: 1900, y: 330, h: 150, flip: false, t06: "T06-05" },
+          { id: "hub_decor_t06_06", slot: "h06_paramento_oeste", x: 330, y: 1160, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_07", slot: "h06_paramento_este", x: 2170, y: 1160, h: 380, flip: false, t06: "T06-07" },
+          { id: "hub_decor_t06_08", slot: "h06_viga_caseton_techo", x: 1250, y: 330, h: 90, flip: false, t06: "T06-08", t06hang: true },
+          { id: "hub_decor_t06_09", slot: "h06_cortinaje_acustico", x: 1865, y: 430, h: 230, flip: false, t06: "T06-09", t06hang: true },
+          { id: "hub_decor_t06_10", slot: "h06_zocalo_remate_suelo", x: 1250, y: 340, h: 36, flip: false, t06: "T06-10", t06flat: true },
+          /* TANDA06 · continuidad de aristas: los DOS paramentos laterales se
+             repiten en y=780 y y=1540 (mismo PNG, mismo slot, 3 tramos que
+             abutan y cubren y=400..1540 sin huecos). Siguen siendo 10 recursos. */
+          { id: "hub_decor_t06_06_rep1", slot: "h06_paramento_oeste", x: 330, y: 780, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_06_rep2", slot: "h06_paramento_oeste", x: 330, y: 1540, h: 380, flip: false, t06: "T06-06" },
+          { id: "hub_decor_t06_07_rep1", slot: "h06_paramento_este", x: 2170, y: 780, h: 380, flip: false, t06: "T06-07" },
+          { id: "hub_decor_t06_07_rep2", slot: "h06_paramento_este", x: 2170, y: 1540, h: 380, flip: false, t06: "T06-07" }
+          /* === TANDA06:END === */
         ];
         for (const dc of hubDecor) {
           addHubCustomProp({
             id: dc.id, kind: "circle", x: dc.x, y: dc.y, r: 10, solid: false, tall: false, sortY: dc.y,
             hubDraw: function (ctx, p) {
+              /* TANDA04:BEGIN · reversibilidad A/B sin reconstruir el motor */
+              if (dc.t04 && window.__DDM_HUB_T04 === false) return;
+              /* TANDA04:END */
+              /* TANDA05:BEGIN · reversibilidad A/B de TANDA 05 */
+              if (dc.t05 && window.__DDM_HUB_T05 === false) return;
+              /* TANDA05:END */
+              /* TANDA06:BEGIN · reversibilidad A/B de TANDA 06 */
+              if (dc.t06 && window.__DDM_HUB_T06 === false) return;
+              /* TANDA06:END */
               const im = V5D(dc.slot);
               if (!im) return;
-              ctx.save(); ctx.imageSmoothingEnabled = false;
+              ctx.save(); ctx.imageSmoothingEnabled = !!(dc.t04 || dc.t05 || dc.t06); /* TANDA04/05/06: arte pintado, no pixel art */
+              /* TANDA05:BEGIN · pulso ambiental sobre el ctx existente (sin sistema nuevo) */
+              if (dc.pulse) ctx.globalAlpha *= 0.82 + 0.18 * Math.sin(performance.now() / 520 + dc.pulse);
+              /* TANDA05:END */
               const dh = dc.h, dw = Math.round(dh * im.naturalWidth / im.naturalHeight);
-              Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10);
-              if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
+              if (!dc.t05hang && !dc.t06hang && !dc.t06flat) Vb(ctx, p.x, p.y + 4, Math.round(dw * 0.8), 10); /* TANDA05/06: sin sombra en colgantes ni plano de suelo */
+              /* TANDA06:BEGIN · plano de SUELO: centrado en (x,y), sin altura ni sombra */
+              if (dc.t06flat) ctx.drawImage(im, p.x - (dw >> 1), p.y - (dh >> 1), dw, dh);
+              /* TANDA06:END */
+              else if (dc.flip) { ctx.translate(p.x + (dw >> 1), p.y - dh); ctx.scale(-1, 1); ctx.drawImage(im, 0, 0, dw, dh); }
               else ctx.drawImage(im, p.x - (dw >> 1), p.y - dh, dw, dh);
               ctx.restore();
             }
@@ -7975,6 +9951,28 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
             }
           });
         }
+
+
+        /* === TANDA07:BEGIN · FASE 3 · actores NPC =============================
+           Mismo renderer: addHubCustomProp -> Lc -> Y-sort. solid:false,
+           tall:true, sortY = línea de pies. No añade colisiones ni estaciones.
+           Reversible con window.__DDM_HUB_T07 = false. */
+        T07.installActors();
+        /* Los enganches se montan aquí (tiempo de arranque, no de parseo):
+           Wf/Ph/zf/Tf ya están en su cadena final. Una sola vez. */
+        T07.installHooks();
+        /* === TANDA08:BEGIN · FASE 3/4 · enganches ============================ */
+        T08.install();
+        /* === TANDA09:BEGIN · FASE 2/3/4 · enganches ============================ */
+        T09.install();
+        /* === MODIFICACIÓN PRIORITARIA:BEGIN · enganche ===============================
+           Se monta aquí, en buildHubSpace(), cuando T01–T09 ya están en su cadena
+           final. reversible con window.__DDM_HUB_LEGIBILIDAD = false. */
+        LEG.install();
+        /* === MODIFICACIÓN PRIORITARIA:END · enganche ================================= */
+        /* === TANDA09:END · FASE 2/3/4 ======================================== */
+        /* === TANDA08:END · FASE 3/4 ======================================== */
+        /* === TANDA07:END · FASE 3 ========================================== */
 
         // Interactive Station Registry (all require explicit [E] / Button A!)
         hub.stations = [
@@ -9370,6 +11368,28 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           __t3bHubDraws++; g.drawImage(hubCachedFloorCv, 290, 265);
         }
 
+        /* === TANDA04:BEGIN · Familia A: 4 panos de suelo (FASE 2/3) ===
+           Renderer de SUELO existente (hook Wf), sobre la capa cacheada
+           1920x1320 en (290,265) y antes del medallón. Cajas mundo MEDIDAS
+           en manifest T03, disjuntas y dentro del octógono; orientacion
+           O/E/S/N conservada. Sin cache nueva ni canvas alternativo. */
+        if (window.__DDM_HUB_T04 !== false) {
+          const t04Floors = [
+            ["h03_floor_patch_o",        290,  720, 580, 430],
+            ["h03_floor_patch_e",       1630,  720, 580, 430],
+            ["h03_floor_patch_s_crack",  870, 1256, 760, 329],
+            ["h03_floor_north_dj",       870,  265, 760, 224]
+          ];
+          const t04SmoothFloor = g.imageSmoothingEnabled;
+          g.imageSmoothingEnabled = true;
+          for (const f of t04Floors) {
+            const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[f[0]];
+            if (im && im.complete && im.naturalWidth > 0) g.drawImage(im, f[1], f[2], f[3], f[4]);
+          }
+          g.imageSmoothingEnabled = t04SmoothFloor;
+        }
+        /* === TANDA04:END === */
+
         // v7.13 · el escudo neón del zorro y la mariposa (emblema de la comunidad)
         // sustituye a la calavera coronada en el centro de la pista: se conservan los
         // anillos neón y el suelo ajedrezado del medallón (cráneo borrado en caché).
@@ -9591,6 +11611,29 @@ function q88(e,a){if(!CAM88.on)return{x:e,y:a};
           drawPixelNeonBanner(g, "▼ CÍRCULOS · DESCENSO ▼", 1250, 1456, "#ef4444", "#fde047", 0.96);
         }
         g.restore();
+
+        /* === TANDA04:BEGIN · Familia D: 6 placas diegeticas (FASE 2/3) ===
+           Anclajes derivados del signY REAL de 6 estaciones medidas; misma
+           escala 144x96 en las 6 zonas A-F y ninguna oculta, porque esta capa
+           se dibuja DESPUES de los props. Claves V5 ya registradas por T03. */
+        if (window.__DDM_HUB_T04 !== false) {
+          const t04Signs = [
+            ["h03_zone_signage_a",  958,  565],
+            ["h03_zone_signage_b", 1178,  431],
+            ["h03_zone_signage_c", 1178, 1363],
+            ["h03_zone_signage_d",  633,  781],
+            ["h03_zone_signage_e", 1718,  781],
+            ["h03_zone_signage_f",  583, 1133]
+          ];
+          const t04SmoothSign = g.imageSmoothingEnabled;
+          g.imageSmoothingEnabled = true;
+          for (const s of t04Signs) {
+            const im = window.__DDM_V5_IMG && window.__DDM_V5_IMG[s[0]];
+            if (im && im.complete && im.naturalWidth > 0) g.drawImage(im, s[1], s[2], 144, 96);
+          }
+          g.imageSmoothingEnabled = t04SmoothSign;
+        }
+        /* === TANDA04:END === */
 
         const nearest = (!hub.modalOpen && !hub.invasion.active && !hub.invasion.warningActive)
           ? findNearestHubStation()
