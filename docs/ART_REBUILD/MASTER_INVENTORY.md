@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T12:17:41Z
+- **Última actualización:** 2026-11-07T12:22:51Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **195 / 330** recursos verificados en motor real
+- **Progreso global:** **205 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -10,8 +10,8 @@
 |---|---:|---:|---:|---:|
 | `bosses` | 42 | 40 | 40 | 40 |
 | `characters` | 16 | 16 | 16 | 16 |
-| `cinematics` | 11 | 1 | 1 | 1 |
-| `effects` | 20 | 19 | 19 | 19 |
+| `cinematics` | 11 | 10 | 10 | 10 |
+| `effects` | 20 | 20 | 20 | 20 |
 | `enemies` | 24 | 24 | 24 | 24 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
@@ -221,16 +221,16 @@
 | 193 | TANDA_20 | `atlas:fire0` | VFX · Columna de Fuego Infernal | `effects` | `assets/effects/vfx_fire_plume.png` | 160x256 | DONE | INTEGRATED | VERIFIED |
 | 194 | TANDA_20 | `atlas:soul0` | VFX · Descarga Cian Sónica | `effects` | `assets/effects/vfx_soul_flame.png` | 192x192 | DONE | INTEGRATED | VERIFIED |
 | 195 | TANDA_20 | `vfx:lightning` | VFX · Relámpago Arcano Púrpura | `effects` | `assets/effects/vfx_lightning_purple.png` | 224x256 | DONE | INTEGRATED | VERIFIED |
-| 196 | TANDA_20 | `vfx:smoke` | VFX · Nube de Humo Volumétrico | `effects` | `assets/effects/vfx_smoke_cloud.png` | 256x256 | PENDING | PENDING | PENDING |
-| 197 | TANDA_20 | `cine:lujuria` | Cinemática Círculo I · Lujuria (El Salón de los Deseos) | `cinematics` | `assets/cinematics/cine_circle_01_lujuria.png` | 960x540 | PENDING | PENDING | PENDING |
-| 198 | TANDA_20 | `cine:gula` | Cinemática Círculo II · Gula (El Banquete Interminable) | `cinematics` | `assets/cinematics/cine_circle_02_gula.png` | 960x540 | PENDING | PENDING | PENDING |
-| 199 | TANDA_20 | `cine:avaricia` | Cinemática Círculo III · Avaricia (El Club VIP) | `cinematics` | `assets/cinematics/cine_circle_03_avaricia.png` | 960x540 | PENDING | PENDING | PENDING |
-| 200 | TANDA_20 | `cine:ira` | Cinemática Círculo IV · Ira (La Pista de las Peleas) | `cinematics` | `assets/cinematics/cine_circle_04_ira.png` | 960x540 | PENDING | PENDING | PENDING |
-| 201 | TANDA_21 | `cine:herejia` | Cinemática Círculo V · Herejía (La Catedral del Ruido) | `cinematics` | `assets/cinematics/cine_circle_05_herejia.png` | 960x540 | PENDING | PENDING | PENDING |
-| 202 | TANDA_21 | `cine:violencia` | Cinemática Círculo VI · Violencia (El Matadero) | `cinematics` | `assets/cinematics/cine_circle_06_violencia.png` | 960x540 | PENDING | PENDING | PENDING |
-| 203 | TANDA_21 | `cine:fraude` | Cinemática Círculo VII · Fraude (El Club de los Espejos) | `cinematics` | `assets/cinematics/cine_circle_07_fraude.png` | 960x540 | PENDING | PENDING | PENDING |
-| 204 | TANDA_21 | `cine:traicion` | Cinemática Círculo VIII · Traición (La Última Sala) | `cinematics` | `assets/cinematics/cine_circle_08_traicion.png` | 960x540 | PENDING | PENDING | PENDING |
-| 205 | TANDA_21 | `cine:nucleo` | Cinemática Círculo IX · El Núcleo Final | `cinematics` | `assets/cinematics/cine_circle_09_nucleo.png` | 960x540 | PENDING | PENDING | PENDING |
+| 196 | TANDA_20 | `vfx:smoke` | VFX · Nube de Humo Volumétrico | `effects` | `assets/effects/vfx_smoke_cloud.png` | 256x256 | DONE | INTEGRATED | VERIFIED |
+| 197 | TANDA_20 | `cine:lujuria` | Cinemática Círculo I · Lujuria (El Salón de los Deseos) | `cinematics` | `assets/cinematics/cine_circle_01_lujuria.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 198 | TANDA_20 | `cine:gula` | Cinemática Círculo II · Gula (El Banquete Interminable) | `cinematics` | `assets/cinematics/cine_circle_02_gula.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 199 | TANDA_20 | `cine:avaricia` | Cinemática Círculo III · Avaricia (El Club VIP) | `cinematics` | `assets/cinematics/cine_circle_03_avaricia.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 200 | TANDA_20 | `cine:ira` | Cinemática Círculo IV · Ira (La Pista de las Peleas) | `cinematics` | `assets/cinematics/cine_circle_04_ira.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 201 | TANDA_21 | `cine:herejia` | Cinemática Círculo V · Herejía (La Catedral del Ruido) | `cinematics` | `assets/cinematics/cine_circle_05_herejia.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 202 | TANDA_21 | `cine:violencia` | Cinemática Círculo VI · Violencia (El Matadero) | `cinematics` | `assets/cinematics/cine_circle_06_violencia.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 203 | TANDA_21 | `cine:fraude` | Cinemática Círculo VII · Fraude (El Club de los Espejos) | `cinematics` | `assets/cinematics/cine_circle_07_fraude.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 204 | TANDA_21 | `cine:traicion` | Cinemática Círculo VIII · Traición (La Última Sala) | `cinematics` | `assets/cinematics/cine_circle_08_traicion.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
+| 205 | TANDA_21 | `cine:nucleo` | Cinemática Círculo IX · El Núcleo Final | `cinematics` | `assets/cinematics/cine_circle_09_nucleo.png` | 960x540 | DONE | INTEGRATED | VERIFIED |
 | 206 | TANDA_21 | `weapons/weapon_ricochet.png` | Arma Especial · Rebotador Sónico (Ricochet) | `weapons` | `assets/weapons/weapon_ricochet.png` | 320x160 | PENDING | PENDING | PENDING |
 | 207 | TANDA_21 | `secretBoss:idle` | Jefe Secreto · El Arquitecto (Presencia) | `bosses` | `assets/bosses/boss_10_arquitecto_idle.png` | 416x448 | PENDING | PENDING | PENDING |
 | 208 | TANDA_21 | `secretBoss:attack` | Jefe Secreto · El Arquitecto (Sobrecarga) | `bosses` | `assets/bosses/boss_10_arquitecto_attack.png` | 448x448 | PENDING | PENDING | PENDING |

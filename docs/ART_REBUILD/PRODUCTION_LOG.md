@@ -23,3 +23,4 @@
 - **2026-11-07T11:39:54Z** · TANDA_17 completada (10/10). TANDA_18 integrada parcialmente (5/10): reliquias magnet, pact, echo, coil y prism; 175/180 recursos verificados. Pendientes relic_tempo y cuatro proyectiles.
 - **2026-11-07T11:54:20Z** · TANDA_18 completada (10/10). TANDA_19 integrada parcialmente (5/10): cinco proyectiles (plasma, ricochet, lane, flame, rail); 185/190 recursos verificados. Pendientes proj_homing y cuatro VFX.
 - **2026-11-07T12:17:41Z** · TANDA_19 completada (10/10). TANDA_20 integrada parcialmente (5/10): explosión infernal, shockwave, fuego, llama de alma y rayo púrpura; 195/200 recursos verificados. Pendientes nube de humo y cuatro cinemáticas de círculos.
+- **2026-11-07T12:22:51Z** · TANDA_20 completada (10/10). TANDA_21 integrada parcialmente (5/10): cinemáticas de Herejía, Violencia, Fraude, Traición y Núcleo; 205/210 recursos verificados. Pendientes arma ricochet, dos sprites del Arquitecto, cine hub y emblema de tienda.

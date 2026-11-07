@@ -1,22 +1,22 @@
-# NEXT BATCH — TANDA_20
+# NEXT BATCH — TANDA_21
 
-- **Tanda a ejecutar:** `TANDA_20` (20 de 33)
-- **Fecha de planificación:** 2026-11-07T12:17:41Z
+- **Tanda a ejecutar:** `TANDA_21` (21 de 33)
+- **Fecha de planificación:** 2026-11-07T12:22:51Z
 - **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 20` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_20 high-res asset reconstruction and real engine integration`
+- **Pruebas obligatorias:** `node tools/validate_batch.js 21` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
+- **Commit previsto:** `feat(art): complete TANDA_21 high-res asset reconstruction and real engine integration`
 
 ## Diez Recursos de la Tanda
 
 | # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
 |---:|---|---|---|---|---|---|---|
-| 191 | `vfx_explosion_inferno` | `vfx:explosion` | `effects` | `assets/effects/vfx_explosion_inferno.png` | 320x320 | `True` | ninguna |
-| 192 | `vfx_shockwave_magenta` | `vfx:shockwave` | `effects` | `assets/effects/vfx_shockwave_magenta.png` | 320x320 | `True` | ninguna |
-| 193 | `vfx_fire_plume` | `atlas:fire0` | `effects` | `assets/effects/vfx_fire_plume.png` | 160x256 | `True` | ninguna |
-| 194 | `vfx_soul_flame` | `atlas:soul0` | `effects` | `assets/effects/vfx_soul_flame.png` | 192x192 | `True` | ninguna |
-| 195 | `vfx_lightning_purple` | `vfx:lightning` | `effects` | `assets/effects/vfx_lightning_purple.png` | 224x256 | `True` | ninguna |
-| 196 | `vfx_smoke_cloud` | `vfx:smoke` | `effects` | `assets/effects/vfx_smoke_cloud.png` | 256x256 | `True` | ninguna |
-| 197 | `cine_circle_01_lujuria` | `cine:lujuria` | `cinematics` | `assets/cinematics/cine_circle_01_lujuria.png` | 960x540 | `False` | ninguna |
-| 198 | `cine_circle_02_gula` | `cine:gula` | `cinematics` | `assets/cinematics/cine_circle_02_gula.png` | 960x540 | `False` | ninguna |
-| 199 | `cine_circle_03_avaricia` | `cine:avaricia` | `cinematics` | `assets/cinematics/cine_circle_03_avaricia.png` | 960x540 | `False` | ninguna |
-| 200 | `cine_circle_04_ira` | `cine:ira` | `cinematics` | `assets/cinematics/cine_circle_04_ira.png` | 960x540 | `False` | ninguna |
+| 201 | `cine_circle_05_herejia` | `cine:herejia` | `cinematics` | `assets/cinematics/cine_circle_05_herejia.png` | 960x540 | `False` | ninguna |
+| 202 | `cine_circle_06_violencia` | `cine:violencia` | `cinematics` | `assets/cinematics/cine_circle_06_violencia.png` | 960x540 | `False` | ninguna |
+| 203 | `cine_circle_07_fraude` | `cine:fraude` | `cinematics` | `assets/cinematics/cine_circle_07_fraude.png` | 960x540 | `False` | ninguna |
+| 204 | `cine_circle_08_traicion` | `cine:traicion` | `cinematics` | `assets/cinematics/cine_circle_08_traicion.png` | 960x540 | `False` | ninguna |
+| 205 | `cine_circle_09_nucleo` | `cine:nucleo` | `cinematics` | `assets/cinematics/cine_circle_09_nucleo.png` | 960x540 | `False` | ninguna |
+| 206 | `weapon_ricochet` | `weapons/weapon_ricochet.png` | `weapons` | `assets/weapons/weapon_ricochet.png` | 320x160 | `True` | ninguna |
+| 207 | `boss_10_arquitecto_idle` | `secretBoss:idle` | `bosses` | `assets/bosses/boss_10_arquitecto_idle.png` | 416x448 | `True` | ninguna |
+| 208 | `boss_10_arquitecto_attack` | `secretBoss:attack` | `bosses` | `assets/bosses/boss_10_arquitecto_attack.png` | 448x448 | `True` | ninguna |
+| 209 | `cine_circle_00_hub` | `cine:limbo` | `cinematics` | `assets/cinematics/cine_circle_00_hub.png` | 960x540 | `False` | ninguna |
+| 210 | `ui_shop_emblem` | `ui:shop_header` | `ui` | `assets/ui/ui_shop_emblem.png` | 320x160 | `True` | ninguna |
