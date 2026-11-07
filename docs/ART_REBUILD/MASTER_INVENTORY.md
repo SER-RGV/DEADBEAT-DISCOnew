@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T12:33:30Z
+- **Última actualización:** 2026-11-07T12:44:27Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **215 / 330** recursos verificados en motor real
+- **Progreso global:** **225 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -20,7 +20,7 @@
 | `props` | 30 | 30 | 30 | 30 |
 | `ui` | 14 | 14 | 14 | 14 |
 | `walls` | 10 | 10 | 10 | 10 |
-| `weapons` | 121 | 6 | 6 | 6 |
+| `weapons` | 121 | 16 | 16 | 16 |
 
 ## Inventario Detallado
 
@@ -241,16 +241,16 @@
 | 213 | TANDA_22 | `weapons/weapon_c003_laser.png` | Arma #003 · Láser (c003_laser) | `weapons` | `assets/weapons/weapon_c003_laser.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
 | 214 | TANDA_22 | `weapons/weapon_uzi.png` | Arma #004 · Ráfaga (uzi) | `weapons` | `assets/weapons/weapon_uzi.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
 | 215 | TANDA_22 | `weapons/weapon_c005_needler.png` | Arma #005 · Needler (c005_needler) | `weapons` | `assets/weapons/weapon_c005_needler.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
-| 216 | TANDA_22 | `weapons/weapon_plasma.png` | Arma #006 · Plasma (plasma) | `weapons` | `assets/weapons/weapon_plasma.png` | 320x160 | PENDING | PENDING | PENDING |
-| 217 | TANDA_22 | `weapons/weapon_c007_magnum.png` | Arma #007 · Magnum (rótulo: PAGNUM) (c007_magnum) | `weapons` | `assets/weapons/weapon_c007_magnum.png` | 320x160 | PENDING | PENDING | PENDING |
-| 218 | TANDA_22 | `weapons/weapon_c008_silenciada.png` | Arma #008 · Silenciada (c008_silenciada) | `weapons` | `assets/weapons/weapon_c008_silenciada.png` | 320x160 | PENDING | PENDING | PENDING |
-| 219 | TANDA_22 | `weapons/weapon_c009_desert_eagle.png` | Arma #009 · Desert Eagle (c009_desert_eagle) | `weapons` | `assets/weapons/weapon_c009_desert_eagle.png` | 320x160 | PENDING | PENDING | PENDING |
-| 220 | TANDA_22 | `weapons/weapon_c010_explosiva.png` | Arma #010 · Explosiva (c010_explosiva) | `weapons` | `assets/weapons/weapon_c010_explosiva.png` | 320x160 | PENDING | PENDING | PENDING |
-| 221 | TANDA_23 | `weapons/weapon_c011_de_veneno.png` | Arma #011 · De veneno (c011_de_veneno) | `weapons` | `assets/weapons/weapon_c011_de_veneno.png` | 320x160 | PENDING | PENDING | PENDING |
-| 222 | TANDA_23 | `weapons/weapon_c012_de_hielo.png` | Arma #012 · De hielo (c012_de_hielo) | `weapons` | `assets/weapons/weapon_c012_de_hielo.png` | 320x160 | PENDING | PENDING | PENDING |
-| 223 | TANDA_23 | `weapons/weapon_c013_escopeta.png` | Arma #013 · Escopeta (c013_escopeta) | `weapons` | `assets/weapons/weapon_c013_escopeta.png` | 320x160 | PENDING | PENDING | PENDING |
-| 224 | TANDA_23 | `weapons/weapon_olympia.png` | Arma #014 · Super escopeta (olympia) | `weapons` | `assets/weapons/weapon_olympia.png` | 320x160 | PENDING | PENDING | PENDING |
-| 225 | TANDA_23 | `weapons/weapon_c015_escopeta_automatica.png` | Arma #015 · Escopeta automática (c015_escopeta_automatica) | `weapons` | `assets/weapons/weapon_c015_escopeta_automatica.png` | 320x160 | PENDING | PENDING | PENDING |
+| 216 | TANDA_22 | `weapons/weapon_plasma.png` | Arma #006 · Plasma (plasma) | `weapons` | `assets/weapons/weapon_plasma.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 217 | TANDA_22 | `weapons/weapon_c007_magnum.png` | Arma #007 · Magnum (rótulo: PAGNUM) (c007_magnum) | `weapons` | `assets/weapons/weapon_c007_magnum.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 218 | TANDA_22 | `weapons/weapon_c008_silenciada.png` | Arma #008 · Silenciada (c008_silenciada) | `weapons` | `assets/weapons/weapon_c008_silenciada.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 219 | TANDA_22 | `weapons/weapon_c009_desert_eagle.png` | Arma #009 · Desert Eagle (c009_desert_eagle) | `weapons` | `assets/weapons/weapon_c009_desert_eagle.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 220 | TANDA_22 | `weapons/weapon_c010_explosiva.png` | Arma #010 · Explosiva (c010_explosiva) | `weapons` | `assets/weapons/weapon_c010_explosiva.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 221 | TANDA_23 | `weapons/weapon_c011_de_veneno.png` | Arma #011 · De veneno (c011_de_veneno) | `weapons` | `assets/weapons/weapon_c011_de_veneno.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 222 | TANDA_23 | `weapons/weapon_c012_de_hielo.png` | Arma #012 · De hielo (c012_de_hielo) | `weapons` | `assets/weapons/weapon_c012_de_hielo.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 223 | TANDA_23 | `weapons/weapon_c013_escopeta.png` | Arma #013 · Escopeta (c013_escopeta) | `weapons` | `assets/weapons/weapon_c013_escopeta.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 224 | TANDA_23 | `weapons/weapon_olympia.png` | Arma #014 · Super escopeta (olympia) | `weapons` | `assets/weapons/weapon_olympia.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
+| 225 | TANDA_23 | `weapons/weapon_c015_escopeta_automatica.png` | Arma #015 · Escopeta automática (c015_escopeta_automatica) | `weapons` | `assets/weapons/weapon_c015_escopeta_automatica.png` | 320x160 | DONE | INTEGRATED | VERIFIED |
 | 226 | TANDA_23 | `weapons/weapon_c016_de_canon.png` | Arma #016 · De cañón (c016_de_canon) | `weapons` | `assets/weapons/weapon_c016_de_canon.png` | 320x160 | PENDING | PENDING | PENDING |
 | 227 | TANDA_23 | `weapons/weapon_c017_de_fuego.png` | Arma #017 · De fuego (c017_de_fuego) | `weapons` | `assets/weapons/weapon_c017_de_fuego.png` | 320x160 | PENDING | PENDING | PENDING |
 | 228 | TANDA_23 | `weapons/weapon_cryo.png` | Arma #018 · De hielo (cryo) | `weapons` | `assets/weapons/weapon_cryo.png` | 320x160 | PENDING | PENDING | PENDING |
