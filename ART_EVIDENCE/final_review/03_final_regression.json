@@ -1,0 +1,227 @@
+{
+  "when": "2026-11-07T16:28:45.449Z",
+  "build": {
+    "file": "index.html",
+    "bytes": 5232970,
+    "sha256": "eaf607c5ba18e3d24041bf54e9a1f5bfd50f01f4f994da2fa86ee224a714c09b",
+    "guardSnippet": "markers",
+    "guardLines": 67
+  },
+  "env": {
+    "chromium": "HeadlessChrome/153.0.8010.0",
+    "ua": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/153.0.8010.0 Safari/537.36"
+  },
+  "guard": [
+    {
+      "name": "guard.patched",
+      "ok": true,
+      "detail": "window.addEventListener !== EventTarget.prototype.addEventListener"
+    },
+    {
+      "name": "guard.exposes-state",
+      "ok": true,
+      "detail": "window.__DD_KEY_GUARD__=object"
+    },
+    {
+      "name": "A.capture=true neutralized while HD",
+      "ok": true,
+      "detail": "hits=0"
+    },
+    {
+      "name": "A2.capture=true fires when HD off",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "A3.removeEventListener(type,fn,true) detaches",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "B.capture:{capture:true} neutralized while HD",
+      "ok": true,
+      "detail": "hits=0"
+    },
+    {
+      "name": "B2.capture:{capture:true} fires when HD off",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "B3.removeEventListener with {capture:true} detaches",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "C.duplicate registration delivers once",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "C2.after removal no delivery",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "D.bubble listener unaffected by HD gate",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "D2.bubble listener removable",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "E.legacy swallow preserved when HD off",
+      "ok": true,
+      "detail": "order=capture"
+    },
+    {
+      "name": "E2.legacy cover inert when HD on",
+      "ok": true,
+      "detail": "order=bubble"
+    },
+    {
+      "name": "F.single delivery for guarded listener",
+      "ok": true,
+      "detail": "hits=1"
+    },
+    {
+      "name": "F2.guard registry returns to baseline",
+      "ok": true,
+      "detail": "before=0 after=0"
+    },
+    {
+      "name": "G.re-installing snippet is inert",
+      "ok": true,
+      "detail": "{\"ok\":true,\"guard\":true}"
+    }
+  ],
+  "integration": [
+    {
+      "check": "B1.HD-on: cover no longer swallows keydown",
+      "ok": true,
+      "detail": "{\"marks\":[\"bubble\"],\"defaultPrevented\":false,\"hd\":true}"
+    },
+    {
+      "check": "B2.HD-off: legacy swallow restored byte-for-byte",
+      "ok": true,
+      "detail": "{\"marks\":[],\"defaultPrevented\":true,\"hd\":false} -> secuestro heredado intacto"
+    },
+    {
+      "check": "B4.guard registry holds only the legacy cover listeners",
+      "ok": true,
+      "detail": "{\"installed\":true,\"count\":2,\"neutralized\":true}"
+    },
+    {
+      "check": "B3.HD restored before flow",
+      "ok": true,
+      "detail": "body.dd-highres-edition=true"
+    }
+  ],
+  "flow": [
+    {
+      "step": "menu.visible",
+      "ok": true,
+      "detail": "{\"display\":\"flex\",\"btns\":5,\"hd\":true,\"cover\":\"none\"}"
+    },
+    {
+      "step": "menu.keyboard-nav",
+      "ok": true,
+      "detail": "hub -> play"
+    },
+    {
+      "step": "menu.enter-hub + cinematic",
+      "ok": true,
+      "detail": "{\"type\":\"intro\",\"elapsed\":0.14,\"duration\":4.4}"
+    },
+    {
+      "step": "cinematic.skip -> HUB",
+      "ok": true,
+      "detail": "hubActive=true cine=null"
+    },
+    {
+      "step": "hub.no-run => engine not paused",
+      "ok": true,
+      "detail": "paused=false running=false"
+    },
+    {
+      "step": "hub.keyboard-move (WASD reaches HUB)",
+      "ok": true,
+      "detail": "880 -> 951"
+    },
+    {
+      "step": "hub.emulated-gamepad-move",
+      "ok": true,
+      "detail": "951 -> 966 (mando emulado)"
+    },
+    {
+      "step": "hub.walk-to-descent-pad",
+      "ok": true,
+      "detail": "{\"active\":true,\"x\":880,\"y\":701,\"nearStation\":\"descent\",\"bounds\":{\"x\":260,\"y\":210,\"w\":1240,\"h\":760},\"stations\":[\"descent\",\"armory\",\"dj\",\"map\"]}"
+    },
+    {
+      "step": "hub.descent-interact [E]",
+      "ok": true,
+      "detail": "hubActive=false cine={\"type\":\"circle\",\"elapsed\":0.05,\"duration\":2.9}"
+    },
+    {
+      "step": "descent.cinematic -> run starts",
+      "ok": true,
+      "detail": "running=true room=0 cine=null"
+    },
+    {
+      "step": "run.pause released after descent",
+      "ok": true,
+      "detail": "{\"paused\":false,\"running\":true,\"hp\":3,\"room\":0,\"circle\":0}"
+    },
+    {
+      "step": "run.keyboard-move (engine input intact)",
+      "ok": true,
+      "detail": "delta=32.1"
+    },
+    {
+      "step": "run.simulated frames + fire",
+      "ok": true,
+      "detail": "{\"beforeHp\":3,\"afterHp\":3,\"room\":0,\"dead\":false,\"enemies\":1}"
+    },
+    {
+      "step": "run.re-enter HUB freezes live run",
+      "ok": true,
+      "detail": "paused=true running=true"
+    },
+    {
+      "step": "second descent releases pause again",
+      "ok": true,
+      "detail": "pausedAfter=false running=true room=0"
+    },
+    {
+      "step": "run.stable after descent (no leak / no death)",
+      "ok": true,
+      "detail": "{\"hp\":3,\"room\":0,\"paused\":false,\"running\":true,\"guardRegistry\":2}"
+    }
+  ],
+  "pageErrors": [],
+  "httpIssues": [],
+  "notes": [
+    "Mando EMULADO sustituyendo navigator.getGamepads; NO se ha probado un mando físico."
+  ],
+  "summary": {
+    "guard": {
+      "total": 17,
+      "passed": 17
+    },
+    "integration": {
+      "total": 4,
+      "passed": 4
+    },
+    "flow": {
+      "total": 16,
+      "passed": 16
+    },
+    "pageErrors": 0,
+    "httpIssues": 0
+  },
+  "verdict": "PASS"
+}
