@@ -23,12 +23,20 @@ if cf_idx > len(html) - 2000:
     if cf_end > cf_idx:
         html = html[:cf_idx] + html[cf_end + len("</script>"):]
 
-# 2. Inject High-Res UI CSS in <head>
+# 2. Inline the High-Res UI CSS into <head>.
+#    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
+#    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
+#    the build embeds its exact content at the same insertion point (end of <head>).
 head_anchor = "</head>"
 assert head_anchor in html, "Missing </head>"
+with open(os.path.join(ROOT, "src", "dd_rebuild_ui.css"), "r", encoding="utf-8") as f:
+    css_src = f.read()
+assert "</style" not in css_src.lower(), "CSS must not contain </style sequences"
 html = html.replace(
     head_anchor,
-    '  <link rel="stylesheet" href="src/dd_rebuild_ui.css">\n</head>',
+    "  <style>\n/* === INLINED FROM src/dd_rebuild_ui.css — regenerate via tools/build_active_html.py === */\n"
+    + css_src
+    + "\n  </style>\n</head>",
     1
 )
 
@@ -46,6 +54,29 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
      while upgrading rendering to native-DPR digital illustration + HUB + UI.
      ======================================================================== */
   (function () {
+    /* --------------------------------------------------------------------
+       KEYBOARD TAKEOVER GUARD
+       The legacy ddc cover registers window-capture keydown/keyup listeners
+       that call stopImmediatePropagation() while its internal "locked" flag
+       is on. That swallows every keystroke BEFORE the HD menu / HUB /
+       cinematic systems can see them (dead WASD in the Refugio, dead menu
+       navigation, dead skip key). While body.dd-highres-edition is set, the
+       HD layer owns the keyboard and those capture-phase window listeners
+       are neutralized. Engine input (bubble-phase) and every module listener
+       keep working untouched; removing the body class restores 100% of the
+       legacy behavior.
+       -------------------------------------------------------------------- */
+    const nativeWindowAddEventListener = window.addEventListener;
+    window.addEventListener = function (type, fn, opts) {
+      if (this === window && (type === "keydown" || type === "keyup") && opts === true && typeof fn === "function") {
+        return nativeWindowAddEventListener.call(this, type, function (ev) {
+          if (document.body && document.body.classList.contains("dd-highres-edition")) return;
+          return fn.call(this, ev);
+        }, opts);
+      }
+      return nativeWindowAddEventListener.apply(this, arguments);
+    };
+
     const origQc = qc;
     const origBg = Bg;
     const origWA = WA;
@@ -406,6 +437,17 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return !!U;
       },
       getSnapshot: buildSnapshot,
+      // Silent engine pause for the HUB safe zone: freezes Tf() simulation and
+      // ducks the DJ while the player walks the Refugio, without opening the
+      // legacy pause overlay. rp() (startRun) clears it on descent.
+      setPaused: function (v) {
+        try {
+          if (v) { Y = !!U; }
+          else { Y = false; }
+        } catch (e) {}
+        return !!Y;
+      },
+      isPaused: function () { return !!Y; },
       invalidateRoomCache: function () { roomCacheInvalid = true; b = false; },
       invalidateWeaponCache: function (wid) {
         // Trigger fresh lookup when new weapon illustration loads
@@ -491,15 +533,30 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
 html = html.replace(bridge_anchor, bridge_js, 1)
 
-# 4. Append modular scripts right before the FINAL </body> tag (never inside JS strings!)
+# 4. Inline the modular scripts right before the FINAL </body> tag (never inside JS strings!).
+#    Same single-file rule as the CSS step: the src/*.js files stay in the repo as the
+#    editable source of truth, but the runtime must not depend on fetching them.
 body_ridx = html.rfind("</body>")
 assert body_ridx > len(html) - 100, f"Unexpected final </body> at {body_ridx}"
-scripts_block = """  <script src="src/dd_asset_registry.js"></script>
-  <script src="src/dd_world_renderer.js"></script>
-  <script src="src/dd_hub_system.js"></script>
-  <script src="src/dd_cinematic_camera.js"></script>
-  <script src="src/dd_ui_system.js"></script>
-</body>"""
+MODULE_ORDER = (
+    "dd_asset_registry.js",
+    "dd_world_renderer.js",
+    "dd_hub_system.js",
+    "dd_cinematic_camera.js",
+    "dd_ui_system.js",
+)
+_parts = []
+for fname in MODULE_ORDER:
+    with open(os.path.join(ROOT, "src", fname), "r", encoding="utf-8") as f:
+        js_src = f.read()
+    assert "</script" not in js_src.lower(), f"{fname} must not contain </script sequences"
+    _parts.append(
+        "  <script>\n/* === INLINED FROM src/" + fname
+        + " — regenerate via tools/build_active_html.py === */\n"
+        + js_src
+        + "\n  </script>"
+    )
+scripts_block = "\n".join(_parts) + "\n</body>"
 html = html[:body_ridx] + scripts_block + html[body_ridx + len("</body>"):]
 
 for fname in ("index.html", "DEADBEAT_DISCO.html"):

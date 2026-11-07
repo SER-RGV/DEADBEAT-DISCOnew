@@ -458,8 +458,9 @@
     player_boost: "player_boost_00"
   };
 
-  function drawProtagonist(ctx, player, pAnim, drawWeaponLayerFn, shieldVal, raveTimer) {
+  function drawProtagonist(ctx, player, pAnim, drawWeaponLayerFn, shieldVal, raveTimer, scaleVal) {
     if (!player) return false;
+    const scl = Number(scaleVal) > 0 ? Number(scaleVal) : 1;
     const upperId = PLAYER_POSE_TO_ID[(pAnim && pAnim.upperPose) || "player_idle"] || "player_idle_00";
     const lowerId = PLAYER_POSE_TO_ID[(pAnim && pAnim.lowerPose) || "player_idle"] || "player_idle_00";
     const upperImg = window.DD_ASSETS && window.DD_ASSETS.get(upperId);
@@ -494,7 +495,7 @@
     if (facingLeft) ctx.scale(-1, 1);
     ctx.rotate(lean * (facingLeft ? -0.55 : 0.55));
 
-    const targetH = upperId === "player_death_00" ? 56 : (upperId === "player_roll_00" ? 84 : 104);
+    const targetH = (upperId === "player_death_00" ? 56 : (upperId === "player_roll_00" ? 84 : 104)) * scl;
     const targetW = targetH * (upperImg.naturalWidth / Math.max(1, upperImg.naturalHeight));
     const drawX = -targetW * 0.5;
     const drawY = -targetH + 32;

@@ -30,3 +30,9 @@ Estas son comprobaciones de integridad de archivo, **no** pruebas de funcionamie
 - El archivo `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` es inmutable: no editar, no regenerar, no sustituir.
 - El original `v9_t3_fase1b_cache_probe.html` **no se ha sobrescrito** en esta fase y conserva el mismo SHA-256.
 - Para restaurar: copiar el contenido del backup sobre el original y verificar de nuevo el SHA-256 indicado arriba.
+
+## Ampliación 2026-11-07 — copia previa a la reparación del arranque/HUB/controles
+
+- Copia creada antes de regenerar la build oficial: `index.html` (SHA-256 `d87e2bd9ecba06812a521518ced1749575443f1db0fb5c5e2433576feb80d7f4`, 5.020.635 B) → `backups/index_PRE-HUBFIX_2026-11-07.html`.
+- `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` permanece **inmutable** (el build solo lo lee).
+- Restauración de la build pre-reparación: copiar el archivo del punto anterior sobre `index.html`. Restauración completa: `python3 tools/build_active_html.py` sobre los `src/` originales de Git.

@@ -51,6 +51,12 @@ body.dd-highres-edition #hud {
   pointer-events: none !important;
 }
 
+/* The legacy ddc cover menu is fully replaced by #dd-main-menu — it must never
+   stack under/over the new menu (a stale or partial deployment must not reveal it). */
+body.dd-highres-edition #ddc-cover {
+  display: none !important;
+}
+
 /* ==========================================================================
    1. REFERENCE MAIN MENU (REF_05 -> MENÚS)
    ========================================================================== */

@@ -59,6 +59,15 @@
     uiState.initialized = true;
     document.body.classList.add("dd-highres-edition");
 
+    // Safety guard: even if src/dd_rebuild_ui.css was not served (partial or stale
+    // deployment), the legacy ddc cover must never stack on top of the HD menu.
+    if (!document.getElementById("dd-chrome-guard")) {
+      const guard = document.createElement("style");
+      guard.id = "dd-chrome-guard";
+      guard.textContent = "html body.dd-highres-edition #ddc-cover{display:none!important}";
+      document.head.appendChild(guard);
+    }
+
     // 1. MAIN MENU
     const menu = document.createElement("section");
     menu.id = "dd-main-menu";
@@ -259,6 +268,8 @@
         window.DD_HUB.exitToRun();
       } else if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.startRun === "function") {
         window.__DD_BRIDGE.startRun();
+      } else if (window.DDC_COVER && typeof window.DDC_COVER.start === "function") {
+        window.DDC_COVER.start();
       } else {
         const startBtn = document.getElementById("start-btn");
         if (startBtn) startBtn.click();
