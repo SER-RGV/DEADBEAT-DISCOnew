@@ -292,27 +292,55 @@ async function toMenu(p, maxMs) {
 
   const pad = await p.evaluate(async () => {
     /* MANDO EMULADO: se sustituye navigator.getGamepads por un dispositivo
-       sintético. Esto NO es una prueba con mando físico y así se reporta. */
+       sintético. Esto NO es una prueba con mando FÍSICO y así se reporta.
+
+       El mando se sondea dentro del bucle de render, que en este entorno va a
+       ~2 fps. Por eso NO se pulsa un tiempo fijo: se MANTIENE la pulsación y se
+       sondea hasta observar el efecto, con un techo. Un tiempo fijo aquí medía
+       la velocidad del entorno, no la del juego. */
     const fake = {
       id: 'Xbox Wireless Controller (EMULADO)', connected: true, index: 0, mapping: 'standard',
       axes: [0, 0, 0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0 }))
     };
     navigator.getGamepads = () => [fake];
-    const press = (i, v) => { fake.buttons[i] = { pressed: v, value: v ? 1 : 0 }; };
-    const wait = ms => new Promise(r => setTimeout(r, ms));
-    press(13, true); await wait(600); press(13, false); await wait(700);
+    const set = (i, v) => { fake.buttons[i] = { pressed: v, value: v ? 1 : 0 }; };
+    const sleep = ms => new Promise(r => setTimeout(r, ms));
+    /* Mantiene un botón hasta que `done()` se cumple o vence el plazo. */
+    const holdUntil = async (idx, done, capMs) => {
+      set(idx, true);
+      const t = Date.now();
+      while (Date.now() - t < (capMs || 15000)) {
+        if (done()) break;
+        await sleep(120);
+      }
+      set(idx, false);
+      await sleep(600);            /* histéresis para que no rebote */
+      return done();
+    };
+
+    const base = window.DD_UI.getState().menuIndex;
+    const moved = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base, 15000);
     const afterDown = window.DD_UI.getState().menuIndex;
-    press(0, true); await wait(700); press(0, false); await wait(1200);
+
+    const opened = await holdUntil(0, () => window.DD_UI.getState().submenu !== null, 20000);
     const afterA = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
-    await wait(700);
-    press(1, true); await wait(700); press(1, false); await wait(1500);
+
+    const closed = await holdUntil(1, () => window.DD_UI.getState().submenu === null, 20000);
     const afterB = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
+
     delete navigator.getGamepads;
-    return { afterDown, afterA, afterB };
+    return { base, moved, afterDown, opened, afterA, closed, afterB };
   });
-  ok('D3 mando EMULADO: D-pad mueve, A confirma, B vuelve',
-    pad.afterDown > 0 && !!pad.afterA.sub && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
-    JSON.stringify(pad));
+  /* Se informa POR SEPARADO de cada gesto: si uno falla no se oculta bajo un
+     único veredicto. Y el detalle dice explícitamente que el mando es EMULADO. */
+  ok('D3a mando EMULADO: el D-pad mueve la selección',
+    pad.moved === true && pad.afterDown !== pad.base,
+    'índice ' + pad.base + ' -> ' + pad.afterDown);
+  ok('D3b mando EMULADO: A abre el submenú',
+    pad.opened === true && !!pad.afterA.sub, JSON.stringify(pad.afterA));
+  ok('D3c mando EMULADO: B vuelve al menú',
+    pad.closed === true && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
+    JSON.stringify(pad.afterB));
   await p.keyboard.press('Escape');
   await p.waitForTimeout(600);
 
@@ -326,7 +354,11 @@ async function toMenu(p, maxMs) {
     pp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
     await toMenu(pp);
     await pp.waitForTimeout(1600);
-    await pp.screenshot({ path: `${OUT}/res_${label}.png` });
+    /* Una captura que no llega a tiempo no puede tumbar la suite entera: las
+       aserciones de esta prueba no dependen de la imagen. */
+    await pp.screenshot({ path: `${OUT}/res_${label}.png`, timeout: 90000, animations: 'disabled' }).catch(e => {
+      console.log('  (aviso) captura ' + label + ' no completada: ' + String(e.message).split('\n')[0]);
+    });
     const m = await pp.evaluate(() => {
       const q = s => document.querySelector(s).getBoundingClientRect();
       const nav = q('#dd-menu-nav'), foot = q('.dd-menu-footer'), bd = q('#dd-menu-backdrop');
