@@ -5908,6 +5908,13 @@ Moverte abre el abanico de las armas múltiples; las mesas y sofás se rompen co
            impossible to remove. Unremovable wrappers used to leak and, in
            legacy mode, a leaked stopImmediatePropagation() listener killed
            every keystroke.
+         - AbortSignal: `{capture, signal}` follows the browser. A signal
+           aborted AFTER registration drops its registry entry, a signal
+           already aborted BEFORE registration registers nothing at all (and
+           leaves no phantom entry that would dedupe a later valid add), and
+           re-registering the same callback after an abort works normally.
+         - `once` drops its entry on first dispatch (also when the HD gate
+           swallows that dispatch), so count() never keeps stale entries.
          - only window + capture + keydown/keyup is touched; bubble-phase
            engine input and element/document listeners are never wrapped.
          - installation is idempotent (window.__DD_KEY_GUARD__ marker).
@@ -5940,22 +5947,44 @@ Moverte abre el abanico de las armas múltiples; las mesas y sofás se rompen co
         return -1;
       }
 
+      // Removes ONE concrete entry (by identity) and unhooks its AbortSignal
+      // listener, so a stale signal can never evict a later registration.
+      function dropEntry(entry) {
+        const i = registry.indexOf(entry);
+        if (i >= 0) registry.splice(i, 1);
+        if (entry.onAbort && entry.signal && typeof entry.signal.removeEventListener === "function") {
+          entry.signal.removeEventListener("abort", entry.onAbort);
+          entry.onAbort = null;
+        }
+      }
+
       function forget(type, fn) {
         const i = findIndex(type, fn);
-        if (i >= 0) registry.splice(i, 1);
+        if (i >= 0) dropEntry(registry[i]);
       }
 
       window.addEventListener = function (type, fn, opts) {
         if (needsGuard(this, type, fn, opts)) {
           if (findIndex(type, fn) >= 0) return; // DOM semantics: duplicate = no-op
+          const signal = (opts && typeof opts === "object" && opts.signal) || null;
+          // Spec: an already-aborted signal registers nothing... and must not
+          // leave a phantom entry that would block a later valid registration.
+          if (signal && signal.aborted) return;
           const once = !!(opts && typeof opts === "object" && opts.once);
-          const wrapper = function (ev) {
-            if (once) forget(type, fn);
+          const entry = { type: type, fn: fn, wrapper: null, options: opts, signal: signal, onAbort: null };
+          entry.wrapper = function (ev) {
+            if (once) dropEntry(entry);
             if (document.body && document.body.classList.contains(HD_CLASS)) return;
             return fn.call(this, ev);
           };
-          registry.push({ type: type, fn: fn, wrapper: wrapper, options: opts });
-          return nativeAddEventListener.call(this, type, wrapper, opts);
+          if (signal && typeof signal.addEventListener === "function") {
+            // The browser detaches the real listener on abort; the registry must
+            // follow, or count() leaks and re-registration gets deduped away.
+            entry.onAbort = function () { dropEntry(entry); };
+            signal.addEventListener("abort", entry.onAbort, { once: true });
+          }
+          registry.push(entry);
+          return nativeAddEventListener.call(this, type, entry.wrapper, opts);
         }
         return nativeAddEventListener.apply(this, arguments);
       };
@@ -5965,7 +5994,7 @@ Moverte abre el abanico de las armas múltiples; las mesas y sofás se rompen co
           const i = findIndex(type, fn);
           if (i >= 0) {
             const entry = registry[i];
-            registry.splice(i, 1);
+            dropEntry(entry);
             return nativeRemoveEventListener.call(this, type, entry.wrapper, entry.options);
           }
         }

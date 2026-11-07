@@ -172,9 +172,122 @@ const GUARD_SPEC = function () {
   } catch (e) {
     rec("guard.spec-crash", false, e && e.message);
   }
+
+  /* ---- H · AbortSignal: cancelación automática de listeners ------------ */
+  const gCount = () => (window.__DD_KEY_GUARD__ ? window.__DD_KEY_GUARD__.count() : -1);
+  const base = gCount();
+
+  // H1 · registro con {capture, signal} + compuerta HD; H2 · abort posterior
+  try {
+    let n = 0;
+    const ac = new AbortController();
+    const h = () => { n++; };
+    window.addEventListener("keydown", h, { capture: true, signal: ac.signal });
+    const cAdd = gCount();
+    setHd(true); fire("F20");
+    const inHd = n;
+    setHd(false); fire("F20");
+    rec("H1.{capture,signal} se registra y respeta la compuerta HD",
+      cAdd === base + 1 && inHd === 0 && n === 1,
+      `count ${base}->${cAdd}, entregasEnHD=${inHd}, entregasFueraHD=${n}`);
+
+    ac.abort();
+    const cAbort = gCount();
+    fire("F20");
+    rec("H2.abort DESPUÉS del registro retira la entrada",
+      cAbort === base && n === 1,
+      `count tras abort=${cAbort} (base ${base}), entregas=${n}`);
+
+    // H4 · volver a registrar la misma función tras el abort
+    const ac2 = new AbortController();
+    window.addEventListener("keydown", h, { capture: true, signal: ac2.signal });
+    const cRe = gCount();
+    fire("F20");
+    rec("H4.volver a registrar la misma función tras el abort",
+      cRe === base + 1 && n === 2,
+      `count=${cRe}, entregas=${n}`);
+    window.removeEventListener("keydown", h, { capture: true });
+    rec("H4b.retirada manual tras el re-registro", gCount() === base, `count=${gCount()}`);
+    ac2.abort();
+    rec("H4c.abort de una señal ya retirada no deja entrada", gCount() === base, `count=${gCount()}`);
+  } catch (e) { rec("H1.{capture,signal} se registra y respeta la compuerta HD", false, "threw " + e.message); }
+
+  // H3 · señal YA abortada antes del registro
+  try {
+    const ac = new AbortController();
+    ac.abort();
+    let n = 0;
+    const h = () => { n++; };
+    window.addEventListener("keydown", h, { capture: true, signal: ac.signal });
+    const c = gCount();
+    setHd(false); fire("F21");
+    rec("H3.señal ya abortada no registra nada ni deja entrada",
+      n === 0 && c === base,
+      `entregas=${n}, count=${c} (base ${base})`);
+
+    const ac2 = new AbortController();
+    window.addEventListener("keydown", h, { capture: true, signal: ac2.signal });
+    fire("F21");
+    rec("H3b.no bloquea un registro posterior válido",
+      n === 1 && gCount() === base + 1,
+      `entregas=${n}, count=${gCount()}`);
+    window.removeEventListener("keydown", h, { capture: true });
+    ac2.abort();
+    rec("H3c.limpieza tras H3b", gCount() === base, `count=${gCount()}`);
+  } catch (e) { rec("H3.señal ya abortada no registra nada ni deja entrada", false, "threw " + e.message); }
+
+  // H5 · once
+  try {
+    let n = 0;
+    const h = () => { n++; };
+    setHd(false);
+    window.addEventListener("keydown", h, { capture: true, once: true });
+    fire("F22"); fire("F22");
+    rec("H5.once entrega una sola vez y olvida la entrada",
+      n === 1 && gCount() === base, `entregas=${n}, count=${gCount()}`);
+
+    let m = 0;
+    const h2 = () => { m++; };
+    setHd(true);
+    window.addEventListener("keydown", h2, { capture: true, once: true });
+    fire("F23");
+    rec("H5b.once con HD activo: sin entrega y entrada retirada",
+      m === 0 && gCount() === base, `entregas=${m}, count=${gCount()}`);
+    setHd(false);
+  } catch (e) { rec("H5.once entrega una sola vez y olvida la entrada", false, "threw " + e.message); }
+
+  // H6 · retirada manual después de registrar con objeto de opciones
+  try {
+    let n = 0;
+    const ac = new AbortController();
+    const h = () => { n++; };
+    window.addEventListener("keydown", h, { capture: true, signal: ac.signal });
+    window.removeEventListener("keydown", h, { capture: true, signal: ac.signal });
+    const c = gCount();
+    fire("F24");
+    ac.abort();
+    rec("H6.retirada manual con opciones (incluida señal)",
+      n === 0 && c === base && gCount() === base,
+      `entregas=${n}, count tras retirar=${c}, count tras abort=${gCount()}`);
+  } catch (e) { rec("H6.retirada manual con opciones (incluida señal)", false, "threw " + e.message); }
+
+  // H7 · ausencia de entradas obsoletas en count() tras ciclos registro/abort
+  try {
+    for (let i = 0; i < 30; i++) {
+      const ac = new AbortController();
+      window.addEventListener("keydown", function () {}, { capture: true, signal: ac.signal });
+      ac.abort();
+    }
+    const c = gCount();
+    setHd(true); fire("F25"); setHd(false);
+    rec("H7.30 ciclos registro/abort no dejan entradas obsoletas",
+      c === base, `count=${c} (base ${base})`);
+    rec("H7b.count() vuelve a la línea base", gCount() === base, `count=${gCount()}`);
+  } catch (e) { rec("H7.30 ciclos registro/abort no dejan entradas obsoletas", false, "threw " + e.message); }
+
+  setHd(false); // página aislada: se deja el modo HD apagado
   return out;
 };
-
 /* -------------------------------- driver -------------------------------- */
 (async () => {
   const puppeteer = require("puppeteer-core");
