@@ -5,6 +5,8 @@
 **Árbol de trabajo al inicio:** limpio (`nothing to commit, working tree clean`).
 **Método:** lectura estática del repositorio + ejecución real en Chromium 131 (`@sparticuz/chromium` 131.0.1 + `playwright-core` 1.49) servido en `http://127.0.0.1:8123`. Todas las cifras de esta auditoría están medidas, no estimadas.
 
+
+> **REVISIÓN POSTERIOR (Fase 01, bloques 02-06):** H8, D-01 y la accion A1 de este documento eran incorrectos y quedan corregidos en su sitio. El arte de menu no trae logotipo ni botones horneados: es arte limpio. La causa del doble logotipo era el cover legado `#ddc-img`. No se ha reconstruido ningun asset aprobado; solo se generaron derivados de calidad y piezas nuevas de marca. Ver `FASE_01_INFORME_FINAL.md` seccion C.
 ---
 
 ## 0. Resumen ejecutivo (lo que cambia el plan)
@@ -18,7 +20,7 @@
 | H5 | **No hay menú de intro.** `DD_CINE.playIntro()` existe pero **solo se invoca desde un botón** (`data-action="hub"`). El arranque va directo a MAIN_MENU. | Se implementa BOOT→LOADING→INTRO→MAIN_MENU (BLOQUE 04). |
 | H6 | **Hay dos menús superpuestos.** El menú HD (`#dd-main-menu`, `z:9500`) sustituye al cover legado `#ddc-cover` (`z:2147483000`) que queda en `display:none` por CSS, pero **su motor de audio y su motor de teclado siguen construidos y escuchando**. | Propiedad de audio y de input única por estado (BLOQUE 07). |
 | H7 | El botón de opciones actual **saca al usuario del menú** (`hideMainMenu()` + muestra `#overlay` legado): no vuelve al menú. | Submenús reales con retorno (BLOQUE 06). |
-| H8 | La ilustración de menú del artefacto (`ddc-img` → `assets/ui/menu_main_backdrop.png`) **ya trae el logotipo, los botones y el marco horneados en píxeles**. El menú HD dibuja encima un logotipo y unos botones vivos → **doble logotipo / doble botón fantasma** visibles en la esquina superior izquierda. | El fondo debe separarse en capas: arte limpio + logotipo + UI viva. Reconstrucción de asset (BLOQUE 02). |
+| H8 | ~~La ilustración de menú trae logotipo y botones horneados~~ **CORREGIDO (revisión posterior):** `assets/ui/menu_main_backdrop.png` es arte limpio, sin logotipo ni botones. El «doble logotipo / botones quemados» que se ve en la build corresponde solo al cover legado `#ddc-img`, que no es UI viva. Por tanto NO hay que reconstruir el fondo: se usa tal cual (reescalado de calidad para 1440p). | Conservar el arte y sustituir únicamente la capa de UI. Sin reconstrucción de asset. |
 | H9 | Los 300 recursos embebidos decodifican; los 225 del manifiesto externo existen (0 rutas rotas, 10,86 MB). | No hay rotura de carga que justifique regenerar el arte base. La reconstrucción se limita a lo que la composición exige. |
 | H10 | El entorno de QA no trae navegador ni permite descargarlo de los CDN de Playwright; **sí** funciona Chromium de `@sparticuz/chromium` con `LD_LIBRARY_PATH` a las libs NSS de Amazon Linux 2023. | Se documenta el procedimiento exacto para que las pruebas sean reproducibles. |
 
@@ -155,7 +157,7 @@ Medido con Pillow. `sha16` = primeros 16 hex de SHA-256.
 
 | Id | Recurso | Problema | Evidencia | Acción |
 |---|---|---|---|---|
-| D-01 | `assets/ui/menu_main_backdrop.png` | Contiene logotipo y botones horneados → doble render con la UI viva | captura 1280×720 y 1600×900 | **RECONSTRUIR** capa limpia |
+| D-01 | `assets/ui/menu_main_backdrop.png` | **CORREGIDO:** arte limpio, sin logotipo ni botones horneados. El quemado pertenece al cover legado `#ddc-img`. | inspección de alfa y recortes a 1280×720 y 1600×900 | **CONSERVAR** (solo reescalado de calidad) |
 | D-02 | `#boot-screen` | `DMO_BOOT46` sigue emitiendo progreso pero el DOM ya no existe (`t.parentNode.removeChild(t)` a 650 ms) | código + runtime | **RECONSTRUIR** |
 | D-03 | `DEADBEAT_DISCO.ART.html` | Build paralela de I+D que no es la publicada; riesgo de confusión operativa | comparación `grep` (0 `dd-main-menu`) | **CONSERVAR** + marcar como histórica en `CURRENT_STATE.md` |
 | D-04 | `DDC_COVER` (cover legado) | 45 KB de JS minificado con motor de audio y listener de captura de teclado activos bajo un menú que nunca se muestra | runtime | **NO ELIMINAR** (contrato del motor para `start`), **silenciar y desarmar** desde la FSM |
@@ -171,7 +173,7 @@ Solo se produce lo que la composición exige, respetando las referencias aprobad
 
 | # | Recurso nuevo | Método | Motivo |
 |---|---|---|---|
-| A1 | `menu_composition_clean` — la ilustración de menú **sin** logotipo ni botones horneados, en 2560×1440 | Reconstrucción determinista por capas a partir del arte aprobado (`menu_main_backdrop` a 1280×720 → escalado controlado + parcheado de la zona horneada con contenido coherente del propio arte) | D-01/H8 |
+| A1 | `menu_composition_clean` — **CANCELADO**: no hace falta reconstruir nada. El arte de menú ya está limpio (ver H8/D-01 corregidos). Solo se generan derivados de calidad: `assets/fase01/menu_backdrop_2k.webp` y `loading_keyart_2k.webp` (2560×1440, Lanczos + unsharp). | Escalado controlado del arte aprobado | H8/D-01 |
 | A2 | `logo_deadbeat_layers` — logotipo recortado a su caja real, con transparencia y sin halo | Extracción determinista del logotipo existente | permite escala y animación sin caja negra |
 | A3 | `emblem_fox_crown_glow` — emblema con halo de neón para LOADING | Derivado del emblema aprobado | pantalla de carga propia |
 | A4 | Set de 4 iconos de estado del menú (32×32, 2 colores) | Dibujados a partir de la paleta de la biblia (`#ff2d7a`, `#22d3ee`, `#0a0c12`) | selección/deshabilitado legibles |
