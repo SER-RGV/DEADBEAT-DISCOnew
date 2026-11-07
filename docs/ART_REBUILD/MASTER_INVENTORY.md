@@ -1,8 +1,8 @@
 # MASTER INVENTORY — DEADBEAT DISCO (TOTAL ART RECONSTRUCTION)
 
-- **Última actualización:** 2026-11-07T11:54:20Z
+- **Última actualización:** 2026-11-07T12:17:41Z
 - **Build base protegida:** `backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html` (`1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e`)
-- **Progreso global:** **185 / 330** recursos verificados en motor real
+- **Progreso global:** **195 / 330** recursos verificados en motor real
 
 ## Resumen por Categoría
 
@@ -11,7 +11,7 @@
 | `bosses` | 42 | 40 | 40 | 40 |
 | `characters` | 16 | 16 | 16 | 16 |
 | `cinematics` | 11 | 1 | 1 | 1 |
-| `effects` | 20 | 9 | 9 | 9 |
+| `effects` | 20 | 19 | 19 | 19 |
 | `enemies` | 24 | 24 | 24 | 24 |
 | `environments` | 8 | 8 | 8 | 8 |
 | `floors` | 12 | 12 | 12 | 12 |
@@ -211,16 +211,16 @@
 | 183 | TANDA_19 | `atlas:projectile_lane` | Proyectil · Onda Hoja Violeta | `effects` | `assets/effects/proj_lane.png` | 224x96 | DONE | INTEGRATED | VERIFIED |
 | 184 | TANDA_19 | `atlas:projectile_flame` | Proyectil · Llamarada Infernal | `effects` | `assets/effects/proj_flame.png` | 192x160 | DONE | INTEGRATED | VERIFIED |
 | 185 | TANDA_19 | `atlas:projectile_rail` | Proyectil · Riel Hiperveloz Violeta | `effects` | `assets/effects/proj_rail.png` | 256x96 | DONE | INTEGRATED | VERIFIED |
-| 186 | TANDA_19 | `atlas:projectile_homing` | Proyectil · Orbe Rastreador Rosa | `effects` | `assets/effects/proj_homing.png` | 192x96 | PENDING | PENDING | PENDING |
-| 187 | TANDA_19 | `vfx:muzzle_gold` | VFX · Fogonazo Disparo Dorado | `effects` | `assets/effects/vfx_muzzle_gold.png` | 192x160 | PENDING | PENDING | PENDING |
-| 188 | TANDA_19 | `vfx:muzzle_plasma` | VFX · Fogonazo Neón Magenta | `effects` | `assets/effects/vfx_muzzle_plasma.png` | 192x160 | PENDING | PENDING | PENDING |
-| 189 | TANDA_19 | `atlas:impact_0` | VFX · Impacto Chispa Balística | `effects` | `assets/effects/vfx_impact_spark.png` | 160x160 | PENDING | PENDING | PENDING |
-| 190 | TANDA_19 | `atlas:impact_2` | VFX · Impacto Estrella Magenta | `effects` | `assets/effects/vfx_impact_plasma.png` | 160x160 | PENDING | PENDING | PENDING |
-| 191 | TANDA_20 | `vfx:explosion` | VFX · Explosión Bomba Infernal | `effects` | `assets/effects/vfx_explosion_inferno.png` | 320x320 | PENDING | PENDING | PENDING |
-| 192 | TANDA_20 | `vfx:shockwave` | VFX · Anillo Rúnico / RAVE Magenta | `effects` | `assets/effects/vfx_shockwave_magenta.png` | 320x320 | PENDING | PENDING | PENDING |
-| 193 | TANDA_20 | `atlas:fire0` | VFX · Columna de Fuego Infernal | `effects` | `assets/effects/vfx_fire_plume.png` | 160x256 | PENDING | PENDING | PENDING |
-| 194 | TANDA_20 | `atlas:soul0` | VFX · Descarga Cian Sónica | `effects` | `assets/effects/vfx_soul_flame.png` | 192x192 | PENDING | PENDING | PENDING |
-| 195 | TANDA_20 | `vfx:lightning` | VFX · Relámpago Arcano Púrpura | `effects` | `assets/effects/vfx_lightning_purple.png` | 224x256 | PENDING | PENDING | PENDING |
+| 186 | TANDA_19 | `atlas:projectile_homing` | Proyectil · Orbe Rastreador Rosa | `effects` | `assets/effects/proj_homing.png` | 192x96 | DONE | INTEGRATED | VERIFIED |
+| 187 | TANDA_19 | `vfx:muzzle_gold` | VFX · Fogonazo Disparo Dorado | `effects` | `assets/effects/vfx_muzzle_gold.png` | 192x160 | DONE | INTEGRATED | VERIFIED |
+| 188 | TANDA_19 | `vfx:muzzle_plasma` | VFX · Fogonazo Neón Magenta | `effects` | `assets/effects/vfx_muzzle_plasma.png` | 192x160 | DONE | INTEGRATED | VERIFIED |
+| 189 | TANDA_19 | `atlas:impact_0` | VFX · Impacto Chispa Balística | `effects` | `assets/effects/vfx_impact_spark.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 190 | TANDA_19 | `atlas:impact_2` | VFX · Impacto Estrella Magenta | `effects` | `assets/effects/vfx_impact_plasma.png` | 160x160 | DONE | INTEGRATED | VERIFIED |
+| 191 | TANDA_20 | `vfx:explosion` | VFX · Explosión Bomba Infernal | `effects` | `assets/effects/vfx_explosion_inferno.png` | 320x320 | DONE | INTEGRATED | VERIFIED |
+| 192 | TANDA_20 | `vfx:shockwave` | VFX · Anillo Rúnico / RAVE Magenta | `effects` | `assets/effects/vfx_shockwave_magenta.png` | 320x320 | DONE | INTEGRATED | VERIFIED |
+| 193 | TANDA_20 | `atlas:fire0` | VFX · Columna de Fuego Infernal | `effects` | `assets/effects/vfx_fire_plume.png` | 160x256 | DONE | INTEGRATED | VERIFIED |
+| 194 | TANDA_20 | `atlas:soul0` | VFX · Descarga Cian Sónica | `effects` | `assets/effects/vfx_soul_flame.png` | 192x192 | DONE | INTEGRATED | VERIFIED |
+| 195 | TANDA_20 | `vfx:lightning` | VFX · Relámpago Arcano Púrpura | `effects` | `assets/effects/vfx_lightning_purple.png` | 224x256 | DONE | INTEGRATED | VERIFIED |
 | 196 | TANDA_20 | `vfx:smoke` | VFX · Nube de Humo Volumétrico | `effects` | `assets/effects/vfx_smoke_cloud.png` | 256x256 | PENDING | PENDING | PENDING |
 | 197 | TANDA_20 | `cine:lujuria` | Cinemática Círculo I · Lujuria (El Salón de los Deseos) | `cinematics` | `assets/cinematics/cine_circle_01_lujuria.png` | 960x540 | PENDING | PENDING | PENDING |
 | 198 | TANDA_20 | `cine:gula` | Cinemática Círculo II · Gula (El Banquete Interminable) | `cinematics` | `assets/cinematics/cine_circle_02_gula.png` | 960x540 | PENDING | PENDING | PENDING |

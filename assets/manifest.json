@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 185,
+  "totalRegistered": 195,
   "totalPlanned": 330,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -2406,6 +2406,136 @@
       "pivot": "center",
       "tanda": "TANDA_19",
       "sha16": "ae32d92e880ac546"
+    },
+    "proj_homing": {
+      "id": "proj_homing",
+      "originalId": "atlas:projectile_homing",
+      "name": "Proyectil · Orbe Rastreador Rosa",
+      "category": "effects",
+      "src": "assets/effects/proj_homing.png",
+      "w": 192,
+      "h": 96,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_19",
+      "sha16": "1ee67ecd21a8a17a"
+    },
+    "vfx_muzzle_gold": {
+      "id": "vfx_muzzle_gold",
+      "originalId": "vfx:muzzle_gold",
+      "name": "VFX · Fogonazo Disparo Dorado",
+      "category": "effects",
+      "src": "assets/effects/vfx_muzzle_gold.png",
+      "w": 192,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_19",
+      "sha16": "e31511741776ce8b"
+    },
+    "vfx_muzzle_plasma": {
+      "id": "vfx_muzzle_plasma",
+      "originalId": "vfx:muzzle_plasma",
+      "name": "VFX · Fogonazo Neón Magenta",
+      "category": "effects",
+      "src": "assets/effects/vfx_muzzle_plasma.png",
+      "w": 192,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_19",
+      "sha16": "25e6e72e77586c17"
+    },
+    "vfx_impact_spark": {
+      "id": "vfx_impact_spark",
+      "originalId": "atlas:impact_0",
+      "name": "VFX · Impacto Chispa Balística",
+      "category": "effects",
+      "src": "assets/effects/vfx_impact_spark.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_19",
+      "sha16": "93fd558e67dad652"
+    },
+    "vfx_impact_plasma": {
+      "id": "vfx_impact_plasma",
+      "originalId": "atlas:impact_2",
+      "name": "VFX · Impacto Estrella Magenta",
+      "category": "effects",
+      "src": "assets/effects/vfx_impact_plasma.png",
+      "w": 160,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_19",
+      "sha16": "e77db7def0107168"
+    },
+    "vfx_explosion_inferno": {
+      "id": "vfx_explosion_inferno",
+      "originalId": "vfx:explosion",
+      "name": "VFX · Explosión Bomba Infernal",
+      "category": "effects",
+      "src": "assets/effects/vfx_explosion_inferno.png",
+      "w": 320,
+      "h": 320,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_20",
+      "sha16": "f158257073e3d4f6"
+    },
+    "vfx_shockwave_magenta": {
+      "id": "vfx_shockwave_magenta",
+      "originalId": "vfx:shockwave",
+      "name": "VFX · Anillo Rúnico / RAVE Magenta",
+      "category": "effects",
+      "src": "assets/effects/vfx_shockwave_magenta.png",
+      "w": 320,
+      "h": 320,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_20",
+      "sha16": "e575e0de3fdb2084"
+    },
+    "vfx_fire_plume": {
+      "id": "vfx_fire_plume",
+      "originalId": "atlas:fire0",
+      "name": "VFX · Columna de Fuego Infernal",
+      "category": "effects",
+      "src": "assets/effects/vfx_fire_plume.png",
+      "w": 160,
+      "h": 256,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_20",
+      "sha16": "6ce952e6cf4342d2"
+    },
+    "vfx_soul_flame": {
+      "id": "vfx_soul_flame",
+      "originalId": "atlas:soul0",
+      "name": "VFX · Descarga Cian Sónica",
+      "category": "effects",
+      "src": "assets/effects/vfx_soul_flame.png",
+      "w": 192,
+      "h": 192,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_20",
+      "sha16": "0ce40286dc2eaadc"
+    },
+    "vfx_lightning_purple": {
+      "id": "vfx_lightning_purple",
+      "originalId": "vfx:lightning",
+      "name": "VFX · Relámpago Arcano Púrpura",
+      "category": "effects",
+      "src": "assets/effects/vfx_lightning_purple.png",
+      "w": 224,
+      "h": 256,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_20",
+      "sha16": "38aa9bf195ffb9a5"
     }
   },
   "byOriginalId": {
@@ -2593,6 +2723,16 @@
     "atlas:projectile_ricochet": "proj_ricochet",
     "atlas:projectile_lane": "proj_lane",
     "atlas:projectile_flame": "proj_flame",
-    "atlas:projectile_rail": "proj_rail"
+    "atlas:projectile_rail": "proj_rail",
+    "atlas:projectile_homing": "proj_homing",
+    "vfx:muzzle_gold": "vfx_muzzle_gold",
+    "vfx:muzzle_plasma": "vfx_muzzle_plasma",
+    "atlas:impact_0": "vfx_impact_spark",
+    "atlas:impact_2": "vfx_impact_plasma",
+    "vfx:explosion": "vfx_explosion_inferno",
+    "vfx:shockwave": "vfx_shockwave_magenta",
+    "atlas:fire0": "vfx_fire_plume",
+    "atlas:soul0": "vfx_soul_flame",
+    "vfx:lightning": "vfx_lightning_purple"
   }
 }

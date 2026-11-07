@@ -107,3 +107,8 @@ Registro acumulativo de integración en el motor real (`__DD_BRIDGE`, `DD_ASSETS
 - Decodificación en vivo (`naturalWidth > 0`): **185/185 registrados (100%)**
 - Evidencias visuales: `docs/ART_REBUILD/evidence/tanda_19/`
 
+## TANDA_20 (2026-11-07T12:17:41Z)
+- Recursos integrados acumulados: **195 / 330**
+- Decodificación en vivo (`naturalWidth > 0`): **195/195 registrados (100%)**
+- Evidencias visuales: `docs/ART_REBUILD/evidence/tanda_20/`
+
