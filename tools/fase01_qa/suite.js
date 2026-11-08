@@ -436,7 +436,32 @@ async function toMenu(p, maxMs) {
       return b ? b.getAttribute('data-action') : null;
     })();
 
-    const open = await holdUntil(0, () => window.DD_UI.getState().submenu !== null);
+    /* Gesto de A (FASE 01.4).
+       La versión anterior pulsaba A durante 900 ms y lo soltaba. Con el menú
+       latiendo a ~1 tick cada 2-3 s bajo la carga de una suite completa, una
+       pulsación corta puede caer entera ENTRE dos ticks y perderse: medido, el
+       mismo gesto funciona siempre en aislamiento y falla en la suite. No es un
+       fallo del producto (el flanco se dispara en cuanto un frame ve el botón),
+       sino una ventana de pulsación demasiado corta para el entorno.
+       Ahora se mantiene A hasta que el juego lo consume (submenu abierto), con
+       un mínimo de ticks observados, de modo que el gesto siempre cruza al menos
+       un frame del juego. */
+    const open = await (async () => {
+      const tA = Date.now();
+      let cycles = 0, peak = 0, ok = false;
+      while (Date.now() - tA < 60000) {
+        const p0 = polls;
+        set(0, true);
+        await sleep(1800);              /* > 1 tick del menú incluso a 1 fps */
+        ok = window.DD_UI.getState().submenu !== null;
+        set(0, false);
+        await sleep(700);
+        cycles++;
+        peak = Math.max(peak, polls - p0);
+        if (ok) break;
+      }
+      return { ok: ok, cycles: cycles, pollsPerCycle: peak };
+    })();
     const afterA = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
 
     const close = await holdUntil(1, () => window.DD_UI.getState().submenu === null);
