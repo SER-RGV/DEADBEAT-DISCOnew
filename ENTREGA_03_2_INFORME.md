@@ -312,4 +312,8 @@ ESTADO: PASS
 
 ## 21. Pull Request
 
-- PR: **pendiente de apertura** (se abre desde esta rama hacia `main`; **no se fusiona**; PR #10 no se toca).
+- PR: **#11** — https://github.com/SER-RGV/DEADBEAT-DISCOnew/pull/11
+- Título: «ENTREGA 03.2 — Integración controlada del menú principal (A · El Centro del Bucle)»
+- Base: `main` (`250ee38…`, intacta — `git ls-remote origin main` verificado = `250ee38c13b0f7598eb40b7bac99fedba47a2917`) · Head: `arena/entrega-03-2-menu-centro-bucle`
+- Commit de la entrega: `de8c567` · 23 archivos · +339 / −10 · estado: OPEN, MERGEABLE, **sin fusionar** (revisión humana requerida).
+- PR #10: intacto (OPEN, no tocado). Worktrees de ENTREGA 03.1 y árbol principal: intactos.
