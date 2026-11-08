@@ -35,17 +35,36 @@ async function shot(page, name) {
 const res = [];
 /* Tres estados, no dos. Un SKIP no es un PASS encubierto: significa que la
    prueba no llegó a ejecutarse por una limitación del entorno, y así se informa.
-   NO VERIFICABLE se registra cuando el efecto no puede medirse aquí. */
-function ok(id, cond, detail) {
-  res.push({ id, pass: !!cond, status: cond ? 'PASS' : 'FAIL', detail: String(detail == null ? '' : detail) });
+   NO VERIFICABLE se registra cuando el efecto no puede medirse aquí.
+
+   FASE 01.4 · cada registro guarda además lo que la prueba EXIGÍA (`expected`)
+   y cuánto tardó (`ms`), para que la evidencia sea auditable por sí sola y no
+   sólo por su detalle textual. */
+let __t0 = Date.now();
+function __lap() { const now = Date.now(); const d = now - __t0; __t0 = now; return d; }
+function ok(id, cond, detail, expected) {
+  res.push({
+    id, pass: !!cond, status: cond ? 'PASS' : 'FAIL',
+    detail: String(detail == null ? '' : detail),
+    expected: expected == null ? '' : String(expected),
+    ms: __lap()
+  });
   console.log((cond ? 'PASS ' : 'FAIL ') + id + '  ' + (detail == null ? '' : detail));
 }
-function skip(id, why, detail) {
-  res.push({ id, pass: null, status: 'SKIP', detail: String(detail == null ? '' : detail), why: String(why) });
+function skip(id, why, detail, expected) {
+  res.push({
+    id, pass: null, status: 'SKIP',
+    detail: String(detail == null ? '' : detail), why: String(why),
+    expected: expected == null ? '' : String(expected), ms: __lap()
+  });
   console.log('SKIP ' + id + '  ' + why + (detail ? ' · ' + detail : ''));
 }
-function nv(id, why, detail) {
-  res.push({ id, pass: null, status: 'NV', detail: String(detail == null ? '' : detail), why: String(why) });
+function nv(id, why, detail, expected) {
+  res.push({
+    id, pass: null, status: 'NV',
+    detail: String(detail == null ? '' : detail), why: String(why),
+    expected: expected == null ? '' : String(expected), ms: __lap()
+  });
   console.log('NV   ' + id + '  ' + why + (detail ? ' · ' + detail : ''));
 }
 
@@ -397,12 +416,20 @@ async function toMenu(p, maxMs) {
     const down = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base);
     const afterDown = window.DD_UI.getState().menuIndex;
 
-    /* D3a ya demostró que el D-pad mueve la selección: se usa para apuntar. */
+    /* D3a ya demostró que el D-pad mueve la selección: se usa para apuntar.
+       El destino depende del índice del que se parte (D2 deja el menú en SALIR),
+       así que el número de pasos necesarios varía. El bucle espera a una
+       CONDICIÓN, no a un número de intentos, y deja constancia de si llegó:
+       antes se agotaba en silencio y se pulsaba A sobre un botón equivocado,
+       lo que se leía como un fallo del mando cuando era de la prueba. */
     const ruta = [];
-    for (let g = 0; g < 12 && window.DD_UI.getState().menuIndex !== objetivo; g++) {
+    const tRuta = Date.now();
+    let llego = window.DD_UI.getState().menuIndex === objetivo;
+    while (!llego && Date.now() - tRuta < 30000) {
       const antes = window.DD_UI.getState().menuIndex;
       set(13, true); await sleep(1100); set(13, false); await sleep(900);
       ruta.push(antes + '->' + window.DD_UI.getState().menuIndex);
+      llego = window.DD_UI.getState().menuIndex === objetivo;
     }
     const enfocado = (() => {
       const b = document.querySelectorAll('[data-action]')[window.DD_UI.getState().menuIndex];
@@ -425,7 +452,7 @@ async function toMenu(p, maxMs) {
     navigator.getGamepads = realPads;
     delete navigator.getGamepads;
     return { base, polls, down, afterDown, open, afterA, close, afterB, idleStable: idle0 === idle1,
-             accionEnfocada: accionEnfocada, objetivo: objetivo, ruta: rutaHastaOp };
+             accionEnfocada: accionEnfocada, objetivo: objetivo, ruta: rutaHastaOp, llegoAlObjetivo: llego };
   });
 
   /* Se informa POR SEPARADO de cada gesto: si uno falla no se oculta bajo un
@@ -434,6 +461,14 @@ async function toMenu(p, maxMs) {
     !!(pad.down && pad.down.ok) && pad.afterDown !== pad.base,
     'índice ' + pad.base + ' -> ' + pad.afterDown + ' (ciclos=' + (pad.down && pad.down.cycles) +
     ', sondeos/ciclo=' + (pad.down && pad.down.pollsPerCycle) + ')');
+  /* Si el D-pad no llegó a OPCIONES, D3b no se puede juzgar: se informa como
+     SKIP con su motivo en vez de convertirlo en un FAIL que culparía al mando. */
+  if (pad && pad.llegoAlObjetivo === false) {
+    skip('D3b mando EMULADO: A abre el submenú que está enfocado',
+      'el D-pad no alcanzó OPCIONES en 30 s; el gesto de A no se pudo juzgar',
+      'enfocado=' + pad.accionEnfocada + ' ruta=' + JSON.stringify(pad.ruta),
+      'llegar a la acción options antes de pulsar A');
+  } else
   ok('D3b mando EMULADO: A abre el submenú que está enfocado',
     !!(pad.open && pad.open.ok) && pad.accionEnfocada === 'options' && pad.afterA.sub === 'options',
     JSON.stringify(pad.afterA) + ' (enfocado=' + pad.accionEnfocada + ' idx=' + pad.objetivo +
@@ -1386,6 +1421,438 @@ async function toMenu(p, maxMs) {
       !!(playState && playState.state === 'PLAYING' && playState.running === true),
       JSON.stringify({ antes: prePlay, despues: playState }));
     await gb.close();
+  }
+
+
+  /* ==========================================================================
+     V · FASE 01.4 · CARGA TARDÍA (P0 · cancelación lógica del intento)
+     ==========================================================================
+     La prueba de W6 demuestra que un temporizador viejo no afecta al nuevo.
+     Esta demuestra lo complementario: que el trabajo ASÍNCRONO pendiente de un
+     intento caducado tampoco. Se bloquea el paso de imágenes con una promesa
+     real de carga, se espera el watchdog y se LIBERA después: ese trabajo
+     termina correctamente, pero fuera de plazo, y no debe producir efectos. */
+  {
+    const { b: vb, p: vp } = await launch(1280, 720);
+    await vp.addInitScript(() => {
+      /* Se interceptan las imágenes esenciales: no cargan hasta que la prueba
+         lo ordene. Se conserva el objeto Image real y el descriptor nativo. */
+      const RealImage = window.Image;
+      const desc = Object.getOwnPropertyDescriptor(RealImage.prototype, 'src');
+      window.__gate = { waiters: [], released: false };
+      window.__releaseGate = function () {
+        window.__gate.released = true;
+        window.__gate.waiters.forEach(function (fn) { try { fn(); } catch (e) {} });
+        window.__gate.waiters.length = 0;
+      };
+      window.Image = function () {
+        const im = new RealImage();
+        Object.defineProperty(im, 'src', {
+          configurable: true,
+          set(v) {
+            if (/menu_main_backdrop|cine_intro|logo_deadbeat|emblem_fox/.test(String(v))) {
+              window.__gate.waiters.push(function () {
+                try { im.dispatchEvent(new Event('load')); } catch (e) {}
+              });
+              return;
+            }
+            try { desc.set.call(im, v); } catch (e) {}
+          },
+          get() { return ''; }
+        });
+        return im;
+      };
+    });
+    vp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+
+    /* 1) Esperar el panel del watchdog (20 s reales + margen). */
+    const tV = Date.now();
+    let vBefore = null;
+    while (Date.now() - tV < 90000) {
+      vBefore = await vp.evaluate(() => {
+        const e = document.getElementById('dd-boot-err');
+        const ev = window.DD_BOOT.getEvidence();
+        return {
+          panel: !!e && !e.hidden,
+          state: window.DD_BOOT.getState().state,
+          wd: ev.watchdogFired,
+          loadFinished: ev.loadFinished,
+          trace: window.DD_BOOT.getTrace().map(x => x.step + ':' + x.pct),
+          pct: (document.getElementById('dd-boot-pct') || {}).textContent || ''
+        };
+      }).catch(() => null);
+      if (vBefore && vBefore.panel) break;
+      await vp.waitForTimeout(250);
+    }
+    ok('V1 carga tardía: el watchdog dispara y muestra el panel', !!(vBefore && vBefore.panel && vBefore.wd),
+      'panel=' + (vBefore && vBefore.panel) + ' watchdog=' + (vBefore && vBefore.wd) +
+      ' estado=' + (vBefore && vBefore.state) + ' pct=' + (vBefore && vBefore.pct),
+      'panel visible con watchdogFired=true');
+
+    ok('V2 carga tardía: la carga NO se declara terminada', !!(vBefore && vBefore.loadFinished === false),
+      'loadFinished=' + (vBefore && vBefore.loadFinished), 'loadFinished=false');
+
+    /* 2) LIBERAR el trabajo pendiente: ahora termina, pero tarde. */
+    await vp.evaluate(() => { if (window.__releaseGate) window.__releaseGate(); });
+    await vp.waitForTimeout(7000);
+
+    const vAfter = await vp.evaluate(() => {
+      const e = document.getElementById('dd-boot-err');
+      const ev = window.DD_BOOT.getEvidence();
+      return {
+        panel: !!e && !e.hidden,
+        state: window.DD_BOOT.getState().state,
+        loadFinished: ev.loadFinished,
+        trace: window.DD_BOOT.getTrace().map(x => x.step + ':' + x.pct),
+        pct: (document.getElementById('dd-boot-pct') || {}).textContent || '',
+        watchText: (document.getElementById('dd-boot-stage') || {}).textContent || ''
+      };
+    });
+
+    ok('V3 carga tardía: el intento caducado no avanza el progreso',
+      !!(vBefore && vAfter && JSON.stringify(vBefore.trace) === JSON.stringify(vAfter.trace)),
+      'antes=' + JSON.stringify(vBefore && vBefore.trace) + ' despues=' + JSON.stringify(vAfter && vAfter.trace),
+      'la traza no cambia tras liberar la carga');
+
+    ok('V4 carga tardía: el intento caducado NO activa la intro',
+      !!(vAfter && vAfter.state !== 'INTRO' && vAfter.state !== 'MAIN_MENU' && vAfter.state !== 'PLAYING'),
+      'estado final=' + (vAfter && vAfter.state), 'el estado no sale de LOADING');
+
+    ok('V5 carga tardía: el panel de error se conserva', !!(vAfter && vAfter.panel === true),
+      'panel=' + (vAfter && vAfter.panel), 'el panel sigue visible');
+
+    ok('V6 carga tardía: no se declara la carga terminada', !!(vAfter && vAfter.loadFinished === false),
+      'loadFinished=' + (vAfter && vAfter.loadFinished), 'loadFinished=false');
+
+    await shot(vp, '18_late_load_ignored.png');
+    await vb.close();
+  }
+
+  /* ==========================================================================
+     M · FASE 01.4 · SEIS ESCENARIOS DEL MOTOR (P0 · validación esencial)
+     ==========================================================================
+     Cada escenario aísla UNA causa y exige que se DETECTE y se COMUNIQUE
+     (no basta con "no se llega al menú"). Los parches se aplican en el
+     momento correcto: los que sustituyen el puente esperan a que exista. */
+  {
+    const ESCENARIOS = [
+      {
+        id: 'M-A', nombre: 'canvas ausente',
+        init: () => {
+          document.addEventListener('DOMContentLoaded', () => {
+            const g = document.getElementById('game');
+            if (g) g.remove();
+          }, { capture: true });
+        },
+        esperado: /lienzo del juego \(#game\)/
+      },
+      {
+        id: 'M-B', nombre: 'contexto gráfico no disponible',
+        init: () => {
+          const orig = HTMLCanvasElement.prototype.getContext;
+          HTMLCanvasElement.prototype.getContext = function (t) {
+            return t === '2d' ? null : orig.apply(this, arguments);
+          };
+        },
+        esperado: /contexto gráfico/
+      },
+      {
+        id: 'M-C', nombre: 'puente ausente',
+        init: () => {
+          Object.defineProperty(window, '__DD_BRIDGE', {
+            configurable: true, get() { return undefined; }, set() {}
+          });
+        },
+        esperado: /puente del motor/
+      },
+      {
+        id: 'M-D', nombre: 'método esencial ausente (isRunning)',
+        init: () => {
+          let real;
+          Object.defineProperty(window, '__DD_BRIDGE', {
+            configurable: true,
+            get() { return this.__fake || real; },
+            set(v) {
+              real = v;
+              this.__fake = Object.freeze({ startRun: v && v.startRun, getSnapshot: v && v.getSnapshot });
+            }
+          });
+        },
+        esperado: /no expone isRunning/
+      },
+      {
+        id: 'M-E', nombre: 'isRunning() lanza una excepción',
+        init: () => {
+          let real;
+          Object.defineProperty(window, '__DD_BRIDGE', {
+            configurable: true,
+            get() { return this.__fake || real; },
+            set(v) {
+              real = v;
+              this.__fake = Object.freeze({
+                isRunning: function () { throw new Error('motor en estado inconsistente'); },
+                startRun: v && v.startRun,
+                getSnapshot: v && v.getSnapshot
+              });
+            }
+          });
+        },
+        esperado: /excepción al comprobar isRunning/
+      },
+      {
+        id: 'M-F', nombre: 'motor correctamente disponible',
+        init: null,
+        esperado: null    /* el caso bueno: sin error de engine */
+      }
+    ];
+
+    for (const esc of ESCENARIOS) {
+      const { b: mb, p: mp } = await launch(1280, 720);
+      try {
+        if (esc.init) await mp.addInitScript(esc.init);
+        mp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+        const tM = Date.now();
+        let m = null;
+        while (Date.now() - tM < 60000) {
+          m = await mp.evaluate(() => {
+            const e = document.getElementById('dd-boot-err');
+            const ev = window.DD_BOOT.getEvidence();
+            return {
+              state: window.DD_BOOT.getState().state,
+              panel: !!e && !e.hidden,
+              title: (document.getElementById('dd-boot-err-title') || {}).textContent || '',
+              body: (document.getElementById('dd-boot-err-body') || {}).textContent || '',
+              eng: (ev.errors || []).filter(x => x.id === 'engine')[0] || null,
+              safeDisabled: (document.getElementById('dd-boot-safe') || {}).disabled,
+              canStart: window.DD_BOOT.canStartGame()
+            };
+          }).catch(() => null);
+          if (m && (m.panel || m.state === 'MAIN_MENU' || m.state === 'INTRO')) break;
+          await mp.waitForTimeout(200);
+        }
+
+        if (esc.id === 'M-F') {
+          /* Caso bueno: debe llegar a INTRO o MAIN_MENU SIN error fatal. */
+          ok('M-F motor disponible: el arranque progresa sin error de engine',
+            !!(m && (m.state === 'INTRO' || m.state === 'MAIN_MENU') && !m.panel &&
+               !(m.eng && m.eng.fatal)),
+            'estado=' + (m && m.state) + ' panel=' + (m && m.panel) +
+            ' engineError=' + JSON.stringify(m && m.eng),
+            'estado INTRO/MAIN_MENU sin panel de error');
+        } else {
+          const fatal = !!(m && m.eng && m.eng.fatal === true && m.eng.essential === true);
+          ok(esc.id + ' motor · ' + esc.nombre + ': se detecta y se comunica',
+            !!(m && m.panel && fatal && m.state !== 'MAIN_MENU' && m.state !== 'PLAYING' &&
+               m.safeDisabled === true && m.canStart === false),
+            'estado=' + (m && m.state) + ' panel=' + (m && m.panel) + ' fatal=' + fatal +
+            ' safe.disabled=' + (m && m.safeDisabled) + ' canStart=' + (m && m.canStart),
+            'panel visible + error fatal de engine + modo seguro bloqueado + sin menú');
+          ok(esc.id + ' motor · ' + esc.nombre + ': el mensaje identifica la causa',
+            !!(m && m.eng && esc.esperado.test(m.eng.message || '')),
+            'motivo="' + (m && m.eng && m.eng.message) + '"',
+            'el mensaje nombra la causa concreta');
+        }
+      } finally { await mb.close(); }
+    }
+  }
+
+  /* ==========================================================================
+     T · FASE 01.4 · TRANSICIÓN A PLAYING (P1 · contrato único)
+     ==========================================================================
+     Se demuestra que el resultado de DD_BOOT.enterGame() MANDA: si rechaza, la
+     interfaz se restaura (menú visible, busy liberado, audio del menú). El caso
+     T6 es el que de verdad expone el defecto: la sonda previa acepta y la
+     puerta rechaza, que es cuando antes quedaba el menú oculto. */
+  {
+    const correrTransicion = async (parche, espera) => {
+      const { b: tb, p: tp } = await launch(1280, 720);
+      try {
+        let enMenu = false;
+        tp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+        const t = Date.now();
+        while (Date.now() - t < 200000) {
+          const st = await tp.evaluate(() => (window.DD_BOOT ? window.DD_BOOT.getState().state : null)).catch(() => null);
+          if (st === 'INTRO') await tp.keyboard.press('Escape').catch(() => {});
+          if (st === 'MAIN_MENU') { enMenu = true; break; }
+          await tp.waitForTimeout(150);
+        }
+        if (!enMenu) return { err: 'no se alcanzó MAIN_MENU' };
+
+        return await tp.evaluate(async (fuenteParche) => {
+          const sleep = ms => new Promise(r => setTimeout(r, ms));
+          if (fuenteParche) { const f = (0, eval)('(' + fuenteParche + ')'); f(); }
+          const antes = {
+            state: window.DD_BOOT.getState().state,
+            busy: window.DD_UI.getState().busy,
+            menu: window.DD_UI.getState().menuVisible
+          };
+          window.DD_UI.triggerMenuAction('new');
+          /* 01.4 · el vigilante de estancamiento de la cinemática dispara a los
+             4 s y el rechazo se resuelve después (~6,8 s medidos en carga), así
+             que el tope de espera debe cubrir ese margen: antes se cortaba a los
+             6 s y una restauración correcta se leía como fallo. */
+          for (let i = 0; i < 200; i++) {
+            await sleep(250);
+            if (!window.DD_UI.getState().busy &&
+                (window.DD_BOOT.getState().state === 'PLAYING' ||
+                 window.DD_BOOT.getState().state === 'MAIN_MENU')) break;
+          }
+          return {
+            antes,
+            despues: {
+              state: window.DD_BOOT.getState().state,
+              busy: window.DD_UI.getState().busy,
+              menu: window.DD_UI.getState().menuVisible,
+              menuOculto: (() => {
+                const mo = document.getElementById('dd-main-menu');
+                return !!(mo && mo.classList.contains('dd-hidden'));
+              })(),
+              music: !!(window.DDC_COVER && window.DDC_COVER.music && window.DDC_COVER.music.playing)
+            }
+          };
+        }, parche);
+      } finally { await tb.close(); }
+    };
+
+    /* T1 · motor disponible -> PLAYING */
+    const t1 = await correrTransicion(null, 'playing');
+    ok('T1 motor disponible: la entrada termina en PLAYING',
+      !!(t1 && t1.despues && t1.despues.state === 'PLAYING' && t1.despues.menu === false),
+      JSON.stringify(t1 && t1.despues), 'estado PLAYING con el menú oculto');
+
+    /* T2 · motor detenido -> rechazo y menú restaurado */
+    const t2 = await correrTransicion(
+      "() => { const r = window.__DD_BRIDGE; window.__DD_BRIDGE = Object.freeze({ isRunning: () => false, startRun: () => false, getSnapshot: r.getSnapshot, setPaused: r.setPaused }); }",
+      'menu');
+    ok('T2 motor detenido: la entrada se rechaza y el menú se restaura',
+      !!(t2 && t2.despues && t2.despues.state === 'MAIN_MENU' && t2.despues.busy === false &&
+         t2.despues.menu === true && t2.despues.menuOculto === false),
+      JSON.stringify(t2 && t2.despues), 'MAIN_MENU, sin busy, menú visible');
+
+    /* T3 · motor ausente -> rechazo */
+    const t3 = await correrTransicion(
+      "() => { Object.defineProperty(window,'__DD_BRIDGE',{configurable:true,get:()=>undefined,set(){}}); }",
+      'menu');
+    ok('T3 motor ausente: la entrada se rechaza y el menú se restaura',
+      !!(t3 && t3.despues && t3.despues.state === 'MAIN_MENU' && t3.despues.busy === false &&
+         t3.despues.menu === true),
+      JSON.stringify(t3 && t3.despues), 'MAIN_MENU con el menú visible');
+
+    /* T4 · isRunning lanza -> rechazo */
+    const t4 = await correrTransicion(
+      "() => { const r = window.__DD_BRIDGE; window.__DD_BRIDGE = Object.freeze({ isRunning: () => { throw new Error('boom'); }, startRun: () => true, getSnapshot: r.getSnapshot }); }",
+      'menu');
+    ok('T4 isRunning() lanza: la entrada se rechaza sin dejar la UI colgada',
+      !!(t4 && t4.despues && t4.despues.state === 'MAIN_MENU' && t4.despues.busy === false &&
+         t4.despues.menu === true),
+      JSON.stringify(t4 && t4.despues), 'MAIN_MENU con el menú visible');
+
+    /* T5 · puente incompleto -> rechazo */
+    const t5 = await correrTransicion(
+      "() => { const r = window.__DD_BRIDGE; window.__DD_BRIDGE = Object.freeze({ startRun: r.startRun, getSnapshot: r.getSnapshot }); }",
+      'menu');
+    /* Se exige el menú VISIBLE, no sólo el estado: T5 dejó ver que sin esta
+       condición una UI con el menú oculto pasaba como correcta. */
+    ok('T5 puente incompleto: la entrada se rechaza y el menú se restaura',
+      !!(t5 && t5.despues && t5.despues.state === 'MAIN_MENU' && t5.despues.busy === false &&
+         t5.despues.menu === true && t5.despues.menuOculto === false),
+      JSON.stringify(t5 && t5.despues), 'MAIN_MENU con el menú VISIBLE');
+
+    /* T6 · EL CASO DECISIVO: la sonda previa acepta y enterGame() rechaza.
+       Antes de FASE 01.4 esto dejaba el menú oculto con estado MAIN_MENU. */
+    const t6 = await correrTransicion(
+      "() => { const r = window.__DD_BRIDGE; let n = 0; window.__DD_BRIDGE = Object.freeze({ isRunning: () => { n++; return n === 1; }, startRun: () => true, getSnapshot: r.getSnapshot, setPaused: r.setPaused }); }",
+      'menu');
+    ok('T6 la puerta manda: si enterGame() rechaza, el menú se restaura',
+      !!(t6 && t6.despues && t6.despues.state === 'MAIN_MENU' && t6.despues.busy === false &&
+         t6.despues.menu === true && t6.despues.menuOculto === false),
+      JSON.stringify(t6 && t6.despues),
+      'MAIN_MENU con el menú VISIBLE (antes quedaba oculto)');
+
+    /* T7 · el audio del menú no se queda parado tras un rechazo */
+    ok('T7 tras un rechazo el audio del menú vuelve a sonar',
+      !!(t2 && t2.despues && t2.despues.music === true),
+      'música del menú=' + (t2 && t2.despues && t2.despues.music),
+      'música del menú activa');
+  }
+
+
+  /* ==========================================================================
+     Q · FASE 01.4 · ACCESIBILIDAD DEL PANEL DE ERROR (P1)
+     ==========================================================================
+     El panel tenía role="alert" pero sin asociación título/cuerpo y sin mover el
+     foco: quien navega con teclado no llegaba a REINTENTAR sin recorrer el árbol.
+     Se comprueba sobre el panel REAL, provocando un fallo fatal de verdad. */
+  {
+    const { b: qb, p: qp } = await launch(1280, 720);
+    await qp.addInitScript(() => {
+      document.addEventListener('DOMContentLoaded', () => {
+        const g = document.getElementById('game');
+        if (g) g.remove();
+      }, { capture: true });
+    });
+    qp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tQ = Date.now();
+    let q = null;
+    while (Date.now() - tQ < 90000) {
+      q = await qp.evaluate(() => {
+        const e = document.getElementById('dd-boot-err');
+        const retry = document.getElementById('dd-boot-retry');
+        const ae = document.activeElement;
+        return {
+          panel: !!e && !e.hidden,
+          role: e ? e.getAttribute('role') : null,
+          labelledby: e ? e.getAttribute('aria-labelledby') : null,
+          describedby: e ? e.getAttribute('aria-describedby') : null,
+          tabindex: e ? e.getAttribute('tabindex') : null,
+          titleExiste: !!document.getElementById('dd-boot-err-title'),
+          bodyExiste: !!document.getElementById('dd-boot-err-body'),
+          focoEn: ae ? (ae.id || ae.tagName) : null,
+          focoEsBoton: !!(ae && ae.tagName === 'BUTTON'),
+          retryVisible: !!(retry && !retry.hidden && !retry.disabled)
+        };
+      }).catch(() => null);
+      if (q && q.panel) break;
+      await qp.waitForTimeout(250);
+    }
+
+    ok('Q1 el panel de error es un alert y tiene título y cuerpo reales',
+      !!(q && q.role === 'alert' && q.titleExiste && q.bodyExiste),
+      JSON.stringify({ role: q && q.role, title: q && q.titleExiste, body: q && q.bodyExiste }),
+      'role=alert con #dd-boot-err-title y #dd-boot-err-body');
+
+    ok('Q2 el panel está asociado a su título y a su mensaje',
+      !!(q && q.labelledby === 'dd-boot-err-title' && q.describedby === 'dd-boot-err-body'),
+      'aria-labelledby=' + (q && q.labelledby) + ' aria-describedby=' + (q && q.describedby),
+      'aria-labelledby y aria-describedby apuntando al título y al cuerpo');
+
+    ok('Q3 el panel acepta foco programático',
+      !!(q && q.tabindex === '-1'),
+      'tabindex=' + (q && q.tabindex), 'tabindex="-1" para poder recibir el foco');
+
+    ok('Q4 al aparecer el error el foco va a un control de recuperación',
+      !!(q && (q.focoEsBoton || q.focoEn === 'dd-boot-err') && q.retryVisible),
+      'foco=' + (q && q.focoEn) + ' botón REINTENTAR visible=' + (q && q.retryVisible),
+      'foco en REINTENTAR (o en el panel) y botón disponible');
+
+    /* Los controles dentro del panel deben ser alcanzables: no puede haber
+       controles interactivos dentro de una región oculta a accesibilidad. */
+    const alcanzables = await qp.evaluate(() => {
+      const e = document.getElementById('dd-boot-err');
+      const botones = Array.from(e.querySelectorAll('button'));
+      return {
+        n: botones.length,
+        ocultos: botones.filter(x => x.getAttribute('aria-hidden') === 'true' || x.disabled && x.getAttribute('aria-hidden') === 'true').length,
+        tabulables: botones.filter(x => x.tabIndex >= 0).length
+      };
+    });
+    ok('Q5 los controles del panel son alcanzables por teclado',
+      !!(alcanzables && alcanzables.n >= 2 && alcanzables.tabulables === alcanzables.n &&
+         alcanzables.ocultos === 0),
+      JSON.stringify(alcanzables), 'todos los botones del panel en el orden de tabulación');
+
+    await shot(qp, '19_error_panel_a11y.png');
+    await qb.close();
   }
 
   /* ============================== RESULTADO ============================= */

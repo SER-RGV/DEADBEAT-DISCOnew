@@ -8677,9 +8677,25 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       /* Se deja constancia: no se entra en partida sin motor confirmado. */
       return false;
     }
-    document.body.classList.remove("dd-booting", "dd-intro-running");
+    /* La entrada en partida CIERRA la transición que la trajo aquí (FASE 01.4).
+       La cinemática de descenso queda activa cuando se entra a PLAYING: su
+       bloqueo (\`DD_CINE.isBlocking()\`) hace que tickInner mantenga el HUD oculto
+       durante el resto de la secuencia, y el jugador empezaba la partida sin HUD.
+       Se cierra la secuencia (equivale a saltarla, que es lo que hace skip()) y
+       se retira la clase de propiedad del menú. Antes de este cambio el estado
+       era PLAYING con el HUD oculto; medido, no deducido. */
+    document.body.classList.remove("dd-booting", "dd-intro-running", "dd-menu-owning");
+    try {
+      if (window.DD_CINE && typeof window.DD_CINE.isBlocking === "function" &&
+          window.DD_CINE.isBlocking() && typeof window.DD_CINE.skip === "function") {
+        window.DD_CINE.skip();
+      }
+    } catch (e) { console.warn("[DD_BOOT] no se pudo cerrar la transición", e); }
     audio.stopMenuMusic(0.5);
     setState("PLAYING");
+    /* Si el HUD seguía oculto por el bloqueo de la cinemática, se restaura. */
+    var hud = document.getElementById("dd-hud");
+    if (hud) hud.classList.remove("dd-hidden");
     return true;
   }
 
