@@ -11908,7 +11908,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var snap = br ? br.getSnapshot() : null;
     var inHub = window.DD_HUB && window.DD_HUB.isActive();
 
-    if (uiState.menuVisible && ((snap && snap.running) || inHub)) {
+    /* El menú se retira cuando hay partida REAL en curso (motor arrancado) o
+       cuando el HUB toma el control.
+       FASE 01.4 · excepción: si el menú acaba de RESTAURARSE tras un rechazo de
+       entrada, el motor puede haber quedado en marcha pese a no haber partida
+       jugable. Sin esta guarda, el siguiente tick volvía a ocultar el menú
+       recién restaurado y el jugador quedaba en un estado sin menú y sin partida
+       (medido: menú visible a los 6000 ms, oculto otra vez a los 6400 ms).
+       La ventana es corta y sólo cubre el tick inmediato a la restauración. */
+    /* FASE 01.4 · la condición era sólo `snap.running`, y eso es demasiado
+       amplio: si el motor queda en marcha SIN que la entrada a partida se haya
+       aceptado (rechazo de la puerta, puente incompleto), el siguiente tick
+       ocultaba el menú recién restaurado y el jugador quedaba sin menú y sin
+       partida. Medido: menú restaurado a los 6800 ms, oculto otra vez a los
+       7600 ms. Ahora la autoridad es la PROPIEDAD de la partida: DD_BOOT está en
+       PLAYING. Un motor corriendo en MAIN_MENU no es una partida. */
+    var enPartida = false;
+    try { enPartida = !!(window.DD_BOOT && window.DD_BOOT.getState().state === "PLAYING"); } catch (e) {}
+    if (uiState.menuVisible && (enPartida || inHub)) {
       hideMainMenu();
     }
     var hudEl = el("dd-hud");
