@@ -121,7 +121,7 @@
     }).join("");
 
     menu.innerHTML =
-      '<img id="dd-menu-backdrop" alt="" src="' + (assetSrc("menu_main_backdrop") || "assets/ui/menu_main_backdrop.png") + '">' +
+      '<img id="dd-menu-backdrop" alt="" onerror="this.onerror=null;this.src=\'assets/ui/menu_main_backdrop.png\'" src="' + (assetSrc("menu_main_backdrop_a") || "assets/ui/menu_main_backdrop_a.jpg") + '">' +
       '<div class="dd-menu-atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>' +
       '<div class="dd-menu-vig" aria-hidden="true"></div>' +
       '<div class="dd-menu-left">' +
@@ -1212,7 +1212,7 @@
   function refreshAssets() {
     buildDOM();
     var map = [
-      ["dd-menu-backdrop", assetSrc("menu_main_backdrop") || "assets/ui/menu_main_backdrop.png"],
+      ["dd-menu-backdrop", assetSrc("menu_main_backdrop_a") || "assets/ui/menu_main_backdrop_a.jpg"],
       ["dd-menu-logo-img", assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png"],
       ["dd-hud-portrait", assetSrc("hud_portrait_protagonist")],
       ["dd-hud-coin-img", assetSrc("hud_credit_coin", "pickups/pickup_credits_00.png")],
