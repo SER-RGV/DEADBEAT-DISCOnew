@@ -885,20 +885,155 @@ async function toMenu(p, maxMs) {
       'cuerpo="' + String(blocked && blocked.body).slice(0, 100) + '"');
     await shot(cp2, '15_watchdog_blocked.png');
 
-    /* W6 · Un intento nuevo no arrastra el temporizador del anterior. */
-    const stale = await cp2.evaluate(() => {
-      const before = window.DD_BOOT.getEvidence().watchdogFired;
-      /* No se puede forzar boot() desde fuera sin reinstalar el escenario; se
-         comprueba el invariante observable: el token cambia al reintentar y el
-         temporizador viejo queda invalidado por comparación de token. */
-      return { firedBefore: before, hasToken: typeof window.DD_BOOT.getState().state === 'string' };
-    }).catch(() => null);
-    if (stale) {
-      ok('W6 el watchdog se identifica por token (no por estado)', stale.hasToken === true,
-        JSON.stringify(stale));
-    } else {
-      nv('W6 el watchdog se identifica por token', 'no se pudo consultar el estado');
+    /* W6 · Invalidación REAL del temporizador de un intento anterior.
+
+       La versión anterior comprobaba `typeof state === 'string'`: demostraba que
+       existía un estado textual, no que un temporizador viejo quedara anulado.
+
+       Aquí se instrumentan los temporizadores ANTES de que arranque la página
+       (addInitScript), de modo que se captura el callback REAL del watchdog de
+       cada intento. Después se EJECUTA a mano el del primer intento mientras el
+       segundo está en curso. La lógica del watchdog es la de producción, sin
+       cambios: sólo se la observa y se la invoca.
+
+       Dos intentos de arranque de verdad en la MISMA página:
+         1. Intento 1 con la carga bloqueada -> watchdog 1 pendiente.
+         2. Se pulsa MODO SEGURO -> boot() otra vez -> watchdog 2.
+         3. Se ejecuta el callback del intento 1 -> debe ser inocuo.
+         4. Se ejecuta el del intento 2        -> debe seguir funcionando. */
+    const { b: w6b, p: w6p } = await launch(1280, 720);
+    await w6p.addInitScript(() => {
+      /* Captura de temporizadores largos (los del watchdog). */
+      const realST = window.setTimeout, realCT = window.clearTimeout;
+      window.__wdCaps = [];
+      window.setTimeout = function (fn, ms) {
+        if (typeof ms === 'number' && ms >= 20000) {
+          const rec = { ms: ms, fn: fn, cleared: false, fired: false };
+          rec.id = realST.call(window, function () { rec.fired = true; fn(); }, ms);
+          window.__wdCaps.push(rec);
+          return rec.id;
+        }
+        return realST.apply(window, arguments);
+      };
+      window.clearTimeout = function (id) {
+        window.__wdCaps.forEach(function (r) { if (r.id === id) r.cleared = true; });
+        return realCT.call(window, id);
+      };
+      /* Carga BLOQUEADA: las imágenes esenciales nunca cargan ni fallan. */
+      const RealImage = window.Image;
+      window.Image = function () {
+        const im = new RealImage();
+        const proto = Object.getOwnPropertyDescriptor(RealImage.prototype, 'src');
+        Object.defineProperty(im, 'src', {
+          configurable: true,
+          set(v) {
+            if (/menu_main_backdrop|cine_intro|logo_deadbeat|emblem_fox/.test(String(v))) return;
+            try { proto.set.call(im, v); } catch (e) {}
+          },
+          get() { return ''; }
+        });
+        return im;
+      };
+    });
+    w6p.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+
+    /* Esperar a que el watchdog del intento 1 muestre el panel. */
+    const tW6 = Date.now();
+    let w6panel = null;
+    while (Date.now() - tW6 < 90000) {
+      w6panel = await w6p.evaluate(() => {
+        const e = document.getElementById('dd-boot-err');
+        const s = document.getElementById('dd-boot-safe');
+        return {
+          panel: !!e && !e.hidden,
+          safeDisabled: s ? !!s.disabled : null,
+          safeLabel: s ? s.textContent.trim() : null,
+          caps: (window.__wdCaps || []).length,
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null
+        };
+      }).catch(() => null);
+      if (w6panel && w6panel.panel) break;
+      await w6p.waitForTimeout(250);
     }
+
+    const w6 = await w6p.evaluate(async () => {
+      const sleep = ms => new Promise(r => setTimeout(r, ms));
+      const caps = window.__wdCaps || [];
+      const safeBtn = document.getElementById('dd-boot-safe');
+      if (!safeBtn) return { err: 'sin botón de modo seguro', caps: caps.length };
+      if (caps.length < 1) return { err: 'no se capturó el watchdog del intento 1', caps: caps.length };
+
+      const firstCap = caps[0];
+
+      /* 2) Segundo intento de arranque real. */
+      safeBtn.click();
+      await sleep(1800);
+
+      const attempt2 = {
+        capsAfter: caps.length,
+        state: window.DD_BOOT.getState().state,
+        panelHidden: (() => { const e = document.getElementById('dd-boot-err'); return !e || e.hidden; })(),
+        loadFinished: window.DD_BOOT.getEvidence().loadFinished
+      };
+
+      const secondCap = caps[caps.length - 1];
+      if (caps.length < 2 || secondCap === firstCap) {
+        return { err: 'el segundo intento no armó su propio watchdog', attempt2, caps: caps.length };
+      }
+
+      /* 3) Callback ANTIGUO ejecutado a mano: simula que clearTimeout llegó
+            tarde y el navegador ya lo tenía encolado. */
+      const before1 = {
+        state: window.DD_BOOT.getState().state,
+        panelHidden: (() => { const e = document.getElementById('dd-boot-err'); return !e || e.hidden; })(),
+        fired: window.DD_BOOT.getEvidence().watchdogFired
+      };
+      try { firstCap.fn(); } catch (e) {}
+      await sleep(500);
+      const after1 = {
+        state: window.DD_BOOT.getState().state,
+        panelHidden: (() => { const e = document.getElementById('dd-boot-err'); return !e || e.hidden; })(),
+        fired: window.DD_BOOT.getEvidence().watchdogFired
+      };
+
+      /* 4) Watchdog VIGENTE: debe conservar su comportamiento. */
+      try { secondCap.fn(); } catch (e) {}
+      await sleep(700);
+      const after2 = {
+        state: window.DD_BOOT.getState().state,
+        panelHidden: (() => { const e = document.getElementById('dd-boot-err'); return !e || e.hidden; })(),
+        fired: window.DD_BOOT.getEvidence().watchdogFired,
+        title: (document.getElementById('dd-boot-err-title') || {}).textContent || ''
+      };
+
+      return {
+        capsBefore: 1, attempt2, capsTotal: caps.length,
+        c1Cleared: firstCap.cleared, c1Ms: firstCap.ms, c2Ms: secondCap.ms,
+        before1, after1, after2
+      };
+    }).catch(e => ({ err: String(e.message) }));
+
+    const w6ok = w6 && !w6.err;
+    ok('W6a dos intentos de arranque producen dos watchdogs distintos',
+      !!(w6ok && w6.attempt2.capsAfter >= 2 && w6.c2Ms >= 20000 && w6.c1Ms >= 20000),
+      w6ok ? 'intento1=' + w6.c1Ms + 'ms intento2=' + w6.c2Ms + 'ms total=' + w6.capsTotal
+           : String(w6 && w6.err) + ' · panel=' + JSON.stringify(w6panel));
+
+    ok('W6b el temporizador del intento anterior se cancela con clearTimeout',
+      !!(w6ok && w6.c1Cleared === true),
+      w6ok ? 'c1.cleared=' + w6.c1Cleared : String(w6 && w6.err));
+
+    ok('W6c ejecutar el temporizador ANTIGUO no afecta al intento nuevo',
+      !!(w6ok && w6.after1.panelHidden === true &&
+         w6.after1.state === w6.before1.state && w6.after1.fired === false),
+      w6ok ? JSON.stringify({ antes: w6.before1, despues: w6.after1 }) : String(w6 && w6.err));
+
+    ok('W6d el watchdog VIGENTE sigue funcionando y muestra el panel',
+      !!(w6ok && w6.after2.panelHidden === false && w6.after2.fired === true),
+      w6ok ? JSON.stringify(w6.after2) : String(w6 && w6.err));
+
+    await shot(w6p, '16_watchdog_stale_timer.png');
+    await w6b.close();
     await cb.close();
   }
 
@@ -927,7 +1062,12 @@ async function toMenu(p, maxMs) {
       JSON.stringify(ids && ids.essential));
     await eb.close();
 
-    /* E3/E4 · Sin canvas: error fatal y NUNCA MAIN_MENU. */
+    /* E3/E4/E5 · Sin canvas: error fatal, panel visible y arranque bloqueado.
+       Reforzado en 01.3: antes E4 sólo exigía "no es MAIN_MENU", que también se
+       cumple si el arranque se queda a medias sin decir nada al jugador. Ahora
+       se exige el bloqueo completo: canvas ausente de verdad, paso engine
+       ejecutado, error fatal registrado, panel visible con título y mensaje que
+       identifican el problema, modo seguro desactivado y ninguna partida. */
     const { b: e2b, p: e2p } = await launch(1280, 720);
     await e2p.addInitScript(() => {
       document.addEventListener('DOMContentLoaded', () => {
@@ -942,45 +1082,113 @@ async function toMenu(p, maxMs) {
       noCanvas = await e2p.evaluate(() => {
         const ev = window.DD_BOOT ? window.DD_BOOT.getEvidence() : null;
         const e = document.getElementById('dd-boot-err');
+        const s = document.getElementById('dd-boot-safe');
+        const retry = document.getElementById('dd-boot-retry');
         return {
+          canvasExists: !!document.getElementById('game'),
           state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
           errVisible: !!e && !e.hidden,
           title: (document.getElementById('dd-boot-err-title') || {}).textContent || '',
+          body: (document.getElementById('dd-boot-err-body') || {}).textContent || '',
           fatal: ev ? (ev.errors || []).filter(x => x.fatal).map(x => x.id) : null,
-          safeDisabled: (() => { const s = document.getElementById('dd-boot-safe'); return s ? !!s.disabled : null; })()
+          allErrors: ev ? (ev.errors || []) : null,
+          engineError: ev ? (ev.errors || []).filter(x => x.id === 'engine')[0] || null : null,
+          safeDisabled: s ? !!s.disabled : null,
+          safeLabel: s ? s.textContent.trim() : null,
+          retryExists: !!retry,
+          loadFinished: ev ? ev.loadFinished : null,
+          isPlaying: !!window.__DD_BRIDGE && typeof window.__DD_BRIDGE.isRunning === 'function'
         };
       }).catch(() => null);
       if (noCanvas && (noCanvas.errVisible || noCanvas.state === 'MAIN_MENU')) break;
       await e2p.waitForTimeout(250);
     }
-    ok('E3 sin canvas: la ausencia del motor es un error FATAL',
-      !!(noCanvas && noCanvas.fatal && noCanvas.fatal.indexOf('engine') >= 0),
-      'fatales=' + JSON.stringify(noCanvas && noCanvas.fatal));
-    ok('E4 sin canvas: NUNCA se alcanza MAIN_MENU',
-      !!(noCanvas && noCanvas.state !== 'MAIN_MENU'),
+
+    /* E3a · el escenario es real: el canvas no existe en la página */
+    ok('E3a sin canvas: el escenario es real (el elemento no existe)',
+      !!(noCanvas && noCanvas.canvasExists === false),
+      'canvasExists=' + (noCanvas && noCanvas.canvasExists));
+
+    /* E3b · el paso engine se ejecutó y registró un error FATAL */
+    ok('E3b sin canvas: el paso engine registra un error FATAL',
+      !!(noCanvas && noCanvas.fatal && noCanvas.fatal.indexOf('engine') >= 0 &&
+         noCanvas.engineError && noCanvas.engineError.fatal === true &&
+         noCanvas.engineError.essential === true),
+      noCanvas && noCanvas.engineError ? JSON.stringify(noCanvas.engineError)
+                                       : 'fatales=' + JSON.stringify(noCanvas && noCanvas.fatal));
+
+    /* E4a · el panel aparece de verdad */
+    ok('E4a sin canvas: el panel de error aparece',
+      !!(noCanvas && noCanvas.errVisible === true),
+      'errVisible=' + (noCanvas && noCanvas.errVisible) + ' estado=' + (noCanvas && noCanvas.state));
+
+    /* E4b · el título identifica el fallo y el mensaje nombra el motor */
+    ok('E4b sin canvas: título y mensaje identifican el problema',
+      !!(noCanvas && /NO SE PUDO ABRIR EL CLUB/.test(noCanvas.title) &&
+         /lienzo|canvas|motor|#game/i.test(noCanvas.body) &&
+         noCanvas.retryExists === true),
+      'título="' + (noCanvas && noCanvas.title) + '" cuerpo="' +
+      String(noCanvas && noCanvas.body).slice(0, 110) + '"');
+
+    /* E4c · NUNCA se alcanza MAIN_MENU */
+    ok('E4c sin canvas: NUNCA se alcanza MAIN_MENU',
+      !!(noCanvas && noCanvas.state !== 'MAIN_MENU' && noCanvas.state !== 'INTRO'),
       'estado final=' + (noCanvas && noCanvas.state));
+
+    /* E5 · el modo seguro no ofrece continuar sin motor */
     ok('E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)',
-      !!(noCanvas && noCanvas.safeDisabled === true),
+      !!(noCanvas && noCanvas.safeDisabled === true && /NO DISPONIBLE/i.test(noCanvas.safeLabel || '')),
       'safe.disabled=' + (noCanvas && noCanvas.safeDisabled) +
-      ' · título="' + (noCanvas && noCanvas.title) + '"');
+      ' etiqueta="' + (noCanvas && noCanvas.safeLabel) + '"');
+
+    /* E6 · ninguna partida: el motor no está en marcha y el FSM no está en PLAYING */
+    const noGame = await e2p.evaluate(() => ({
+      state: window.DD_BOOT.getState().state,
+      canStart: window.DD_BOOT.canStartGame(),
+      running: !!(window.__DD_BRIDGE && window.__DD_BRIDGE.isRunning())
+    })).catch(() => null);
+    ok('E6 sin canvas: no se inicia ninguna partida',
+      !!(noGame && noGame.state !== 'PLAYING' && noGame.canStart === false && noGame.running === false),
+      JSON.stringify(noGame));
+
+    await shot(e2p, '17_engine_missing_panel.png');
     await e2b.close();
   }
 
   /* ==========================================================================
-     P · PLAYING SÓLO CON MOTOR CONFIRMADO (FASE 01.2 · F5)
+     P · PLAYING SÓLO CON MOTOR CONFIRMADO (FASE 01.2 · F5 · reforzado en 01.3)
      ========================================================================== */
   {
-    const scenarios = [
-      ['isRunning()=false', () => { window.__DD_BRIDGE.isRunning = function () { return false; }; }],
-      ['isRunning() lanza excepción', () => { window.__DD_BRIDGE.isRunning = function () { throw new Error('boom'); }; }],
-      ['isRunning()=undefined', () => { window.__DD_BRIDGE.isRunning = function () { return undefined; }; }],
-      ['puente ausente', () => { window.__DD_BRIDGE = undefined; }]
-    ];
-    for (const [label, patch] of scenarios) {
+    /* Por qué se rehízo esta prueba:
+       La versión anterior construía la inyección con `new Function(patch.toString())`.
+       `patch.toString()` produce `() => { ... }`, y `new Function` CREA esa
+       función sin ejecutarla: las cuatro modificaciones nunca se aplicaban.
+       El PASS salía igualmente porque en MAIN_MENU el motor real está parado
+       (isRunning() === false), así que enterGame() devolvía false siempre. Es
+       decir: la prueba aprobaba por un motivo que no era el suyo.
+
+       Diseño nuevo, decidido en dos fases por escenario, en la MISMA página:
+         (1) Se sustituye window.__DD_BRIDGE por una copia del real con
+             isRunning() forzado a true. Si enterGame() entra en PLAYING, queda
+             DEMOSTRADO que (a) la inyección funciona y (b) la puerta acepta
+             evidencia positiva del motor.
+         (2) Se vuelve al menú, se aplica el escenario negativo y se comprueba
+             que enterGame() lo rechaza y el estado NO cambia.
+       Así el rechazo del escenario negativo no puede atribuirse al motor parado.
+
+       Sobre el congelado: el puente es Object.freeze y su isRunning es no
+       escribible y no configurable, pero la PROPIEDAD window.__DD_BRIDGE sí es
+       escribible. No se desactiva Object.freeze en ningún momento: se sustituye
+       la referencia por un doble controlado y se restaura al terminar. */
+    const SCEN = {
+      P1_false:     function () { return false; },
+      P2_throws:    function () { throw new Error('motor no disponible'); },
+      P3_undefined: function () { return undefined; },
+      P4_absent:    null
+    };
+
+    for (const name of Object.keys(SCEN)) {
       const { b: pb, p: pp2 } = await launch(1280, 720);
-      /* Se anula el congelado SÓLO para poder inyectar el fallo: el puente real
-         es Object.freeze, y sin esto la inyección no surte efecto. */
-      await pp2.addInitScript(() => { Object.freeze = function (o) { return o; }; });
       pp2.goto(URL, { waitUntil: 'commit' }).catch(() => {});
       const tP = Date.now();
       let atMenu = null;
@@ -990,24 +1198,99 @@ async function toMenu(p, maxMs) {
         if (atMenu === 'MAIN_MENU') break;
         await pp2.waitForTimeout(180);
       }
-      let res = null;
-      if (atMenu === 'MAIN_MENU') {
-        res = await pp2.evaluate((fnBody) => {
-          /* La función llega como texto para poder ejecutarla en la página. */
-          try { (new Function(fnBody))(); } catch (e) {}
-          const before = window.DD_BOOT.getState().state;
-          let accepted = null, threw = false;
-          try { accepted = window.DD_BOOT.enterGame(); } catch (e) { threw = true; }
-          return { before, accepted, threw, after: window.DD_BOOT.getState().state };
-        }, patch.toString()).catch(() => null);
+
+      if (atMenu !== 'MAIN_MENU') {
+        nv('P-' + name, 'no se alcanzó MAIN_MENU en este intento', 'estado=' + atMenu);
+        await pb.close();
+        continue;
       }
-      ok('P-' + label + ': no se declara PLAYING sin confirmación real del motor',
-        !!(res && res.after === 'MAIN_MENU' && res.accepted !== true),
-        res ? JSON.stringify(res) : 'no se llegó al menú (estado=' + atMenu + ')');
+
+      const res = await pp2.evaluate((scenarioName) => {
+        const boot = window.DD_BOOT;
+        const realBridge = window.__DD_BRIDGE;
+        const out = { scenario: scenarioName, steps: [] };
+
+        /* Copia controlada: conserva todos los métodos reales del puente. */
+        const makeStandIn = (isRunningFn) => {
+          const o = {};
+          if (realBridge) {
+            Object.keys(realBridge).forEach(k => { try { o[k] = realBridge[k]; } catch (e) {} });
+          }
+          o.isRunning = isRunningFn;
+          o.getSnapshot = (realBridge && realBridge.getSnapshot) || function () { return {}; };
+          return o;
+        };
+
+        /* ---- Fase 1: la puerta ACEPTA evidencia positiva del motor ---- */
+        window.__DD_BRIDGE = makeStandIn(function () { return true; });
+        const positiveProbe = {
+          applied: window.__DD_BRIDGE.isRunning() === true,
+          hubActive: !!(window.DD_HUB && window.DD_HUB.isActive())
+        };
+        let acceptedPositive = null;
+        try { acceptedPositive = boot.enterGame(); } catch (e) { acceptedPositive = 'threw'; }
+        positiveProbe.accepted = acceptedPositive;
+        positiveProbe.state = boot.getState().state;
+        out.steps.push({ phase: 'control-positivo', data: positiveProbe });
+
+        /* Volver al menú para poder probar el escenario negativo. */
+        boot.exitGameToMenu();
+        out.steps.push({ phase: 'vuelta-al-menu', data: { state: boot.getState().state } });
+
+        /* ---- Fase 2: el escenario negativo SE APLICA y se comprueba ---- */
+        let appliedValue = null, appliedThrew = false, bridgeAbsent = false;
+        if (scenarioName === 'P4_absent') {
+          window.__DD_BRIDGE = undefined;
+          bridgeAbsent = (window.__DD_BRIDGE === undefined);
+        } else {
+          const fn = scenarioName === 'P1_false' ? function () { return false; }
+                   : scenarioName === 'P2_throws' ? function () { throw new Error('motor no disponible'); }
+                   : function () { return undefined; };
+          window.__DD_BRIDGE = makeStandIn(fn);
+          try { appliedValue = window.__DD_BRIDGE.isRunning(); } catch (e) { appliedThrew = true; }
+        }
+
+        const observation = {
+          bridgeAbsent: bridgeAbsent,
+          isRunningReturned: appliedThrew ? 'THREW' : (appliedValue === undefined ? 'undefined' : String(appliedValue)),
+          applied: bridgeAbsent || appliedThrew || appliedValue === false || appliedValue === undefined,
+          stateBefore: boot.getState().state
+        };
+
+        let acceptedNeg = null, threwNeg = false;
+        try { acceptedNeg = boot.enterGame(); } catch (e) { threwNeg = true; }
+        observation.accepted = acceptedNeg;
+        observation.threw = threwNeg;
+        observation.stateAfter = boot.getState().state;
+        out.steps.push({ phase: 'escenario-negativo', data: observation });
+
+        return out;
+      }, name).catch(e => ({ error: String(e.message) }));
+
+      const ctrl = res && res.steps && res.steps.find(x => x.phase === 'control-positivo');
+      const neg = res && res.steps && res.steps.find(x => x.phase === 'escenario-negativo');
+
+      /* P-a: la inyección funciona y la puerta acepta evidencia positiva. */
+      ok('P-' + name + ' · a) la inyección se aplica y la puerta acepta el motor confirmado',
+        !!(ctrl && ctrl.data.applied === true && ctrl.data.hubActive === false &&
+           ctrl.data.accepted === true && ctrl.data.state === 'PLAYING'),
+        ctrl ? JSON.stringify(ctrl.data) : 'sin datos · ' + JSON.stringify(res && res.error));
+
+      /* P-b: el escenario negativo está realmente activo. */
+      ok('P-' + name + ' · b) el escenario negativo queda activo en la página',
+        !!(neg && neg.data.applied === true),
+        neg ? JSON.stringify(neg.data) : 'sin datos');
+
+      /* P-c: con el escenario activo, enterGame() lo rechaza y no hay PLAYING. */
+      ok('P-' + name + ' · c) con el escenario activo no se declara PLAYING',
+        !!(neg && neg.data.accepted === false && neg.data.threw === false &&
+           neg.data.stateAfter === 'MAIN_MENU'),
+        neg ? JSON.stringify(neg.data) : 'sin datos');
+
       await pb.close();
     }
 
-    /* P+ · Caso positivo: con el motor confirmado SÍ se entra (sin regresión). */
+    /* ---------------- P+ · caso positivo por el camino REAL ---------------- */
     const { b: gb, p: gp } = await launch(1280, 720);
     gp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
     const tG = Date.now();
@@ -1017,20 +1300,27 @@ async function toMenu(p, maxMs) {
       if (st === 'MAIN_MENU') break;
       await gp.waitForTimeout(180);
     }
+    const prePlay = await gp.evaluate(() => ({
+      state: window.DD_BOOT.getState().state,
+      runningBefore: !!(window.__DD_BRIDGE && window.__DD_BRIDGE.isRunning())
+    })).catch(() => null);
     await gp.evaluate(() => window.DD_UI.triggerMenuAction('new')).catch(() => {});
     let playState = null;
     const tG2 = Date.now();
     while (Date.now() - tG2 < 220000) {
       playState = await gp.evaluate(() => ({
         state: window.DD_BOOT.getState().state,
-        running: !!(window.__DD_BRIDGE && window.__DD_BRIDGE.isRunning())
+        running: !!(window.__DD_BRIDGE && window.__DD_BRIDGE.isRunning()),
+        music: window.DD_BOOT.audio.isMenuMusicPlaying()
       })).catch(() => null);
       if (playState && playState.state === 'PLAYING') break;
       await gp.waitForTimeout(250);
     }
+    /* Se demuestra además que el motor pasó de parado a en marcha: sin eso, el
+       PLAYING podría ser un estado declarado sin respaldo real. */
     ok('P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)',
       !!(playState && playState.state === 'PLAYING' && playState.running === true),
-      JSON.stringify(playState));
+      JSON.stringify({ antes: prePlay, despues: playState }));
     await gb.close();
   }
 
