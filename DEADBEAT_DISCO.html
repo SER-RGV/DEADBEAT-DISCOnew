@@ -7835,6 +7835,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   /* Pasos cuya ausencia NO es degradable: sin ellos el menú existe pero no puede
      ejecutar ninguna acción. El modo seguro no puede saltárselos. */
   var ESSENTIAL_IDS = ["engine", "assets", "images", "ui"];
+  /* Límite del perro guardián del arranque. Se expone para poder probarlo sin
+     esperar 20 s reales en cada ejecución. */
+  var WATCHDOG_MS = 20000;
   var state = {
     current: "BOOT",
     started: false,
@@ -7846,7 +7849,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     loadStart: 0,
     loadEnd: 0,
     bootStart: 0,
-    trace: []               /* evidencia real de progreso (paso → %), sin temporizadores */
+    trace: [],              /* evidencia real de progreso (paso → %), sin temporizadores */
+    bootToken: 0,           /* identifica el intento de arranque en curso */
+    watchdog: 0,
+    watchdogFired: false,
+    loadFinished: false,    /* la carga terminó: el watchdog ya no debe actuar */
+    errorRegistry: []       /* registro CENTRALIZADO de errores del arranque */
   };
 
   var listeners = Object.create(null);
@@ -7980,6 +7988,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       id: "engine",
       label: "MOTOR DE RENDER Y CANVAS",
       detail: "Comprobando el lienzo principal y el puente del motor…",
+      /* Recurso IMPRESCINDIBLE: sin lienzo no hay juego. Debe coincidir con
+         ESSENTIAL_IDS; antes faltaba y la ausencia de canvas no era fatal. */
+      critical: true,
       run: function () {
         var g = q("game");
         if (!g || !g.getContext) throw new Error("No se encontró el lienzo del juego (#game).");
@@ -8083,7 +8094,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       run: function () {
         var cover = window.DDC_COVER;
         var has = !!(cover && cover.music);
-        return { engine: has ? "DDC_COVER.music" : "no disponible", state: has ? (cover.music.ready ? "ready" : "cold") : "missing" };
+        /* Componente OPCIONAL: si falta, el juego sigue siendo funcional, pero
+           debe quedar REGISTRADO como degradado con su motivo. Antes se
+           devolvía "missing" sin marcar degraded, así que el fallo no aparecía
+           en ningún registro y una prueba podía dar por bueno su detección. */
+        if (!has) {
+          return {
+            engine: "no disponible",
+            state: "missing",
+            degraded: true,
+            reason: "Motor de audio no disponible (DDC_COVER.music)."
+          };
+        }
+        return { engine: "DDC_COVER.music", state: cover.music.ready ? "ready" : "cold" };
       }
     },
     {
@@ -8119,6 +8142,31 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
     }
   ];
+
+  /* --------------------------------------------------- registro de errores
+     Único punto de entrada de los errores del arranque. Cada entrada declara
+     explícitamente su gravedad, si es fatal, si degrada y cuándo ocurrió, de
+     modo que cualquier consumidor (panel, modo seguro, QA) lea UNA sola verdad.
+     `criticalErrors` se mantiene sincronizado por compatibilidad con el código
+     existente, pero ya no es la fuente principal. */
+  function recordError(stepId, message, opts) {
+    var o = opts || {};
+    var entry = {
+      id: stepId,
+      message: String(message == null ? "" : message),
+      severity: o.fatal ? "fatal" : (o.degraded ? "warning" : "recoverable"),
+      fatal: !!o.fatal,
+      degraded: !!o.degraded,
+      essential: !!o.essential,
+      kind: o.kind || "unknown",
+      at: Math.round(performance.now())
+    };
+    state.errorRegistry.push(entry);
+    /* Vista compatible: {id, message, fatal} como antes. */
+    state.criticalErrors.push({ id: entry.id, message: entry.message, fatal: entry.fatal });
+    emit("boot-error", entry);
+    return entry;
+  }
 
   function renderSteps() {
     if (!el.steps) return;
@@ -8176,6 +8224,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     el.err.hidden = true;
     el.root.classList.remove("is-degraded");
     state.criticalErrors.length = 0;
+    state.errorRegistry.length = 0;
+    state.loadFinished = false;
+    state.watchdogFired = false;
     var token = ++runToken;
     var total = STEPS.length;
     var done = 0;
@@ -8191,15 +8242,30 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             markStep(step.id, "ok");
             if (result && result.degraded) {
               markStep(step.id, "warn", "modo degradado");
-              state.criticalErrors.push({ id: step.id, message: "degradado", fatal: false });
+              recordError(step.id, (result.reason || "degradado"), {
+                essential: ESSENTIAL_IDS.indexOf(step.id) >= 0,
+                fatal: false,
+                degraded: true,
+                kind: "degraded"
+              });
             }
             emit("step", { id: step.id, ok: true, result: result });
           })
           .catch(function (err) {
             var msg = (err && err.message) || String(err);
             markStep(step.id, "fail", msg);
-            var fatal = !!step.critical && !state.allowSafeMode;
-            state.criticalErrors.push({ id: step.id, message: msg, fatal: fatal });
+            /* La gravedad se decide por la clasificación del PASO, y la
+               clasificación de "imprescindible" es UNA sola: ESSENTIAL_IDS.
+               Antes se usaba sólo step.critical, de modo que engine (que estaba
+               en ESSENTIAL_IDS pero no tenía critical) fallaba sin ser fatal. */
+            var essential = ESSENTIAL_IDS.indexOf(step.id) >= 0;
+            var fatal = essential && !state.allowSafeMode;
+            recordError(step.id, msg, {
+              essential: essential,
+              fatal: fatal,
+              degraded: false,
+              kind: essential ? "essential-failure" : "optional-failure"
+            });
             emit("step", { id: step.id, ok: false, error: msg, fatal: fatal });
             if (fatal) throw err;
           })
@@ -8220,7 +8286,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (el.err) {
       el.err.hidden = false;
       if (el.errTitle) {
-        el.errTitle.textContent = state.criticalErrors.filter(function (e) { return e.fatal; }).length
+        /* El título debe decir la verdad. Un fallo fatal O un arranque que no
+           llegó a completarse (perro guardián) NO es "modo degradado": antes,
+           un timeout sin errores registrados mostraba "EL CLUB ABRE EN MODO
+           DEGRADADO" sobre una carga bloqueada, que es lo contrario de lo que
+           estaba pasando. */
+        var blocked = state.criticalErrors.filter(function (e) { return e.fatal; }).length > 0 ||
+                      state.watchdogFired ||
+                      !state.loadFinished;
+        el.errTitle.textContent = blocked
           ? "NO SE PUDO ABRIR EL CLUB"
           : "EL CLUB ABRE EN MODO DEGRADADO";
       }
@@ -8230,7 +8304,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
-      if (retry) retry.onclick = function () { audio.ui("ok"); location.reload(); };
+      if (retry) retry.onclick = function () {
+        audio.ui("ok");
+        /* Marca observable de que el REINTENTAR real se activó. Se escribe sólo
+           para que la verificación pueda distinguir "el botón pidió recarga" de
+           "el botón no hizo nada"; NO altera el comportamiento. La navegación la
+           hace el navegador con location.reload(), como siempre. */
+        try { document.documentElement.setAttribute("data-dd-retry", "1"); } catch (e) {}
+        location.reload();
+      };
       if (safe) {
         /* El modo seguro SÓLO relaja los pasos no esenciales. Si lo que falta es
            indispensable (motor, recursos, sistema de menú), reintentar en modo
@@ -8283,18 +8365,30 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* El menú está construido pero oculto hasta que la intro termine. */
     if (window.DD_UI) window.DD_UI.hideMainMenu();
 
-    /* Perro guardián: si algún paso se queda colgado, nunca se deja una pantalla
-       negra indefinida; se muestra el panel de error accionable. */
-    var watchdog = setTimeout(function () {
-      if (state.current === "BOOT") {
-        showError(new Error("El arranque tardó demasiado. Puedes reintentar o usar el modo seguro."));
-      }
-    }, 20000);
-    state.watchdog = watchdog;
+    /* Perro guardián del arranque.
+       Vigila el estado REAL de carga (LOADING) y se identifica por token, no por
+       estado: si se reintenta, el temporizador del intento anterior ya no puede
+       disparar un error sobre el nuevo. Nunca actúa si la carga terminó, si el
+       estado ya avanzó o si el panel de error ya está visible. */
+    state.bootToken = (state.bootToken || 0) + 1;
+    var bootToken = state.bootToken;
+    clearTimeout(state.watchdog);
+    state.watchdog = setTimeout(function () {
+      if (bootToken !== state.bootToken) return;          /* intento caducado */
+      if (state.loadFinished) return;                     /* ya cargó */
+      if (state.current !== "LOADING" && state.current !== "BOOT") return;
+      if (el.err && !el.err.hidden) return;               /* ya hay panel */
+      state.watchdogFired = true;
+      showError(new Error("El arranque tardó demasiado (" + WATCHDOG_MS + " ms). " +
+        "Puedes reintentar o usar el modo seguro."));
+    }, WATCHDOG_MS);
+    state.watchdog = state.watchdog;
 
     return runSteps()
       .then(function (ok) {
         if (!ok) return;
+        state.loadFinished = true;          /* ya no hay nada que vigilar */
+        clearTimeout(state.watchdog);
         state.loadStart = state.bootStart;
         state.loadEnd = performance.now();
         emit("loading-complete", {
@@ -8444,14 +8538,25 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* Y sólo si el motor está realmente en marcha. Se comprueba aquí, no sólo en
        la UI, para que la garantía valga también para cualquier llamada directa
        al API: PLAYING no se declara nunca sobre un motor parado. */
+    /* Sólo se acepta EVIDENCIA POSITIVA de que el motor está en marcha.
+       Antes, si no había puente o no se podía consultar isRunning(), se daba por
+       bueno ("else engineUp = true"): eso convertía la ignorancia en permiso y
+       permitía declarar PLAYING sobre un motor que nadie había confirmado.
+       Ahora la ausencia de señal es un NO. */
     var engineUp = false;
     try {
-      if (window.DD_HUB && window.DD_HUB.isActive()) engineUp = true;
-      else if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.isRunning === "function")
-        engineUp = !!window.__DD_BRIDGE.isRunning();
-      else engineUp = true; /* sin puente (build sin motor) no se puede comprobar */
+      if (window.DD_HUB && window.DD_HUB.isActive()) {
+        engineUp = true;                                    /* HUB activo = motor vivo */
+      } else if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.isRunning === "function") {
+        engineUp = window.__DD_BRIDGE.isRunning() === true;  /* confirmación explícita */
+      } else {
+        engineUp = false;                                    /* desconocido => no */
+      }
     } catch (e) { engineUp = false; }
-    if (!engineUp) return false;
+    if (!engineUp) {
+      /* Se deja constancia: no se entra en partida sin motor confirmado. */
+      return false;
+    }
     document.body.classList.remove("dd-booting", "dd-intro-running");
     audio.stopMenuMusic(0.5);
     setState("PLAYING");
@@ -8498,8 +8603,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     })(),
     getTrace: function () { return state.trace.slice(); },
     getEvidence: function () {
-      return { finalPct: state.finalPct || "", stepsDone: state.doneCount || 0,
-        at: state.rootHiddenAt || 0, loadMs: state.loadEnd && state.loadStart ? Math.round(state.loadEnd - state.loadStart) : null };
+      return {
+        finalPct: state.finalPct || "",
+        stepsDone: state.doneCount || 0,
+        at: state.rootHiddenAt || 0,
+        loadMs: state.loadEnd && state.loadStart ? Math.round(state.loadEnd - state.loadStart) : null,
+        /* Registro real de errores del arranque. Antes NO se exponía, y las
+           pruebas que lo consultaban recibían undefined -> [] y daban por bueno
+           un "todo no fatal" que nunca se había comprobado. */
+        errors: state.errorRegistry.slice(),
+        degraded: state.errorRegistry.some(function (e) { return e.degraded; }),
+        watchdogFired: !!state.watchdogFired,
+        loadFinished: !!state.loadFinished
+      };
     },
     start: start,
     getState: getState,
@@ -8509,6 +8625,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     enterGame: enterGame,
     exitGameToMenu: exitGameToMenu,
     canStartGame: canStartGame,
+    ESSENTIAL_IDS: ESSENTIAL_IDS.slice(),
+    WATCHDOG_MS: WATCHDOG_MS,
+    getErrorRegistry: function () { return state.errorRegistry.slice(); },
     audio: {
       startMenuMusic: audio.startMenuMusic,
       stopMenuMusic: audio.stopMenuMusic,
