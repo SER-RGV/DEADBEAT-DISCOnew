@@ -1,0 +1,144 @@
+PASS A1 el progreso son pasos reales completados  pasos=engine,assets,images,fase01,fonts,ui,audio,storage,final  pcts=[0,11,22,33,44,56,67,78,89,100,100,100]
+PASS A2 los 9 pasos terminan en OK  stepsDone=9  pct=100%  loadMs=558
+PASS A3 ningún paso crítico en error  final=100%
+PASS B1 la intro arranca sola y su reloj avanza  valores distintos=[0.62,0.71,0.82,0.93,1.03,1.11]
+PASS B2 la intro dura entre 3 y 5 s  duration=4.4
+PASS B3 la intro se puede saltar  MAIN_MENU  introEndedBy=complete
+PASS B4 no se reinicia al recuperar el foco  {"s":"MAIN_MENU","cine":null}
+PASS C1 seis acciones reales en orden  new|continue|slots|options|credits|exit
+PASS C2 ninguna deshabilitada  
+PASS C3 logotipo sin deformar (contain)  {"ratio":1.501,"fit":"contain"}
+PASS C4 OPCIONES abre el submenú real  {"sub":"options","has":true}
+PASS C5 volumen del menú aplica y persiste  {"out":"35%","ls":"{\"vol\":0.35}"}
+PASS C6 calidad gráfica se sincroniza con el panel del motor  {"a11y":"{\"gfx\":\"low\",\"flash\":true,\"shake\":true}","mirror":"low"}
+PASS C7 mezcla del motor incrustada (sin duplicar controles)  {"kids":1,"rows":5}
+PASS C8b la salida restaura el estado original  fullscreenElement tras salir=false
+PASS C8 pantalla completa activada de verdad  API=true enabled=true botón=operativo fullscreenElement false->true eventos=[true] pressed=true esperaEvento=1635ms
+PASS C9 CONTINUAR sin partida avisa y no arranca  SIN PROGRESO GUARDADO SIN DESCENSOS REGISTRADOS Cada descenso empieza en el Círc
+PASS C10 declara la limitación real del guardado  
+PASS C11 créditos sólo con datos reales del repositorio  DEADBEAT DISCO / DESCENSO · MÚSICA · CAOS · REDENCIÓN / DIRECCIÓN Y PRODUCCIÓN
+PASS C12 SALIR explica el límite real del navegador  ¿CERRAR EL CLUB Y SALIR A LA CALLE? El navegador no permite que una pestaña se cierre a sí
+PASS C13 SALIR corta el audio y despide  {"black":true,"music":false}
+PASS C14 se puede volver a entrar  {"black":false,"s":"MAIN_MENU","music":true}
+PASS D1 flechas mueven la selección y el foco real  {"i":2,"f":"slots"}
+PASS D2 End salta al último botón  
+PASS D3a mando EMULADO: el D-pad mueve la selección  índice 0 -> 2 (ciclos=1, sondeos/ciclo=15)
+PASS D3b mando EMULADO: A abre el submenú que está enfocado  {"state":"SUBMENU","sub":"options"} (enfocado=options idx=3 ruta=["2->3"] ciclos=1, sondeos/ciclo=19)
+PASS D3c mando EMULADO: B vuelve al menú  {"state":"MAIN_MENU","sub":null} (ciclos=1)
+PASS D3d mando EMULADO: en reposo la selección no se mueve sola  estable=true
+PASS D3e el menú sigue latiendo con la escena legada oculta (mando sondeado)  navigator.getGamepads leído 70 veces durante la prueba
+PASS A4 sin errores de página, consola ni red  
+PASS F-720p sin recorte ni deformación  {"logoRatio":1.501,"letterbox":"contain","covered":true,"cut":false,"music":true,"state":"MAIN_MENU"}
+PASS E-720p música de menú activa  true
+PASS F-720p sin errores  
+PASS F-1080p sin recorte ni deformación  {"logoRatio":1.501,"letterbox":"contain","covered":true,"cut":false,"music":true,"state":"MAIN_MENU"}
+PASS E-1080p música de menú activa  true
+PASS F-1080p sin errores  
+PASS F-1440p sin recorte ni deformación  {"logoRatio":1.501,"letterbox":"contain","covered":true,"cut":false,"music":true,"state":"MAIN_MENU"}
+PASS E-1440p música de menú activa  true
+PASS F-1440p sin errores  
+PASS F-ultrawide sin recorte ni deformación  {"logoRatio":1.501,"letterbox":"contain","covered":true,"cut":false,"music":true,"state":"MAIN_MENU"}
+PASS E-ultrawide música de menú activa  true
+PASS F-ultrawide sin errores  
+PASS G1 NUEVA PARTIDA entra al juego  {"state":"PLAYING","music":false,"menuHidden":true,"hudVisible":true,"running":true}  (21210 ms de reloj de pared)
+PASS G2 la música de menú se corta al jugar  false
+PASS G3 el menú desaparece y el HUD aparece  {"menu":true,"hud":true}
+PASS G4 sin errores durante la transición a juego  
+PASS H-A1 el fallo crítico se detecta y el panel aparece  {"v":true,"st":"LOADING"}
+PASS H-A2 el mensaje identifica el problema concreto (DD_UI)  NO SE PUDO ABRIR EL CLUB · El sistema de menú (DD_UI) no está disponible. · Falta un recurso indispensable (ui): el modo seguro no puede 
+PASS H-A3 se ofrece REINTENTAR  true
+PASS H-C1 el modo seguro no está disponible sin recurso indispensable  disabled=true etiqueta=MODO SEGURO NO DISPONIBLE
+PASS H-C2 pulsar modo seguro no entrega un menú inutilizable  LOADING -> {"state":"LOADING","ddUI":"undefined"}
+PASS H-B1 REINTENTAR provoca una recarga real del navegador  {"antes":{"nav":"navigate","hasRetryBtn":true,"handlerIsReal":true,"markerBefore":null},"despues":{"nav":"reload","marker":null,"state":"INTRO"}}
+PASS H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera  {"state":"INTRO","err":false}
+PASS H-D1 un fallo no esencial no impide abrir el menú  "MAIN_MENU"
+PASS H-D2a getEvidence() expone un registro de errores real  entradas=1
+PASS H-D2b el fallo de audio queda registrado y con motivo  {"id":"audio","message":"Motor de audio no disponible (DDC_COVER.music).","severity":"warning","fatal":false,"degraded":true,"essential":false,"kind":"degraded","at":1580}
+PASS H-D2c el error está marcado como recuperable y degradado, no fatal  {"severity":"warning","fatal":false,"degraded":true,"essential":false}
+PASS H-D2d el sistema se declara degradado y ningún error es fatal  degraded=true fatales=0
+PASS H-D2e la entrada tiene los campos exigidos y una marca de tiempo  {"id":"audio","message":"Motor de audio no disponible (DDC_COVER.music).","severity":"warning","fatal":false,"degraded":true,"essential":false,"kind":"degraded","at":1580}
+PASS H-E1 las seis acciones del menú tienen etiqueta accesible  {"count":6,"labelled":6,"noLabel":0,"unusable":[],"focusInMenu":true,"focusVisible":true,"navRole":"menu"}
+PASS H-E2 el foco arranca dentro del menú y es visible  focoEnMenú=true outline=true
+PASS H-E3 ninguna acción parece funcional estando desactivada  desactivadas=[]
+PASS H-E4 la navegación se anuncia como menú  role=menu
+PASS H-E5 las flechas mueven la selección del menú  NUEVA PARTIDADesciende al Círculo I · Lujuria -> CONTINUARRetoma tu último descenso registrado
+PASS H-F1 la secuencia de arranque es BOOT -> LOADING -> INTRO -> MAIN_MENU  observado: BOOT -> LOADING -> INTRO -> MAIN_MENU
+PASS H-F2 la carga va de 0 % a 100 % sin retroceder  pcts=[0,11,22,33,44,56,67,78,89,100,100,100]
+PASS H-F3 se entra y se sale del submenú volviendo a MAIN_MENU  {"abrir":"SUBMENU","cerrar":"MAIN_MENU"}
+PASS H-F4 las transiciones inválidas se rechazan sin corromper el estado  {"fromMenu":"MAIN_MENU","closeFromMenu":false,"afterClose":"MAIN_MENU","inSub":"SUBMENU","enterFromSub":false,"afterEnter":"SUBMENU","back":"MAIN_MENU"}
+PASS W1 carga normal: el watchdog no interrumpe el arranque  {"state":"INTRO","errVisible":false,"loadFinished":true,"watchdogFired":false,"loadMs":531,"msg":20000}
+PASS W2 carga normal: la carga se marca terminada y el watchdog no dispara  loadFinished=true watchdogFired=false loadMs=531 límite=20000 ms
+PASS W3 carga bloqueada: el watchdog muestra el panel de error  esperado 20000 ms, observado 20922 ms · {"st":"LOADING","wd":true}
+PASS W4 carga bloqueada: el panel NO se presenta como modo degradado  título="NO SE PUDO ABRIR EL CLUB"
+PASS W5 carga bloqueada: el panel nombra el motivo (tiempo)  cuerpo="El arranque tardó demasiado (20000 ms). Puedes reintentar o usar el modo seguro. · Revisa la consola"
+PASS W6a dos intentos de arranque producen dos watchdogs distintos  intento1=20000ms intento2=20000ms total=2
+PASS W6b el temporizador del intento anterior se cancela con clearTimeout  c1.cleared=true
+PASS W6c ejecutar el temporizador ANTIGUO no afecta al intento nuevo  {"antes":{"state":"LOADING","panelHidden":true,"fired":false},"despues":{"state":"LOADING","panelHidden":true,"fired":false}}
+PASS W6d el watchdog VIGENTE sigue funcionando y muestra el panel  {"state":"LOADING","panelHidden":false,"fired":true,"title":"NO SE PUDO ABRIR EL CLUB"}
+PASS E1 con canvas presente el arranque progresa  estado=INTRO
+PASS E2 engine está en la lista de recursos esenciales  ["engine","assets","images","ui"]
+PASS E3a sin canvas: el escenario es real (el elemento no existe)  canvasExists=false
+PASS E3b sin canvas: el paso engine registra un error FATAL  {"id":"engine","message":"No se encontró el lienzo del juego (#game).","severity":"fatal","fatal":true,"degraded":false,"essential":true,"kind":"essential-failure","at":935}
+PASS E4a sin canvas: el panel de error aparece  errVisible=true estado=LOADING
+PASS E4b sin canvas: título y mensaje identifican el problema  título="NO SE PUDO ABRIR EL CLUB" cuerpo="No se encontró el lienzo del juego (#game). · Falta un recurso indispensable (engine): el modo seguro no puede"
+PASS E4c sin canvas: NUNCA se alcanza MAIN_MENU  estado final=LOADING
+PASS E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)  safe.disabled=true etiqueta="MODO SEGURO NO DISPONIBLE"
+PASS E6 sin canvas: no se inicia ninguna partida  {"state":"LOADING","canStart":false,"running":false}
+PASS P-P1_false · a) la inyección se aplica y la puerta acepta el motor confirmado  {"applied":true,"hubActive":false,"accepted":true,"state":"PLAYING"}
+PASS P-P1_false · b) el escenario negativo queda activo en la página  {"bridgeAbsent":false,"isRunningReturned":"false","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P1_false · c) con el escenario activo no se declara PLAYING  {"bridgeAbsent":false,"isRunningReturned":"false","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P2_throws · a) la inyección se aplica y la puerta acepta el motor confirmado  {"applied":true,"hubActive":false,"accepted":true,"state":"PLAYING"}
+PASS P-P2_throws · b) el escenario negativo queda activo en la página  {"bridgeAbsent":false,"isRunningReturned":"THREW","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P2_throws · c) con el escenario activo no se declara PLAYING  {"bridgeAbsent":false,"isRunningReturned":"THREW","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P3_undefined · a) la inyección se aplica y la puerta acepta el motor confirmado  {"applied":true,"hubActive":false,"accepted":true,"state":"PLAYING"}
+PASS P-P3_undefined · b) el escenario negativo queda activo en la página  {"bridgeAbsent":false,"isRunningReturned":"undefined","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P3_undefined · c) con el escenario activo no se declara PLAYING  {"bridgeAbsent":false,"isRunningReturned":"undefined","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P4_absent · a) la inyección se aplica y la puerta acepta el motor confirmado  {"applied":true,"hubActive":false,"accepted":true,"state":"PLAYING"}
+PASS P-P4_absent · b) el escenario negativo queda activo en la página  {"bridgeAbsent":true,"isRunningReturned":"null","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P-P4_absent · c) con el escenario activo no se declara PLAYING  {"bridgeAbsent":true,"isRunningReturned":"null","applied":true,"stateBefore":"MAIN_MENU","accepted":false,"threw":false,"stateAfter":"MAIN_MENU"}
+PASS P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)  {"antes":{"state":"MAIN_MENU","runningBefore":false},"despues":{"state":"PLAYING","running":true,"music":false}}
+PASS V1 carga tardía: el watchdog dispara y muestra el panel  panel=true watchdog=true estado=LOADING pct=22%
+PASS V2 carga tardía: la carga NO se declara terminada  loadFinished=false
+PASS V3 carga tardía: el intento caducado no avanza el progreso  antes=[":0","engine:11","assets:22"] despues=[":0","engine:11","assets:22"]
+PASS V4 carga tardía: el intento caducado NO activa la intro  estado final=LOADING
+PASS V5 carga tardía: el panel de error se conserva  panel=true
+PASS V6 carga tardía: no se declara la carga terminada  loadFinished=false
+PASS M-A motor · canvas ausente: se detecta y se comunica  estado=LOADING panel=true fatal=true safe.disabled=true canStart=false
+PASS M-A motor · canvas ausente: el mensaje identifica la causa  motivo="No se encontró el lienzo del juego (#game)."
+PASS M-B motor · contexto gráfico no disponible: se detecta y se comunica  estado=LOADING panel=true fatal=true safe.disabled=true canStart=false
+PASS M-B motor · contexto gráfico no disponible: el mensaje identifica la causa  motivo="El lienzo del juego no pudo crear el contexto gráfico (2d): por eso el motor no llegó a inicializarse."
+PASS M-C motor · puente ausente: se detecta y se comunica  estado=LOADING panel=true fatal=true safe.disabled=true canStart=false
+PASS M-C motor · puente ausente: el mensaje identifica la causa  motivo="El puente del motor (__DD_BRIDGE) no está disponible."
+PASS M-D motor · método esencial ausente (isRunning): se detecta y se comunica  estado=LOADING panel=true fatal=true safe.disabled=true canStart=false
+PASS M-D motor · método esencial ausente (isRunning): el mensaje identifica la causa  motivo="El puente del motor no expone isRunning(): no se puede confirmar una partida."
+PASS M-E motor · isRunning() lanza una excepción: se detecta y se comunica  estado=LOADING panel=true fatal=true safe.disabled=true canStart=false
+PASS M-E motor · isRunning() lanza una excepción: el mensaje identifica la causa  motivo="El puente del motor lanzó una excepción al comprobar isRunning(): motor en estado inconsistente"
+PASS M-F motor disponible: el arranque progresa sin error de engine  estado=INTRO panel=false engineError=null
+PASS T1 motor disponible: la entrada termina en PLAYING  {"state":"PLAYING","busy":false,"menu":false,"menuOculto":true,"music":false}
+PASS T2 motor detenido: la entrada se rechaza y el menú se restaura  {"state":"MAIN_MENU","busy":false,"menu":true,"menuOculto":false,"music":true}
+PASS T3 motor ausente: la entrada se rechaza y el menú se restaura  {"state":"MAIN_MENU","busy":false,"menu":true,"menuOculto":false,"music":true}
+PASS T4 isRunning() lanza: la entrada se rechaza sin dejar la UI colgada  {"state":"MAIN_MENU","busy":false,"menu":true,"menuOculto":false,"music":true}
+FAIL T5 puente incompleto: la entrada se rechaza y el menú se restaura  
+PASS T6 la puerta manda: si enterGame() rechaza, el menú se restaura  {"state":"MAIN_MENU","busy":false,"menu":true,"menuOculto":false,"music":true}
+PASS T7 tras un rechazo el audio del menú vuelve a sonar  música del menú=true
+PASS Q1 el panel de error es un alert y tiene título y cuerpo reales  {"role":"alert","title":true,"body":true}
+PASS Q2 el panel está asociado a su título y a su mensaje  aria-labelledby=dd-boot-err-title aria-describedby=dd-boot-err-body
+PASS Q3 el panel acepta foco programático  tabindex=-1
+PASS Q4 al aparecer el error el foco va a un control de recuperación  foco=dd-boot-retry botón REINTENTAR visible=true
+PASS Q5 los controles del panel son alcanzables por teclado  {"n":2,"ocultos":0,"tabulables":2}
+PASS R1 cargando: el armazón tiene semántica propia y NO está oculto al árbol  {"presente":true,"role":"progressbar","ariaHidden":null,"ariaBusy":"true","ariaModal":null,"label":"Cargando DEADBEAT DISCO"}
+PASS R2 cargando: el árbol de accesibilidad expone la pantalla de carga  {"visibles":1,"existen":1}
+PASS R3 error fatal real: el panel aparece  panel visible=true
+PASS R4 error: ningún antecesor del panel tiene aria-hidden="true"  [] (cadena de 3)
+PASS R5 error: ningún antecesor de REINTENTAR tiene aria-hidden="true"  [] (cadena de 5)
+PASS R6 error: el armazón no se contradice (alertdialog modal, sin aria-hidden)  {"role":"alertdialog","modal":"true","ah":null,"labelled":"dd-boot-err-title","described":"dd-boot-err-body","titulo":true,"cuerpo":true}
+PASS R7 error: el árbol real de Chromium expone REINTENTAR y el título  {"reintentar":{"visibles":3,"existen":3},"titulo":{"visibles":2,"existen":2}}
+PASS R9 error: el foco llega a un control útil y REINTENTAR es usable  {"foco":"dd-boot-retry","dentroDelPanel":true,"visible":true,"habilitado":true,"enfocable":true,"tabulables":1}
+PASS R8 error: REINTENTAR sigue en el árbol con el foco FUERA (no es accesible por accidente)  {"conFocoFuera":3}
+PASS R10 error: ningún control enfocable del armazón está dentro de una región aria-hidden  {"total":1,"malos":[]}
+PASS R11 retirado: al entrar al menú no queda ninguna región mal oculta ni expuesta  {"estado":"MAIN_MENU","frameEnDOM":false,"menuPresente":true,"ancestrosOcultosMenu":0,"menuOculto":false,"foco":"BUTTON","panelesDuplicados":0,"framesDuplicados":0}
+PASS R12 no se duplica el panel ni el armazón  {"paneles":0,"frames":0}
+PASS R13 el menú sigue siendo utilizable por teclado tras retirar el armazón  {"n":6,"tabulables":1,"focoEnMenu":true}
+
+== 140 PASS · 1 FAIL · 0 SKIP · 0 NV · 141 TOTAL ==
+FALLOS: T5 puente incompleto: la entrada se rechaza y el menú se restaura

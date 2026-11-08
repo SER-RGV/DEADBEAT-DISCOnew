@@ -1,0 +1,143 @@
+{
+  "suite": "ENTREGA_02_sliders_mando_emulado",
+  "date": "2026-11-08T18:19:04.386Z",
+  "gamepad": "EMULADO (navigator.getGamepads sintético). Mando físico: NO PROBADO.",
+  "url": "http://127.0.0.1:8123/index.html",
+  "passed": 22,
+  "total": 22,
+  "failed": [],
+  "results": [
+    {
+      "id": "S1",
+      "name": "Arranque hasta MAIN_MENU sin pageerror",
+      "pass": true,
+      "detail": "0 errores"
+    },
+    {
+      "id": "S2",
+      "name": "D-pad navega al menú y A abre OPCIONES; foco inicial en MAESTRO",
+      "pass": true,
+      "detail": "submenuOpen=true activeElement=menu-vol-master"
+    },
+    {
+      "id": "S2b",
+      "name": "Sin pageerror al abrir OPCIONES",
+      "pass": true,
+      "detail": "0 errores"
+    },
+    {
+      "id": "S3",
+      "name": "D-pad ↓/↑ navega por los sliders en orden y sin saltarse",
+      "pass": true,
+      "detail": "menu-vol-music → menu-vol-sfx → menu-vol-dj → menu-gfx → menu-vol-dj"
+    },
+    {
+      "id": "S4a",
+      "name": "Stick ← mantenido reduce el valor real y actualiza el output",
+      "pass": true,
+      "detail": "antes=100 después=86 output=86%"
+    },
+    {
+      "id": "S4b",
+      "name": "D-pad → ×2 = +2 exactos (incremento step=1)",
+      "pass": true,
+      "detail": "antes=86 después=88"
+    },
+    {
+      "id": "S5a",
+      "name": "Volumen maestro persistido en dmodisco_vol_v1 tras mover con mando",
+      "pass": true,
+      "detail": "slider=94 persistido=94"
+    },
+    {
+      "id": "S5b",
+      "name": "VOLUMEN MENÚ +3 persistido en ddc_cover_settings_v1 y output sincronizado",
+      "pass": true,
+      "detail": "antes=80 slider=83 persistido=83 output=83%"
+    },
+    {
+      "id": "S6-menu-vol-master",
+      "name": "MAESTRO: clamp en 0 y en 100 con stick mantenido",
+      "pass": true,
+      "detail": "min=0 (out 0%) max=100 (out 100%)"
+    },
+    {
+      "id": "S6-menu-vol-music",
+      "name": "MÚSICA: clamp en 0 y en 100 con stick mantenido",
+      "pass": true,
+      "detail": "min=0 (out 0%) max=100 (out 100%)"
+    },
+    {
+      "id": "S6-menu-vol-sfx",
+      "name": "EFECTOS: clamp en 0 y en 100 con stick mantenido",
+      "pass": true,
+      "detail": "min=0 (out 0%) max=100 (out 100%)"
+    },
+    {
+      "id": "S6-menu-vol-dj",
+      "name": "VOZ DJ: clamp en 0 y en 100 con stick mantenido",
+      "pass": true,
+      "detail": "min=0 (out 0%) max=100 (out 100%)"
+    },
+    {
+      "id": "S6-dd-opt-menuvol",
+      "name": "VOLUMEN MENÚ: clamp en 0 y en 100 con stick mantenido",
+      "pass": true,
+      "detail": "min=0 (out 0%) max=100 (out 100%)"
+    },
+    {
+      "id": "S7",
+      "name": "Stick mantenido en el límite máximo no pasa de 100 ni rompe nada",
+      "pass": true,
+      "detail": "valor=100 errores=0"
+    },
+    {
+      "id": "S8a",
+      "name": "Bajar el foco del slider no modifica MAESTRO",
+      "pass": true,
+      "detail": "antes=100 después=100"
+    },
+    {
+      "id": "S8b",
+      "name": "←→ sobre no-sliders navega sin tocar ningún slider",
+      "pass": true,
+      "detail": "dd-opt-menuon → dd-opt-gfx | [\"100\",\"85\",\"90\",\"80\",\"80\"] → [\"100\",\"85\",\"90\",\"80\",\"80\"]"
+    },
+    {
+      "id": "S9",
+      "name": "Salir del slider con ↑↓ y reentrar conserva ajuste independiente",
+      "pass": true,
+      "detail": "music=86 master=100"
+    },
+    {
+      "id": "S10",
+      "name": "A mantenido 700 ms incrementa exactamente +1 (sin auto-repetición por botón)",
+      "pass": true,
+      "detail": "antes=80 después=81"
+    },
+    {
+      "id": "S11",
+      "name": "Teclado (+1 −1) y mando (+1) conviven: neto +1, sin dobles disparos",
+      "pass": true,
+      "detail": "base=90 final=91"
+    },
+    {
+      "id": "S12",
+      "name": "Mando desconectado no navega; al reconectar vuelve a navegar",
+      "pass": true,
+      "detail": "inicio=0 desconectado=0 reconectado=1 pill=MANDO XBOX CONECTADO · XBOX 360 CONTROLLER (X"
+    },
+    {
+      "id": "S13",
+      "name": "Una pulsación D-pad = exactamente un paso (abajo y arriba)",
+      "pass": true,
+      "detail": "inicio=0 →1 →0"
+    },
+    {
+      "id": "S14",
+      "name": "B cierra OPCIONES y vuelve a MAIN_MENU",
+      "pass": true,
+      "detail": "abierto=false estado=MAIN_MENU"
+    }
+  ]
+}
