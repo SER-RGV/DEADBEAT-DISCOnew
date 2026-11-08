@@ -31,13 +31,47 @@ need tar
 
 mkdir -p "$QA/out" "$QA/al"
 
+# Versiones FIJADAS del entorno de QA. Son las que se han ejecutado de verdad y
+# se documentan en FASE_01_INFORME_FINAL.md. No usar rangos (^, ~, latest): una
+# versión flotante haría que la misma suite midiera navegadores distintos.
+QA_CHROMIUM_VERSION="@sparticuz/chromium@138.0.2"
+QA_PLAYWRIGHT_VERSION="playwright-core@1.49.1"
+
+# Instala SÓLO si hace falta. Antes se lanzaba `npm i` en cada ejecución, lo que
+# reinstalaba el árbol entero aunque las versiones ya fueran las correctas
+# (lento y no determinista si el registro cambiaba). Ahora se comprueba primero
+# qué versión hay instalada y se informa de lo que se va a hacer.
 install_env() {
-  echo "[qa] instalando chromium headless + playwright-core en $QA"
+  local c_inst p_inst
+  c_inst=$(node -e "try{console.log(require('$QA/node_modules/@sparticuz/chromium/package.json').version)}catch(e){console.log('')}" 2>/dev/null)
+  p_inst=$(node -e "try{console.log(require('$QA/node_modules/playwright-core/package.json').version)}catch(e){console.log('')}" 2>/dev/null)
+
+  if [ "$c_inst" = "138.0.2" ] && [ "$p_inst" = "1.49.1" ]; then
+    echo "[qa] entorno ya presente y con las versiones fijadas (chromium $c_inst · playwright-core $p_inst)"
+    return 0
+  fi
+
+  echo "[qa] instalando entorno fijado en $QA (chromium=$QA_CHROMIUM_VERSION · playwright=$QA_PLAYWRIGHT_VERSION)"
+  if [ -n "$c_inst" ] || [ -n "$p_inst" ]; then
+    echo "[qa] versiones encontradas: chromium='${c_inst:-ninguna}' playwright='${p_inst:-ninguna}' -> se reemplazan por las fijadas"
+  fi
   if [ ! -f "$QA/package.json" ]; then
     ( cd "$QA" && npm init -y >/dev/null 2>&1 ) || true
   fi
-  ( cd "$QA" && npm i --silent @sparticuz/chromium@138.0.2 playwright-core@1.49.1 ) \
+  ( cd "$QA" && npm i --silent "$QA_CHROMIUM_VERSION" "$QA_PLAYWRIGHT_VERSION" ) \
     || { echo "[qa] ERROR: fallo la instalación de npm. Revisa la conexión al registro."; exit 1; }
+
+  # Verificación explícita: si tras instalar las versiones no coinciden, se para
+  # con un mensaje claro en vez de ejecutar la suite con un entorno ambiguo.
+  c_inst=$(node -e "console.log(require('$QA/node_modules/@sparticuz/chromium/package.json').version)" 2>/dev/null)
+  p_inst=$(node -e "console.log(require('$QA/node_modules/playwright-core/package.json').version)" 2>/dev/null)
+  if [ "$c_inst" != "138.0.2" ] || [ "$p_inst" != "1.49.1" ]; then
+    echo "[qa] ERROR: el entorno instalado no coincide con las versiones fijadas."
+    echo "[qa]        esperado chromium=138.0.2 playwright-core=1.49.1"
+    echo "[qa]        obtenido chromium='$c_inst' playwright-core='$p_inst'"
+    exit 1
+  fi
+  echo "[qa] entorno verificado: chromium $c_inst · playwright-core $p_inst"
 }
 
 extract_libs() {
