@@ -1,0 +1,596 @@
+[
+ {
+  "id": "A1 el progreso son pasos reales completados",
+  "pass": true,
+  "status": "PASS",
+  "detail": "pasos=engine,assets,images,fase01,fonts,ui,audio,storage,final  pcts=[0,11,22,33,44,56,67,78,89,100,100,100]"
+ },
+ {
+  "id": "A2 los 9 pasos terminan en OK",
+  "pass": true,
+  "status": "PASS",
+  "detail": "stepsDone=9  pct=100%  loadMs=1163"
+ },
+ {
+  "id": "A3 ningún paso crítico en error",
+  "pass": true,
+  "status": "PASS",
+  "detail": "final=100%"
+ },
+ {
+  "id": "B1 la intro arranca sola y su reloj avanza",
+  "pass": true,
+  "status": "PASS",
+  "detail": "valores distintos=[0.74,0.79,0.89,0.97,1.08,1.12]"
+ },
+ {
+  "id": "B2 la intro dura entre 3 y 5 s",
+  "pass": true,
+  "status": "PASS",
+  "detail": "duration=4.4"
+ },
+ {
+  "id": "B3 la intro se puede saltar",
+  "pass": true,
+  "status": "PASS",
+  "detail": "MAIN_MENU  introEndedBy=complete"
+ },
+ {
+  "id": "B4 no se reinicia al recuperar el foco",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"s\":\"MAIN_MENU\",\"cine\":null}"
+ },
+ {
+  "id": "C1 seis acciones reales en orden",
+  "pass": true,
+  "status": "PASS",
+  "detail": "new|continue|slots|options|credits|exit"
+ },
+ {
+  "id": "C2 ninguna deshabilitada",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "C3 logotipo sin deformar (contain)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"ratio\":1.501,\"fit\":\"contain\"}"
+ },
+ {
+  "id": "C4 OPCIONES abre el submenú real",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"sub\":\"options\",\"has\":true}"
+ },
+ {
+  "id": "C5 volumen del menú aplica y persiste",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"out\":\"35%\",\"ls\":\"{\\\"vol\\\":0.35}\"}"
+ },
+ {
+  "id": "C6 calidad gráfica se sincroniza con el panel del motor",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"a11y\":\"{\\\"gfx\\\":\\\"low\\\",\\\"flash\\\":true,\\\"shake\\\":true}\",\"mirror\":\"low\"}"
+ },
+ {
+  "id": "C7 mezcla del motor incrustada (sin duplicar controles)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"kids\":1,\"rows\":5}"
+ },
+ {
+  "id": "C8b la salida restaura el estado original",
+  "pass": true,
+  "status": "PASS",
+  "detail": "fullscreenElement tras salir=false"
+ },
+ {
+  "id": "C8 pantalla completa activada de verdad",
+  "pass": true,
+  "status": "PASS",
+  "detail": "API=true enabled=true botón=operativo fullscreenElement false->true eventos=[true] pressed=true esperaEvento=2053ms"
+ },
+ {
+  "id": "C9 CONTINUAR sin partida avisa y no arranca",
+  "pass": true,
+  "status": "PASS",
+  "detail": "SIN PROGRESO GUARDADO SIN DESCENSOS REGISTRADOS Cada descenso empieza en el Círc"
+ },
+ {
+  "id": "C10 declara la limitación real del guardado",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "C11 créditos sólo con datos reales del repositorio",
+  "pass": true,
+  "status": "PASS",
+  "detail": "DEADBEAT DISCO / DESCENSO · MÚSICA · CAOS · REDENCIÓN / DIRECCIÓN Y PRODUCCIÓN"
+ },
+ {
+  "id": "C12 SALIR explica el límite real del navegador",
+  "pass": true,
+  "status": "PASS",
+  "detail": "¿CERRAR EL CLUB Y SALIR A LA CALLE? El navegador no permite que una pestaña se cierre a sí"
+ },
+ {
+  "id": "C13 SALIR corta el audio y despide",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"black\":true,\"music\":false}"
+ },
+ {
+  "id": "C14 se puede volver a entrar",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"black\":false,\"s\":\"MAIN_MENU\",\"music\":true}"
+ },
+ {
+  "id": "D1 flechas mueven la selección y el foco real",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"i\":2,\"f\":\"slots\"}"
+ },
+ {
+  "id": "D2 End salta al último botón",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "D3a mando EMULADO: el D-pad mueve la selección",
+  "pass": true,
+  "status": "PASS",
+  "detail": "índice 0 -> 1 (ciclos=1, sondeos/ciclo=16)"
+ },
+ {
+  "id": "D3b mando EMULADO: A abre el submenú que está enfocado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"SUBMENU\",\"sub\":\"options\"} (enfocado=options idx=3 ruta=[\"1->2\",\"2->3\"] ciclos=1, sondeos/ciclo=18)"
+ },
+ {
+  "id": "D3c mando EMULADO: B vuelve al menú",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"MAIN_MENU\",\"sub\":null} (ciclos=1)"
+ },
+ {
+  "id": "D3d mando EMULADO: en reposo la selección no se mueve sola",
+  "pass": true,
+  "status": "PASS",
+  "detail": "estable=true"
+ },
+ {
+  "id": "D3e el menú sigue latiendo con la escena legada oculta (mando sondeado)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "navigator.getGamepads leído 79 veces durante la prueba"
+ },
+ {
+  "id": "A4 sin errores de página, consola ni red",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "F-720p sin recorte ni deformación",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-720p música de menú activa",
+  "pass": true,
+  "status": "PASS",
+  "detail": "true"
+ },
+ {
+  "id": "F-720p sin errores",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "F-1080p sin recorte ni deformación",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-1080p música de menú activa",
+  "pass": true,
+  "status": "PASS",
+  "detail": "true"
+ },
+ {
+  "id": "F-1080p sin errores",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "F-1440p sin recorte ni deformación",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-1440p música de menú activa",
+  "pass": true,
+  "status": "PASS",
+  "detail": "true"
+ },
+ {
+  "id": "F-1440p sin errores",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "F-ultrawide sin recorte ni deformación",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-ultrawide música de menú activa",
+  "pass": true,
+  "status": "PASS",
+  "detail": "true"
+ },
+ {
+  "id": "F-ultrawide sin errores",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "G1 NUEVA PARTIDA entra al juego",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"PLAYING\",\"music\":false,\"menuHidden\":true,\"hudVisible\":true,\"running\":true}  (144087 ms de reloj de pared)"
+ },
+ {
+  "id": "G2 la música de menú se corta al jugar",
+  "pass": true,
+  "status": "PASS",
+  "detail": "false"
+ },
+ {
+  "id": "G3 el menú desaparece y el HUD aparece",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"menu\":true,\"hud\":true}"
+ },
+ {
+  "id": "G4 sin errores durante la transición a juego",
+  "pass": true,
+  "status": "PASS",
+  "detail": ""
+ },
+ {
+  "id": "H-A1 el fallo crítico se detecta y el panel aparece",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"v\":true,\"st\":\"LOADING\"}"
+ },
+ {
+  "id": "H-A2 el mensaje identifica el problema concreto (DD_UI)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "NO SE PUDO ABRIR EL CLUB · El sistema de menú (DD_UI) no está disponible. · Falta un recurso indispensable (ui): el modo seguro no puede "
+ },
+ {
+  "id": "H-A3 se ofrece REINTENTAR",
+  "pass": true,
+  "status": "PASS",
+  "detail": "true"
+ },
+ {
+  "id": "H-C1 el modo seguro no está disponible sin recurso indispensable",
+  "pass": true,
+  "status": "PASS",
+  "detail": "disabled=true etiqueta=MODO SEGURO NO DISPONIBLE"
+ },
+ {
+  "id": "H-C2 pulsar modo seguro no entrega un menú inutilizable",
+  "pass": true,
+  "status": "PASS",
+  "detail": "LOADING -> {\"state\":\"LOADING\",\"ddUI\":\"undefined\"}"
+ },
+ {
+  "id": "H-B1 REINTENTAR provoca una recarga real del navegador",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"antes\":{\"nav\":\"navigate\",\"hasRetryBtn\":true,\"handlerIsReal\":true,\"markerBefore\":null},\"despues\":{\"nav\":\"reload\",\"marker\":null,\"state\":\"INTRO\"}}"
+ },
+ {
+  "id": "H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"INTRO\",\"err\":false}"
+ },
+ {
+  "id": "H-D1 un fallo no esencial no impide abrir el menú",
+  "pass": true,
+  "status": "PASS",
+  "detail": "\"MAIN_MENU\""
+ },
+ {
+  "id": "H-D2a getEvidence() expone un registro de errores real",
+  "pass": true,
+  "status": "PASS",
+  "detail": "entradas=1"
+ },
+ {
+  "id": "H-D2b el fallo de audio queda registrado y con motivo",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"id\":\"audio\",\"message\":\"Motor de audio no disponible (DDC_COVER.music).\",\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false,\"kind\":\"degraded\",\"at\":2285}"
+ },
+ {
+  "id": "H-D2c el error está marcado como recuperable y degradado, no fatal",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false}"
+ },
+ {
+  "id": "H-D2d el sistema se declara degradado y ningún error es fatal",
+  "pass": true,
+  "status": "PASS",
+  "detail": "degraded=true fatales=0"
+ },
+ {
+  "id": "H-D2e la entrada tiene los campos exigidos y una marca de tiempo",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"id\":\"audio\",\"message\":\"Motor de audio no disponible (DDC_COVER.music).\",\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false,\"kind\":\"degraded\",\"at\":2285}"
+ },
+ {
+  "id": "H-E1 las seis acciones del menú tienen etiqueta accesible",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"count\":6,\"labelled\":6,\"noLabel\":0,\"unusable\":[],\"focusInMenu\":true,\"focusVisible\":true,\"navRole\":\"menu\"}"
+ },
+ {
+  "id": "H-E2 el foco arranca dentro del menú y es visible",
+  "pass": true,
+  "status": "PASS",
+  "detail": "focoEnMenú=true outline=true"
+ },
+ {
+  "id": "H-E3 ninguna acción parece funcional estando desactivada",
+  "pass": true,
+  "status": "PASS",
+  "detail": "desactivadas=[]"
+ },
+ {
+  "id": "H-E4 la navegación se anuncia como menú",
+  "pass": true,
+  "status": "PASS",
+  "detail": "role=menu"
+ },
+ {
+  "id": "H-E5 las flechas mueven la selección del menú",
+  "pass": true,
+  "status": "PASS",
+  "detail": "NUEVA PARTIDADesciende al Círculo I · Lujuria -> CONTINUARRetoma tu último descenso registrado"
+ },
+ {
+  "id": "H-F1 la secuencia de arranque es BOOT -> LOADING -> INTRO -> MAIN_MENU",
+  "pass": true,
+  "status": "PASS",
+  "detail": "observado: BOOT -> LOADING -> INTRO -> MAIN_MENU"
+ },
+ {
+  "id": "H-F2 la carga va de 0 % a 100 % sin retroceder",
+  "pass": true,
+  "status": "PASS",
+  "detail": "pcts=[0,11,22,33,44,56,67,78,89,100,100,100]"
+ },
+ {
+  "id": "H-F3 se entra y se sale del submenú volviendo a MAIN_MENU",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"abrir\":\"SUBMENU\",\"cerrar\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "H-F4 las transiciones inválidas se rechazan sin corromper el estado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"fromMenu\":\"MAIN_MENU\",\"closeFromMenu\":false,\"afterClose\":\"MAIN_MENU\",\"inSub\":\"SUBMENU\",\"enterFromSub\":false,\"afterEnter\":\"SUBMENU\",\"back\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "W1 carga normal: el watchdog no interrumpe el arranque",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"INTRO\",\"errVisible\":false,\"loadFinished\":true,\"watchdogFired\":false,\"loadMs\":1107,\"msg\":20000}"
+ },
+ {
+  "id": "W2 carga normal: la carga se marca terminada y el watchdog no dispara",
+  "pass": true,
+  "status": "PASS",
+  "detail": "loadFinished=true watchdogFired=false loadMs=1107 límite=20000 ms"
+ },
+ {
+  "id": "W3 carga bloqueada: el watchdog muestra el panel de error",
+  "pass": true,
+  "status": "PASS",
+  "detail": "esperado 20000 ms, observado 25276 ms · {\"st\":\"LOADING\",\"wd\":true}"
+ },
+ {
+  "id": "W4 carga bloqueada: el panel NO se presenta como modo degradado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "título=\"NO SE PUDO ABRIR EL CLUB\""
+ },
+ {
+  "id": "W5 carga bloqueada: el panel nombra el motivo (tiempo)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "cuerpo=\"El arranque tardó demasiado (20000 ms). Puedes reintentar o usar el modo seguro. · Revisa la consola\""
+ },
+ {
+  "id": "W6a dos intentos de arranque producen dos watchdogs distintos",
+  "pass": true,
+  "status": "PASS",
+  "detail": "intento1=20000ms intento2=20000ms total=2"
+ },
+ {
+  "id": "W6b el temporizador del intento anterior se cancela con clearTimeout",
+  "pass": true,
+  "status": "PASS",
+  "detail": "c1.cleared=true"
+ },
+ {
+  "id": "W6c ejecutar el temporizador ANTIGUO no afecta al intento nuevo",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"antes\":{\"state\":\"LOADING\",\"panelHidden\":true,\"fired\":false},\"despues\":{\"state\":\"LOADING\",\"panelHidden\":true,\"fired\":false}}"
+ },
+ {
+  "id": "W6d el watchdog VIGENTE sigue funcionando y muestra el panel",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"LOADING\",\"panelHidden\":false,\"fired\":true,\"title\":\"NO SE PUDO ABRIR EL CLUB\"}"
+ },
+ {
+  "id": "E1 con canvas presente el arranque progresa",
+  "pass": true,
+  "status": "PASS",
+  "detail": "estado=INTRO"
+ },
+ {
+  "id": "E2 engine está en la lista de recursos esenciales",
+  "pass": true,
+  "status": "PASS",
+  "detail": "[\"engine\",\"assets\",\"images\",\"ui\"]"
+ },
+ {
+  "id": "E3a sin canvas: el escenario es real (el elemento no existe)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "canvasExists=false"
+ },
+ {
+  "id": "E3b sin canvas: el paso engine registra un error FATAL",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"id\":\"engine\",\"message\":\"No se encontró el lienzo del juego (#game).\",\"severity\":\"fatal\",\"fatal\":true,\"degraded\":false,\"essential\":true,\"kind\":\"essential-failure\",\"at\":1345}"
+ },
+ {
+  "id": "E4a sin canvas: el panel de error aparece",
+  "pass": true,
+  "status": "PASS",
+  "detail": "errVisible=true estado=LOADING"
+ },
+ {
+  "id": "E4b sin canvas: título y mensaje identifican el problema",
+  "pass": true,
+  "status": "PASS",
+  "detail": "título=\"NO SE PUDO ABRIR EL CLUB\" cuerpo=\"No se encontró el lienzo del juego (#game). · Falta un recurso indispensable (engine): el modo seguro no puede\""
+ },
+ {
+  "id": "E4c sin canvas: NUNCA se alcanza MAIN_MENU",
+  "pass": true,
+  "status": "PASS",
+  "detail": "estado final=LOADING"
+ },
+ {
+  "id": "E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "safe.disabled=true etiqueta=\"MODO SEGURO NO DISPONIBLE\""
+ },
+ {
+  "id": "E6 sin canvas: no se inicia ninguna partida",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"state\":\"LOADING\",\"canStart\":false,\"running\":false}"
+ },
+ {
+  "id": "P-P1_false · a) la inyección se aplica y la puerta acepta el motor confirmado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}"
+ },
+ {
+  "id": "P-P1_false · b) el escenario negativo queda activo en la página",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"false\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P1_false · c) con el escenario activo no se declara PLAYING",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"false\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P2_throws · a) la inyección se aplica y la puerta acepta el motor confirmado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}"
+ },
+ {
+  "id": "P-P2_throws · b) el escenario negativo queda activo en la página",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"THREW\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P2_throws · c) con el escenario activo no se declara PLAYING",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"THREW\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P3_undefined · a) la inyección se aplica y la puerta acepta el motor confirmado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}"
+ },
+ {
+  "id": "P-P3_undefined · b) el escenario negativo queda activo en la página",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"undefined\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P3_undefined · c) con el escenario activo no se declara PLAYING",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"undefined\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P4_absent · a) la inyección se aplica y la puerta acepta el motor confirmado",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}"
+ },
+ {
+  "id": "P-P4_absent · b) el escenario negativo queda activo en la página",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":true,\"isRunningReturned\":\"null\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P-P4_absent · c) con el escenario activo no se declara PLAYING",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"bridgeAbsent\":true,\"isRunningReturned\":\"null\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)",
+  "pass": true,
+  "status": "PASS",
+  "detail": "{\"antes\":{\"state\":\"MAIN_MENU\",\"runningBefore\":false},\"despues\":{\"state\":\"PLAYING\",\"running\":true,\"music\":false}}"
+ }
+]

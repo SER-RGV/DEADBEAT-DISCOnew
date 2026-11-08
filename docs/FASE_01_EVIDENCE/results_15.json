@@ -1,0 +1,1772 @@
+{
+ "fase": "01.4 · cierre de accesibilidad",
+ "fecha": "2026-11-08",
+ "rama": "arena/0b7be6f7-deadbeat-disconew",
+ "base": "main",
+ "pr": 9,
+ "commit_sujeto": "c4f29f1d7424189eebd22d833a9b8a6c7920760f",
+ "build": {
+  "index_html_bytes": 5363157,
+  "md5": "1bc9d07e8efff7db86a4e5197d59ca73",
+  "identico_a_DEADBEAT_DISCO_html": true,
+  "determinista": true
+ },
+ "entorno": {
+  "chromium": "138.0.2 (@sparticuz/chromium)",
+  "playwright_core": "1.49.1",
+  "comando": "QA_WORK=/home/user/_qa QA_PORT=8141 QA_OUT=/home/user/_qa/out15 bash tools/fase01_qa/run.sh",
+  "directorio_resultados": "/home/user/_qa/out15 (nuevo, sin reutilizar nada)",
+  "nota": "Chromium headless en contenedor sin GPU ni dispositivo de audio. Mando EMULADO."
+ },
+ "resumen": {
+  "total": 141,
+  "pass": 141,
+  "fail": 0,
+  "skip": 0,
+  "nv": 0
+ },
+ "pruebas": [
+  {
+   "id": "A1 el progreso son pasos reales completados",
+   "description": "A1 el progreso son pasos reales completados",
+   "status": "PASS",
+   "observed": "pasos=engine,assets,images,fase01,fonts,ui,audio,storage,final  pcts=[0,11,22,33,44,56,67,78,89,100,100,100]",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 20785,
+   "evidence": [
+    "01_loading_01_4_final.webp",
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "A2 los 9 pasos terminan en OK",
+   "description": "A2 los 9 pasos terminan en OK",
+   "status": "PASS",
+   "observed": "stepsDone=9  pct=100%  loadMs=560",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "01_loading_01_4_final.webp",
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "A3 ningún paso crítico en error",
+   "description": "A3 ningún paso crítico en error",
+   "status": "PASS",
+   "observed": "final=100%",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "01_loading_01_4_final.webp",
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "B1 la intro arranca sola y su reloj avanza",
+   "description": "B1 la intro arranca sola y su reloj avanza",
+   "status": "PASS",
+   "observed": "valores distintos=[0.74,0.85,0.95,1.05,1.13,1.24]",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 174889,
+   "evidence": [
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "B2 la intro dura entre 3 y 5 s",
+   "description": "B2 la intro dura entre 3 y 5 s",
+   "status": "PASS",
+   "observed": "duration=4.4",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "B3 la intro se puede saltar",
+   "description": "B3 la intro se puede saltar",
+   "status": "PASS",
+   "observed": "MAIN_MENU  introEndedBy=complete",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 4780,
+   "evidence": [
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "B4 no se reinicia al recuperar el foco",
+   "description": "B4 no se reinicia al recuperar el foco",
+   "status": "PASS",
+   "observed": "{\"s\":\"MAIN_MENU\",\"cine\":null}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 11368,
+   "evidence": [
+    "02_intro.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C1 seis acciones reales en orden",
+   "description": "C1 seis acciones reales en orden",
+   "status": "PASS",
+   "observed": "new|continue|slots|options|credits|exit",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 15049,
+   "evidence": [
+    "03_menu.webp",
+    "04_hover.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C2 ninguna deshabilitada",
+   "description": "C2 ninguna deshabilitada",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "03_menu.webp",
+    "04_hover.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C3 logotipo sin deformar (contain)",
+   "description": "C3 logotipo sin deformar (contain)",
+   "status": "PASS",
+   "observed": "{\"ratio\":1.501,\"fit\":\"contain\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 5336,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C4 OPCIONES abre el submenú real",
+   "description": "C4 OPCIONES abre el submenú real",
+   "status": "PASS",
+   "observed": "{\"sub\":\"options\",\"has\":true}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 24292,
+   "evidence": [
+    "07_options.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C5 volumen del menú aplica y persiste",
+   "description": "C5 volumen del menú aplica y persiste",
+   "status": "PASS",
+   "observed": "{\"out\":\"35%\",\"ls\":\"{\\\"vol\\\":0.35}\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 56,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C6 calidad gráfica se sincroniza con el panel del motor",
+   "description": "C6 calidad gráfica se sincroniza con el panel del motor",
+   "status": "PASS",
+   "observed": "{\"a11y\":\"{\\\"gfx\\\":\\\"low\\\",\\\"flash\\\":true,\\\"shake\\\":true}\",\"mirror\":\"low\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 5707,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C7 mezcla del motor incrustada (sin duplicar controles)",
+   "description": "C7 mezcla del motor incrustada (sin duplicar controles)",
+   "status": "PASS",
+   "observed": "{\"kids\":1,\"rows\":5}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 40,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C8b la salida restaura el estado original",
+   "description": "C8b la salida restaura el estado original",
+   "status": "PASS",
+   "observed": "fullscreenElement tras salir=false",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2137,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C8 pantalla completa activada de verdad",
+   "description": "C8 pantalla completa activada de verdad",
+   "status": "PASS",
+   "observed": "API=true enabled=true botón=operativo fullscreenElement false->true eventos=[true] pressed=true esperaEvento=1214ms",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 1,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C9 CONTINUAR sin partida avisa y no arranca",
+   "description": "C9 CONTINUAR sin partida avisa y no arranca",
+   "status": "PASS",
+   "observed": "SIN PROGRESO GUARDADO SIN DESCENSOS REGISTRADOS Cada descenso empieza en el Círc",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 24468,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C10 declara la limitación real del guardado",
+   "description": "C10 declara la limitación real del guardado",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "03_menu.webp",
+    "04_hover.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C11 créditos sólo con datos reales del repositorio",
+   "description": "C11 créditos sólo con datos reales del repositorio",
+   "status": "PASS",
+   "observed": "DEADBEAT DISCO / DESCENSO · MÚSICA · CAOS · REDENCIÓN / DIRECCIÓN Y PRODUCCIÓN",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 23160,
+   "evidence": [
+    "08_credits.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C12 SALIR explica el límite real del navegador",
+   "description": "C12 SALIR explica el límite real del navegador",
+   "status": "PASS",
+   "observed": "¿CERRAR EL CLUB Y SALIR A LA CALLE? El navegador no permite que una pestaña se cierre a sí",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 23694,
+   "evidence": [
+    "10_exit.webp",
+    "11_exited.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C13 SALIR corta el audio y despide",
+   "description": "C13 SALIR corta el audio y despide",
+   "status": "PASS",
+   "observed": "{\"black\":true,\"music\":false}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 16696,
+   "evidence": [
+    "10_exit.webp",
+    "11_exited.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "C14 se puede volver a entrar",
+   "description": "C14 se puede volver a entrar",
+   "status": "PASS",
+   "observed": "{\"black\":false,\"s\":\"MAIN_MENU\",\"music\":true}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 3027,
+   "evidence": [
+    "10_exit.webp",
+    "11_exited.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D1 flechas mueven la selección y el foco real",
+   "description": "D1 flechas mueven la selección y el foco real",
+   "status": "PASS",
+   "observed": "{\"i\":2,\"f\":\"slots\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 10825,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D2 End salta al último botón",
+   "description": "D2 End salta al último botón",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 3696,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D3a mando EMULADO: el D-pad mueve la selección",
+   "description": "D3a mando EMULADO: el D-pad mueve la selección",
+   "status": "PASS",
+   "observed": "índice 0 -> 1 (ciclos=1, sondeos/ciclo=15)",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 43447,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D3b mando EMULADO: A abre el submenú que está enfocado",
+   "description": "D3b mando EMULADO: A abre el submenú que está enfocado",
+   "status": "PASS",
+   "observed": "{\"state\":\"SUBMENU\",\"sub\":\"options\"} (enfocado=options idx=3 ruta=[\"1->2\",\"2->3\"] ciclos=1, sondeos/ciclo=16)",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D3c mando EMULADO: B vuelve al menú",
+   "description": "D3c mando EMULADO: B vuelve al menú",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"sub\":null} (ciclos=1)",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D3d mando EMULADO: en reposo la selección no se mueve sola",
+   "description": "D3d mando EMULADO: en reposo la selección no se mueve sola",
+   "status": "PASS",
+   "observed": "estable=true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "D3e el menú sigue latiendo con la escena legada oculta (mando sondeado)",
+   "description": "D3e el menú sigue latiendo con la escena legada oculta (mando sondeado)",
+   "status": "PASS",
+   "observed": "navigator.getGamepads leído 87 veces durante la prueba",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "A4 sin errores de página, consola ni red",
+   "description": "A4 sin errores de página, consola ni red",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 603,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-720p sin recorte ni deformación",
+   "description": "F-720p sin recorte ni deformación",
+   "status": "PASS",
+   "observed": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 142782,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E-720p música de menú activa",
+   "description": "E-720p música de menú activa",
+   "status": "PASS",
+   "observed": "true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-720p sin errores",
+   "description": "F-720p sin errores",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-1080p sin recorte ni deformación",
+   "description": "F-1080p sin recorte ni deformación",
+   "status": "PASS",
+   "observed": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 28314,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E-1080p música de menú activa",
+   "description": "E-1080p música de menú activa",
+   "status": "PASS",
+   "observed": "true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-1080p sin errores",
+   "description": "F-1080p sin errores",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-1440p sin recorte ni deformación",
+   "description": "F-1440p sin recorte ni deformación",
+   "status": "PASS",
+   "observed": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 34694,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E-1440p música de menú activa",
+   "description": "E-1440p música de menú activa",
+   "status": "PASS",
+   "observed": "true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-1440p sin errores",
+   "description": "F-1440p sin errores",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-ultrawide sin recorte ni deformación",
+   "description": "F-ultrawide sin recorte ni deformación",
+   "status": "PASS",
+   "observed": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 41205,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E-ultrawide música de menú activa",
+   "description": "E-ultrawide música de menú activa",
+   "status": "PASS",
+   "observed": "true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "F-ultrawide sin errores",
+   "description": "F-ultrawide sin errores",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "res_720p.webp",
+    "res_1080p.webp",
+    "res_1440p.webp",
+    "res_ultrawide.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "G1 NUEVA PARTIDA entra al juego",
+   "description": "G1 NUEVA PARTIDA entra al juego",
+   "status": "PASS",
+   "observed": "{\"state\":\"PLAYING\",\"music\":false,\"menuHidden\":true,\"hudVisible\":true,\"running\":true}  (21749 ms de reloj de pared)",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 213478,
+   "evidence": [
+    "12_playing_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "G2 la música de menú se corta al jugar",
+   "description": "G2 la música de menú se corta al jugar",
+   "status": "PASS",
+   "observed": "false",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "12_playing_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "G3 el menú desaparece y el HUD aparece",
+   "description": "G3 el menú desaparece y el HUD aparece",
+   "status": "PASS",
+   "observed": "{\"menu\":true,\"hud\":true}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "12_playing_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "G4 sin errores durante la transición a juego",
+   "description": "G4 sin errores durante la transición a juego",
+   "status": "PASS",
+   "observed": "",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-A1 el fallo crítico se detecta y el panel aparece",
+   "description": "H-A1 el fallo crítico se detecta y el panel aparece",
+   "status": "PASS",
+   "observed": "{\"v\":true,\"st\":\"LOADING\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 13306,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-A2 el mensaje identifica el problema concreto (DD_UI)",
+   "description": "H-A2 el mensaje identifica el problema concreto (DD_UI)",
+   "status": "PASS",
+   "observed": "NO SE PUDO ABRIR EL CLUB · El sistema de menú (DD_UI) no está disponible. · Falta un recurso indispensable (ui): el modo seguro no puede ",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-A3 se ofrece REINTENTAR",
+   "description": "H-A3 se ofrece REINTENTAR",
+   "status": "PASS",
+   "observed": "true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-C1 el modo seguro no está disponible sin recurso indispensable",
+   "description": "H-C1 el modo seguro no está disponible sin recurso indispensable",
+   "status": "PASS",
+   "observed": "disabled=true etiqueta=MODO SEGURO NO DISPONIBLE",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-C2 pulsar modo seguro no entrega un menú inutilizable",
+   "description": "H-C2 pulsar modo seguro no entrega un menú inutilizable",
+   "status": "PASS",
+   "observed": "LOADING -> {\"state\":\"LOADING\",\"ddUI\":\"undefined\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 7049,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-B1 REINTENTAR provoca una recarga real del navegador",
+   "description": "H-B1 REINTENTAR provoca una recarga real del navegador",
+   "status": "PASS",
+   "observed": "{\"antes\":{\"nav\":\"navigate\",\"hasRetryBtn\":true,\"handlerIsReal\":true,\"markerBefore\":null},\"despues\":{\"nav\":\"reload\",\"marker\":null,\"state\":\"INTRO\"}}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 3818,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera",
+   "description": "H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera",
+   "status": "PASS",
+   "observed": "{\"state\":\"INTRO\",\"err\":false}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 1,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D1 un fallo no esencial no impide abrir el menú",
+   "description": "H-D1 un fallo no esencial no impide abrir el menú",
+   "status": "PASS",
+   "observed": "\"MAIN_MENU\"",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2844,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D2a getEvidence() expone un registro de errores real",
+   "description": "H-D2a getEvidence() expone un registro de errores real",
+   "status": "PASS",
+   "observed": "entradas=1",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D2b el fallo de audio queda registrado y con motivo",
+   "description": "H-D2b el fallo de audio queda registrado y con motivo",
+   "status": "PASS",
+   "observed": "{\"id\":\"audio\",\"message\":\"Motor de audio no disponible (DDC_COVER.music).\",\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false,\"kind\":\"degraded\",\"at\":1894}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D2c el error está marcado como recuperable y degradado, no fatal",
+   "description": "H-D2c el error está marcado como recuperable y degradado, no fatal",
+   "status": "PASS",
+   "observed": "{\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D2d el sistema se declara degradado y ningún error es fatal",
+   "description": "H-D2d el sistema se declara degradado y ningún error es fatal",
+   "status": "PASS",
+   "observed": "degraded=true fatales=0",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-D2e la entrada tiene los campos exigidos y una marca de tiempo",
+   "description": "H-D2e la entrada tiene los campos exigidos y una marca de tiempo",
+   "status": "PASS",
+   "observed": "{\"id\":\"audio\",\"message\":\"Motor de audio no disponible (DDC_COVER.music).\",\"severity\":\"warning\",\"fatal\":false,\"degraded\":true,\"essential\":false,\"kind\":\"degraded\",\"at\":1894}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-E1 las seis acciones del menú tienen etiqueta accesible",
+   "description": "H-E1 las seis acciones del menú tienen etiqueta accesible",
+   "status": "PASS",
+   "observed": "{\"count\":6,\"labelled\":6,\"noLabel\":0,\"unusable\":[],\"focusInMenu\":true,\"focusVisible\":true,\"navRole\":\"menu\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 6638,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-E2 el foco arranca dentro del menú y es visible",
+   "description": "H-E2 el foco arranca dentro del menú y es visible",
+   "status": "PASS",
+   "observed": "focoEnMenú=true outline=true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-E3 ninguna acción parece funcional estando desactivada",
+   "description": "H-E3 ninguna acción parece funcional estando desactivada",
+   "status": "PASS",
+   "observed": "desactivadas=[]",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-E4 la navegación se anuncia como menú",
+   "description": "H-E4 la navegación se anuncia como menú",
+   "status": "PASS",
+   "observed": "role=menu",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-E5 las flechas mueven la selección del menú",
+   "description": "H-E5 las flechas mueven la selección del menú",
+   "status": "PASS",
+   "observed": "NUEVA PARTIDADesciende al Círculo I · Lujuria -> CONTINUARRetoma tu último descenso registrado",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 608,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-F1 la secuencia de arranque es BOOT -> LOADING -> INTRO -> MAIN_MENU",
+   "description": "H-F1 la secuencia de arranque es BOOT -> LOADING -> INTRO -> MAIN_MENU",
+   "status": "PASS",
+   "observed": "observado: BOOT -> LOADING -> INTRO -> MAIN_MENU",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 139387,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-F2 la carga va de 0 % a 100 % sin retroceder",
+   "description": "H-F2 la carga va de 0 % a 100 % sin retroceder",
+   "status": "PASS",
+   "observed": "pcts=[0,11,22,33,44,56,67,78,89,100,100,100]",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2370,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-F3 se entra y se sale del submenú volviendo a MAIN_MENU",
+   "description": "H-F3 se entra y se sale del submenú volviendo a MAIN_MENU",
+   "status": "PASS",
+   "observed": "{\"abrir\":\"SUBMENU\",\"cerrar\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2572,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "H-F4 las transiciones inválidas se rechazan sin corromper el estado",
+   "description": "H-F4 las transiciones inválidas se rechazan sin corromper el estado",
+   "status": "PASS",
+   "observed": "{\"fromMenu\":\"MAIN_MENU\",\"closeFromMenu\":false,\"afterClose\":\"MAIN_MENU\",\"inSub\":\"SUBMENU\",\"enterFromSub\":false,\"afterEnter\":\"SUBMENU\",\"back\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 23,
+   "evidence": [
+    "13_error_panel.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W1 carga normal: el watchdog no interrumpe el arranque",
+   "description": "W1 carga normal: el watchdog no interrumpe el arranque",
+   "status": "PASS",
+   "observed": "{\"state\":\"INTRO\",\"errVisible\":false,\"loadFinished\":true,\"watchdogFired\":false,\"loadMs\":472,\"msg\":20000}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 4894,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W2 carga normal: la carga se marca terminada y el watchdog no dispara",
+   "description": "W2 carga normal: la carga se marca terminada y el watchdog no dispara",
+   "status": "PASS",
+   "observed": "loadFinished=true watchdogFired=false loadMs=472 límite=20000 ms",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W3 carga bloqueada: el watchdog muestra el panel de error",
+   "description": "W3 carga bloqueada: el watchdog muestra el panel de error",
+   "status": "PASS",
+   "observed": "esperado 20000 ms, observado 21205 ms · {\"st\":\"LOADING\",\"wd\":true}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 21357,
+   "evidence": [
+    "15_watchdog_blocked_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W4 carga bloqueada: el panel NO se presenta como modo degradado",
+   "description": "W4 carga bloqueada: el panel NO se presenta como modo degradado",
+   "status": "PASS",
+   "observed": "título=\"NO SE PUDO ABRIR EL CLUB\"",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "15_watchdog_blocked_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W5 carga bloqueada: el panel nombra el motivo (tiempo)",
+   "description": "W5 carga bloqueada: el panel nombra el motivo (tiempo)",
+   "status": "PASS",
+   "observed": "cuerpo=\"El arranque tardó demasiado (20000 ms). Puedes reintentar o usar el modo seguro. · Revisa la consola\"",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "15_watchdog_blocked_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W6a dos intentos de arranque producen dos watchdogs distintos",
+   "description": "W6a dos intentos de arranque producen dos watchdogs distintos",
+   "status": "PASS",
+   "observed": "intento1=20000ms intento2=20000ms total=2",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 45528,
+   "evidence": [
+    "16_watchdog_stale_timer_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W6b el temporizador del intento anterior se cancela con clearTimeout",
+   "description": "W6b el temporizador del intento anterior se cancela con clearTimeout",
+   "status": "PASS",
+   "observed": "c1.cleared=true",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "16_watchdog_stale_timer_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W6c ejecutar el temporizador ANTIGUO no afecta al intento nuevo",
+   "description": "W6c ejecutar el temporizador ANTIGUO no afecta al intento nuevo",
+   "status": "PASS",
+   "observed": "{\"antes\":{\"state\":\"LOADING\",\"panelHidden\":true,\"fired\":false},\"despues\":{\"state\":\"LOADING\",\"panelHidden\":true,\"fired\":false}}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "16_watchdog_stale_timer_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "W6d el watchdog VIGENTE sigue funcionando y muestra el panel",
+   "description": "W6d el watchdog VIGENTE sigue funcionando y muestra el panel",
+   "status": "PASS",
+   "observed": "{\"state\":\"LOADING\",\"panelHidden\":false,\"fired\":true,\"title\":\"NO SE PUDO ABRIR EL CLUB\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [
+    "16_watchdog_stale_timer_01_4_final.webp"
+   ],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E1 con canvas presente el arranque progresa",
+   "description": "E1 con canvas presente el arranque progresa",
+   "status": "PASS",
+   "observed": "estado=INTRO",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 19015,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E2 engine está en la lista de recursos esenciales",
+   "description": "E2 engine está en la lista de recursos esenciales",
+   "status": "PASS",
+   "observed": "[\"engine\",\"assets\",\"images\",\"ui\"]",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E3a sin canvas: el escenario es real (el elemento no existe)",
+   "description": "E3a sin canvas: el escenario es real (el elemento no existe)",
+   "status": "PASS",
+   "observed": "canvasExists=false",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 5778,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E3b sin canvas: el paso engine registra un error FATAL",
+   "description": "E3b sin canvas: el paso engine registra un error FATAL",
+   "status": "PASS",
+   "observed": "{\"id\":\"engine\",\"message\":\"No se encontró el lienzo del juego (#game).\",\"severity\":\"fatal\",\"fatal\":true,\"degraded\":false,\"essential\":true,\"kind\":\"essential-failure\",\"at\":932}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 1,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E4a sin canvas: el panel de error aparece",
+   "description": "E4a sin canvas: el panel de error aparece",
+   "status": "PASS",
+   "observed": "errVisible=true estado=LOADING",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E4b sin canvas: título y mensaje identifican el problema",
+   "description": "E4b sin canvas: título y mensaje identifican el problema",
+   "status": "PASS",
+   "observed": "título=\"NO SE PUDO ABRIR EL CLUB\" cuerpo=\"No se encontró el lienzo del juego (#game). · Falta un recurso indispensable (engine): el modo seguro no puede\"",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E4c sin canvas: NUNCA se alcanza MAIN_MENU",
+   "description": "E4c sin canvas: NUNCA se alcanza MAIN_MENU",
+   "status": "PASS",
+   "observed": "estado final=LOADING",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)",
+   "description": "E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)",
+   "status": "PASS",
+   "observed": "safe.disabled=true etiqueta=\"MODO SEGURO NO DISPONIBLE\"",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "E6 sin canvas: no se inicia ninguna partida",
+   "description": "E6 sin canvas: no se inicia ninguna partida",
+   "status": "PASS",
+   "observed": "{\"state\":\"LOADING\",\"canStart\":false,\"running\":false}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 8,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P1_false · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "description": "P-P1_false · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "status": "PASS",
+   "observed": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 12684,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P1_false · b) el escenario negativo queda activo en la página",
+   "description": "P-P1_false · b) el escenario negativo queda activo en la página",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"false\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 1,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P1_false · c) con el escenario activo no se declara PLAYING",
+   "description": "P-P1_false · c) con el escenario activo no se declara PLAYING",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"false\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P2_throws · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "description": "P-P2_throws · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "status": "PASS",
+   "observed": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2762,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P2_throws · b) el escenario negativo queda activo en la página",
+   "description": "P-P2_throws · b) el escenario negativo queda activo en la página",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"THREW\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P2_throws · c) con el escenario activo no se declara PLAYING",
+   "description": "P-P2_throws · c) con el escenario activo no se declara PLAYING",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"THREW\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P3_undefined · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "description": "P-P3_undefined · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "status": "PASS",
+   "observed": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 7608,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P3_undefined · b) el escenario negativo queda activo en la página",
+   "description": "P-P3_undefined · b) el escenario negativo queda activo en la página",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"undefined\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P3_undefined · c) con el escenario activo no se declara PLAYING",
+   "description": "P-P3_undefined · c) con el escenario activo no se declara PLAYING",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":false,\"isRunningReturned\":\"undefined\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P4_absent · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "description": "P-P4_absent · a) la inyección se aplica y la puerta acepta el motor confirmado",
+   "status": "PASS",
+   "observed": "{\"applied\":true,\"hubActive\":false,\"accepted\":true,\"state\":\"PLAYING\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 2469,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P4_absent · b) el escenario negativo queda activo en la página",
+   "description": "P-P4_absent · b) el escenario negativo queda activo en la página",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":true,\"isRunningReturned\":\"null\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P-P4_absent · c) con el escenario activo no se declara PLAYING",
+   "description": "P-P4_absent · c) con el escenario activo no se declara PLAYING",
+   "status": "PASS",
+   "observed": "{\"bridgeAbsent\":true,\"isRunningReturned\":\"null\",\"applied\":true,\"stateBefore\":\"MAIN_MENU\",\"accepted\":false,\"threw\":false,\"stateAfter\":\"MAIN_MENU\"}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 0,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)",
+   "description": "P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)",
+   "status": "PASS",
+   "observed": "{\"antes\":{\"state\":\"MAIN_MENU\",\"runningBefore\":false},\"despues\":{\"state\":\"PLAYING\",\"running\":true,\"music\":false}}",
+   "expected": "",
+   "expected_declared": false,
+   "ms": 26962,
+   "evidence": [],
+   "expected_note": "NO DECLARADO por la prueba original (heredada de una fase anterior a 01.4). Se conserva el criterio con el que se escribió; no se reconstruye a posteriori."
+  },
+  {
+   "id": "V1 carga tardía: el watchdog dispara y muestra el panel",
+   "description": "V1 carga tardía: el watchdog dispara y muestra el panel",
+   "status": "PASS",
+   "observed": "panel=true watchdog=true estado=LOADING pct=22%",
+   "expected": "panel visible con watchdogFired=true",
+   "expected_declared": true,
+   "ms": 26608,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "V2 carga tardía: la carga NO se declara terminada",
+   "description": "V2 carga tardía: la carga NO se declara terminada",
+   "status": "PASS",
+   "observed": "loadFinished=false",
+   "expected": "loadFinished=false",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "V3 carga tardía: el intento caducado no avanza el progreso",
+   "description": "V3 carga tardía: el intento caducado no avanza el progreso",
+   "status": "PASS",
+   "observed": "antes=[\":0\",\"engine:11\",\"assets:22\"] despues=[\":0\",\"engine:11\",\"assets:22\"]",
+   "expected": "la traza no cambia tras liberar la carga",
+   "expected_declared": true,
+   "ms": 7046,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "V4 carga tardía: el intento caducado NO activa la intro",
+   "description": "V4 carga tardía: el intento caducado NO activa la intro",
+   "status": "PASS",
+   "observed": "estado final=LOADING",
+   "expected": "el estado no sale de LOADING",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "V5 carga tardía: el panel de error se conserva",
+   "description": "V5 carga tardía: el panel de error se conserva",
+   "status": "PASS",
+   "observed": "panel=true",
+   "expected": "el panel sigue visible",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "V6 carga tardía: no se declara la carga terminada",
+   "description": "V6 carga tardía: no se declara la carga terminada",
+   "status": "PASS",
+   "observed": "loadFinished=false",
+   "expected": "loadFinished=false",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "18_late_load_ignored_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-A motor · canvas ausente: se detecta y se comunica",
+   "description": "M-A motor · canvas ausente: se detecta y se comunica",
+   "status": "PASS",
+   "observed": "estado=LOADING panel=true fatal=true safe.disabled=true canStart=false",
+   "expected": "panel visible + error fatal de engine + modo seguro bloqueado + sin menú",
+   "expected_declared": true,
+   "ms": 9338,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-A motor · canvas ausente: el mensaje identifica la causa",
+   "description": "M-A motor · canvas ausente: el mensaje identifica la causa",
+   "status": "PASS",
+   "observed": "motivo=\"No se encontró el lienzo del juego (#game).\"",
+   "expected": "el mensaje nombra la causa concreta",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-B motor · contexto gráfico no disponible: se detecta y se comunica",
+   "description": "M-B motor · contexto gráfico no disponible: se detecta y se comunica",
+   "status": "PASS",
+   "observed": "estado=LOADING panel=true fatal=true safe.disabled=true canStart=false",
+   "expected": "panel visible + error fatal de engine + modo seguro bloqueado + sin menú",
+   "expected_declared": true,
+   "ms": 709,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-B motor · contexto gráfico no disponible: el mensaje identifica la causa",
+   "description": "M-B motor · contexto gráfico no disponible: el mensaje identifica la causa",
+   "status": "PASS",
+   "observed": "motivo=\"El lienzo del juego no pudo crear el contexto gráfico (2d): por eso el motor no llegó a inicializarse.\"",
+   "expected": "el mensaje nombra la causa concreta",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-C motor · puente ausente: se detecta y se comunica",
+   "description": "M-C motor · puente ausente: se detecta y se comunica",
+   "status": "PASS",
+   "observed": "estado=LOADING panel=true fatal=true safe.disabled=true canStart=false",
+   "expected": "panel visible + error fatal de engine + modo seguro bloqueado + sin menú",
+   "expected_declared": true,
+   "ms": 1080,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-C motor · puente ausente: el mensaje identifica la causa",
+   "description": "M-C motor · puente ausente: el mensaje identifica la causa",
+   "status": "PASS",
+   "observed": "motivo=\"El puente del motor (__DD_BRIDGE) no está disponible.\"",
+   "expected": "el mensaje nombra la causa concreta",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-D motor · método esencial ausente (isRunning): se detecta y se comunica",
+   "description": "M-D motor · método esencial ausente (isRunning): se detecta y se comunica",
+   "status": "PASS",
+   "observed": "estado=LOADING panel=true fatal=true safe.disabled=true canStart=false",
+   "expected": "panel visible + error fatal de engine + modo seguro bloqueado + sin menú",
+   "expected_declared": true,
+   "ms": 6629,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-D motor · método esencial ausente (isRunning): el mensaje identifica la causa",
+   "description": "M-D motor · método esencial ausente (isRunning): el mensaje identifica la causa",
+   "status": "PASS",
+   "observed": "motivo=\"El puente del motor no expone isRunning(): no se puede confirmar una partida.\"",
+   "expected": "el mensaje nombra la causa concreta",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-E motor · isRunning() lanza una excepción: se detecta y se comunica",
+   "description": "M-E motor · isRunning() lanza una excepción: se detecta y se comunica",
+   "status": "PASS",
+   "observed": "estado=LOADING panel=true fatal=true safe.disabled=true canStart=false",
+   "expected": "panel visible + error fatal de engine + modo seguro bloqueado + sin menú",
+   "expected_declared": true,
+   "ms": 7401,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-E motor · isRunning() lanza una excepción: el mensaje identifica la causa",
+   "description": "M-E motor · isRunning() lanza una excepción: el mensaje identifica la causa",
+   "status": "PASS",
+   "observed": "motivo=\"El puente del motor lanzó una excepción al comprobar isRunning(): motor en estado inconsistente\"",
+   "expected": "el mensaje nombra la causa concreta",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "M-F motor disponible: el arranque progresa sin error de engine",
+   "description": "M-F motor disponible: el arranque progresa sin error de engine",
+   "status": "PASS",
+   "observed": "estado=INTRO panel=false engineError=null",
+   "expected": "estado INTRO/MAIN_MENU sin panel de error",
+   "expected_declared": true,
+   "ms": 2111,
+   "evidence": [
+    "17_engine_missing_panel_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "T1 motor disponible: la entrada termina en PLAYING",
+   "description": "T1 motor disponible: la entrada termina en PLAYING",
+   "status": "PASS",
+   "observed": "{\"state\":\"PLAYING\",\"busy\":false,\"menu\":false,\"menuOculto\":true,\"music\":false}",
+   "expected": "estado PLAYING con el menú oculto",
+   "expected_declared": true,
+   "ms": 24845,
+   "evidence": []
+  },
+  {
+   "id": "T2 motor detenido: la entrada se rechaza y el menú se restaura",
+   "description": "T2 motor detenido: la entrada se rechaza y el menú se restaura",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"busy\":false,\"menu\":true,\"menuOculto\":false,\"music\":true}",
+   "expected": "MAIN_MENU, sin busy, menú visible",
+   "expected_declared": true,
+   "ms": 26998,
+   "evidence": []
+  },
+  {
+   "id": "T3 motor ausente: la entrada se rechaza y el menú se restaura",
+   "description": "T3 motor ausente: la entrada se rechaza y el menú se restaura",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"busy\":false,\"menu\":true,\"menuOculto\":false,\"music\":true}",
+   "expected": "MAIN_MENU con el menú visible",
+   "expected_declared": true,
+   "ms": 26792,
+   "evidence": []
+  },
+  {
+   "id": "T4 isRunning() lanza: la entrada se rechaza sin dejar la UI colgada",
+   "description": "T4 isRunning() lanza: la entrada se rechaza sin dejar la UI colgada",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"busy\":false,\"menu\":true,\"menuOculto\":false,\"music\":true}",
+   "expected": "MAIN_MENU con el menú visible",
+   "expected_declared": true,
+   "ms": 24800,
+   "evidence": []
+  },
+  {
+   "id": "T5 puente incompleto: la entrada se rechaza y el menú se restaura",
+   "description": "T5 puente incompleto: la entrada se rechaza y el menú se restaura",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"busy\":false,\"menu\":true,\"menuOculto\":false,\"music\":true}",
+   "expected": "MAIN_MENU con el menú VISIBLE",
+   "expected_declared": true,
+   "ms": 28092,
+   "evidence": []
+  },
+  {
+   "id": "T6 la puerta manda: si enterGame() rechaza, el menú se restaura",
+   "description": "T6 la puerta manda: si enterGame() rechaza, el menú se restaura",
+   "status": "PASS",
+   "observed": "{\"state\":\"MAIN_MENU\",\"busy\":false,\"menu\":true,\"menuOculto\":false,\"music\":true}",
+   "expected": "MAIN_MENU con el menú VISIBLE (antes quedaba oculto)",
+   "expected_declared": true,
+   "ms": 24381,
+   "evidence": []
+  },
+  {
+   "id": "T7 tras un rechazo el audio del menú vuelve a sonar",
+   "description": "T7 tras un rechazo el audio del menú vuelve a sonar",
+   "status": "PASS",
+   "observed": "música del menú=true",
+   "expected": "música del menú activa",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": []
+  },
+  {
+   "id": "Q1 el panel de error es un alert y tiene título y cuerpo reales",
+   "description": "Q1 el panel de error es un alert y tiene título y cuerpo reales",
+   "status": "PASS",
+   "observed": "{\"role\":\"alert\",\"title\":true,\"body\":true}",
+   "expected": "role=alert con #dd-boot-err-title y #dd-boot-err-body",
+   "expected_declared": true,
+   "ms": 1104,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "Q2 el panel está asociado a su título y a su mensaje",
+   "description": "Q2 el panel está asociado a su título y a su mensaje",
+   "status": "PASS",
+   "observed": "aria-labelledby=dd-boot-err-title aria-describedby=dd-boot-err-body",
+   "expected": "aria-labelledby y aria-describedby apuntando al título y al cuerpo",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "Q3 el panel acepta foco programático",
+   "description": "Q3 el panel acepta foco programático",
+   "status": "PASS",
+   "observed": "tabindex=-1",
+   "expected": "tabindex=\"-1\" para poder recibir el foco",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "Q4 al aparecer el error el foco va a un control de recuperación",
+   "description": "Q4 al aparecer el error el foco va a un control de recuperación",
+   "status": "PASS",
+   "observed": "foco=dd-boot-retry botón REINTENTAR visible=true",
+   "expected": "foco en REINTENTAR (o en el panel) y botón disponible",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "Q5 los controles del panel son alcanzables por teclado",
+   "description": "Q5 los controles del panel son alcanzables por teclado",
+   "status": "PASS",
+   "observed": "{\"n\":2,\"ocultos\":0,\"tabulables\":2}",
+   "expected": "todos los botones del panel en el orden de tabulación",
+   "expected_declared": true,
+   "ms": 2,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R1 cargando: el armazón tiene semántica propia y NO está oculto al árbol",
+   "description": "R1 cargando: el armazón tiene semántica propia y NO está oculto al árbol",
+   "status": "PASS",
+   "observed": "{\"presente\":true,\"role\":\"progressbar\",\"ariaHidden\":null,\"ariaBusy\":\"true\",\"ariaModal\":null,\"label\":\"Cargando DEADBEAT DISCO\"}",
+   "expected": "role=progressbar, aria-busy=true, aria-label presente y SIN aria-hidden",
+   "expected_declared": true,
+   "ms": 16149,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R2 cargando: el árbol de accesibilidad expone la pantalla de carga",
+   "description": "R2 cargando: el árbol de accesibilidad expone la pantalla de carga",
+   "status": "PASS",
+   "observed": "{\"visibles\":1,\"existen\":1}",
+   "expected": "al menos un nodo visible con la etiqueta del armazón",
+   "expected_declared": true,
+   "ms": 50,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R3 error fatal real: el panel aparece",
+   "description": "R3 error fatal real: el panel aparece",
+   "status": "PASS",
+   "observed": "panel visible=true",
+   "expected": "panel de error visible tras un fallo fatal de verdad",
+   "expected_declared": true,
+   "ms": 1157,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R4 error: ningún antecesor del panel tiene aria-hidden=\"true\"",
+   "description": "R4 error: ningún antecesor del panel tiene aria-hidden=\"true\"",
+   "status": "PASS",
+   "observed": "[] (cadena de 3)",
+   "expected": "ningún ancestro del panel oculto a tecnologías de asistencia",
+   "expected_declared": true,
+   "ms": 7,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R5 error: ningún antecesor de REINTENTAR tiene aria-hidden=\"true\"",
+   "description": "R5 error: ningún antecesor de REINTENTAR tiene aria-hidden=\"true\"",
+   "status": "PASS",
+   "observed": "[] (cadena de 5)",
+   "expected": "ningún ancestro del botón oculto a tecnologías de asistencia",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R6 error: el armazón no se contradice (alertdialog modal, sin aria-hidden)",
+   "description": "R6 error: el armazón no se contradice (alertdialog modal, sin aria-hidden)",
+   "status": "PASS",
+   "observed": "{\"role\":\"alertdialog\",\"modal\":\"true\",\"ah\":null,\"labelled\":\"dd-boot-err-title\",\"described\":\"dd-boot-err-body\",\"titulo\":true,\"cuerpo\":true}",
+   "expected": "role=alertdialog + aria-modal, sin aria-hidden, título y cuerpo asociados y con texto",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R7 error: el árbol real de Chromium expone REINTENTAR y el título",
+   "description": "R7 error: el árbol real de Chromium expone REINTENTAR y el título",
+   "status": "PASS",
+   "observed": "{\"reintentar\":{\"visibles\":3,\"existen\":3},\"titulo\":{\"visibles\":2,\"existen\":2}}",
+   "expected": "ambos visibles en el árbol de accesibilidad",
+   "expected_declared": true,
+   "ms": 37,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R9 error: el foco llega a un control útil y REINTENTAR es usable",
+   "description": "R9 error: el foco llega a un control útil y REINTENTAR es usable",
+   "status": "PASS",
+   "observed": "{\"foco\":\"dd-boot-retry\",\"dentroDelPanel\":true,\"visible\":true,\"habilitado\":true,\"enfocable\":true,\"tabulables\":1}",
+   "expected": "foco en dd-boot-retry, visible, habilitado, enfocable y en el orden de tabulación",
+   "expected_declared": true,
+   "ms": 7,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R8 error: REINTENTAR sigue en el árbol con el foco FUERA (no es accesible por accidente)",
+   "description": "R8 error: REINTENTAR sigue en el árbol con el foco FUERA (no es accesible por accidente)",
+   "status": "PASS",
+   "observed": "{\"conFocoFuera\":3}",
+   "expected": "REINTENTAR presente en el árbol sin depender de dónde esté el foco",
+   "expected_declared": true,
+   "ms": 266,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R10 error: ningún control enfocable del armazón está dentro de una región aria-hidden",
+   "description": "R10 error: ningún control enfocable del armazón está dentro de una región aria-hidden",
+   "status": "PASS",
+   "observed": "{\"total\":1,\"malos\":[]}",
+   "expected": "todos los controles enfocables del armazón visibles para tecnologías de asistencia",
+   "expected_declared": true,
+   "ms": 4,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R11 retirado: al entrar al menú no queda ninguna región mal oculta ni expuesta",
+   "description": "R11 retirado: al entrar al menú no queda ninguna región mal oculta ni expuesta",
+   "status": "PASS",
+   "observed": "{\"estado\":\"MAIN_MENU\",\"frameEnDOM\":false,\"menuPresente\":true,\"ancestrosOcultosMenu\":0,\"menuOculto\":false,\"foco\":\"BUTTON\",\"panelesDuplicados\":0,\"framesDuplicados\":0}",
+   "expected": "armazón fuera del DOM, menú visible y sin ancestros aria-hidden",
+   "expected_declared": true,
+   "ms": 15192,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R12 no se duplica el panel ni el armazón",
+   "description": "R12 no se duplica el panel ni el armazón",
+   "status": "PASS",
+   "observed": "{\"paneles\":0,\"frames\":0}",
+   "expected": "como máximo una copia de cada uno",
+   "expected_declared": true,
+   "ms": 0,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  },
+  {
+   "id": "R13 el menú sigue siendo utilizable por teclado tras retirar el armazón",
+   "description": "R13 el menú sigue siendo utilizable por teclado tras retirar el armazón",
+   "status": "PASS",
+   "observed": "{\"n\":6,\"tabulables\":1,\"focoEnMenu\":true}",
+   "expected": "al menos un control del menú enfocable",
+   "expected_declared": true,
+   "ms": 4,
+   "evidence": [
+    "19_error_panel_a11y_01_4_final.webp"
+   ]
+  }
+ ]
+}

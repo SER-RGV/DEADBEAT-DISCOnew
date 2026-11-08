@@ -1,0 +1,207 @@
+[
+ {
+  "id": "A1 el progreso son pasos reales completados",
+  "pass": true,
+  "detail": "pasos=engine,assets,images,fase01,fonts,ui,audio,storage,final  pcts=[0,11,22,33,44,56,67,78,89,100,100,100]"
+ },
+ {
+  "id": "A2 los 9 pasos terminan en OK",
+  "pass": true,
+  "detail": "stepsDone=9  pct=100%  loadMs=477"
+ },
+ {
+  "id": "A3 ningún paso crítico en error",
+  "pass": true,
+  "detail": "final=100%"
+ },
+ {
+  "id": "B1 la intro arranca sola y su reloj avanza",
+  "pass": true,
+  "detail": "valores distintos=[0,0.05,0.1,0.2,0.31,0.41]"
+ },
+ {
+  "id": "B2 la intro dura entre 3 y 5 s",
+  "pass": true,
+  "detail": "duration=4.4"
+ },
+ {
+  "id": "B3 la intro se puede saltar",
+  "pass": true,
+  "detail": "MAIN_MENU  introEndedBy=complete"
+ },
+ {
+  "id": "B4 no se reinicia al recuperar el foco",
+  "pass": true,
+  "detail": "{\"s\":\"MAIN_MENU\",\"cine\":null}"
+ },
+ {
+  "id": "C1 seis acciones reales en orden",
+  "pass": true,
+  "detail": "new|continue|slots|options|credits|exit"
+ },
+ {
+  "id": "C2 ninguna deshabilitada",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "C3 logotipo sin deformar (contain)",
+  "pass": true,
+  "detail": "{\"ratio\":1.501,\"fit\":\"contain\"}"
+ },
+ {
+  "id": "C4 OPCIONES abre el submenú real",
+  "pass": true,
+  "detail": "{\"sub\":\"options\",\"has\":true}"
+ },
+ {
+  "id": "C5 volumen del menú aplica y persiste",
+  "pass": true,
+  "detail": "{\"out\":\"35%\",\"ls\":\"{\\\"vol\\\":0.35}\"}"
+ },
+ {
+  "id": "C6 calidad gráfica se sincroniza con el panel del motor",
+  "pass": true,
+  "detail": "{\"a11y\":\"{\\\"gfx\\\":\\\"low\\\",\\\"flash\\\":true,\\\"shake\\\":true}\",\"mirror\":\"low\"}"
+ },
+ {
+  "id": "C7 mezcla del motor incrustada (sin duplicar controles)",
+  "pass": true,
+  "detail": "{\"kids\":1,\"rows\":5}"
+ },
+ {
+  "id": "C8 pantalla completa usa el API real",
+  "pass": true,
+  "detail": "fullscreenElement=true"
+ },
+ {
+  "id": "C9 CONTINUAR sin partida avisa y no arranca",
+  "pass": true,
+  "detail": "SIN PROGRESO GUARDADO SIN DESCENSOS REGISTRADOS Cada descenso empieza en el Círc"
+ },
+ {
+  "id": "C10 declara la limitación real del guardado",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "C11 créditos sólo con datos reales del repositorio",
+  "pass": true,
+  "detail": "DEADBEAT DISCO / DESCENSO · MÚSICA · CAOS · REDENCIÓN / DIRECCIÓN Y PRODUCCIÓN"
+ },
+ {
+  "id": "C12 SALIR explica el límite real del navegador",
+  "pass": true,
+  "detail": "¿CERRAR EL CLUB Y SALIR A LA CALLE? El navegador no permite que una pestaña se cierre a sí"
+ },
+ {
+  "id": "C13 SALIR corta el audio y despide",
+  "pass": true,
+  "detail": "{\"black\":true,\"music\":false}"
+ },
+ {
+  "id": "C14 se puede volver a entrar",
+  "pass": true,
+  "detail": "{\"black\":false,\"s\":\"MAIN_MENU\",\"music\":true}"
+ },
+ {
+  "id": "D1 flechas mueven la selección y el foco real",
+  "pass": true,
+  "detail": "{\"i\":2,\"f\":\"slots\"}"
+ },
+ {
+  "id": "D2 End salta al último botón",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "D3 mando EMULADO: D-pad mueve, A confirma, B vuelve",
+  "pass": true,
+  "detail": "{\"afterDown\":2,\"afterA\":{\"state\":\"SUBMENU\",\"sub\":\"partidas\"},\"afterB\":{\"state\":\"MAIN_MENU\",\"sub\":null}}"
+ },
+ {
+  "id": "A4 sin errores de página, consola ni red",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "F-720p sin recorte ni deformación",
+  "pass": true,
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-720p música de menú activa",
+  "pass": true,
+  "detail": "true"
+ },
+ {
+  "id": "F-720p sin errores",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "F-1080p sin recorte ni deformación",
+  "pass": true,
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-1080p música de menú activa",
+  "pass": true,
+  "detail": "true"
+ },
+ {
+  "id": "F-1080p sin errores",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "F-1440p sin recorte ni deformación",
+  "pass": true,
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-1440p música de menú activa",
+  "pass": true,
+  "detail": "true"
+ },
+ {
+  "id": "F-1440p sin errores",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "F-ultrawide sin recorte ni deformación",
+  "pass": true,
+  "detail": "{\"logoRatio\":1.501,\"letterbox\":\"contain\",\"covered\":true,\"cut\":false,\"music\":true,\"state\":\"MAIN_MENU\"}"
+ },
+ {
+  "id": "E-ultrawide música de menú activa",
+  "pass": true,
+  "detail": "true"
+ },
+ {
+  "id": "F-ultrawide sin errores",
+  "pass": true,
+  "detail": ""
+ },
+ {
+  "id": "G1 NUEVA PARTIDA entra al juego",
+  "pass": true,
+  "detail": "{\"state\":\"PLAYING\",\"music\":false,\"menuHidden\":true,\"hudVisible\":true,\"running\":true}  (111000 ms de reloj de pared)"
+ },
+ {
+  "id": "G2 la música de menú se corta al jugar",
+  "pass": true,
+  "detail": "false"
+ },
+ {
+  "id": "G3 el menú desaparece y el HUD aparece",
+  "pass": true,
+  "detail": "{\"menu\":true,\"hud\":true}"
+ },
+ {
+  "id": "G4 sin errores durante la transición a juego",
+  "pass": true,
+  "detail": ""
+ }
+]

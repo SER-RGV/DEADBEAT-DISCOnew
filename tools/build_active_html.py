@@ -635,12 +635,73 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
 html = html.replace(bridge_anchor, bridge_js, 1)
 
+# 3.5 FASE 01 — Static boot shell.
+#     The loading screen must paint while the 5.2 MB document is still parsing,
+#     long before any module is executed. It is therefore emitted as literal markup
+#     immediately after <body>; src/dd_boot.js adopts these nodes at run time (it
+#     never creates a second copy) and fills in the real progress readouts.
+BOOT_SHELL = """
+<!-- FASE 01.4 · ACCESIBILIDAD: el armazón NO puede nacer con aria-hidden="true".
+     Con ese atributo, Chromium expone igualmente el subárbol en cuanto
+     dd_boot.js lleva el foco a REINTENTAR (medido: el nodo enfocado dentro de
+     un aria-hidden no se marca ignored). El resultado era una contradicción:
+     un <dialog aria-modal> oculto al árbol pero con el foco dentro. La
+     semántica correcta la fija dd_boot.js por ESTADO: role="progressbar" +
+     aria-busy mientras carga, role="alertdialog" cuando hay un error, y
+     aria-hidden="true" sólo cuando el armazón deja de ser relevante. -->
+<section id="dd-boot-frame" role="progressbar" aria-label="Cargando DEADBEAT DISCO" aria-busy="true">
+  <div class="dd-boot-bg"></div>
+  <div class="dd-boot-beams" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="dd-boot-grain" aria-hidden="true"></div>
+  <div class="dd-boot-scan" aria-hidden="true"></div>
+  <div class="dd-boot-scrim" aria-hidden="true"></div>
+  <div class="dd-boot-frame-deco" aria-hidden="true"><span class="tl"></span><span class="tr"></span><span class="bl"></span><span class="br"></span></div>
+  <div class="dd-boot-inner">
+    <div class="dd-boot-top">
+      <span class="dd-boot-kicker">DEADBEAT DISCO · SISTEMA DE PISTA</span>
+      <span class="dd-boot-ver" id="dd-boot-ver">—</span>
+    </div>
+    <div class="dd-boot-title">
+      <span class="dd-boot-wordmark" aria-hidden="true"><b>DEADBEAT</b><i>DISCO</i></span>
+      <img id="dd-boot-logo" alt="DEADBEAT DISCO" src="assets/fase01/logo_deadbeat_trim.png">
+    </div>
+    <div class="dd-boot-divider"><img alt="" src="assets/fase01/brand_divider.png" width="1200" height="64"></div>
+    <div class="dd-boot-statusline">
+      <span id="dd-boot-stage">PREPARANDO EL CLUB</span>
+      <span id="dd-boot-pct" aria-hidden="true">0%</span>
+    </div>
+    <div class="dd-boot-bar" id="dd-boot-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-label="Progreso de carga de DEADBEAT DISCO">
+      <i id="dd-boot-fill"></i><b id="dd-boot-shine"></b>
+    </div>
+    <ol class="dd-boot-steps" id="dd-boot-steps" aria-live="polite"></ol>
+    <div class="dd-boot-err" id="dd-boot-err" role="alert" hidden>
+      <strong id="dd-boot-err-title">NO SE PUDO ABRIR EL CLUB</strong>
+      <p id="dd-boot-err-body"></p>
+      <div class="dd-boot-err-actions">
+        <button type="button" class="dd-boot-btn hot" id="dd-boot-retry">REINTENTAR</button>
+        <button type="button" class="dd-boot-btn" id="dd-boot-safe">MODO SEGURO</button>
+      </div>
+    </div>
+    <div class="dd-boot-foot">
+      <span id="dd-boot-audio">PULSA UNA TECLA PARA HABILITAR EL AUDIO</span>
+      <span id="dd-boot-hint">CLIC · CUALQUIER TECLA · (A) PARA SALTAR</span>
+    </div>
+  </div>
+</section>
+"""
+_body_open = "<body class=\"booting\">"
+assert html.count(_body_open) == 1, "expected exactly one <body class=\"booting\">"
+html = html.replace(_body_open, _body_open + BOOT_SHELL, 1)
+
 # 4. Inline the modular scripts right before the FINAL </body> tag (never inside JS strings!).
 #    Same single-file rule as the CSS step: the src/*.js files stay in the repo as the
 #    editable source of truth, but the runtime must not depend on fetching them.
 body_ridx = html.rfind("</body>")
 assert body_ridx > len(html) - 100, f"Unexpected final </body> at {body_ridx}"
 MODULE_ORDER = (
+    # FASE 01: el arranque debe ejecutarse ANTES que dd_ui_system.js porque lo
+    # orquesta (oculta el menú, corre la intro canónica y le da el foco).
+    "dd_boot.js",
     "dd_asset_registry.js",
     "dd_world_renderer.js",
     "dd_hub_system.js",
