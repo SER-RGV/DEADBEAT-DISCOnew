@@ -258,43 +258,80 @@
         if (sb) { try { sb.click(); } catch (e) {} }
       }
 
-      /* PLAYING sólo si el motor está REALMENTE en marcha. Antes se declaraba
-         siempre, incluso con startRun() devolviendo false: el jugador veía el
-         estado de partida sobre un motor parado. Se comprueba el motor y se
-         espera brevemente a que confirme, sin bloquear la UI para siempre. */
+      /* CONTRATO ÚNICO DE ENTRADA (FASE 01.4 · P1).
+         Antes había dos definiciones distintas de "el motor está en marcha":
+         esta sonda (que además aceptaba getSnapshot().running) y la de
+         DD_BOOT.enterGame() (que exige isRunning() === true). La UI podía
+         considerar válido un motor que enterGame() rechazaba, y entonces se
+         ocultaba el menú sin entrar en partida. Ahora la ÚNICA autoridad es
+         DD_BOOT.enterGame(): la sonda previa se conserva sólo para esperar a que
+         el motor arranque, y es igual de estricta que la puerta. */
       var verify = function () {
         try {
           if (window.DD_HUB && window.DD_HUB.isActive()) return true;
-          if (br && typeof br.isRunning === "function") return !!br.isRunning();
-          if (br && typeof br.getSnapshot === "function") {
-            var snap = br.getSnapshot();
-            return !!(snap && (snap.running || snap.isRunning));
-          }
+          if (br && typeof br.isRunning === "function") return br.isRunning() === true;
         } catch (e) {}
         return false;
       };
 
+      /* Restauración de la interfaz si la entrada no se acepta. Usa try/finally
+         para que `busy` NUNCA quede bloqueado, ni siquiera si algo lanza. */
+      var restoreMenu = function (motivo) {
+        try {
+          console.warn("[DD_UI] entrada en partida rechazada:", motivo);
+          /* El menú se vuelve a mostrar y el estado vuelve a MAIN_MENU.
+             El audio del menú: se para primero (stopMenuMusic es idempotente y
+             sale si no suena) y se reanuda después, para no arrancar una segunda
+             instancia si enterGame() nunca llegó a pararlo. */
+          if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
+          if (window.DD_BOOT && typeof window.DD_BOOT.stopMenuMusic === "function") {
+            window.DD_BOOT.stopMenuMusic(0.2);
+          }
+          if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") {
+            window.DD_BOOT.exitGameToMenu();
+          }
+          if (typeof showDialogue === "function") {
+            showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+          }
+        } catch (e) {
+          console.warn("[DD_UI] no se pudo restaurar el menú", e);
+        } finally {
+          uiState.busy = false;
+        }
+      };
+
       var confirm = function (t0) {
         if (verify()) {
-          window.DD_BOOT.enterGame();
-          uiState.busy = false;
-          if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+          /* El resultado REAL manda: antes se llamaba a enterGame() y se seguía
+             adelante sin mirar qué devolvía. Si rechaza, no hay partida. */
+          var entered = false;
+          try {
+            entered = window.DD_BOOT.enterGame() === true;
+          } catch (e) {
+            entered = false;
+          }
+          if (entered) {
+            uiState.busy = false;
+            if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+            return;
+          }
+          restoreMenu("enterGame() devolvió false");
           return;
         }
         if (Date.now() - t0 < 3000) { setTimeout(function () { confirm(t0); }, 120); return; }
         /* El motor no arrancó: se devuelve al menú con un aviso honesto en vez
            de fingir una partida en curso. */
-        uiState.busy = false;
-        console.warn("[DD_UI] el motor no arrancó; se cancela la entrada en partida");
-        if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
-        if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") window.DD_BOOT.exitGameToMenu();
-        if (typeof showDialogue === "function") {
-          showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
-        }
+        restoreMenu("el motor no confirmó isRunning() en 3000 ms");
       };
       confirm(Date.now());
     };
 
+    /* lastElapsed arranca en -1 para que la PRIMERA lectura siempre cuente como
+       avance. Eso estaba bien, pero provocaba que un reloj congelado en 0 se
+       tomara por "avance" y reiniciara la cuenta: el estancamiento sólo se
+       detectaba si la secuencia llegaba a moverse y luego se paraba. Con una
+       cinemática que NUNCA avanza (motor parado) el vigilante no saltaba jamás.
+       Se separa el instante de arranque del reloj de la secuencia. */
     var guard = null, lastElapsed = -1, lastAdvance = Date.now();
     if (window.DD_CINE && typeof window.DD_CINE.playCircleDescent === "function") {
       try {
@@ -303,13 +340,40 @@
         launch("error");
         return;
       }
+      /* Vigilancia de la transición (FASE 01.4 · P1).
+         La cinemática avanza dentro del bucle del MOTOR: si el motor no arranca
+         (startRun() devuelve false, puente incompleto, isRunning() lanza...), la
+         secuencia nunca progresa ni llama a su callback, y `busy` quedaba
+         bloqueado para siempre con el menú oculto — una transición sin dueño.
+         La salvaguarda por estancamiento ya existía para el reloj; se añade un
+         tope absoluto por si la secuencia ni siquiera llega a empezar. */
+      var hardStop = setTimeout(function () {
+        if (!started) launch("timeout-transicion");
+      }, 15000);
       guard = setInterval(function () {
-        if (started) { clearInterval(guard); return; }
+        if (started) { clearInterval(guard); clearTimeout(hardStop); return; }
         var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
         if (!st) { launch("finished"); return; }
-        if (st.elapsed > lastElapsed + 0.001) { lastElapsed = st.elapsed; lastAdvance = Date.now(); }
-        else if (Date.now() - lastAdvance > 4000) launch("stalled");
+        /* Sólo cuenta como avance un incremento REAL sobre una lectura previa
+           válida. La primera lectura fija la referencia sin reiniciar el reloj
+           de estancamiento, de modo que una secuencia congelada en 0 se detecta
+           a los 4 s en vez de esperar indefinidamente. */
+        if (lastElapsed < 0) {
+          lastElapsed = st.elapsed;
+          lastAdvance = Date.now();
+        } else if (st.elapsed > lastElapsed + 0.001) {
+          lastElapsed = st.elapsed;
+          lastAdvance = Date.now();
+        } else if (Date.now() - lastAdvance > 4000) {
+          launch("stalled");
+        }
       }, 150);
+      /* Si launch() se ejecuta por cualquier vía, se liberan ambos vigilantes. */
+      var launchOriginal = launch;
+      launch = function (why) {
+        try { clearInterval(guard); clearTimeout(hardStop); } catch (e) {}
+        return launchOriginal(why);
+      };
     } else {
       launch("no-cinematic");
     }
