@@ -748,3 +748,300 @@ Los tres objetivos de aceptación se cumplen **con medición real**:
 **APTO CON LIMITACIONES DOCUMENTADAS.** Limitaciones de hardware/entorno
 (puntos 01.3-F), no de comportamiento. FASE 01.3 **no** se fusiona ni se abre
 FASE 02 desde aquí: queda a la espera de decisión.
+
+# FASE 01.4 — CORRECCIÓN INTEGRAL, VALIDACIÓN Y PREPARACIÓN PARA FUSIÓN
+
+Alcance: cerrar los defectos que impedían declarar el PR #9 técnicamente
+validado. **La decisión de fusionar es del propietario**; este documento sólo
+aporta la medición.
+
+Todo lo que sigue se ejecutó en la rama `arena/0b7be6f7-deadbeat-disconew`,
+nunca en `main`. El historial de fases anteriores **no se ha reescrito**.
+
+## 01.4-A. RESULTADO EN UNA LÍNEA
+
+**128 PASS · 0 FAIL · 0 SKIP · 0 NV · 128 TOTAL** en la suite completa,
+medido sobre `fe2d5c3`…`1bbcfa3` (`results_14.json`). Cinco defectos reales
+corregidos, tres de ellos encontrados **por** las pruebas nuevas.
+
+## 01.4-B. LOS CINCO DEFECTOS Y SU CORRECCIÓN
+
+### P0-1 · El watchdog no impedía que una carga tardía continuara
+
+**Qué pasaba.** `showErrorWatchdog()` llamaba a `clearTimeout`, pero cancelar un
+temporizador no detiene el trabajo asíncrono ya en vuelo. Una carga que
+terminaba tarde seguía ejecutando `markStep()`, `done++` y `setProgress()`, y
+podía llegar a `startIntro()` **después** de mostrar el panel de error.
+
+**Medido.** Escenario de carga tardía: versión anterior → la barra **avanzaba
+hasta el 33 %** después de haber fallado (FAIL); versión nueva → el progreso
+queda **congelado en el 22 %** y el panel manda (PASS).
+
+**Corrección** (`src/dd_boot.js`).
+- `runToken` se incrementa al dispararse el watchdog: el intento queda
+  **invalidado**.
+- La comprobación del token se hace **después** de cada `await`, no sólo antes
+  del paso. Un intento caducado no escribe progreso ni estado.
+- `startIntro()` tiene una última barrera: no arranca si `watchdogFired` o si
+  el panel de error está visible.
+- `bootToken` adicional como doble cinturón: un intento que ha sido relevado no
+  toca nada.
+
+**Pruebas.** V1–V6, W6a–W6d y la prueba real de reintento (1 → 10 pasos, sin
+saltos ni retrocesos).
+
+### P0-2 · El motor no se validaba de verdad
+
+**Qué pasaba.** El paso `engine` sólo comprobaba que `#game` existiera y tuviera
+`getContext`; la presencia del puente se devolvía como **dato informativo**, así
+que un arranque **sin puente** pasaba como correcto y la entrada en partida era
+luego imposible. El usuario veía "arranque OK" y un juego que no arrancaba.
+
+**Corrección** (`src/dd_boot.js`). Se comprueba el **contrato real** del puente
+(`isRunning`, `startRun`), el contexto gráfico efectivo y que `isRunning()` pueda
+invocarse sin lanzar. Los mensajes distinguen la causa raíz en vez del síntoma:
+canvas ausente, contexto no disponible, puente ausente, método ausente,
+excepción.
+
+**Pruebas.** M-A…M-F (seis escenarios, cada uno con dos aserciones: **detección**
+y **comunicación**), más E1–E6 y V2. Los mensajes verificados son literales, por
+ejemplo: *"El puente del motor (__DD_BRIDGE) no está disponible."*
+
+### P1-3 · La transición a PLAYING no tenía un contrato único
+
+**Qué pasaba.** Había **dos** definiciones distintas de "el motor está en
+marcha": la sonda de `dd_ui_system.js` (que además aceptaba
+`getSnapshot().running`) y la de `DD_BOOT.enterGame()` (que exige
+`isRunning() === true`). La UI podía considerar válido un motor que `enterGame()`
+rechazaba: se ocultaba el menú **sin entrar en partida**, y `busy` podía quedar
+bloqueado. `enterGame()` se llamaba **sin mirar qué devolvía**.
+
+**Corrección.**
+- Autoridad única: `DD_BOOT.enterGame()`. La sonda previa queda sólo como
+  espera, con el **mismo** criterio de rigor.
+- El resultado de `enterGame()` se comprueba. Si rechaza, hay restauración.
+- `restoreMenu()` en `try/finally`: `busy` **nunca** queda bloqueado.
+- Restaura menú, estado y audio (para el audio primero y lo reanuda: es
+  idempotente).
+- `hardStop` absoluto de 15 s por si la cinemática no llega ni a empezar.
+- `lastElapsed = -1` ya no cuenta la primera lectura como avance: una
+  cinemática congelada en 0 se detecta a los 4 s (antes no se detectaba nunca).
+
+**Pruebas.** T1–T7 (siete escenarios), 7/7 PASS.
+
+### #7 · Accesibilidad del arranque
+
+**Qué pasaba.** El panel de error tenía `role="alert"` pero el título y el
+cuerpo no estaban asociados programáticamente, y el foco se quedaba en `<body>`:
+quien navega con teclado o lector de pantalla no llegaba a REINTENTAR sin
+recorrer todo el árbol.
+
+**Corrección** (`src/dd_boot.js`, sin ningún cambio visual):
+`aria-labelledby` + `aria-describedby` + `aria-live="assertive"` +
+`tabindex="-1"`, y foco al primer control útil (REINTENTAR; si no, el panel).
+
+**Pruebas.** Q1–Q5, 5/5 PASS: `role`, asociación, foco programático, foco al
+control de recuperación (`foco=dd-boot-retry`) y recorrido por teclado
+(2 controles, 2 tabulables).
+
+### P1-6 · Entorno QA reproducible
+
+`tools/fase01_qa/run.sh` fija `@sparticuz/chromium@138.0.2` y
+`playwright-core@1.49.1`, verifica las versiones ya instaladas y es idempotente
+(`install_env`), en vez de depender de lo que hubiera en el entorno.
+
+## 01.4-C. TRES DEFECTOS MÁS, ENCONTRADOS AL MEDIR
+
+Corregir no fue sólo aplicar el plan: las pruebas nuevas destaparon tres fallos
+que no estaban en el encargo. Se documentan porque **existieron**.
+
+### 01.4-C.1 · `G3`: el HUD no aparecía al entrar en partida
+
+En `PLAYING` el HUD seguía oculto (`hudOculto:true`, `cine:0.42`): la cinemática
+seguía activa y su bloqueo tapaba el HUD.
+
+**Comprobación de regresión.** Se hizo `git stash` + rebuild sobre `be2f698`
+
+y se reprodujo **idéntico**. No era una regresión de esta fase: era un defecto
+**preexistente**.
+
+**Corrección.** `enterGame()` retira `dd-booting`, `dd-intro-running` y
+`dd-menu-owning`, llama a `DD_CINE.skip()` si `isBlocking()` y muestra el HUD tras
+`setState("PLAYING")`. Medido antes/después:
+
+| | antes | después |
+|---|---|---|
+| `t=7500` | `{boot:PLAYING, hudOculto:true, cine:0.42, running:true}` | `{boot:PLAYING, hudOculto:false, menuOculto:true, cine:null}` |
+| G3 | FAIL | `{"menu":true,"hud":true}` PASS |
+
+### 01.4-C.2 · `T5`: el menú restaurado se volvía a ocultar
+
+Ya había restauración (el estado volvía a `MAIN_MENU` y `busy` se liberaba),
+pero `tickInner()` lo deshacía en el tick siguiente:
+
+```js
+if (uiState.menuVisible && ((snap && snap.running) || inHub)) hideMainMenu();
+```
+
+Con un puente incompleto **el motor real arranca igualmente**, así que
+`snap.running` es `true` aunque la entrada a partida se haya rechazado. El tick
+leía "motor en marcha" como "el jugador está jugando" y retiraba el menú: el
+jugador quedaba **sin menú y sin partida**.
+
+**Traza que lo demuestra** (sondeo cada 400 ms):
+
+| instante | estado | menú visible | oculto | busy | running |
+|---|---|---|---|---|---|
+| antes | MAIN_MENU | true | false | false | false |
+| 400 ms | MAIN_MENU | false | true | true | false |
+| 5600 ms | MAIN_MENU | false | true | true | true |
+| **6400 ms** | MAIN_MENU | **true** | **false** | false | true |
+| 7600 ms (antes del arreglo) | MAIN_MENU | **false** | **true** | false | true |
+
+**Diagnóstico.** La condición correcta no es *que el motor corra*, sino **quién
+manda**: `DD_BOOT` en `PLAYING`. Un motor corriendo en `MAIN_MENU` no es una
+partida. Se sustituye la sonda de `snap.running` por el estado de la FSM.
+
+**Verificado.** T5 pasa de FAIL a PASS, T1–T7 7/7, G1–G4 4/4 (la entrada normal
+no se ve afectada) y traza sostenida de 16 s con el menú visible de principio a
+fin del rechazo.
+
+### 01.4-C.3 · `D3b`: el gesto de A podía caer entre dos ticks
+
+La prueba pulsaba A durante 900 ms. Con el menú latiendo a ~1 tick cada 2-3 s
+bajo la carga de siete navegadores, la pulsación podía caer **entera** entre dos
+ticks y perderse. En aislamiento abría `options` siempre, en el primer ciclo, y
+también con la secuencia D1→D2→D3 real. **No era un fallo del producto sino de
+la ventana del gesto**: se mantiene A hasta que el juego lo consume, con un
+mínimo de ticks observados.
+
+Antes de llegar a esa conclusión se corrigieron dos fallos del propio arnés que
+producían FAIL engañosos: el bucle de ruta se agotaba en silencio tras 12
+intentos (D2 deja el índice en 5/SALIR y se pulsaba A sobre otro botón), y no
+existía bandera para distinguir "no llegué" de "llegué". Ahora hay condición
+explícita, tope de 30 s y `SKIP` honesto con motivo si no se llega
+(`llegoAlObjetivo === false`).
+
+## 01.4-D. CINCO FALLOS DEL ARNÉS QUE DABAN FALSOS PASS
+
+Se documentan porque cada uno **ocultaba** un defecto real:
+
+1. **`$?` tras un pipeline** medía `tail`, no la suite.
+2. **`grep` sobre `index.html`** devolvía base64 del bundle: coincidencias falsas.
+3. **`|| []`** convertía una ausencia de dato en PASS.
+4. **`page.screenshot` sin límite** abortaba la suite entera (ahora `shot()` es
+   no fatal).
+5. **`Object.freeze`** obliga a sustituir la **referencia** `window.__DD_BRIDGE`,
+   no a parchear métodos: parchear el export no cambiaba nada.
+
+## 01.4-E. RESULTADO DE LA SUITE COMPLETA
+
+Ejecución definitiva: `QA_PORT=8129`, `QA_OUT=/home/user/_qa/out14`,
+`docs/FASE_01_EVIDENCE/results_14.json`.
+
+| | |
+|---|---|
+| Total | **128** |
+| PASS | **128** |
+| FAIL | **0** |
+| SKIP | **0** |
+| NV | **0** |
+
+Reparto: A 4 · B 4 · C 15 · D 7 · E 13 · F 8 · G 4 · H 22 · M 11 · P 13 · Q 5 ·
+T 7 · V 6 · W 9.
+
+Bloques decisivos:
+
+- **G1** `{"state":"PLAYING","music":false,"menuHidden":true,"hudVisible":true,"running":true}`
+  en 19 162 ms de reloj de pared (el entorno compone a ~2 fps).
+- **G3** `{"menu":true,"hud":true}` — el HUD ya aparece al entrar.
+- **T1–T7** 7/7, todos con `MAIN_MENU / busy:false / menu:true / menuOculto:false`.
+- **M-A…M-F** 12 aserciones: detección y mensaje correcto en los seis escenarios.
+- **V1–V6** progreso congelado tras carga tardía; **W6a–W6d** watchdog viejo
+  cancelado e inocuo, vigente funcional.
+- **D3b** `{"state":"SUBMENU","sub":"options"}`, abierto en el **ciclo 1**.
+- **Q1–Q5** accesibilidad del panel real.
+
+El campo `expected` lo declaran **29 de las 128** pruebas: las escritas en
+FASE 01.4. Las **99 heredadas** de fases anteriores no lo declaran en su código
+y no se ha inventado a posteriori; `results_14.json` lo dice explícitamente por
+prueba (`expected_declared: false`) en vez de rellenarlo con una suposición.
+
+### Nota de honestidad sobre ejecuciones intermedias
+
+Se ejecutó la suite completa **tres veces**:
+
+1. `8126` → 127 PASS · **1 FAIL** (D3b). El fallo era real: el gesto podía
+   perderse bajo carga.
+2. `8128` → abortó en E/F con `no llega a MAIN_MENU`. Se investigó: sin
+   procesos residuales, sin presión de memoria, y el mismo bloque **E/F pasó
+   12/12 en aislamiento** y en la corrida siguiente. Fue una **intermitencia del
+   entorno** sin causa reproducida; no se ha ocultado ni contado como éxito: la
+   corrida se descartó entera, no se reutilizaron sus pruebas.
+3. `8129` → **128/128**.
+
+No se ha reaprovechado ningún resultado parcial en `results_14.json`: proviene
+íntegramente de la tercera ejecución.
+
+## 01.4-F. VALIDACIÓN TÉCNICA
+
+| Comprobación | Resultado |
+|---|---|
+| `python3 tools/build_active_html.py` | determinista: mismo hash antes y después |
+| `index.html` == `DEADBEAT_DISCO.html` | idénticos (5 359 508 bytes, `17fb9f87…`) |
+| `node --check` en `src/*.js` | OK |
+| `node --check` en `tools/fase01_qa/suite.js` | OK |
+| `bash -n tools/fase01_qa/run.sh` | OK |
+| `git diff --check` | sin problemas |
+| Consola y red durante la suite | A4, F-*, G4, Q en PASS |
+| `results_11/12/13.json` | **intactos**, no sobrescritos |
+| `main` | no tocado |
+
+Versiones fijadas del entorno: `@sparticuz/chromium@138.0.2`,
+`playwright-core@1.49.1`, binario en `/tmp/chromium`.
+
+## 01.4-G. COMMITS DE ESTA FASE
+
+| commit | contenido |
+|---|---|
+| `cc4f459` | `fix(boot)`: invalidar el intento caducado y validar el motor de verdad |
+| `25dcd06` | `fix(ui)`: restaurar el menú cuando la entrada en partida se rechaza |
+| `7ca4a7f` | `test(qa)`: fijar y verificar el entorno de navegador |
+| `a8c6895` | `fix(ui)`: cerrar la transición al entrar en partida y hacer determinista D3b |
+| `fe2d5c3` | `test(qa)`: el gesto de A debe cruzar al menos un tick del menú |
+| `1bbcfa3` | `fix(ui)`: el menú restaurado no puede volver a ocultarse por un motor huérfano |
+
+## 01.4-H. CRITERIO DE "LISTA PARA FUSIÓN", PUNTO POR PUNTO
+
+| Criterio | Estado |
+|---|---|
+| Los tres problemas corregidos | **Sí**, verificado con prueba real, no sólo compilado |
+| Sin P0/P1 conocidos abiertos | Sí |
+| Suite sin FAIL | Sí: 128/0/0/0 |
+| Sin omisiones artificiales | Sí: ningún SKIP; el único que existía se retiró al corregir la causa |
+| Pruebas que verifican fallos reales | Sí: cada corrección tiene una prueba que fallaba **antes** |
+| Build e integración correctos | Sí: determinista e idéntico |
+| Sin errores nuevos de consola | Sí: A4, F-*, G4 en PASS |
+| Diff revisado | Sí, fichero a fichero |
+| Limitaciones documentadas | Sí, 01.4-I |
+| Rama al día | Sí (push tras el informe) |
+| Commits identificables | Sí, 01.4-G |
+| Informe veraz | Incluye los tres defectos encontrados **por** las pruebas y la corrida abortada |
+
+**VEREDICTO: TÉCNICAMENTE LISTA PARA FUSIÓN.** La fusión la decide el
+propietario. Este informe no abre FASE 02.
+
+## 01.4-I. LIMITACIONES QUE PERSISTEN
+
+Ninguna de comportamiento; todas de entorno y ya declaradas en 01.3-F:
+
+1. **Mando físico.** D3 usa mando **emulado**.
+2. **Rendimiento con GPU.** Headless a ~2 fps; los tiempos de reloj de pared son
+   del entorno, no del juego.
+3. **Audio audible.** Se verifica el grafo WebAudio y el estado, no que suene.
+4. **Navegadores no Chromium.** Sólo Chromium 138.
+5. **Intermitencia del entorno.** La corrida del puerto 8128 abortó de forma no
+   reproducida en E/F (ver 01.4-E). No se pudo determinar la causa; el bloque
+   pasa 12/12 en aislamiento.
+6. **`expected` en 99 pruebas heredadas.** No declarado en su código; no se ha
+   reconstruido retroactivamente.

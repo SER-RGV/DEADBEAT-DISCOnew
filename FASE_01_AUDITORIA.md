@@ -300,3 +300,83 @@ Los tres objetivos se cumplen con medición real y verificable. El veredicto es
 **APTO CON LIMITACIONES DOCUMENTADAS**, con las mismas limitaciones de hardware
 de 01.2 (mando físico, GPU, audio audible, navegadores no Chromium), ninguna de
 comportamiento. **Sin fusión y sin FASE 02**: queda a la espera de decisión.
+
+---
+
+## REVISIÓN DE CIERRE — FASE 01.4 (2026-11-08)
+
+Auditoría de la corrección integral del PR #9. Complementa a
+`FASE_01_INFORME_FINAL.md` (§ 01.4) y a `docs/FASE_01_EVIDENCE/results_14.json`.
+
+### Contexto
+
+El PR #9 quedaba con tres problemas abiertos (watchdog, validación del motor,
+transición a `PLAYING`), un entorno QA no reproducible, accesibilidad pendiente y
+una suite con un FAIL. FASE 01.4 los cierra y **no** decide la fusión.
+
+### Verificación de los cinco objetivos
+
+| Objetivo | Cómo se comprobó | Resultado |
+|---|---|---|
+| P0-1 watchdog con cancelación lógica | Carga tardía real: el progreso no avanza tras el fallo, la intro no arranca, el panel manda. Reintento 1→10 pasos | PASS (V1–V6, W6a–W6d) |
+| P0-2 validación esencial del motor | Seis escenarios A–F con **detección y comunicación** verificadas por separado | PASS (M-A…M-F, 12 aserciones) |
+| P1-3 transición segura a PLAYING | Contrato único, resultado de `enterGame()` comprobado, restauración de menú/busy/audio | PASS (T1–T7) |
+| P1-6 entorno QA reproducible | Versiones fijadas y verificadas, `install_env` idempotente | PASS |
+| #7 accesibilidad del arranque | Panel real forzando un fallo fatal: asociación ARIA y foco | PASS (Q1–Q5) |
+
+### Fallos encontrados en esta fase
+
+Además de los tres del encargo, las pruebas nuevas destaparon **tres defectos
+que no estaban en el plan** y que se corrigieron sin ampliar el alcance:
+
+1. **G3 · el HUD no aparecía al entrar en partida.** Comprobado contra
+   `be2f698` con `git stash` + rebuild: **preexistente**, no regresión de 01.4.
+2. **T5 · el menú restaurado se volvía a ocultar.** `tickInner` trataba "motor
+   en marcha" como "jugando". Corregido usando la propiedad de la partida
+   (`DD_BOOT` en `PLAYING`) en vez del estado del motor.
+3. **D3b · el gesto de A podía caer entre dos ticks.** Fallo de **ventana de la
+   prueba**, no del producto: se demostró que abre `options` en el primer ciclo
+   tanto en aislamiento como con la secuencia D1→D2→D3 real.
+
+También se corrigieron dos fallos del arnés que producían FAIL engañosos (bucle
+de ruta agotado en silencio, ausencia de bandera "no llegué").
+
+### Lo que NO se hizo
+
+- No se relajó ningún criterio ni se redujo ninguna espera.
+- No se convirtió ningún SKIP/NV en PASS: no hay ninguno.
+- No se borró ninguna prueba.
+- No se sobrescribieron `results_11.json`, `results_12.json` ni `results_13.json`.
+- No se tocó `main`, ni mecánicas, HUB, combate, economía, armas o generación
+  de salas. No se regeneraron assets ni se cambiaron variables visuales.
+- No se editó a mano `index.html` ni `DEADBEAT_DISCO.html`: se regeneraron con
+  `tools/build_active_html.py`.
+- No se inventó el campo `expected` de las 99 pruebas heredadas.
+
+### Resultado
+
+```
+128 PASS · 0 FAIL · 0 SKIP · 0 NV · 128 TOTAL
+```
+
+`docs/FASE_01_EVIDENCE/results_14.json` + `01_loading_01_4.webp` +
+`12_playing_01_4.webp` + `15_watchdog_blocked_01_4.webp` +
+`18_late_load_ignored.webp` + `19_error_panel_a11y.webp`.
+
+Build: `index.html` == `DEADBEAT_DISCO.html`, 5 359 508 bytes, `17fb9f87…`,
+regeneración determinista.
+
+### Trazabilidad de la honestidad
+
+Se ejecutó la suite completa **tres veces**. La segunda abortó en E/F con
+`no llega a MAIN_MENU` sin causa reproducible (el bloque pasa 12/12 en
+aislamiento y en la corrida siguiente). Se descartó **entera**: `results_14.json`
+proviene sólo de la tercera. No se ha presentado ningún resultado parcial como
+si fuera completo.
+
+### Conclusión de la revisión
+
+**TÉCNICAMENTE LISTA PARA FUSIÓN**, con las limitaciones de entorno de 01.3-F
+(mando físico, GPU, audio audible, navegadores no Chromium) más la intermitencia
+del entorno descrita. Ninguna limitación es de comportamiento. **Sin fusión y
+sin FASE 02**: la decisión es del propietario.
