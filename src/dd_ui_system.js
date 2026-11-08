@@ -789,12 +789,13 @@
     if (m) m.classList.remove("dd-behind");
     uiState.submenu = null;
     /* Invariante: el FSM no puede quedarse en SUBMENU sin submenú abierto.
-       Sin esto, un cierre por esta vía dejaba el menú en SUBMENU con
-       getState().submenu = null, y las acciones del menú dejaban de responder
-       porque el sondeo del mando consulta uiState.submenu. Se sincroniza sólo
-       si el menú sigue en pantalla, para no reabrirlo al ocultarse. */
-    if (uiState.menuVisible && window.DD_BOOT &&
-        window.DD_BOOT.getState && window.DD_BOOT.getState().state === "SUBMENU") {
+       Si eso ocurre, el sondeo del mando deja de responder (consulta
+       uiState.submenu) y la interfaz queda en un estado que ya no existe.
+       Se corrige siempre que el FSM diga SUBMENU y aquí ya no haya submenú,
+       sin importar si el menú se está ocultando o no: el dato de la UI es el
+       que manda porque es el que se ve. */
+    if (window.DD_BOOT && window.DD_BOOT.getState &&
+        window.DD_BOOT.getState().state === "SUBMENU") {
       try { window.DD_BOOT.closeSubmenu(); } catch (e) {}
     }
   }

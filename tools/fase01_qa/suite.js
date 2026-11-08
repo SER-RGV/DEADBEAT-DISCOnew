@@ -294,16 +294,17 @@ async function toMenu(p, maxMs) {
     /* MANDO EMULADO: se sustituye navigator.getGamepads por un dispositivo
        sintético. Esto NO es una prueba con mando FÍSICO y así se reporta.
 
-       El sondeo del mando vive dentro de DD_UI.tick(), que en este entorno
-       headless deja de recibir frames (verificado: 0 ticks en 5 s, y lo mismo
-       ocurre con el build anterior a estos cambios, luego es del entorno). Si
-       se probara con pulsaciones de duración fija se estaría midiendo el
-       entorno, no el juego. Por eso aquí se CONDUCE el gancho de frame que el
-       propio juego usa (window.DD_UI.tick) y se espera al EFECTO, no al reloj.
+       El sondeo vive dentro de DD_UI.tick(). En este entorno el bucle de render
+       del motor no entrega frames con el menú abierto (su escena legada está
+       oculta), así que la UI tiene un latido propio por requestAnimationFrame.
+       Aquí NO se fuerza ningún frame desde la prueba: si se llamara a tick() a
+       mano se estaría tapando justo el defecto que este latido corrige. Se
+       pulsa como un humano (800 ms) y se espera al EFECTO.
 
-       La prueba valida la lógica de entrada (sondeo, histéresis, acciones); que
-       el bucle de render entregue frames en un navegador normal es un hecho
-       independiente y se mide aparte. */
+       Además se comprueba que el latido entrega frames de verdad, contando las
+       lecturas de navigator.getGamepads, que es el único recuento fiable:
+       envolver window.DD_UI.tick desde la prueba NO cuenta las llamadas
+       internas, porque el cierre usa la referencia léxica. */
     const fake = {
       id: 'Xbox Wireless Controller (EMULADO)', connected: true, index: 0, mapping: 'standard',
       axes: [0, 0, 0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0 }))
@@ -311,52 +312,64 @@ async function toMenu(p, maxMs) {
     navigator.getGamepads = () => [fake];
     const set = (i, v) => { fake.buttons[i] = { pressed: v, value: v ? 1 : 0 }; };
     const sleep = ms => new Promise(r => setTimeout(r, ms));
-    const frame = () => { try { window.DD_UI.tick(0.016); } catch (e) {} };
 
+    /* Recuento de latido: cuántas veces se consulta el mando por segundo. */
+    let polls = 0;
+    const realPads = navigator.getGamepads;
+    navigator.getGamepads = () => { polls++; return [fake]; };
+
+    /* Pulsación realista: mantener y soltar. La acción se dispara por flanco,
+       así que basta con que un frame caiga dentro del intervalo. */
     const holdUntil = async (idx, done, capMs) => {
-      set(idx, true);
       const t = Date.now();
-      while (Date.now() - t < (capMs || 8000)) {
-        frame();
-        if (done()) break;
-        await sleep(50);
+      let cycles = 0;
+      while (Date.now() - t < (capMs || 15000)) {
+        set(idx, true);
+        await sleep(800);
+        set(idx, false);
+        await sleep(800);
+        cycles++;
+        if (done()) return { ok: true, cycles };
       }
-      set(idx, false);
-      for (let i = 0; i < 4; i++) { frame(); await sleep(50); }  /* histéresis */
-      return done();
+      return { ok: done(), cycles };
     };
 
     const base = window.DD_UI.getState().menuIndex;
-    const moved = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base);
+    const down = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base);
     const afterDown = window.DD_UI.getState().menuIndex;
 
-    const opened = await holdUntil(0, () => window.DD_UI.getState().submenu !== null);
+    const open = await holdUntil(0, () => window.DD_UI.getState().submenu !== null);
     const afterA = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
 
-    const closed = await holdUntil(1, () => window.DD_UI.getState().submenu === null);
+    const close = await holdUntil(1, () => window.DD_UI.getState().submenu === null);
     const afterB = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
 
-    /* Reposo: sin tocar nada, la selección no debe moverse sola. */
+    /* En reposo la selección no debe moverse sola. */
     const idle0 = window.DD_UI.getState().menuIndex;
-    for (let i = 0; i < 10; i++) { frame(); await sleep(50); }
+    await sleep(1500);
     const idle1 = window.DD_UI.getState().menuIndex;
 
+    navigator.getGamepads = realPads;
     delete navigator.getGamepads;
-    return { base, moved, afterDown, opened, afterA, closed, afterB, idleStable: idle0 === idle1 };
+    return { base, polls, down, afterDown, open, afterA, close, afterB, idleStable: idle0 === idle1 };
   });
 
   /* Se informa POR SEPARADO de cada gesto: si uno falla no se oculta bajo un
      único veredicto. Y el detalle dice explícitamente que el mando es EMULADO. */
   ok('D3a mando EMULADO: el D-pad mueve la selección',
-    pad.moved === true && pad.afterDown !== pad.base,
-    'índice ' + pad.base + ' -> ' + pad.afterDown);
-  ok('D3b mando EMULADO: A abre el submenú',
-    pad.opened === true && !!pad.afterA.sub, JSON.stringify(pad.afterA));
+    !!(pad.down && pad.down.ok) && pad.afterDown !== pad.base,
+    'índice ' + pad.base + ' -> ' + pad.afterDown + ' (ciclos=' + (pad.down && pad.down.cycles) + ')');
+  ok('D3b mando EMULADO: A abre el submenú', !!(pad.open && pad.open.ok),
+    JSON.stringify(pad.afterA) + ' (ciclos=' + (pad.open && pad.open.cycles) + ')');
   ok('D3c mando EMULADO: B vuelve al menú',
-    pad.closed === true && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
-    JSON.stringify(pad.afterB));
+    !!(pad.close && pad.close.ok) && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
+    JSON.stringify(pad.afterB) + ' (ciclos=' + (pad.close && pad.close.cycles) + ')');
   ok('D3d mando EMULADO: en reposo la selección no se mueve sola',
     pad.idleStable === true, 'estable=' + pad.idleStable);
+  /* Si el latido no entregara frames, todo lo anterior fallaría de forma
+     intermitente; este dato lo deja dicho de forma explícita. */
+  ok('D3e el menú sigue latiendo con la escena legada oculta (mando sondeado)',
+    pad.polls >= 2, 'navigator.getGamepads leído ' + pad.polls + ' veces durante la prueba');
 
   await p.keyboard.press('Escape');
   await p.waitForTimeout(600);
