@@ -7992,9 +7992,80 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
          ESSENTIAL_IDS; antes faltaba y la ausencia de canvas no era fatal. */
       critical: true,
       run: function () {
+        /* VALIDACIÓN REAL DEL MOTOR (FASE 01.4 · P0).
+           Antes sólo se comprobaba que #game existiera y que tuviera getContext;
+           la presencia del puente se devolvía como DATO informativo, así que un
+           arranque sin puente pasaba como correcto y luego la entrada en partida
+           era imposible. Ahora se comprueba lo que el arranque necesita de verdad,
+           usando SÓLO métodos que el puente expone (contrato real:
+           isRunning / startRun / getSnapshot). */
         var g = q("game");
-        if (!g || !g.getContext) throw new Error("No se encontró el lienzo del juego (#game).");
-        return { canvas: g.width + "x" + g.height, bridge: !!window.__DD_BRIDGE };
+        if (!g) throw new Error("No se encontró el lienzo del juego (#game).");
+        if (!g.getContext) throw new Error("El lienzo del juego (#game) no admite contexto gráfico.");
+
+        /* Puente del motor: es el contrato real que usa la entrada en partida.
+           Se comprueba ANTES que el contexto para que el diagnóstico sea exacto:
+           si el motor no llegó a inicializarse (p. ej. porque no pudo crear su
+           contexto), el puente tampoco existirá y el mensaje debe decir la causa
+           real, no un síntoma derivado. */
+        var br = window.__DD_BRIDGE;
+        if (!br) {
+          /* Distinguir las dos causas para que el mensaje sea útil. */
+          var ctxProbe = null;
+          try { ctxProbe = g.getContext("2d"); } catch (e) { ctxProbe = "threw"; }
+          if (ctxProbe === null) {
+            throw new Error("El lienzo del juego no pudo crear el contexto gráfico (2d): " +
+              "por eso el motor no llegó a inicializarse.");
+          }
+          throw new Error("El puente del motor (__DD_BRIDGE) no está disponible.");
+        }
+
+        /* Métodos mínimos del contrato. Se comprueban ANTES de invocarlos. */
+        if (typeof br.isRunning !== "function") {
+          throw new Error("El puente del motor no expone isRunning(): no se puede confirmar una partida.");
+        }
+        if (typeof br.startRun !== "function") {
+          throw new Error("El puente del motor no expone startRun(): no se puede iniciar una partida.");
+        }
+
+        /* Contexto gráfico REAL. En algunos entornos getContext("2d") devuelve
+           null sin lanzar, así que la mera existencia del método no demuestra
+           nada. Con el motor ya inicializado, se exige que el contexto pueda
+           obtenerse; si no, sólo se tolera cuando el propio motor confirma que
+           está en marcha (prueba viva de que el canvas es utilizable). */
+        var ctx = null;
+        try {
+          ctx = g.getContext("2d");
+        } catch (e) {
+          throw new Error("No se pudo obtener el contexto gráfico del juego: " +
+            ((e && e.message) || String(e)));
+        }
+        if (!ctx) {
+          var running0 = false;
+          try { running0 = br.isRunning() === true; } catch (e) { running0 = false; }
+          var hub0 = !!(window.DD_HUB && window.DD_HUB.isActive());
+          if (!running0 && !hub0) {
+            throw new Error("El lienzo del juego no pudo crear el contexto gráfico (2d).");
+          }
+        }
+
+        /* Sonda REAL del método de confirmación: debe poder invocarse. Una
+           excepción aquí significa que el arranque no podrá verificar nunca el
+           estado del motor, así que es fatal, no degradable. */
+        var running = null;
+        try {
+          running = br.isRunning() === true;
+        } catch (e) {
+          throw new Error("El puente del motor lanzó una excepción al comprobar isRunning(): " +
+            ((e && e.message) || String(e)));
+        }
+
+        return {
+          canvas: g.width + "x" + g.height,
+          context: ctx ? "ok" : "tomado por el motor",
+          bridge: true,
+          running: running
+        };
       }
     },
     {
@@ -8239,6 +8310,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         return Promise.resolve()
           .then(step.run)
           .then(function (result) {
+            /* CANCELACIÓN LÓGICA (FASE 01.4 · P0).
+               Comprobar el token SÓLO antes del paso no basta: si un paso queda
+               pendiente y el watchdog dispara, al resolverse tarde se ejecutaría
+               markStep/done++/setProgress sobre el intento NUEVO. Se comprueba
+               también DESPUÉS del await: un intento caducado no escribe nada. */
+            if (token !== runToken) return null;
             markStep(step.id, "ok");
             if (result && result.degraded) {
               markStep(step.id, "warn", "modo degradado");
@@ -8252,6 +8329,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             emit("step", { id: step.id, ok: true, result: result });
           })
           .catch(function (err) {
+            if (token !== runToken) return null;
             var msg = (err && err.message) || String(err);
             markStep(step.id, "fail", msg);
             /* La gravedad se decide por la clasificación del PASO, y la
@@ -8270,6 +8348,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             if (fatal) throw err;
           })
           .then(function () {
+            if (token !== runToken) return null;
             done++;
             setProgress((done / total) * 100, step.label, step.id);
           });
@@ -8301,6 +8380,22 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (el.errBody) {
         el.errBody.textContent = msg + " · Revisa la consola para el detalle. Puedes reintentar o continuar en modo seguro.";
       }
+
+      /* ACCESIBILIDAD (FASE 01.4). El panel tenía role="alert" pero el título y
+         el cuerpo no estaban asociados programáticamente al diálogo, y el foco
+         se quedaba donde estuviera (a menudo en <body>), de modo que quien navega
+         con teclado o lector de pantalla no llegaba a los botones de recuperación
+         sin recorrer todo el árbol. Se asocia y se mueve el foco al primer
+         control útil. No cambia nada visual. */
+      try {
+        el.err.setAttribute("aria-labelledby", "dd-boot-err-title");
+        if (document.getElementById("dd-boot-err-body")) {
+          el.err.setAttribute("aria-describedby", "dd-boot-err-body");
+        }
+        if (el.err.getAttribute("aria-live") === null) el.err.setAttribute("aria-live", "assertive");
+        if (!el.err.hasAttribute("tabindex")) el.err.setAttribute("tabindex", "-1");
+      } catch (e) {}
+
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
@@ -8313,6 +8408,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         try { document.documentElement.setAttribute("data-dd-retry", "1"); } catch (e) {}
         location.reload();
       };
+      /* Foco al panel de error: primero el botón útil (REINTENTAR), y si no se
+         puede, el propio panel. Se respeta el orden natural de tabulación. */
+      try {
+        var focusTarget = !!(retry && !retry.disabled) ? retry : el.err;
+        if (focusTarget && typeof focusTarget.focus === "function") {
+          try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
+        }
+      } catch (e) {}
+
       if (safe) {
         /* El modo seguro SÓLO relaja los pasos no esenciales. Si lo que falta es
            indispensable (motor, recursos, sistema de menú), reintentar en modo
@@ -8378,6 +8482,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (state.loadFinished) return;                     /* ya cargó */
       if (state.current !== "LOADING" && state.current !== "BOOT") return;
       if (el.err && !el.err.hidden) return;               /* ya hay panel */
+      /* CANCELACIÓN LÓGICA (FASE 01.4 · P0).
+         Cancelar el temporizador no detiene el trabajo asíncrono que ya está en
+         vuelo. Al dispararse, el intento se INVALIDA subiendo runToken: así los
+         pasos pendientes dejan de escribir progreso y, sobre todo, la cadena de
+         runSteps() ya no puede devolver `true` y arrancar la intro DESPUÉS de
+         haber mostrado el error. */
+      runToken++;
       state.watchdogFired = true;
       showError(new Error("El arranque tardó demasiado (" + WATCHDOG_MS + " ms). " +
         "Puedes reintentar o usar el modo seguro."));
@@ -8386,7 +8497,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     return runSteps()
       .then(function (ok) {
+        /* El intento debe seguir siendo el vigente: runSteps() devuelve false si
+           fue invalidado por el watchdog. Doble cinturón con el token real de
+           este boot(): si otro intento tomó el relevo, este no toca nada. */
         if (!ok) return;
+        if (bootToken !== state.bootToken) return;
         state.loadFinished = true;          /* ya no hay nada que vigilar */
         clearTimeout(state.watchdog);
         state.loadStart = state.bootStart;
@@ -8428,6 +8543,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   }
 
   function startIntro() {
+    /* Última barrera (FASE 01.4 · P0): la intro no puede activarse si el panel
+       de error está visible o si el intento quedó invalidado. Antes, una carga
+       que terminaba tarde entraba a INTRO sobre un arranque ya fallido. */
+    if (state.watchdogFired) return;
+    if (el.err && !el.err.hidden) return;
     setState("INTRO");
     hideLoadingScreen();
     state.introActive = true;
@@ -10741,43 +10861,80 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         if (sb) { try { sb.click(); } catch (e) {} }
       }
 
-      /* PLAYING sólo si el motor está REALMENTE en marcha. Antes se declaraba
-         siempre, incluso con startRun() devolviendo false: el jugador veía el
-         estado de partida sobre un motor parado. Se comprueba el motor y se
-         espera brevemente a que confirme, sin bloquear la UI para siempre. */
+      /* CONTRATO ÚNICO DE ENTRADA (FASE 01.4 · P1).
+         Antes había dos definiciones distintas de "el motor está en marcha":
+         esta sonda (que además aceptaba getSnapshot().running) y la de
+         DD_BOOT.enterGame() (que exige isRunning() === true). La UI podía
+         considerar válido un motor que enterGame() rechazaba, y entonces se
+         ocultaba el menú sin entrar en partida. Ahora la ÚNICA autoridad es
+         DD_BOOT.enterGame(): la sonda previa se conserva sólo para esperar a que
+         el motor arranque, y es igual de estricta que la puerta. */
       var verify = function () {
         try {
           if (window.DD_HUB && window.DD_HUB.isActive()) return true;
-          if (br && typeof br.isRunning === "function") return !!br.isRunning();
-          if (br && typeof br.getSnapshot === "function") {
-            var snap = br.getSnapshot();
-            return !!(snap && (snap.running || snap.isRunning));
-          }
+          if (br && typeof br.isRunning === "function") return br.isRunning() === true;
         } catch (e) {}
         return false;
       };
 
+      /* Restauración de la interfaz si la entrada no se acepta. Usa try/finally
+         para que `busy` NUNCA quede bloqueado, ni siquiera si algo lanza. */
+      var restoreMenu = function (motivo) {
+        try {
+          console.warn("[DD_UI] entrada en partida rechazada:", motivo);
+          /* El menú se vuelve a mostrar y el estado vuelve a MAIN_MENU.
+             El audio del menú: se para primero (stopMenuMusic es idempotente y
+             sale si no suena) y se reanuda después, para no arrancar una segunda
+             instancia si enterGame() nunca llegó a pararlo. */
+          if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
+          if (window.DD_BOOT && typeof window.DD_BOOT.stopMenuMusic === "function") {
+            window.DD_BOOT.stopMenuMusic(0.2);
+          }
+          if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") {
+            window.DD_BOOT.exitGameToMenu();
+          }
+          if (typeof showDialogue === "function") {
+            showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+          }
+        } catch (e) {
+          console.warn("[DD_UI] no se pudo restaurar el menú", e);
+        } finally {
+          uiState.busy = false;
+        }
+      };
+
       var confirm = function (t0) {
         if (verify()) {
-          window.DD_BOOT.enterGame();
-          uiState.busy = false;
-          if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+          /* El resultado REAL manda: antes se llamaba a enterGame() y se seguía
+             adelante sin mirar qué devolvía. Si rechaza, no hay partida. */
+          var entered = false;
+          try {
+            entered = window.DD_BOOT.enterGame() === true;
+          } catch (e) {
+            entered = false;
+          }
+          if (entered) {
+            uiState.busy = false;
+            if (why !== "complete") console.warn("[DD_UI] descenso forzado:", why);
+            return;
+          }
+          restoreMenu("enterGame() devolvió false");
           return;
         }
         if (Date.now() - t0 < 3000) { setTimeout(function () { confirm(t0); }, 120); return; }
         /* El motor no arrancó: se devuelve al menú con un aviso honesto en vez
            de fingir una partida en curso. */
-        uiState.busy = false;
-        console.warn("[DD_UI] el motor no arrancó; se cancela la entrada en partida");
-        if (window.DD_UI && typeof window.DD_UI.showMainMenu === "function") window.DD_UI.showMainMenu();
-        if (window.DD_BOOT && typeof window.DD_BOOT.exitGameToMenu === "function") window.DD_BOOT.exitGameToMenu();
-        if (typeof showDialogue === "function") {
-          showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
-        }
+        restoreMenu("el motor no confirmó isRunning() en 3000 ms");
       };
       confirm(Date.now());
     };
 
+    /* lastElapsed arranca en -1 para que la PRIMERA lectura siempre cuente como
+       avance. Eso estaba bien, pero provocaba que un reloj congelado en 0 se
+       tomara por "avance" y reiniciara la cuenta: el estancamiento sólo se
+       detectaba si la secuencia llegaba a moverse y luego se paraba. Con una
+       cinemática que NUNCA avanza (motor parado) el vigilante no saltaba jamás.
+       Se separa el instante de arranque del reloj de la secuencia. */
     var guard = null, lastElapsed = -1, lastAdvance = Date.now();
     if (window.DD_CINE && typeof window.DD_CINE.playCircleDescent === "function") {
       try {
@@ -10786,13 +10943,40 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         launch("error");
         return;
       }
+      /* Vigilancia de la transición (FASE 01.4 · P1).
+         La cinemática avanza dentro del bucle del MOTOR: si el motor no arranca
+         (startRun() devuelve false, puente incompleto, isRunning() lanza...), la
+         secuencia nunca progresa ni llama a su callback, y `busy` quedaba
+         bloqueado para siempre con el menú oculto — una transición sin dueño.
+         La salvaguarda por estancamiento ya existía para el reloj; se añade un
+         tope absoluto por si la secuencia ni siquiera llega a empezar. */
+      var hardStop = setTimeout(function () {
+        if (!started) launch("timeout-transicion");
+      }, 15000);
       guard = setInterval(function () {
-        if (started) { clearInterval(guard); return; }
+        if (started) { clearInterval(guard); clearTimeout(hardStop); return; }
         var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
         if (!st) { launch("finished"); return; }
-        if (st.elapsed > lastElapsed + 0.001) { lastElapsed = st.elapsed; lastAdvance = Date.now(); }
-        else if (Date.now() - lastAdvance > 4000) launch("stalled");
+        /* Sólo cuenta como avance un incremento REAL sobre una lectura previa
+           válida. La primera lectura fija la referencia sin reiniciar el reloj
+           de estancamiento, de modo que una secuencia congelada en 0 se detecta
+           a los 4 s en vez de esperar indefinidamente. */
+        if (lastElapsed < 0) {
+          lastElapsed = st.elapsed;
+          lastAdvance = Date.now();
+        } else if (st.elapsed > lastElapsed + 0.001) {
+          lastElapsed = st.elapsed;
+          lastAdvance = Date.now();
+        } else if (Date.now() - lastAdvance > 4000) {
+          launch("stalled");
+        }
       }, 150);
+      /* Si launch() se ejecuta por cualquier vía, se liberan ambos vigilantes. */
+      var launchOriginal = launch;
+      launch = function (why) {
+        try { clearInterval(guard); clearTimeout(hardStop); } catch (e) {}
+        return launchOriginal(why);
+      };
     } else {
       launch("no-cinematic");
     }

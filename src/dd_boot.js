@@ -188,9 +188,80 @@
          ESSENTIAL_IDS; antes faltaba y la ausencia de canvas no era fatal. */
       critical: true,
       run: function () {
+        /* VALIDACIÓN REAL DEL MOTOR (FASE 01.4 · P0).
+           Antes sólo se comprobaba que #game existiera y que tuviera getContext;
+           la presencia del puente se devolvía como DATO informativo, así que un
+           arranque sin puente pasaba como correcto y luego la entrada en partida
+           era imposible. Ahora se comprueba lo que el arranque necesita de verdad,
+           usando SÓLO métodos que el puente expone (contrato real:
+           isRunning / startRun / getSnapshot). */
         var g = q("game");
-        if (!g || !g.getContext) throw new Error("No se encontró el lienzo del juego (#game).");
-        return { canvas: g.width + "x" + g.height, bridge: !!window.__DD_BRIDGE };
+        if (!g) throw new Error("No se encontró el lienzo del juego (#game).");
+        if (!g.getContext) throw new Error("El lienzo del juego (#game) no admite contexto gráfico.");
+
+        /* Puente del motor: es el contrato real que usa la entrada en partida.
+           Se comprueba ANTES que el contexto para que el diagnóstico sea exacto:
+           si el motor no llegó a inicializarse (p. ej. porque no pudo crear su
+           contexto), el puente tampoco existirá y el mensaje debe decir la causa
+           real, no un síntoma derivado. */
+        var br = window.__DD_BRIDGE;
+        if (!br) {
+          /* Distinguir las dos causas para que el mensaje sea útil. */
+          var ctxProbe = null;
+          try { ctxProbe = g.getContext("2d"); } catch (e) { ctxProbe = "threw"; }
+          if (ctxProbe === null) {
+            throw new Error("El lienzo del juego no pudo crear el contexto gráfico (2d): " +
+              "por eso el motor no llegó a inicializarse.");
+          }
+          throw new Error("El puente del motor (__DD_BRIDGE) no está disponible.");
+        }
+
+        /* Métodos mínimos del contrato. Se comprueban ANTES de invocarlos. */
+        if (typeof br.isRunning !== "function") {
+          throw new Error("El puente del motor no expone isRunning(): no se puede confirmar una partida.");
+        }
+        if (typeof br.startRun !== "function") {
+          throw new Error("El puente del motor no expone startRun(): no se puede iniciar una partida.");
+        }
+
+        /* Contexto gráfico REAL. En algunos entornos getContext("2d") devuelve
+           null sin lanzar, así que la mera existencia del método no demuestra
+           nada. Con el motor ya inicializado, se exige que el contexto pueda
+           obtenerse; si no, sólo se tolera cuando el propio motor confirma que
+           está en marcha (prueba viva de que el canvas es utilizable). */
+        var ctx = null;
+        try {
+          ctx = g.getContext("2d");
+        } catch (e) {
+          throw new Error("No se pudo obtener el contexto gráfico del juego: " +
+            ((e && e.message) || String(e)));
+        }
+        if (!ctx) {
+          var running0 = false;
+          try { running0 = br.isRunning() === true; } catch (e) { running0 = false; }
+          var hub0 = !!(window.DD_HUB && window.DD_HUB.isActive());
+          if (!running0 && !hub0) {
+            throw new Error("El lienzo del juego no pudo crear el contexto gráfico (2d).");
+          }
+        }
+
+        /* Sonda REAL del método de confirmación: debe poder invocarse. Una
+           excepción aquí significa que el arranque no podrá verificar nunca el
+           estado del motor, así que es fatal, no degradable. */
+        var running = null;
+        try {
+          running = br.isRunning() === true;
+        } catch (e) {
+          throw new Error("El puente del motor lanzó una excepción al comprobar isRunning(): " +
+            ((e && e.message) || String(e)));
+        }
+
+        return {
+          canvas: g.width + "x" + g.height,
+          context: ctx ? "ok" : "tomado por el motor",
+          bridge: true,
+          running: running
+        };
       }
     },
     {
@@ -435,6 +506,12 @@
         return Promise.resolve()
           .then(step.run)
           .then(function (result) {
+            /* CANCELACIÓN LÓGICA (FASE 01.4 · P0).
+               Comprobar el token SÓLO antes del paso no basta: si un paso queda
+               pendiente y el watchdog dispara, al resolverse tarde se ejecutaría
+               markStep/done++/setProgress sobre el intento NUEVO. Se comprueba
+               también DESPUÉS del await: un intento caducado no escribe nada. */
+            if (token !== runToken) return null;
             markStep(step.id, "ok");
             if (result && result.degraded) {
               markStep(step.id, "warn", "modo degradado");
@@ -448,6 +525,7 @@
             emit("step", { id: step.id, ok: true, result: result });
           })
           .catch(function (err) {
+            if (token !== runToken) return null;
             var msg = (err && err.message) || String(err);
             markStep(step.id, "fail", msg);
             /* La gravedad se decide por la clasificación del PASO, y la
@@ -466,6 +544,7 @@
             if (fatal) throw err;
           })
           .then(function () {
+            if (token !== runToken) return null;
             done++;
             setProgress((done / total) * 100, step.label, step.id);
           });
@@ -497,6 +576,22 @@
       if (el.errBody) {
         el.errBody.textContent = msg + " · Revisa la consola para el detalle. Puedes reintentar o continuar en modo seguro.";
       }
+
+      /* ACCESIBILIDAD (FASE 01.4). El panel tenía role="alert" pero el título y
+         el cuerpo no estaban asociados programáticamente al diálogo, y el foco
+         se quedaba donde estuviera (a menudo en <body>), de modo que quien navega
+         con teclado o lector de pantalla no llegaba a los botones de recuperación
+         sin recorrer todo el árbol. Se asocia y se mueve el foco al primer
+         control útil. No cambia nada visual. */
+      try {
+        el.err.setAttribute("aria-labelledby", "dd-boot-err-title");
+        if (document.getElementById("dd-boot-err-body")) {
+          el.err.setAttribute("aria-describedby", "dd-boot-err-body");
+        }
+        if (el.err.getAttribute("aria-live") === null) el.err.setAttribute("aria-live", "assertive");
+        if (!el.err.hasAttribute("tabindex")) el.err.setAttribute("tabindex", "-1");
+      } catch (e) {}
+
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
@@ -509,6 +604,15 @@
         try { document.documentElement.setAttribute("data-dd-retry", "1"); } catch (e) {}
         location.reload();
       };
+      /* Foco al panel de error: primero el botón útil (REINTENTAR), y si no se
+         puede, el propio panel. Se respeta el orden natural de tabulación. */
+      try {
+        var focusTarget = !!(retry && !retry.disabled) ? retry : el.err;
+        if (focusTarget && typeof focusTarget.focus === "function") {
+          try { focusTarget.focus({ preventScroll: true }); } catch (e) { focusTarget.focus(); }
+        }
+      } catch (e) {}
+
       if (safe) {
         /* El modo seguro SÓLO relaja los pasos no esenciales. Si lo que falta es
            indispensable (motor, recursos, sistema de menú), reintentar en modo
@@ -574,6 +678,13 @@
       if (state.loadFinished) return;                     /* ya cargó */
       if (state.current !== "LOADING" && state.current !== "BOOT") return;
       if (el.err && !el.err.hidden) return;               /* ya hay panel */
+      /* CANCELACIÓN LÓGICA (FASE 01.4 · P0).
+         Cancelar el temporizador no detiene el trabajo asíncrono que ya está en
+         vuelo. Al dispararse, el intento se INVALIDA subiendo runToken: así los
+         pasos pendientes dejan de escribir progreso y, sobre todo, la cadena de
+         runSteps() ya no puede devolver `true` y arrancar la intro DESPUÉS de
+         haber mostrado el error. */
+      runToken++;
       state.watchdogFired = true;
       showError(new Error("El arranque tardó demasiado (" + WATCHDOG_MS + " ms). " +
         "Puedes reintentar o usar el modo seguro."));
@@ -582,7 +693,11 @@
 
     return runSteps()
       .then(function (ok) {
+        /* El intento debe seguir siendo el vigente: runSteps() devuelve false si
+           fue invalidado por el watchdog. Doble cinturón con el token real de
+           este boot(): si otro intento tomó el relevo, este no toca nada. */
         if (!ok) return;
+        if (bootToken !== state.bootToken) return;
         state.loadFinished = true;          /* ya no hay nada que vigilar */
         clearTimeout(state.watchdog);
         state.loadStart = state.bootStart;
@@ -624,6 +739,11 @@
   }
 
   function startIntro() {
+    /* Última barrera (FASE 01.4 · P0): la intro no puede activarse si el panel
+       de error está visible o si el intento quedó invalidado. Antes, una carga
+       que terminaba tarde entraba a INTRO sobre un arranque ya fallido. */
+    if (state.watchdogFired) return;
+    if (el.err && !el.err.hidden) return;
     setState("INTRO");
     hideLoadingScreen();
     state.introActive = true;
