@@ -494,6 +494,7 @@
   }
 
   function closeSubmenu() {
+    resetDirectionalState();
     var host = el("dd-submenu");
     if (host) {
       host.classList.remove("is-open");
@@ -1313,9 +1314,12 @@
     var cineBlocking = !!(window.DD_CINE && window.DD_CINE.isBlocking());
     if (hudEl) hudEl.classList.toggle("dd-hidden", uiState.menuVisible || cineBlocking);
 
-    /* Mando: una sola lectura por frame para todo el árbol. */
+    /* Mando: una sola lectura por frame para todo el árbol. El sondeo no se
+       congela por gpCooldown: el enfriamiento sólo frena las acciones discretas
+       (A/B) dentro de pollGamepad; la direccional se gestiona con repetición
+       propia y necesita evaluar cada frame para el auto-repeat. */
     if (uiState.gpCooldown > 0) uiState.gpCooldown = Math.max(0, uiState.gpCooldown - wallSec);
-    if (navigator.getGamepads && uiState.gpCooldown <= 0) pollGamepad(snap, inHub);
+    if (navigator.getGamepads) pollGamepad(snap, inHub, wallSec);
 
     if (snap && (!uiState.menuVisible)) updateHud(snap, inHub);
 
@@ -1336,11 +1340,128 @@
     }
   }
 
-  /* Detección de flanco para el mando.
+  /* ============ MANDO: configuración y estado persistente ============
+     GP_CONFIG es la única fuente de verdad de la calibración (zona muerta,
+     dominancia de ejes y auto-repetición). Ajustar aquí, nunca inline.
+       - axisEnter / axisRelease: histéresis de la zona muerta. El stick debe
+         superar axisEnter para activarse y caer por debajo de axisRelease para
+         volver a neutro; el hueco entre ambos evita parpadeos en el borde y
+         disparos dobles.
+       - axisDominance: un eje sólo dispara si su magnitud supera a la del otro
+         eje por este factor; en diagonales manda un único eje (nada de
+         izquierda+arriba a la vez).
+       - repeatDelay / repeatRate: repetición de direcciones mantenidas
+         (d-pad o stick). La activación inicial dispara al instante; después
+         espera repeatDelay y repite a repeatRate.
+       - stepFallback: paso usado si un <input type=range> no declara step. */
+  var GP_CONFIG = {
+    axisEnter: 0.35,
+    axisRelease: 0.24,
+    axisDominance: 1.35,
+    repeatDelay: 0.38,
+    repeatRate: 0.085,
+    stepFallback: 1
+  };
+
+  var gpAxis = { 0: { active: false }, 1: { active: false } };
+  var gpDir = { up: null, down: null, left: null, right: null };
+
+  function resetDirectionalState() {
+    gpDir.up = gpDir.down = gpDir.left = gpDir.right = null;
+    gpAxis[0].active = false;
+    gpAxis[1].active = false;
+  }
+
+  function rawAxes(gp) {
+    var a = gp.axes || [];
+    var x = typeof a[0] === "number" && isFinite(a[0]) ? a[0] : 0;
+    var y = typeof a[1] === "number" && isFinite(a[1]) ? a[1] : 0;
+    return { x: x, y: y };
+  }
+
+  /* Dirección con histéresis por eje. La dominancia entre ejes se decide una
+     vez por frame comparando magnitudes (ver directionState). */
+  function hysteresisDir(idx, raw) {
+    var mag = Math.abs(raw), st = gpAxis[idx];
+    if (mag <= GP_CONFIG.axisRelease) { st.active = false; return 0; }
+    if (st.active) return raw < 0 ? -1 : 1;
+    if (mag >= GP_CONFIG.axisEnter) { st.active = true; return raw < 0 ? -1 : 1; }
+    return 0;
+  }
+
+  /* Estado direccional de este frame. El d-pad manda siempre; en stick, sólo
+     dispara el eje dominante. Devuelve cuatro booleanos. */
+  function directionState(gp) {
+    var ax = rawAxes(gp);
+    var magX = Math.abs(ax.x), magY = Math.abs(ax.y);
+    var domX = magX >= magY * GP_CONFIG.axisDominance;
+    var domY = magY >= magX * GP_CONFIG.axisDominance;
+    var axDir = domX ? hysteresisDir(0, ax.x) : 0;
+    var ayDir = domY ? hysteresisDir(1, ax.y) : 0;
+    var b = gp.buttons || [];
+    var dUp = b[12] && b[12].pressed, dDown = b[13] && b[13].pressed;
+    var dLeft = b[14] && b[14].pressed, dRight = b[15] && b[15].pressed;
+    return {
+      up: !!dUp || ayDir < 0,
+      down: !!dDown || ayDir > 0,
+      left: !!dLeft || axDir < 0,
+      right: !!dRight || axDir > 0
+    };
+  }
+
+  /* Auto-repetición controlada por dirección. Devuelve true en el frame en que
+     debe dispararse la acción: inmediato al activar, tras repeatDelay empieza
+     la repetición a repeatRate. Se rearma al soltar la dirección. */
+  function repeatFire(key, active, wallSec) {
+    var st = gpDir[key];
+    if (!active) { gpDir[key] = null; return false; }
+    if (!st) { gpDir[key] = { t: 0, n: 0 }; return true; }
+    /* Tope por sondeo: una dirección mantenida no puede acumular más
+       wallSec que repeatRate en UNA llamada, aunque el frame se haya
+       atascado segundos enteros (p.ej. SwiftShader). Sin este tope, en
+       cuanto se armaba la repetición cada frame lento (> repeatDelay)
+       disparaba un paso extra. Aprobado por el usuario 2026-11-08. */
+    st.t += (typeof wallSec === "number" && isFinite(wallSec)) ? Math.min(Math.max(0, wallSec), GP_CONFIG.repeatRate) : 0;
+    var threshold = st.n === 0 ? GP_CONFIG.repeatDelay : GP_CONFIG.repeatRate;
+    if (st.t >= threshold) { st.t -= threshold; st.n += 1; return true; }
+    return false;
+  }
+
+  /* Range enfocado DENTRO del submenú (los cinco sliders del OPCIONES: cuatro
+     del motor, uno del volumen del menú). Cualquier otro foco devuelve null. */
+  function focusedRange() {
+    var a = document.activeElement;
+    if (a && a.tagName === "INPUT" && a.type === "range" && a.closest && a.closest("#dd-submenu")) return a;
+    return null;
+  }
+
+  /* Ajuste REAL del slider: respeta min/max/step del propio <input> (los cinco
+     declaran step=1), clampa a los límites y emite "input" para que los
+     listeners existentes apliquen el cambio de verdad (motor Xl.set /
+     ddc_cover_settings_v1) y actualicen el <output>. En el límite no hace nada
+     (devuelve false, sin evento, sin cambio visual ni sonoro). */
+  function adjustRange(input, dir) {
+    var min = parseFloat(input.min); if (!isFinite(min)) min = 0;
+    var max = parseFloat(input.max); if (!isFinite(max)) max = 100;
+    var step = parseFloat(input.step); if (!(step > 0)) step = GP_CONFIG.stepFallback;
+    var v = parseFloat(input.value); if (!isFinite(v)) v = min;
+    var next = Math.max(min, Math.min(max, Math.round((v + dir * step) * 1000) / 1000));
+    if (next === v) return false;
+    input.value = String(next);
+    try {
+      input.dispatchEvent(new Event("input", { bubbles: true }));
+    } catch (e) {
+      var ev = document.createEvent("Event"); ev.initEvent("input", true, false);
+      input.dispatchEvent(ev);
+    }
+    return true;
+  }
+
+  /* Detección de flanco para los botones discretos (A/B).
      Sin esto, mantener un botón pulsado lo repetía cada cooldown: al abrir un
      submenú con A, la misma pulsación seguía activa y elegía el primer elemento
-     del submenú recién abierto. Ahora una pulsación produce una sola acción
-     hasta que se suelta. Afecta a los seis botones del mando por igual. */
+     del submenú recién abierto. Una pulsación produce una sola acción hasta que
+     se suelta. La direccional NO usa esto: usa repeatFire (repetición controlada). */
   var gpPrev = {};
   function gpEdge(gp, i, pressed) {
     var key = (gp.index === undefined ? 0 : gp.index) + ":" + i;
@@ -1349,7 +1470,7 @@
     return !!pressed && !was;
   }
 
-  function pollGamepad(snap, inHub) {
+  function pollGamepad(snap, inHub, wallSec) {
     var pads = navigator.getGamepads();
     for (var i = 0; i < pads.length; i++) {
       var gp = pads[i];
@@ -1358,32 +1479,58 @@
       if (pill && pill.textContent.indexOf("CONECTADO") < 0) {
         pill.textContent = "MANDO XBOX CONECTADO · " + String(gp.id || "GAMEPAD").slice(0, 22).toUpperCase();
       }
-      var up = gpEdge(gp, 12, (gp.buttons[12] && gp.buttons[12].pressed) || (gp.axes[1] < -0.55));
-      var down = gpEdge(gp, 13, (gp.buttons[13] && gp.buttons[13].pressed) || (gp.axes[1] > 0.55));
-      var left = gpEdge(gp, 14, (gp.buttons[14] && gp.buttons[14].pressed) || (gp.axes[0] < -0.55));
-      var right = gpEdge(gp, 15, (gp.buttons[15] && gp.buttons[15].pressed) || (gp.axes[0] > 0.55));
+      var dir = directionState(gp);
+      var up = repeatFire("up", dir.up, wallSec);
+      var down = repeatFire("down", dir.down, wallSec);
+      var left = repeatFire("left", dir.left, wallSec);
+      var right = repeatFire("right", dir.right, wallSec);
       var btnA = gpEdge(gp, 0, gp.buttons[0] && gp.buttons[0].pressed);
       var btnB = gpEdge(gp, 1, gp.buttons[1] && gp.buttons[1].pressed);
 
       if (uiState.submenu) {
-        /* B (volver) manda sobre cualquier dirección y sobre A: si se pulsa
-           volver, se vuelve aunque el stick esté ligeramente desplazado. */
-        if (btnB) { sfx("back"); closeSubmenu(); uiState.gpCooldown = 0.45; }
-        else if (up || left) { focusStep(-1); uiState.gpCooldown = 0.2; }
-        else if (down || right) { focusStep(1); uiState.gpCooldown = 0.2; }
-        else if (btnA) { activateFocused(); uiState.gpCooldown = 0.45; }
+        /* B (volver) manda sobre cualquier dirección y sobre A. */
+        if (btnB) {
+          if (uiState.gpCooldown <= 0) {
+            sfx("back"); closeSubmenu(); uiState.gpCooldown = 0.45; resetDirectionalState();
+          }
+        } else if (btnA) {
+          var rangeA = focusedRange();
+          if (rangeA) {
+            /* A sobre un slider = un único incremento (comportamiento FASE 01),
+               con clamp y evento input real. Nunca en auto-repetición. */
+            if (uiState.gpCooldown <= 0) {
+              if (adjustRange(rangeA, 1)) sfx("move");
+              uiState.gpCooldown = 0.18;
+            }
+          } else if (uiState.gpCooldown <= 0) {
+            activateFocused(); uiState.gpCooldown = 0.45;
+          }
+        } else if (up) {
+          focusStep(-1);
+        } else if (down) {
+          focusStep(1);
+        } else if (left || right) {
+          var range = focusedRange();
+          if (range) {
+            /* Slider enfocado: ←→ AJUSTAN el valor (nunca mueven el foco ni
+               cambian nada en los límites). */
+            if (adjustRange(range, left ? -1 : 1)) sfx("move");
+          } else {
+            focusStep(left ? -1 : 1); /* fuera de sliders conserva FASE 01 */
+          }
+        }
       } else if (uiState.menuVisible) {
-        if (up) { setMenuSelection(uiState.menuIndex - 1); uiState.gpCooldown = 0.2; }
-        else if (down) { setMenuSelection(uiState.menuIndex + 1); uiState.gpCooldown = 0.2; }
-        else if (btnA) {
+        if (up) { setMenuSelection(uiState.menuIndex - 1); }
+        else if (down) { setMenuSelection(uiState.menuIndex + 1); }
+        else if (btnA && uiState.gpCooldown <= 0) {
           var btns = menuButtons();
           if (btns[uiState.menuIndex]) triggerMenuAction(btns[uiState.menuIndex].getAttribute("data-action"));
-          uiState.gpCooldown = 0.35;
+          uiState.gpCooldown = 0.35; resetDirectionalState();
         }
       } else if (uiState.shopOpen || uiState.mapOpen) {
-        if (btnB) { closeModals(); uiState.gpCooldown = 0.25; }
+        if (btnB && uiState.gpCooldown <= 0) { closeModals(); uiState.gpCooldown = 0.25; }
       } else {
-        if (btnB) { openMap(); uiState.gpCooldown = 0.3; }
+        if (btnB && uiState.gpCooldown <= 0) { openMap(); uiState.gpCooldown = 0.3; }
       }
       break;
     }
@@ -1403,7 +1550,7 @@
   function activateFocused() {
     var a = document.activeElement;
     if (!a) return;
-    if (a.tagName === "INPUT" && a.type === "range") { a.stepUp && a.stepUp(); a.dispatchEvent(new Event("input", { bubbles: true })); return; }
+    if (a.tagName === "INPUT" && a.type === "range") return; /* lo ajusta ←→ (adjustRange) */
     if (a.tagName === "SELECT") { return; }
     a.click();
   }
