@@ -18,6 +18,20 @@ const OUT = process.env.QA_OUT || require(__dirname + '/lib.js').OUT;
 const URL = (process.env.QA_URL || 'http://127.0.0.1:8123') + '/index.html';
 fs.mkdirSync(OUT, { recursive: true });
 
+/* Captura NO fatal. En este entorno una imagen puede tardar más que el límite
+   por defecto de Playwright y tumbar la suite entera; las capturas son evidencia
+   complementaria, nunca la condición de una prueba. Se acota el tiempo, se
+   desactivan animaciones para el fotograma y, si aun así falla, se avisa. */
+async function shot(page, name) {
+  try {
+    await page.screenshot({ path: OUT + '/' + name, timeout: 45000, animations: 'disabled' });
+    return true;
+  } catch (e) {
+    console.log('  (aviso) captura ' + name + ' no completada: ' + String(e.message).split('\n')[0]);
+    return false;
+  }
+}
+
 const res = [];
 /* Tres estados, no dos. Un SKIP no es un PASS encubierto: significa que la
    prueba no llegó a ejecutarse por una limitación del entorno, y así se informa.
@@ -57,7 +71,7 @@ async function toMenu(p, maxMs) {
     const st = await p.evaluate(() => (window.DD_BOOT ? window.DD_BOOT.getState().state : null)).catch(() => null);
     if (st === 'LOADING' && !shotLoading) {
       shotLoading = true;
-      try { await p.screenshot({ path: OUT + '/01_loading.png' }); } catch (e) {}
+      try { await shot(p, '01_loading.png'); } catch (e) {}
     }
     if (st === 'INTRO' && !shotIntro) {
       shotIntro = true;
@@ -97,7 +111,7 @@ async function toMenu(p, maxMs) {
       await p.waitForTimeout(80);
     }
     marks = await p.evaluate(() => window.__marks || []);
-    await p.screenshot({ path: OUT + '/02_intro.png' }).catch(() => {});
+    await shot(p, '02_intro.png');
   }
   const distinct = new Set(marks).size;
   ok('B1 la intro arranca sola y su reloj avanza', shotIntro && distinct >= 2,
@@ -124,7 +138,7 @@ async function toMenu(p, maxMs) {
   await p.waitForTimeout(1200);
   const afterFocus = await p.evaluate(() => ({ s: window.DD_BOOT.getState().state, cine: window.DD_CINE.getState() }));
   ok('B4 no se reinicia al recuperar el foco', afterFocus.s === 'MAIN_MENU' && !afterFocus.cine, JSON.stringify(afterFocus));
-  await p.screenshot({ path: OUT + '/03_menu.png' });
+  await shot(p, '03_menu.png');
 
   /* ============================ C. BOTONES ============================= */
   const btns = await p.evaluate(() => [...document.querySelectorAll('#dd-menu-nav .dd-menu-btn')]
@@ -142,7 +156,7 @@ async function toMenu(p, maxMs) {
   await p.evaluate(() => window.DD_UI.triggerMenuAction('options'));
   await p.waitForTimeout(1400);
   const optOpen = await p.evaluate(() => ({ sub: window.DD_UI.getState().submenu, has: !!document.getElementById('dd-opt-menuvol') }));
-  await p.screenshot({ path: OUT + '/07_options.png' });
+  await shot(p, '07_options.png');
   ok('C4 OPCIONES abre el submenú real', optOpen.sub === 'options' && optOpen.has, JSON.stringify(optOpen));
 
   const vol = await p.evaluate(() => {
@@ -238,7 +252,7 @@ async function toMenu(p, maxMs) {
     sub: window.DD_UI.getState().submenu,
     txt: (document.getElementById('dd-submenu-body') || {}).innerText || ''
   }));
-  await p.screenshot({ path: OUT + '/09_slots.png' });
+  await shot(p, '09_slots.png');
   ok('C9 CONTINUAR sin partida avisa y no arranca',
     noSave.sub === 'partidas' && /SIN DESCENSOS|SIN PROGRESO/i.test(noSave.txt),
     noSave.txt.replace(/\s+/g, ' ').slice(0, 80));
@@ -250,7 +264,7 @@ async function toMenu(p, maxMs) {
   await p.evaluate(() => window.DD_UI.triggerMenuAction('credits'));
   await p.waitForTimeout(1400);
   const cred = await p.evaluate(() => (document.getElementById('dd-submenu-body') || {}).innerText || '');
-  await p.screenshot({ path: OUT + '/08_credits.png' });
+  await shot(p, '08_credits.png');
   ok('C11 créditos sólo con datos reales del repositorio',
     /SER-RGV/.test(cred) && /DDPixel/.test(cred) && /DMO/.test(cred) && !/Lorem|TODO|Nombre Apellido/i.test(cred),
     cred.split('\n').filter(Boolean).slice(0, 3).join(' / '));
@@ -260,14 +274,14 @@ async function toMenu(p, maxMs) {
   await p.evaluate(() => window.DD_UI.triggerMenuAction('exit'));
   await p.waitForTimeout(1400);
   const exitTxt = await p.evaluate(() => (document.getElementById('dd-submenu-body') || {}).innerText || '');
-  await p.screenshot({ path: OUT + '/10_exit.png' });
+  await shot(p, '10_exit.png');
   ok('C12 SALIR explica el límite real del navegador', /no permite|cerrará|Ctrl\+W/i.test(exitTxt),
     exitTxt.replace(/\s+/g, ' ').slice(0, 90));
 
   await p.evaluate(() => document.getElementById('dd-exit-yes').click());
   await p.waitForTimeout(1800);
   const out = await p.evaluate(() => ({ black: !!document.getElementById('dd-blackout'), music: window.DD_BOOT.audio.isMenuMusicPlaying() }));
-  await p.screenshot({ path: OUT + '/11_exited.png' });
+  await shot(p, '11_exited.png');
   ok('C13 SALIR corta el audio y despide', out.black && out.music === false, JSON.stringify(out));
   await p.evaluate(() => document.getElementById('dd-reenter').click());
   await p.waitForTimeout(1800);
@@ -282,7 +296,7 @@ async function toMenu(p, maxMs) {
   await p.keyboard.press('ArrowDown');
   await p.waitForTimeout(400);
   const kbd = await p.evaluate(() => ({ i: window.DD_UI.getState().menuIndex, f: (document.activeElement.dataset || {}).action }));
-  await p.screenshot({ path: OUT + '/04_hover.png' });
+  await shot(p, '04_hover.png');
   ok('D1 flechas mueven la selección y el foco real', kbd.i === 2 && kbd.f === 'slots', JSON.stringify(kbd));
   await p.keyboard.press('End');
   await p.waitForTimeout(400);
@@ -427,7 +441,7 @@ async function toMenu(p, maxMs) {
   }
   const startWall = Date.now() - tStart;
   await pg.waitForTimeout(2500);
-  await pg.screenshot({ path: OUT + '/12_playing.png' });
+  await shot(pg, '12_playing.png');
   const play = await pg.evaluate(() => ({
     state: window.DD_BOOT.getState().state,
     music: window.DD_BOOT.audio.isMenuMusicPlaying(),
@@ -492,7 +506,7 @@ async function toMenu(p, maxMs) {
       if (panel && panel.visible) break;
       await hp.waitForTimeout(150);
     }
-    await hp.screenshot({ path: OUT + '/13_error_panel.png' });
+    await shot(hp, '13_error_panel.png');
 
     ok('H-A1 el fallo crítico se detecta y el panel aparece',
       !!(panel && panel.visible), JSON.stringify(panel && { v: panel.visible, st: panel.state }));
@@ -704,7 +718,7 @@ async function toMenu(p, maxMs) {
     const sel1 = await ap.evaluate(() => (document.querySelector('.dd-menu-btn.dd-selected') || {}).textContent || '');
     ok('H-E5 las flechas mueven la selección del menú',
       sel0 !== '' && sel1 !== '' && sel0 !== sel1, sel0.trim() + ' -> ' + sel1.trim());
-    await ap.screenshot({ path: OUT + '/14_a11y_reduced_motion.png' });
+    await shot(ap, '14_a11y_reduced_motion.png');
     await ab.close();
   }
 
@@ -869,7 +883,7 @@ async function toMenu(p, maxMs) {
     ok('W5 carga bloqueada: el panel nombra el motivo (tiempo)',
       !!(blocked && /tard/i.test(blocked.body)),
       'cuerpo="' + String(blocked && blocked.body).slice(0, 100) + '"');
-    await cp2.screenshot({ path: OUT + '/15_watchdog_blocked.png' }).catch(() => {});
+    await shot(cp2, '15_watchdog_blocked.png');
 
     /* W6 · Un intento nuevo no arrastra el temporizador del anterior. */
     const stale = await cp2.evaluate(() => {
