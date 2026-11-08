@@ -11560,6 +11560,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
   }
 
+  /* Detección de flanco para el mando.
+     Sin esto, mantener un botón pulsado lo repetía cada cooldown: al abrir un
+     submenú con A, la misma pulsación seguía activa y elegía el primer elemento
+     del submenú recién abierto. Ahora una pulsación produce una sola acción
+     hasta que se suelta. Afecta a los seis botones del mando por igual. */
+  var gpPrev = {};
+  function gpEdge(gp, i, pressed) {
+    var key = (gp.index === undefined ? 0 : gp.index) + ":" + i;
+    var was = !!gpPrev[key];
+    gpPrev[key] = !!pressed;
+    return !!pressed && !was;
+  }
+
   function pollGamepad(snap, inHub) {
     var pads = navigator.getGamepads();
     for (var i = 0; i < pads.length; i++) {
@@ -11569,12 +11582,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (pill && pill.textContent.indexOf("CONECTADO") < 0) {
         pill.textContent = "MANDO XBOX CONECTADO · " + String(gp.id || "GAMEPAD").slice(0, 22).toUpperCase();
       }
-      var up = (gp.buttons[12] && gp.buttons[12].pressed) || (gp.axes[1] < -0.55);
-      var down = (gp.buttons[13] && gp.buttons[13].pressed) || (gp.axes[1] > 0.55);
-      var left = (gp.buttons[14] && gp.buttons[14].pressed) || (gp.axes[0] < -0.55);
-      var right = (gp.buttons[15] && gp.buttons[15].pressed) || (gp.axes[0] > 0.55);
-      var btnA = gp.buttons[0] && gp.buttons[0].pressed;
-      var btnB = gp.buttons[1] && gp.buttons[1].pressed;
+      var up = gpEdge(gp, 12, (gp.buttons[12] && gp.buttons[12].pressed) || (gp.axes[1] < -0.55));
+      var down = gpEdge(gp, 13, (gp.buttons[13] && gp.buttons[13].pressed) || (gp.axes[1] > 0.55));
+      var left = gpEdge(gp, 14, (gp.buttons[14] && gp.buttons[14].pressed) || (gp.axes[0] < -0.55));
+      var right = gpEdge(gp, 15, (gp.buttons[15] && gp.buttons[15].pressed) || (gp.axes[0] > 0.55));
+      var btnA = gpEdge(gp, 0, gp.buttons[0] && gp.buttons[0].pressed);
+      var btnB = gpEdge(gp, 1, gp.buttons[1] && gp.buttons[1].pressed);
 
       if (uiState.submenu) {
         /* B (volver) manda sobre cualquier dirección y sobre A: si se pulsa

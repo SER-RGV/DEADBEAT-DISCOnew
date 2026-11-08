@@ -305,6 +305,13 @@ async function toMenu(p, maxMs) {
     navigator.getGamepads = () => [fake];
     const set = (i, v) => { fake.buttons[i] = { pressed: v, value: v ? 1 : 0 }; };
     const sleep = ms => new Promise(r => setTimeout(r, ms));
+    /* Suelta todos los botones y da tiempo a que la interfaz se asiente.
+       Entre gestos hay que SOLTAR de verdad: si no, la pulsación anterior sigue
+       viva al cambiar de contexto y produce una acción que nadie pidió. */
+    const release = async (ms) => {
+      set(0, false); set(1, false); set(13, false);
+      await sleep(ms || 2500);
+    };
     /* Mantiene un botón hasta que `done()` se cumple o vence el plazo. */
     const holdUntil = async (idx, done, capMs) => {
       set(idx, true);
@@ -313,23 +320,66 @@ async function toMenu(p, maxMs) {
         if (done()) break;
         await sleep(120);
       }
-      set(idx, false);
-      await sleep(600);            /* histéresis para que no rebote */
       return done();
     };
 
     const base = window.DD_UI.getState().menuIndex;
     const moved = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base, 15000);
     const afterDown = window.DD_UI.getState().menuIndex;
+    await release(2500);
+
+    /* A se prueba sobre CONTINUAR, no sobre NUEVA PARTIDA: un menú cuya primera
+       acción inicia una partida no es un caso limpio para medir "A abre un
+       submenú", porque el descenso esconde el menú y marca busy=true. */
+    let guard = 0;
+    while (window.DD_UI.getState().menuIndex !== 1 && guard++ < 12) {
+      await holdUntil(13, () => window.DD_UI.getState().menuIndex === 1, 8000);
+      await release(2500);
+    }
+    const aimedAtContinue = window.DD_UI.getState().menuIndex === 1;
+
+    /* Una lectura puntual puede atrapar un estado intermedio. Se exige que el
+       resultado se MANTENGA durante ~2,5 s antes de darlo por bueno. */
+    const stable = async (pred, ms) => {
+      const t = Date.now();
+      while (Date.now() - t < (ms || 2500)) {
+        if (!pred()) return false;
+        await sleep(100);
+      }
+      return true;
+    };
 
     const opened = await holdUntil(0, () => window.DD_UI.getState().submenu !== null, 20000);
-    const afterA = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
+    await release(400);
+    const subHeld = await stable(() => window.DD_UI.getState().submenu !== null, 2500);
+    const afterA = {
+      state: window.DD_BOOT.getState().state,
+      sub: window.DD_UI.getState().submenu,
+      busy: window.DD_UI.getState().busy,
+      held: subHeld
+    };
 
+    /* Para probar B hace falta SEGUIR en un submenú. */
+    if (window.DD_UI.getState().submenu === null) {
+      await holdUntil(0, () => window.DD_UI.getState().submenu !== null, 20000);
+      await release(3500);
+    }
+    const subBefore = window.DD_UI.getState().submenu;
+
+    /* B debe cerrar el submenú y dejarnos en MAIN_MENU. Que `sub` sea null no
+       basta (hideMainMenu también lo pone a null); se exige el estado del boot. */
     const closed = await holdUntil(1, () => window.DD_UI.getState().submenu === null, 20000);
-    const afterB = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
+    await release(400);
+    const backHeld = await stable(
+      () => window.DD_UI.getState().submenu === null && window.DD_BOOT.getState().state === 'MAIN_MENU', 2500);
+    const afterB = {
+      state: window.DD_BOOT.getState().state,
+      sub: window.DD_UI.getState().submenu,
+      held: backHeld
+    };
 
     delete navigator.getGamepads;
-    return { base, moved, afterDown, opened, afterA, closed, afterB };
+    return { base, moved, afterDown, aimedAtContinue, opened, afterA, subBefore, closed, afterB };
   });
   /* Se informa POR SEPARADO de cada gesto: si uno falla no se oculta bajo un
      único veredicto. Y el detalle dice explícitamente que el mando es EMULADO. */
@@ -337,10 +387,13 @@ async function toMenu(p, maxMs) {
     pad.moved === true && pad.afterDown !== pad.base,
     'índice ' + pad.base + ' -> ' + pad.afterDown);
   ok('D3b mando EMULADO: A abre el submenú',
-    pad.opened === true && !!pad.afterA.sub, JSON.stringify(pad.afterA));
+    pad.aimedAtContinue === true && pad.opened === true && !!pad.afterA.sub &&
+    pad.afterA.busy === false && pad.afterA.held === true,
+    'CONTINUAR=' + pad.aimedAtContinue + ' ' + JSON.stringify(pad.afterA));
   ok('D3c mando EMULADO: B vuelve al menú',
-    pad.closed === true && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
-    JSON.stringify(pad.afterB));
+    pad.closed === true && !!pad.subBefore && pad.afterB.sub === null &&
+    pad.afterB.state === 'MAIN_MENU' && pad.afterB.held === true,
+    'submenú=' + pad.subBefore + ' -> ' + JSON.stringify(pad.afterB));
   await p.keyboard.press('Escape');
   await p.waitForTimeout(600);
 
