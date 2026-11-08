@@ -1045,3 +1045,184 @@ Ninguna de comportamiento; todas de entorno y ya declaradas en 01.3-F:
    pasa 12/12 en aislamiento.
 6. **`expected` en 99 pruebas heredadas.** No declarado en su código; no se ha
    reconstruido retroactivamente.
+
+---
+
+# FASE 01.4 · CIERRE DEFINITIVO — ACCESIBILIDAD DEL ARMAZÓN DE ARRANQUE
+
+Ampliación de 01.4 tras la auditoría final. Se corrige un defecto de
+accesibilidad que las pruebas de 01.4 **no detectaban**, y se añade el bloque
+que lo detecta. Todo verificado sobre el árbol de accesibilidad **real** de
+Chromium, no sobre el código fuente.
+
+## Cierre-A. EL DEFECTO
+
+`tools/build_active_html.py` emitía el armazón de carga así:
+
+```html
+<section id="dd-boot-frame" aria-hidden="true">
+```
+
+`src/dd_boot.js` **adoptaba** ese nodo y le añadía `role="dialog"` +
+`aria-modal="true"`, pero **nunca** quitaba el `aria-hidden`. Resultado: un
+diálogo declarado modal y, a la vez, oculto al árbol de accesibilidad, con el
+panel de error dentro y el foco movido a REINTENTAR.
+
+## Cierre-B. CAUSA RAÍZ, Y POR QUÉ PARECÍA FUNCIONAR
+
+El hallazgo importante de esta fase es que **el panel sí aparecía en el árbol de
+accesibilidad** pese al `aria-hidden`. No era una falsa alarma del informe: era
+un mecanismo distinto del que se suponía.
+
+Chromium **no ignora un nodo que tiene el foco**. Si el foco está dentro de un
+subárbol marcado con `aria-hidden="true"`, el navegador expone ese subárbol
+igualmente. Se verificó con una página mínima de 10 líneas:
+
+| situación | botón dentro de `aria-hidden` |
+|---|---|
+| sin foco | **ausente** del árbol de accesibilidad |
+| al recibir el foco | **presente**, con `ignored=false` |
+
+Es decir: **el panel era accesible por accidente**, por un detalle del motor de
+render y no por una semántica correcta. Dos consecuencias que lo demuestran:
+
+1. En cuanto el foco salía del armazón, REINTENTAR **desaparecía** del árbol
+   (medido: 3 nodos → 0). La accesibilidad dependía de dónde estuviera el foco.
+2. La pantalla de carga **no tenía semántica ninguna**: un `role="dialog"` oculto
+   no se anuncia como progreso.
+
+Descartado por medición, uno a uno: `role="dialog"`, `aria-modal`, `aria-live`,
+`role="alert"` y el propio `aria-hidden` puesto dinámicamente sobre el panel. Una
+matriz de siete variantes en página limpia confirmó que cada atributo por
+separado oculta correctamente; lo que rompía la regla era **el foco**.
+
+## Cierre-C. CORRECCIÓN (en el origen, por estado)
+
+No se eliminan atributos indiscriminadamente: se decide qué debe estar
+disponible en cada estado y se aplica eso.
+
+| estado | `role` | `aria-hidden` | otros |
+|---|---|---|---|
+| **CARGANDO** | `progressbar` | **no** | `aria-busy="true"`, `aria-label` |
+| **ERROR** | `alertdialog` | **no** | `aria-modal="true"`, `aria-busy="false"` |
+| **RETIRADO** | — | `true` antes de salir del DOM | foco devuelto al documento |
+
+Mientras el armazón es visible **nunca** lleva `aria-hidden`: su contenido
+(progreso, errores, botones) debe estar disponible. Sólo se oculta cuando deja de
+ser relevante, y en ese momento se libera el foco para no dejarlo atrapado en un
+subárbol que ya no debe anunciarse.
+
+Archivos modificados: **`tools/build_active_html.py`** (markup de origen) y
+**`src/dd_boot.js`** (adopción, estado de error y estado retirado). Los HTML se
+regeneraron con el generador; no se editaron a mano.
+
+### Un error de método que merece constar
+
+La primera versión de la corrección incluía una limpieza defensiva:
+`clearAriaHiddenAncestors()` recorría los ancestros del panel y quitaba
+`aria-hidden`. Con eso la prueba **R10 pasaba aunque el defecto siguiera
+puesto** — estaba tapando la causa en vez de corregirla. Se detectó porque la
+prueba de reintroducción no fallaba, se eliminó la limpieza y se comprobó que
+entonces sí fallaba. Queda documentado en el propio código.
+
+## Cierre-D. PRUEBAS NUEVAS (bloque R, 13 pruebas)
+
+Leen el árbol de accesibilidad real mediante `Accessibility.getFullAXTree` (CDP).
+Si CDP no estuviera disponible, la prueba se registra como **NV honesto**, nunca
+como PASS.
+
+| id | qué exige |
+|---|---|
+| R1 | cargando: `progressbar` + `aria-busy` + etiqueta, **sin** `aria-hidden` |
+| R2 | cargando: el árbol real expone la pantalla de carga |
+| R3 | error fatal **real** (canvas eliminado de verdad): el panel aparece |
+| R4 | ningún antecesor del panel con `aria-hidden="true"` |
+| R5 | ningún antecesor de REINTENTAR con `aria-hidden="true"` |
+| R6 | sin contradicción: `alertdialog` + modal, sin `aria-hidden`, título y cuerpo asociados y con texto |
+| R7 | árbol real: REINTENTAR y el título visibles |
+| R8 | **control negativo**: REINTENTAR sigue en el árbol con el foco **fuera** |
+| R9 | foco en REINTENTAR, visible, habilitado, enfocable, en el orden de tabulación |
+| R10 | ningún control enfocable del armazón dentro de una región `aria-hidden` |
+| R11 | retirado: armazón fuera del DOM, menú sin ancestros ocultos |
+| R12 | sin paneles ni armazones duplicados |
+| R13 | el menú sigue siendo utilizable por teclado |
+
+R8 es la que impide volver al estado anterior: si alguien reintroduce
+`aria-hidden` en el armazón, la accesibilidad vuelve a depender del foco y R8
+falla.
+
+### El ciclo completo, medido
+
+| estado del código | resultado del bloque R |
+|---|---|
+| con la corrección aplicada | **13 PASS · 0 FAIL** |
+| con el defecto **reintroducido** a propósito | **6 FAIL** (R1, R2, R4, R5, R6, R10) |
+| corrección restaurada | **13 PASS · 0 FAIL** |
+
+Las pruebas **detectan el defecto si vuelve**. Eso es lo que se pedía.
+
+R10 se acotó al armazón de arranque de forma deliberada: los controles del HUD
+(pausa, armas, opciones) viven en contenedores del juego ajenos al arranque, y
+mezclarlos habría convertido un defecto del juego en un falso fallo de esta fase.
+
+## Cierre-E. SUITE COMPLETA
+
+Ejecución desde cero, directorio nuevo (`/home/user/_qa/out15`), sin reutilizar
+resultados parciales de ninguna corrida anterior.
+
+```
+141 PASS · 0 FAIL · 0 SKIP · 0 NV · 141 TOTAL
+```
+
+128 pruebas heredadas + 13 del bloque R. Sin regresiones: P0-1 (V, W6), P0-2
+(M-A…M-F), P1-3 (T1–T7), G3, T5, D3b y Q1–Q5 siguen en PASS.
+
+Evidencia: `docs/FASE_01_EVIDENCE/results_15.json`.
+`results_11/12/13/14.json` **intactos**.
+
+Campo `expected` declarado en **42 de 141** pruebas (las 29 de 01.4 + las 13 del
+bloque R). Las **99 heredadas** no lo declaran en su código y no se ha
+reconstruido a posteriori: van con `expected_declared: false` y una nota
+explícita.
+
+## Cierre-F. VALIDACIÓN TÉCNICA
+
+| Comprobación | Resultado |
+|---|---|
+| `python3 tools/build_active_html.py` | determinista (1bc9d07e…, dos ejecuciones) |
+| `index.html` == `DEADBEAT_DISCO.html` | idénticos, 5 363 157 bytes |
+| `node --check` en `src/*.js` y `tools/fase01_qa/*.js` | OK |
+| `bash -n tools/fase01_qa/run.sh` | OK |
+| `git diff --check` | sin problemas |
+| Chromium / Playwright | 138.0.2 / 1.49.1 (fijados, sin cambios) |
+| `main` | **no modificado** |
+
+## Cierre-G. COMMITS DE ESTE CIERRE
+
+| commit | contenido |
+|---|---|
+| `c2579c3` | `fix(a11y)`: el armazón de carga no puede nacer oculto al árbol |
+| `c4f29f1` | `style(a11y)`: quitar un comentario duplicado |
+| (siguiente) | `docs(fase-01.4)`: evidencia `results_15.json` y cierre |
+
+## Cierre-H. LIMITACIONES
+
+Sin cambios respecto a 01.4-I, con una precisión importante:
+
+1. **El comportamiento del árbol de accesibilidad se ha medido en Chromium 138
+   headless.** El mecanismo "nodo enfocado dentro de `aria-hidden` se expone" es
+   específico del motor de accesibilidad de Chromium; otros navegadores pueden
+   comportarse distinto. La corrección aplicada **no depende** de ese detalle:
+   el armazón simplemente no está oculto mientras se ve, que es lo correcto en
+   cualquier navegador.
+2. Mando físico (emulado), rendimiento GPU, audio audible y navegadores no
+   Chromium: igual que en 01.4-I.
+3. No se ha ejecutado una auditoría con lector de pantalla real (NVDA/JAWS/
+   VoiceOver). Se ha medido el árbol de accesibilidad, que es su fuente, pero no
+   la locución efectiva.
+
+## Cierre-I. VEREDICTO
+
+**FASE 01 CERRADA — PR #9 TÉCNICAMENTE LISTA PARA FUSIÓN.**
+
+La fusión no se ha ejecutado: la autorización corresponde al propietario.
