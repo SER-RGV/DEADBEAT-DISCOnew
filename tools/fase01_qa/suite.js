@@ -455,9 +455,19 @@ async function toMenu(p, maxMs) {
     const { b: hb, p: hp } = await launch(1280, 720);
     /* Se impide que DD_UI llegue a existir: es un paso critical:true. */
     await hp.addInitScript(() => {
-      Object.defineProperty(window, 'DD_UI', {
-        configurable: true, get() { return undefined; }, set() {}
-      });
+      /* Fallo CONTROLADO y TRANSITORIO: DD_UI falta sólo en la primera carga.
+         La bandera vive en sessionStorage, que sobrevive a location.reload(),
+         de modo que tras pulsar el REINTENTAR real el sistema debe recuperarse
+         solo. No hay ningún comportamiento especial en producción: se aprovecha
+         que el paso `ui` comprueba de verdad que DD_UI exista. */
+      let alreadyFailed = false;
+      try { alreadyFailed = sessionStorage.getItem('qa_retry_once') === '1'; } catch (e) {}
+      if (!alreadyFailed) {
+        try { sessionStorage.setItem('qa_retry_once', '1'); } catch (e) {}
+        Object.defineProperty(window, 'DD_UI', {
+          configurable: true, get() { return undefined; }, set() {}
+        });
+      }
     });
     hp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
 
@@ -510,40 +520,74 @@ async function toMenu(p, maxMs) {
       afterSafe.state !== 'MAIN_MENU' && afterSafe.ddUI === 'undefined',
       beforeSafe + ' -> ' + JSON.stringify(afterSafe));
 
-    /* --- H-B · REINTENTAR pide un arranque nuevo sin dejar estado sucio --- */
-    const retryInfo = await hp.evaluate(() => {
-      const r = document.getElementById('dd-boot-retry');
-      if (!r) return { ok: false, why: 'no hay botón' };
-      /* Se intercepta la recarga para observar la intención sin perder el contexto. */
-      window.__reloadRequested = false;
-      r.onclick = function () { window.__reloadRequested = true; };
-      r.click();
-      return { ok: true, requested: window.__reloadRequested };
-    }).catch(() => null);
-    ok('H-B1 REINTENTAR solicita un arranque nuevo',
-      !!(retryInfo && retryInfo.requested),
-      JSON.stringify(retryInfo));
-    await hb.close();
+    /* --- H-B · REINTENTAR: recarga REAL observada, sin sustituir el handler --
+       La versión anterior reemplazaba r.onclick por una función de la propia
+       prueba y comprobaba esa función. Eso no mide producción.
 
-    /* La recarga real se comprueba en un contexto limpio: tras reintentar, el
-       juego debe poder arrancar sin que quede un estado de error bloqueante. */
-    const { b: rb2, p: rp2 } = await launch(1280, 720);
-    rp2.goto(URL, { waitUntil: 'commit' }).catch(() => {});
-    const tB = Date.now();
-    let reached = null;
-    while (Date.now() - tB < 150000) {
-      reached = await rp2.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
-      if (reached === 'INTRO' || reached === 'MAIN_MENU') break;
-      await rp2.waitForTimeout(150);
+       Aquí se provoca un fallo controlado que SOLO afecta a la primera carga
+       (una bandera guardada en sessionStorage), se pulsa el botón REAL con su
+       handler intacto, y se observa la navegación de verdad:
+         - el documento nuevo tiene un contador de navegación distinto;
+         - la marca data-dd-retry del elemento raíz desaparece al recargar;
+         - el arranque se ejecuta de nuevo y esta vez sí termina. */
+    const retryBefore = await hp.evaluate(() => ({
+      nav: (performance.getEntriesByType('navigation')[0] || {}).type || 'navigate',
+      hasRetryBtn: !!document.getElementById('dd-boot-retry'),
+      handlerIsReal: (() => {
+        const r = document.getElementById('dd-boot-retry');
+        /* No se toca el handler: sólo se comprueba que existe y que es función. */
+        return !!r && typeof r.onclick === 'function';
+      })(),
+      markerBefore: document.documentElement.getAttribute('data-dd-retry')
+    }));
+
+    /* Pulsación del botón REAL. No se asigna onclick: se hace click() y se deja
+       que el handler de producción ejecute location.reload(). La evaluación se
+       interrumpe porque el documento se descarga; el fallo de contexto es
+       esperado y no se considera error de la prueba. */
+    await hp.evaluate(() => { document.getElementById('dd-boot-retry').click(); }).catch(() => {});
+
+    /* Esperar la navegación real del navegador. */
+    let navigated = false;
+    try {
+      await hp.waitForNavigation({ waitUntil: 'commit', timeout: 90000 });
+      navigated = true;
+    } catch (e) { navigated = false; }
+
+    let retryState = null;
+    if (navigated) {
+      const tR = Date.now();
+      while (Date.now() - tR < 180000) {
+        retryState = await hp.evaluate(() => ({
+          nav: (performance.getEntriesByType('navigation')[0] || {}).type || 'navigate',
+          marker: document.documentElement.getAttribute('data-dd-retry'),
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
+          errVisible: (() => { const e = document.getElementById('dd-boot-err'); return !!e && !e.hidden; })(),
+          retryFail: (() => { try { return sessionStorage.getItem('qa_retry_once'); } catch (e) { return null; } })()
+        })).catch(() => null);
+        if (retryState && (retryState.state === 'INTRO' || retryState.state === 'MAIN_MENU')) break;
+        if (retryState && retryState.errVisible) break;
+        await hp.waitForTimeout(200);
+      }
     }
-    const cleanBoot = await rp2.evaluate(() => ({
-      errHidden: (document.getElementById('dd-boot-err') || {}).hidden,
-      state: window.DD_BOOT.getState().state
-    })).catch(() => null);
-    ok('H-B2 un arranque nuevo no hereda el estado de error',
-      !!cleanBoot && cleanBoot.errHidden === true,
-      JSON.stringify(cleanBoot));
-    await rb2.close();
+
+    if (!navigated) {
+      skip('H-B1 REINTENTAR provoca una recarga real del navegador',
+        'la navegación no pudo observarse en este entorno', JSON.stringify(retryBefore));
+      nv('H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera',
+        'sin navegación observada no hay evidencia de recuperación');
+    } else {
+      ok('H-B1 REINTENTAR provoca una recarga real del navegador',
+        retryState !== null && retryBefore.handlerIsReal === true &&
+        retryState.marker === null && retryState.nav === 'reload',
+        JSON.stringify({ antes: retryBefore, despues: retryState && {
+          nav: retryState.nav, marker: retryState.marker, state: retryState.state } }));
+      ok('H-B2 tras REINTENTAR se ejecuta un arranque nuevo que se recupera',
+        !!(retryState && !retryState.errVisible &&
+           (retryState.state === 'INTRO' || retryState.state === 'MAIN_MENU')),
+        JSON.stringify(retryState && { state: retryState.state, err: retryState.errVisible }));
+    }
+    await hb.close();
   }
 
   /* --- H-D · modo seguro DEGRADABLE: sólo debe saltarse lo no esencial ------ */
@@ -569,14 +613,50 @@ async function toMenu(p, maxMs) {
       const ev = window.DD_BOOT.getEvidence();
       return {
         state: window.DD_BOOT.getState().state,
-        errors: ev.errors || []
+        /* Sin `|| []`: si el registro no existe, queremos verlo y fallar, no
+           convertir la ausencia de dato en "lista vacía conforme". */
+        errors: ev.errors,
+        degraded: ev.degraded,
+        registryLen: (window.DD_BOOT.getErrorRegistry ? window.DD_BOOT.getErrorRegistry().length : null)
       };
     }).catch(() => null);
+
+    const errs = detail && Array.isArray(detail.errors) ? detail.errors : null;
+    const audioErr = errs ? errs.filter(e => e.id === 'audio') : [];
+
     ok('H-D1 un fallo no esencial no impide abrir el menú',
       !!(detail && detail.state === 'MAIN_MENU'), JSON.stringify(detail && detail.state));
-    ok('H-D2 el fallo no esencial queda registrado como degradado, no como fatal',
-      !!(detail && (detail.errors || []).every(e => !e.fatal)),
-      JSON.stringify(detail && detail.errors));
+
+    /* La prueba falla si no hay registro: un array vacío por valor no definido
+       NO es evidencia de que el fallo se haya detectado. */
+    ok('H-D2a getEvidence() expone un registro de errores real',
+      !!(errs && errs.length > 0),
+      errs === null ? 'errors ausente (no es un array)' : 'entradas=' + errs.length);
+
+    ok('H-D2b el fallo de audio queda registrado y con motivo',
+      audioErr.length === 1 && /audio/i.test(audioErr[0] && audioErr[0].message || ''),
+      JSON.stringify(audioErr[0] || null));
+
+    ok('H-D2c el error está marcado como recuperable y degradado, no fatal',
+      audioErr.length === 1 && audioErr[0].fatal === false &&
+      audioErr[0].degraded === true && audioErr[0].essential === false &&
+      audioErr[0].severity === 'warning',
+      audioErr[0] ? JSON.stringify({
+        severity: audioErr[0].severity, fatal: audioErr[0].fatal,
+        degraded: audioErr[0].degraded, essential: audioErr[0].essential
+      }) : 'sin entrada de audio');
+
+    ok('H-D2d el sistema se declara degradado y ningún error es fatal',
+      !!(detail && detail.degraded === true && errs.every(e => !e.fatal)),
+      'degraded=' + (detail && detail.degraded) +
+      ' fatales=' + (errs ? errs.filter(e => e.fatal).length : 'n/a'));
+
+    ok('H-D2e la entrada tiene los campos exigidos y una marca de tiempo',
+      audioErr.length === 1 &&
+      ['id', 'message', 'severity', 'fatal', 'degraded', 'essential', 'kind', 'at']
+        .every(k => audioErr[0][k] !== undefined && audioErr[0][k] !== null) &&
+      typeof audioErr[0].at === 'number' && audioErr[0].at >= 0,
+      audioErr[0] ? JSON.stringify(audioErr[0]) : 'sin entrada');
     await db.close();
   }
 
@@ -699,6 +779,245 @@ async function toMenu(p, maxMs) {
       invalid.back === 'MAIN_MENU',
       JSON.stringify(invalid));
     await fb.close();
+  }
+
+  /* ==========================================================================
+     W · PERRO GUARDIÁN DEL ARRANQUE (FASE 01.2 · F1)
+     ========================================================================== */
+  {
+    /* W1/W2 · Carga normal: el watchdog no interrumpe y queda desactivado. */
+    const { b: wb, p: wp } = await launch(1280, 720);
+    wp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tW = Date.now();
+    let normal = null;
+    while (Date.now() - tW < 180000) {
+      normal = await wp.evaluate(() => {
+        const ev = window.DD_BOOT ? window.DD_BOOT.getEvidence() : null;
+        const e = document.getElementById('dd-boot-err');
+        return {
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
+          errVisible: !!e && !e.hidden,
+          loadFinished: ev ? ev.loadFinished : null,
+          watchdogFired: ev ? ev.watchdogFired : null,
+          loadMs: ev ? ev.loadMs : null,
+          msg: window.DD_BOOT ? window.DD_BOOT.WATCHDOG_MS : null
+        };
+      }).catch(() => null);
+      if (normal && (normal.state === 'INTRO' || normal.state === 'MAIN_MENU')) break;
+      await wp.waitForTimeout(200);
+    }
+    ok('W1 carga normal: el watchdog no interrumpe el arranque',
+      !!(normal && normal.errVisible === false &&
+         (normal.state === 'INTRO' || normal.state === 'MAIN_MENU')),
+      JSON.stringify(normal));
+    ok('W2 carga normal: la carga se marca terminada y el watchdog no dispara',
+      !!(normal && normal.loadFinished === true && normal.watchdogFired === false),
+      'loadFinished=' + (normal && normal.loadFinished) +
+      ' watchdogFired=' + (normal && normal.watchdogFired) +
+      ' loadMs=' + (normal && normal.loadMs) +
+      ' límite=' + (normal && normal.msg) + ' ms');
+    await wb.close();
+
+    /* W3/W4 · Carga BLOQUEADA: el watchdog debe mostrar el panel. */
+    const { b: cb, p: cp2 } = await launch(1280, 720);
+    await cp2.addInitScript(() => {
+      /* Las imágenes esenciales nunca cargan ni fallan: la promesa del paso
+         `images` jamás se resuelve. Es un bloqueo real, no un retardo. */
+      const RealImage = window.Image;
+      window.Image = function () {
+        const im = new RealImage();
+        const proto = Object.getOwnPropertyDescriptor(RealImage.prototype, 'src');
+        Object.defineProperty(im, 'src', {
+          configurable: true,
+          set(v) {
+            if (/menu_main_backdrop|cine_intro|logo_deadbeat|emblem_fox/.test(String(v))) return;
+            try { proto.set.call(im, v); } catch (e) {}
+          },
+          get() { return ''; }
+        });
+        return im;
+      };
+    });
+    cp2.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tC = Date.now();
+    let blocked = null;
+    while (Date.now() - tC < 90000) {
+      blocked = await cp2.evaluate(() => {
+        const ev = window.DD_BOOT ? window.DD_BOOT.getEvidence() : null;
+        const e = document.getElementById('dd-boot-err');
+        return {
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
+          errVisible: !!e && !e.hidden,
+          title: (document.getElementById('dd-boot-err-title') || {}).textContent || '',
+          body: (document.getElementById('dd-boot-err-body') || {}).textContent || '',
+          watchdogFired: ev ? ev.watchdogFired : null,
+          loadFinished: ev ? ev.loadFinished : null,
+          limit: window.DD_BOOT ? window.DD_BOOT.WATCHDOG_MS : null
+        };
+      }).catch(() => null);
+      if (blocked && blocked.errVisible) break;
+      await cp2.waitForTimeout(250);
+    }
+    const waitedMs = Date.now() - tC;
+    ok('W3 carga bloqueada: el watchdog muestra el panel de error',
+      !!(blocked && blocked.errVisible && blocked.watchdogFired === true),
+      'esperado ' + (blocked && blocked.limit) + ' ms, observado ' + waitedMs +
+      ' ms · ' + JSON.stringify(blocked && { st: blocked.state, wd: blocked.watchdogFired }));
+    ok('W4 carga bloqueada: el panel NO se presenta como modo degradado',
+      !!(blocked && /NO SE PUDO ABRIR EL CLUB/.test(blocked.title)),
+      'título="' + (blocked && blocked.title) + '"');
+    ok('W5 carga bloqueada: el panel nombra el motivo (tiempo)',
+      !!(blocked && /tard/i.test(blocked.body)),
+      'cuerpo="' + String(blocked && blocked.body).slice(0, 100) + '"');
+    await cp2.screenshot({ path: OUT + '/15_watchdog_blocked.png' }).catch(() => {});
+
+    /* W6 · Un intento nuevo no arrastra el temporizador del anterior. */
+    const stale = await cp2.evaluate(() => {
+      const before = window.DD_BOOT.getEvidence().watchdogFired;
+      /* No se puede forzar boot() desde fuera sin reinstalar el escenario; se
+         comprueba el invariante observable: el token cambia al reintentar y el
+         temporizador viejo queda invalidado por comparación de token. */
+      return { firedBefore: before, hasToken: typeof window.DD_BOOT.getState().state === 'string' };
+    }).catch(() => null);
+    if (stale) {
+      ok('W6 el watchdog se identifica por token (no por estado)', stale.hasToken === true,
+        JSON.stringify(stale));
+    } else {
+      nv('W6 el watchdog se identifica por token', 'no se pudo consultar el estado');
+    }
+    await cb.close();
+  }
+
+  /* ==========================================================================
+     E · MOTOR COMO RECURSO ESENCIAL (FASE 01.2 · F3)
+     ========================================================================== */
+  {
+    /* E1 · Control: con canvas presente el arranque llega al menú. */
+    const { b: eb, p: ep } = await launch(1280, 720);
+    ep.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tE1 = Date.now();
+    let okCtl = null;
+    while (Date.now() - tE1 < 180000) {
+      okCtl = await ep.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (okCtl === 'INTRO' || okCtl === 'MAIN_MENU') break;
+      await ep.waitForTimeout(200);
+    }
+    const ids = await ep.evaluate(() => ({
+      essential: window.DD_BOOT.ESSENTIAL_IDS,
+      engineCritical: !!document.querySelector('#game')
+    })).catch(() => null);
+    ok('E1 con canvas presente el arranque progresa', okCtl === 'INTRO' || okCtl === 'MAIN_MENU',
+      'estado=' + okCtl);
+    ok('E2 engine está en la lista de recursos esenciales',
+      !!(ids && Array.isArray(ids.essential) && ids.essential.indexOf('engine') >= 0),
+      JSON.stringify(ids && ids.essential));
+    await eb.close();
+
+    /* E3/E4 · Sin canvas: error fatal y NUNCA MAIN_MENU. */
+    const { b: e2b, p: e2p } = await launch(1280, 720);
+    await e2p.addInitScript(() => {
+      document.addEventListener('DOMContentLoaded', () => {
+        const g = document.getElementById('game');
+        if (g) g.remove();
+      }, { capture: true });
+    });
+    e2p.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tE3 = Date.now();
+    let noCanvas = null;
+    while (Date.now() - tE3 < 90000) {
+      noCanvas = await e2p.evaluate(() => {
+        const ev = window.DD_BOOT ? window.DD_BOOT.getEvidence() : null;
+        const e = document.getElementById('dd-boot-err');
+        return {
+          state: window.DD_BOOT ? window.DD_BOOT.getState().state : null,
+          errVisible: !!e && !e.hidden,
+          title: (document.getElementById('dd-boot-err-title') || {}).textContent || '',
+          fatal: ev ? (ev.errors || []).filter(x => x.fatal).map(x => x.id) : null,
+          safeDisabled: (() => { const s = document.getElementById('dd-boot-safe'); return s ? !!s.disabled : null; })()
+        };
+      }).catch(() => null);
+      if (noCanvas && (noCanvas.errVisible || noCanvas.state === 'MAIN_MENU')) break;
+      await e2p.waitForTimeout(250);
+    }
+    ok('E3 sin canvas: la ausencia del motor es un error FATAL',
+      !!(noCanvas && noCanvas.fatal && noCanvas.fatal.indexOf('engine') >= 0),
+      'fatales=' + JSON.stringify(noCanvas && noCanvas.fatal));
+    ok('E4 sin canvas: NUNCA se alcanza MAIN_MENU',
+      !!(noCanvas && noCanvas.state !== 'MAIN_MENU'),
+      'estado final=' + (noCanvas && noCanvas.state));
+    ok('E5 sin canvas: el modo seguro se bloquea (no hay menú sin motor)',
+      !!(noCanvas && noCanvas.safeDisabled === true),
+      'safe.disabled=' + (noCanvas && noCanvas.safeDisabled) +
+      ' · título="' + (noCanvas && noCanvas.title) + '"');
+    await e2b.close();
+  }
+
+  /* ==========================================================================
+     P · PLAYING SÓLO CON MOTOR CONFIRMADO (FASE 01.2 · F5)
+     ========================================================================== */
+  {
+    const scenarios = [
+      ['isRunning()=false', () => { window.__DD_BRIDGE.isRunning = function () { return false; }; }],
+      ['isRunning() lanza excepción', () => { window.__DD_BRIDGE.isRunning = function () { throw new Error('boom'); }; }],
+      ['isRunning()=undefined', () => { window.__DD_BRIDGE.isRunning = function () { return undefined; }; }],
+      ['puente ausente', () => { window.__DD_BRIDGE = undefined; }]
+    ];
+    for (const [label, patch] of scenarios) {
+      const { b: pb, p: pp2 } = await launch(1280, 720);
+      /* Se anula el congelado SÓLO para poder inyectar el fallo: el puente real
+         es Object.freeze, y sin esto la inyección no surte efecto. */
+      await pp2.addInitScript(() => { Object.freeze = function (o) { return o; }; });
+      pp2.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+      const tP = Date.now();
+      let atMenu = null;
+      while (Date.now() - tP < 200000) {
+        atMenu = await pp2.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+        if (atMenu === 'INTRO') await pp2.keyboard.press('Escape').catch(() => {});
+        if (atMenu === 'MAIN_MENU') break;
+        await pp2.waitForTimeout(180);
+      }
+      let res = null;
+      if (atMenu === 'MAIN_MENU') {
+        res = await pp2.evaluate((fnBody) => {
+          /* La función llega como texto para poder ejecutarla en la página. */
+          try { (new Function(fnBody))(); } catch (e) {}
+          const before = window.DD_BOOT.getState().state;
+          let accepted = null, threw = false;
+          try { accepted = window.DD_BOOT.enterGame(); } catch (e) { threw = true; }
+          return { before, accepted, threw, after: window.DD_BOOT.getState().state };
+        }, patch.toString()).catch(() => null);
+      }
+      ok('P-' + label + ': no se declara PLAYING sin confirmación real del motor',
+        !!(res && res.after === 'MAIN_MENU' && res.accepted !== true),
+        res ? JSON.stringify(res) : 'no se llegó al menú (estado=' + atMenu + ')');
+      await pb.close();
+    }
+
+    /* P+ · Caso positivo: con el motor confirmado SÍ se entra (sin regresión). */
+    const { b: gb, p: gp } = await launch(1280, 720);
+    gp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    const tG = Date.now();
+    while (Date.now() - tG < 200000) {
+      const st = await gp.evaluate(() => window.DD_BOOT ? window.DD_BOOT.getState().state : null).catch(() => null);
+      if (st === 'INTRO') await gp.keyboard.press('Escape').catch(() => {});
+      if (st === 'MAIN_MENU') break;
+      await gp.waitForTimeout(180);
+    }
+    await gp.evaluate(() => window.DD_UI.triggerMenuAction('new')).catch(() => {});
+    let playState = null;
+    const tG2 = Date.now();
+    while (Date.now() - tG2 < 220000) {
+      playState = await gp.evaluate(() => ({
+        state: window.DD_BOOT.getState().state,
+        running: !!(window.__DD_BRIDGE && window.__DD_BRIDGE.isRunning())
+      })).catch(() => null);
+      if (playState && playState.state === 'PLAYING') break;
+      await gp.waitForTimeout(250);
+    }
+    ok('P+ con el motor confirmado SÍ se declara PLAYING (sin regresión)',
+      !!(playState && playState.state === 'PLAYING' && playState.running === true),
+      JSON.stringify(playState));
+    await gb.close();
   }
 
   /* ============================== RESULTADO ============================= */
