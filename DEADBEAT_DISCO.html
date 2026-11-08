@@ -2062,7 +2062,15 @@ body.dd-menu-owning #menu-card * {
   </style>
 </head>
 <body class="booting">
-<section id="dd-boot-frame" aria-hidden="true">
+<!-- FASE 01.4 · ACCESIBILIDAD: el armazón NO puede nacer con aria-hidden="true".
+     Con ese atributo, Chromium expone igualmente el subárbol en cuanto
+     dd_boot.js lleva el foco a REINTENTAR (medido: el nodo enfocado dentro de
+     un aria-hidden no se marca ignored). El resultado era una contradicción:
+     un <dialog aria-modal> oculto al árbol pero con el foco dentro. La
+     semántica correcta la fija dd_boot.js por ESTADO: role="progressbar" +
+     aria-busy mientras carga, role="alertdialog" cuando hay un error, y
+     aria-hidden="true" sólo cuando el armazón deja de ser relevante. -->
+<section id="dd-boot-frame" role="progressbar" aria-label="Cargando DEADBEAT DISCO" aria-busy="true">
   <div class="dd-boot-bg"></div>
   <div class="dd-boot-beams" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="dd-boot-grain" aria-hidden="true"></div>
@@ -7963,9 +7971,27 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         '</div>';
       document.body.insertBefore(root, document.body.firstChild);
     }
-    root.setAttribute("role", "dialog");
-    root.setAttribute("aria-modal", "true");
+    /* FASE 01.4 · ACCESIBILIDAD DEL ARMAZÓN (causa raíz corregida).
+       Antes el armazón nacía con aria-hidden="true" y aquí se le añadía
+       role="dialog" + aria-modal="true". Esa combinación es contradictoria: un
+       diálogo modal oculto al árbol de accesibilidad no existe para un lector de
+       pantalla, pero el foco SÍ se movía dentro (a REINTENTAR) y Chromium expone
+       el nodo enfocado aunque esté en un subárbol aria-hidden (verificado: con
+       el foco fuera, el mismo subárbol desaparece del árbol AX). Resultado: el
+       panel de error quedaba accesible por accidente y de forma frágil, y la
+       pantalla de carga no tenía semántica propia.
+       Ahora la semántica se fija por ESTADO y de forma coherente:
+         · cargando  -> role="progressbar" + aria-busy="true"   (region viva)
+         · error     -> role="alertdialog" + aria-modal="true"  (hay que actuar)
+         · retirado  -> aria-hidden="true" antes de salir del DOM
+       El armazón visible NUNCA lleva aria-hidden: mientras se ve, su contenido
+       (progreso, errores, botones) debe estar disponible para tecnologías de
+       asistencia. */
+    root.setAttribute("role", "progressbar");
     root.setAttribute("aria-label", "Cargando DEADBEAT DISCO");
+    root.setAttribute("aria-busy", "true");
+    root.removeAttribute("aria-hidden");
+    root.removeAttribute("aria-modal");
     el.root = root;
     el.stage = q("dd-boot-stage");
     el.pct = q("dd-boot-pct");
@@ -8394,6 +8420,25 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         if (el.err.getAttribute("aria-live") === null) el.err.setAttribute("aria-live", "assertive");
         if (!el.err.hasAttribute("tabindex")) el.err.setAttribute("tabindex", "-1");
+        /* FASE 01.4 · el panel pasa a mandar: el armazón se declara alertdialog
+           modal. NO se le quita aquí aria-hidden "por si acaso": hacerlo taparía
+           la causa raíz. Si el armazón naciera oculto, esta limpieza dejaría el
+           panel accesible sin haber corregido nada y la prueba R10 pasaría con
+           el defecto presente (comprobado durante el desarrollo). El armazón no
+           debe estar oculto nunca mientras se ve: eso se garantiza al adoptarlo
+           (buildBootUI), no aquí. */
+        if (el.root) {
+          el.root.setAttribute("role", "alertdialog");
+          el.root.setAttribute("aria-modal", "true");
+          el.root.setAttribute("aria-label", "Error al abrir DEADBEAT DISCO");
+          el.root.setAttribute("aria-busy", "false");
+        }
+        /* AQUÍ NO se limpian atributos "por si acaso" de los ancestros. Hacerlo
+           taparía la causa raíz: si el armazón volviera a nacer oculto, esta
+           limpieza haría que el panel apareciera accesible sin haber corregido
+           nada, y la prueba R10 pasaría con el defecto presente (comprobado).
+           La coherencia se garantiza en el origen: el armazón nunca nace
+           oculto y sólo se oculta cuando se retira. */
       } catch (e) {}
 
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
@@ -8534,6 +8579,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     state.finalPct = (el.pct && el.pct.textContent) || "";
     state.doneCount = document.querySelectorAll(".dd-boot-step.is-ok").length;
     state.stepsDone = document.querySelectorAll(".dd-boot-step.is-ok").length;
+    /* FASE 01.4 · Estado RETIRADO. El armazón deja de ser relevante en cuanto
+       arranca la intro o el menú, así que se oculta a tecnologías de asistencia
+       ANTES de salir del DOM (la transición visual dura hasta 620 ms) y se
+       devuelve el foco al documento si estaba dentro, para no dejar el foco
+       atrapado en un subárbol que ya no debe anunciarse. */
+    try {
+      el.root.setAttribute("aria-hidden", "true");
+      el.root.removeAttribute("aria-modal");
+      el.root.setAttribute("aria-busy", "false");
+      var dentro = document.activeElement;
+      if (dentro && el.root.contains(dentro)) {
+        if (dentro.blur) dentro.blur();
+        if (document.body && document.body.focus) {
+          try { document.body.setAttribute("tabindex", "-1"); } catch (e2) {}
+          try { document.body.focus({ preventScroll: true }); } catch (e2) {}
+        }
+      }
+    } catch (e) {}
     el.root.classList.add("is-out");
     state.rootHiddenAt = Date.now();
     setTimeout(function () {

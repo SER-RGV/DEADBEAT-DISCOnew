@@ -641,7 +641,15 @@ html = html.replace(bridge_anchor, bridge_js, 1)
 #     immediately after <body>; src/dd_boot.js adopts these nodes at run time (it
 #     never creates a second copy) and fills in the real progress readouts.
 BOOT_SHELL = """
-<section id="dd-boot-frame" aria-hidden="true">
+<!-- FASE 01.4 · ACCESIBILIDAD: el armazón NO puede nacer con aria-hidden="true".
+     Con ese atributo, Chromium expone igualmente el subárbol en cuanto
+     dd_boot.js lleva el foco a REINTENTAR (medido: el nodo enfocado dentro de
+     un aria-hidden no se marca ignored). El resultado era una contradicción:
+     un <dialog aria-modal> oculto al árbol pero con el foco dentro. La
+     semántica correcta la fija dd_boot.js por ESTADO: role="progressbar" +
+     aria-busy mientras carga, role="alertdialog" cuando hay un error, y
+     aria-hidden="true" sólo cuando el armazón deja de ser relevante. -->
+<section id="dd-boot-frame" role="progressbar" aria-label="Cargando DEADBEAT DISCO" aria-busy="true">
   <div class="dd-boot-bg"></div>
   <div class="dd-boot-beams" aria-hidden="true"><i></i><i></i><i></i></div>
   <div class="dd-boot-grain" aria-hidden="true"></div>

@@ -1880,6 +1880,280 @@ async function toMenu(p, maxMs) {
     await qb.close();
   }
 
+  /* ==========================================================================
+     R · FASE 01.4 · ÁRBOL DE ACCESIBILIDAD REAL DEL ARRANQUE (CDP)
+     ==========================================================================
+     Motivo: el armazón nacía con aria-hidden="true" en el markup estático y
+     dd_boot.js le añadía role="dialog" + aria-modal="true", pero seguía marcado
+     como oculto. Como el panel de error se lleva el foco dentro, Chromium
+     EXPONÍA el subárbol igualmente: el panel era accesible por accidente y por
+     un motivo equivocado. Estas pruebas no inspeccionan el código fuente ni se
+     fían de los atributos: leen el árbol de accesibilidad que Chromium construye
+     de verdad (Accessibility.getFullAXTree por CDP). Sin CDP, NV honesto. */
+
+  async function axDe(pagina) {
+    /* Devuelve un lector del árbol de accesibilidad real, o null si el entorno
+       no ofrece CDP. */
+    try {
+      const cdp = await pagina.context().newCDPSession(pagina);
+      await cdp.send('Accessibility.enable');
+      return async function consulta(texto) {
+        const { nodes } = await cdp.send('Accessibility.getFullAXTree');
+        const nombre = n => (n.name && n.name.value) || '';
+        return {
+          visibles: nodes.filter(n => nombre(n).includes(texto) && !n.ignored).length,
+          existen: nodes.filter(n => nombre(n).includes(texto)).length
+        };
+      };
+    } catch (e) {
+      return null;
+    }
+  }
+
+  {
+    const { b: rb, p: rp } = await launch(1280, 720);
+
+    /* ---------- R1 · Estado CARGANDO: el armazón no se oculta a sí mismo ---- */
+    rp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    await rp.waitForTimeout(1400);
+    const cargando = await rp.evaluate(() => {
+      const f = document.getElementById('dd-boot-frame');
+      if (!f) return { presente: false };
+      return {
+        presente: true,
+        role: f.getAttribute('role'),
+        ariaHidden: f.getAttribute('aria-hidden'),
+        ariaBusy: f.getAttribute('aria-busy'),
+        ariaModal: f.getAttribute('aria-modal'),
+        label: f.getAttribute('aria-label')
+      };
+    });
+    ok('R1 cargando: el armazón tiene semántica propia y NO está oculto al árbol',
+      !!(cargando && cargando.presente && cargando.ariaHidden === null &&
+         cargando.role === 'progressbar' && cargando.ariaBusy === 'true' &&
+         !!cargando.label),
+      JSON.stringify(cargando),
+      'role=progressbar, aria-busy=true, aria-label presente y SIN aria-hidden');
+
+    /* El estado de carga debe ser perceptible para un lector de pantalla. */
+    const axR = await axDe(rp);
+    if (!axR) {
+      nv('R2 cargando: el árbol de accesibilidad expone la pantalla de carga',
+        'CDP Accessibility no disponible en este entorno',
+        'se requiere Accessibility.getFullAXTree', 'la etiqueta "Cargando DEADBEAT DISCO" en el árbol');
+    } else {
+      const a = await axR('Cargando DEADBEAT DISCO');
+      ok('R2 cargando: el árbol de accesibilidad expone la pantalla de carga',
+        a.visibles > 0, JSON.stringify(a), 'al menos un nodo visible con la etiqueta del armazón');
+    }
+    await rb.close();
+  }
+
+  /* ---------- R3–R8 · Estado ERROR: panel y controles accesibles de verdad -- */
+  {
+    const { b: eb, p: ep } = await launch(1280, 720);
+    /* Fallo FATAL real: el lienzo desaparece antes de que corra el arranque, así
+       que el paso esencial `engine` falla de verdad (no se simula el panel). */
+    await ep.addInitScript(() => {
+      document.addEventListener('DOMContentLoaded', function () {
+        const g = document.getElementById('game');
+        if (g) g.remove();
+      }, { once: true });
+    });
+    ep.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    let panel = false;
+    for (let i = 0; i < 90; i++) {
+      panel = await ep.evaluate(() => {
+        const e = document.getElementById('dd-boot-err');
+        return !!(e && !e.hidden);
+      }).catch(() => false);
+      if (panel) break;
+      await ep.waitForTimeout(400);
+    }
+    ok('R3 error fatal real: el panel aparece', panel === true,
+      'panel visible=' + panel, 'panel de error visible tras un fallo fatal de verdad');
+
+    /* Cadena de ancestros: ni el panel ni REINTENTAR pueden tener un antecesor
+       con aria-hidden="true". */
+    const cadena = await ep.evaluate(() => {
+      const cad = (n) => { const o = []; let c = n ? n.parentElement : null; while (c && c !== document.documentElement) { o.push({ id: c.id || c.tagName, ah: c.getAttribute('aria-hidden') }); c = c.parentElement; } return o; };
+      const err = document.getElementById('dd-boot-err');
+      const retry = document.getElementById('dd-boot-retry');
+      const frame = document.getElementById('dd-boot-frame');
+      return {
+        panel: cad(err), retry: cad(retry),
+        frameRole: frame && frame.getAttribute('role'),
+        frameModal: frame && frame.getAttribute('aria-modal'),
+        frameAH: frame && frame.getAttribute('aria-hidden'),
+        errLabelled: err && err.getAttribute('aria-labelledby'),
+        errDescribed: err && err.getAttribute('aria-describedby'),
+        tituloExiste: !!(document.getElementById('dd-boot-err-title') || {}).textContent,
+        cuerpoExiste: ((document.getElementById('dd-boot-err-body') || {}).textContent || '').length > 0
+      };
+    });
+    const ocultosPanel = (cadena.panel || []).filter(c => c.ah === 'true');
+    const ocultosRetry = (cadena.retry || []).filter(c => c.ah === 'true');
+    ok('R4 error: ningún antecesor del panel tiene aria-hidden="true"',
+      ocultosPanel.length === 0 && (cadena.panel || []).length > 0,
+      JSON.stringify(ocultosPanel) + ' (cadena de ' + (cadena.panel || []).length + ')',
+      'ningún ancestro del panel oculto a tecnologías de asistencia');
+    ok('R5 error: ningún antecesor de REINTENTAR tiene aria-hidden="true"',
+      ocultosRetry.length === 0 && (cadena.retry || []).length > 0,
+      JSON.stringify(ocultosRetry) + ' (cadena de ' + (cadena.retry || []).length + ')',
+      'ningún ancestro del botón oculto a tecnologías de asistencia');
+
+    /* Contradicción aria-hidden / aria-modal / role / foco: con el panel activo
+       el armazón debe presentarse como diálogo modal y NO como oculto. */
+    ok('R6 error: el armazón no se contradice (alertdialog modal, sin aria-hidden)',
+      !!(cadena.frameRole === 'alertdialog' && cadena.frameModal === 'true' &&
+         cadena.frameAH === null && cadena.errLabelled === 'dd-boot-err-title' &&
+         cadena.errDescribed === 'dd-boot-err-body' && cadena.tituloExiste && cadena.cuerpoExiste),
+      JSON.stringify({ role: cadena.frameRole, modal: cadena.frameModal, ah: cadena.frameAH,
+        labelled: cadena.errLabelled, described: cadena.errDescribed,
+        titulo: !!cadena.tituloExiste, cuerpo: !!cadena.cuerpoExiste }),
+      'role=alertdialog + aria-modal, sin aria-hidden, título y cuerpo asociados y con texto');
+
+    /* La prueba decisiva: el árbol REAL de Chromium. */
+    const axE = await axDe(ep);
+    if (!axE) {
+      nv('R7 error: el árbol real expone REINTENTAR y el título',
+        'CDP Accessibility no disponible en este entorno',
+        'se requiere Accessibility.getFullAXTree', 'REINTENTAR y el título en el árbol');
+    } else {
+      const retryAX = await axE('REINTENTAR');
+      const tituloAX = await axE('NO SE PUDO ABRIR EL CLUB');
+      ok('R7 error: el árbol real de Chromium expone REINTENTAR y el título',
+        retryAX.visibles > 0 && tituloAX.visibles > 0,
+        JSON.stringify({ reintentar: retryAX, titulo: tituloAX }),
+        'ambos visibles en el árbol de accesibilidad');
+
+    /* Foco y disponibilidad del control de recuperación. */
+    const recuperacion = await ep.evaluate(() => {
+      const r = document.getElementById('dd-boot-retry');
+      const e = document.getElementById('dd-boot-err');
+      const activo = document.activeElement;
+      return {
+        foco: activo && activo.id,
+        dentroDelPanel: !!(e && activo && e.contains(activo)),
+        visible: !!(r && (r.offsetWidth || r.offsetHeight)),
+        habilitado: !!(r && !r.disabled),
+        enfocable: !!(r && r.tabIndex >= 0),
+        tabulables: Array.from((e || document).querySelectorAll('button')).filter(x => x.tabIndex >= 0 && !x.disabled).length
+      };
+    });
+    ok('R9 error: el foco llega a un control útil y REINTENTAR es usable',
+      !!(recuperacion.foco === 'dd-boot-retry' && recuperacion.dentroDelPanel &&
+         recuperacion.visible && recuperacion.habilitado && recuperacion.enfocable &&
+         recuperacion.tabulables >= 1),
+      JSON.stringify(recuperacion),
+      'foco en dd-boot-retry, visible, habilitado, enfocable y en el orden de tabulación');
+
+      /* R8 · CONTROL NEGATIVO del defecto original. Se mueve el foco FUERA del
+         armazón. Antes del arreglo, el panel sólo era accesible porque el foco
+         estaba dentro de un subárbol aria-hidden; al sacarlo, REINTENTAR
+         desaparecía del árbol (medido: 3 -> 0) y quedaba demostrado que la
+         accesibilidad era accidental. Ahora el armazón no está oculto, así que
+         REINTENTAR debe seguir en el árbol con el foco fuera. Si alguien
+         reintroduce aria-hidden="true" en el armazón, ESTA prueba falla. */
+      await ep.evaluate(() => {
+        const bt = document.createElement('button');
+        bt.id = 'dd-sonda-foco-fuera';
+        bt.textContent = 'SONDA';
+        document.body.appendChild(bt);
+        bt.focus();
+      });
+      await ep.waitForTimeout(250);
+      const fuera = await axE('REINTENTAR');
+      ok('R8 error: REINTENTAR sigue en el árbol con el foco FUERA (no es accesible por accidente)',
+        fuera.visibles > 0,
+        JSON.stringify({ conFocoFuera: fuera.visibles }),
+        'REINTENTAR presente en el árbol sin depender de dónde esté el foco');
+    }
+
+
+    /* No puede haber controles enfocables dentro de una región oculta. */
+    /* El alcance es el ARMAZÓN DE ARRANQUE: es lo que esta fase gobierna. Los
+       controles del HUD (pausa, armas, opciones) viven en contenedores del juego
+       que no forman parte del arranque y no se tocan aquí; incluirlos mezclaría
+       un defecto del juego con el defecto auditado. */
+    const focosOcultos = await ep.evaluate(() => {
+      const ocultoPorAria = (n) => {
+        let c = n.parentElement;
+        while (c) { if (c.getAttribute && c.getAttribute('aria-hidden') === 'true') return true; c = c.parentElement; }
+        return false;
+      };
+      const marco = document.getElementById('dd-boot-frame');
+      if (!marco) return { total: 0, malos: [], nota: 'armazón ausente' };
+      const focables = Array.from(marco.querySelectorAll('button, a[href], input, select, textarea, [tabindex]'))
+        .filter(n => n.tabIndex >= 0 && !n.disabled);
+      const malos = focables.filter(ocultoPorAria).map(n => n.id || n.textContent.trim().slice(0, 20));
+      return { total: focables.length, malos };
+    });
+    ok('R10 error: ningún control enfocable del armazón está dentro de una región aria-hidden',
+      focosOcultos.total > 0 && focosOcultos.malos.length === 0,
+      JSON.stringify(focosOcultos),
+      'todos los controles enfocables del armazón visibles para tecnologías de asistencia');
+
+    await shot(ep, '19_error_panel_a11y.png');
+    await eb.close();
+  }
+
+  /* ---------- R11–R13 · RECUPERACIÓN y estado RETIRADO -------------------- */
+  {
+    const { b: sb, p: sp } = await launch(1280, 720);
+    sp.goto(URL, { waitUntil: 'commit' }).catch(() => {});
+    /* Llegar al menú saltando la intro. */
+    let estado = null, enMenu = false;
+    for (let i = 0; i < 300; i++) {
+      estado = await sp.evaluate(() => (window.DD_BOOT ? window.DD_BOOT.getState().state : null)).catch(() => null);
+      if (estado === 'INTRO') await sp.keyboard.press('Escape').catch(() => {});
+      if (estado === 'MAIN_MENU') { enMenu = true; break; }
+      await sp.waitForTimeout(300);
+    }
+    await sp.waitForTimeout(1200);
+    const retirado = await sp.evaluate(() => {
+      const f = document.getElementById('dd-boot-frame');
+      const menu = document.getElementById('dd-main-menu');
+      const cuentaOcultos = (n) => { let c = n && n.parentElement, k = 0; while (c && c !== document.documentElement) { if (c.getAttribute('aria-hidden') === 'true') k++; c = c.parentElement; } return k; };
+      return {
+        estado: window.DD_BOOT.getState().state,
+        frameEnDOM: !!f,
+        menuPresente: !!menu,
+        ancestrosOcultosMenu: menu ? cuentaOcultos(menu) : null,
+        menuOculto: menu ? menu.classList.contains('dd-hidden') : null,
+        foco: document.activeElement && (document.activeElement.id || document.activeElement.tagName),
+        panelesDuplicados: document.querySelectorAll('#dd-boot-err').length,
+        framesDuplicados: document.querySelectorAll('#dd-boot-frame').length
+      };
+    });
+    ok('R11 retirado: al entrar al menú no queda ninguna región mal oculta ni expuesta',
+      !!(enMenu && retirado.estado === 'MAIN_MENU' && retirado.frameEnDOM === false &&
+         retirado.menuPresente && retirado.ancestrosOcultosMenu === 0 && retirado.menuOculto === false),
+      JSON.stringify(retirado),
+      'armazón fuera del DOM, menú visible y sin ancestros aria-hidden');
+
+    /* Sin paneles ni armazones duplicados: el armazón se ADOPTA, no se copia. */
+    ok('R12 no se duplica el panel ni el armazón',
+      retirado.panelesDuplicados <= 1 && retirado.framesDuplicados <= 1,
+      JSON.stringify({ paneles: retirado.panelesDuplicados, frames: retirado.framesDuplicados }),
+      'como máximo una copia de cada uno');
+
+    /* El menú debe seguir siendo utilizable por teclado tras retirar el armazón. */
+    const menuUsable = await sp.evaluate(() => {
+      const items = Array.from(document.querySelectorAll('#dd-menu-nav .dd-menu-item, #dd-menu-nav button'));
+      return {
+        n: items.length,
+        tabulables: items.filter(x => x.tabIndex >= 0 && !x.disabled).length,
+        focoEnMenu: !!(document.getElementById('dd-main-menu') || {}).contains(document.activeElement)
+      };
+    });
+    ok('R13 el menú sigue siendo utilizable por teclado tras retirar el armazón',
+      !!(menuUsable.n > 0 && menuUsable.tabulables > 0),
+      JSON.stringify(menuUsable), 'al menos un control del menú enfocable');
+
+    await sb.close();
+  }
+
   /* ============================== RESULTADO ============================= */
   fs.writeFileSync(OUT + '/results.json', JSON.stringify(res, null, 1));
   const fails = res.filter(r => r.status === 'FAIL');
