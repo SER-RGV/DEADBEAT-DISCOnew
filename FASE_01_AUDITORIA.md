@@ -215,3 +215,23 @@ Auditoría de los resultados dados por buenos en Fase 01. **No se borra nada de 
 - **Audio audible**: se mide el estado del motor, no la salida por altavoz.
 
 Ejecución vigente: **64 PASS · 0 FAIL · 0 SKIP · 0 NV**. Registro completo en `docs/FASE_01_EVIDENCE/results_11.json`.
+
+---
+
+## REVISIÓN DE CIERRE — FASE 01.2 (2026-11-07)
+
+Revisión independiente del patch de Fase 01.1. Los cinco hallazgos se confirmaron en el código y se corrigieron con evidencia medida.
+
+| ID | Hallazgo | Veredicto | Evidencia |
+|---|---|---|---|
+| F1 | El watchdog se armaba en `LOADING` pero sólo comprobaba `BOOT` | **CORREGIDO** | Carga bloqueada → panel a los 23.806 ms, `watchdogFired=true` (W3) |
+| F2 | `getEvidence()` no exponía `errors`; `[].every(...)` daba PASS | **CORREGIDO** | Registro real con la entrada de audio: `severity=warning, fatal=false, degraded=true, at=2354` (H-D2a…e) |
+| F3 | `engine` estaba en `ESSENTIAL_IDS` sin `critical:true` | **CORREGIDO** | Sin canvas: fatales `["engine"]`, nunca `MAIN_MENU`, modo seguro bloqueado (E3–E5) |
+| F4 | La prueba de REINTENTAR sustituía el handler de producción | **CORREGIDO** | Navegación real `navigate → reload`, handler intacto, recuperación hasta `INTRO` (H-B1/H-B2) |
+| F5 | `else engineUp = true` aceptaba el estado `PLAYING` sin confirmación | **CORREGIDO** | Cuatro escenarios negativos: `enterGame()=false`, estado final `MAIN_MENU`; positivo: `PLAYING` con `running=true` (P) |
+
+**Falso PASS eliminado:** `H-D2` se retira como identificador porque nunca comprobó nada; su cobertura se reemplaza por `H-D2a`…`H-D2e`.
+
+**Sigue sin poder afirmarse en este entorno:** mando físico, rendimiento con GPU y salida de audio audible.
+
+Ejecución vigente: **84 PASS · 0 FAIL · 0 SKIP · 0 NV**. Registro en `docs/FASE_01_EVIDENCE/results_12.json`.

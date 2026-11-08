@@ -159,7 +159,9 @@ Suite reproducible: **`tools/fase01_qa/`** (`run.sh` prepara Chromium y sirve el
 == 41/41 PASS ==   (ejecución original de Fase 01)
 ```
 
-> **Actualización de Fase 01.1:** estas 41 se conservan, pero dos de ellas (C8 y D3) medían mal y se reescribieron, y se añadieron 23 más. La ejecución vigente es **64 PASS · 0 FAIL · 0 SKIP · 0 NV**. El detalle está en §**Fase 01.1-E**.
+> **Actualización de Fase 01.1:** estas 41 se conservan, pero dos de ellas (C8 y D3) medían mal y se reescribieron, y se añadieron 23 más. Ejecución de esa fase: **64 PASS · 0 FAIL · 0 SKIP · 0 NV**. El detalle está en §**Fase 01.1-E**.
+>
+> **Actualización de Fase 01.2:** cinco defectos más, de los cuales uno era un falso PASS (`H-D2`, sustituido por `H-D2a`…`H-D2e`). Ejecución vigente: **84 PASS · 0 FAIL · 0 SKIP · 0 NV**. El detalle está en §**Fase 01.2**.
 
 | Bloque | Pruebas | Resultado |
 |---|---|---|
@@ -478,3 +480,99 @@ Desde un clon limpio **no hace falta preparar nada a mano**: `run.sh` instala el
 | `docs/FASE_01_EVIDENCE/` | `13_error_panel`, `14_a11y_reduced_motion`, `res_*` (4 resoluciones) y `results_11.json` |
 
 Sin cambios en: assets aprobados, identidad visual, HUB, salas, combate, generación procedural, cámara, progresión ni motor.
+
+---
+
+# FASE 01.2 — CORRECCIÓN DE INTEGRIDAD DEL ARRANQUE, RECUPERACIÓN Y QA
+
+> Esta sección **se añade**. No sustituye ni borra nada de las fases anteriores: sus resultados, decisiones y limitaciones siguen vigentes. Aquí se documenta la revisión independiente del patch de Fase 01.1, los cinco defectos que encontró, cómo se corrigieron y qué se midió.
+
+## 01.2-A. DIAGNÓSTICO
+
+Los cinco hallazgos se **confirmaron contra el código actual**, ninguno estaba ya corregido:
+
+| ID | Defecto | Confirmación en el código |
+|---|---|---|
+| **F1** | El perro guardián no vigilaba | Se armaba tras `setState("LOADING")` pero su condición era `if (state.current === "BOOT")`. Estando en `LOADING`, nunca disparaba |
+| **F2** | `getEvidence()` no exponía `errors` | Devolvía sólo `finalPct`, `stepsDone`, `at`, `loadMs`. H-D2 leía `ev.errors \|\| []` → `[]` → `[].every(...)` → **`true`**: PASS sin comprobar nada |
+| **F3** | `engine` no era crítico | Estaba en `ESSENTIAL_IDS` pero **no** tenía `critical: true`, y la fatalidad se decidía con `step.critical`. Un canvas ausente no era fatal |
+| **F4** | La prueba de REINTENTAR no probaba producción | Sustituía `r.onclick` por una función de la propia prueba y comprobaba esa función |
+| **F5** | `PLAYING` optimista | `else engineUp = true`: sin puente o sin poder consultar `isRunning()`, se daba el motor por activo |
+
+## 01.2-B. CAMBIOS
+
+| Fichero | Motivo exacto |
+|---|---|
+| `src/dd_boot.js` | **F1**: watchdog con token de intento, vigilando `LOADING`/`BOOT`, cancelado al terminar la carga. **F2**: `recordError()` como registro centralizado (id, mensaje, `severity`, `fatal`, `degraded`, `essential`, `kind`, `at`) expuesto por `getEvidence().errors` y `getErrorRegistry()`; el paso `audio` registra su degradación con motivo. **F3**: `engine` declara `critical: true` y `runSteps()` clasifica la gravedad con una sola fuente (`ESSENTIAL_IDS`). **F5**: se elimina `else engineUp = true`; sólo evidencia positiva. Además, el título del panel distingue bloqueo de degradación |
+| `tools/fase01_qa/suite.js` | **F2**: H-D2 se parte en H-D2a…H-D2e y deja de usar `\|\| []`. **F4**: H-B1/H-B2 usan el botón real y observan la navegación. Nuevos bloques **W**, **E**, **P**. Helper `shot()` para que ninguna captura pueda tumbar la suite |
+| `index.html`, `DEADBEAT_DISCO.html` | Build regenerado (idénticos entre sí) |
+| `docs/FASE_01_EVIDENCE/` | `results_12.json`, `15_watchdog_blocked.webp` |
+
+**Sin cambios** en HUB, combate, enemigos, jefes, Director, generación procedural, progresión, cámara, assets ni identidad visual.
+
+## 01.2-C. RESULTADOS
+
+```
+== 84 PASS · 0 FAIL · 0 SKIP · 0 NV · 84 TOTAL ==
+```
+
+**Las 84 se ejecutaron de verdad en este entorno.** Las 64 de Fase 01.1 se conservan con sus identificadores, salvo una excepción deliberada y documentada:
+
+> **`H-D2` desaparece como identificador** porque era precisamente el falso PASS. Su contenido se reemplaza por **`H-D2a`…`H-D2e`**, que sí comprueban el registro real. No se ha eliminado cobertura: se ha sustituido una prueba vacía por cinco con condición observada. Un ID que medía mal no debe conservarse para poder decir "64 intactas".
+
+| Grupo | Pruebas | Qué mide |
+|---|---|---|
+| **W · watchdog** | W1–W6 | Carga normal sin interrupción; `loadFinished`/`watchdogFired` coherentes; **carga bloqueada real** que dispara el panel; título honesto; motivo con el límite |
+| **D · registro de errores** | H-D2a–e | El registro existe y no está vacío; la entrada de audio existe y nombra el motivo; marcada `warning`/`degraded`/no fatal/no esencial; sistema degradado; campos y marca de tiempo |
+| **E · motor esencial** | E1–E5 | Control con canvas; `engine` en `ESSENTIAL_IDS`; sin canvas el fallo es **fatal**; **nunca** `MAIN_MENU`; modo seguro bloqueado |
+| **R · reintento real** | H-B1, H-B2 | Botón real, handler intacto, **navegación observada** (`navigate → reload`) y recuperación hasta `INTRO` |
+| **P · PLAYING** | P ×4, P+ | Cuatro escenarios negativos comprobando el **estado final real**, más el positivo sin regresión |
+
+## 01.2-D. EVIDENCIAS
+
+Mediciones reales de esta ejecución:
+
+| Prueba | Evidencia observada |
+|---|---|
+| **W2** | `loadFinished=true`, `watchdogFired=false`, `loadMs=894`, límite `20000 ms` |
+| **W3** | Panel a los **23.806 ms** con `watchdogFired=true`; estado `LOADING` |
+| **W4** | Título `"NO SE PUDO ABRIR EL CLUB"` (antes decía "EL CLUB ABRE EN MODO DEGRADADO") |
+| **W5** | `"El arranque tardó demasiado (20000 ms)…"` |
+| **E3** | Fatales: `["engine"]` |
+| **E4** | Estado final `LOADING`, **nunca** `MAIN_MENU` |
+| **E5** | `safe.disabled = true` |
+| **H-B1** | `nav: "navigate" → "reload"`, `handlerIsReal: true`, `marker: null`, estado `INTRO` |
+| **H-B2** | `state: "INTRO"`, `errVisible: false` |
+| **H-D2b** | `{"id":"audio","severity":"warning","fatal":false,"degraded":true,"essential":false,"kind":"degraded","at":2354}` |
+| **P (×4)** | `enterGame() = false` en los cuatro casos; estado final `MAIN_MENU` |
+| **P+** | `{"state":"PLAYING","running":true}` |
+
+Captura: `docs/FASE_01_EVIDENCE/15_watchdog_blocked.webp` — carga detenida en **IMÁGENES ESENCIALES (33 %)**, título y motivo correctos. Registro completo en `results_12.json`.
+
+## 01.2-E. REGRESIONES
+
+Verificado en la misma ejecución de 84:
+
+- Carga de **9 pasos** con progreso monótono 0→100 %.
+- Intro canónica de **4,4 s** y salto de intro.
+- Menú principal, seis acciones, submenús, opciones y mezcla de audio, créditos.
+- Ratón y teclado (D1, D2) y **mando emulado** (D3a–D3e, `getGamepads` leído 53 veces).
+- **C8 fullscreen real**: `fullscreenElement false→true` con evento `fullscreenchange` y salida verificada.
+- Transición al juego por cinemática de descenso (G1–G4).
+- Cuatro resoluciones: 1280×720, 1920×1080, 2560×1440, 3440×1440.
+
+**No comprobado:** regresión visual píxel a píxel contra Fase 01.1 (no se hizo diff de imagen) y comportamiento en navegadores distintos de Chromium.
+
+## 01.2-F. LIMITACIONES
+
+Se mantienen, sin cambios, y **no se presentan como verificadas**:
+
+1. **Mando físico — NO PROBADO.** Sólo mando emulado.
+2. **Rendimiento con GPU — PENDIENTE.** Las cifras del entorno headless no son rendimiento del juego.
+3. **Audio audible — NO VERIFICADO.** Se comprueba el estado del motor, no la salida por altavoz.
+
+## 01.2-G. VEREDICTO
+
+**APTO CON LIMITACIONES DOCUMENTADAS.**
+
+Los cinco defectos están corregidos y cada corrección tiene una prueba que mide el comportamiento real, no la apariencia. Ningún PASS depende de una condición que la prueba no haya comprobado. Las tres limitaciones físicas siguen abiertas y así se declaran.
