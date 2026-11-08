@@ -156,8 +156,10 @@ La escala se calcula por **altura de ventana** para que ultrapanorámico no redu
 Suite reproducible: **`tools/fase01_qa/`** (`run.sh` prepara Chromium y sirve el repo; `suite.js` ejecuta las pruebas).
 
 ```
-== 41/41 PASS ==
+== 41/41 PASS ==   (ejecución original de Fase 01)
 ```
+
+> **Actualización de Fase 01.1:** estas 41 se conservan, pero dos de ellas (C8 y D3) medían mal y se reescribieron, y se añadieron 23 más. La ejecución vigente es **64 PASS · 0 FAIL · 0 SKIP · 0 NV**. El detalle está en §**Fase 01.1-E**.
 
 | Bloque | Pruebas | Resultado |
 |---|---|---|
@@ -292,3 +294,187 @@ La Fase 01 está **implementada e integrada** en el juego real, no es una maquet
 Lo que queda abierto no es código pendiente de escribir, sino **verificación que este entorno no permite**: rendimiento con GPU y mando físico. Ambas están aisladas, documentadas y con el camino preparado para medirlas en cuanto haya hardware.
 
 Y sobre lo demás: los siete fallos que encontré mientras probaba eran reales y habrían llegado al jugador (el botón de jugar no funcionaba; el arranque se colgaba). Están corregidos y cada uno tiene su prueba.
+
+---
+
+# FASE 01.1 — CIERRE TÉCNICO, CORRECCIÓN DE QA Y VALIDACIÓN FINAL
+
+> Esta sección **se añade** al informe de Fase 01. No sustituye ni borra nada de lo anterior: el historial de decisiones, los 41 resultados originales y las limitaciones ya declaradas siguen vigentes. Aquí se documenta qué se auditó, qué estaba mal, qué se corrigió, cómo se probó y qué queda abierto.
+
+## 01.1-A. RESUMEN
+
+La Fase 01 estaba entregada y publicada en el PR #9, pero su QA **sobrevaloraba** varios resultados. La auditoría de cierre encontró cuatro defectos reales, tres de ellos en el producto y no en la prueba:
+
+| # | Defecto | Gravedad | Estado |
+|---|---|---|---|
+| F1 | `LOADING` estaba declarado en `STATES` pero **nunca se entraba**: la secuencia real era `BOOT → INTRO → MAIN_MENU` | Media (criterio de la especificación) | **CORREGIDO** |
+| F2 | El **modo seguro destruía la integridad**: con un recurso indispensable ausente se llegaba a un menú donde ningún botón podía actuar | Alta | **CORREGIDO** |
+| F3 | `PLAYING` se declaraba de forma **optimista**, sin comprobar que el motor hubiera arrancado | Alta | **CORREGIDO** |
+| F4 | El arnés de QA **no era portable**: rutas personales fijas (`/tmp/chromium`, `/home/user/_qa/al/lib`) | Media | **CORREGIDO** |
+
+Y dos defectos más que aparecieron **durante** la corrección, al dejar de fiarse de las pruebas existentes:
+
+| # | Defecto | Gravedad | Estado |
+|---|---|---|---|
+| F5 | Con el menú de Fase 01 abierto, el **mando no respondía**: su sondeo vivía en un `tick()` que dejaba de recibir frames | Alta | **CORREGIDO** |
+| F6 | El FSM podía quedarse en `SUBMENU` con el submenú ya cerrado; a partir de ahí las acciones dejaban de responder | Alta | **CORREGIDO** |
+
+Además, la prueba **C8 (pantalla completa) no medía nada**: daba PASS con sólo comprobar que el clic no lanzaba una excepción. Reescrita, hoy mide el efecto real y lo demuestra en este entorno.
+
+Resultado final de la suite: **64 PASS · 0 FAIL · 0 SKIP · 0 NV**, sobre las 41 originales (que se conservan) más 23 nuevas.
+
+## 01.1-B. PROBLEMAS ENCONTRADOS (con la evidencia que los sostiene)
+
+### F1 · `LOADING` nunca ocurría
+
+`STATES` declaraba `["BOOT","LOADING","INTRO",…]`, pero `boot()` pasaba de `BOOT` a `startIntro()`. Sondeando el FSM durante el arranque real se observó:
+
+```
+BOOT -> INTRO -> MAIN_MENU
+body[data-dd-state] = boot, intro, main_menu
+```
+
+El estado existía en el array; la transición no existía en el código. Un estado declarado no es un estado implementado.
+
+### F2 · El modo seguro desactivaba la integridad
+
+`allowSafeMode` neutralizaba **todos** los pasos `critical: true`, que eran `assets`, `images` y `ui`. Es decir: ante la falta de un recurso indispensable, el botón de modo seguro ofrecía continuar y entregaba un menú sin sistema de menú. Medido con `DD_UI` ausente:
+
+```
+panel:  {visible:true, title:"NO SE PUDO ABRIR EL CLUB",
+         body:"El sistema de menú (DD_UI) no está disponible…",
+         errors:[{id:"ui", fatal:true}]}
+tras pulsar MODO SEGURO:
+        {state:"MAIN_MENU", ddUI:"undefined"}
+```
+
+Se abría el club, pero ningún botón podía hacer nada. Es peor que un error: es una salida falsa.
+
+### F3 · `PLAYING` optimista
+
+`launch()` llamaba a `window.DD_BOOT.enterGame()` **incondicionalmente**, ignorando si `startRun()` había devuelto `false`. El jugador podía ver el estado de partida sobre un motor parado. La primera tentativa de probarlo falló porque el puente se crea con `Object.freeze()` y la inyección no surtía efecto; hubo que neutralizar el congelado para poder inyectar el fallo y observar la reacción real.
+
+### F4 · Arnés de QA atado a rutas personales
+
+`lib.js` tenía escritas a mano la ruta del binario de Chromium y la del directorio de librerías. El arnés funcionaba sólo en esta máquina y sólo si alguien había preparado antes esos directorios. No era reproducible desde un clon limpio.
+
+### F5 · El mando no respondía en el menú (encontrado al dejar de fiarse de D3)
+
+El sondeo del gamepad vive dentro de `DD_UI.tick()`, y a `tick()` sólo lo llamaba el bucle de render del motor. Ese bucle **se retira** cuando la escena legada (`#overlay`) está oculta, que es exactamente el caso en el que el menú de Fase 01 es dueño de la pantalla. Medido: **0 llamadas a `tick()` en 5 s** con el menú abierto.
+
+Consecuencia: el menú anuncia `A ELEGIR · B ATRÁS` y el mando no hacía nada. Es la clase de control que parece funcional y no lo es, y la prueba D3 original lo daba por bueno porque pulsaba un tiempo fijo y no verificaba el efecto.
+
+### F6 · `SUBMENU` sin submenú
+
+`closeSubmenuImmediate()` cerraba la interfaz del submenú **sin avisar al FSM**. Y `hideMainMenu()` marcaba el menú como no visible **antes** de llamarlo, así que un primer intento de sincronización no cubría ese camino. Resultado observable: `state = SUBMENU`, `submenu = null`. Como el sondeo consulta `uiState.submenu`, las acciones dejaban de responder.
+
+## 01.1-C. CORRECCIONES APLICADAS
+
+Todas son **localizadas**: ningún fichero se ha reescrito entero y no se ha tocado nada del motor, del HUB, del combate ni de la progresión.
+
+| Defecto | Fichero | Corrección |
+|---|---|---|
+| F1 | `src/dd_boot.js` | `setState("LOADING")` al empezar los pasos reales |
+| F2 | `src/dd_boot.js` | `ESSENTIAL_IDS = [engine, assets, images, ui]`. Si falla uno, el botón de modo seguro queda **desactivado**, con el motivo escrito, y sólo queda REINTENTAR. Degradables siguen siendo `fase01, fonts, audio, storage` |
+| F3 | `src/dd_ui_system.js` + `src/dd_boot.js` | `launch()` confirma el motor (`isRunning`/`getSnapshot`) antes de declarar `PLAYING`; si no arranca en 3 s vuelve al menú y avisa. `enterGame()` rechaza la transición si el estado no lo permite **o si el motor no está en marcha** |
+| F4 | `tools/fase01_qa/lib.js`, `run.sh` | Rutas derivadas de `QA_WORK`/`QA_MODULES`; Chromium lo resuelve `@sparticuz/chromium`; las librerías NSS se extraen solas del propio paquete; mensajes de error accionables |
+| F5 | `src/dd_ui_system.js` | **Latido propio**: mientras el menú está visible y el motor no entrega frames, la UI se late con `requestAnimationFrame`; si el motor vuelve, el latido se retira. `tick()`/`tickInner()` separados para no confundirse con el motor |
+| F6 | `src/dd_ui_system.js` | Invariante **incondicional**: si el FSM dice `SUBMENU` y la UI ya no tiene submenú, el FSM vuelve a `MAIN_MENU` |
+| C8 | `src/dd_ui_system.js` | El botón sincroniza su estado con el evento `fullscreenchange` real; si el navegador rechaza la petición se explica; si el contexto no permite la API, el control se muestra **desactivado** |
+
+## 01.1-D. C8 · PANTALLA COMPLETA, MEDIDA DE VERDAD
+
+La versión anterior de C8 daba PASS así:
+
+```js
+const fsTry = await p.evaluate(() => { try { document.getElementById('dd-opt-fs').click(); return 'clicked'; }
+                                       catch (e) { return 'err'; } });
+ok('C8 pantalla completa usa el API real', fsTry === 'clicked', …);
+```
+
+Eso sólo demuestra que hacer clic no lanza una excepción. No dice si la pantalla completa ocurrió.
+
+La prueba nueva separa **tres hechos distintos** y exige el tercero:
+
+| Hecho | Medición | Resultado |
+|---|---|---|
+| (a) la API está expuesta | `requestFullscreen` presente y `fullscreenEnabled` | `true` |
+| (b) el botón es operativo | no está desactivado | operativo |
+| (c) la pantalla completa **ocurrió** | `document.fullscreenElement` + evento `fullscreenchange` | `false → true`, eventos `[true]`, `aria-pressed=true` |
+
+Y además comprueba la **salida**: `exitFullscreen()` deja `fullscreenElement` en `false` (C8b). Si el entorno no lo concediera, la prueba queda en **SKIP**, nunca en PASS. En este entorno se concede, así que C8 pasa con evidencia y no por convenio.
+
+## 01.1-E. PRUEBAS: 41 ORIGINALES + 23 NUEVAS
+
+Las 41 originales se conservan íntegras. Se añaden 23:
+
+| Bloque | Prueba | Qué comprueba |
+|---|---|---|
+| Panel de error · A | H-A1, H-A2, H-A3 | Con `DD_UI` ausente: el fallo crítico se detecta, el panel aparece, el mensaje **nombra el recurso** que falta y se ofrece REINTENTAR |
+| Panel de error · B | H-B1, H-B2 | REINTENTAR pide un arranque nuevo; un contexto limpio no hereda el estado de error |
+| Panel de error · C | H-C1, H-C2 | Sin recurso indispensable el modo seguro está desactivado y pulsarlo **no** entrega un menú inutilizable |
+| Modo degradado | H-D1, H-D2 | Un fallo **no** esencial no impide abrir el menú y queda registrado como degradado, no como fatal |
+| Accesibilidad | H-E1…H-E5 | seis etiquetas accesibles, foco visible dentro del menú, `role=menu`, ninguna acción desactivada que parezca funcional, flechas que mueven la selección, con `prefers-reduced-motion` |
+| Máquina de estados | H-F1…H-F4 | `BOOT → LOADING → INTRO → MAIN_MENU` observado; traza monótona 0→100 %; ida y vuelta al submenú; transiciones inválidas rechazadas sin corromper el estado |
+| Mando emulado | D3a, D3b, D3c, D3d, D3e | D-pad mueve, A abre, B vuelve, en reposo no se mueve solo, y el menú **sigue sondeando** con la escena legada oculta |
+
+**El arnés ahora distingue PASS / FAIL / SKIP / NV.** Un `SKIP` no cuenta como `PASS` y se informa aparte con su motivo. Un `NV` (no verificable) tampoco.
+
+Resultado de la ejecución completa:
+
+```
+== 64 PASS · 0 FAIL · 0 SKIP · 0 NV · 64 TOTAL ==
+```
+
+`docs/FASE_01_EVIDENCE/results_11.json` contiene los 64 registros con su detalle de medición.
+
+## 01.1-F. REGRESIONES
+
+Ninguna de las 41 pruebas originales se perdió: las 41 se ejecutan y pasan dentro de las 64.
+
+Dos pruebas originales **cambiaron de forma** porque medían mal, no porque el producto empeorara:
+
+- **D3** (mando emulado) se dividió en D3a–D3e. La versión anterior pulsaba un tiempo fijo mientras el sondeo ocurre en el bucle de render; medía la velocidad del entorno, no el juego. Se comprobó contra el build anterior (`9bcc6c6`) y **tampoco pasaba allí**: no era una regresión introducida, era una prueba mal construida.
+- **C8** se reescribió para medir el efecto real en lugar de la ausencia de excepción.
+
+Un fallo de la propia suite encontró un problema real de producto (F5/F6), que es exactamente lo que debe pasar cuando una prueba deja de conformarse con poco.
+
+## 01.1-G. PENDIENTES Y LÍMITES QUE SIGUEN ABIERTOS
+
+Nada de esto se ha maquillado:
+
+| Elemento | Estado | Motivo |
+|---|---|---|
+| **Mando FÍSICO** | PENDIENTE | No hay hardware en este entorno. Lo probado es un **mando emulado** (`navigator.getGamepads` sintético) y así se etiqueta en las cinco pruebas D3 |
+| **Rendimiento con GPU** | PENDIENTE | El entorno es headless sin GPU. Las cifras de fps del sandbox **no** son rendimiento del juego y no se reportan como tal |
+| **Audio audible** | NO VERIFICABLE | Se comprueba el estado del motor de audio (propiedad, arranque y corte), no la salida por altavoz |
+| **Pantalla completa** | VERIFICADO aquí | Se concede en este contexto; en un navegador que la bloquee, la prueba sería SKIP y el botón aparecería desactivado |
+| Traza de `getTrace()` | Menor | Registra algunos pct repetidos (100,100,100) al final del arranque; no afecta a la monotonía ni al resultado |
+
+## 01.1-H. CÓMO REPRODUCIR FASE 01.1
+
+```bash
+# 1. Build
+python3 tools/build_active_html.py        # index.html == DEADBEAT_DISCO.html
+
+# 2. QA completa (prepara todo en ~/.dd_fase01_qa y sirve el repo)
+bash tools/fase01_qa/run.sh
+# → 64 PASS · 0 FAIL · 0 SKIP · 0 NV
+# → resultados y capturas en ~/.dd_fase01_qa/out
+```
+
+Desde un clon limpio **no hace falta preparar nada a mano**: `run.sh` instala el Chromium headless, extrae las librerías del propio paquete, sirve el repositorio y ejecuta la suite. Se puede redirigir todo con `QA_WORK`, `QA_PORT`, `QA_OUT`, `QA_URL` y `QA_CHROME`. No hay ninguna ruta personal en el código.
+
+## 01.1-I. ARCHIVOS TOCADOS EN ESTA FASE
+
+| Fichero | Cambio |
+|---|---|
+| `src/dd_boot.js` | `LOADING` real; `ESSENTIAL_IDS` y modo seguro íntegro; `enterGame()` con guardas de estado y de motor |
+| `src/dd_ui_system.js` | `PLAYING` confirmado contra el motor; latido propio; invariante `SUBMENU`; pantalla completa honesta |
+| `tools/fase01_qa/lib.js` | Portable: rutas derivadas, Chromium del paquete, extracción automática de librerías |
+| `tools/fase01_qa/run.sh` | Portable, `--keep` / `--setup-only`, mensajes accionables |
+| `tools/fase01_qa/suite.js` | PASS/FAIL/SKIP/NV; C8 honesto; D3a–D3e; bloques H-A…H-F; capturas no fatales |
+| `index.html`, `DEADBEAT_DISCO.html` | Build regenerado (idénticos entre sí) |
+| `docs/FASE_01_EVIDENCE/` | `13_error_panel`, `14_a11y_reduced_motion`, `res_*` (4 resoluciones) y `results_11.json` |
+
+Sin cambios en: assets aprobados, identidad visual, HUB, salas, combate, generación procedural, cámara, progresión ni motor.

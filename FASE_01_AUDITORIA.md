@@ -190,3 +190,28 @@ Solo se produce lo que la composición exige, respetando las referencias aprobad
 4. `DD_CINE.playIntro` se reutiliza como INTRO canónica; no se implementa una segunda cinemática.
 5. La música del menú es la de `DDC_COVER.music`; la de partida es la de `DMO_MUSIC`. La FSM arbitra; no se crea un tercer motor.
 6. El guardado es de "meta-progreso", no de partidas a medias. `CONTINUAR` y `SELECCIÓN DE PARTIDA` deben decirlo sin inventar slots.
+
+---
+
+## REVISIÓN DE CIERRE — FASE 01.1 (2026-11-07)
+
+Auditoría de los resultados dados por buenos en Fase 01. **No se borra nada de lo anterior**: cada punto que se corrige queda marcado aquí con la evidencia que lo demuestra.
+
+| # | Hallazgo de la auditoría | Veredicto | Evidencia |
+|---|---|---|---|
+| F1 | `LOADING` declarado en `STATES` pero nunca ejecutado | **CORREGIDO** | Antes: `BOOT → INTRO → MAIN_MENU`. Ahora, observado: `BOOT → LOADING → INTRO → MAIN_MENU` (H-F1) |
+| F2 | El modo seguro neutralizaba `assets`, `images` y `ui`; entregaba un menú inoperante | **CORREGIDO** | Con `DD_UI` ausente: botón desactivado (`disabled=true`, "MODO SEGURO NO DISPONIBLE"), clic sin efecto, estado sigue en `LOADING` (H-C1, H-C2) |
+| F3 | `PLAYING` se declaraba sin comprobar el motor | **CORREGIDO** | Con `startRun→false` e `isRunning→false`: se queda en `MAIN_MENU`. Sin regresión: partida normal llega a `PLAYING` con `isRunning()=true` |
+| F4 | Arnés de QA con rutas personales | **CORREGIDO** | `lib.js`/`run.sh` sin rutas fijas; un directorio de trabajo vacío se autoabastece y lanza Chromium (medido: 4,4 s) |
+| F5 | El mando no respondía con el menú de Fase 01 abierto | **CORREGIDO** | Antes: 0 llamadas a `tick()` en 5 s. Ahora `navigator.getGamepads` leído 52 veces durante D3 (D3e) |
+| F6 | `SUBMENU` con submenú cerrado dejaba las acciones sin respuesta | **CORREGIDO** | D3a/b/c PASS en tres ejecuciones consecutivas |
+| C8 | La prueba de pantalla completa sólo comprobaba que el clic no lanzara excepción | **REESCRITA** | Ahora mide `document.fullscreenElement` (`false→true`), el evento `fullscreenchange` y la salida (C8, C8b) |
+| D3 | La prueba del mando pulsaba un tiempo fijo y no verificaba el efecto | **REESCRITA** | D3a–D3e; se comprobó que también fallaba en `9bcc6c6`: no era una regresión |
+
+**Lo que sigue sin poder afirmarse en este entorno** (y por tanto NO se declara verificado):
+
+- Mando **físico**: sólo hay evidencia de mando **emulado**.
+- Rendimiento con **GPU**: las cifras de fps del sandbox no son rendimiento del juego.
+- **Audio audible**: se mide el estado del motor, no la salida por altavoz.
+
+Ejecución vigente: **64 PASS · 0 FAIL · 0 SKIP · 0 NV**. Registro completo en `docs/FASE_01_EVIDENCE/results_11.json`.
