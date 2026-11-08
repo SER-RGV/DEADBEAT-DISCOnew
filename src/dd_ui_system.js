@@ -788,6 +788,15 @@
     var m = el("dd-main-menu");
     if (m) m.classList.remove("dd-behind");
     uiState.submenu = null;
+    /* Invariante: el FSM no puede quedarse en SUBMENU sin submenú abierto.
+       Sin esto, un cierre por esta vía dejaba el menú en SUBMENU con
+       getState().submenu = null, y las acciones del menú dejaban de responder
+       porque el sondeo del mando consulta uiState.submenu. Se sincroniza sólo
+       si el menú sigue en pantalla, para no reabrirlo al ocultarse. */
+    if (uiState.menuVisible && window.DD_BOOT &&
+        window.DD_BOOT.getState && window.DD_BOOT.getState().state === "SUBMENU") {
+      try { window.DD_BOOT.closeSubmenu(); } catch (e) {}
+    }
   }
 
   /* ============================ C. HUD (sin cambios de lógica) ============ */
@@ -1057,9 +1066,49 @@
   }
 
   /* ============================ E. VISIBILIDAD ============================ */
+  /* ---------------------------------------------------- latido propio -----
+     El sondeo del mando y el reloj de la UI viven en tick(), que el motor llama
+     desde su bucle de render. Pero ese bucle se retira cuando la escena legada
+     (#overlay) está oculta, que es justo el caso en que ESTE menú es dueño de la
+     pantalla. Resultado medido: 0 llamadas a tick() en 5 s con el menú abierto,
+     y por tanto el mando inservible aunque la interfaz anuncie "A ELEGIR".
+
+     Se añade un latido propio que sólo corre mientras el menú está visible y
+     que se RETIRA en cuanto el motor vuelve a mandar frames: así no hay dos
+     relojes a la vez ni trabajo duplicado. */
+  var selfTick = { raf: 0, on: false };
+
+  function engineIsTicking() {
+    /* Si el motor llamó a tick() hace poco, no hace falta latido propio. */
+    var now = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+    return !!(selfTick.lastEngineCall && (now - selfTick.lastEngineCall) < 1000);
+  }
+
+  function startSelfTick() {
+    if (selfTick.on) return;
+    if (typeof requestAnimationFrame !== "function") return;
+    selfTick.on = true;
+    var step = function () {
+      if (!selfTick.on) return;
+      selfTick.raf = requestAnimationFrame(step);
+      /* Sólo late si nadie más lo hace y el menú sigue en pantalla. */
+      if (!uiState.menuVisible) return;
+      if (engineIsTicking()) return;
+      try { tickInner(0.016); } catch (e) {}
+    };
+    selfTick.raf = requestAnimationFrame(step);
+  }
+
+  function stopSelfTick() {
+    selfTick.on = false;
+    if (selfTick.raf && typeof cancelAnimationFrame === "function") cancelAnimationFrame(selfTick.raf);
+    selfTick.raf = 0;
+  }
+
   function showMainMenu() {
     buildDOM();
     uiState.menuVisible = true;
+    startSelfTick();
     /* Pausa la escena animada legada mientras este menú es dueño de la pantalla. */
     document.body.classList.add("dd-menu-owning");
     var m = el("dd-main-menu");
@@ -1071,6 +1120,7 @@
 
   function hideMainMenu(opts) {
     uiState.menuVisible = false;
+    stopSelfTick();
     document.body.classList.remove("dd-menu-owning");
     var m = el("dd-main-menu");
     if (m) m.classList.add("dd-hidden");
@@ -1153,7 +1203,15 @@
   }
 
   /* ================================ F. TICK =============================== */
+  /* tick() = entrada pública que usa el motor. tickInner() = el trabajo real,
+     compartido por el motor y por el latido propio. */
   function tick(dt) {
+    /* Marca de vida del motor: el latido propio la consulta para retirarse. */
+    selfTick.lastEngineCall = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+    return tickInner(dt);
+  }
+
+  function tickInner(dt) {
     buildDOM();
     var cdt = Math.min(0.05, Math.max(0.001, dt || 0.016));
     /* Los enfriamientos de entrada se miden con reloj de pared: si el render va
