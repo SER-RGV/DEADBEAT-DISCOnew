@@ -8433,12 +8433,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           el.root.setAttribute("aria-label", "Error al abrir DEADBEAT DISCO");
           el.root.setAttribute("aria-busy", "false");
         }
-        /* AQUÍ NO se limpian atributos "por si acaso" de los ancestros. Hacerlo
-           taparía la causa raíz: si el armazón volviera a nacer oculto, esta
-           limpieza haría que el panel apareciera accesible sin haber corregido
-           nada, y la prueba R10 pasaría con el defecto presente (comprobado).
-           La coherencia se garantiza en el origen: el armazón nunca nace
-           oculto y sólo se oculta cuando se retira. */
       } catch (e) {}
 
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
