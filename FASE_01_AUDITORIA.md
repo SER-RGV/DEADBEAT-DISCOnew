@@ -235,3 +235,68 @@ Revisión independiente del patch de Fase 01.1. Los cinco hallazgos se confirmar
 **Sigue sin poder afirmarse en este entorno:** mando físico, rendimiento con GPU y salida de audio audible.
 
 Ejecución vigente: **84 PASS · 0 FAIL · 0 SKIP · 0 NV**. Registro en `docs/FASE_01_EVIDENCE/results_12.json`.
+
+---
+
+# REVISIÓN · FASE 01.3 — CIERRE DEFINITIVO
+
+## Contexto
+
+Al abrir esta fase el repositorio **ya tenía** un commit (`6a6f41f`) que afirmaba
+haber corregido W6, P y E4. La revisión no se apoyó en ese mensaje: se leyó el
+código y se comprobó hallazgo por hallazgo. Los tres ya estaban reescritos en
+`tools/fase01_qa/suite.js`; lo que faltaba era **ejecutarlos**, corregir lo que
+apareciera, generar la evidencia y documentar.
+
+## Verificación de los tres hallazgos
+
+| Hallazgo de 01.2 | Estado al llegar | Verificación |
+|---|---|---|
+| W6 por `typeof state === 'string'` | reescrito | `addInitScript` instrumenta `setTimeout` ≥ 20000 ms antes de cargar, captura el callback real, ejecuta a mano el del intento 1 y comprueba que el 2 sigue vivo |
+| P con `new Function(fnBody)()` | reescrito | Función explícita en página + `SCEN` con ids conocidos + control positivo obligatorio por escenario |
+| E4 sólo "no es MAIN_MENU" | reescrito | `E3a/E3b/E4a/E4b/E4c/E6`: canvas ausente real, error fatal, panel con título y mensaje, sin partida |
+
+**Ninguno se aceptó por su mensaje de commit: los tres se midieron.**
+
+## Fallos encontrados en esta fase
+
+La primera ejecución dio **94 PASS · 5 FAIL**. Los cinco eran defectos del arnés,
+no del producto, y así se demostró antes de corregirlos:
+
+1. **B1/B2** — la captura `01_loading.png` (45 s agotados) y `02_intro.png` se
+   intercalaban en la medición de la intro (4,4 s). El producto estaba bien: en
+   un arnés sin capturas, `duration=4.4` y 41 marcas distintas.
+2. **C8** — `fullscreenchange` se despacha después de fijar
+   `document.fullscreenElement`; con 2 500 ms fijos no llegaba. Se pasó a esperar
+   el evento (llegó a los 2 053 ms). **El criterio no se relajó.**
+3. **D3a** — máquina a *load average* ~8: el latido del menú no llegaba en 15 s.
+4. **D3b** — la prueba suponía mal el botón enfocado. Se comprobó con arnés
+   dirigido que A **sí** funciona (`busy:true`, y con `options` enfocado abre
+   `sub:"options"`). La corrección **endurece** la prueba: ahora exige la acción
+   enfocada y el submenú correspondiente.
+
+## Lo que NO se hizo
+
+- No se relajó ningún criterio de aceptación.
+- No se convirtió ningún SKIP/NV en PASS (no hubo ninguno).
+- No se borró ninguna prueba para subir el porcentaje: 8 ids se sustituyeron por
+  23 pruebas **más estrictas** (documentado en 01.3-D).
+- No se modificaron `results_11.json` ni `results_12.json`.
+- **No se tocó producción**: 01.3 sólo modifica `tools/fase01_qa/suite.js` y añade
+  evidencia.
+
+## Resultado
+
+```
+99 PASS · 0 FAIL · 0 SKIP · 0 NV · 99 TOTAL
+```
+
+`docs/FASE_01_EVIDENCE/results_13.json` + `16_watchdog_stale_timer.webp` +
+`17_engine_missing_panel.webp`.
+
+## Conclusión de la revisión
+
+Los tres objetivos se cumplen con medición real y verificable. El veredicto es
+**APTO CON LIMITACIONES DOCUMENTADAS**, con las mismas limitaciones de hardware
+de 01.2 (mando físico, GPU, audio audible, navegadores no Chromium), ninguna de
+comportamiento. **Sin fusión y sin FASE 02**: queda a la espera de decisión.

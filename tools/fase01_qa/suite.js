@@ -67,19 +67,24 @@ async function toMenu(p, maxMs) {
   p.goto(URL, { waitUntil: 'commit' }).catch(() => {});
 
   let shotLoading = false, shotIntro = false;
+
+  /* Corrección 01.3 · la captura NO puede ocurrir dentro del bucle de sondeo.
+     Antes se disparaba `01_loading.png` mientras se esperaba INTRO: en un
+     entorno cargado esa captura agotaba sus 45 s, y al volver la intro (4,4 s)
+     ya había terminado. B1/B2 fallaban por la instrumentación, no por el
+     producto (en 01.2 pasaban con duration=4.4 porque la captura fue rápida).
+     Ahora se detecta primero y se captura después, fuera del camino crítico. */
   for (let i = 0; i < 2000; i++) {
     const st = await p.evaluate(() => (window.DD_BOOT ? window.DD_BOOT.getState().state : null)).catch(() => null);
-    if (st === 'LOADING' && !shotLoading) {
-      shotLoading = true;
-      try { await shot(p, '01_loading.png'); } catch (e) {}
-    }
-    if (st === 'INTRO' && !shotIntro) {
+    if (st === 'LOADING') shotLoading = true;
+    if (st === 'INTRO') {
       shotIntro = true;
       break;
     }
     if (st === 'MAIN_MENU') break;
     await p.waitForTimeout(40);
   }
+  if (shotLoading) await shot(p, '01_loading.png');
 
   const trace = await p.evaluate(() => window.DD_BOOT.getTrace());
   const ev = await p.evaluate(() => window.DD_BOOT.getEvidence());
@@ -93,8 +98,13 @@ async function toMenu(p, maxMs) {
   ok('A3 ningún paso crítico en error', ev.stepsDone === 9 && !!ev.finalPct, 'final=' + ev.finalPct);
 
   /* ============================= B. INTRO ============================== */
+  /* Corrección 01.3 · la medición de la intro tiene que ocurrir ANTES de
+     cualquier captura: `02_intro.png` puede tardar decenas de segundos en este
+     entorno y la intro dura ~4,4 s. Antes se capturaba y después se leía el
+     estado, de modo que duration llegaba como null y las marcas vacías. */
   let i1 = null, marks = [];
   if (shotIntro) {
+    i1 = await p.evaluate(() => (window.DD_CINE ? window.DD_CINE.getState() : null));
     await p.evaluate(() => {
       window.__marks = [];
       const t = setInterval(() => {
@@ -104,7 +114,6 @@ async function toMenu(p, maxMs) {
         if (window.__marks.length > 400) clearInterval(t);
       }, 120);
     });
-    i1 = await p.evaluate(() => (window.DD_CINE ? window.DD_CINE.getState() : null));
     for (let i = 0; i < 400; i++) {
       const st = await p.evaluate(() => window.DD_BOOT.getState().state);
       if (st !== 'INTRO') break;
@@ -208,7 +217,18 @@ async function toMenu(p, maxMs) {
       document.addEventListener('fullscreenchange', () => window.__fsEvents.push(!!document.fullscreenElement));
       document.getElementById('dd-opt-fs').click();
     });
-    await p.waitForTimeout(2500);
+    /* Corrección 01.3 · antes se esperaba 2500 ms fijos y se leía. Con la
+       máquina cargada, `document.fullscreenElement` ya era true pero el evento
+       `fullscreenchange` aún no se había despachado, así que la prueba veía
+       eventos=[] y fallaba. El criterio NO se relaja (se sigue exigiendo el
+       evento); se espera a que llegue, con un tope de reloj. */
+    const tFs = Date.now();
+    let evSeen = [];
+    while (Date.now() - tFs < 20000) {
+      evSeen = await p.evaluate(() => window.__fsEvents || []).catch(() => []);
+      if (evSeen.length > 0) break;
+      await p.waitForTimeout(200);
+    }
     fsAfter = await p.evaluate(() => ({
       on: !!document.fullscreenElement,
       events: window.__fsEvents || [],
@@ -216,12 +236,14 @@ async function toMenu(p, maxMs) {
         ? document.getElementById('dd-opt-fs').getAttribute('aria-pressed') : null,
       note: (document.getElementById('dd-opt-fs-note') || {}).textContent || ''
     }));
+    fsAfter.waitedMs = Date.now() - tFs;
   }
 
   const fsInfo = 'API=' + fsState.hasApi + ' enabled=' + fsState.fullscreenEnabled +
     ' botón=' + (fsState.btnExists ? (fsState.btnDisabled ? 'desactivado' : 'operativo') : 'ausente') +
     ' fullscreenElement ' + fsState.before + '->' + fsAfter.on +
-    ' eventos=' + JSON.stringify(fsAfter.events || []) + ' pressed=' + fsAfter.pressed;
+    ' eventos=' + JSON.stringify(fsAfter.events || []) + ' pressed=' + fsAfter.pressed +
+    ' esperaEvento=' + (fsAfter.waitedMs == null ? '-' : fsAfter.waitedMs + 'ms');
 
   if (fsState.btnExists && fsState.btnDisabled) {
     skip('C8 pantalla completa activada de verdad', 'el botón se declara no disponible en este contexto', fsInfo);
@@ -334,29 +356,66 @@ async function toMenu(p, maxMs) {
 
     /* Pulsación realista: mantener y soltar. La acción se dispara por flanco,
        así que basta con que un frame caiga dentro del intervalo. */
+    /* Corrección 01.3 · D3a/D3b fallaban con `ciclos=1` en máquinas cargadas.
+       La causa no era el mando: la prueba esperaba a que el juego consultara el
+       mando, y con la máquina a load ~8 el latido no llegaba antes de agotar el
+       tiempo. Se separan las dos cosas que antes se mezclaban:
+         · el mando entrega bien la pulsación (comprobado en la página), y
+         · el juego la consume, dando más margen de reloj para que lata. */
     const holdUntil = async (idx, done, capMs) => {
       const t = Date.now();
-      let cycles = 0;
-      while (Date.now() - t < (capMs || 15000)) {
+      let cycles = 0, peak = 0;
+      while (Date.now() - t < (capMs || 40000)) {
+        const p0 = polls;
         set(idx, true);
-        await sleep(800);
+        await sleep(900);
         set(idx, false);
-        await sleep(800);
+        await sleep(900);
         cycles++;
-        if (done()) return { ok: true, cycles };
+        peak = Math.max(peak, polls - p0);
+        if (done()) return { ok: true, cycles, pollsPerCycle: peak };
       }
-      return { ok: done(), cycles };
+      return { ok: done(), cycles, pollsPerCycle: peak };
     };
+
+    /* Corrección 01.3 (2ª parte) · D3b fallaba porque la prueba daba por hecho
+       qué botón quedaba enfocado. Tras D3a la selección podía caer en CONTINUAR
+       o NUEVA PARTIDA, y A ejecutaba esa acción (arrancar partida o avisar de
+       que no hay guardado) en vez de abrir un submenú. No era un fallo del
+       mando: era una expectativa equivocada de la prueba.
+       Ahora, antes de pulsar A, se lleva la selección con el propio D-pad a un
+       destino determinista (OPCIONES, que siempre abre submenú), y se comprueba
+       cuál es la acción enfocada. */
+    const indiceDe = (accion) => {
+      const btns = Array.from(document.querySelectorAll('[data-action]'));
+      for (let i = 0; i < btns.length; i++) if (btns[i].getAttribute('data-action') === accion) return i;
+      return -1;
+    };
+    const objetivo = indiceDe('options');
 
     const base = window.DD_UI.getState().menuIndex;
     const down = await holdUntil(13, () => window.DD_UI.getState().menuIndex !== base);
     const afterDown = window.DD_UI.getState().menuIndex;
+
+    /* D3a ya demostró que el D-pad mueve la selección: se usa para apuntar. */
+    const ruta = [];
+    for (let g = 0; g < 12 && window.DD_UI.getState().menuIndex !== objetivo; g++) {
+      const antes = window.DD_UI.getState().menuIndex;
+      set(13, true); await sleep(1100); set(13, false); await sleep(900);
+      ruta.push(antes + '->' + window.DD_UI.getState().menuIndex);
+    }
+    const enfocado = (() => {
+      const b = document.querySelectorAll('[data-action]')[window.DD_UI.getState().menuIndex];
+      return b ? b.getAttribute('data-action') : null;
+    })();
 
     const open = await holdUntil(0, () => window.DD_UI.getState().submenu !== null);
     const afterA = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
 
     const close = await holdUntil(1, () => window.DD_UI.getState().submenu === null);
     const afterB = { state: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu };
+    const rutaHastaOp = ruta;
+    const accionEnfocada = enfocado;
 
     /* En reposo la selección no debe moverse sola. */
     const idle0 = window.DD_UI.getState().menuIndex;
@@ -365,16 +424,21 @@ async function toMenu(p, maxMs) {
 
     navigator.getGamepads = realPads;
     delete navigator.getGamepads;
-    return { base, polls, down, afterDown, open, afterA, close, afterB, idleStable: idle0 === idle1 };
+    return { base, polls, down, afterDown, open, afterA, close, afterB, idleStable: idle0 === idle1,
+             accionEnfocada: accionEnfocada, objetivo: objetivo, ruta: rutaHastaOp };
   });
 
   /* Se informa POR SEPARADO de cada gesto: si uno falla no se oculta bajo un
      único veredicto. Y el detalle dice explícitamente que el mando es EMULADO. */
   ok('D3a mando EMULADO: el D-pad mueve la selección',
     !!(pad.down && pad.down.ok) && pad.afterDown !== pad.base,
-    'índice ' + pad.base + ' -> ' + pad.afterDown + ' (ciclos=' + (pad.down && pad.down.cycles) + ')');
-  ok('D3b mando EMULADO: A abre el submenú', !!(pad.open && pad.open.ok),
-    JSON.stringify(pad.afterA) + ' (ciclos=' + (pad.open && pad.open.cycles) + ')');
+    'índice ' + pad.base + ' -> ' + pad.afterDown + ' (ciclos=' + (pad.down && pad.down.cycles) +
+    ', sondeos/ciclo=' + (pad.down && pad.down.pollsPerCycle) + ')');
+  ok('D3b mando EMULADO: A abre el submenú que está enfocado',
+    !!(pad.open && pad.open.ok) && pad.accionEnfocada === 'options' && pad.afterA.sub === 'options',
+    JSON.stringify(pad.afterA) + ' (enfocado=' + pad.accionEnfocada + ' idx=' + pad.objetivo +
+    ' ruta=' + JSON.stringify(pad.ruta) + ' ciclos=' + (pad.open && pad.open.cycles) +
+    ', sondeos/ciclo=' + (pad.open && pad.open.pollsPerCycle) + ')');
   ok('D3c mando EMULADO: B vuelve al menú',
     !!(pad.close && pad.close.ok) && pad.afterB.sub === null && pad.afterB.state === 'MAIN_MENU',
     JSON.stringify(pad.afterB) + ' (ciclos=' + (pad.close && pad.close.cycles) + ')');

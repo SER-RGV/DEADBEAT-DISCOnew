@@ -576,3 +576,175 @@ Se mantienen, sin cambios, y **no se presentan como verificadas**:
 **APTO CON LIMITACIONES DOCUMENTADAS.**
 
 Los cinco defectos están corregidos y cada corrección tiene una prueba que mide el comportamiento real, no la apariencia. Ningún PASS depende de una condición que la prueba no haya comprobado. Las tres limitaciones físicas siguen abiertas y así se declaran.
+
+---
+
+# FASE 01.3 — CIERRE DEFINITIVO DE VALIDACIÓN
+
+> Esta sección **añade** información. No reescribe las secciones 01, 01.1 ni 01.2,
+> cuyos resultados históricos (`results_11.json`, `results_12.json`) se conservan
+> intactos. FASE 01.3 no añade funcionalidad: sólo convierte tres pruebas débiles
+> en pruebas decisivas y corrige cinco mediciones defectuosas del arnés.
+
+## 01.3-A. PUNTO DE PARTIDA
+
+Al abrir FASE 01.3 el repositorio **ya contenía** un commit de trabajo previo
+(`6a6f41f`, "FASE 01.3: W6 real, P x4 decisivo y E4 con bloqueo demostrado")
+que reescribía W6, P y E4 en `tools/fase01_qa/suite.js`. No se dio por bueno por
+su mensaje: se leyó el código y se comprobó hallazgo por hallazgo.
+
+| Hallazgo de FASE 01.2 | ¿Estaba ya corregido en `6a6f41f`? | Cómo se comprobó |
+|---|---|---|
+| W6 pasaba con `typeof state === 'string'` | Sí | `addInitScript` instrumenta `setTimeout`/`clearTimeout` antes de cargar y captura el callback real del watchdog |
+| P ×4 se construía con `new Function(fnBody)()` (nunca se ejecutaba) | Sí | Función explícita en la página, ids de escenario conocidos y `applied` comprobado |
+| E4 sólo exigía "no es MAIN_MENU" | Sí | `E3a/E3b/E4a/E4b/E4c/E6` desdoblan el bloqueo completo |
+
+**Lo que faltaba y se hizo en esta pasada:** ejecutar la suite, corregir los cinco
+fallos reales que aparecieron, generar `results_13.json`, documentar y actualizar
+el PR. Los tres objetivos de aceptación **no** se volvieron a tocar: se verificaron.
+
+## 01.3-B. LOS TRES OBJETIVOS, VERIFICADOS CON DATOS
+
+### W6 · invalidación real del temporizador de un intento anterior
+
+Se instrumentan los temporizadores **antes** de que arranque la página; se
+provocan **dos intentos de arranque reales** en la misma página (carga bloqueada
+→ panel → MODO SEGURO → nuevo `boot()`), y se ejecuta **a mano** el callback del
+primer watchdog mientras el segundo está vigente.
+
+| Prueba | Resultado | Dato observado |
+|---|---|---|
+| W6a | PASS | `intento1=20000ms intento2=20000ms total=2` — dos temporizadores distintos |
+| W6b | PASS | `c1.cleared=true` — el primero se canceló con `clearTimeout` |
+| W6c | PASS | antes `{state:LOADING, panelHidden:true, fired:false}` → después idéntico |
+| W6d | PASS | `{state:LOADING, panelHidden:false, fired:true, title:"NO SE PUDO ABRIR EL CLUB"}` |
+
+W6c es el núcleo: **ejecutar el temporizador viejo no cambia nada**; W6d demuestra
+que el vigente **sí** sigue funcionando. Ninguno de los cuatro mira tokens,
+variables ni existencia de funciones.
+
+### P ×4 · inyección real, con control positivo por escenario
+
+Cada escenario se ejecuta en **dos fases dentro de la misma página**:
+
+1. **Control positivo:** se sustituye `window.__DD_BRIDGE` por una copia con
+   `isRunning() → true`. Si `enterGame()` entra en `PLAYING`, queda demostrado que
+   la inyección **se aplica** y que la puerta **acepta evidencia positiva**.
+2. **Escenario negativo:** se vuelve al menú, se aplica el fallo y se comprueba
+   que `enterGame()` devuelve `false` y el estado **no cambia**.
+
+| Escenario | P-a (control) | P-b (aplicado) | P-c (rechazo) |
+|---|---|---|---|
+| P1 `isRunning()=false` | `state:"PLAYING"` | `isRunningReturned:"false"` | `accepted:false, stateAfter:"MAIN_MENU"` |
+| P2 lanza excepción | `state:"PLAYING"` | `isRunningReturned:"THREW"` | `accepted:false, threw:false, stateAfter:"MAIN_MENU"` |
+| P3 `undefined` | `state:"PLAYING"` | `isRunningReturned:"undefined"` | `accepted:false, stateAfter:"MAIN_MENU"` |
+| P4 `__DD_BRIDGE` ausente | `state:"PLAYING"` | `bridgeAbsent:true` | `accepted:false, stateAfter:"MAIN_MENU"` |
+| **P+** motor real | — | — | `{state:"PLAYING", running:true}` (sin regresión) |
+
+El fallo original ya no puede repetirse: si la inyección no surtiera efecto, el
+control positivo **no** llegaría a `PLAYING` y P-a fallaría antes que P-c. No se
+desactiva `Object.freeze` en ningún momento; se sustituye la referencia a la
+propiedad `window.__DD_BRIDGE` (escribible) y se restaura al terminar.
+
+### E4 · bloqueo demostrado sin canvas
+
+Se elimina `#game` del DOM **de verdad** antes de que arranque la app.
+
+| Prueba | Resultado | Dato observado |
+|---|---|---|
+| E3a | PASS | `canvasExists=false` — el escenario es real |
+| E3b | PASS | `{id:"engine", severity:"fatal", fatal:true, essential:true, kind:"essential-failure", message:"No se encontró el lienzo del juego (#game)."}` |
+| E4a | PASS | `errVisible=true`, estado `LOADING` |
+| E4b | PASS | título `NO SE PUDO ABRIR EL CLUB`; cuerpo nombra `#game` y `engine`; botón REINTENTAR presente |
+| E4c | PASS | estado final `LOADING` — **nunca** `MAIN_MENU` ni `INTRO` |
+| E5 | PASS | `safe.disabled=true`, etiqueta `MODO SEGURO NO DISPONIBLE` |
+| E6 | PASS | `{state:"LOADING", canStart:false, running:false}` — ninguna partida |
+
+Evidencia visual: `docs/FASE_01_EVIDENCE/17_engine_missing_panel.webp`
+(`MOTOR DE RENDER Y CANVAS — ERROR`, 0 %, mensaje literal del error registrado).
+
+## 01.3-C. CINCO FALLOS DEL ARNÉS ENCONTRADOS Y CORREGIDOS
+
+La primera ejecución dio **94 PASS · 5 FAIL**. Ninguno era un fallo del producto:
+los cinco eran mediciones defectuosas. Se diagnosticó cada uno con un arnés
+dirigido **antes** de tocar la suite, y ninguno se convirtió en PASS relajando un
+criterio.
+
+| # | Fallo | Causa real | Corrección |
+|---|---|---|---|
+| 1 | **B1** `valores distintos=[]` | `01_loading.png` se disparaba **dentro** del bucle de sondeo; en máquina cargada agotaba 45 s y la intro (4,4 s) terminaba antes de medir | Detectar primero, capturar **después** |
+| 2 | **B2** `duration=null` | `02_intro.png` se tomaba **antes** de leer `getState()` | Leer el estado **antes** de capturar |
+| 3 | **C8** `fullscreenElement false->true eventos=[]` | `fullscreenchange` se despacha **después** de fijar `fullscreenElement`; con 2 500 ms fijos no llegaba | Esperar el evento (tope 20 s). **El criterio no cambia**: se sigue exigiendo el evento. Medido: llegó a los **2 053 ms** |
+| 4 | **D3a** `índice 0 -> 0 (ciclos=1)` | La máquina estaba a *load average* ~8; el latido no llegaba en 15 s | Margen de reloj a 40 s y recuento de sondeos por ciclo |
+| 5 | **D3b** `{sub:null}` con A pulsada | **La prueba suponía mal qué botón estaba enfocado**: tras D3a la selección caía en CONTINUAR/NUEVA PARTIDA y A ejecutaba esa acción. Se verificó que A **sí** funciona: `busy:true` al pulsar, y con `options` enfocado abre `sub:"options"` | Llevar la selección con el D-pad a OPCIONES y **comprobar cuál es la acción enfocada**; ahora D3b exige `enfocado=options` **y** `sub=options` |
+
+Las cinco correcciones se validaron por separado antes de relanzar la suite
+completa. La de D3b **endurece** la prueba: antes bastaba con que se abriera
+cualquier submenú; ahora se exige el que corresponde al botón enfocado.
+
+## 01.3-D. RESULTADO DE LA SUITE
+
+```
+== 99 PASS · 0 FAIL · 0 SKIP · 0 NV · 99 TOTAL ==
+```
+
+- Evidencia: `docs/FASE_01_EVIDENCE/results_13.json` (99 registros, cada uno con
+  `id`, `status`, `detail` con la condición y el valor observado).
+- Capturas nuevas: `16_watchdog_stale_timer.webp`, `17_engine_missing_panel.webp`.
+- **Regresión completa:** los 76 ids comunes con 01.2 siguen en PASS.
+- **Ningún SKIP ni NV:** no hubo ninguna prueba sin ejecutar ni ningún efecto
+  no medible en este entorno.
+
+### Cambios de identificador respecto a 01.2 (deliberados, no pérdidas)
+
+| id de 01.2 | Sustituido por | Motivo |
+|---|---|---|
+| `W6 el watchdog se identifica por token` | `W6a`, `W6b`, `W6c`, `W6d` | El original sólo miraba tipos; los cuatro nuevos miden el temporizador |
+| `P-isRunning()=false / lanza / undefined / puente ausente` | `P-P1_false`, `P-P2_throws`, `P-P3_undefined`, `P-P4_absent`, cada uno con `a) b) c)` | El original pasaba por un motivo ajeno (el motor estaba parado en el menú); ahora cada escenario tiene control positivo |
+| `E3 sin canvas: la ausencia del motor es un error FATAL` | `E3a` + `E3b` | Se separa "el escenario es real" de "el error es fatal y esencial" |
+| `E4 sin canvas: NUNCA se alcanza MAIN_MENU` | `E4a` + `E4b` + `E4c` (+ `E6`) | Se exige además el panel visible, el título/mensaje correctos y que no arranque partida |
+| `D3b mando EMULADO: A abre el submenú` | `D3b ... A abre el submenú que está enfocado` | La versión anterior dependía de qué botón estuviera seleccionado |
+
+Recuento: 01.2 = 84 registros · 01.3 = 99 registros · 76 comunes · 8 ids
+sustituidos por 23 pruebas más estrictas.
+
+## 01.3-E. VALIDACIÓN TÉCNICA
+
+| Comprobación | Resultado |
+|---|---|
+| `python3 tools/build_active_html.py` | determinista: mismo hash antes y después |
+| `index.html` == `DEADBEAT_DISCO.html` | idénticos (5 347 514 bytes, `ebead007…`) |
+| `node --check` en `src/*.js` y `tools/fase01_qa/*.js` | OK |
+| `bash -n tools/fase01_qa/run.sh` | OK |
+| `git diff --check` | sin problemas |
+| Rutas personales en los ficheros tocados | ninguna |
+| Consola y red durante la suite | `A4`, `F-*`, `G4` en PASS (sin errores) |
+| **Cambios de producción** | **ninguno**: 01.3 sólo toca `tools/fase01_qa/suite.js` + evidencia |
+
+## 01.3-F. LIMITACIONES QUE PERSISTEN
+
+Sin cambios respecto a 01.2; siguen sin poder verificarse aquí:
+
+1. **Mando físico.** D3 usa un mando **emulado** (`navigator.getGamepads`
+   interceptado). No se ha probado hardware real.
+2. **Rendimiento con GPU.** El entorno headless compone a ~2 fps; las cifras de
+   reloj de pared (p. ej. `G1` 144 s) son del entorno, **no** del juego.
+3. **Salida de audio audible.** Se verifica el grafo WebAudio y el estado de la
+   música, no que se escuche.
+4. **Navegadores no Chromium.** Sólo se ha ejecutado en Chromium headless.
+5. **Pantalla completa** depende de que el entorno la conceda; aquí la concedió
+   (C8 PASS con evento observado a 2 053 ms).
+
+## 01.3-G. VEREDICTO DE FASE 01.3
+
+Los tres objetivos de aceptación se cumplen **con medición real**:
+
+- **W6**: dos watchdogs reales, el viejo cancelado e inocuo, el vigente funcional.
+- **P ×4**: inyección aplicada, control positivo por escenario, rechazo correcto,
+  `PLAYING` sólo con motor confirmado (P+ sin regresión).
+- **E4**: canvas ausente de verdad, error fatal registrado, panel con título y
+  mensaje correctos, `MAIN_MENU` inalcanzable, modo seguro bloqueado, sin partida.
+
+**APTO CON LIMITACIONES DOCUMENTADAS.** Limitaciones de hardware/entorno
+(puntos 01.3-F), no de comportamiento. FASE 01.3 **no** se fusiona ni se abre
+FASE 02 desde aquí: queda a la espera de decisión.
