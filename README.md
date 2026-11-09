@@ -1,26 +1,48 @@
 # DEADBEAT DISCO
 
-## ¿Dónde está cada cosa?
+## Empieza aquí
 
-| Carpeta | ¿Qué hay dentro? |
+Si acabas de abrir el proyecto, sigue este orden:
+
+1. Lee este archivo para orientarte.
+2. Entra en `src/` para ver el código del juego.
+3. Entra en `assets/` para ver los recursos que usa el juego.
+4. Entra en `docs/` para encontrar planes, informes y pruebas.
+5. Lee el `README.md` de cada carpeta antes de mover o borrar archivos.
+
+## Mapa del proyecto
+
+| Carpeta | Qué contiene |
 |---|---|
-| `src` | El código que hace funcionar el juego. |
-| `assets` | Dibujos, sonidos y cosas que usa el juego. |
-| `ART_ASSETS` | Dibujos originales para crear el juego. |
-| `ART_PACK` | El puente que conecta los dibujos con el juego. |
-| `ART_TOOLS` | Herramientas para preparar dibujos. |
-| `ART_AUDIT` | Revisiones para encontrar problemas. |
-| `ART_EVIDENCE` | Fotos y pruebas de cómo quedó el trabajo. |
-| `ART_REFERENCES` | Imágenes para inspirarnos. |
-| `CINEMATIC_ASSETS` | Imágenes de las escenas de la historia. |
-| `docs` | Explicaciones y planes. |
-| `tools` | Herramientas para tareas del proyecto. |
-| `backups` | Copias guardadas por si algo sale mal. |
-| `artevi2` | Fotos para comparar dibujos. |
-| `.github` | Robots que hacen tareas automáticas. |
-| `FASE_0_3_EVIDENCE` | Pruebas de una versión anterior. |
-| `FASE_0_3_1_EVIDENCE` | Más pruebas de esa versión. |
+| `src/` | Código del juego. |
+| `assets/` | Dibujos, sonidos y recursos usados durante el juego. |
+| `ART_ASSETS/` | Dibujos originales y materiales de arte. |
+| `ART_PACK/` | Conexión e integración de los dibujos. |
+| `ART_TOOLS/` | Herramientas para preparar y revisar imágenes. |
+| `ART_AUDIT/` | Auditorías y pruebas técnicas de arte y jefes. |
+| `ART_EVIDENCE/` | Capturas y resultados de pruebas de arte. |
+| `ART_REFERENCES/` | Imágenes de referencia. |
+| `CINEMATIC_ASSETS/` | Material fuente de las cinemáticas. |
+| `docs/` | Documentación, informes y evidencias organizadas. |
+| `tools/` | Herramientas generales y scripts del proyecto. |
+| `backups/` | Copias de seguridad. No borrar como limpieza. |
+| `artevi2/` | Comparaciones visuales. |
+| `.github/` | Automatizaciones de GitHub. |
+| `FASE_0_3_EVIDENCE/` y `FASE_0_3_1_EVIDENCE/` | Evidencias de versiones anteriores. |
 
-**Regla fácil:** si no sabes qué hace una carpeta, mira su archivo `README.md` antes de cambiar nada.
+## Archivos importantes
 
-Las carpetas tienen nombres técnicos para que el juego y sus herramientas sigan encontrándolas. No las renombres sin revisar sus conexiones.
+- [Índice de documentación](docs/README.md)
+- [Estado del proyecto](CURRENT_STATE.md)
+- [Historial de cambios](CHANGELOG.md)
+- [Inventario del proyecto](PROJECT_INVENTORY.md)
+- [Plan de validación](VALIDATION_PLAN.md)
+
+## Reglas para mantenerlo ordenado
+
+- No cambies nombres de carpetas técnicas sin revisar imports, rutas, scripts y automatizaciones.
+- No borres capturas, informes históricos ni copias de seguridad solo porque parezcan repetidos.
+- Los archivos `index.html` y `DEADBEAT_DISCO.html` son iguales ahora, pero ambos los genera la automatización de construcción. **No borrar ninguno.**
+- Los archivos HTML grandes son builds; no editarlos manualmente si el cambio debe hacerse en el código fuente.
+
+Los nombres técnicos se conservan cuando otras partes del proyecto dependen de ellos. La explicación sencilla está aquí y en los README de las carpetas.
