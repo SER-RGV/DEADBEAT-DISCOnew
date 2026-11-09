@@ -25,6 +25,14 @@ new_manifest_str = "const MANIFEST = " + json.dumps(manifest, ensure_ascii=False
 
 registry_js = registry_js[:manifest_match.start()] + new_manifest_str + registry_js[manifest_match.end():]
 
+# Keep the runtime cache token in step with the editable central manifest.
+with open("assets/cinematics/manifest.json", encoding="utf-8") as f:
+    version = json.load(f)["asset_version"]
+registry_js, count = re.subn(r'(const ASSET_CACHE_VERSION = \(window\.__DD_ASSET_VERSION \|\| ")[^"]+("\);)',
+                             lambda m: m.group(1) + version + m.group(2), registry_js)
+assert count == 1, "Asset cache version declaration not found"
+
+
 with open("src/dd_asset_registry.js", "w", encoding="utf-8") as f:
     f.write(registry_js)
 

@@ -46,8 +46,9 @@ for shot in manifest["shots"]:
 
       <div class="shot-body">
         <div class="shot-preview">
-          <img src="../../{thumb_file}" alt="{shot['name']}" loading="lazy" class="shot-thumb">
+          <img src="../../../{thumb_file}" alt="{shot['name']}" loading="lazy" class="shot-thumb">
           <div class="shot-file-tag">{bg_file}</div>
+          <p class="dim">Miniatura del maestro; los planos usan las capas indicadas abajo.</p>
         </div>
 
         <div class="shot-details">
