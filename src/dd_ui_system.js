@@ -1343,7 +1343,10 @@
         showDialogue("DJ VIRGILIO", txt, 4.0);
       }
     }
-    if (uiState.dialogueTimer > 0) {
+    // La bienvenida del HUB puede prepararse bajo el fundido final de intro;
+    // no consumirla antes de que el jugador reciba el control.
+    var cineState = cineBlocking && window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
+    if (uiState.dialogueTimer > 0 && !(cineState && cineState.type === "intro")) {
       uiState.dialogueTimer -= cdt;
       if (uiState.dialogueTimer <= 0) {
         var box = el("dd-dialogue-box");

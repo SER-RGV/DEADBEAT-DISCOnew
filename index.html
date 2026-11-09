@@ -553,6 +553,8 @@ body.dd-highres-edition #ddc-cover {
   pointer-events: none;
   transition: opacity 0.24s ease, transform 0.24s ease;
 }
+/* La bienvenida se revela después de que termine la intro, no sobre el fundido. */
+body.dd-intro-running #dd-dialogue-box { visibility: hidden; }
 #dd-dialogue-box.dd-hidden {
   opacity: 0;
   transform: translateX(-50%) translateY(18px);
@@ -10556,6 +10558,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
+        // Durante el plano final, el HUB real se dibuja bajo el fundido. Su
+        // update ya respeta isBlocking(), así que no entrega control aún.
+        if (activeSeq.elapsed >= 32 && !activeSeq.hubEntryAttempted && window.DD_HUB &&
+            typeof window.DD_HUB.enter === "function") {
+          activeSeq.hubEntryAttempted = true;
+          if (!(typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive())) {
+            try { window.DD_HUB.enter(); } catch (e) {}
+          }
+        }
         // Sincronización rítmica con el reloj de 128 BPM (1 beat = 0.46875s)
         const bpmTime = activeSeq.elapsed;
         const beatFrac = (bpmTime % 0.46875) / 0.46875;
@@ -11192,9 +11203,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
         ctx.restore();
 
-        if (sp > 0.92 && window.DD_HUB && typeof window.DD_HUB.isActive === "function" && !window.DD_HUB.isActive()) {
-          try { window.DD_HUB.enter(); } catch (e) {}
-        }
       }
 
       // Overlays cinematográficos globales: Viñeteado gótico y partículas
@@ -12662,7 +12670,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         showDialogue("DJ VIRGILIO", txt, 4.0);
       }
     }
-    if (uiState.dialogueTimer > 0) {
+    // La bienvenida del HUB puede prepararse bajo el fundido final de intro;
+    // no consumirla antes de que el jugador reciba el control.
+    var cineState = cineBlocking && window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
+    if (uiState.dialogueTimer > 0 && !(cineState && cineState.type === "intro")) {
       uiState.dialogueTimer -= cdt;
       if (uiState.dialogueTimer <= 0) {
         var box = el("dd-dialogue-box");

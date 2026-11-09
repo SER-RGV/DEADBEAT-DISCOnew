@@ -267,6 +267,15 @@
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
+        // Durante el plano final, el HUB real se dibuja bajo el fundido. Su
+        // update ya respeta isBlocking(), así que no entrega control aún.
+        if (activeSeq.elapsed >= 32 && !activeSeq.hubEntryAttempted && window.DD_HUB &&
+            typeof window.DD_HUB.enter === "function") {
+          activeSeq.hubEntryAttempted = true;
+          if (!(typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive())) {
+            try { window.DD_HUB.enter(); } catch (e) {}
+          }
+        }
         // Sincronización rítmica con el reloj de 128 BPM (1 beat = 0.46875s)
         const bpmTime = activeSeq.elapsed;
         const beatFrac = (bpmTime % 0.46875) / 0.46875;
@@ -903,9 +912,6 @@
         }
         ctx.restore();
 
-        if (sp > 0.92 && window.DD_HUB && typeof window.DD_HUB.isActive === "function" && !window.DD_HUB.isActive()) {
-          try { window.DD_HUB.enter(); } catch (e) {}
-        }
       }
 
       // Overlays cinematográficos globales: Viñeteado gótico y partículas

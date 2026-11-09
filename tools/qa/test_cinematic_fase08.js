@@ -21,8 +21,9 @@ for(const t of [1,5,8,11,15,19,23,26,30,33]) {
  assert.equal(entries,1,`skip at ${t}: hub entries`);assert.equal(completions,1,`skip at ${t}: completion count`);assert.equal(reason,"skip",`skip at ${t}: reason`);
 }
 active=false;entries=0;completions=0;
-window.DD_CINE.playIntro(r=>{completions++;reason=r});advance(34.85);
-window.DD_CINE.renderOverlay(ctx,960,540); // entrada anticipada del HUB en plano 10
+window.DD_CINE.playIntro(r=>{completions++;reason=r});advance(31.9);assert.equal(entries,0);
+advance(32.05);assert.equal(entries,1);assert(window.DD_CINE.isBlocking(), "el control sigue bloqueado durante el fundido");
+window.DD_CINE.renderOverlay(ctx,960,540);
 assert.equal(entries,1);advance(35);
 assert.equal(entries,1,'final no debe reentrar en un HUB ya activo');assert.equal(completions,1);assert.equal(reason,'complete');
 for(const t of [26,30]) {active=false;window.DD_CINE.playIntro(()=>{});advance(t);drawn=[];window.DD_CINE.renderOverlay(ctx,960,540);assert(!drawn.includes('hero_shoot_00')&&!drawn.includes('player_shoot_00'),'fogonazo en pose de espera');if(t===30)assert(drawn.indexOf('hero_walk_00') > drawn.indexOf('logo_deadbeat_cinematic'), 'el protagonista debe quedar encima del fondo del título');window.DD_CINE.skip()}
