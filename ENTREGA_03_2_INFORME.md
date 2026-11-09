@@ -268,13 +268,15 @@ python3 tools/build_active_html.py         # por seguridad, si los artifacts no 
 
 Ejecutada sobre la build reconstruida (`QA_PORT=8126 QA_OUT=/tmp/e32_qa bash tools/fase01_qa/run.sh --keep`), 2026-11-08, ≈23 min de tiempo de tests (`results.json`: 141 entradas, todas `status: PASS`; `ms` acumulados 1 399 056). Suite **sin modificar**. Desglose por bloques en §11. Resultado crudo conservado fuera del repo (`/tmp/e32_qa/`, incluye `results.json` y capturas `res_*.png`, `12_playing.png`, `13_error_panel.png`).
 
-Resultado: **PASS**
+Resultado: **PASS** (build 03.2 pre-merge; para el estado tras integrar ENTREGA 02 ver **Anexo A**)
 
 ## 19. Estado final
 
 ```
 ESTADO: PASS
 ```
+
+> Estado vigente tras sincronizar con ENTREGA 02 y corregir el fallback: ver **Anexo A.5** (139 PASS · 2 FAIL de instrumentación en la suite; B1/B2 verificados en aislamiento; menú 13/13; fallback 5/5).
 
 - Integración completa y verificada en este entorno: sí (§5–§13).
 - Regresión FASE 01 sobre la build final: **141/141 PASS** (§11, §18).
@@ -317,3 +319,74 @@ ESTADO: PASS
 - Base: `main` (`250ee38…`, intacta — `git ls-remote origin main` verificado = `250ee38c13b0f7598eb40b7bac99fedba47a2917`) · Head: `arena/entrega-03-2-menu-centro-bucle`
 - Commit de la entrega: `de8c567` · 23 archivos · +339 / −10 · estado: OPEN, MERGEABLE, **sin fusionar** (revisión humana requerida).
 - PR #10: intacto (OPEN, no tocado). Worktrees de ENTREGA 03.1 y árbol principal: intactos.
+
+---
+
+# ANEXO A — Sincronización con ENTREGA 02 y corrección del fallback (2026-11-08)
+
+> Este anexo **actualiza** el estado final tras fusionar el trabajo de ENTREGA 02 (PR #10) sobre esta rama. Nada del contenido anterior se borra; las cifras de §11/§12/§18 corresponden a la build 03.2 pre-merge y siguen siendo históricas válidas. El estado **vigente** de la rama es el descrito aquí.
+
+## A.1 Discrepancia detectada y cómo se resolvió
+
+El encargo partía de la premisa «PR #10 ya está integrada en main». **Verificación en vivo** (`git ls-remote origin main`, `gh api repos/…/branches/main`, `gh pr view 10`, `gh pr view 11`, 2026-11-08 ~22:30 UTC):
+
+- `origin/main` = `250ee38c…` (sin cambios);
+- PR #10 = **OPEN**, `mergeable: MERGEABLE`, `mergeStateStatus: CLEAN`, head `arena/de232c9f-deadbeat-disconew` @ **`fefb2a1`**, **sin fusionar**;
+- PR #11 = OPEN, MERGEABLE.
+
+No existía «main actualizado». Para cumplir el objetivo (ambas entregas coexistiendo y verificadas) **sin fusionar PR #10** (fuera de autorización) y **sin tocar la rama de la PR #10**, se fusionó en esta rama el commit exacto `fefb2a1` —el head de la PR #10, CLEAN/MERGEABLE, un único commit— como stand-in de «main actualizado». Ningún byte del contenido de ENTREGA 02 se modificó. **Consecuencia práctica:** hasta que PR #10 se fusione en main, el diff de la PR #11 incluye temporalmente los archivos de ENTREGA 02; en cuanto esto ocurra, el diff se reduce automáticamente a ENTREGA 03.2 (`fefb2a1` pasa a ser ancestro común). Si el usuario prefiere el orden inverso (fusionar PR #10 primero y re-sincronizar después), solo hay que avisar: el merge ya está resuelto y verificado.
+
+## A.2 El merge (sin conflictos textuales)
+
+- `git merge fefb2a1` (ort): auto-merge limpio en `dd_ui_system.js`, artefactos y sin cambios en contenido ajeno. `tools/fase01_qa/suite.js` incorporó el pulso-por-consumo del mando (mejora de ENTREGA 02, no tocada).
+- **Artefactos verificados:** `index.html` y `DEADBEAT_DISCO.html` byte-idénticos a un `python3 tools/build_active_html.py` ejecutado sobre las fuentes fusionadas (`cmp` en ambos pares + `cmp index.html DEADBEAT_DISCO.html`). Nada queda «auto-mergeado a mano»: el builder determinista es la fuente de verdad.
+- **Ambas entregas presentes** en fuentes y artefacto (marcadores verificados): `menu_main_backdrop_a`/`onerror` (03.2) · `MEZCLA DEL JUEGO`/sliders/`menu-vol-*` (02) · manifest/registro con entrada 03.2 · harness `menu_sliders.js` (02).
+- Menú renderizado equivalente al aprobado: la diferencia de RMSE inter-captura (0,02–0,05) es atribuible al `dd-menu-drift` (~46 s, `object-position 50% 46%`) capturando fases distintas de la animación — la UI no se mueve; las diferencias no son de contenido. `git diff fefb2a1 HEAD -- src/dd_ui_system.js` muestra **únicamente** las líneas de backdrop de 03.2: el código de sliders es byte-idéntico al que ENTREGA 02 entregó.
+
+## A.3 Defecto latente encontrado y corregido (fallback sticky)
+
+Durante la verificación de la build fusionada con el asset A bloqueado por red, el fondo quedaba **permanentemente roto** pese al `onerror`: `refreshAssets()` —que DD_ASSETS invoca en **cada onload del precargador** (decenas de veces durante el arranque; observado en instrumentación con pila de llamadas)— reasignaba incondicionalmente `src = <asset A>` tras el fallback. Secuencia: innerHTML (src=A) → error → inline `onerror` → src=PNG + `this.onerror=null` → primer preloader onload → `refreshAssets()` → `src=A` otra vez → error final sin manejador → **fondo roto para siempre** (menú visible pero sin backdrop, contrario al criterio §4.E del encargo 03.2). Latente desde 03.2 (mi defecto, no de la PR #10); la suite FASE 01 no cubre ese escenario y por eso no se detectó en §18.
+
+**Corrección mínima** (`src/dd_ui_system.js`): resolver el backdrop con `menuBackdropSrc()` — devuelve el PNG original si la flag `window.__DD_BACKDROP_FALLBACK` está activa — usado tanto en el `<img>` inicial como en `refreshAssets()`; el `onerror` inline activa la flag (`window.__DD_BACKDROP_FALLBACK=1`). Nada más cambia; ruta normal intacta (flag apagada → asset A de siempre). Artefactos reconstruidos (`cmp` iguales).
+
+**Verificación tras la corrección:**
+- Asset A bloqueado por red, 5 cargas consecutivas: menú visible, `src` final = `menu_main_backdrop.png` (n=1280), flag activa, **0 errores de página** (5/5). Evidencia: `docs/ENTREGA_03_2_EVIDENCE/fallback_missing_asset_sticky.jpg`.
+- Carga normal: backdrop `menu_main_backdrop_a.jpg` (n=2560), flag apagada, 0 errores. `menu_1920x1080_merged.jpg`.
+- Interacción completa: **13/13 PASS** (navegar, opciones/créditos/ranuras abrir-cerrar, transición a partida, 0 errores JS).
+- Resolución: 5/5 viewports capturan el menú con backdrop A (0 errores); 1920/1600/1366/2560/3440.
+
+## A.4 Regresión FASE 01 sobre la build fusionada + corregida
+
+Comando: `QA_PORT=8129 QA_OUT=/tmp/e32_qa3 bash tools/fase01_qa/run.sh --keep` sobre la build final. Resultado crudo `/tmp/e32_qa3/results.json`. Suite **sin modificar**.
+
+```
+== 139 PASS · 2 FAIL · 0 SKIP · 0 NV · 141 TOTAL ==
+FALLOS: B1 (la intro arranca sola y su reloj avanza) · B2 (la intro dura 3–5 s)
+```
+
+**Los dos FAIL son de instrumentación/entorno, no de producto, y no tocan ningún archivo entregado por 03.2 ni por 02:**
+
+1. `git diff 250ee38 HEAD -- src/dd_boot.js src/dd_cinematic_camera.js src/dd_rebuild_ui.css src/dd_world_renderer.js src/dd_hub_system.js` → **vacío** (boot/intro/render troceados byte a byte idénticos a main).
+2. Diagnóstico aislado post-suite (máquina libre): estados `LOADING → INTRO → MAIN_MENU`, `introEndedBy=complete`, `watchdogFired=false`, `degraded=false`, 9/9 pasos, 0 errores, 16 mues­tras de reloj de intro, elapsed 0,05 → 4,1 s (≥2 valores distintos; duración dentro de 3–5 s) → **B1 y B2 pasarían en este escenario**; en la ejecución completa la suite corre decenas de Chromium sobre este sandbox sin GPU (SwiftShader) y el bucle de sondeo de 40 ms no llegó a observar la ventana INTRO (la misma clase de flake que ENTREGA 02 documentó para T5 bajo jank).
+3. Los bloques que sí ejercen la entrega 03.2 y 02 (A, C, D, E/F resoluciones+música, G entrar a partida, H escenciales/degradados, W watchdog, V carga tardía, T puertas de entrada, Q/R accesibilidad): **todos PASS**, incluido A4 (0 errores de página/consola/red) y G1–G4.
+
+Comparativa honrada: build 03.2 pre-merge = 141/141 (§18). Build fusionada+corregida = 139/141 con la condición descrita. **Ningún test fue relajado.**
+
+**`menu_sliders.js` (22 pruebas de ENTREGA 02, mando emulado): NO VERIFICADO en este entorno en esta pasada.** Tres intentos bajo un sandbox muy degradado (arranques de 25–57 s frente a 15–25 s de la mañana): el intento 1 abortó en `bootToMenu` por timeout de 20 s con la máquina saturada; el intento 2 pasó S1 y abortó en la captura de evidencia S1 por espera de fuentes > 30 s (la fuente DDPixel va **embebida en base64** en el HTML; no hay red que colgar — es tiempo de rasterizado SwiftShader); el intento 3 **S1 PASS (0 errores)** y abortó de nuevo en `bootToMenu` del intento S2 por timeout de 20 s. Ninguna aserción de producto falló en ningún intento. El código de ese camino es byte-idéntico al commit con «22/22 ×3 consecutivas» (`docs/ENTREGA_02_EVIDENCE/results_2026-11-08.json`, 2026-11-08 17:27/17:40/18:19Z) verificado con `git diff fefb2a1 HEAD -- src/dd_ui_system.js` (solo mis 3 líneas de backdrop) y con las ejecuciones previas de esta misma entrega fusionada (13/13 en menú real). Se deja documentado: si se desea 22/22 fresco aquí, hace falta una máquina con GPU o un navegador más rápido.
+
+## A.5 Estado final de la rama (vigente)
+
+| Artículo | Estado |
+|---|---|
+| Variante A aprobada en el menú real | ✅ visible en 5 resoluciones; fallback sticky probado 5/5 con asset ausente |
+| ENTREGA 02 conservada | ✅ sliders/mezcla byte-idénticos; harness intacto |
+| UI sin cambios | ✅ (solo backdrop + flag; CSS intacto) |
+| Artefactos | ✅ `cmp` index == DISCO; byte-idénticos al rebuild determinista |
+| FASE 01 (build vigente) | 139 PASS · 2 FAIL de instrumentación (B1/B2), diagnóstico y prueba aislada adjuntos — §A.4 |
+| `menu_sliders.js` (02) | NO VERIFICADO aquí (entorno); 22/22 ×3 registrado en ENTREGA 02 sobre el mismo commit de producto |
+| Interacción menú | 13/13 |
+| `main` | `250ee38c…` intacto (PR #10 sin fusionar al momento de escribir) |
+| PR #10 / rama de la PR #10 | sin tocar |
+| PR #11 | OPEN, actualizada con el merge + el fix; **sin fusionar** |
+
+**Acción pendiente del usuario:** fusionar PR #10 (o autorizar re-sincronizar tras el merge) y la revisión humana de la PR #11. La rama está lista para ambos órdenes.
