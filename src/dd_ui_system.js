@@ -55,6 +55,18 @@
     return "";
   }
 
+  /* Backdrop del menú (ENTREGA 03.2). El asset A es la maestra aprobada; el PNG
+     original sigue siendo la red de seguridad. DD_ASSETS llama a refreshAssets
+     en CADA onload del precargador (decenas de veces durante el arranque), así
+     que la señal de fallback debe ser sticky: una vez que el <img> cae al PNG,
+     todos los refrescos posteriores conservan el PNG. Sin este estado, la
+     última escritura ganaba y el fondo quedaba roto para siempre aunque el
+     onerror inline hubiera actuado a tiempo. */
+  function menuBackdropSrc() {
+    try { if (window.__DD_BACKDROP_FALLBACK) return "assets/ui/menu_main_backdrop.png"; } catch (e) {}
+    return assetSrc("menu_main_backdrop_a") || "assets/ui/menu_main_backdrop_a.jpg";
+  }
+
   function weaponImgSrc(wid) {
     var key = "weapon_" + wid;
     if (window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries[key]) {
@@ -121,7 +133,7 @@
     }).join("");
 
     menu.innerHTML =
-      '<img id="dd-menu-backdrop" alt="" src="' + (assetSrc("menu_main_backdrop") || "assets/ui/menu_main_backdrop.png") + '">' +
+      '<img id="dd-menu-backdrop" alt="" onerror="this.onerror=null;window.__DD_BACKDROP_FALLBACK=1;this.src=\'assets/ui/menu_main_backdrop.png\'" src="' + menuBackdropSrc() + '">' +
       '<div class="dd-menu-atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>' +
       '<div class="dd-menu-vig" aria-hidden="true"></div>' +
       '<div class="dd-menu-left">' +
@@ -1213,7 +1225,7 @@
   function refreshAssets() {
     buildDOM();
     var map = [
-      ["dd-menu-backdrop", assetSrc("menu_main_backdrop") || "assets/ui/menu_main_backdrop.png"],
+      ["dd-menu-backdrop", menuBackdropSrc()],
       ["dd-menu-logo-img", assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png"],
       ["dd-hud-portrait", assetSrc("hud_portrait_protagonist")],
       ["dd-hud-coin-img", assetSrc("hud_credit_coin", "pickups/pickup_credits_00.png")],
