@@ -1,0 +1,3 @@
+# PRUEBAS DE LA VERSIÓN 0.3
+
+Aquí guardamos fotos y resultados de las pruebas de esa versión antigua.
