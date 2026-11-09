@@ -1,0 +1,754 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DEADBEAT DISCO · Cinemática Modular · Manifiesto Central de Recursos",
+  "version": "1.1.0",
+  "asset_version": "20261109.2",
+  "description": "Manifiesto central de recursos para la cinemática de DEADBEAT DISCO. Permite sustituir cualquier fondo, capa 2.5D, logo o sprite directamente desde GitHub sin modificar el motor.",
+  "shots": [
+    {
+      "index": 1,
+      "id": "shot_01_city",
+      "name": "Plano 01 · La Metrópolis Brutalista",
+      "shot_type": "EWS",
+      "camera": "Pan horizontal lento + Tilt Up suave",
+      "duration": 3.5,
+      "time_range": "00:00 - 00:35",
+      "background": "cine_bg01_city",
+      "layers": [
+        "cine_bg01_city_01_sky_moon_atmosphere",
+        "cine_bg01_city_02_gothic_skyline_architecture",
+        "cine_bg01_city_03_foreground_industrial_pipes"
+      ],
+      "characters": [],
+      "effects": [
+        "volumetric_fog_cyan_magenta"
+      ]
+    },
+    {
+      "index": 2,
+      "id": "shot_02_club_exterior",
+      "name": "Plano 02 · La Fachada Monumental",
+      "shot_type": "WS",
+      "camera": "Dolly In continuo hacia portal",
+      "duration": 3.5,
+      "time_range": "00:35 - 00:70",
+      "background": "cine_bg02_club_exterior",
+      "layers": [
+        "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+        "cine_bg02_club_exterior_02_portal_speakers_entrance",
+        "cine_bg02_club_exterior_03_wet_pavement_reflections"
+      ],
+      "characters": [],
+      "effects": [
+        "neon_pulse_portal_magenta"
+      ]
+    },
+    {
+      "index": 3,
+      "id": "shot_03_entrance",
+      "name": "Plano 03 · El Umbral de Acceso",
+      "shot_type": "CU Dutch Angle",
+      "camera": "Dutch angle (1.5°) con foco en marco y fuga de luz",
+      "duration": 3.0,
+      "time_range": "00:70 - 01:00",
+      "background": "cine_bg03_entrance",
+      "layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "characters": [],
+      "effects": [
+        "gold_light_leak_blinding"
+      ]
+    },
+    {
+      "index": 4,
+      "id": "shot_04_hero_silhouette",
+      "name": "Plano 04 · Aparición del Protagonista",
+      "shot_type": "MS Contraluz",
+      "camera": "Contrapicado sutil con avance en silueta",
+      "duration": 3.5,
+      "time_range": "01:00 - 01:35",
+      "background": "cine_bg03_entrance",
+      "layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "characters": [
+        "hero_walk"
+      ],
+      "effects": [
+        "hero_rimlight_magenta",
+        "shadow_silhouette"
+      ]
+    },
+    {
+      "index": 5,
+      "id": "shot_05_tracking_corridor",
+      "name": "Plano 05 · Caminata y Corredor",
+      "shot_type": "Tracking Shot Lateral",
+      "camera": "Seguimiento lateral horizontal izquierda a derecha",
+      "duration": 4.0,
+      "time_range": "01:35 - 01:75",
+      "background": "cine_bg03_entrance",
+      "layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "characters": [
+        "hero_walk"
+      ],
+      "effects": [
+        "pillar_rhythmic_occlusion",
+        "cast_shadow"
+      ]
+    },
+    {
+      "index": 6,
+      "id": "shot_06_main_hall",
+      "name": "Plano 06 · La Nave Catedralicia",
+      "shot_type": "High Angle EWS",
+      "camera": "Grúa cenital descendente con oscilación",
+      "duration": 3.5,
+      "time_range": "01:75 - 02:10",
+      "background": "cine_bg04_main_hall",
+      "layers": [
+        "cine_bg04_main_hall_01_cathedral_nave_vaults",
+        "cine_bg04_main_hall_02_laser_beams_equalizer",
+        "cine_bg04_main_hall_03_chandeliers_stage_framing"
+      ],
+      "characters": [],
+      "effects": [
+        "volumetric_lasers_cyan_magenta"
+      ]
+    },
+    {
+      "index": 7,
+      "id": "shot_07_dancefloor_drop",
+      "name": "Plano 07 · El Drop en la Pista de Baile",
+      "shot_type": "Dynamic WS",
+      "camera": "Retroceso dinámico y pulso estroboscópico de drop 128 BPM",
+      "duration": 3.5,
+      "time_range": "02:10 - 02:45",
+      "background": "cine_bg05_dancefloor",
+      "layers": [
+        "cine_bg05_dancefloor_01_astrological_dancefloor_grid",
+        "cine_bg05_dancefloor_02_sound_towers_dj_stage",
+        "cine_bg05_dancefloor_03_tables_foreground_ambient"
+      ],
+      "characters": [
+        "hero_walk"
+      ],
+      "effects": [
+        "obsidian_floor_reflection",
+        "drop_strobe_magenta"
+      ]
+    },
+    {
+      "index": 8,
+      "id": "shot_08_heroic_presentation",
+      "name": "Plano 08 · Presentación Heroica",
+      "shot_type": "Medium Close-Up (MCU)",
+      "camera": "Detención en seco y micro-órbita",
+      "duration": 4.0,
+      "time_range": "02:45 - 02:85",
+      "background": "cine_bg06_hero",
+      "layers": [
+        "cine_bg06_hero_01_axial_portal_rosette",
+        "cine_bg06_hero_02_hero_rimlight_spotlight",
+        "cine_bg06_hero_03_flanking_speakers_framing"
+      ],
+      "characters": [
+        "hero_idle",
+        "hero_shoot"
+      ],
+      "effects": [
+        "hero_rimlight_overhead",
+        "weapon_windup"
+      ]
+    },
+    {
+      "index": 9,
+      "id": "shot_09_title_logo",
+      "name": "Plano 09 · Deadbeat Disco (Logotipo)",
+      "shot_type": "Hero Shot Frontal",
+      "camera": "Frontal con camera shake rítmico y resplandor perimetral",
+      "duration": 3.5,
+      "time_range": "02:85 - 03:20",
+      "background": "cine_bg06_hero",
+      "layers": [
+        "cine_bg06_hero_01_axial_portal_rosette",
+        "cine_bg06_hero_02_hero_rimlight_spotlight",
+        "cine_bg06_hero_03_flanking_speakers_framing"
+      ],
+      "characters": [
+        "hero_shoot"
+      ],
+      "logo": "logo_deadbeat_cinematic",
+      "effects": [
+        "neon_logo_glow_gold_magenta",
+        "kick_pulse"
+      ]
+    },
+    {
+      "index": 10,
+      "id": "shot_10_hub_transition",
+      "name": "Plano 10 · Ingreso al Refugio Jugable",
+      "shot_type": "Transición Seamless",
+      "camera": "Lerp suave hacia HUB isométrico room r0",
+      "duration": 3.0,
+      "time_range": "03:20 - 03:50",
+      "background": "cine_bg06_hero",
+      "layers": [],
+      "characters": [
+        "hero_idle"
+      ],
+      "effects": [
+        "seamless_fade_to_gameplay"
+      ]
+    }
+  ],
+  "assets": {
+    "cine_bg01_city": {
+      "id": "cine_bg01_city",
+      "name": "Cinemática 01 · Metrópolis Brutalista (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg01_city.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "scene": "01",
+      "description": "Fondo maestro panorámico exterior de la ciudad ciberpunk neogótica."
+    },
+    "cine_bg01_city_01_sky_moon_atmosphere": {
+      "id": "cine_bg01_city_01_sky_moon_atmosphere",
+      "name": "Cinemática 01 · Capa 01: Cielo, Luna y Atmósfera",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg01_city/01_sky_moon_atmosphere.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "scene": "01"
+    },
+    "cine_bg01_city_02_gothic_skyline_architecture": {
+      "id": "cine_bg01_city_02_gothic_skyline_architecture",
+      "name": "Cinemática 01 · Capa 02: Skyline y Arquitectura Gótica",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg01_city/02_gothic_skyline_architecture.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "scene": "01"
+    },
+    "cine_bg01_city_03_foreground_industrial_pipes": {
+      "id": "cine_bg01_city_03_foreground_industrial_pipes",
+      "name": "Cinemática 01 · Capa 03: Tuberías Industriales Primer Plano",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg01_city/03_foreground_industrial_pipes.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "scene": "01"
+    },
+    "cine_bg02_club_exterior": {
+      "id": "cine_bg02_club_exterior",
+      "name": "Cinemática 02 · Fachada Monumental Club (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg02_club_exterior.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "scene": "02"
+    },
+    "cine_bg02_club_exterior_01_gothic_cathedral_facade": {
+      "id": "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+      "name": "Cinemática 02 · Capa 01: Fachada Catedralicia Gótica",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/01_gothic_cathedral_facade.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "scene": "02"
+    },
+    "cine_bg02_club_exterior_02_portal_speakers_entrance": {
+      "id": "cine_bg02_club_exterior_02_portal_speakers_entrance",
+      "name": "Cinemática 02 · Capa 02: Portal, Altavoces y Acceso",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/02_portal_speakers_entrance.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "scene": "02"
+    },
+    "cine_bg02_club_exterior_03_wet_pavement_reflections": {
+      "id": "cine_bg02_club_exterior_03_wet_pavement_reflections",
+      "name": "Cinemática 02 · Capa 03: Pavimento Mojado y Reflejos",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/03_wet_pavement_reflections.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "scene": "02"
+    },
+    "cine_bg03_entrance": {
+      "id": "cine_bg03_entrance",
+      "name": "Cinemática 03 · Umbral y Corredor de Acceso (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg03_entrance.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "scene": "03"
+    },
+    "cine_bg03_entrance_01_vaulted_hallway_depth": {
+      "id": "cine_bg03_entrance_01_vaulted_hallway_depth",
+      "name": "Cinemática 03 · Capa 01: Profundidad Pasillo Bovedado",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg03_entrance/01_vaulted_hallway_depth.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "scene": "03"
+    },
+    "cine_bg03_entrance_02_midground_columns_banners": {
+      "id": "cine_bg03_entrance_02_midground_columns_banners",
+      "name": "Cinemática 03 · Capa 02: Columnas y Estandartes Medios",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg03_entrance/02_midground_columns_banners.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "scene": "03"
+    },
+    "cine_bg03_entrance_03_foreground_pillars_occlusion": {
+      "id": "cine_bg03_entrance_03_foreground_pillars_occlusion",
+      "name": "Cinemática 03 · Capa 03: Pilares de Oclusión Primer Plano",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg03_entrance/03_foreground_pillars_occlusion.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "scene": "03"
+    },
+    "cine_bg04_main_hall": {
+      "id": "cine_bg04_main_hall",
+      "name": "Cinemática 04 · Nave Catedralicia Principal (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg04_main_hall.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "scene": "04"
+    },
+    "cine_bg04_main_hall_01_cathedral_nave_vaults": {
+      "id": "cine_bg04_main_hall_01_cathedral_nave_vaults",
+      "name": "Cinemática 04 · Capa 01: Bóvedas de Nave Catedralicia",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/01_cathedral_nave_vaults.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "scene": "04"
+    },
+    "cine_bg04_main_hall_02_laser_beams_equalizer": {
+      "id": "cine_bg04_main_hall_02_laser_beams_equalizer",
+      "name": "Cinemática 04 · Capa 02: Haces Láser y Ecualizador",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/02_laser_beams_equalizer.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "scene": "04"
+    },
+    "cine_bg04_main_hall_03_chandeliers_stage_framing": {
+      "id": "cine_bg04_main_hall_03_chandeliers_stage_framing",
+      "name": "Cinemática 04 · Capa 03: Candelabros y Enmarque de Escenario",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/03_chandeliers_stage_framing.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "scene": "04"
+    },
+    "cine_bg05_dancefloor": {
+      "id": "cine_bg05_dancefloor",
+      "name": "Cinemática 05 · Pista de Baile Astrológica (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg05_dancefloor.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "scene": "05"
+    },
+    "cine_bg05_dancefloor_01_astrological_dancefloor_grid": {
+      "id": "cine_bg05_dancefloor_01_astrological_dancefloor_grid",
+      "name": "Cinemática 05 · Capa 01: Cuadrícula y Signos Astrológicos Pista",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/01_astrological_dancefloor_grid.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "scene": "05"
+    },
+    "cine_bg05_dancefloor_02_sound_towers_dj_stage": {
+      "id": "cine_bg05_dancefloor_02_sound_towers_dj_stage",
+      "name": "Cinemática 05 · Capa 02: Torres de Sonido y Escenario DJ",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/02_sound_towers_dj_stage.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "scene": "05"
+    },
+    "cine_bg05_dancefloor_03_tables_foreground_ambient": {
+      "id": "cine_bg05_dancefloor_03_tables_foreground_ambient",
+      "name": "Cinemática 05 · Capa 03: Mesas y Ambiente Primer Plano",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/03_tables_foreground_ambient.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "scene": "05"
+    },
+    "cine_bg06_hero": {
+      "id": "cine_bg06_hero",
+      "name": "Cinemática 06 · Presentación Heroica y Portal Rosetón (Master)",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "thumbnail": "assets/cinematics/thumbnails/thumb_cine_bg06_hero.jpg",
+      "expected": {
+        "w": 2560,
+        "h": 1440,
+        "format": "png",
+        "aspect": "16:9"
+      },
+      "behavior": "aspect_fill",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "scene": "06"
+    },
+    "cine_bg06_hero_01_axial_portal_rosette": {
+      "id": "cine_bg06_hero_01_axial_portal_rosette",
+      "name": "Cinemática 06 · Capa 01: Portal Rosetón Axial",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg06_hero/01_axial_portal_rosette.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_bg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "scene": "06"
+    },
+    "cine_bg06_hero_02_hero_rimlight_spotlight": {
+      "id": "cine_bg06_hero_02_hero_rimlight_spotlight",
+      "name": "Cinemática 06 · Capa 02: Contraluz y Foco Cenital",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg06_hero/02_hero_rimlight_spotlight.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_mid",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "scene": "06"
+    },
+    "cine_bg06_hero_03_flanking_speakers_framing": {
+      "id": "cine_bg06_hero_03_flanking_speakers_framing",
+      "name": "Cinemática 06 · Capa 03: Altavoces de Flanco y Enmarque",
+      "category": "backgrounds",
+      "file": "assets/cinematics/backgrounds/final/cine_bg06_hero/03_flanking_speakers_framing.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "aspect": "16:9",
+        "alpha": true
+      },
+      "behavior": "parallax_fg",
+      "fallback": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "scene": "06"
+    },
+    "logo_deadbeat_cinematic": {
+      "id": "logo_deadbeat_cinematic",
+      "name": "Logotipo Oficial Cinemático DEADBEAT DISCO",
+      "category": "logos",
+      "file": "assets/cinematics/logos/logo_deadbeat_cinematic.png",
+      "expected": {
+        "w": 1024,
+        "h": 512,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "screen_center_glow",
+      "fallback": "assets/fase01/logo_deadbeat_trim.png",
+      "scene": "09"
+    },
+    "hero_idle_00": {
+      "id": "hero_idle_00",
+      "name": "Protagonista Cinemático · Pose Estática (Idle)",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_idle_00.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_anchor_bottom",
+      "fallback": "assets/characters/player_idle_00.png",
+      "scene": "08,10"
+    },
+    "hero_walk_00": {
+      "id": "hero_walk_00",
+      "name": "Protagonista Cinemático · Caminata Cuadro 00",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_walk_00.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_walk_cycle",
+      "fallback": "assets/characters/player_walk_00.png",
+      "scene": "04,05,07"
+    },
+    "hero_walk_01": {
+      "id": "hero_walk_01",
+      "name": "Protagonista Cinemático · Caminata Cuadro 01",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_walk_01.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_walk_cycle",
+      "fallback": "assets/characters/player_walk_01.png",
+      "scene": "04,05,07"
+    },
+    "hero_walk_02": {
+      "id": "hero_walk_02",
+      "name": "Protagonista Cinemático · Caminata Cuadro 02",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_walk_02.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_walk_cycle",
+      "fallback": "assets/characters/player_walk_02.png",
+      "scene": "04,05,07"
+    },
+    "hero_walk_03": {
+      "id": "hero_walk_03",
+      "name": "Protagonista Cinemático · Caminata Cuadro 03",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_walk_03.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_walk_cycle",
+      "fallback": "assets/characters/player_walk_03.png",
+      "scene": "04,05,07"
+    },
+    "hero_shoot_00": {
+      "id": "hero_shoot_00",
+      "name": "Protagonista Cinemático · Desenfundado M1911",
+      "category": "characters",
+      "file": "assets/cinematics/characters/protagonist/hero_shoot_00.png",
+      "expected": {
+        "w": 256,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "character_anchor_bottom",
+      "fallback": "assets/characters/player_shoot_00.png",
+      "scene": "08,09"
+    },
+    "overlay_vignette_gothic": {
+      "id": "overlay_vignette_gothic",
+      "name": "Efecto Cinematográfico · Viñeteado Gótico y Marco Anamórfico",
+      "category": "overlays",
+      "file": "assets/cinematics/overlays/overlay_vignette_gothic.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "screen_overlay",
+      "fallback": "assets/cinematics/overlays/overlay_vignette_gothic.png",
+      "scene": "all",
+      "description": "Gradiente radial de viñeteado cinematográfico con enmarque fino cian neón."
+    },
+    "effect_anamorphic_flare": {
+      "id": "effect_anamorphic_flare",
+      "name": "Efecto Visual · Destello de Lente Anamórfico Horizontal",
+      "category": "effects",
+      "file": "assets/cinematics/effects/effect_anamorphic_flare.png",
+      "expected": {
+        "w": 1920,
+        "h": 256,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "screen_flare",
+      "fallback": "assets/cinematics/effects/effect_anamorphic_flare.png",
+      "scene": "02,07,09",
+      "description": "Destello de lente anamórfico horizontal cian y magenta sincronizado con el pulso 128 BPM."
+    },
+    "effect_dust_particles": {
+      "id": "effect_dust_particles",
+      "name": "Efecto Ambiental · Mota de Polvo y Partículas Neón Volumétricas",
+      "category": "effects",
+      "file": "assets/cinematics/effects/effect_dust_particles.png",
+      "expected": {
+        "w": 1920,
+        "h": 1080,
+        "format": "png",
+        "alpha": true
+      },
+      "behavior": "ambient_particles",
+      "fallback": "assets/cinematics/effects/effect_dust_particles.png",
+      "scene": "01,03,04,05,06,08",
+      "description": "Partículas de polvo dorado y destellos neón flotantes en suspensión ambiental."
+    }
+  }
+}

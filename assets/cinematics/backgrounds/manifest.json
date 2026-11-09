@@ -1,0 +1,222 @@
+{
+  "project": "DEADBEAT DISCO",
+  "category": "cinematic_backgrounds",
+  "version": "1.0.0",
+  "date": "2026-11-09",
+  "resolution_standard": "1920x1080",
+  "aspect_ratio": "16:9",
+  "color_palette": {
+    "obsidian_dark": "#07020f",
+    "gothic_concrete": "#120422",
+    "neon_magenta": "#ff007f",
+    "neon_cyan": "#00f0ff",
+    "infernal_gold": "#ffe600",
+    "laser_violet": "#9d00ff"
+  },
+  "backgrounds": [
+    {
+      "id": "cine_bg01_city",
+      "code": "BG01",
+      "title": "Ciudad Exterior Nocturna",
+      "master_path": "assets/cinematics/backgrounds/cine_bg01_city.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 01 (Extreme Wide Shot - Ciudad Exterior)",
+        "Transición lenta disolución hacia Plano 02"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_sky",
+          "path": "assets/cinematics/backgrounds/cine_bg01_city/layer_01_sky.png",
+          "role": "Fondo profundo de cielo obsidiana y gradiente atmosférico",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_skyline",
+          "path": "assets/cinematics/backgrounds/cine_bg01_city/layer_02_skyline.png",
+          "role": "Siluetas de rascacielos brutalistas y balizas lejanas cian/magenta",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_fog_haze",
+          "path": "assets/cinematics/backgrounds/cine_bg01_city/layer_03_fog_haze.png",
+          "role": "Bruma volumétrica baja para paralaje 2.5D",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": ["Slow Pan horizontal (D->I)", "Tilt Up lento", "Disolución"]
+    },
+    {
+      "id": "cine_bg02_club_exterior",
+      "code": "BG02",
+      "title": "Fachada DEADBEAT DISCO",
+      "master_path": "assets/cinematics/backgrounds/cine_bg02_club_exterior.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 02 (Wide Shot - Fachada Club)",
+        "Plano 03 (Inicio de aproximación / Dolly In al portal)"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_wall",
+          "path": "assets/cinematics/backgrounds/cine_bg02_club_exterior/layer_01_wall.png",
+          "role": "Muro brutalista macizo con molduras y nichos góticos",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_portal",
+          "path": "assets/cinematics/backgrounds/cine_bg02_club_exterior/layer_02_portal.png",
+          "role": "Portal gótico monumental central y marquesina para logo oficial",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_ground",
+          "path": "assets/cinematics/backgrounds/cine_bg02_club_exterior/layer_03_ground.png",
+          "role": "Pavimento exterior oscuro con charcos y reflejos fucsia/cian",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": ["Dolly In continuo y lento", "Corte rítmico en bombo"]
+    },
+    {
+      "id": "cine_bg03_entrance",
+      "code": "BG03",
+      "title": "Umbral y Corredor Interior",
+      "master_path": "assets/cinematics/backgrounds/cine_bg03_entrance.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 03 (Close-Up Umbral con Dutch Angle)",
+        "Plano 04 (Medium Shot Silueta Contraluz)",
+        "Plano 05 (Tracking Medium Shot - Caminata de Seguimiento)"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_back_corridor",
+          "path": "assets/cinematics/backgrounds/cine_bg03_entrance/layer_01_back_corridor.png",
+          "role": "Fondo del corredor con fuga de luz dorada y magenta entreabierta",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_mid_columns",
+          "path": "assets/cinematics/backgrounds/cine_bg03_entrance/layer_02_mid_columns.png",
+          "role": "Columnas intermedias de obsidiana iluminadas por neón",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_foreground_pillars",
+          "path": "assets/cinematics/backgrounds/cine_bg03_entrance/layer_03_foreground_pillars.png",
+          "role": "Columnas colosales en primer plano que generan oclusión rítmica en travelling",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": ["Travelling lateral continuo (Izq->Der)", "Whip Pan tras columna"]
+    },
+    {
+      "id": "cine_bg04_main_hall",
+      "code": "BG04",
+      "title": "Nave Principal",
+      "master_path": "assets/cinematics/backgrounds/cine_bg04_main_hall.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 06 (High Angle Extreme Wide Shot - Revelación Interior)",
+        "Transición descendente hacia la pista"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_cathedral_vault",
+          "path": "assets/cinematics/backgrounds/cine_bg04_main_hall/layer_01_cathedral_vault.png",
+          "role": "Bóvedas góticas de crucería y perspectiva arquitectónica descendente",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_light_beams",
+          "path": "assets/cinematics/backgrounds/cine_bg04_main_hall/layer_02_light_beams.png",
+          "role": "Haces volumétricos de luz láser cian, violeta y fucsia",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_chandeliers_pillars",
+          "path": "assets/cinematics/backgrounds/cine_bg04_main_hall/layer_03_chandeliers_pillars.png",
+          "role": "Candelabros monumentales dorados y pilastras de crujía lateral",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": ["Dolly Out cenital en grúa", "Smooth glide downtilt hacia pista"]
+    },
+    {
+      "id": "cine_bg05_dancefloor",
+      "code": "BG05",
+      "title": "Pista de Baile",
+      "master_path": "assets/cinematics/backgrounds/cine_bg05_dancefloor.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 07 (Wide Shot Dinámico - Drop Musical)",
+        "Plano 08 (Avance hacia el epicentro)"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_floor_grid",
+          "path": "assets/cinematics/backgrounds/cine_bg05_dancefloor/layer_01_floor_grid.png",
+          "role": "Suelo reactivo de obsidiana y oro con retícula neón en perspectiva",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_sound_towers",
+          "path": "assets/cinematics/backgrounds/cine_bg05_dancefloor/layer_02_sound_towers.png",
+          "role": "Torres de altavoces laterales, vallas y cabina DJ en fuga",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_ambient_glow",
+          "path": "assets/cinematics/backgrounds/cine_bg05_dancefloor/layer_03_ambient_glow.png",
+          "role": "Resplandor estroboscópico ambiental reactivo al drop del bajo",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": ["Lead tracking de retroceso", "Fast Dolly-In acelerado"]
+    },
+    {
+      "id": "cine_bg06_hero",
+      "code": "BG06",
+      "title": "Composición Heroica e Identidad",
+      "master_path": "assets/cinematics/backgrounds/cine_bg06_hero.png",
+      "resolution": "1920x1080",
+      "format": "PNG",
+      "storyboard_shots": [
+        "Plano 08 (Medium Close-Up - Presentación Heroica)",
+        "Plano 09 (Integración Gráfica Título / Logotipo DEADBEAT DISCO)",
+        "Plano 10 (Transición Seamless al Ángulo Isométrico Jugable)"
+      ],
+      "layers": [
+        {
+          "layer_id": "layer_01_arena_bokeh",
+          "path": "assets/cinematics/backgrounds/cine_bg06_hero/layer_01_arena_bokeh.png",
+          "role": "Geometría concéntrica con profundidad de campo bokeh",
+          "has_transparency": false
+        },
+        {
+          "layer_id": "layer_02_hero_backlight",
+          "path": "assets/cinematics/backgrounds/cine_bg06_hero/layer_02_hero_backlight.png",
+          "role": "Foco cenital y contraluz monumental (Rim Light) para silueta del héroe",
+          "has_transparency": true
+        },
+        {
+          "layer_id": "layer_03_framing",
+          "path": "assets/cinematics/backgrounds/cine_bg06_hero/layer_03_framing.png",
+          "role": "Enmarcado perimetral oscuro que deja el tercio superior libre para el logo oficial",
+          "has_transparency": true
+        }
+      ],
+      "camera_features": [
+        "Micro-órbita 15°",
+        "Camera Shake coordinado con bajo",
+        "Lerp de interpolación suave (1.2s) a cámara de gameplay"
+      ]
+    }
+  ]
+}
