@@ -93,16 +93,27 @@
   }
 
   /* A. GAME INTRO SEQUENCE — presentación con sprites reales del protagonista */
+  /* A. GAME INTRO SEQUENCE — Diez Planos Cinematográficos Completos (~35s)
+     Sincronización rítmica 128 BPM (1 beat = 0.46875s).
+     Transición continua 2.5D de los 6 fondos oficiales y entrega seamless al HUB. */
   function playIntro(onComplete) {
     startSeq({
       type: "intro",
-      tag: "PRÓLOGO · DESCENSO AL CLUB",
-      subtitle: "UNA NOCHE. NUEVE CÍRCULOS. NINGUNA SALIDA FÁCIL.",
-      duration: 7.8,
+      tag: "DEADBEAT DISCO · PRÓLOGO",
+      subtitle: "DIEZ PLANOS · SEIS ESCENARIOS · DESCENSO AL CLUB",
+      duration: 35.0,
       blocking: true,
       skippable: true,
       letterbox: true,
-      onComplete
+      onComplete: function () {
+        // Al terminar o saltar la intro, se asegura la transición y foco directo en el HUB real r0
+        if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
+          try { window.DD_HUB.enter(); } catch (e) {}
+        }
+        if (typeof onComplete === "function") {
+          try { onComplete(); } catch (e) {}
+        }
+      }
     });
   }
 
@@ -248,11 +259,76 @@
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
-        // La cámara acompaña la entrada del protagonista y termina asentada.
-        const travel = p < 0.72 ? p / 0.72 : 1;
-        cam.targetZoomMul = 1 + Math.sin(travel * Math.PI) * (reducedMotion ? 0.025 : 0.065);
-        cam.targetOffX = (0.5 - travel) * 14;
-        cam.targetOffY = -Math.sin(travel * Math.PI) * 8;
+        // Sincronización rítmica con el reloj de 128 BPM (1 beat = 0.46875s)
+        const bpmTime = activeSeq.elapsed;
+        const beatFrac = (bpmTime % 0.46875) / 0.46875;
+        const kickPulse = Math.exp(-beatFrac * 6.5);
+        const t = activeSeq.elapsed;
+
+        // Diez planos cinematográficos continuos (35s total)
+        if (t < 3.5) {
+          // PLANO 01 (00:00 - 00:35 · 3.5s) · Ciudad Exterior (EWS): Pan horizontal lento + Tilt Up suave
+          const lp = t / 3.5;
+          cam.targetOffX = (0.5 - lp) * (reducedMotion ? 20 : 55);
+          cam.targetOffY = lp * (reducedMotion ? -8 : -22);
+          cam.targetZoomMul = 1.0 + lp * (reducedMotion ? 0.015 : 0.04);
+        } else if (t < 7.0) {
+          // PLANO 02 (00:35 - 00:70 · 3.5s) · Fachada del Club (WS): Dolly In continuo hacia el portal
+          const lp = (t - 3.5) / 3.5;
+          cam.targetOffX = Math.sin(lp * Math.PI * 0.5) * 6;
+          cam.targetOffY = lp * -14;
+          cam.targetZoomMul = 1.02 + lp * (reducedMotion ? 0.04 : 0.12);
+        } else if (t < 10.0) {
+          // PLANO 03 (00:70 - 01:00 · 3.0s) · Umbral (CU / Dutch Angle): Foco en marco y fuga de luz
+          const lp = (t - 7.0) / 3.0;
+          cam.targetOffX = -18 + lp * 12;
+          cam.targetOffY = 10 - lp * 8;
+          cam.targetZoomMul = 1.15 + lp * 0.06;
+        } else if (t < 13.5) {
+          // PLANO 04 (01:00 - 01:35 · 3.5s) · Aparición del Protagonista (MS Contraluz): Contrapicado
+          const lp = (t - 10.0) / 3.5;
+          cam.targetOffX = Math.sin(lp * Math.PI) * 8;
+          cam.targetOffY = 16 - lp * 10;
+          cam.targetZoomMul = 1.12 - lp * 0.03 + kickPulse * (reducedMotion ? 0.005 : 0.018);
+        } else if (t < 17.5) {
+          // PLANO 05 (01:35 - 01:75 · 4.0s) · Tracking Lateral: Seguimiento de izquierda a derecha
+          const lp = (t - 13.5) / 4.0;
+          cam.targetOffX = (-0.5 + lp) * (reducedMotion ? 40 : 120);
+          cam.targetOffY = Math.sin(lp * Math.PI * 2) * 6;
+          cam.targetZoomMul = 1.08;
+        } else if (t < 21.0) {
+          // PLANO 06 (01:75 - 02:10 · 3.5s) · Gran Nave Principal (High Angle EWS): Grúa cenital
+          const lp = (t - 17.5) / 3.5;
+          cam.targetOffX = Math.sin(lp * Math.PI) * 12;
+          cam.targetOffY = -28 + lp * 22;
+          cam.targetZoomMul = 1.18 - lp * (reducedMotion ? 0.05 : 0.12);
+        } else if (t < 24.5) {
+          // PLANO 07 (02:10 - 02:45 · 3.5s) · Pista Principal (Dynamic WS · DROP): Retroceso y beat drop
+          const lp = (t - 21.0) / 3.5;
+          cam.targetOffX = 0;
+          cam.targetOffY = lp * -18;
+          cam.targetZoomMul = 1.05 + lp * 0.08 + kickPulse * (reducedMotion ? 0.01 : 0.035);
+        } else if (t < 28.5) {
+          // PLANO 08 (02:45 - 02:85 · 4.0s) · Presentación Heroica (MCU): Detención y micro-órbita
+          const lp = (t - 24.5) / 4.0;
+          cam.targetOffX = Math.sin(lp * Math.PI) * (reducedMotion ? 10 : 28);
+          cam.targetOffY = -6 + Math.cos(lp * Math.PI) * 4;
+          cam.targetZoomMul = 1.22 + Math.sin(lp * Math.PI * 0.5) * 0.06;
+        } else if (t < 32.0) {
+          // PLANO 09 (02:85 - 03:20 · 3.5s) · Identidad del Juego (Hero Shot): Logotipo oficial + camera shake
+          const lp = (t - 28.5) / 3.5;
+          const shake = (1 - lp) * (Math.random() - 0.5) * (reducedMotion ? 3 : 14);
+          cam.targetOffX = shake;
+          cam.targetOffY = -4 + shake * 0.6;
+          cam.targetZoomMul = 1.18 + kickPulse * 0.04;
+        } else {
+          // PLANO 10 (03:20 - 03:55 · 3.5s) · Transición Seamless al Gameplay: Lerp suave hacia HUB / r0
+          const lp = Math.min(1, (t - 32.0) / 3.0);
+          const ease = lp * lp * (3 - 2 * lp);
+          cam.targetOffX = (1 - ease) * cam.offX;
+          cam.targetOffY = (1 - ease) * cam.offY;
+          cam.targetZoomMul = 1.14 + (1.0 - 1.14) * ease;
+        }
       } else if (activeSeq.type === "room") {
         // Smooth zoom-in through doorway then settle into new room
         cam.targetZoomMul = 1 + Math.sin(p * Math.PI) * (reducedMotion ? 0.04 : 0.12);
@@ -295,138 +371,491 @@
     ctx.imageSmoothingEnabled = true;
 
     if (activeSeq.type === "intro") {
-      ctx.fillStyle = "#06030d";
+      // Fondo base de absorción de color infernal
+      ctx.fillStyle = "#06020c";
       ctx.fillRect(0, 0, viewW, viewH);
 
-      const pano = (window.DD_ASSETS && window.DD_ASSETS.get("cine_intro_club_panorama")) ||
-                   (window.DD_ASSETS && window.DD_ASSETS.get("menu_main_backdrop"));
-      const logo = window.DD_ASSETS && window.DD_ASSETS.get("logo_deadbeat_graffiti");
-      const idle = window.DD_ASSETS && window.DD_ASSETS.get("player_idle_00");
-      const walkFrames = ["player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03"]
-        .map(function (id) { return window.DD_ASSETS && window.DD_ASSETS.get(id); })
-        .filter(function (img) { return !!img && img.naturalWidth > 0; });
+      const t = activeSeq.elapsed;
+      const bpmTime = t;
+      const beatFrac = (bpmTime % 0.46875) / 0.46875;
+      const kickPulse = Math.exp(-beatFrac * 6.5);
 
-      // Plano general del club: travelling lento, profundidad y luces de pista.
-      if (pano) {
-        const panScale = 1.035 + 0.085 * p;
-        const dw = viewW * panScale;
-        const dh = viewH * panScale;
-        ctx.globalAlpha = Math.min(1, p * 2.8);
-        ctx.drawImage(pano, (viewW - dw) * 0.5 - p * 34, (viewH - dh) * 0.5, dw, dh);
+      // Obtención modular de recursos con soporte de manifiesto central y fallback
+      const getAsset = function (id) {
+        if (!window.DD_ASSETS || typeof window.DD_ASSETS.get !== "function") return null;
+        return window.DD_ASSETS.get(id);
+      };
+      // Personaje modular sustituible con fallback a sprites canónicos del motor
+      const pIdle = getAsset("hero_idle_00") || getAsset("player_idle_00");
+      const pShoot = getAsset("hero_shoot_00") || getAsset("player_shoot_00") || pIdle;
+      const pWalkFrames = [
+        getAsset("hero_walk_00") || getAsset("player_walk_00"),
+        getAsset("hero_walk_01") || getAsset("player_walk_01"),
+        getAsset("hero_walk_02") || getAsset("player_walk_02"),
+        getAsset("hero_walk_03") || getAsset("player_walk_03")
+      ].filter(function (img) { return !!img && img.naturalWidth > 0; });
+
+      // Selector de plano cinematográfico (1 al 10)
+      let shotIdx = 1;
+      let shotElapsed = t;
+      let shotDur = 3.5;
+      let shotProgress = 0;
+
+      if (t < 3.5) {
+        shotIdx = 1; shotElapsed = t; shotDur = 3.5;
+      } else if (t < 7.0) {
+        shotIdx = 2; shotElapsed = t - 3.5; shotDur = 3.5;
+      } else if (t < 10.0) {
+        shotIdx = 3; shotElapsed = t - 7.0; shotDur = 3.0;
+      } else if (t < 13.5) {
+        shotIdx = 4; shotElapsed = t - 10.0; shotDur = 3.5;
+      } else if (t < 17.5) {
+        shotIdx = 5; shotElapsed = t - 13.5; shotDur = 4.0;
+      } else if (t < 21.0) {
+        shotIdx = 6; shotElapsed = t - 17.5; shotDur = 3.5;
+      } else if (t < 24.5) {
+        shotIdx = 7; shotElapsed = t - 21.0; shotDur = 3.5;
+      } else if (t < 28.5) {
+        shotIdx = 8; shotElapsed = t - 24.5; shotDur = 4.0;
+      } else if (t < 32.0) {
+        shotIdx = 9; shotElapsed = t - 28.5; shotDur = 3.5;
+      } else {
+        shotIdx = 10; shotElapsed = t - 32.0; shotDur = 3.0;
       }
-      ctx.globalAlpha = 1;
-      const shade = ctx.createLinearGradient(0, 0, 0, viewH);
-      shade.addColorStop(0, "rgba(5, 2, 14, 0.12)");
-      shade.addColorStop(0.58, "rgba(5, 2, 14, 0.16)");
-      shade.addColorStop(1, "rgba(5, 2, 14, 0.82)");
-      ctx.fillStyle = shade;
-      ctx.fillRect(0, 0, viewW, viewH);
+      shotProgress = Math.min(1, Math.max(0, shotElapsed / shotDur));
 
-      // Barridos de luz del escenario sincronizados con el avance de la secuencia.
-      ctx.save();
-      ctx.globalCompositeOperation = "screen";
-      ctx.globalAlpha = 0.12 + Math.sin(activeSeq.elapsed * 2.1) * 0.035;
-      for (let i = 0; i < 3; i++) {
-        const lx = viewW * (0.18 + i * 0.32 + Math.sin(activeSeq.elapsed * 0.7 + i) * 0.08);
-        const beam = ctx.createLinearGradient(lx, 0, lx + viewW * 0.12, viewH);
-        beam.addColorStop(0, "rgba(255, 45, 122, 0.0)");
-        beam.addColorStop(0.48, i === 1 ? "rgba(34, 211, 238, 0.26)" : "rgba(255, 45, 122, 0.24)");
-        beam.addColorStop(1, "rgba(255, 45, 122, 0.0)");
-        ctx.fillStyle = beam;
+      // Actualizar subtítulo y tag en el overlay letterbox
+      const tagEl = document.getElementById("dd-cine-tag");
+      const subEl = document.getElementById("dd-cine-sub");
+      if (tagEl && subEl) {
+        const SHOT_TITLES = [
+          "PLANO 01 · LA METRÓPOLIS BRUTALISTA",
+          "PLANO 02 · LA FACHADA MONUMENTAL",
+          "PLANO 03 · EL UMBRAL DE ACCESO",
+          "PLANO 04 · APARICIÓN DEL PROTAGONISTA",
+          "PLANO 05 · CAMINATA Y CORREDOR",
+          "PLANO 06 · LA NAVE CATEDRALICIA",
+          "PLANO 07 · EL DROP EN LA PISTA DE BAILE",
+          "PLANO 08 · PRESENTACIÓN HEROICA",
+          "PLANO 09 · DEADBEAT DISCO",
+          "PLANO 10 · INGRESO AL REFUGIO JUGABLE"
+        ];
+        const SHOT_SUBS = [
+          "EXTREME WIDE SHOT · LA NOCHE ETERNA SOBRE LA CIUDAD INFERNAL",
+          "WIDE SHOT · ACCESO AL TEMPLO DE OBSIDIANA Y NEÓN",
+          "CLOSE-UP / DUTCH ANGLE · TRASPASANDO EL PESADO PORTAL",
+          "MEDIUM SHOT · SILUETA EN CONTRALUZ MAGENTA Y DORADO",
+          "TRACKING SHOT · SEGUIMIENTO LATERAL CON OCLUSIÓN DE COLUMNAS",
+          "HIGH ANGLE EWS · BÓVEDAS DE CRUCERÍA Y LÁSERES VOLUMÉTRICOS",
+          "DYNAMIC WS · DROP RÍTMICO 128 BPM Y SUELO DE OBSIDIANA",
+          "MEDIUM CLOSE-UP · PARADA EN SECO Y DESENFUNDE M1911",
+          "HERO SHOT · LOGOTIPO OFICIAL DEADBEAT DISCO",
+          "TRANSICIÓN SEAMLESS · VINCULACIÓN AL HUB ISOMÉTRICO"
+        ];
+        tagEl.textContent = SHOT_TITLES[shotIdx - 1] || "DEADBEAT DISCO";
+        subEl.textContent = SHOT_SUBS[shotIdx - 1] || "CINEMÁTICA EN TIEMPO REAL";
+      }
+
+      // Helper para renderizar capas o fondo maestro con overscan y paralaje
+      const drawLayer = function (assetId, parX, parY, zoom, alpha, blendMode) {
+        const img = getAsset(assetId);
+        if (!img || img.naturalWidth <= 0) return;
+        ctx.save();
+        if (blendMode) ctx.globalCompositeOperation = blendMode;
+        ctx.globalAlpha = Math.max(0, Math.min(1, alpha !== undefined ? alpha : 1.0));
+        
+        // Relación de aspecto 16:9 con overscan para soportar cámara
+        const scale = Math.max(viewW / img.naturalWidth, viewH / img.naturalHeight) * (zoom || 1.0);
+        const dw = img.naturalWidth * scale;
+        const dh = img.naturalHeight * scale;
+        const dx = (viewW - dw) * 0.5 + (parX || 0);
+        const dy = (viewH - dh) * 0.5 + (parY || 0);
+        
+        ctx.drawImage(img, dx, dy, dw, dh);
+        ctx.restore();
+      };
+
+      // RENDERIZADO ESPECÍFICO POR PLANO CON ACABADO PREMIUM FASE 05
+      const dustImg = getAsset("effect_dust_particles");
+      const flareImg = getAsset("effect_anamorphic_flare");
+      const vignetteImg = getAsset("overlay_vignette_gothic");
+
+      if (shotIdx === 1) {
+        // PLANO 01 · CIUDAD EXTERIOR (cine_bg01_city)
+        const sp = shotProgress;
+        drawLayer("cine_bg01_city_01_sky_moon_atmosphere", (sp - 0.5) * 15, sp * -8, 1.02, 1.0);
+        drawLayer("cine_bg01_city_02_gothic_skyline_architecture", (sp - 0.5) * 45, sp * -18, 1.05, 1.0);
+        drawLayer("cine_bg01_city_03_foreground_industrial_pipes", (sp - 0.5) * 95, sp * -28, 1.08, 1.0);
+        if (!getAsset("cine_bg01_city_01_sky_moon_atmosphere")) {
+          drawLayer("cine_bg01_city", (sp - 0.5) * 50, sp * -20, 1.04, 1.0);
+        }
+
+        // Niebla volumétrica en capas con paralaje y dispersión de luz
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = 0.22 + Math.sin(t * 1.5) * 0.05;
+        const fogGrad = ctx.createLinearGradient(0, viewH * 0.52, 0, viewH);
+        fogGrad.addColorStop(0, "rgba(0, 240, 255, 0.0)");
+        fogGrad.addColorStop(0.6, "rgba(157, 0, 255, 0.25)");
+        fogGrad.addColorStop(1, "rgba(255, 0, 127, 0.32)");
+        ctx.fillStyle = fogGrad;
+        ctx.fillRect(0, viewH * 0.48, viewW, viewH * 0.52);
+
+        // Polvo ambiental flotante en el aire urbano
+        if (dustImg && dustImg.naturalWidth > 0) {
+          ctx.globalAlpha = 0.35;
+          ctx.drawImage(dustImg, (sp - 0.5) * 30, Math.sin(t * 0.8) * 10, viewW, viewH);
+        }
+        ctx.restore();
+
+      } else if (shotIdx === 2) {
+        // PLANO 02 · FACHADA DEL CLUB (cine_bg02_club_exterior)
+        const sp = shotProgress;
+        const zoom = 1.0 + sp * 0.12;
+        drawLayer("cine_bg02_club_exterior_01_gothic_cathedral_facade", 0, sp * -15, zoom, 1.0);
+        drawLayer("cine_bg02_club_exterior_02_portal_speakers_entrance", 0, sp * -12, zoom * 1.02, 1.0);
+        drawLayer("cine_bg02_club_exterior_03_wet_pavement_reflections", 0, sp * -6, zoom * 1.05, 1.0);
+        if (!getAsset("cine_bg02_club_exterior_01_gothic_cathedral_facade")) {
+          drawLayer("cine_bg02_club_exterior", 0, sp * -14, zoom, 1.0);
+        }
+
+        // Resplandor neón pulsante en el portal exterior con halos volumétricos
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = 0.18 + kickPulse * 0.16;
+        const neonGlow = ctx.createRadialGradient(viewW * 0.5, viewH * 0.45, 20, viewW * 0.5, viewH * 0.45, viewW * 0.45);
+        neonGlow.addColorStop(0, "rgba(255, 0, 127, 0.5)");
+        neonGlow.addColorStop(0.45, "rgba(0, 240, 255, 0.2)");
+        neonGlow.addColorStop(1, "rgba(6, 2, 12, 0)");
+        ctx.fillStyle = neonGlow;
+        ctx.fillRect(0, 0, viewW, viewH);
+
+        // Destello de lente anamórfico en el dintel del pórtico
+        if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.3) {
+          ctx.globalAlpha = kickPulse * 0.38;
+          ctx.drawImage(flareImg, 0, viewH * 0.42 - 64, viewW, 128);
+        }
+        ctx.restore();
+
+      } else if (shotIdx === 3) {
+        // PLANO 03 · UMBRAL (cine_bg03_entrance - CU Dutch Angle)
+        const sp = shotProgress;
+        ctx.save();
+        ctx.translate(viewW * 0.5, viewH * 0.5);
+        ctx.rotate((reducedMotion ? 0 : 0.025) * Math.sin(sp * Math.PI));
+        ctx.translate(-viewW * 0.5, -viewH * 0.5);
+
+        drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", (sp - 0.5) * 20, 0, 1.15 + sp * 0.05, 1.0);
+        drawLayer("cine_bg03_entrance_02_midground_columns_banners", (sp - 0.5) * 35, 0, 1.18 + sp * 0.06, 1.0);
+        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", (sp - 0.5) * 60, 0, 1.22 + sp * 0.08, 1.0);
+        if (!getAsset("cine_bg03_entrance_01_vaulted_hallway_depth")) {
+          drawLayer("cine_bg03_entrance", (sp - 0.5) * 30, 0, 1.18, 1.0);
+        }
+        ctx.restore();
+
+        // Fuga de luz dorada cegadora desde la rendija con haces diagonales
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = 0.22 + sp * 0.28;
+        const flashGrad = ctx.createLinearGradient(viewW * 0.35, 0, viewW * 0.65, viewH);
+        flashGrad.addColorStop(0, "rgba(255, 230, 0, 0.0)");
+        flashGrad.addColorStop(0.48, "rgba(255, 230, 0, 0.55)");
+        flashGrad.addColorStop(1, "rgba(255, 0, 127, 0.0)");
+        ctx.fillStyle = flashGrad;
+        ctx.fillRect(0, 0, viewW, viewH);
+        ctx.restore();
+
+      } else if (shotIdx === 4) {
+        // PLANO 04 · APARICIÓN DEL PROTAGONISTA (cine_bg03_entrance - Contraluz MS)
+        const sp = shotProgress;
+        drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", 0, 10 - sp * 10, 1.12, 1.0);
+        drawLayer("cine_bg03_entrance_02_midground_columns_banners", 0, 12 - sp * 12, 1.14, 1.0);
+
+        // Protagonista en silueta de contraluz avanzando con paso firme
+        const frameIdx = Math.floor(t * 8.0) % (pWalkFrames.length || 1);
+        const pImg = pWalkFrames[frameIdx] || pIdle;
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(380, viewH * 0.44);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * 0.5;
+          const py = viewH * 0.78 - sp * 24;
+
+          // Halo de contraluz volumétrico (Rim Light magenta profundo)
+          ctx.save();
+          ctx.globalCompositeOperation = "screen";
+          const rim = ctx.createRadialGradient(px, py - ph * 0.5, 10, px, py - ph * 0.5, ph * 0.7);
+          rim.addColorStop(0, "rgba(255, 0, 127, 0.75)");
+          rim.addColorStop(0.5, "rgba(255, 230, 0, 0.3)");
+          rim.addColorStop(1, "rgba(6, 2, 12, 0)");
+          ctx.fillStyle = rim;
+          ctx.beginPath();
+          ctx.ellipse(px, py - ph * 0.5, pw * 1.25, ph * 0.8, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Sombra proyectada alargada hacia adelante
+          ctx.globalCompositeOperation = "source-over";
+          ctx.fillStyle = "rgba(4, 1, 8, 0.72)";
+          ctx.beginPath();
+          ctx.ellipse(px, py + 2, pw * 0.6, 16, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 32;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
+
+      } else if (shotIdx === 5) {
+        // PLANO 05 · CAMINATA CINEMATOGRÁFICA (cine_bg03_entrance - Tracking Lateral)
+        const sp = shotProgress;
+        const parBg = (sp - 0.5) * -120;
+        const parMid = (sp - 0.5) * -220;
+        const parFg = (sp - 0.5) * -420;
+
+        drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", parBg, 0, 1.08, 1.0);
+        drawLayer("cine_bg03_entrance_02_midground_columns_banners", parMid, 0, 1.10, 1.0);
+
+        // Protagonista con desplazamiento físico real y alternancia fluida de pasos a 128 BPM
+        const frameIdx = Math.floor(t * 8.5) % (pWalkFrames.length || 1);
+        const pImg = pWalkFrames[frameIdx] || pIdle;
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(360, viewH * 0.42);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * (0.18 + sp * 0.64);
+          const py = viewH * 0.82 + Math.sin(t * 17.0) * 2.5;
+
+          ctx.save();
+          // Sombra proyectada elíptica con gradiente de contacto
+          ctx.fillStyle = "rgba(4, 1, 8, 0.72)";
+          ctx.beginPath();
+          ctx.ellipse(px, py - 4, pw * 0.48, 15, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 22;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
+
+      } else if (shotIdx === 6) {
+        // PLANO 06 · GRAN NAVE PRINCIPAL (cine_bg04_main_hall - High Angle EWS)
+        const sp = shotProgress;
+        const grpY = -25 + sp * 22;
+        drawLayer("cine_bg04_main_hall_01_cathedral_nave_vaults", 0, grpY * 0.5, 1.15 - sp * 0.08, 1.0);
+        drawLayer("cine_bg04_main_hall_02_laser_beams_equalizer", Math.sin(t * 1.8) * 18, grpY * 0.8, 1.16 - sp * 0.08, 1.0);
+        drawLayer("cine_bg04_main_hall_03_chandeliers_stage_framing", 0, grpY * 1.2, 1.18 - sp * 0.08, 1.0);
+        if (!getAsset("cine_bg04_main_hall_01_cathedral_nave_vaults")) {
+          drawLayer("cine_bg04_main_hall", 0, grpY, 1.12, 1.0);
+        }
+
+        // Haces de luz láser volumétrica cruzados y oscilantes
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = 0.32 + kickPulse * 0.18;
+        const beamAngle = Math.sin(t * 2.2) * 140;
+        const bGrad = ctx.createLinearGradient(viewW * 0.5, 0, viewW * 0.5 + beamAngle, viewH);
+        bGrad.addColorStop(0, "rgba(255, 0, 127, 0.0)");
+        bGrad.addColorStop(0.5, "rgba(0, 240, 255, 0.4)");
+        bGrad.addColorStop(1, "rgba(157, 0, 255, 0.0)");
+        ctx.fillStyle = bGrad;
         ctx.beginPath();
-        ctx.moveTo(lx - 24, 0);
-        ctx.lineTo(lx + viewW * 0.12, 0);
-        ctx.lineTo(lx + viewW * 0.30, viewH);
-        ctx.lineTo(lx + viewW * 0.05, viewH);
+        ctx.moveTo(viewW * 0.5 - 30, 0);
+        ctx.lineTo(viewW * 0.5 + 30, 0);
+        ctx.lineTo(viewW * 0.5 + beamAngle + 120, viewH);
+        ctx.lineTo(viewW * 0.5 + beamAngle - 120, viewH);
         ctx.closePath();
         ctx.fill();
-      }
-      ctx.restore();
 
-      // El protagonista entra caminando con sus cuatro fotogramas originales.
-      const walk = Math.max(0, Math.min(1, (p - 0.08) / 0.60));
-      const walkEase = walk * walk * (3 - 2 * walk);
-      const frame = walkFrames.length
-        ? walkFrames[Math.floor(activeSeq.elapsed * 8.5) % walkFrames.length]
-        : idle;
-      const playerImg = (p > 0.72 && idle) ? idle : frame;
-      if (playerImg && playerImg.naturalWidth > 0) {
-        const playerH = Math.min(330, Math.max(190, viewH * 0.39));
-        const playerW = playerH * (playerImg.naturalWidth / Math.max(1, playerImg.naturalHeight));
-        const playerX = -playerW * 0.55 + (viewW * 0.43 + playerW * 0.55) * walkEase;
-        const playerY = viewH * 0.82 + Math.sin(activeSeq.elapsed * 8.5) * (p < 0.72 ? 2.8 : 0.8);
+        // Láser secundario opuesto
+        const bGrad2 = ctx.createLinearGradient(viewW * 0.5, 0, viewW * 0.5 - beamAngle * 0.8, viewH);
+        bGrad2.addColorStop(0, "rgba(0, 240, 255, 0.0)");
+        bGrad2.addColorStop(0.5, "rgba(255, 0, 127, 0.35)");
+        bGrad2.addColorStop(1, "rgba(255, 230, 0, 0.0)");
+        ctx.fillStyle = bGrad2;
+        ctx.beginPath();
+        ctx.moveTo(viewW * 0.5 - 20, 0);
+        ctx.lineTo(viewW * 0.5 + 20, 0);
+        ctx.lineTo(viewW * 0.5 - beamAngle * 0.8 + 100, viewH);
+        ctx.lineTo(viewW * 0.5 - beamAngle * 0.8 - 100, viewH);
+        ctx.closePath();
+        ctx.fill();
+        ctx.restore();
+
+      } else if (shotIdx === 7) {
+        // PLANO 07 · PISTA PRINCIPAL (cine_bg05_dancefloor - Dynamic WS DROP)
+        const sp = shotProgress;
+        drawLayer("cine_bg05_dancefloor_01_astrological_dancefloor_grid", 0, sp * -12, 1.04 + kickPulse * 0.02, 1.0);
+        drawLayer("cine_bg05_dancefloor_02_sound_towers_dj_stage", 0, sp * -10, 1.06 + kickPulse * 0.03, 1.0);
+
+        // Protagonista avanzando hacia el centro de la pista pulsante
+        const frameIdx = Math.floor(t * 8.5) % (pWalkFrames.length || 1);
+        const pImg = pWalkFrames[frameIdx] || pIdle;
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(340, viewH * 0.40);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * 0.5;
+          const py = viewH * 0.88 - sp * 40;
+
+          // Reflejo interactivo en la obsidiana pulida del suelo
+          ctx.save();
+          ctx.globalCompositeOperation = "screen";
+          ctx.globalAlpha = 0.32 + kickPulse * 0.2;
+          ctx.translate(px, py);
+          ctx.scale(1, -0.42);
+          ctx.drawImage(pImg, -pw * 0.5, 0, pw, ph);
+          ctx.restore();
+
+          // Sombra de contacto
+          ctx.save();
+          ctx.fillStyle = "rgba(4, 1, 8, 0.8)";
+          ctx.beginPath();
+          ctx.ellipse(px, py - 4, pw * 0.5, 14, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowColor = "#00f0ff";
+          ctx.shadowBlur = 22;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+        drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
+
+        // Estallido estroboscópico del DROP musical sincronizado a 128 BPM
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = kickPulse * 0.38;
+        ctx.fillStyle = "#ff007f";
+        ctx.fillRect(0, 0, viewW, viewH);
+
+        if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.4) {
+          ctx.globalAlpha = kickPulse * 0.55;
+          ctx.drawImage(flareImg, 0, viewH * 0.5 - 64, viewW, 128);
+        }
+        ctx.restore();
+
+      } else if (shotIdx === 8) {
+        // PLANO 08 · PRESENTACIÓN HEROICA (cine_bg06_hero - MCU Órbita)
+        const sp = shotProgress;
+        const orbX = Math.sin(sp * Math.PI) * 22;
+        drawLayer("cine_bg06_hero_01_axial_portal_rosette", orbX * 0.5, 0, 1.20, 1.0);
+        drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", orbX * 0.8, 0, 1.22 + kickPulse * 0.04, 1.0);
+
+        // El héroe se detiene (idle_00) y empuña su M1911 (shoot_00 windup)
+        const pImg = (sp > 0.45 && pShoot) ? pShoot : pIdle;
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(440, viewH * 0.52);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * 0.5 + orbX;
+          const py = viewH * 0.88;
+
+          ctx.save();
+          // Halo de contraluz volumétrico (Rim Light cenital dorado/fucsia)
+          ctx.globalCompositeOperation = "screen";
+          const rim = ctx.createRadialGradient(px, py - ph * 0.55, 12, px, py - ph * 0.55, ph * 0.72);
+          rim.addColorStop(0, "rgba(255, 0, 127, 0.75)");
+          rim.addColorStop(0.5, "rgba(0, 240, 255, 0.3)");
+          rim.addColorStop(1, "rgba(6, 2, 12, 0)");
+          ctx.fillStyle = rim;
+          ctx.beginPath();
+          ctx.ellipse(px, py - ph * 0.55, pw * 1.3, ph * 0.8, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Sombra de contacto
+          ctx.globalCompositeOperation = "source-over";
+          ctx.fillStyle = "rgba(4, 1, 8, 0.85)";
+          ctx.beginPath();
+          ctx.ellipse(px, py - 4, pw * 0.55, 18, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 28;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
+
+      } else if (shotIdx === 9) {
+        // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
+        const sp = shotProgress;
+        drawLayer("cine_bg06_hero_01_axial_portal_rosette", 0, 0, 1.18, 1.0);
+        drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", 0, 0, 1.20, 1.0);
+
+        // Protagonista visible al pie en guardia de combate
+        const pImg = pShoot || pIdle;
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(360, viewH * 0.42);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * 0.5;
+          const py = viewH * 0.92;
+          ctx.save();
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 24;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
+
+        // LOGOTIPO MODULAR DEADBEAT DISCO (assets/cinematics/logos/logo_deadbeat_cinematic.png con fallback)
+        const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_trim") || getAsset("logo_deadbeat_graffiti");
+        if (logoImg && logoImg.naturalWidth > 0) {
+          const lw = Math.min(viewW * 0.65, 780);
+          const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
+          const lx = (viewW - lw) * 0.5;
+          const ly = viewH * 0.22 - lh * 0.5;
+
+          ctx.save();
+          ctx.globalCompositeOperation = "screen";
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 36 + kickPulse * 22;
+          ctx.drawImage(logoImg, lx, ly, lw, lh);
+
+          if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.4) {
+            ctx.globalAlpha = kickPulse * 0.65;
+            ctx.drawImage(flareImg, 0, ly + lh * 0.5 - 64, viewW, 128);
+          }
+          ctx.restore();
+        }
+
+      } else {
+        // PLANO 10 · TRANSICIÓN AL JUEGO ISOMÉTRICO (Conexión directa con HUB / r0)
+        const sp = shotProgress;
+        const ease = sp * sp * (3 - 2 * sp);
 
         ctx.save();
-        ctx.globalAlpha = Math.min(1, Math.max(0, (p - 0.04) * 5));
-        const glow = ctx.createRadialGradient(playerX, playerY - 8, 8, playerX, playerY - 8, playerH * 0.72);
-        glow.addColorStop(0, "rgba(255, 45, 122, 0.28)");
-        glow.addColorStop(0.58, "rgba(34, 211, 238, 0.10)");
-        glow.addColorStop(1, "rgba(5, 2, 14, 0)");
-        ctx.globalCompositeOperation = "screen";
-        ctx.fillStyle = glow;
-        ctx.beginPath();
-        ctx.ellipse(playerX, playerY - playerH * 0.43, playerW * 1.1, playerH * 0.72, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.globalCompositeOperation = "source-over";
-        ctx.fillStyle = "rgba(0, 0, 0, 0.56)";
-        ctx.beginPath();
-        ctx.ellipse(playerX, playerY - 2, playerW * 0.43, playerH * 0.075, 0, 0, Math.PI * 2);
-        ctx.fill();
-        ctx.drawImage(playerImg, playerX - playerW * 0.5, playerY - playerH, playerW, playerH);
+        ctx.globalAlpha = Math.max(0, 1.0 - ease);
+        drawLayer("cine_bg06_hero", 0, ease * 30, 1.14 - ease * 0.14, 1.0);
+
+        if (pIdle && pIdle.naturalWidth > 0) {
+          const ph = Math.min(320, viewH * 0.38) * (1.0 - ease * 0.15);
+          const pw = ph * (pIdle.naturalWidth / pIdle.naturalHeight);
+          const px = viewW * 0.5;
+          const py = viewH * 0.88 - ease * 20;
+          ctx.drawImage(pIdle, px - pw * 0.5, py - ph, pw, ph);
+        }
+        ctx.restore();
+
+        if (sp > 0.92 && window.DD_HUB && typeof window.DD_HUB.isActive === "function" && !window.DD_HUB.isActive()) {
+          try { window.DD_HUB.enter(); } catch (e) {}
+        }
+      }
+
+      // Overlays cinematográficos globales: Viñeteado gótico y partículas
+      if (vignetteImg && vignetteImg.naturalWidth > 0 && shotIdx < 10) {
+        ctx.save();
+        ctx.globalCompositeOperation = "multiply";
+        ctx.globalAlpha = 0.65;
+        ctx.drawImage(vignetteImg, 0, 0, viewW, viewH);
         ctx.restore();
       }
 
-      // Marca y texto aparecen después de que el jugador haya entrado en escena.
-      if (logo && p > 0.48) {
-        const alpha = Math.min(1, (p - 0.48) * 4);
-        const lw = Math.min(390, viewW * 0.34);
-        const lh = lw * (logo.naturalHeight / Math.max(1, logo.naturalWidth));
-        ctx.globalAlpha = alpha;
-        ctx.drawImage(logo, viewW * 0.60, viewH * 0.27, lw, lh);
-        ctx.globalAlpha = 1;
-      }
-      ctx.textAlign = "left";
-      ctx.fillStyle = "#f8fafc";
-      ctx.font = "900 " + Math.max(17, Math.min(25, viewW * 0.021)) + "px Impact, Oswald, sans-serif";
-      const caption = p < 0.34
-        ? "LA NOCHE TODAVÍA NO HA TERMINADO"
-        : (p < 0.72 ? "ENTRA. SOBREVIVE. NO PIERDAS EL RITMO." : "BIENVENIDO AL REFUGIO");
-      ctx.globalAlpha = Math.min(1, p < 0.48 ? 0.86 : Math.min(1, (p - 0.48) * 3));
-      ctx.fillText(caption, viewW * 0.60, viewH * 0.68);
-      ctx.globalAlpha = 1;
-    } else if (activeSeq.type === "circle") {
-      const fade = p < 0.15 ? (p / 0.15) : (p > 0.82 ? (1 - p) / 0.18 : 1);
-      ctx.globalAlpha = Math.max(0, Math.min(1, fade));
-      ctx.fillStyle = "rgba(5, 2, 11, 0.92)";
-      ctx.fillRect(0, 0, viewW, viewH);
-
-      const meta = activeSeq.meta;
-      const backdrop = (window.DD_ASSETS && window.DD_ASSETS.get(meta.cine)) ||
-                       (window.DD_ASSETS && window.DD_ASSETS.get("cine_intro_club_panorama"));
-      const tower = window.DD_ASSETS && window.DD_ASSETS.get("map_infernal_tower");
-
-      if (backdrop) {
-        const s = 1.02 + 0.05 * p;
-        ctx.globalAlpha = fade * 0.65;
-        ctx.drawImage(backdrop, (viewW * (1 - s)) * 0.5, (viewH * (1 - s)) * 0.5, viewW * s, viewH * s);
-      }
-      ctx.globalAlpha = fade;
-      if (tower) {
-        const th = Math.min(340, viewH * 0.52);
-        const tw = th * (tower.naturalWidth / Math.max(1, tower.naturalHeight));
-        ctx.drawImage(tower, viewW * 0.18 - tw * 0.5, (viewH - th) * 0.5, tw, th);
-      }
-
-      ctx.textAlign = "left";
-      ctx.fillStyle = meta.accent;
-      ctx.font = "900 18px Inter, sans-serif";
-      ctx.fillText("DESCENSO INFERNAL · CÍRCULO " + meta.num, viewW * 0.34, viewH * 0.44);
-      ctx.fillStyle = "#ffffff";
-      ctx.font = "900 44px Impact, Oswald, sans-serif";
-      ctx.fillText(meta.title, viewW * 0.34, viewH * 0.53);
-      ctx.fillStyle = "#cbd5e1";
-      ctx.font = "600 18px Inter, sans-serif";
-      ctx.fillText(meta.sub, viewW * 0.34, viewH * 0.60);
+      ctx.restore();
+      return;
     } else if (activeSeq.type === "room") {
       // Crisp diagonal neon club wipe + room title card
       const wipe = Math.sin(p * Math.PI);

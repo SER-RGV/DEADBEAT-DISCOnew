@@ -301,7 +301,7 @@
       detail: "Esperando las imágenes de arranque y del menú…",
       critical: true,
       run: function () {
-        var ids = ["logo_deadbeat_graffiti", "emblem_fox_crown", "menu_main_backdrop", "menu_main_backdrop_a", "cine_intro_club_panorama", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03"];
+        var ids = ["cine_bg01_city", "cine_bg02_club_exterior", "cine_bg03_entrance", "cine_bg04_main_hall", "cine_bg05_dancefloor", "cine_bg06_hero", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
         var t0 = performance.now();
         return new Promise(function (resolve, reject) {
           var missing = [], done = 0;
@@ -830,7 +830,15 @@
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
-      enterMainMenu();
+
+      // FASE 06: Transición directa de la cinemática al HUB canónico r0
+      if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
+        try { window.DD_HUB.enter(); } catch (e) { console.warn("[DD_BOOT] error al entrar al HUB", e); }
+      }
+      if (window.DD_UI && typeof window.DD_UI.hideMainMenu === "function") {
+        try { window.DD_UI.hideMainMenu(); } catch (e) {}
+      }
+      setState("PLAYING");
       emit("intro-end", { by: state.introEndedBy });
     };
 
@@ -976,7 +984,7 @@
   }
 
   function canStartGame() {
-    return state.current === "MAIN_MENU" || state.current === "SUBMENU";
+    return state.current === "MAIN_MENU" || state.current === "SUBMENU" || state.current === "PLAYING";
   }
 
   function getState() {

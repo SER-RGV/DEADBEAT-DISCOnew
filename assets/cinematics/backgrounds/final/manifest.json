@@ -1,0 +1,235 @@
+{
+  "project": "DEADBEAT DISCO",
+  "category": "cinematic_backgrounds_master",
+  "version": "4.0.0",
+  "production_date": "2026-11-09",
+  "resolution_master": "1920x1080",
+  "overscan_canvas": "2048x1152",
+  "aspect_ratio": "16:9",
+  "art_style": "Gótico-Industrial Painterly HD · Discoteca Infernal",
+  "palette": {
+    "obsidian_primary": "#07020f",
+    "gothic_stone_dark": "#120324",
+    "neon_magenta_key": "#ff007f",
+    "neon_cyan_edge": "#00f0ff",
+    "infernal_gold_accent": "#ffe600",
+    "volumetric_laser_violet": "#9d00ff"
+  },
+  "visual_references_analyzed": [
+    {
+      "source": "Discoteca gótica neón bajo la lluvia-1.gif",
+      "features": "Catedral gótica de obsidiana, rosetón fucsia, lluvia y reflejos especulares en pavimento mojado, altavoces monumentales integrados en la piedra."
+    },
+    {
+      "source": "Catedral Neón_ Pista de Baile Animada-2.gif",
+      "features": "Gran nave catedralicia, bóvedas de crucería, lámparas de araña góticas de oro suspendidas, suelo astronómico infernal pulido, láseres volumétricos cruzados."
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "cine_bg01_city",
+      "code": "BG01",
+      "name": "Ciudad Exterior",
+      "file": "cine_bg01_city.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 01 (Extreme Wide Shot Urbano)",
+        "Transición a Plano 02"
+      ],
+      "layers": [
+        {
+          "file": "01_sky_moon_atmosphere.png",
+          "depth_plane": "Fondo / Infinito",
+          "desc": "Cielo nocturno profundo púrpura y luna sangrienta"
+        },
+        {
+          "file": "02_gothic_skyline_architecture.png",
+          "depth_plane": "Plano Medio",
+          "desc": "Rascacielos catedralicios y puentes"
+        },
+        {
+          "file": "03_foreground_industrial_pipes.png",
+          "depth_plane": "Primer Plano / Oclusión",
+          "desc": "Tuberías industriales y barandillas"
+        }
+      ],
+      "camera_support": [
+        "Panorámica lenta horizontal",
+        "Tilt Up",
+        "Travelling lateral",
+        "Zoom suave"
+      ]
+    },
+    {
+      "id": "cine_bg02_club_exterior",
+      "code": "BG02",
+      "name": "Fachada del Club",
+      "file": "cine_bg02_club_exterior.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 02 (Wide Shot Fachada)",
+        "Plano 03 (Dolly In al portal)"
+      ],
+      "layers": [
+        {
+          "file": "01_gothic_cathedral_facade.png",
+          "depth_plane": "Fondo / Muro",
+          "desc": "Fachada gótica y ventanales ojivales"
+        },
+        {
+          "file": "02_portal_speakers_entrance.png",
+          "depth_plane": "Plano Medio / Portal",
+          "desc": "Portal triple y altavoces monolíticos"
+        },
+        {
+          "file": "03_wet_pavement_reflections.png",
+          "depth_plane": "Primer Plano / Suelo",
+          "desc": "Pavimento mojado con reflejos de lluvia"
+        }
+      ],
+      "camera_support": [
+        "Dolly In continuo",
+        "Dolly Out",
+        "Corte rítmico en bombo"
+      ]
+    },
+    {
+      "id": "cine_bg03_entrance",
+      "code": "BG03",
+      "name": "Vestíbulo y Corredor",
+      "file": "cine_bg03_entrance.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 03 (Close-Up Umbral)",
+        "Plano 04 (Silueta Contraluz)",
+        "Plano 05 (Tracking Caminata)"
+      ],
+      "layers": [
+        {
+          "file": "01_vaulted_hallway_depth.png",
+          "depth_plane": "Fondo / Bóvedas en fuga",
+          "desc": "Bóvedas góticas en fuga de perspectiva"
+        },
+        {
+          "file": "02_midground_columns_banners.png",
+          "depth_plane": "Plano Medio / Pasillo",
+          "desc": "Pilastras intermedias y estandartes"
+        },
+        {
+          "file": "03_foreground_pillars_occlusion.png",
+          "depth_plane": "Primer Plano / Oclusión",
+          "desc": "Columnas colosales para oclusión en travelling"
+        }
+      ],
+      "camera_support": [
+        "Travelling lateral continuo (Izq->Der)",
+        "Whip Pan tras columna",
+        "Paralaje 2.5D"
+      ]
+    },
+    {
+      "id": "cine_bg04_main_hall",
+      "code": "BG04",
+      "name": "Gran Nave Principal",
+      "file": "cine_bg04_main_hall.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 06 (High Angle EWS Interior - Revelación)"
+      ],
+      "layers": [
+        {
+          "file": "01_cathedral_nave_vaults.png",
+          "depth_plane": "Fondo / Bóvedas superiores",
+          "desc": "Bóvedas de crucería de tres niveles"
+        },
+        {
+          "file": "02_laser_beams_equalizer.png",
+          "depth_plane": "Plano Medio / Luz volumétrica",
+          "desc": "Foco seguidor diagonal y ecualizador"
+        },
+        {
+          "file": "03_chandeliers_stage_framing.png",
+          "depth_plane": "Primer Plano / Enmarcado",
+          "desc": "Candelabro monumental dorado y subwoofers"
+        }
+      ],
+      "camera_support": [
+        "Dolly Out cenital en grúa",
+        "Smooth glide downtilt hacia la pista"
+      ]
+    },
+    {
+      "id": "cine_bg05_dancefloor",
+      "code": "BG05",
+      "name": "Pista Principal",
+      "file": "cine_bg05_dancefloor.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 07 (Wide Shot Dinámico - Drop Musical)",
+        "Inicio Plano 08"
+      ],
+      "layers": [
+        {
+          "file": "01_astrological_dancefloor_grid.png",
+          "depth_plane": "Suelo / Pavimento reactivo",
+          "desc": "Suelo pulido con rosa de los vientos astrológica"
+        },
+        {
+          "file": "02_sound_towers_dj_stage.png",
+          "depth_plane": "Plano Medio / Cabina DJ",
+          "desc": "Cabina DJ y torres masivas de altavoces"
+        },
+        {
+          "file": "03_tables_foreground_ambient.png",
+          "depth_plane": "Primer Plano / Zonas VIP",
+          "desc": "Mesas VIP y bruma baja"
+        }
+      ],
+      "camera_support": [
+        "Lead tracking frontal de retroceso",
+        "Fast Dolly-In acelerado"
+      ]
+    },
+    {
+      "id": "cine_bg06_hero",
+      "code": "BG06",
+      "name": "Escenario Heroico",
+      "file": "cine_bg06_hero.png",
+      "relative_path": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "resolution": "2560x1440",
+      "storyboard_shots": [
+        "Plano 08 (MCU Presentación)",
+        "Plano 09 (Logotipo Oficial)",
+        "Plano 10 (Transición Juego Isométrico)"
+      ],
+      "layers": [
+        {
+          "file": "01_axial_portal_rosette.png",
+          "depth_plane": "Fondo / Portal axial",
+          "desc": "Portal monumental con corona de rayos dorados"
+        },
+        {
+          "file": "02_hero_rimlight_spotlight.png",
+          "depth_plane": "Plano Medio / Rim Light",
+          "desc": "Foco cenital y halo de contraluz para héroe"
+        },
+        {
+          "file": "03_flanking_speakers_framing.png",
+          "depth_plane": "Primer Plano / Reserva logo",
+          "desc": "Altavoces laterales y espacio superior despejado para logo"
+        }
+      ],
+      "camera_support": [
+        "Micro-órbita 15°",
+        "Camera Shake con bombo",
+        "Lerp suave 1.2s a cámara isométrica"
+      ]
+    }
+  ],
+  "resolution": "2560x1440 (1440p / 2K QHD 16:9)"
+}
