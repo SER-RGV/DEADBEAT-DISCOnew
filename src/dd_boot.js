@@ -703,6 +703,28 @@
     emit("error", { message: msg, errors: state.criticalErrors.slice() });
   }
 
+  /* Solicitud anticipada: se conserva durante LOADING, pero nunca omite las
+     comprobaciones esenciales ni cierra un diálogo de error. */
+  function queueIntroSkip() {
+    if (state.current !== "LOADING" || state.watchdogFired ||
+        (el.err && !el.err.hidden)) return false;
+    state.skipped = true;
+    var hint = q("dd-boot-hint");
+    if (hint) hint.textContent = "INTRO OMITIDA · ESPERANDO CARGA ESENCIAL";
+    return true;
+  }
+  window.addEventListener("keydown", function (ev) {
+    if ((ev.code === "Escape" || ev.code === "Space") && !ev.repeat && queueIntroSkip()) {
+      ev.preventDefault();
+    }
+  });
+  window.addEventListener("pointerdown", function (ev) {
+    var target = ev.target;
+    if (!target || !target.closest || !target.closest("#dd-boot-frame") ||
+        target.closest("button, a, input, select, textarea")) return;
+    queueIntroSkip();
+  }, { passive: true });
+
   /* ------------------------------------------------------------- ciclo      */
   function boot() {
     state.bootStart = performance.now();
@@ -842,6 +864,13 @@
       setState("PLAYING");
       emit("intro-end", { by: state.introEndedBy });
     };
+
+    // Saltar durante la carga nunca evita el arranque esencial: solo se aplica
+    // una vez que runSteps ha terminado correctamente y se ha ocultado la carga.
+    if (state.skipped) {
+      finish("skip");
+      return;
+    }
 
     document.body.classList.add("dd-intro-running");
 
@@ -995,6 +1024,7 @@
       submenu: state.submenu,
       introPlayed: state.introPlayed,
       introActive: state.introActive,
+      introSkipQueued: !!state.skipped && !state.introPlayed,
       introEndedBy: state.introEndedBy || null,
       criticalErrors: state.criticalErrors.slice(),
       menuMusic: audio.isMenuMusicPlaying(),

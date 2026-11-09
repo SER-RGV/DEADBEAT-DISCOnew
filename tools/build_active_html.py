@@ -685,7 +685,7 @@ BOOT_SHELL = """
     </div>
     <div class="dd-boot-foot">
       <span id="dd-boot-audio">PULSA UNA TECLA PARA HABILITAR EL AUDIO</span>
-      <span id="dd-boot-hint">CLIC · CUALQUIER TECLA · (A) PARA SALTAR</span>
+      <span id="dd-boot-hint" aria-live="polite">CLIC · ESPACIO · ESC PARA OMITIR LA INTRO</span>
     </div>
   </div>
 </section>
