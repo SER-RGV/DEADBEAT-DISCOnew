@@ -36,8 +36,53 @@ Mediciones crudas: `assets/cinematics/evidence/pr17/phase07/realtime_metrics.jso
 
 Las pruebas automatizadas existentes de selección de maestros y de integración comprueban rutas, lógica y conexión al HUB con dobles; no miden el FPS. Las capturas anteriores del PR se tomaron en Chromium con el reloj avanzado manualmente; sirven para revisar los planos, no para validar duración o fluidez.
 
+## Solicitud exacta de recursos oficiales
+
+Necesitamos los dos **fotogramas íntegros de la misma serie Tanda 09**; no sirven las poses de otra serie ni una reconstrucción inventada:
+
+| Archivo solicitado | Copia dañada que se conserva | Especificación para recepción |
+|---|---|---|
+| `player_idle_00.png` | `assets/characters/player_idle_00.png` y `assets/cinematics/characters/protagonist/hero_idle_00.png` | PNG RGBA, lienzo 224×320 px, figura completa, alfa transparente fuera de la silueta y sin huecos involuntarios dentro de ella. |
+| `player_walk_03.png` | `assets/characters/player_walk_03.png` y `assets/cinematics/characters/protagonist/hero_walk_03.png` | PNG RGBA, lienzo 224×320 px, cuarto paso completo, alfa limpio y misma identidad, escala y orientación que los demás pasos oficiales. |
+
+Para ambos, mantener el encuadre y anclaje centrado en los pies del conjunto existente: en los originales el contenido llega aproximadamente a y=312 de un lienzo de 320 px; las copias cinematográficas `grounded` desplazan el contenido 8 px hacia abajo. No cortar extremidades, añadir fondos ni alterar el diseño. La recepción debe comprobarse visualmente sobre fondos claros y oscuros y cuadro a cuadro; las dimensiones por sí solas no certifican continuidad. Los archivos dañados deben conservarse sin sobrescribir. También es necesaria una revisión de coherencia entre `walk_00`, `walk_01` y `walk_02`, cuyos vestuarios difieren visualmente; no se inventa aquí un reemplazo.
+
+## Protocolo reproducible en hardware acelerado
+
+Requiere una máquina con GPU física y una sesión gráfica visible, Chrome/Chromium instalado, Node.js 22.12 o posterior y Python 3. La prueba **no fuerza SwiftShader ni desactiva la GPU**, pero tampoco puede certificar por sí sola que se esté usando aceleración. Antes de medir, abrir `chrome://gpu` en ese navegador, guardar evidencia de la GPU y del estado de aceleración y comprobar que no se utilicen SwiftShader, llvmpipe u otro renderizador por software. Mantener conectado el equipo a la corriente si corresponde y anotar sistema, GPU, controlador, navegador, resolución y tasa de refresco.
+
+Desde el checkout del PR, en un terminal:
+
+```bash
+python3 tools/build_active_html.py
+python3 -m http.server 8000 --bind 127.0.0.1
+```
+
+En otro terminal (ejemplo Linux; sustituir la ruta del navegador):
+
+```bash
+mkdir -p /tmp/deadbeat-gpu-qa
+npm install --prefix /tmp/deadbeat-gpu-qa --no-save puppeteer-core@25.16.0
+DD_CHROME_PATH=/usr/bin/google-chrome \
+DD_QA_MODULES=/tmp/deadbeat-gpu-qa \
+DD_QA_OUTPUT=/tmp/deadbeat-gpu-qa/resultado.json \
+node tools/qa/test_cinematic_gpu.mjs
+```
+
+En macOS, `DD_CHROME_PATH` puede ser `/Applications/Google Chrome.app/Contents/MacOS/Google Chrome`; en Windows adaptar los comandos y variables al shell local. Opcionalmente `DD_QA_URL`, `DD_QA_WIDTH` y `DD_QA_HEIGHT` seleccionan dirección y viewport; el predeterminado es 1280×720, DPR 1. Usar una ventana en primer plano, sin limitación por batería, sin activar movimiento reducido y sin pulsar skip. La prueba espera el final real, no invoca `DD_CINE.update()` ni adelanta el reloj; registra tiempo transcurrido, orden de planos, carga inicial, errores, llegada al HUB, renderizador, intervalos y FPS basados en callbacks `requestAnimationFrame`. No son mediciones directas de fotogramas presentados por la GPU. El archivo JSON incluye datos brutos, mediana, p95, p99 y máximos. La salida no acredita una GPU física: contrastar el renderizador y el estado de `chrome://gpu` manualmente.
+
+**Lista de revisión durante la reproducción:**
+
+- [ ] El reloj real es aproximadamente 35 s y aparecen los diez planos, sin saltos, bloqueos, parpadeos ni fondos que entren tarde.
+- [ ] BG01–BG06 se ven en sus planos, con escalado y transiciones correctos; la carga inicial y las peticiones no fallan.
+- [ ] El protagonista permanece visible y no desliza ni salta de posición; inspeccionar las transiciones caminar/pose/disparo. El plano 06 no contiene protagonista en el guion actual.
+- [ ] La animación solo se aprueba después de recibir los dos sprites íntegros, quitar las sustituciones temporales y verificar los cuatro fotogramas y su consistencia.
+- [ ] El plano 10 termina en el HUB; conservar JSON, evidencia de `chrome://gpu`, datos del equipo y observaciones visuales. Registrar cualquier caída o anomalía, aunque el script termine con código cero.
+
+La preparación del script GPU se comprobó sintácticamente en este sandbox; **no se ha ejecutado en hardware acelerado** porque no hay pantalla gráfica ni `/dev/dri`. La prueba anterior SwiftShader sigue siendo únicamente evidencia del entorno software.
+
 ## Pendiente
 
-1. Conseguir los archivos oficiales Tanda 09 íntegros de idle y walk 03, sin sobrescribir los dañados; verificar identidad, escala, pies, alfa y transición de los cuatro pasos.
-2. Repetir la intro completa en un navegador con aceleración gráfica real, a una resolución objetivo, sin avance artificial, revisando visualmente carga, parpadeos, continuidad, transiciones y captura de métricas.
+1. Recibir `player_idle_00.png` y `player_walk_03.png` oficiales e íntegros, conservar los archivos dañados y verificar la coherencia del ciclo completo antes de eliminar las sustituciones.
+2. Ejecutar el protocolo anterior en hardware acelerado y registrar la revisión visual y las mediciones reales.
 3. Mantener PR #17 en borrador hasta completar ambos puntos.
