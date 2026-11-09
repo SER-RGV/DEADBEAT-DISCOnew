@@ -1,5 +1,5 @@
-# DOCUMENTACIÓN
+# DOCUMENTOS
 
-**Categoría:** guías, informes y planificación del proyecto.
+Aquí guardamos explicaciones, planes, historias e informes del juego.
 
-Aquí se guardan documentos de diseño, informes de entregas y evidencias documentales. Empieza por este índice para localizar información. Los informes de tandas son historial; no se borran ni se presentan como pruebas actuales.
+Busca aquí cuando quieras leer cómo se hizo algo o qué falta por hacer.

@@ -1,6 +1,5 @@
-# ARCHIVOS PROTEGIDOS Y CONFIGURACIÓN
+# TAREAS AUTOMÁTICAS
 
-**Categoría:** copias de seguridad y automatización.
+Aquí están los robots que ayudan a GitHub a hacer tareas automáticamente.
 
-- `backups/`: originales y copias de recuperación; no borrar en limpiezas ordinarias.
-- `.github/`: workflows y configuración de automatización; revisar permisos y disparadores antes de editar.
+No cambiar sin revisar qué tarea realiza cada uno.

@@ -1,6 +1,5 @@
-# ARCHIVOS PROTEGIDOS Y CONFIGURACIÓN
+# COPIAS DE SEGURIDAD
 
-**Categoría:** copias de seguridad y automatización.
+Aquí guardamos copias por si necesitamos recuperar algo.
 
-- `backups/`: originales y copias de recuperación; no borrar en limpiezas ordinarias.
-- `.github/`: workflows y configuración de automatización; revisar permisos y disparadores antes de editar.
+**No borrar ni cambiar estas copias sin comprobarlo antes.**

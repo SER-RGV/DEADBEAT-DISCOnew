@@ -1,11 +1,9 @@
-# BIBLIOTECA DE CINEMÁTICAS
+# IMÁGENES DE LA HISTORIA
 
-**Categoría:** fuentes editables de escenas.
+Aquí guardamos las imágenes de las escenas de vídeo del juego.
 
-- `scenes/`: una carpeta por escena.
-- `master/`: composición completa.
-- `layers/`: fondos y capas.
-- `elements/`: objetos sustituibles.
-- `manifest.json`: catálogo de archivos y estados.
+- `master`: la escena completa.
+- `layers`: sus fondos y capas.
+- `elements`: objetos que podemos cambiar por separado.
 
-Es independiente de `assets/cinematics/`, que contiene recursos usados por el juego.
+Esta carpeta guarda los materiales para editar. Los dibujos que usa el juego están en `assets/cinematics`.

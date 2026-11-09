@@ -1,10 +1,5 @@
-# PRODUCCIÓN DE ARTE
+# DIBUJOS ORIGINALES
 
-**Categoría:** recursos gráficos, integración, herramientas y referencias.
+Aquí guardamos los dibujos con los que construimos el aspecto del juego.
 
-- `ART_ASSETS/`: arte fuente y variantes editables.
-- `ART_PACK/`: código que integra arte en el motor.
-- `ART_TOOLS/`: preparación y validación de imágenes.
-- `ART_REFERENCES/`: material de referencia visual.
-
-No es la carpeta de recursos de runtime.
+Son los materiales de trabajo, no necesariamente los que usa el juego directamente.

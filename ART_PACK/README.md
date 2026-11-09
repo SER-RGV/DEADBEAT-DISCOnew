@@ -1,10 +1,5 @@
-# PRODUCCIÓN DE ARTE
+# CONEXIÓN DE LOS DIBUJOS
 
-**Categoría:** recursos gráficos, integración, herramientas y referencias.
+Aquí está el código que enseña al juego qué dibujos debe utilizar.
 
-- `ART_ASSETS/`: arte fuente y variantes editables.
-- `ART_PACK/`: código que integra arte en el motor.
-- `ART_TOOLS/`: preparación y validación de imágenes.
-- `ART_REFERENCES/`: material de referencia visual.
-
-No es la carpeta de recursos de runtime.
+**Cuidado:** no mover estos archivos sin revisar sus conexiones.

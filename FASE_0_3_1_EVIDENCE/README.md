@@ -1,9 +1,3 @@
-# AUDITORÍA Y EVIDENCIAS
+# PRUEBAS DE LA VERSIÓN 0.3.1
 
-**Categoría:** informes, capturas y resultados de revisión.
-
-- `ART_AUDIT/`: auditorías e inventarios.
-- `ART_EVIDENCE/` y `FASE_*_EVIDENCE/`: capturas, logs y resultados de QA.
-- `artevi2/`: comparativas y material de revisión visual.
-
-Conservar el contexto de cada tanda; no eliminar pruebas históricas por parecer duplicadas.
+Aquí guardamos fotos y resultados de las pruebas de esa versión antigua.

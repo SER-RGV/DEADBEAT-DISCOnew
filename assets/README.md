@@ -1,5 +1,5 @@
-# RECURSOS DE EJECUCIÓN
+# COSAS QUE USA EL JUEGO
 
-**Categoría:** recursos que carga el juego.
+Aquí están los dibujos, sonidos y otros archivos que el juego necesita para funcionar.
 
-Contiene imágenes, audio y otros archivos usados durante la ejecución. No confundir con las bibliotecas de arte editable. Comprueba referencias y manifiestos antes de cambiar nombres o rutas.
+No cambies sus nombres sin comprobar dónde se usan.
