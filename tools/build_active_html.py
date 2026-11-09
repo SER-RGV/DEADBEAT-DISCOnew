@@ -349,7 +349,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
     Qf = function () {
       const now = performance.now();
-      const dt = Math.min(0.05, Math.max(0.001, (now - lastRenderNow) / 1000));
+      const renderDt = Math.max(0, (now - lastRenderNow) / 1000);
+      const dt = Math.min(0.05, Math.max(0.001, renderDt));
       lastRenderNow = now;
 
       jf();
@@ -358,7 +359,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
       if (window.DD_HUB && window.DD_HUB.isActive()) {
         window.DD_HUB.update(dt);
-        if (window.DD_CINE) window.DD_CINE.update(dt, snap);
+        if (window.DD_CINE) window.DD_CINE.update(dt, snap, renderDt);
         window.DD_HUB.render(g, y, x);
         if (window.DD_CINE) window.DD_CINE.renderOverlay(g, y, x);
         if (window.DD_UI) window.DD_UI.tick(dt);
@@ -367,7 +368,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       }
 
       if (window.DD_CINE) {
-        window.DD_CINE.update(dt, snap);
+        window.DD_CINE.update(dt, snap, renderDt);
       }
       const cineCam = window.DD_CINE ? window.DD_CINE.getCamera() : { offX: 0, offY: 0, zoomMul: 1 };
 

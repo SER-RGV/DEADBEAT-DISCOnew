@@ -56,7 +56,9 @@
   }
 
   function startSeq(seq) {
-    const durScale = reducedMotion ? 0.45 : 1.0;
+    // La intro tiene marcas de plano absolutas: acortarla la cortaría en el plano 05.
+    // Mantener sus diez planos; el movimiento reducido sigue limitando la cámara.
+    const durScale = reducedMotion && seq.type !== "intro" ? 0.45 : 1.0;
     seq.duration = Math.max(0.35, seq.duration * durScale);
     seq.elapsed = 0;
     activeSeq = seq;
@@ -72,7 +74,7 @@
     }
   }
 
-  function finishSeq() {
+  function finishSeq(reason) {
     if (!activeSeq) return;
     const cb = activeSeq.onComplete;
     activeSeq = null;
@@ -82,13 +84,13 @@
     const dom = document.getElementById("dd-cine-overlay");
     if (dom) dom.classList.remove("active");
     if (typeof cb === "function") {
-      try { cb(); } catch (e) {}
+      try { cb(reason || "complete"); } catch (e) {}
     }
   }
 
   function skip() {
     if (activeSeq && activeSeq.skippable !== false) {
-      finishSeq();
+      finishSeq("skip");
     }
   }
 
@@ -105,13 +107,14 @@
       blocking: true,
       skippable: true,
       letterbox: true,
-      onComplete: function () {
+      onComplete: function (reason) {
         // Al terminar o saltar la intro, se asegura la transición y foco directo en el HUB real r0
-        if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
+        if (window.DD_HUB && typeof window.DD_HUB.enter === "function" &&
+            !(typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive())) {
           try { window.DD_HUB.enter(); } catch (e) {}
         }
         if (typeof onComplete === "function") {
-          try { onComplete(); } catch (e) {}
+          try { onComplete(reason); } catch (e) {}
         }
       }
     });
@@ -210,7 +213,7 @@
     });
   }
 
-  function update(dt, engineSnap) {
+  function update(dt, engineSnap, renderDt) {
     const cdt = Math.min(0.05, Math.max(0.001, dt || 0.016));
 
     // Observe real engine events automatically
@@ -255,14 +258,19 @@
 
     // Advance active cinematic & compute camera targets
     if (activeSeq) {
-      activeSeq.elapsed += cdt;
+      // Solo la intro usa el tiempo entre renders, no el dt de simulación.
+      // Limitar pausas largas evita saltos grandes tras ocultar la pestaña.
+      // Otros tipos conservan su reloj anterior y la cámara interpola con cdt.
+      const introDt = Number.isFinite(renderDt) && renderDt >= 0
+        ? Math.min(0.5, renderDt) : cdt;
+      activeSeq.elapsed += activeSeq.type === "intro" ? introDt : cdt;
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
         // Sincronización rítmica con el reloj de 128 BPM (1 beat = 0.46875s)
         const bpmTime = activeSeq.elapsed;
         const beatFrac = (bpmTime % 0.46875) / 0.46875;
-        const kickPulse = Math.exp(-beatFrac * 6.5);
+        const kickPulse = reducedMotion ? 0 : Math.exp(-beatFrac * 6.5);
         const t = activeSeq.elapsed;
 
         // Diez planos cinematográficos continuos (35s total)
@@ -384,7 +392,7 @@
       const t = activeSeq.elapsed;
       const bpmTime = t;
       const beatFrac = (bpmTime % 0.46875) / 0.46875;
-      const kickPulse = Math.exp(-beatFrac * 6.5);
+      const kickPulse = reducedMotion ? 0 : Math.exp(-beatFrac * 6.5);
 
       // Obtención modular de recursos con soporte de manifiesto central y fallback
       const getAsset = function (id) {
@@ -394,8 +402,9 @@
       // Personaje modular sustituible con fallback a sprites canónicos del motor
       // El idle original tiene partes opacas ausentes. Mantener el recurso intacto
       // y usar una pose oficial completa mientras no exista un idle restaurado.
-      const pIdle = getAsset("hero_walk_00") || getAsset("hero_idle_00") || getAsset("player_idle_00");
-      const pShoot = getAsset("hero_shoot_00") || getAsset("player_shoot_00") || pIdle;
+      const pIdle = getAsset("hero_walk_00") || getAsset("player_walk_00") ||
+        getAsset("hero_walk_01") || getAsset("player_walk_01") ||
+        getAsset("hero_walk_02") || getAsset("player_walk_02");
       const pWalkFrames = [
         getAsset("hero_walk_00") || getAsset("player_walk_00"),
         getAsset("hero_walk_01") || getAsset("player_walk_01"),
@@ -438,32 +447,11 @@
       const tagEl = document.getElementById("dd-cine-tag");
       const subEl = document.getElementById("dd-cine-sub");
       if (tagEl && subEl) {
-        const SHOT_TITLES = [
-          "PLANO 01 · LA METRÓPOLIS BRUTALISTA",
-          "PLANO 02 · LA FACHADA MONUMENTAL",
-          "PLANO 03 · EL UMBRAL DE ACCESO",
-          "PLANO 04 · APARICIÓN DEL PROTAGONISTA",
-          "PLANO 05 · CAMINATA Y CORREDOR",
-          "PLANO 06 · LA NAVE CATEDRALICIA",
-          "PLANO 07 · EL DROP EN LA PISTA DE BAILE",
-          "PLANO 08 · PRESENTACIÓN HEROICA",
-          "PLANO 09 · DEADBEAT DISCO",
-          "PLANO 10 · INGRESO AL REFUGIO JUGABLE"
-        ];
-        const SHOT_SUBS = [
-          "EXTREME WIDE SHOT · LA NOCHE ETERNA SOBRE LA CIUDAD INFERNAL",
-          "WIDE SHOT · ACCESO AL TEMPLO DE OBSIDIANA Y NEÓN",
-          "CLOSE-UP / DUTCH ANGLE · TRASPASANDO EL PESADO PORTAL",
-          "MEDIUM SHOT · SILUETA EN CONTRALUZ MAGENTA Y DORADO",
-          "TRACKING SHOT · SEGUIMIENTO LATERAL CON OCLUSIÓN DE COLUMNAS",
-          "HIGH ANGLE EWS · BÓVEDAS DE CRUCERÍA Y LÁSERES VOLUMÉTRICOS",
-          "DYNAMIC WS · DROP RÍTMICO 128 BPM Y SUELO DE OBSIDIANA",
-          "MEDIUM CLOSE-UP · PARADA EN SECO Y DESENFUNDE M1911",
-          "HERO SHOT · LOGOTIPO OFICIAL DEADBEAT DISCO",
-          "TRANSICIÓN SEAMLESS · VINCULACIÓN AL HUB ISOMÉTRICO"
-        ];
-        tagEl.textContent = SHOT_TITLES[shotIdx - 1] || "DEADBEAT DISCO";
-        subEl.textContent = SHOT_SUBS[shotIdx - 1] || "CINEMÁTICA EN TIEMPO REAL";
+        // La intro no muestra anotaciones técnicas ni nomenclatura heredada.
+        // La señal es texto de interfaz: no pretende ser un objeto del escenario.
+        tagEl.textContent = "";
+        subEl.textContent = shotIdx === 5 ? "REFUGIO →" :
+          (shotIdx === 10 ? "REFUGIO · PREPÁRATE ANTES DE BAJAR" : "");
       }
 
       // Fijar la elección por plano evita cambiar de respaldo a maestro a mitad
@@ -747,12 +735,12 @@
 
         // Protagonista avanzando hacia el centro de la pista pulsante
         const frameIdx = Math.floor(t * 8.5) % (pWalkFrames.length || 1);
-        const pImg = pWalkFrames[frameIdx] || pIdle;
+        const pImg = sp > 0.78 ? pIdle : (pWalkFrames[frameIdx] || pIdle);
         if (pImg && pImg.naturalWidth > 0) {
           const ph = Math.min(340, viewH * 0.40);
           const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
           const px = viewW * 0.5;
-          const py = viewH * 0.88 - sp * 40;
+          const py = viewH * 0.88 - Math.min(sp, 0.78) * 40;
 
           // Reflejo interactivo en la obsidiana pulida del suelo
           ctx.save();
@@ -798,14 +786,14 @@
         const sp = shotProgress;
         const orbX = Math.sin(sp * Math.PI) * 22;
         if (hasMasterForShot("cine_bg06_hero")) {
-        drawLayer("cine_bg06_hero", orbX * 0.5, 0, 1.20, 1.0);
+        drawLayer("cine_bg06_hero", orbX * 0.5, 0, 1.03, 1.0);
         } else {
           drawLayer("cine_bg06_hero_01_axial_portal_rosette", orbX * 0.5, 0, 1.20, 1.0);
           drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", orbX * 0.8, 0, 1.22 + kickPulse * 0.04, 1.0);
         }
 
-        // El héroe se detiene (idle_00) y empuña su M1911 (shoot_00 windup)
-        const pImg = (sp > 0.45 && pShoot) ? pShoot : pIdle;
+        // Pose oficial provisional de espera: no hay desenfunde sin fogonazo.
+        const pImg = pIdle; // shoot_00 contiene fogonazo: no simula apuntado.
         if (pImg && pImg.naturalWidth > 0) {
           const ph = Math.min(440, viewH * 0.52);
           const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
@@ -826,9 +814,9 @@
 
           // Sombra de contacto
           ctx.globalCompositeOperation = "source-over";
-          ctx.fillStyle = "rgba(4, 1, 8, 0.85)";
+          ctx.fillStyle = "rgba(4, 1, 8, 0.55)";
           ctx.beginPath();
-          ctx.ellipse(px, py - 4, pw * 0.55, 18, 0, 0, Math.PI * 2);
+          ctx.ellipse(px, py - 4, pw * 0.38, 8, 0, 0, Math.PI * 2);
           ctx.fill();
 
           ctx.shadowColor = "#ff007f";
@@ -845,24 +833,10 @@
         // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
         const sp = shotProgress;
         if (hasMasterForShot("cine_bg06_hero")) {
-        drawLayer("cine_bg06_hero", 0, 0, 1.18, 1.0);
+        drawLayer("cine_bg06_hero", 0, 0, 1.03, 1.0);
         } else {
           drawLayer("cine_bg06_hero_01_axial_portal_rosette", 0, 0, 1.18, 1.0);
           drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", 0, 0, 1.20, 1.0);
-        }
-
-        // Protagonista visible al pie en guardia de combate
-        const pImg = pShoot || pIdle;
-        if (pImg && pImg.naturalWidth > 0) {
-          const ph = Math.min(360, viewH * 0.42);
-          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
-          const px = viewW * 0.5;
-          const py = viewH * 0.92;
-          ctx.save();
-          ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 6;
-          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
-          ctx.restore();
         }
 
         if (!hasMasterForShot("cine_bg06_hero")) {
@@ -896,6 +870,21 @@
           ctx.restore();
         }
 
+        // Protagonista visible al pie con la misma pose de espera.
+        const pImg = pIdle; // Mantener continuidad sin aparentar un disparo.
+        if (pImg && pImg.naturalWidth > 0) {
+          const ph = Math.min(360, viewH * 0.42);
+          const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
+          const px = viewW * 0.5;
+          const py = viewH * 0.92;
+          ctx.save();
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 6;
+          ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
+          ctx.restore();
+        }
+
+
       } else {
         // PLANO 10 · TRANSICIÓN AL JUEGO ISOMÉTRICO (Conexión directa con HUB / r0)
         const sp = shotProgress;
@@ -903,13 +892,13 @@
 
         ctx.save();
         ctx.globalAlpha = Math.max(0, 1.0 - ease);
-        drawLayer("cine_bg06_hero", 0, ease * 30, 1.14 - ease * 0.14, 1.0);
+        drawLayer("cine_bg06_hero", 0, ease * 10, 1.03 - ease * 0.03, 1.0);
 
         if (pIdle && pIdle.naturalWidth > 0) {
           const ph = Math.min(320, viewH * 0.38) * (1.0 - ease * 0.15);
           const pw = ph * (pIdle.naturalWidth / pIdle.naturalHeight);
           const px = viewW * 0.5;
-          const py = viewH * 0.88 - ease * 20;
+          const py = viewH * 0.92 - ease * 8;
           ctx.drawImage(pIdle, px - pw * 0.5, py - ph, pw, ph);
         }
         ctx.restore();

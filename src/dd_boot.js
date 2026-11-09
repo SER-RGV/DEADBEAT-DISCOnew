@@ -823,7 +823,7 @@
     state.introPlayed = true;
     audio.startMenuMusic(4);
 
-    var finished = false;
+    var finished = false, interruptedBy = null;
     var finish = function (why) {
       if (finished) return;
       finished = true;
@@ -832,7 +832,8 @@
       document.body.classList.remove("dd-intro-running");
 
       // FASE 06: Transición directa de la cinemática al HUB canónico r0
-      if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
+      if (window.DD_HUB && typeof window.DD_HUB.enter === "function" &&
+          !(typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive())) {
         try { window.DD_HUB.enter(); } catch (e) { console.warn("[DD_BOOT] error al entrar al HUB", e); }
       }
       if (window.DD_UI && typeof window.DD_UI.hideMainMenu === "function") {
@@ -849,7 +850,7 @@
     var started = false;
     try {
       if (window.DD_CINE && typeof window.DD_CINE.playIntro === "function") {
-        window.DD_CINE.playIntro(function () { finish("complete"); });
+        window.DD_CINE.playIntro(function (reason) { finish(interruptedBy || (reason === "skip" ? "skip" : "complete")); });
         started = true;
       }
     } catch (e) {
@@ -873,6 +874,7 @@
       } else if (Date.now() - lastAdvance > 4000) {
         guardDone = true;
         clearInterval(guard);
+        interruptedBy = "stalled";
         try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
         finish("stalled");
       }
