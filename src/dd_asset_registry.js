@@ -8,7 +8,7 @@
   let errorCount = 0;
 
   // Versión de assets para invalidación automática de caché en navegadores / GitHub Pages
-  const ASSET_CACHE_VERSION = (window.__DD_ASSET_VERSION || "20261109.7");
+  const ASSET_CACHE_VERSION = (window.__DD_ASSET_VERSION || "20261109.8");
 
   function getVersionedUrl(url) {
     if (!url) return url;

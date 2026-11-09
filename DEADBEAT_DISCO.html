@@ -8884,7 +8884,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   let errorCount = 0;
 
   // Versión de assets para invalidación automática de caché en navegadores / GitHub Pages
-  const ASSET_CACHE_VERSION = (window.__DD_ASSET_VERSION || "20261109.7");
+  const ASSET_CACHE_VERSION = (window.__DD_ASSET_VERSION || "20261109.8");
 
   function getVersionedUrl(url) {
     if (!url) return url;
@@ -10628,8 +10628,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     if (activeSeq.type === "intro") {
       // Fondo base de absorción de color infernal
+      ctx.save();
+      if (activeSeq.elapsed >= 32) {
+        const transition = Math.min(1, (activeSeq.elapsed - 32) / 3);
+        ctx.globalAlpha = 1 - transition * transition * (3 - 2 * transition);
+      }
       ctx.fillStyle = "#06020c";
       ctx.fillRect(0, 0, viewW, viewH);
+      ctx.restore();
 
       const t = activeSeq.elapsed;
       const bpmTime = t;
@@ -10642,13 +10648,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         return window.DD_ASSETS.get(id);
       };
       // Personaje modular sustituible con fallback a sprites canónicos del motor
-      const pIdle = getAsset("hero_idle_00") || getAsset("player_idle_00");
+      // El idle original tiene partes opacas ausentes. Mantener el recurso intacto
+      // y usar una pose oficial completa mientras no exista un idle restaurado.
+      const pIdle = getAsset("hero_walk_00") || getAsset("hero_idle_00") || getAsset("player_idle_00");
       const pShoot = getAsset("hero_shoot_00") || getAsset("player_shoot_00") || pIdle;
       const pWalkFrames = [
         getAsset("hero_walk_00") || getAsset("player_walk_00"),
         getAsset("hero_walk_01") || getAsset("player_walk_01"),
         getAsset("hero_walk_02") || getAsset("player_walk_02"),
-        getAsset("hero_walk_03") || getAsset("player_walk_03")
+        // El fotograma 03 oficial también presenta huecos de alfa. No se altera:
+        // se repite temporalmente el 01 para no mostrar un cuerpo transparente.
+        getAsset("hero_walk_01") || getAsset("player_walk_01")
       ].filter(function (img) { return !!img && img.naturalWidth > 0; });
 
       // Selector de plano cinematográfico (1 al 10)
@@ -10712,20 +10722,32 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         subEl.textContent = SHOT_SUBS[shotIdx - 1] || "CINEMÁTICA EN TIEMPO REAL";
       }
 
+      // Fijar la elección por plano evita cambiar de respaldo a maestro a mitad
+      // de una toma si una descarga lenta termina durante su reproducción.
+      if (!activeSeq.introMasterChoices) activeSeq.introMasterChoices = {};
+      const hasMasterForShot = function (id) {
+        const key = shotIdx + ":" + id;
+        if (!(key in activeSeq.introMasterChoices)) {
+          activeSeq.introMasterChoices[key] = !!getAsset(id);
+        }
+        return activeSeq.introMasterChoices[key];
+      };
+
       // Helper para renderizar capas o fondo maestro con overscan y paralaje
       const drawLayer = function (assetId, parX, parY, zoom, alpha, blendMode) {
         const img = getAsset(assetId);
         if (!img || img.naturalWidth <= 0) return;
         ctx.save();
         if (blendMode) ctx.globalCompositeOperation = blendMode;
-        ctx.globalAlpha = Math.max(0, Math.min(1, alpha !== undefined ? alpha : 1.0));
+        ctx.globalAlpha *= Math.max(0, Math.min(1, alpha !== undefined ? alpha : 1.0));
         
         // Relación de aspecto 16:9 con overscan para soportar cámara
         const scale = Math.max(viewW / img.naturalWidth, viewH / img.naturalHeight) * (zoom || 1.0);
         const dw = img.naturalWidth * scale;
         const dh = img.naturalHeight * scale;
-        const dx = (viewW - dw) * 0.5 + (parX || 0);
-        const dy = (viewH - dh) * 0.5 + (parY || 0);
+        // Limit the pan to available overscan, including narrow viewports.
+        const dx = Math.min(0, Math.max(viewW - dw, (viewW - dw) * 0.5 + (parX || 0)));
+        const dy = Math.min(0, Math.max(viewH - dh, (viewH - dh) * 0.5 + (parY || 0)));
         
         ctx.drawImage(img, dx, dy, dw, dh);
         ctx.restore();
@@ -10739,11 +10761,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (shotIdx === 1) {
         // PLANO 01 · CIUDAD EXTERIOR (cine_bg01_city)
         const sp = shotProgress;
+        if (hasMasterForShot("cine_bg01_city")) {
+        drawLayer("cine_bg01_city", (sp - 0.5) * 50, sp * -20, 1.06, 1.0);
+        } else {
         drawLayer("cine_bg01_city_01_sky_moon_atmosphere", (sp - 0.5) * 15, sp * -8, 1.02, 1.0);
         drawLayer("cine_bg01_city_02_gothic_skyline_architecture", (sp - 0.5) * 45, sp * -18, 1.05, 1.0);
         drawLayer("cine_bg01_city_03_foreground_industrial_pipes", (sp - 0.5) * 95, sp * -28, 1.08, 1.0);
         if (!getAsset("cine_bg01_city_01_sky_moon_atmosphere")) {
           drawLayer("cine_bg01_city", (sp - 0.5) * 50, sp * -20, 1.04, 1.0);
+        }
         }
 
         // Niebla volumétrica en capas con paralaje y dispersión de luz
@@ -10768,11 +10794,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         // PLANO 02 · FACHADA DEL CLUB (cine_bg02_club_exterior)
         const sp = shotProgress;
         const zoom = 1.0 + sp * 0.12;
+        if (hasMasterForShot("cine_bg02_club_exterior")) {
+        drawLayer("cine_bg02_club_exterior", 0, sp * -14, zoom * 1.05, 1.0);
+        } else {
         drawLayer("cine_bg02_club_exterior_01_gothic_cathedral_facade", 0, sp * -15, zoom, 1.0);
         drawLayer("cine_bg02_club_exterior_02_portal_speakers_entrance", 0, sp * -12, zoom * 1.02, 1.0);
         drawLayer("cine_bg02_club_exterior_03_wet_pavement_reflections", 0, sp * -6, zoom * 1.05, 1.0);
         if (!getAsset("cine_bg02_club_exterior_01_gothic_cathedral_facade")) {
           drawLayer("cine_bg02_club_exterior", 0, sp * -14, zoom, 1.0);
+        }
         }
 
         // Resplandor neón pulsante en el portal exterior con halos volumétricos
@@ -10801,11 +10831,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         ctx.rotate((reducedMotion ? 0 : 0.025) * Math.sin(sp * Math.PI));
         ctx.translate(-viewW * 0.5, -viewH * 0.5);
 
+        if (hasMasterForShot("cine_bg03_entrance")) {
+        drawLayer("cine_bg03_entrance", (sp - 0.5) * 30, 0, 1.20 + sp * 0.05, 1.0);
+        } else {
         drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", (sp - 0.5) * 20, 0, 1.15 + sp * 0.05, 1.0);
         drawLayer("cine_bg03_entrance_02_midground_columns_banners", (sp - 0.5) * 35, 0, 1.18 + sp * 0.06, 1.0);
         drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", (sp - 0.5) * 60, 0, 1.22 + sp * 0.08, 1.0);
         if (!getAsset("cine_bg03_entrance_01_vaulted_hallway_depth")) {
           drawLayer("cine_bg03_entrance", (sp - 0.5) * 30, 0, 1.18, 1.0);
+        }
         }
         ctx.restore();
 
@@ -10824,8 +10858,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       } else if (shotIdx === 4) {
         // PLANO 04 · APARICIÓN DEL PROTAGONISTA (cine_bg03_entrance - Contraluz MS)
         const sp = shotProgress;
-        drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", 0, 10 - sp * 10, 1.12, 1.0);
-        drawLayer("cine_bg03_entrance_02_midground_columns_banners", 0, 12 - sp * 12, 1.14, 1.0);
+        if (hasMasterForShot("cine_bg03_entrance")) {
+        drawLayer("cine_bg03_entrance", 0, 10 - sp * 10, 1.14, 1.0);
+        } else {
+          drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", 0, 10 - sp * 10, 1.12, 1.0);
+          drawLayer("cine_bg03_entrance_02_midground_columns_banners", 0, 12 - sp * 12, 1.14, 1.0);
+        }
 
         // Protagonista en silueta de contraluz avanzando con paso firme
         const frameIdx = Math.floor(t * 8.0) % (pWalkFrames.length || 1);
@@ -10856,12 +10894,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           ctx.fill();
 
           ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 32;
+          ctx.shadowBlur = 6;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
+        if (!hasMasterForShot("cine_bg03_entrance")) {
+          drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
+        }
 
       } else if (shotIdx === 5) {
         // PLANO 05 · CAMINATA CINEMATOGRÁFICA (cine_bg03_entrance - Tracking Lateral)
@@ -10870,8 +10910,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         const parMid = (sp - 0.5) * -220;
         const parFg = (sp - 0.5) * -420;
 
-        drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", parBg, 0, 1.08, 1.0);
-        drawLayer("cine_bg03_entrance_02_midground_columns_banners", parMid, 0, 1.10, 1.0);
+        if (hasMasterForShot("cine_bg03_entrance")) {
+        drawLayer("cine_bg03_entrance", parBg, 0, 1.16, 1.0);
+        } else {
+          drawLayer("cine_bg03_entrance_01_vaulted_hallway_depth", parBg, 0, 1.08, 1.0);
+          drawLayer("cine_bg03_entrance_02_midground_columns_banners", parMid, 0, 1.10, 1.0);
+        }
 
         // Protagonista con desplazamiento físico real y alternancia fluida de pasos a 128 BPM
         const frameIdx = Math.floor(t * 8.5) % (pWalkFrames.length || 1);
@@ -10890,22 +10934,28 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           ctx.fill();
 
           ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 22;
+          ctx.shadowBlur = 6;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
+        if (!hasMasterForShot("cine_bg03_entrance")) {
+          drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
+        }
 
       } else if (shotIdx === 6) {
         // PLANO 06 · GRAN NAVE PRINCIPAL (cine_bg04_main_hall - High Angle EWS)
         const sp = shotProgress;
         const grpY = -25 + sp * 22;
+        if (hasMasterForShot("cine_bg04_main_hall")) {
+        drawLayer("cine_bg04_main_hall", 0, grpY, 1.15 - sp * 0.08, 1.0);
+        } else {
         drawLayer("cine_bg04_main_hall_01_cathedral_nave_vaults", 0, grpY * 0.5, 1.15 - sp * 0.08, 1.0);
         drawLayer("cine_bg04_main_hall_02_laser_beams_equalizer", Math.sin(t * 1.8) * 18, grpY * 0.8, 1.16 - sp * 0.08, 1.0);
         drawLayer("cine_bg04_main_hall_03_chandeliers_stage_framing", 0, grpY * 1.2, 1.18 - sp * 0.08, 1.0);
         if (!getAsset("cine_bg04_main_hall_01_cathedral_nave_vaults")) {
           drawLayer("cine_bg04_main_hall", 0, grpY, 1.12, 1.0);
+        }
         }
 
         // Haces de luz láser volumétrica cruzados y oscilantes
@@ -10944,8 +10994,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       } else if (shotIdx === 7) {
         // PLANO 07 · PISTA PRINCIPAL (cine_bg05_dancefloor - Dynamic WS DROP)
         const sp = shotProgress;
-        drawLayer("cine_bg05_dancefloor_01_astrological_dancefloor_grid", 0, sp * -12, 1.04 + kickPulse * 0.02, 1.0);
-        drawLayer("cine_bg05_dancefloor_02_sound_towers_dj_stage", 0, sp * -10, 1.06 + kickPulse * 0.03, 1.0);
+        if (hasMasterForShot("cine_bg05_dancefloor")) {
+        drawLayer("cine_bg05_dancefloor", 0, sp * -10, 1.06 + kickPulse * 0.03, 1.0);
+        } else {
+          drawLayer("cine_bg05_dancefloor_01_astrological_dancefloor_grid", 0, sp * -12, 1.04 + kickPulse * 0.02, 1.0);
+          drawLayer("cine_bg05_dancefloor_02_sound_towers_dj_stage", 0, sp * -10, 1.06 + kickPulse * 0.03, 1.0);
+        }
 
         // Protagonista avanzando hacia el centro de la pista pulsante
         const frameIdx = Math.floor(t * 8.5) % (pWalkFrames.length || 1);
@@ -10973,12 +11027,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           ctx.fill();
 
           ctx.shadowColor = "#00f0ff";
-          ctx.shadowBlur = 22;
+          ctx.shadowBlur = 6;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
           ctx.restore();
         }
 
-        drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
+        if (!hasMasterForShot("cine_bg05_dancefloor")) {
+          drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
+        }
 
         // Estallido estroboscópico del DROP musical sincronizado a 128 BPM
         ctx.save();
@@ -10997,8 +11053,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         // PLANO 08 · PRESENTACIÓN HEROICA (cine_bg06_hero - MCU Órbita)
         const sp = shotProgress;
         const orbX = Math.sin(sp * Math.PI) * 22;
-        drawLayer("cine_bg06_hero_01_axial_portal_rosette", orbX * 0.5, 0, 1.20, 1.0);
-        drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", orbX * 0.8, 0, 1.22 + kickPulse * 0.04, 1.0);
+        if (hasMasterForShot("cine_bg06_hero")) {
+        drawLayer("cine_bg06_hero", orbX * 0.5, 0, 1.20, 1.0);
+        } else {
+          drawLayer("cine_bg06_hero_01_axial_portal_rosette", orbX * 0.5, 0, 1.20, 1.0);
+          drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", orbX * 0.8, 0, 1.22 + kickPulse * 0.04, 1.0);
+        }
 
         // El héroe se detiene (idle_00) y empuña su M1911 (shoot_00 windup)
         const pImg = (sp > 0.45 && pShoot) ? pShoot : pIdle;
@@ -11028,18 +11088,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           ctx.fill();
 
           ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 28;
+          ctx.shadowBlur = 6;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
+        if (!hasMasterForShot("cine_bg06_hero")) {
+          drawLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
+        }
 
       } else if (shotIdx === 9) {
         // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
         const sp = shotProgress;
-        drawLayer("cine_bg06_hero_01_axial_portal_rosette", 0, 0, 1.18, 1.0);
-        drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", 0, 0, 1.20, 1.0);
+        if (hasMasterForShot("cine_bg06_hero")) {
+        drawLayer("cine_bg06_hero", 0, 0, 1.18, 1.0);
+        } else {
+          drawLayer("cine_bg06_hero_01_axial_portal_rosette", 0, 0, 1.18, 1.0);
+          drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", 0, 0, 1.20, 1.0);
+        }
 
         // Protagonista visible al pie en guardia de combate
         const pImg = pShoot || pIdle;
@@ -11050,25 +11116,33 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           const py = viewH * 0.92;
           ctx.save();
           ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 24;
+          ctx.shadowBlur = 6;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
+        if (!hasMasterForShot("cine_bg06_hero")) {
+          drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
+        }
 
         // LOGOTIPO MODULAR DEADBEAT DISCO (assets/cinematics/logos/logo_deadbeat_cinematic.png con fallback)
         const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_trim") || getAsset("logo_deadbeat_graffiti");
         if (logoImg && logoImg.naturalWidth > 0) {
-          const lw = Math.min(viewW * 0.65, 780);
+          const lw = Math.min(viewW * 0.58, 700);
           const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
           const lx = (viewW - lw) * 0.5;
-          const ly = viewH * 0.22 - lh * 0.5;
+          const ly = viewH * 0.06;
 
           ctx.save();
-          ctx.globalCompositeOperation = "screen";
-          ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 36 + kickPulse * 22;
+          const logoBackdrop = ctx.createRadialGradient(viewW * 0.5, ly + lh * 0.5, 0, viewW * 0.5, ly + lh * 0.5, lw * 0.55);
+          logoBackdrop.addColorStop(0, "rgba(6, 2, 12, 0.94)");
+          logoBackdrop.addColorStop(0.7, "rgba(6, 2, 12, 0.7)");
+          logoBackdrop.addColorStop(1, "rgba(6, 2, 12, 0)");
+          ctx.fillStyle = logoBackdrop;
+          ctx.fillRect(0, 0, viewW, viewH);
+          ctx.globalCompositeOperation = "source-over";
+          ctx.shadowColor = "rgba(255, 0, 127, 0.4)";
+          ctx.shadowBlur = 8;
           ctx.drawImage(logoImg, lx, ly, lw, lh);
 
           if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.4) {

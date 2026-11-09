@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "title": "DEADBEAT DISCO · Cinemática Modular · Manifiesto Central de Recursos",
   "version": "1.1.0",
-  "asset_version": "20261109.7",
+  "asset_version": "20261109.8",
   "description": "Manifiesto central de recursos para la cinemática de DEADBEAT DISCO. Permite sustituir cualquier fondo, capa 2.5D, logo o sprite directamente desde GitHub sin modificar el motor.",
   "shots": [
     {
@@ -22,7 +22,14 @@
       "characters": [],
       "effects": [
         "volumetric_fog_cyan_magenta"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg01_city_01_sky_moon_atmosphere",
+        "cine_bg01_city_02_gothic_skyline_architecture",
+        "cine_bg01_city_03_foreground_industrial_pipes"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 2,
@@ -41,7 +48,14 @@
       "characters": [],
       "effects": [
         "neon_pulse_portal_magenta"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+        "cine_bg02_club_exterior_02_portal_speakers_entrance",
+        "cine_bg02_club_exterior_03_wet_pavement_reflections"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 3,
@@ -60,7 +74,14 @@
       "characters": [],
       "effects": [
         "gold_light_leak_blinding"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 4,
@@ -82,7 +103,14 @@
       "effects": [
         "hero_rimlight_magenta",
         "shadow_silhouette"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 5,
@@ -104,7 +132,14 @@
       "effects": [
         "pillar_rhythmic_occlusion",
         "cast_shadow"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg03_entrance_01_vaulted_hallway_depth",
+        "cine_bg03_entrance_02_midground_columns_banners",
+        "cine_bg03_entrance_03_foreground_pillars_occlusion"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 6,
@@ -123,7 +158,14 @@
       "characters": [],
       "effects": [
         "volumetric_lasers_cyan_magenta"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg04_main_hall_01_cathedral_nave_vaults",
+        "cine_bg04_main_hall_02_laser_beams_equalizer",
+        "cine_bg04_main_hall_03_chandeliers_stage_framing"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 7,
@@ -145,7 +187,14 @@
       "effects": [
         "obsidian_floor_reflection",
         "drop_strobe_magenta"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg05_dancefloor_01_astrological_dancefloor_grid",
+        "cine_bg05_dancefloor_02_sound_towers_dj_stage",
+        "cine_bg05_dancefloor_03_tables_foreground_ambient"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 8,
@@ -168,7 +217,14 @@
       "effects": [
         "hero_rimlight_overhead",
         "weapon_windup"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg06_hero_01_axial_portal_rosette",
+        "cine_bg06_hero_02_hero_rimlight_spotlight",
+        "cine_bg06_hero_03_flanking_speakers_framing"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 9,
@@ -191,7 +247,14 @@
       "effects": [
         "neon_logo_glow_gold_magenta",
         "kick_pulse"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [
+        "cine_bg06_hero_01_axial_portal_rosette",
+        "cine_bg06_hero_02_hero_rimlight_spotlight",
+        "cine_bg06_hero_03_flanking_speakers_framing"
+      ],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     },
     {
       "index": 10,
@@ -208,7 +271,10 @@
       ],
       "effects": [
         "seamless_fade_to_gameplay"
-      ]
+      ],
+      "active_layers": [],
+      "fallback_layers": [],
+      "presentation": "Maestro como base; capas antiguas solo si falla el maestro."
     }
   ],
   "assets": {

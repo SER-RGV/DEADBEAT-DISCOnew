@@ -11,7 +11,7 @@ for shot in manifest["shots"]:
     thumb_file = bg_asset.get("thumbnail", bg_file)
     
     layers_items = ""
-    for lay_id in shot.get("layers", []):
+    for lay_id in shot.get("fallback_layers", shot.get("layers", [])):
         lay_meta = manifest["assets"].get(lay_id, {})
         layers_items += f"""
         <li class="layer-item">
@@ -48,7 +48,7 @@ for shot in manifest["shots"]:
         <div class="shot-preview">
           <img src="../../../{thumb_file}" alt="{shot['name']}" loading="lazy" class="shot-thumb">
           <div class="shot-file-tag">{bg_file}</div>
-          <p class="dim">Miniatura del maestro; los planos usan las capas indicadas abajo.</p>
+          <p class="dim">Base activa: maestro. Las capas listadas son respaldo si falla la carga.</p>
         </div>
 
         <div class="shot-details">
@@ -58,7 +58,9 @@ for shot in manifest["shots"]:
             <code>{bg_file}</code>
           </div>
           
-          <h4>Capas 2.5D Disponibles ({len(shot.get('layers', []))})</h4>
+          <h4>Capas activas sobre el maestro: ninguna</h4>
+          <p class="dim">Sin paralaje adicional hasta disponer de capas compatibles.</p>
+          <h4>Capas de respaldo ({len(shot.get('fallback_layers', shot.get('layers', [])))})</h4>
           <ul class="layers-list">
             {layers_items or '<li class="dim">Ninguna (composición directa)</li>'}
           </ul>
