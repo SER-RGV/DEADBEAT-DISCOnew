@@ -427,7 +427,17 @@ async function toMenu(p, maxMs) {
     let llego = window.DD_UI.getState().menuIndex === objetivo;
     while (!llego && Date.now() - tRuta < 30000) {
       const antes = window.DD_UI.getState().menuIndex;
-      set(13, true); await sleep(1100); set(13, false); await sleep(900);
+      /* Pulso por CONSUMO: se suelta cuando el juego ha sondeado el mando al
+         menos una vez (contador polls), nunca antes ni mucho después. Al menos
+         un poll ve el botón (nunca cero pasos, cualquier framerate) y el
+         siguiente poll ve el botón suelto (nunca auto-repeat, incluso con frames
+         más lentos que repeatDelay). Tope 3 s por seguridad. */
+      set(13, true);
+      const q0 = polls;
+      const tQ = Date.now();
+      while (polls === q0 && Date.now() - tQ < 3000) await sleep(2);
+      set(13, false);
+      await sleep(150);
       ruta.push(antes + '->' + window.DD_UI.getState().menuIndex);
       llego = window.DD_UI.getState().menuIndex === objetivo;
     }
