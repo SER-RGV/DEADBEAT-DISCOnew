@@ -92,13 +92,13 @@
     }
   }
 
-  /* A. GAME INTRO SEQUENCE */
+  /* A. GAME INTRO SEQUENCE — presentación con sprites reales del protagonista */
   function playIntro(onComplete) {
     startSeq({
       type: "intro",
       tag: "PRÓLOGO · DESCENSO AL CLUB",
-      subtitle: "DESCENSO · MÚSICA · CAOS · REDENCIÓN",
-      duration: 4.4,
+      subtitle: "UNA NOCHE. NUEVE CÍRCULOS. NINGUNA SALIDA FÁCIL.",
+      duration: 7.8,
       blocking: true,
       skippable: true,
       letterbox: true,
@@ -247,7 +247,13 @@
       activeSeq.elapsed += cdt;
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
-      if (activeSeq.type === "room") {
+      if (activeSeq.type === "intro") {
+        // La cámara acompaña la entrada del protagonista y termina asentada.
+        const travel = p < 0.72 ? p / 0.72 : 1;
+        cam.targetZoomMul = 1 + Math.sin(travel * Math.PI) * (reducedMotion ? 0.025 : 0.065);
+        cam.targetOffX = (0.5 - travel) * 14;
+        cam.targetOffY = -Math.sin(travel * Math.PI) * 8;
+      } else if (activeSeq.type === "room") {
         // Smooth zoom-in through doorway then settle into new room
         cam.targetZoomMul = 1 + Math.sin(p * Math.PI) * (reducedMotion ? 0.04 : 0.12);
         cam.targetOffX = 0;
@@ -295,35 +301,99 @@
       const pano = (window.DD_ASSETS && window.DD_ASSETS.get("cine_intro_club_panorama")) ||
                    (window.DD_ASSETS && window.DD_ASSETS.get("menu_main_backdrop"));
       const logo = window.DD_ASSETS && window.DD_ASSETS.get("logo_deadbeat_graffiti");
-      const emblem = window.DD_ASSETS && window.DD_ASSETS.get("emblem_fox_crown");
+      const idle = window.DD_ASSETS && window.DD_ASSETS.get("player_idle_00");
+      const walkFrames = ["player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03"]
+        .map(function (id) { return window.DD_ASSETS && window.DD_ASSETS.get(id); })
+        .filter(function (img) { return !!img && img.naturalWidth > 0; });
 
+      // Plano general del club: travelling lento, profundidad y luces de pista.
       if (pano) {
-        const panScale = 1.04 + 0.06 * p;
+        const panScale = 1.035 + 0.085 * p;
         const dw = viewW * panScale;
         const dh = viewH * panScale;
-        ctx.globalAlpha = Math.min(1, p * 2.2);
-        ctx.drawImage(pano, (viewW - dw) * 0.5 - p * 24, (viewH - dh) * 0.5, dw, dh);
+        ctx.globalAlpha = Math.min(1, p * 2.8);
+        ctx.drawImage(pano, (viewW - dw) * 0.5 - p * 34, (viewH - dh) * 0.5, dw, dh);
       }
-
       ctx.globalAlpha = 1;
-      ctx.fillStyle = "rgba(6, 3, 14, 0.48)";
+      const shade = ctx.createLinearGradient(0, 0, 0, viewH);
+      shade.addColorStop(0, "rgba(5, 2, 14, 0.12)");
+      shade.addColorStop(0.58, "rgba(5, 2, 14, 0.16)");
+      shade.addColorStop(1, "rgba(5, 2, 14, 0.82)");
+      ctx.fillStyle = shade;
       ctx.fillRect(0, 0, viewW, viewH);
 
-      if (p < 0.52 && logo) {
-        const lw = Math.min(460, viewW * 0.42);
-        const lh = lw * (logo.naturalHeight / Math.max(1, logo.naturalWidth));
-        ctx.drawImage(logo, (viewW - lw) * 0.5, (viewH - lh) * 0.44, lw, lh);
-      } else if (emblem) {
-        ctx.drawImage(emblem, viewW * 0.5 - 64, viewH * 0.28 - 64, 128, 128);
+      // Barridos de luz del escenario sincronizados con el avance de la secuencia.
+      ctx.save();
+      ctx.globalCompositeOperation = "screen";
+      ctx.globalAlpha = 0.12 + Math.sin(activeSeq.elapsed * 2.1) * 0.035;
+      for (let i = 0; i < 3; i++) {
+        const lx = viewW * (0.18 + i * 0.32 + Math.sin(activeSeq.elapsed * 0.7 + i) * 0.08);
+        const beam = ctx.createLinearGradient(lx, 0, lx + viewW * 0.12, viewH);
+        beam.addColorStop(0, "rgba(255, 45, 122, 0.0)");
+        beam.addColorStop(0.48, i === 1 ? "rgba(34, 211, 238, 0.26)" : "rgba(255, 45, 122, 0.24)");
+        beam.addColorStop(1, "rgba(255, 45, 122, 0.0)");
+        ctx.fillStyle = beam;
+        ctx.beginPath();
+        ctx.moveTo(lx - 24, 0);
+        ctx.lineTo(lx + viewW * 0.12, 0);
+        ctx.lineTo(lx + viewW * 0.30, viewH);
+        ctx.lineTo(lx + viewW * 0.05, viewH);
+        ctx.closePath();
+        ctx.fill();
+      }
+      ctx.restore();
+
+      // El protagonista entra caminando con sus cuatro fotogramas originales.
+      const walk = Math.max(0, Math.min(1, (p - 0.08) / 0.60));
+      const walkEase = walk * walk * (3 - 2 * walk);
+      const frame = walkFrames.length
+        ? walkFrames[Math.floor(activeSeq.elapsed * 8.5) % walkFrames.length]
+        : idle;
+      const playerImg = (p > 0.72 && idle) ? idle : frame;
+      if (playerImg && playerImg.naturalWidth > 0) {
+        const playerH = Math.min(330, Math.max(190, viewH * 0.39));
+        const playerW = playerH * (playerImg.naturalWidth / Math.max(1, playerImg.naturalHeight));
+        const playerX = -playerW * 0.55 + (viewW * 0.43 + playerW * 0.55) * walkEase;
+        const playerY = viewH * 0.82 + Math.sin(activeSeq.elapsed * 8.5) * (p < 0.72 ? 2.8 : 0.8);
+
+        ctx.save();
+        ctx.globalAlpha = Math.min(1, Math.max(0, (p - 0.04) * 5));
+        const glow = ctx.createRadialGradient(playerX, playerY - 8, 8, playerX, playerY - 8, playerH * 0.72);
+        glow.addColorStop(0, "rgba(255, 45, 122, 0.28)");
+        glow.addColorStop(0.58, "rgba(34, 211, 238, 0.10)");
+        glow.addColorStop(1, "rgba(5, 2, 14, 0)");
+        ctx.globalCompositeOperation = "screen";
+        ctx.fillStyle = glow;
+        ctx.beginPath();
+        ctx.ellipse(playerX, playerY - playerH * 0.43, playerW * 1.1, playerH * 0.72, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.globalCompositeOperation = "source-over";
+        ctx.fillStyle = "rgba(0, 0, 0, 0.56)";
+        ctx.beginPath();
+        ctx.ellipse(playerX, playerY - 2, playerW * 0.43, playerH * 0.075, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.drawImage(playerImg, playerX - playerW * 0.5, playerY - playerH, playerW, playerH);
+        ctx.restore();
       }
 
+      // Marca y texto aparecen después de que el jugador haya entrado en escena.
+      if (logo && p > 0.48) {
+        const alpha = Math.min(1, (p - 0.48) * 4);
+        const lw = Math.min(390, viewW * 0.34);
+        const lh = lw * (logo.naturalHeight / Math.max(1, logo.naturalWidth));
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(logo, viewW * 0.60, viewH * 0.27, lw, lh);
+        ctx.globalAlpha = 1;
+      }
+      ctx.textAlign = "left";
       ctx.fillStyle = "#f8fafc";
-      ctx.font = "900 28px Impact, Oswald, sans-serif";
-      ctx.textAlign = "center";
-      const caption = p < 0.35
-        ? "LA MÚSICA NUNCA SE DETIENE EN LOS NUEVE CÍRCULOS"
-        : (p < 0.72 ? "CADA PISO TIENE SU PROPIO RESIDENTE" : "BIENVENIDO AL REFUGIO · PREPARA EL DESCENSO");
-      ctx.fillText(caption, viewW * 0.5, viewH * 0.76);
+      ctx.font = "900 " + Math.max(17, Math.min(25, viewW * 0.021)) + "px Impact, Oswald, sans-serif";
+      const caption = p < 0.34
+        ? "LA NOCHE TODAVÍA NO HA TERMINADO"
+        : (p < 0.72 ? "ENTRA. SOBREVIVE. NO PIERDAS EL RITMO." : "BIENVENIDO AL REFUGIO");
+      ctx.globalAlpha = Math.min(1, p < 0.48 ? 0.86 : Math.min(1, (p - 0.48) * 3));
+      ctx.fillText(caption, viewW * 0.60, viewH * 0.68);
+      ctx.globalAlpha = 1;
     } else if (activeSeq.type === "circle") {
       const fade = p < 0.15 ? (p / 0.15) : (p > 0.82 ? (1 - p) / 0.18 : 1);
       ctx.globalAlpha = Math.max(0, Math.min(1, fade));

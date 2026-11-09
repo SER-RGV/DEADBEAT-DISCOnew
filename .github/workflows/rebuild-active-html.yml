@@ -1,0 +1,41 @@
+name: Rebuild active game HTML
+
+on:
+  push:
+    branches:
+      - main
+      - "fix/**"
+      - "arena/**"
+    paths:
+      - "src/**"
+      - "backups/**"
+      - "tools/build_active_html.py"
+      - ".github/workflows/rebuild-active-html.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout current branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Rebuild the single-file game
+        run: python tools/build_active_html.py
+      - name: Commit generated playable HTML
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html DEADBEAT_DISCO.html
+          if ! git diff --cached --quiet; then
+            git commit -m "build: regenerate playable HTML from source modules"
+            git push
+          fi
