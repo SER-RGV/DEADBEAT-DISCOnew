@@ -30,7 +30,7 @@
   var STATES = ["BOOT", "LOADING", "INTRO", "MAIN_MENU", "SUBMENU", "EXIT", "PLAYING"];
   /* Pasos cuya ausencia NO es degradable: sin ellos el menú existe pero no puede
      ejecutar ninguna acción. El modo seguro no puede saltárselos. */
-  var ESSENTIAL_IDS = ["engine", "assets", "images", "ui"];
+  var ESSENTIAL_IDS = ["engine", "assets", "ui"];
   /* Límite del perro guardián del arranque. Se expone para poder probarlo sin
      esperar 20 s reales en cada ejecución. */
   var WATCHDOG_MS = 20000;
@@ -296,11 +296,12 @@
     },
     {
       id: "images",
+      timeoutMs: 7000,
       label: "IMÁGENES ESENCIALES",
       detail: "Esperando las imágenes de arranque y del menú…",
       critical: true,
       run: function () {
-        var ids = ["logo_deadbeat_graffiti", "emblem_fox_crown", "menu_main_backdrop", "cine_intro_club_panorama"];
+        var ids = ["logo_deadbeat_graffiti", "emblem_fox_crown", "menu_main_backdrop", "menu_main_backdrop_a", "cine_intro_club_panorama", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03"];
         var t0 = performance.now();
         return new Promise(function (resolve, reject) {
           var missing = [], done = 0;
@@ -322,6 +323,7 @@
     },
     {
       id: "fase01",
+      timeoutMs: 7000,
       label: "COMPOSICIÓN DE ARRANQUE",
       detail: "Verificando las capas nuevas del menú y de la carga…",
       run: function () {
@@ -350,6 +352,7 @@
     },
     {
       id: "fonts",
+      timeoutMs: 4000,
       label: "TIPOGRAFÍA DE PISTA",
       detail: "Cargando la tipografía del juego…",
       run: function () {
@@ -502,6 +505,28 @@
   /* ------------------------------------------------------------ ejecución   */
   var runToken = 0;
 
+  /* Los recursos de presentación no pueden bloquear el acceso al menú.
+     Los pasos esenciales siguen siendo fatales y conservan su diagnóstico. */
+  function runStepWithTimeout(step) {
+    var timeoutMs = Number(step.timeoutMs) > 0 ? Number(step.timeoutMs) : 5000;
+    return new Promise(function (resolve, reject) {
+      var settled = false;
+      var timer = setTimeout(function () {
+        finish(reject, new Error("La comprobación " + step.id + " superó " + timeoutMs + " ms."));
+      }, timeoutMs);
+      function finish(fn, value) {
+        if (settled) return;
+        settled = true;
+        clearTimeout(timer);
+        fn(value);
+      }
+      Promise.resolve().then(step.run).then(
+        function (value) { finish(resolve, value); },
+        function (error) { finish(reject, error); }
+      );
+    });
+  }
+
   function runSteps() {
     buildBootUI();
     renderSteps();
@@ -521,8 +546,7 @@
         if (token !== runToken) return null;
         markStep(step.id, "run");
         if (el.stage) el.stage.textContent = step.label;
-        return Promise.resolve()
-          .then(step.run)
+        return runStepWithTimeout(step)
           .then(function (result) {
             /* CANCELACIÓN LÓGICA (FASE 01.4 · P0).
                Comprobar el token SÓLO antes del paso no basta: si un paso queda
