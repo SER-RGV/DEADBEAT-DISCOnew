@@ -10205,10 +10205,23 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         ctx.fill();
         ctx.restore();
         W.drawNeonGlow(ctx, state.px, state.py + 4, 78, "#ffe4f1", 0.34);
+        // Solo presentación del HUB: idle y walk03 oficiales tienen huecos de
+        // alfa. Usar fotogramas completos 00/01/02/01, sin alterar el estado
+        // compartido de animación ni los recursos originales. Paliativo hasta
+        // recibir las imágenes íntegras de Tanda 09.
+        const anim = window.DMO && window.DMO.playerAnim;
+        const rawPose = anim && anim.waistSplitActive ? anim.lowerPose : "player_walk0";
+        const safePose = rawPose === "player_walk1" || rawPose === "player_walk2"
+          ? rawPose : (rawPose === "player_walk3" ? "player_walk1" : "player_walk0");
+        const hubAnim = Object.assign({}, anim || {}, {
+          upperPose: safePose,
+          lowerPose: safePose,
+          waistSplitActive: false
+        });
         const drewHi = W.drawProtagonist(
           ctx,
           { x: state.px, y: state.py, aimAngle: state.aimAngle },
-          window.DMO && window.DMO.playerAnim,
+          hubAnim,
           null,
           0,
           0,
