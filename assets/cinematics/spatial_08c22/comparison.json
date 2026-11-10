@@ -1,0 +1,99 @@
+{
+  "source_model": "assets/cinematics/spatial_08c2/plan.json",
+  "source_model_sha256": "890daa7cc0fd91c1e02dcbf20652a25dbf6a927cff39defe67442b8cb0de21ea",
+  "method": "cámara experimental ajustada a cuatro marcas manuales; geometría inalterada",
+  "geometry_lines": 595,
+  "cameras": {
+    "BG04": {
+      "baseline": {
+        "id": "BG04",
+        "position": [
+          49.13,
+          8.89,
+          27.41
+        ],
+        "target": [
+          34.34,
+          80,
+          22.7
+        ],
+        "horizontal_fov_degrees": 116.73,
+        "description": "Ajuste heurístico BG04; coordenadas y FOV aproximados no aprobados"
+      },
+      "candidate": null,
+      "note": "Se conserva calibración 08C2.1; no se repite el ajuste."
+    },
+    "BG05": {
+      "baseline": {
+        "id": "BG05",
+        "position": [
+          50,
+          19,
+          8
+        ],
+        "target": [
+          50,
+          82,
+          17
+        ],
+        "horizontal_fov_degrees": 100,
+        "description": "vista de pista"
+      },
+      "candidate": {
+        "id": "BG05",
+        "position": [
+          50,
+          18.33,
+          4
+        ],
+        "target": [
+          50,
+          82,
+          15.51
+        ],
+        "horizontal_fov_degrees": 120,
+        "description": "hipótesis de comparación, no aprobada"
+      },
+      "cost_baseline": 0.026053,
+      "cost_candidate": 0.000548,
+      "hero_box_fits_candidate": null,
+      "note": "Ajuste de cámara experimental; no corrige arte, suelo, oclusiones ni valida el modelo."
+    },
+    "BG06": {
+      "baseline": {
+        "id": "BG06",
+        "position": [
+          50,
+          31,
+          6
+        ],
+        "target": [
+          50,
+          84,
+          14
+        ],
+        "horizontal_fov_degrees": 90,
+        "description": "encuadre protagonista, reserva gráfica orientativa"
+      },
+      "candidate": {
+        "id": "BG06",
+        "position": [
+          50,
+          27.94,
+          10.04
+        ],
+        "target": [
+          50,
+          82,
+          13.34
+        ],
+        "horizontal_fov_degrees": 120,
+        "description": "hipótesis de comparación, no aprobada"
+      },
+      "cost_baseline": 0.053215,
+      "cost_candidate": 9.1e-05,
+      "hero_box_fits_candidate": true,
+      "note": "Ajuste de cámara experimental; no corrige arte, suelo, oclusiones ni valida el modelo."
+    }
+  }
+}
