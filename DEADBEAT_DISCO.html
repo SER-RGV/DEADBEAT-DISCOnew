@@ -10394,13 +10394,35 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     return el;
   }
 
+  // El mezclador existente puede estar ausente, silenciado o suspendido por
+  // autoplay. La intro nunca crea un AudioContext ni espera al audio.
+  function setIntroDuck(seq, ducked) {
+    const music = window.DDC_COVER && window.DDC_COVER.music;
+    if (!music || typeof music.duck !== "function") return;
+    if (seq.introDuckOwner === music && seq.introDucked === ducked) return;
+    try {
+      music.duck(ducked);
+      seq.introDuckOwner = music;
+      seq.introDucked = ducked;
+    } catch (e) { /* Audio opcional: la imagen sigue su curso. */ }
+  }
+
+  function restoreIntroAudio(seq) {
+    if (!seq || seq.type !== "intro" || !seq.introDuckOwner) return;
+    try { seq.introDuckOwner.duck(false); } catch (e) {}
+    seq.introDuckOwner = null;
+  }
+
   function startSeq(seq) {
+    // Restaurar el mezclador si otra secuencia interrumpe la intro.
+    restoreIntroAudio(activeSeq);
     // La intro tiene marcas de plano absolutas: acortarla la cortaría en el plano 05.
     // Mantener sus diez planos; el movimiento reducido sigue limitando la cámara.
     const durScale = reducedMotion && seq.type !== "intro" ? 0.45 : 1.0;
     seq.duration = Math.max(0.35, seq.duration * durScale);
     seq.elapsed = 0;
     activeSeq = seq;
+    if (seq.type === "intro") setIntroDuck(seq, true);
     const dom = ensureLetterboxDOM();
     if (seq.letterbox !== false) {
       dom.classList.add("active");
@@ -10416,6 +10438,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   function finishSeq(reason) {
     if (!activeSeq) return;
     const cb = activeSeq.onComplete;
+    restoreIntroAudio(activeSeq);
     activeSeq = null;
     cam.targetOffX = 0;
     cam.targetOffY = 0;
@@ -10606,6 +10629,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
+        // Provisional: solo atenúa la música existente, no genera sonidos ni
+        // garantiza sincronización rítmica o reproducción bajo autoplay.
+        const quiet = activeSeq.elapsed < 7 ||
+          (activeSeq.elapsed >= 24.5 && activeSeq.elapsed < 28.5) || activeSeq.elapsed >= 32;
+        setIntroDuck(activeSeq, quiet);
         // Durante el plano final, el HUB real se dibuja bajo el fundido. Su
         // update ya respeta isBlocking(), así que no entrega control aún.
         if (activeSeq.elapsed >= 32 && !activeSeq.hubEntryAttempted && window.DD_HUB &&
