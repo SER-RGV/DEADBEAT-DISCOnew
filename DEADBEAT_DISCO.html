@@ -8112,27 +8112,62 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     {
       id: "images",
       timeoutMs: 7000,
-      label: "IMÁGENES ESENCIALES",
-      detail: "Esperando las imágenes de arranque y del menú…",
-      critical: true,
+      label: "IMÁGENES DE LA INTRO",
+      detail: "Preparando fondos, protagonista y logotipo…",
       run: function () {
-        var ids = ["cine_bg01_city", "cine_bg02_club_exterior", "cine_bg03_entrance", "cine_bg04_main_hall", "cine_bg05_dancefloor", "cine_bg06_hero", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
+        // DD_ASSETS ya está precargando las imágenes y sus fallbacks. No crear
+        // Image adicionales: duplican peticiones y eluden la ruta de respaldo.
+        var groups = [
+          ["cine_bg01_city"], ["cine_bg02_club_exterior"], ["cine_bg03_entrance"],
+          ["cine_bg04_main_hall"], ["cine_bg05_dancefloor"], ["cine_bg06_hero"],
+          ["hero_walk_00", "player_walk_00"], ["hero_walk_01", "player_walk_01"],
+          ["hero_walk_02", "player_walk_02"],
+          ["logo_deadbeat_cinematic", "logo_deadbeat_trim", "logo_deadbeat_graffiti"]
+        ];
+        var assets = window.DD_ASSETS;
         var t0 = performance.now();
-        return new Promise(function (resolve, reject) {
-          var missing = [], done = 0;
-          ids.forEach(function (id) {
-            var m = window.DD_ASSETS.manifest.entries[id];
-            if (!m) { missing.push(id); done++; return; }
-            var probe = new Image();
-            probe.onload = function () { if (++done === ids.length) finish(); };
-            probe.onerror = function () { missing.push(id); if (++done === ids.length) finish(); };
-            probe.src = m.src;
-          });
-          function finish() {
-            if (missing.length) return reject(new Error("Faltan imágenes esenciales: " + missing.join(", ")));
-            resolve({ ok: ids.length, ms: Math.round(performance.now() - t0) });
+        return new Promise(function (resolve) {
+          var done = false, poll = 0;
+          function selected() {
+            return groups.map(function (ids) {
+              for (var i = 0; i < ids.length; i++) {
+                var image = assets.get(ids[i]);
+                if (image) return image;
+              }
+              return null;
+            });
           }
-          if (done === ids.length) finish();
+          function finish(reason) {
+            if (done) return;
+            done = true;
+            clearTimeout(deadline);
+            clearTimeout(poll);
+            var missing = groups.filter(function (ids) {
+              return !ids.some(function (id) { return !!assets.get(id); });
+            }).map(function (ids) { return ids.join(" / "); });
+            var result = { ok: groups.length - missing.length, missing: missing, ms: Math.round(performance.now() - t0) };
+            if (reason || missing.length) {
+              result.degraded = true;
+              result.reason = (reason || "Recursos de intro no disponibles") + (missing.length ? ": " + missing.join(", ") : "");
+            }
+            resolve(result);
+          }
+          // Menor que el timeout general: informar degradación y continuar,
+          // sin dejar que un recurso opcional bloquee indefinidamente el juego.
+          var deadline = setTimeout(function () { finish("Precarga de intro incompleta o decodificación tardía"); }, 6000);
+          function check() {
+            if (done) return;
+            var images = selected();
+            if (images.some(function (im) { return !im; })) {
+              poll = setTimeout(check, 80);
+              return;
+            }
+            // Decodificar antes de reproducir cuando el navegador lo permite.
+            Promise.all(images.map(function (im) {
+              return typeof im.decode === "function" ? Promise.resolve().then(function () { return im.decode(); }) : Promise.resolve();
+            })).then(function () { finish(); }, function () { finish("No se pudo decodificar un recurso de intro"); });
+          }
+          check();
         });
       }
     },
