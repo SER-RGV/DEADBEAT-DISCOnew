@@ -18,13 +18,14 @@ try {
  await page.evaluate(()=>{window.__captureFrozen=true});
  await new Promise(resolve=>setTimeout(resolve,200));
  const out='assets/cinematics/evidence/pr17/phase08';fs.mkdirSync(out,{recursive:true});
- const times=[1.5,5,8.5,11.5,15.5,19,23,26,30,33];
- for (const [i,t] of times.entries()) {
+ const times=[1.5,5,8.5,11.5,15.5,19,23,26,30].map((t,i)=>({t,name:`shot-${String(i+1).padStart(2,'0')}`}));
+ times.push({t:31.8,name:'handoff-09-end'},{t:32.1,name:'handoff-10-start'},{t:33,name:'shot-10'});
+ for (const {t,name} of times) {
    const elapsed = await page.evaluate(t=>{while(window.DD_CINE.getState() && window.DD_CINE.getState().elapsed<t) window.DD_CINE.update(.05);const c=document.querySelector('canvas');window.DD_CINE.renderOverlay(c.getContext('2d'),c.width,c.height);return window.DD_CINE.getState()?.elapsed},t);
    if(elapsed == null || elapsed < t || elapsed > t + .1) throw new Error(`Tiempo incorrecto: ${elapsed} para ${t}`);
    await page.$eval('#stage',el=>{el.style.scrollMargin='0'});
-   await (await page.$('#stage')).screenshot({path:`${out}/shot-${String(i+1).padStart(2,'0')}.png`});
-   console.log(`shot ${i+1}: requested ${t}s, captured ${elapsed}s`);
+   await (await page.$('#stage')).screenshot({path:`${out}/${name}.png`});
+   console.log(`${name}: requested ${t}s, captured ${elapsed}s`);
  }
  if(errors.length) throw Error(JSON.stringify(errors));
 } finally {await browser.close();}

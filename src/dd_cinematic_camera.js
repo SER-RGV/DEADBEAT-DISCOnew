@@ -841,6 +841,9 @@
       } else if (shotIdx === 9) {
         // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
         const sp = shotProgress;
+        // Retirar el título antes del plano 10 y conservar continuidad de escala.
+        const handoff = Math.max(0, Math.min(1, (sp - 0.82) / 0.18));
+        const handoffEase = handoff * handoff * (3 - 2 * handoff);
         if (hasMasterForShot("cine_bg06_hero")) {
         drawLayer("cine_bg06_hero", 0, 0, 1.03, 1.0);
         } else {
@@ -861,6 +864,7 @@
           const ly = viewH * 0.06;
 
           ctx.save();
+          ctx.globalAlpha *= 1 - handoffEase;
           const logoBackdrop = ctx.createRadialGradient(viewW * 0.5, ly + lh * 0.5, 0, viewW * 0.5, ly + lh * 0.5, lw * 0.55);
           logoBackdrop.addColorStop(0, "rgba(6, 2, 12, 0.94)");
           logoBackdrop.addColorStop(0.7, "rgba(6, 2, 12, 0.7)");
@@ -873,7 +877,7 @@
           ctx.drawImage(logoImg, lx, ly, lw, lh);
 
           if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.4) {
-            ctx.globalAlpha = kickPulse * 0.65;
+            ctx.globalAlpha *= kickPulse * 0.65;
             ctx.drawImage(flareImg, 0, ly + lh * 0.5 - 64, viewW, 128);
           }
           ctx.restore();
@@ -882,7 +886,9 @@
         // Protagonista visible al pie con la misma pose de espera.
         const pImg = pIdle; // Mantener continuidad sin aparentar un disparo.
         if (pImg && pImg.naturalWidth > 0) {
-          const ph = Math.min(360, viewH * 0.42);
+          const startHeight = Math.min(360, viewH * 0.42);
+          const endHeight = Math.min(320, viewH * 0.38);
+          const ph = startHeight + (endHeight - startHeight) * handoffEase;
           const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
           const px = viewW * 0.5;
           const py = viewH * 0.92;
@@ -918,7 +924,8 @@
       if (vignetteImg && vignetteImg.naturalWidth > 0 && shotIdx < 10) {
         ctx.save();
         ctx.globalCompositeOperation = "multiply";
-        ctx.globalAlpha = 0.65;
+        const fadeOut = shotIdx === 9 ? Math.max(0, Math.min(1, (shotProgress - 0.82) / 0.18)) : 0;
+        ctx.globalAlpha = 0.65 * (1 - fadeOut * fadeOut * (3 - 2 * fadeOut));
         ctx.drawImage(vignetteImg, 0, 0, viewW, viewH);
         ctx.restore();
       }
