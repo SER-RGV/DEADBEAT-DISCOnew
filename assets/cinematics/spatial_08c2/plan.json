@@ -1,0 +1,336 @@
+{
+  "status": "PROPUESTA ARTÍSTICA NO APROBADA — no mide ni altera el juego",
+  "units": "proporción 0..100 por eje, no metros",
+  "axes": {
+    "x": "transversal, izquierda a derecha mirando al escenario",
+    "y": "longitudinal, acceso/cámaras a escenario",
+    "z": "altura sobre suelo"
+  },
+  "hall": {
+    "x": [
+      10,
+      90
+    ],
+    "y": [
+      5,
+      95
+    ],
+    "floor_z": 0,
+    "vault_spring_z": 38,
+    "vault_apex_z": 60
+  },
+  "dancefloor": {
+    "x": [
+      22,
+      78
+    ],
+    "y": [
+      20,
+      70
+    ],
+    "circle_center": [
+      50,
+      45
+    ],
+    "circle_radius": 16,
+    "fixed_decoration": true
+  },
+  "future_descent_reserve": {
+    "x": [
+      44,
+      56
+    ],
+    "y": [
+      50,
+      60
+    ],
+    "z": 0,
+    "meaning": "zona de estudio sin mecanismo ni apertura"
+  },
+  "stage": {
+    "x": [
+      26,
+      74
+    ],
+    "y": [
+      76,
+      91
+    ],
+    "top_z": 5
+  },
+  "stairs": {
+    "x": [
+      43,
+      57
+    ],
+    "y": [
+      66,
+      76
+    ],
+    "count": 5,
+    "top_z": 5
+  },
+  "dj_booth": {
+    "x": [
+      45,
+      55
+    ],
+    "y": [
+      83,
+      86
+    ],
+    "base_z": 5,
+    "top_z": 10,
+    "occupant": "Tempo: posición editorial, no sprite"
+  },
+  "speaker_stacks": [
+    {
+      "id": "L",
+      "x": [
+        28,
+        33
+      ],
+      "y": [
+        80,
+        85
+      ],
+      "base_z": 5,
+      "top_z": 21
+    },
+    {
+      "id": "R",
+      "x": [
+        67,
+        72
+      ],
+      "y": [
+        80,
+        85
+      ],
+      "base_z": 5,
+      "top_z": 21
+    }
+  ],
+  "balconies": [
+    {
+      "id": "L",
+      "x": [
+        12,
+        20
+      ],
+      "y": [
+        12,
+        86
+      ],
+      "floor_z": 22
+    },
+    {
+      "id": "R",
+      "x": [
+        80,
+        88
+      ],
+      "y": [
+        12,
+        86
+      ],
+      "floor_z": 22
+    }
+  ],
+  "columns": {
+    "x": [
+      20,
+      80
+    ],
+    "y": [
+      16,
+      30,
+      44,
+      58,
+      72,
+      86
+    ],
+    "radius": 1.3,
+    "top_z": 38
+  },
+  "audience": {
+    "positions": [
+      [
+        26,
+        32
+      ],
+      [
+        30,
+        37
+      ],
+      [
+        27,
+        44
+      ],
+      [
+        31,
+        52
+      ],
+      [
+        28,
+        61
+      ],
+      [
+        35,
+        62
+      ],
+      [
+        74,
+        32
+      ],
+      [
+        70,
+        37
+      ],
+      [
+        73,
+        44
+      ],
+      [
+        69,
+        52
+      ],
+      [
+        72,
+        61
+      ],
+      [
+        65,
+        62
+      ]
+    ],
+    "height": 4.5,
+    "meaning": "posiciones de muestra fijas en las tres vistas, no coreografía"
+  },
+  "ornament": {
+    "chandeliers": [
+      [
+        50,
+        40,
+        50
+      ],
+      [
+        50,
+        68,
+        50
+      ]
+    ],
+    "stage_motif_center": [
+      50,
+      90,
+      24
+    ],
+    "meaning": "motivo geométrico cian, no logo"
+  },
+  "lights": [
+    {
+      "origin": [
+        25,
+        60,
+        34
+      ],
+      "target": [
+        59,
+        52,
+        0
+      ],
+      "color": "magenta"
+    },
+    {
+      "origin": [
+        75,
+        60,
+        34
+      ],
+      "target": [
+        41,
+        52,
+        0
+      ],
+      "color": "cyan"
+    }
+  ],
+  "cameras": [
+    {
+      "id": "BG04",
+      "position": [
+        50,
+        6,
+        30
+      ],
+      "target": [
+        50,
+        78,
+        23
+      ],
+      "horizontal_fov_degrees": 110,
+      "description": "nave elevada"
+    },
+    {
+      "id": "BG05",
+      "position": [
+        50,
+        19,
+        8
+      ],
+      "target": [
+        50,
+        82,
+        17
+      ],
+      "horizontal_fov_degrees": 100,
+      "description": "vista de pista"
+    },
+    {
+      "id": "BG06",
+      "position": [
+        50,
+        31,
+        6
+      ],
+      "target": [
+        50,
+        84,
+        14
+      ],
+      "horizontal_fov_degrees": 90,
+      "description": "encuadre protagonista, reserva gráfica orientativa"
+    }
+  ],
+  "rear_gallery": {
+    "x": [
+      20,
+      80
+    ],
+    "y": [
+      5,
+      12
+    ],
+    "floor_z": 22,
+    "meaning": "galería posterior conceptual para sustentar la vista BG04"
+  },
+  "hero_composition_guide": {
+    "anchor": [
+      50,
+      48,
+      0
+    ],
+    "width": 2.2,
+    "height": 4.5,
+    "meaning": "reserva de prueba; no es un sprite ni medida de protagonista"
+  },
+  "logo_composition_guide": {
+    "screen_rectangle_normalized": [
+      0.3,
+      0.05,
+      0.7,
+      0.2
+    ],
+    "meaning": "reserva 2D orientativa, requiere prueba con logo oficial"
+  }
+}
