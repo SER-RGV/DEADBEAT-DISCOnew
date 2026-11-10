@@ -9,26 +9,37 @@ const browser=await puppeteer.launch({executablePath:await chromium.executablePa
 try {
  for(const method of ['Escape','Space','click','none']) {
   const page=await browser.newPage();await page.setViewport({width:960,height:540});
-  const errors=[];let delayed=0;
+  const errors=[];let delayed=0, held=null, notifyHeld;
+  const intercepted = new Promise(resolve => { notifyHeld = resolve; });
+  async function waitForIntercept() {
+   let timer;
+   try { await Promise.race([intercepted, new Promise((_,reject)=>{timer=setTimeout(()=>reject(Error('No se interceptó el recurso de carga')),15000)})]); }
+   finally { clearTimeout(timer); }
+  }
   page.on('pageerror',e=>errors.push(String(e)));
   await page.setRequestInterception(true);
   page.on('request',req=>{
-   if(req.url().includes('/assets/fase01/menu_backdrop_2k.webp')) {delayed++;setTimeout(()=>req.continue().catch(()=>{}),4000)}
+   if(req.url().includes('/assets/fase01/menu_backdrop_2k.webp')) {delayed++;held=req;notifyHeld()}
    else req.continue().catch(()=>{});
   });
   await page.evaluateOnNewDocument(()=>{window.__introWasActive=false;function loop(){if(window.DD_CINE?.getState()?.type==='intro')window.__introWasActive=true;requestAnimationFrame(loop)}requestAnimationFrame(loop)});
   await page.goto((process.env.DD_QA_URL||'http://127.0.0.1:8000')+'/index.html',{waitUntil:'domcontentloaded',timeout:120000});
   await page.waitForFunction(()=>window.DD_BOOT?.getState().state==='LOADING',{timeout:15000});
+  // La respuesta queda retenida hasta que el salto esté encolado.
   if(method==='click')await page.mouse.click(30,300);else if(method!=='none')await page.keyboard.press(method);
   if(method!=='none'){
    await page.waitForFunction(()=>window.DD_BOOT?.getState().introSkipQueued,{timeout:5000});
    const before=await page.evaluate(()=>({boot:DD_BOOT.getState(),hub:DD_HUB.isActive(),hint:document.querySelector('#dd-boot-hint')?.textContent}));
    if(before.hub||before.boot.state!=='LOADING')throw Error('HUB iniciado antes de terminar la carga: '+JSON.stringify(before));
+   await waitForIntercept();
+   await held.continue();
    await page.waitForFunction(()=>window.DD_BOOT?.getState().state==='PLAYING'&&window.DD_HUB?.isActive(),{timeout:30000});
    const after=await page.evaluate(()=>({boot:DD_BOOT.getState(),hub:DD_HUB.getState(),cine:DD_CINE.getState(),introWasActive:window.__introWasActive}));
    if(after.boot.introEndedBy!=='skip'||after.cine||after.introWasActive||errors.length||!delayed)throw Error(JSON.stringify({method,delayed,before,after,errors}));
    console.log(JSON.stringify({method,delayed,queued:before.boot.introSkipQueued,hint:before.hint,endedBy:after.boot.introEndedBy,hub:after.hub.active,errors}));
   } else {
+   await waitForIntercept();
+   await held.continue();
    await page.waitForFunction(()=>window.DD_CINE?.getState()?.type==='intro',{timeout:30000});
    if(!delayed||errors.length)throw Error(JSON.stringify({method,delayed,errors}));
    console.log(JSON.stringify({method,delayed,cine:await page.evaluate(()=>DD_CINE.getState()),errors}));

@@ -312,7 +312,7 @@
         var assets = window.DD_ASSETS;
         var t0 = performance.now();
         return new Promise(function (resolve) {
-          var done = false, poll = 0;
+          var done = false, poll = 0, decoding = [], decodeFailed = [];
           function selected() {
             return groups.map(function (ids) {
               for (var i = 0; i < ids.length; i++) {
@@ -333,7 +333,12 @@
             var result = { ok: groups.length - missing.length, missing: missing, ms: Math.round(performance.now() - t0) };
             if (reason || missing.length) {
               result.degraded = true;
-              result.reason = (reason || "Recursos de intro no disponibles") + (missing.length ? ": " + missing.join(", ") : "");
+              result.decoding = decoding.slice();
+              result.decodeFailed = decodeFailed.slice();
+              result.reason = (reason || "Recursos de intro no disponibles") +
+                (missing.length ? ": " + missing.join(", ") : "") +
+                (decodeFailed.length ? " · fallo de decodificación: " + decodeFailed.join(", ") : "") +
+                (decoding.length ? " · decodificación pendiente: " + decoding.join(", ") : "");
             }
             resolve(result);
           }
@@ -348,8 +353,21 @@
               return;
             }
             // Decodificar antes de reproducir cuando el navegador lo permite.
-            Promise.all(images.map(function (im) {
-              return typeof im.decode === "function" ? Promise.resolve().then(function () { return im.decode(); }) : Promise.resolve();
+            decoding = groups.map(function (ids) { return ids.join(" / "); });
+            Promise.all(images.map(function (im, index) {
+              return Promise.resolve().then(function () {
+                return typeof im.decode === "function" ? im.decode() : undefined;
+              }).then(function () {
+                var label = groups[index].join(" / ");
+                var pos = decoding.indexOf(label);
+                if (pos !== -1) decoding.splice(pos, 1);
+              }, function (error) {
+                var label = groups[index].join(" / ");
+                var pos = decoding.indexOf(label);
+                if (pos !== -1) decoding.splice(pos, 1);
+                decodeFailed.push(label);
+                throw error;
+              });
             })).then(function () { finish(); }, function () { finish("No se pudo decodificar un recurso de intro"); });
           }
           check();
