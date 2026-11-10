@@ -1,10 +1,12 @@
+> **Registro histórico de Fase 08C.2:** las medidas y diagramas de esta página son la versión previa a la calibración 08C.2.1. La revisión vigente y su comparación están en [FASE_08C21_CALIBRACION_BG04.md](FASE_08C21_CALIBRACION_BG04.md). El estado anterior se conserva en `assets/cinematics/spatial_08c2/archive_08c2/`; el `plan.json` de la carpeta principal ya está calibrado y difiere de las cifras históricas siguientes.
+
 # Fase 08C.2 — Plano maestro espacial de la discoteca
 
 **Estado: propuesta de producción pendiente de aprobación; no es geometría del juego ni modifica BG04.** El plano proporciona una sola distribución para producir los futuros fondos; las tres imágenes 08C/08C.1 existentes **no** son proyecciones exactas de ella. [Abrir galería del plano y cámaras](FASE_08C2_GALERIA_PLANO.html).
 
 ## Fuente de verdad y método
 
-`assets/cinematics/spatial_08c2/plan.json` define posiciones, tamaños y cámaras; `tools/generate_cinematic_08c2.py` define la geometría esquemática común y la proyección perspectiva. Ejecutar `python3 tools/generate_cinematic_08c2.py` regenera la planta, los alzados y las tres vistas SVG a partir del mismo modelo, sin modificar fondos. No son imágenes de producción ni capas cinematográficas: son diagramas de líneas, sin superficies opacas, oclusión física, texturas, distorsión de lente ni luz volumétrica. Las líneas posteriores pueden verse a través de las delanteras; esto no demuestra visibilidad real.
+`assets/cinematics/spatial_08c2/archive_08c2/plan.json` conserva estas posiciones y cámaras históricas; `archive_08c2/generate_original.py` conserva el generador anterior. Ejecutar `python3 assets/cinematics/spatial_08c2/archive_08c2/generate_original.py` regenera únicamente las cinco vistas archivadas, sin modificar fondos. No son imágenes de producción ni capas cinematográficas: son diagramas de líneas, sin superficies opacas, oclusión física, texturas, distorsión de lente ni luz volumétrica. Las líneas posteriores pueden verse a través de las delanteras; esto no demuestra visibilidad real.
 
 La referencia visual es `assets/cinematics/backgrounds/definitive/scene_04_main_hall/master.png`, conservada sin cambios. Las dos vistas 08C.1 se usan solo para comparar. Las formas elegidas para resolver sus diferencias son decisiones **propuestas**, no mediciones extraídas de BG04. No se generaron fondos nuevos ni se modificaron imágenes existentes, sprites, manifiesto de producción, controlador, HUB o run.
 
@@ -16,7 +18,7 @@ Cada eje usa una referencia de **0 a 100**, no metros ni unidades del motor:
 - `y`: longitud; acceso y parte posterior cerca de 5; cabecera del escenario hacia 95.
 - `z`: altura; el suelo de la sala es 0. El eje longitudinal es **x=50**. La planta se lee con y creciente hacia arriba.
 
-![Planta proporcional](../../assets/cinematics/spatial_08c2/planta.svg)
+![Planta proporcional](../../assets/cinematics/spatial_08c2/archive_08c2/planta.svg)
 
 ## Distribución única
 
@@ -36,7 +38,7 @@ Cada eje usa una referencia de **0 a 100**, no metros ni unidades del motor:
 | Luz | Emisores (25,60,34) y (75,60,34), dirigidos a (59,52,0) y (41,52,0) | Trazos magenta y cian indican ejes, no haces volumétricos ni iluminación definitiva. |
 | Reserva futura de descenso | x=44–56, y=50–60, z=0 | Zona de estudio dentro de la pista, sin hueco ni mecanismo. Su relación con la torre inferior y el Refugio todavía no está diseñada ni aprobada. |
 
-![Alzados simplificados](../../assets/cinematics/spatial_08c2/alzados.svg)
+![Alzados simplificados](../../assets/cinematics/spatial_08c2/archive_08c2/alzados.svg)
 
 ## Tres cámaras del mismo modelo
 

@@ -11,15 +11,17 @@ root = Path(__file__).resolve().parents[2]
 folder = root / 'assets/cinematics/spatial_08c2'
 m = json.loads((folder / 'plan.json').read_text())
 assert len(m['cameras']) == 3 and [c['id'] for c in m['cameras']] == ['BG04', 'BG05', 'BG06']
-assert m['stage']['top_z'] == m['stairs']['top_z'] == m['dj_booth']['base_z'] == 5
+assert m['stage']['top_z'] == m['stairs']['top_z'] == m['dj_booth']['base_z'] == 4
 assert m['stairs']['count'] == 5 and m['stairs']['y'][1] == m['stage']['y'][0]
 assert m['stairs']['x'][0] < 50 < m['stairs']['x'][1]
 left, right = m['speaker_stacks']
 assert sum(left['x']) / 2 + sum(right['x']) / 2 == 100
-assert right['x'][0] - left['x'][1] == 34
+assert right['x'][0] - left['x'][1] == 30
+assert len(m['suspended_speakers']) == 2
 assert all(b['floor_z'] == 22 for b in m['balconies'])
 assert m['rear_gallery']['floor_z'] == 22
-assert m['dancefloor']['fixed_decoration'] and m['dancefloor']['circle_center'] == [50,45]
+assert m['dancefloor']['fixed_decoration'] and m['dancefloor']['longitudinal_band_x'] == [40,60]
+assert 'circle_center' not in m['dancefloor']
 assert m['future_descent_reserve']['x'] == [44,56] and m['future_descent_reserve']['y'] == [50,60]
 for x,y in m['audience']['positions']:
  assert 22 <= x <= 78 and 20 <= y <= 70

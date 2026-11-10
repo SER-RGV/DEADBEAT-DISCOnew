@@ -1,5 +1,5 @@
 {
-  "status": "PROPUESTA ARTÍSTICA NO APROBADA — no mide ni altera el juego",
+  "status": "CALIBRACIÓN APROXIMADA / PENDIENTE DE APROBACIÓN — no mide ni altera el juego",
   "units": "proporción 0..100 por eje, no metros",
   "axes": {
     "x": "transversal, izquierda a derecha mirando al escenario",
@@ -28,12 +28,34 @@
       20,
       70
     ],
-    "circle_center": [
-      50,
-      45
+    "fixed_decoration": true,
+    "longitudinal_band_x": [
+      40,
+      60
     ],
-    "circle_radius": 16,
-    "fixed_decoration": true
+    "transverse_marks_y": [
+      28,
+      38,
+      48,
+      58,
+      68
+    ],
+    "inferred_medallion_centers": [
+      [
+        50,
+        34
+      ],
+      [
+        50,
+        48
+      ],
+      [
+        50,
+        62
+      ]
+    ],
+    "medallion_radius": 3,
+    "meaning": "Franja longitudinal con medallones aproximados; geometría detallada ocluida e incierta"
   },
   "future_descent_reserve": {
     "x": [
@@ -49,14 +71,14 @@
   },
   "stage": {
     "x": [
-      26,
-      74
+      30,
+      70
     ],
     "y": [
       76,
       91
     ],
-    "top_z": 5
+    "top_z": 4
   },
   "stairs": {
     "x": [
@@ -68,7 +90,7 @@
       76
     ],
     "count": 5,
-    "top_z": 5
+    "top_z": 4
   },
   "dj_booth": {
     "x": [
@@ -79,36 +101,36 @@
       83,
       86
     ],
-    "base_z": 5,
-    "top_z": 10,
+    "base_z": 4,
+    "top_z": 8,
     "occupant": "Tempo: posición editorial, no sprite"
   },
   "speaker_stacks": [
     {
       "id": "L",
       "x": [
-        28,
-        33
+        31,
+        35
       ],
       "y": [
         80,
         85
       ],
-      "base_z": 5,
-      "top_z": 21
+      "base_z": 4,
+      "top_z": 19
     },
     {
       "id": "R",
       "x": [
-        67,
-        72
+        65,
+        69
       ],
       "y": [
         80,
         85
       ],
-      "base_z": 5,
-      "top_z": 21
+      "base_z": 4,
+      "top_z": 19
     }
   ],
   "balconies": [
@@ -259,17 +281,17 @@
     {
       "id": "BG04",
       "position": [
-        50,
-        6,
-        30
+        49.13,
+        8.89,
+        27.41
       ],
       "target": [
-        50,
-        78,
-        23
+        34.34,
+        80,
+        22.7
       ],
-      "horizontal_fov_degrees": 110,
-      "description": "nave elevada"
+      "horizontal_fov_degrees": 116.73,
+      "description": "Ajuste heurístico BG04; coordenadas y FOV aproximados no aprobados"
     },
     {
       "id": "BG05",
@@ -309,10 +331,27 @@
     ],
     "y": [
       5,
-      12
+      18
     ],
     "floor_z": 22,
-    "meaning": "galería posterior conceptual para sustentar la vista BG04"
+    "meaning": "galería posterior conceptual para sustentar la vista BG04",
+    "rail_points": [
+      [
+        20,
+        18,
+        25
+      ],
+      [
+        50,
+        12,
+        25
+      ],
+      [
+        80,
+        18,
+        25
+      ]
+    ]
   },
   "hero_composition_guide": {
     "anchor": [
@@ -332,5 +371,40 @@
       0.2
     ],
     "meaning": "reserva 2D orientativa, requiere prueba con logo oficial"
+  },
+  "suspended_speakers": [
+    {
+      "id": "L",
+      "x": [
+        22,
+        26
+      ],
+      "y": [
+        32,
+        38
+      ],
+      "base_z": 29,
+      "top_z": 41
+    },
+    {
+      "id": "R",
+      "x": [
+        68,
+        72
+      ],
+      "y": [
+        32,
+        38
+      ],
+      "base_z": 29,
+      "top_z": 41
+    }
+  ],
+  "calibration": {
+    "reference": "assets/cinematics/backgrounds/definitive/scene_04_main_hall/master.png",
+    "reference_sha256": "9c1c9358acaca94abea7c7eb20c6e505e2605a884f8d18a99e8d3383ec74bba3",
+    "landmarks": "assets/cinematics/spatial_08c2/calibration_bg04.json",
+    "method": "Ajuste aproximado sobre ocho marcas manuales; no fotogrametría",
+    "warning": "La cámara se aproxima al límite y; escenario y altavoces mantienen residuales altos"
   }
 }
