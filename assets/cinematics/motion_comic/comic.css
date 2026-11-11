@@ -1,0 +1,252 @@
+/* DEADBEAT DISCO · Motion comic de la introducción · estilos del lienzo.
+   Todo lo que se ve aquí se dibuja en directo: ilustraciones originales + capas de texto vectorial. */
+
+@font-face { font-family: "Comic Neue"; font-weight: 700; font-style: normal; font-display: block; src: url("fonts/comic-neue-latin-700-normal.woff2") format("woff2"); }
+@font-face { font-family: "Comic Neue"; font-weight: 700; font-style: italic; font-display: block; src: url("fonts/comic-neue-latin-700-italic.woff2") format("woff2"); }
+@font-face { font-family: "Special Elite"; font-weight: 400; font-display: block; src: url("fonts/special-elite-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Anton"; font-weight: 400; font-display: block; src: url("fonts/anton-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Creepster"; font-weight: 400; font-display: block; src: url("fonts/creepster-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Bangers"; font-weight: 400; font-display: block; src: url("fonts/bangers-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Permanent Marker"; font-weight: 400; font-display: block; src: url("fonts/permanent-marker-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Knewave"; font-weight: 400; font-display: block; src: url("fonts/knewave-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Rubik Wet Paint"; font-weight: 400; font-display: block; src: url("fonts/rubik-wet-paint-latin-400-normal.woff2") format("woff2"); }
+
+.mc-lienzo {
+  --papel: #e9e1cb;
+  --papel-sombra: #cfc4a6;
+  --tinta: #0e0c11;
+  --magenta: #ff2d95;
+  --cian: #36e6ff;
+  --amarillo: #ffd62e;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 1920px;
+  height: 1080px;
+  transform-origin: 0 0;
+  overflow: hidden;
+  background: #08060b;
+  color: var(--tinta);
+  user-select: none;
+  -webkit-user-select: none;
+  contain: strict;
+}
+.mc-lienzo * { box-sizing: border-box; }
+
+/* Mesa sobre la que descansa la lámina */
+.mc-mesa {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(1200px 700px at 30% 20%, rgba(255, 45, 149, 0.10), transparent 70%),
+    radial-gradient(900px 600px at 80% 90%, rgba(54, 230, 255, 0.07), transparent 70%),
+    #0a070d;
+}
+
+.mc-pagina-capa { position: absolute; inset: 0; overflow: hidden; display: none; }
+.mc-pagina-capa.visible { display: block; }
+.mc-pagina {
+  position: absolute; left: 0; top: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+  background-color: var(--papel);
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.35), 0 40px 120px rgba(0, 0, 0, 0.8);
+}
+.mc-papel {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image:
+    radial-gradient(700px 500px at 12% 8%, rgba(120, 84, 30, 0.16), transparent 70%),
+    radial-gradient(900px 700px at 92% 96%, rgba(120, 84, 30, 0.2), transparent 70%),
+    radial-gradient(500px 420px at 78% 30%, rgba(160, 60, 90, 0.07), transparent 70%),
+    var(--mc-grano);
+  background-size: auto, auto, auto, 420px 420px;
+}
+.mc-folio {
+  position: absolute; bottom: 22px; font: 400 24px "Special Elite", monospace; color: rgba(20, 16, 24, 0.62);
+  letter-spacing: 2px;
+}
+.mc-mancha { position: absolute; pointer-events: none; overflow: visible; }
+
+/* ---------- Viñetas ---------- */
+.mc-vineta { position: absolute; }
+.mc-vineta-clip { position: absolute; inset: 0; overflow: hidden; background: var(--papel); isolation: isolate; }
+.mc-lapiz, .mc-arte, .mc-fantasma {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; pointer-events: none;
+}
+.mc-lapiz { filter: grayscale(1) contrast(1.5) brightness(1.75) sepia(0.6) hue-rotate(165deg) saturate(1.6); opacity: 0.2; }
+.mc-arte { will-change: transform; }
+.mc-fantasma { mix-blend-mode: screen; opacity: 0; filter: saturate(2.4) hue-rotate(-35deg) brightness(0.9); }
+.mc-fx-fondo, .mc-fx-frente, .mc-actores, .mc-sfx-capa, .mc-sfx-frente { position: absolute; inset: 0; pointer-events: none; }
+.mc-sfx-capa .mc-el, .mc-sfx-frente .mc-el { pointer-events: auto; }
+.mc-trama {
+  position: absolute; inset: -45% -15%; pointer-events: none; opacity: 0.2;
+  background-image: radial-gradient(circle at 50% 50%, rgba(8, 4, 12, 0.95) 0 31%, transparent 34%);
+  background-size: 9px 9px;
+  transform: rotate(18deg);
+  mix-blend-mode: multiply;
+}
+.mc-trama-luz {
+  position: absolute; inset: -45% -15%; pointer-events: none; opacity: 0.1;
+  background-image: radial-gradient(circle at 50% 50%, rgba(255, 150, 220, 0.95) 0 26%, transparent 30%);
+  background-size: 9px 9px; background-position: 4.5px 4.5px;
+  transform: rotate(18deg);
+  mix-blend-mode: screen;
+}
+.mc-velo-pasado { position: absolute; inset: 0; background: rgba(14, 8, 20, 0.34); opacity: 0; pointer-events: none; }
+.mc-borde { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
+.mc-borde path { fill: none; stroke: var(--tinta); stroke-linejoin: miter; }
+
+/* Personajes */
+.mc-actor { position: absolute; left: 0; top: 0; transform-origin: 50% 100%; will-change: transform; }
+.mc-actor img { position: absolute; left: 0; bottom: 0; height: 100%; width: auto; max-width: none; opacity: 0; image-rendering: auto; }
+.mc-actor img.activo { opacity: 1; }
+.mc-actor.silueta img { filter: brightness(0) drop-shadow(0 0 3px #ff4fc0) drop-shadow(0 0 16px rgba(255, 45, 149, 0.9)); }
+.mc-actor.reflejo img.activo { -webkit-box-reflect: below -6px linear-gradient(transparent 45%, rgba(255, 255, 255, 0.28)); }
+.mc-actor .mc-sombra {
+  position: absolute; left: 50%; bottom: -3%; width: 62%; height: 9%; transform: translateX(-50%);
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.75), transparent); border-radius: 50%;
+}
+.mc-actor-tinta img { filter: contrast(1.12) saturate(1.1) drop-shadow(0 0 1.5px #0b090d) drop-shadow(0 0 1.5px #0b090d); }
+.mc-imagen { position: absolute; left: 0; top: 0; transform-origin: 50% 50%; will-change: transform; }
+.mc-imagen img { display: block; width: 100%; height: auto; filter: drop-shadow(0 0 22px rgba(255, 45, 149, 0.75)) drop-shadow(8px 10px 0 rgba(8, 4, 12, 0.85)); }
+
+/* Insertos (pequeñas viñetas con el retrato de quien habla) */
+.mc-insertos, .mc-textos { position: absolute; left: 0; top: 0; width: 0; height: 0; }
+.mc-inserto { position: absolute; left: 0; top: 0; transform-origin: 50% 50%; will-change: transform; }
+.mc-inserto-caja { position: absolute; inset: 0; overflow: hidden; background: #1a0f24; }
+.mc-inserto.circulo .mc-inserto-caja { border-radius: 50%; }
+.mc-inserto-caja::before {
+  content: ""; position: absolute; inset: -20%;
+  background:
+    radial-gradient(circle at 50% 50%, rgba(255, 45, 149, 0.9) 0 30%, transparent 33%) 0 0 / 11px 11px,
+    linear-gradient(160deg, #3b0f4a, #12091b);
+  transform: rotate(-22deg);
+}
+.mc-inserto-caja img { position: absolute; left: 4%; top: 6%; width: 92%; height: 96%; object-fit: contain; object-position: 50% 100%; filter: contrast(1.08) drop-shadow(0 0 2px #0b090d); }
+.mc-inserto-caja img.recorte { object-fit: fill; max-width: none; }
+.mc-inserto-caja img.pixelado { image-rendering: pixelated; }
+.mc-inserto svg { position: absolute; left: 0; top: 0; overflow: visible; }
+.mc-inserto svg .marco { fill: none; stroke: var(--tinta); stroke-width: 9; }
+.mc-inserto svg .marco2 { fill: none; stroke: var(--papel); stroke-width: 17; }
+
+/* ---------- FX de viñeta ---------- */
+.mc-fx { position: absolute; pointer-events: none; }
+.mc-fx-niebla { inset: 0 -30%; background: linear-gradient(90deg, transparent, var(--c) 30%, transparent 55%, var(--c) 80%, transparent); mix-blend-mode: screen; }
+.mc-fx-fuga { top: 0; bottom: 0; mix-blend-mode: screen;
+  background: linear-gradient(90deg, transparent, rgba(255, 60, 170, 0.8) 22%, #fff3c0 46%, #ffffff 50%, #fff3c0 54%, rgba(255, 190, 60, 0.85) 78%, transparent); }
+.mc-fx-fuga-halo { inset: 0; mix-blend-mode: screen; background: radial-gradient(60% 75% at var(--x) 50%, rgba(255, 220, 150, 0.9), rgba(255, 60, 170, 0.35) 45%, transparent 75%); }
+.mc-fx-contraluz { inset: 0; mix-blend-mode: screen; }
+.mc-fx-oscurecer { inset: 0; background: radial-gradient(70% 80% at 50% 45%, transparent 30%, rgba(6, 2, 12, 0.72) 100%); }
+.mc-fx-columna { top: -2%; bottom: -2%; background: linear-gradient(90deg, #07040b 0%, #120a1c 55%, #2a1038 82%, #ff2d95 96%, #ffd0ef 100%); box-shadow: 0 0 40px rgba(0, 0, 0, 0.8); }
+.mc-fx-laser { left: 0; top: 0; transform-origin: 50% 0; mix-blend-mode: screen; clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%); }
+.mc-fx-vapor { left: -10%; right: -10%; top: 30%; bottom: -10%; filter: blur(18px);
+  background: radial-gradient(20% 60% at 27% 66%, rgba(235, 250, 255, 0.95), transparent 72%), radial-gradient(18% 66% at 69% 64%, rgba(235, 250, 255, 0.9), transparent 72%), radial-gradient(60% 26% at 50% 86%, rgba(255, 210, 245, 0.8), transparent 75%); }
+.mc-fx-estrobo { inset: 0; background: radial-gradient(80% 90% at 50% 40%, #ffffff, rgba(255, 120, 210, 0.85) 60%, rgba(255, 45, 149, 0.5)); mix-blend-mode: screen; opacity: 0; }
+.mc-fx-impacto { left: 0; top: 0; overflow: visible; opacity: 0; }
+.mc-fx-impacto path { fill: #fffdf2; }
+.mc-fx-foco { inset: 0; background: radial-gradient(42% 70% at var(--x) var(--y), transparent 30%, rgba(8, 3, 14, 0.78) 100%); }
+
+/* ---------- Textos: base ---------- */
+.mc-el { position: absolute; left: 0; top: 0; width: 0; height: 0; visibility: hidden; }
+.mc-el.viva { visibility: visible; }
+.mc-el-in { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform, opacity; }
+.mc-el svg.mc-forma { position: absolute; left: 0; top: 0; width: 1px; height: 1px; overflow: visible; }
+.mc-forma .sombra { fill: rgba(10, 6, 14, 0.9); stroke: none; }
+.mc-forma .cuerpo { stroke-linejoin: round; stroke-linecap: round; paint-order: stroke; }
+.mc-txt { position: absolute; text-align: center; line-height: 1.1; white-space: normal; }
+.mc-txt em { font-style: italic; font-weight: 700; font-size: 1.14em; letter-spacing: 0.01em; }
+.mc-bloque { display: inline; will-change: opacity; }
+.mc-medidor { position: absolute; left: -9999px; top: 0; visibility: hidden; width: max-content; }
+
+.mc-el.pasada .mc-el-in { filter: saturate(0.55) brightness(0.86); }
+
+/* Etiqueta de personaje, al estilo de la pestaña de diálogo del juego */
+.mc-etiqueta {
+  position: absolute; white-space: nowrap; font: 400 19px/1 "Anton", sans-serif; letter-spacing: 1.6px;
+  color: #fff6e0; background: #131018; padding: 6px 11px 5px; border: 2px solid var(--magenta);
+  transform: rotate(-3deg); transform-origin: 0 100%; box-shadow: 3px 3px 0 rgba(10, 6, 14, 0.9);
+}
+
+/* Sello de BORRADOR (solo en la vista previa) */
+.mc-sello {
+  position: absolute; white-space: nowrap; font: 400 17px/1 "Anton", sans-serif; letter-spacing: 3px;
+  color: #d4142c; background: rgba(255, 251, 233, 0.94); border: 3px solid #d4142c; padding: 5px 9px 4px; transform: rotate(7deg);
+  box-shadow: 0 0 0 2px rgba(255, 251, 233, 0.94); display: none; pointer-events: none;
+}
+.mc-lienzo.con-sellos .mc-sello { display: block; }
+.mc-orden {
+  position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; display: none;
+  font: 700 22px/40px system-ui, sans-serif; text-align: center; color: #0e0c11; background: #36e6ff; border: 3px solid #0e0c11;
+  box-shadow: 0 2px 0 #0e0c11; pointer-events: none;
+}
+.mc-lienzo.con-orden .mc-orden { display: block; }
+.mc-lienzo.sin-borradores .mc-el.es-borrador { display: none !important; }
+.mc-lienzo.solo-arte .mc-el, .mc-lienzo.solo-arte .mc-cartela { display: none !important; }
+.mc-lienzo.solo-texto .mc-vineta-clip { filter: grayscale(1) brightness(0.45) contrast(0.8); }
+.mc-el.seleccionada .mc-el-in { outline: 3px dashed #36e6ff; outline-offset: 10px; }
+
+/* ---------- Bocadillos ---------- */
+.mc-dialogo .mc-txt, .mc-pensamiento .mc-txt, .mc-susurro .mc-txt, .mc-grito .mc-txt { font-weight: 700; }
+.mc-grito .mc-txt { letter-spacing: 1.2px; line-height: 1.02; }
+.mc-grito .mc-txt em { font-style: normal; color: #d4142c; font-size: 1.22em; }
+.mc-susurro .mc-txt { letter-spacing: 0.4px; }
+.mc-pensamiento .mc-forma .burbuja { stroke-linejoin: round; }
+
+/* ---------- Cajas de narrador ---------- */
+.mc-narrador .mc-caja { position: absolute; }
+.mc-narrador .mc-txt { text-align: left; line-height: 1.16; }
+.mc-narrador.capitular .mc-caja:first-of-type .mc-txt::first-letter { font-family: "Creepster", serif; font-size: 2.1em; color: #c8102e; line-height: 0.8; margin-right: 3px; }
+
+/* ---------- Rótulos de localización y tiempo ---------- */
+.mc-rotulo .mc-linea { position: absolute; left: 0; white-space: nowrap; will-change: clip-path, transform; }
+.mc-rotulo .mc-linea-1 { padding: 9px 26px 6px 22px; letter-spacing: 3px; line-height: 1; transform: skewX(-9deg); box-shadow: 7px 7px 0 rgba(10, 6, 14, 0.55); }
+.mc-rotulo .mc-linea-1 > span { display: inline-block; transform: skewX(9deg); }
+.mc-rotulo .mc-linea-2 { padding: 7px 16px 4px; line-height: 1; letter-spacing: 0.5px; border: 3px solid var(--tinta); box-shadow: 5px 5px 0 rgba(10, 6, 14, 0.55); }
+
+/* ---------- Cartelas de transición (en pantalla) ---------- */
+.mc-pantalla { position: absolute; inset: 0; pointer-events: none; z-index: 20; }
+.mc-cartela { position: absolute; inset: 0; visibility: hidden; }
+.mc-cartela.viva { visibility: visible; }
+.mc-cartela-titulo { background: #08060b; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
+.mc-cartela-titulo::before { content: ""; position: absolute; inset: 0; background-image: var(--mc-grano); background-size: 420px 420px; opacity: 0.35; mix-blend-mode: screen; }
+.mc-cartela-titulo .l1 { font-size: 54px; letter-spacing: 16px; font-family: "Anton", sans-serif; color: #f3ecd6; opacity: 0.9; }
+.mc-cartela-titulo .l2 { line-height: 1; text-shadow: 6px 6px 0 #5b0a3a, 0 0 60px rgba(255, 45, 149, 0.55); }
+.mc-cartela-titulo .regla { width: 520px; height: 6px; background: var(--magenta); box-shadow: 0 0 24px var(--magenta); }
+.mc-cartela-banda .mc-banda { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
+.mc-cartela-banda svg { position: absolute; overflow: visible; left: 0; top: 0; }
+.mc-cartela-banda .txt { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); white-space: nowrap; line-height: 1; text-shadow: 5px 5px 0 #5b0a3a; }
+.mc-cartela .mc-sello { right: 60px; bottom: 60px; font-size: 26px; }
+
+/* ---------- Onomatopeyas ---------- */
+.mc-sfx .mc-el-in { white-space: nowrap; }
+.mc-sfx .mc-sfx-palabra { position: absolute; left: 0; top: 0; white-space: nowrap; transform-origin: 50% 50%; line-height: 1; }
+.mc-sfx .l { display: inline-block; position: relative; color: var(--relleno); }
+.mc-sfx .l::before {
+  content: attr(data-c); position: absolute; left: 0; top: 0; z-index: -1; color: var(--borde);
+  -webkit-text-stroke: var(--grosor) var(--borde);
+  text-shadow: 0.035em 0.045em 0 var(--borde), 0.07em 0.09em 0 var(--borde), 0.1em 0.13em 0 rgba(10, 6, 14, 0.55);
+}
+.mc-sfx .l .g { display: inline-block; }
+.mc-sfx .l.dos .g { background: linear-gradient(180deg, var(--relleno) 34%, var(--relleno2) 92%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mc-sfx-inst { position: absolute; left: 0; top: 0; width: 0; height: 0; will-change: transform, opacity; }
+.mc-sfx .mc-sello { font-size: 14px; }
+
+/* Rótulo de neón integrado en la fachada */
+.mc-neon .mc-neon-in { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); text-align: center; line-height: 0.92; white-space: nowrap; }
+.mc-neon .mc-neon-in span { display: block; }
+.mc-neon .placa { position: absolute; inset: -14% -9%; background: rgba(8, 3, 14, 0.82); border: 3px solid rgba(255, 45, 149, 0.55); border-radius: 12px; box-shadow: 0 0 40px rgba(255, 45, 149, 0.35), inset 0 0 30px rgba(255, 45, 149, 0.25); z-index: -1; }
+
+/* ---------- Capas globales de imprenta ---------- */
+.mc-flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, #ffffff, #fff1c4 55%, #ffb3e2); opacity: 0; }
+.mc-paso-sombra { position: absolute; top: -10%; bottom: -10%; width: 220px; opacity: 0; background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.9)); }
+.mc-grano-global { position: absolute; inset: 0; background-image: var(--mc-grano); background-size: 420px 420px; opacity: 0.2; mix-blend-mode: multiply; }
+.mc-vineteado { position: absolute; inset: 0; background: radial-gradient(120% 120% at 50% 50%, transparent 58%, rgba(4, 2, 8, 0.55) 100%); }
+
+/* ---------- Guías de comprobación (solo vista previa) ---------- */
+.mc-guias { position: absolute; inset: 0; pointer-events: none; display: none; z-index: 30; }
+.mc-lienzo.con-guias .mc-guias { display: block; }
+.mc-guia-segura { position: absolute; border: 2px dashed rgba(54, 230, 255, 0.85); }
+.mc-guia-segura::after { content: "ZONA SEGURA DE TEXTO"; position: absolute; left: 8px; top: 6px; font: 700 15px system-ui, sans-serif; color: rgba(54, 230, 255, 0.95); letter-spacing: 1px; }
+.mc-guia-tercio { position: absolute; background: rgba(255, 255, 255, 0.28); }
+
+/* Modo ligero (?ligero=1): sin tramas de puntos ni grano de papel. Para equipos sin aceleración gráfica. */
+body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global { display: none; }

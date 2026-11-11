@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEADBEAT DISCO · Introducción · Motion comic (vista previa)</title>
+<link rel="stylesheet" href="comic.css">
+<link rel="stylesheet" href="vista_previa.css">
+</head>
+<body>
+<div id="app">
+  <header id="cabecera">
+    <div class="marca">
+      <strong>DEADBEAT DISCO</strong>
+      <span>Introducción · motion comic · vista previa</span>
+    </div>
+    <div id="resumen" class="resumen" aria-live="polite"></div>
+    <div class="acciones">
+      <span id="sin-guardar" class="sin-guardar" hidden>Cambios sin guardar</span>
+      <button id="btn-restaurar" type="button" class="secundario" hidden>Descartar cambios</button>
+      <button id="btn-descargar" type="button">Descargar guion.json</button>
+    </div>
+  </header>
+
+  <main id="cuerpo">
+    <section id="escena" aria-label="Escena">
+      <div id="hueco">
+        <div id="marco">
+          <div id="lienzo"></div>
+          <div id="carga">
+            <div class="carga-caja">
+              <div class="carga-titulo">Cargando ilustraciones y tipografías…</div>
+              <div class="carga-barra"><i id="carga-progreso"></i></div>
+              <div id="carga-detalle" class="carga-detalle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div id="transporte">
+        <button id="btn-inicio" type="button" title="Volver al principio (tecla Inicio)">Principio</button>
+        <button id="btn-ant" type="button" title="Plano anterior">‹ Plano</button>
+        <button id="btn-play" type="button" class="principal" title="Reproducir o pausar (barra espaciadora)">Reproducir</button>
+        <button id="btn-sig" type="button" title="Plano siguiente">Plano ›</button>
+        <div class="lectura-tiempo">
+          <span id="lt-tiempo" class="grande">00:00.00</span>
+          <span class="tenue">/ <span id="lt-total">00:45.00</span></span>
+        </div>
+        <div class="lectura-plano">
+          <span id="lt-plano" class="chip-plano">01</span>
+          <span id="lt-nombre">—</span>
+          <span id="lt-compas" class="tenue"></span>
+        </div>
+        <span class="hueco-flex"></span>
+        <label class="conmutador" title="Repite solo el plano actual"><input type="checkbox" id="op-bucle"> Repetir plano</label>
+        <label class="selector">Velocidad
+          <select id="op-velocidad">
+            <option value="0.25">0,25×</option>
+            <option value="0.5">0,5×</option>
+            <option value="1" selected>1×</option>
+          </select>
+        </label>
+        <label class="conmutador" title="Sonidos de referencia sintetizados. No son la banda sonora."><input type="checkbox" id="op-claqueta"> Claqueta</label>
+      </div>
+
+      <div id="linea" aria-label="Línea de tiempo">
+        <div class="linea-etiquetas" id="linea-etiquetas"></div>
+        <div class="linea-pista" id="linea-pista">
+          <div id="linea-contenido"></div>
+          <div id="cabezal"></div>
+        </div>
+      </div>
+    </section>
+
+    <aside id="panel" aria-label="Guion y comprobaciones">
+      <nav class="pestanas" role="tablist">
+        <button type="button" role="tab" data-pestana="guion" class="activa">Guion</button>
+        <button type="button" role="tab" data-pestana="comprobar">Comprobaciones <span id="cuenta-avisos" class="globo-cuenta"></span></button>
+        <button type="button" role="tab" data-pestana="ver">Ver</button>
+      </nav>
+
+      <div class="hoja activa" data-hoja="guion">
+        <p class="nota">Cada texto es una pieza suelta: pulsa una para verla en su momento y editarla. También puedes arrastrarla sobre la imagen con la reproducción en pausa.</p>
+        <div id="lista-guion"></div>
+      </div>
+
+      <div class="hoja" data-hoja="comprobar">
+        <div id="comprobaciones"></div>
+      </div>
+
+      <div class="hoja" data-hoja="ver">
+        <h3>Ayudas de revisión</h3>
+        <label class="fila-op"><input type="checkbox" id="op-sellos" checked> Sello «BORRADOR» sobre los textos sin aprobar</label>
+        <label class="fila-op"><input type="checkbox" id="op-orden"> Números de orden de lectura</label>
+        <label class="fila-op"><input type="checkbox" id="op-guias"> Zona segura de texto y tercios</label>
+        <h3>Capas</h3>
+        <label class="fila-op"><input type="checkbox" id="op-sin-borradores"> Ocultar los borradores (solo textos existentes)</label>
+        <label class="fila-op"><input type="checkbox" id="op-solo-arte"> Solo ilustración, sin textos</label>
+        <label class="fila-op"><input type="checkbox" id="op-solo-texto"> Atenuar la ilustración para revisar los textos</label>
+        <h3>Sonido de referencia</h3>
+        <label class="fila-op"><input type="checkbox" id="op-guia-sfx" checked> Con la claqueta, marcar también las onomatopeyas</label>
+        <p class="nota">El repositorio no tiene música. La claqueta marca los 128 pulsos por minuto a los que está montada la secuencia; son sonidos sintetizados de referencia, no la banda sonora.</p>
+        <h3>Formas según la función</h3>
+        <ul class="leyenda">
+          <li><i class="ley ley-dialogo"></i><span><b>Diálogo</b> Bocadillo de contorno grueso con cola hacia quien habla.</span></li>
+          <li><i class="ley ley-pensamiento"></i><span><b>Pensamiento</b> Nube con burbujas.</span></li>
+          <li><i class="ley ley-grito"></i><span><b>Grito</b> Estallido de puntas.</span></li>
+          <li><i class="ley ley-susurro"></i><span><b>Susurro</b> Contorno discontinuo.</span></li>
+          <li><i class="ley ley-narrador"></i><span><b>Narrador</b> Caja rectangular de alto contraste.</span></li>
+          <li><i class="ley ley-sfx"></i><span><b>Onomatopeya</b> Letras grandes dentro de la viñeta.</span></li>
+        </ul>
+        <h3>Teclado</h3>
+        <p class="nota"><kbd>Espacio</kbd> reproducir o pausar · <kbd>Flecha izquierda</kbd> y <kbd>derecha</kbd> un pulso · con <kbd>Mayús</kbd>, un fotograma · <kbd>1</kbd>…<kbd>0</kbd> ir al plano · <kbd>Inicio</kbd> principio</p>
+      </div>
+    </aside>
+  </main>
+</div>
+<div id="aviso-flotante" role="status" hidden></div>
+<script type="module" src="js/vista_previa.js"></script>
+</body>
+</html>

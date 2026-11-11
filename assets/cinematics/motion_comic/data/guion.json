@@ -1,0 +1,332 @@
+{
+  "version": "0.1.0-preview",
+  "titulo": "DEADBEAT DISCO · Introducción · Motion comic narrativo",
+  "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos.",
+
+  "tempo": { "bpm": 128, "compas": 4, "pulsos_totales": 96, "nota": "96 pulsos a 128 BPM = 45,000 s exactos (24 compases de 4/4). Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano." },
+
+  "lectura": {
+    "cps_comodo": 17,
+    "cps_maximo": 21,
+    "minimo_s": 0.9,
+    "tam_minimo_px": 26,
+    "contraste_minimo": 7,
+    "margen_seguro": 0.035,
+    "nota": "cps = caracteres por segundo. Hasta 17 se lee con comodidad; entre 17 y 21 es rápido; por encima de 21 no da tiempo. Las onomatopeyas, el rótulo de neón y las cartelas no cuentan como lectura obligatoria."
+  },
+
+  "estados": {
+    "juego": "Texto que ya existe en el juego, citado de forma literal. Su colocación en la intro es una propuesta pendiente de aprobación.",
+    "juego_fragmento": "Fragmento literal de una frase más larga que ya existe en el juego. La frase completa se indica en 'fuente.cita'.",
+    "juego_reubicado": "Texto literal del juego tomado de otro momento (no de la intro). Hay que aprobar que se use aquí.",
+    "storyboard": "Texto literal del storyboard aprobado de la introducción.",
+    "borrador": "BORRADOR. Texto nuevo propuesto para rellenar un hueco. NO es canon y no está aprobado."
+  },
+
+  "personajes": {
+    "dj": { "nombre": "DJ VIRGILIO", "nota": "Nombre tal como aparece hoy en el juego (src/dd_hub_system.js). Si el nombre aprobado cambia, se cambia solo aquí." },
+    "megafonia": { "nombre": "MEGAFONÍA DEL CLUB", "nota": "La frase es de DJ Virgilio en el juego. Presentarla como megafonía del club (voz amplificada que sale del edificio) es una propuesta de puesta en escena." },
+    "heroe": { "nombre": "", "nota": "El protagonista no tiene nombre ni frases aprobadas en el repositorio. Todas sus intervenciones son BORRADOR." }
+  },
+
+  "estilos": {
+    "dialogo": { "fuente": "Comic Neue", "tam": 35, "mayusculas": true, "color": "#17131b", "fondo": "#fffbe9", "borde": "#111016", "grosor": 6, "ancho": 430 },
+    "pensamiento": { "fuente": "Comic Neue", "cursiva": true, "tam": 33, "mayusculas": true, "color": "#17131b", "fondo": "#fffbe9", "borde": "#111016", "grosor": 5, "ancho": 400 },
+    "grito": { "fuente": "Bangers", "tam": 50, "mayusculas": true, "color": "#17131b", "fondo": "#ffe94a", "borde": "#111016", "grosor": 7, "ancho": 560 },
+    "susurro": { "fuente": "Comic Neue", "cursiva": true, "tam": 31, "mayusculas": true, "color": "#2e2a36", "fondo": "#f4f0e2", "borde": "#2b2733", "grosor": 4, "discontinuo": "14 11", "ancho": 430 },
+    "narrador": { "fuente": "Special Elite", "tam": 30, "mayusculas": true, "color": "#17131b", "fondo": "#ffd62e", "borde": "#111016", "grosor": 5, "ancho": 540 },
+    "narrador_voz": { "fuente": "Special Elite", "tam": 30, "mayusculas": true, "color": "#fff6e0", "fondo": "#131018", "borde": "#ff2d95", "grosor": 5, "ancho": 520 },
+    "rotulo": { "fuente": "Anton", "tam": 46, "mayusculas": true, "color": "#fff6e0", "fondo": "#111016", "sub_fuente": "Special Elite", "sub_tam": 28, "sub_color": "#17131b", "sub_fondo": "#ffd62e" },
+    "cartela": { "fuente": "Creepster", "tam": 150, "mayusculas": true, "color": "#f3ecd6", "fondo": "#0b090d", "acento": "#ff2d95" },
+    "onomatopeya": { "fuente": "Bangers", "tam": 150, "color": "#ffe94a", "borde": "#111016" },
+    "neon": { "fuente": "Knewave", "tam": 92, "color": "#fff0fa", "brillo": "#ff2d95" }
+  },
+
+  "intervenciones": [
+    {
+      "id": "p01_cartela_prologo", "plano": 1, "tipo": "cartela", "variante": "titulo",
+      "estado": "juego",
+      "fuente": { "archivo": "src/dd_cinematic_camera.js", "donde": "playIntro() · etiqueta de la intro", "cita": "DEADBEAT DISCO · PRÓLOGO" },
+      "bloques": ["DEADBEAT DISCO", "PRÓLOGO"],
+      "entra": 0, "sale": 3.4
+    },
+    {
+      "id": "p01_rotulo_lugar", "plano": 1, "tipo": "rotulo",
+      "estado": "borrador",
+      "fuente": { "nota": "No hay rótulo de lugar ni de hora aprobado para la ciudad. Propuesta neutra: no afirma de dónde viene el protagonista." },
+      "bloques": ["AFUERA", "De noche."],
+      "entra": 3.5, "sale": 12,
+      "pos": { "x": 0.022, "y": 0.11 }
+    },
+    {
+      "id": "p01_sfx_latido", "plano": 1, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 01 · audio", "nota": "El storyboard describe el sonido; la grafía de la onomatopeya es una propuesta.", "cita": "sub-grave (40Hz) de beat sordo como latido lejano" },
+      "bloques": ["DUM"],
+      "letras": { "fuente": "Bangers", "tam": 92, "color": "#ff4fb0", "borde": "#111016", "giro": -7 },
+      "animacion": "latido", "sonido_guia": "latido",
+      "golpes": [
+        { "en": 4, "x": 0.4, "y": 0.6, "escala": 0.62 },
+        { "en": 6, "x": 0.5, "y": 0.5, "escala": 0.8 },
+        { "en": 8, "x": 0.43, "y": 0.4, "escala": 1.0 },
+        { "en": 10, "x": 0.55, "y": 0.33, "escala": 1.22 }
+      ],
+      "dura_golpe": 1.5
+    },
+    {
+      "id": "p01_narrador_bajo", "plano": 1, "tipo": "narrador",
+      "estado": "juego_reubicado",
+      "fuente": { "archivo": "src/dd_cinematic_camera.js", "donde": "playDefeat() · subtítulo de la secuencia de derrota", "cita": "El bajo sigue sonando en la oscuridad..." },
+      "bloques": ["El bajo sigue sonando en la oscuridad..."],
+      "entra": 6, "sale": 12,
+      "pos": { "x": 0.775, "y": 0.87 }, "capitular": true
+    },
+
+    {
+      "id": "p02_neon_club", "plano": 2, "tipo": "neon",
+      "estado": "storyboard",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 02 · iluminación: rótulo de neón de la fachada", "cita": "DEADBEAT DISCO" },
+      "bloques": ["DEADBEAT", "DISCO"],
+      "entra": 0.6, "sale": 8,
+      "pos": { "arte": true, "x": 0.5, "y": 0.222 }, "tam_arte": 0.034
+    },
+    {
+      "id": "p02_sfx_neon", "plano": 2, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 02 · guion", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "titila con zumbido eléctrico" },
+      "bloques": ["BZZZT"],
+      "letras": { "fuente": "Permanent Marker", "tam": 58, "color": "#7df9ff", "borde": "#111016", "giro": 9 },
+      "animacion": "parpadeo", "sonido_guia": "zumbido",
+      "entra": 0.6, "sale": 3.2,
+      "pos": { "x": 0.79, "y": 0.1 }
+    },
+    {
+      "id": "p02_grito_megafonia", "plano": 2, "tipo": "grito", "habla": "megafonia", "etiqueta": true,
+      "estado": "juego_reubicado",
+      "fuente": { "archivo": "index.html", "donde": "frases de DJ Virgilio al empezar una RAVE (rave.on)", "cita": "¡La dirección recuerda que el infierno no devuelve las entradas!" },
+      "bloques": ["¡La dirección recuerda", "que el infierno *no devuelve* las entradas!"],
+      "entra": 0.25, "sale": 8,
+      "pos": { "x": 0.33, "y": 0.775 },
+      "cola": { "hacia": { "arte": true, "x": 0.5, "y": 0.44 }, "rayo": true, "maximo": 420 }
+    },
+
+    {
+      "id": "p03_sfx_puerta", "plano": 3, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 03 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "Chirrido neumático/mecánico de portal pesado abriéndose" },
+      "bloques": ["ÑIIIEEEC"],
+      "letras": { "fuente": "Creepster", "tam": 104, "color": "#ffe94a", "borde": "#111016", "giro": -76 },
+      "animacion": "crecer", "sonido_guia": "puerta",
+      "entra": 0.2, "sale": 8,
+      "pos": { "x": 0.8, "y": 0.56 }
+    },
+    {
+      "id": "p03_dialogo_bienvenido", "plano": 3, "tipo": "dialogo", "habla": "dj", "etiqueta": true,
+      "estado": "juego",
+      "fuente": { "archivo": "index.html", "donde": "frase de DJ Virgilio al entrar en el círculo 0 (tabla de entrada, círculo 0)", "cita": "Bienvenido. Entrada libre; el guardarropa te cobra al salir." },
+      "bloques": ["Bienvenido.", "Entrada libre; el guardarropa te cobra *al salir*."],
+      "entra": 0.25, "sale": 8,
+      "pos": { "x": 0.03, "y": 0.2 },
+      "cola": { "hacia": { "arte": true, "x": 0.5, "y": 0.4 } }
+    },
+
+    {
+      "id": "p04_cartela_umbral", "plano": 4, "tipo": "cartela", "variante": "banda",
+      "estado": "juego_fragmento",
+      "fuente": { "archivo": "src/dd_cinematic_camera.js", "donde": "playRoomTransition() · subtítulo al cruzar una puerta", "cita": "Umbral cruzado · Reposicionando pista" },
+      "bloques": ["Umbral cruzado"],
+      "literal": "Umbral cruzado",
+      "entra": 0, "sale": 3.0,
+      "pos": { "x": 0.5, "y": 0.2 }
+    },
+    {
+      "id": "p04_sfx_bota", "plano": 4, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 04 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "primer paso firme de bota" },
+      "bloques": ["TOMP"],
+      "letras": { "fuente": "Bangers", "tam": 120, "color": "#ffe94a", "borde": "#111016", "giro": -11 },
+      "animacion": "impacto", "sonido_guia": "paso",
+      "entra": 2, "sale": 8,
+      "pos": { "x": 0.25, "y": 0.86 }
+    },
+    {
+      "id": "p04_pensamiento_guardarropa", "plano": 4, "tipo": "pensamiento", "habla": "heroe",
+      "estado": "borrador",
+      "fuente": { "nota": "El protagonista no tiene frases aprobadas. Borrador que responde a la frase literal del plano 03 sin añadir datos de historia." },
+      "bloques": ["Mejor no dejo nada", "en el guardarropa."],
+      "entra": 3.0, "sale": 8,
+      "pos": { "x": 1.17, "y": 0.2 },
+      "cola": { "hacia": { "actor": "heroe" } }
+    },
+
+    {
+      "id": "p05_sfx_pasos", "plano": 5, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 05 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "suela de bota metálica" },
+      "bloques": ["TAC"],
+      "letras": { "fuente": "Permanent Marker", "tam": 60, "color": "#fffbe9", "borde": "#111016", "giro": -8 },
+      "animacion": "latido", "sonido_guia": "paso",
+      "golpes": [
+        { "en": 1, "x": 0.2, "y": 0.92, "escala": 0.8 },
+        { "en": 2, "x": 0.27, "y": 0.86, "escala": 0.9 },
+        { "en": 3, "x": 0.34, "y": 0.92, "escala": 1.0 },
+        { "en": 4, "x": 0.4, "y": 0.86, "escala": 1.0 },
+        { "en": 5, "x": 0.46, "y": 0.92, "escala": 1.0 },
+        { "en": 6, "x": 0.52, "y": 0.86, "escala": 1.0 },
+        { "en": 7, "x": 0.57, "y": 0.92, "escala": 1.0 }
+      ],
+      "dura_golpe": 1.6, "rastro": 0.4
+    },
+    {
+      "id": "p05_narrador_sitio", "plano": 5, "tipo": "narrador", "variante": "voz", "habla": "dj", "etiqueta": true,
+      "estado": "juego_reubicado",
+      "fuente": { "archivo": "index.html", "donde": "frase de DJ Virgilio al superar la sala 1 (tabla de revelaciones, sala 1)", "cita": "Te guardaron sitio. Eso debería preocuparte más que el portero." },
+      "bloques": ["Te guardaron sitio.", "Eso debería preocuparte más que el portero."],
+      "entra": 0, "sale": 8,
+      "pos": { "x": 0.69, "y": 0.17 }
+    },
+
+    {
+      "id": "p06_dialogo_nueve_circulos", "plano": 6, "tipo": "dialogo", "habla": "dj", "etiqueta": true,
+      "estado": "juego_fragmento",
+      "fuente": { "archivo": "src/dd_hub_system.js", "donde": "frases de DJ Virgilio en el Refugio (DJ_QUOTES, segunda frase)", "cita": "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga." },
+      "bloques": ["Nueve círculos, nueve residentes", "y el *Núcleo* latiendo al fondo."],
+      "literal": "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo.",
+      "entra": 0.9, "sale": 9.4,
+      "pos": { "x": 0.61, "y": 0.2 },
+      "cola": { "hacia": { "actor": "dj" } }
+    },
+    {
+      "id": "p06_sfx_vapor", "plano": 6, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 06 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "Expulsión de vapor criogénico de CO2 en sala" },
+      "bloques": ["FSSSSHHHH"],
+      "letras": { "fuente": "Bangers", "tam": 104, "color": "#eafcff", "borde": "#111016", "giro": -5 },
+      "animacion": "crecer", "sonido_guia": "vapor",
+      "entra": 8, "sale": 12,
+      "pos": { "x": 0.63, "y": 0.8 }
+    },
+
+    {
+      "id": "p07_sfx_drop", "plano": 7, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 07 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "DROP MUSICAL COMPLETO" },
+      "bloques": ["¡¡BOOOM!!"],
+      "letras": { "fuente": "Rubik Wet Paint", "tam": 250, "color": "#ffe94a", "color2": "#ff2d95", "borde": "#111016", "giro": -6 },
+      "animacion": "impacto", "sonido_guia": "impacto",
+      "entra": 0, "sale": 12,
+      "pos": { "x": 0.36, "y": 0.26 }
+    },
+    {
+      "id": "p07_sfx_untz", "plano": 7, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 07 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "entra la batería completa" },
+      "bloques": ["UNTZ"],
+      "letras": { "fuente": "Bangers", "tam": 66, "color": "#7df9ff", "borde": "#111016", "giro": 8 },
+      "animacion": "latido",
+      "golpes": [
+        { "en": 4, "x": 0.12, "y": 0.62, "escala": 1.0 },
+        { "en": 5, "x": 0.2, "y": 0.5, "escala": 0.85 },
+        { "en": 6, "x": 0.1, "y": 0.4, "escala": 1.1 },
+        { "en": 7, "x": 0.21, "y": 0.7, "escala": 0.9 },
+        { "en": 8, "x": 0.13, "y": 0.52, "escala": 1.0 },
+        { "en": 9, "x": 0.22, "y": 0.42, "escala": 0.85 },
+        { "en": 10, "x": 0.11, "y": 0.66, "escala": 1.1 },
+        { "en": 11, "x": 0.2, "y": 0.56, "escala": 0.9 }
+      ],
+      "dura_golpe": 0.9
+    },
+    {
+      "id": "p07_dialogo_compas", "plano": 7, "tipo": "dialogo", "habla": "dj", "etiqueta": true,
+      "estado": "juego_fragmento",
+      "fuente": { "archivo": "src/dd_hub_system.js", "donde": "frases de DJ Virgilio en el Refugio (DJ_QUOTES, segunda frase · continuación del plano 06)", "cita": "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga." },
+      "bloques": ["Si pierdes el compás,", "la pista *te traga*."],
+      "literal": "Si pierdes el compás, la pista te traga.",
+      "entra": 3, "sale": 12,
+      "pos": { "x": 0.61, "y": 0.8 },
+      "cola": { "hacia": { "actor": "dj" } }
+    },
+
+    {
+      "id": "p08_susurro_silencio", "plano": 8, "tipo": "susurro", "habla": "dj", "etiqueta": true,
+      "estado": "juego_reubicado",
+      "fuente": { "archivo": "index.html", "donde": "frases de DJ Virgilio en los momentos de calma (calm)", "cita": "Silencio incómodo. Me encantan los silencios antes de la matanza." },
+      "bloques": ["Silencio incómodo.", "Me encantan los silencios antes de la matanza."],
+      "entra": 0.6, "sale": 9.6,
+      "pos": { "x": 0.655, "y": 0.2 },
+      "cola": { "hacia": { "actor": "dj" } }
+    },
+    {
+      "id": "p08_sfx_corredera", "plano": 8, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 08 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "golpe mecánico metálico de corredera de la pistola M1911" },
+      "bloques": ["CLAC-", "CLAC"],
+      "letras": { "fuente": "Permanent Marker", "tam": 100, "color": "#ffe94a", "borde": "#111016", "giro": -9 },
+      "animacion": "pasos", "sonido_guia": "clac", "paso_pulsos": 0.5,
+      "entra": 8, "sale": 12,
+      "pos": { "x": 0.6, "y": 0.43 }
+    },
+    {
+      "id": "p08_dialogo_heroe", "plano": 8, "tipo": "dialogo", "habla": "heroe",
+      "estado": "borrador",
+      "fuente": { "nota": "El protagonista no tiene frases aprobadas. Hueco editable: si el personaje no habla, basta con vaciar el texto o desactivar la intervención." },
+      "bloques": ["Pon la siguiente."],
+      "entra": 9.6, "sale": 12,
+      "pos": { "x": 0.315, "y": 0.2 },
+      "cola": { "hacia": { "actor": "heroe" } }
+    },
+
+    {
+      "id": "p09_sfx_explosion", "plano": 9, "tipo": "onomatopeya",
+      "estado": "borrador",
+      "fuente": { "archivo": "docs/CINEMATIC_STORYBOARD/STORYBOARD_DIRECTOR_REPORT.md", "donde": "Plano 09 · audio", "nota": "El storyboard describe el sonido; la grafía es una propuesta.", "cita": "Explosión sónica con delay reverberado masivo" },
+      "bloques": ["¡KRA-KOOOM!"],
+      "letras": { "fuente": "Rubik Wet Paint", "tam": 150, "color": "#7df9ff", "color2": "#ffe94a", "borde": "#111016", "giro": -4 },
+      "animacion": "impacto", "sonido_guia": "impacto",
+      "entra": 0.5, "sale": 8,
+      "pos": { "x": 0.5, "y": 0.77 }
+    },
+
+    {
+      "id": "p10_rotulo_refugio", "plano": 10, "tipo": "rotulo",
+      "estado": "juego",
+      "fuente": { "archivo": "src/dd_cinematic_camera.js", "donde": "tabla de círculos · círculo 0", "cita": "EL REFUGIO · COLA DEL CLUB" },
+      "bloques": ["EL REFUGIO · COLA DEL CLUB"],
+      "entra": 0.8, "sale": 8,
+      "pos": { "x": -0.03, "y": 0.1 }
+    },
+    {
+      "id": "p10_rotulo_tregua", "plano": 10, "tipo": "rotulo", "activo": false,
+      "estado": "juego",
+      "fuente": { "archivo": "src/dd_cinematic_camera.js", "donde": "tabla de círculos · círculo 0 · subtítulo", "cita": "Tregua Sagrada · Zona Segura" },
+      "bloques": ["Tregua Sagrada · Zona Segura"],
+      "entra": 2.2, "sale": 8,
+      "pos": { "x": -0.03, "y": 0.9 },
+      "nota": "Desactivada: con ella el plano 10 tiene demasiado texto para 3,75 s. Se puede activar con \"activo\": true."
+    },
+    {
+      "id": "p10_dialogo_refugio", "plano": 10, "tipo": "dialogo", "habla": "dj", "etiqueta": true,
+      "estado": "juego_fragmento",
+      "fuente": { "archivo": "src/dd_hub_system.js", "donde": "frase de bienvenida de DJ Virgilio al entrar en el Refugio (DJ_QUOTES, primera frase)", "cita": "Bienvenido al Refugio, cazador. Ajusta tu hierro en la Armería; abajo en Lujuria el bajo rompe huesos." },
+      "bloques": ["Bienvenido al Refugio, *cazador*."],
+      "literal": "Bienvenido al Refugio, cazador.",
+      "entra": 4, "sale": 8,
+      "pos": { "x": 0.69, "y": 0.5 },
+      "cola": { "hacia": { "actor": "dj" } }
+    }
+  ],
+
+  "banco_de_alternativas": {
+    "nota": "Frases literales del juego que encajan en la intro y no se han colocado. Se pueden usar para sustituir cualquier intervención.",
+    "frases": [
+      { "cita": "Nueva partida. El infierno ha guardado tu sitio en la cola.", "archivo": "index.html", "donde": "DJ Virgilio al reiniciar (restart)" },
+      { "cita": "Otra noche, otra oportunidad de morir en mi pista. Qué ilusión.", "archivo": "index.html", "donde": "DJ Virgilio al reiniciar (restart)" },
+      { "cita": "La cola de entrada da la vuelta a la pista. Muévete, que hay sitio.", "archivo": "index.html", "donde": "DJ Virgilio en momentos de calma (calm)" },
+      { "cita": "PREFERENCIA REGISTRADA ANTES DE ENTRAR. Alguien conocía tus pasos.", "archivo": "index.html", "donde": "revelación al superar la sala 19" },
+      { "cita": "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.", "archivo": "src/dd_hub_system.js", "donde": "DJ Virgilio en el Refugio (DJ_QUOTES, tercera frase)" },
+      { "cita": "¡Que empiece el caos con licencia! Los altavoces ya no responden de nada.", "archivo": "index.html", "donde": "DJ Virgilio al empezar una RAVE (rave.on)" },
+      { "cita": "Hay ambiente. Y en mi casa, ambiente es sinónimo de desgracia.", "archivo": "index.html", "donde": "DJ Virgilio en momentos de calma (calm)" },
+      { "cita": "Tregua Sagrada · Zona Segura", "archivo": "src/dd_cinematic_camera.js", "donde": "tabla de círculos · círculo 0" }
+    ]
+  }
+}

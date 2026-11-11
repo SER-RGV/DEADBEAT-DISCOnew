@@ -1,0 +1,225 @@
+{
+  "version": "0.1.0-preview",
+  "descripcion": "Composición visual del motion comic de la introducción: láminas, viñetas, cámara, recortes de arte, personajes y efectos. Este archivo NO contiene textos: todos los textos están en guion.json.",
+  "lienzo": { "w": 1920, "h": 1080 },
+
+  "recursos": {
+    "_nota_heroe": "Los cuadros hero_walk_00, 01 y 02 del repositorio son tres diseños de vestuario distintos y hero_shoot_00 es un cuarto; por eso el cómic usa un solo dibujo (hero_walk_01, el que coincide con el retrato del HUD) y no un ciclo de caminata. hero_shoot_00 solo aparece como silueta (plano 09) y como recorte de detalle de la pistola (plano 08).",
+    "_nota": "Rutas relativas a esta carpeta. Se usan los archivos originales tal cual: no se copian ni se modifican. 'seguro' es la zona de cada imagen que se puede mostrar [x0, y0, x1, y1]; fuera quedan el marco, la miniatura, la paleta y las letras sueltas que los maestros llevan pintados.",
+    "bg01": { "src": "../backgrounds/final/cine_bg01_city/cine_bg01_city.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "bg02": { "src": "../backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "bg03": { "src": "../backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "bg04": { "src": "../backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "bg05": { "src": "../backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "bg06": { "src": "../backgrounds/final/cine_bg06_hero/cine_bg06_hero.png", "w": 2560, "h": 1440, "seguro": [0.012, 0.135, 0.988, 0.955] },
+    "refugio": { "src": "../cine_circle_00_hub.png", "w": 960, "h": 540, "seguro": [0, 0, 1, 1] },
+    "heroe_walk_00": { "src": "../characters/protagonist/hero_walk_00.png", "w": 224, "h": 320 },
+    "heroe_walk_01": { "src": "../characters/protagonist/hero_walk_01.png", "w": 224, "h": 320 },
+    "heroe_walk_02": { "src": "../characters/protagonist/hero_walk_02.png", "w": 224, "h": 320 },
+    "heroe_shoot_00": { "src": "../characters/protagonist/hero_shoot_00.png", "w": 240, "h": 320 },
+    "heroe_retrato": { "src": "../../ui/hud_portrait_protagonist.png", "w": 256, "h": 256 },
+    "dj_retrato": { "src": "../../ui/dialogue_portrait_dj.png", "w": 512, "h": 512 },
+    "logo": { "src": "../logos/logo_deadbeat_cinematic.png", "w": 756, "h": 630 }
+  },
+
+  "paginas": [
+    {
+      "id": "A", "w": 2140, "h": 2020, "folio": "1",
+      "vinetas": [
+        { "id": "v01", "x": 70, "y": 70, "w": 2000, "h": 930 },
+        { "id": "v02", "x": 70, "y": 1040, "w": 1130, "h": 910, "forma": [[0, 0], [1, 0], [0.948, 1], [0, 1]] },
+        { "id": "v03", "x": 1180, "y": 1040, "w": 890, "h": 910, "forma": [[0.066, 0], [1, 0], [1, 1], [0, 1]] }
+      ]
+    },
+    {
+      "id": "B", "w": 2140, "h": 2020, "folio": "2",
+      "vinetas": [
+        { "id": "v04", "x": 70, "y": 70, "w": 760, "h": 900 },
+        { "id": "v05", "x": 870, "y": 70, "w": 1200, "h": 900 },
+        { "id": "v06", "x": 70, "y": 1010, "w": 2000, "h": 940 }
+      ]
+    },
+    {
+      "id": "C", "w": 2140, "h": 2020, "folio": "3",
+      "vinetas": [
+        { "id": "v07", "x": 70, "y": 70, "w": 2000, "h": 980 },
+        { "id": "v08", "x": 70, "y": 1090, "w": 2000, "h": 860, "forma": [[0, 0.05], [1, 0], [1, 1], [0, 1]] }
+      ]
+    },
+    {
+      "id": "D", "w": 2140, "h": 2020, "folio": "4",
+      "vinetas": [
+        { "id": "v09", "x": 70, "y": 70, "w": 2000, "h": 1100 },
+        { "id": "v10", "x": 420, "y": 1215, "w": 1300, "h": 731 }
+      ]
+    }
+  ],
+
+  "planos": [
+    {
+      "n": 1, "id": "shot_01_city", "nombre": "El mundo", "storyboard": "Plano 01 · EWS ciudad · pan lento + tilt",
+      "pulsos": 12, "pagina": "A", "vineta": "v01",
+      "transicion": { "tipo": "inicio" },
+      "revelado": { "desde": 2.6, "pulsos": 1.6 },
+      "camara": { "margen": 0.05, "de": { "zoom": 1.0, "dx": 0.012, "dy": 0.0 }, "a": { "zoom": 1.05, "dx": -0.012, "dy": -0.006 } },
+      "arte": { "recurso": "bg01", "de": { "cx": 0.515, "cy": 0.548, "ancho": 0.93 }, "a": { "cx": 0.495, "cy": 0.543, "ancho": 0.9 } },
+      "actores": [],
+      "fx": [
+        { "tipo": "niebla", "color": "rgba(120, 60, 200, 0.26)" },
+        { "tipo": "latido", "golpes": [4, 6, 8, 10], "intensidad": 0.16 }
+      ]
+    },
+    {
+      "n": 2, "id": "shot_02_club_exterior", "nombre": "El club", "storyboard": "Plano 02 · WS fachada · dolly in",
+      "pulsos": 8, "pagina": "A", "vineta": "v02",
+      "transicion": { "tipo": "deslizar", "despues": 1.1 },
+      "revelado": { "desde": 0.25, "pulsos": 1.0 },
+      "camara": { "margen": 0.045, "ancla": [0.62, 0.5], "de": { "zoom": 1.0 }, "a": { "zoom": 1.07, "dx": -0.008 } },
+      "arte": { "recurso": "bg02", "de": { "cx": 0.5, "cy": 0.5, "ancho": 0.5 }, "a": { "cx": 0.5, "cy": 0.47, "ancho": 0.45 } },
+      "actores": [],
+      "fx": [
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.1 }
+      ]
+    },
+    {
+      "n": 3, "id": "shot_03_entrance", "nombre": "La entrada", "storyboard": "Plano 03 · CU umbral · ángulo holandés",
+      "pulsos": 8, "pagina": "A", "vineta": "v03",
+      "transicion": { "tipo": "latigazo", "despues": 0.55 },
+      "revelado": { "desde": 0.1, "pulsos": 0.7 },
+      "camara": { "margen": 0.045, "ancla": [0.3, 0.5], "de": { "zoom": 1.02, "giro": -3.2 }, "a": { "zoom": 1.1, "giro": -4.6 } },
+      "arte": { "recurso": "bg02", "de": { "cx": 0.5, "cy": 0.44, "ancho": 0.27 }, "a": { "cx": 0.5, "cy": 0.43, "ancho": 0.235 } },
+      "actores": [],
+      "fx": [
+        { "tipo": "fuga_luz", "x": 0.5, "desde": 0.6 },
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.1 }
+      ]
+    },
+    {
+      "n": 4, "id": "shot_04_hero_silhouette", "nombre": "Aparición", "storyboard": "Plano 04 · MS contraluz · contrapicado",
+      "pulsos": 8, "pagina": "B", "vineta": "v04",
+      "transicion": { "tipo": "flash", "antes": 0.35, "despues": 1.0 },
+      "revelado": { "desde": 0, "pulsos": 0.5 },
+      "camara": { "margen": 0.05, "ancla": [0.86, 0.5], "de": { "zoom": 1.0 }, "a": { "zoom": 1.05 } },
+      "arte": { "recurso": "bg03", "de": { "cx": 0.72, "cy": 0.6, "ancho": 0.3 }, "a": { "cx": 0.72, "cy": 0.595, "ancho": 0.285 } },
+      "actores": [
+        { "id": "heroe", "tipo": "sprite", "estilo": "silueta",
+          "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ], "paso": 1,
+          "pos": { "de": [0.5, 0.955], "a": [0.5, 0.975] }, "alto": { "de": 0.6, "a": 0.66 }, "boca": [0.52, 0.13] }
+      ],
+      "fx": [
+        { "tipo": "contraluz", "x": 0.5, "y": 0.52, "color": "rgba(255, 60, 180, 0.75)" },
+        { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "amplitud": 3 }
+      ]
+    },
+    {
+      "n": 5, "id": "shot_05_tracking_corridor", "nombre": "Caminata", "storyboard": "Plano 05 · tracking lateral",
+      "pulsos": 8, "pagina": "B", "vineta": "v05",
+      "transicion": { "tipo": "deslizar", "despues": 0.9 },
+      "revelado": { "desde": 0.1, "pulsos": 0.8 },
+      "camara": { "margen": 0.05, "ancla": [0.36, 0.5], "de": { "zoom": 1.0, "dx": -0.01 }, "a": { "zoom": 1.03, "dx": 0.012 } },
+      "arte": { "recurso": "bg03", "de": { "cx": 0.31, "cy": 0.6, "ancho": 0.52 }, "a": { "cx": 0.58, "cy": 0.6, "ancho": 0.52 } },
+      "actores": [
+        { "id": "heroe", "tipo": "sprite", "sombra": true,
+          "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ], "paso": 1,
+          "pos": { "de": [0.3, 0.93], "a": [0.6, 0.93] }, "alto": 0.56, "boca": [0.52, 0.13] }
+      ],
+      "fx": [
+        { "tipo": "columnas", "n": 2, "recorrido": 1.5 },
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.08 }
+      ]
+    },
+    {
+      "n": 6, "id": "shot_06_main_hall", "nombre": "El interior", "storyboard": "Plano 06 · gran picado · grúa",
+      "pulsos": 12, "pagina": "B", "vineta": "v06",
+      "transicion": { "tipo": "latigazo", "despues": 0.7 },
+      "revelado": { "desde": 0.15, "pulsos": 1.0 },
+      "camara": { "margen": 0.05, "de": { "zoom": 1.08, "dy": 0.01 }, "a": { "zoom": 1.0, "dy": -0.004 } },
+      "arte": { "recurso": "bg04", "de": { "cx": 0.5, "cy": 0.555, "ancho": 0.8 }, "a": { "cx": 0.5, "cy": 0.548, "ancho": 0.93 } },
+      "actores": [
+        { "id": "heroe", "tipo": "sprite", "sombra": true,
+          "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ], "paso": 1,
+          "pos": { "de": [0.2, 0.95], "a": [0.31, 0.93] }, "alto": { "de": 0.3, "a": 0.26 }, "boca": [0.52, 0.13] },
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [0.865, 0.2], "ancho": 0.15, "giro": 3, "entra": 0.5, "boca": [0.42, 0.66] }
+      ],
+      "fx": [
+        { "tipo": "laseres", "origenes": [[0.62, 0.3], [0.3, 0.05]], "colores": ["rgba(255, 40, 170, 0.5)", "rgba(40, 230, 255, 0.22)"] },
+        { "tipo": "vapor", "desde": 7.5 },
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "intensidad": 0.08 }
+      ]
+    },
+    {
+      "n": 7, "id": "shot_07_dancefloor_drop", "nombre": "La pista", "storyboard": "Plano 07 · WS dinámico · DROP",
+      "pulsos": 12, "pagina": "C", "vineta": "v07",
+      "transicion": { "tipo": "pagina", "antes": 1.0, "despues": 0.0 },
+      "revelado": { "desde": 0, "pulsos": 0.3 },
+      "camara": { "margen": 0.05, "de": { "zoom": 1.1 }, "a": { "zoom": 1.0, "dy": -0.006 } },
+      "arte": { "recurso": "bg05", "de": { "cx": 0.5, "cy": 0.548, "ancho": 0.9 }, "a": { "cx": 0.5, "cy": 0.544, "ancho": 0.84 } },
+      "actores": [
+        { "id": "heroe", "tipo": "sprite", "sombra": true,
+          "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ], "paso": 1,
+          "pos": { "de": [0.29, 0.9], "a": [0.385, 0.93] }, "alto": { "de": 0.42, "a": 0.46 }, "boca": [0.52, 0.13] },
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [0.875, 0.74], "ancho": 0.15, "giro": -3, "entra": 2.6, "boca": [0.42, 0.66] }
+      ],
+      "fx": [
+        { "tipo": "impacto", "centro": [0.5, 0.42], "desde": 0, "pulsos": 2.2 },
+        { "tipo": "estrobo", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "intensidad": 0.3 },
+        { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "amplitud": 6, "primero": 20 }
+      ]
+    },
+    {
+      "n": 8, "id": "shot_08_hero_presentation", "nombre": "Presentación", "storyboard": "Plano 08 · MCU heroico · parón del beat",
+      "pulsos": 12, "pagina": "C", "vineta": "v08",
+      "transicion": { "tipo": "deslizar", "despues": 0.6 },
+      "revelado": { "desde": 0.1, "pulsos": 0.8 },
+      "camara": { "margen": 0.05, "de": { "zoom": 1.0, "dx": -0.008 }, "a": { "zoom": 1.06, "dx": 0.008 } },
+      "arte": { "recurso": "bg06", "de": { "cx": 0.5, "cy": 0.63, "ancho": 0.66 }, "a": { "cx": 0.5, "cy": 0.625, "ancho": 0.62 } },
+      "actores": [
+        { "id": "heroe", "tipo": "sprite", "sombra": true,
+          "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ],
+          "pos": { "de": [0.47, 0.97], "a": [0.47, 0.97] }, "alto": 0.74, "boca": [0.5, 0.13] },
+        { "id": "primer_plano", "tipo": "inserto", "recurso": "heroe_retrato", "centro": [0.135, 0.36], "ancho": 0.17, "giro": -4, "entra": 0.6, "forma": "rect", "boca": [0.6, 0.45] },
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [0.885, 0.3], "ancho": 0.14, "giro": 4, "entra": 0.3, "boca": [0.42, 0.66] },
+        { "id": "arma", "tipo": "inserto", "recurso": "heroe_shoot_00", "recorte": [0.47, 0.235, 0.815, 0.425], "centro": [0.765, 0.74], "ancho": 0.19, "proporcion": 0.62, "giro": -3, "entra": 8, "forma": "rect", "pixelado": true,
+          "nota": "Viñeta de detalle: recorte de las manos y la pistola del sprite original (sin el fogonazo). El archivo no se modifica." }
+      ],
+      "fx": [
+        { "tipo": "silencio", "hasta": 8 },
+        { "tipo": "foco", "x": 0.47, "y": 0.5 },
+        { "tipo": "temblor", "golpes": [8, 8.5], "amplitud": 5 }
+      ]
+    },
+    {
+      "n": 9, "id": "shot_09_logo_reveal", "nombre": "Identidad", "storyboard": "Plano 09 · logotipo · sacudida",
+      "pulsos": 8, "pagina": "D", "vineta": "v09",
+      "transicion": { "tipo": "impacto", "despues": 0.8 },
+      "revelado": { "desde": 0, "pulsos": 0.25 },
+      "camara": { "margen": 0.035, "de": { "zoom": 1.07 }, "a": { "zoom": 1.0 } },
+      "arte": { "recurso": "bg06", "de": { "cx": 0.5, "cy": 0.546, "ancho": 0.8 }, "a": { "cx": 0.5, "cy": 0.546, "ancho": 0.815 } },
+      "actores": [
+        { "id": "logo", "tipo": "imagen", "recurso": "logo", "centro": [0.5, 0.4], "ancho": 0.4, "animacion": "sello", "entra": 0 },
+        { "id": "heroe", "tipo": "sprite", "estilo": "silueta",
+          "poses": [ { "desde": 0, "cuadros": ["heroe_shoot_00"], "mascara": "inset(0 17.5% 0 0)" } ],
+          "pos": { "de": [0.5, 1.0], "a": [0.5, 1.0] }, "alto": 0.36, "boca": [0.5, 0.13] }
+      ],
+      "fx": [
+        { "tipo": "impacto", "centro": [0.5, 0.4], "desde": 0, "pulsos": 2.5 },
+        { "tipo": "estrobo", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.22 },
+        { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "amplitud": 5, "primero": 26 }
+      ]
+    },
+    {
+      "n": 10, "id": "shot_10_hub_transition", "nombre": "Transición al juego", "storyboard": "Plano 10 · entrega al Refugio",
+      "pulsos": 8, "pagina": "D", "vineta": "v10",
+      "transicion": { "tipo": "deslizar", "despues": 1.2 },
+      "revelado": { "desde": 0.4, "pulsos": 1.0 },
+      "camara": { "margen": 0.1, "de": { "zoom": 1.0, "dy": -0.012 }, "a": { "zoom": 1.05, "dy": -0.004 } },
+      "arte": { "recurso": "refugio", "de": { "cx": 0.5, "cy": 0.5, "ancho": 1.0 }, "a": { "cx": 0.5, "cy": 0.5, "ancho": 0.96 } },
+      "actores": [
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [1.0, 0.2], "ancho": 0.2, "giro": 4, "entra": 3.4, "boca": [0.42, 0.66] }
+      ],
+      "fx": [
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.06 }
+      ]
+    }
+  ]
+}
