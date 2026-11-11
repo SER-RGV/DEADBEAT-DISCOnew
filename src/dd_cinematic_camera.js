@@ -475,6 +475,19 @@
         ctx.restore();
       };
 
+      // Capa de PRIMER PLANO (se pinta por delante del protagonista). Una capa cuyo
+      // archivo es 100 % opaco no puede ser un primer plano: tapa el cuadro entero y
+      // con él al héroe. El registro dice la verdad del archivo (entries[id].alpha,
+      // mantenido por `tools/art_master/batch.py audit --fix`); si la capa no tiene
+      // transparencia, no se dibuja aquí y el plano queda con sus capas de fondo.
+      const drawForegroundLayer = function (assetId, parX, parY, zoom, alpha, blendMode) {
+        try {
+          const entry = window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries[assetId];
+          if (entry && entry.alpha === false) return;
+        } catch (e) { /* sin registro: se comporta como drawLayer */ }
+        drawLayer(assetId, parX, parY, zoom, alpha, blendMode);
+      };
+
       // RENDERIZADO ESPECÍFICO POR PLANO CON ACABADO PREMIUM FASE 05
       const dustImg = getAsset("effect_dust_particles");
       const flareImg = getAsset("effect_anamorphic_flare");
@@ -605,7 +618,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
+        drawForegroundLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
 
       } else if (shotIdx === 5) {
         // PLANO 05 · CAMINATA CINEMATOGRÁFICA (cine_bg03_entrance - Tracking Lateral)
@@ -639,7 +652,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
+        drawForegroundLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
 
       } else if (shotIdx === 6) {
         // PLANO 06 · GRAN NAVE PRINCIPAL (cine_bg04_main_hall - High Angle EWS)
@@ -722,7 +735,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
+        drawForegroundLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
 
         // Estallido estroboscópico del DROP musical sincronizado a 128 BPM
         ctx.save();
@@ -777,7 +790,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
+        drawForegroundLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
 
       } else if (shotIdx === 9) {
         // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
@@ -799,7 +812,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
+        drawForegroundLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
 
         // LOGOTIPO MODULAR DEADBEAT DISCO (assets/cinematics/logos/logo_deadbeat_cinematic.png con fallback)
         const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_trim") || getAsset("logo_deadbeat_graffiti");

@@ -458,26 +458,234 @@
     player_boost: "player_boost_00"
   };
 
+  /* Contrato de lienzo del protagonista (tanda de arte R01, ilustración digital):
+     - Todos los fotogramas "de pie" comparten escala, línea de suelo y eje de
+       torso centrado en el lienzo; el ANCHO del lienzo puede variar por pose.
+     - El lienzo completo se dibuja con PLAYER_BASE_H px de alto y su borde
+       inferior cae en y + PLAYER_FOOT_Y (voltereta 84 px, derribo 56 px).
+     - Cada fotograma registra en el manifiesto (entries[id].anchors) dónde cae el
+       borde inferior de SU cinturón (belt, fracción del alto) y, si lleva arma, la
+       mano que la empuña (hand = [u, v]). Los mide tools/art_master/batch.py sobre
+       el maestro; aquí sólo hay valores de reserva por si falta el dato.
+     - Corte de cintura: las piernas se dibujan desde su cinturón hacia abajo y el
+       torso desde arriba hasta el suyo, desplazado en vertical para que ambos
+       cinturones coincidan. Manda la pelvis de las piernas: el torso sube y baja
+       con la zancada y no hay escalón en la costura. */
+  const PLAYER_BASE_H = 104;
+  const PLAYER_ROLL_H = 84;
+  const PLAYER_DEATH_H = 56;
+  const PLAYER_FOOT_Y = 32;
+  const PLAYER_BELT_FALLBACK = 0.4914;
+  const PLAYER_SEAM_OVERLAP = 0.004;
+
+  /* Caminata de CUERPO ENTERO (brazos al costado). Se usa cuando el torso está en
+     reposo y las piernas caminan (Refugio): cortar por la cintura una pose de
+     reposo deja las manos partidas sobre unas piernas en marcha. Los fotogramas
+     player_walk_0X son la fuente de PIERNAS del corte de cintura en combate
+     (torso en guardia, sin manos por debajo del cinturón). */
+  const HERO_WALK_IDS = ["hero_walk_00", "hero_walk_01", "hero_walk_02", "hero_walk_03"];
+
+  /* Poses cuyo torso tiene antebrazos o puños POR DEBAJO del cinturón: el corte de
+     cintura los perdería, así que se dibuja encima una capa derivada del mismo
+     maestro que sólo contiene esas partes. */
+  const PLAYER_SPLIT_OVERLAY = {
+    player_firehip: "player_firehip_arms",
+    player_aim_down_02: "player_aim_down_02_arms",
+    player_aim_down_03: "player_aim_down_03_arms"
+  };
+
+  /* Sectores de puntería. El motor apunta en 360° pero el cuerpo es una vista lateral
+     que sólo se refleja: con un único torso de brazos horizontales el arma se
+     separaba de las manos en cuanto se apuntaba hacia arriba o hacia abajo. Hay un
+     torso por sector de ELEVACIÓN (ángulo sobre la horizontal del lado al que mira,
+     +90° = arriba, −90° = abajo); el arma sigue girando de forma continua alrededor
+     de la mano de ese torso. `min` es la elevación mínima del sector, en grados. */
+  const PLAYER_AIM_SECTORS = [
+    { min: 72, id: "player_aim_up_03" },
+    { min: 47, id: "player_aim_up_02" },
+    { min: 19, id: "player_aim_up_01" },
+    { min: -15, id: "player_shoot_00" },
+    { min: -41, id: "player_aim_down_01" },
+    { min: -70, id: "player_aim_down_02" },
+    { min: -Infinity, id: "player_aim_down_03" }
+  ];
+  const PLAYER_AIM_LEVEL = 3;          // índice del sector horizontal
+  const PLAYER_AIM_HYSTERESIS = 3;     // grados: evita parpadeo en la frontera entre sectores
+  const PLAYER_AIM_LEGS = "player_shoot_00"; // piernas en parado de toda la familia de puntería
+  let playerAimSector = PLAYER_AIM_LEVEL;
+
+  function playerAimElevationDeg(aimA) {
+    const a = Number(aimA) || 0;
+    return Math.atan2(-Math.sin(a), Math.abs(Math.cos(a))) * 180 / Math.PI;
+  }
+  function playerAimSectorIndex(elDeg) {
+    const n = PLAYER_AIM_SECTORS.length;
+    const cur = playerAimSector;
+    const lo = PLAYER_AIM_SECTORS[cur].min;                         // frontera inferior del sector actual
+    const hi = cur > 0 ? PLAYER_AIM_SECTORS[cur - 1].min : Infinity; // frontera superior
+    if (elDeg >= lo - PLAYER_AIM_HYSTERESIS && elDeg < hi + PLAYER_AIM_HYSTERESIS) return cur;
+    let idx = n - 1;
+    for (let i = 0; i < n; i++) {
+      if (elDeg >= PLAYER_AIM_SECTORS[i].min) { idx = i; break; }
+    }
+    playerAimSector = idx;
+    return idx;
+  }
+
+  /* Reserva de la mano que empuña el arma por pose (u: 0 izquierda → 1 derecha;
+     v: 0 arriba → 1 abajo; sprite mirando a la derecha). El valor vigente es
+     entries[id].anchors.hand. Las poses SIN ancla no llevan arma (voltereta,
+     derribo e impulso: durante el impulso un arma larga tapaba la cara). */
+  const PLAYER_HAND_FALLBACK = {
+    player_idle_00: [0.678, 0.585],
+    player_shoot_00: [0.889, 0.256],
+    player_fire2: [0.65, 0.33],
+    player_firehip: [0.834, 0.523],
+    player_hurt_00: [0.589, 0.46],
+    player_aim_up_01: [0.872, 0.114],
+    player_aim_up_02: [0.764, 0.091],
+    player_aim_up_03: [0.5, 0.063],
+    player_aim_down_01: [0.868, 0.455],
+    player_aim_down_02: [0.883, 0.576],
+    player_aim_down_03: [0.688, 0.551]
+  };
+
+  function playerAnchors(id) {
+    try {
+      const m = window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries[id];
+      return (m && m.anchors) || null;
+    } catch (e) { return null; }
+  }
+  function playerBelt(id) {
+    const a = playerAnchors(id);
+    return (a && typeof a.belt === "number" && a.belt > 0.2 && a.belt < 0.8) ? a.belt : PLAYER_BELT_FALLBACK;
+  }
+  function playerHand(id) {
+    const a = playerAnchors(id);
+    if (a && Array.isArray(a.hand) && a.hand.length === 2) return a.hand;
+    return PLAYER_HAND_FALLBACK[id] || null;
+  }
+
+  function playerAimAngle(player, pAnim) {
+    return (pAnim && pAnim.forcedAimAngle !== null && pAnim.forcedAimAngle !== undefined)
+      ? pAnim.forcedAimAngle
+      : ((player && player.aimAngle) || 0);
+  }
+
+  /* Resuelve qué fotogramas se dibujan para el estado actual de la animación.
+     `armed` = el jugador lleva arma a la vista (en sala; en el Refugio no). */
+  function resolvePlayerPose(pAnim, aimA, armed) {
+    const get = function (id) { return window.DD_ASSETS && window.DD_ASSETS.get(id); };
+    let upperId = PLAYER_POSE_TO_ID[(pAnim && pAnim.upperPose) || "player_idle"] || "player_idle_00";
+    let lowerId = PLAYER_POSE_TO_ID[(pAnim && pAnim.lowerPose) || "player_idle"] || "player_idle_00";
+    const walking = !!(pAnim && pAnim.waistSplitActive) && /^player_walk_0[0-3]$/.test(lowerId);
+
+    // Con el arma a la vista el personaje SIEMPRE apunta al cursor, también parado:
+    // la pose de reposo (brazos caídos) queda para el Refugio y las cinemáticas.
+    if (armed && upperId === "player_idle_00" && get("player_shoot_00")) upperId = "player_shoot_00";
+
+    let aimFamily = false;
+    if (upperId === "player_shoot_00") {
+      aimFamily = true;
+      const idx = playerAimSectorIndex(playerAimElevationDeg(aimA));
+      const sectorId = PLAYER_AIM_SECTORS[idx].id;
+      if (idx === PLAYER_AIM_LEVEL) {
+        // Armas largas a dos manos: postura de fusil (brazo delantero extendido)
+        // mientras se apunta en horizontal. `ddLongGun` lo marca el puente por arma.
+        if (pAnim && pAnim.ddLongGun && get("player_fire2")) upperId = "player_fire2";
+      } else if (get(sectorId)) {
+        upperId = sectorId;
+      }
+    }
+
+    let upperImg = get(upperId);
+    if (!upperImg) return null;
+    let lowerImg = null;
+    let split = false;
+    let fullWalk = false;
+
+    if (walking) {
+      lowerImg = get(lowerId);
+      split = !!lowerImg && lowerImg !== upperImg;
+    } else if (aimFamily && upperId !== PLAYER_AIM_LEGS) {
+      // Parado: toda la familia de puntería comparte las piernas de la guardia
+      // horizontal; al barrer el ángulo sólo cambian torso y brazos.
+      lowerId = PLAYER_AIM_LEGS;
+      lowerImg = get(lowerId);
+      split = !!lowerImg;
+    } else if (pAnim && pAnim.waistSplitActive) {
+      lowerImg = get(lowerId);
+      split = !!lowerImg && lowerImg !== upperImg;
+    }
+    if (!lowerImg) { lowerImg = upperImg; lowerId = upperId; split = false; }
+
+    if (split && upperId === "player_idle_00") {
+      const m = /^player_walk_0([0-3])$/.exec(lowerId);
+      const full = m ? get(HERO_WALK_IDS[Number(m[1])]) : null;
+      if (full) {
+        upperImg = full;
+        lowerImg = full;
+        split = false;
+        fullWalk = true;
+      }
+    }
+
+    const pose = { upperId: upperId, lowerId: lowerId, upperImg: upperImg, lowerImg: lowerImg, split: split, fullWalk: fullWalk,
+                   beltU: 0, beltL: 0, lift: 0, overlayImg: null, hand: fullWalk ? null : playerHand(upperId) };
+    if (split) {
+      pose.beltU = playerBelt(upperId);
+      pose.beltL = playerBelt(lowerId);
+      pose.lift = pose.beltL - pose.beltU; // fracción del alto: cuánto baja (+) o sube (−) el torso
+      const ovId = PLAYER_SPLIT_OVERLAY[upperId];
+      pose.overlayImg = ovId ? get(ovId) : null;
+    }
+    return pose;
+  }
+
+  /* Dónde se empuña el arma para la pose actual, en px locales al origen del
+     jugador tras translate(x, y + bobY) y ya reflejado según la puntería.
+     Devuelve null si la pose no lleva arma (voltereta, derribo, caminata de reposo). */
+  function getPlayerWeaponMount(pAnim, aimAngle, scaleVal) {
+    const scl = Number(scaleVal) > 0 ? Number(scaleVal) : 1;
+    const aimA = Number(aimAngle) || 0;
+    const pose = resolvePlayerPose(pAnim, aimA, true);
+    if (!pose || !pose.hand) return null;
+    const anchor = pose.hand;
+    const img = pose.upperImg;
+    const targetH = PLAYER_BASE_H * scl;
+    const targetW = targetH * (img.naturalWidth / Math.max(1, img.naturalHeight));
+    const facingLeft = Math.cos(aimA) < 0;
+    return {
+      pose: pose.upperId,
+      x: (anchor[0] - 0.5) * targetW * (facingLeft ? -1 : 1),
+      y: -targetH + PLAYER_FOOT_Y + (anchor[1] + pose.lift) * targetH
+    };
+  }
+
   function drawProtagonist(ctx, player, pAnim, drawWeaponLayerFn, shieldVal, raveTimer, scaleVal) {
     if (!player) return false;
     const scl = Number(scaleVal) > 0 ? Number(scaleVal) : 1;
-    const upperId = PLAYER_POSE_TO_ID[(pAnim && pAnim.upperPose) || "player_idle"] || "player_idle_00";
-    const lowerId = PLAYER_POSE_TO_ID[(pAnim && pAnim.lowerPose) || "player_idle"] || "player_idle_00";
-    const upperImg = window.DD_ASSETS && window.DD_ASSETS.get(upperId);
-    const lowerImg = (window.DD_ASSETS && window.DD_ASSETS.get(lowerId)) || upperImg;
-    if (!upperImg) return false; // Falls back cleanly to v3.2 Pf until Tanda 09 lands!
+    const aimA = playerAimAngle(player, pAnim);
+    const armed = typeof drawWeaponLayerFn === "function";
+    const pose = resolvePlayerPose(pAnim, aimA, armed);
+    if (!pose) return false; // Falls back cleanly to the engine's own Pf
+
+    const upperImg = pose.upperImg;
+    const lowerImg = pose.lowerImg;
+    const isDeath = pose.upperId === "player_death_00";
+    const isRoll = pose.upperId === "player_roll_00";
 
     setSmooth(ctx);
     const px = player.x;
     const py = player.y;
-    const aimA = (pAnim && pAnim.forcedAimAngle !== null && pAnim.forcedAimAngle !== undefined)
-      ? pAnim.forcedAimAngle
-      : (player.aimAngle || 0);
-    const facingLeft = Math.cos(aimA) < 0;
+    let facingLeft = Math.cos(aimA) < 0;
+    if (isRoll && Math.abs(Number(player.rollDX) || 0) > 0.05) {
+      facingLeft = player.rollDX < 0; // la voltereta mira hacia donde rueda
+    }
     const bobY = (pAnim && pAnim.bobY) || 0;
     const lean = (pAnim && pAnim.turnLean) || 0;
 
-    drawSoftShadow(ctx, px, py + 28, 34, 14, 0.62);
+    drawSoftShadow(ctx, px, py + 28, isDeath ? 46 : 34, 14, 0.62);
     if (raveTimer > 0) {
       drawNeonGlow(ctx, px, py - 18, 78, "#ff2d7a", 0.35);
     }
@@ -485,7 +693,9 @@
     ctx.save();
     ctx.translate(px, py + bobY);
 
-    if (typeof drawWeaponLayerFn === "function") {
+    // Sin ancla de mano no hay arma: voltereta, derribo, impulso y caminata de reposo.
+    const carriesWeapon = armed && !isDeath && !isRoll && !pose.fullWalk && !!pose.hand;
+    if (carriesWeapon) {
       ctx.save();
       drawWeaponLayerFn("back", ctx);
       ctx.restore();
@@ -493,39 +703,60 @@
 
     ctx.save();
     if (facingLeft) ctx.scale(-1, 1);
-    ctx.rotate(lean * (facingLeft ? -0.55 : 0.55));
 
-    const targetH = (upperId === "player_death_00" ? 56 : (upperId === "player_roll_00" ? 84 : 104)) * scl;
-    const targetW = targetH * (upperImg.naturalWidth / Math.max(1, upperImg.naturalHeight));
-    const drawX = -targetW * 0.5;
-    const drawY = -targetH + 32;
+    const targetH = (isDeath ? PLAYER_DEATH_H : (isRoll ? PLAYER_ROLL_H : PLAYER_BASE_H)) * scl;
+    const widthOf = function (img) {
+      return targetH * (img.naturalWidth / Math.max(1, img.naturalHeight));
+    };
+    const drawY = -targetH + PLAYER_FOOT_Y;
 
-    if (pAnim && pAnim.waistSplitActive && lowerImg && lowerImg !== upperImg) {
-      const splitRatio = 0.54;
-      // Draw animated legs (bottom 46%)
-      ctx.drawImage(
-        lowerImg,
-        0, lowerImg.naturalHeight * splitRatio, lowerImg.naturalWidth, lowerImg.naturalHeight * (1 - splitRatio),
-        drawX, drawY + targetH * splitRatio, targetW, targetH * (1 - splitRatio)
-      );
-      // Draw aiming/firing upper torso (top 56% with 2% overlap seam)
-      ctx.drawImage(
-        upperImg,
-        0, 0, upperImg.naturalWidth, upperImg.naturalHeight * (splitRatio + 0.02),
-        drawX, drawY, targetW, targetH * (splitRatio + 0.02)
-      );
+    if (isRoll) {
+      // Bola en voltereta: gira alrededor del centro del lienzo mientras dura la esquiva.
+      const w = widthOf(upperImg);
+      const el = Number(player.rollElapsed);
+      const turns = (player.rollT > 0 && isFinite(el)) ? el / 0.32 : 0.08; // 0.32 s = duración de la esquiva del motor
+      ctx.translate(0, drawY + targetH * 0.5);
+      ctx.rotate(turns * Math.PI * 2);
+      ctx.drawImage(upperImg, -w * 0.5, -targetH * 0.5, w, targetH);
     } else {
-      ctx.drawImage(upperImg, drawX, drawY, targetW, targetH);
+      if (!isDeath) ctx.rotate(lean * 0.55);
+      if (pose.split) {
+        // Cada mitad con SU ancho (los lienzos comparten eje de torso, no anchura)
+        // y cortada por SU cinturón; el torso se desplaza para casar con la pelvis.
+        const lw = widthOf(lowerImg);
+        const uw = widthOf(upperImg);
+        const lh = lowerImg.naturalHeight;
+        const uh = upperImg.naturalHeight;
+        const torsoY = drawY + pose.lift * targetH;
+        const cutU = pose.beltU + PLAYER_SEAM_OVERLAP;
+        ctx.drawImage(
+          lowerImg,
+          0, lh * pose.beltL, lowerImg.naturalWidth, lh * (1 - pose.beltL),
+          -lw * 0.5, drawY + targetH * pose.beltL, lw, targetH * (1 - pose.beltL)
+        );
+        ctx.drawImage(
+          upperImg,
+          0, 0, upperImg.naturalWidth, uh * cutU,
+          -uw * 0.5, torsoY, uw, targetH * cutU
+        );
+        if (pose.overlayImg) {
+          const ow = widthOf(pose.overlayImg);
+          ctx.drawImage(pose.overlayImg, -ow * 0.5, torsoY, ow, targetH);
+        }
+      } else {
+        const w = widthOf(upperImg);
+        ctx.drawImage(upperImg, -w * 0.5, drawY, w, targetH);
+      }
     }
     ctx.restore();
 
-    if (typeof drawWeaponLayerFn === "function") {
+    if (carriesWeapon) {
       ctx.save();
       drawWeaponLayerFn("front", ctx);
       ctx.restore();
     }
 
-    if (shieldVal > 0) {
+    if (shieldVal > 0 && !isDeath) {
       ctx.strokeStyle = "rgba(34, 211, 238, 0.62)";
       ctx.lineWidth = 2.2;
       ctx.beginPath();
@@ -751,6 +982,8 @@
     drawDescentPad,
     drawProp,
     drawProtagonist,
+    getPlayerWeaponMount,
+    resolvePlayerPose,
     drawEnemy,
     drawBoss,
     drawPickup,

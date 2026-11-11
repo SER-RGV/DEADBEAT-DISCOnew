@@ -1,0 +1,162 @@
+{
+ "url": "http://127.0.0.1:8080/index.html",
+ "dpr": 1,
+ "startedAt": "2026-11-11T17:17:51.756Z",
+ "pageErrors": [],
+ "httpErrors": [],
+ "consoleErrors": [],
+ "shots": [
+  "00_intro_cinematica.jpg",
+  "01_hub_refugio.jpg",
+  "02_hub_caminando.jpg",
+  "03_armeria_tienda.jpg",
+  "04_mapa_torre.jpg",
+  "05_descenso_cinematica.jpg",
+  "06_c01_sala_vacia.jpg",
+  "07_c01_combate_a.jpg",
+  "08_c01_combate_b.jpg",
+  "06_c04_sala_vacia.jpg",
+  "07_c04_combate_a.jpg",
+  "08_c04_combate_b.jpg",
+  "09_arma_m1911.jpg"
+ ],
+ "steps": {
+  "assets": {
+   "stats": {
+    "registered": 269,
+    "loaded": 269,
+    "errors": 0,
+    "planned": 345
+   },
+   "integrity": {
+    "pass": true,
+    "checked": 269,
+    "ok": 269,
+    "errors": 0,
+    "totalRegistered": 269,
+    "totalPlanned": 345
+   }
+  },
+  "hub": {
+   "active": true,
+   "x": 880,
+   "y": 615,
+   "nearStation": null,
+   "bounds": {
+    "x": 260,
+    "y": 210,
+    "w": 1240,
+    "h": 760
+   },
+   "stations": [
+    "descent",
+    "armory",
+    "dj",
+    "map"
+   ]
+  },
+  "c01": {
+   "level": 2,
+   "went": true,
+   "spawned": [
+    [
+     "dancer",
+     true
+    ],
+    [
+     "sprinter",
+     true
+    ],
+    [
+     "tank",
+     true
+    ],
+    [
+     "speaker",
+     true
+    ],
+    [
+     "dancer",
+     true
+    ],
+    [
+     "sprinter",
+     true
+    ]
+   ],
+   "snap": {
+    "circle": 0,
+    "room": 1,
+    "roomName": "PISTA CRUZADA",
+    "enemies": 5,
+    "weapon": "m1911"
+   }
+  },
+  "c04": {
+   "level": 32,
+   "went": true,
+   "spawned": [
+    [
+     "dancer",
+     true
+    ],
+    [
+     "sprinter",
+     true
+    ],
+    [
+     "tank",
+     true
+    ],
+    [
+     "speaker",
+     true
+    ],
+    [
+     "dancer",
+     true
+    ],
+    [
+     "sprinter",
+     true
+    ]
+   ],
+   "snap": {
+    "circle": 2,
+    "room": 31,
+    "roomName": "BARRA DE LA CASA",
+    "enemies": 6,
+    "weapon": "m1911"
+   }
+  },
+  "weapon_m1911": true,
+  "final": {
+   "stats": {
+    "registered": 269,
+    "loaded": 269,
+    "errors": 0,
+    "planned": 345
+   },
+   "canvas": {
+    "cssWidth": 1280,
+    "cssHeight": 720,
+    "bufferWidth": 1280,
+    "bufferHeight": 720,
+    "dpr": 1,
+    "smoothing": true
+   },
+   "boot": {
+    "state": "PLAYING",
+    "submenu": null,
+    "introPlayed": true,
+    "introActive": false,
+    "introEndedBy": "complete",
+    "criticalErrors": [],
+    "menuMusic": true,
+    "loadMs": 1141,
+    "bootMs": 156981
+   }
+  }
+ },
+ "finishedAt": "2026-11-11T17:20:29.753Z"
+}

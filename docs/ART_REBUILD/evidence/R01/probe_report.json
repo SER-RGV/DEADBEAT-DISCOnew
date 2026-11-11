@@ -1,0 +1,2564 @@
+{
+ "url": "http://127.0.0.1:8080/index.html",
+ "dpr": 2,
+ "pageErrors": [],
+ "httpErrors": [],
+ "shots": [
+  {
+   "name": "hub_00_idle",
+   "t": 17.3,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_idle",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -45.428
+    }
+   }
+  },
+  {
+   "name": "hub_01_caminar_der_0",
+   "t": 20.7,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 285
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -43.5248
+    }
+   }
+  },
+  {
+   "name": "hub_01_caminar_der_1",
+   "t": 27.5,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 285
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -41.31999999999999
+    }
+   }
+  },
+  {
+   "name": "hub_01_caminar_der_2",
+   "t": 34.7,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 285
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -45.3344
+    }
+   }
+  },
+  {
+   "name": "hub_01_caminar_der_3",
+   "t": 38.5,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 285
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -44.024
+    }
+   }
+  },
+  {
+   "name": "hub_02_caminar_izq",
+   "t": 45.3,
+   "how": "center",
+   "at": [
+    640,
+    360
+   ],
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 285
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -43.5248
+    }
+   }
+  },
+  {
+   "name": "run_m1911_00_quieto",
+   "t": 67.8,
+   "how": "DMO.camera",
+   "at": [
+    629,
+    360
+   ],
+   "zoom": 0.8000000000583123,
+   "anim": {
+    "state": "idle",
+    "upper": "player_idle",
+    "lower": "player_idle",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -45.428
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el+89",
+   "t": 70,
+   "how": "DMO.camera",
+   "at": [
+    630,
+    361
+   ],
+   "zoom": 0.8000000000160723,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -65.656
+    }
+   },
+   "el": 89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el+60",
+   "t": 72.4,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    363
+   ],
+   "zoom": 0.8000000000052396,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_02",
+     "x": 15.420599999999997,
+     "y": -62.556799999999996
+    }
+   },
+   "el": 60,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el+30",
+   "t": 74.8,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    365
+   ],
+   "zoom": 0.8000000000017707,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -60.154399999999995
+    }
+   },
+   "el": 30,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el+00",
+   "t": 77.2,
+   "how": "DMO.camera",
+   "at": [
+    632,
+    364
+   ],
+   "zoom": 0.8000000000006797,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -45.428
+    }
+   },
+   "el": 0,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el-30",
+   "t": 79.7,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    362
+   ],
+   "zoom": 0.8125550000003193,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_01",
+     "x": 21.528,
+     "y": -24.7008
+    }
+   },
+   "el": -30,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el-60",
+   "t": 83,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    358
+   ],
+   "zoom": 0.8000000000000782,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -12.480799999999995
+    }
+   },
+   "el": -60,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_01_parado_el-89",
+   "t": 84.9,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    356
+   ],
+   "zoom": 0.8020550000000282,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -14.685599999999994
+    }
+   },
+   "el": -89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_02_izq_el+00",
+   "t": 86.9,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    355
+   ],
+   "zoom": 0.8000000000000105,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": -22.733099999999997,
+     "y": -45.428
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_02_izq_el+60",
+   "t": 88.8,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    358
+   ],
+   "zoom": 0.8000000000000042,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_02",
+     "x": -15.420599999999997,
+     "y": -62.556799999999996
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_02_izq_el-60",
+   "t": 90.8,
+   "how": "DMO.camera",
+   "at": [
+    644,
+    360
+   ],
+   "zoom": 0.8000000000000016,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": -22.4289,
+     "y": -12.480799999999995
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+00_0",
+   "t": 92.8,
+   "how": "DMO.camera",
+   "at": [
+    651,
+    358
+   ],
+   "zoom": 0.8000000000000007,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 143.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -43.5248
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+00_1",
+   "t": 94.8,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 162.7
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -41.31999999999999
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+00_2",
+   "t": 96.9,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.2
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -45.3344
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+00_3",
+   "t": 98.9,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    360
+   ],
+   "zoom": 0.8125550000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 165.5
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -44.024
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+89_0",
+   "t": 101,
+   "how": "DMO.camera",
+   "at": [
+    635,
+    362
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -63.75279999999999
+    }
+   },
+   "el": 89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+89_1",
+   "t": 102.9,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    368
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -61.548
+    }
+   },
+   "el": 89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+45_0",
+   "t": 106.2,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    372
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 152.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -60.0608
+    }
+   },
+   "el": 45,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el+45_1",
+   "t": 109.7,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    372
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 155.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -58.7504
+    }
+   },
+   "el": 45,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el-45_0",
+   "t": 112,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    368
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 164.3
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -10.577599999999997
+    }
+   },
+   "el": -45,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el-45_1",
+   "t": 114.3,
+   "how": "DMO.camera",
+   "at": [
+    639,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.4
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -8.372799999999998
+    }
+   },
+   "el": -45,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el-89_0",
+   "t": 116.5,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    354
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -14.591999999999999
+    }
+   },
+   "el": -89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_07_camina_el-89_1",
+   "t": 118.7,
+   "how": "DMO.camera",
+   "at": [
+    646,
+    349
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -13.281599999999997
+    }
+   },
+   "el": -89,
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_08_camina_izq_0",
+   "t": 121,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    349
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 155.2
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": -22.733099999999997,
+     "y": -43.5248
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_08_camina_izq_1",
+   "t": 123,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    354
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 182.1
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": -22.733099999999997,
+     "y": -41.31999999999999
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_m1911_09_retrocede_disparando",
+   "t": 125.1,
+   "how": "DMO.camera",
+   "at": [
+    636,
+    358
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 177
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_shoot_00",
+     "x": 22.733099999999997,
+     "y": -41.31999999999999
+    }
+   },
+   "weapon": "m1911"
+  },
+  {
+   "name": "run_ak47_00_quieto",
+   "t": 130.7,
+   "how": "DMO.camera",
+   "at": [
+    629,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "aim",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -38.2208
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el+89",
+   "t": 132.8,
+   "how": "DMO.camera",
+   "at": [
+    630,
+    361
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -65.656
+    }
+   },
+   "el": 89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el+60",
+   "t": 135,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    363
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_02",
+     "x": 15.420599999999997,
+     "y": -62.556799999999996
+    }
+   },
+   "el": 60,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el+30",
+   "t": 137.8,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    365
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -60.154399999999995
+    }
+   },
+   "el": 30,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el+00",
+   "t": 140.5,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    364
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -38.2208
+    }
+   },
+   "el": 0,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el-30",
+   "t": 143,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    362
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_01",
+     "x": 21.528,
+     "y": -24.7008
+    }
+   },
+   "el": -30,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el-60",
+   "t": 145.6,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -12.480799999999995
+    }
+   },
+   "el": -60,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_01_parado_el-89",
+   "t": 148.3,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    356
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -14.685599999999994
+    }
+   },
+   "el": -89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_02_izq_el+00",
+   "t": 150.8,
+   "how": "DMO.camera",
+   "at": [
+    637,
+    355
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": -11.7156,
+     "y": -38.2208
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_02_izq_el+60",
+   "t": 153.6,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    358
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_02",
+     "x": -15.420599999999997,
+     "y": -62.556799999999996
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_02_izq_el-60",
+   "t": 156.2,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_fire",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": -22.4289,
+     "y": -12.480799999999995
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+00_0",
+   "t": 159,
+   "how": "DMO.camera",
+   "at": [
+    652,
+    358
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 143.9
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -36.31759999999999
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+00_1",
+   "t": 161.7,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 162.7
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -36.31759999999999
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+00_2",
+   "t": 164.5,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.2
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -34.11279999999999
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+00_3",
+   "t": 166.9,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    360
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.5
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -38.127199999999995
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+89_0",
+   "t": 169.4,
+   "how": "DMO.camera",
+   "at": [
+    635,
+    362
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -64.252
+    }
+   },
+   "el": 89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+89_1",
+   "t": 171.8,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    368
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_03",
+     "x": 0,
+     "y": -63.75279999999999
+    }
+   },
+   "el": 89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+45_0",
+   "t": 174.3,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    372
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -56.0464
+    }
+   },
+   "el": 45,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el+45_1",
+   "t": 176.8,
+   "how": "DMO.camera",
+   "at": [
+    643,
+    373
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_up_01",
+     "x": 21.732750000000003,
+     "y": -60.0608
+    }
+   },
+   "el": 45,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el-45_0",
+   "t": 179.3,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    369
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -11.076799999999999
+    }
+   },
+   "el": -45,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el-45_1",
+   "t": 181.8,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    361
+   ],
+   "zoom": 0.8050520000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_02",
+     "x": 22.4289,
+     "y": -10.577599999999997
+    }
+   },
+   "el": -45,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el-89_0",
+   "t": 184.4,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    354
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -10.577599999999997
+    }
+   },
+   "el": -89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_07_camina_el-89_1",
+   "t": 187.2,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    349
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_aim_down_03",
+     "x": 11.015550000000001,
+     "y": -14.591999999999999
+    }
+   },
+   "el": -89,
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_08_camina_izq_0",
+   "t": 189.4,
+   "how": "DMO.camera",
+   "at": [
+    632,
+    349
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_fire",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 155.2
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": -11.7156,
+     "y": -36.81679999999999
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_08_camina_izq_1",
+   "t": 191.9,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    354
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_fire",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 182.1
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": -11.7156,
+     "y": -36.31759999999999
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_ak47_09_retrocede_disparando",
+   "t": 194.4,
+   "how": "DMO.camera",
+   "at": [
+    635,
+    358
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_fire",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 177
+   },
+   "weaponMount": {
+    "longGun": true,
+    "hand": {
+     "pose": "player_fire2",
+     "x": 11.7156,
+     "y": -38.127199999999995
+    }
+   },
+   "weapon": "ak47"
+  },
+  {
+   "name": "run_m60_00_quieto",
+   "t": 200.7,
+   "how": "DMO.camera",
+   "at": [
+    629,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "aim",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el+89",
+   "t": 204.9,
+   "how": "DMO.camera",
+   "at": [
+    630,
+    361
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": 89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el+60",
+   "t": 207.4,
+   "how": "DMO.camera",
+   "at": [
+    633,
+    363
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": 60,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el+30",
+   "t": 209.9,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    365
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": 30,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el+00",
+   "t": 212.6,
+   "how": "DMO.camera",
+   "at": [
+    632,
+    364
+   ],
+   "zoom": 0.8047280000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": 0,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el-30",
+   "t": 214.9,
+   "how": "DMO.camera",
+   "at": [
+    630,
+    362
+   ],
+   "zoom": 0.8152280000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": -30,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el-60",
+   "t": 217.3,
+   "how": "DMO.camera",
+   "at": [
+    631,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": -60,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_01_parado_el-89",
+   "t": 221.4,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    355
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "el": -89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_02_izq_el+00",
+   "t": 223.9,
+   "how": "DMO.camera",
+   "at": [
+    637,
+    355
+   ],
+   "zoom": 0.8047280000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": -19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_02_izq_el+60",
+   "t": 226.6,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    358
+   ],
+   "zoom": 0.8152280000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": -19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_02_izq_el-60",
+   "t": 229.4,
+   "how": "DMO.camera",
+   "at": [
+    644,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_firehip",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": -19.5273,
+     "y": -17.587200000000003
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+00_0",
+   "t": 232.2,
+   "how": "DMO.camera",
+   "at": [
+    651,
+    358
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 143.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+00_1",
+   "t": 235,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 162.7
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+00_2",
+   "t": 237.8,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    359
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 165.2
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.98239999999999
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+00_3",
+   "t": 240.5,
+   "how": "DMO.camera",
+   "at": [
+    634,
+    360
+   ],
+   "zoom": 0.8047280000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.5
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -15.777599999999993
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+89_0",
+   "t": 243,
+   "how": "DMO.camera",
+   "at": [
+    635,
+    362
+   ],
+   "zoom": 0.8152280000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -19.792
+    }
+   },
+   "el": 89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+89_1",
+   "t": 245.6,
+   "how": "DMO.camera",
+   "at": [
+    643,
+    368
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "el": 89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+45_0",
+   "t": 248.3,
+   "how": "DMO.camera",
+   "at": [
+    645,
+    372
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.98239999999999
+    }
+   },
+   "el": 45,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el+45_1",
+   "t": 250.8,
+   "how": "DMO.camera",
+   "at": [
+    642,
+    373
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -15.777599999999993
+    }
+   },
+   "el": 45,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el-45_0",
+   "t": 253.5,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    369
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 165.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -19.792
+    }
+   },
+   "el": -45,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el-45_1",
+   "t": 258.1,
+   "how": "DMO.camera",
+   "at": [
+    651,
+    358
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 152.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "el": -45,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el-89_0",
+   "t": 261,
+   "how": "DMO.camera",
+   "at": [
+    665,
+    353
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk0",
+    "split": true,
+    "walkFrame": 0,
+    "speed": 173.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -17.98239999999999
+    }
+   },
+   "el": -89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_07_camina_el-89_1",
+   "t": 263.6,
+   "how": "DMO.camera",
+   "at": [
+    680,
+    348
+   ],
+   "zoom": 0.8047280000000002,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk1",
+    "split": true,
+    "walkFrame": 1,
+    "speed": 166.7
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -15.777599999999993
+    }
+   },
+   "el": -89,
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_08_camina_izq_0",
+   "t": 266.4,
+   "how": "DMO.camera",
+   "at": [
+    659,
+    349
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_firehip",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 155.1
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": -19.5273,
+     "y": -19.792
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_08_camina_izq_1",
+   "t": 269.1,
+   "how": "DMO.camera",
+   "at": [
+    647,
+    354
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "run",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 182.1
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": -19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_m60_09_retrocede_disparando",
+   "t": 271.7,
+   "how": "DMO.camera",
+   "at": [
+    638,
+    357
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "shoot",
+    "upper": "player_firehip",
+    "lower": "player_walk3",
+    "split": true,
+    "walkFrame": 3,
+    "speed": 177
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_firehip",
+     "x": 19.5273,
+     "y": -18.481599999999993
+    }
+   },
+   "weapon": "m60"
+  },
+  {
+   "name": "run_estado_danio",
+   "t": 279,
+   "how": "DMO.camera",
+   "at": [
+    629,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "hurt",
+    "upper": "player_hit",
+    "lower": "player_hit",
+    "split": false,
+    "walkFrame": 2,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_hurt_00",
+     "x": 5.206499999999998,
+     "y": -24.2016
+    }
+   },
+   "forced": "hurt"
+  },
+  {
+   "name": "run_estado_danio_caminando",
+   "t": 281.9,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "hurt",
+    "upper": "player_hit",
+    "lower": "player_walk2",
+    "split": true,
+    "walkFrame": 2,
+    "speed": 157.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": {
+     "pose": "player_hurt_00",
+     "x": 5.206499999999998,
+     "y": -24.003999999999998
+    }
+   },
+   "forced": "hurt"
+  },
+  {
+   "name": "run_estado_habilidad",
+   "t": 287,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "ability",
+    "upper": "player_boost",
+    "lower": "player_boost",
+    "split": false,
+    "walkFrame": 3,
+    "speed": 16.2
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "forced": "ability"
+  },
+  {
+   "name": "run_estado_voltereta_forzada",
+   "t": 289.6,
+   "how": "DMO.camera",
+   "at": [
+    640,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "dodge",
+    "upper": "player_roll",
+    "lower": "player_roll",
+    "split": false,
+    "walkFrame": 3,
+    "speed": 4.1
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "forced": "dodge"
+  },
+  {
+   "name": "run_estado_voltereta_real_0",
+   "t": 297.7,
+   "how": "DMO.camera",
+   "at": [
+    689,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "dodge",
+    "upper": "player_roll",
+    "lower": "player_roll",
+    "split": false,
+    "walkFrame": 0,
+    "speed": 448.6
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "input": "KeyD+Space"
+  },
+  {
+   "name": "run_estado_voltereta_real_1",
+   "t": 300.6,
+   "how": "DMO.camera",
+   "at": [
+    731,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "dodge",
+    "upper": "player_roll",
+    "lower": "player_roll",
+    "split": false,
+    "walkFrame": 2,
+    "speed": 503.9
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "input": "KeyD+Space"
+  },
+  {
+   "name": "run_estado_voltereta_real_2",
+   "t": 303.5,
+   "how": "DMO.camera",
+   "at": [
+    765,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "dodge",
+    "upper": "player_roll",
+    "lower": "player_roll",
+    "split": false,
+    "walkFrame": 3,
+    "speed": 440.7
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "input": "KeyD+Space"
+  },
+  {
+   "name": "run_estado_derribo",
+   "t": 319.3,
+   "how": "DMO.camera",
+   "at": [
+    776,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "death",
+    "upper": "player_death",
+    "lower": "player_death",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "forced": "death"
+  },
+  {
+   "name": "run_estado_derribo_izq",
+   "t": 322.3,
+   "how": "DMO.camera",
+   "at": [
+    776,
+    360
+   ],
+   "zoom": 0.8000000000000003,
+   "anim": {
+    "state": "death",
+    "upper": "player_death",
+    "lower": "player_death",
+    "split": false,
+    "walkFrame": 1,
+    "speed": 0
+   },
+   "weaponMount": {
+    "longGun": false,
+    "hand": null
+   },
+   "forced": "death"
+  }
+ ],
+ "assets": {
+  "registered": 269,
+  "loaded": 269,
+  "errors": 0,
+  "planned": 345
+ },
+ "integrity": {
+  "pass": false,
+  "checked": 269,
+  "ok": 268,
+  "errors": []
+ },
+ "hubState": {
+  "active": true,
+  "x": 880,
+  "y": 615,
+  "nearStation": null,
+  "bounds": {
+   "x": 260,
+   "y": 210,
+   "w": 1240,
+   "h": 760
+  },
+  "stations": [
+   "descent",
+   "armory",
+   "dj",
+   "map"
+  ]
+ },
+ "equip_m1911": true,
+ "equip_ak47": true,
+ "equip_m60": true,
+ "finalAssets": {
+  "registered": 269,
+  "loaded": 269,
+  "errors": 0,
+  "planned": 345
+ },
+ "elapsedS": 322.4
+}

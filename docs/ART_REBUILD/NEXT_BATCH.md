@@ -1,22 +1,51 @@
-# NEXT BATCH — TANDA_23
+# SIGUIENTE TANDA — `R02_ENEMIGOS`
 
-- **Tanda a ejecutar:** `TANDA_23` (23 de 33)
-- **Fecha de planificación:** 2026-11-07T12:44:27Z
-- **Archivos a actualizar:** `src/dd_asset_registry.js`, `docs/ART_REBUILD/*`
-- **Pruebas obligatorias:** `node tools/validate_batch.js 23` (Chromium Headless + Playwright, 0 `pageerror`, decodificación PNG RGBA, DPR 1x/2x, mando emulado, capturas reales)
-- **Commit previsto:** `feat(art): complete TANDA_23 high-res asset reconstruction and real engine integration`
+- **Contenido:** 6 familias × 4 estados = **24 ilustraciones** (3 turnos de generación a 10 por turno).
+- **Por qué ahora:** tras el protagonista, los enemigos son lo más visible en sala; hoy son pixel art y 9 de los 24 tienen defecto visible.
+- **Commit previsto:** `feat(art): R02 enemigos en ilustración, validados en juego`
 
-## Diez Recursos de la Tanda
+## Contrato que espera el juego (`DD_WORLD.drawEnemy`)
 
-| # | ID Destino | ID Original | Categoría | Ruta | Dimensiones | Alpha | Dependencias |
-|---:|---|---|---|---|---|---|---|
-| 221 | `weapon_c011_de_veneno` | `weapons/weapon_c011_de_veneno.png` | `weapons` | `assets/weapons/weapon_c011_de_veneno.png` | 320x160 | `True` | ninguna |
-| 222 | `weapon_c012_de_hielo` | `weapons/weapon_c012_de_hielo.png` | `weapons` | `assets/weapons/weapon_c012_de_hielo.png` | 320x160 | `True` | ninguna |
-| 223 | `weapon_c013_escopeta` | `weapons/weapon_c013_escopeta.png` | `weapons` | `assets/weapons/weapon_c013_escopeta.png` | 320x160 | `True` | ninguna |
-| 224 | `weapon_olympia` | `weapons/weapon_olympia.png` | `weapons` | `assets/weapons/weapon_olympia.png` | 320x160 | `True` | ninguna |
-| 225 | `weapon_c015_escopeta_automatica` | `weapons/weapon_c015_escopeta_automatica.png` | `weapons` | `assets/weapons/weapon_c015_escopeta_automatica.png` | 320x160 | `True` | ninguna |
-| 226 | `weapon_c016_de_canon` | `weapons/weapon_c016_de_canon.png` | `weapons` | `assets/weapons/weapon_c016_de_canon.png` | 320x160 | `True` | ninguna |
-| 227 | `weapon_c017_de_fuego` | `weapons/weapon_c017_de_fuego.png` | `weapons` | `assets/weapons/weapon_c017_de_fuego.png` | 320x160 | `True` | ninguna |
-| 228 | `weapon_cryo` | `weapons/weapon_cryo.png` | `weapons` | `assets/weapons/weapon_cryo.png` | 320x160 | `True` | ninguna |
-| 229 | `weapon_c019_electrica` | `weapons/weapon_c019_electrica.png` | `weapons` | `assets/weapons/weapon_c019_electrica.png` | 320x160 | `True` | ninguna |
-| 230 | `weapon_spas12` | `weapons/weapon_spas12.png` | `weapons` | `assets/weapons/weapon_spas12.png` | 320x160 | `True` | ninguna |
+| Dato | Valor |
+|---|---|
+| Ids | `enemy_<familia>_<estado>` |
+| Familias | `security`, `fanatic`, `chef`, `dancer`, `drone`, `elite` |
+| Estados | `walk`, `windup` (aviso), `attack`, `death` (se muestra al recibir daño) |
+| Lienzo actual | 256×288, pivote abajo-centro, mirando a la derecha (el juego refleja según la velocidad) |
+| Tamaño en pantalla | alto = `max(78, r × 3,8)` px de mundo; ancho proporcional al lienzo |
+| Rutas | `assets/enemies/enemy_<familia>_<estado>.png` (ya registradas: la tanda **actualiza**, no da de alta) |
+
+## Antes de generar
+
+1. Leer en el motor la tabla de tipos de enemigo y cómo los asigna `resolveEnemyFamily`.
+   Medido en juego: los tipos son `dancer`, `sprinter`, `tank`, `speaker`; `tank` cae en
+   `chef`, `dancer` en `dancer`, y `sprinter` y `speaker` caen ambos en `security` por
+   defecto. Decidir la correspondencia con las familias de `REF_06` (Bailarín, Sprinter,
+   Tanque, Tirador, Especial) **antes** de dibujar, y documentar el cambio si se toca.
+2. Generar primero una hoja de modelo por familia a partir del recorte de `REF_06` y
+   usarla como imagen de referencia de sus otros tres estados.
+3. Subir el lienzo si hace falta nitidez (el juego escala por alto): proponer 320×360
+   manteniendo la proporción 8:9 y el pivote.
+
+## Orden dentro de la tanda (prioridad a los defectuosos)
+
+| Turno | Familias | Motivo |
+|---|---|---|
+| 1 | `chef` (4), `security` (4), hoja de modelo de `dancer` y `fanatic` | chef: identidad cambiante en los 4; security: damero y cambio de identidad |
+| 2 | `dancer` (3 restantes), `fanatic` (3 restantes), `elite` (4) | damero en los ataques; ataque de élite no representa al personaje |
+| 3 | `drone` (4) + repeticiones | sin defectos: sólo estilo |
+
+## Validación obligatoria en juego
+
+- Sala con los cuatro tipos generados con `DMO.debug.spawnEnemyAt` (ver `capture_game.js`).
+- Los cuatro estados de cada familia vistos en pantalla, mirando a ambos lados.
+- 0 errores de página y de red; `batch.py audit` sin diferencias.
+- Evidencia en `docs/ART_REBUILD/evidence/R02/` con antes y después.
+
+## Pendiente arrastrado de R01
+
+- Las armas pesadas (m60, minigun, BFG…) mantienen la postura de cadera en todos los
+  ángulos: el arma gira sobre los puños, los brazos no acompañan la elevación.
+- Vista lateral única: `REF_06` pide 8 direcciones para el protagonista. Hoy el cuerpo
+  sólo se refleja a izquierda y derecha, como en el motor original.
+- `capture_game.js --circles=N` no selecciona el círculo N.

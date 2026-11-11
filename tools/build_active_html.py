@@ -261,13 +261,58 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return origLc.apply(this, arguments);
     };
 
+    // Capa de arma del protagonista.
+    // El renderizador de armas del motor (it) espera exactamente lo que le daba
+    // su propio Pf: el contexto trasladado al "hombro" (0, -0.55·canonH), girado
+    // con el ángulo de puntería, y ut.handLocal = posición de la mano en ese
+    // marco. Sin eso dibuja el arma en el origen del jugador (a la altura de las
+    // rodillas), apuntando siempre a la derecha. DD_WORLD conoce el lienzo de
+    // cada pose y dice dónde está la mano (getPlayerWeaponMount).
+    const DD_WEAPON_CANON_H = 95;
+    const DD_WEAPON_PIVOT_Y = -0.55 * DD_WEAPON_CANON_H;
+    function ddIsLongGun(wid) {
+      try {
+        if (xt[wid]) return false; // pesadas: se disparan desde la cadera
+        const a = pt(wid);
+        return !!(a && a.hd && a.hd.sup && (a.hd.sup - a.hd.grip) * a.len * DD_WEAPON_CANON_H >= 10);
+      } catch (e) { return false; }
+    }
+
     Pf = function () {
       if (window.DD_WORLD && w.playerAnim) {
+        const pA = w.playerAnim;
+        const aimA = (pA.forcedAimAngle !== null && pA.forcedAimAngle !== undefined)
+          ? pA.forcedAimAngle
+          : ((ye && ye.aimAngle) || 0);
+        pA.ddLongGun = ddIsLongGun((Yo && Yo.weapon) || "m1911");
+        const mount = (typeof window.DD_WORLD.getPlayerWeaponMount === "function")
+          ? window.DD_WORLD.getPlayerWeaponMount(pA, aimA, 1)
+          : null;
+        const weaponLayer = function (layer, customCtx) {
+          const c = customCtx || g;
+          const prevH = ut.h, prevHand = ut.handLocal, prevPose = ut.poseKey;
+          c.save();
+          try {
+            if (mount) {
+              const relY = mount.y - DD_WEAPON_PIVOT_Y;
+              const cosA = Math.cos(aimA), sinA = Math.sin(aimA);
+              ut.h = DD_WEAPON_CANON_H;
+              ut.poseKey = pA.upperPose || "player_idle";
+              ut.handLocal = [cosA * mount.x + sinA * relY, -sinA * mount.x + cosA * relY];
+              c.translate(0, DD_WEAPON_PIVOT_Y);
+              c.rotate(aimA);
+            }
+            return it(layer, c);
+          } finally {
+            c.restore();
+            ut.h = prevH; ut.handLocal = prevHand; ut.poseKey = prevPose;
+          }
+        };
         const drew = window.DD_WORLD.drawProtagonist(
           g,
           ye,
-          w.playerAnim,
-          function (layer, customCtx) { return it(layer, customCtx); },
+          pA,
+          weaponLayer,
           typeof Ee === "number" ? Ee : 0,
           typeof De === "number" ? De : 0
         );

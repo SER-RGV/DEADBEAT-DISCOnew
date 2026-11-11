@@ -12,6 +12,11 @@ Esta carpeta reúne documentación y pruebas. Usa este índice para encontrar ca
 - Informes de tandas de arte: archivos `ART_TANDA_*` de la raíz.
 - Auditorías del hub: archivos `ART_HUB_*` y `ART_AUDITORIA_*` de la raíz.
 - [Material de reconstrucción visual](ART_REBUILD/)
+  - [Auditoría visual y plan de tandas](ART_REBUILD/AUDITORIA_VISUAL.md)
+  - [Inventario de arte clasificado A–E](ART_REBUILD/AUDIT_INVENTORY.md)
+  - [Punto de control](ART_REBUILD/CHECKPOINT.md) y [siguiente tanda](ART_REBUILD/NEXT_BATCH.md)
+- [Biblia de lore del universo](LORE/)
+- [Línea de producción de arte por tandas](../tools/art_master/README.md)
 - [Guiones gráficos de cinemáticas](CINEMATIC_STORYBOARD/)
 
 ## Estado y planificación del proyecto
