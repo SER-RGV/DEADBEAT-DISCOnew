@@ -1,0 +1,2971 @@
+# DEADBEAT DISCO
+
+# Biblia Maestra del Universo, la Torre y la Progresión
+
+**Versión:** 1.0 --- Documento de consolidación y expansión narrativa\
+**Estado:** Base de trabajo para aprobación del autor\
+**Proyecto:** DEADBEAT DISCO --- escala indie, PC/consola, perspectiva
+isométrica, estructura híbrida, lanzamiento premium.
+
+> **Tagline:** La noche que devoró el amanecer.\
+> **Ley del mundo:** La torre no encierra a quienes disfrutan de la
+> fiesta. Encierra a quienes ya no soportan que termine.
+
+------------------------------------------------------------------------
+
+## 0. Cómo leer este documento
+
+Este documento reúne la biblia narrativa `lore.txt`, el documento
+maestro consolidado, el diseño de niveles, el arsenal, el bestiario y la
+nueva dirección de la cinemática de llegada al Refugio.
+
+Para no confundir historia, diseño y estado real del proyecto, se
+utilizan estas etiquetas:
+
+-   **CANON:** elemento establecido en la biblia narrativa y que se
+    conserva.
+-   **DISEÑO DEFINIDO:** regla o sistema descrito en la documentación
+    maestra, aunque no necesariamente implementado.
+-   **PROPUESTA:** ampliación creada para conectar piezas que antes
+    estaban separadas. Necesita aprobación antes de convertirse en
+    canon.
+-   **LEGADO DE PROTOTIPO:** contenido encontrado en versiones
+    anteriores del juego. No se considera automáticamente parte del
+    canon narrativo.
+-   **PENDIENTE:** contradicción o dato que requiere una decisión.
+
+### 0.1. Autoridad de las fuentes
+
+1.  Las decisiones expresas del autor prevalecen sobre cualquier
+    documento anterior.
+2.  La biblia `lore.txt` es la fuente narrativa principal para la
+    Primera Noche, la Escucha, Tempo, el Desafinado, los nueve
+    soberanos, las armas legendarias y los finales.
+3.  El Documento Maestro Consolidado v1.0 aporta la estructura del
+    juego, la generación de salas, el Refugio, la economía, el
+    inventario, el arsenal y el bestiario.
+4.  Los catálogos de armas de prototipos anteriores aportan contenido
+    jugable heredado, pero no sustituyen el canon narrativo.
+5.  La cinemática «La noche que vuelve» y la idea de abrir el suelo para
+    llegar al Refugio se consideran diseño de presentación pendiente de
+    implementación.
+
+### 0.2. Corrección de nomenclatura
+
+La dirección narrativa actual deja de presentar el mundo como una
+adaptación de los círculos del infierno. La torre es una construcción
+musical y sobrenatural propia.
+
+  Terminología heredada       Terminología de esta biblia
+  --------------------------- -----------------------------------------
+  Círculo                     Pista o nivel
+  Nueve círculos              Nueve pistas de la torre
+  Descenso por los círculos   Descenso por la torre
+  Círculo final               Núcleo
+  DJ Virgilio                 **Tempo**
+  Infierno / inframundo       Torre / estructura subterránea
+  Pecados capitales           Deseos convertidos en leyes de la pista
+
+Los nombres propios de los nueve soberanos se conservan. Los nombres
+temáticos nuevos de las pistas que aparecen en este documento son
+propuestas descriptivas, no nombres definitivos aprobados.
+
+------------------------------------------------------------------------
+
+# PARTE I --- IDENTIDAD Y MITOLOGÍA
+
+## 1. Concepto central
+
+DEADBEAT DISCO es un roguelike shooter de acción isométrico. El jugador
+controla al Desafinado, una anomalía nacida dentro de una fiesta que
+lleva repitiéndose desde una noche imposible.
+
+La torre es un edificio que se ha extendido hacia abajo. Sus plantas no
+respetan la arquitectura normal: cada pista reproduce un deseo de la
+Primera Noche hasta convertirlo en una regla física, musical y
+emocional.
+
+El jugador no tiene que bailar ni disparar al ritmo. Puede moverse,
+apuntar, disparar y esquivar libremente. La música organiza los ataques
+enemigos, los peligros ambientales y la tensión de cada sala. Todas las
+señales sonoras importantes tienen una representación visual
+equivalente.
+
+La experiencia debe combinar:
+
+1.  **Acción legible:** movimiento libre, disparos satisfactorios,
+    esquivas y sinergias comprensibles.
+2.  **Misterio:** el jugador descubre el origen de la torre a través de
+    escenarios, objetos, testimonios y conversaciones.
+3.  **Melancolía:** los jefes son personas deformadas por sus deseos, no
+    monstruos malvados sin historia.
+4.  **Repetición con variación:** cada run cambia, pero la repetición
+    tiene una explicación narrativa.
+5.  **Decisiones:** el poder siempre implica una elección comprensible;
+    ningún pacto o final debe engañar al jugador.
+
+## 2. La Primera Noche
+
+### 2.1. Antes de la torre
+
+La fiesta celebraba el final de una guerra. Durante unas horas, personas
+que habían vivido esperando la muerte pudieron reunirse sin miedo.
+
+El salón era un edificio real: una antigua estación de tren reconvertida
+en sala de baile, con techos de cristal y columnas de hierro. Había
+música, comida, luces, conversaciones y personas que por fin podían
+imaginar un mañana.
+
+El anfitrión de la fiesta sería conocido después como el Rey del Compás.
+
+### 2.2. La Escucha
+
+Bajo el salón dormía una presencia sin rostro llamada **la Escucha**.
+
+-   No es un dios, un demonio ni una entidad malvada.
+-   No tiene una voluntad humana ni comprende las consecuencias de lo
+    que recibe.
+-   No distingue entre una canción y una plegaria.
+-   No entiende el significado de «para siempre».
+-   Su única operación es devolver lo que recibe.
+
+La Escucha funciona como un espejo acústico. Recibe una vibración, un
+deseo o una petición y la reproduce. No interpreta; repite.
+
+### 2.3. La petición
+
+Cuando la fiesta se acercaba a su final, el anfitrión pidió que aquella
+noche no terminase.
+
+La Escucha respondió repitiéndola.
+
+El salón creció hacia abajo, como un surco que se hunde en un disco. Las
+puertas dejaron de llevar al exterior. El tiempo se plegó sobre sí
+mismo. Los deseos más intensos de los invitados se convirtieron en las
+leyes de cada pista.
+
+La torre no nació como una prisión diseñada por alguien. Es la
+consecuencia física de un deseo que no podía terminar.
+
+### 2.4. La ley fundamental
+
+**Cada deseo se convierte en un ritmo; cada ritmo, en una prisión.**
+
+La repetición no conserva la felicidad original. Conserva el instante
+anterior a la despedida y lo reproduce sin permitir que evolucione.
+
+------------------------------------------------------------------------
+
+## 3. Tempo, el DJ que recuerda
+
+### 3.1. Papel en la Primera Noche
+
+Tempo detectó el peligro antes que nadie: la última nota estaba
+regresando antes de haber terminado.
+
+Podía haber dejado acabar el disco.
+
+En cambio, enlazó otra canción. No lo hizo por crueldad. Vio a los
+invitados felices y pensó que unos minutos más no podían hacer daño.
+
+Aquella transición fue el primer eslabón de la cadena.
+
+### 3.2. Su castigo
+
+Tempo recuerda todas las vueltas.
+
+-   Los bailarines olvidan.
+-   Los soberanos conservan emociones convertidas en rituales.
+-   El Rey conserva su deseo.
+-   Tempo conserva los nombres.
+
+Cada vez que alguien muere en una run, Tempo debe volver a introducirlo
+en la canción. Sus auriculares le permiten escuchar simultáneamente
+todas las versiones de la noche. Quitárselos no lo libera: lo deja a
+solas con lo que recuerda.
+
+### 3.3. Por qué ayuda al jugador
+
+Tempo quiere que alguien termine la canción, pero teme que terminarla
+equivalga a borrar a quienes recuerda.
+
+Sus pactos hacen al jugador más poderoso introduciéndolo en reglas más
+predecibles. No son trampas gratuitas: son intentos de Tempo de
+demostrar que todavía puede salvar al Desafinado sin dejarlo salir.
+
+### 3.4. Voz y comportamiento
+
+-   Humor seco, ocasional y breve.
+-   No debe convertirse en un narrador constante.
+-   Sus comentarios deben reaccionar a sucesos importantes: primera
+    visita, jefe derrotado, muerte, pacto, arma legendaria o secreto.
+-   Sus diálogos cambian según la progresión.
+-   No explica el misterio completo al principio.
+-   La bienvenida del Refugio debe identificarlo como Tempo.
+
+**Pendiente de integración:** el prototipo y algunos diálogos antiguos
+utilizan «DJ Virgilio». La nomenclatura narrativa vigente es Tempo. El
+cambio debe aplicarse de forma coherente a diálogos, interfaz,
+documentación y referencias internas cuando se autorice la actualización
+del HUB.
+
+------------------------------------------------------------------------
+
+## 4. El Desafinado
+
+### 4.1. Origen
+
+El Desafinado no es hijo de nadie, heredero de una sangre especial ni
+elegido desde fuera.
+
+Es el fragmento que Tempo no consiguió repetir.
+
+Durante la primera transición, alguien dio un paso fuera de tiempo. La
+torre corrigió el movimiento, pero descartó esa posibilidad. Tras
+innumerables repeticiones, todas las decisiones rechazadas se acumularon
+hasta formar una persona.
+
+Por eso sus tatuajes parecen una partitura incompleta: representan los
+caminos que la canción eliminó.
+
+### 4.2. Naturaleza
+
+El Desafinado no viene de fuera de la prisión. Es la prueba de que la
+prisión nunca logró cerrarse por completo.
+
+Puede introducir algo que la torre no sabe reproducir: una decisión
+distinta.
+
+### 4.3. Motivación
+
+No tiene recuerdos propios. Su impulso es una disonancia física: la
+torre le duele porque intenta corregirlo y no puede. Cada nivel que
+atraviesa es un intento de encontrar la fuente del ruido que no lo deja
+existir en paz.
+
+### 4.4. Reglas de representación
+
+-   No inventar una biografía previa.
+-   No presentarlo como visitante que llega desde el exterior.
+-   Mantener su identidad visual, silueta, ropa, tatuajes y proporciones
+    oficiales.
+-   La historia debe surgir de acciones y descubrimientos, no de largas
+    explicaciones.
+-   Su diferencia se expresa mediante decisiones, movimiento y pequeñas
+    anomalías de la repetición.
+
+------------------------------------------------------------------------
+
+# PARTE II --- LA TORRE Y SU PROGRESIÓN
+
+## 5. Arquitectura general
+
+### 5.1. La torre crece hacia abajo
+
+La torre no es una torre convencional que se eleva hacia el cielo. El
+salón original se hundió y se extendió bajo tierra. Su arquitectura
+conserva rastros de la antigua estación y del club, pero cada nivel ha
+sido deformado por el deseo que lo gobierna.
+
+La progresión principal es un descenso físico:
+
+**Refugio → Acceso → Pista 01 → Pista 02 → Pista 03 → Pista 04 → Pista
+05 → Pista 06 → Pista 07 → Pista 08 → Núcleo → Rey del Compás.**
+
+El Refugio es una zona segura conectada a la torre. No debe contarse
+como uno de los nueve niveles de combate.
+
+### 5.2. Vocabulario espacial
+
+-   **Torre:** la estructura completa.
+-   **Nivel:** posición vertical dentro de la estructura.
+-   **Pista:** identidad temática, musical, ambiental y mecánica de un
+    nivel.
+-   **Sala:** espacio individual dentro de una pista.
+-   **Acceso:** conexión entre el Refugio y la primera pista.
+-   **Núcleo:** nivel inferior donde culmina la repetición.
+-   **Refugio:** espacio seguro desde el que se prepara la incursión y
+    al que se regresa.
+
+### 5.3. Cómo se llega al Refugio en la cinemática
+
+**PROPUESTA NARRATIVA:** la cinemática muestra al protagonista en la
+pista principal. La música se repite antes de terminar. Un golpe grave
+llega desde debajo del suelo. Las luces revelan grietas y un mecanismo
+circular comienza a abrirse. El suelo se retrae y descubre un pozo
+vertical con una plataforma de servicio.
+
+El protagonista cae o queda sobre la plataforma, que desciende por el
+interior de la torre. Durante el trayecto se ven balcones, pasarelas y
+luces de otras pistas a profundidades imposibles. La plataforma llega a
+una zona estable: el Refugio.
+
+La transición explica tres cosas sin diálogo: 1. La discoteca y la torre
+son la misma estructura. 2. La torre continúa hacia abajo. 3. El Refugio
+es un espacio de tregua conectado a esa arquitectura.
+
+No se debe afirmar que el protagonista viene del exterior ni revelar
+quién activó el mecanismo. La apertura puede estar provocada por la
+anomalía musical, pero su causa última permanece desconocida.
+
+### 5.4. Refugio
+
+El Refugio es el HUB, el lugar donde el jugador puede prepararse antes
+de descender.
+
+  -----------------------------------------------------------------------
+  Zona                    Función narrativa y     Estado documental
+                          jugable                 
+  ----------------------- ----------------------- -----------------------
+  Armería                 Elegir, comparar o      Función presente en el
+                          cambiar armas           HUB descrito
+
+  Espacio de Tempo        Conversar y recibir     El personaje existe en
+                          comentarios/pactos      el canon; nombre
+                                                  antiguo pendiente de
+                                                  unificación
+
+  Mapa                    Consultar el avance y   Función prevista del
+                          las rutas               HUB
+
+  Plataforma de incursión Iniciar el descenso     Función prevista del
+                                                  HUB
+
+  Tocadiscos central      Iniciar run y           Diseño definido en el
+                          seleccionar opciones    Documento Maestro
+
+  Estantería de vinilos / Consultar armas,        Diseño definido;
+  Archivo                 objetos, bestiario,     estación física no
+                          testimonios y           verificada en el HUB
+                          grabaciones             actual
+
+  Mesa de mezclas         Gastar recursos         Diseño definido
+                          permanentes en          
+                          desbloqueos             
+
+  Espejo agrietado        Cosméticos y variantes  Diseño definido
+                          del protagonista        
+
+  Sofá roto               Conversaciones con      Diseño definido
+                          Tempo                   
+
+  Ventanas circulares     Mostrar cambios de      Diseño definido
+                          estado del mundo y      
+                          finales                 
+  -----------------------------------------------------------------------
+
+### 5.5. Evolución visual del Refugio
+
+  ---------------------------------------------------------------------
+  Progreso                           Cambio propuesto
+  ---------------------------------- ----------------------------------
+  Inicio                             Oscuridad, neones parpadeantes y
+                                     sensación de espacio abandonado
+
+  Tras el primer jefe                Tempo aparece y comienza a
+                                     conversar
+
+  Tras descubrir testimonios         El Archivo y los elementos de
+                                     memoria adquieren presencia
+
+  Final Compás                       Neones más intensos; la bola de
+                                     espejos gira más rápido
+
+  Final Silencio                     Las ventanas muestran un amanecer
+                                     tenue; la música se suaviza
+
+  Final Contratiempo                 La puerta principal queda abierta
+                                     y entra luz dorada
+  ---------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+## 6. Estructura de una incursión
+
+### 6.1. Bucle general
+
+**Salir del Refugio → acceder a la torre → explorar rutas → combatir →
+conseguir recursos y recompensas → derrotar al soberano → descender →
+llegar al Núcleo → decidir el destino de la noche.**
+
+### 6.2. Estructura de cada nivel
+
+Diseño definido: - Grafo de 8--12 nodos por pista. - 4--5 capas de
+progresión en el mapa. - 2--3 rutas paralelas cuando la generación lo
+permita. - Primera sala de combate. - Última sala: jefe. - Al menos una
+tienda, una sala de curación o tesoro con recurso de curación y una
+armería por pista, siempre que la generación pueda garantizar una ruta
+válida. - Secretos ramificados desde salas de combate. - Mapa revelado
+progresivamente.
+
+Una run no debe obligar a visitar todas las salas. Las rutas deben
+presentar decisiones: seguridad, recompensa, exploración o riesgo.
+
+### 6.3. Tipos de sala
+
+  Sala         Función
+  ------------ --------------------------------------------------------
+  Combate      Resolver amenazas y administrar vida
+  Tesoro       Elegir un objeto entre 2--3 opciones
+  Armería      Cambiar un arma o conservar la build
+  Tienda       Comprar objetos, consumibles o llaves
+  Afinación    Modificar un rasgo de un arma mediante un intercambio
+  Pacto        Aceptar o rechazar una condición a cambio de poder
+  Sacrificio   Pagar vida por una recompensa parcialmente desconocida
+  Secreta      Encontrar lore, objetos raros o subjefes
+  Archivo      Escuchar y registrar fragmentos narrativos
+  Jefe         Superar la prueba del nivel y elegir recompensa
+
+### 6.4. Ritmo de la dificultad
+
+  ---------------------------------------------------------------------
+  Tramo                              Intención
+  ---------------------------------- ----------------------------------
+  Pistas 01--03                      Enseñar reglas individuales,
+                                     amenazas legibles y decisiones
+                                     sencillas
+
+  Pistas 04--06                      Combinar reglas, introducir
+                                     subjefes y presionar la gestión de
+                                     espacio
+
+  Pistas 07--08                      Combinar patrones, engaños y
+                                     memoria de ataques; exigir dominio
+
+  Núcleo                             Reunir lo aprendido sin ocultar
+                                     información esencial
+
+  Rey del Compás                     Prueba final de lectura,
+                                     posicionamiento y adaptación
+  ---------------------------------------------------------------------
+
+La dificultad debe crecer mediante combinaciones de reglas y composición
+de enemigos, no solo aumentando la vida y el daño.
+
+------------------------------------------------------------------------
+
+# PARTE III --- LAS NUEVE PISTAS
+
+Los nombres temáticos de esta sección son **propuestas de nomenclatura**
+para abandonar la etiqueta heredada de los círculos infernales. Los
+soberanos, sus deseos y sus instrumentos se conservan.
+
+## 7. Pista 01 --- La Invitación
+
+**Soberana:** Véspera, la Última Invitación\
+**Tema musical:** bajo\
+**Deseo original:** ser elegida; que alguien se quedara cuando se
+apagaran las luces.
+
+### Identidad del nivel
+
+Una pista de baile de terciopelo negro, lámparas rosas, columnas curvas
+y zonas de luz que parecen escenarios privados. El lugar transmite
+intimidad y atracción, pero sus espacios se cierran cuando el jugador se
+acerca demasiado a determinadas señales.
+
+### Regla musical
+
+Los pulsos graves concentran ataques en zonas de atracción. El jugador
+debe alejarse antes del pulso o aprovechar el desplazamiento para
+reposicionarse.
+
+### Peligro ambiental
+
+Zonas rosas que arrastran al jugador. Bailarines que cierran el paso. La
+iluminación puede reducirse, pero nunca debe ocultar los indicadores de
+peligro.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Sombra abrazadora: se adhiere al jugador y reduce su velocidad;
+    puede eliminarse con daño de área.
+-   Variantes de bailarines que rodean o bloquean rutas.
+
+### Jefa: Véspera
+
+Figura de terciopelo negro, máscara de labios dorados y cables que
+ascienden desde la espalda como hilos de marioneta. Flota sobre una
+pista con forma de corazón roto. Su sombra abraza a alguien aunque ella
+permanezca sola.
+
+**Historia:** antes de la maldición encendía las lámparas del salón.
+Deseaba que alguien se quedara cuando las apagase. La torre le concedió
+un público incapaz de marcharse. Confunde atención con amor.
+
+**Fases:** 1. Pulsos graves arrastran al jugador hacia zonas rosas donde
+los bailarines cierran el paso. 2. Aparece un doble que huye cuando se
+le persigue. Acercarse al doble fortalece a Véspera; ignorarlo revela a
+la verdadera. 3. Apaga todos los focos menos uno, centrado en el
+jugador. Los ataques llegan desde el borde de esa luz.
+
+**Ventana vulnerable:** después de intentar atraer al jugador y no
+conseguir que se acerque.
+
+**Frase:** «No tienes que quererme. Basta con que no te vayas».
+
+**Resolución:** al caer, su sombra la abraza por primera vez.
+
+### Arma legendaria: Última Invitación
+
+Pistola-bajo de cuerpo negro lacado, cuerdas rosas tensadas sobre el
+cañón y cámara acústica con forma de corazón.
+
+-   Dispara orbes lentos que se adhieren a superficies.
+-   Al recargar, los orbes atraen enemigos cercanos y estallan.
+-   Virtud: agrupar enemigos y preparar combos.
+-   Límite: atraer enemigos no garantiza una posición segura.
+-   Sinergia: efectos de área y proyectiles perforantes.
+
+«La fabricó para llamar a alguien. Terminó llamándolos a todos».
+
+### Descubrimiento narrativo
+
+El jugador comprende que la torre transforma una necesidad emocional en
+una regla física. La pista no castiga el deseo de acercarse: convierte
+la atención en una forma de encierro.
+
+------------------------------------------------------------------------
+
+## 8. Pista 02 --- El Banquete
+
+**Soberano:** Voraz, el Anfitrión Hueco\
+**Tema musical:** percusión\
+**Deseo original:** que nunca faltara nada en la mesa.
+
+### Identidad del nivel
+
+Salones de banquete interminables, mesas largas, vajilla rota, hornos
+industriales y cocinas que parecen alimentar a una multitud invisible.
+La abundancia resulta grotesca porque nunca satisface a nadie.
+
+### Regla musical
+
+Cada enemigo puede añadir una capa de percusión. Algunas capas aceleran
+trampas del suelo. No todos los ataques se aceleran: el jugador debe
+identificar qué enemigo sostiene la capa peligrosa.
+
+### Peligro ambiental
+
+Mesas que generan enemigos, bandejas móviles y trampas de suelo que
+responden a la percusión.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Comensal insaciable: devora proyectiles del jugador y los convierte
+    en curación para otros enemigos.
+-   Mesas o elementos de servicio que generan presión adicional.
+
+### Jefe: Voraz
+
+Gigante coronado con vajilla rota. Su abdomen es un horno transparente
+lleno de manos que disponen una mesa interminable. Golpea bandejas con
+dos cucharones de hierro.
+
+**Historia:** durante la Primera Noche repartió su propia ración entre
+quienes llegaban hambrientos. Cuando empezó a amanecer, deseó que nunca
+faltara nada. La torre convirtió su generosidad en una necesidad
+imposible: servirlo todo, consumirlo todo, volver a empezar.
+
+**Fases:** 1. Golpes que proyectan anillos de platos y cubiertos. 2.
+Absorbe alimentos y criaturas de la sala; lo que devora modifica sus
+ataques. 3. Rompe la mesa y lucha con el horno abierto, expulsando
+aquello que nunca pudo digerir.
+
+**Interacción táctica:** destruir platos antes de que los absorba o
+permitirle consumir ciertos alimentos para provocar una sobrecarga.
+
+**Frase:** «Otra ración. Esta vez bastará».
+
+**Resolución:** el horno se apaga. Dentro solo queda una mesa preparada
+para una persona.
+
+### Arma legendaria: Sobremesa
+
+Escopeta de dos cañones de plata ennegrecida, tambor con aspecto de
+sopera y culata de madera chamuscada.
+
+-   Los enemigos abatidos dejan bocados espectrales temporales.
+-   Recogerlos alimenta un disparo secundario más ancho.
+-   Virtud: mantener presión en salas concurridas.
+-   Límite: las cargas duran poco y no curan.
+-   Sinergia: efectos al recoger recursos y daño cercano.
+
+«Nunca se enfrió. Nunca hubo nadie satisfecho».
+
+### Descubrimiento narrativo
+
+La abundancia no es una recompensa cuando no existe la posibilidad de
+sentirse satisfecho. La pista enseña que la repetición también puede
+convertir la generosidad en compulsión.
+
+------------------------------------------------------------------------
+
+## 9. Pista 03 --- La Cámara de los Instantes
+
+**Soberana:** Áurea, la Coleccionista de Instantes\
+**Tema musical:** metales\
+**Deseo original:** conservar los momentos hermosos.
+
+### Identidad del nivel
+
+Galerías de oro envejecido, vitrinas, relojes sin agujas, salones de
+colección y pasillos que contienen escenas congeladas. La riqueza no se
+expresa solo mediante dinero, sino mediante recuerdos convertidos en
+objetos.
+
+### Regla musical
+
+Los mecanismos alternan entre recoger, guardar y expulsar proyectiles.
+El jugador debe elegir cuándo disparar para no alimentar las trampas.
+
+### Peligro ambiental
+
+Vitrinas que reflejan proyectiles, paneles móviles y mecanismos que
+pueden almacenar y devolver disparos.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Vitrina ambulante: refleja proyectiles y debe atacarse por la
+    espalda, donde tiene una junta expuesta.
+-   Guardianes de colección que protegen mecanismos y rutas.
+
+### Jefa: Áurea
+
+Mujer encerrada en un exoesqueleto de oro, sentada sobre un trono de
+relojes sin agujas. Sus dedos son llaves. Dentro del pecho gira una
+pequeña vitrina.
+
+**Historia:** coleccionaba objetos que demostraban que algo hermoso
+había sucedido: una copa, una cinta, una flor seca. La torre le enseñó a
+guardar los instantes completos. Sus vitrinas contienen bailarines
+detenidos en el momento más feliz de sus vidas.
+
+**Fases:** 1. Despliega paneles que reflejan proyectiles y cambian de
+orientación al compás. 2. Encierra temporalmente un recurso del jugador
+---monedas, cargas o arma secundaria--- en una vitrina que puede
+romperse. 3. Sacrifica su colección para reparar la armadura.
+
+**Debilidad:** las juntas de su coraza quedan expuestas cuando cambia de
+postura. No refleja todos los disparos.
+
+**Frase:** «Si nada cambia, nada puede perderse».
+
+**Resolución:** las vitrinas se abren. Una flor cae de su pecho y se
+marchita antes de tocar el suelo.
+
+### Arma legendaria: El Último Centavo
+
+Revólver con tambor de reloj, empuñadura de marfil oscuro y una moneda
+suspendida en la mira.
+
+-   Los proyectiles rebotan una vez.
+-   Si alcanzan a un segundo enemigo, dejan una marca dorada que aumenta
+    el daño del siguiente rebote.
+-   Virtud: encadenar impactos mediante geometría.
+-   Límite: menor eficacia contra un único blanco en espacios abiertos.
+-   Sinergia: rebotes adicionales y efectos sobre enemigos marcados.
+
+«Guardó una moneda para el día siguiente. Ese día nunca llegó».
+
+### Descubrimiento narrativo
+
+La torre no conserva los recuerdos como recuerdos. Los conserva como
+objetos inmóviles. El precio de impedir que algo cambie es impedir que
+siga viviendo.
+
+------------------------------------------------------------------------
+
+## 10. Pista 04 --- La Amplificación
+
+**Soberano:** Brama, el Santo del Ruido\
+**Tema musical:** distorsión\
+**Deseo original:** tener una voz imposible de ignorar.
+
+### Identidad del nivel
+
+Una zona industrial de amplificadores, altavoces, cableado, metal
+ennegrecido y escenarios de sonido. La pista parece una sala de
+conciertos destruida y reconstruida una y otra vez.
+
+### Regla musical
+
+La distorsión anuncia sobrecargas de altavoces y zonas incendiadas. El
+jugador puede destruir las fuentes o utilizarlas contra los enemigos.
+
+### Peligro ambiental
+
+Altavoces que generan conos de presión, zonas incendiadas y fuentes de
+sonido que pueden sobrecargarse.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Altavoz viviente: unidad estacionaria que emite conos de presión;
+    destruirlo libera una descarga.
+-   Enemigos de presión y fuego que obligan a cambiar de posición.
+
+### Jefe: Brama
+
+Criatura de carbón rojo con un amplificador encajado entre las
+costillas. Su garganta está cosida con cuerdas de guitarra. Cada
+movimiento arranca chispas del suelo.
+
+**Historia:** intentó advertir que las puertas estaban desapareciendo.
+Nadie lo escuchó por encima de la música. Pidió una voz imposible de
+ignorar.
+
+**Fases:** 1. Rugidos que crean conos de presión claramente señalados en
+el suelo. 2. Conecta el pecho a los altavoces de la sala. Destruirlos
+reduce su alcance, pero libera descargas. 3. Pierde la voz y comienza a
+golpear el suelo para hacerse oír.
+
+**Frase:** «Ahora sí me oyes».
+
+**Resolución:** intenta decir algo sin gritar. No llega a escucharse.
+
+### Arma legendaria: Garganta Roja
+
+Amplificador roto sujeto a un armazón de guitarra; su interior brilla
+como carbón.
+
+-   Descarga cónica que daña y empuja.
+-   Mantener el disparo aumenta la potencia y acumula calor.
+-   Recargar expulsa el calor en un anillo incendiario.
+-   Virtud: controlar grupos y despejar espacio.
+-   Límite: sobrecalentarse bloquea brevemente el arma.
+-   Sinergia: quemadura, empujes y efectos de recarga.
+
+«Cuando todos lo escucharon, ya no recordaba qué quería decir».
+
+### Descubrimiento narrativo
+
+No toda voz que se impone consigue ser escuchada. La distorsión
+representa el dolor que exige testigos, pero termina destruyendo el
+mensaje.
+
+------------------------------------------------------------------------
+
+## 11. Pista 05 --- La Nota Ausente
+
+**Soberano:** El Obispo de la Nota Ausente\
+**Tema musical:** órgano\
+**Deseo original:** encontrar una respuesta que silenciara la duda.
+
+### Identidad del nivel
+
+Una arquitectura de tubos, cámaras acústicas, pasillos altos, atriles y
+franjas de luz azul. La sala parece un templo construido alrededor de un
+instrumento, pero no debe representarse como un infierno religioso.
+
+### Regla musical
+
+Frases de órgano activan leyes temporales de sala. El jugador debe
+adaptarse a una regla visible que cambia por secciones.
+
+### Peligro ambiental
+
+Franjas consagradas y reglas de sala temporales. Las reglas se muestran
+con símbolos claros y nunca inutilizan los controles.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Acólito del tubo: consagra zonas del suelo; pisarlas causa daño.
+-   Afinadores que intentan corregir cualquier sonido que no pertenezca
+    a la canción.
+
+### Jefe: El Obispo de la Nota Ausente
+
+Figura altísima cuya mitra parece un diapasón. Bajo sus vestiduras no
+hay cuerpo: solo tubos, aire y una pequeña llama azul.
+
+**Historia:** fue quien escuchó primero la presencia antigua bajo el
+salón. Interpretó una vibración como una respuesta y construyó una
+doctrina alrededor de ella. El horror no consiste en que creyera en un
+dios falso, sino en que jamás permitió comprobar si alguien estaba
+escuchando.
+
+**Fases:** 1. Consagra franjas de la sala; los tubos anuncian cuáles se
+volverán peligrosas. 2. Impone una prohibición temporal, como no
+esquivar dos veces seguidas o no permanecer inmóvil. La regla aparece
+con un símbolo visible. 3. Sus tubos empiezan a contradecirse. El
+jugador puede orientar los ataques del órgano contra él.
+
+Romper la prohibición causa un contraataque evitable; nunca bloquea los
+controles.
+
+**Frase:** «La duda es una puerta. Y las puertas deben permanecer
+cerradas».
+
+**Resolución:** la llama sigue ardiendo sin él.
+
+### Arma legendaria: Amén Vacío
+
+Carabina-órgano de tubos de plata, madera azul y pequeños fuelles que
+respiran al apuntar.
+
+-   Alterna ráfagas de tres notas.
+-   Si las tres alcanzan al mismo objetivo, interrumpen un ataque
+    interrumpible.
+-   Contra jefes acumulan ruptura de defensa.
+-   Virtud: precisión y control de objetivos peligrosos.
+-   Límite: fallar una nota rompe la secuencia.
+-   Sinergia: perforación y mejoras de ráfaga.
+
+«Cada disparo termina una plegaria que nadie comenzó».
+
+### Descubrimiento narrativo
+
+La presencia bajo la torre no responde con palabras. La interpretación
+del Obispo convirtió una vibración en una certeza imposible de
+cuestionar.
+
+------------------------------------------------------------------------
+
+## 12. Pista 06 --- El Umbral Encadenado
+
+**Soberano:** El Corazón Encadenado\
+**Tema musical:** golpe\
+**Deseo original:** mantener a todos a salvo.
+
+### Identidad del nivel
+
+Un foso de placas, cadenas, puertas reforzadas, puentes y grandes
+mecanismos de cierre. Su geometría obliga a leer rutas y puntos de
+bloqueo.
+
+### Regla musical
+
+Los enemigos mantienen patrones propios. Sus golpes pueden coincidir. El
+jugador debe separar grupos para evitar ataques superpuestos.
+
+### Peligro ambiental
+
+Cadenas que dividen la arena, golpes que levantan líneas de suelo y
+rutas que se cierran temporalmente.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Cadena errante: se mueve en zigzag y deja rastros que limitan el
+    movimiento.
+-   Tanques y unidades de impacto que fuerzan reposicionamiento.
+
+### Jefe: El Corazón Encadenado
+
+Coloso cubierto de placas y cadenas. En el pecho lleva un enorme tambor
+de piel pálida que late antes de cada ataque. Arrastra un badajo de
+campana como martillo.
+
+**Historia:** fue guardián de las puertas durante la Primera Noche.
+Cuando la multitud entró en pánico, intentó mantenerla a salvo
+cerrándolas. Con el tiempo olvidó la diferencia entre proteger a alguien
+e impedirle salir.
+
+**Fases:** 1. Golpes lentos que levantan líneas de suelo. 2. Las cadenas
+dividen la arena y limitan las rutas. 3. Rompe su armadura y acelera,
+pero el latido de su pecho sigue anunciando cada embestida.
+
+Su ritmo alterna grupos de golpes, pero nunca carece de aviso.
+
+**Frase:** «Detrás de mí estaréis a salvo».
+
+**Resolución:** cae orientado hacia la puerta, todavía intentando
+cubrirla.
+
+### Arma legendaria: Primer Latido
+
+Cañón con forma de tambor de guerra, empuñadura de hierro y péndulo en
+lugar de martillo.
+
+-   Carga un proyectil pesado.
+-   Tras impactar, deja un segundo pulso en el punto de explosión.
+-   Virtud: daño concentrado y ruptura de grupos.
+-   Límite: carga lenta; el segundo pulso puede desperdiciarse.
+-   Sinergia: áreas persistentes y atracción.
+
+«Su primer golpe abrió las puertas. Los siguientes las mantuvieron
+cerradas».
+
+### Descubrimiento narrativo
+
+La protección puede convertirse en prisión cuando deja de permitir que
+alguien elija salir.
+
+------------------------------------------------------------------------
+
+## 13. Pista 07 --- El Salón de las Mil Voces
+
+**Soberano:** El Crupier de las Mil Voces\
+**Tema musical:** voz\
+**Deseo original:** dar a cada invitado lo que quería escuchar.
+
+### Identidad del nivel
+
+Un casino de espejos, escenarios, camerinos, máscaras, palcos y pasillos
+de representación. Todo parece una actuación dentro de otra actuación.
+
+### Regla musical
+
+Algunas voces son señuelos. Una pista visual constante identifica las
+amenazas reales. El jugador debe identificar la fuente fiable sin
+dejarse llevar por el espectáculo.
+
+### Peligro ambiental
+
+Copias, señuelos, voces falsas y ataques anunciados de forma engañosa.
+La vida, los controles y las opciones del jugador nunca mienten.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Eco falso: copia la apariencia del jugador; solo el real proyecta
+    sombra.
+-   Unidades que imitan sonidos de disparos o desvían la atención.
+
+### Jefe: El Crupier de las Mil Voces
+
+Traje impecable ocupado por humo. Su cabeza cambia entre máscaras de
+cantante, niño, anciano y jugador. Nunca habla con una voz propia.
+
+**Historia:** en la Primera Noche prometió a cada invitado exactamente
+lo que quería escuchar. Fue quien convenció al salón de pedir una última
+canción. La torre no le quitó el rostro: le concedió todos los que había
+fingido tener.
+
+**Fases:** 1. Crea varias copias. Solo la verdadera proyecta sombra. 2.
+Anuncia ataques falsos, mientras las señales del suelo mantienen la
+información fiable. 3. Imita los sonidos del arma del jugador para
+ocultar la procedencia de sus disparos.
+
+**Frase:** «No te engañé. Elegiste la voz que preferías».
+
+**Resolución:** pregunta con una voz desconocida: «¿Esta era la mía?».
+
+### Arma legendaria: Palabra Prestada
+
+Micrófono cromado sobre mecanismo de revólver, con un cable que
+desaparece en la empuñadura.
+
+-   Recargar deja un doble estacionario que repite la última ráfaga con
+    daño reducido.
+-   No genera nuevos dobles.
+-   Virtud: fuego cruzado y cobertura de pasillos.
+-   Límite: el doble apunta en la dirección grabada y no persigue
+    blancos.
+-   Sinergia: ráfagas, escopetas y proyectiles con efectos secundarios.
+
+«Conserva una voz para cada ocasión. Ninguna para estar a solas».
+
+### Descubrimiento narrativo
+
+Una identidad construida únicamente para satisfacer a otros acaba sin
+saber qué voz le pertenece.
+
+------------------------------------------------------------------------
+
+## 14. Pista 08 --- El Andén de la Ausente
+
+**Soberana:** Nix, la Voz que Faltaba\
+**Tema musical:** coro\
+**Deseo original:** permanecer juntas y cruzar la salida con su hermana.
+
+### Identidad del nivel
+
+Un andén congelado de hielo negro, raíles, velos blancos, luces frías y
+trenes espectrales. El espacio parece conservar el instante justo
+anterior a una separación.
+
+### Regla musical
+
+La sala recuerda los ataques del jugador y los reproduce después. El
+jugador debe controlar dónde dispara para no cerrarse las rutas futuras.
+
+### Peligro ambiental
+
+Ecos de proyectiles, líneas que dividen la sala y trenes espectrales que
+cruzan raíles señalados.
+
+### Enemigos
+
+-   Bailarines comunes.
+-   Espejo viviente: repite el último ataque del jugador tras una
+    demora.
+-   Ecos que reproducen ataques desde el lado contrario.
+
+### Jefa: Nix, la Voz que Faltaba
+
+Figura de hielo negro y velo blanco. La rodean ocho siluetas que cantan
+sin mover la boca. Todas tienen un hueco donde debería estar el corazón.
+
+**Historia:** Nix y su hermana prometieron abandonar juntas la fiesta.
+Cuando apareció una salida, solo una podía cruzarla antes del siguiente
+compás. Nix cruzó. La torre conservó el instante anterior a su decisión
+y la encerró dentro. Desde entonces oye a su hermana en todas las voces
+menos en la suya.
+
+**Fases:** 1. Sus ecos repiten los ataques que acaba de usar el jugador.
+2. Marca una línea que divide la sala. Los ecos disparan desde el lado
+contrario. 3. Acumula los proyectiles disparados durante una frase
+musical y los devuelve en la siguiente.
+
+Dejar de disparar no la daña mágicamente: impide que cargue el
+contraataque y abre una ventana segura para atacar después.
+
+**Frase:** «Dijo que venía detrás de mí».
+
+**Resolución:** las ocho voces se extinguen. Una novena responde: «Lo
+sé».
+
+### Arma legendaria: Venías Detrás
+
+Arma especular formada por dos placas de espejo separadas por un pequeño
+vacío. El cañón solo se distingue en el reflejo.
+
+-   Cada ráfaga deja una imagen del jugador.
+-   Un instante después, reproduce la ráfaga desde la posición anterior.
+-   Virtud: atacar mientras te retiras y cubrir dos ángulos.
+-   Límite: exige planificar la posición; el eco no copia consumibles ni
+    produce ecos.
+-   Sinergia: movilidad y efectos que recompensan cambiar de posición.
+
+«Siempre hay alguien un paso más atrás».
+
+### Descubrimiento narrativo
+
+La torre conserva el instante anterior a la decisión, pero no puede
+devolver a las personas la posibilidad de elegir de nuevo.
+
+------------------------------------------------------------------------
+
+## 15. Pista 09 --- El Núcleo
+
+**Soberano:** El Rey del Compás\
+**Tema musical:** nota sostenida\
+**Deseo original:** no tener que despedirse.
+
+### Identidad del nivel
+
+El centro de la torre no es una sala convencional. Es un vacío donde
+fragmentos de los niveles anteriores flotan o se reconstruyen. La
+arquitectura parece una memoria incompleta de toda la fiesta.
+
+### Regla musical
+
+Desaparece el acompañamiento, pero permanecen las anticipaciones
+visuales y los sonidos de combate. El jugador debe reconocer patrones
+sin depender de la canción que los contextualizaba.
+
+### Peligro ambiental
+
+Fragmentos de salas anteriores y combinaciones de peligros de las ocho
+pistas. Las combinaciones deben ser legibles y no aparecer todas a la
+vez.
+
+### Enemigos
+
+-   Fragmentos: combinan comportamientos de dos pistas.
+-   Ecos de enemigos y peligros aprendidos.
+-   Anclajes que sostienen la repetición durante el combate final.
+
+### Jefe: El Rey del Compás
+
+Primero parece una bola de espejos suspendida en el vacío. Cuando se
+agrieta, sus fragmentos descienden y forman un cuerpo. La corona dibuja
+las orejas del zorro del emblema. No tiene un rostro fijo: cada espejo
+muestra a alguien que alguna vez quiso detener el tiempo.
+
+**Historia:** fue el anfitrión de la Primera Noche. No deseó vivir
+eternamente. Deseó no tener que despedirse.
+
+**Frase:** «No les robé la vida. Les ahorré el último instante».
+
+### Combate final: tres fases
+
+**Fase I --- El espejo** - El Rey permanece dentro de la esfera. - Sus
+paneles reproducen ataques de jefes anteriores. - Antes de cada
+combinación, dos fragmentos muestran las siluetas correspondientes. - El
+jugador puede anticipar qué reglas se mezclarán. - Al vaciar la primera
+barra, la esfera se rompe.
+
+**Fase II --- La corona** - Los espejos forman el cuerpo del Rey. - Usa
+versiones de algunas armas equipadas por el jugador. - No copia toda la
+build: toma un rasgo reconocible y lo incorpora a ataques legibles. -
+Frase: «Si eres distinto, ¿por qué siempre vuelves?».
+
+**Fase III --- La última vuelta** - La corona se conecta a la cadena. -
+La arena reconstruye salas visitadas durante esa run. - El jugador
+destruye los anclajes que sostienen la repetición mientras sobrevive a
+patrones conocidos. - Cada anclaje roto borra una capa del escenario. -
+Cuando cae el último, queda el suelo blanco.
+
+**Golpe final** El Rey pierde la corona y cae de rodillas. El jugador
+conserva el control, pero el combate ha terminado.
+
+Rey: «No quería que el mañana les quitara lo que tenían».
+
+Tempo aparece al otro lado de la cadena.
+
+Tempo: «Y por eso les quitamos todos los mañanas».
+
+La corona y la cadena quedan como dos elementos interactivos. El final
+depende de una elección explícita.
+
+### Arma legendaria: Punto Final / Silencio
+
+Pistola del Núcleo: una grieta negra sostenida por una empuñadura
+blanca. No tiene cargador visible ni fogonazo.
+
+-   Daño moderado.
+-   Al llenar su propia carga, la siguiente recarga crea una zona breve
+    que disuelve proyectiles comunes e interrumpe mecanismos musicales
+    de sala.
+-   Virtud: convertir presión enemiga en oportunidad de
+    reposicionamiento.
+-   Límite: no elimina ataques de contacto, peligros del suelo ni todas
+    las habilidades de jefe.
+-   Sinergia: recarga, supervivencia y builds de corta distancia.
+
+«No mata la canción. Le permite terminar».
+
+------------------------------------------------------------------------
+
+# PARTE IV --- PERSONAJES SECUNDARIOS Y SECRETOS
+
+## 16. Entidades menores
+
+### 16.1. Bailarines
+
+Invitados de la Primera Noche que han perdido su identidad. Se mueven en
+patrones repetitivos y actúan como enemigos básicos. No son malvados:
+están atrapados en el compás.
+
+### 16.2. Afinadores
+
+Criaturas delgadas con diapasones que patrullan los pasillos. Su función
+es corregir cualquier sonido que no pertenezca a la canción. Reconocen
+al Desafinado como una herida abierta.
+
+### 16.3. La Escucha
+
+Presencia sin rostro bajo el salón. No tiene intenciones ni
+personalidad. Es un mecanismo que devuelve lo que recibe. Su zumbido
+grave se intensifica en el Núcleo.
+
+## 17. Subjefes y encuentros secretos
+
+### 17.1. El Portero sin Rostro
+
+**Ubicación:** acceso a la torre, primera run o ruta alternativa.\
+**PV de referencia:** 2.000.\
+**Fases:** 2.
+
+Mecánicas: - Extiende cordones que dividen la sala en corredores. -
+Estampa sellos en el suelo que detonan tras una pausa. - Marca al
+jugador como «no admitido» y convoca guardias que empujan hacia
+trampas. - En la fase final se arranca la lista del rostro y la
+convierte en una bandada de entradas cortantes.
+
+**Recompensa:** Entrada sin nombre, que abre una sala de acceso
+alternativa en futuras runs.\
+**Frase:** «Tu nombre no aparece. Tu ausencia, sí».
+
+### 17.2. Las Gemelas del Bis
+
+**Ubicación:** sala secreta que puede aparecer entre las pistas.\
+**PV de referencia:** 1.500 por gemela.\
+**Fases:** dos individuales y una para la superviviente.
+
+Mecánicas: - Una dispara mientras la otra delimita zonas con una
+cinta. - Intercambian posiciones tras una señal visible. - Al caer la
+primera, la superviviente combina ambos patrones. - Si se derrotan con
+menos de tres segundos de diferencia, la cinta queda intacta y entrega
+una recompensa especial.
+
+**Frase:** «Esta vez tú terminas. Esta vez yo empiezo».
+
+### 17.3. El Afinador Ciego
+
+**Ubicación:** pista de la Nota Ausente; guardián de salas de mejora.\
+**PV de referencia:** 2.200.\
+**Fases:** 2.
+
+Mecánicas: - Proyecta líneas que, tras vibrar, se convierten en
+cuchillas. - Coloca resonadores que alteran la trayectoria de
+proyectiles enemigos. - Los resonadores pueden destruirse durante su
+ataque principal para romper su protección.
+
+**Recompensa:** permite modificar un rasgo de arma con tres resultados
+visibles a elegir.\
+**Frase:** «No estás equivocado. Estás fuera de sitio».
+
+### 17.4. La Novia del Último Tren
+
+**Ubicación:** sala secreta de salida, pistas intermedias.\
+**PV de referencia:** 3.000.\
+**Fases:** 3.
+
+Mecánicas: - Raíles anuncian el paso de trenes espectrales. - Abre una
+maleta y libera objetos que orbitan como proyectiles. - En la fase final
+aparecen varias versiones; solo la que lleva maleta proyecta sombra.
+
+**Recompensa:** Billete al Amanecer, pieza del final Contratiempo.\
+**Frase:** «El próximo. Me iré en el próximo».
+
+### 17.5. El Aplauso
+
+**Ubicación:** sala secreta de la Cámara de los Instantes o del Salón de
+las Mil Voces.\
+**PV de referencia:** 2.800.\
+**Fases:** 2.
+
+Mecánicas: - Cuanto más tiempo dispara el jugador sin cambiar de
+posición, más manos lo señalan. - Los aplausos anuncian oleadas de
+proyectiles en abanico. - En la fase final el palco se abre y revela un
+asiento con la silueta del protagonista.
+
+**Recompensa:** Máscara sin Público, que permite entrar en la Cabina
+Original sin que la torre anuncie la llegada.\
+**Frase:** «Otra vez. Esta vez ha estado casi perfecto».
+
+### 17.6. Tempo, el Último que Recuerda
+
+**Ubicación:** Cabina Original, tras la pista de Nix, en la ruta del
+final Contratiempo.\
+**PV de referencia:** 6.000.\
+**Fases:** 3.
+
+**Fase I --- Mezcla perfecta** - Combina patrones de dos pistas. - Dos
+platos muestran qué pistas mezcla. - Un deslizador central anuncia cuál
+domina. - Destruir conexiones de la mesa abre ventanas de daño.
+
+**Fase II --- La versión que te falta** - Reproduce hasta tres acciones
+recientes del jugador mediante siluetas grabadas: trayectoria, ráfaga o
+esquiva. - Las siluetas ejecutan sus acciones tras una cuenta atrás
+visible.
+
+**Fase III --- Sin auriculares** - Una descarga rompe la mesa. - Los
+auriculares caen. - Tempo utiliza ondas incompletas con huecos
+cambiantes. - Ya no usa copias ni instrumentos ajenos.
+
+**Recompensa:** acceso al Núcleo modificado para Contratiempo y
+desbloqueo de Tempo como personaje jugable.\
+**Frase:** «Los recuerdas un instante. Yo los he recordado siempre».
+
+------------------------------------------------------------------------
+
+# PARTE V --- ARSENAL, OBJETOS Y SINERGIAS
+
+## 18. Filosofía del arsenal
+
+El arsenal debe ofrecer estilos de juego diferentes, no una escalera en
+la que cada arma nueva sea siempre más poderosa.
+
+Cada arma define el ataque base. Los objetos transforman su
+comportamiento. Los pactos introducen una ventaja a cambio de una
+condición explícita.
+
+### 18.1. Familias de armas
+
+  -----------------------------------------------------------------------
+  Familia                 Fortaleza               Limitación
+  ----------------------- ----------------------- -----------------------
+  Pistolas                Precisión y equilibrio  Poco control de grupos
+
+  Revólveres              Impactos fuertes y      Cargador pequeño
+                          marcas                  
+
+  Subfusiles              Activación frecuente de Menor daño por impacto
+                          efectos                 
+
+  Rifles                  Precisión sostenida     Exigen controlar
+                                                  ráfagas
+
+  Escopetas               Control cercano         Dispersión y exposición
+
+  Cañones y lanzadores    Área y ruptura          Carga o recarga lenta
+
+  Haces y energía         Daño continuo o cadenas Calor, posición o
+                                                  apuntado
+
+  Armas cuerpo a cuerpo   Control cercano y       Exigen acercarse
+                          golpes especiales       
+
+  Arcos                   Proyectiles tensados y  Preparación del disparo
+                          efectos direccionales   
+
+  Instrumentos y míticas  Reglas singulares       Requieren aprender su
+                                                  funcionamiento
+  -----------------------------------------------------------------------
+
+Las armas comunes no utilizan munición recogida del suelo. Tienen
+cargador interno y recarga manual o automática. Las armas especiales
+pueden utilizar calor, carga o reserva propia, siempre indicada.
+
+### 18.2. Rareza
+
+-   **Común:** mejora directa o efecto sencillo.
+-   **Inusual:** cambia una decisión habitual.
+-   **Raro:** combina dos sistemas.
+-   **Maldito:** ofrece poder con un perjuicio explícito.
+-   **Legendario:** propone una forma completa de jugar.
+
+Una pistola común bien combinada debe poder terminar una run.
+
+## 19. Las nueve armas legendarias
+
+  ------------------------------------------------------------------------
+  Pista            Arma             Tipo                Identidad
+  ---------------- ---------------- ------------------- ------------------
+  01               Última           Pistola-bajo        Atracción y
+                   Invitación                           explosión
+                                                        retardada
+
+  02               Sobremesa        Escopeta            Recolección y
+                                                        disparo secundario
+
+  03               El Último        Revólver            Rebotes y marcas
+                   Centavo                              
+
+  04               Garganta Roja    Amplificador        Cono de daño,
+                                                        empuje y calor
+
+  05               Amén Vacío       Carabina-órgano     Ráfagas de tres
+                                                        notas y ruptura
+
+  06               Primer Latido    Cañón               Impacto pesado y
+                                                        segundo pulso
+
+  07               Palabra Prestada Micrófono-pistola   Doble que repite
+                                                        una ráfaga
+
+  08               Venías Detrás    Arma especular      Eco de disparo
+                                                        desde posición
+                                                        anterior
+
+  09               Punto Final /    Pistola del Núcleo  Zona que disuelve
+                   Silencio                             proyectiles
+                                                        comunes
+  ------------------------------------------------------------------------
+
+Regla de desbloqueo: derrotar por primera vez a un jefe incorpora su
+arma legendaria al conjunto de recompensas de futuras runs. La
+recompensa temática de esa victoria no tiene por qué ser el arma
+legendaria. Las legendarias son posibilidades de build, no llaves
+obligatorias para los finales.
+
+## 20. Catálogo heredado de 120 armas
+
+El proyecto contiene un catálogo de 120 entradas jugables en una rama de
+prototipo. Este catálogo se conserva como **arsenal heredado**, no como
+canon narrativo automático. Su presencia en el prototipo no significa
+que todas las armas tengan todavía una historia, una función dentro de
+una pista o una identidad visual final aprobada.
+
+### 20.1. Pistolas y revólveres
+
+1.  Pistola clásica
+2.  Revólver
+3.  Láser
+4.  Ráfaga
+5.  Needler
+6.  Plasma
+7.  Magnum
+8.  Silenciada
+9.  Desert Eagle
+10. Explosiva
+11. De veneno
+12. De hielo
+
+### 20.2. Escopetas
+
+13. Escopeta
+14. Super escopeta
+15. Escopeta automática
+16. De cañón
+17. De fuego
+18. De hielo
+19. Eléctrica
+20. Táctica
+21. Doble
+22. De gancho
+23. Flechetes
+24. Incendiaria
+
+### 20.3. Fusiles
+
+25. Fusil de asalto
+26. AK-47
+27. M4
+28. FAMAS
+29. SCAR
+30. G36
+31. AUG
+32. Táctico
+33. Pulsos
+34. Láser
+35. De precisión
+36. Bullpup
+
+### 20.4. Pesadas y lanzadores
+
+37. Ametralladora
+38. Minigun
+39. LMG neón
+40. Pesado
+41. Lanzacohetes
+42. Lanzagranadas
+43. Cañón de rieles
+44. BFG
+45. Mortero
+46. Rotatorio
+47. Lanzallamas
+48. Artillería
+
+### 20.5. Energía
+
+49. Plasma cutter
+50. Rayo continuo
+51. Rayo Tesla
+52. Cañón plasma
+53. Partículas
+54. Haz de energía
+55. Rayo cadenas
+56. Orbe energía
+57. Láser triple
+58. Cañón sónico
+59. Pistola tóxica
+60. Lanza ácido
+
+### 20.6. Elementales
+
+61. Fuego
+62. Hielo
+63. Eléctrica
+64. Veneno
+65. Nube tóxica
+66. Meteoritos
+67. Congelación
+68. Relámpagos
+69. Tormenta
+70. Arena
+71. Gravedad
+72. Vacío
+
+### 20.7. Especiales
+
+73. Gravity gun
+74. Portal gun
+75. Dron
+76. Torreta
+77. Satélites
+78. Mina
+79. Trampa láser
+80. Ancla
+81. Teletransportador
+82. Generador de paredes
+83. Clonador
+84. Orbes orbitales
+
+### 20.8. Cuerpo a cuerpo
+
+85. Espada láser
+86. Katana
+87. Hacha
+88. Martillo
+89. Guadaña
+90. Manoplas
+91. Bate
+92. Sierra circular
+93. Cadena
+94. Lanza
+95. Cuchillo
+96. Alabarda
+
+### 20.9. Míticas y especiales
+
+97. Ray gun
+98. Thundergun
+99. Wunderwaffe
+100. Winter's Howl
+101. Wave gun
+102. Bastón de fuego
+103. Bastón de hielo
+104. Bastón de rayo
+105. Bastón de viento
+106. Arco ancestral
+107. Arco del lobo
+108. Arco de fuego
+109. Arco del vacío
+110. Arco de tormenta
+111. Devoracaos
+112. Harvester
+113. Espada de energía
+114. Espada caos
+115. Lanza espectral
+116. Orbe del abismo
+117. Bomba flotante
+118. Summon infernal
+119. Dragón espiritual
+120. Director
+
+**Regla de integración propuesta:** cada arma heredada debe recibir,
+antes de considerarse definitiva, una ficha con nombre final, familia,
+función táctica, coste o limitación, etiquetas de sinergia, pista o
+procedencia, silueta visual y estado de balance. Las armas que no
+encajen con la identidad del universo pueden conservar su mecánica y
+recibir una reinterpretación visual/narrativa; no se debe cambiar una
+mecánica estable sin revisar su equilibrio.
+
+**Pendiente:** el catálogo heredado incluye nombres genéricos,
+anglicismos y referencias de tono diferente. También hay diferencias de
+conteo entre comentarios de código y tablas de verificación. El
+inventario de 120 nombres no debe confundirse con las nueve armas
+legendarias del canon.
+
+## 21. Objetos pasivos
+
+  ----------------------------------------------------------------------
+  Objeto           Etiquetas        Efecto           Función en la build
+  ---------------- ---------------- ---------------- -------------------
+  Aguja Torcida    Desafine         El primer        Premia movilidad y
+                                    disparo tras     reposicionamiento
+                                    esquivar         
+                                    atraviesa un     
+                                    enemigo          
+
+  Labios de Neón   Atracción, Marca El último        Concentrar
+                                    enemigo          objetivos
+                                    alcanzado queda  
+                                    marcado; la      
+                                    atracción es más 
+                                    fuerte sobre él  
+
+  Hambre de        Recogida,        Tras recoger     Supervivencia al
+  Cristal          Barrera          varios recursos, combatir
+                                    otorga una       
+                                    barrera de un    
+                                    impacto; no      
+                                    acumula más de   
+                                    una              
+
+  Reloj            Recarga, Demora  Al terminar de   Ventana defensiva
+  Embalsamado                       recargar,        
+                                    ralentiza        
+                                    brevemente       
+                                    proyectiles      
+                                    enemigos         
+                                    cercanos         
+
+  Cerilla que      Quemadura,       Romper la        Daño de área
+  Grita            Ruptura          defensa de un    
+                                    enemigo deja una 
+                                    pequeña zona de  
+                                    fuego            
+
+  Diente de        Impacto,         Los impactos     Daño encadenado
+  Campana          Resonancia       fuertes acumulan 
+                                    resonancia; al   
+                                    llenarla, el     
+                                    enemigo emite    
+                                    una onda que     
+                                    daña a otros     
+
+  Firma Falsa      Eco, Recarga     El primer        Repetición limitada
+                                    proyectil tras   
+                                    recargar genera  
+                                    una copia        
+                                    debilitada; las  
+                                    copias no        
+                                    producen copias  
+
+  Hilo de la       Movimiento,      Deja un hilo     Control espacial
+  Ausente          Demora           entre el inicio  
+                                    y el final de    
+                                    una esquiva;     
+                                    tras una pausa   
+                                    corta a los      
+                                    enemigos que lo  
+                                    atraviesan       
+
+  Corazón sin      Supervivencia,   Si pasan unos    Premia crear
+  Público          Aislamiento      segundos sin     distancia
+                                    enemigos cerca,  
+                                    recupera una     
+                                    pequeña barrera  
+                                    temporal         
+
+  Entrada de Papel Exploración      Revela la        Decisión de ruta
+  Negro                             categoría de una 
+                                    sala adyacente   
+                                    sin descubrir    
+                                    todo el mapa     
+  ----------------------------------------------------------------------
+
+## 22. Objetos activos
+
+Los activos se recargan al completar combates. Recibir daño o esperar no
+genera cargas.
+
+  -----------------------------------------------------------------------
+  Objeto           Efecto                         Cargas Uso
+  ---------------- ---------------- -------------------- ----------------
+  Apagón de        Desactiva                           2 Crear una
+  Bolsillo         temporalmente                         ventana de
+                   trampas y                             seguridad
+                   fuentes                               
+                   musicales de la                       
+                   sala                                  
+
+  Campana de       Empuja enemigos                     2 Evitar un cerco
+  Salida           y disuelve                            
+                   proyectiles                           
+                   comunes cercanos                      
+
+  Copa del Ausente Convierte parte                     1 Preparar un
+                   de la vida                            encuentro
+                   actual en                             
+                   barrera                               
+                   temporal; no                          
+                   puede matar al                        
+                   jugador                               
+
+  Disco Rayado     Repite una vez                      3 Potenciar un
+                   la siguiente                          ataque preparado
+                   ráfaga con daño                       
+                   reducido                              
+
+  Llave del        Abre un acceso a                    1 Exploración
+  Camerino         una pequeña sala                      
+                   especial cuando                       
+                   se usa en una                         
+                   sala despejada                        
+                   válida                                
+  -----------------------------------------------------------------------
+
+## 23. Consumibles y recursos
+
+### 23.1. Consumibles
+
+  ---------------------------------------------------------------------
+  Consumible                         Efecto
+  ---------------------------------- ----------------------------------
+  Ampolla de Aurora                  Recupera vida
+
+  Llave Hueca                        Abre una cerradura normal
+
+  Carga de Resonancia                Rompe muros agrietados y daña
+                                     enemigos en área
+
+  Vale del Anfitrión                 Permite una compra con descuento;
+                                     no es gratuita
+
+  Fragmento de Espejo                Revela una pared secreta en el
+                                     nivel actual
+  ---------------------------------------------------------------------
+
+La ruta principal nunca debe exigir un consumible concreto para poder
+continuar.
+
+### 23.2. Recursos de la run
+
+  -----------------------------------------------------------------------
+  Recurso                 Función                 ¿Se pierde al morir?
+  ----------------------- ----------------------- -----------------------
+  CR / Cromos Rotos       Compras y servicios     Sí
+
+  Llaves                  Cofres y cerraduras     Sí
+
+  Cargas de resonancia    Muros secretos y uso    Sí
+                          ofensivo                
+
+  Vida                    Supervivencia           Sí
+
+  Barrera                 Protección temporal     Sí
+
+  Fragmentos narrativos   Lore y Archivo          No
+
+  Ecos                    Progresión permanente   No, según diseño
+                          del Refugio             
+
+  Fragmentos de Disco     Progresión permanente y No, según diseño
+                          secretos                
+  -----------------------------------------------------------------------
+
+Los nombres y reglas exactos de recursos permanentes deben mantenerse
+consistentes en interfaz y documentación.
+
+## 24. Pactos de Tempo
+
+Antes de aceptar un pacto se muestran el beneficio y el coste completos.
+Rechazarlo no tiene penalización.
+
+  -----------------------------------------------------------------------
+  Pacto                   Beneficio               Coste
+  ----------------------- ----------------------- -----------------------
+  Aplauso Automático      +25 % de daño           Cada cierto número de
+                                                  ráfagas aparece una
+                                                  onda enemiga alrededor
+                                                  del punto desde el que
+                                                  disparaste
+
+  Paso Prestado           La primera esquiva de   La siguiente esquiva
+                          cada combate deja un    tarda más en
+                          doble que atrae ataques recuperarse
+
+  Sangre en el Surco      Mejora ofensiva         Pierdes un contenedor
+                          importante              de vida
+
+  Bis                     La próxima recompensa   Debes superar una
+                          de jefe ofrece una      segunda oleada antes de
+                          opción adicional        recogerla
+
+  Compás de Hierro        Protección al alternar  Recargar repetidamente
+                          disparo y recarga       sin disparar no activa
+                                                  el efecto
+  -----------------------------------------------------------------------
+
+Cada pacto cambia un hábito del jugador. No debe limitarse a sumar o
+restar estadísticas.
+
+## 25. Sinergias documentadas
+
+  ---------------------------------------------------------------------
+  Combinación                        Resultado
+  ---------------------------------- ----------------------------------
+  Última Invitación + Cerilla que    Agrupa enemigos; romper la defensa
+  Grita                              de uno incendia el punto de
+                                     reunión
+
+  Primer Latido + Diente de Campana  El impacto y su pulso retardado
+                                     acumulan resonancia con rapidez
+
+  Venías Detrás + Hilo de la Ausente La esquiva crea una línea de daño
+                                     mientras el eco repite la ráfaga
+
+  Palabra Prestada + Aguja Torcida   Un disparo perforante preparado
+                                     tras esquivar queda grabado en el
+                                     doble
+
+  Sobremesa + Hambre de Cristal      Los bocados espectrales alimentan
+                                     el disparo secundario y la barrera
+
+  Garganta Roja + Cerilla que Grita  El anillo de recarga puede romper
+                                     defensas y dejar zonas de fuego
+  ---------------------------------------------------------------------
+
+### 25.1. Reglas anti-infinito
+
+-   Los ecos no generan ecos.
+-   Los recursos creados por objetos no pueden activar su propia
+    creación.
+-   El control sobre jefes se convierte en acumulación limitada de
+    ruptura.
+-   Las acumulaciones tienen límites visibles.
+-   Ninguna sinergia debe ocultar al jugador qué la activó.
+
+------------------------------------------------------------------------
+
+# PARTE VI --- BESTIARIO
+
+## 26. Enemigos comunes transversales
+
+  ---------------------------------------------------------------------
+  Enemigo                            Comportamiento
+  ---------------------------------- ----------------------------------
+  Bailarín errante                   Camina hacia el jugador y ataca al
+                                     contacto
+
+  Bailarín de corro                  Gira en círculo y lanza
+                                     proyectiles radiales
+
+  Bailarín de línea                  Se mueve en línea recta y rebota
+                                     en paredes
+
+  Bailarín de pausa                  Se congela entre pulsos y ataca en
+                                     ráfaga durante el pulso
+
+  Bailarín                           Se mueve en diagonal, amaga y se
+                                     lanza tras dos compases
+
+  Sprinter                           Corre en línea recta; la pared lo
+                                     detiene
+
+  Tanque                             Avanza lentamente; su golpe de
+                                     suelo abre surcos
+
+  Tirador                            Mantiene distancia y dispara en
+                                     ráfagas de tres
+
+  Élite                              Mezcla carga y disparo; reserva un
+                                     compás de ventaja
+  ---------------------------------------------------------------------
+
+Los cuatro primeros son arquetipos del bestiario narrativo. Bailarín,
+Sprinter, Tanque, Tirador y Élite son familias registradas en el
+prototipo. Deben unificarse en una nomenclatura única cuando se
+consolide el bestiario final.
+
+## 27. Enemigos específicos por pista
+
+  -----------------------------------------------------------------------
+  Pista                   Enemigo                 Comportamiento
+  ----------------------- ----------------------- -----------------------
+  Invitación              Sombra abrazadora       Se adhiere al jugador y
+                                                  reduce velocidad;
+                                                  vulnerable al daño de
+                                                  área
+
+  Banquete                Comensal insaciable     Devora proyectiles y
+                                                  los convierte en
+                                                  curación para otros
+                                                  enemigos
+
+  Cámara de los Instantes Vitrina ambulante       Refleja proyectiles;
+                                                  tiene una junta
+                                                  expuesta por detrás
+
+  Amplificación           Altavoz viviente        Emite conos de presión;
+                                                  puede destruirse
+
+  Nota Ausente            Acólito del tubo        Consagra zonas del
+                                                  suelo
+
+  Umbral Encadenado       Cadena errante          Se mueve en zigzag y
+                                                  deja rastros que
+                                                  limitan el movimiento
+
+  Mil Voces               Eco falso               Copia la apariencia del
+                                                  jugador; solo el real
+                                                  proyecta sombra
+
+  Andén de la Ausente     Espejo viviente         Repite el último ataque
+                                                  del jugador tras una
+                                                  demora
+
+  Núcleo                  Fragmento               Combina comportamientos
+                                                  de dos pistas
+  -----------------------------------------------------------------------
+
+------------------------------------------------------------------------
+
+# PARTE VII --- MÚSICA Y REGLAS DEL MUNDO
+
+## 28. Música sistémica
+
+La música no es una prueba de ritmo. Es la arquitectura invisible de los
+encuentros.
+
+Cada sala genera una combinación de tres parámetros:
+
+  Parámetro               Función
+  ----------------------- ----------------------------------------------------------
+  Pulso                   Cuándo actúan los enemigos y se producen ciertas oleadas
+  Instrumento dominante   Tipo de amenaza que predomina
+  Variación               Modificación temporal del combate
+
+Toda señal musical importante tiene equivalente visual. Desactivar o
+bajar el audio no cambia el daño ni penaliza al jugador.
+
+### 28.1. Identidad musical por pista
+
+  -----------------------------------------------------------------------
+  Pista                   Instrumento             Regla
+  ----------------------- ----------------------- -----------------------
+  Invitación              Bajo                    Pulsos de atracción
+
+  Banquete                Percusión               Capas de enemigos que
+                                                  pueden acelerar trampas
+
+  Cámara de los Instantes Metales                 Mecanismos que recogen,
+                                                  guardan y expulsan
+                                                  proyectiles
+
+  Amplificación           Distorsión              Sobrecargas y zonas
+                                                  incendiadas
+
+  Nota Ausente            Órgano                  Leyes temporales de
+                                                  sala
+
+  Umbral Encadenado       Golpe                   Patrones de impacto y
+                                                  ataques que pueden
+                                                  coincidir
+
+  Mil Voces               Voz                     Señuelos y fuentes
+                                                  falsas
+
+  Andén de la Ausente     Coro                    La sala recuerda y
+                                                  reproduce ataques
+
+  Núcleo                  Nota sostenida /        Combinaciones de reglas
+                          ausencia de             anteriores y señales
+                          acompañamiento          visuales
+  -----------------------------------------------------------------------
+
+### 28.2. Variaciones de sala
+
+-   **Contratiempo:** una familia enemiga actúa entre los pulsos
+    principales.
+-   **Solo:** un enemigo sostiene la capa musical que potencia al resto.
+-   **Corte:** pausas anunciadas detienen trampas, no al jugador.
+-   **Reprise:** una oleada repite el patrón anterior con otra
+    distribución.
+-   **Crescendo:** la sala se intensifica por etapas dentro de límites
+    definidos.
+
+Las combinaciones incompatibles no aparecen juntas.
+
+### 28.3. Consecuencia de derrotar a un soberano
+
+Derrotar a un jefe retira su instrumento de la mezcla del descenso
+actual. Los niveles siguientes reinterpretan el tema con las capas
+restantes. Al morir, la instrumentación completa regresa: Tempo ha
+reiniciado la mezcla.
+
+------------------------------------------------------------------------
+
+# PARTE VIII --- NARRATIVA ENTRE RUNS Y FINALES
+
+## 29. Cómo se descubre la historia
+
+La historia aparece en elementos breves, no en largas interrupciones:
+
+1.  Surcos de vinilo escondidos en salas secretas.
+2.  Diálogos que cambian tras derrotar a un jefe con su propia
+    legendaria.
+3.  Una grabación donde Tempo usa el nombre humano de un monstruo.
+4.  Un espejo que muestra al protagonista antes de su supuesto
+    nacimiento.
+5.  La última grabación, que no contiene una canción, sino a Tempo
+    diciendo «solo una más».
+6.  El Archivo del Refugio, que reúne los fragmentos encontrados.
+
+Los testimonios deben revelar progresivamente los nombres y las
+decisiones de los nueve prisioneros. No deben convertir la historia en
+una enciclopedia obligatoria antes de jugar.
+
+## 30. Final Compás --- Tomar la corona
+
+El Desafinado se convierte en el nuevo centro de la repetición.
+
+Las pistas vuelven a encenderse. Los jefes recuperan su forma
+monstruosa. Tempo inicia la canción con una variación mínima: ahora hay
+un instrumento que reproduce el sonido del arma con la que venciste.
+
+El último plano muestra al nuevo Rey intentando mover la mano después de
+que su reflejo ya lo haya hecho.
+
+**Has ganado la run. La noche ha ganado al protagonista.**
+
+## 31. Final Silencio --- Romper la cadena
+
+La esfera cae, pero sus fragmentos se detienen antes de tocar el suelo.
+
+Cada uno devuelve a un invitado su último recuerdo anterior a la
+maldición. Vemos manos soltándose, máscaras cayendo y personas
+reconociéndose.
+
+El tiempo retenido vuelve a transcurrir.
+
+Tempo escucha, por primera vez, el final del disco.
+
+«Era esto».
+
+El surco llega al centro. Se oye el clic de la aguja.
+
+**Amanecer.**
+
+## 32. Final Contratiempo --- La despedida posible
+
+Es el final secreto. Se desbloquea reuniendo testimonios que revelan los
+nombres de los nueve prisioneros y encontrando las piezas necesarias:
+
+-   Billete al Amanecer.
+-   Máscara sin Público.
+-   Surco original.
+-   Testimonios de los nueve prisioneros.
+
+No se desbloquea acumulando nueve armas en el inventario.
+
+Tras derrotar a Tempo en la Cabina Original, el Desafinado coloca el
+surco en el tocadiscos. Se escucha la Primera Noche real:
+conversaciones, copas y una risa. Alguien dice: «Deberíamos irnos antes
+de que salga el sol».
+
+Tempo retira la mano del control de repetición. El Rey, debilitado, no
+puede sostener la prisión. Se abren puertas en todas las pistas. Cada
+invitado ve un umbral diferente. Algunos cruzan. Otros se sientan un
+momento. Nadie los obliga.
+
+El Desafinado comienza a deshacerse en líneas de tinta, pero Tempo abre
+la puerta del Refugio:
+
+«No tienes que desaparecer para que esto termine».
+
+El protagonista cruza un umbral que no conduce hacia abajo. La aguja
+llega al final del disco. No hay una mano esperando para devolverla al
+principio.
+
+## 33. Continuar jugando tras un final
+
+Las nuevas runs se presentan como ecos de la noche conservados en los
+fragmentos del disco. No deshacen el final: permiten explorar otras
+variaciones de lo ocurrido.
+
+El Refugio cambia visualmente según el final alcanzado.
+
+------------------------------------------------------------------------
+
+# PARTE IX --- PROGRESIÓN PERMANENTE Y ECONOMÍA
+
+## 34. Qué se conserva
+
+-   Personajes y variantes iniciales desbloqueadas.
+-   Armas y objetos incorporados al conjunto de recompensas.
+-   Testimonios, secretos y entradas del Archivo.
+-   Rutas alternativas.
+-   Desafíos y modificadores.
+-   Apariencias del protagonista y del Refugio.
+-   Recursos permanentes del Refugio, como Ecos y Fragmentos de Disco,
+    según la economía definitiva.
+
+## 35. Qué se pierde al morir
+
+-   Armas recogidas durante el intento.
+-   Objetos pasivos y activos de esa run.
+-   Pactos aceptados durante esa run.
+-   CR, consumibles y mejoras temporales.
+
+Los fragmentos narrativos y testimonios no se pierden.
+
+## 36. Filosofía de progresión
+
+La progresión abre posibilidades. No exige acumular mejoras de daño
+hasta que el jugador sea suficientemente fuerte.
+
+Una pistola común bien combinada debe poder terminar una run desde el
+primer desbloqueo. Los desbloqueos amplían el vocabulario táctico, no
+los números base.
+
+## 37. Economía
+
+-   CR: compras y servicios; se pierde al morir.
+-   Llaves: acceso a tesoros y cerraduras opcionales.
+-   Cargas de resonancia: exploración de muros y uso ofensivo.
+-   Vida y barrera: supervivencia.
+-   Fragmentos narrativos: lore permanente.
+-   Ecos y Fragmentos de Disco: progresión permanente del Refugio,
+    sujeto a la economía final.
+
+------------------------------------------------------------------------
+
+# PARTE X --- CRONOLOGÍA Y COHERENCIA
+
+## 38. Cronología
+
+  ---------------------------------------------------------------------
+                                    Orden Acontecimiento
+  --------------------------------------- -----------------------------
+                                        1 Una guerra termina; sus
+                                          supervivientes celebran la
+                                          Primera Noche
+
+                                        2 El salón funciona como
+                                          estación reconvertida en sala
+                                          de baile
+
+                                        3 Bajo el salón duerme la
+                                          Escucha
+
+                                        4 El anfitrión pide que la
+                                          noche no termine
+
+                                        5 La Escucha repite el deseo
+
+                                        6 El salón crece hacia abajo;
+                                          las puertas dejan de conducir
+                                          al exterior
+
+                                        7 Los deseos de los invitados
+                                          se convierten en las leyes de
+                                          las pistas
+
+                                        8 Tempo detecta que la última
+                                          nota regresa antes de
+                                          terminar
+
+                                        9 Tempo enlaza otra canción y
+                                          prolonga la fiesta
+
+                                       10 Las repeticiones se acumulan;
+                                          Tempo recuerda los nombres
+
+                                       11 Un paso fuera de tiempo es
+                                          descartado por la torre
+
+                                       12 Las decisiones rechazadas se
+                                          acumulan y forman al
+                                          Desafinado
+
+                                       13 El Desafinado despierta en el
+                                          Refugio y comienza la
+                                          progresión jugable
+  ---------------------------------------------------------------------
+
+## 39. Reglas de coherencia narrativa
+
+1.  El Desafinado no procede del exterior.
+2.  El jugador no es un elegido por sangre.
+3.  La Escucha no es un villano consciente.
+4.  Tempo no es malvado; su error nació de la compasión y del miedo a
+    perder los recuerdos.
+5.  Los soberanos son prisioneros, no simples villanos.
+6.  Cada pista debe convertir el deseo de su soberano en una regla
+    ambiental y de combate.
+7.  Las armas legendarias cuentan la historia de su soberano y expresan
+    su mecánica.
+8.  Los pactos de Tempo ofrecen poder y una condición visible.
+9.  La música organiza las amenazas, pero no exige precisión rítmica al
+    jugador.
+10. Los finales dependen de elecciones explícitas y de información
+    narrativa descubierta.
+11. Las nuevas runs tras un final son ecos del disco, no una anulación
+    del desenlace.
+12. La nomenclatura final debe hablar de torre, pistas, niveles, Refugio
+    y Núcleo, no de círculos infernales.
+
+------------------------------------------------------------------------
+
+# PARTE XI --- ESTADO, VACÍOS Y DECISIONES PENDIENTES
+
+## 40. Elementos consolidados
+
+-   Premisa de la Primera Noche.
+-   Naturaleza de la Escucha.
+-   Error de Tempo y su memoria.
+-   Origen del Desafinado.
+-   Nueve soberanos y sus deseos.
+-   Nueve armas legendarias.
+-   Reglas musicales por pista.
+-   Jefes secretos y piezas del final Contratiempo.
+-   Tres finales.
+-   Estructura roguelike de salas.
+-   Filosofía de progresión permanente.
+-   Familias de armas y catálogo heredado de 120 entradas.
+-   Objetos pasivos, activos, consumibles y pactos documentados.
+
+## 41. Propuestas nuevas que requieren aprobación
+
+-   Renombrar temáticamente las nueve pistas con los títulos
+    descriptivos de este documento.
+-   Mostrar en la cinemática la apertura del suelo y el descenso en
+    plataforma hasta el Refugio.
+-   Situar el Refugio como zona segura conectada a la torre, fuera del
+    recuento de nueve pistas.
+-   Unificar el nombre DJ Virgilio como Tempo en todo el HUB.
+-   Reinterpretar visualmente las armas heredadas para que compartan la
+    identidad del universo.
+-   Unificar los nombres de enemigos comunes que aparecen duplicados
+    entre lore y prototipos.
+
+## 42. Vacíos que no deben rellenarse fingiendo que ya están decididos
+
+1.  Nombre definitivo de cada pista. Los títulos de este documento son
+    propuestas.
+2.  Geometría exacta y plano arquitectónico de cada nivel.
+3.  Distribución final de salas, rutas y duración de cada piso.
+4.  Descripción mecánica individual de las 120 armas heredadas. El
+    catálogo conserva nombres y familias; las nueve legendarias sí
+    tienen mecánicas narrativas detalladas.
+5.  Lista completa de objetos más allá de los objetos documentados en
+    esta biblia.
+6.  Costes finales de CR, Ecos y Fragmentos de Disco.
+7.  Curva exacta de daño, vida, velocidad y dificultad.
+8.  Diálogos completos de Tempo y condiciones de desbloqueo de cada
+    testimonio.
+9.  Implementación real de la estación física del Archivo en el HUB.
+10. Disponibilidad y sincronización de música, efectos y animaciones de
+    la cinemática.
+11. Relación exacta entre la plataforma del descenso cinematográfico y
+    el acceso jugable a la primera pista.
+
+## 43. Regla de producción
+
+Este documento es una biblia de coherencia narrativa y de diseño. No
+autoriza por sí mismo a modificar el HTML, el motor, el gameplay, los
+assets ni las ramas de GitHub.
+
+Antes de implementar un elemento: 1. Identificar si es canon, diseño
+definido o propuesta. 2. Comprobar si existe ya en el proyecto. 3.
+Conservar recursos y sistemas existentes que sean válidos. 4. No
+inventar assets, animaciones o funciones que no existan. 5. Registrar
+qué se modifica y qué permanece intacto. 6. Validar la implementación
+sin confundir pruebas automatizadas con validación visual o de
+rendimiento real.
+
+------------------------------------------------------------------------
+
+## Fuentes de consolidación
+
+-   `lore.txt` / `lore(2).txt`: canon narrativo, soberanos, Primera
+    Noche, Tempo, Desafinado, armas legendarias, objetos, pactos,
+    sinergias y finales.
+-   `DEADBEAT_DISCO_DOCUMENTO_MAESTRO_CONSOLIDADO_v1.0.md`: visión del
+    producto, GDD, Refugio, generación de niveles, salas, arsenal,
+    bestiario, economía y progresión permanente.
+-   `DEADBEAT_DISCO_120_HD_CADERA(1).html` y documentación de armas
+    v3.2: catálogo heredado de 120 armas y familias técnicas.
+-   `FASE 08 — «La noche que vuelve»`: propuesta de introducción y
+    transición narrativa al Refugio.
+
+**Fin del documento principal.**
+
+------------------------------------------------------------------------
+
+# ANEXO A --- DESCRIPCIÓN CONCEPTUAL DEL CATÁLOGO HEREDADO DE 120 ARMAS
+
+**Estado de este anexo: PROPUESTA FUNCIONAL.** Las descripciones
+siguientes convierten el nombre de cada arma en una identidad breve
+compatible con el universo. No son estadísticas, código ni mecánicas
+verificadas del prototipo. Deben contrastarse con el comportamiento real
+de cada arma antes de fijarlas como documentación de producción.
+
+## A.1. Pistolas y revólveres
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            01 Pistola clásica       Arma de servicio
+                                                     equilibrada, fiable y
+                                                     sin artificios;
+                                                     representa el punto
+                                                     de partida del
+                                                     Desafinado.
+
+                            02 Revólver              Disparo pausado y
+                                                     contundente, con un
+                                                     tambor que recuerda a
+                                                     un mecanismo de
+                                                     reloj.
+
+                            03 Láser                 Pistola de energía
+                                                     que concentra un haz
+                                                     fino para castigar
+                                                     objetivos alineados.
+
+                            04 Ráfaga                Pistola automática de
+                                                     disparos cortos que
+                                                     premia mantener el
+                                                     objetivo bajo
+                                                     presión.
+
+                            05 Needler               Lanza agujas
+                                                     luminosas que dejan
+                                                     una sensación de
+                                                     amenaza acumulativa.
+
+                            06 Plasma                Dispara una carga
+                                                     energética compacta
+                                                     de impacto visible.
+
+                            07 Magnum                Revólver pesado de
+                                                     gran impacto y ritmo
+                                                     deliberado.
+
+                            08 Silenciada            Pistola discreta que
+                                                     reduce la presencia
+                                                     sonora de cada
+                                                     disparo.
+
+                            09 Desert Eagle          Pistola de gran
+                                                     calibre, lenta y
+                                                     agresiva, pensada
+                                                     para impactos
+                                                     individuales.
+
+                            10 Explosiva             Dispara proyectiles
+                                                     que detonan al
+                                                     impactar o tras un
+                                                     breve retardo.
+
+                            11 De veneno             Aplica una sustancia
+                                                     corrosiva que
+                                                     mantiene presión
+                                                     después del impacto.
+
+                            12 De hielo              Dispara cargas frías
+                                                     que ralentizan o
+                                                     inmovilizan
+                                                     brevemente según la
+                                                     resistencia del
+                                                     objetivo.
+  ------------------------------------------------------------------------
+
+## A.2. Escopetas
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            13 Escopeta              Dispersión amplia de
+                                                     corto alcance, eficaz
+                                                     para abrir espacio
+                                                     alrededor del
+                                                     jugador.
+
+                            14 Super escopeta        Dos disparos de
+                                                     enorme impacto antes
+                                                     de una recarga
+                                                     pausada.
+
+                            15 Escopeta automática   Mantiene una lluvia
+                                                     de perdigones a corta
+                                                     distancia a cambio de
+                                                     mayor consumo del
+                                                     cargador.
+
+                            16 De cañón              Escopeta de proyectil
+                                                     pesado, con
+                                                     dispersión reducida y
+                                                     golpe concentrado.
+
+                            17 De fuego              Escopeta que deja una
+                                                     combustión breve en
+                                                     la zona de impacto.
+
+                            18 De hielo              Dispersa fragmentos
+                                                     fríos que ralentizan
+                                                     a varios objetivos
+                                                     cercanos.
+
+                            19 Eléctrica             Descarga perdigones
+                                                     conductores que
+                                                     pueden encadenar daño
+                                                     entre enemigos
+                                                     próximos.
+
+                            20 Táctica               Escopeta compacta de
+                                                     respuesta rápida y
+                                                     manejo equilibrado.
+
+                            21 Doble                 Dos cañones
+                                                     independientes que
+                                                     permiten alternar
+                                                     disparos o descargar
+                                                     ambos juntos.
+
+                            22 De gancho             Lanza un proyectil
+                                                     con cable que atrae,
+                                                     engancha o altera la
+                                                     posición del objetivo
+                                                     según su peso.
+
+                            23 Flechetes             Dispara pequeñas
+                                                     hojas metálicas que
+                                                     penetran objetivos
+                                                     alineados.
+
+                            24 Incendiaria           Dispersa cargas
+                                                     combustibles que
+                                                     prenden una zona al
+                                                     detonar.
+  ------------------------------------------------------------------------
+
+## A.3. Fusiles
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            25 Fusil de asalto       Fusil automático
+                                                     generalista para
+                                                     mantener presión a
+                                                     media distancia.
+
+                            26 AK-47                 Fusil de gran pegada
+                                                     y retroceso marcado;
+                                                     sacrifica precisión
+                                                     sostenida por
+                                                     contundencia.
+
+                            27 M4                    Fusil modular de
+                                                     cadencia estable y
+                                                     manejo versátil.
+
+                            28 FAMAS                 Fusil de ráfagas
+                                                     rápidas que concentra
+                                                     daño en ventanas
+                                                     cortas.
+
+                            29 SCAR                  Fusil pesado de
+                                                     disparo firme,
+                                                     pensado para
+                                                     precisión y potencia
+                                                     sostenida.
+
+                            30 G36                   Fusil equilibrado que
+                                                     prioriza estabilidad
+                                                     y control.
+
+                            31 AUG                   Fusil de diseño
+                                                     compacto con
+                                                     precisión mejorada al
+                                                     disparar en ráfagas.
+
+                            32 Táctico               Fusil compacto para
+                                                     transiciones rápidas
+                                                     entre movimiento y
+                                                     disparo.
+
+                            33 Pulsos                Fusil energético que
+                                                     dispara impulsos
+                                                     separados en
+                                                     secuencias regulares.
+
+                            34 Láser                 Fusil que proyecta
+                                                     una línea de energía
+                                                     precisa y continua o
+                                                     segmentada.
+
+                            35 De precisión          Arma de largo alcance
+                                                     para castigar
+                                                     objetivos expuestos
+                                                     desde una posición
+                                                     segura.
+
+                            36 Bullpup               Fusil compacto con
+                                                     buena movilidad y
+                                                     alcance medio.
+  ------------------------------------------------------------------------
+
+## A.4. Armas pesadas y lanzadores
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            37 Ametralladora         Fuego sostenido para
+                                                     controlar grupos, con
+                                                     movilidad reducida.
+
+                            38 Minigun               Cadencia extrema que
+                                                     necesita un breve
+                                                     tiempo de
+                                                     aceleración.
+
+                            39 LMG neón              Ametralladora ligera
+                                                     con componentes
+                                                     luminosos y fuego
+                                                     sostenido.
+
+                            40 Pesado                Arma de gran calibre
+                                                     con proyectiles
+                                                     lentos y alto
+                                                     impacto.
+
+                            41 Lanzacohetes          Proyectiles
+                                                     explosivos de área y
+                                                     recarga lenta.
+
+                            42 Lanzagranadas         Granadas de
+                                                     trayectoria curva que
+                                                     permiten atacar
+                                                     detrás de obstáculos.
+
+                            43 Cañón de rieles       Disparo lineal de
+                                                     alta velocidad que
+                                                     atraviesa varios
+                                                     objetivos.
+
+                            44 BFG                   Descarga energética
+                                                     de gran área, muy
+                                                     potente y con
+                                                     disponibilidad
+                                                     limitada.
+
+                            45 Mortero               Dispara cargas en
+                                                     arco que explotan
+                                                     sobre una zona
+                                                     marcada.
+
+                            46 Rotatorio             Arma pesada de
+                                                     cañones giratorios
+                                                     que gana cadencia
+                                                     mientras se mantiene
+                                                     activa.
+
+                            47 Lanzallamas           Proyecta una
+                                                     corriente de fuego de
+                                                     corto alcance y
+                                                     presión continua.
+
+                            48 Artillería            Dispara proyectiles
+                                                     pesados de área,
+                                                     lentos pero capaces
+                                                     de despejar una zona.
+  ------------------------------------------------------------------------
+
+## A.5. Energía
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            49 Plasma cutter         Herramienta de corte
+                                                     convertida en arma de
+                                                     energía concentrada.
+
+                            50 Rayo continuo         Mantiene un haz sobre
+                                                     el objetivo para
+                                                     acumular daño
+                                                     mientras se sostiene
+                                                     el apuntado.
+
+                            51 Rayo Tesla            Descarga eléctrica
+                                                     que salta entre
+                                                     objetivos cercanos.
+
+                            52 Cañón plasma          Lanza una esfera de
+                                                     plasma de impacto
+                                                     explosivo.
+
+                            53 Partículas            Emite una nube de
+                                                     partículas
+                                                     energéticas que
+                                                     desgasta una zona.
+
+                            54 Haz de energía        Proyecta un rayo
+                                                     estable de alcance
+                                                     medio y daño
+                                                     continuo.
+
+                            55 Rayo cadenas          Encadena descargas
+                                                     entre enemigos
+                                                     próximos.
+
+                            56 Orbe energía          Lanza orbes flotantes
+                                                     que avanzan
+                                                     lentamente y dañan al
+                                                     contacto.
+
+                            57 Láser triple          Divide el disparo en
+                                                     tres haces que cubren
+                                                     ángulos próximos.
+
+                            58 Cañón sónico          Emite ondas de
+                                                     presión que empujan y
+                                                     dañan a los enemigos.
+
+                            59 Pistola tóxica        Dispara cápsulas
+                                                     químicas que dejan
+                                                     daño persistente.
+
+                            60 Lanza ácido           Proyecta una descarga
+                                                     corrosiva que
+                                                     debilita defensas.
+  ------------------------------------------------------------------------
+
+## A.6. Elementales
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            61 Fuego                 Proyecta llamas que
+                                                     aplican quemadura y
+                                                     controlan espacios
+                                                     pequeños.
+
+                            62 Hielo                 Lanza fragmentos
+                                                     fríos que ralentizan
+                                                     y pueden acumular
+                                                     congelación.
+
+                            63 Eléctrica             Descarga electricidad
+                                                     sobre el objetivo y
+                                                     sus vecinos
+                                                     conductores.
+
+                            64 Veneno                Aplica daño
+                                                     persistente y obliga
+                                                     a mantener presión
+                                                     sobre el objetivo.
+
+                            65 Nube tóxica           Crea una nube dañina
+                                                     que permanece
+                                                     temporalmente en el
+                                                     escenario.
+
+                            66 Meteoritos            Marca zonas de
+                                                     impacto antes de
+                                                     hacer caer
+                                                     proyectiles desde
+                                                     arriba.
+
+                            67 Congelación           Genera una descarga
+                                                     fría de área que
+                                                     reduce la movilidad
+                                                     enemiga.
+
+                            68 Relámpagos            Invoca impactos
+                                                     eléctricos rápidos
+                                                     sobre objetivos
+                                                     señalados.
+
+                            69 Tormenta              Combina descargas y
+                                                     pequeñas zonas de
+                                                     peligro eléctrico.
+
+                            70 Arena                 Lanza una corriente
+                                                     abrasiva que reduce
+                                                     visibilidad local sin
+                                                     ocultar señales de
+                                                     combate.
+
+                            71 Gravedad              Comprime o desplaza
+                                                     enemigos hacia un
+                                                     punto de atracción.
+
+                            72 Vacío                 Crea una zona de
+                                                     succión que altera la
+                                                     posición de enemigos
+                                                     y proyectiles
+                                                     compatibles.
+  ------------------------------------------------------------------------
+
+## A.7. Armas especiales
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            73 Gravity gun           Manipula objetos o
+                                                     proyectiles del
+                                                     entorno para
+                                                     atraerlos y
+                                                     lanzarlos.
+
+                            74 Portal gun            Abre dos puntos de
+                                                     paso que redirigen
+                                                     trayectorias y
+                                                     movimiento.
+
+                            75 Dron                  Despliega una unidad
+                                                     auxiliar que ataca
+                                                     objetivos cercanos.
+
+                            76 Torreta               Coloca una estructura
+                                                     fija que dispara
+                                                     automáticamente
+                                                     durante un tiempo
+                                                     limitado.
+
+                            77 Satélites             Invoca proyectiles
+                                                     orbitales que giran
+                                                     alrededor del jugador
+                                                     y atacan al acercarse
+                                                     enemigos.
+
+                            78 Mina                  Coloca una carga que
+                                                     detona al aproximarse
+                                                     un enemigo.
+
+                            79 Trampa láser          Despliega un haz fijo
+                                                     que daña a quien lo
+                                                     atraviesa.
+
+                            80 Ancla                 Fija una zona o un
+                                                     objetivo y limita su
+                                                     desplazamiento
+                                                     durante un instante.
+
+                            81 Teletransportador     Permite un
+                                                     desplazamiento
+                                                     instantáneo a una
+                                                     posición válida
+                                                     marcada.
+
+                            82 Generador de paredes  Crea una barrera
+                                                     temporal que bloquea
+                                                     rutas o proyectiles
+                                                     compatibles.
+
+                            83 Clonador              Crea una copia
+                                                     temporal que
+                                                     reproduce una parte
+                                                     limitada del ataque
+                                                     del jugador.
+
+                            84 Orbes orbitales       Genera esferas que
+                                                     orbitan al jugador y
+                                                     golpean a enemigos
+                                                     cercanos.
+  ------------------------------------------------------------------------
+
+## A.8. Cuerpo a cuerpo
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            85 Espada láser          Hoja energética de
+                                                     alcance corto y corte
+                                                     rápido.
+
+                            86 Katana                Arma de filo veloz
+                                                     que premia entrar y
+                                                     salir del alcance
+                                                     enemigo.
+
+                            87 Hacha                 Golpe pesado con arco
+                                                     amplio y recuperación
+                                                     marcada.
+
+                            88 Martillo              Impacto lento que
+                                                     puede interrumpir o
+                                                     romper defensas.
+
+                            89 Guadaña               Corte curvo que cubre
+                                                     un arco amplio
+                                                     alrededor del
+                                                     jugador.
+
+                            90 Manoplas              Serie de golpes
+                                                     rápidos a muy corta
+                                                     distancia.
+
+                            91 Bate                  Golpe contundente que
+                                                     empuja enemigos y
+                                                     proyectiles ligeros.
+
+                            92 Sierra circular       Daño sostenido por
+                                                     contacto, con riesgo
+                                                     elevado por
+                                                     proximidad.
+
+                            93 Cadena                Ataque de alcance
+                                                     variable que puede
+                                                     barrer un arco o
+                                                     enganchar.
+
+                            94 Lanza                 Estocada larga y
+                                                     precisa en una
+                                                     dirección.
+
+                            95 Cuchillo              Ataque muy rápido y
+                                                     corto, útil para
+                                                     rematar objetivos
+                                                     próximos.
+
+                            96 Alabarda              Arma de asta que
+                                                     combina estocada y
+                                                     barrido amplio.
+  ------------------------------------------------------------------------
+
+## A.9. Míticas y experimentales
+
+  ------------------------------------------------------------------------
+                            \# Arma                  Descripción
+                                                     conceptual
+  ---------------------------- --------------------- ---------------------
+                            97 Ray gun               Pistola energética de
+                                                     estética retro y
+                                                     disparo luminoso.
+
+                            98 Thundergun            Descarga de onda
+                                                     expansiva que empuja
+                                                     o despeja enemigos en
+                                                     un cono.
+
+                            99 Wunderwaffe           Arma experimental de
+                                                     electricidad
+                                                     encadenada entre
+                                                     múltiples objetivos.
+
+                           100 Winter's Howl         Descarga de frío que
+                                                     ralentiza o congela
+                                                     grupos.
+
+                           101 Wave gun              Emite una onda
+                                                     energética expansiva
+                                                     que atraviesa una
+                                                     zona.
+
+                           102 Bastón de fuego       Canaliza una
+                                                     llamarada dirigida
+                                                     desde un foco
+                                                     ceremonial.
+
+                           103 Bastón de hielo       Proyecta una
+                                                     corriente fría y crea
+                                                     zonas de
+                                                     ralentización.
+
+                           104 Bastón de rayo        Lanza descargas
+                                                     eléctricas desde un
+                                                     conducto de energía.
+
+                           105 Bastón de viento      Crea ráfagas que
+                                                     empujan enemigos y
+                                                     desvían proyectiles
+                                                     ligeros.
+
+                           106 Arco ancestral        Arco de aspecto
+                                                     antiguo que dispara
+                                                     proyectiles de gran
+                                                     precisión.
+
+                           107 Arco del lobo         Arco temático de caza
+                                                     que marca a un
+                                                     objetivo para
+                                                     perseguirlo.
+
+                           108 Arco de fuego         Flechas incendiarias
+                                                     que dejan pequeñas
+                                                     zonas de combustión.
+
+                           109 Arco del vacío        Flechas que generan
+                                                     una breve succión al
+                                                     impactar.
+
+                           110 Arco de tormenta      Flechas que liberan
+                                                     descargas eléctricas
+                                                     al alcanzar un
+                                                     objetivo.
+
+                           111 Devoracaos            Arma experimental que
+                                                     absorbe energía de
+                                                     enemigos alcanzados y
+                                                     la libera después.
+
+                           112 Harvester             Dispositivo de
+                                                     recolección que
+                                                     transforma impactos
+                                                     consecutivos en una
+                                                     descarga acumulada.
+
+                           113 Espada de energía     Hoja energética de
+                                                     mayor alcance y peso
+                                                     que una espada
+                                                     ligera.
+
+                           114 Espada caos           Hoja inestable que
+                                                     alterna patrones de
+                                                     corte y descargas
+                                                     impredecibles pero
+                                                     anunciadas.
+
+                           115 Lanza espectral       Proyectil de asta que
+                                                     atraviesa objetivos y
+                                                     deja una estela
+                                                     temporal.
+
+                           116 Orbe del abismo       Esfera oscura que
+                                                     absorbe enemigos o
+                                                     proyectiles
+                                                     compatibles hacia su
+                                                     centro.
+
+                           117 Bomba flotante        Carga suspendida que
+                                                     se desplaza
+                                                     lentamente antes de
+                                                     detonar.
+
+                           118 Summon infernal       Dispositivo de
+                                                     invocación que llama
+                                                     una entidad temporal
+                                                     de combate; el nombre
+                                                     requiere revisión
+                                                     para ajustarse a la
+                                                     nomenclatura no
+                                                     infernal.
+
+                           119 Dragón espiritual     Proyecta una entidad
+                                                     serpentina de energía
+                                                     que recorre una
+                                                     trayectoria y golpea
+                                                     a los enemigos.
+
+                           120 Director              Dispositivo de
+                                                     control que modifica
+                                                     o coordina una
+                                                     secuencia de ataques;
+                                                     su función exacta
+                                                     debe cotejarse con el
+                                                     arma real del
+                                                     prototipo.
+  ------------------------------------------------------------------------
+
+### A.10. Reglas para convertir este catálogo en canon
+
+-   Las descripciones de este anexo son propuestas de identidad, no
+    sustituyen las mecánicas reales del prototipo.
+-   El arma debe conservar su función jugable si ya está validada, salvo
+    decisión expresa de rediseño.
+-   Los nombres que rompan la nomenclatura del universo ---por ejemplo,
+    «Summon infernal»--- se revisan antes de publicar.
+-   No todas las armas deben pertenecer a un soberano. Algunas pueden
+    ser tecnología de la antigua estación, herramientas de
+    mantenimiento, instrumentos de escenario, prototipos de la torre o
+    artefactos creados por sus habitantes.
+-   Las nueve legendarias mantienen su identidad y vínculo narrativo con
+    los soberanos.
+-   El catálogo de 120 no sustituye las nueve legendarias ni debe
+    convertirlas en simples armas de rareza alta.
+
+------------------------------------------------------------------------
+
+# ANEXO B --- MAPA DE RELACIONES DEL UNIVERSO
+
+  -----------------------------------------------------------------------
+  Elemento                Relación principal      Consecuencia
+  ----------------------- ----------------------- -----------------------
+  La Escucha              Recibe y devuelve       La petición del
+                          vibraciones y deseos    anfitrión se convierte
+                                                  en repetición
+
+  Rey del Compás          Anfitrión de la Primera Mantiene la noche para
+                          Noche                   evitar despedirse
+
+  Tempo                   DJ que detectó el bucle Recuerda los nombres y
+                          y enlazó otra canción   ayuda al jugador
+
+  Desafinado              Acumulación de          Puede introducir una
+                          decisiones descartadas  decisión que la torre
+                                                  no reproduce
+
+  Nueve soberanos         Deseos de invitados     Cada pista tiene
+                          convertidos en leyes    identidad y mecánica
+                                                  propias
+
+  Bailarines              Invitados atrapados en  Pueblan las salas y
+                          patrones                repiten movimientos
+
+  Afinadores              Agentes de corrección   Intentan eliminar el
+                          de la torre             desafine
+
+  Armas legendarias       Objetos ligados a los   Transforman sus
+                          soberanos               tragedias en estilos de
+                                                  combate
+
+  Pactos                  Intentos de Tempo por   Poder a cambio de una
+                          proteger y retener      condición
+
+  Testimonios             Recuerdos de los        Permiten comprender sus
+                          prisioneros             nombres y desbloquear
+                                                  Contratiempo
+
+  Surco original          Registro de la Primera  Permite escuchar lo que
+                          Noche                   ocurrió antes del bucle
+
+  Refugio                 Zona segura conectada a Preparación, memoria y
+                          la torre                retorno entre
+                                                  incursiones
+  -----------------------------------------------------------------------
+
+**Fin del anexo.**
