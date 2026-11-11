@@ -68,6 +68,20 @@
     } catch (e) { /* Audio opcional: la imagen sigue su curso. */ }
   }
 
+  // La música de portada ya tiene su secuenciador de 150 BPM y se pausa con
+  // visibilitychange. Usar su fase solo si está realmente en reproducción;
+  // con autoplay bloqueado o en el visor, conservar el pulso visual local.
+  function introBeatPhase(elapsed) {
+    const music = window.DDC_COVER && window.DDC_COVER.music;
+    if (music && typeof music.cinematicBeatPhase === "function") {
+      try {
+        const phase = music.cinematicBeatPhase();
+        if (Number.isFinite(phase) && phase >= 0 && phase < 1) return phase;
+      } catch (e) { /* La cinemática también funciona sin audio. */ }
+    }
+    return (elapsed % 0.46875) / 0.46875;
+  }
+
   function restoreIntroAudio(seq) {
     if (!seq || seq.type !== "intro" || !seq.introDuckOwner) return;
     try { seq.introDuckOwner.duck(false); } catch (e) {}
@@ -120,7 +134,7 @@
 
   /* A. GAME INTRO SEQUENCE — presentación con sprites reales del protagonista */
   /* A. GAME INTRO SEQUENCE — Diez Planos Cinematográficos Completos (~35s)
-     Sincronización rítmica 128 BPM (1 beat = 0.46875s).
+     Pulso visual ligado a la música existente cuando está disponible.
      Transición continua 2.5D de los 6 fondos oficiales y entrega seamless al HUB. */
   function playIntro(onComplete) {
     startSeq({
@@ -302,8 +316,8 @@
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
       if (activeSeq.type === "intro") {
-        // Provisional: solo atenúa la música existente, no genera sonidos ni
-        // garantiza sincronización rítmica o reproducción bajo autoplay.
+        // Marcas de atenuación ligadas al reloj de los planos. No genera
+        // sonidos y no puede garantizar reproducción bajo autoplay.
         const quiet = activeSeq.elapsed < 7 ||
           (activeSeq.elapsed >= 24.5 && activeSeq.elapsed < 28.5) || activeSeq.elapsed >= 32;
         setIntroDuck(activeSeq, quiet);
@@ -316,9 +330,7 @@
             try { window.DD_HUB.enter(); } catch (e) {}
           }
         }
-        // Sincronización rítmica con el reloj de 128 BPM (1 beat = 0.46875s)
-        const bpmTime = activeSeq.elapsed;
-        const beatFrac = (bpmTime % 0.46875) / 0.46875;
+        const beatFrac = introBeatPhase(activeSeq.elapsed);
         const kickPulse = reducedMotion ? 0 : Math.exp(-beatFrac * 6.5);
         const t = activeSeq.elapsed;
 
@@ -439,8 +451,7 @@
       ctx.restore();
 
       const t = activeSeq.elapsed;
-      const bpmTime = t;
-      const beatFrac = (bpmTime % 0.46875) / 0.46875;
+      const beatFrac = introBeatPhase(t);
       const kickPulse = reducedMotion ? 0 : Math.exp(-beatFrac * 6.5);
 
       // Obtención modular de recursos con soporte de manifiesto central y fallback
@@ -817,7 +828,7 @@
           drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
         }
 
-        // Estallido estroboscópico del DROP musical sincronizado a 128 BPM
+        // Pulso visual de pista; el plano no pretende coincidir con un drop musical.
         ctx.save();
         ctx.globalCompositeOperation = "screen";
         ctx.globalAlpha = kickPulse * 0.38;

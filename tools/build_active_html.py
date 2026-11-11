@@ -16,6 +16,17 @@ ORIG_PATH = os.path.join(ROOT, "backups", "DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX
 with open(ORIG_PATH, "r", encoding="utf-8") as f:
     html = f.read()
 
+# Exponer la fase del secuenciador existente de portada, sin crear otro audio.
+# E es la hora del siguiente paso de 0,1 s y C su índice; cuatro pasos
+# forman un pulso de 150 BPM. Si autoplay lo suspende, devolver null.
+cover_clock_anchor = 'now:function(){return y?y.currentTime-(y.outputLatency||0):0},drain:function'
+assert html.count(cover_clock_anchor) == 1, "Cover music clock anchor changed"
+html = html.replace(cover_clock_anchor,
+    'now:function(){return y?y.currentTime-(y.outputLatency||0):0},'
+    'cinematicBeatPhase:function(){if(!y||!S||y.state!=="running")return null;'
+    'var t=y.currentTime-(y.outputLatency||0)-(E-C*R);'
+    'return ((t%(.4)+.4)%.4)/.4},drain:function', 1)
+
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")
 if cf_idx > len(html) - 2000:
