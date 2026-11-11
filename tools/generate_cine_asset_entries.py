@@ -1,43 +1,28 @@
+"""Generate cinematic registry entries from the editable central manifest.
+
+The stable IDs and non-cinematic metadata remain in the existing registry; the
+central manifest is the source of paths, dimensions and fallbacks for the intro.
+"""
 import json
+import re
 
-manifest_path = "assets/cinematics/backgrounds/final/manifest.json"
-with open(manifest_path, "r", encoding="utf-8") as f:
-    cine_manifest = json.load(f)
-
+with open('assets/cinematics/manifest.json', encoding='utf-8') as f:
+    manifest = json.load(f)
+with open('src/dd_asset_registry.js', encoding='utf-8') as f:
+    registry_source = f.read()
+match = re.search(r'const MANIFEST = (\{.*?\});\n  const images =', registry_source, re.DOTALL)
+if not match:
+    raise RuntimeError('Registry manifest not found')
+registry = json.loads(match.group(1))
 entries = {}
-for sc in cine_manifest["scenarios"]:
-    # 1. Master background entry
-    entries[sc["id"]] = {
-        "id": sc["id"],
-        "originalId": f"cine:{sc['code'].lower()}",
-        "name": f"Cinemática {sc['code']} · {sc['name']} (Master 2.5K)",
-        "category": "cinematics",
-        "src": sc["relative_path"],
-        "w": 2560,
-        "h": 1440,
-        "alpha": False,
-        "pivot": "center",
-        "tanda": "CINEMATICS_FINAL"
-    }
-    # 2. Layer entries
-    for lay in sc["layers"]:
-        lay_id = f"{sc['id']}_{lay['file'].replace('.png', '')}"
-        entries[lay_id] = {
-            "id": lay_id,
-            "originalId": f"cine:{sc['code'].lower()}:{lay['file'].replace('.png', '')}",
-            "name": f"Cinemática {sc['code']} · {lay['depth_plane']} ({lay['file']})",
-            "category": "cinematics",
-            "src": f"assets/cinematics/backgrounds/final/{sc['id']}/{lay['file']}",
-            "w": 1920,
-            "h": 1080,
-            "alpha": True,
-            "pivot": "center",
-            "tanda": "CINEMATICS_FINAL"
-        }
-
-print(f"Generated {len(entries)} asset entries:")
-for k, v in entries.items():
-    print(f" - {k} -> {v['src']}")
-
-with open("/tmp/cine_asset_entries.json", "w", encoding="utf-8") as f:
-    json.dump(entries, f, indent=2, ensure_ascii=False)
+for asset_id, asset in manifest['assets'].items():
+    if asset_id not in registry['entries']:
+        raise ValueError(f'No existing registry entry for {asset_id}')
+    entry = dict(registry['entries'][asset_id])
+    size = asset['expected']
+    entry.update(src=asset['file'], w=size['w'], h=size['h'],
+                 alpha=size.get('alpha', False), fallback=asset['fallback'])
+    entries[asset_id] = entry
+with open('/tmp/cine_asset_entries.json', 'w', encoding='utf-8') as f:
+    json.dump(entries, f, ensure_ascii=False, indent=2)
+print(f'Generated {len(entries)} cinematic entries from the central manifest')

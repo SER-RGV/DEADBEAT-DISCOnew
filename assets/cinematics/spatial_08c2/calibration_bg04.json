@@ -1,0 +1,195 @@
+{
+  "reference": "assets/cinematics/backgrounds/definitive/scene_04_main_hall/master.png",
+  "reference_dimensions": [
+    1376,
+    768
+  ],
+  "annotation_method": "Referencias visuales aproximadas elegidas manualmente; no son mediciones fotogramétricas.",
+  "anchors": [
+    {
+      "id": "stage_left",
+      "pixel": [
+        756,
+        486
+      ],
+      "world": [
+        30,
+        76,
+        4
+      ],
+      "previous_world": [
+        26,
+        76,
+        5
+      ],
+      "weight": 1.0,
+      "confidence": "media-baja"
+    },
+    {
+      "id": "stage_right",
+      "pixel": [
+        975,
+        503
+      ],
+      "world": [
+        70,
+        76,
+        4
+      ],
+      "previous_world": [
+        74,
+        76,
+        5
+      ],
+      "weight": 1.0,
+      "confidence": "media-baja"
+    },
+    {
+      "id": "stairs_bottom",
+      "pixel": [
+        850,
+        530
+      ],
+      "world": [
+        50,
+        66,
+        0
+      ],
+      "previous_world": [
+        50,
+        66,
+        0
+      ],
+      "weight": 1.0,
+      "confidence": "media"
+    },
+    {
+      "id": "stage_motif",
+      "pixel": [
+        868,
+        421
+      ],
+      "world": [
+        50,
+        90,
+        24
+      ],
+      "previous_world": [
+        50,
+        90,
+        24
+      ],
+      "weight": 0.6,
+      "confidence": "baja"
+    },
+    {
+      "id": "near_rail_corner",
+      "pixel": [
+        905,
+        700
+      ],
+      "world": [
+        50,
+        12,
+        25
+      ],
+      "previous_world": [
+        50,
+        12,
+        25
+      ],
+      "weight": 0.7,
+      "confidence": "media-baja"
+    },
+    {
+      "id": "longitudinal_vanishing_estimate",
+      "pixel": [
+        850,
+        420
+      ],
+      "world": [
+        50,
+        1000000,
+        0
+      ],
+      "previous_world": [
+        50,
+        1000000,
+        0
+      ],
+      "weight": 0.5,
+      "confidence": "baja",
+      "note": "Punto lejano matemático usado para estimar dirección, no una coordenada de arquitectura real."
+    },
+    {
+      "id": "suspended_left",
+      "pixel": [
+        312,
+        225
+      ],
+      "world": [
+        24,
+        35,
+        35
+      ],
+      "previous_world": [
+        23,
+        29,
+        35
+      ],
+      "weight": 1.0,
+      "confidence": "media-baja",
+      "note": "Volumen suspendido visible; profundidad y tamaño 3D inferidos.",
+      "present_in_prior": false
+    },
+    {
+      "id": "suspended_right",
+      "pixel": [
+        1156,
+        215
+      ],
+      "world": [
+        70,
+        35,
+        35
+      ],
+      "previous_world": [
+        77,
+        29,
+        35
+      ],
+      "weight": 1.0,
+      "confidence": "media-baja",
+      "note": "Volumen suspendido visible; profundidad y tamaño 3D inferidos.",
+      "present_in_prior": false
+    }
+  ],
+  "fit_bounds": {
+    "x": [
+      20,
+      60
+    ],
+    "y": [
+      0,
+      9
+    ],
+    "z": [
+      26,
+      42
+    ],
+    "target_x": [
+      30,
+      65
+    ],
+    "target_y": 80,
+    "target_z": [
+      10,
+      30
+    ],
+    "horizontal_fov_degrees": [
+      60,
+      120
+    ]
+  },
+  "fit_warning": "Ajuste orientativo en ocho correspondencias subjetivas; no es prueba de cámara física ni calibración fotogramétrica. La posición y de la cámara se acerca al límite superior."
+}

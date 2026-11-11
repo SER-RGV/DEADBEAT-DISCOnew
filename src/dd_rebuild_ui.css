@@ -459,6 +459,8 @@ body.dd-highres-edition #ddc-cover {
   pointer-events: none;
   transition: opacity 0.24s ease, transform 0.24s ease;
 }
+/* La bienvenida se revela después de que termine la intro, no sobre el fundido. */
+body.dd-intro-running #dd-dialogue-box { visibility: hidden; }
 #dd-dialogue-box.dd-hidden {
   opacity: 0;
   transform: translateX(-50%) translateY(18px);

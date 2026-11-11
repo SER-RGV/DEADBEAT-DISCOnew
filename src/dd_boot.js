@@ -297,27 +297,80 @@
     {
       id: "images",
       timeoutMs: 7000,
-      label: "IMÁGENES ESENCIALES",
-      detail: "Esperando las imágenes de arranque y del menú…",
-      critical: true,
+      label: "IMÁGENES DE LA INTRO",
+      detail: "Preparando fondos, protagonista y logotipo…",
       run: function () {
-        var ids = ["cine_bg01_city", "cine_bg02_club_exterior", "cine_bg03_entrance", "cine_bg04_main_hall", "cine_bg05_dancefloor", "cine_bg06_hero", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
+        // DD_ASSETS ya está precargando las imágenes y sus fallbacks. No crear
+        // Image adicionales: duplican peticiones y eluden la ruta de respaldo.
+        var groups = [
+          ["cine_bg01_city"], ["cine_bg02_club_exterior"], ["cine_bg03_entrance"],
+          ["cine_bg04_main_hall"], ["cine_bg05_dancefloor"], ["cine_bg06_hero"],
+          ["hero_walk_00", "player_walk_00"], ["hero_walk_01", "player_walk_01"],
+          ["hero_walk_02", "player_walk_02"],
+          ["logo_deadbeat_cinematic", "logo_deadbeat_trim", "logo_deadbeat_graffiti"]
+        ];
+        var assets = window.DD_ASSETS;
         var t0 = performance.now();
-        return new Promise(function (resolve, reject) {
-          var missing = [], done = 0;
-          ids.forEach(function (id) {
-            var m = window.DD_ASSETS.manifest.entries[id];
-            if (!m) { missing.push(id); done++; return; }
-            var probe = new Image();
-            probe.onload = function () { if (++done === ids.length) finish(); };
-            probe.onerror = function () { missing.push(id); if (++done === ids.length) finish(); };
-            probe.src = m.src;
-          });
-          function finish() {
-            if (missing.length) return reject(new Error("Faltan imágenes esenciales: " + missing.join(", ")));
-            resolve({ ok: ids.length, ms: Math.round(performance.now() - t0) });
+        return new Promise(function (resolve) {
+          var done = false, poll = 0, decoding = [], decodeFailed = [];
+          function selected() {
+            return groups.map(function (ids) {
+              for (var i = 0; i < ids.length; i++) {
+                var image = assets.get(ids[i]);
+                if (image) return image;
+              }
+              return null;
+            });
           }
-          if (done === ids.length) finish();
+          function finish(reason) {
+            if (done) return;
+            done = true;
+            clearTimeout(deadline);
+            clearTimeout(poll);
+            var missing = groups.filter(function (ids) {
+              return !ids.some(function (id) { return !!assets.get(id); });
+            }).map(function (ids) { return ids.join(" / "); });
+            var result = { ok: groups.length - missing.length, missing: missing, ms: Math.round(performance.now() - t0) };
+            if (reason || missing.length) {
+              result.degraded = true;
+              result.decoding = decoding.slice();
+              result.decodeFailed = decodeFailed.slice();
+              result.reason = (reason || "Recursos de intro no disponibles") +
+                (missing.length ? ": " + missing.join(", ") : "") +
+                (decodeFailed.length ? " · fallo de decodificación: " + decodeFailed.join(", ") : "") +
+                (decoding.length ? " · decodificación pendiente: " + decoding.join(", ") : "");
+            }
+            resolve(result);
+          }
+          // Menor que el timeout general: informar degradación y continuar,
+          // sin dejar que un recurso opcional bloquee indefinidamente el juego.
+          var deadline = setTimeout(function () { finish("Precarga de intro incompleta o decodificación tardía"); }, 6000);
+          function check() {
+            if (done) return;
+            var images = selected();
+            if (images.some(function (im) { return !im; })) {
+              poll = setTimeout(check, 80);
+              return;
+            }
+            // Decodificar antes de reproducir cuando el navegador lo permite.
+            decoding = groups.map(function (ids) { return ids.join(" / "); });
+            Promise.all(images.map(function (im, index) {
+              return Promise.resolve().then(function () {
+                return typeof im.decode === "function" ? im.decode() : undefined;
+              }).then(function () {
+                var label = groups[index].join(" / ");
+                var pos = decoding.indexOf(label);
+                if (pos !== -1) decoding.splice(pos, 1);
+              }, function (error) {
+                var label = groups[index].join(" / ");
+                var pos = decoding.indexOf(label);
+                if (pos !== -1) decoding.splice(pos, 1);
+                decodeFailed.push(label);
+                throw error;
+              });
+            })).then(function () { finish(); }, function () { finish("No se pudo decodificar un recurso de intro"); });
+          }
+          check();
         });
       }
     },
@@ -703,6 +756,28 @@
     emit("error", { message: msg, errors: state.criticalErrors.slice() });
   }
 
+  /* Solicitud anticipada: se conserva durante LOADING, pero nunca omite las
+     comprobaciones esenciales ni cierra un diálogo de error. */
+  function queueIntroSkip() {
+    if (state.current !== "LOADING" || state.watchdogFired ||
+        (el.err && !el.err.hidden)) return false;
+    state.skipped = true;
+    var hint = q("dd-boot-hint");
+    if (hint) hint.textContent = "INTRO OMITIDA · ESPERANDO CARGA ESENCIAL";
+    return true;
+  }
+  window.addEventListener("keydown", function (ev) {
+    if ((ev.code === "Escape" || ev.code === "Space") && !ev.repeat && queueIntroSkip()) {
+      ev.preventDefault();
+    }
+  });
+  window.addEventListener("pointerdown", function (ev) {
+    var target = ev.target;
+    if (!target || !target.closest || !target.closest("#dd-boot-frame") ||
+        target.closest("button, a, input, select, textarea")) return;
+    queueIntroSkip();
+  }, { passive: true });
+
   /* ------------------------------------------------------------- ciclo      */
   function boot() {
     state.bootStart = performance.now();
@@ -823,16 +898,22 @@
     state.introPlayed = true;
     audio.startMenuMusic(4);
 
-    var finished = false;
+    var finished = false, interruptedBy = null;
+    var guard = null, skipEl = null, skipOnce = null, pointerSkip = null, visibilityReset = null;
     var finish = function (why) {
       if (finished) return;
       finished = true;
+      if (guard !== null) clearInterval(guard);
+      if (skipEl && skipOnce) skipEl.removeEventListener("click", skipOnce);
+      if (pointerSkip) window.removeEventListener("pointerdown", pointerSkip);
+      if (visibilityReset) document.removeEventListener("visibilitychange", visibilityReset);
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
 
       // FASE 06: Transición directa de la cinemática al HUB canónico r0
-      if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
+      if (window.DD_HUB && typeof window.DD_HUB.enter === "function" &&
+          !(typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive())) {
         try { window.DD_HUB.enter(); } catch (e) { console.warn("[DD_BOOT] error al entrar al HUB", e); }
       }
       if (window.DD_UI && typeof window.DD_UI.hideMainMenu === "function") {
@@ -842,6 +923,13 @@
       emit("intro-end", { by: state.introEndedBy });
     };
 
+    // Saltar durante la carga nunca evita el arranque esencial: solo se aplica
+    // una vez que runSteps ha terminado correctamente y se ha ocultado la carga.
+    if (state.skipped) {
+      finish("skip");
+      return;
+    }
+
     document.body.classList.add("dd-intro-running");
 
     /* La intro CANÓNICA del juego. DD_CINE gestiona su propio temporizador, su
@@ -849,7 +937,7 @@
     var started = false;
     try {
       if (window.DD_CINE && typeof window.DD_CINE.playIntro === "function") {
-        window.DD_CINE.playIntro(function () { finish("complete"); });
+        window.DD_CINE.playIntro(function (reason) { finish(interruptedBy || (reason === "skip" ? "skip" : "complete")); });
         started = true;
       }
     } catch (e) {
@@ -860,11 +948,15 @@
     /* Salvaguarda por ESTANCAMIENTO, no por tiempo total: en un equipo lento o
        con el render limitado la cinemática puede tardar más de lo nominal y no
        debe cortarse. Sólo se fuerza la salida si su reloj deja de avanzar
-       (pestaña en segundo plano, contexto perdido), que es el caso en que el
-       jugador se quedaría mirando una pantalla congelada. */
+       (por ejemplo, contexto perdido) mientras la pestaña está visible. Una
+       pestaña oculta se pausa y no activa esta salvaguarda. */
     var lastElapsed = -1, lastAdvance = Date.now(), guardDone = false;
-    var guard = setInterval(function () {
+    visibilityReset = function () { lastAdvance = Date.now(); };
+    document.addEventListener("visibilitychange", visibilityReset);
+    guard = setInterval(function () {
       if (finished || guardDone) return;
+      // No interpretar la suspensión normal de RAF en segundo plano como fallo.
+      if (document.hidden) { lastAdvance = Date.now(); return; }
       var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
       if (!st) { guardDone = true; clearInterval(guard); finish("complete"); return; }
       if (st.elapsed > lastElapsed + 0.001) {
@@ -873,6 +965,7 @@
       } else if (Date.now() - lastAdvance > 4000) {
         guardDone = true;
         clearInterval(guard);
+        interruptedBy = "stalled";
         try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
         finish("stalled");
       }
@@ -881,19 +974,20 @@
 
     /* Saltar con clic o tecla durante la intro (la cinemática ya escucha
        Espacio/Esc/Enter; esto añade ratón y mando sin duplicar el salto). */
-    var skipOnce = function (ev) {
+    skipOnce = function (ev) {
       if (!state.introActive) return;
       if (ev && ev.type === "keydown" && ev.repeat) return;
       try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
       finish("skip");
     };
-    var skipEl = q("dd-cine-overlay");
+    skipEl = q("dd-cine-overlay");
     if (skipEl) skipEl.addEventListener("click", skipOnce, { once: true });
-    window.addEventListener("pointerdown", function (ev) {
+    pointerSkip = function (ev) {
       if (!state.introActive) return;
       if (ev.target && ev.target.closest && ev.target.closest("#dd-cine-skip-btn")) return;
       skipOnce(ev);
-    }, { passive: true });
+    };
+    window.addEventListener("pointerdown", pointerSkip, { passive: true });
   }
 
   function enterMainMenu() {
@@ -993,6 +1087,7 @@
       submenu: state.submenu,
       introPlayed: state.introPlayed,
       introActive: state.introActive,
+      introSkipQueued: !!state.skipped && !state.introPlayed,
       introEndedBy: state.introEndedBy || null,
       criticalErrors: state.criticalErrors.slice(),
       menuMusic: audio.isMenuMusicPlaying(),

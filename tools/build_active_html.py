@@ -16,6 +16,27 @@ ORIG_PATH = os.path.join(ROOT, "backups", "DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX
 with open(ORIG_PATH, "r", encoding="utf-8") as f:
     html = f.read()
 
+# Exponer la fase del secuenciador existente de portada, sin crear otro audio.
+# E es la hora del siguiente paso de 0,1 s y C su índice; cuatro pasos
+# forman un pulso de 150 BPM. Si autoplay lo suspende, devolver null.
+cover_clock_anchor = 'now:function(){return y?y.currentTime-(y.outputLatency||0):0},drain:function'
+assert html.count(cover_clock_anchor) == 1, "Cover music clock anchor changed"
+html = html.replace(cover_clock_anchor,
+    'now:function(){return y?y.currentTime-(y.outputLatency||0):0},'
+    'cinematicClock:function(){return y&&S&&y.state==="running"?y.currentTime:null},'
+    'cinematicBeatPhase:function(){if(!y||!S||y.state!=="running")return null;'
+    'var t=y.currentTime-(y.outputLatency||0)-(E-C*R);'
+    'return ((t%(.4)+.4)%.4)/.4},drain:function', 1)
+
+# Si el hilo principal se bloquea, no programar juntos todos los pasos que
+# quedaron en el pasado: saltarlos manteniendo el índice y el compás reales.
+cover_scheduler_anchor = 'function ae(){if(y&&S)for(var e=y.currentTime+.14;E<e;)ee(E),E+=R,++C%16==0&&L++}'
+assert html.count(cover_scheduler_anchor) == 1, "Cover scheduler anchor changed"
+html = html.replace(cover_scheduler_anchor,
+    'function ae(){if(y&&S){var missed=Math.max(0,Math.floor((y.currentTime-E)/R));'
+    'if(missed){E+=missed*R;L+=Math.floor((C+missed)/16)-Math.floor(C/16);C+=missed}'
+    'for(var e=y.currentTime+.14;E<e;)ee(E),E+=R,++C%16==0&&L++}}', 1)
+
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")
 if cf_idx > len(html) - 2000:
@@ -349,7 +370,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
     Qf = function () {
       const now = performance.now();
-      const dt = Math.min(0.05, Math.max(0.001, (now - lastRenderNow) / 1000));
+      const renderDt = Math.max(0, (now - lastRenderNow) / 1000);
+      const dt = Math.min(0.05, Math.max(0.001, renderDt));
       lastRenderNow = now;
 
       jf();
@@ -358,7 +380,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
       if (window.DD_HUB && window.DD_HUB.isActive()) {
         window.DD_HUB.update(dt);
-        if (window.DD_CINE) window.DD_CINE.update(dt, snap);
+        if (window.DD_CINE) window.DD_CINE.update(dt, snap, renderDt);
         window.DD_HUB.render(g, y, x);
         if (window.DD_CINE) window.DD_CINE.renderOverlay(g, y, x);
         if (window.DD_UI) window.DD_UI.tick(dt);
@@ -367,7 +389,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       }
 
       if (window.DD_CINE) {
-        window.DD_CINE.update(dt, snap);
+        window.DD_CINE.update(dt, snap, renderDt);
       }
       const cineCam = window.DD_CINE ? window.DD_CINE.getCamera() : { offX: 0, offY: 0, zoomMul: 1 };
 
@@ -684,7 +706,7 @@ BOOT_SHELL = """
     </div>
     <div class="dd-boot-foot">
       <span id="dd-boot-audio">PULSA UNA TECLA PARA HABILITAR EL AUDIO</span>
-      <span id="dd-boot-hint">CLIC · CUALQUIER TECLA · (A) PARA SALTAR</span>
+      <span id="dd-boot-hint" aria-live="polite">CLIC · ESPACIO · ESC PARA OMITIR LA INTRO</span>
     </div>
   </div>
 </section>

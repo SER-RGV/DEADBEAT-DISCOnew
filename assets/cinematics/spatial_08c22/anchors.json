@@ -1,0 +1,21 @@
+{
+  "note": "Marcas manuales aproximadas de la ilustración, no medidas ni correspondencias verificadas; sólo se prueban cámaras con geometría 08C2.1 intacta.",
+  "dimensions": [1376, 768],
+  "cameras": {
+    "BG05": [
+      {"id": "stage_left", "world": [30,76,4], "pixel": [540,449]},
+      {"id": "stage_right", "world": [70,76,4], "pixel": [842,449]},
+      {"id": "stairs_bottom", "world": [50,66,0], "pixel": [688,492]},
+      {"id": "stage_motif", "world": [50,90,24], "pixel": [688,359]}
+    ],
+    "BG06": [
+      {"id": "stage_left", "world": [30,76,4], "pixel": [520,455]},
+      {"id": "stage_right", "world": [70,76,4], "pixel": [855,455]},
+      {"id": "stairs_bottom", "world": [50,66,0], "pixel": [688,519]},
+      {"id": "stage_motif", "world": [50,90,24], "pixel": [688,323]}
+    ]
+  },
+  "bounds": {"camera_y": [5,40], "camera_z": [4,12], "target_z": [6,22], "horizontal_fov_degrees": [65,120]},
+  "fixed": {"camera_x": 50, "target_x": 50, "target_y": 82},
+  "limitation": "Se ignoran suelo, profundidad real, oclusiones, cantidad de público y diferencias de arquitectura; un menor coste no confirma continuidad."
+}
