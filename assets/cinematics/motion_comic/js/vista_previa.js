@@ -345,6 +345,13 @@ function pintarComprobaciones() {
   h += fila(fijMal === 0, fijMal ? `<b>${fijMal}</b> ${fijMal === 1 ? "texto ya no coincide" : "textos ya no coinciden"} con el texto fijado por el encargo.` : `Los textos del encargo coinciden letra por letra con lo que se pidió.`);
   h += fila(null, `<b>${propuestos.length}</b> ${propuestos.length === 1 ? "texto es" : "textos son"} PROPUESTA: texto nuevo sin respaldo en la biblia, pendiente de decisión. No es canon.`);
   h += fila(null, `<b>${borr}</b> ${borr === 1 ? "texto es" : "textos son"} BORRADOR: propuestas sin aprobar, no canon.`);
+  // Arte: planos que llevan sello de arte nuevo (sin aprobar) o de arte provisional (sustituto).
+  const sellosArte = (E.comp.planos || []).flatMap((p) => (!p.provisional ? [] : Array.isArray(p.provisional) ? p.provisional : [p.provisional]).map((pv) => ({ n: p.n, nuevo: pv.tipo === "nuevo" })));
+  const dosCifras = (n) => String(n).padStart(2, "0");
+  const conNuevo = sellosArte.filter((x) => x.nuevo).map((x) => dosCifras(x.n));
+  const conProv = sellosArte.filter((x) => !x.nuevo).map((x) => dosCifras(x.n));
+  h += fila(conNuevo.length ? null : true, conNuevo.length ? `<b>${conNuevo.length}</b> ${conNuevo.length === 1 ? "plano usa" : "planos usan"} ARTE NUEVO sin aprobar (${conNuevo.join(", ")}): ilustraciones creadas para esta versión, que no son arte oficial. Ver arte_nuevo/MANIFIESTO.md.` : `Ningún plano usa arte nuevo sin aprobar.`);
+  h += fila(conProv.length ? null : true, conProv.length ? `<b>${conProv.length}</b> ${conProv.length === 1 ? "plano usa" : "planos usan"} ARTE PROVISIONAL (${conProv.join(", ")}): sustitutos de un dibujo que falta.` : `Ningún plano usa arte provisional como sustituto.`);
   h += `</table>`;
 
   const todos = [];

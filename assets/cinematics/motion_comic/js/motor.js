@@ -21,10 +21,27 @@ const GRANO =
   encodeURIComponent(
     "<svg xmlns='http://www.w3.org/2000/svg' width='420' height='420'><filter id='n' x='0' y='0' width='100%' height='100%'>" +
       "<feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' seed='11' stitchTiles='stitch'/>" +
-      "<feColorMatrix values='0 0 0 0 0.2  0 0 0 0 0.15  0 0 0 0 0.1  0 0 0 1.1 -0.5'/></filter>" +
+      "<feColorMatrix values='0 0 0 0 0.03  0 0 0 0 0.02  0 0 0 0 0.02  0 0 0 1.1 -0.5'/></filter>" +
       "<rect width='100%' height='100%' filter='url(#n)'/></svg>"
   ) +
   "\")";
+
+/* Posición de un actor que sigue una ruta: [{ en, x, y, suave }] en pulsos del plano. Entre dos puntos
+   se acelera y se frena ('suave' por defecto); con suave: false el tramo es lineal (caídas, golpes). */
+function enRuta(ruta, t) {
+  if (t <= ruta[0].en) return [ruta[0].x, ruta[0].y];
+  for (let i = 1; i < ruta.length; i++) {
+    const a = ruta[i - 1];
+    const b = ruta[i];
+    if (t <= b.en) {
+      let q = (t - a.en) / Math.max(1e-6, b.en - a.en);
+      q = b.suave === false ? q : b.suave === "cae" ? q * q : q * q * (3 - 2 * q);
+      return [a.x + (b.x - a.x) * q, a.y + (b.y - a.y) * q];
+    }
+  }
+  const u = ruta[ruta.length - 1];
+  return [u.x, u.y];
+}
 
 export class Motor {
   constructor(lienzo, guion, comp, baseUrl) {
@@ -182,15 +199,28 @@ export class Motor {
       const sg = rec.seguro || [0, 0, 1, 1];
       const recorte = plano.arte.recorte_seguro ? `inset(${sg[1] * 100}% ${(1 - sg[2]) * 100}% ${(1 - sg[3]) * 100}% ${sg[0] * 100}%)` : "";
       for (const cls of ["mc-lapiz", "mc-arte", "mc-fantasma"]) {
-        const im = crear("img", cls + (plano.arte.pixelado ? " pixelado" : ""), clip);
+        // El arte va dentro de una caja: la caja se mueve (encuadre y cámara) y la imagen lleva el filtro.
+        // Así el filtro se aplica una vez al pintar y no en cada fotograma al componer (ver informe, 2.9).
+        let padre = clip;
+        if (cls === "mc-arte") {
+          padre = V.arteCaja = crear("div", "mc-arte-caja", clip);
+          padre.style.width = rec.w + "px";
+          padre.style.height = rec.h + "px";
+          if (plano.arte.oculto) padre.style.display = "none";
+        }
+        const im = crear("img", cls + (plano.arte.pixelado ? " pixelado" : ""), padre);
         im.src = src;
         im.width = rec.w;
         im.height = rec.h;
         im.draggable = false;
         im.alt = "";
         if (recorte) im.style.clipPath = recorte;
+        if (plano.arte.oculto) im.style.display = "none";
         V[cls.slice(3)] = im;
       }
+      // Velo del latido: el pulso de luz del fondo se da con una capa que solo cambia de opacidad,
+      // en vez de cambiar el brillo del filtro del arte en cada fotograma (ver informe, 3.9).
+      V.pulsoLuz = crear("div", "mc-pulso-luz", clip);
       V.fxFondo = crear("div", "mc-fx-fondo", clip);
       V.sfxCapa = crear("div", "mc-sfx-capa", clip);
       V.actoresCapa = crear("div", "mc-actores", clip);
@@ -202,11 +232,21 @@ export class Motor {
       this.construirFx(V, plano);
       if (plano.provisional) {
         // Solo en la vista previa: avisa de que la ilustración de este plano es un sustituto.
-        const sello = crear("div", "mc-sello mc-sello-arte", raiz);
-        sello.textContent = "ARTE PROVISIONAL";
-        const e = plano.provisional.esquina || "abajo-derecha";
-        sello.style[e.includes("abajo") ? "bottom" : "top"] = "26px";
-        sello.style[e.includes("izquierda") ? "left" : "right"] = "30px";
+        // 'provisional' = sustituto de un dibujo que falta; 'nuevo' = ilustración creada para esta versión
+        // que dirección todavía no ha aprobado. Un plano puede llevar los dos avisos.
+        const lista = Array.isArray(plano.provisional) ? plano.provisional : [plano.provisional];
+        const usadas = {};
+        for (const pv of lista) {
+          const nuevo = pv.tipo === "nuevo";
+          const sello = crear("div", "mc-sello mc-sello-arte" + (nuevo ? " nuevo" : ""), raiz);
+          sello.textContent = pv.sello || (nuevo ? "ARTE NUEVO · SIN APROBAR" : "ARTE PROVISIONAL");
+          sello.title = pv.motivo || "";
+          const e = pv.esquina || "abajo-derecha";
+          const k = usadas[e] || 0;
+          usadas[e] = k + 1;
+          sello.style[e.includes("abajo") ? "bottom" : "top"] = 26 + k * 44 + "px";
+          sello.style[e.includes("izquierda") ? "left" : "right"] = "30px";
+        }
       }
     }
     const svg = crearSvg("svg", { class: "mc-borde", width: v.w, height: v.h }, raiz);
@@ -622,7 +662,7 @@ export class Motor {
     p.arteTf = { left, top, s, rw: rec.w, rh: rec.h };
     const tf = `translate(${left.toFixed(2)}px,${top.toFixed(2)}px) scale(${s.toFixed(5)})`;
     V.lapiz.style.transform = tf;
-    V.arte.style.transform = tf;
+    V.arteCaja.style.transform = tf;
 
     // Revelado: lápiz → tinta en blanco y negro → color (con el registro de imprenta asentándose)
     const rv = p.revelado || {};
@@ -642,6 +682,8 @@ export class Motor {
       V.arte.style.opacity = 1;
     }
     V.lapiz.style.opacity = rev >= 1 ? 0 : 0.2;
+    const verLapiz = rev >= 1 ? "hidden" : "visible";
+    if (V.cache.verLapiz !== verLapiz) V.lapiz.style.visibility = V.cache.verLapiz = verLapiz;
     const fant = rev > 0.04 && rev < 1 ? 0.55 * (1 - smooth(0.45, 1, rev)) : 0;
     if (fant > 0) {
       const off = (1 - rev) * 18;
@@ -649,6 +691,8 @@ export class Motor {
       V.fantasma.style.webkitMaskImage = V.fantasma.style.maskImage = V.arte.style.maskImage;
     }
     V.fantasma.style.opacity = fant.toFixed(3);
+    const verFant = fant > 0 ? "visible" : "hidden";
+    if (V.cache.verFant !== verFant) V.fantasma.style.visibility = V.cache.verFant = verFant;
     const color = smooth(0.35, 0.95, rev);
     V.trama.style.opacity = lerp(0.75, 0.2, color).toFixed(3);
     V.tramaLuz.style.opacity = (0.1 * color).toFixed(3);
@@ -657,7 +701,7 @@ export class Motor {
     V.velo.style.opacity = estado === "pasado" ? 1 : 0;
 
     // Efectos
-    const acc = { brillo: 1, sat: 1 };
+    const acc = { brillo: 1, sat: 1, pulso: 0 };
     const ctx = { tb, u, pulso, estado, rev, v, p, acc };
     for (const X of V.fx) this.actualizarFx(X, ctx);
     const gris = 1 - color;
@@ -682,6 +726,14 @@ export class Motor {
       V.cache.filtro = filtro;
     }
 
+    const pl = p.arte.oculto ? 0 : clamp(acc.pulso * 0.55 * color, 0, 0.3);
+    const plTxt = pl > 0.003 ? pl.toFixed(3) : "0";
+    if (V.cache.pl !== plTxt) {
+      V.pulsoLuz.style.opacity = plTxt;
+      V.pulsoLuz.style.visibility = plTxt === "0" ? "hidden" : "visible";
+      V.cache.pl = plTxt;
+    }
+
     const fa = acc.sat < 0.995 ? `saturate(${acc.sat.toFixed(3)})` : "";
     if (V.cache.fa !== fa) {
       V.actoresCapa.style.filter = fa;
@@ -701,7 +753,7 @@ export class Motor {
         X.el.style.transform = `translateX(${(-12 + u * 20).toFixed(2)}%)`;
         break;
       case "latido":
-        if (activo) c.acc.brillo += (fx.intensidad || 0.1) * golpe(tb, fx.golpes || [], 4.5);
+        if (activo) c.acc.pulso += (fx.intensidad || 0.1) * golpe(tb, fx.golpes || [], 4.5);
         break;
       case "silencio": {
         const h = fx.hasta ?? c.p.pulsos;
@@ -842,12 +894,14 @@ export class Motor {
       const altoCaja = (typeof a.alto === "number" ? a.alto : Math.max(a.alto.de, a.alto.a)) * v.h;
       const anchoCaja = altoCaja * prop;
       const escCaja = alto / altoCaja;
-      const x = lerp(a.pos.de[0], a.pos.a[0], k) * v.w;
+      const tr = c.estado === "pasado" ? p.pulsos : c.estado === "futuro" ? 0 : tb;
+      const rt = a.ruta ? enRuta(a.ruta, tr) : null;
+      const x = (rt ? rt[0] : lerp(a.pos.de[0], a.pos.a[0], k)) * v.w;
       // Pequeño vaivén vertical al caminar (solo si la pose tiene ciclo)
       const anda = a.paso && c.estado === "activo";
       const bote = anda ? Math.abs(Math.sin(tb * Math.PI * a.paso)) * alto * 0.014 : 0;
       const balanceo = anda ? Math.sin(tb * Math.PI * a.paso) * 1.3 : 0;
-      const y = lerp(a.pos.de[1], a.pos.a[1], k) * v.h - bote;
+      const y = (rt ? rt[1] : lerp(a.pos.de[1], a.pos.a[1], k)) * v.h - bote;
       if (A._w !== anchoCaja || A._h !== altoCaja) {
         A.raiz.style.width = anchoCaja + "px";
         A.raiz.style.height = altoCaja + "px";
@@ -919,11 +973,18 @@ export class Motor {
       } else if (c.estado === "futuro" || (c.estado === "activo" && tb < t0)) {
         op = 0;
       }
-      const x = a.centro[0] * v.w - A.ancho / 2;
-      const y = a.centro[1] * v.h - A.alto / 2;
+      const tr = c.estado === "pasado" ? p.pulsos : c.estado === "futuro" ? 0 : tb;
+      const ct = a.ruta ? enRuta(a.ruta, tr) : a.centro;
+      if (a.ventana) {
+        const f = a.ventana.funde ?? 0.2;
+        op *= smooth(a.ventana.desde ?? 0, (a.ventana.desde ?? 0) + f, tr) * (a.ventana.hasta != null ? 1 - smooth(a.ventana.hasta - f, a.ventana.hasta, tr) : 1);
+        if (c.estado === "futuro") op = 0;
+      }
+      const x = ct[0] * v.w - A.ancho / 2;
+      const y = ct[1] * v.h - A.alto / 2;
       A.raiz.style.opacity = op;
       A.raiz.style.transform = `translate(${x.toFixed(2)}px,${y.toFixed(2)}px) rotate(${rot.toFixed(2)}deg) scale(${esc.toFixed(4)})`;
-      A.punto = [v.x + a.centro[0] * v.w, v.y + a.centro[1] * v.h];
+      A.punto = [v.x + ct[0] * v.w, v.y + ct[1] * v.h];
     }
   }
 

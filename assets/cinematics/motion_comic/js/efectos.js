@@ -3,8 +3,15 @@
    Cada efecto se construye una vez y después solo cambia transformaciones y opacidades, igual que
    los del motor. Todo es determinista: el mismo pulso dibuja siempre lo mismo.
 
-   No se añade ninguna ilustración: las figuras son siluetas de sprites que ya existen en el
-   repositorio, y el resto (ondas, disco, franjas, esquirlas) es dibujo vectorial. */
+   Las figuras son siluetas: la imagen se usa solo como máscara de recorte. Desde la versión 0.3.1 las
+   siluetas de invitados y anfitrión, la estación, el tocadiscos y el pozo son ilustraciones nuevas
+   (carpeta arte_nuevo/, ver su MANIFIESTO.md); el resto (ondas, franjas, esquirlas, mecanismo) es
+   dibujo vectorial.
+
+   Rendimiento: las capas de luz, los velos y los efectos nuevos de la 0.3.1 no usan modos de mezcla
+   ni filtros animados; cambian solo de opacidad o de posición. En un equipo sin tarjeta gráfica, cada
+   capa con mezcla obliga a recomponer la viñeta entera en cada fotograma. La única excepción es el
+   destello (estrobo), que dura una fracción de pulso. */
 
 import { clamp, lerp, smooth, ease, rng, hashStr, golpe } from "./util.js";
 import { crear, crearSvg } from "./dom.js";
@@ -76,11 +83,13 @@ export function construir(M, V, plano, fx, X) {
   switch (fx.tipo) {
     case "luz": {
       X.el = crear("div", "mc-fx mc-fx-luz", capa);
-      const f = fx.forma === "lineal"
+      const f = fx.forma === "plana"
+        ? fx.color // velo uniforme: oscurece o enfría la viñeta entera cambiando solo su opacidad
+        : fx.forma === "lineal"
         ? `linear-gradient(${fx.angulo ?? 180}deg, ${fx.color}, transparent ${fx.alcance ?? 70}%)`
         : `radial-gradient(${(fx.rx ?? 0.5) * 100}% ${(fx.ry ?? 0.5) * 100}% at ${(fx.x ?? 0.5) * 100}% ${(fx.y ?? 0.5) * 100}%, ${fx.color}, transparent 75%)`;
       X.el.style.background = f;
-      X.el.style.mixBlendMode = fx.mezcla || "screen";
+      if (fx.mezcla && fx.mezcla !== "normal") X.el.style.mixBlendMode = fx.mezcla;
       return true;
     }
     case "figuras": {
@@ -205,8 +214,15 @@ export function construir(M, V, plano, fx, X) {
       X.franjas = ids.map((id, i) => {
         const rec = M.comp.recursos[id];
         const f = crear("div", "franja" + (i === n - 1 && fx.nucleo ? " nucleo" : ""), caja);
-        const foco = rec.foco || [0.5, 0.5];
+        const foco = (fx.focos && fx.focos[i]) || rec.foco || [0.5, 0.5];
         f.style.cssText = `left:${x}px;width:${ancho}px;top:${y0 + i * (alto + hueco)}px;height:${alto}px;background-image:url("${M.url(rec.src)}");background-position:${foco[0] * 100}% ${foco[1] * 100}%`;
+        if (fx.suave) f.style.imageRendering = "auto";
+        if (fx.tinte) {
+          // Cada nivel, más oscuro que el anterior: la misma sala, cada vez más hundida.
+          const t = crear("div", "tinte", f);
+          t.style.background = fx.tinte.color || "#08040a";
+          t.style.opacity = lerp(fx.tinte.de ?? 0, fx.tinte.a ?? 0.7, n > 1 ? i / (n - 1) : 0).toFixed(3);
+        }
         f._giro = (r() - 0.5) * (fx.torcer ?? 1.6);
         f._dx = (r() - 0.5) * ancho * (fx.desplazar ?? 0.05);
         return f;
@@ -226,15 +242,18 @@ export function construir(M, V, plano, fx, X) {
       for (let i = 0; i < n; i++) {
         const t = crear("div", "tira", caja);
         const inc = v.h * 0.07;
-        t.style.cssText = `left:${i * w - inc / 2 - 2}px;width:${w + inc + 4}px;clip-path:polygon(${inc}px 0, 100% 0, calc(100% - ${inc}px) 100%, 0 100%)`;
+        // El corte inclinado va en el fondo y en la sombra, que no se mueven, y no en la tira entera:
+        // recortar un contenedor con figuras animadas dentro obliga a enmascararlo en cada fotograma.
+        const corte = `clip-path:polygon(${inc}px 0, 100% 0, calc(100% - ${inc}px) 100%, 0 100%)`;
+        t.style.cssText = `left:${i * w - inc / 2 - 2}px;width:${w + inc + 4}px;overflow:visible`;
         const fondos = (fx.rondas || []).map((ronda) => {
           const rec = M.comp.recursos[ronda[i % ronda.length]];
           const f = crear("div", "fondo", t);
           const foco = rec.foco || [0.5, 0.5];
-          f.style.cssText = `background-image:url("${M.url(rec.src)}");background-position:${foco[0] * 100}% ${foco[1] * 100}%`;
+          f.style.cssText = `background-image:url("${M.url(rec.src)}");background-position:${foco[0] * 100}% ${foco[1] * 100}%;${corte}`;
           return f;
         });
-        crear("div", "sombra", t);
+        crear("div", "sombra", t).style.cssText = corte;
         // El paso que se repite: dos tiempos, dos siluetas, siempre en el mismo orden.
         const figs = (fx.figuras || [fx.figura]).map((o) => {
           const f = figura(M, t, o.r || o, fx.alto * v.h, { espejo: !!o.espejo, color: "#0b080c", borde: fx.borde || "rgba(255,45,149,.95)" });
@@ -334,6 +353,179 @@ export function construir(M, V, plano, fx, X) {
       }
       X.cx = cx;
       X.cy = cy;
+      return true;
+    }
+    case "puerta": {
+      // Una puerta que daba al exterior y ahora da a la misma sala: el salón ya no tiene salida.
+      const w = fx.ancho * v.w;
+      const h = fx.alto * v.h;
+      const m = crear("div", "mc-fx mc-fx-puerta", capa);
+      m.style.cssText = `left:${fx.x * v.w - w / 2}px;top:${fx.y * v.h - h / 2}px;width:${w}px;height:${h}px`;
+      crear("div", "fuera", m);
+      const rec = M.comp.recursos[fx.recurso];
+      const d = crear("div", "dentro", m);
+      const foco = fx.foco || [0.5, 0.5];
+      d.style.backgroundImage = `url("${M.url(rec.src)}")`;
+      d.style.backgroundSize = `${(fx.zoom ?? 2.4) * 100}% auto`;
+      d.style.backgroundPosition = `${foco[0] * 100}% ${foco[1] * 100}%`;
+      crear("div", "velo", d);
+      X.el = m;
+      X.dentro = d;
+      return true;
+    }
+    case "mosaico": {
+      // Los nueve niveles a la vez. Todos empiezan siendo la misma sala; uno a uno, el deseo de quienes
+      // bailan dentro los deforma hasta convertirlos en una pista distinta.
+      const cols = fx.columnas || 3;
+      const ids = fx.recursos;
+      const filas = Math.ceil(ids.length / cols);
+      const mx = (fx.margen ?? 0.03) * v.w;
+      const hueco = (fx.hueco ?? 0.018) * v.w;
+      const cw = (v.w - mx * 2 - hueco * (cols - 1)) / cols;
+      const y0 = (fx.y0 ?? 0.05) * v.h;
+      const y1 = (fx.y1 ?? 0.95) * v.h;
+      const ch = (y1 - y0 - hueco * (filas - 1)) / filas;
+      const base = M.comp.recursos[fx.base];
+      const r = rng("mosaico-" + plano.id);
+      const caja = crear("div", "mc-fx mc-fx-mosaico", capa);
+      X.celdas = ids.map((id, i) => {
+        const rec = M.comp.recursos[id];
+        const c = crear("div", "celda", caja);
+        c.style.cssText = `left:${mx + (i % cols) * (cw + hueco)}px;top:${y0 + Math.floor(i / cols) * (ch + hueco)}px;width:${cw}px;height:${ch}px`;
+        const a = crear("div", "sala", c);
+        const fb = (fx.focos_base && fx.focos_base[i]) || [0.5, 0.7];
+        a.style.backgroundImage = `url("${M.url(base.src)}")`;
+        a.style.backgroundSize = `${(fx.zoom_base ?? 1.6) * 100}% auto`;
+        a.style.backgroundPosition = `${fb[0] * 100}% ${fb[1] * 100}%`;
+        const b = crear("div", "pista", c);
+        const foco = rec.foco || [0.5, 0.5];
+        b.style.backgroundImage = `url("${M.url(rec.src)}")`;
+        b.style.backgroundPosition = `${foco[0] * 100}% ${foco[1] * 100}%`;
+        const fg = fx.figuras ? fx.figuras[i % fx.figuras.length] : null;
+        let f = null;
+        if (fg) {
+          f = figura(M, c, fg.r || fg, (fx.alto_figura ?? 0.62) * ch, { espejo: !!fg.espejo, color: "#0b080c", borde: fx.borde || "rgba(255,206,130,.7)" });
+          f.x = cw * (fg.x ?? 0.5);
+          f.y = ch * 1.04;
+        }
+        return { c, b, f, giro: (r() - 0.5) * 2 * (fx.torcer ?? 4), sesgo: (r() - 0.5) * 2 * (fx.sesgar ?? 5), fase: i % 2 ? 0.5 : 0 };
+      });
+      return true;
+    }
+    case "tocadiscos": {
+      // El disco es la ilustración del plano. Aquí solo se anima lo que se mueve: la etiqueta, que
+      // gira con el disco, y la nota, que sale de la aguja y vuelve a salir antes de terminar.
+      const rec = M.comp.recursos[plano.arte.recurso];
+      const de = plano.arte.de;
+      const sc = v.w / (de.ancho * rec.w);
+      const left = v.w / 2 - de.cx * rec.w * sc;
+      const top = v.h * (plano.arte.y ?? 0.5) - de.cy * rec.h * sc;
+      const E = fx.etiqueta;
+      const R = E.r * rec.w * sc;
+      const cx = left + E.x * rec.w * sc;
+      const cy = top + E.y * rec.h * sc;
+      const et = crear("div", "mc-fx mc-fx-etiqueta", capa);
+      et.style.cssText = `left:${cx - R}px;top:${cy - R}px;width:${R * 2}px;height:${R * 2}px;background-image:url("${M.url(rec.src)}");background-size:${rec.w * sc}px ${rec.h * sc}px;background-position:${-(E.x * rec.w * sc - R)}px ${-(E.y * rec.h * sc - R)}px`;
+      crear("div", "marca", et);
+      X.giro = et;
+      const ax = left + fx.aguja[0] * rec.w * sc;
+      const ay = top + fx.aguja[1] * rec.h * sc;
+      const s = crearSvg("svg", { class: "mc-fx mc-fx-disco", width: 1, height: 1 }, frente);
+      s.style.left = ax + "px";
+      s.style.top = ay + "px";
+      const k = (fx.tam_nota ?? 0.045) * v.h;
+      X.ruta = { x0: k * 0.2, y0: -k * 1.6, x1: fx.nota_hasta[0] * v.w - ax, y1: fx.nota_hasta[1] * v.h - ay, arco: (fx.arco ?? 0.2) * v.h };
+      X.fin = crearSvg("circle", { class: "fin", cx: X.ruta.x1, cy: X.ruta.y1, r: k * 1.25 }, s);
+      crearSvg("path", { class: "trazo", d: `M ${X.ruta.x0} ${X.ruta.y0} Q ${(X.ruta.x0 + X.ruta.x1) / 2} ${Math.min(X.ruta.y0, X.ruta.y1) - X.ruta.arco} ${X.ruta.x1} ${X.ruta.y1}` }, s);
+      const n = crearSvg("g", { class: "nota" }, s);
+      crearSvg("ellipse", { cx: 0, cy: 0, rx: k, ry: k * 0.74, fill: "#fff3d6", stroke: "#0b090d", "stroke-width": k * 0.3, transform: "rotate(-22)" }, n);
+      const palo = `M ${k * 0.9} ${-k * 0.2} L ${k * 0.9} ${-k * 3.1} Q ${k * 2.4} ${-k * 2.7} ${k * 2.2} ${-k * 1.3}`;
+      crearSvg("path", { d: palo, fill: "none", stroke: "#0b090d", "stroke-width": k * 0.62, "stroke-linecap": "round", "stroke-linejoin": "round" }, n);
+      crearSvg("path", { d: palo, fill: "none", stroke: "#fff3d6", "stroke-width": k * 0.3, "stroke-linecap": "round", "stroke-linejoin": "round" }, n);
+      X.nota = n;
+      // Chispa en la aguja en cada salto
+      X.chispa = crearSvg("g", { class: "chispa" }, s);
+      for (let i = 0; i < 6; i++) {
+        const a = (i / 6) * Math.PI * 2 + 0.3;
+        crearSvg("path", { d: `M ${Math.cos(a) * k * 0.7} ${Math.sin(a) * k * 0.7} L ${Math.cos(a) * k * 1.9} ${Math.sin(a) * k * 1.9}` }, X.chispa);
+      }
+      return true;
+    }
+    case "descenso": {
+      // Una tira vertical de escenarios que sube mientras la plataforma se queda en su sitio: así se ve
+      // bajar sin mover la cámara. Arriba, la pista; en medio, el pozo; abajo, el Refugio y lo que sigue.
+      const tira = crear("div", "mc-fx mc-fx-tira", capa);
+      X.tira = tira;
+      X.secs = [];
+      let y = 0;
+      for (const sdef of fx.secciones) {
+        const rec = M.comp.recursos[sdef.recurso];
+        const h = sdef.alto * v.h;
+        const sec = crear("div", "seccion", tira);
+        sec.style.cssText = `top:${y}px;height:${h}px`;
+        const sc = v.w / ((sdef.ancho ?? 1) * rec.w);
+        const im = crear("img", sdef.pixelado ? "pixelado" : "", sec);
+        im.src = M.url(rec.src);
+        im.draggable = false;
+        im.alt = "";
+        im.style.cssText = `left:${v.w / 2 - (sdef.cx ?? 0.5) * rec.w * sc}px;top:${h / 2 - (sdef.cy ?? 0.5) * rec.h * sc}px;width:${rec.w * sc}px;height:${rec.h * sc}px`;
+        const S = { def: sdef, el: sec, y, h, luces: [] };
+        if (sdef.losa) crear("div", "losa", sec); // el forjado: lo que separa un nivel del siguiente
+        if (sdef.tinte) {
+          const t = crear("div", "tinte", sec);
+          t.style.background = sdef.tinte;
+        }
+        for (const L of sdef.luces || []) {
+          const l = crear("div", "neon", sec);
+          l.style.cssText = `left:${(L.x - L.rx) * v.w}px;top:${(L.y - L.ry) * h}px;width:${L.rx * 2 * v.w}px;height:${L.ry * 2 * h}px;background:radial-gradient(closest-side, ${L.color}, transparent)`;
+          S.luces.push({ el: l, fase: L.fase ?? 0, def: L });
+        }
+        X.secs.push(S);
+        y += h;
+      }
+      if (fx.iris) {
+        // El mecanismo: un círculo del suelo, visto en perspectiva, que gira y se abre sobre el pozo.
+        const I = fx.iris;
+        const S0 = X.secs[I.seccion ?? 0];
+        const rx = I.rx * v.w;
+        const ry = I.ry * v.h;
+        const g = crear("div", "iris", S0.el);
+        g.style.cssText = `left:${I.x * v.w}px;top:${I.y * v.h - S0.y}px;transform:scaleY(${(ry / rx).toFixed(4)})`;
+        const D = rx * 2;
+        const sv = crearSvg("svg", { width: D, height: D, viewBox: `${-rx} ${-rx} ${D} ${D}` }, g);
+        sv.style.cssText = `left:${-rx}px;top:${-rx}px`;
+        X.grietas = crearSvg("g", { class: "grietas" }, sv);
+        const r = rng("iris-" + plano.id);
+        for (let i = 0; i < 9; i++) {
+          const a = (i / 9) * Math.PI * 2 + r() * 0.5;
+          const l1 = rx * (0.5 + r() * 0.45);
+          const am = a + (r() - 0.5) * 0.5;
+          crearSvg("path", { d: `M 0 0 L ${Math.cos(am) * l1 * 0.55} ${Math.sin(am) * l1 * 0.55} L ${Math.cos(a) * l1} ${Math.sin(a) * l1}` }, X.grietas);
+        }
+        X.hueco = crearSvg("g", { class: "hueco" }, sv);
+        crearSvg("circle", { r: rx * 0.97, class: "fondo" }, X.hueco);
+        crearSvg("circle", { r: rx * 0.97, class: "borde" }, X.hueco);
+        X.anillo = crearSvg("g", { class: "anillo" }, sv);
+        crearSvg("circle", { r: rx * 0.985, class: "aro" }, X.anillo);
+        for (let i = 0; i < 12; i++) {
+          const a = (i / 12) * Math.PI * 2;
+          crearSvg("path", { class: "diente", d: `M ${Math.cos(a) * rx * 0.9} ${Math.sin(a) * rx * 0.9} L ${Math.cos(a + 0.2) * rx * 1.0} ${Math.sin(a + 0.2) * rx * 1.0}` }, X.anillo);
+        }
+      }
+      if (fx.lineas) {
+        // Líneas de velocidad a los lados, propias del cómic: solo se ven mientras baja.
+        const r = rng("lineas-" + plano.id);
+        X.lineas = [];
+        const caja = crear("div", "mc-fx mc-fx-lineas", frente);
+        for (let i = 0; i < (fx.lineas.n || 16); i++) {
+          const l = crear("div", "linea", caja);
+          const lado = i % 2 ? 1 : -1;
+          const x = 0.5 + lado * (0.2 + r() * 0.29);
+          const alto = (0.12 + r() * 0.3) * v.h;
+          l.style.cssText = `left:${x * v.w}px;height:${alto}px;width:${3 + r() * 7}px`;
+          X.lineas.push({ el: l, alto, fase: r(), vel: 0.7 + r() * 0.8 });
+        }
+      }
       return true;
     }
     case "barrido": {
@@ -494,14 +686,17 @@ export function actualizar(M, X, c) {
       const corregido = xb >= fuera.x + X.dx; // el barrido ya ha pasado por el que iba a destiempo
       const desviado = t >= fx.sale && !corregido;
       const amp = fx.bote ?? 12;
+      // Con las repeticiones, la fila se va apagando: el tiempo pasa y los bailarines se desgastan.
+      const fila = fx.apaga ? lerp(1, fx.apaga.a ?? 0.2, smooth(fx.apaga.desde, fx.apaga.hasta, t)) : 1;
+      const ecoVivo = fx.funde_eco ? 1 - smooth(fx.funde_eco.desde, fx.funde_eco.hasta, t) : 1;
       X.fila.forEach((f, i) => {
         const g = activo ? golpe(tb % 1, [0], 4) : 0;
         if (i === fx.fuera && desviado) {
           poner(f.raiz, "opacity", "0");
           return;
         }
-        poner(f.raiz, "opacity", "1");
-        colocar(f, f.x, f.y - g * amp, ` rotate(${((g - 0.35) * 2.2).toFixed(2)}deg)`);
+        poner(f.raiz, "opacity", fx3(fila));
+        colocar(f, f.x, f.y - g * amp * fila, ` rotate(${((g - 0.35) * 2.2 * fila).toFixed(2)}deg)`);
       });
       // El que va a destiempo: medio pulso tarde, inclinado y en otro color.
       const g2 = activo ? golpe((((tb + 0.5) % 1) + 1) % 1, [0], 4) : 0;
@@ -510,7 +705,7 @@ export function actualizar(M, X, c) {
       if (desviado) colocar(X.marca, fuera.x + X.dx * ease.out(entra), fuera.y - g2 * amp * 1.5, ` rotate(${(7 + (g2 - 0.35) * 5).toFixed(2)}deg)`);
       // Lo descartado no desaparece: queda el eco, parpadeando, donde estuvo.
       const parpadeo = activo ? 0.74 + 0.16 * Math.sin(t * 19) + 0.1 * Math.sin(t * 53) : 0.7;
-      poner(X.eco.raiz, "opacity", corregido ? fx3(parpadeo) : "0");
+      poner(X.eco.raiz, "opacity", corregido ? fx3(parpadeo * ecoVivo) : "0");
       if (corregido) colocar(X.eco, X.eco.x, X.eco.y - g2 * amp * 0.7, ` rotate(${(7 + (g2 - 0.35) * 4).toFixed(2)}deg)`);
       const enBarrido = activo && t >= b.desde && t <= b.desde + b.dura;
       poner(X.barra, "opacity", enBarrido ? "1" : "0");
@@ -525,7 +720,7 @@ export function actualizar(M, X, c) {
         const o = q < 1 ? 0 : 1;
         const x = lerp(e.x0, e.x1, k) + o * Math.cos(t * 1.7 + e.fase) * 7;
         const y = lerp(e.y0, e.y1, k) - Math.sin(Math.PI * q) * v.h * 0.08 + o * Math.sin(t * 2.1 + e.fase) * 7;
-        poner(e.el, "opacity", fx3(Math.min(1, q * 5)));
+        poner(e.el, "opacity", fx3(Math.min(1, q * 5) * ecoVivo));
         e.el.style.transform = `translate(${fx1(x - e.t / 2)}px,${fx1(y - e.t / 2)}px) rotate(${(e.giro * (1 - k) + t * 14 + e.fase * 57).toFixed(1)}deg)`;
       }
       return true;
@@ -548,6 +743,123 @@ export function actualizar(M, X, c) {
         const y = lerp(X.cy + Math.sin(a) * d * 0.62, e.y1, k * k);
         poner(e.el, "opacity", fx3(fuera));
         e.el.style.transform = `translate(${fx1(x - e.t / 2)}px,${fx1(y - e.t / 2)}px) rotate(${(e.giro * (1 - k) + t * 22).toFixed(1)}deg) scale(${fx3(1.25 - 0.45 * k)})`;
+      }
+      return true;
+    }
+    case "puerta": {
+      const q = pasado ? 1 : c.estado === "futuro" ? 0 : smooth(fx.desde, fx.hasta, tb);
+      poner(X.dentro, "opacity", fx3(q));
+      const g = activo ? golpe(tb, [fx.hasta], 5) : 0;
+      X.el.style.transform = `scale(${fx3(1 + g * 0.05)})`;
+      return true;
+    }
+    case "mosaico": {
+      const t0 = fx.desde ?? 0;
+      const paso = fx.paso ?? 0.5;
+      const dur = fx.dura ?? 0.9;
+      const orden = fx.orden || X.celdas.map((_, i) => i);
+      X.celdas.forEach((C, i) => {
+        const k = orden.indexOf(i);
+        const q = pasado ? 1 : c.estado === "futuro" ? 0 : clamp((tb - (t0 + k * paso)) / dur);
+        poner(C.b, "opacity", fx3(smooth(0.1, 0.75, q)));
+        const e = ease.out(q);
+        const tiron = Math.sin(Math.PI * clamp(q * 1.6)) * 0.07;
+        C.c.style.transform = `rotate(${(C.giro * e).toFixed(2)}deg) skewX(${(C.sesgo * e).toFixed(2)}deg) scale(${fx3(1 + tiron)})`;
+        if (C.f) {
+          const g = activo ? golpe((((tb + C.fase) % 1) + 1) % 1, [0], 4) : 0;
+          colocar(C.f, C.f.x, C.f.y - g * (fx.bote ?? 7), ` rotate(${((g - 0.35) * 2).toFixed(2)}deg)`);
+        }
+      });
+      return true;
+    }
+    case "tocadiscos": {
+      const w = 360 / (fx.vuelta || 4);
+      const saltos = fx.saltos || [];
+      const tramo = fx.tramo || 1;
+      const s0 = saltos.length ? saltos[0] : Infinity;
+      const t = pasado ? c.p.pulsos : tb;
+      let ang;
+      let q;
+      let chispa = 0;
+      if (t < s0) {
+        ang = w * t;
+        q = (t - (s0 - tramo)) / tramo;
+      } else {
+        let ult = s0;
+        for (const s of saltos) if (t >= s) ult = s;
+        ang = w * (s0 - tramo + (t - ult));
+        q = (t - ult) / tramo;
+        chispa = Math.exp(-(t - ult) * 7);
+      }
+      X.giro.style.transform = `rotate(${ang.toFixed(2)}deg)`;
+      const R = X.ruta;
+      const visible = q >= 0 && c.estado !== "futuro";
+      const u = clamp(q) * 0.82; // recorre el 82 % de su arco y vuelve al principio
+      const mx = (R.x0 + R.x1) / 2;
+      const my = Math.min(R.y0, R.y1) - R.arco;
+      const bx = (1 - u) * (1 - u) * R.x0 + 2 * (1 - u) * u * mx + u * u * R.x1;
+      const by = (1 - u) * (1 - u) * R.y0 + 2 * (1 - u) * u * my + u * u * R.y1;
+      X.nota.style.transform = `translate(${fx1(bx)}px,${fx1(by)}px) scale(${fx3(0.75 + 0.35 * Math.sin(Math.PI * clamp(q)))})`;
+      poner(X.nota, "opacity", visible ? "1" : "0");
+      poner(X.fin, "opacity", t >= s0 - tramo * 0.5 && c.estado !== "futuro" ? "1" : "0");
+      poner(X.chispa, "opacity", activo ? fx3(chispa) : "0");
+      if (chispa > 0.01) X.chispa.style.transform = `scale(${fx3(0.6 + (1 - chispa) * 0.9)}) rotate(${(t * 40).toFixed(0)}deg)`;
+      return true;
+    }
+    case "descenso": {
+      const t = pasado ? c.p.pulsos : c.estado === "futuro" ? 0 : tb;
+      const K = fx.claves;
+      let y = K[0].y;
+      let vel = 0;
+      for (let i = 1; i < K.length; i++) {
+        const a = K[i - 1];
+        const b = K[i];
+        if (t >= b.en) {
+          y = b.y;
+          continue;
+        }
+        if (t > a.en) {
+          const q = (t - a.en) / (b.en - a.en);
+          const e = b.suave === "frena" ? ease.out(q) : b.suave === "arranca" ? q * q : b.suave === "lineal" ? q : q * q * (3 - 2 * q);
+          y = lerp(a.y, b.y, e);
+          vel = Math.abs(b.y - a.y) / (b.en - a.en);
+        }
+        break;
+      }
+      X.tira.style.transform = `translateY(${fx1(-y * v.h)}px)`;
+      for (const S of X.secs) {
+        const arriba = S.y - y * v.h;
+        // Las secciones no se ocultan ni se muestran: cambiar su visibilidad obligaría a volver a pintar
+        // la tira en plena bajada. Solo se dejan quietos los neones que no están a la vista.
+        if (arriba < v.h * 1.05 && arriba + S.h > -v.h * 0.05) {
+          for (const L of S.luces) {
+            // Neones que fallan: parpadeo irregular, siempre igual en el mismo pulso.
+            const p1 = Math.sin(t * 7.3 + L.fase * 9) + Math.sin(t * 17.1 + L.fase * 4);
+            const o = (L.def.fijo ?? 0.55) + (p1 > 0.9 ? -0.45 : p1 < -1.5 ? -0.3 : 0.12 * Math.sin(t * 3 + L.fase));
+            poner(L.el, "opacity", fx3(activo ? clamp(o) : L.def.fijo ?? 0.55));
+          }
+        }
+      }
+      if (fx.iris) {
+        const I = fx.iris;
+        const abre = c.estado === "futuro" ? 0 : ease.inOut(clamp((t - I.desde) / (I.hasta - I.desde)));
+        const aviso = c.estado === "futuro" ? 0 : smooth(I.aviso ?? I.desde - 1, I.desde, t);
+        X.hueco.style.transform = `scale(${fx3(abre)})`;
+        poner(X.hueco, "opacity", abre > 0.01 ? "1" : "0");
+        X.anillo.style.transform = `rotate(${(abre * 150 + t * 6).toFixed(1)}deg)`;
+        poner(X.anillo, "opacity", fx3(aviso * (0.75 + 0.25 * Math.sin(t * 23))));
+        const gr = aviso * (1 - abre) * (0.6 + 0.4 * Math.sin(t * 31));
+        poner(X.grietas, "opacity", fx3(gr));
+      }
+      if (X.lineas) {
+        const fuerza = clamp(vel / (fx.lineas.vel_ref || 0.5));
+        for (const L of X.lineas) {
+          poner(L.el, "opacity", fx3(activo ? fuerza * 0.75 : 0));
+          if (fuerza > 0.01) {
+            const u = (((L.fase - t * L.vel * 0.9) % 1) + 1) % 1;
+            L.el.style.transform = `translateY(${fx1(u * (v.h + L.alto) - L.alto)}px)`;
+          }
+        }
       }
       return true;
     }

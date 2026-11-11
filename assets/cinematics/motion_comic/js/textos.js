@@ -381,6 +381,7 @@ export class CapaTextos {
     it.etiquetaEl = this.etiqueta(it, inn, -anchoTotal / 2 + 10, -altoTotal / 2 - 27);
     if (it.etiquetaEl) it.etiquetaEl.style.zIndex = 9;
     it.selloEl = this.sello(it, inn, anchoTotal / 2 - 110, altoTotal / 2 - 8);
+    if (it.selloEl) it.selloEl.style.zIndex = 9; // por encima de las cajas: el sello «PROPUESTA» no puede quedar tapado
     this.numero(it, inn, -anchoTotal / 2 - 6, -altoTotal / 2 + 12);
     it.pos = this.posPagina(it);
     raiz.style.transform = `translate(${px(it.pos[0])},${px(it.pos[1])})`;

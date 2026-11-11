@@ -1,12 +1,12 @@
 {
-  "version": "0.3.0-preview",
+  "version": "0.3.1-preview",
   "titulo": "DEADBEAT DISCO · Introducción · Motion comic narrativo · La noche que vuelve",
   "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos. Cada texto dice de dónde sale: literal, adaptado o nuevo propuesto.",
   "tempo": {
     "bpm": 128,
     "compas": 4,
     "pulsos_totales": 96,
-    "nota": "96 pulsos a 128 BPM = 45,000 s exactos. Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Pulsos por plano: 10, 6, 8, 8, 6, 10, 10, 10, 8, 20."
+    "nota": "96 pulsos a 128 BPM = 45,000 s exactos. Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Pulsos por plano: 10, 7, 9, 10, 9, 7, 9, 9, 10, 16."
   },
   "lectura": {
     "cps_comodo": 17,
@@ -150,7 +150,8 @@
       },
       "bloques": [
         "La guerra terminó.",
-        "Por una noche, nadie tuvo que huir."
+        "Por una noche,",
+        "nadie tuvo que huir."
       ],
       "entra": 2.0,
       "sale": 10,
@@ -178,20 +179,20 @@
         "*no termine*."
       ],
       "entra": 1.3,
-      "sale": 6,
+      "sale": 7,
       "pos": {
-        "x": 0.22,
+        "x": 0.24,
         "y": 0.2
       },
       "cola": {
         "hacia": {
-          "x": 0.6,
-          "y": 0.42
+          "x": 0.55,
+          "y": 0.33
         }
       }
     },
     {
-      "id": "p03_narrador_escucho",
+      "id": "p03_narrador_dormia",
       "plano": 3,
       "tipo": "narrador",
       "estado": "adaptado",
@@ -199,17 +200,17 @@
         "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
         "donde": "§2.2 La Escucha",
         "cita": "Bajo el salón dormía una presencia sin rostro llamada **la Escucha**.",
-        "fijado": "Bajo el salón, algo escuchó.",
-        "nota": "El texto dice «algo»: no nombra ni describe a la Escucha, y no le atribuye intención."
+        "fijado": "Bajo el salón dormía algo que escuchaba.",
+        "nota": "El texto dice «algo»: no nombra ni describe a la Escucha y no le atribuye intención. «Dormía» deja claro que ya estaba ahí antes del deseo (cronología §38, puntos 3 y 4)."
       },
       "bloques": [
-        "Bajo el salón,",
-        "algo escuchó."
+        "Bajo el salón dormía",
+        "algo que escuchaba."
       ],
-      "entra": 0.4,
-      "sale": 4.3,
+      "entra": 0.3,
+      "sale": 5.5,
       "pos": {
-        "x": 0.3,
+        "x": 0.36,
         "y": 0.36
       }
     },
@@ -222,129 +223,23 @@
         "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
         "donde": "§2.3 La petición",
         "cita": "La Escucha respondió repitiéndola.",
-        "fijado": "Y devolvió el deseo."
+        "fijado": "Y devolvió lo que recibió.",
+        "nota": "«Lo que recibió»: no elige, no interpreta y no actúa por maldad. Solo repite."
       },
       "bloques": [
-        "Y devolvió el deseo."
+        "Y devolvió",
+        "lo que recibió."
       ],
-      "entra": 4.7,
-      "sale": 8,
+      "entra": 5.7,
+      "sale": 9,
       "pos": {
-        "x": 0.62,
+        "x": 0.64,
         "y": 0.6
       }
     },
     {
-      "id": "p04_narrador_nota",
+      "id": "p04_narrador_salida",
       "plano": 4,
-      "tipo": "narrador",
-      "estado": "adaptado",
-      "fuente": {
-        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§3.1 Papel en la Primera Noche",
-        "cita": "Tempo detectó el peligro antes que nadie: la última nota estaba regresando antes de haber terminado.",
-        "fijado": "La última nota regresó antes de terminar."
-      },
-      "bloques": [
-        "La última nota regresó",
-        "antes de terminar."
-      ],
-      "entra": 2.5,
-      "sale": 8,
-      "pos": {
-        "x": 0.3,
-        "y": 0.075
-      }
-    },
-    {
-      "id": "p04_sfx_salto",
-      "plano": 4,
-      "tipo": "onomatopeya",
-      "estado": "propuesto",
-      "fuente": {
-        "fijado": "TAC",
-        "nota": "Onomatopeya nueva para el salto de la aguja. No procede de la biblia ni del juego: es una propuesta de puesta en escena, dentro del lenguaje de cómic ya aprobado."
-      },
-      "bloques": [
-        "TAC"
-      ],
-      "entra": 3,
-      "sale": 8,
-      "letras": {
-        "fuente": "Bangers",
-        "tam": 84,
-        "color": "#ffe94a",
-        "borde": "#111016",
-        "giro": -9
-      },
-      "animacion": "latido",
-      "sonido_guia": "clac",
-      "golpes": [
-        {
-          "en": 3,
-          "x": 0.6,
-          "y": 0.33,
-          "escala": 0.8
-        },
-        {
-          "en": 4,
-          "x": 0.63,
-          "y": 0.3,
-          "escala": 0.9
-        },
-        {
-          "en": 5,
-          "x": 0.6,
-          "y": 0.33,
-          "escala": 1.0
-        },
-        {
-          "en": 6,
-          "x": 0.63,
-          "y": 0.3,
-          "escala": 1.1
-        },
-        {
-          "en": 7,
-          "x": 0.6,
-          "y": 0.33,
-          "escala": 1.2
-        }
-      ],
-      "dura_golpe": 0.8
-    },
-    {
-      "id": "p05_dialogo_una_mas",
-      "plano": 5,
-      "tipo": "dialogo",
-      "habla": "tempo",
-      "etiqueta": true,
-      "estado": "adaptado",
-      "fuente": {
-        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§3.1 Papel en la Primera Noche",
-        "cita": "En cambio, enlazó otra canción. No lo hizo por crueldad. Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.",
-        "fijado": "Solo una más.",
-        "nota": "Punto de coherencia: el apartado 29.5 de la biblia reserva «solo una más» para la última grabación que se encuentra jugando. El encargo la usa aquí; queda pendiente decidir si la grabación final repite la frase o se cambia."
-      },
-      "bloques": [
-        "Solo *una* más."
-      ],
-      "entra": 1.0,
-      "sale": 6,
-      "pos": {
-        "x": 0.36,
-        "y": 0.2
-      },
-      "cola": {
-        "hacia": {
-          "actor": "tempo"
-        }
-      }
-    },
-    {
-      "id": "p06_narrador_salida",
-      "plano": 6,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -360,13 +255,13 @@
       "entra": 0.3,
       "sale": 4.3,
       "pos": {
-        "x": 0.2,
-        "y": 0.14
+        "x": 0.5,
+        "y": 0.085
       }
     },
     {
-      "id": "p06_narrador_abajo",
-      "plano": 6,
+      "id": "p04_narrador_abajo",
+      "plano": 4,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -387,8 +282,8 @@
       }
     },
     {
-      "id": "p07_narrador_leyes",
-      "plano": 7,
+      "id": "p05_narrador_leyes",
+      "plano": 5,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -402,32 +297,129 @@
         "en *leyes*."
       ],
       "entra": 0.5,
-      "sale": 5.6,
+      "sale": 5.3,
       "pos": {
-        "x": 0.17,
-        "y": 0.09
+        "x": 0.2,
+        "y": 0.1
       }
     },
     {
-      "id": "p07_narrador_volvio",
-      "plano": 7,
+      "id": "p05_narrador_despedida",
+      "plano": 5,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
         "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
         "donde": "§2.4 La ley fundamental",
         "cita": "La repetición no conserva la felicidad original. Conserva el instante anterior a la despedida y lo reproduce sin permitir que evolucione.",
-        "fijado": "Y la noche volvió a empezar."
+        "fijado": "La despedida nunca llegó."
       },
       "bloques": [
-        "Y la noche",
+        "La despedida",
+        "nunca llegó."
+      ],
+      "entra": 5.6,
+      "sale": 9,
+      "pos": {
+        "x": 0.78,
+        "y": 0.9
+      }
+    },
+    {
+      "id": "p06_sfx_salto",
+      "plano": 6,
+      "tipo": "onomatopeya",
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "TAC",
+        "nota": "Onomatopeya nueva para el salto de la aguja. No procede de la biblia ni del juego: es una propuesta de puesta en escena, dentro del lenguaje de cómic ya aprobado. El plano no lleva ningún otro texto."
+      },
+      "bloques": [
+        "TAC"
+      ],
+      "entra": 3,
+      "sale": 7,
+      "letras": {
+        "fuente": "Bangers",
+        "tam": 84,
+        "color": "#ffe94a",
+        "borde": "#111016",
+        "giro": -9
+      },
+      "animacion": "latido",
+      "sonido_guia": "clac",
+      "golpes": [
+        {
+          "en": 3,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 0.8
+        },
+        {
+          "en": 4,
+          "x": 0.4,
+          "y": 0.83,
+          "escala": 0.95
+        },
+        {
+          "en": 5,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 1.1
+        },
+        {
+          "en": 6,
+          "x": 0.4,
+          "y": 0.83,
+          "escala": 1.25
+        }
+      ],
+      "dura_golpe": 0.8
+    },
+    {
+      "id": "p07_voz_tempo",
+      "plano": 7,
+      "tipo": "narrador",
+      "variante": "voz",
+      "habla": "tempo",
+      "etiqueta": true,
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "Los vi felices. Creí que unos minutos más no podían hacer daño.",
+        "nota": "Texto nuevo del encargo 0.3.1, en primera persona y en boca de Tempo. Pasa a primera persona un pasaje de la biblia (§3.1: «Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.»), pero la frase, tal cual, no está en ninguna fuente: es PROPUESTA y no es canon hasta que dirección la apruebe. Tempo habla solo de lo que él vio y creyó; no narra el resto de la historia."
+      },
+      "bloques": [
+        "Los vi felices.",
+        "Creí que unos minutos más",
+        "no podían hacer daño."
+      ],
+      "entra": 0.6,
+      "sale": 9,
+      "pos": {
+        "x": 0.34,
+        "y": 0.17
+      }
+    },
+    {
+      "id": "p08_narrador_volvio",
+      "plano": 8,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "El tiempo se plegó sobre sí mismo.",
+        "fijado": "La noche volvió a empezar."
+      },
+      "bloques": [
+        "La noche",
         "volvió a empezar."
       ],
-      "entra": 6.1,
-      "sale": 10,
+      "entra": 0.5,
+      "sale": 4.4,
       "pos": {
-        "x": 0.66,
-        "y": 0.82
+        "x": 0.17,
+        "y": 0.1
       }
     },
     {
@@ -445,33 +437,11 @@
         "La torre corregía",
         "cada variación."
       ],
-      "entra": 0.5,
-      "sale": 4.8,
+      "entra": 4.7,
+      "sale": 9,
       "pos": {
-        "x": 0.15,
-        "y": 0.13
-      }
-    },
-    {
-      "id": "p08_narrador_fuera",
-      "plano": 8,
-      "tipo": "narrador",
-      "estado": "adaptado",
-      "fuente": {
-        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§4.1 Origen",
-        "cita": "Es el fragmento que Tempo no consiguió repetir.",
-        "fijado": "Pero algo quedó fuera del compás."
-      },
-      "bloques": [
-        "Pero algo quedó",
-        "*fuera del compás*."
-      ],
-      "entra": 5.4,
-      "sale": 10,
-      "pos": {
-        "x": 0.8,
-        "y": 0.13
+        "x": 0.7,
+        "y": 0.84
       }
     },
     {
@@ -489,91 +459,51 @@
         "Lo que la torre rechazó",
         "terminó tomando forma."
       ],
+      "entra": 3.5,
+      "sale": 10,
+      "pos": {
+        "x": 0.2,
+        "y": 0.11
+      }
+    },
+    {
+      "id": "p10_sfx_enganche",
+      "plano": 10,
+      "tipo": "onomatopeya",
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "TAC",
+        "nota": "La misma onomatopeya del plano 06, repetida aquí para que se vea, sin sonido, que la música vuelve a engancharse justo antes de que se abra el suelo (biblia §5.3: «La música se repite antes de terminar»). Propuesta de puesta en escena; no es canon."
+      },
+      "bloques": [
+        "TAC"
+      ],
       "entra": 0.8,
-      "sale": 8,
-      "pos": {
-        "x": 0.17,
-        "y": 0.1
-      }
-    },
-    {
-      "id": "p10_dialogo_mezcla",
-      "plano": 10,
-      "tipo": "dialogo",
-      "habla": "tempo",
-      "etiqueta": true,
-      "estado": "propuesto",
-      "fuente": {
-        "fijado": "Vaya. Este no estaba en la mezcla.",
-        "nota": "Diálogo nuevo propuesto en el encargo para Tempo. No está en la biblia ni en el juego. Sigue la regla de voz de Tempo (§3.4: humor seco, ocasional y breve)."
+      "sale": 2.6,
+      "letras": {
+        "fuente": "Bangers",
+        "tam": 76,
+        "color": "#ffe94a",
+        "borde": "#111016",
+        "giro": -9
       },
-      "bloques": [
-        "Vaya.",
-        "Este no estaba en la mezcla."
-      ],
-      "entra": 2.5,
-      "sale": 6.9,
-      "pos": {
-        "x": 0.66,
-        "y": 0.2
-      },
-      "cola": {
-        "hacia": {
-          "actor": "tempo"
+      "animacion": "latido",
+      "sonido_guia": "clac",
+      "golpes": [
+        {
+          "en": 0.8,
+          "x": 0.24,
+          "y": 0.3,
+          "escala": 0.9
+        },
+        {
+          "en": 1.4,
+          "x": 0.28,
+          "y": 0.26,
+          "escala": 1.1
         }
-      }
-    },
-    {
-      "id": "p10_dialogo_no_visita",
-      "plano": 10,
-      "tipo": "dialogo",
-      "habla": "tempo",
-      "estado": "propuesto",
-      "fuente": {
-        "fijado": "No eres una visita. Eres lo que la torre no pudo corregir.",
-        "nota": "Diálogo nuevo propuesto en el encargo. Resume dos reglas de la biblia (§4.2: no viene de fuera; §4.3: la torre intenta corregirlo y no puede), pero la frase no existe en ninguna fuente. Además sostiene la lectura propuesta del Refugio como primer lugar estable donde la torre no logra corregirlo: PROPUESTA, no canon."
-      },
-      "bloques": [
-        "No eres una visita.",
-        "Eres lo que la torre *no pudo corregir*."
       ],
-      "entra": 6.95,
-      "sale": 14.3,
-      "pos": {
-        "x": 0.66,
-        "y": 0.21
-      },
-      "cola": {
-        "hacia": {
-          "actor": "tempo"
-        }
-      }
-    },
-    {
-      "id": "p10_dialogo_bienvenido",
-      "plano": 10,
-      "tipo": "dialogo",
-      "habla": "tempo",
-      "estado": "propuesto",
-      "fuente": {
-        "fijado": "Bienvenido al Refugio. Tenemos mucho trabajo.",
-        "nota": "Diálogo nuevo propuesto en el encargo. La biblia pide que la bienvenida del Refugio identifique a Tempo (§3.4), pero no da la frase. Punto de coherencia: el apartado 5.5 propone que Tempo no aparezca en el Refugio hasta derrotar al primer jefe."
-      },
-      "bloques": [
-        "Bienvenido al *Refugio*.",
-        "Tenemos mucho trabajo."
-      ],
-      "entra": 14.35,
-      "sale": 20,
-      "pos": {
-        "x": 0.62,
-        "y": 0.33
-      },
-      "cola": {
-        "hacia": {
-          "actor": "tempo"
-        }
-      }
+      "dura_golpe": 0.9
     }
   ],
   "banco_de_alternativas": {

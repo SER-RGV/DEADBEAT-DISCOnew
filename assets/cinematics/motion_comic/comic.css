@@ -73,8 +73,10 @@
   position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; pointer-events: none;
 }
 .mc-lapiz { filter: grayscale(1) contrast(1.5) brightness(1.75) sepia(0.6) hue-rotate(165deg) saturate(1.6); opacity: 0.2; }
-.mc-arte { will-change: transform; }
-.mc-fantasma { mix-blend-mode: screen; opacity: 0; filter: saturate(2.4) hue-rotate(-35deg) brightness(0.9); }
+.mc-arte-caja { position: absolute; left: 0; top: 0; transform-origin: 0 0; pointer-events: none; will-change: transform; }
+.mc-arte-caja .mc-arte { display: block; }
+.mc-pulso-luz { position: absolute; inset: 0; background: #fff4e0; opacity: 0; visibility: hidden; pointer-events: none; will-change: opacity; }
+.mc-fantasma { mix-blend-mode: screen; opacity: 0; visibility: hidden; filter: saturate(2.4) hue-rotate(-35deg) brightness(0.9); }
 .mc-fx-fondo, .mc-fx-frente, .mc-actores, .mc-sfx-capa, .mc-sfx-frente { position: absolute; inset: 0; pointer-events: none; }
 .mc-sfx-capa .mc-el, .mc-sfx-frente .mc-el { pointer-events: auto; }
 .mc-trama {
@@ -82,14 +84,15 @@
   background-image: radial-gradient(circle at 50% 50%, rgba(8, 4, 12, 0.95) 0 31%, transparent 34%);
   background-size: 9px 9px;
   transform: rotate(18deg);
-  mix-blend-mode: multiply;
+  /* 0.3.1: sin 'multiply'. Los puntos son casi negros, así que pintarlos encima da el mismo resultado
+     y la viñeta deja de recomponerse entera en cada fotograma (ver informe, rendimiento). */
 }
 .mc-trama-luz {
   position: absolute; inset: -45% -15%; pointer-events: none; opacity: 0.1;
   background-image: radial-gradient(circle at 50% 50%, rgba(255, 150, 220, 0.95) 0 26%, transparent 30%);
   background-size: 9px 9px; background-position: 4.5px 4.5px;
   transform: rotate(18deg);
-  mix-blend-mode: screen;
+  /* 0.3.1: sin 'screen'. A esta opacidad (0,1 como máximo) la diferencia no llega al 4 % por canal. */
 }
 .mc-velo-pasado { position: absolute; inset: 0; background: rgba(14, 8, 20, 0.34); opacity: 0; pointer-events: none; }
 .mc-borde { position: absolute; left: 0; top: 0; overflow: visible; pointer-events: none; }
@@ -254,7 +257,7 @@
 /* ---------- Capas globales de imprenta ---------- */
 .mc-flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, #ffffff, #fff1c4 55%, #ffb3e2); opacity: 0; will-change: opacity; }
 .mc-paso-sombra { position: absolute; top: -10%; bottom: -10%; width: 220px; opacity: 0; background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.9)); }
-.mc-grano-global { position: absolute; inset: 0; background-image: var(--mc-grano); background-size: 420px 420px; opacity: 0.2; mix-blend-mode: multiply; }
+.mc-grano-global { position: absolute; inset: 0; background-image: var(--mc-grano); background-size: 420px 420px; opacity: 0.17; }
 .mc-vineteado { position: absolute; inset: 0; background: radial-gradient(120% 120% at 50% 50%, transparent 58%, rgba(4, 2, 8, 0.55) 100%); }
 
 /* ---------- Guías de comprobación (solo vista previa) ---------- */
@@ -274,6 +277,7 @@ body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, 
 .mc-imagen.plana img { filter: drop-shadow(0 0 2px #0b090d) drop-shadow(0 10px 0 rgba(8, 4, 12, 0.5)); }
 
 /* Sello de arte sustituto: solo se ve en la vista previa (con los sellos encendidos). */
+.mc-sello.mc-sello-arte.nuevo { background: #7df9ff; }
 .mc-sello.mc-sello-arte {
   position: absolute; z-index: 6; transform: rotate(-3deg); font-size: 19px; letter-spacing: 0.14em;
   color: #0b090d; background: #ffd23a; border: 3px solid #0b090d; padding: 5px 13px 3px; box-shadow: 4px 4px 0 rgba(11, 9, 13, 0.75);
@@ -330,7 +334,9 @@ body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, 
 .mc-fx-montaje .fondo { position: absolute; inset: 0; background-size: cover; background-repeat: no-repeat; opacity: 0; image-rendering: pixelated; }
 .mc-fx-montaje .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 5, 16, 0.15), rgba(10, 5, 16, 0.6)); box-shadow: inset 0 0 0 5px #0b090d; }
 .mc-fx-palotes { position: absolute; overflow: visible; }
-.mc-fx-palotes g { opacity: 0; transform-origin: 0 0; }
+/* Cada raya crece desde su propio centro: con el origen en la esquina del dibujo, las rayas lejanas
+   aparecían desplazadas mientras entraban. */
+.mc-fx-palotes g { opacity: 0; transform-box: fill-box; transform-origin: 50% 50%; }
 .mc-fx-palotes path { fill: none; stroke-linecap: round; }
 .mc-fx-palotes .borde { stroke: #0b090d; stroke-width: 17; }
 .mc-fx-palotes .tiza { stroke: #fff6dc; stroke-width: 8; }
@@ -342,3 +348,49 @@ body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, 
   box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
 }
 .mc-esquirla { position: absolute; left: 0; top: 0; opacity: 0; overflow: visible; will-change: transform, opacity; }
+
+/* ============================================================ 0.3.1 · orden de la Biblia y descenso
+   Ninguna de estas capas usa modos de mezcla ni filtros animados. */
+.mc-fx-niveles .franja .tinte { position: absolute; inset: 0; }
+
+/* Puerta que ya no da al exterior */
+.mc-fx-puerta { overflow: hidden; border: 8px solid #0b090d; outline: 5px solid #f3ecd6; box-sizing: border-box; border-radius: 50% 50% 0 0 / 34% 34% 0 0; transform-origin: 50% 100%; box-shadow: 0 12px 0 rgba(8, 4, 12, 0.6); will-change: transform; }
+.mc-fx-puerta .fuera { position: absolute; inset: 0; background: linear-gradient(180deg, #0c1326 0%, #1d2c52 48%, #46527e 78%, #c79a6a 100%); }
+.mc-fx-puerta .fuera::after { content: ""; position: absolute; inset: 0; background-image: radial-gradient(circle, #fff 0 1.6px, transparent 2.4px), radial-gradient(circle, #dfe8ff 0 1.2px, transparent 2px); background-size: 61px 47px, 37px 53px; background-position: 9px 12px, 23px 31px; opacity: 0.8; }
+.mc-fx-puerta .dentro { position: absolute; inset: 0; background-repeat: no-repeat; opacity: 0; will-change: opacity; }
+.mc-fx-puerta .dentro .velo { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(40, 8, 30, 0.1), rgba(40, 8, 30, 0.45)); }
+
+/* Las nueve pistas */
+.mc-fx-mosaico { inset: 0; }
+.mc-fx-mosaico .celda { position: absolute; overflow: hidden; border: 7px solid #0b090d; outline: 4px solid #f3ecd6; box-sizing: border-box; box-shadow: 0 10px 0 rgba(8, 4, 12, 0.6); will-change: transform; }
+.mc-fx-mosaico .sala, .mc-fx-mosaico .pista { position: absolute; inset: 0; background-repeat: no-repeat; }
+.mc-fx-mosaico .pista { background-size: cover; opacity: 0; image-rendering: pixelated; will-change: opacity; }
+.mc-fx-mosaico .celda::after { content: ""; position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 5, 16, 0), rgba(10, 5, 16, 0.45)); }
+.mc-fx-mosaico .mc-fig { z-index: 1; }
+
+/* Tocadiscos de Tempo: etiqueta que gira sobre la ilustración */
+.mc-fx-etiqueta { border-radius: 50%; background-repeat: no-repeat; will-change: transform; }
+.mc-fx-etiqueta .marca { position: absolute; left: 50%; top: 9%; width: 8%; height: 25%; margin-left: -4%; background: #2a1408; border-radius: 40%; opacity: 0.85; }
+.mc-fx-disco .chispa { opacity: 0; will-change: transform, opacity; }
+.mc-fx-disco .chispa path { stroke: #fff3d6; stroke-width: 6; stroke-linecap: round; fill: none; }
+
+/* Descenso: tira vertical de escenarios, mecanismo circular y líneas de velocidad */
+.mc-fx-tira { left: 0; top: 0; width: 100%; will-change: transform; }
+.mc-fx-tira .seccion { position: absolute; left: 0; width: 100%; overflow: hidden; background: #07040b; }
+.mc-fx-tira .seccion img { position: absolute; max-width: none; }
+.mc-fx-tira .seccion img.pixelado { image-rendering: pixelated; }
+.mc-fx-tira .tinte { position: absolute; inset: 0; }
+.mc-fx-tira .neon { position: absolute; opacity: 0.5; will-change: opacity; }
+.mc-fx-tira .iris { position: absolute; width: 0; height: 0; }
+.mc-fx-tira .iris svg { position: absolute; overflow: visible; }
+.mc-fx-tira .iris .grietas { opacity: 0; }
+.mc-fx-tira .iris .grietas path { fill: none; stroke: #fff3d6; stroke-width: 7; stroke-linejoin: bevel; }
+.mc-fx-tira .iris .hueco { opacity: 0; transform-origin: 0 0; will-change: transform; }
+.mc-fx-tira .iris .hueco .fondo { fill: #050308; }
+.mc-fx-tira .iris .hueco .borde { fill: none; stroke: #0b090d; stroke-width: 16; }
+.mc-fx-tira .iris .anillo { opacity: 0; transform-origin: 0 0; will-change: transform, opacity; }
+.mc-fx-tira .iris .anillo .aro { fill: none; stroke: #ffd98a; stroke-width: 8; stroke-dasharray: 46 20; }
+.mc-fx-tira .iris .anillo .diente { stroke: #fff3d6; stroke-width: 10; stroke-linecap: round; }
+.mc-fx-lineas { inset: 0; overflow: hidden; }
+.mc-fx-lineas .linea { position: absolute; top: 0; opacity: 0; background: linear-gradient(180deg, transparent, rgba(243, 236, 214, 0.9) 30%, rgba(243, 236, 214, 0.9) 70%, transparent); will-change: transform, opacity; }
+.mc-fx-tira .losa { position: absolute; left: 0; right: 0; top: 0; height: 40px; background: linear-gradient(180deg, #0b090d 0 30%, #4a3d43 30% 44%, #1c1620 44% 82%, #0b090d 82%); z-index: 2; }

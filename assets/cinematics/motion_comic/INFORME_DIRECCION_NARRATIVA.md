@@ -6,6 +6,9 @@ Motion comic de la introducción de DEADBEAT DISCO. Punto de partida: versión *
 - **Parte 1 · Análisis previo.** Escrita y guardada en el repositorio antes de tocar el guion, las
   composiciones o el motor.
 - **Parte 2 · Resultado.** Se añade al terminar la implementación.
+- **Parte 3 · Versión 0.3.1.** Reordena la historia según la cronología de la biblia, cambia la
+  llegada al Refugio, integra arte nuevo y revisa el rendimiento. **Es la parte vigente**: donde
+  contradiga a las partes 1 y 2, vale la 3. Las partes 1 y 2 se conservan como historial de la 0.3.0.
 
 ---
 
@@ -403,7 +406,9 @@ parones de entre 0,6 y 2,5 s, más o menos uno por segundo, y ya no desaparecen:
 - Intro completa, de 0 a 45 s: 184 fotogramas dibujados (unos 4 por segundo de media) y 22 parones.
   El peor, de 8,3 s, cayó en el segundo 32,7. No se repitió en tres pasadas posteriores de ese tramo,
   donde el más largo fue de 2,1 s.
-- En las tres pasadas del tramo de 30,5 a 38,5 s hubo un parón de unos 2 s hacia el segundo 34,2.
+- En dos pasadas del tramo de 30,5 a 38,5 s hubo un parón de unos 2 s hacia el segundo 34,2. En una
+  tercera pasada, más corta (de 31,5 a 36,5 s), el parón más largo fue de 0,9 s.
+  *(Corregido en la 0.3.1: la primera redacción decía «tres pasadas» con un parón de 2 s, y eran dos.)*
   Coincide con el nacimiento del protagonista (33,75 s), así que **en este entorno el destello del
   nacimiento se ve a saltos**.
 - Los textos entran en su momento igualmente, porque la reproducción sigue el reloj real.
@@ -477,3 +482,323 @@ Commits en la rama `arena/94a36df1-deadbeat-disconew`:
   cinemática sin confirmar (§42.10).
 - Que la adaptación de cada texto sea fiel a su pasaje, más allá de que el pasaje exista.
 - La integración en el juego. Esta vista previa sigue aislada, y el HUB sigue diciendo «DJ VIRGILIO».
+
+---
+
+# Parte 3 · Versión 0.3.1: orden de la biblia, descenso al Refugio y arte nuevo
+
+Versión resultante: **0.3.1-preview**. Diez planos, 96 pulsos a 128 por minuto, **45,000 s**.
+Punto de partida: la 0.3.0-preview (commit `b489d9f`). Esta parte es la vigente; las partes 1 y 2
+describen la 0.3.0 y quedan como historial.
+
+Los grados de certeza son los mismos de la parte 2: **comprobado** (lo he ejecutado o lo he visto en
+una captura), **medido en entorno limitado** (solo en el entorno de pruebas, sin tarjeta gráfica) y
+**sin comprobar** (listado en 3.11).
+
+## 3.1 Qué cambia respecto a la 0.3.0
+
+La 0.3.0 contaba la historia en un orden que no era el de la biblia, usaba una frase reservada para
+el final del juego, ponía a Tempo en el Refugio antes de tiempo y hacía despertar allí al
+protagonista sin mostrar cómo llega. La 0.3.1 corrige esas cuatro cosas a favor de la biblia:
+
+| Punto | 0.3.0 | 0.3.1 | Base |
+|---|---|---|---|
+| Orden de los hechos | Tempo nota el bucle y enlaza otra canción antes de que nazca la torre | La torre nace primero; después Tempo nota el bucle y decide | Cronología §38, puntos 6 a 9 |
+| «Solo una más.» | La decía Tempo en el plano 05 | No aparece. El validador da error si vuelve | La biblia la pone en «la última grabación», uno de los testimonios que encuentra el jugador |
+| Tempo en el Refugio | Recibía al protagonista con tres frases | No aparece en el Refugio ni habla allí | §5.5: «Tras el primer jefe: Tempo aparece y comienza a conversar» (figura como cambio propuesto) |
+| Llegada al Refugio | Despertaba allí | Baja en una plataforma de servicio desde la pista | §5.3 (propuesta de la propia biblia) |
+
+Además:
+
+- La estación, el anfitrión, los invitados, el tocadiscos y el pozo dejan de ser sustitutos hechos
+  con arte de otros lugares: tienen ilustración propia (3.4).
+- Los textos pasan de 17 a 14. Desaparecen las tres frases de Tempo en el Refugio, «Solo una más» y
+  la cartela final; el plano 10 no tiene diálogo.
+- Se revisó el rendimiento con una causa concreta en cada cambio (3.9).
+
+## 3.2 La historia, plano a plano
+
+| Plano | Empieza | Pulsos | Qué se ve | Cronología §38 |
+|---|---|---|---|---|
+| 01 La Primera Noche | 0,000 s | 10 | La estación convertida en sala de baile. Parejas, soldados, mesas con velas. No hay torre, ni neones, ni protagonista | 1 y 2 |
+| 02 El último deseo | 4,688 s | 7 | La luz se enfría y los invitados dejan de bailar. El anfitrión, de espaldas y a contraluz, levanta la copa | 4 |
+| 03 La Escucha | 7,969 s | 9 | La cámara baja bajo el salón. El deseo desciende como una onda; una superficie lo recibe y lo devuelve igual. No se ve a nadie | 3 y 5 |
+| 04 El nacimiento de la torre | 12,188 s | 10 | Dos puertas se abren y detrás hay más salón. El suelo se hunde y la misma sala se repite hacia abajo, nueve veces, cada vez más oscura | 6 |
+| 05 Los deseos se convierten en leyes | 16,875 s | 9 | Nueve viñetas con la misma sala. Una a una se convierten en las ilustraciones oficiales de las pistas. Dentro, todos siguen bailando | 7 |
+| 06 La nota que no termina | 21,094 s | 7 | El tocadiscos desde arriba. La aguja salta al mismo surco cuatro veces y la nota vuelve a salir. Tempo, en un recuadro, lo nota | 8 |
+| 07 La decisión de Tempo | 24,375 s | 9 | La sala apagada, los invitados quietos. Tempo los mira, pone otro disco y la luz vuelve | 9 |
+| 08 La repetición | 28,594 s | 9 | Cinco pistas, la misma figura, el mismo paso. La noche se corta y vuelve a empezar. Rayas de tiza cuentan las vueltas; el color se gasta | 10 |
+| 09 El Desafinado | 32,813 s | 10 | Una fila baila a compás; una figura da un paso a destiempo. La luz de la torre la corrige. Los descartes se juntan, toman contorno y, de golpe, cuerpo. La torre intenta corregirlo y no puede | 11 y 12 |
+| 10 El descenso al Refugio | 37,500 s | 16 | La música se engancha, un golpe bajo el suelo, el círculo del centro se abre. Queda sobre la plataforma y baja junto a balcones y luces de otras pistas hasta el Refugio, a oscuras | 13 |
+
+Dos cosas que conviene saber de esa tabla:
+
+- El punto 10 de la cronología incluye «Tempo recuerda los nombres». La intro no lo muestra: el plano
+  08 solo cuenta la repetición.
+- Los planos 03 y 04 siguen el orden del relato (§2.2 y §2.3), no el número de la cronología: la
+  Escucha «duerme» desde antes (punto 3), pero la intro la presenta cuando actúa.
+
+**Comprobado:** los diez planos se han visto en capturas a 1920×1080 (`evidence/`). En ellas se ve lo
+que describe la tabla. **Sin comprobar:** que un espectador nuevo lo entienda sin explicación.
+
+## 3.3 Textos
+
+14 piezas: 11 adaptadas y 3 propuestas. Ninguna es literal.
+
+| Plano | Texto | Tipo | Estado | Pasaje que adapta |
+|---|---|---|---|---|
+| 01 | «La guerra terminó. Por una noche, nadie tuvo que huir.» | Narrador | Adaptado | §2.1 «La fiesta celebraba el final de una guerra. Durante unas horas, personas que habían vivido esperando la muerte pudieron reunirse sin miedo.» |
+| 02 | «Que esta noche no termine.» | Bocadillo del anfitrión | Adaptado | §2.3 «…el anfitrión pidió que aquella noche no terminase.» |
+| 03 | «Bajo el salón dormía algo que escuchaba.» | Narrador | Adaptado | §2.2 «Bajo el salón dormía una presencia sin rostro llamada la Escucha.» |
+| 03 | «Y devolvió lo que recibió.» | Narrador | Adaptado | §2.3 «La Escucha respondió repitiéndola.» |
+| 04 | «El salón dejó de tener salida.» | Narrador | Adaptado | §2.3 «Las puertas dejaron de llevar al exterior.» |
+| 04 | «La noche empezó a crecer hacia abajo.» | Narrador | Adaptado | §2.3 «El salón creció hacia abajo, como un surco que se hunde en un disco.» |
+| 05 | «Los deseos se convirtieron en leyes.» | Narrador | Adaptado | §2.3 «Los deseos más intensos de los invitados se convirtieron en las leyes de cada pista.» |
+| 05 | «La despedida nunca llegó.» | Narrador | Adaptado | §2.4 «Conserva el instante anterior a la despedida y lo reproduce…» |
+| 06 | «TAC» (cuatro veces) | Onomatopeya | **Propuesta** | Ninguno |
+| 07 | «Los vi felices. Creí que unos minutos más no podían hacer daño.» | Voz de Tempo, con su nombre | **Propuesta** | Ninguno como cita. Ver abajo |
+| 08 | «La noche volvió a empezar.» | Narrador | Adaptado | §2.3 «El tiempo se plegó sobre sí mismo.» |
+| 08 | «La torre corregía cada variación.» | Narrador | Adaptado | §4.1 «…La torre corrigió el movimiento, pero descartó esa posibilidad…» |
+| 09 | «Lo que la torre rechazó terminó tomando forma.» | Narrador | Adaptado | §4.1 «…todas las decisiones rechazadas se acumularon hasta formar una persona.» |
+| 10 | «TAC» (dos veces) | Onomatopeya | **Propuesta** | Ninguno |
+
+Sobre la frase de Tempo: la biblia lo cuenta en tercera persona (§3.1: «Vio a los invitados felices y
+pensó que unos minutos más no podían hacer daño.»). La intro lo pasa a primera persona y lo pone en
+su voz. Como eso es poner palabras en boca de un personaje, está marcada como propuesta y no como
+adaptación. **No es canon hasta que dirección la apruebe.**
+
+Lo que el validador puede y no puede decir de estos textos:
+
+- **Comprobado:** las 20 citas (11 de textos y 9 del banco de alternativas) existen, letra por letra,
+  en `fuentes/biblia_extractos.md`. Los extractos se copiaron de la biblia en la 0.3.0.
+- **Sin comprobar:** que cada adaptación sea fiel al sentido de su pasaje. El validador no lo juzga.
+  La más libre es «La noche volvió a empezar» sobre «El tiempo se plegó sobre sí mismo».
+
+## 3.4 Arte
+
+### Arte nuevo, sin aprobar
+
+Ocho imágenes, todas en `arte_nuevo/`, **generadas por IA en esta sesión**. No son arte oficial y no
+han pasado por dirección de arte. El detalle está en `arte_nuevo/MANIFIESTO.md`.
+
+| Archivo | Tamaño real | Uso | Planos |
+|---|---|---|---|
+| `estacion_primera_noche.png` | 2560×1440 | Fondo de la Primera Noche; también la «sala repetida» de la torre | 01, 02, 03, 04, 05, 07 |
+| `anfitrion_contraluz.png` | 463×1255 | El anfitrión, de espaldas | 02 |
+| `invitados_pareja_a.png`, `invitados_pareja_b.png`, `invitado_soldado.png`, `invitada_copa.png` | entre 221×540 y 390×553 | Invitados en primer término | 01, 02, 05, 07 |
+| `tocadiscos_tempo.png` | 1024×1024 | El tocadiscos visto desde arriba | 06, 07 |
+| `pozo_torre.png` | 768×1376 | El pozo por el que baja la plataforma | 10 |
+
+Límites que hay que conocer:
+
+- **La estación no es nativa a 2560×1440.** La herramienta la entregó a 1376×768; se recortó y se
+  amplió. A pantalla completa se ve bien en las capturas, pero no tiene el detalle de un dibujo hecho
+  a ese tamaño.
+- El pozo (768×1376) se estira a lo ancho de la viñeta. Pasa deprisa y en movimiento; en un fotograma
+  parado se nota blando.
+- Las siluetas se obtuvieron de imágenes en negro sobre blanco, convirtiendo el blanco en
+  transparencia. No tienen detalle interior a propósito.
+- El estilo de la estación se pidió tomando como referencia dos ilustraciones oficiales. Se parece,
+  pero **no he comprobado con dirección de arte que encaje** con el resto del juego.
+- De `generado/` solo quedan tres salidas originales (estación, anfitrión e invitados). Las del
+  tocadiscos y el pozo se usan tal cual salieron, sin copia aparte.
+
+Cada plano que usa algo de esa carpeta lleva el sello azul **«ARTE NUEVO · SIN APROBAR»**: planos 01,
+02, 03, 04, 05, 06, 07 y 10. Ya no hay ningún plano con «ARTE PROVISIONAL».
+
+### Arte oficial, sin modificar
+
+| Recurso | Uso | Planos |
+|---|---|---|
+| `cine_circle_01…09_*.png` | Las nueve pistas del mosaico; cinco de ellas, las tiras de la repetición | 05, 08 |
+| `cine_bg05_*`, `cine_bg06_*` | Fondo de la repetición; pista del Desafinado y del inicio del descenso | 08, 09, 10 |
+| `cine_circle_00_hub.png` | El Refugio | 10 |
+| `hero_walk_01.png` | El protagonista | 09, 10 |
+| `enemy_dancer_walk.png` | Silueta de los bailarines idénticos | 08, 09 |
+| `dialogue_portrait_dj.png` | Tempo, en recuadro | 06, 07 |
+| `threshold_descent_pad.png` | La plataforma | 10 |
+| Logotipo | Sello del título al final | 10 |
+
+Ningún archivo original se ha modificado: se leen por ruta y se encuadran por código.
+
+### Lo que sigue dibujado por código
+
+Las ondas y la superficie de la Escucha, los marcos de las puertas, la nota y su trayectoria, las
+rayas de tiza, los fragmentos, el destello, las líneas de velocidad, el iris del suelo, los carriles
+y los neones que parpadean en el Refugio.
+
+## 3.5 Decisiones de puesta en escena
+
+- **La Escucha no tiene cuerpo** (plano 03). La biblia la llama «presencia sin rostro». Se muestra
+  solo por lo que hace: recibe una onda y devuelve otra igual.
+- **La torre es la misma sala repetida** (plano 04). No se enseña ninguna construcción ni a nadie
+  construyendo: la imagen de la estación se repite hacia abajo y se oscurece.
+- **Las pistas nacen iguales** (plano 05). Las nueve viñetas empiezan con la estación y cambian una a
+  una. Así se ve que cada pista es el mismo salón, deformado.
+- **Tempo no es un villano** (planos 06 y 07). Se le ve mirar a los invitados antes de poner el
+  disco, y la luz vuelve cuando lo pone.
+- **El protagonista no existe hasta el plano 09.** Antes solo hay siluetas sin rasgos. Su primer
+  fotograma con el aspecto oficial es el del nacimiento (36,1 s).
+- **El Refugio empieza a oscuras** (plano 10), con neones que fallan. El §5.5 lo describe al inicio
+  como «oscuridad, neones parpadeantes y sensación de espacio abandonado». No hay nadie más.
+- **Nadie explica el mecanismo.** El §5.3 prohíbe decir quién lo activa o que el protagonista venga
+  de fuera. No hay texto en el descenso.
+
+## 3.6 Coherencia con la biblia
+
+**Resuelto en esta versión** (a favor de la biblia): el orden de los hechos, «Solo una más», Tempo en
+el Refugio y la llegada en plataforma. Ver 3.1.
+
+**Abierto, para decisión de dirección:**
+
+1. **«Despierta» o «desciende».** La cronología (§38, punto 13) dice que el Desafinado «despierta en
+   el Refugio». El §5.3, marcado en la biblia como «PROPUESTA NARRATIVA», describe el descenso en
+   plataforma. La intro muestra el descenso, como pide el encargo. No son incompatibles, pero la
+   intro no enseña ningún despertar.
+2. **Dónde está el Refugio.** El §5.1 ordena el descenso así: Refugio, Acceso, Pista 01… Es decir,
+   el Refugio queda por encima de las pistas. El §5.3 dice que al bajar hacia el Refugio se ven
+   «luces de otras pistas a profundidades imposibles». La intro muestra lo que dice el §5.3 y no
+   inventa una explicación. Si dirección prefiere otra lectura, hay que cambiar el plano 10.
+3. **La pista de la que parte.** El §5.3 habla de «la pista principal» sin decir cuál. La intro usa
+   la misma pista en la que nace (`cine_bg06`), para no cortar entre el plano 09 y el 10.
+4. **La frase de Tempo** (3.3) y las dos onomatopeyas son propuestas.
+5. **El nombre.** La intro dice «TEMPO»; el HUB del juego sigue diciendo «DJ VIRGILIO».
+6. **Duración.** El motor del juego da 35,0 s a la intro (`src/dd_cinematic_camera.js`); este cómic
+   dura 45 s. No se ha tocado el motor.
+7. **Los extractos de la biblia** están copiados en `fuentes/`. Falta confirmar que pueden estar en
+   el repositorio.
+
+## 3.7 Cambios en el motor y en las herramientas
+
+| Dónde | Qué |
+|---|---|
+| `js/motor.js` | Sellos de arte de dos tipos y varios por plano; arte de fondo opcional; personajes con trayectoria y ventana de aparición; el arte va en una caja que lleva el encuadre; velo de latido |
+| `js/efectos.js` | Efectos nuevos: `puerta`, `mosaico`, `tocadiscos`, `descenso`. Ampliados: `luz` (velo plano, mezcla opcional), `niveles`, `compas`, `montaje` |
+| `js/textos.js` | El sello de un narrador de varias cajas ya no queda tapado por las cajas |
+| `js/vista_previa.js`, `index.html` | La pestaña Comprobaciones enumera los planos con arte nuevo o provisional |
+| `comic.css` | Estilos de lo anterior; tramas y grano sin modos de mezcla; las rayas de tiza entran en su sitio |
+| `validar_guion.mjs` | Comprobaciones 4 (recursos y sellos) y 5 (frases reservadas) |
+| `data/guion.json`, `data/composicion.json` | Regenerados: 0.3.1-preview |
+
+Dos defectos encontrados y corregidos al revisar las capturas:
+
+- El sello «PROPUESTA» de la voz de Tempo quedaba detrás de sus propias cajas y no se veía.
+- En el plano 08, cada raya de tiza aparecía desplazada a la derecha mientras entraba, porque crecía
+  desde la esquina del dibujo y no desde su centro.
+
+## 3.8 Resultado del validador
+
+**Comprobado**, ejecutando `node assets/cinematics/motion_comic/validar_guion.mjs`:
+
+```
+Duración 45.000 s · 10 planos · 128 pulsos por minuto · 14 textos activos
+Estados: Adaptado 11 · Nuevo propuesto 3
+Citas: 20 de 20 encontradas en su archivo de origen.
+Recursos: 25 comprobados en disco · 8 nuevos sin aprobar (estacion, tocadiscos, pozo, anfitrion, pareja_a, pareja_b, soldado, invitada).
+Sellos de arte: 8 planos con «ARTE NUEVO · SIN APROBAR» (1, 2, 3, 4, 5, 6, 7, 10) · 0 con «ARTE PROVISIONAL».
+Errores: 0
+Avisos: 0
+```
+
+- Código de salida 0. Con un guion de prueba que contiene «Solo una más», da 1 error y código de
+  salida 1.
+- El texto más rápido se lee a 16,8 caracteres por segundo (cómodo hasta 17, máximo 21).
+- La pestaña Comprobaciones de la vista previa da también 0 errores y 0 avisos, y mide la letra más
+  pequeña en 30 px a 1080p (mínimo 26). Captura en `evidence/inspector_comprobaciones.jpg`.
+- La comprobación automática de textos dentro de pantalla marca tres veces la onomatopeya del plano
+  06. Es un falso positivo de la herramienta, que mide las repeticiones ya desvanecidas; en la
+  captura del plano 06 el «TAC» está dentro de la viñeta.
+
+Lo que el validador no cubre: no comprueba que el arte nuevo esté aprobado (solo que esté marcado),
+ni que las adaptaciones sean fieles, ni nada que dependa del dibujo.
+
+## 3.9 Reproducción y rendimiento
+
+**Todo este apartado es «medido en entorno limitado».** Chromium sin interfaz, sin tarjeta gráfica,
+2 núcleos, 1920×1080, sin panel. Cada cifra es de una sola pasada salvo que se diga otra cosa, y
+varía de una pasada a otra. **No hay ninguna medida en un equipo real.**
+
+*Recorrido completo.* **Comprobado:** la reproducción llega a 45,000 s sin errores de consola ni
+archivos que falten, y cada cinco segundos de reloj la intro iba por su segundo, con menos de
+0,2 s de diferencia. La excepción fue la marca de los 20 s, donde el último fotograma dibujado era el
+del segundo 18,5: coincidió con uno de los parones del modo gráfico emulado, que es el que usa esta
+prueba. A los 25 s ya iba por el 24,97.
+
+*Reproducción seguida, composición por software.* Es el modo en que las cifras se repiten mejor.
+
+| Tramo | 0.3.0 | 0.3.1 |
+|---|---|---|
+| 0 a 7 s | 55 fotogramas · 2,2 s perdidos · peor parón 0,25 s | 310 fotogramas · 0,8 s perdidos · peor parón 0,23 s |
+| 27 a 34 s | 42 fotogramas · 5,1 s perdidos · peor parón 0,93 s | 221 fotogramas · 1,0 s perdidos · peor parón 0,21 s |
+
+Los dos tramos no contienen los mismos planos en una versión y en otra, así que la comparación es
+orientativa. La 0.3.1 entera, en cuatro tramos:
+
+| Tramo | Fotogramas | Tiempo perdido en parones | Peor parón |
+|---|---|---|---|
+| 0 a 12 s | 423 | 0,96 s | 0,21 s |
+| 12 a 24 s | 603 | 1,03 s | 0,27 s |
+| 24 a 36 s | 389 | 1,94 s | 0,59 s (en el segundo 32,9) |
+| 36 a 45 s | 487 | 0 s | ninguno |
+
+En total, unos 1.900 fotogramas en 45 s (42 por segundo de media) y 3,9 s perdidos. **Los parones
+que quedan caen en los cambios de plano**; el peor, en el paso del plano 08 al 09. El descenso al
+Refugio no tuvo ninguno.
+
+*Reproducción seguida, modo gráfico emulado del mismo entorno.* Sale peor y es muy irregular: en la
+última pasada, 1.459 fotogramas y 16 s perdidos, con parones de hasta 3,2 s; en pasadas anteriores
+del mismo código hubo parones de hasta 4,6 s en el descenso. La 0.3.0 dibujó 184 fotogramas y perdió
+41 s en esa misma prueba. No lo considero una medida fiable de lo que pasará en un equipo real, ni
+para bien ni para mal.
+
+*Qué se cambió, y con qué efecto medido* (composición por software):
+
+| Cambio | Efecto |
+|---|---|
+| Tramas de puntos y grano sin modos de mezcla; las capas del revelado dejan de componerse cuando no se ven | Es lo que más pesa en la diferencia entre la 0.3.0 y la 0.3.1 |
+| El arte de fondo va en una caja que lleva el movimiento; el filtro de color queda en la imagen | 0 a 12 s: de unos 295 fotogramas a unos 360 |
+| El latido de luz del fondo se da con un velo que cambia de opacidad, no cambiando el filtro en cada fotograma | 0 a 12 s: de unos 360 a unos 420. Plano 08 (3,4 s): de 36 a 61 |
+| En el plano 08, el corte inclinado de cada tira se aplica al fondo, que no se mueve, y no a la tira con sus figuras | Plano 08 (3,4 s): de 61 a unos 85 |
+
+*Coste visual de esos cambios.* **Comprobado** comparando capturas a 1920×1080, píxel a píxel:
+
+- Tramas y grano: diferencia media de 1,3 a 2,2 niveles sobre 255; la imagen queda 0,8 niveles más
+  oscura de media.
+- Caja del arte: diferencia media de 0 a 0,17 niveles.
+- Velo de latido: en un golpe de compás, 1,9 niveles de media (la imagen queda 0,9 niveles más
+  clara); fuera del golpe, menos de 0,3.
+- Corte de las tiras: ningún píxel cambia más de 1 nivel.
+
+Son diferencias que no he sabido ver a ojo en las capturas. **Sin comprobar** que en movimiento, y
+en una pantalla real, tampoco se noten.
+
+*Lo que queda mal.* El plano 08 es el más pesado: unos 25 fotogramas por segundo en este entorno. El
+paso del 08 al 09 concentra los parones más largos. No he encontrado una causa única para ese
+cambio de plano.
+
+## 3.10 Archivos y entrega
+
+| Ruta | Estado |
+|---|---|
+| `arte_nuevo/` (8 imágenes, `MANIFIESTO.md`, `generado/` con 3 originales) | Nuevo |
+| `data/guion.json`, `data/composicion.json` | Regenerados |
+| `js/motor.js`, `js/efectos.js`, `js/textos.js`, `js/vista_previa.js`, `comic.css`, `index.html` | Modificados |
+| `validar_guion.mjs` | Ampliado |
+| `evidence/` | Sustituida entera: 25 fotogramas, 3 capturas del inspector, hoja de contacto y las secuencias del nacimiento y del descenso |
+| `README.md`, este informe | Actualizados |
+
+No se ha tocado nada fuera de `assets/cinematics/motion_comic/`. El identificador del commit figura
+en el mensaje de entrega.
+
+## 3.11 Lo que no está comprobado
+
+- Que un espectador que no conoce el juego entienda la historia.
+- La fluidez en un equipo con tarjeta gráfica, y el funcionamiento en Firefox, Safari y móvil. Todas
+  las medidas son del entorno de pruebas.
+- Que el arte nuevo encaje con la dirección de arte del juego. Nadie lo ha revisado.
+- Que la adaptación de cada texto sea fiel a su pasaje.
+- Que los cambios de rendimiento no se noten en movimiento: solo se compararon fotogramas parados.
+- La intro con música y sonido reales. El repositorio no tiene, y los sonidos guía son sintetizados.
+- La integración en el juego. La vista previa sigue aislada.
+- No se ha vuelto a comparar esta versión con la biblia entera, solo con los apartados citados
+  (§2, §3.1, §4.1, §5.1 a §5.5 y §38), y con la lista de testimonios donde aparece «solo una más».
