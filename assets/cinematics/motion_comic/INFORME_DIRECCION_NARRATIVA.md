@@ -7,8 +7,10 @@ Motion comic de la introducción de DEADBEAT DISCO. Punto de partida: versión *
   composiciones o el motor.
 - **Parte 2 · Resultado.** Se añade al terminar la implementación.
 - **Parte 3 · Versión 0.3.1.** Reordena la historia según la cronología de la biblia, cambia la
-  llegada al Refugio, integra arte nuevo y revisa el rendimiento. **Es la parte vigente**: donde
+  llegada al Refugio, integra arte nuevo y revisa el rendimiento. Donde
   contradiga a las partes 1 y 2, vale la 3. Las partes 1 y 2 se conservan como historial de la 0.3.0.
+- **Parte 4 · Versión 0.4.0.** Revisión del ritmo y del montaje: el protagonista pasa a ser el hilo
+  visual de la secuencia. **Es la parte vigente**; las partes 1 a 3 quedan como historial.
 
 ---
 
@@ -802,3 +804,139 @@ en el mensaje de entrega.
 - La integración en el juego. La vista previa sigue aislada.
 - No se ha vuelto a comparar esta versión con la biblia entera, solo con los apartados citados
   (§2, §3.1, §4.1, §5.1 a §5.5 y §38), y con la lista de testimonios donde aparece «solo una más».
+
+---
+
+# Parte 4 · Versión 0.4.0: ritmo, continuidad y protagonista
+
+Punto de partida: la 0.3.1-preview (commit `0dd82f2`). Encargo: «Revisión narrativa y cinematográfica
+de la introducción». Esta parte tiene dos mitades:
+
+- **4.1 a 4.5 · Propuesta de montaje.** Escrita y guardada en el repositorio antes de tocar el guion,
+  la composición o el motor.
+- **4.6 en adelante · Resultado.** Se añade al terminar la implementación.
+
+El encargo anterior («cierre narrativo 0.3.2») quedó interrumpido antes de modificar ningún archivo.
+Sus decisiones siguen en pie y se aplican aquí: la frase de Tempo pasa a tercera persona, el arte
+nuevo sigue sin aprobar, la ambigüedad sobre el lugar del Refugio queda documentada como pendiente y
+las adaptaciones se revisan una a una (4.9).
+
+## 4.1 Diagnóstico de la 0.3.1
+
+Medido sobre la línea de tiempo de la 0.3.1 (45,000 s):
+
+| Qué | Dato |
+|---|---|
+| Tiempo antes de que exista el protagonista | 36,1 s de 45 (el 80 %) |
+| Tiempo con el protagonista en pantalla | 8,9 s, todos al final |
+| Planos dedicados al origen de la fiesta y de la torre | 8 de 10 (37,5 s) |
+| Textos antes de que aparezca | 13 de 14 |
+| Tipos de encuadre | Casi todos generales. Dos recuadros de Tempo. Ningún primer plano, ningún plano desde el hombro, ninguno subjetivo |
+| Tamaño del protagonista durante el descenso | Unos 110 px de alto en una imagen de 1080 |
+
+Tres problemas, que son los del encargo:
+
+1. **La fiesta tarda demasiado.** Cinco planos (21 s) cuentan la fiesta, el deseo, la Escucha, la
+   torre y las pistas, y cada uno con uno o dos textos. Es un resumen de la biblia, no una escena.
+2. **No hay a quién seguir.** Hasta el segundo 36 no hay un personaje. Los invitados, el anfitrión y
+   Tempo aparecen y desaparecen; lo único que une los planos es el narrador.
+3. **El final es otra cinemática.** El protagonista nace en un plano y en el siguiente ya es una
+   figura pequeña en un plano general que baja. No se le ve reaccionar, no se ve lo que él ve, y el
+   Refugio aparece como un decorado más.
+
+Lo que sí funciona y se conserva: el orden de la cronología (§38), la Escucha sin cuerpo, la torre
+como sala repetida, el mosaico de pistas, la secuencia del paso corregido y el descenso en tira
+continua.
+
+## 4.2 Propuesta de montaje
+
+Se mantienen los **45,000 s** (96 pulsos a 128 por minuto). Los diez planos pasan a **quince**,
+agrupados en los seis bloques del encargo. No se añade ningún texto y se retiran dos.
+
+| Bloque | Plano | Empieza | Pulsos | Encuadre | Qué se ve | Función |
+|---|---|---|---|---|---|---|
+| 1 La última fiesta | 01 La Primera Noche | 0,000 s | 8 | General | La estación, la fiesta | Dónde estamos y qué se celebra |
+| | 02 El paso | 3,750 s | 4 | Primer plano de pies | Parejas bailando, de cintura para abajo, todas a compás | La felicidad, de cerca. Planta el motivo de toda la intro: **el paso** |
+| 2 El deseo y la Escucha | 03 El último deseo | 5,625 s | 5 | Medio, de espaldas | El anfitrión levanta la copa | Alguien pide que no termine |
+| | 04 La Escucha | 7,969 s | 9 | General, en vertical | La onda baja, rebota y vuelve igual | Algo responde repitiendo |
+| 3 La torre | 05 El nacimiento de la torre | 12,188 s | 7 | General, cámara que baja | Puertas que dan a más salón; la sala se repite hacia abajo | La fiesta queda encerrada y crece hacia abajo |
+| | 06 Los deseos se convierten en leyes | 15,469 s | 6 | Mosaico de nueve viñetas | La misma sala se vuelve nueve lugares | Cada pista, un deseo |
+| 4 Tempo | 07 La nota que no termina | 18,281 s | 5 | Detalle, desde arriba | La aguja salta; Tempo lo nota | La música no acaba |
+| | 08 La decisión de Tempo | 20,625 s | 9 | Medio, con recuadros | Tempo mira a los invitados y pone otro disco. Al volver la música, **un invitado pisa a destiempo** y deja un rastro azul | Tempo lo hace por ellos. Primera anomalía, en el momento que dice la biblia (§4.1: «durante la primera transición») |
+| 5 El Desafinado | 09 La repetición | 24,844 s | 6 | Montaje en tiras | La misma figura, el mismo paso. En cada vuelta queda un rastro azul más | Las repeticiones dejan restos |
+| | 10 El paso fuera de tiempo | 27,656 s | 5 | Primer plano de pies | Una fila de pies a compás; uno pisa tarde. La luz de la torre lo corrige; el paso descartado se queda fuera | Qué es lo que la torre rechaza. Rima con el plano 02 |
+| | 11 El Desafinado | 30,000 s | 9 | General y recuadro de detalle | Los descartes se juntan donde quedó el paso, toman contorno y cuerpo. Recuadro: hombro y tatuaje | El protagonista nace de lo descartado |
+| 6 La ruptura y el descenso | 12 La anomalía | 34,219 s | 5 | **Desde el hombro** | Él, de espaldas en primer término; delante, la pista. La música se engancha y el círculo del suelo se agrieta | Él lo percibe. Desde aquí la cámara es suya |
+| | 13 El mecanismo | 36,563 s | 4 | **Subjetivo** (lo que tiene delante) | El círculo gira y se abre; dentro aparece la plataforma | La estructura responde |
+| | 14 El descenso | 38,438 s | 10 | General con recuadro cercano | Queda sobre la plataforma y baja. Recuadro con su rostro mientras pasan las luces. Llega, recupera el equilibrio y sale de la plataforma | Continuidad: pista, pozo y Refugio son el mismo edificio |
+| | 15 El Refugio | 43,125 s | 4 | **Desde el hombro** | Él, de espaldas; delante, el Refugio, que se enciende a medias. Título | Ha llegado. Rima con el plano 12 |
+
+Con este montaje el protagonista toma cuerpo en el segundo **32,1** (antes, 36,1) y tiene 12,9 s de
+pantalla (antes, 8,9). Lo más importante no son esos cuatro segundos: es que el paso aparece en el
+segundo 3,8 y el primer rastro en el 22,9, de modo que cuando nace ya llevamos media intro viéndolo
+venir.
+
+**Sobre la duración.** Los 45 s alcanzan, pero el bloque 6 queda justo: once acontecimientos en
+10,8 s. Si la prueba de comprensión (4.12) muestra que el descenso o la llegada no se entienden,
+propongo pasar a **104 pulsos = 48,750 s**, repartiendo los ocho pulsos nuevos así: plano 11 +1,
+plano 12 +1, plano 13 +1, plano 14 +3, plano 15 +2. No lo aplico ahora porque no tengo ningún dato
+que diga que hace falta, y alargar sin dato es justo lo que este encargo quiere corregir.
+
+## 4.3 Cómo entra el protagonista
+
+Un solo código visual para todo lo que tiene que ver con él antes de nacer: **la silueta en azul
+claro con trama de puntos**, que la 0.3.1 ya usaba en el plano del nacimiento. Significa «lo que la
+torre descartó».
+
+| Fase | Planos | Qué se ve de él |
+|---|---|---|
+| 1. La fiesta | 01 a 07 | Nada suyo. Solo el motivo: pies que bailan a compás (02) |
+| 2. Rastros | 08, 09, 10 | Un invitado que pisa tarde y deja un rastro azul (08). Un rastro más en cada repetición (09). El paso tardío, en primer plano, corregido y expulsado (10) |
+| 3. El nacimiento | 11 | Los rastros se juntan en el sitio del paso expulsado, toman el contorno del dibujo oficial y, de golpe, cuerpo. Recuadro con el hombro y el tatuaje |
+| 4. Toma el control | 12 a 15 | Dos planos desde su hombro, uno de lo que él ve, y el descenso con un recuadro cercano |
+
+Antes del plano 11 no aparece ni su silueta ni su rostro: los rastros tienen la forma de los
+invitados y de los bailarines, no la suya.
+
+## 4.4 Recursos para ello
+
+No se genera ni se retoca ninguna imagen. Todo sale de archivos que ya están en el repositorio:
+
+| Recurso | Qué es | Uso nuevo |
+|---|---|---|
+| `assets/ui/hud_portrait_protagonist.png` (256×256, oficial) | Retrato del protagonista **de espaldas, por encima del hombro**, con el tatuaje y el rostro de perfil | Primer término de los planos 12 y 15 (desde el hombro) y recuadro de detalle del plano 11 |
+| `hero_walk_01.png` (224×320, oficial) | El dibujo de cuerpo entero que ya se usaba | Igual que antes, y recortado de cintura para arriba en el recuadro del descenso |
+| Siluetas de invitados (`arte_nuevo/`, sin aprobar) | Las de la 0.3.1 | Ampliadas y cortadas por la cintura para el primer plano de pies (02) |
+| `enemy_dancer_walk.png` (oficial) | Silueta del Bailarín | Igual, ampliada, para el primer plano de pies (10) |
+
+Límites que ya se conocen:
+
+- **El retrato mide 256×256** y en los planos 12 y 15 se amplía unas tres veces. Va en primer
+  término y a contraluz, donde un dibujo blando molesta menos, pero no es un dibujo hecho a ese
+  tamaño.
+- **No hay ningún dibujo del protagonista de espaldas de cuerpo entero, ni mirando hacia abajo, ni
+  incorporándose.** El «plano subjetivo» (13) es un recorte de la misma ilustración de la pista, no
+  una vista dibujada desde sus ojos: se lee como subjetivo por el corte desde el plano 12.
+  «Recupera el equilibrio y sale de la plataforma» (14) se hace moviendo el dibujo entero, sin
+  deformarlo.
+- El retrato y el dibujo de cuerpo entero son dos ilustraciones oficiales distintas del mismo
+  personaje, con diferencias de detalle (el chaleco, el tatuaje del hombro). No se corrigen.
+- En los primeros planos de pies, el fondo es un recorte muy ampliado de la estación: queda blando,
+  como un fondo desenfocado.
+
+## 4.5 Textos
+
+No se escribe ninguno nuevo. De 14 pasan a 12:
+
+| Cambio | Texto | Motivo |
+|---|---|---|
+| Sustituido | «Los vi felices. Creí que unos minutos más no podían hacer daño.» → «Los vio felices. Pensó que unos minutos más no podían hacer daño.» | Decisión de dirección (encargo 0.3.2). Pasa de PROPUESTA a ADAPTADO: es casi el pasaje del §3.1. Deja de ser la voz de Tempo y pasa a ser narración |
+| Retirado | «El salón dejó de tener salida.» | Las puertas ya lo enseñan |
+| Retirado | «La despedida nunca llegó.» | Repite el deseo del anfitrión, y era una de las adaptaciones más libres |
+| Movido | «La torre corregía cada variación.» | Del montaje de la repetición al primer plano del paso (10), donde se ve la corrección |
+
+Quedan 10 adaptados y 2 propuestas (las onomatopeyas «TAC»).
+
+**Consecuencia que hay que decidir:** al pasar la frase a narración desaparece el rótulo «TEMPO» que
+la acompañaba, y con él el nombre del personaje: la intro ya no lo nombra. Mantener el rótulo sobre
+una frase en tercera persona haría creer que Tempo habla de otro. Queda como pendiente (4.11).
