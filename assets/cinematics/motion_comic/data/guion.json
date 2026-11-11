@@ -1,12 +1,13 @@
 {
-  "version": "0.3.1-preview",
+  "version": "0.4.0-preview",
   "titulo": "DEADBEAT DISCO · Introducción · Motion comic narrativo · La noche que vuelve",
   "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos. Cada texto dice de dónde sale: literal, adaptado o nuevo propuesto.",
   "tempo": {
     "bpm": 128,
     "compas": 4,
     "pulsos_totales": 96,
-    "nota": "96 pulsos a 128 BPM = 45,000 s exactos. Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Pulsos por plano: 10, 7, 9, 10, 9, 7, 9, 9, 10, 16."
+    "planos": 15,
+    "nota": "96 pulsos a 128 BPM = 45,000 s exactos. Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Quince planos en seis bloques. Pulsos por plano: 8, 4 · 5, 9 · 7, 6 · 5, 9 · 6, 5, 9 · 5, 4, 10, 4. Pulsos por bloque: 12, 14, 13, 14, 20, 23."
   },
   "lectura": {
     "cps_comodo": 17,
@@ -27,7 +28,7 @@
     "tempo": {
       "nombre": "TEMPO",
       "rol": "Tempo",
-      "nota": "Nombre vigente según la biblia narrativa (§3). El HUB del juego todavía dice «DJ VIRGILIO» (src/dd_hub_system.js); el cambio allí está pendiente de autorización y este trabajo no lo toca."
+      "nota": "Desde la 0.4.0 ningún texto de la intro lleva su rótulo: su frase es ahora narración. El nombre no aparece en pantalla; está pendiente decidir si debe aparecer. Nombre vigente según la biblia narrativa (§3). El HUB del juego todavía dice «DJ VIRGILIO» (src/dd_hub_system.js); el cambio allí está pendiente de autorización y este trabajo no lo toca."
     },
     "anfitrion": {
       "nombre": "",
@@ -153,8 +154,8 @@
         "Por una noche,",
         "nadie tuvo que huir."
       ],
-      "entra": 2.0,
-      "sale": 10,
+      "entra": 1.0,
+      "sale": 8,
       "pos": {
         "x": 0.16,
         "y": 0.1
@@ -162,8 +163,8 @@
       "capitular": true
     },
     {
-      "id": "p02_dialogo_deseo",
-      "plano": 2,
+      "id": "p03_dialogo_deseo",
+      "plano": 3,
       "tipo": "dialogo",
       "habla": "anfitrion",
       "estado": "adaptado",
@@ -178,8 +179,8 @@
         "Que esta noche",
         "*no termine*."
       ],
-      "entra": 1.3,
-      "sale": 7,
+      "entra": 1.0,
+      "sale": 5,
       "pos": {
         "x": 0.24,
         "y": 0.2
@@ -192,8 +193,8 @@
       }
     },
     {
-      "id": "p03_narrador_dormia",
-      "plano": 3,
+      "id": "p04_narrador_dormia",
+      "plano": 4,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -215,8 +216,8 @@
       }
     },
     {
-      "id": "p03_narrador_devolvio",
-      "plano": 3,
+      "id": "p04_narrador_devolvio",
+      "plano": 4,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -238,30 +239,8 @@
       }
     },
     {
-      "id": "p04_narrador_salida",
-      "plano": 4,
-      "tipo": "narrador",
-      "estado": "adaptado",
-      "fuente": {
-        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§2.3 La petición",
-        "cita": "Las puertas dejaron de llevar al exterior.",
-        "fijado": "El salón dejó de tener salida."
-      },
-      "bloques": [
-        "El salón dejó",
-        "de tener salida."
-      ],
-      "entra": 0.3,
-      "sale": 4.3,
-      "pos": {
-        "x": 0.5,
-        "y": 0.085
-      }
-    },
-    {
-      "id": "p04_narrador_abajo",
-      "plano": 4,
+      "id": "p05_narrador_abajo",
+      "plano": 5,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -274,16 +253,16 @@
         "La noche empezó a crecer",
         "*hacia abajo*."
       ],
-      "entra": 5.2,
-      "sale": 10,
+      "entra": 2.3,
+      "sale": 7,
       "pos": {
         "x": 0.76,
-        "y": 0.72
+        "y": 0.6
       }
     },
     {
-      "id": "p05_narrador_leyes",
-      "plano": 5,
+      "id": "p06_narrador_leyes",
+      "plano": 6,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -296,38 +275,16 @@
         "Los deseos se convirtieron",
         "en *leyes*."
       ],
-      "entra": 0.5,
-      "sale": 5.3,
+      "entra": 0.4,
+      "sale": 6,
       "pos": {
         "x": 0.2,
         "y": 0.1
       }
     },
     {
-      "id": "p05_narrador_despedida",
-      "plano": 5,
-      "tipo": "narrador",
-      "estado": "adaptado",
-      "fuente": {
-        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§2.4 La ley fundamental",
-        "cita": "La repetición no conserva la felicidad original. Conserva el instante anterior a la despedida y lo reproduce sin permitir que evolucione.",
-        "fijado": "La despedida nunca llegó."
-      },
-      "bloques": [
-        "La despedida",
-        "nunca llegó."
-      ],
-      "entra": 5.6,
-      "sale": 9,
-      "pos": {
-        "x": 0.78,
-        "y": 0.9
-      }
-    },
-    {
-      "id": "p06_sfx_salto",
-      "plano": 6,
+      "id": "p07_sfx_salto",
+      "plano": 7,
       "tipo": "onomatopeya",
       "estado": "propuesto",
       "fuente": {
@@ -337,8 +294,8 @@
       "bloques": [
         "TAC"
       ],
-      "entra": 3,
-      "sale": 7,
+      "entra": 2,
+      "sale": 5,
       "letras": {
         "fuente": "Bangers",
         "tam": 84,
@@ -350,47 +307,41 @@
       "sonido_guia": "clac",
       "golpes": [
         {
-          "en": 3,
+          "en": 2,
           "x": 0.36,
           "y": 0.86,
-          "escala": 0.8
+          "escala": 0.85
+        },
+        {
+          "en": 3,
+          "x": 0.4,
+          "y": 0.83,
+          "escala": 1.05
         },
         {
           "en": 4,
-          "x": 0.4,
-          "y": 0.83,
-          "escala": 0.95
-        },
-        {
-          "en": 5,
           "x": 0.36,
           "y": 0.86,
-          "escala": 1.1
-        },
-        {
-          "en": 6,
-          "x": 0.4,
-          "y": 0.83,
           "escala": 1.25
         }
       ],
       "dura_golpe": 0.8
     },
     {
-      "id": "p07_voz_tempo",
-      "plano": 7,
+      "id": "p08_narrador_tempo",
+      "plano": 8,
       "tipo": "narrador",
-      "variante": "voz",
-      "habla": "tempo",
-      "etiqueta": true,
-      "estado": "propuesto",
+      "estado": "adaptado",
       "fuente": {
-        "fijado": "Los vi felices. Creí que unos minutos más no podían hacer daño.",
-        "nota": "Texto nuevo del encargo 0.3.1, en primera persona y en boca de Tempo. Pasa a primera persona un pasaje de la biblia (§3.1: «Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.»), pero la frase, tal cual, no está en ninguna fuente: es PROPUESTA y no es canon hasta que dirección la apruebe. Tempo habla solo de lo que él vio y creyó; no narra el resto de la historia."
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche",
+        "cita": "Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.",
+        "fijado": "Los vio felices. Pensó que unos minutos más no podían hacer daño.",
+        "nota": "Decisión de dirección (encargo 0.3.2): sustituye a «Los vi felices. Creí que unos minutos más no podían hacer daño.», que era PROPUESTA en primera persona. Ahora es narración en tercera persona y adapta casi palabra por palabra el pasaje de la biblia: cambia «a los invitados» por «Los» y parte la frase en dos. Ya no es la voz de Tempo, así que no lleva su rótulo; el recuadro con su retrato deja claro de quién se habla."
       },
       "bloques": [
-        "Los vi felices.",
-        "Creí que unos minutos más",
+        "Los vio felices.",
+        "Pensó que unos minutos más",
         "no podían hacer daño."
       ],
       "entra": 0.6,
@@ -401,8 +352,8 @@
       }
     },
     {
-      "id": "p08_narrador_volvio",
-      "plano": 8,
+      "id": "p09_narrador_volvio",
+      "plano": 9,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -415,16 +366,16 @@
         "La noche",
         "volvió a empezar."
       ],
-      "entra": 0.5,
-      "sale": 4.4,
+      "entra": 0.4,
+      "sale": 6,
       "pos": {
         "x": 0.17,
         "y": 0.1
       }
     },
     {
-      "id": "p08_narrador_corregia",
-      "plano": 8,
+      "id": "p10_narrador_corregia",
+      "plano": 10,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -437,16 +388,16 @@
         "La torre corregía",
         "cada variación."
       ],
-      "entra": 4.7,
-      "sale": 9,
+      "entra": 0.5,
+      "sale": 5,
       "pos": {
-        "x": 0.7,
-        "y": 0.84
+        "x": 0.2,
+        "y": 0.17
       }
     },
     {
-      "id": "p09_narrador_forma",
-      "plano": 9,
+      "id": "p11_narrador_forma",
+      "plano": 11,
       "tipo": "narrador",
       "estado": "adaptado",
       "fuente": {
@@ -459,21 +410,21 @@
         "Lo que la torre rechazó",
         "terminó tomando forma."
       ],
-      "entra": 3.5,
-      "sale": 10,
+      "entra": 1.6,
+      "sale": 9,
       "pos": {
         "x": 0.2,
         "y": 0.11
       }
     },
     {
-      "id": "p10_sfx_enganche",
-      "plano": 10,
+      "id": "p12_sfx_enganche",
+      "plano": 12,
       "tipo": "onomatopeya",
       "estado": "propuesto",
       "fuente": {
         "fijado": "TAC",
-        "nota": "La misma onomatopeya del plano 06, repetida aquí para que se vea, sin sonido, que la música vuelve a engancharse justo antes de que se abra el suelo (biblia §5.3: «La música se repite antes de terminar»). Propuesta de puesta en escena; no es canon."
+        "nota": "La misma onomatopeya del plano 07, repetida aquí para que se vea, sin sonido, que la música vuelve a engancharse justo antes de que se abra el suelo (biblia §5.3: «La música se repite antes de terminar»). Propuesta de puesta en escena; no es canon."
       },
       "bloques": [
         "TAC"
@@ -492,14 +443,14 @@
       "golpes": [
         {
           "en": 0.8,
-          "x": 0.24,
-          "y": 0.3,
+          "x": 0.76,
+          "y": 0.44,
           "escala": 0.9
         },
         {
           "en": 1.4,
-          "x": 0.28,
-          "y": 0.26,
+          "x": 0.83,
+          "y": 0.4,
           "escala": 1.1
         }
       ],
@@ -517,7 +468,14 @@
       {
         "cita": "Las puertas dejaron de llevar al exterior.",
         "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
-        "donde": "§2.3 La petición"
+        "donde": "§2.3 La petición",
+        "nota": "Era la fuente de «El salón dejó de tener salida.», retirado en la 0.4.0: las puertas del plano 05 ya lo enseñan."
+      },
+      {
+        "cita": "La repetición no conserva la felicidad original. Conserva el instante anterior a la despedida y lo reproduce sin permitir que evolucione.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.4 La ley fundamental",
+        "nota": "Era la fuente de «La despedida nunca llegó.», retirado en la 0.4.0."
       },
       {
         "cita": "El tiempo se plegó sobre sí mismo.",

@@ -99,6 +99,11 @@ export function construir(M, V, plano, fx, X) {
         f.y = o.y * v.h;
         f.o = o;
         if (o.opacidad != null) f.raiz.style.opacity = o.opacidad;
+        if (o.desliz) {
+          // El paso a destiempo: la misma silueta, en el color de lo descartado, que se queda atrás.
+          f.eco = figura(M, capa, o.r, o.alto * v.h, { espejo: o.espejo, color: "#7df9ff", borde: "rgba(125,249,255,.85)", clase: "eco" });
+          f.eco.raiz.style.opacity = "0";
+        }
         return f;
       });
       return true;
@@ -261,7 +266,17 @@ export function construir(M, V, plano, fx, X) {
           f.y = (fx.y ?? 0.96) * v.h;
           return f;
         });
-        X.tiras.push({ t, fondos, figs });
+        const T = { t, fondos, figs };
+        // Rastros: en cada vuelta, algo de lo que la torre corrige se queda fuera, en azul.
+        const E = (fx.ecos || []).find((e) => e.tira === i);
+        if (E) {
+          T.eco = figura(M, t, (fx.figuras || [fx.figura])[0].r || (fx.figuras || [fx.figura])[0], fx.alto * v.h, { color: "#7df9ff", borde: "rgba(125,249,255,.85)", clase: "eco" });
+          T.eco.x = (w + inc + 4) / 2 + (E.dx ?? 0.22) * w;
+          T.eco.y = (fx.y ?? 0.96) * v.h;
+          T.eco.def = E;
+          T.eco.raiz.style.opacity = "0";
+        }
+        X.tiras.push(T);
       }
       X.destello = crear("div", "mc-fx mc-fx-estrobo", frente);
       return true;
@@ -495,7 +510,7 @@ export function construir(M, V, plano, fx, X) {
         const sv = crearSvg("svg", { width: D, height: D, viewBox: `${-rx} ${-rx} ${D} ${D}` }, g);
         sv.style.cssText = `left:${-rx}px;top:${-rx}px`;
         X.grietas = crearSvg("g", { class: "grietas" }, sv);
-        const r = rng("iris-" + plano.id);
+        const r = rng("iris-" + (I.semilla || plano.id)); // misma semilla = las mismas grietas en planos distintos
         for (let i = 0; i < 9; i++) {
           const a = (i / 9) * Math.PI * 2 + r() * 0.5;
           const l1 = rx * (0.5 + r() * 0.45);
@@ -557,10 +572,26 @@ export function actualizar(M, X, c) {
       const amp = (fx.bote ?? 9) * (activo ? valor(fx.energia, tb, 1) : 0);
       const desde = fx.desde ?? 0;
       for (const f of X.figs) {
-        const fase = f.o.fase || 0;
+        let fase = f.o.fase || 0;
+        const D = f.o.desliz;
+        const t = pasado ? c.p.pulsos : c.estado === "futuro" ? -1 : tb;
+        // Mientras dura el desliz, la figura va medio pulso tarde.
+        const tarde = D && t >= D.en && t < D.hasta;
+        if (tarde) fase += 0.5;
         const g = activo && tb >= desde ? golpe((((tb + fase) % 1) + 1) % 1, [0], 4) : 0;
         const lado = f.o.espejo ? -1 : 1;
         colocar(f, f.x, f.y - g * amp * (f.o.bote ?? 1), ` rotate(${(lado * (fx.giro ?? 2.2) * (g - 0.35) * (amp > 0 ? 1 : 0)).toFixed(2)}deg)`);
+        if (D) {
+          // El rastro aparece con el paso tardío y no se va del todo cuando la figura vuelve al compás.
+          const dentro = t < D.en ? 0 : t < D.hasta ? 1 : lerp(1, D.resto ?? 0.35, smooth(D.hasta, D.hasta + 1.2, t));
+          const parpadeo = activo ? 0.78 + 0.14 * Math.sin(t * 19) + 0.08 * Math.sin(t * 53) : 0.8;
+          poner(f.eco.raiz, "opacity", fx3(dentro * parpadeo));
+          if (dentro > 0) {
+            const k = ease.out(clamp((t - D.en) / 0.3));
+            const g2 = activo ? golpe((((tb + (f.o.fase || 0) + 0.5) % 1) + 1) % 1, [0], 4) : 0;
+            colocar(f.eco, f.x + (D.dx ?? 0.03) * v.w * k, f.y - g2 * amp * 1.3, ` rotate(${(lado * (5 + (g2 - 0.35) * 4)).toFixed(2)}deg)`);
+          }
+        }
       }
       return true;
     }
@@ -660,6 +691,16 @@ export function actualizar(M, X, c) {
           poner(f.raiz, "opacity", k === paso ? "1" : "0");
           if (k === paso) colocar(f, f.x, f.y - g * (fx.bote ?? 12), ` rotate(${((g - 0.35) * 2.4).toFixed(2)}deg)`);
         });
+        if (T.eco) {
+          const en = T.eco.def.en;
+          const vis = c.estado === "futuro" ? 0 : pasado ? 1 : clamp((tb - en) / 0.25);
+          const parpadeo = activo ? 0.76 + 0.15 * Math.sin(tb * 19 + en) + 0.09 * Math.sin(tb * 53) : 0.8;
+          poner(T.eco.raiz, "opacity", fx3(vis * parpadeo));
+          if (vis > 0) {
+            const g2 = activo ? golpe((((tb + 0.5) % 1) + 1) % 1, [0], 4) : 0;
+            colocar(T.eco, T.eco.x, T.eco.y - g2 * (fx.bote ?? 12) * 1.3, ` rotate(${(6 + (g2 - 0.35) * 4).toFixed(2)}deg)`);
+          }
+        }
       }
       // Corte entre rondas; el reinicio es más fuerte: la noche vuelve a empezar.
       const cortes = [];

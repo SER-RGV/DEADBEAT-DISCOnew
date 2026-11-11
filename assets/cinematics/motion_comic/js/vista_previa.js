@@ -335,7 +335,7 @@ function pintarComprobaciones() {
   const fila = (ok, txt) => `<tr><td class="${ok === true ? "si" : ok === false ? "no" : "ojo"}">${ok === true ? "Sí" : ok === false ? "No" : "Ojo"}</td><td>${txt}</td></tr>`;
   let h = `<h3>Resultado</h3><table class="tabla-ok">`;
   h += fila(Math.abs(a.duracion - 45) < 1e-6, `Duración total: <b>${coma(a.duracion, 3)} s</b> (${E.guion.tempo.pulsos_totales} pulsos a ${E.guion.tempo.bpm} por minuto).`);
-  h += fila(a.planos.length === 10, `Planos: <b>${a.planos.length}</b>, uno por viñeta.`);
+  h += fila(a.planos.length === (E.guion.tempo.planos ?? 10), `Planos: <b>${a.planos.length}</b>, uno por viñeta (el guion declara ${E.guion.tempo.planos ?? 10}).`);
   h += fila(rapidas === 0 ? true : maxCps <= L.cps_maximo ? null : false, `Ritmo de lectura: el texto más rápido va a <b>${coma(maxCps, 1)}</b> caracteres por segundo (cómodo hasta ${L.cps_comodo}, máximo ${L.cps_maximo}).`);
   h += fila(solapes === 0 ? true : null, solapes ? `<b>${solapes}</b> ${solapes === 1 ? "texto entra" : "textos entran"} antes de que dé tiempo a leer el anterior.` : `Ningún texto entra antes de que dé tiempo a leer el anterior.`);
   h += fila(pisadas === 0 ? true : null, pisadas ? `<b>${pisadas}</b> ${pisadas === 1 ? "texto se pisa" : "textos se pisan"} con otra pieza en pantalla.` : `Ningún texto se pisa con otro en pantalla.`);

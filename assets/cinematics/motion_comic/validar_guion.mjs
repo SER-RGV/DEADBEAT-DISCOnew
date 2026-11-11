@@ -42,7 +42,7 @@ for (const g of an.globales) (g.nivel === "error" ? errores : avisos).push({ id:
 for (const f of an.filas) for (const a of f.avisos) (a.nivel === "error" ? errores : avisos).push({ id: f.iv.id, texto: a.texto });
 
 if (Math.abs(an.duracion - 45) > 1e-6) errores.push({ id: "(general)", texto: `La duración es ${an.duracion.toFixed(3)} s y debe ser 45,000 s.` });
-if (an.planos.length !== 10) errores.push({ id: "(general)", texto: `Hay ${an.planos.length} planos y deben ser 10.` });
+// El número de planos se comprueba en analizar(): debe coincidir con guion.tempo.planos.
 
 /* Citas contra los archivos del repositorio. */
 const cache = new Map();

@@ -99,7 +99,9 @@ export function analizar(guion, comp) {
   const globales = [];
   const total = planos.reduce((a, p) => a + p.pulsos, 0);
   if (total !== guion.tempo.pulsos_totales) globales.push({ nivel: "error", texto: `Los planos suman ${total} pulsos y el guion declara ${guion.tempo.pulsos_totales}.` });
-  if (planos.length !== 10) globales.push({ nivel: "error", texto: `Hay ${planos.length} planos; deben ser 10.` });
+  // El número de planos lo declara el guion (tempo.planos). Si no lo declara, son los diez de las versiones 0.2 y 0.3.
+  const esperados = guion.tempo.planos ?? 10;
+  if (planos.length !== esperados) globales.push({ nivel: "error", texto: `Hay ${planos.length} planos; el guion declara ${esperados}.` });
   const ids = new Set();
 
   for (const iv of guion.intervenciones) {

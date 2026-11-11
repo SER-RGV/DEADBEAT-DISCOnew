@@ -333,7 +333,7 @@ export class Motor {
         A.cy = v.y + a.centro[1] * v.h;
       } else if (a.tipo === "imagen") {
         const rec = this.comp.recursos[a.recurso];
-        const raiz = crear("div", "mc-imagen" + (a.pixelado ? " pixelado" : "") + (a.plano ? " plana" : ""), a.frente ? V.fxFrente : V.actoresCapa);
+        const raiz = crear("div", "mc-imagen" + (a.pixelado ? " pixelado" : "") + (a.plano ? " plana" : "") + (a.clase ? " " + a.clase : ""), a.frente ? V.fxFrente : V.actoresCapa);
         const ancho = a.ancho * v.w;
         raiz.style.width = ancho + "px";
         const im = crear("img", "", raiz);
@@ -898,7 +898,8 @@ export class Motor {
       const rt = a.ruta ? enRuta(a.ruta, tr) : null;
       const x = (rt ? rt[0] : lerp(a.pos.de[0], a.pos.a[0], k)) * v.w;
       // Pequeño vaivén vertical al caminar (solo si la pose tiene ciclo)
-      const anda = a.paso && c.estado === "activo";
+      // 'anda' = [desde, hasta]: el vaivén de caminar solo se da en ese tramo del plano.
+      const anda = a.paso && c.estado === "activo" && (!a.anda || (tb >= a.anda[0] && tb <= a.anda[1]));
       const bote = anda ? Math.abs(Math.sin(tb * Math.PI * a.paso)) * alto * 0.014 : 0;
       const balanceo = anda ? Math.sin(tb * Math.PI * a.paso) * 1.3 : 0;
       const y = (rt ? rt[1] : lerp(a.pos.de[1], a.pos.a[1], k)) * v.h - bote;
@@ -950,8 +951,10 @@ export class Motor {
     } else if (a.tipo === "inserto") {
       const t0 = a.entra || 0;
       const q = c.estado === "pasado" ? 1 : c.estado === "futuro" ? 0 : clamp((tb - t0) / 0.7);
-      const esc = q <= 0 ? 0 : ease.backOut(q);
-      A.raiz.style.opacity = q <= 0 ? 0 : 1;
+      // 'sale': el recuadro se retira (pulso del plano). Un recuadro que ya salió no vuelve al pasar el plano.
+      const fuera = a.sale == null ? 0 : c.estado === "pasado" ? 1 : c.estado === "futuro" ? 0 : clamp((tb - a.sale) / 0.35);
+      const esc = q <= 0 ? 0 : ease.backOut(q) * (1 - 0.25 * fuera);
+      A.raiz.style.opacity = q <= 0 ? 0 : (1 - fuera).toFixed(3);
       A.raiz.style.transform = `translate(${(A.cx - A.lado / 2).toFixed(2)}px,${(A.cy - A.altoPx / 2).toFixed(2)}px) rotate(${a.giro || 0}deg) scale(${esc.toFixed(4)})`;
       const boca = a.boca || [0.5, 0.6];
       A.punto = [A.cx + (boca[0] - 0.5) * A.lado, A.cy + (boca[1] - 0.5) * A.altoPx];

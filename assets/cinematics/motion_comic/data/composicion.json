@@ -1,15 +1,68 @@
 {
- "version": "0.3.1-preview",
- "descripcion": "Composición visual del motion comic de la introducción, en el orden de la Biblia Maestra: la Primera Noche, el deseo, la Escucha, el nacimiento de la torre, las pistas, la nota que no termina, la decisión de Tempo, la repetición, el Desafinado y el descenso al Refugio. Láminas, viñetas, cámara, recortes de arte, personajes y efectos. Este archivo NO contiene textos: todos los textos están en guion.json.",
+ "version": "0.4.0-preview",
+ "descripcion": "Composición visual del motion comic de la introducción. Quince planos en seis bloques, en el orden de la Biblia Maestra: la última fiesta, el deseo y la Escucha, el nacimiento de la torre, Tempo y la repetición, el nacimiento del Desafinado, la ruptura y el descenso al Refugio. Láminas, viñetas, cámara, recortes de arte, personajes y efectos. Este archivo NO contiene textos: todos los textos están en guion.json.",
  "lienzo": {
   "w": 1920,
   "h": 1080
  },
+ "bloques": [
+  {
+   "n": 1,
+   "nombre": "La última fiesta",
+   "planos": [
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "nombre": "El deseo y la Escucha",
+   "planos": [
+    3,
+    4
+   ]
+  },
+  {
+   "n": 3,
+   "nombre": "El nacimiento de la torre",
+   "planos": [
+    5,
+    6
+   ]
+  },
+  {
+   "n": 4,
+   "nombre": "Tempo y la repetición",
+   "planos": [
+    7,
+    8
+   ]
+  },
+  {
+   "n": 5,
+   "nombre": "El nacimiento del Desafinado",
+   "planos": [
+    9,
+    10,
+    11
+   ]
+  },
+  {
+   "n": 6,
+   "nombre": "La ruptura y el descenso",
+   "planos": [
+    12,
+    13,
+    14,
+    15
+   ]
+  }
+ ],
  "recursos": {
   "_nota": "Rutas relativas a esta carpeta. Los archivos originales del juego se usan tal cual: no se copian ni se modifican. 'seguro' es la zona de cada imagen que se puede mostrar [x0, y0, x1, y1]; fuera quedan el marco, la miniatura, la paleta y las letras sueltas. 'caja' es la zona del archivo que ocupa una figura.",
   "_nota_arte_nuevo": "ARTE NUEVO, SIN APROBAR. Los recursos con \"nuevo\": true están en arte_nuevo/ y se han generado con una herramienta de imagen por IA durante la versión 0.3.1. No son arte oficial del juego ni sustituyen a ningún original. Su origen, su tamaño real y su estado están en arte_nuevo/MANIFIESTO.md. En la vista previa, los planos que los usan llevan el sello «ARTE NUEVO · SIN APROBAR».",
-  "_nota_figuras": "Los invitados, el anfitrión y los bailarines son siluetas: la imagen se usa solo como máscara de recorte. invitados_* y anfitrion son siluetas nuevas (arte_nuevo/). bailarina_a es el sprite oficial del Bailarín usado como máscara (la biblia dice que los Bailarines son los invitados atrapados): se reserva para los planos 08 y 09, cuando la torre ya existe.",
-  "_nota_heroe": "El protagonista usa un solo dibujo oficial: hero_walk_01 (el que coincide con el retrato del HUD). Los cuadros hero_walk_00 y 02 son otros vestuarios y hero_idle_00 es un contorno sin terminar, por eso no hay ciclo de caminata.",
+  "_nota_figuras": "Los invitados, el anfitrión y los bailarines son siluetas: la imagen se usa solo como máscara de recorte. invitados_* y anfitrion son siluetas nuevas (arte_nuevo/). bailarina_a es el sprite oficial del Bailarín usado como máscara (la biblia dice que los Bailarines son los invitados atrapados): se reserva para los planos 09, 10 y 11, cuando la torre ya existe.",
+  "_nota_heroe": "El protagonista usa un solo dibujo oficial: hero_walk_01 (el que coincide con el retrato del HUD). Los cuadros hero_walk_00 y 02 son otros vestuarios y hero_idle_00 es un contorno sin terminar, por eso no hay ciclo de caminata. Desde la 0.4.0 se usa también el retrato oficial del HUD (retrato_heroe), que lo muestra de espaldas por encima del hombro: es el primer término de los planos 12 y 15 y el detalle del plano 11. Son dos ilustraciones oficiales distintas del mismo personaje; no se ha retocado ninguna.",
   "estacion": {
    "src": "arte_nuevo/estacion_primera_noche.png",
    "w": 2560,
@@ -256,13 +309,18 @@
    "src": "../logos/logo_deadbeat_cinematic.png",
    "w": 756,
    "h": 630
+  },
+  "retrato_heroe": {
+   "src": "../../ui/hud_portrait_protagonist.png",
+   "w": 256,
+   "h": 256
   }
  },
  "paginas": [
   {
    "id": "A",
    "w": 2140,
-   "h": 2020,
+   "h": 2660,
    "folio": "1",
    "vinetas": [
     {
@@ -276,6 +334,13 @@
      "id": "v02",
      "x": 70,
      "y": 1040,
+     "w": 2000,
+     "h": 600
+    },
+    {
+     "id": "v03",
+     "x": 70,
+     "y": 1680,
      "w": 1130,
      "h": 910,
      "forma": [
@@ -298,9 +363,9 @@
      ]
     },
     {
-     "id": "v03",
+     "id": "v04",
      "x": 1180,
-     "y": 1040,
+     "y": 1680,
      "w": 890,
      "h": 910,
      "forma": [
@@ -331,14 +396,14 @@
    "folio": "2",
    "vinetas": [
     {
-     "id": "v04",
+     "id": "v05",
      "x": 370,
      "y": 70,
      "w": 1400,
      "h": 1880
     },
     {
-     "id": "v05",
+     "id": "v06",
      "x": 70,
      "y": 1990,
      "w": 2000,
@@ -353,21 +418,21 @@
    "folio": "3",
    "vinetas": [
     {
-     "id": "v06",
+     "id": "v07",
      "x": 70,
      "y": 70,
      "w": 940,
      "h": 900
     },
     {
-     "id": "v07",
+     "id": "v08",
      "x": 1050,
      "y": 70,
      "w": 1020,
      "h": 900
     },
     {
-     "id": "v08",
+     "id": "v09",
      "x": 70,
      "y": 1010,
      "w": 2000,
@@ -396,20 +461,56 @@
   {
    "id": "D",
    "w": 2140,
-   "h": 2405,
+   "h": 1920,
    "folio": "4",
    "vinetas": [
     {
-     "id": "v09",
+     "id": "v10",
      "x": 70,
      "y": 70,
      "w": 2000,
-     "h": 1100
+     "h": 640
     },
     {
-     "id": "v10",
+     "id": "v11",
      "x": 70,
-     "y": 1210,
+     "y": 750,
+     "w": 2000,
+     "h": 1100
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 2140,
+   "h": 4030,
+   "folio": "5",
+   "vinetas": [
+    {
+     "id": "v12",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 900
+    },
+    {
+     "id": "v13",
+     "x": 70,
+     "y": 1010,
+     "w": 2000,
+     "h": 620
+    },
+    {
+     "id": "v14",
+     "x": 70,
+     "y": 1670,
+     "w": 2000,
+     "h": 1125
+    },
+    {
+     "id": "v15",
+     "x": 70,
+     "y": 2835,
      "w": 2000,
      "h": 1125
     }
@@ -421,16 +522,17 @@
    "n": 1,
    "id": "shot_01_primera_noche",
    "nombre": "La Primera Noche",
+   "encuadre": "General",
    "historia": "Una guerra ha terminado. En una vieja estación de tren convertida en sala de baile, quienes sobrevivieron celebran sin miedo: parejas, soldados de permiso, mesas con velas. Todavía no hay torre, ni pistas, ni protagonista.",
-   "pulsos": 10,
+   "pulsos": 8,
    "pagina": "A",
    "vineta": "v01",
    "transicion": {
     "tipo": "inicio"
    },
    "revelado": {
-    "desde": 0.4,
-    "pulsos": 1.6
+    "desde": 0.2,
+    "pulsos": 1.2
    },
    "camara": {
     "margen": 0.05,
@@ -492,8 +594,7 @@
        "r": "soldado",
        "x": 0.215,
        "y": 1.1,
-       "alto": 0.43,
-       "fase": 0.5
+       "alto": 0.43
       },
       {
        "r": "invitada",
@@ -506,39 +607,142 @@
        "r": "pareja_b",
        "x": 0.925,
        "y": 1.09,
-       "alto": 0.47,
-       "fase": 0.5
+       "alto": 0.47
       }
      ],
-     "nota": "Primer término, cortado por el borde de la viñeta: parejas, un soldado que brinda y una invitada con su copa. Son invitados, no enemigos."
+     "nota": "Primer término, cortado por el borde de la viñeta: parejas, un soldado que brinda y una invitada con su copa. Son invitados, no enemigos. Todos bailan a compás."
     },
     {
      "tipo": "latido",
      "golpes": [
       2,
       4,
-      6,
-      8
+      6
      ],
      "intensidad": 0.07
     }
-   ]
+   ],
+   "bloque": 1
   },
   {
    "n": 2,
-   "id": "shot_02_ultimo_deseo",
-   "nombre": "El último deseo",
-   "historia": "La fiesta se acaba: la música baja, las luces se enfrían y los invitados dejan de bailar. El anfitrión, de espaldas y a contraluz, levanta la copa y pide que la noche no termine. No se le ve la cara.",
-   "pulsos": 7,
+   "id": "shot_02_el_paso",
+   "nombre": "El paso",
+   "encuadre": "Primer plano de pies",
+   "historia": "La fiesta, de cerca: los pies de las parejas, de cintura para abajo, bailando todos al mismo compás. No se ve la cara de nadie. Este plano no cuenta nada nuevo: enseña el gesto que, más adelante, alguien hará a destiempo.",
+   "pulsos": 4,
    "pagina": "A",
    "vineta": "v02",
    "transicion": {
     "tipo": "deslizar",
-    "despues": 1.0
+    "despues": 0.7
    },
    "revelado": {
-    "desde": 0.2,
-    "pulsos": 0.8
+    "desde": 0.05,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0,
+     "dx": -0.01
+    },
+    "a": {
+     "zoom": 1.04,
+     "dx": 0.012
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.47,
+     "cy": 0.9,
+     "ancho": 0.36
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.9,
+     "ancho": 0.36
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Fondo: recorte muy ampliado del suelo de la estación nueva (queda blando a propósito, como fondo desenfocado). Las piernas son las siluetas nuevas de los invitados, ampliadas y cortadas por la cintura. Generadas por IA en la 0.3.1.",
+    "esquina": "arriba-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(255,176,92,1)",
+     "opacidad": 0.16,
+     "nota": "Luz cálida de la fiesta sobre el suelo."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0d0705",
+     "borde": "rgba(255,196,120,.6)",
+     "bote": 24,
+     "giro": 1.4,
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.16,
+       "y": 0.965,
+       "alto": 1.75
+      },
+      {
+       "r": "soldado",
+       "x": 0.42,
+       "y": 0.965,
+       "alto": 1.75
+      },
+      {
+       "r": "pareja_b",
+       "x": 0.665,
+       "y": 0.965,
+       "alto": 1.75
+      },
+      {
+       "r": "invitada",
+       "x": 0.925,
+       "y": 0.965,
+       "alto": 1.75,
+       "espejo": true
+      }
+     ],
+     "nota": "Las mismas siluetas del plano 01, ampliadas: la viñeta las corta por la cintura. Todas pisan a la vez."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "intensidad": 0.07
+    }
+   ],
+   "bloque": 1
+  },
+  {
+   "n": 3,
+   "id": "shot_03_ultimo_deseo",
+   "nombre": "El último deseo",
+   "encuadre": "Plano medio, de espaldas",
+   "historia": "La fiesta se acaba: la música baja, las luces se enfrían y los invitados dejan de bailar. El anfitrión, de espaldas y a contraluz, levanta la copa y pide que la noche no termine. No se le ve la cara.",
+   "pulsos": 5,
+   "pagina": "A",
+   "vineta": "v03",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.8
+   },
+   "revelado": {
+    "desde": 0.1,
+    "pulsos": 0.6
    },
    "camara": {
     "margen": 0.05,
@@ -566,7 +770,7 @@
    },
    "provisional": {
     "tipo": "nuevo",
-    "motivo": "Estación y silueta del anfitrión nuevas (arte_nuevo/anfitrion_contraluz.png), generadas por IA en la 0.3.1. Ya no se usa la silueta del NPC de la barra.",
+    "motivo": "Estación y silueta del anfitrión nuevas (arte_nuevo/anfitrion_contraluz.png), generadas por IA en la 0.3.1.",
     "esquina": "abajo-izquierda"
    },
    "actores": [],
@@ -578,8 +782,8 @@
      "opacidad": {
       "de": 0,
       "a": 0.36,
-      "desde": 0.4,
-      "hasta": 5.5
+      "desde": 0.3,
+      "hasta": 4.0
      },
      "nota": "La música baja y la luz cálida se enfría: la fiesta se acaba."
     },
@@ -592,7 +796,7 @@
       "de": 1,
       "a": 0,
       "desde": 0.2,
-      "hasta": 3.4
+      "hasta": 2.6
      },
      "lista": [
       {
@@ -605,8 +809,7 @@
        "r": "invitada",
        "x": 0.3,
        "y": 0.93,
-       "alto": 0.29,
-       "fase": 0.5
+       "alto": 0.29
       },
       {
        "r": "soldado",
@@ -635,18 +838,20 @@
     },
     {
      "tipo": "silencio",
-     "hasta": 7
+     "hasta": 5
     }
-   ]
+   ],
+   "bloque": 2
   },
   {
-   "n": 3,
-   "id": "shot_03_la_escucha",
+   "n": 4,
+   "id": "shot_04_la_escucha",
    "nombre": "La Escucha",
+   "encuadre": "General, en vertical",
    "historia": "La cámara baja por debajo del salón. El deseo desciende como una onda. Abajo no hay nadie: solo una superficie que lo recibe y lo devuelve igual, una y otra vez.",
    "pulsos": 9,
    "pagina": "A",
-   "vineta": "v03",
+   "vineta": "v04",
    "transicion": {
     "tipo": "deslizar",
     "despues": 0.9
@@ -749,16 +954,18 @@
      ],
      "intensidad": 0.08
     }
-   ]
+   ],
+   "bloque": 2
   },
   {
-   "n": 4,
-   "id": "shot_04_nacimiento_torre",
+   "n": 5,
+   "id": "shot_05_nacimiento_torre",
    "nombre": "El nacimiento de la torre",
+   "encuadre": "General, cámara que baja",
    "historia": "Las puertas del salón dejan de dar a la calle: detrás solo hay más salón. El suelo se hunde y, debajo, la misma sala se repite una y otra vez, cada vez más honda y más oscura, como el surco de un disco. Nadie construye nada: la torre crece sola, del deseo repetido.",
-   "pulsos": 10,
+   "pulsos": 7,
    "pagina": "B",
-   "vineta": "v04",
+   "vineta": "v05",
    "transicion": {
     "tipo": "pagina",
     "antes": 1.0,
@@ -779,17 +986,17 @@
       "dy": -0.2575
      },
      {
-      "en": 3.9,
+      "en": 1.2,
       "zoom": 2.3,
       "dy": -0.2575
      },
      {
-      "en": 7.3,
+      "en": 4.2,
       "zoom": 2.3,
       "dy": 0.2575
      },
      {
-      "en": 10,
+      "en": 7,
       "zoom": 2.36,
       "dy": 0.2575
      }
@@ -829,9 +1036,9 @@
       0.72
      ],
      "zoom": 2.6,
-     "desde": 1.1,
-     "hasta": 1.7,
-     "nota": "Una puerta que daba a la noche de fuera. En el pulso 1,1 deja de dar al exterior: detrás aparece el mismo salón."
+     "desde": 0.3,
+     "hasta": 0.8,
+     "nota": "Una puerta que daba a la noche de fuera. Deja de dar al exterior: detrás aparece el mismo salón. Lo cuenta la imagen; ya no hay texto que lo diga."
     },
     {
      "tipo": "puerta",
@@ -845,8 +1052,8 @@
       0.72
      ],
      "zoom": 2.6,
-     "desde": 1.9,
-     "hasta": 2.5,
+     "desde": 0.7,
+     "hasta": 1.2,
      "nota": "La otra puerta, lo mismo."
     },
     {
@@ -904,8 +1111,8 @@
        0.74
       ]
      ],
-     "desde": 3.3,
-     "paso": 0.45,
+     "desde": 1.4,
+     "paso": 0.36,
      "hueco": 0.2,
      "columnas": true,
      "torcer": 1.4,
@@ -920,57 +1127,59 @@
       "y0": 0.26,
       "y1": 1.0
      },
-     "nota": "Nueve niveles, de arriba abajo. Todos son la misma sala repetida; cada uno, más oscuro. Todavía no son distintos entre sí: eso ocurre en el plano 05."
+     "nota": "Nueve niveles, de arriba abajo. Todos son la misma sala repetida; cada uno, más oscuro. Todavía no son distintos entre sí: eso ocurre en el plano 06."
     },
     {
      "tipo": "temblor",
      "golpes": [
-      1.7,
-      2.5,
-      3.3,
-      3.75,
-      4.2,
-      4.65,
-      5.1,
-      5.55,
-      6.0,
-      6.45,
-      6.9
+      0.8,
+      1.2,
+      1.4,
+      1.76,
+      2.12,
+      2.48,
+      2.84,
+      3.2,
+      3.56,
+      3.92,
+      4.28
      ],
      "amplitud": 4
     },
     {
      "tipo": "latido",
      "golpes": [
-      3.3,
-      3.75,
-      4.2,
-      4.65,
-      5.1,
-      5.55,
-      6.0,
-      6.45,
-      6.9
+      1.4,
+      1.76,
+      2.12,
+      2.48,
+      2.84,
+      3.2,
+      3.56,
+      3.92,
+      4.28
      ],
      "intensidad": 0.07
     }
-   ]
+   ],
+   "bloque": 3
   },
   {
-   "n": 5,
-   "id": "shot_05_deseos_leyes",
+   "n": 6,
+   "id": "shot_06_deseos_leyes",
    "nombre": "Los deseos se convierten en leyes",
+   "encuadre": "Mosaico de nueve viñetas",
    "historia": "Los nueve niveles, a la vez. Todos empiezan siendo la misma sala; uno a uno, el deseo de quienes bailan dentro los tuerce hasta volverlos un lugar distinto. Nadie se despide: siguen bailando.",
-   "pulsos": 9,
+   "pulsos": 6,
    "pagina": "B",
-   "vineta": "v05",
+   "vineta": "v06",
    "transicion": {
     "tipo": "deslizar",
-    "despues": 1.0
+    "despues": 0.9
    },
    "revelado": {
     "desde": 0.1,
-    "pulsos": 0.6
+    "pulsos": 0.5
    },
    "fondo": "#08050c",
    "camara": {
@@ -1099,9 +1308,9 @@
       }
      ],
      "alto_figura": 0.66,
-     "desde": 1.0,
-     "paso": 0.5,
-     "dura": 1.0,
+     "desde": 0.8,
+     "paso": 0.36,
+     "dura": 0.9,
      "orden": [
       0,
       1,
@@ -1125,15 +1334,15 @@
     {
      "tipo": "temblor",
      "golpes": [
-      1.0,
-      1.5,
-      2.0,
-      2.5,
-      3.0,
-      3.5,
-      4.0,
-      4.5,
-      5.0
+      0.8,
+      1.16,
+      1.52,
+      1.88,
+      2.24,
+      2.6,
+      2.96,
+      3.32,
+      3.68
      ],
      "amplitud": 3
     },
@@ -1144,23 +1353,22 @@
       2,
       3,
       4,
-      5,
-      6,
-      7,
-      8
+      5
      ],
      "intensidad": 0.06
     }
-   ]
+   ],
+   "bloque": 3
   },
   {
-   "n": 6,
-   "id": "shot_06_nota_que_no_termina",
+   "n": 7,
+   "id": "shot_07_nota_que_no_termina",
    "nombre": "La nota que no termina",
+   "encuadre": "Detalle, desde arriba",
    "historia": "El tocadiscos de Tempo, desde arriba. La aguja salta al mismo surco y la última nota vuelve a salir antes de acabar, una vez y otra. Tempo lo nota.",
-   "pulsos": 7,
+   "pulsos": 5,
    "pagina": "C",
-   "vineta": "v06",
+   "vineta": "v07",
    "transicion": {
     "tipo": "pagina",
     "antes": 1.0,
@@ -1194,7 +1402,7 @@
    },
    "provisional": {
     "tipo": "nuevo",
-    "motivo": "Primer plano nuevo del tocadiscos (arte_nuevo/tocadiscos_tempo.png), generado por IA en la 0.3.1. Sustituye al disco vectorial de la 0.3.0.",
+    "motivo": "Primer plano nuevo del tocadiscos (arte_nuevo/tocadiscos_tempo.png), generado por IA en la 0.3.1.",
     "esquina": "abajo-izquierda"
    },
    "actores": [
@@ -1208,7 +1416,7 @@
      ],
      "ancho": 0.27,
      "giro": -4,
-     "entra": 4.2,
+     "entra": 3.2,
      "boca": [
       0.42,
       0.66
@@ -1236,10 +1444,9 @@
      ],
      "vuelta": 4,
      "saltos": [
+      2,
       3,
-      4,
-      5,
-      6
+      4
      ],
      "tramo": 1,
      "nota_hasta": [
@@ -1253,10 +1460,9 @@
     {
      "tipo": "temblor",
      "golpes": [
+      2,
       3,
-      4,
-      5,
-      6
+      4
      ],
      "amplitud": 3
     },
@@ -1264,21 +1470,22 @@
      "tipo": "latido",
      "golpes": [
       0,
-      1,
-      2
+      1
      ],
      "intensidad": 0.06
     }
-   ]
+   ],
+   "bloque": 4
   },
   {
-   "n": 7,
-   "id": "shot_07_decision_de_tempo",
+   "n": 8,
+   "id": "shot_08_decision_de_tempo",
    "nombre": "La decisión de Tempo",
-   "historia": "Tempo podía dejar acabar el disco. Mira a los invitados, que están a punto de irse, los ve felices y enlaza otra canción. La sala vuelve a encenderse y todos bailan otra vez. No es un gesto cruel: es compasión, y es un error.",
+   "encuadre": "Plano medio con recuadros",
+   "historia": "Tempo podía dejar acabar el disco. Mira a los invitados, que están a punto de irse, los ve felices y enlaza otra canción. La sala vuelve a encenderse y todos bailan otra vez. No es un gesto cruel: es compasión, y es un error. En esa primera transición, uno de los invitados pisa a destiempo: es la primera señal, pequeña, de lo que la torre va a descartar.",
    "pulsos": 9,
    "pagina": "C",
-   "vineta": "v07",
+   "vineta": "v08",
    "transicion": {
     "tipo": "latigazo",
     "despues": 0.6
@@ -1401,14 +1608,19 @@
       },
       {
        "r": "invitada",
-       "x": 0.36,
+       "x": 0.37,
        "y": 1.1,
        "alto": 0.46,
-       "fase": 0.5
+       "desliz": {
+        "en": 5.0,
+        "hasta": 7.0,
+        "dx": 0.045,
+        "resto": 0.4
+       }
       },
       {
        "r": "pareja_b",
-       "x": 0.6,
+       "x": 0.62,
        "y": 1.08,
        "alto": 0.5
       },
@@ -1417,11 +1629,10 @@
        "x": 0.87,
        "y": 1.1,
        "alto": 0.47,
-       "espejo": true,
-       "fase": 0.5
+       "espejo": true
       }
      ],
-     "nota": "Los invitados iban a parar; con la nueva canción vuelven a bailar. Tempo los mira desde su viñeta."
+     "nota": "Los invitados iban a parar; con la nueva canción vuelven a bailar, todos a compás. En el pulso 5 la invitada de la copa pisa medio pulso tarde y a su lado queda un rastro azul con su misma silueta. Dos pulsos después vuelve al compás; el rastro se atenúa, pero no se va. La biblia sitúa aquí el primer paso fuera de tiempo (§4.1: «Durante la primera transición»)."
     },
     {
      "tipo": "latido",
@@ -1435,16 +1646,18 @@
      ],
      "intensidad": 0.09
     }
-   ]
+   ],
+   "bloque": 4
   },
   {
-   "n": 8,
-   "id": "shot_08_la_repeticion",
+   "n": 9,
+   "id": "shot_09_la_repeticion",
    "nombre": "La repetición",
-   "historia": "En cada pista, la misma figura repite el mismo paso. La noche se corta y vuelve a empezar, idéntica. La luz de la torre pasa por encima y deja a todos iguales. Las rayas de tiza cuentan las vueltas y el color se va gastando.",
-   "pulsos": 9,
+   "encuadre": "Montaje en tiras",
+   "historia": "En cada pista, la misma figura repite el mismo paso. La noche se corta y vuelve a empezar, idéntica. La luz de la torre pasa por encima y deja a todos iguales. Pero en cada vuelta queda algo fuera: un rastro azul, desplazado, que no sigue el compás. Cada vez hay uno más.",
+   "pulsos": 6,
    "pagina": "C",
-   "vineta": "v08",
+   "vineta": "v09",
    "transicion": {
     "tipo": "deslizar",
     "despues": 0.8
@@ -1500,9 +1713,36 @@
      "alto": 0.46,
      "y": 0.97,
      "cada": 2,
-     "reinicio": 4,
+     "reinicio": 3,
      "bote": 12,
-     "nota": "Cinco pistas, la misma figura, el mismo paso de dos tiempos. En el pulso 4 la noche vuelve a empezar. Las figuras son invitados sin rasgos: ninguna es el protagonista, que todavía no existe."
+     "ecos": [
+      {
+       "tira": 1,
+       "en": 1.0,
+       "dx": 0.24
+      },
+      {
+       "tira": 3,
+       "en": 2.2,
+       "dx": -0.24
+      },
+      {
+       "tira": 0,
+       "en": 3.3,
+       "dx": 0.24
+      },
+      {
+       "tira": 4,
+       "en": 4.1,
+       "dx": -0.24
+      },
+      {
+       "tira": 2,
+       "en": 4.8,
+       "dx": 0.24
+      }
+     ],
+     "nota": "Cinco pistas, la misma figura, el mismo paso de dos tiempos. En el pulso 3 la noche vuelve a empezar. Los 'ecos' son los rastros: la misma silueta, en azul, desplazada y medio pulso tarde. Tienen la forma de los bailarines, no la del protagonista, que todavía no existe."
     },
     {
      "tipo": "luz",
@@ -1510,12 +1750,11 @@
      "color": "rgba(18,12,22,1)",
      "opacidad": {
       "de": 0,
-      "a": 0.42,
-      "desde": 4.2,
-      "hasta": 8.8
+      "a": 0.36,
+      "desde": 3.1,
+      "hasta": 5.8
      },
-     "nota": "Desgaste: cada vuelta, la noche tiene menos color.",
-     "frente": true
+     "nota": "Desgaste: cada vuelta, la noche tiene menos color."
     },
     {
      "tipo": "palotes",
@@ -1524,38 +1763,30 @@
      "alto": 0.11,
      "en": [
       0.1,
-      2,
-      4,
-      4.5,
-      5.0,
-      5.45,
-      5.85,
-      6.2,
-      6.55,
-      6.85,
-      7.15,
-      7.4,
-      7.65,
-      7.9,
-      8.15
+      1.2,
+      2.2,
+      3.0,
+      3.4,
+      3.75,
+      4.1,
+      4.4,
+      4.7,
+      4.95,
+      5.2,
+      5.45
      ],
      "nota": "Rayas de tiza: una por noche. Después del reinicio se acumulan cada vez más deprisa."
     },
     {
      "tipo": "barrido",
-     "desde": 5.0,
+     "desde": 3.5,
      "dura": 1.3,
-     "nota": "La corrección de la torre: una luz que pasa por encima de todos. Vuelve en el plano 09."
-    },
-    {
-     "tipo": "barrido",
-     "desde": 7.0,
-     "dura": 1.3
+     "nota": "La corrección de la torre: una luz que pasa por encima de todos. Los rastros siguen ahí después. Vuelve en los planos 10 y 11."
     },
     {
      "tipo": "temblor",
      "golpes": [
-      4
+      3
      ],
      "amplitud": 6
     },
@@ -1567,31 +1798,121 @@
       2,
       3,
       4,
-      5,
-      6,
-      7,
-      8
+      5
      ],
      "intensidad": 0.06
     }
-   ]
+   ],
+   "bloque": 5
   },
   {
-   "n": 9,
-   "id": "shot_09_el_desafinado",
-   "nombre": "El Desafinado",
-   "historia": "Una fila idéntica baila a compás. Una figura da un paso a destiempo. La torre pasa por encima y la corrige, pero el gesto descartado no desaparece: queda fuera. A su alrededor se juntan más descartes hasta tener contorno y, de golpe, cuerpo: el protagonista, con su aspecto oficial. La torre intenta corregirlo como a los demás y no puede.",
-   "pulsos": 10,
+   "n": 10,
+   "id": "shot_10_paso_fuera_de_tiempo",
+   "nombre": "El paso fuera de tiempo",
+   "encuadre": "Primer plano de pies",
+   "historia": "Una fila de bailarines, de cintura para abajo, pisa a compás. Uno pisa tarde y se sale de la fila. La luz de la torre pasa por encima y lo devuelve a su sitio. El paso descartado no desaparece: queda fuera, en azul, donde la torre no lo quiere. Es el mismo encuadre de los pies de la fiesta (plano 02).",
+   "pulsos": 5,
    "pagina": "D",
-   "vineta": "v09",
+   "vineta": "v10",
    "transicion": {
     "tipo": "pagina",
-    "antes": 1.0,
+    "antes": 0.8,
     "despues": 0.0
    },
    "revelado": {
     "desde": 0,
     "pulsos": 0.3
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0,
+     "dx": -0.008
+    },
+    "a": {
+     "zoom": 1.04,
+     "dx": 0.012
+    }
+   },
+   "arte": {
+    "recurso": "bg06",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.835,
+     "ancho": 0.44
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.835,
+     "ancho": 0.44
+    }
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 0,
+     "alcance": 70,
+     "color": "rgba(255,120,210,.42)",
+     "opacidad": 1,
+     "nota": "Contraluz desde el suelo: recorta las siluetas."
+    },
+    {
+     "tipo": "compas",
+     "r": "bailarina_a",
+     "n": 4,
+     "x0": 0.14,
+     "x1": 0.86,
+     "y": 0.975,
+     "alto": 1.3,
+     "fuera": 2,
+     "sale": 1.0,
+     "desvio": 0.07,
+     "bote": 20,
+     "barrido": {
+      "desde": 2.1,
+      "dura": 1.5
+     },
+     "nota": "El mismo efecto del nacimiento (plano 11), ampliado hasta que la viñeta corta las figuras por la cintura. Paso fuera de tiempo en el pulso 1; el barrido lo corrige hacia el pulso 3; el descarte se queda."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      2.1
+     ],
+     "amplitud": 5
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "intensidad": 0.07
+    }
+   ],
+   "bloque": 5
+  },
+  {
+   "n": 11,
+   "id": "shot_11_el_desafinado",
+   "nombre": "El Desafinado",
+   "encuadre": "General, con recuadro de detalle",
+   "historia": "La fila sigue bailando, cada vez más apagada. El paso descartado sigue fuera. A su alrededor se juntan más descartes hasta tener contorno y, de golpe, cuerpo: el protagonista, con su aspecto oficial. Un recuadro enseña de cerca el hombro y el tatuaje. La torre intenta corregirlo como a los demás y no puede.",
+   "pulsos": 9,
+   "pagina": "D",
+   "vineta": "v11",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.4
    },
    "camara": {
     "margen": 0.035,
@@ -1650,15 +1971,37 @@
       0.13
      ],
      "ventana": {
-      "desde": 4.8,
+      "desde": 2.2,
       "funde": 0.2
      },
      "formacion": {
-      "desde": 4.9,
-      "cuerpo": 6.45,
+      "desde": 2.3,
+      "cuerpo": 4.0,
       "dura": 0.3
      },
-     "nota": "Único dibujo oficial del protagonista de cuerpo entero. Aparece justo donde quedó el paso descartado: primero solo su contorno, y en el pulso 6,5 el cuerpo."
+     "nota": "Único dibujo oficial del protagonista de cuerpo entero. Aparece justo donde quedó el paso descartado: primero solo su contorno, y en el pulso 4 el cuerpo."
+    },
+    {
+     "id": "detalle_tatuaje",
+     "tipo": "inserto",
+     "forma": "rect",
+     "recurso": "retrato_heroe",
+     "recorte": [
+      0.34,
+      0.33,
+      0.86,
+      0.98
+     ],
+     "proporcion": 1.25,
+     "pixelado": true,
+     "centro": [
+      0.875,
+      0.4
+     ],
+     "ancho": 0.2,
+     "giro": 3,
+     "entra": 5.0,
+     "nota": "Primer plano: hombro y tatuaje. Es un recorte del retrato oficial del HUD (assets/ui/hud_portrait_protagonist.png), sin retocar, ampliado unas tres veces."
     }
    ],
    "fx": [
@@ -1669,8 +2012,8 @@
      "opacidad": {
       "de": 0.56,
       "a": 0.08,
-      "desde": 6.4,
-      "hasta": 6.9
+      "desde": 3.95,
+      "hasta": 4.45
      },
      "nota": "La sala está a media luz hasta que nace; entonces se enciende. Es un velo que cambia de opacidad, no un filtro sobre el fondo."
     },
@@ -1683,28 +2026,28 @@
      "y": 0.975,
      "alto": 0.5,
      "fuera": 3,
-     "sale": 1.0,
+     "sale": -9,
      "desvio": 0.045,
      "bote": 12,
      "barrido": {
-      "desde": 2.0,
+      "desde": -9,
       "dura": 1.3
      },
      "fragmentos": {
       "n": 20,
-      "desde": 3.2,
-      "hasta": 5.6
+      "desde": 0.2,
+      "hasta": 2.9
      },
      "apaga": {
-      "desde": 4.6,
-      "hasta": 6.4,
+      "desde": 0.3,
+      "hasta": 3.8,
       "a": 0.4
      },
      "funde_eco": {
-      "desde": 5.3,
-      "hasta": 6.4
+      "desde": 2.9,
+      "hasta": 3.9
      },
-     "nota": "El paso fuera de tiempo (pulso 1), el barrido que lo corrige (2 a 3,3), los descartes que se juntan (3,2 a 5,6) y la fila que se apaga mientras lo descartado toma forma."
+     "nota": "Continúa el plano 10: el paso ya está corregido y el descarte sigue fuera (por eso 'sale' y el barrido están antes del pulso 0). Los descartes se juntan (0,2 a 2,9) y la fila se apaga mientras lo descartado toma forma."
     },
     {
      "tipo": "impacto",
@@ -1712,29 +2055,28 @@
       0.625,
       0.62
      ],
-     "desde": 6.5,
+     "desde": 4.05,
      "pulsos": 2.2
     },
     {
      "tipo": "estrobo",
      "golpes": [
-      6.5
+      4.05
      ],
      "intensidad": 0.4
     },
     {
      "tipo": "temblor",
      "golpes": [
-      2.0,
-      6.5,
-      7.0
+      4.05,
+      4.55
      ],
      "amplitud": 6,
      "primero": 4
     },
     {
      "tipo": "barrido",
-     "desde": 7.5,
+     "desde": 6.2,
      "dura": 0.9,
      "hasta_x": 0.5,
      "falla": true,
@@ -1748,41 +2090,354 @@
       1,
       2,
       3,
-      4,
+      4.05,
       5,
-      6.5,
-      7.5,
-      8.5
+      6.2,
+      7.2
      ],
      "intensidad": 0.07
     }
-   ]
+   ],
+   "bloque": 5
   },
   {
-   "n": 10,
-   "id": "shot_10_descenso_al_refugio",
-   "nombre": "El descenso al Refugio",
-   "historia": "El protagonista, recién formado, está en la pista. La música se engancha; algo golpea bajo el suelo; el círculo del centro gira y se abre. Debajo hay un pozo y una plataforma de servicio: se queda sobre ella y baja, pasando junto a balcones, pasarelas y luces de otras pistas, hasta un lugar a oscuras con neones que fallan: el Refugio. El pozo sigue bajando por debajo. Nadie lo recibe.",
-   "pulsos": 16,
-   "pagina": "D",
-   "vineta": "v10",
+   "n": 12,
+   "id": "shot_12_la_anomalia",
+   "nombre": "La anomalía",
+   "encuadre": "Desde el hombro",
+   "historia": "El protagonista, de espaldas y en primer término, a contraluz. Delante tiene la pista donde acaba de formarse. La música se engancha dos veces; algo golpea bajo el suelo y el círculo del centro se agrieta y empieza a girar. Él lo ve antes que nadie: desde aquí, la cámara es suya.",
+   "pulsos": 5,
+   "pagina": "E",
+   "vineta": "v12",
    "transicion": {
-    "tipo": "deslizar",
-    "despues": 1.0
+    "tipo": "pagina",
+    "antes": 1.0,
+    "despues": 0.0
    },
    "revelado": {
-    "desde": 0.1,
-    "pulsos": 0.6
+    "desde": 0,
+    "pulsos": 0.3
+   },
+   "fondo": "#07040b",
+   "camara": {
+    "margen": 0.04,
+    "de": {
+     "zoom": 1.0,
+     "dx": -0.008
+    },
+    "a": {
+     "zoom": 1.06,
+     "dx": 0.014,
+     "dy": 0.01
+    }
+   },
+   "arte": {
+    "recurso": "bg06",
+    "oculto": true,
+    "de": {
+     "cx": 0.4,
+     "cy": 0.715,
+     "ancho": 0.6
+    },
+    "a": {
+     "cx": 0.4,
+     "cy": 0.715,
+     "ancho": 0.6
+    }
+   },
+   "actores": [
+    {
+     "id": "heroe_hombro",
+     "tipo": "imagen",
+     "recurso": "retrato_heroe",
+     "clase": "hombro",
+     "pixelado": true,
+     "frente": true,
+     "centro": [
+      0.2,
+      0.56
+     ],
+     "ancho": 0.44,
+     "ruta": [
+      {
+       "en": 0,
+       "x": 0.2,
+       "y": 0.56
+      },
+      {
+       "en": 1.35,
+       "x": 0.2,
+       "y": 0.56
+      },
+      {
+       "en": 1.6,
+       "x": 0.188,
+       "y": 0.545
+      },
+      {
+       "en": 5,
+       "x": 0.194,
+       "y": 0.552
+      }
+     ],
+     "nota": "Retrato oficial del HUD: el protagonista de espaldas, por encima del hombro, con el tatuaje a la vista. Ampliado unas 3,4 veces y oscurecido como primer término a contraluz. Cuando el suelo golpea, se echa un poco atrás: es todo el movimiento que admite un solo dibujo."
+    }
+   ],
+   "fx": [
+    {
+     "tipo": "descenso",
+     "secciones": [
+      {
+       "recurso": "bg06",
+       "alto": 1.0,
+       "nota": "La misma pista del plano 11, más cerca y desplazada: el círculo del suelo queda a la derecha.",
+       "ancho": 0.6,
+       "cx": 0.4,
+       "cy": 0.715
+      }
+     ],
+     "claves": [
+      {
+       "en": 0,
+       "y": 0
+      },
+      {
+       "en": 5,
+       "y": 0
+      }
+     ],
+     "iris": {
+      "seccion": 0,
+      "semilla": "suelo",
+      "x": 0.6667,
+      "y": 0.7729,
+      "rx": 0.35,
+      "ry": 0.2158,
+      "aviso": 1.4,
+      "desde": 4.4,
+      "hasta": 40
+     },
+     "nota": "El mismo mecanismo de los planos 13 y 14. Aquí solo avisa: el aro gira y el suelo se agrieta."
+    },
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(8,4,14,1)",
+     "opacidad": 0.14
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      0.8,
+      1.4,
+      2.4,
+      3.4
+     ],
+     "amplitud": 6,
+     "primero": 9
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0.8,
+      1.4,
+      2.4,
+      3.4,
+      4.4
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 6
+  },
+  {
+   "n": 13,
+   "id": "shot_13_el_mecanismo",
+   "nombre": "El mecanismo",
+   "encuadre": "Subjetivo: lo que tiene delante",
+   "historia": "Lo que él tiene delante: el círculo del suelo, de cerca. Gira, se abre como un diafragma y deja ver el pozo. Dentro sube una plataforma de servicio. Nadie la acciona a la vista: la intro no dice quién.",
+   "pulsos": 4,
+   "pagina": "E",
+   "vineta": "v13",
+   "transicion": {
+    "tipo": "latigazo",
+    "despues": 0.5
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.3
+   },
+   "fondo": "#07040b",
+   "camara": {
+    "margen": 0.04,
+    "de": {
+     "zoom": 1.0,
+     "dy": -0.006
+    },
+    "a": {
+     "zoom": 1.09,
+     "dy": 0.012
+    }
+   },
+   "arte": {
+    "recurso": "bg06",
+    "oculto": true,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.8175,
+     "ancho": 0.5
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.8175,
+     "ancho": 0.5
+    }
+   },
+   "actores": [
+    {
+     "id": "plataforma",
+     "tipo": "imagen",
+     "recurso": "plataforma",
+     "centro": [
+      0.5,
+      0.6334
+     ],
+     "ancho": 0.266,
+     "pixelado": true,
+     "plano": true,
+     "ventana": {
+      "desde": 1.7,
+      "funde": 0.9
+     },
+     "ruta": [
+      {
+       "en": 0,
+       "x": 0.5,
+       "y": 0.7034
+      },
+      {
+       "en": 1.7,
+       "x": 0.5,
+       "y": 0.7034
+      },
+      {
+       "en": 3.2,
+       "x": 0.5,
+       "y": 0.6334
+      }
+     ],
+     "nota": "threshold_descent_pad.png: la plataforma de descenso oficial del juego. Sube dentro del hueco cuando el suelo se retira."
+    }
+   ],
+   "fx": [
+    {
+     "tipo": "descenso",
+     "secciones": [
+      {
+       "recurso": "bg06",
+       "alto": 1.0,
+       "nota": "Recorte de la misma ilustración de la pista, centrado en el círculo del suelo. No hay un dibujo hecho desde los ojos del protagonista: se lee como subjetivo por el corte desde el plano 12.",
+       "ancho": 0.5,
+       "cx": 0.5,
+       "cy": 0.8175
+      }
+     ],
+     "claves": [
+      {
+       "en": 0,
+       "y": 0
+      },
+      {
+       "en": 4,
+       "y": 0
+      }
+     ],
+     "iris": {
+      "seccion": 0,
+      "semilla": "suelo",
+      "x": 0.5,
+      "y": 0.6034,
+      "rx": 0.42,
+      "ry": 0.376,
+      "aviso": -3,
+      "desde": 0.4,
+      "hasta": 2.5
+     },
+     "nota": "El círculo gira y se abre entre los pulsos 0,4 y 2,5."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      0.4,
+      2.5
+     ],
+     "amplitud": 6,
+     "primero": 8
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0.4,
+      2.5
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 6
+  },
+  {
+   "n": 14,
+   "id": "shot_14_el_descenso",
+   "nombre": "El descenso",
+   "encuadre": "General, con acercamiento y recuadro",
+   "historia": "El protagonista está sobre la plataforma, en el hueco abierto. La plataforma baja. La cámara se acerca y lo acompaña mientras pasan balcones, pasarelas y luces de otras pistas; un recuadro lo enseña de cerca. Luego la cámara se abre: el pozo es hondo y abajo aparece un lugar a media luz. La plataforma se detiene. Él recupera el equilibrio y sale de ella por su pie. Nadie lo recibe.",
+   "pulsos": 10,
+   "pagina": "E",
+   "vineta": "v14",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.6
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.3
    },
    "fondo": "#07040b",
    "camara": {
     "margen": 0.02,
-    "de": {
-     "zoom": 1.0
-    },
-    "a": {
-     "zoom": 1.03
-    }
+    "claves": [
+     {
+      "en": 0,
+      "zoom": 1.0,
+      "dy": 0
+     },
+     {
+      "en": 2.0,
+      "zoom": 1.0,
+      "dy": 0
+     },
+     {
+      "en": 3.1,
+      "zoom": 1.42,
+      "dy": 0.085
+     },
+     {
+      "en": 4.7,
+      "zoom": 1.42,
+      "dy": 0.085
+     },
+     {
+      "en": 5.9,
+      "zoom": 1.0,
+      "dy": 0
+     },
+     {
+      "en": 10,
+      "zoom": 1.03,
+      "dy": 0
+     }
+    ],
+    "nota": "General (0 a 2) · la cámara se acerca y baja con él (3,1 a 4,7) · vuelve al general para enseñar la hondura del pozo y la llegada (desde 5,9)."
    },
    "arte": {
     "recurso": "bg06",
@@ -1812,47 +2467,42 @@
       {
        "en": 0,
        "x": 0.5,
-       "y": 0.863
+       "y": 0.885
       },
       {
-       "en": 3.7,
-       "x": 0.5,
-       "y": 0.863
-      },
-      {
-       "en": 4.3,
-       "x": 0.5,
-       "y": 0.885,
-       "suave": "cae"
-      },
-      {
-       "en": 4.6,
+       "en": 1.5,
        "x": 0.5,
        "y": 0.885
       },
       {
-       "en": 6.4,
+       "en": 3.0,
+       "x": 0.5,
+       "y": 0.708
+      },
+      {
+       "en": 7.5,
        "x": 0.5,
        "y": 0.708
       }
      ],
      "centro": [
       0.5,
-      0.875
+      0.897
      ],
      "ancho": 0.19,
      "pixelado": true,
      "plano": true,
-     "ventana": {
-      "desde": 2.9,
-      "funde": 0.9
-     },
-     "nota": "threshold_descent_pad.png: la plataforma de descenso oficial del juego. Aparece dentro del hueco cuando el suelo se retira."
+     "nota": "La plataforma de descenso oficial. Al llegar se queda donde está; él sale de ella."
     },
     {
      "id": "heroe",
      "tipo": "sprite",
      "sombra": true,
+     "paso": true,
+     "anda": [
+      8.3,
+      9.7
+     ],
      "poses": [
       {
        "desde": 0,
@@ -1864,39 +2514,54 @@
      "pos": {
       "de": [
        0.5,
-       0.875
+       0.897
       ],
       "a": [
        0.5,
-       0.875
+       0.897
       ]
      },
      "ruta": [
       {
        "en": 0,
        "x": 0.5,
-       "y": 0.875
+       "y": 0.897
       },
       {
-       "en": 3.7,
-       "x": 0.5,
-       "y": 0.875
-      },
-      {
-       "en": 4.3,
-       "x": 0.5,
-       "y": 0.897,
-       "suave": "cae"
-      },
-      {
-       "en": 4.6,
+       "en": 1.5,
        "x": 0.5,
        "y": 0.897
       },
       {
-       "en": 6.4,
+       "en": 3.0,
        "x": 0.5,
        "y": 0.72
+      },
+      {
+       "en": 7.5,
+       "x": 0.5,
+       "y": 0.72
+      },
+      {
+       "en": 7.7,
+       "x": 0.5,
+       "y": 0.732,
+       "suave": "cae"
+      },
+      {
+       "en": 8.05,
+       "x": 0.5,
+       "y": 0.72
+      },
+      {
+       "en": 8.3,
+       "x": 0.5,
+       "y": 0.72
+      },
+      {
+       "en": 9.7,
+       "x": 0.615,
+       "y": 0.708
       }
      ],
      "alto": 0.24,
@@ -1904,20 +2569,30 @@
       0.52,
       0.13
      ],
-     "nota": "El mismo dibujo oficial del plano 09. No habla. Se queda sobre la plataforma: no salta, no lo empujan y nadie lo lleva."
+     "nota": "El mismo dibujo oficial del plano 11. No habla. Baja de pie sobre la plataforma: no salta, no lo empujan y nadie lo lleva. Al llegar, la sacudida lo hunde un poco (7,5 a 8,05) y después sale de la plataforma hacia la derecha (8,3 a 9,7). El dibujo se mueve entero: no se deforma ni se cambia de pose."
     },
     {
-     "id": "logo",
-     "tipo": "imagen",
-     "recurso": "logo",
-     "centro": [
-      0.15,
-      0.82
+     "id": "heroe_cerca",
+     "tipo": "inserto",
+     "forma": "rect",
+     "recurso": "heroe_walk_01",
+     "recorte": [
+      0.2,
+      0.06,
+      0.84,
+      0.46
      ],
-     "ancho": 0.19,
-     "animacion": "sello",
-     "entra": 13.4,
-     "frente": true
+     "proporcion": 0.9,
+     "pixelado": true,
+     "centro": [
+      0.27,
+      0.5
+     ],
+     "ancho": 0.16,
+     "giro": -3,
+     "entra": 3.1,
+     "sale": 4.8,
+     "nota": "Primer plano durante la bajada: recorte del mismo dibujo oficial (cabeza, hombro y brazo tatuado), ampliado. Entra con la cámara cerca y se retira cuando se abre el plano."
     }
    ],
    "fx": [
@@ -1927,10 +2602,10 @@
       {
        "recurso": "bg06",
        "alto": 1.0,
+       "nota": "La pista donde acaba de formarse, con el suelo ya abierto.",
        "ancho": 0.7,
        "cx": 0.5,
-       "cy": 0.6,
-       "nota": "La pista donde acaba de formarse (el mismo fondo del plano 09, más abierto)."
+       "cy": 0.6
       },
       {
        "recurso": "pozo",
@@ -1998,62 +2673,189 @@
        "y": 0
       },
       {
-       "en": 4.6,
+       "en": 1.5,
        "y": 0
       },
       {
-       "en": 5.8,
+       "en": 2.5,
        "y": 0.51,
        "suave": "arranca"
       },
       {
-       "en": 9.6,
+       "en": 5.6,
        "y": 3.74,
        "suave": "lineal"
       },
       {
-       "en": 12.1,
+       "en": 7.5,
        "y": 4.4502,
        "suave": "frena"
       }
      ],
      "iris": {
       "seccion": 0,
+      "semilla": "suelo",
       "x": 0.5,
-      "y": 0.852,
+      "y": 0.8514,
       "rx": 0.3,
       "ry": 0.148,
-      "aviso": 1.9,
-      "desde": 2.6,
-      "hasta": 4.1
+      "aviso": -9,
+      "desde": -5,
+      "hasta": -4
      },
      "lineas": {
       "n": 18,
       "vel_ref": 0.7
      },
-     "nota": "La cámara no se mueve: sube la tira de escenarios y el protagonista se queda en su sitio. Así se ve que la pista, el pozo y el Refugio son el mismo edificio."
+     "nota": "La cámara no baja: sube la tira de escenarios y el protagonista se queda en su sitio. Así se ve que la pista, el pozo y el Refugio son el mismo edificio."
     },
     {
      "tipo": "temblor",
      "golpes": [
-      2.0,
-      2.6,
-      4.3,
-      12.0
+      1.5,
+      7.5
      ],
      "amplitud": 6,
-     "primero": 9
+     "primero": 8
     },
     {
      "tipo": "latido",
      "golpes": [
-      2.0,
-      12.1,
-      13.4
+      1.5,
+      7.5
      ],
      "intensidad": 0.08
     }
-   ]
+   ],
+   "bloque": 6
+  },
+  {
+   "n": 15,
+   "id": "shot_15_el_refugio",
+   "nombre": "El Refugio",
+   "encuadre": "Desde el hombro",
+   "historia": "El protagonista, otra vez de espaldas y en primer término. Delante, el Refugio: arcos, neones, sofás, el fuego del centro. Está a media luz y los neones fallan, pero es un lugar habitado y quieto. No hay nadie más. Aquí empieza el juego.",
+   "pulsos": 4,
+   "pagina": "E",
+   "vineta": "v15",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.4
+   },
+   "fondo": "#07040b",
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.05,
+     "dx": 0.012
+    },
+    "a": {
+     "zoom": 1.0,
+     "dx": 0
+    }
+   },
+   "arte": {
+    "recurso": "refugio",
+    "pixelado": true,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    }
+   },
+   "actores": [
+    {
+     "id": "heroe_hombro",
+     "tipo": "imagen",
+     "recurso": "retrato_heroe",
+     "clase": "hombro",
+     "pixelado": true,
+     "frente": true,
+     "centro": [
+      0.17,
+      0.665
+     ],
+     "ancho": 0.4,
+     "nota": "El mismo retrato oficial del plano 12, en el mismo lado del encuadre: los dos planos riman. Aquí mira el Refugio."
+    },
+    {
+     "id": "logo",
+     "tipo": "imagen",
+     "recurso": "logo",
+     "centro": [
+      0.845,
+      0.2
+     ],
+     "ancho": 0.17,
+     "animacion": "sello",
+     "entra": 1.5,
+     "frente": true
+    }
+   ],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(7,4,14,1)",
+     "opacidad": {
+      "de": 0.5,
+      "a": 0.14,
+      "desde": 0.3,
+      "hasta": 2.4
+     },
+     "nota": "El Refugio se enciende a medias: empieza a oscuras (biblia §5.5) y gana luz sin llegar a estar despierto."
+    },
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.52,
+     "y": 0.5,
+     "rx": 0.2,
+     "ry": 0.24,
+     "color": "rgba(255,170,90,.3)",
+     "opacidad": {
+      "de": 0,
+      "a": 1,
+      "desde": 0.5,
+      "hasta": 2.4
+     },
+     "late": true,
+     "nota": "El fuego del centro."
+    },
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.8,
+     "y": 0.3,
+     "rx": 0.2,
+     "ry": 0.26,
+     "color": "rgba(255,45,149,.22)",
+     "opacidad": {
+      "de": 0,
+      "a": 1,
+      "desde": 1.0,
+      "hasta": 2.8
+     },
+     "nota": "Neón."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      1.5
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 6
   }
  ]
 }

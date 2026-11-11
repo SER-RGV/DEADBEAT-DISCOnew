@@ -827,12 +827,12 @@ Medido sobre la línea de tiempo de la 0.3.1 (45,000 s):
 
 | Qué | Dato |
 |---|---|
-| Tiempo antes de que exista el protagonista | 36,1 s de 45 (el 80 %) |
-| Tiempo con el protagonista en pantalla | 8,9 s, todos al final |
+| Tiempo antes de que exista el protagonista | 35,8 s de 45 (el 80 %) |
+| Tiempo con el protagonista en pantalla | 9,2 s, todos al final |
 | Planos dedicados al origen de la fiesta y de la torre | 8 de 10 (37,5 s) |
 | Textos antes de que aparezca | 13 de 14 |
 | Tipos de encuadre | Casi todos generales. Dos recuadros de Tempo. Ningún primer plano, ningún plano desde el hombro, ninguno subjetivo |
-| Tamaño del protagonista durante el descenso | Unos 110 px de alto en una imagen de 1080 |
+| Tamaño del protagonista durante el descenso | Unos 250 px de alto en una imagen de 1080, sin ningún plano más cercano |
 
 Tres problemas, que son los del encargo:
 
@@ -871,8 +871,8 @@ agrupados en los seis bloques del encargo. No se añade ningún texto y se retir
 | | 14 El descenso | 38,438 s | 10 | General con recuadro cercano | Queda sobre la plataforma y baja. Recuadro con su rostro mientras pasan las luces. Llega, recupera el equilibrio y sale de la plataforma | Continuidad: pista, pozo y Refugio son el mismo edificio |
 | | 15 El Refugio | 43,125 s | 4 | **Desde el hombro** | Él, de espaldas; delante, el Refugio, que se enciende a medias. Título | Ha llegado. Rima con el plano 12 |
 
-Con este montaje el protagonista toma cuerpo en el segundo **32,1** (antes, 36,1) y tiene 12,9 s de
-pantalla (antes, 8,9). Lo más importante no son esos cuatro segundos: es que el paso aparece en el
+Con este montaje el protagonista toma cuerpo en el segundo **32,1** (antes, 35,8) y tiene 12,9 s de
+pantalla (antes, 9,2). Lo más importante no son esos cuatro segundos: es que el paso aparece en el
 segundo 3,8 y el primer rastro en el 22,9, de modo que cuando nace ya llevamos media intro viéndolo
 venir.
 
@@ -939,4 +939,284 @@ Quedan 10 adaptados y 2 propuestas (las onomatopeyas «TAC»).
 
 **Consecuencia que hay que decidir:** al pasar la frase a narración desaparece el rótulo «TEMPO» que
 la acompañaba, y con él el nombre del personaje: la intro ya no lo nombra. Mantener el rótulo sobre
-una frase en tercera persona haría creer que Tempo habla de otro. Queda como pendiente (4.11).
+una frase en tercera persona haría creer que Tempo habla de otro. Queda como pendiente (4.13).
+
+---
+
+## 4.6 Resultado: qué se hizo y en qué se aparta de la propuesta
+
+La propuesta de 4.1 a 4.5 se guardó en el commit `ecb4272` antes de tocar el guion, la composición o
+el motor. Lo implementado la sigue: quince planos, seis bloques, 45,000 s, los mismos pulsos por plano.
+Cuatro diferencias:
+
+| Propuesta | Lo que hay | Motivo |
+|---|---|---|
+| La propuesta guardada decía que en la 0.3.1 el protagonista nacía en el segundo 36,1, tenía 8,9 s de pantalla y medía 110 px durante el descenso | Eran **35,8 s**, **9,2 s** y **unos 250 px** (medido en el navegador) | Tres errores míos. Están corregidos en 4.1 y 4.2; el texto original queda en el commit `ecb4272`. El diagnóstico no cambia: llegaba tarde y nunca se le veía de cerca |
+| Plano 10, «primer plano de pies» | **Plano corto, de cintura para abajo** | La silueta oficial del Bailarín es casi toda falda; los pies son pequeños. Más cerca solo se veía una mancha negra. Se ven la falda, las botas y el paso que se sale |
+| Plano 14, «recuadro con su rostro mientras pasan las luces» | El recuadro enseña cabeza, hombro y brazo tatuado. Las luces pasan en el plano general, no dentro del recuadro | El recuadro es un recorte fijo del dibujo oficial |
+| 4.2 decía que nacía en el segundo 32,1 | Toma cuerpo en el **31,9** | Ajuste de tiempos al montar |
+
+La duración alternativa de 48,750 s (104 pulsos) **no se ha aplicado**. Sigue siendo mi recomendación
+si la prueba de comprensión falla en el final: el plano 15 dura 1,9 s, que es poco para reconocer un
+lugar nuevo.
+
+## 4.7 Estructura y tiempos exactos
+
+128 pulsos por minuto; un pulso son 0,46875 s; 96 pulsos; **45,000 s**.
+
+| Bloque | Tiempo real | Referencia del encargo | Plano | De | A | Pulsos |
+|---|---|---|---|---|---|---|
+| 1 La última fiesta | 0,000 a 5,625 s | 0 a 6 | 01 La Primera Noche | 0,000 | 3,750 | 8 |
+| | | | 02 El paso | 3,750 | 5,625 | 4 |
+| 2 El deseo y la Escucha | 5,625 a 12,188 s | 6 a 12 | 03 El último deseo | 5,625 | 7,969 | 5 |
+| | | | 04 La Escucha | 7,969 | 12,188 | 9 |
+| 3 El nacimiento de la torre | 12,188 a 18,281 s | 12 a 18 | 05 El nacimiento de la torre | 12,188 | 15,469 | 7 |
+| | | | 06 Los deseos se convierten en leyes | 15,469 | 18,281 | 6 |
+| 4 Tempo y la repetición | 18,281 a 24,844 s | 18 a 25 | 07 La nota que no termina | 18,281 | 20,625 | 5 |
+| | | | 08 La decisión de Tempo | 20,625 | 24,844 | 9 |
+| 5 El nacimiento del Desafinado | 24,844 a 34,219 s | 25 a 34 | 09 La repetición | 24,844 | 27,656 | 6 |
+| | | | 10 El paso fuera de tiempo | 27,656 | 30,000 | 5 |
+| | | | 11 El Desafinado | 30,000 | 34,219 | 9 |
+| 6 La ruptura y el descenso | 34,219 a 45,000 s | 34 a 45 | 12 La anomalía | 34,219 | 36,563 | 5 |
+| | | | 13 El mecanismo | 36,563 | 38,438 | 4 |
+| | | | 14 El descenso | 38,438 | 43,125 | 10 |
+| | | | 15 El Refugio | 43,125 | 45,000 | 4 |
+
+Ningún corte de bloque se aparta más de 0,4 s de la referencia del encargo.
+
+Lo que ocurre dentro de los planos, en segundos de la línea de tiempo:
+
+| Segundo | Qué pasa |
+|---|---|
+| 3,75 | Primer plano de pies: el paso, a compás |
+| 22,97 | Con la nueva canción, una invitada pisa medio pulso tarde y deja un rastro azul |
+| 23,91 | Vuelve al compás. El rastro se atenúa y se queda |
+| 25,31 · 25,88 · 26,39 · 26,77 · 27,09 | Un rastro nuevo en cada tira del montaje |
+| 28,13 | Plano corto: un bailarín pisa tarde y se sale de la fila |
+| 29,1 | El barrido de la torre lo devuelve a su sitio. El descarte queda fuera |
+| 30,09 a 31,36 | Los descartes se juntan alrededor |
+| 31,08 | Empieza a verse su contorno |
+| **31,88** | **Toma cuerpo** |
+| 32,34 | Recuadro: hombro y tatuaje |
+| 32,91 | La torre intenta corregirlo; el barrido se para antes de llegar |
+| 34,22 | Desde su hombro. La música se engancha (34,59 y 34,88) y el suelo se agrieta |
+| 36,75 a 37,73 | Lo que tiene delante: el círculo se abre. Plataforma desde 37,36 |
+| 38,44 a 39,14 | Él, sobre la plataforma, quieto |
+| 39,14 | Empieza a bajar |
+| 39,89 a 40,64 | La cámara cerca; recuadro de detalle |
+| 41,20 | El plano se abre: el pozo y, abajo, el Refugio |
+| 41,95 | Llega. Se hunde un poco con la sacudida y se repone (hasta 42,21) |
+| 42,33 a 42,98 | Sale de la plataforma |
+| 43,13 | Desde su hombro, el Refugio. Se enciende a medias (43,27 a 44,25); título en 43,83 |
+
+## 4.8 Cómo queda integrado el protagonista
+
+| | 0.3.1 | 0.4.0 |
+|---|---|---|
+| Primera imagen del motivo (un paso de baile en primer plano) | No había | 3,75 s |
+| Primera señal de que algo se sale del compás | 33,3 s | 22,97 s |
+| Toma cuerpo | 35,84 s | 31,88 s |
+| Tiempo desde que tiene cuerpo hasta el final | 9,16 s | 13,12 s |
+| De ese tiempo, en pantalla | 9,16 s | 11,25 s (el plano 13 es lo que él ve) |
+| Planos en los que aparece | 2 | 5 (11, 12, 14, 15 y, como mirada, 13) |
+| Planos que lo anuncian antes de nacer | 0 | 4 (02, 08, 09, 10) |
+| Tamaño en pantalla (medido a 1080p) | Unos 610 px al nacer; unos 250 en el descenso | Igual al nacer; en el descenso, 250 en general y 350 en el acercamiento, más el recuadro. En 12 y 15, un busto de unos 700 px |
+
+Un solo código para lo que la torre descarta: la silueta azul claro con trama. Aparece cuatro veces
+antes de que nazca y siempre significa lo mismo. Los rastros tienen la forma de los invitados y de los
+bailarines; su silueta y su rostro no salen hasta el plano 11. Capturas:
+`evidence/0.4.0/secuencia_protagonista.jpg`.
+
+Lo que no puedo afirmar: que un espectador relacione el rastro azul de una invitada (plano 08) con el
+protagonista. El enlace es el color y la repetición del gesto, no la forma. Es una de las cosas que
+debe decir la prueba de comprensión.
+
+## 4.9 Encuadres
+
+| Encuadre que pedía el encargo | Dónde |
+|---|---|
+| General | 01, 04, 05, 11; 14 al principio y al final |
+| Medio | 03 (anfitrión de espaldas), 08, 14 durante el acercamiento |
+| Primer plano o plano corto (pies, tatuajes, siluetas) | **02** (pies de la fiesta), **10** (cintura para abajo, el paso), **11** (recuadro: hombro y tatuaje), **14** (recuadro: cabeza, hombro y brazo tatuado), 07 (detalle del tocadiscos) |
+| Por encima del hombro | **12** (ante la pista) y **15** (ante el Refugio) |
+| Subjetivo | **13** (el círculo del suelo que se abre). Es un recorte de la ilustración de la pista, no un dibujo hecho desde sus ojos |
+| Lateral o de perfil | El protagonista está de perfil en 11 y 14; su rostro, de perfil, en 12 y 15 |
+| Reflejos, sombras, siluetas incompletas | Los rastros azules de 08, 09 y 10; las piernas cortadas por la viñeta en 02 y 10 |
+| Primeros planos de enlace | 02 con 10 (el mismo encuadre de pies, antes y después de la torre); 12 con 15 (el mismo encuadre desde el hombro, antes y después de bajar) |
+| Planos de seguimiento en el descenso | 14: la tira de escenarios sube mientras él se queda en su sitio, y la cámara se acerca y lo acompaña |
+| Transiciones con continuidad espacial | 10 a 11 (el descarte queda en el mismo punto de la pantalla donde luego nace); 12 a 13 a 14 (el mismo círculo del suelo, con las mismas grietas); 12 a 15 son la misma lámina: cada corte baja por la página |
+
+## 4.10 El descenso y el Refugio
+
+Los once puntos del encargo:
+
+| | Punto | Plano | Segundo | Cómo se ve |
+|---|---|---|---|---|
+| 1 | Percibe la anomalía | 12 | 34,2 | Él en primer término, de espaldas. «TAC» dos veces. Se echa un poco atrás |
+| 2 | La estructura responde | 12 | 34,9 | Sacudidas; el aro del suelo gira y aparecen grietas |
+| 3 | El suelo se abre por el mecanismo ya establecido | 13 | 36,8 | El mismo círculo y el mismo efecto de la 0.3.1, ahora de cerca |
+| 4 | Aparece la plataforma | 13 | 37,4 | Sube dentro del hueco (plataforma oficial del juego) |
+| 5 | Queda sobre ella, de forma legible | 14 | 38,4 | Plano general, quieto 0,7 s antes de bajar |
+| 6 | Desciende | 14 | 39,1 | La pista se va hacia arriba |
+| 7 | Alternan planos cercanos y generales | 14 | 39,9 a 41,2 | General, acercamiento con recuadro, general |
+| 8 | Se revela la profundidad de la torre | 14 | 39,6 a 41,9 | Balcones y luces de otras pistas a los lados; al abrirse el plano, el pozo sigue |
+| 9 | Llega al Refugio | 14 | 41,95 | La plataforma frena; sacudida |
+| 10 | Se incorpora o baja de la plataforma | 14 | 42,3 | Se repone y sale de ella andando |
+| 11 | La imagen final reconoce el Refugio | 15 | 43,1 | Él de espaldas; delante, el Refugio (ilustración oficial), que gana luz. Título |
+
+Lo que mejora respecto a la 0.3.1: antes todo esto era un solo plano general de 7,5 s con el
+protagonista a unos 250 px de alto y sin ningún plano cercano. Ahora son cuatro planos con cuatro encuadres, dos de ellos desde su
+hombro, y la última imagen es el Refugio visto con él.
+
+Lo que no se ha hecho, y por qué:
+
+- **No se ve cómo queda sobre la plataforma.** Entre el plano 13 (la plataforma sube, delante de él)
+  y el 14 (él, encima) hay una elipsis. El hueco es más ancho que la plataforma y no hay ningún
+  dibujo de él de espaldas de cuerpo entero ni caminando hacia el fondo. Hacerlo cruzar el vacío
+  andando habría sido peor.
+- **No se dice quién acciona el mecanismo.** No aparece nadie.
+- **No aparece Tempo** ni ningún otro personaje en el Refugio, y no se añade ninguna estancia ni
+  objeto: el plano 15 es la ilustración oficial sin retocar, con un velo oscuro que se levanta.
+- **«Se incorpora»** se resuelve moviendo el dibujo entero (baja 13 px con la sacudida y vuelve). No se
+  deforma ni se cambia de pose: los otros cuadros oficiales llevan otro vestuario.
+
+## 4.11 Guion y recursos
+
+**Textos.** De 14 a 12; ninguno nuevo. Detalle de los cambios en 4.5. Revisión, una a una, de las diez
+adaptaciones. «Cercanía» es mi valoración, no una aprobación:
+
+| Plano | Texto | Pasaje de la biblia | Cercanía |
+|---|---|---|---|
+| 01 | La guerra terminó. Por una noche, nadie tuvo que huir. | §2.1: «La fiesta celebraba el final de una guerra. Durante unas horas, personas que habían vivido esperando la muerte pudieron reunirse sin miedo.» | Media. «Huir» no está en la biblia: dice «esperando la muerte» |
+| 03 | Que esta noche no termine. | §2.3: «el anfitrión pidió que aquella noche no terminase» | Alta. Pasa a estilo directo |
+| 04 | Bajo el salón dormía algo que escuchaba. | §2.2: «Bajo el salón dormía una presencia sin rostro llamada la Escucha.» | Alta |
+| 04 | Y devolvió lo que recibió. | §2.3: «La Escucha respondió repitiéndola.» | Alta |
+| 05 | La noche empezó a crecer hacia abajo. | §2.3: «El salón creció hacia abajo, como un surco que se hunde en un disco.» | Media. La biblia dice «el salón», no «la noche» |
+| 06 | Los deseos se convirtieron en leyes. | §2.3: «Los deseos más intensos de los invitados se convirtieron en las leyes de cada pista.» | Alta |
+| 08 | Los vio felices. Pensó que unos minutos más no podían hacer daño. | §3.1: «Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.» | Muy alta. Casi literal |
+| 09 | La noche volvió a empezar. | §2.3: «El tiempo se plegó sobre sí mismo.» | **Baja.** Es la más libre de las diez: cuenta la consecuencia, no el pasaje |
+| 10 | La torre corregía cada variación. | §4.1: «La torre corrigió el movimiento, pero descartó esa posibilidad.» | Media. Generaliza un hecho único |
+| 11 | Lo que la torre rechazó terminó tomando forma. | §4.1: «todas las decisiones rechazadas se acumularon hasta formar una persona» | Alta |
+
+Ninguna pasa a canon por tener cita: siguen siendo redacción de dirección. Las dos onomatopeyas
+siguen siendo propuesta.
+
+**Recursos.** Uno nuevo en la lista, y es oficial: `assets/ui/hud_portrait_protagonist.png`. No se ha
+generado, copiado ni retocado ninguna imagen. `arte_nuevo/` no cambia: sigue sin aprobar y los planos
+que lo usan llevan su sello (ahora nueve: 01 a 08 y 14).
+
+Sobre el arte de la 0.3.1, para que conste aquí también: la estación se generó a 1376×768 y está
+ampliada a 2560×1440; el pozo mide 768×1376 y se ajusta al ancho de la viñeta; las siluetas de los
+invitados se obtuvieron de imágenes generadas. Ninguna tiene aprobación de dirección de arte. En los
+planos 02 y 10 el fondo es un recorte muy ampliado y queda blando.
+
+**Motor.** Cambios pequeños, todos opcionales para la composición:
+
+| Archivo | Cambio |
+|---|---|
+| `js/efectos.js` | `figuras`: una figura puede ir medio pulso tarde y dejar rastro (`desliz`). `montaje`: rastros por tira (`ecos`). `descenso`: `iris.semilla`, para que las grietas sean las mismas en planos distintos |
+| `js/motor.js` | Imagen con clase propia (`clase`). Recuadro que se retira (`sale`). Vaivén de caminar solo en un tramo (`anda`) |
+| `comic.css` | Estilo del primer término a contraluz (`.mc-imagen.hombro`) |
+| `js/guion.js`, `validar_guion.mjs`, `js/vista_previa.js` | El número de planos ya no está fijado en 10: se compara con `tempo.planos` del guion (15). Si el guion no lo declara, siguen siendo 10 |
+
+## 4.12 Comprobaciones
+
+Separo lo técnico de lo narrativo, como pide el encargo.
+
+### Técnico
+
+| Prueba | Resultado |
+|---|---|
+| `node assets/cinematics/motion_comic/validar_guion.mjs` | **0 errores, 0 avisos**, código de salida 0. 45,000 s, 15 planos, 12 textos (10 adaptados, 2 propuestas), 20 de 20 citas, 26 recursos, 9 planos con sello de arte nuevo |
+| Reproducción completa en navegador (Chromium sin interfaz) | Llega a **45,000 s**. Sin errores de consola. Sin recursos fallidos. Comprobaciones de pantalla: 0 errores, 0 avisos |
+| Textos en pantalla, al entrar, a la mitad y al salir | Los 12, visibles y dentro. Un aviso que es falso: la onomatopeya de varios golpes del plano 07 se mide en el momento en que cambia de sitio (ya ocurría en la 0.3.1) |
+| Ritmo de lectura | El texto más rápido va a 16,8 caracteres por segundo (cómodo hasta 17) |
+| Letra más pequeña | 30 px a 1080p (mínimo 26) |
+| Prueba negativa: «Solo una más» en una copia temporal del guion | El validador da **2 errores** y sale con código 1 (frase reservada, y texto que ya no coincide con el fijado). El guion real no se tocó |
+| Prueba negativa: guion que declara 10 planos | 1 error («Hay 15 planos; el guion declara 10»), código 1 |
+| `node assets/cinematics/motion_comic/servir.mjs` | Funciona; todas las pruebas se han hecho contra él |
+| Fluidez, composición por software | 1.863 fotogramas en 45 s; 2,5 s perdidos en 11 parones de 0,15 a 0,41 s. En la 0.3.1: unos 1.900 y 3,9 s. Con una variación de 10 a 30 % entre pasadas iguales, **solo indica que no ha empeorado** |
+| Fluidez, modo gráfico emulado | Unos 300 fotogramas en 45 s. No es representativo de un equipo real, igual que en la 0.3.1 |
+
+No se ha probado en un equipo con tarjeta gráfica, ni en Firefox, Safari o móvil.
+
+### Narrativo
+
+Lo que he comprobado yo, mirando las capturas a 1920×1080: que cada punto **está en pantalla**. No
+que se entienda.
+
+| Punto del encargo | ¿Está en pantalla? | Captura |
+|---|---|---|
+| La fiesta se entiende enseguida | Sí: estación, parejas, texto de la guerra en el primer segundo | `plano01_02.8s` |
+| El protagonista deja señales antes de aparecer | Sí: 22,97 s, y cinco más entre 25,3 y 27,1 s | `plano08_23.4s`, `plano09_27.4s` |
+| Su aparición sale de la repetición | Sí: nace en el punto exacto donde quedó el paso descartado | `plano10_29.9s`, `plano11_31.8s`, `plano11_32.3s` |
+| Su diseño se reconoce | Sí: dibujo oficial de cuerpo entero, y recuadro con el tatuaje | `plano11_33.2s` |
+| Tras nacer, guía la continuidad | Aparece en los cuatro planos siguientes o son su mirada | `secuencia_descenso.jpg` |
+| Hay primeros planos, sobre el hombro y subjetivo | Sí (4.9) | `plano12_35.2s`, `plano13_37.6s` |
+| El descenso tiene principio, desarrollo y llegada | Sí, con una elipsis entre 13 y 14 (4.10) | `secuencia_descenso.jpg` |
+| El Refugio se reconoce como destino | Es la imagen final, con él delante. Dura 1,9 s | `plano15_44.8s` |
+| No se revela información reservada | Ninguna frase reservada (lo comprueba el validador). Sin nombres de pistas ni de soberanos, sin Tempo en el Refugio | — |
+
+**Prueba de comprensión: PENDIENTE. No se ha hecho.** No tengo a quién enseñársela. Hay que ponerla,
+sin explicación previa, a alguien que no conozca el juego y preguntarle:
+
+1. ¿Qué pasó en la fiesta?
+2. ¿Qué le ocurrió al protagonista?
+3. ¿De dónde salió?
+4. ¿Adónde llegó al final?
+
+El criterio del encargo es que responda a las cuatro sin leer nada aparte. Hasta entonces, «la
+historia se entiende mejor» es una hipótesis de montaje, no un resultado.
+
+## 4.13 Limitaciones y decisiones pendientes
+
+Narrativas y de arte:
+
+- **Comprensión sin comprobar** (4.12).
+- **El nombre de Tempo ya no sale en pantalla.** Decidir si debe salir y cómo.
+- **Elipsis entre los planos 13 y 14** (4.10).
+- **El plano subjetivo es un recorte**, no una vista dibujada.
+- **Dos dibujos oficiales del protagonista que no coinciden del todo.** El retrato (planos 11, 12 y 15)
+  lleva cuello alto magenta y una calavera con rosa en el hombro; el de cuerpo entero (11 y 14) lleva
+  otro chaleco y el tatuaje en el brazo. No se ha corregido ninguno. Alguien puede notarlo.
+- **El retrato está ampliado** entre 3 y 3,4 veces. Se ve el píxel.
+- **Escala en el Refugio.** En el plano 14 el protagonista es mucho más grande que los muebles de la
+  ilustración. Ya pasaba en la 0.3.1.
+- **Plano 02:** en el fondo ampliado se adivinan bailarines borrosos entre las piernas.
+- **El plano 15 es corto** (1,9 s). Es el primer sitio donde pondría tiempo si se alarga a 48,750 s.
+- **Los rastros tienen forma de invitado**, no de protagonista. Es deliberado, pero el enlace depende
+  solo del color.
+- **Dónde está el Refugio.** Sigue sin resolver: el apartado 5.3 de la biblia (propuesta) dice que al
+  bajar se ven luces de otras pistas; el 5.1 pone el Refugio antes de la primera pista. La intro
+  muestra el 5.3 y, debajo del Refugio, el pozo que sigue. No afirma que el Refugio esté bajo las
+  nueve pistas. PENDIENTE de dirección.
+- **La biblia dice que «despierta» en el Refugio** (§38, punto 13). Aquí llega de pie y sale de la
+  plataforma, como pide este encargo. Si dirección prefiere que despierte, hace falta un dibujo que no
+  existe.
+- **El arte nuevo sigue sin aprobar.** Nada de esta versión lo cierra.
+- **Sin sonido.** Los «TAC» y los pulsos son visuales.
+
+Técnicas:
+
+- Rendimiento sin medir en equipo real.
+- Las teclas 1 a 9 y 0 solo saltan a los planos 1 a 10.
+- La vista previa sigue sin integrarse en el juego, cuyo motor da 35 s a la intro.
+- No he revisado punto por punto la lista de validación de 14 apartados del encargo 0.3.1; sigue como
+  estaba.
+
+## 4.14 Archivos
+
+Todo dentro de `assets/cinematics/motion_comic/`. Nada fuera.
+
+| Archivo | Cambio |
+|---|---|
+| `data/composicion.json` | Quince planos, cinco láminas, seis bloques. Versión 0.4.0-preview |
+| `data/guion.json` | Doce textos; `tempo.planos`: 15. Versión 0.4.0-preview |
+| `js/efectos.js`, `js/motor.js`, `comic.css` | Ver 4.11 |
+| `js/guion.js`, `js/vista_previa.js`, `validar_guion.mjs` | Número de planos declarado por el guion |
+| `README.md` | Puesto al día |
+| `INFORME_DIRECCION_NARRATIVA.md` | Esta parte 4. Las partes 1 a 3 no se han reescrito; solo cambia la línea del índice que decía cuál era la vigente |
+| `evidence/0.4.0/` | 43 imágenes nuevas. Las 31 de la 0.3.1 siguen en `evidence/` sin tocar |
+
+Sin tocar: `arte_nuevo/`, `fuentes/`, `fonts/`, `servir.mjs`, `index.html`, `js/textos.js`,
+`js/formas.js`, y todo lo que está fuera de esta carpeta.
