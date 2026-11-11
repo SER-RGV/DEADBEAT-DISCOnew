@@ -312,12 +312,43 @@ export class Motor {
             h.style.top = o[1] * v.h + "px";
             const c = (fx.colores || [])[i] || "rgba(255,45,149,.5)";
             h.style.background = `linear-gradient(180deg, ${c}, transparent 85%)`;
+            h._fase = i * 2.1;
             return h;
           });
           break;
         case "vapor":
           X.el = crear("div", "mc-fx mc-fx-vapor", frente);
           break;
+        case "color_pulso":
+          X.el = crear("div", "mc-fx mc-fx-color-pulso", fondo);
+          X.el.style.setProperty("--x", (fx.x ?? 0.5) * 100 + "%");
+          X.el.style.setProperty("--y", (fx.y ?? 0.8) * 100 + "%");
+          break;
+        case "circulos": {
+          // Columna de discos (uno por círculo). El último es mayor: es el que late.
+          const cols = fx.colores || [];
+          const n = cols.length;
+          const y0 = fx.y0 * v.h;
+          const y1 = fx.y1 * v.h;
+          const paso = (y1 - y0) / (n - 1);
+          const d = Math.min(paso * 0.9, v.h * 0.07);
+          const caja = crear("div", "mc-fx mc-fx-circulos", frente);
+          caja.style.left = fx.x * v.w + "px";
+          caja.style.top = "0px";
+          const rail = crear("div", "rail", caja);
+          rail.style.cssText = `top:${y0 - d * 0.9}px;height:${y1 - y0 + d * 2.3}px;width:${d * 1.9}px;margin-left:${-d * 0.95}px;border-radius:${d}px`;
+          const hilo = crear("div", "hilo", caja);
+          hilo.style.cssText = `top:${y0}px;height:${y1 - y0}px`;
+          X.discos = cols.map((color, i) => {
+            const ult = i === n - 1;
+            const dd = ult ? d * 1.75 : d;
+            const o = crear("div", "disco" + (ult ? " nucleo" : ""), caja);
+            o.style.cssText = `width:${dd}px;height:${dd}px;margin:${-dd / 2}px 0 0 ${-dd / 2}px;top:${y0 + paso * i + (ult ? d * 0.3 : 0)}px;--c:${color}`;
+            return o;
+          });
+          X.hilo = hilo;
+          break;
+        }
         case "estrobo":
           X.el = crear("div", "mc-fx mc-fx-estrobo", frente);
           break;
@@ -633,7 +664,7 @@ export class Motor {
       }
       case "laseres":
         X.haces.forEach((h, i) => {
-          const ang = Math.sin(tb * 0.55 + i * 2.1) * 24 + (i % 2 ? -14 : 12);
+          const ang = Math.sin(tb * 0.55 * (fx.velocidad || 1) + h._fase) * (fx.abanico || 24) + (i % 2 ? -14 : 12);
           h.style.transform = `rotate(${ang.toFixed(2)}deg)`;
           h.style.opacity = (0.7 + 0.3 * golpe(tb % 1, [0], 3.5)).toFixed(3);
         });
@@ -647,6 +678,35 @@ export class Motor {
       case "estrobo":
         X.el.style.opacity = activo ? ((fx.intensidad || 0.3) * golpe(tb, fx.golpes || [], 7)).toFixed(3) : "0";
         break;
+      case "color_pulso": {
+        const cols = fx.colores || ["rgba(255,45,149,.6)"];
+        const k = ((Math.floor(tb) % cols.length) + cols.length) % cols.length;
+        if (X.k !== k) {
+          X.el.style.setProperty("--c", cols[k]);
+          X.k = k;
+        }
+        X.el.style.opacity = (c.estado === "futuro" ? 0 : 0.35 + 0.65 * golpe(tb % 1, [0], 3)).toFixed(3);
+        break;
+      }
+      case "circulos": {
+        const t0 = fx.desde || 0;
+        const paso = fx.paso || 0.5;
+        const n = X.discos.length;
+        X.discos.forEach((o, i) => {
+          const q = c.estado === "pasado" ? 1 : c.estado === "futuro" ? 0 : clamp((tb - (t0 + i * paso)) / 0.45);
+          let esc = q <= 0 ? 0 : lerp(0.2, 1, ease.outQuint(q)) + (1 - q) * 0.35 * Math.sin(q * Math.PI);
+          if (i === n - 1 && q >= 1 && activo) esc *= 1 + 0.22 * golpe(tb % 1, [0], 4);
+          const tr = `scale(${esc.toFixed(3)})`;
+          if (o._tr !== tr) {
+            o.style.transform = tr;
+            o._tr = tr;
+          }
+        });
+        const qh = c.estado === "pasado" ? 1 : c.estado === "futuro" ? 0 : clamp((tb - t0) / (paso * (n - 1) + 0.3));
+        X.hilo.style.transform = `scaleY(${qh.toFixed(3)})`;
+        X.hilo.parentNode.style.opacity = c.estado === "futuro" ? "0" : clamp((tb - t0 + 0.4) / 0.4).toFixed(3);
+        break;
+      }
       case "impacto": {
         const t0 = fx.desde || 0;
         const d = fx.pulsos || 2;

@@ -167,6 +167,16 @@ export function analizar(guion, comp) {
         fs[i].avisos.push({ nivel: "aviso", texto: `Entra ${((libre - fs[i].entra) * spb).toFixed(2)} s antes de que dé tiempo a leer «${prev.iv.id}».` });
       }
     }
+    // Carga de lectura del plano: leyendo las piezas en orden y a ritmo cómodo, ¿da tiempo a todas?
+    let libreEn = 0;
+    for (const f of fs) {
+      const ini = Math.max(libreEn, f.entra);
+      libreEn = ini + f.chars / L.cps_comodo / spb;
+      f.finLectura = libreEn;
+      if (libreEn > f.sale + 1e-6) {
+        f.avisos.push({ nivel: "aviso", texto: `El plano lleva demasiado texto: leyendo en orden y sin prisa, a este le faltan ${((libreEn - f.sale) * spb).toFixed(2)} s.` });
+      }
+    }
     // Orden de lectura dentro del plano
     const orden = filas.filter((f) => f.plano === p && f.activa).sort((a, b) => a.entra - b.entra);
     orden.forEach((f, i) => (f.orden = i + 1));

@@ -140,6 +140,14 @@
 .mc-fx-laser { left: 0; top: 0; transform-origin: 50% 0; mix-blend-mode: screen; clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%); }
 .mc-fx-vapor { left: -10%; right: -10%; top: 30%; bottom: -10%; filter: blur(18px);
   background: radial-gradient(20% 60% at 27% 66%, rgba(235, 250, 255, 0.95), transparent 72%), radial-gradient(18% 66% at 69% 64%, rgba(235, 250, 255, 0.9), transparent 72%), radial-gradient(60% 26% at 50% 86%, rgba(255, 210, 245, 0.8), transparent 75%); }
+.mc-fx-color-pulso { inset: 0; mix-blend-mode: screen; opacity: 0; background: radial-gradient(62% 46% at var(--x) var(--y), var(--c), transparent 72%); }
+.mc-fx-circulos { width: 0; height: 0; opacity: 0; }
+.mc-fx-circulos .rail { position: absolute; left: 0; background: rgba(11, 9, 13, 0.78); border: 4px solid #111016; box-shadow: 5px 6px 0 rgba(8, 4, 12, 0.6); }
+.mc-fx-circulos .hilo { position: absolute; left: -3px; width: 6px; background: #f3ecd6; transform-origin: 50% 0; }
+.mc-fx-circulos .disco { position: absolute; left: 0; border-radius: 50%; border: 4px solid #111016; transform: scale(0); will-change: transform;
+  background: radial-gradient(circle at 34% 30%, #fff 0 12%, transparent 13%), radial-gradient(circle, var(--c) 0 62%, color-mix(in srgb, var(--c) 55%, #111016) 63%); }
+.mc-fx-circulos .disco.nucleo { border-width: 5px; box-shadow: 0 0 0 5px #f3ecd6, 0 0 0 9px #111016, 0 0 34px 12px rgba(255, 255, 255, 0.55);
+  background: radial-gradient(circle, #ffffff 0 30%, var(--c) 31% 58%, #ff2d95 59%); }
 .mc-fx-estrobo { inset: 0; background: radial-gradient(80% 90% at 50% 40%, #ffffff, rgba(255, 120, 210, 0.85) 60%, rgba(255, 45, 149, 0.5)); mix-blend-mode: screen; opacity: 0; }
 .mc-fx-impacto { left: 0; top: 0; overflow: visible; opacity: 0; }
 .mc-fx-impacto path { fill: #fffdf2; }
@@ -211,6 +219,12 @@
 .mc-cartela-titulo .l1 { font-size: 54px; letter-spacing: 16px; font-family: "Anton", sans-serif; color: #f3ecd6; opacity: 0.9; }
 .mc-cartela-titulo .l2 { line-height: 1; text-shadow: 6px 6px 0 #5b0a3a, 0 0 60px rgba(255, 45, 149, 0.55); }
 .mc-cartela-titulo .regla { width: 520px; height: 6px; background: var(--magenta); box-shadow: 0 0 24px var(--magenta); }
+.mc-cartela-titulo .l1, .mc-cartela-titulo .l2, .mc-cartela-titulo .regla { position: relative; z-index: 1; }
+.mc-cartela-titulo .pulso { position: absolute; left: 50%; top: 50%; width: 1100px; height: 1100px; margin: -550px 0 0 -550px; border-radius: 50%; opacity: 0;
+  border: 16px solid #ff5fb4; box-shadow: 0 0 60px 6px rgba(255, 45, 149, 0.7), inset 0 0 90px 10px rgba(255, 45, 149, 0.45);
+  background: radial-gradient(circle, rgba(255, 45, 149, 0.4) 0, rgba(255, 45, 149, 0.14) 45%, transparent 70%); }
+.mc-cartela-pie .pie { position: absolute; left: 0; right: 0; top: 64.5%; text-align: center; white-space: nowrap; line-height: 1; font-family: "Special Elite", monospace; font-size: 40px; letter-spacing: 9px; color: #17131b; }
+.mc-cartela-pie .pie span { display: inline-block; background: #ffd62e; padding: 12px 22px 8px; box-shadow: 6px 6px 0 #5b0a3a; transform: rotate(-1.5deg); }
 .mc-cartela-banda .mc-banda { position: absolute; left: 50%; top: 50%; width: 0; height: 0; }
 .mc-cartela-banda svg { position: absolute; overflow: visible; left: 0; top: 0; }
 .mc-cartela-banda .txt { position: absolute; left: 0; top: 0; transform: translate(-50%, -50%); white-space: nowrap; line-height: 1; text-shadow: 5px 5px 0 #5b0a3a; }
@@ -248,5 +262,5 @@
 .mc-guia-segura::after { content: "ZONA SEGURA DE TEXTO"; position: absolute; left: 8px; top: 6px; font: 700 15px system-ui, sans-serif; color: rgba(54, 230, 255, 0.95); letter-spacing: 1px; }
 .mc-guia-tercio { position: absolute; background: rgba(255, 255, 255, 0.28); }
 
-/* Modo ligero (?ligero=1): sin tramas de puntos ni grano de papel. Para equipos sin aceleración gráfica. */
-body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global { display: none; }
+/* Modo ligero (?ligero=1): sin tramas de puntos, grano de papel ni baño de color de la pista. Para equipos sin aceleración gráfica. */
+body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, body.ligero .mc-fx-color-pulso { display: none; }

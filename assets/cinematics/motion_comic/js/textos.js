@@ -679,8 +679,17 @@ export class CapaTextos {
     const est = { ...m.guion.estilos.cartela, ...(iv.estilo || {}) };
     it.est = est;
     const banda = iv.variante === "banda";
-    const raiz = crear("div", "mc-cartela " + (banda ? "mc-cartela-banda" : "mc-cartela-titulo"), m.cartelas);
-    if (banda) {
+    const pie = iv.variante === "pie";
+    const raiz = crear("div", "mc-cartela " + (banda ? "mc-cartela-banda" : pie ? "mc-cartela-pie" : "mc-cartela-titulo"), m.cartelas);
+    if (pie) {
+      // Línea al pie de la cartela de título: otra cita, otra pieza. Sale rasgada a la vez que el título.
+      const caja = crear("div", "pie", raiz);
+      const t = crear("span", "", caja);
+      if (est.mayusculas) t.style.textTransform = "uppercase";
+      t.innerHTML = iv.bloques.map(marcado).join(" · ");
+      it.pie = t;
+      it.medibles = [t];
+    } else if (banda) {
       const b = crear("div", "mc-banda", raiz);
       const pos = iv.pos || { x: 0.5, y: 0.5 };
       b.style.left = pos.x * 100 + "%";
@@ -699,6 +708,7 @@ export class CapaTextos {
       it.txt = t;
       it.medibles = [t];
     } else {
+      it.pulsos = (iv.latidos || []).map(() => crear("div", "pulso", raiz));
       const l2 = crear("div", "l2", raiz);
       l2.style.font = `400 ${est.tam}px/1 "${est.fuente}", serif`;
       l2.style.color = est.color;
@@ -726,14 +736,28 @@ export class CapaTextos {
       it.txt.style.transform = `translate(-50%,-50%) scale(${lerp(1.25, 1, ease.out(clamp((t - 0.15) / 0.5))).toFixed(4)})`;
       it.txt.style.opacity = clamp((t - 0.12) / 0.15);
     } else {
-      const { l1, l2, regla } = it.partes;
-      const a = clamp((t - 0.25) / 0.6);
-      l2.style.opacity = a.toFixed(3);
-      l2.style.transform = `scale(${lerp(1.12, 1, ease.out(a)).toFixed(4)})`;
-      l2.style.letterSpacing = lerp(18, 6, ease.out(a)).toFixed(2) + "px";
-      const t1 = (it.tB[1] ?? it.entra + 0.75) - it.entra;
-      regla.style.transform = `scaleX(${ease.outQuint(clamp((t - t1) / 0.6)).toFixed(4)})`;
-      l1.style.opacity = clamp((t - t1 - 0.15) / 0.4).toFixed(3);
+      if (it.pie) {
+        const a = clamp(t / 0.5);
+        it.pie.style.opacity = a.toFixed(3);
+        it.pie.style.clipPath = a >= 1 ? "" : `inset(-20px ${((1 - ease.outQuint(a)) * 100).toFixed(2)}% -20px -20px)`;
+      } else {
+        // Latido del bajo sobre negro: un anillo por golpe, antes de que se vea la ciudad.
+        (it.iv.latidos || []).forEach((g, i) => {
+          const q = clamp((tb - g) / 1.9);
+          const el = it.pulsos[i];
+          const vivo = tb >= g && q < 1;
+          el.style.opacity = vivo ? (1 - q * q).toFixed(3) : "0";
+          if (vivo) el.style.transform = `scale(${lerp(0.3, 1.35, ease.out(q)).toFixed(3)})`;
+        });
+        const { l1, l2, regla } = it.partes;
+        const a = clamp((t - 0.25) / 0.6);
+        l2.style.opacity = a.toFixed(3);
+        l2.style.transform = `scale(${(lerp(1.12, 1, ease.out(a)) * (1 + 0.035 * golpe(tb, it.iv.latidos || [], 5))).toFixed(4)})`;
+        l2.style.letterSpacing = lerp(18, 6, ease.out(a)).toFixed(2) + "px";
+        const t1 = (it.tB[1] ?? it.entra + 0.75) - it.entra;
+        regla.style.transform = `scaleX(${ease.outQuint(clamp((t - t1) / 0.6)).toFixed(4)})`;
+        l1.style.opacity = clamp((t - t1 - 0.15) / 0.4).toFixed(3);
+      }
       // Salida: la cartela se rasga en diagonal y deja ver la lámina.
       const dOut = Math.min(1.1, dur * 0.4);
       const qo = clamp((t - (dur - dOut)) / dOut);

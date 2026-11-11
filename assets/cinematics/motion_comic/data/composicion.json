@@ -1,5 +1,5 @@
 {
-  "version": "0.1.0-preview",
+  "version": "0.2.0-preview",
   "descripcion": "Composición visual del motion comic de la introducción: láminas, viñetas, cámara, recortes de arte, personajes y efectos. Este archivo NO contiene textos: todos los textos están en guion.json.",
   "lienzo": { "w": 1920, "h": 1080 },
 
@@ -60,7 +60,7 @@
       "n": 1, "id": "shot_01_city", "nombre": "El mundo", "storyboard": "Plano 01 · EWS ciudad · pan lento + tilt",
       "pulsos": 12, "pagina": "A", "vineta": "v01",
       "transicion": { "tipo": "inicio" },
-      "revelado": { "desde": 2.6, "pulsos": 1.6 },
+      "revelado": { "desde": 3.3, "pulsos": 1.5 },
       "camara": { "margen": 0.05, "de": { "zoom": 1.0, "dx": 0.012, "dy": 0.0 }, "a": { "zoom": 1.05, "dx": -0.012, "dy": -0.006 } },
       "arte": { "recurso": "bg01", "de": { "cx": 0.515, "cy": 0.548, "ancho": 0.93 }, "a": { "cx": 0.495, "cy": 0.543, "ancho": 0.9 } },
       "actores": [],
@@ -71,14 +71,14 @@
     },
     {
       "n": 2, "id": "shot_02_club_exterior", "nombre": "El club", "storyboard": "Plano 02 · WS fachada · dolly in",
-      "pulsos": 8, "pagina": "A", "vineta": "v02",
+      "pulsos": 12, "pagina": "A", "vineta": "v02",
       "transicion": { "tipo": "deslizar", "despues": 1.1 },
       "revelado": { "desde": 0.25, "pulsos": 1.0 },
       "camara": { "margen": 0.045, "ancla": [0.62, 0.5], "de": { "zoom": 1.0 }, "a": { "zoom": 1.07, "dx": -0.008 } },
       "arte": { "recurso": "bg02", "de": { "cx": 0.5, "cy": 0.5, "ancho": 0.5 }, "a": { "cx": 0.5, "cy": 0.47, "ancho": 0.45 } },
       "actores": [],
       "fx": [
-        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.1 }
+        { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "intensidad": 0.1 }
       ]
     },
     {
@@ -143,13 +143,16 @@
       ],
       "fx": [
         { "tipo": "laseres", "origenes": [[0.62, 0.3], [0.3, 0.05]], "colores": ["rgba(255, 40, 170, 0.5)", "rgba(40, 230, 255, 0.22)"] },
+        { "tipo": "circulos", "x": 0.95, "y0": 0.4, "y1": 0.89, "desde": 1.6, "paso": 0.5,
+          "colores": ["#ff2d7a", "#f59e0b", "#facc15", "#ef4444", "#a855f7", "#fb7185", "#22d3ee", "#38bdf8", "#f8fafc"],
+          "nota": "Nueve discos que se encienden de arriba abajo mientras el DJ los nombra; el noveno (el Núcleo) late con el pulso. Los colores son los de la tabla de círculos de src/dd_cinematic_camera.js (campo accent, círculos I a IX)." },
         { "tipo": "vapor", "desde": 7.5 },
         { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "intensidad": 0.08 }
       ]
     },
     {
       "n": 7, "id": "shot_07_dancefloor_drop", "nombre": "La pista", "storyboard": "Plano 07 · WS dinámico · DROP",
-      "pulsos": 12, "pagina": "C", "vineta": "v07",
+      "pulsos": 8, "pagina": "C", "vineta": "v07",
       "transicion": { "tipo": "pagina", "antes": 1.0, "despues": 0.0 },
       "revelado": { "desde": 0, "pulsos": 0.3 },
       "camara": { "margen": 0.05, "de": { "zoom": 1.1 }, "a": { "zoom": 1.0, "dy": -0.006 } },
@@ -158,12 +161,16 @@
         { "id": "heroe", "tipo": "sprite", "sombra": true,
           "poses": [ { "desde": 0, "cuadros": ["heroe_walk_01"] } ], "paso": 1,
           "pos": { "de": [0.29, 0.9], "a": [0.385, 0.93] }, "alto": { "de": 0.42, "a": 0.46 }, "boca": [0.52, 0.13] },
-        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [0.875, 0.74], "ancho": 0.15, "giro": -3, "entra": 2.6, "boca": [0.42, 0.66] }
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [0.875, 0.74], "ancho": 0.15, "giro": -3, "entra": 1.6, "boca": [0.42, 0.66] }
       ],
       "fx": [
         { "tipo": "impacto", "centro": [0.5, 0.42], "desde": 0, "pulsos": 2.2 },
-        { "tipo": "estrobo", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "intensidad": 0.3 },
-        { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11], "amplitud": 6, "primero": 20 }
+        { "tipo": "laseres", "origenes": [[0.2, -0.02], [0.42, -0.02], [0.6, -0.02], [0.82, -0.02]], "abanico": 30, "velocidad": 1.3,
+          "colores": ["rgba(40, 230, 255, 0.5)", "rgba(255, 40, 170, 0.55)", "rgba(255, 214, 46, 0.45)", "rgba(40, 230, 255, 0.5)"] },
+        { "tipo": "color_pulso", "x": 0.5, "y": 0.8, "colores": ["rgba(40, 230, 255, 0.55)", "rgba(255, 45, 149, 0.6)", "rgba(255, 214, 46, 0.5)"],
+          "nota": "La pista cambia de color en cada pulso (cian, fucsia, oro), como pide el storyboard." },
+        { "tipo": "estrobo", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.3 },
+        { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "amplitud": 6, "primero": 20 }
       ]
     },
     {
@@ -185,7 +192,9 @@
       "fx": [
         { "tipo": "silencio", "hasta": 8 },
         { "tipo": "foco", "x": 0.47, "y": 0.5 },
-        { "tipo": "temblor", "golpes": [8, 8.5], "amplitud": 5 }
+        { "tipo": "impacto", "centro": [0.47, 0.5], "desde": 8, "pulsos": 1.8 },
+        { "tipo": "estrobo", "golpes": [8], "intensidad": 0.28 },
+        { "tipo": "temblor", "golpes": [8, 8.5], "amplitud": 7 }
       ]
     },
     {
@@ -196,13 +205,13 @@
       "camara": { "margen": 0.035, "de": { "zoom": 1.07 }, "a": { "zoom": 1.0 } },
       "arte": { "recurso": "bg06", "de": { "cx": 0.5, "cy": 0.546, "ancho": 0.8 }, "a": { "cx": 0.5, "cy": 0.546, "ancho": 0.815 } },
       "actores": [
-        { "id": "logo", "tipo": "imagen", "recurso": "logo", "centro": [0.5, 0.4], "ancho": 0.4, "animacion": "sello", "entra": 0 },
+        { "id": "logo", "tipo": "imagen", "recurso": "logo", "centro": [0.5, 0.385], "ancho": 0.5, "animacion": "sello", "entra": 0 },
         { "id": "heroe", "tipo": "sprite", "estilo": "silueta",
           "poses": [ { "desde": 0, "cuadros": ["heroe_shoot_00"], "mascara": "inset(0 17.5% 0 0)" } ],
-          "pos": { "de": [0.5, 1.0], "a": [0.5, 1.0] }, "alto": 0.36, "boca": [0.5, 0.13] }
+          "pos": { "de": [0.5, 1.0], "a": [0.5, 1.0] }, "alto": 0.33, "boca": [0.5, 0.13] }
       ],
       "fx": [
-        { "tipo": "impacto", "centro": [0.5, 0.4], "desde": 0, "pulsos": 2.5 },
+        { "tipo": "impacto", "centro": [0.5, 0.385], "desde": 0, "pulsos": 2.5 },
         { "tipo": "estrobo", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.22 },
         { "tipo": "temblor", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "amplitud": 5, "primero": 26 }
       ]
@@ -215,7 +224,7 @@
       "camara": { "margen": 0.1, "de": { "zoom": 1.0, "dy": -0.012 }, "a": { "zoom": 1.05, "dy": -0.004 } },
       "arte": { "recurso": "refugio", "de": { "cx": 0.5, "cy": 0.5, "ancho": 1.0 }, "a": { "cx": 0.5, "cy": 0.5, "ancho": 0.96 } },
       "actores": [
-        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [1.0, 0.2], "ancho": 0.2, "giro": 4, "entra": 3.4, "boca": [0.42, 0.66] }
+        { "id": "dj", "tipo": "inserto", "recurso": "dj_retrato", "centro": [1.0, 0.2], "ancho": 0.2, "giro": 4, "entra": 3.2, "boca": [0.42, 0.66] }
       ],
       "fx": [
         { "tipo": "latido", "golpes": [0, 1, 2, 3, 4, 5, 6, 7], "intensidad": 0.06 }
