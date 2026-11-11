@@ -899,9 +899,14 @@
     audio.startMenuMusic(4);
 
     var finished = false, interruptedBy = null;
+    var guard = null, skipEl = null, skipOnce = null, pointerSkip = null, visibilityReset = null;
     var finish = function (why) {
       if (finished) return;
       finished = true;
+      if (guard !== null) clearInterval(guard);
+      if (skipEl && skipOnce) skipEl.removeEventListener("click", skipOnce);
+      if (pointerSkip) window.removeEventListener("pointerdown", pointerSkip);
+      if (visibilityReset) document.removeEventListener("visibilitychange", visibilityReset);
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
@@ -943,11 +948,15 @@
     /* Salvaguarda por ESTANCAMIENTO, no por tiempo total: en un equipo lento o
        con el render limitado la cinemática puede tardar más de lo nominal y no
        debe cortarse. Sólo se fuerza la salida si su reloj deja de avanzar
-       (pestaña en segundo plano, contexto perdido), que es el caso en que el
-       jugador se quedaría mirando una pantalla congelada. */
+       (por ejemplo, contexto perdido) mientras la pestaña está visible. Una
+       pestaña oculta se pausa y no activa esta salvaguarda. */
     var lastElapsed = -1, lastAdvance = Date.now(), guardDone = false;
-    var guard = setInterval(function () {
+    visibilityReset = function () { lastAdvance = Date.now(); };
+    document.addEventListener("visibilitychange", visibilityReset);
+    guard = setInterval(function () {
       if (finished || guardDone) return;
+      // No interpretar la suspensión normal de RAF en segundo plano como fallo.
+      if (document.hidden) { lastAdvance = Date.now(); return; }
       var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
       if (!st) { guardDone = true; clearInterval(guard); finish("complete"); return; }
       if (st.elapsed > lastElapsed + 0.001) {
@@ -965,19 +974,20 @@
 
     /* Saltar con clic o tecla durante la intro (la cinemática ya escucha
        Espacio/Esc/Enter; esto añade ratón y mando sin duplicar el salto). */
-    var skipOnce = function (ev) {
+    skipOnce = function (ev) {
       if (!state.introActive) return;
       if (ev && ev.type === "keydown" && ev.repeat) return;
       try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
       finish("skip");
     };
-    var skipEl = q("dd-cine-overlay");
+    skipEl = q("dd-cine-overlay");
     if (skipEl) skipEl.addEventListener("click", skipOnce, { once: true });
-    window.addEventListener("pointerdown", function (ev) {
+    pointerSkip = function (ev) {
       if (!state.introActive) return;
       if (ev.target && ev.target.closest && ev.target.closest("#dd-cine-skip-btn")) return;
       skipOnce(ev);
-    }, { passive: true });
+    };
+    window.addEventListener("pointerdown", pointerSkip, { passive: true });
   }
 
   function enterMainMenu() {

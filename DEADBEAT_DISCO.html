@@ -8714,9 +8714,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     audio.startMenuMusic(4);
 
     var finished = false, interruptedBy = null;
+    var guard = null, skipEl = null, skipOnce = null, pointerSkip = null, visibilityReset = null;
     var finish = function (why) {
       if (finished) return;
       finished = true;
+      if (guard !== null) clearInterval(guard);
+      if (skipEl && skipOnce) skipEl.removeEventListener("click", skipOnce);
+      if (pointerSkip) window.removeEventListener("pointerdown", pointerSkip);
+      if (visibilityReset) document.removeEventListener("visibilitychange", visibilityReset);
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
@@ -8758,11 +8763,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* Salvaguarda por ESTANCAMIENTO, no por tiempo total: en un equipo lento o
        con el render limitado la cinemática puede tardar más de lo nominal y no
        debe cortarse. Sólo se fuerza la salida si su reloj deja de avanzar
-       (pestaña en segundo plano, contexto perdido), que es el caso en que el
-       jugador se quedaría mirando una pantalla congelada. */
+       (por ejemplo, contexto perdido) mientras la pestaña está visible. Una
+       pestaña oculta se pausa y no activa esta salvaguarda. */
     var lastElapsed = -1, lastAdvance = Date.now(), guardDone = false;
-    var guard = setInterval(function () {
+    visibilityReset = function () { lastAdvance = Date.now(); };
+    document.addEventListener("visibilitychange", visibilityReset);
+    guard = setInterval(function () {
       if (finished || guardDone) return;
+      // No interpretar la suspensión normal de RAF en segundo plano como fallo.
+      if (document.hidden) { lastAdvance = Date.now(); return; }
       var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
       if (!st) { guardDone = true; clearInterval(guard); finish("complete"); return; }
       if (st.elapsed > lastElapsed + 0.001) {
@@ -8780,19 +8789,20 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     /* Saltar con clic o tecla durante la intro (la cinemática ya escucha
        Espacio/Esc/Enter; esto añade ratón y mando sin duplicar el salto). */
-    var skipOnce = function (ev) {
+    skipOnce = function (ev) {
       if (!state.introActive) return;
       if (ev && ev.type === "keydown" && ev.repeat) return;
       try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
       finish("skip");
     };
-    var skipEl = q("dd-cine-overlay");
+    skipEl = q("dd-cine-overlay");
     if (skipEl) skipEl.addEventListener("click", skipOnce, { once: true });
-    window.addEventListener("pointerdown", function (ev) {
+    pointerSkip = function (ev) {
       if (!state.introActive) return;
       if (ev.target && ev.target.closest && ev.target.closest("#dd-cine-skip-btn")) return;
       skipOnce(ev);
-    }, { passive: true });
+    };
+    window.addEventListener("pointerdown", pointerSkip, { passive: true });
   }
 
   function enterMainMenu() {
@@ -10439,6 +10449,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     const durScale = reducedMotion && seq.type !== "intro" ? 0.45 : 1.0;
     seq.duration = Math.max(0.35, seq.duration * durScale);
     seq.elapsed = 0;
+    if (seq.type === "intro") seq.introWasHidden = !!document.hidden;
     activeSeq = seq;
     if (seq.type === "intro") setIntroDuck(seq, true);
     const dom = ensureLetterboxDOM();
@@ -10641,8 +10652,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       // Solo la intro usa el tiempo entre renders, no el dt de simulación.
       // Limitar pausas largas evita saltos grandes tras ocultar la pestaña.
       // Otros tipos conservan su reloj anterior y la cámara interpola con cdt.
-      const introDt = Number.isFinite(renderDt) && renderDt >= 0
+      let introDt = Number.isFinite(renderDt) && renderDt >= 0
         ? Math.min(0.5, renderDt) : cdt;
+      if (activeSeq.type === "intro") {
+        // Una pestaña oculta pausa la intro. El primer delta al volver puede
+        // incluir tiempo oculto y se descarta, sin alterar otras secuencias.
+        if (document.hidden) {
+          activeSeq.introWasHidden = true;
+          introDt = 0;
+        } else if (activeSeq.introWasHidden) {
+          activeSeq.introWasHidden = false;
+          introDt = 0;
+        }
+      }
       activeSeq.elapsed += activeSeq.type === "intro" ? introDt : cdt;
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
@@ -11392,6 +11414,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
 
     ctx.restore();
+  }
+
+  // RAF puede detenerse por completo al ocultar la página; registrar la
+  // transición también por evento evita consumir el delta oculto al regresar.
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden && activeSeq && activeSeq.type === "intro") {
+        activeSeq.introWasHidden = true;
+      }
+    });
   }
 
   window.addEventListener("keydown", function (ev) {

@@ -82,6 +82,7 @@
     const durScale = reducedMotion && seq.type !== "intro" ? 0.45 : 1.0;
     seq.duration = Math.max(0.35, seq.duration * durScale);
     seq.elapsed = 0;
+    if (seq.type === "intro") seq.introWasHidden = !!document.hidden;
     activeSeq = seq;
     if (seq.type === "intro") setIntroDuck(seq, true);
     const dom = ensureLetterboxDOM();
@@ -284,8 +285,19 @@
       // Solo la intro usa el tiempo entre renders, no el dt de simulación.
       // Limitar pausas largas evita saltos grandes tras ocultar la pestaña.
       // Otros tipos conservan su reloj anterior y la cámara interpola con cdt.
-      const introDt = Number.isFinite(renderDt) && renderDt >= 0
+      let introDt = Number.isFinite(renderDt) && renderDt >= 0
         ? Math.min(0.5, renderDt) : cdt;
+      if (activeSeq.type === "intro") {
+        // Una pestaña oculta pausa la intro. El primer delta al volver puede
+        // incluir tiempo oculto y se descarta, sin alterar otras secuencias.
+        if (document.hidden) {
+          activeSeq.introWasHidden = true;
+          introDt = 0;
+        } else if (activeSeq.introWasHidden) {
+          activeSeq.introWasHidden = false;
+          introDt = 0;
+        }
+      }
       activeSeq.elapsed += activeSeq.type === "intro" ? introDt : cdt;
       const p = Math.min(1, activeSeq.elapsed / activeSeq.duration);
 
@@ -1035,6 +1047,16 @@
     }
 
     ctx.restore();
+  }
+
+  // RAF puede detenerse por completo al ocultar la página; registrar la
+  // transición también por evento evita consumir el delta oculto al regresar.
+  if (typeof document.addEventListener === "function") {
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden && activeSeq && activeSeq.type === "intro") {
+        activeSeq.introWasHidden = true;
+      }
+    });
   }
 
   window.addEventListener("keydown", function (ev) {
