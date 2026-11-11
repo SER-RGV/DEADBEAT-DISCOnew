@@ -140,7 +140,7 @@
 .mc-fx-laser { left: 0; top: 0; transform-origin: 50% 0; mix-blend-mode: screen; clip-path: polygon(48% 0, 52% 0, 100% 100%, 0 100%); }
 .mc-fx-vapor { left: -10%; right: -10%; top: 30%; bottom: -10%; filter: blur(18px);
   background: radial-gradient(20% 60% at 27% 66%, rgba(235, 250, 255, 0.95), transparent 72%), radial-gradient(18% 66% at 69% 64%, rgba(235, 250, 255, 0.9), transparent 72%), radial-gradient(60% 26% at 50% 86%, rgba(255, 210, 245, 0.8), transparent 75%); }
-.mc-fx-color-pulso { inset: 0; mix-blend-mode: screen; opacity: 0; background: radial-gradient(62% 46% at var(--x) var(--y), var(--c), transparent 72%); }
+.mc-fx-color-pulso { inset: 0; mix-blend-mode: screen; opacity: 0; will-change: opacity; background: radial-gradient(62% 46% at var(--x) var(--y), var(--c), transparent 72%); }
 .mc-fx-circulos { width: 0; height: 0; opacity: 0; }
 .mc-fx-circulos .rail { position: absolute; left: 0; background: rgba(11, 9, 13, 0.78); border: 4px solid #111016; box-shadow: 5px 6px 0 rgba(8, 4, 12, 0.6); }
 .mc-fx-circulos .hilo { position: absolute; left: -3px; width: 6px; background: #f3ecd6; transform-origin: 50% 0; }
@@ -148,8 +148,8 @@
   background: radial-gradient(circle at 34% 30%, #fff 0 12%, transparent 13%), radial-gradient(circle, var(--c) 0 62%, color-mix(in srgb, var(--c) 55%, #111016) 63%); }
 .mc-fx-circulos .disco.nucleo { border-width: 5px; box-shadow: 0 0 0 5px #f3ecd6, 0 0 0 9px #111016, 0 0 34px 12px rgba(255, 255, 255, 0.55);
   background: radial-gradient(circle, #ffffff 0 30%, var(--c) 31% 58%, #ff2d95 59%); }
-.mc-fx-estrobo { inset: 0; background: radial-gradient(80% 90% at 50% 40%, #ffffff, rgba(255, 120, 210, 0.85) 60%, rgba(255, 45, 149, 0.5)); mix-blend-mode: screen; opacity: 0; }
-.mc-fx-impacto { left: 0; top: 0; overflow: visible; opacity: 0; }
+.mc-fx-estrobo { inset: 0; background: radial-gradient(80% 90% at 50% 40%, #ffffff, rgba(255, 120, 210, 0.85) 60%, rgba(255, 45, 149, 0.5)); mix-blend-mode: screen; opacity: 0; will-change: opacity; }
+.mc-fx-impacto { left: 0; top: 0; overflow: visible; opacity: 0; will-change: transform, opacity; }
 .mc-fx-impacto path { fill: #fffdf2; }
 .mc-fx-foco { inset: 0; background: radial-gradient(42% 70% at var(--x) var(--y), transparent 30%, rgba(8, 3, 14, 0.78) 100%); }
 
@@ -233,6 +233,7 @@
 /* ---------- Onomatopeyas ---------- */
 .mc-sfx .mc-el-in { white-space: nowrap; }
 .mc-sfx .mc-sfx-palabra { position: absolute; left: 0; top: 0; white-space: nowrap; transform-origin: 50% 50%; line-height: 1; }
+.mc-sfx .mc-sfx-palabra.asentada { will-change: transform; }
 .mc-sfx .l { display: inline-block; position: relative; color: var(--relleno); }
 .mc-sfx .l::before {
   content: attr(data-c); position: absolute; left: 0; top: 0; z-index: -1; color: var(--borde);
@@ -250,7 +251,7 @@
 .mc-neon .placa { position: absolute; inset: -14% -9%; background: rgba(8, 3, 14, 0.82); border: 3px solid rgba(255, 45, 149, 0.55); border-radius: 12px; box-shadow: 0 0 40px rgba(255, 45, 149, 0.35), inset 0 0 30px rgba(255, 45, 149, 0.25); z-index: -1; }
 
 /* ---------- Capas globales de imprenta ---------- */
-.mc-flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, #ffffff, #fff1c4 55%, #ffb3e2); opacity: 0; }
+.mc-flash { position: absolute; inset: 0; background: radial-gradient(circle at 50% 45%, #ffffff, #fff1c4 55%, #ffb3e2); opacity: 0; will-change: opacity; }
 .mc-paso-sombra { position: absolute; top: -10%; bottom: -10%; width: 220px; opacity: 0; background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.55) 70%, rgba(0, 0, 0, 0.9)); }
 .mc-grano-global { position: absolute; inset: 0; background-image: var(--mc-grano); background-size: 420px 420px; opacity: 0.2; mix-blend-mode: multiply; }
 .mc-vineteado { position: absolute; inset: 0; background: radial-gradient(120% 120% at 50% 50%, transparent 58%, rgba(4, 2, 8, 0.55) 100%); }

@@ -24,6 +24,7 @@ export const NOMBRE_ESTADO = {
   juego_fragmento: "Fragmento del juego",
   juego_reubicado: "Del juego, reubicado",
   storyboard: "Del storyboard",
+  aprobado: "Aprobado",
   borrador: "BORRADOR",
 };
 
@@ -141,6 +142,10 @@ export function analizar(guion, comp) {
     const f = iv.fuente || {};
     if (iv.estado === "borrador") {
       fila.literal = null;
+    } else if (iv.estado === "aprobado") {
+      // Texto nuevo aprobado por dirección: no tiene cita del juego. Queda fijado en fuente.aprobado.
+      if (!f.aprobado) avisos.push({ nivel: "error", texto: "Un texto aprobado necesita el campo 'fuente.aprobado' con el texto exacto." });
+      else if (normalizar(fila.texto) !== normalizar(f.aprobado)) avisos.push({ nivel: "error", texto: "El texto ya no coincide con el texto aprobado: márcalo como BORRADOR o restaura el texto." });
     } else {
       if (!f.archivo || !f.cita) avisos.push({ nivel: "error", texto: "No es borrador, así que necesita archivo de origen y cita literal." });
       const texto = normalizar(fila.texto);

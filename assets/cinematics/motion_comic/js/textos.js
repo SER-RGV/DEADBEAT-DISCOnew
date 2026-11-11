@@ -618,6 +618,14 @@ export class CapaTextos {
         o.inst.style.transform = `translate(${px(o.x + dx)},${px(o.y + dy)})`;
         o.pal.style.transform = `rotate(${giro.toFixed(2)}deg) scale(${esc.toFixed(4)})`;
       }
+      // Una vez asentada (ya cerca de su tamaño final), la palabra pasa a capa propia: el latido y el
+      // temblor la mueven sin volver a pintar las letras. Durante el golpe de entrada, que la amplía
+      // mucho, sigue pintándose a cada tamaño para que no pierda nitidez.
+      const asentada = op > 0 && esc >= o.esc * 0.97 && esc <= o.esc * 1.08;
+      if (o.asentada !== asentada) {
+        o.pal.classList.toggle("asentada", asentada);
+        o.asentada = asentada;
+      }
     });
     if (modo === "golpes") it.insts.forEach((o, i) => { if (o.sello) o.sello.style.visibility = i === ultimo ? "" : "hidden"; });
   }

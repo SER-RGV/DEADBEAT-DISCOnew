@@ -4,8 +4,9 @@ Versión en cómic animado de la secuencia de introducción de 10 planos: viñet
 narrador, rótulos, onomatopeyas y transiciones, montados sobre los fondos y personajes que ya existen
 en `assets/cinematics/`. Dura **45,000 s** (96 pulsos a 128 por minuto).
 
-Versión actual: **0.2.0-preview** (fase de pulido artístico y narrativo). Qué cambió respecto a la
-primera versión y por qué, plano a plano, está en [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
+Versión actual: **0.2.1-preview** (pulido artístico y narrativo, con el cierre de pulido aplicado).
+Qué cambió respecto a la primera versión y por qué, plano a plano, y las medidas de rendimiento del
+cierre están en [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
 
 | Plano | Empieza | Dura | Contenido |
 |---|---|---|---|
@@ -42,7 +43,7 @@ porque el cómic carga módulos y JSON, y eso no funciona abriendo `index.html` 
 | `?limpio=1` | Solo la imagen, sin panel ni línea de tiempo |
 | `?ligero=1` | Quita las tramas de puntos, el grano de papel y el baño de color de la pista (equipos sin aceleración gráfica) |
 | `?sellos=0` | Oculta los sellos «BORRADOR» |
-| `?borradores=0` | Oculta los textos en borrador (queda solo lo que ya existe en el juego) |
+| `?borradores=0` | Oculta los textos en borrador (queda lo que ya existe en el juego y lo aprobado) |
 | `?orden=1` · `?guias=1` | Números de orden de lectura · zona segura y tercios |
 
 Teclado: espacio reproduce o pausa; flechas izquierda y derecha mueven un pulso (con Mayús, un
@@ -68,24 +69,27 @@ protagonista no tiene nombre ni frases. Por eso cada texto lleva un estado visib
 | Estado | Significado | Piezas |
 |---|---|---|
 | Texto del juego | Frase literal que ya existe, usada en su sitio | 3 |
-| Fragmento del juego | Parte literal de una frase existente | 6 |
+| Fragmento del juego | Parte literal de una frase existente | 5 |
 | Del juego, reubicado | Frase literal existente, colocada en otro momento | 4 |
 | Del storyboard | Texto que figura en el storyboard aprobado | 1 |
-| **BORRADOR** | Propuesta sin aprobar. No es canon | 11 |
+| Aprobado | Texto nuevo aprobado por dirección. No procede del juego | 1 |
+| **BORRADOR** | Propuesta sin aprobar. No es canon | 10 |
 
-Son 25 piezas activas de 28. Los 11 borradores son la única frase del protagonista («Traigo
-percusión.», plano 08) y la grafía de las 10 onomatopeyas (el storyboard describe cada sonido, pero no
-cómo se escribe). En pantalla llevan un sello rojo «BORRADOR», que se oculta con `?sellos=0`.
+Son 24 piezas activas de 27. El texto aprobado es la única frase del protagonista, «Traigo
+percusión.» (plano 08). Los 10 borradores son la grafía de las 10 onomatopeyas (el storyboard describe
+cada sonido, pero no cómo se escribe). En pantalla llevan un sello rojo «BORRADOR», que se oculta con
+`?sellos=0`.
 
 Hay 3 piezas desactivadas (`"activo": false`), que siguen en el guion y se pueden reactivar desde el
 editor: el rótulo «AFUERA / De noche.», el pensamiento «Mejor no dejo nada en el guardarropa.» y el
 rótulo «Tregua Sagrada · Zona Segura».
 
 Si en el editor se cambia un texto con cita de modo que deja de coincidir con ella, pasa solo a
-BORRADOR. El validador comprueba además que cada cita está, letra por letra, en el archivo que se
-indica como origen. `banco_de_alternativas` reúne 12 frases literales del juego sin colocar y, en
-`propuestas_protagonista`, cinco opciones en borrador para la frase del protagonista (incluida la de
-dejarlo callado).
+BORRADOR. Lo mismo ocurre con un texto aprobado: su redacción exacta está fijada en
+`fuente.aprobado` y cualquier retoque lo devuelve a BORRADOR. El validador comprueba además que cada
+cita está, letra por letra, en el archivo que se indica como origen. `banco_de_alternativas` reúne 12
+frases literales del juego sin colocar y, en `propuestas_protagonista`, el registro de las opciones
+que se barajaron para la frase del protagonista (decisión ya cerrada).
 
 ## Opciones de composición añadidas en la versión 0.2.0
 
@@ -105,7 +109,7 @@ dejarlo callado).
 | Duración 45 s y 10 planos | sí | sí |
 | Ritmo de lectura y orden de entrada | sí | sí |
 | Carga de lectura del plano (todo su texto, leído en orden, cabe antes del corte) | sí | sí |
-| Texto igual a su cita | sí | sí |
+| Texto igual a su cita, o al texto aprobado | sí | sí |
 | La cita existe en el archivo de origen | no | sí |
 | Tamaño de letra, zona segura, solapes, colas | sí | no (depende del dibujo) |
 
@@ -121,11 +125,6 @@ dándole al plano un compás más, no acortando ni acelerando la frase.
   claqueta y los sonidos guía son sintetizados y solo sirven de referencia.
 - **Megafonía del plano 02.** La frase es literal del juego (DJ Virgilio), pero presentarla como
   megafonía del club es una propuesta de puesta en escena.
-- **«INVITACIÓN 001 / salida pendiente.» (plano 04).** Es literal del juego, pero allí pertenece al
-  Círculo I (Limbo): «SALA DE ESPERA · INVITACIÓN 001 · salida pendiente.». Usarla en el umbral del
-  club es una reubicación; conviene confirmar que no pisa nada previsto para el Limbo.
-- **Frase del protagonista (plano 08).** «Traigo percusión.» es un borrador. Las alternativas están en
-  `banco_de_alternativas.propuestas_protagonista`.
 - **Reparto de compases.** El plano 02 gana un compás (de 8 a 12 pulsos) y el 07 lo pierde (de 12 a
   8). El total sigue en 96 pulsos.
 - **Protagonista.** Los cuadros `hero_walk_00`, `01` y `02` son tres vestuarios distintos y
@@ -135,18 +134,31 @@ dándole al plano un compás más, no acortando ni acelerando la frase.
 - **Fondos.** Todos traen marcos, muestras de color y letras sueltas incrustados; se ocultan con el
   recorte `seguro` de `data/composicion.json`.
 
+## Decisiones cerradas
+
+- **Frase del protagonista (plano 08).** «Traigo percusión.» está aprobada. Es su única frase en toda
+  la secuencia y no le da nombre ni pasado.
+- **Plano 04.** Lleva solo la silueta, «Umbral cruzado» y «TOMP». El rótulo «INVITACIÓN 001 / salida
+  pendiente.» se retiró del guion: pertenece al Limbo y se reserva para ese contexto.
+
 ## Fluidez
 
 La reproducción sigue el reloj real: si el equipo dibuja despacio se saltan fotogramas, pero los 45 s
 duran 45 s y los textos entran en su pulso.
 
-Solo se ha medido en el entorno de pruebas, que no tiene tarjeta gráfica (Chromium sin interfaz, 2
-núcleos, 1920×1080): unos 9 fotogramas por segundo de media, con parones de hasta 1,8 s; con
-`?ligero=1`, unos 12. La mayoría de fotogramas salen a 60 por segundo y la media baja por los parones.
-Los efectos nuevos de la pista (plano 07: cuatro láseres y baño de color) cuestan algo más en ese
-entorno: en el tramo de 27 a 35 s, entre 7 y 8 fotogramas por segundo frente a entre 9 y 11 de la
-primera versión (tres y dos muestras de 8 s; las medidas varían bastante de una a otra).
-**No se ha medido en un equipo con aceleración gráfica**; es lo primero que hay que comprobar al abrirla.
+Solo se ha medido en el entorno de pruebas, que no tiene tarjeta gráfica (Chromium sin interfaz,
+dibujo por software, 2 núcleos, 1920×1080). Allí la mayoría de fotogramas salen a tiempo y la media
+baja por parones aislados de hasta unos 2 s, que vienen de componer la imagen por software.
+
+En el cierre de pulido (0.2.1) se optimizó el plano 07 sin quitarle ningún efecto. En ese mismo
+entorno, el tramo de 27 a 35 s pasa de entre 7 y 9 fotogramas por segundo a unos 9 (tres muestras de
+8 s por versión), y el trabajo de dibujo por fotograma baja a un tercio. Los parones largos siguen
+ahí, así que **no se puede afirmar que la reproducción sea fluida**. Las cifras completas y el método
+están en el apartado H de [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
+
+`?ligero=1` quita las tramas, el grano y el baño de color para equipos sin aceleración gráfica.
+**No se ha medido en un equipo con tarjeta gráfica, ni en Firefox, Safari o móvil**; es lo primero que
+hay que comprobar al abrirla.
 
 ## Archivos
 
@@ -158,13 +170,13 @@ primera versión (tres y dos muestras de 8 s; las medidas varían bastante de un
 | `data/guion.json` | Textos, tiempos, estados y fuentes |
 | `data/composicion.json` | Páginas, viñetas, cámara, recortes, personajes y efectos por plano |
 | `fonts/` | Tipografías libres y sus licencias (ver `fonts/README.md`) |
-| `evidence/` | Capturas a 1920×1080 de cada plano y del inspector (versión 0.2.0) |
-| `INFORME_PULIDO_FASE2.md` | Revisión de los diez planos y tabla de cambios de la fase de pulido |
+| `evidence/` | Capturas a 1920×1080 de cada plano y del inspector (versión 0.2.1) |
+| `INFORME_PULIDO_FASE2.md` | Revisión de los diez planos, tabla de cambios y cierre de pulido con medidas de rendimiento |
 | `servir.mjs`, `validar_guion.mjs` | Servidor local y validador |
 
 ## Pendiente
 
-- Aprobar o sustituir los 11 borradores, empezando por la frase del protagonista.
+- Aprobar o sustituir los 10 borradores (la grafía de las onomatopeyas).
 - No hay exportación a vídeo: es una vista previa en el navegador.
 - No está integrada en el juego; hacerlo exigiría tocar `src/` y decidir entre 35 y 45 s.
 - Probada en Chromium de escritorio. No se ha probado en Firefox, Safari ni en móvil.

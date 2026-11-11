@@ -1,5 +1,5 @@
 {
-  "version": "0.2.0-preview",
+  "version": "0.2.1-preview",
   "titulo": "DEADBEAT DISCO · Introducción · Motion comic narrativo",
   "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos.",
 
@@ -20,13 +20,14 @@
     "juego_fragmento": "Fragmento literal de una frase más larga que ya existe en el juego. La frase completa se indica en 'fuente.cita'.",
     "juego_reubicado": "Texto literal del juego tomado de otro momento (no de la intro). Hay que aprobar que se use aquí.",
     "storyboard": "Texto literal del storyboard aprobado de la introducción.",
+    "aprobado": "Texto nuevo aprobado por dirección para esta intro. No procede del juego. El texto exacto queda fijado en 'fuente.aprobado' y no debe cambiarse sin una nueva aprobación.",
     "borrador": "BORRADOR. Texto nuevo propuesto para rellenar un hueco. NO es canon y no está aprobado."
   },
 
   "personajes": {
     "dj": { "nombre": "DJ VIRGILIO", "nota": "Nombre tal como aparece hoy en el juego (src/dd_hub_system.js). Si el nombre aprobado cambia, se cambia solo aquí." },
     "megafonia": { "nombre": "MEGAFONÍA DEL CLUB", "nota": "La frase es de DJ Virgilio en el juego. Presentarla como megafonía del club (voz amplificada que sale del edificio) es una propuesta de puesta en escena." },
-    "heroe": { "nombre": "", "nota": "El protagonista no tiene nombre ni frases aprobadas en el repositorio. No se le pone etiqueta. Solo habla una vez (plano 08) y esa frase es BORRADOR." }
+    "heroe": { "nombre": "", "nota": "El protagonista no tiene nombre ni frases aprobadas en el repositorio. No se le pone etiqueta. Solo habla una vez (plano 08), con una frase aprobada por dirección que no le da nombre ni pasado." }
   },
 
   "estilos": {
@@ -161,15 +162,6 @@
       "pos": { "x": 0.25, "y": 0.86 }
     },
     {
-      "id": "p04_rotulo_invitacion", "plano": 4, "tipo": "rotulo",
-      "estado": "juego_fragmento",
-      "fuente": { "archivo": "index.html", "donde": "tabla de círculos del juego · Círculo I (Limbo) · campo 'foco'. Reubicado: aquí hace de entrada sellada al cruzar el umbral.", "cita": "SALA DE ESPERA · INVITACIÓN 001 · salida pendiente." },
-      "bloques": ["INVITACIÓN 001", "salida pendiente."],
-      "literal": "INVITACIÓN 001 · salida pendiente.",
-      "entra": 3.0, "sale": 8, "giro": -5,
-      "pos": { "x": 0.5, "y": 0.13 }
-    },
-    {
       "id": "p04_pensamiento_guardarropa", "plano": 4, "tipo": "pensamiento", "habla": "heroe", "activo": false,
       "estado": "borrador",
       "fuente": { "nota": "El protagonista no tiene frases aprobadas. Borrador que responde a la frase literal del plano 03 sin añadir datos de historia." },
@@ -286,8 +278,8 @@
     },
     {
       "id": "p08_dialogo_heroe", "plano": 8, "tipo": "dialogo", "habla": "heroe",
-      "estado": "borrador",
-      "fuente": { "nota": "El protagonista no tiene frases aprobadas. Es su única frase en la intro: responde al «silencio incómodo» del DJ justo después de montar la pistola. No dice quién es ni de dónde viene. Otras propuestas, en banco_de_alternativas.propuestas_protagonista." },
+      "estado": "aprobado",
+      "fuente": { "aprobado": "Traigo percusión.", "nota": "Frase aprobada por dirección en el cierre de pulido. No procede del juego. Es la única intervención del protagonista en la intro: responde al «silencio incómodo» del DJ justo después de montar la pistola. No dice quién es ni de dónde viene. No modificar." },
       "bloques": ["Traigo *percusión*."],
       "estilo": { "tam": 42 },
       "entra": 9.0, "sale": 12,
@@ -352,8 +344,9 @@
       { "cita": "Has llegado lejos. No significa que la pista te deba nada.", "archivo": "index.html", "donde": "DJ Virgilio al empezar el acto 5 (act.5)" }
     ],
     "propuestas_protagonista": {
-      "nota": "BORRADORES. Frases cortas para la única intervención del protagonista (plano 08, tras montar la pistola). Ninguna está aprobada ni sale del juego. Ninguna le da nombre ni pasado.",
+      "nota": "Decisión cerrada. Dirección aprobó la primera frase para la única intervención del protagonista (plano 08, tras montar la pistola). Las demás quedan descartadas y se conservan solo como registro; ninguna sale del juego ni le da nombre o pasado.",
       "elegida": "Traigo percusión.",
+      "estado": "aprobada",
       "frases": [
         { "texto": "Traigo percusión.", "por_que": "Responde al «silencio incómodo» del DJ con la pistola recién montada. Humor seco, tres palabras, une arma y música." },
         { "texto": "El compás lo marco yo.", "por_que": "Contesta al aviso del plano 07 («Si pierdes el compás, la pista te traga»). Más chulesca que irónica." },

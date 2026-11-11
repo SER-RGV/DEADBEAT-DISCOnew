@@ -320,9 +320,14 @@ export class Motor {
           X.el = crear("div", "mc-fx mc-fx-vapor", frente);
           break;
         case "color_pulso":
-          X.el = crear("div", "mc-fx mc-fx-color-pulso", fondo);
-          X.el.style.setProperty("--x", (fx.x ?? 0.5) * 100 + "%");
-          X.el.style.setProperty("--y", (fx.y ?? 0.8) * 100 + "%");
+          // Una capa fija por color: en cada pulso solo cambia la opacidad (nada que volver a pintar).
+          X.capas = (fx.colores || ["rgba(255,45,149,.6)"]).map((color) => {
+            const el = crear("div", "mc-fx mc-fx-color-pulso", fondo);
+            el.style.setProperty("--x", (fx.x ?? 0.5) * 100 + "%");
+            el.style.setProperty("--y", (fx.y ?? 0.8) * 100 + "%");
+            el.style.setProperty("--c", color);
+            return el;
+          });
           break;
         case "circulos": {
           // Columna de discos (uno por círculo). El último es mayor: es el que late.
@@ -356,7 +361,8 @@ export class Motor {
           const s = crearSvg("svg", { class: "mc-fx mc-fx-impacto", width: 1, height: 1 }, fondo);
           s.style.left = fx.centro[0] * v.w + "px";
           s.style.top = fx.centro[1] * v.h + "px";
-          crearSvg("path", { d: F.lineasImpacto(v.h * 0.2, v.w * 0.9, { semilla: hashStr(plano.id), n: 54 }) }, s);
+          // Un trazado por línea (cada una es un triángulo convexo) en lugar de uno solo con las 54.
+          for (const d of F.lineasImpacto(v.h * 0.2, v.w * 0.9, { semilla: hashStr(plano.id), n: 54 }).split(/(?=M)/)) crearSvg("path", { d }, s);
           X.el = s;
           break;
         }
@@ -679,13 +685,17 @@ export class Motor {
         X.el.style.opacity = activo ? ((fx.intensidad || 0.3) * golpe(tb, fx.golpes || [], 7)).toFixed(3) : "0";
         break;
       case "color_pulso": {
-        const cols = fx.colores || ["rgba(255,45,149,.6)"];
-        const k = ((Math.floor(tb) % cols.length) + cols.length) % cols.length;
-        if (X.k !== k) {
-          X.el.style.setProperty("--c", cols[k]);
-          X.k = k;
+        const n = X.capas.length;
+        const k = ((Math.floor(tb) % n) + n) % n;
+        const op = (c.estado === "futuro" ? 0 : 0.35 + 0.65 * golpe(tb % 1, [0], 3)).toFixed(3);
+        for (let i = 0; i < n; i++) {
+          const o = i === k ? op : "0";
+          const el = X.capas[i];
+          if (el._op !== o) {
+            el.style.opacity = o;
+            el._op = o;
+          }
         }
-        X.el.style.opacity = (c.estado === "futuro" ? 0 : 0.35 + 0.65 * golpe(tb % 1, [0], 3)).toFixed(3);
         break;
       }
       case "circulos": {
@@ -761,15 +771,24 @@ export class Motor {
       const rec = this.comp.recursos[idAct];
       const alto = (typeof a.alto === "number" ? a.alto : lerp(a.alto.de, a.alto.a, k)) * v.h;
       const ancho = (alto * rec.w) / rec.h;
+      // La caja se maqueta una sola vez, al mayor tamaño del plano; crecer o encoger es una escala de la
+      // capa (≤ 1), no un cambio de tamaño que obligue a volver a pintar el dibujo y sus filtros.
+      const altoCaja = (typeof a.alto === "number" ? a.alto : Math.max(a.alto.de, a.alto.a)) * v.h;
+      const anchoCaja = (altoCaja * rec.w) / rec.h;
+      const escCaja = alto / altoCaja;
       const x = lerp(a.pos.de[0], a.pos.a[0], k) * v.w;
       // Pequeño vaivén vertical al caminar (solo si la pose tiene ciclo)
       const anda = a.paso && c.estado === "activo";
       const bote = anda ? Math.abs(Math.sin(tb * Math.PI * a.paso)) * alto * 0.014 : 0;
       const balanceo = anda ? Math.sin(tb * Math.PI * a.paso) * 1.3 : 0;
       const y = lerp(a.pos.de[1], a.pos.a[1], k) * v.h - bote;
-      A.raiz.style.width = ancho + "px";
-      A.raiz.style.height = alto + "px";
-      A.raiz.style.transform = `translate(${(x - ancho / 2).toFixed(2)}px,${(y - alto).toFixed(2)}px) rotate(${balanceo.toFixed(2)}deg)`;
+      if (A._w !== anchoCaja || A._h !== altoCaja) {
+        A.raiz.style.width = anchoCaja + "px";
+        A.raiz.style.height = altoCaja + "px";
+        A._w = anchoCaja;
+        A._h = altoCaja;
+      }
+      A.raiz.style.transform = `translate(${(x - anchoCaja / 2).toFixed(2)}px,${(y - altoCaja).toFixed(2)}px) rotate(${balanceo.toFixed(2)}deg)${escCaja === 1 ? "" : ` scale(${escCaja.toFixed(5)})`}`;
       const boca = a.boca || [0.5, 0.13];
       A.punto = [v.x + x + (boca[0] - 0.5) * ancho, v.y + y - alto + boca[1] * alto];
     } else if (a.tipo === "inserto") {
