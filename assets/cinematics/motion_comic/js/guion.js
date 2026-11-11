@@ -20,13 +20,20 @@ export const NOMBRE_TIPO = {
 };
 
 export const NOMBRE_ESTADO = {
+  literal: "Literal",
+  adaptado: "Adaptado",
+  propuesto: "Nuevo propuesto",
+  borrador: "BORRADOR",
+  // Estados de la versión 0.2 (historia anterior). Se conservan para poder abrir guiones antiguos.
   juego: "Texto del juego",
   juego_fragmento: "Fragmento del juego",
   juego_reubicado: "Del juego, reubicado",
   storyboard: "Del storyboard",
   aprobado: "Aprobado",
-  borrador: "BORRADOR",
 };
+
+/* Sello que la vista previa pone sobre un texto según su estado (los literales y adaptados no llevan). */
+export const SELLO_ESTADO = { borrador: "BORRADOR", propuesto: "PROPUESTA" };
 
 export function planosConTiempos(comp, guion) {
   const spb = 60 / guion.tempo.bpm;
@@ -142,6 +149,16 @@ export function analizar(guion, comp) {
     const f = iv.fuente || {};
     if (iv.estado === "borrador") {
       fila.literal = null;
+    } else if (iv.estado === "adaptado") {
+      // Redacción de dirección que adapta un pasaje de la biblia: guarda el pasaje (cita) y el texto fijado.
+      if (!f.archivo || !f.cita) avisos.push({ nivel: "error", texto: "Un texto adaptado necesita el pasaje que adapta: archivo de origen y cita literal." });
+      if (!f.fijado) avisos.push({ nivel: "error", texto: "Un texto adaptado necesita el campo 'fuente.fijado' con el texto exacto del encargo." });
+      else if (normalizar(fila.texto) !== normalizar(f.fijado)) avisos.push({ nivel: "error", texto: "El texto ya no coincide con el texto fijado por el encargo: márcalo como BORRADOR o restaura el texto." });
+      if (f.cita && normalizar(fila.texto) === normalizar(f.cita)) avisos.push({ nivel: "aviso", texto: "El texto es idéntico a la cita: debería figurar como literal, no como adaptado." });
+    } else if (iv.estado === "propuesto") {
+      // Texto nuevo sin respaldo en la biblia ni en el juego: propuesta pendiente de decisión. No es canon.
+      if (!f.nota) avisos.push({ nivel: "error", texto: "Un texto propuesto necesita 'fuente.nota' explicando qué propone y qué queda pendiente." });
+      if (f.fijado && normalizar(fila.texto) !== normalizar(f.fijado)) avisos.push({ nivel: "error", texto: "El texto ya no coincide con el texto fijado por el encargo: márcalo como BORRADOR o restaura el texto." });
     } else if (iv.estado === "aprobado") {
       // Texto nuevo aprobado por dirección: no tiene cita del juego. Queda fijado en fuente.aprobado.
       if (!f.aprobado) avisos.push({ nivel: "error", texto: "Un texto aprobado necesita el campo 'fuente.aprobado' con el texto exacto." });

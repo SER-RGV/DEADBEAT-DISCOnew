@@ -297,12 +297,16 @@ function pintarResumen() {
   const t = totales();
   const activas = a.filas.filter((f) => f.activa);
   const borr = activas.filter((f) => f.iv.estado === "borrador").length;
-  const aprob = activas.filter((f) => f.iv.estado === "aprobado").length;
+  const cuenta = (e) => activas.filter((f) => f.iv.estado === e).length;
+  const lit = cuenta("literal");
+  const adap = cuenta("adaptado");
+  const prop = cuenta("propuesto");
   const el = $("#resumen");
   el.innerHTML =
     `<span class="pastilla"><b>${coma(a.duracion, 3)} s</b> · ${a.planos.length} planos · ${E.guion.tempo.bpm} pulsos/min</span>` +
-    `<span class="pastilla"><b>${activas.length}</b> textos · ${activas.length - borr - aprob} con cita literal${aprob ? ` · ${aprob} ${aprob === 1 ? "aprobado" : "aprobados"}` : ""}</span>` +
-    `<span class="pastilla borrador"><b>${borr}</b> BORRADOR sin aprobar</span>` +
+    `<span class="pastilla"><b>${activas.length}</b> textos · ${lit} ${lit === 1 ? "literal" : "literales"} · ${adap} ${adap === 1 ? "adaptado" : "adaptados"}</span>` +
+    `<span class="pastilla propuesta"><b>${prop}</b> ${prop === 1 ? "PROPUESTA" : "PROPUESTAS"}</span>` +
+    (borr ? `<span class="pastilla borrador"><b>${borr}</b> BORRADOR sin aprobar</span>` : "") +
     (t.error ? `<span class="pastilla error"><b>${t.error}</b> ${t.error === 1 ? "error" : "errores"}</span>` : `<span class="pastilla ok">Sin errores</span>`) +
     (t.aviso ? `<span class="pastilla aviso"><b>${t.aviso}</b> ${t.aviso === 1 ? "aviso" : "avisos"}</span>` : "");
   const c = $("#cuenta-avisos");
@@ -324,8 +328,10 @@ function pintarComprobaciones() {
   const solapes = activas.filter((f) => f.avisos.some((x) => /antes de que dé tiempo/.test(x.texto))).length;
   const noLit = activas.filter((f) => f.avisos.some((x) => /cita|fragmento|origen/.test(x.texto))).length;
   const borr = activas.filter((f) => f.iv.estado === "borrador").length;
-  const aprobados = activas.filter((f) => f.iv.estado === "aprobado");
-  const aprobMal = aprobados.filter((f) => f.avisos.some((x) => /aprobado/.test(x.texto))).length;
+  const literales = activas.filter((f) => f.iv.estado === "literal");
+  const adaptados = activas.filter((f) => f.iv.estado === "adaptado");
+  const propuestos = activas.filter((f) => f.iv.estado === "propuesto");
+  const fijMal = activas.filter((f) => f.avisos.some((x) => /fijado/.test(x.texto))).length;
   const fila = (ok, txt) => `<tr><td class="${ok === true ? "si" : ok === false ? "no" : "ojo"}">${ok === true ? "Sí" : ok === false ? "No" : "Ojo"}</td><td>${txt}</td></tr>`;
   let h = `<h3>Resultado</h3><table class="tabla-ok">`;
   h += fila(Math.abs(a.duracion - 45) < 1e-6, `Duración total: <b>${coma(a.duracion, 3)} s</b> (${E.guion.tempo.pulsos_totales} pulsos a ${E.guion.tempo.bpm} por minuto).`);
@@ -335,8 +341,9 @@ function pintarComprobaciones() {
   h += fila(pisadas === 0 ? true : null, pisadas ? `<b>${pisadas}</b> ${pisadas === 1 ? "texto se pisa" : "textos se pisan"} con otra pieza en pantalla.` : `Ningún texto se pisa con otro en pantalla.`);
   h += fila(fuera === 0 ? true : null, fuera ? `<b>${fuera}</b> ${fuera === 1 ? "texto sale" : "textos salen"} de la zona segura.` : `Todos los textos están dentro de la zona segura.`);
   if (minTam != null) h += fila(minTam >= L.tam_minimo_px - 0.5, `Letra más pequeña en pantalla: <b>${coma(minTam, 0)} px</b> a 1080p (mínimo ${L.tam_minimo_px} px).`);
-  h += fila(noLit === 0, noLit ? `<b>${noLit}</b> ${noLit === 1 ? "texto marcado" : "textos marcados"} como existente ya no coincide con su cita.` : `Los ${activas.length - borr - aprobados.length} textos marcados como existentes coinciden letra por letra con su cita.`);
-  if (aprobados.length) h += fila(aprobMal === 0, aprobMal ? `<b>${aprobMal}</b> ${aprobMal === 1 ? "texto aprobado ya no coincide" : "textos aprobados ya no coinciden"} con lo que se aprobó.` : `<b>${aprobados.length}</b> ${aprobados.length === 1 ? "texto nuevo aprobado por dirección: coincide" : "textos nuevos aprobados por dirección: coinciden"} letra por letra con lo aprobado.`);
+  h += fila(noLit === 0, noLit ? `<b>${noLit}</b> ${noLit === 1 ? "texto tiene" : "textos tienen"} un problema con su cita o su origen.` : `<b>${literales.length}</b> ${literales.length === 1 ? "texto literal coincide" : "textos literales coinciden"} letra por letra con su cita; <b>${adaptados.length}</b> ${adaptados.length === 1 ? "adaptado guarda" : "adaptados guardan"} el pasaje que adaptan.`);
+  h += fila(fijMal === 0, fijMal ? `<b>${fijMal}</b> ${fijMal === 1 ? "texto ya no coincide" : "textos ya no coinciden"} con el texto fijado por el encargo.` : `Los textos del encargo coinciden letra por letra con lo que se pidió.`);
+  h += fila(null, `<b>${propuestos.length}</b> ${propuestos.length === 1 ? "texto es" : "textos son"} PROPUESTA: texto nuevo sin respaldo en la biblia, pendiente de decisión. No es canon.`);
   h += fila(null, `<b>${borr}</b> ${borr === 1 ? "texto es" : "textos son"} BORRADOR: propuestas sin aprobar, no canon.`);
   h += `</table>`;
 
@@ -386,7 +393,7 @@ function pintarLinea() {
     for (const f of a.filas) {
       if (!f.activa || !c.tipos.includes(f.iv.tipo) || !f.plano) continue;
       const av = avisosDe(f.iv.id);
-      const cls = ["barra", "t-" + f.iv.tipo, f.iv.estado === "borrador" ? "borrador" : "", av.some((x) => x.nivel === "error") ? "con-error" : av.length ? "con-aviso" : "", E.sel === f.iv.id ? "sel" : ""].join(" ");
+      const cls = ["barra", "t-" + f.iv.tipo, f.iv.estado === "borrador" ? "borrador" : f.iv.estado === "propuesto" ? "propuesta" : "", av.some((x) => x.nivel === "error") ? "con-error" : av.length ? "con-aviso" : "", E.sel === f.iv.id ? "sel" : ""].join(" ");
       const titulo = `${NOMBRE_TIPO[f.iv.tipo]} · ${f.texto} · ${coma(f.t0)}–${coma(f.t1)} s`;
       if (f.iv.golpes) {
         h += `<div class="${cls}" data-id="${f.iv.id}" style="left:${pc(f.t0)};width:${pc(f.dur)};opacity:.5" title="${escaparHtml(titulo)}"></div>`;
@@ -470,7 +477,7 @@ function refrescarPiezas() {
     d.classList.toggle("inactiva", !f.activa);
     d.classList.toggle("sel", E.sel === iv.id);
     const pj = iv.habla && E.guion.personajes[iv.habla];
-    const quien = pj ? (pj.nombre ? pj.nombre : iv.habla === "heroe" ? "Protagonista" : iv.habla) : "";
+    const quien = pj ? pj.nombre || pj.rol || iv.habla : "";
     let cifras = `<span class="cifra">de ${coma(f.t0)} a ${coma(f.t1)} s</span> · <span class="cifra">dura ${coma(f.dur)} s</span>`;
     if (f.lectura && f.chars) {
       const cl = f.cps > L.cps_maximo ? "error" : f.cps > L.cps_comodo ? "aviso" : "";
@@ -541,6 +548,7 @@ function montarEditor(id) {
   h += `<div class="origen">`;
   if (f.cita) h += `<b>Cita literal:</b> <q>${escaparHtml(f.cita)}</q><br>`;
   if (f.aprobado) h += `<b>Texto aprobado:</b> <q>${escaparHtml(f.aprobado)}</q><br>`;
+  if (f.fijado) h += `<b>Texto del encargo:</b> <q>${escaparHtml(f.fijado)}</q><br>`;
   if (f.archivo) h += `<b>Origen:</b> ${escaparHtml(f.archivo)}${f.donde ? " · " + escaparHtml(f.donde) : ""}<br>`;
   if (f.nota) h += escaparHtml(f.nota);
   h += `</div>`;
@@ -589,7 +597,7 @@ function montarEditor(id) {
       if (fila && fila.avisos.some((x) => /ya no coincide/.test(x.texto))) {
         iv.estado = "borrador";
         c("estado").value = "borrador";
-        avisar("El texto ya no coincide con su cita o con el texto aprobado: la pieza pasa a BORRADOR.");
+        avisar("El texto ya no coincide con su cita o con el texto del encargo: la pieza pasa a BORRADOR.");
       }
     }
     marcarSucio();

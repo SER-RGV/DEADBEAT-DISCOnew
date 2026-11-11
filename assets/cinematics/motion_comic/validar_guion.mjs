@@ -8,9 +8,11 @@
 
    Comprueba, sin navegador:
      1. duración total, número de planos y tiempos de cada texto (mismas reglas que la vista previa);
-     2. que cada texto con estado distinto de BORRADOR coincide con su cita
-        (o, si es un texto nuevo aprobado, con el texto fijado en fuente.aprobado);
-     3. que cada cita existe, letra por letra, en el archivo del repositorio que se indica como fuente.
+     2. el estado de cada texto: un LITERAL coincide con su cita; un ADAPTADO guarda el pasaje que adapta
+        (fuente.cita) y coincide con el texto del encargo (fuente.fijado); una PROPUESTA explica en
+        fuente.nota qué propone y, si viene del encargo, coincide con fuente.fijado;
+     3. que cada cita existe, letra por letra, en el archivo del repositorio que se indica como fuente
+        (para la biblia narrativa: fuentes/biblia_extractos.md).
    Lo que depende del dibujo en pantalla (tamaño de letra, solapes, colas) solo lo comprueba la vista previa.
    Termina con código 1 si hay errores. No escribe ni modifica ningún archivo. */
 

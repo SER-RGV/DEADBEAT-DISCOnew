@@ -1,28 +1,32 @@
 # DEADBEAT DISCO · Introducción en motion comic (vista previa)
 
-Versión en cómic animado de la secuencia de introducción de 10 planos: viñetas, bocadillos, cajas de
-narrador, rótulos, onomatopeyas y transiciones, montados sobre los fondos y personajes que ya existen
-en `assets/cinematics/`. Dura **45,000 s** (96 pulsos a 128 por minuto).
+Versión en cómic animado de la introducción: viñetas, bocadillos, cajas de narrador y transiciones,
+montados sobre el arte que ya existe en `assets/`. Dura **45,000 s** (96 pulsos a 128 por minuto).
 
-Versión actual: **0.2.1-preview** (pulido artístico y narrativo, con el cierre de pulido aplicado).
-Qué cambió respecto a la primera versión y por qué, plano a plano, y las medidas de rendimiento del
-cierre están en [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
+Versión actual: **0.3.0-preview · «La noche que vuelve»**. Cuenta la historia de la biblia narrativa:
+la Primera Noche, el deseo del anfitrión, la Escucha, la decisión de Tempo, el nacimiento de la torre
+y del protagonista, y su despertar en el Refugio. Sustituye por completo a la historia de la versión
+0.2.1 (el club, los nueve círculos, «DJ Virgilio»).
+
+- Qué cambió y por qué, los textos con su origen, el arte que falta y lo que está sin comprobar:
+  [`INFORME_DIRECCION_NARRATIVA.md`](INFORME_DIRECCION_NARRATIVA.md).
+- Historia del pulido artístico anterior (0.2.x): [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
 
 | Plano | Empieza | Dura | Contenido |
 |---|---|---|---|
-| 01 El mundo | 0,000 s | 12 pulsos | Cartela con latido, ciudad, narrador |
-| 02 El club | 5,625 s | 12 pulsos | Fachada, neón, megafonía |
-| 03 La entrada | 11,250 s | 8 pulsos | Puerta, primera frase de DJ Virgilio |
-| 04 Aparición | 15,000 s | 8 pulsos | El protagonista cruza el umbral |
-| 05 Caminata | 18,750 s | 8 pulsos | Pasillo, voz del DJ |
-| 06 El interior | 22,500 s | 12 pulsos | La sala y los nueve círculos |
-| 07 La pista | 28,125 s | 8 pulsos | El drop |
-| 08 Presentación | 31,875 s | 12 pulsos | Silencio, pistola y frase del protagonista |
-| 09 Identidad | 37,500 s | 8 pulsos | Logotipo |
-| 10 Transición | 41,250 s | 8 pulsos | El Refugio |
+| 01 La Primera Noche | 0,000 s | 10 pulsos | La estación convertida en sala de baile; invitados celebrando |
+| 02 El último deseo | 4,688 s | 6 pulsos | Amanece; el anfitrión pide que la noche no termine |
+| 03 La Escucha | 7,500 s | 8 pulsos | Bajo el salón, algo recibe el deseo y lo devuelve |
+| 04 La nota que no termina | 11,250 s | 8 pulsos | La última nota vuelve a sonar; Tempo lo nota |
+| 05 Solo una más | 15,000 s | 6 pulsos | Tempo enlaza otra canción; la sala pasa de ámbar a neón |
+| 06 La torre | 17,813 s | 10 pulsos | El salón crece hacia abajo: nueve niveles hasta el Núcleo |
+| 07 La repetición | 22,500 s | 10 pulsos | La misma noche, una y otra vez |
+| 08 El Desafinado | 27,188 s | 10 pulsos | Un paso fuera del compás, corregido; lo descartado se acumula |
+| 09 El nacimiento | 31,875 s | 8 pulsos | Lo descartado toma forma: el protagonista |
+| 10 El Refugio | 35,625 s | 20 pulsos | Despierta en el Refugio; Tempo lo recibe; el descenso; título |
 
 Es una **vista previa aislada**. No toca `src/`, ni el HUB, ni los HTML generados, ni los originales
-de arte: las imágenes se leen por ruta relativa y los defectos de los fondos se ocultan por recorte.
+de arte: las imágenes se leen por ruta relativa. No se ha generado ninguna imagen nueva.
 
 ## Cómo verla
 
@@ -38,12 +42,12 @@ porque el cómic carga módulos y JSON, y eso no funciona abriendo `index.html` 
 |---|---|
 | `?t=12.5` | Abre en ese segundo |
 | `?plano=7` | Abre al inicio de ese plano |
-| `?sel=p03_dialogo_bienvenido` | Abre con esa pieza de texto seleccionada |
+| `?sel=p10_dialogo_bienvenido` | Abre con esa pieza de texto seleccionada |
 | `?pestana=guion` · `comprobar` · `ver` | Pestaña abierta del panel |
 | `?limpio=1` | Solo la imagen, sin panel ni línea de tiempo |
-| `?ligero=1` | Quita las tramas de puntos, el grano de papel y el baño de color de la pista (equipos sin aceleración gráfica) |
-| `?sellos=0` | Oculta los sellos «BORRADOR» |
-| `?borradores=0` | Oculta los textos en borrador (queda lo que ya existe en el juego y lo aprobado) |
+| `?ligero=1` | Quita las tramas de puntos y el grano de papel (equipos sin aceleración gráfica) |
+| `?sellos=0` | Oculta los sellos «PROPUESTA», «BORRADOR» y «ARTE PROVISIONAL» |
+| `?borradores=0` | Oculta los textos en borrador (ahora no hay ninguno) |
 | `?orden=1` · `?guias=1` | Números de orden de lectura · zona segura y tercios |
 
 Teclado: espacio reproduce o pausa; flechas izquierda y derecha mueven un pulso (con Mayús, un
@@ -63,44 +67,40 @@ el inicio de su plano (1 pulso = 0,469 s). El énfasis se escribe `*así*`.
 
 ## De dónde sale cada texto
 
-No existe en el repositorio un guion de introducción aprobado ni un documento de historia, y el
-protagonista no tiene nombre ni frases. Por eso cada texto lleva un estado visible:
+La fuente es la biblia narrativa del proyecto. No está en el repositorio, así que los apartados que
+respaldan la intro están copiados, letra por letra, en
+[`fuentes/biblia_extractos.md`](fuentes/biblia_extractos.md). Cada texto lleva un estado visible:
 
 | Estado | Significado | Piezas |
 |---|---|---|
-| Texto del juego | Frase literal que ya existe, usada en su sitio | 3 |
-| Fragmento del juego | Parte literal de una frase existente | 5 |
-| Del juego, reubicado | Frase literal existente, colocada en otro momento | 4 |
-| Del storyboard | Texto que figura en el storyboard aprobado | 1 |
-| Aprobado | Texto nuevo aprobado por dirección. No procede del juego | 1 |
-| **BORRADOR** | Propuesta sin aprobar. No es canon | 10 |
+| Literal | Coincide letra por letra con un pasaje de la biblia | 0 |
+| Adaptado | Es el texto del encargo; guarda el pasaje de la biblia que adapta | 13 |
+| **Nuevo propuesto** | No está en la biblia. Lleva el sello «PROPUESTA». No es canon | 4 |
+| **BORRADOR** | Texto retocado en el editor y sin revisar | 0 |
 
-Son 24 piezas activas de 27. El texto aprobado es la única frase del protagonista, «Traigo
-percusión.» (plano 08). Los 10 borradores son la grafía de las 10 onomatopeyas (el storyboard describe
-cada sonido, pero no cómo se escribe). En pantalla llevan un sello rojo «BORRADOR», que se oculta con
-`?sellos=0`.
+Son 17 piezas. Las cuatro propuestas son las tres frases de Tempo en el Refugio y la onomatopeya
+«TAC». El protagonista no habla.
 
-Hay 3 piezas desactivadas (`"activo": false`), que siguen en el guion y se pueden reactivar desde el
-editor: el rótulo «AFUERA / De noche.», el pensamiento «Mejor no dejo nada en el guardarropa.» y el
-rótulo «Tregua Sagrada · Zona Segura».
+- Si en el editor se cambia un texto, deja de coincidir con la redacción fijada y pasa solo a
+  BORRADOR.
+- `banco_de_alternativas` guarda nueve frases literales de la biblia sin colocar, por si se prefiere
+  sustituir un texto adaptado por uno literal.
+- El validador comprueba que cada pasaje citado existe en el archivo de origen. **No puede comprobar
+  que la adaptación sea fiel**: eso lo decide dirección.
 
-Si en el editor se cambia un texto con cita de modo que deja de coincidir con ella, pasa solo a
-BORRADOR. Lo mismo ocurre con un texto aprobado: su redacción exacta está fijada en
-`fuente.aprobado` y cualquier retoque lo devuelve a BORRADOR. El validador comprueba además que cada
-cita está, letra por letra, en el archivo que se indica como origen. `banco_de_alternativas` reúne 12
-frases literales del juego sin colocar y, en `propuestas_protagonista`, el registro de las opciones
-que se barajaron para la frase del protagonista (decisión ya cerrada).
+## Arte provisional
 
-## Opciones de composición añadidas en la versión 0.2.0
+Falta arte para tres cosas, y en su lugar hay sustitutos hechos con recursos oficiales. Los planos
+afectados (01, 02, 03, 04 y 06) llevan el sello «ARTE PROVISIONAL».
 
-| Dónde | Opción | Efecto |
-|---|---|---|
-| `guion.json`, cartela | `"variante": "pie"` | Línea pequeña sobre banda amarilla bajo el título de la cartela |
-| `guion.json`, cartela de título | `"latidos": [0, 2]` | Pulsos en los que late un anillo detrás del título |
-| `guion.json`, cualquier pieza | `"estilo": { "tam": 42 }` | Cambia el tamaño de letra solo en esa pieza |
-| `composicion.json`, `fx` | `circulos` (`x`, `y0`, `y1`, `desde`, `paso`, `colores`) | Columna de discos que se encienden uno a uno; el último late |
-| `composicion.json`, `fx` | `color_pulso` (`x`, `y`, `colores`) | Baño de color que cambia en cada pulso |
-| `composicion.json`, `fx` | `laseres` admite `abanico` y `velocidad` | Apertura y velocidad del barrido |
+| Falta | Sustituto actual |
+|---|---|
+| La estación de la Primera Noche | `cine_circle_08_traicion.png` virada a ámbar. No tiene nada ferroviario y es de 960×540 |
+| El anfitrión | Silueta del NPC de la barra con la copa en alto |
+| El tocadiscos de Tempo en primer plano | Disco, brazo y nota dibujados por código |
+
+Los invitados y los bailarines son siluetas del sprite del Bailarín. La lista completa está en el
+apartado 2.5 del informe.
 
 ## Qué comprueba cada herramienta
 
@@ -109,74 +109,65 @@ que se barajaron para la frase del protagonista (decisión ya cerrada).
 | Duración 45 s y 10 planos | sí | sí |
 | Ritmo de lectura y orden de entrada | sí | sí |
 | Carga de lectura del plano (todo su texto, leído en orden, cabe antes del corte) | sí | sí |
-| Texto igual a su cita, o al texto aprobado | sí | sí |
-| La cita existe en el archivo de origen | no | sí |
+| Estado de cada texto y coincidencia con la redacción fijada | sí | sí |
+| El pasaje citado existe en el archivo de origen | no | sí |
 | Tamaño de letra, zona segura, solapes, colas | sí | no (depende del dibujo) |
 
-Resultado actual: 0 errores y 0 avisos. El texto más rápido se lee a 16,8 caracteres por segundo
-(cómodo hasta 17, máximo 21). El aviso de la primera versión (grito del plano 02, 17,6) se resolvió
-dándole al plano un compás más, no acortando ni acelerando la frase.
+Resultado actual: 0 errores y 0 avisos; 22 de 22 citas encontradas. El texto más rápido se lee a
+17,0 caracteres por segundo (cómodo hasta 17, máximo 21). La letra más pequeña mide 29 px a 1080p
+(mínimo 26).
 
 ## Decisiones que conviene revisar
 
-- **Duración.** El motor del juego (`src/dd_cinematic_camera.js`) y el manifiesto dan 35,0 s a la
-  intro. Los 45 s son una línea de tiempo propia de este cómic; no se ha cambiado el motor.
-- **Sonido.** El repositorio no tiene música ni efectos. La sincronía es con la rejilla de pulsos; la
-  claqueta y los sonidos guía son sintetizados y solo sirven de referencia.
-- **Megafonía del plano 02.** La frase es literal del juego (DJ Virgilio), pero presentarla como
-  megafonía del club es una propuesta de puesta en escena.
-- **Reparto de compases.** El plano 02 gana un compás (de 8 a 12 pulsos) y el 07 lo pierde (de 12 a
-  8). El total sigue en 96 pulsos.
-- **Protagonista.** Los cuadros `hero_walk_00`, `01` y `02` son tres vestuarios distintos y
-  `hero_shoot_00` un cuarto, así que no hay ciclo de caminata: se usa un solo dibujo (`hero_walk_01`)
-  con un vaivén. `hero_shoot_00` solo aparece como silueta (plano 09) y como recorte de la pistola
-  (plano 08). `hero_idle_00` y `hero_walk_03` están rotos y no se usan.
-- **Fondos.** Todos traen marcos, muestras de color y letras sueltas incrustados; se ocultan con el
-  recorte `seguro` de `data/composicion.json`.
+Están explicadas en el informe (apartados 1.7 y 2.6). En resumen:
 
-## Decisiones cerradas
-
-- **Frase del protagonista (plano 08).** «Traigo percusión.» está aprobada. Es su única frase en toda
-  la secuencia y no le da nombre ni pasado.
-- **Plano 04.** Lleva solo la silueta, «Umbral cruzado» y «TOMP». El rótulo «INVITACIÓN 001 / salida
-  pendiente.» se retiró del guion: pertenece al Limbo y se reserva para ese contexto.
+- **Orden de los hechos.** La biblia pone el crecimiento de la torre antes de que Tempo note el
+  bucle; la intro lo cuenta al revés, como pide el encargo.
+- **«Solo una más.»** La biblia reserva esa frase para la última grabación que encuentra el jugador.
+- **Tempo en el Refugio desde el principio.** La biblia propone que aparezca tras el primer jefe.
+- **La llegada al Refugio.** La biblia propone un descenso en plataforma; aquí despierta allí.
+- **El nombre.** La intro dice «TEMPO» y el HUB sigue diciendo «DJ VIRGILIO».
+- **Duración.** El motor del juego (`src/dd_cinematic_camera.js`) da 35,0 s a la intro. Los 45 s son
+  la línea de tiempo de este cómic; no se ha cambiado el motor.
+- **Sonido.** El repositorio no tiene música ni efectos. La claqueta y los sonidos guía son
+  sintetizados y solo sirven de referencia.
 
 ## Fluidez
 
-La reproducción sigue el reloj real: si el equipo dibuja despacio se saltan fotogramas, pero los 45 s
-duran 45 s y los textos entran en su pulso.
+**No se puede afirmar que la reproducción sea fluida.** Solo se ha medido en el entorno de pruebas,
+que no tiene tarjeta gráfica (Chromium sin interfaz, dibujo por software, 2 núcleos, 1920×1080).
 
-Solo se ha medido en el entorno de pruebas, que no tiene tarjeta gráfica (Chromium sin interfaz,
-dibujo por software, 2 núcleos, 1920×1080). Allí la mayoría de fotogramas salen a tiempo y la media
-baja por parones aislados de hasta unos 2 s, que vienen de componer la imagen por software.
+- En tramos cortos (2,6 s) va a entre 54 y 60 fotogramas por segundo.
+- En reproducción seguida aparecen, a los pocos segundos, parones de entre 0,6 y 2,5 s. La intro
+  completa dibujó 184 fotogramas en 45 s. La versión 0.2.1 se comporta igual en la misma prueba.
+- La reproducción sigue el reloj real: los 45 s duran 45 s y los textos entran en su pulso aunque se
+  salten fotogramas.
 
-En el cierre de pulido (0.2.1) se optimizó el plano 07 sin quitarle ningún efecto. En ese mismo
-entorno, el tramo de 27 a 35 s pasa de entre 7 y 9 fotogramas por segundo a unos 9 (tres muestras de
-8 s por versión), y el trabajo de dibujo por fotograma baja a un tercio. Los parones largos siguen
-ahí, así que **no se puede afirmar que la reproducción sea fluida**. Las cifras completas y el método
-están en el apartado H de [`INFORME_PULIDO_FASE2.md`](INFORME_PULIDO_FASE2.md).
-
-`?ligero=1` quita las tramas, el grano y el baño de color para equipos sin aceleración gráfica.
-**No se ha medido en un equipo con tarjeta gráfica, ni en Firefox, Safari o móvil**; es lo primero que
-hay que comprobar al abrirla.
+Cifras y método en el apartado 2.8 del informe. **No se ha medido en un equipo con tarjeta gráfica,
+ni en Firefox, Safari o móvil**; es lo primero que hay que comprobar al abrirla.
 
 ## Archivos
 
 | Ruta | Contenido |
 |---|---|
 | `index.html`, `vista_previa.css`, `js/vista_previa.js` | Vista previa e inspector |
-| `comic.css`, `js/motor.js`, `js/textos.js`, `js/formas.js` | El cómic: páginas, cámara, bocadillos, efectos |
+| `comic.css`, `js/motor.js`, `js/textos.js`, `js/formas.js` | El cómic: páginas, cámara, bocadillos |
+| `js/efectos.js` | Efectos narrativos: siluetas, ondas, disco, niveles, montaje, fragmentos, barrido |
 | `js/guion.js` | Lectura y comprobación del guion (navegador y Node) |
 | `data/guion.json` | Textos, tiempos, estados y fuentes |
-| `data/composicion.json` | Páginas, viñetas, cámara, recortes, personajes y efectos por plano |
+| `data/composicion.json` | Páginas, viñetas, cámara, recursos, personajes y efectos por plano |
+| `fuentes/biblia_extractos.md` | Extractos literales de la biblia, para comprobar las citas |
 | `fonts/` | Tipografías libres y sus licencias (ver `fonts/README.md`) |
-| `evidence/` | Capturas a 1920×1080 de cada plano y del inspector (versión 0.2.1) |
-| `INFORME_PULIDO_FASE2.md` | Revisión de los diez planos, tabla de cambios y cierre de pulido con medidas de rendimiento |
+| `evidence/` | Capturas a 1920×1080 de cada plano y del inspector (versión 0.3.0) y hoja de contacto |
+| `INFORME_DIRECCION_NARRATIVA.md` | Análisis previo y resultado de la reconstrucción narrativa |
+| `INFORME_PULIDO_FASE2.md` | Informe del pulido de la versión 0.2.x (historia anterior) |
 | `servir.mjs`, `validar_guion.mjs` | Servidor local y validador |
 
 ## Pendiente
 
-- Aprobar o sustituir los 10 borradores (la grafía de las onomatopeyas).
-- No hay exportación a vídeo: es una vista previa en el navegador.
+- Decidir sobre las cuatro propuestas de texto y los cinco puntos de coherencia con la biblia.
+- Encargar el arte que falta: la estación, el anfitrión y el tocadiscos.
+- Comprobar la fluidez en un equipo real y en Firefox, Safari y móvil.
+- Enseñarla a alguien que no conozca el juego: no está comprobado que la historia se entienda.
+- No hay exportación a vídeo ni sonido real.
 - No está integrada en el juego; hacerlo exigiría tocar `src/` y decidir entre 35 y 45 s.
-- Probada en Chromium de escritorio. No se ha probado en Firefox, Safari ni en móvil.

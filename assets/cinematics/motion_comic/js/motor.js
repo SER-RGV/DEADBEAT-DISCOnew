@@ -10,6 +10,7 @@ import { clamp, lerp, invLerp, smooth, ease, rng, hashStr, jitter, golpe } from 
 import * as F from "./formas.js";
 import { crear, crearSvg } from "./dom.js";
 import { CapaTextos } from "./textos.js";
+import * as Efectos from "./efectos.js";
 
 export const W = 1920;
 export const H = 1080;
@@ -173,15 +174,21 @@ export class Motor {
     if (plano) {
       plano.V = V;
       plano.P = P;
+      if (plano.fondo) clip.style.background = plano.fondo;
       const rec = this.comp.recursos[plano.arte.recurso];
       const src = this.url(rec.src);
+      // Fuera de la zona segura los maestros llevan marco y paleta pintados: si el encuadre puede
+      // salirse de la imagen, se recorta para que nunca asomen.
+      const sg = rec.seguro || [0, 0, 1, 1];
+      const recorte = plano.arte.recorte_seguro ? `inset(${sg[1] * 100}% ${(1 - sg[2]) * 100}% ${(1 - sg[3]) * 100}% ${sg[0] * 100}%)` : "";
       for (const cls of ["mc-lapiz", "mc-arte", "mc-fantasma"]) {
-        const im = crear("img", cls, clip);
+        const im = crear("img", cls + (plano.arte.pixelado ? " pixelado" : ""), clip);
         im.src = src;
         im.width = rec.w;
         im.height = rec.h;
         im.draggable = false;
         im.alt = "";
+        if (recorte) im.style.clipPath = recorte;
         V[cls.slice(3)] = im;
       }
       V.fxFondo = crear("div", "mc-fx-fondo", clip);
@@ -193,6 +200,14 @@ export class Motor {
       V.tramaLuz = crear("div", "mc-trama-luz", clip);
       V.velo = crear("div", "mc-velo-pasado", clip);
       this.construirFx(V, plano);
+      if (plano.provisional) {
+        // Solo en la vista previa: avisa de que la ilustración de este plano es un sustituto.
+        const sello = crear("div", "mc-sello mc-sello-arte", raiz);
+        sello.textContent = "ARTE PROVISIONAL";
+        const e = plano.provisional.esquina || "abajo-derecha";
+        sello.style[e.includes("abajo") ? "bottom" : "top"] = "26px";
+        sello.style[e.includes("izquierda") ? "left" : "right"] = "30px";
+      }
     }
     const svg = crearSvg("svg", { class: "mc-borde", width: v.w, height: v.h }, raiz);
     const vert = forma.map((q) => [q[0] * v.w, q[1] * v.h]);
@@ -208,7 +223,7 @@ export class Motor {
     for (const a of plano.actores || []) {
       const A = { def: a };
       if (a.tipo === "sprite") {
-        const raiz = crear("div", "mc-actor mc-actor-tinta" + (a.estilo === "silueta" ? " silueta" : "") + (a.reflejo ? " reflejo" : ""), V.actoresCapa);
+        const raiz = crear("div", "mc-actor mc-actor-tinta" + (a.estilo === "silueta" ? " silueta" : "") + (a.reflejo ? " reflejo" : "") + (a.pixelado ? " pixelado" : ""), V.actoresCapa);
         if (a.sombra) crear("div", "mc-sombra", raiz);
         A.raiz = raiz;
         A.imgs = {};
@@ -220,8 +235,28 @@ export class Motor {
             im.src = this.url(rec.src);
             im.draggable = false;
             im.alt = "";
+            if (rec.caja) {
+              // 'caja' = zona del archivo que ocupa el dibujo: la caja del actor es la figura, no el lienzo.
+              const k = rec.caja;
+              im.style.height = 100 / (k[3] - k[1]) + "%";
+              im.style.left = (-k[0] / (k[2] - k[0])) * 100 + "%";
+              im.style.bottom = (-(1 - k[3]) / (k[3] - k[1])) * 100 + "%";
+            }
             A.imgs[id] = im;
           }
+        }
+        if (a.formacion) {
+          // Antes de tener cuerpo, la figura es solo su contorno en el color de lo descartado.
+          const id = a.poses[0].cuadros[0];
+          const rec = this.comp.recursos[id];
+          const k = rec.caja || [0, 0, 1, 1];
+          const eco = crear("div", "mc-actor-eco", raiz);
+          const w = 100 / (k[2] - k[0]);
+          const h = 100 / (k[3] - k[1]);
+          const masc = `url("${this.url(rec.src)}") ${(k[0] / (1 - (k[2] - k[0]) || 1)) * 100}% ${(k[1] / (1 - (k[3] - k[1]) || 1)) * 100}% / ${w}% ${h}% no-repeat`;
+          eco.style.webkitMask = masc;
+          eco.style.mask = masc;
+          A.eco = eco;
         }
       } else if (a.tipo === "inserto") {
         const lado = a.ancho * v.w;
@@ -258,13 +293,14 @@ export class Motor {
         A.cy = v.y + a.centro[1] * v.h;
       } else if (a.tipo === "imagen") {
         const rec = this.comp.recursos[a.recurso];
-        const raiz = crear("div", "mc-imagen", V.actoresCapa);
+        const raiz = crear("div", "mc-imagen" + (a.pixelado ? " pixelado" : "") + (a.plano ? " plana" : ""), a.frente ? V.fxFrente : V.actoresCapa);
         const ancho = a.ancho * v.w;
         raiz.style.width = ancho + "px";
         const im = crear("img", "", raiz);
         im.src = this.url(rec.src);
         im.draggable = false;
         im.alt = "";
+        if (a.filtro) im.style.filter = a.filtro;
         A.raiz = raiz;
         A.ancho = ancho;
         A.alto = (ancho * rec.h) / rec.w;
@@ -372,7 +408,8 @@ export class Motor {
           X.el.style.setProperty("--y", fx.y * 100 + "%");
           break;
         default:
-          break; // latido, temblor y silencio no necesitan elementos propios
+          Efectos.construir(this, V, plano, fx, X); // latido, temblor y silencio no necesitan elementos propios
+          break;
       }
       V.fx.push(X);
     }
@@ -413,9 +450,19 @@ export class Motor {
   camEn(p, u) {
     const b = this.camBase(p);
     const c = p.camara || {};
-    const de = c.de || {};
-    const a = c.a || {};
-    const k = ease.inOutSine(clamp(u));
+    let de = c.de || {};
+    let a = c.a || {};
+    let k = ease.inOutSine(clamp(u));
+    if (c.claves && c.claves.length) {
+      // Recorrido por puntos: [{ en: pulso, zoom, dx, dy, giro }]. Entre dos puntos, entrada y salida suaves.
+      const tb = clamp(u) * p.pulsos;
+      const cl = c.claves;
+      let i = 0;
+      while (i < cl.length - 2 && tb >= cl[i + 1].en) i++;
+      de = cl[i];
+      a = cl[Math.min(i + 1, cl.length - 1)];
+      k = a === de ? 0 : ease.inOut(clamp((tb - de.en) / Math.max(1e-6, a.en - de.en)));
+    }
     const z = lerp(de.zoom ?? 1, a.zoom ?? 1, k);
     return {
       cx: b.cx + lerp(de.dx ?? 0, a.dx ?? 0, k) * b.fitW,
@@ -426,7 +473,8 @@ export class Motor {
   }
   /* Tamaño de los textos: se diseñan en píxeles de pantalla (1080p) y se convierten a unidades de lámina. */
   escalaTexto(p) {
-    return this.camEn(p, 0.5).w / W;
+    const en = p.camara && p.camara.texto_en != null ? p.camara.texto_en / p.pulsos : 0.5;
+    return this.camEn(p, en).w / W;
   }
   aplicarCamara(P, cam) {
     const k = W / cam.w;
@@ -570,7 +618,7 @@ export class Motor {
     const cy = lerp(de.cy, a.cy, k);
     const s = v.w / (ancho * rec.w);
     const left = v.w / 2 - cx * rec.w * s;
-    const top = v.h / 2 - cy * rec.h * s;
+    const top = v.h * (p.arte.y ?? 0.5) - cy * rec.h * s;
     p.arteTf = { left, top, s, rw: rec.w, rh: rec.h };
     const tf = `translate(${left.toFixed(2)}px,${top.toFixed(2)}px) scale(${s.toFixed(5)})`;
     V.lapiz.style.transform = tf;
@@ -613,7 +661,22 @@ export class Motor {
     const ctx = { tb, u, pulso, estado, rev, v, p, acc };
     for (const X of V.fx) this.actualizarFx(X, ctx);
     const gris = 1 - color;
-    const filtro = `grayscale(${gris.toFixed(3)}) contrast(${lerp(2.1, 1.06, color).toFixed(3)}) brightness(${(lerp(1.15, 1, color) * acc.brillo).toFixed(3)}) saturate(${(acc.sat * 1.08).toFixed(3)})`;
+    // Virado del plano (por ejemplo, ámbar para la Primera Noche). Puede cambiar a lo largo del plano.
+    let virado = "";
+    if (p.tono) {
+      const T = p.tono;
+      const q = T.a ? (estado === "pasado" ? 1 : estado === "futuro" ? 0 : smooth(T.desde ?? 0, T.hasta ?? p.pulsos, tb)) : 0;
+      const d = T.de || T;
+      const h = T.a || d;
+      const sep = lerp(d.sepia ?? 0, h.sepia ?? 0, q);
+      const mat = lerp(d.matiz ?? 0, h.matiz ?? 0, q);
+      const sat = lerp(d.sat ?? 1, h.sat ?? 1, q);
+      const bri = lerp(d.brillo ?? 1, h.brillo ?? 1, q);
+      acc.brillo *= bri;
+      acc.sat *= sat;
+      if (sep > 0.004) virado = ` sepia(${sep.toFixed(3)})` + (Math.abs(mat) > 0.2 ? ` hue-rotate(${mat.toFixed(1)}deg)` : "");
+    }
+    const filtro = `grayscale(${gris.toFixed(3)}) contrast(${lerp(2.1, 1.06, color).toFixed(3)})${virado} brightness(${(lerp(1.15, 1, color) * acc.brillo).toFixed(3)}) saturate(${(acc.sat * 1.08).toFixed(3)})`;
     if (V.cache.filtro !== filtro) {
       V.arte.style.filter = filtro;
       V.cache.filtro = filtro;
@@ -740,6 +803,7 @@ export class Motor {
         }
         break;
       default:
+        Efectos.actualizar(this, X, c);
         break;
     }
   }
@@ -770,11 +834,13 @@ export class Motor {
       }
       const rec = this.comp.recursos[idAct];
       const alto = (typeof a.alto === "number" ? a.alto : lerp(a.alto.de, a.alto.a, k)) * v.h;
-      const ancho = (alto * rec.w) / rec.h;
+      const kj = rec.caja || [0, 0, 1, 1];
+      const prop = (rec.w * (kj[2] - kj[0])) / (rec.h * (kj[3] - kj[1]));
+      const ancho = alto * prop;
       // La caja se maqueta una sola vez, al mayor tamaño del plano; crecer o encoger es una escala de la
       // capa (≤ 1), no un cambio de tamaño que obligue a volver a pintar el dibujo y sus filtros.
       const altoCaja = (typeof a.alto === "number" ? a.alto : Math.max(a.alto.de, a.alto.a)) * v.h;
-      const anchoCaja = (altoCaja * rec.w) / rec.h;
+      const anchoCaja = altoCaja * prop;
       const escCaja = alto / altoCaja;
       const x = lerp(a.pos.de[0], a.pos.a[0], k) * v.w;
       // Pequeño vaivén vertical al caminar (solo si la pose tiene ciclo)
@@ -788,7 +854,43 @@ export class Motor {
         A._w = anchoCaja;
         A._h = altoCaja;
       }
-      A.raiz.style.transform = `translate(${(x - anchoCaja / 2).toFixed(2)}px,${(y - altoCaja).toFixed(2)}px) rotate(${balanceo.toFixed(2)}deg)${escCaja === 1 ? "" : ` scale(${escCaja.toFixed(5)})`}`;
+      // Presencia: 'ventana' = pulsos en los que el personaje está en la viñeta; 'levanta' = se incorpora
+      // desde el suelo (no hay dibujo intermedio: es un estirón corto, de animación limitada).
+      let op = 1;
+      let estira = "";
+      const tv = c.estado === "pasado" ? p.pulsos : c.estado === "futuro" ? 0 : tb;
+      if (a.ventana) {
+        const f = a.ventana.funde ?? 0.2;
+        op = smooth(a.ventana.desde ?? 0, (a.ventana.desde ?? 0) + f, tv) * (a.ventana.hasta != null ? 1 - smooth(a.ventana.hasta - f, a.ventana.hasta, tv) : 1);
+        if (a.ventana.desde > 0 && tv < a.ventana.desde) op = 0;
+      }
+      if (a.levanta) {
+        const q = clamp((tv - a.levanta.en) / (a.levanta.dura || 1));
+        const e = ease.backOut(q);
+        estira = ` scale(${lerp(1.5, 1, e).toFixed(4)},${lerp(0.3, 1, e).toFixed(4)})`;
+      }
+      if (a.formacion) {
+        // Primero el contorno (lo descartado, amontonado); después el cuerpo.
+        const F = a.formacion;
+        const cuerpo = c.estado === "pasado" ? 1 : c.estado === "futuro" ? 0 : smooth(F.cuerpo, F.cuerpo + (F.dura ?? 0.5), tb);
+        const eco = c.estado === "activo" ? smooth(F.desde, F.cuerpo, tb) * (1 - cuerpo) : 0;
+        const vc = cuerpo.toFixed(3);
+        if (A._cuerpo !== vc) {
+          A.raiz.style.setProperty("--cuerpo", vc);
+          A._cuerpo = vc;
+        }
+        const ve = (eco * (0.7 + 0.3 * Math.sin(tb * 37))).toFixed(3);
+        if (A._eco !== ve) {
+          A.eco.style.opacity = ve;
+          A._eco = ve;
+        }
+      }
+      const vo = op.toFixed(3);
+      if (A._op !== vo) {
+        A.raiz.style.opacity = vo;
+        A._op = vo;
+      }
+      A.raiz.style.transform = `translate(${(x - anchoCaja / 2).toFixed(2)}px,${(y - altoCaja).toFixed(2)}px) rotate(${(balanceo + (a.giro || 0)).toFixed(2)}deg)${escCaja === 1 ? "" : ` scale(${escCaja.toFixed(5)})`}${estira}`;
       const boca = a.boca || [0.5, 0.13];
       A.punto = [v.x + x + (boca[0] - 0.5) * ancho, v.y + y - alto + boca[1] * alto];
     } else if (a.tipo === "inserto") {
@@ -811,6 +913,11 @@ export class Motor {
         esc = q < 1 ? lerp(3.4, 1, ease.outQuint(q)) : 1 + 0.035 * golpe(tb % 1, [0], 5);
         rot = (1 - ease.out(q)) * -9;
         op = c.estado === "futuro" ? 0 : Math.min(1, q * 6);
+      } else if (a.animacion === "funde") {
+        op = c.estado === "futuro" ? 0 : c.estado === "pasado" ? 1 : smooth(t0, t0 + (a.dura ?? 1), tb);
+        if (a.late && c.estado === "activo") esc = 1 + (a.late === true ? 0.03 : a.late) * golpe(tb % 1, [0], 4);
+      } else if (c.estado === "futuro" || (c.estado === "activo" && tb < t0)) {
+        op = 0;
       }
       const x = a.centro[0] * v.w - A.ancho / 2;
       const y = a.centro[1] * v.h - A.alto / 2;

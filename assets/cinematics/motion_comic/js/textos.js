@@ -7,7 +7,7 @@
 import { clamp, lerp, ease, rng, hashStr, jitter, golpe } from "./util.js";
 import * as F from "./formas.js";
 import { crear, crearSvg, marcado } from "./dom.js";
-import { GLOBOS, tiemposBloques, primeraEntrada } from "./guion.js";
+import { GLOBOS, tiemposBloques, primeraEntrada, SELLO_ESTADO } from "./guion.js";
 
 const W = 1920;
 const H = 1080;
@@ -54,6 +54,7 @@ export class CapaTextos {
         sale: iv.sale ?? p.pulsos,
         orden: orden[iv.id],
         borrador: iv.estado === "borrador",
+        selloTxt: SELLO_ESTADO[iv.estado] || "",
         medibles: [],
         textosEl: [],
       };
@@ -80,9 +81,9 @@ export class CapaTextos {
 
   /* ---------- piezas comunes ---------- */
   sello(it, padre, x, y) {
-    if (!it.borrador) return null;
-    const s = crear("div", "mc-sello", padre);
-    s.textContent = "BORRADOR";
+    if (!it.selloTxt) return null;
+    const s = crear("div", "mc-sello" + (it.borrador ? "" : " propuesta"), padre);
+    s.textContent = it.selloTxt;
     if (x != null) {
       s.style.left = px(x);
       s.style.top = px(y);

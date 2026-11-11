@@ -181,6 +181,7 @@
   box-shadow: 0 0 0 2px rgba(255, 251, 233, 0.94); display: none; pointer-events: none;
 }
 .mc-lienzo.con-sellos .mc-sello { display: block; }
+.mc-sello.propuesta { color: #6b4a00; border-color: #c9860a; background: rgba(255, 244, 196, 0.96); box-shadow: 0 0 0 2px rgba(255, 244, 196, 0.96); }
 .mc-orden {
   position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; display: none;
   font: 700 22px/40px system-ui, sans-serif; text-align: center; color: #0e0c11; background: #36e6ff; border: 3px solid #0e0c11;
@@ -263,5 +264,81 @@
 .mc-guia-segura::after { content: "ZONA SEGURA DE TEXTO"; position: absolute; left: 8px; top: 6px; font: 700 15px system-ui, sans-serif; color: rgba(54, 230, 255, 0.95); letter-spacing: 1px; }
 .mc-guia-tercio { position: absolute; background: rgba(255, 255, 255, 0.28); }
 
-/* Modo ligero (?ligero=1): sin tramas de puntos, grano de papel ni baño de color de la pista. Para equipos sin aceleración gráfica. */
+/* Modo ligero (?ligero=1): sin tramas de puntos ni grano de papel. Para equipos sin aceleración gráfica. (.mc-fx-color-pulso es de la versión 0.2 y ya no se usa.) */
 body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, body.ligero .mc-fx-color-pulso { display: none; }
+
+/* ============================================================ 0.3 · reconstrucción narrativa
+   Efectos de js/efectos.js. Todo lo que se mueve tiene capa propia y solo cambia transformación u
+   opacidad. */
+.mc-vineta-clip img.pixelado, .mc-actor.pixelado img, .mc-imagen.pixelado img { image-rendering: pixelated; }
+.mc-imagen.plana img { filter: drop-shadow(0 0 2px #0b090d) drop-shadow(0 10px 0 rgba(8, 4, 12, 0.5)); }
+
+/* Sello de arte sustituto: solo se ve en la vista previa (con los sellos encendidos). */
+.mc-sello.mc-sello-arte {
+  position: absolute; z-index: 6; transform: rotate(-3deg); font-size: 19px; letter-spacing: 0.14em;
+  color: #0b090d; background: #ffd23a; border: 3px solid #0b090d; padding: 5px 13px 3px; box-shadow: 4px 4px 0 rgba(11, 9, 13, 0.75);
+}
+
+/* Figuras en silueta (invitados, anfitrión, bailarines) */
+.mc-fig { position: absolute; left: 0; top: 0; transform-origin: 50% 100%; will-change: transform, opacity; }
+.mc-fig .cuerpo, .mc-fig .canto { position: absolute; inset: 0; }
+.mc-fig .canto { transform-origin: 50% 52%; }
+.mc-fig.eco, .mc-fig.fuera { mix-blend-mode: normal; }
+
+/* Protagonista formándose: primero contorno, después cuerpo */
+.mc-actor-eco {
+  position: absolute; inset: 0; opacity: 0; background: linear-gradient(180deg, #eafcff, #36e6ff 55%, #7df9ff);
+  filter: drop-shadow(0 0 3px #0b090d) drop-shadow(0 0 14px rgba(125, 249, 255, 0.9)); will-change: opacity;
+}
+.mc-actor:has(.mc-actor-eco) img.activo { opacity: var(--cuerpo, 1); }
+
+.mc-fx-luz { inset: 0; opacity: 0; will-change: opacity; }
+
+/* Ondas de sonido */
+.mc-fx-onda { position: absolute; border-radius: 50%; border-style: solid; opacity: 0; transform: scale(0.04); will-change: transform, opacity; box-sizing: border-box; }
+.mc-fx-espejo { position: absolute; overflow: visible; opacity: 0; transform-origin: 50% 20px; will-change: transform, opacity; }
+.mc-fx-espejo path { fill: none; stroke-linecap: round; }
+.mc-fx-espejo .halo { stroke: rgba(255, 196, 92, 0.28); stroke-width: 46; }
+.mc-fx-espejo .tinta { stroke: #0b090d; stroke-width: 15; }
+.mc-fx-espejo .luz { stroke: #ffd98a; stroke-width: 6; }
+.mc-fx-espejo.devuelve .halo { stroke: rgba(125, 249, 255, 0.3); }
+.mc-fx-espejo.devuelve .luz { stroke: #b8f6ff; }
+
+/* Disco, brazo y nota */
+.mc-fx-disco { position: absolute; overflow: visible; }
+.mc-fx-disco .giro, .mc-fx-disco .brazo, .mc-fx-disco .nota { will-change: transform; }
+.mc-fx-disco .nota { opacity: 0; }
+.mc-fx-disco .trazo { fill: none; stroke: rgba(255, 243, 214, 0.5); stroke-width: 5; stroke-dasharray: 3 17; stroke-linecap: round; }
+.mc-fx-disco .fin { fill: none; stroke: #fff3d6; stroke-width: 5; stroke-dasharray: 9 9; opacity: 0; }
+
+.mc-fx-barra { position: absolute; transform-origin: 50% 100%; transform: scaleY(0.06); background: linear-gradient(180deg, #fff, var(--c) 30%); border: 3px solid #0b090d; box-sizing: border-box; will-change: transform; }
+
+/* La torre: nueve niveles bajo el salón */
+.mc-fx-niveles { position: absolute; inset: 0; }
+.mc-fx-niveles .pozo { position: absolute; background: linear-gradient(180deg, rgba(8, 5, 12, 0), rgba(8, 5, 12, 0.92) 12%, #07040b 100%); opacity: 0; will-change: opacity; }
+.mc-fx-niveles .franja {
+  position: absolute; background-size: cover; background-repeat: no-repeat; border: 7px solid #0b090d; box-sizing: border-box;
+  outline: 5px solid #f3ecd6; opacity: 0; image-rendering: pixelated; will-change: transform, opacity; box-shadow: 0 12px 0 rgba(8, 4, 12, 0.6);
+}
+.mc-fx-niveles .franja.nucleo { outline-color: #fff; box-shadow: 0 0 46px rgba(255, 255, 255, 0.5), 0 12px 0 rgba(8, 4, 12, 0.6); }
+.mc-fx-niveles .columna { position: absolute; transform-origin: 50% 0; transform: scaleY(0); background: linear-gradient(90deg, #17121a, #4a3d33 45%, #17121a); border: 4px solid #0b090d; box-sizing: border-box; will-change: transform; }
+.mc-fx-niveles .hilo { position: absolute; width: 10px; transform-origin: 50% 0; transform: scaleY(0); background: repeating-linear-gradient(180deg, #7df9ff 0 16px, transparent 16px 30px); will-change: transform; }
+
+/* Montaje de la repetición */
+.mc-fx-montaje { position: absolute; inset: 0; }
+.mc-fx-montaje .tira { position: absolute; top: 0; bottom: 0; overflow: hidden; }
+.mc-fx-montaje .fondo { position: absolute; inset: 0; background-size: cover; background-repeat: no-repeat; opacity: 0; image-rendering: pixelated; }
+.mc-fx-montaje .sombra { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(10, 5, 16, 0.15), rgba(10, 5, 16, 0.6)); box-shadow: inset 0 0 0 5px #0b090d; }
+.mc-fx-palotes { position: absolute; overflow: visible; }
+.mc-fx-palotes g { opacity: 0; transform-origin: 0 0; }
+.mc-fx-palotes path { fill: none; stroke-linecap: round; }
+.mc-fx-palotes .borde { stroke: #0b090d; stroke-width: 17; }
+.mc-fx-palotes .tiza { stroke: #fff6dc; stroke-width: 8; }
+
+/* Corrección de la torre y lo que deja fuera */
+.mc-fx-barrido {
+  position: absolute; top: -4%; bottom: -4%; left: 0; opacity: 0; will-change: transform, opacity;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.25) 35%, #fff 50%, rgba(255, 60, 170, 0.55) 62%, transparent);
+  box-shadow: 0 0 40px rgba(255, 255, 255, 0.5);
+}
+.mc-esquirla { position: absolute; left: 0; top: 0; opacity: 0; overflow: visible; will-change: transform, opacity; }
