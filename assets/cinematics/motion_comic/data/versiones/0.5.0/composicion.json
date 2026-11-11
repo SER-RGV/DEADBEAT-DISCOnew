@@ -1,0 +1,2368 @@
+{
+ "version": "0.5.0-preview",
+ "descripcion": "Composición visual del motion comic de la introducción, versión 0.5.0 «La ciudad que no termina». Dieciséis planos en seis bloques: la ciudad, la Primera Noche, el deseo y la Escucha, la ciudad empieza a transformarse, la ciudad devorada, el corazón de la torre. No aparecen el protagonista, el Refugio ni el HUB. Láminas, viñetas, cámara, recortes de arte, personajes y efectos. Este archivo NO contiene textos: todos los textos están en guion.json.",
+ "clasificaciones": {
+  "CANON": "Lo que el plano cuenta está en la Biblia Maestra.",
+  "DISEÑO DEFINIDO": "Puesta en escena ya decidida en versiones anteriores, o hecha solo con arte oficial, que no añade hechos a la biblia.",
+  "PROPUESTA": "PROPUESTA VISUAL: inferencia cinematográfica sin respaldo en la biblia (toda la capa de la ciudad) o arte nuevo sin aprobar que define cómo se ve algo. No es canon."
+ },
+ "lienzo": {
+  "w": 1920,
+  "h": 1080
+ },
+ "bloques": [
+  {
+   "n": 1,
+   "nombre": "La ciudad",
+   "planos": [
+    1,
+    2
+   ]
+  },
+  {
+   "n": 2,
+   "nombre": "La Primera Noche",
+   "planos": [
+    3,
+    4
+   ]
+  },
+  {
+   "n": 3,
+   "nombre": "El deseo y la Escucha",
+   "planos": [
+    5,
+    6,
+    7,
+    8
+   ]
+  },
+  {
+   "n": 4,
+   "nombre": "La ciudad empieza a transformarse",
+   "planos": [
+    9,
+    10,
+    11
+   ]
+  },
+  {
+   "n": 5,
+   "nombre": "La ciudad devorada",
+   "planos": [
+    12,
+    13
+   ]
+  },
+  {
+   "n": 6,
+   "nombre": "El corazón de la torre",
+   "planos": [
+    14,
+    15,
+    16
+   ]
+  }
+ ],
+ "recursos": {
+  "_nota": "Rutas relativas a esta carpeta. Los archivos originales del juego se usan tal cual: no se copian ni se modifican. 'seguro' es la zona de cada imagen que se puede mostrar [x0, y0, x1, y1]; fuera quedan el marco, la miniatura, la paleta y las letras sueltas. 'caja' es la zona del archivo que ocupa una figura.",
+  "_nota_arte_nuevo": "ARTE NUEVO, SIN APROBAR. Los recursos con \"nuevo\": true están en arte_nuevo/ y se han generado con una herramienta de imagen por IA (versiones 0.3.1 y 0.5.0). No son arte oficial del juego ni sustituyen a ningún original. Su origen, su tamaño real y su estado están en arte_nuevo/MANIFIESTO.md. En la vista previa, los planos que los usan llevan el sello «ARTE NUEVO · SIN APROBAR».",
+  "_nota_figuras": "Los invitados y el anfitrión son siluetas: la imagen se usa solo como máscara de recorte.",
+  "_nota_ciudad": "La biblia no describe ninguna ciudad: solo dice que el salón era una antigua estación de tren. Todo lo que aquí se ve fuera de la estación (la ciudad de antes, su transformación y la ciudad repetida) es PROPUESTA VISUAL. El estado transformado usa el arte oficial (cine_bg01 a cine_bg05); el estado anterior es arte nuevo sin aprobar.",
+  "ciudad_antes": {
+   "src": "arte_nuevo/ciudad_antes_de_la_noche.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "fachada": {
+   "src": "arte_nuevo/estacion_fachada.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "corazon": {
+   "src": "arte_nuevo/corazon_torre.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "estacion": {
+   "src": "arte_nuevo/estacion_primera_noche.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "tocadiscos": {
+   "src": "arte_nuevo/tocadiscos_tempo.png",
+   "w": 1024,
+   "h": 1024,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "pozo": {
+   "src": "arte_nuevo/pozo_torre.png",
+   "w": 768,
+   "h": 1376,
+   "seguro": [
+    0,
+    0,
+    1,
+    1
+   ],
+   "nuevo": true
+  },
+  "anfitrion": {
+   "src": "arte_nuevo/anfitrion_contraluz.png",
+   "w": 463,
+   "h": 1255,
+   "caja": [
+    0.026,
+    0.01,
+    0.974,
+    0.99
+   ],
+   "nuevo": true
+  },
+  "pareja_a": {
+   "src": "arte_nuevo/invitados_pareja_a.png",
+   "w": 324,
+   "h": 541,
+   "caja": [
+    0.037,
+    0.022,
+    0.963,
+    0.978
+   ],
+   "nuevo": true
+  },
+  "pareja_b": {
+   "src": "arte_nuevo/invitados_pareja_b.png",
+   "w": 390,
+   "h": 553,
+   "caja": [
+    0.031,
+    0.022,
+    0.969,
+    0.978
+   ],
+   "nuevo": true
+  },
+  "soldado": {
+   "src": "arte_nuevo/invitado_soldado.png",
+   "w": 274,
+   "h": 583,
+   "caja": [
+    0.044,
+    0.021,
+    0.956,
+    0.979
+   ],
+   "nuevo": true
+  },
+  "invitada": {
+   "src": "arte_nuevo/invitada_copa.png",
+   "w": 221,
+   "h": 540,
+   "caja": [
+    0.054,
+    0.022,
+    0.946,
+    0.978
+   ],
+   "nuevo": true
+  },
+  "bg01": {
+   "src": "../backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0.012,
+    0.135,
+    0.988,
+    0.955
+   ]
+  },
+  "bg02": {
+   "src": "../backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0.012,
+    0.135,
+    0.988,
+    0.955
+   ]
+  },
+  "bg03": {
+   "src": "../backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0.012,
+    0.135,
+    0.988,
+    0.955
+   ]
+  },
+  "bg05": {
+   "src": "../backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+   "w": 2560,
+   "h": 1440,
+   "seguro": [
+    0.012,
+    0.135,
+    0.988,
+    0.955
+   ]
+  },
+  "dj_retrato": {
+   "src": "../../ui/dialogue_portrait_dj.png",
+   "w": 512,
+   "h": 512
+  }
+ },
+ "paginas": [
+  {
+   "id": "A",
+   "w": 2140,
+   "h": 2065,
+   "folio": "1",
+   "vinetas": [
+    {
+     "id": "v01",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 1125
+    },
+    {
+     "id": "v02",
+     "x": 70,
+     "y": 1235,
+     "w": 2000,
+     "h": 760
+    }
+   ]
+  },
+  {
+   "id": "B",
+   "w": 2140,
+   "h": 1710,
+   "folio": "2",
+   "vinetas": [
+    {
+     "id": "v03",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 930
+    },
+    {
+     "id": "v04",
+     "x": 70,
+     "y": 1040,
+     "w": 2000,
+     "h": 600
+    }
+   ]
+  },
+  {
+   "id": "C",
+   "w": 2140,
+   "h": 1990,
+   "folio": "3",
+   "vinetas": [
+    {
+     "id": "v05",
+     "x": 70,
+     "y": 70,
+     "w": 1130,
+     "h": 910,
+     "forma": [
+      [
+       0,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       0.948,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "id": "v06",
+     "x": 1180,
+     "y": 70,
+     "w": 890,
+     "h": 910,
+     "forma": [
+      [
+       0.066,
+       0
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    },
+    {
+     "id": "v07",
+     "x": 70,
+     "y": 1020,
+     "w": 940,
+     "h": 900
+    },
+    {
+     "id": "v08",
+     "x": 1050,
+     "y": 1020,
+     "w": 1020,
+     "h": 900
+    }
+   ]
+  },
+  {
+   "id": "D",
+   "w": 2140,
+   "h": 2920,
+   "folio": "4",
+   "vinetas": [
+    {
+     "id": "v09",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 1000
+    },
+    {
+     "id": "v10",
+     "x": 70,
+     "y": 1110,
+     "w": 2000,
+     "h": 800
+    },
+    {
+     "id": "v11",
+     "x": 70,
+     "y": 1950,
+     "w": 2000,
+     "h": 900,
+     "forma": [
+      [
+       0,
+       0.04
+      ],
+      [
+       1,
+       0
+      ],
+      [
+       1,
+       1
+      ],
+      [
+       0,
+       1
+      ]
+     ]
+    }
+   ]
+  },
+  {
+   "id": "E",
+   "w": 2140,
+   "h": 2430,
+   "folio": "5",
+   "vinetas": [
+    {
+     "id": "v12",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 1125
+    },
+    {
+     "id": "v13",
+     "x": 70,
+     "y": 1235,
+     "w": 2000,
+     "h": 1125
+    }
+   ]
+  },
+  {
+   "id": "F",
+   "w": 2140,
+   "h": 3230,
+   "folio": "6",
+   "vinetas": [
+    {
+     "id": "v14",
+     "x": 70,
+     "y": 70,
+     "w": 2000,
+     "h": 760
+    },
+    {
+     "id": "v15",
+     "x": 70,
+     "y": 870,
+     "w": 2000,
+     "h": 1125
+    },
+    {
+     "id": "v16",
+     "x": 70,
+     "y": 2035,
+     "w": 2000,
+     "h": 1125
+    }
+   ]
+  }
+ ],
+ "planos": [
+  {
+   "n": 1,
+   "id": "shot_01_la_ciudad",
+   "nombre": "La ciudad",
+   "encuadre": "Gran plano general",
+   "movimiento": "Avance lento hacia la estación (el encuadre se cierra de todo el ancho al 78 %).",
+   "historia": "Una ciudad industrial, de noche: fábricas, chimeneas, casas con pocas ventanas encendidas, un tren de vapor sobre el viaducto. Es un lugar real, donde vive gente. En el centro, una vieja estación de hierro y cristal es el único edificio lleno de luz: dentro hay una fiesta.",
+   "funcion": "Situar la historia en un lugar reconocible antes de que ocurra nada extraño, y señalar la estación como origen.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "CANON: el salón era una antigua estación de tren y la fiesta celebraba el final de una guerra. PROPUESTA VISUAL: la ciudad que la rodea, que la biblia no describe.",
+   "pulsos": 8,
+   "pagina": "A",
+   "vineta": "v01",
+   "transicion": {
+    "tipo": "inicio"
+   },
+   "revelado": {
+    "desde": 0.2,
+    "pulsos": 1.2
+   },
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.03
+    }
+   },
+   "arte": {
+    "recurso": "ciudad_antes",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    },
+    "a": {
+     "cx": 0.56,
+     "cy": 0.5,
+     "ancho": 0.78
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Ilustración nueva de la ciudad antes de la transformación (arte_nuevo/ciudad_antes_de_la_noche.png), generada por IA en la 0.5.0 tomando la composición del fondo oficial cine_bg01_city. Pendiente de aprobación de dirección de arte.",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(6,8,20,1)",
+     "opacidad": {
+      "de": 0.3,
+      "a": 0.12,
+      "desde": 0.5,
+      "hasta": 6
+     },
+     "nota": "La ciudad está a oscuras; la mirada va a lo único encendido."
+    },
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.6,
+     "y": 0.55,
+     "rx": 0.26,
+     "ry": 0.4,
+     "color": "rgba(255,190,104,.3)",
+     "opacidad": 1,
+     "late": true,
+     "nota": "La estación late con la música de dentro: es lo único que se mueve en toda la ciudad."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      4,
+      5,
+      6,
+      7
+     ],
+     "intensidad": 0.05
+    }
+   ],
+   "bloque": 1
+  },
+  {
+   "n": 2,
+   "id": "shot_02_la_estacion",
+   "nombre": "La estación",
+   "encuadre": "General frontal de la fachada",
+   "movimiento": "Avance hacia la puerta (el encuadre se cierra del 96 % al 62 %).",
+   "historia": "La entrada de la estación desde la calle: ladrillo, hierro remachado, el reloj sobre la puerta, guirnaldas de bombillas y banderines. Detrás de los cristales se adivinan parejas bailando. La cámara va hacia la puerta.",
+   "funcion": "Llevar al espectador de la ciudad al interior, y fijar la fachada que luego se verá cambiar (plano 10).",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "CANON: antigua estación reconvertida en salón. PROPUESTA VISUAL: el aspecto de su fachada.",
+   "pulsos": 5,
+   "pagina": "A",
+   "vineta": "v02",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.8
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.03,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.04
+    }
+   },
+   "arte": {
+    "recurso": "fachada",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.56,
+     "ancho": 0.96
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.6,
+     "ancho": 0.62
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Ilustración nueva de la fachada de la estación (arte_nuevo/estacion_fachada.png), generada por IA en la 0.5.0 tomando la composición del fondo oficial cine_bg02_club_exterior.",
+    "esquina": "abajo-izquierda"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.5,
+     "y": 0.62,
+     "rx": 0.2,
+     "ry": 0.5,
+     "color": "rgba(255,196,110,.34)",
+     "opacidad": 1,
+     "late": true,
+     "nota": "La luz de la fiesta sale por la puerta y late con la música."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "intensidad": 0.06
+    }
+   ],
+   "bloque": 1
+  },
+  {
+   "n": 3,
+   "id": "shot_03_primera_noche",
+   "nombre": "La Primera Noche",
+   "encuadre": "General del interior",
+   "movimiento": "Avance muy leve; los invitados del primer término entran cortados por el borde.",
+   "historia": "Dentro, la estación es un salón de baile: bóveda de cristal, columnas de hierro, el reloj, un vagón en el andén, mesas con velas. Quienes sobrevivieron a la guerra celebran sin miedo: parejas que bailan, soldados que brindan.",
+   "funcion": "Decir qué se celebra y por qué importa: no es una fiesta cualquiera, es el final de una guerra.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §2.1. El dibujo de la estación es arte nuevo sin aprobar.",
+   "pulsos": 8,
+   "pagina": "B",
+   "vineta": "v03",
+   "transicion": {
+    "tipo": "flash",
+    "antes": 0.35,
+    "despues": 0.5
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0,
+     "dx": 0.012
+    },
+    "a": {
+     "zoom": 1.05,
+     "dx": -0.012,
+     "dy": -0.006
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.55,
+     "ancho": 0.98
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.56,
+     "ancho": 0.92
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Ilustración nueva de la estación (arte_nuevo/estacion_primera_noche.png) y siluetas nuevas de invitados. Generadas por IA en la 0.3.1; pendientes de aprobación.",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.5,
+     "y": 0.62,
+     "rx": 0.34,
+     "ry": 0.4,
+     "color": "rgba(255,196,110,.28)",
+     "opacidad": 1,
+     "late": true,
+     "nota": "Las luces de la fiesta laten con la música."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0d0705",
+     "borde": "rgba(255,190,104,.5)",
+     "bote": 10,
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.085,
+       "y": 1.09,
+       "alto": 0.46
+      },
+      {
+       "r": "soldado",
+       "x": 0.215,
+       "y": 1.1,
+       "alto": 0.43
+      },
+      {
+       "r": "invitada",
+       "x": 0.8,
+       "y": 1.1,
+       "alto": 0.42,
+       "espejo": true
+      },
+      {
+       "r": "pareja_b",
+       "x": 0.925,
+       "y": 1.09,
+       "alto": 0.47
+      }
+     ],
+     "nota": "Primer término: parejas, un soldado que brinda y una invitada con su copa. Todos bailan a compás."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      2,
+      4,
+      6
+     ],
+     "intensidad": 0.07
+    }
+   ],
+   "bloque": 2
+  },
+  {
+   "n": 4,
+   "id": "shot_04_los_que_sobrevivieron",
+   "nombre": "Los que sobrevivieron",
+   "encuadre": "Plano medio de grupo",
+   "movimiento": "Deslizamiento lateral corto, a la altura de los hombros.",
+   "historia": "La fiesta, de cerca y a contraluz: una pareja abrazada, un soldado con la gorra puesta que levanta la copa, otra pareja en un giro, una invitada que brinda. No se ve la cara de nadie; se ve el gesto.",
+   "funcion": "Dar escala humana a la celebración antes de que el deseo la convierta en otra cosa.",
+   "clasificacion": "DISEÑO DEFINIDO",
+   "clasificacion_nota": "Los invitados y el soldado son canon (§2.1); las siluetas son diseño de la 0.3.1, sin aprobar.",
+   "pulsos": 5,
+   "pagina": "B",
+   "vineta": "v04",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0,
+     "dx": -0.012
+    },
+    "a": {
+     "zoom": 1.04,
+     "dx": 0.012
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.47,
+     "cy": 0.4,
+     "ancho": 0.42
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.4,
+     "ancho": 0.42
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Fondo: recorte ampliado de la estación nueva (blando a propósito, como fondo desenfocado). Las figuras son las siluetas nuevas de los invitados, ampliadas y cortadas por la cintura. Generadas por IA en la 0.3.1.",
+    "esquina": "arriba-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(255,176,92,1)",
+     "opacidad": 0.14,
+     "nota": "Luz cálida de la fiesta."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0d0705",
+     "borde": "rgba(255,196,120,.6)",
+     "bote": 16,
+     "giro": 1.2,
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.15,
+       "y": 2.1,
+       "alto": 1.98
+      },
+      {
+       "r": "soldado",
+       "x": 0.4,
+       "y": 2.14,
+       "alto": 2.0
+      },
+      {
+       "r": "pareja_b",
+       "x": 0.655,
+       "y": 2.1,
+       "alto": 1.98
+      },
+      {
+       "r": "invitada",
+       "x": 0.9,
+       "y": 2.14,
+       "alto": 2.0,
+       "espejo": true
+      }
+     ],
+     "nota": "Las mismas siluetas del plano 03, ampliadas: la viñeta las corta por la cintura."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4
+     ],
+     "intensidad": 0.07
+    }
+   ],
+   "bloque": 2
+  },
+  {
+   "n": 5,
+   "id": "shot_05_el_deseo",
+   "nombre": "El deseo",
+   "encuadre": "Plano medio, de espaldas",
+   "movimiento": "Avance leve hacia el anfitrión.",
+   "historia": "La fiesta se acaba: la música baja, las luces se enfrían y los invitados dejan de bailar. El anfitrión, de espaldas y a contraluz, levanta la copa y pide que la noche no termine. No se le ve la cara.",
+   "funcion": "La causa. Un deseo comprensible, dicho en voz alta, es lo que lo cambia todo.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §2.3. La biblia lo cuenta en estilo indirecto; ponerlo en boca del anfitrión es una decisión de dirección anterior (0.3.x).",
+   "pulsos": 5,
+   "pagina": "C",
+   "vineta": "v05",
+   "transicion": {
+    "tipo": "pagina",
+    "antes": 1.0,
+    "despues": 0.0
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0,
+     "dy": 0.01
+    },
+    "a": {
+     "zoom": 1.05,
+     "dy": -0.008
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 0.6
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.49,
+     "ancho": 0.57
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Estación y silueta del anfitrión nuevas (arte_nuevo/anfitrion_contraluz.png), generadas por IA en la 0.3.1.",
+    "esquina": "abajo-izquierda"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(92,110,160,1)",
+     "opacidad": {
+      "de": 0,
+      "a": 0.36,
+      "desde": 0.3,
+      "hasta": 4.0
+     },
+     "nota": "La música baja y la luz cálida se enfría: la fiesta se acaba."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#140b08",
+     "borde": "rgba(255,214,160,.4)",
+     "bote": 7,
+     "energia": {
+      "de": 1,
+      "a": 0,
+      "desde": 0.2,
+      "hasta": 2.6
+     },
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.12,
+       "y": 0.97,
+       "alto": 0.34
+      },
+      {
+       "r": "invitada",
+       "x": 0.3,
+       "y": 0.93,
+       "alto": 0.29
+      },
+      {
+       "r": "soldado",
+       "x": 0.9,
+       "y": 0.96,
+       "alto": 0.33,
+       "espejo": true
+      }
+     ],
+     "nota": "Los invitados dejan de bailar: 'energia' baja de 1 a 0 con la música."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0c0706",
+     "borde": "rgba(226,234,255,.75)",
+     "bote": 0,
+     "lista": [
+      {
+       "r": "anfitrion",
+       "x": 0.6,
+       "y": 1.1,
+       "alto": 0.9
+      }
+     ],
+     "nota": "El anfitrión: figura propia, de espaldas, con la copa en alto. Sin rostro y sin nada que diga quién llegará a ser."
+    },
+    {
+     "tipo": "silencio",
+     "hasta": 5
+    }
+   ],
+   "bloque": 3
+  },
+  {
+   "n": 6,
+   "id": "shot_06_la_escucha",
+   "nombre": "La Escucha",
+   "encuadre": "General, en vertical",
+   "movimiento": "La cámara baja por debajo del suelo del salón.",
+   "historia": "La cámara baja por debajo del salón. El deseo desciende como una onda. Abajo no hay nadie: solo una superficie que lo recibe y lo devuelve igual, una y otra vez.",
+   "funcion": "Mostrar la respuesta sin inventar un ser: no hay rostro, cuerpo ni intención; solo algo que repite.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §2.2 y §2.3. Dibujarla como una superficie que devuelve la onda es DISEÑO DEFINIDO desde la 0.3.0.",
+   "pulsos": 9,
+   "pagina": "C",
+   "vineta": "v06",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.9
+   },
+   "revelado": {
+    "desde": 0.1,
+    "pulsos": 0.7
+   },
+   "fondo": "linear-gradient(180deg, #2a1a12 0%, #140c0d 22%, #08060b 60%, #040307 100%)",
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.12,
+     "dy": -0.045
+    },
+    "a": {
+     "zoom": 1.12,
+     "dy": 0.045
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "y": 0.1,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.86,
+     "ancho": 0.7
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.86,
+     "ancho": 0.7
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El suelo del salón es la ilustración nueva de la estación. Lo que hay debajo es dibujo vectorial a propósito: la Escucha no tiene rostro, cuerpo ni forma de criatura.",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 0,
+     "alcance": 88,
+     "color": "rgba(4,3,7,1)",
+     "opacidad": 1,
+     "nota": "El salón queda arriba; hacia abajo, oscuridad."
+    },
+    {
+     "tipo": "ondas",
+     "x": 0.5,
+     "y": 0.19,
+     "radio": 0.74,
+     "n": 5,
+     "desde": 0.2,
+     "cada": 0.6,
+     "dura": 2.9,
+     "color": "#ffcf7a",
+     "grosor": 13,
+     "nota": "El deseo, bajando."
+    },
+    {
+     "tipo": "espejo_acustico",
+     "x": 0.5,
+     "y": 0.84,
+     "ancho": 0.86,
+     "flecha": 0.045,
+     "desde": 1.4,
+     "golpes": [
+      3.1,
+      3.7,
+      4.3
+     ],
+     "nota": "La Escucha no se dibuja como un ser: es la superficie donde la onda rebota."
+    },
+    {
+     "tipo": "ondas",
+     "x": 0.5,
+     "y": 0.86,
+     "radio": 0.74,
+     "n": 5,
+     "desde": 5.2,
+     "cada": 0.6,
+     "dura": 2.9,
+     "color": "#ffcf7a",
+     "grosor": 13,
+     "discontinua": true,
+     "nota": "La misma onda, devuelta: mismo color, mismo ritmo. No decide ni interpreta: repite. Esta onda devuelta es la que, en el bloque 4, se verá salir de la estación."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      5.2,
+      5.8,
+      6.4,
+      7.0,
+      7.6
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 3
+  },
+  {
+   "n": 7,
+   "id": "shot_07_nota_que_no_termina",
+   "nombre": "La nota que no termina",
+   "encuadre": "Detalle, desde arriba",
+   "movimiento": "Avance leve sobre el disco.",
+   "historia": "El tocadiscos de Tempo, desde arriba. La aguja salta al mismo surco y la última nota vuelve a salir antes de acabar, una vez y otra. Tempo lo nota.",
+   "funcion": "La música deja de avanzar: es la primera prueba, pequeña y concreta, de que la noche se repite.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §3.1. La onomatopeya «TAC» es PROPUESTA. El retrato de Tempo es el oficial del juego, con su aspecto dentro de la torre.",
+   "pulsos": 4,
+   "pagina": "C",
+   "vineta": "v07",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.4
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.06
+    }
+   },
+   "arte": {
+    "recurso": "tocadiscos",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Primer plano nuevo del tocadiscos (arte_nuevo/tocadiscos_tempo.png), generado por IA en la 0.3.1.",
+    "esquina": "abajo-izquierda"
+   },
+   "actores": [
+    {
+     "id": "tempo",
+     "tipo": "inserto",
+     "recurso": "dj_retrato",
+     "centro": [
+      0.17,
+      0.17
+     ],
+     "ancho": 0.27,
+     "giro": -4,
+     "entra": 2.2,
+     "boca": [
+      0.42,
+      0.66
+     ],
+     "nota": "Retrato oficial de Tempo. Entra cuando la nota ya ha vuelto dos veces: es él quien lo nota."
+    }
+   ],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(10,5,8,1)",
+     "opacidad": 0.22
+    },
+    {
+     "tipo": "tocadiscos",
+     "etiqueta": {
+      "x": 0.441,
+      "y": 0.478,
+      "r": 0.127
+     },
+     "aguja": [
+      0.585,
+      0.71
+     ],
+     "vuelta": 4,
+     "saltos": [
+      1,
+      2,
+      3
+     ],
+     "tramo": 1,
+     "nota_hasta": [
+      0.47,
+      0.085
+     ],
+     "arco": 0.03,
+     "tam_nota": 0.05,
+     "nota": "La etiqueta gira una vuelta cada 4 pulsos. En cada salto retrocede un cuarto de vuelta y la nota, que ya había recorrido casi todo su arco, vuelve a salir de la aguja."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      2,
+      3
+     ],
+     "amplitud": 3
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0
+     ],
+     "intensidad": 0.06
+    }
+   ],
+   "bloque": 3
+  },
+  {
+   "n": 8,
+   "id": "shot_08_unos_minutos_mas",
+   "nombre": "Unos minutos más",
+   "encuadre": "Plano medio con recuadros",
+   "movimiento": "Avance leve; entran dos recuadros (Tempo y el segundo disco).",
+   "historia": "Tempo podía dejar acabar el disco. Mira a los invitados, que están a punto de irse, los ve felices y enlaza otra canción. La sala vuelve a encenderse y todos bailan otra vez. No es un gesto cruel: es compasión, y es un error.",
+   "funcion": "La segunda causa: alguien, por cariño, da cuerda a la repetición. A partir de aquí la música ya no para.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §3.1, casi palabra por palabra.",
+   "pulsos": 7,
+   "pagina": "C",
+   "vineta": "v08",
+   "transicion": {
+    "tipo": "latigazo",
+    "despues": 0.6
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.6
+   },
+   "camara": {
+    "margen": 0.05,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.05,
+     "dy": -0.006
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.6,
+     "ancho": 0.5
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.595,
+     "ancho": 0.47
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Estación, tocadiscos e invitados nuevos, generados por IA en la 0.3.1. El retrato de Tempo es el oficial.",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [
+    {
+     "id": "tempo",
+     "tipo": "inserto",
+     "recurso": "dj_retrato",
+     "centro": [
+      0.83,
+      0.25
+     ],
+     "ancho": 0.29,
+     "giro": -3,
+     "entra": 0.3,
+     "boca": [
+      0.42,
+      0.66
+     ]
+    },
+    {
+     "id": "segundo_disco",
+     "tipo": "inserto",
+     "recurso": "tocadiscos",
+     "recorte": [
+      0.03,
+      0.05,
+      0.86,
+      0.88
+     ],
+     "centro": [
+      0.615,
+      0.43
+     ],
+     "ancho": 0.2,
+     "giro": 7,
+     "entra": 2.6,
+     "nota": "El segundo disco: Tempo enlaza otra canción en el pulso 2,6."
+    }
+   ],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "plana",
+     "color": "rgba(28,24,44,1)",
+     "opacidad": {
+      "de": 0.5,
+      "a": 0.0,
+      "desde": 2.6,
+      "hasta": 4.0
+     },
+     "nota": "La sala se estaba apagando; con la nueva canción vuelve la luz."
+    },
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.5,
+     "y": 0.5,
+     "rx": 0.7,
+     "ry": 0.6,
+     "color": "rgba(255,186,96,.34)",
+     "opacidad": {
+      "de": 0,
+      "a": 1,
+      "desde": 2.6,
+      "hasta": 4.2
+     },
+     "late": true
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0d0705",
+     "borde": "rgba(255,196,120,.75)",
+     "bote": 15,
+     "energia": {
+      "de": 0.1,
+      "a": 1,
+      "desde": 2.6,
+      "hasta": 4.0
+     },
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.13,
+       "y": 1.08,
+       "alto": 0.5
+      },
+      {
+       "r": "invitada",
+       "x": 0.37,
+       "y": 1.1,
+       "alto": 0.46
+      },
+      {
+       "r": "pareja_b",
+       "x": 0.62,
+       "y": 1.08,
+       "alto": 0.5
+      },
+      {
+       "r": "soldado",
+       "x": 0.87,
+       "y": 1.1,
+       "alto": 0.47,
+       "espejo": true
+      }
+     ],
+     "nota": "Los invitados iban a parar; con la nueva canción vuelven a bailar, todos a compás."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      2.6,
+      3.6,
+      4.6,
+      5.6,
+      6.6
+     ],
+     "intensidad": 0.09
+    }
+   ],
+   "bloque": 3
+  },
+  {
+   "n": 9,
+   "id": "shot_09_el_salon_cambia",
+   "nombre": "El salón cambia",
+   "encuadre": "General del interior",
+   "movimiento": "El mismo encuadre del plano 03, casi fijo: lo que se mueve es el lugar.",
+   "historia": "El mismo salón del plano 03. Desde el templete de la música sale un aro de luz que crece con cada pulso. Lo que queda dentro ya no es la estación: las columnas de hierro son pilares góticos, las guirnaldas son focos, el suelo es una pista. Los invitados siguen bailando sin darse cuenta.",
+   "funcion": "Primer cambio visible. La repetición deja de ser un sonido y empieza a rehacer el espacio, desde dentro.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "CANON: la torre nace de la repetición y conserva rastros de la estación (§2.3, §5.1). PROPUESTA VISUAL: que el cambio avance como una onda circular desde la música. La pista es el fondo oficial cine_bg05_dancefloor.",
+   "pulsos": 7,
+   "pagina": "D",
+   "vineta": "v09",
+   "transicion": {
+    "tipo": "pagina",
+    "antes": 1.0,
+    "despues": 0.0
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.5
+   },
+   "camara": {
+    "margen": 0.04,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.04
+    }
+   },
+   "arte": {
+    "recurso": "estacion",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.55,
+     "ancho": 0.98
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.56,
+     "ancho": 0.94
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El «antes» es la estación nueva (IA, 0.3.1) y las siluetas de invitados. El «después» es arte oficial (cine_bg05_dancefloor).",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "transforma",
+     "recurso": "bg05",
+     "x": 0.5,
+     "y": 0.62,
+     "claves": [
+      {
+       "en": 1.0,
+       "r": 0
+      },
+      {
+       "en": 2,
+       "r": 0.09,
+       "suave": "golpe"
+      },
+      {
+       "en": 3,
+       "r": 0.2,
+       "suave": "golpe"
+      },
+      {
+       "en": 4,
+       "r": 0.34,
+       "suave": "golpe"
+      },
+      {
+       "en": 5,
+       "r": 0.5,
+       "suave": "golpe"
+      },
+      {
+       "en": 6,
+       "r": 0.7,
+       "suave": "golpe"
+      }
+     ],
+     "ecos": 2,
+     "nota": "El círculo crece a golpes, uno por pulso, entre los pulsos 1 y 6. Dentro, la pista oficial; fuera, la estación."
+    },
+    {
+     "tipo": "figuras",
+     "color": "#0d0705",
+     "borde": "rgba(255,120,190,.55)",
+     "bote": 11,
+     "lista": [
+      {
+       "r": "pareja_a",
+       "x": 0.085,
+       "y": 1.09,
+       "alto": 0.46
+      },
+      {
+       "r": "soldado",
+       "x": 0.215,
+       "y": 1.1,
+       "alto": 0.43
+      },
+      {
+       "r": "invitada",
+       "x": 0.8,
+       "y": 1.1,
+       "alto": 0.42,
+       "espejo": true
+      },
+      {
+       "r": "pareja_b",
+       "x": 0.925,
+       "y": 1.09,
+       "alto": 0.47
+      }
+     ],
+     "nota": "Los mismos invitados del plano 03, en el mismo sitio. Siguen bailando."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "amplitud": 4
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 4
+  },
+  {
+   "n": 10,
+   "id": "shot_10_las_puertas",
+   "nombre": "Las puertas",
+   "encuadre": "General frontal de la fachada",
+   "movimiento": "El mismo encuadre del plano 02, alejándose un poco: la onda sale hacia la cámara.",
+   "historia": "La fachada del plano 02. El aro de luz sale por la puerta y recorre el edificio: el ladrillo se vuelve piedra tallada, las ventanas se llenan de vidrieras rosas, las farolas son estatuas, el reloj es un escudo dorado. La luz se derrama sobre el suelo mojado de la calle.",
+   "funcion": "El cambio sale del salón. El mismo edificio, antes y después, en el mismo encuadre: se ve que ha sido absorbido y rehecho, no destruido.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "PROPUESTA VISUAL. La biblia dice que las puertas dejaron de llevar al exterior (§2.3); no dice que el cambio saliera a la calle. El «después» es el fondo oficial cine_bg02_club_exterior.",
+   "pulsos": 5,
+   "pagina": "D",
+   "vineta": "v10",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.4
+   },
+   "camara": {
+    "margen": 0.03,
+    "de": {
+     "zoom": 1.03
+    },
+    "a": {
+     "zoom": 1.0
+    }
+   },
+   "arte": {
+    "recurso": "fachada",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.58,
+     "ancho": 0.9
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.58,
+     "ancho": 0.96
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El «antes» es la fachada nueva (IA, 0.5.0). El «después» es arte oficial (cine_bg02_club_exterior).",
+    "esquina": "abajo-izquierda"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "transforma",
+     "recurso": "bg02",
+     "x": 0.5,
+     "y": 0.62,
+     "claves": [
+      {
+       "en": 0.5,
+       "r": 0
+      },
+      {
+       "en": 1,
+       "r": 0.07,
+       "suave": "golpe"
+      },
+      {
+       "en": 2,
+       "r": 0.2,
+       "suave": "golpe"
+      },
+      {
+       "en": 3,
+       "r": 0.38,
+       "suave": "golpe"
+      },
+      {
+       "en": 4,
+       "r": 0.66,
+       "suave": "golpe"
+      }
+     ],
+     "ecos": 2,
+     "nota": "La onda sale por la puerta en el pulso 0,5 y cubre la fachada en el 4."
+    },
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 0,
+     "alcance": 46,
+     "color": "rgba(255,45,149,.4)",
+     "opacidad": {
+      "de": 0,
+      "a": 1,
+      "desde": 2,
+      "hasta": 4.5
+     },
+     "late": true,
+     "nota": "La luz de dentro, ya rosa, se derrama por la calle."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "amplitud": 5
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      1,
+      2,
+      3,
+      4
+     ],
+     "intensidad": 0.09
+    }
+   ],
+   "bloque": 4
+  },
+  {
+   "n": 11,
+   "id": "shot_11_la_calle",
+   "nombre": "La calle",
+   "encuadre": "Plano de conjunto: la estación y su calle",
+   "movimiento": "Retroceso corto (el encuadre se abre del 74 % al 86 %).",
+   "historia": "La estación vista desde la calle, con las casas de al lado. El aro de luz sale del edificio: donde estaba la estación se levanta una torre gótica encendida; la onda alcanza las primeras casas, las farolas, el empedrado. Lo que toca toma el aspecto del salón.",
+   "funcion": "El cambio alcanza otros edificios. La estación deja de ser un edificio y empieza a ser la torre.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "PROPUESTA VISUAL: la biblia no describe la calle ni dice que otros edificios cambiaran. El «después» es el fondo oficial cine_bg01_city.",
+   "pulsos": 6,
+   "pagina": "D",
+   "vineta": "v11",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.7
+   },
+   "revelado": {
+    "desde": 0.05,
+    "pulsos": 0.4
+   },
+   "camara": {
+    "margen": 0.03,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.0
+    }
+   },
+   "arte": {
+    "recurso": "ciudad_antes",
+    "de": {
+     "cx": 0.6,
+     "cy": 0.52,
+     "ancho": 0.74
+    },
+    "a": {
+     "cx": 0.57,
+     "cy": 0.52,
+     "ancho": 0.86
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El «antes» es la ciudad nueva (IA, 0.5.0). El «después» es arte oficial (cine_bg01_city).",
+    "esquina": "arriba-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "transforma",
+     "recurso": "bg01",
+     "x": 0.62,
+     "y": 0.56,
+     "foco": [
+      0.62,
+      0.5
+     ],
+     "claves": [
+      {
+       "en": 0.4,
+       "r": 0.0
+      },
+      {
+       "en": 1,
+       "r": 0.05,
+       "suave": "golpe"
+      },
+      {
+       "en": 2,
+       "r": 0.1,
+       "suave": "golpe"
+      },
+      {
+       "en": 3,
+       "r": 0.15,
+       "suave": "golpe"
+      },
+      {
+       "en": 4,
+       "r": 0.2,
+       "suave": "golpe"
+      },
+      {
+       "en": 5,
+       "r": 0.25,
+       "suave": "golpe"
+      }
+     ],
+     "ecos": 2,
+     "nota": "El círculo sale de la estación en el pulso 0,4 y en el 5 ya alcanza las casas de al lado (radio 0,25 del ancho de la ilustración)."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "amplitud": 5
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5
+     ],
+     "intensidad": 0.09
+    }
+   ],
+   "bloque": 4
+  },
+  {
+   "n": 12,
+   "id": "shot_12_los_barrios",
+   "nombre": "Los barrios",
+   "encuadre": "Gran plano general: la ciudad entera",
+   "movimiento": "Cámara fija en el encuadre del plano 01; una sacudida con cada avance de la onda.",
+   "historia": "El mismo encuadre con el que empezó la historia: la ciudad entera. La onda sigue creciendo a golpes, con cada pulso: los edificios vecinos, el barrio, el viaducto con su tren, las fábricas, el río. Cuando termina, ya no queda nada de la ciudad de antes: torres góticas, puentes, luces rosas, un tren encendido cruzando el viaducto. La ciudad sigue ahí, pero es otra.",
+   "funcion": "El punto fuerte. Se entiende la escala: no ha cambiado un edificio, ha cambiado todo.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "PROPUESTA VISUAL: la «ciudad devorada» es una interpretación cinematográfica del encargo 0.5.0; la biblia no menciona ninguna ciudad. La ciudad transformada es el fondo oficial cine_bg01_city.",
+   "pulsos": 8,
+   "pagina": "E",
+   "vineta": "v12",
+   "transicion": {
+    "tipo": "pagina",
+    "antes": 0.8,
+    "despues": 0.0
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.4
+   },
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.0
+    },
+    "nota": "El retroceso por pasos del bloque se hace de plano en plano: fachada (10), calle (11), ciudad (12) y más allá de la ciudad (13, dos pasos). Aquí la cámara no se mueve: así el encuadre final coincide con el arranque del plano 13."
+   },
+   "arte": {
+    "recurso": "ciudad_antes",
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El «antes» es la ciudad nueva (IA, 0.5.0). El «después» es arte oficial (cine_bg01_city).",
+    "esquina": "abajo-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "transforma",
+     "recurso": "bg01",
+     "x": 0.62,
+     "y": 0.56,
+     "foco": [
+      0.62,
+      0.5
+     ],
+     "claves": [
+      {
+       "en": 0,
+       "r": 0.25
+      },
+      {
+       "en": 1,
+       "r": 0.31,
+       "suave": "golpe"
+      },
+      {
+       "en": 2,
+       "r": 0.38,
+       "suave": "golpe"
+      },
+      {
+       "en": 3,
+       "r": 0.46,
+       "suave": "golpe"
+      },
+      {
+       "en": 4,
+       "r": 0.55,
+       "suave": "golpe"
+      },
+      {
+       "en": 5,
+       "r": 0.65,
+       "suave": "golpe"
+      },
+      {
+       "en": 6,
+       "r": 0.76,
+       "suave": "golpe"
+      }
+     ],
+     "ecos": 2,
+     "nota": "Sigue desde donde lo dejó el plano 11 (radio 0,25) y cubre toda la ilustración en el pulso 6. Los dos últimos pulsos son la ciudad transformada, entera y quieta."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "amplitud": 6,
+     "primero": 8
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "intensidad": 0.09
+    }
+   ],
+   "bloque": 5
+  },
+  {
+   "n": 13,
+   "id": "shot_13_la_ciudad_devorada",
+   "nombre": "La ciudad devorada",
+   "encuadre": "Gran plano general que se abre más allá de la ciudad",
+   "movimiento": "Dos retrocesos a golpe (pulsos 1 y 3) que sacan la ciudad del centro de la viñeta.",
+   "historia": "La ciudad transformada llena la viñeta. La cámara retrocede otra vez, y otra: a los lados aparece la misma ciudad, repetida como en un espejo; debajo, separada por un forjado, la misma ciudad otra vez, y debajo otra, cada una más oscura. Lo que parecía una ciudad entera es un solo nivel de una estructura que se repite hacia los lados y hacia abajo.",
+   "funcion": "La revelación de escala: la ciudad entera es ahora una pieza de la torre, y la torre no termina.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "CANON: los espacios se repiten y la torre crece hacia abajo (§2.3, §5.1). PROPUESTA VISUAL: enseñarlo repitiendo en espejo la ilustración oficial de la ciudad. No es un dibujo nuevo: es el fondo oficial cine_bg01_city compuesto por el motor.",
+   "pulsos": 7,
+   "pagina": "E",
+   "vineta": "v13",
+   "transicion": {
+    "tipo": "corte"
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.01
+   },
+   "fondo": "#07030d",
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.0
+    }
+   },
+   "arte": {
+    "recurso": "bg01",
+    "oculto": true,
+    "recorte_seguro": true,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.545,
+     "ancho": 0.82
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.545,
+     "ancho": 0.82
+    }
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "repite",
+     "recurso": "bg01",
+     "foco": [
+      0.62,
+      0.5
+     ],
+     "lado": 3,
+     "filas": 4,
+     "oscurece": 0.24,
+     "oscurece_lado": 0.1,
+     "ancla": [
+      0.5,
+      0.0
+     ],
+     "losa": 0.16,
+     "desfase": 0.5,
+     "claves": [
+      {
+       "en": 0,
+       "s": 1.0
+      },
+      {
+       "en": 1.0,
+       "s": 1.0
+      },
+      {
+       "en": 1.9,
+       "s": 0.6,
+       "suave": "golpe"
+      },
+      {
+       "en": 3.0,
+       "s": 0.58
+      },
+      {
+       "en": 3.9,
+       "s": 0.36,
+       "suave": "golpe"
+      },
+      {
+       "en": 7,
+       "s": 0.32
+      }
+     ],
+     "nota": "Una casilla = la ciudad transformada del plano 12, con el mismo encuadre. Las casillas vecinas son su espejo. Cada fila es un nivel: la misma ciudad debajo de la ciudad, separada por un forjado, desplazada media casilla y más oscura."
+    },
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 0,
+     "alcance": 40,
+     "color": "rgba(7,3,13,.9)",
+     "opacidad": {
+      "de": 0,
+      "a": 1,
+      "desde": 3,
+      "hasta": 4.5
+     },
+     "nota": "Hacia abajo, la estructura se pierde en la oscuridad: no se ve dónde acaba."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      1,
+      3
+     ],
+     "amplitud": 8,
+     "primero": 10
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "intensidad": 0.1
+    }
+   ],
+   "bloque": 5
+  },
+  {
+   "n": 14,
+   "id": "shot_14_hacia_el_centro",
+   "nombre": "Hacia el centro",
+   "encuadre": "Frontal, avance rápido",
+   "movimiento": "Avance rápido hacia la puerta (el encuadre se cierra del 70 % al 36 %) y, a través de ella, por el pasillo (del 58 % al 42 %).",
+   "historia": "La puerta del edificio transformado, de frente. La cámara va hacia ella y la atraviesa: detrás no hay un vestíbulo, hay un pasillo de arcos iguales que se repiten hasta perderse.",
+   "funcion": "Pasar del exterior al interior: después de ver hasta dónde llega, ver qué hay dentro.",
+   "clasificacion": "DISEÑO DEFINIDO",
+   "clasificacion_nota": "Fondos oficiales cine_bg02_club_exterior y cine_bg03_entrance. Los dos son arte oficial sin modificar. Unirlos con un avance a través de la puerta es una decisión de montaje: no añade ningún hecho a la biblia.",
+   "pulsos": 4,
+   "pagina": "F",
+   "vineta": "v14",
+   "transicion": {
+    "tipo": "pagina",
+    "antes": 0.6,
+    "despues": 0.0
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.3
+   },
+   "fondo": "#07030d",
+   "camara": {
+    "margen": 0.03,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.06
+    }
+   },
+   "arte": {
+    "recurso": "bg02",
+    "recorte_seguro": true,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.56,
+     "ancho": 0.7
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.6,
+     "ancho": 0.36
+    }
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "transforma",
+     "recurso": "bg03",
+     "x": 0.5,
+     "y": 0.52,
+     "encuadre": {
+      "de": {
+       "cx": 0.69,
+       "cy": 0.6,
+       "ancho": 0.58
+      },
+      "a": {
+       "cx": 0.69,
+       "cy": 0.6,
+       "ancho": 0.42
+      }
+     },
+     "ecos": 0,
+     "vel_ref": 0.2,
+     "claves": [
+      {
+       "en": 0,
+       "r": 0
+      },
+      {
+       "en": 0.9,
+       "r": 0
+      },
+      {
+       "en": 2.6,
+       "r": 0.56,
+       "suave": "arranca"
+      }
+     ],
+     "nota": "La puerta se abre en círculo desde su centro: detrás aparece el pasillo de arcos (cine_bg03_entrance), con su propio encuadre, centrado en el punto de fuga."
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3
+     ],
+     "intensidad": 0.09
+    }
+   ],
+   "bloque": 6
+  },
+  {
+   "n": 15,
+   "id": "shot_15_los_niveles",
+   "nombre": "Los niveles",
+   "encuadre": "Corte vertical, cámara que baja",
+   "movimiento": "Descenso continuo que se acelera; no se detiene al acabar el plano.",
+   "historia": "Por dentro, la torre es un pozo. A cada lado pasan balcones, pasarelas y salas, todas con la misma arquitectura y cada una con una luz distinta: rosa, ámbar, azul, roja, verde, violeta. La cámara baja cada vez más deprisa y los niveles no se acaban.",
+   "funcion": "Enseñar qué es la torre por dentro: niveles que se repiten, cada uno regido por un deseo distinto, y siempre hacia abajo.",
+   "clasificacion": "CANON",
+   "clasificacion_nota": "Biblia §2.3 («El salón creció hacia abajo…», «Los deseos más intensos… se convirtieron en las leyes de cada pista»). El dibujo del pozo es arte nuevo sin aprobar (0.3.1).",
+   "pulsos": 8,
+   "pagina": "F",
+   "vineta": "v15",
+   "transicion": {
+    "tipo": "deslizar",
+    "despues": 0.5
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.3
+   },
+   "fondo": "#07040b",
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.04
+    }
+   },
+   "arte": {
+    "recurso": "pozo",
+    "oculto": true,
+    "de": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    },
+    "a": {
+     "cx": 0.5,
+     "cy": 0.5,
+     "ancho": 1.0
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "El corte del pozo (arte_nuevo/pozo_torre.png) es una ilustración nueva generada por IA en la 0.3.1. Aquí se repite tres veces, una debajo de otra.",
+    "esquina": "arriba-derecha"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "descenso",
+     "secciones": [
+      {
+       "recurso": "pozo",
+       "alto": 2.5481,
+       "ancho": 1.25,
+       "cx": 0.5,
+       "cy": 0.5,
+       "nota": "El pozo: balcones, pasarelas y una luz distinta por nivel."
+      },
+      {
+       "recurso": "pozo",
+       "alto": 2.5481,
+       "ancho": 1.25,
+       "cx": 0.5,
+       "cy": 0.5,
+       "losa": true,
+       "tinte": "rgba(6,3,12,.2)",
+       "nota": "Los mismos niveles, otra vez, más oscuros."
+      },
+      {
+       "recurso": "pozo",
+       "alto": 2.5481,
+       "ancho": 1.25,
+       "cx": 0.5,
+       "cy": 0.5,
+       "losa": true,
+       "tinte": "rgba(6,3,12,.42)",
+       "nota": "Y otra vez."
+      }
+     ],
+     "claves": [
+      {
+       "en": 0,
+       "y": 0
+      },
+      {
+       "en": 0.4,
+       "y": 0
+      },
+      {
+       "en": 8,
+       "y": 6.644,
+       "suave": "arranca"
+      }
+     ],
+     "lineas": {
+      "n": 18,
+      "vel_ref": 1.2
+     },
+     "nota": "La tira de niveles sube y la cámara se queda quieta: se lee como una bajada. Acelera hasta el final del plano."
+    },
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 90,
+     "alcance": 22,
+     "color": "rgba(7,4,11,1)",
+     "opacidad": 1,
+     "nota": "Los lados del pozo se pierden en la oscuridad."
+    },
+    {
+     "tipo": "luz",
+     "forma": "lineal",
+     "angulo": 270,
+     "alcance": 22,
+     "color": "rgba(7,4,11,1)",
+     "opacidad": 1
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7
+     ],
+     "intensidad": 0.08
+    }
+   ],
+   "bloque": 6
+  },
+  {
+   "n": 16,
+   "id": "shot_16_el_corazon",
+   "nombre": "El corazón de la torre",
+   "encuadre": "Picado total: el pozo visto desde arriba",
+   "movimiento": "Avance hacia el centro mientras la ilustración gira despacio, como un disco. Corte a negro en el pulso 7.",
+   "historia": "La cámara mira hacia abajo, en vertical. Los niveles son anillos, uno dentro de otro, cada uno con su luz, cruzados por pasarelas; giran despacio, como el surco de un disco, y se hacen más pequeños hasta un punto negro en el centro. La cámara cae hacia ese punto. No se ve qué hay en el fondo. Corte a negro.",
+   "funcion": "La imagen final: una profundidad imposible. La introducción termina con una pregunta, no con una explicación.",
+   "clasificacion": "PROPUESTA",
+   "clasificacion_nota": "CANON: la torre crece hacia abajo «como un surco que se hunde en un disco» (§2.3). PROPUESTA VISUAL: la vista en picado y la ilustración, que es arte nuevo sin aprobar (0.5.0). No se enseña ni se explica el fondo.",
+   "pulsos": 8,
+   "pagina": "F",
+   "vineta": "v16",
+   "transicion": {
+    "tipo": "impacto",
+    "despues": 0.6
+   },
+   "revelado": {
+    "desde": 0,
+    "pulsos": 0.25
+   },
+   "fondo": "#000",
+   "negro": {
+    "desde": 7,
+    "nota": "Corte a negro de pantalla entera en el pulso 7 (48,281 s). El último pulso es negro: es el hueco para el golpe final de sonido."
+   },
+   "camara": {
+    "margen": 0.02,
+    "de": {
+     "zoom": 1.0
+    },
+    "a": {
+     "zoom": 1.0
+    }
+   },
+   "arte": {
+    "recurso": "corazon",
+    "de": {
+     "cx": 0.497,
+     "cy": 0.5,
+     "ancho": 0.84,
+     "giro": -7
+    },
+    "a": {
+     "cx": 0.497,
+     "cy": 0.5,
+     "ancho": 0.5,
+     "giro": 16
+    }
+   },
+   "provisional": {
+    "tipo": "nuevo",
+    "motivo": "Ilustración nueva del interior de la torre visto desde arriba (arte_nuevo/corazon_torre.png), generada por IA en la 0.5.0.",
+    "esquina": "abajo-izquierda"
+   },
+   "actores": [],
+   "fx": [
+    {
+     "tipo": "luz",
+     "forma": "radial",
+     "x": 0.5,
+     "y": 0.5,
+     "rx": 0.16,
+     "ry": 0.26,
+     "color": "rgba(0,0,0,1)",
+     "opacidad": {
+      "de": 0.2,
+      "a": 1,
+      "desde": 1,
+      "hasta": 6.8
+     },
+     "nota": "El centro se hace más negro según la cámara se acerca."
+    },
+    {
+     "tipo": "temblor",
+     "golpes": [
+      6
+     ],
+     "amplitud": 8,
+     "primero": 10
+    },
+    {
+     "tipo": "latido",
+     "golpes": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+     ],
+     "intensidad": 0.1
+    }
+   ],
+   "bloque": 6
+  }
+ ]
+}

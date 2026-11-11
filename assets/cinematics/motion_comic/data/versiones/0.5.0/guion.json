@@ -1,0 +1,417 @@
+{
+  "version": "0.5.0-preview",
+  "titulo": "DEADBEAT DISCO · Introducción · Motion comic · La ciudad que no termina",
+  "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos. Cada texto dice de dónde sale: literal, adaptado o nuevo propuesto.",
+  "tempo": {
+    "bpm": 128,
+    "compas": 4,
+    "pulsos_totales": 104,
+    "planos": 16,
+    "duracion_s": 48.75,
+    "nota": "104 pulsos a 128 BPM = 48,750 s exactos (26 compases de 4). Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Dieciséis planos en seis bloques. Pulsos por plano: 8, 5 · 8, 5 · 5, 9, 4, 7 · 7, 5, 6 · 8, 7 · 4, 8, 8. Pulsos por bloque: 13, 13, 25, 18, 15, 20."
+  },
+  "lectura": {
+    "cps_comodo": 17,
+    "cps_maximo": 21,
+    "minimo_s": 0.9,
+    "tam_minimo_px": 26,
+    "contraste_minimo": 7,
+    "margen_seguro": 0.035,
+    "nota": "cps = caracteres por segundo. Hasta 17 se lee con comodidad; entre 17 y 21 es rápido; por encima de 21 no da tiempo. Las onomatopeyas, el rótulo de neón y las cartelas no cuentan como lectura obligatoria."
+  },
+  "estados": {
+    "literal": "Texto que existe letra por letra en una fuente del repositorio. 'fuente.cita' es el propio texto y el validador comprueba que aparece en 'fuente.archivo'.",
+    "adaptado": "Redacción de dirección que cuenta con otras palabras un pasaje de la biblia. 'fuente.cita' guarda el pasaje literal que adapta, y el validador comprueba que existe en 'fuente.archivo'. 'fuente.fijado' guarda el texto exacto entregado: si se retoca, deja de coincidir y pasa a BORRADOR. Cuando la redacción es nueva de esta versión, 'fuente.nota' lo dice.",
+    "propuesto": "PROPUESTA. Texto nuevo sin respaldo literal en la biblia ni en el juego, pendiente de decisión. No es canon. En la vista previa lleva el sello «PROPUESTA».",
+    "borrador": "BORRADOR. Texto retocado o escrito en la vista previa que todavía no ha revisado nadie. No es canon y no está aprobado."
+  },
+  "personajes": {
+    "tempo": {
+      "nombre": "TEMPO",
+      "rol": "Tempo",
+      "nota": "Ningún texto de la intro lleva su rótulo: su frase es narración. El nombre no aparece en pantalla; sigue pendiente decidir si debe aparecer. Nombre vigente según la biblia narrativa (§3). El HUB del juego todavía dice «DJ VIRGILIO» (src/dd_hub_system.js); este trabajo no lo toca."
+    },
+    "anfitrion": {
+      "nombre": "",
+      "rol": "Anfitrión",
+      "nota": "El anfitrión de la Primera Noche. Sin nombre, sin rostro y sin etiqueta: la intro no dice quién llegará a ser."
+    }
+  },
+  "estilos": {
+    "dialogo": {
+      "fuente": "Comic Neue",
+      "tam": 35,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#fffbe9",
+      "borde": "#111016",
+      "grosor": 6,
+      "ancho": 430
+    },
+    "pensamiento": {
+      "fuente": "Comic Neue",
+      "cursiva": true,
+      "tam": 33,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#fffbe9",
+      "borde": "#111016",
+      "grosor": 5,
+      "ancho": 400
+    },
+    "grito": {
+      "fuente": "Bangers",
+      "tam": 50,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#ffe94a",
+      "borde": "#111016",
+      "grosor": 7,
+      "ancho": 560
+    },
+    "susurro": {
+      "fuente": "Comic Neue",
+      "cursiva": true,
+      "tam": 31,
+      "mayusculas": true,
+      "color": "#2e2a36",
+      "fondo": "#f4f0e2",
+      "borde": "#2b2733",
+      "grosor": 4,
+      "discontinuo": "14 11",
+      "ancho": 430
+    },
+    "narrador": {
+      "fuente": "Special Elite",
+      "tam": 30,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#ffd62e",
+      "borde": "#111016",
+      "grosor": 5,
+      "ancho": 540
+    },
+    "narrador_voz": {
+      "fuente": "Special Elite",
+      "tam": 30,
+      "mayusculas": true,
+      "color": "#fff6e0",
+      "fondo": "#131018",
+      "borde": "#ff2d95",
+      "grosor": 5,
+      "ancho": 520
+    },
+    "rotulo": {
+      "fuente": "Anton",
+      "tam": 46,
+      "mayusculas": true,
+      "color": "#fff6e0",
+      "fondo": "#111016",
+      "sub_fuente": "Special Elite",
+      "sub_tam": 28,
+      "sub_color": "#17131b",
+      "sub_fondo": "#ffd62e"
+    },
+    "cartela": {
+      "fuente": "Creepster",
+      "tam": 150,
+      "mayusculas": true,
+      "color": "#f3ecd6",
+      "fondo": "#0b090d",
+      "acento": "#ff2d95"
+    },
+    "onomatopeya": {
+      "fuente": "Bangers",
+      "tam": 150,
+      "color": "#ffe94a",
+      "borde": "#111016"
+    },
+    "neon": {
+      "fuente": "Knewave",
+      "tam": 92,
+      "color": "#fff0fa",
+      "brillo": "#ff2d95"
+    }
+  },
+  "intervenciones": [
+    {
+      "id": "p01_narrador_guerra",
+      "plano": 1,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.1 Antes de la torre",
+        "cita": "La fiesta celebraba el final de una guerra.",
+        "fijado": "La guerra terminó.",
+        "nota": "Es la primera mitad del texto de la 0.4.0 («La guerra terminó. Por una noche, nadie tuvo que huir.»), ahora sola sobre la ciudad. Dice qué se celebra antes de entrar en la estación."
+      },
+      "bloques": [
+        "La guerra terminó."
+      ],
+      "entra": 1.6,
+      "sale": 8,
+      "pos": {
+        "x": 0.17,
+        "y": 0.11
+      },
+      "capitular": true
+    },
+    {
+      "id": "p03_narrador_sin_miedo",
+      "plano": 3,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.1 Antes de la torre",
+        "cita": "Durante unas horas, personas que habían vivido esperando la muerte pudieron reunirse sin miedo.",
+        "fijado": "Por una noche, pudieron reunirse sin miedo.",
+        "nota": "Redacción nueva de la 0.5.0, hecha en esta sesión: no viene escrita en el encargo y está pendiente de revisión de dirección. Sustituye a «Por una noche, nadie tuvo que huir.»: «huir» no está en la biblia y «pudieron reunirse sin miedo» sí, letra por letra."
+      },
+      "bloques": [
+        "Por una noche,",
+        "pudieron reunirse *sin miedo*."
+      ],
+      "entra": 0.8,
+      "sale": 8,
+      "pos": {
+        "x": 0.2,
+        "y": 0.1
+      }
+    },
+    {
+      "id": "p05_dialogo_deseo",
+      "plano": 5,
+      "tipo": "dialogo",
+      "habla": "anfitrion",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "Cuando la fiesta se acercaba a su final, el anfitrión pidió que aquella noche no terminase.",
+        "fijado": "Que esta noche no termine.",
+        "nota": "La biblia cuenta la petición en estilo indirecto; el encargo 0.3.x la puso en boca del anfitrión. No se le da nombre ni rostro."
+      },
+      "bloques": [
+        "Que esta noche",
+        "*no termine*."
+      ],
+      "entra": 1.0,
+      "sale": 5,
+      "pos": {
+        "x": 0.24,
+        "y": 0.2
+      },
+      "cola": {
+        "hacia": {
+          "x": 0.55,
+          "y": 0.33
+        }
+      }
+    },
+    {
+      "id": "p06_narrador_dormia",
+      "plano": 6,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.2 La Escucha",
+        "cita": "Bajo el salón dormía una presencia sin rostro llamada **la Escucha**.",
+        "fijado": "Bajo el salón dormía algo que escuchaba.",
+        "nota": "El texto dice «algo»: no nombra ni describe a la Escucha y no le atribuye intención. Lo que dormía bajo el salón es la Escucha, no una torre ni un núcleo: la torre todavía no existe."
+      },
+      "bloques": [
+        "Bajo el salón dormía",
+        "algo que escuchaba."
+      ],
+      "entra": 0.3,
+      "sale": 5.5,
+      "pos": {
+        "x": 0.36,
+        "y": 0.36
+      }
+    },
+    {
+      "id": "p06_narrador_devolvio",
+      "plano": 6,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "La Escucha respondió repitiéndola.",
+        "fijado": "Y devolvió lo que recibió.",
+        "nota": "«Lo que recibió»: no elige, no interpreta y no actúa por maldad. Solo repite."
+      },
+      "bloques": [
+        "Y devolvió",
+        "lo que recibió."
+      ],
+      "entra": 5.7,
+      "sale": 9,
+      "pos": {
+        "x": 0.64,
+        "y": 0.6
+      }
+    },
+    {
+      "id": "p07_sfx_salto",
+      "plano": 7,
+      "tipo": "onomatopeya",
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "TAC",
+        "nota": "Onomatopeya para el salto de la aguja. No procede de la biblia ni del juego: es una propuesta de puesta en escena, dentro del lenguaje de cómic ya usado. El plano no lleva ningún otro texto."
+      },
+      "bloques": [
+        "TAC"
+      ],
+      "entra": 1,
+      "sale": 4,
+      "letras": {
+        "fuente": "Bangers",
+        "tam": 84,
+        "color": "#ffe94a",
+        "borde": "#111016",
+        "giro": -9
+      },
+      "animacion": "latido",
+      "sonido_guia": "clac",
+      "golpes": [
+        {
+          "en": 1,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 0.85
+        },
+        {
+          "en": 2,
+          "x": 0.4,
+          "y": 0.83,
+          "escala": 1.05
+        },
+        {
+          "en": 3,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 1.25
+        }
+      ],
+      "dura_golpe": 0.8
+    },
+    {
+      "id": "p08_narrador_tempo",
+      "plano": 8,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche",
+        "cita": "Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.",
+        "fijado": "Pensó que unos minutos más no podían hacer daño.",
+        "nota": "Segunda mitad del texto de la 0.4.0 («Los vio felices. Pensó que unos minutos más no podían hacer daño.»); la primera se ha quitado porque la imagen ya enseña a los invitados. Narración en tercera persona, sin rótulo: el recuadro con el retrato deja claro de quién se habla."
+      },
+      "bloques": [
+        "Pensó que unos minutos más",
+        "no podían hacer daño."
+      ],
+      "entra": 0.6,
+      "sale": 7,
+      "pos": {
+        "x": 0.34,
+        "y": 0.17
+      }
+    },
+    {
+      "id": "p15_narrador_abajo",
+      "plano": 15,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "El salón creció hacia abajo, como un surco que se hunde en un disco.",
+        "fijado": "Y siguió creciendo hacia abajo.",
+        "nota": "Redacción nueva de la 0.5.0, hecha en esta sesión: no viene escrita en el encargo y está pendiente de revisión de dirección. Sustituye a «La noche empezó a crecer hacia abajo.» (0.4.0). Sin sujeto a propósito: el sujeto es lo que se está viendo."
+      },
+      "bloques": [
+        "Y siguió creciendo",
+        "*hacia abajo*."
+      ],
+      "entra": 0.3,
+      "sale": 4.3,
+      "pos": {
+        "x": 0.25,
+        "y": 0.17
+      }
+    },
+    {
+      "id": "p15_narrador_leyes",
+      "plano": 15,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "Los deseos más intensos de los invitados se convirtieron en las leyes de cada pista.",
+        "fijado": "Cada deseo se hizo ley.",
+        "nota": "Redacción nueva de la 0.5.0, hecha en esta sesión: no viene escrita en el encargo y está pendiente de revisión de dirección. Sustituye a «Los deseos se convirtieron en leyes.» (0.4.0), más corto para que dé tiempo a leerlo mientras la cámara baja. Acompaña a los niveles de colores distintos."
+      },
+      "bloques": [
+        "Cada deseo",
+        "se hizo *ley*."
+      ],
+      "entra": 4.6,
+      "sale": 8,
+      "pos": {
+        "x": 0.75,
+        "y": 0.72
+      }
+    }
+  ],
+  "banco_de_alternativas": {
+    "nota": "Frases literales de la biblia que encajan en la intro y no se han colocado. Sirven para sustituir un texto adaptado por uno literal si dirección lo prefiere. Ninguna revela secretos de los soberanos ni de los finales, ni habla del protagonista.",
+    "frases": [
+      {
+        "cita": "No interpreta; repite.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.2 La Escucha"
+      },
+      {
+        "cita": "Las puertas dejaron de llevar al exterior.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "nota": "Encajaría en el plano 10, pero allí la imagen cuenta lo contrario de lo literal: el cambio sale por la puerta. Se deja fuera para no contradecir la biblia con un texto."
+      },
+      {
+        "cita": "El salón creció hacia abajo, como un surco que se hunde en un disco.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "nota": "Versión literal de «Y siguió creciendo hacia abajo.» (plano 15). Es más larga: 67 caracteres."
+      },
+      {
+        "cita": "El tiempo se plegó sobre sí mismo.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición"
+      },
+      {
+        "cita": "Cada deseo se convierte en un ritmo; cada ritmo, en una prisión.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.4 La ley fundamental",
+        "nota": "Versión literal posible para el plano 15, en lugar de «Cada deseo se hizo ley.»"
+      },
+      {
+        "cita": "Podía haber dejado acabar el disco.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche"
+      },
+      {
+        "cita": "Aquella transición fue el primer eslabón de la cadena.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche"
+      }
+    ]
+  }
+}

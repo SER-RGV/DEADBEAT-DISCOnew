@@ -194,3 +194,13 @@ body.limpio #marco { box-shadow: none; }
   .hoja { max-height: none; }
   #cabecera { flex-wrap: wrap; }
 }
+
+/* Versiones (0.5.0) */
+.selector-version { margin-left: 14px; }
+.selector-version select { max-width: 260px; }
+#version-actual { color: var(--texto, #f3ecdf); font-weight: 700; margin-left: 4px; }
+body.version-anterior #version-actual { color: #ffcf7a; }
+body.limpio .selector-version { display: none; }
+.chip-clase { font-size: 11px; font-weight: 800; letter-spacing: .04em; border-radius: 4px; padding: 1px 7px; background: #2b2533; color: #f3ecdf; cursor: help; white-space: nowrap; }
+.chip-clase[data-clase="CANON"] { background: #1f4d2e; color: #c9f5d4; }
+.chip-clase[data-clase="PROPUESTA"] { background: #ffe9a8; color: #5a3d00; }

@@ -396,3 +396,25 @@ body.ligero .mc-trama, body.ligero .mc-trama-luz, body.ligero .mc-grano-global, 
 .mc-fx-lineas { inset: 0; overflow: hidden; }
 .mc-fx-lineas .linea { position: absolute; top: 0; opacity: 0; background: linear-gradient(180deg, transparent, rgba(243, 236, 214, 0.9) 30%, rgba(243, 236, 214, 0.9) 70%, transparent); will-change: transform, opacity; }
 .mc-fx-tira .losa { position: absolute; left: 0; right: 0; top: 0; height: 40px; background: linear-gradient(180deg, #0b090d 0 30%, #4a3d43 30% 44%, #1c1620 44% 82%, #0b090d 82%); z-index: 2; }
+
+/* ---- 0.5.0 · La ciudad que no termina ---- */
+/* transforma: otra ilustración encima del arte, descubierta por un círculo que crece. */
+.mc-fx-transforma { left: 0; top: 0; transform-origin: 0 0; overflow: hidden; will-change: transform, clip-path; visibility: hidden; }
+.mc-fx-transforma img { position: absolute; max-width: none; }
+.mc-fx-transforma img.pixelado { image-rendering: pixelated; }
+.mc-fx-transforma .tinte { position: absolute; inset: 0; }
+.mc-fx-transforma-aros { left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.mc-fx-transforma-aros .aro {
+  --c: #ff2d95;
+  position: absolute; width: 1000px; height: 1000px; border-radius: 50%; box-sizing: border-box;
+  border: 9px solid #fff3d6; box-shadow: 0 0 0 5px var(--c), 0 0 34px 10px var(--c), inset 0 0 26px 6px var(--c);
+  opacity: 0; will-change: transform, opacity;
+}
+.mc-fx-transforma-aros .aro.eco { border: 5px dashed var(--c); box-shadow: none; }
+/* repite: la misma ilustración en retícula de espejos. */
+.mc-fx-repite { left: 0; top: 0; transform-origin: 0 0; will-change: transform; }
+.mc-fx-repite .celda { position: absolute; overflow: hidden; }
+.mc-fx-repite .celda img { position: absolute; max-width: none; }
+.mc-fx-repite .celda .tinte { position: absolute; inset: 0; background: #07030d; }
+.mc-fx-repite .losa { position: absolute; background: linear-gradient(180deg, transparent 0, #07030d 16%, #0b090d 30%, #5a3350 34%, #ff2d95 37%, #2a1626 41%, #120b16 62%, #07030d 84%, transparent 100%); }
+.mc-negro { position: absolute; inset: 0; background: #000; opacity: 0; visibility: hidden; z-index: 50; pointer-events: none; }

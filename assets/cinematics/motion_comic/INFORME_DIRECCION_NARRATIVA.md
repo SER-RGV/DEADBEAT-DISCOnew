@@ -10,7 +10,10 @@ Motion comic de la introducción de DEADBEAT DISCO. Punto de partida: versión *
   llegada al Refugio, integra arte nuevo y revisa el rendimiento. Donde
   contradiga a las partes 1 y 2, vale la 3. Las partes 1 y 2 se conservan como historial de la 0.3.0.
 - **Parte 4 · Versión 0.4.0.** Revisión del ritmo y del montaje: el protagonista pasa a ser el hilo
-  visual de la secuencia. **Es la parte vigente**; las partes 1 a 3 quedan como historial.
+  visual de la secuencia. Queda como historial de la 0.4.0.
+- **Parte 5 · Versión 0.5.0 «La ciudad que no termina».** Reconstrucción completa: la historia sale del
+  salón y se cuenta desde la ciudad. Sin protagonista, sin Refugio y sin HUB. **Es la parte vigente**;
+  las partes 1 a 4 quedan como historial.
 
 ---
 
@@ -1220,3 +1223,362 @@ Todo dentro de `assets/cinematics/motion_comic/`. Nada fuera.
 
 Sin tocar: `arte_nuevo/`, `fuentes/`, `fonts/`, `servir.mjs`, `index.html`, `js/textos.js`,
 `js/formas.js`, y todo lo que está fuera de esta carpeta.
+
+---
+
+# Parte 5 · Versión 0.5.0: «La ciudad que no termina»
+
+Punto de partida: la 0.4.0-preview (commit `6dd62ae`). Encargo: «DEADBEAT DISCO — 0.5.0 · THE CITY
+THAT NEVER ENDS», reconstrucción completa de la introducción.
+
+Esta parte separa tres cosas, como pide el encargo:
+
+- **Implementado:** lo que está en el repositorio y se ha comprobado (5.5 a 5.10).
+- **Propuesto:** lo que la secuencia enseña sin respaldo en la biblia, marcado plano a plano como
+  PROPUESTA VISUAL (5.6 y 5.8), y los textos de redacción nueva (5.7).
+- **Pendiente:** lo que no se ha hecho o no se puede afirmar (5.11 y 5.12).
+
+Las versiones anteriores no se han borrado ni reescrito. La 0.4.0 y la 0.3.1 siguen reproducibles
+desde la misma vista previa (5.9).
+
+## 5.1 Diagnóstico de la 0.4.0
+
+Medido sobre la línea de tiempo y la composición de la 0.4.0 (45,000 s, 15 planos, 12 textos):
+
+| Qué | Dato |
+|---|---|
+| Planos de exterior | Ninguno. No se ve la estación por fuera, ni una calle, ni una ciudad |
+| Dónde ocurre la historia | Dentro del salón y de la torre, de principio a fin |
+| Cómo se enseña que la torre crece | Con la sala repetida hacia abajo (plano 05) y un mosaico de nueve salas (plano 06): siempre desde dentro |
+| Tiempo dedicado al protagonista, al descenso y al Refugio | 15,0 s de 45 (del segundo 30,0 al final): un tercio |
+| Textos | 12 en 45 s |
+
+Tres consecuencias:
+
+1. **No hay escala.** Como todo ocurre dentro, la transformación afecta a una sala. Nada permite
+   comparar el antes con el después, ni medir hasta dónde llega.
+2. **No hay un lugar de partida.** La historia empieza ya dentro de la fiesta. No se ve que aquello
+   fuera un sitio normal, en un mundo normal, antes de la noche.
+3. **El último tercio es otra historia.** El protagonista, el descenso y el Refugio pertenecen a lo
+   que viene después. El encargo 0.5.0 los saca de la introducción.
+
+Lo que se conserva porque funcionaba: el orden de causas de la biblia (fiesta, deseo, Escucha, Tempo),
+la Escucha sin cuerpo ni rostro, el tocadiscos y la nota que no termina, y el pozo de niveles.
+
+## 5.2 Concepto
+
+La cámara hace un solo viaje de ida y vuelta:
+
+1. **Entra.** De la ciudad a la estación, de la fachada al salón, del salón a la persona que pide el
+   deseo, y de ahí a lo que hay debajo.
+2. **Sale.** El cambio empieza en el salón y la cámara retrocede con él: el salón, la fachada, la
+   calle, los barrios, la ciudad entera, y un paso más atrás, donde la ciudad ya es solo un nivel.
+3. **Vuelve a entrar, y cae.** Por la puerta, por el pozo, hasta mirar hacia abajo.
+
+Los tres retrocesos usan los mismos encuadres que los tres avances: el plano 09 repite el encuadre
+del 03 (el salón), el 10 el del 02 (la fachada) y el 12 el del 01 (la ciudad). Así el espectador
+compara el mismo lugar antes y después sin que nadie se lo explique.
+
+La transformación se cuenta **sin texto**: del segundo 23,9 al 41,3 (17,3 s, seis planos) no hay
+ninguna palabra en pantalla.
+
+No aparecen el protagonista, el Refugio ni el HUB, y ningún texto los menciona.
+
+## 5.3 Tabla de recursos
+
+Presentada a dirección antes de generar nada. «Calidad» describe el archivo, no lo aprueba.
+
+| Escena | Recurso existente | Calidad | Reutilizable | Falta |
+|---|---|---|---|---|
+| 1 · La ciudad antes de la noche | Ninguno. `cine_bg01_city` es la ciudad ya transformada | — | No para el «antes» | **Una ciudad normal, con la estación encendida, en la composición de `cine_bg01_city`** |
+| 1 · La estación por fuera | Ninguno. `cine_bg02_club_exterior` es la entrada ya transformada | — | No para el «antes» | **La fachada de la estación, en la composición de `cine_bg02_club_exterior`** |
+| 2 · La Primera Noche | `arte_nuevo/estacion_primera_noche.png` y cuatro siluetas de invitados (0.3.1) | 2560×1440 ampliado desde 1376×768; sin aprobar | Sí | Nada |
+| 3 · El deseo y la Escucha | `anfitrion_contraluz.png`, `tocadiscos_tempo.png` (0.3.1); retrato oficial `dialogue_portrait_dj.png`; ondas dibujadas por el motor | Sin aprobar lo nuevo; el retrato es oficial | Sí | Nada. El retrato oficial enseña a Tempo con su aspecto dentro de la torre |
+| 4 · El salón, la fachada y la calle cambian | Oficiales `cine_bg05_dancefloor`, `cine_bg02_club_exterior`, `cine_bg01_city` | 2560×1440 con marco pintado; `cine_bg01_city` tiene poco detalle real y no admite recortes cerrados | Sí, como «después» | Los estados intermedios: se resuelven por código (revelado circular), sin dibujo nuevo |
+| 5 · La ciudad devorada | Oficial `cine_bg01_city` | Igual | Sí | Una vista más amplia que la ciudad no existe: se resuelve repitiendo la ilustración oficial por código |
+| 6 · Hacia dentro y hacia abajo | Oficiales `cine_bg02_club_exterior`, `cine_bg03_entrance`; `arte_nuevo/pozo_torre.png` (0.3.1) | El pozo mide 768×1376 y se amplía 2,6 veces; sin aprobar | Sí | **Una imagen final: la torre por dentro, mirando hacia abajo** |
+
+Descartados a propósito: `cine_circle_00_hub` (es el Refugio), los fondos de menú y las referencias
+`REF_01_*` (sale el protagonista), `cine_bg06_hero` y `map_infernal_tower.png` (no hacen falta).
+
+## 5.4 Arte nuevo de esta versión
+
+Con esa tabla se pidió autorización para tres imágenes y dirección respondió «Sí: 3 imágenes». Se
+generaron **exactamente tres**, una vez cada una, y no se ha generado ninguna más.
+
+| Archivo | Qué es | Referencia dada a la herramienta | Planos |
+|---|---|---|---|
+| `arte_nuevo/ciudad_antes_de_la_noche.png` | Ciudad industrial de noche; en el centro, la estación de hierro y cristal, encendida | Composición de `cine_bg01_city`; estilo de `estacion_primera_noche.png` | 01, 11, 12 |
+| `arte_nuevo/estacion_fachada.png` | La entrada de la estación desde la calle, de frente | Composición de `cine_bg02_club_exterior` | 02, 10 |
+| `arte_nuevo/corazon_torre.png` | La torre por dentro, en picado: anillos de niveles hasta un punto negro | Estilo de `pozo_torre.png` y de `cine_bg03_entrance` | 16 |
+
+Las tres se generaron a 1376×768 y se ampliaron a 2560×1440; no son dibujos nativos a ese tamaño. La
+salida sin retocar está en `arte_nuevo/generado/`. El origen, el tratamiento y las notas de revisión
+están en `arte_nuevo/MANIFIESTO.md`.
+
+**La autorización fue para generarlas y probarlas en el montaje. Ninguna ha sido revisada ni aprobada
+por dirección de arte.** Todos los planos que las usan llevan el sello «ARTE NUEVO · SIN APROBAR».
+
+Lo que conviene mirar al revisarlas:
+
+- **Fachada:** los carteles de la pared llevan letras ilegibles, inventadas por la herramienta.
+- **Ciudad:** se parece a la composición de `cine_bg01_city`, pero no coincide edificio por edificio.
+  Por eso el paso de una a otra se hace con un círculo que avanza y no con un fundido, que dejaría ver
+  el desajuste.
+- **Corazón de la torre:** es de línea limpia, no de píxel marcado como los fondos oficiales.
+
+## 5.5 Estructura y tiempos
+
+128 pulsos por minuto; 1 pulso = 0,46875 s; **104 pulsos = 48,750 s** (26 compases de 4); 16 planos
+en 6 bloques y 6 láminas (A a F).
+
+La 0.4.0 duraba 45,000 s. El encargo pide no forzar la duración si perjudica la comprensión: los ocho
+pulsos de más (3,75 s) están en los bloques 4 y 5, donde cada etapa del cambio necesita verse empezar
+y terminar. La parte 4 ya contemplaba alargar la secuencia a 48,750 s (4.13).
+
+| Bloque | Planos | Empieza | Dura | Pulsos |
+|---|---|---|---|---|
+| 1 · La ciudad | 01, 02 | 0,000 s | 6,094 s | 13 |
+| 2 · La Primera Noche | 03, 04 | 6,094 s | 6,094 s | 13 |
+| 3 · El deseo y la Escucha | 05 a 08 | 12,188 s | 11,719 s | 25 |
+| 4 · La ciudad empieza a transformarse | 09 a 11 | 23,906 s | 8,438 s | 18 |
+| 5 · La ciudad devorada | 12, 13 | 32,344 s | 7,031 s | 15 |
+| 6 · El corazón de la torre | 14 a 16 | 39,375 s | 9,375 s | 20 |
+
+| Plano | Empieza | Dura | Pulsos | Lámina | Entra por | Texto |
+|---|---|---|---|---|---|---|
+| 01 La ciudad | 0,000 s | 3,750 s | 8 | A | Inicio | «La guerra terminó.» |
+| 02 La estación | 3,750 s | 2,344 s | 5 | A | Deslizamiento | — |
+| 03 La Primera Noche | 6,094 s | 3,750 s | 8 | B | Destello | «Por una noche, pudieron reunirse sin miedo.» |
+| 04 Los que sobrevivieron | 9,844 s | 2,344 s | 5 | B | Deslizamiento | — |
+| 05 El deseo | 12,188 s | 2,344 s | 5 | C | Paso de página | «Que esta noche no termine.» |
+| 06 La Escucha | 14,531 s | 4,219 s | 9 | C | Deslizamiento | «Bajo el salón dormía algo que escuchaba.» · «Y devolvió lo que recibió.» |
+| 07 La nota que no termina | 18,750 s | 1,875 s | 4 | C | Deslizamiento | «TAC» |
+| 08 Unos minutos más | 20,625 s | 3,281 s | 7 | C | Latigazo | «Pensó que unos minutos más no podían hacer daño.» |
+| 09 El salón cambia | 23,906 s | 3,281 s | 7 | D | Paso de página | — |
+| 10 Las puertas | 27,188 s | 2,344 s | 5 | D | Deslizamiento | — |
+| 11 La calle | 29,531 s | 2,813 s | 6 | D | Deslizamiento | — |
+| 12 Los barrios | 32,344 s | 3,750 s | 8 | E | Paso de página | — |
+| 13 La ciudad devorada | 36,094 s | 3,281 s | 7 | E | Corte | — |
+| 14 Hacia el centro | 39,375 s | 1,875 s | 4 | F | Paso de página | — |
+| 15 Los niveles | 41,250 s | 3,750 s | 8 | F | Deslizamiento | «Y siguió creciendo hacia abajo.» · «Cada deseo se hizo ley.» |
+| 16 El corazón de la torre | 45,000 s | 3,750 s | 8 | F | Impacto | — |
+
+La pantalla queda en negro en el pulso 7 del plano 16 (48,281 s) y sigue en negro hasta el final.
+
+## 5.6 Guion gráfico, plano a plano
+
+La misma ficha está en `data/composicion.json` (campos `encuadre`, `movimiento`, `historia`,
+`funcion`, `clasificacion` y `clasificacion_nota` de cada plano). En la vista previa, la clasificación
+se lee junto al nombre del plano y la ficha aparece al pasar el ratón por encima.
+
+| Plano | Encuadre y cámara | Qué se ve | Para qué está |
+|---|---|---|---|
+| 01 | Gran plano general. Avance lento hacia la estación | Una ciudad industrial de noche: fábricas, casas con pocas ventanas encendidas, un tren de vapor en el viaducto. En el centro, la estación, el único edificio lleno de luz | Situar la historia en un lugar reconocible y señalar la estación |
+| 02 | General frontal. Avance hacia la puerta | La fachada: ladrillo, hierro, reloj, guirnaldas. Tras los cristales, parejas bailando | Llevar de la ciudad al interior y fijar la fachada que luego cambiará |
+| 03 | General del interior. Avance muy leve | La estación convertida en salón: bóveda, columnas, reloj, mesas con velas, parejas y soldados | Decir qué se celebra |
+| 04 | Plano medio de grupo. Deslizamiento lateral | La fiesta de cerca y a contraluz: una pareja, un soldado que brinda, otra pareja en un giro | Dar escala humana a la celebración |
+| 05 | Plano medio, de espaldas. Avance leve | Las luces se enfrían. El anfitrión, sin rostro, levanta la copa y pide que la noche no termine | La causa |
+| 06 | General en vertical. La cámara baja bajo el suelo | El deseo baja como una onda. Abajo no hay nadie: una superficie lo recibe y lo devuelve igual | La respuesta, sin inventar un ser |
+| 07 | Detalle desde arriba | El tocadiscos. La aguja salta al mismo surco. Tempo lo nota | La música deja de avanzar |
+| 08 | Plano medio con dos recuadros | Tempo mira a los invitados y enlaza otro disco. La sala se enciende otra vez | La segunda causa: alguien, por cariño, da cuerda a la repetición |
+| 09 | El encuadre del 03, casi fijo | Del templete de la música sale un aro de luz que crece. Dentro, la estación ya es una pista de baile | Primer cambio visible, desde dentro |
+| 10 | El encuadre del 02, alejándose un poco | El aro sale por la puerta y recorre la fachada: el ladrillo es piedra tallada, las ventanas son vidrieras | El cambio sale del salón |
+| 11 | Conjunto de la estación y su calle. Retroceso corto | Donde estaba la estación hay una torre encendida. El aro alcanza las primeras casas | El cambio alcanza otros edificios |
+| 12 | El encuadre del 01. Cámara fija; una sacudida en cada avance | El aro crece a golpes hasta cubrir la ciudad. Al terminar no queda nada de la ciudad de antes | El punto fuerte: se entiende la escala |
+| 13 | Gran plano general que se abre en dos golpes | La cámara retrocede otra vez: a los lados y debajo aparece la misma ciudad, repetida, cada nivel más oscuro | La ciudad entera es una pieza de la torre |
+| 14 | Frontal. Avance rápido | La puerta transformada. La cámara la atraviesa: detrás, un pasillo de arcos iguales | Pasar del exterior al interior |
+| 15 | Corte vertical. La cámara baja y se acelera | El pozo: balcones y salas iguales, cada una con una luz distinta | Qué es la torre por dentro |
+| 16 | Picado total. Avance al centro mientras la imagen gira | Los niveles son anillos, uno dentro de otro, hasta un punto negro. Corte a negro | La imagen final: una profundidad que no se explica |
+
+## 5.7 Textos
+
+Nueve piezas (la 0.4.0 tenía doce): ocho adaptadas de la biblia y una propuesta. Ninguna literal.
+
+| Plano | Texto | Estado | Pasaje de la biblia que adapta |
+|---|---|---|---|
+| 01 | «La guerra terminó.» | Adaptado. Ya estaba en la 0.4.0 | §2.1 «La fiesta celebraba el final de una guerra.» |
+| 03 | «Por una noche, pudieron reunirse sin miedo.» | Adaptado. **Redacción nueva** | §2.1 «Durante unas horas, personas que habían vivido esperando la muerte pudieron reunirse sin miedo.» |
+| 05 | «Que esta noche no termine.» (anfitrión, sin nombre) | Adaptado. Ya estaba | §2.3 «…el anfitrión pidió que aquella noche no terminase.» |
+| 06 | «Bajo el salón dormía algo que escuchaba.» | Adaptado. Ya estaba | §2.2 «Bajo el salón dormía una presencia sin rostro llamada la Escucha.» |
+| 06 | «Y devolvió lo que recibió.» | Adaptado. Ya estaba | §2.3 «La Escucha respondió repitiéndola.» |
+| 07 | «TAC» | **Propuesta** (onomatopeya). Lleva el sello «PROPUESTA» | Ninguno |
+| 08 | «Pensó que unos minutos más no podían hacer daño.» | Adaptado. Ya estaba | §3.1 «Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.» |
+| 15 | «Y siguió creciendo hacia abajo.» | Adaptado. **Redacción nueva** | §2.3 «El salón creció hacia abajo, como un surco que se hunde en un disco.» |
+| 15 | «Cada deseo se hizo ley.» | Adaptado. **Redacción nueva** | §2.3 «Los deseos más intensos de los invitados se convirtieron en las leyes de cada pista.» |
+
+Las tres redacciones nuevas no añaden hechos: acortan un pasaje. Aun así no las ha visto dirección, y
+el validador solo comprueba que el pasaje citado existe, no que la adaptación sea fiel. **Quedan
+pendientes de visto bueno.**
+
+Ningún texto habla de la ciudad. Todo lo que la secuencia cuenta sobre ella lo cuenta la imagen, y
+está marcado como PROPUESTA VISUAL. No hay ninguna frase de lore nueva.
+
+`banco_de_alternativas`, en el guion, guarda las citas literales sin colocar por si se prefiere
+sustituir alguna adaptación.
+
+## 5.8 Qué es canon y qué es propuesta
+
+La biblia dice que el salón era una antigua estación de tren reconvertida, y que la torre conserva
+rastros de la estación y del club. **No menciona ninguna ciudad, ni calles, ni barrios.** Tampoco dice
+que el cambio saliera del edificio. Por tanto, toda la capa de la ciudad es una interpretación
+cinematográfica del encargo, no un hecho de la biblia.
+
+| Clasificación | Planos | Qué significa aquí |
+|---|---|---|
+| **CANON** | 03, 05, 06, 07, 08, 15 | Lo que el plano cuenta está en la biblia (§2.1, §2.2, §2.3, §3.1) |
+| **DISEÑO DEFINIDO** | 04, 14 | Puesta en escena ya decidida en versiones anteriores, o hecha solo con arte oficial, que no añade hechos |
+| **PROPUESTA VISUAL** | 01, 02, 09, 10, 11, 12, 13, 16 | Inferencia sin respaldo en la biblia, o arte nuevo que define cómo se ve algo. No es canon |
+
+Lo que propone cada plano marcado:
+
+- **01 y 02.** Cómo era la ciudad y cómo era la estación por fuera. Aprobar estas imágenes fija el
+  aspecto del lugar antes de la Primera Noche: es una decisión narrativa, no solo de arte.
+- **09.** Que el cambio avance como un aro desde la música. La biblia dice que la torre nace de la
+  repetición; no dice cómo se vio.
+- **10 y 11.** Que el cambio saliera a la calle y alcanzara otros edificios. La biblia solo dice que
+  las puertas dejaron de llevar al exterior.
+- **12 y 13.** La «ciudad devorada». Es el concepto del encargo; no tiene apoyo en la biblia. El plano
+  13 no es un dibujo nuevo: es la ilustración oficial `cine_bg01_city` repetida por el motor.
+- **16.** La vista en picado. La biblia dice que el salón creció hacia abajo «como un surco que se
+  hunde en un disco»; el giro de la imagen sale de ahí. No se enseña ni se explica el fondo.
+
+Reglas del encargo, comprobadas sobre el resultado:
+
+| Regla | Cómo queda |
+|---|---|
+| La Escucha no es un antagonista | No tiene cuerpo, rostro ni voz. Es una superficie que devuelve la onda. El texto dice «devolvió lo que recibió» |
+| No había torre ni núcleo antes de la fiesta | Bajo el salón solo hay oscuridad y la superficie que escucha. La torre aparece en el plano 11, después del deseo |
+| Ni protagonista, ni Refugio, ni HUB | No aparecen en ninguna imagen ni en ningún texto. No se usa `cine_circle_00_hub` |
+| Sin frases de lore nuevas | Ocho textos adaptan pasajes citados; el noveno es una onomatopeya |
+| Sin frases reservadas | El validador las rechaza (5.10) |
+
+## 5.9 Motor y herramientas
+
+No se ha reconstruido nada que funcionara. Lo añadido:
+
+| Añadido | Dónde | Para qué |
+|---|---|---|
+| Efecto `transforma` | `js/efectos.js`, `comic.css` | Revela una imagen «después» dentro de un círculo que crece, con un aro de luz en el borde. Admite encuadre propio. Planos 09, 10, 11, 12 y 14 |
+| Efecto `repite` | `js/efectos.js`, `comic.css` | Repite una ilustración en casillas, con forjado entre filas, media casilla de desfase y oscurecido por nivel. Plano 13 |
+| Curva por claves (`porClaves`) | `js/efectos.js` | Movimiento a golpes: el aro y los retrocesos avanzan con el pulso |
+| `giro` del arte | `js/motor.js` | La ilustración gira mientras la cámara avanza. Plano 16 |
+| `negro` del plano | `js/motor.js`, `comic.css` | Negro a pantalla completa, por encima del papel y de los sellos. Final del plano 16 |
+| Duración declarada (`tempo.duracion_s`) | `js/vista_previa.js`, `js/guion.js`, `validar_guion.mjs` | La duración deja de ser un 45 fijo. Si el guion no la declara, vale 45 |
+| Selector de versión | `index.html`, `js/vista_previa.js`, `data/versiones/` | Reproduce la 0.4.0 y la 0.3.1 con el motor actual. También `?version=0.4.0` |
+| `--version <id>` | `validar_guion.mjs` | Valida una versión guardada |
+| Ficha del plano | `js/vista_previa.js`, `js/guion.js` | Enseña la clasificación junto al nombre del plano. Si falta la clasificación o la ficha de un plano, es un error |
+| Teclas | `js/vista_previa.js` | Con Mayús o Alt, los dígitos saltan a los planos 11 a 20 |
+
+`data/versiones/0.4.0/` y `data/versiones/0.3.1/` son copias exactas de los datos de los commits
+`6dd62ae` y `0dd82f2`. `data/versiones/0.5.0/` es copia de los datos vigentes, para que esta versión
+siga disponible cuando haya otra.
+
+## 5.10 Comprobaciones
+
+Todo se ha medido en Chromium sin interfaz y sin aceleración gráfica, a 1920×1080, contra
+`servir.mjs`.
+
+### Técnico
+
+| Prueba | Resultado |
+|---|---|
+| `node assets/cinematics/motion_comic/validar_guion.mjs` | **0 errores, 0 avisos**, código de salida 0. 48,750 s, 16 planos, 9 textos, 15 de 15 citas, 16 recursos (11 nuevos sin aprobar), 14 planos con sello de arte nuevo |
+| El mismo con `--version 0.4.0` y `--version 0.3.1` | 0 errores y 0 avisos en las dos (45,000 s; 15 y 10 planos) |
+| Reproducción completa a velocidad real | Llega a **48,750 s** en 48,91 s de reloj. 2.229 fotogramas. Sin errores de consola. Sin recursos fallidos. Comprobaciones de pantalla: 0 errores, 0 avisos |
+| Reproducción con `?version=0.5.0`, `0.4.0` y `0.3.1` | Las tres llegan al final sin errores (48,75 s, 45 s y 45 s) |
+| Textos, al entrar, a la mitad y al salir | Los 9, visibles y dentro de la imagen. 0 problemas |
+| Ritmo de lectura | El más rápido va a 16,8 caracteres por segundo (cómodo hasta 17, máximo 21) |
+| Letra más pequeña | 30 px a 1080p (mínimo 26) |
+| Negro final | De 48,281 s al final cubre la pantalla entera. Al volver atrás, desaparece |
+| Selector de versión | Lista las tres. Al elegir la 0.4.0 carga 15 planos y 45 s y lo rotula «versión anterior»; al volver, 16 planos y 48,75 s |
+| Teclas | `7` va al plano 7; `0`, al 10; Alt+`3`, al 13; Alt+`6`, al 16; Mayús+`2`, al 12 |
+| Fluidez | Dos pasadas: 2.194 fotogramas con 2,6 s perdidos en 10 parones, y 2.110 con 3,7 s en 16. El peor, de 0,60 a 0,64 s, al entrar el plano 03 (6,1 s); los demás, de 0,16 a 0,36 s, casi todos en cambios de plano |
+
+Pruebas negativas, sobre una copia temporal (los datos reales no se tocaron). Todas salen con código 1:
+
+| Cambio en la copia | Error que da el validador |
+|---|---|
+| «Solo una más.» como texto | Frase reservada; y el texto ya no coincide con el fijado |
+| Duración declarada de 45 s | «La duración es 48.750 s y el guion declara 45.000 s» |
+| Declarar 15 planos | «Hay 16 planos; el guion declara 15» |
+| Quitar la clasificación del plano 11 | «Plano 11: falta la clasificación…» |
+| Quitar el sello de arte del plano 01 | «Usa arte nuevo sin aprobar (ciudad_antes) y no lleva sello de arte» |
+
+Sobre la fluidez: los parones varían mucho entre pasadas iguales y el equipo de prueba no tiene
+tarjeta gráfica. Las cifras dicen que la secuencia llega al final a tiempo; **no dicen cómo se verá
+en un equipo real.** No se ha probado en Firefox, Safari ni móvil.
+
+### Narrativo
+
+He mirado 47 capturas a 1920×1080 que cubren los 16 planos (`evidence/0.5.0/`). Lo que puedo afirmar
+es que cada cosa **está en pantalla**; no que se entienda.
+
+| Qué debe verse | ¿Está? | Captura |
+|---|---|---|
+| Un lugar normal antes de la noche | Sí: ciudad, tren, estación encendida | `plano01_00.6s`, `plano01_02.0s` |
+| La fiesta y qué celebra | Sí: salón, parejas, soldado; dos textos | `plano03_07.5s`, `plano04_10.8s` |
+| El deseo y quién lo pide | Sí | `plano05_13.2s` |
+| Algo lo escucha y lo devuelve, sin ser un personaje | Sí: ondas y superficie; ningún cuerpo | `plano06_17.0s`, `plano06_18.4s` |
+| La música se repite; Tempo la deja seguir | Sí | `plano07_20.4s`, `plano08_23.5s` |
+| El cambio empieza en el salón | Sí | `plano09_25.4s` |
+| El cambio sale y crece | Sí: fachada, calle, barrios | `secuencia_transformacion.jpg` |
+| El mismo lugar, antes y después | Sí: tres parejas de encuadres iguales | `antes_y_despues_en_la_historia.jpg` |
+| La ciudad es solo un nivel | Sí: la misma ciudad debajo, más oscura | `plano13_37.2s`, `plano13_39.1s` |
+| La torre por dentro y hacia abajo | Sí | `secuencia_final.jpg` |
+| No se explica el fondo | Sí: punto negro y corte a negro | `plano16_47.6s`, `plano16_48.5s` |
+
+**Prueba de comprensión: PENDIENTE. No se ha hecho.** No tengo a quién enseñársela. Hay que ponerla,
+sin explicación previa, a alguien que no conozca el juego y hacerle las cinco preguntas del encargo.
+Hasta entonces, que la historia se entienda es una hipótesis de montaje, no un resultado.
+
+## 5.11 Limitaciones y decisiones pendientes
+
+Narrativas y de arte:
+
+- **Comprensión sin comprobar** (5.10).
+- **La ciudad no está en la biblia** (5.8). Si dirección acepta esta introducción, acepta que hubo una
+  ciudad y que la torre la absorbió. Conviene decidirlo y, si procede, llevarlo a la biblia.
+- **Todo el arte de `arte_nuevo/` sigue sin aprobar**: las ocho piezas de la 0.3.1 y las tres de esta
+  versión. Catorce de los dieciséis planos dependen de él.
+- **Tres textos de redacción nueva**, pendientes de visto bueno (5.7).
+- **El nombre de Tempo no sale en pantalla.** Pendiente desde la 0.4.0.
+- **El retrato de Tempo** de los planos 07 y 08 es el oficial del juego, con cascos y luces de neón.
+  En la Primera Noche es un anacronismo. No existe un dibujo suyo de época y no se ha generado ninguno.
+- **Plano 13.** La repetición es visible como repetición: es la misma ilustración, en espejo a los
+  lados y desplazada debajo. Es deliberado, pero un dibujo propio lo haría mejor.
+- **Planos 11 y 12.** La ciudad de antes y la de después no coinciden edificio por edificio (5.4).
+- **Plano 14.** El pasillo que se ve tras la puerta es otra ilustración oficial, no el interior real
+  de esa puerta.
+- **Sin sonido.** No hay música ni efectos, y no se ha añadido ningún archivo de audio. El «TAC» y los
+  pulsos son visuales. La claqueta de la vista previa es un sonido sintetizado de referencia, como en
+  las versiones anteriores.
+
+Técnicas:
+
+- Rendimiento sin medir en un equipo real ni en otros navegadores.
+- No hay exportación a vídeo.
+- La vista previa no está integrada en el juego. No se ha tocado `src/` ni el HUB.
+- La 0.4.0 y la 0.3.1 se reproducen con el motor actual, no con el de su commit. Llegan al final sin
+  errores, pero no las he comparado fotograma a fotograma con sus capturas originales.
+
+## 5.12 Archivos
+
+Todo dentro de `assets/cinematics/motion_comic/`. Nada fuera.
+
+| Archivo | Cambio |
+|---|---|
+| `data/composicion.json`, `data/guion.json` | Versión 0.5.0-preview: 16 planos, 6 bloques, 9 textos |
+| `data/versiones/indice.json` | Nuevo: lista de versiones del selector |
+| `data/versiones/0.5.0/`, `0.4.0/`, `0.3.1/` | Nuevos: datos de cada versión |
+| `arte_nuevo/ciudad_antes_de_la_noche.png`, `estacion_fachada.png`, `corazon_torre.png` | Nuevos, sin aprobar |
+| `arte_nuevo/generado/` | Tres salidas sin retocar, añadidas |
+| `arte_nuevo/MANIFIESTO.md` | Sección de la 0.5.0 |
+| `js/efectos.js`, `js/motor.js`, `js/guion.js`, `js/vista_previa.js`, `comic.css`, `vista_previa.css`, `index.html`, `validar_guion.mjs` | Ver 5.9 |
+| `README.md` | Puesto al día |
+| `INFORME_DIRECCION_NARRATIVA.md` | Esta parte 5. Las partes 1 a 4 no se han reescrito; solo cambia el índice del principio |
+| `evidence/0.5.0/` | 59 imágenes nuevas. `evidence/0.4.0/` y `evidence/` siguen sin tocar |
+
+Sin tocar: `fuentes/`, `fonts/`, `servir.mjs`, `js/textos.js`, `js/formas.js`, `js/util.js`,
+`js/dom.js`, `INFORME_PULIDO_FASE2.md`, las ocho piezas de arte de la 0.3.1 y todo lo que está fuera
+de esta carpeta.

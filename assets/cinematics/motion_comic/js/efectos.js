@@ -28,6 +28,27 @@ const poner = (el, prop, valor) => {
 /* Valor fijo o animado: número, o { de, a, desde, hasta } en pulsos del plano. */
 const valor = (v, tb, def = 1) => (v == null ? def : typeof v === "number" ? v : lerp(v.de, v.a, smooth(v.desde ?? 0, v.hasta ?? 1, tb)));
 
+/* Valor por puntos: [{ en, <campo>, suave }]. 'suave' del punto de llegada: "golpe" (sale de golpe y asienta),
+   "lineal", "arranca" o, por defecto, entrada y salida suaves. Antes del primero y después del último, fijo. */
+function porClaves(K, t, campo) {
+  let y = K[0][campo];
+  for (let i = 1; i < K.length; i++) {
+    const a = K[i - 1];
+    const b = K[i];
+    if (t >= b.en) {
+      y = b[campo];
+      continue;
+    }
+    if (t > a.en) {
+      const q = (t - a.en) / (b.en - a.en);
+      const e = b.suave === "golpe" ? ease.outQuint(q) : b.suave === "lineal" ? q : b.suave === "arranca" ? q * q : b.suave === "frena" ? ease.out(q) : q * q * (3 - 2 * q);
+      y = lerp(a[campo], b[campo], e);
+    }
+    break;
+  }
+  return y;
+}
+
 /* Figura recortada por su silueta: un rectángulo de color con el sprite como máscara.
    'caja' (en composicion.json) es la zona del archivo que ocupa el dibujo, para que 'alto' sea la
    altura real de la figura y el punto de apoyo sean sus pies. */
@@ -543,6 +564,110 @@ export function construir(M, V, plano, fx, X) {
       }
       return true;
     }
+    case "transforma": {
+      /* Otra ilustración encima del arte del plano, descubierta por un círculo que crece desde un punto.
+         Lo que queda dentro del círculo ya es el otro lugar; fuera, todavía el de antes. El frente es un aro
+         de luz (la onda que devolvió la Escucha) con ecos por delante. La ilustración de encima se ajusta
+         a la del plano «a cubrir», usando solo su zona segura, y se mueve con el mismo encuadre.
+         Con 'encuadre' ({ de, a } como el del arte) la ilustración de encima lleva su propio encuadre; entonces
+         x, y y el radio se dan en la viñeta (radio en anchos de viñeta) y no en la ilustración del plano. */
+      const rec = M.comp.recursos[fx.recurso];
+      const base = fx.encuadre ? { w: v.w, h: v.h } : M.comp.recursos[plano.arte.recurso];
+      if (fx.encuadre) {
+        const caja = crear("div", "mc-fx mc-fx-transforma", capa);
+        caja.style.width = rec.w + "px";
+        caja.style.height = rec.h + "px";
+        const im = crear("img", fx.pixelado ? "pixelado" : "", caja);
+        im.src = M.url(rec.src);
+        im.draggable = false;
+        im.alt = "";
+        im.style.cssText = `left:0;top:0;width:${rec.w}px;height:${rec.h}px`;
+        X.caja = caja;
+        X.rec = rec;
+      }
+      if (!fx.encuadre) {
+      const z = fx.zona || rec.seguro || [0, 0, 1, 1];
+      const zw = (z[2] - z[0]) * rec.w;
+      const zh = (z[3] - z[1]) * rec.h;
+      const sc = Math.max(base.w / zw, base.h / zh) * (fx.escala ?? 1);
+      const foco = fx.foco || [0.5, 0.5];
+      const caja = crear("div", "mc-fx mc-fx-transforma", capa);
+      caja.style.width = base.w + "px";
+      caja.style.height = base.h + "px";
+      const im = crear("img", fx.pixelado ? "pixelado" : "", caja);
+      im.src = M.url(rec.src);
+      im.draggable = false;
+      im.alt = "";
+      // Lo que sobra de la zona segura se reparte según 'foco' (0 = se ve el borde izquierdo/superior).
+      const sobraX = zw * sc - base.w;
+      const sobraY = zh * sc - base.h;
+      im.style.cssText = `left:${(-z[0] * rec.w * sc - sobraX * foco[0]).toFixed(1)}px;top:${(-z[1] * rec.h * sc - sobraY * foco[1]).toFixed(1)}px;width:${(rec.w * sc).toFixed(1)}px;height:${(rec.h * sc).toFixed(1)}px`;
+      if (fx.tinte) crear("div", "tinte", caja).style.background = fx.tinte;
+      X.caja = caja;
+      }
+      X.base = base;
+      // Aros: el frente y sus ecos. Se dibujan a 1000 px y se escalan.
+      X.aros = [];
+      const marco = crear("div", "mc-fx mc-fx-transforma-aros", capa);
+      marco.style.width = base.w + "px";
+      marco.style.height = base.h + "px";
+      X.marco = marco;
+      const n = 1 + (fx.ecos ?? 2);
+      for (let i = 0; i < n; i++) {
+        const a = crear("div", "aro" + (i ? " eco" : ""), marco);
+        a.style.left = fx.x * base.w - 500 + "px";
+        a.style.top = fx.y * base.h - 500 + "px";
+        if (fx.color) a.style.setProperty("--c", fx.color);
+        X.aros.push(a);
+      }
+      return true;
+    }
+    case "repite": {
+      /* La misma ilustración repetida en una retícula. Cada casilla es el espejo de la de al lado, así las
+         juntas no se notan. Cada fila es un nivel: va debajo de la anterior, separada por un forjado
+         ('losa'), desplazada ('desfase') y más oscura. Con 'volteo', las filas impares son el reflejo de la
+         de arriba. La retícula empieza con una sola casilla ocupando la viñeta y se aleja a saltos: lo que
+         parecía una ciudad entera es un nivel de algo que se repite hacia los lados y hacia abajo. */
+      const rec = M.comp.recursos[fx.recurso];
+      const z = fx.zona || rec.seguro || [0, 0, 1, 1];
+      const zw = (z[2] - z[0]) * rec.w;
+      const zh = (z[3] - z[1]) * rec.h;
+      const sc = Math.max(v.w / zw, v.h / zh);
+      const foco = fx.foco || [0.5, 0.5];
+      const lado = fx.lado ?? 2; // casillas a cada lado de la central
+      const filas = fx.filas ?? 3;
+      const red = crear("div", "mc-fx mc-fx-repite", capa);
+      red.style.width = v.w + "px";
+      red.style.height = v.h + "px";
+      X.red = red;
+      X.celdas = [];
+      const volteo = fx.volteo ?? false;
+      const losa = fx.losa ?? 0;
+      for (let f = 0; f < filas; f++) {
+        const dx = f % 2 ? (fx.desfase ?? 0) * v.w : 0;
+        for (let c = -lado; c <= lado; c++) {
+          const cel = crear("div", "celda", red);
+          cel.style.cssText = `left:${c * v.w + dx}px;top:${f * v.h}px;width:${v.w + 1}px;height:${v.h + 1}px;transform:scale(${c % 2 ? -1 : 1},${volteo && f % 2 ? -1 : 1})`;
+          const im = crear("img", "", cel);
+          im.src = M.url(rec.src);
+          im.draggable = false;
+          im.alt = "";
+          im.style.cssText = `left:${(-z[0] * rec.w * sc - (zw * sc - v.w) * foco[0]).toFixed(1)}px;top:${(-z[1] * rec.h * sc - (zh * sc - v.h) * foco[1]).toFixed(1)}px;width:${(rec.w * sc).toFixed(1)}px;height:${(rec.h * sc).toFixed(1)}px`;
+          const osc = (fx.oscurece ?? 0.26) * f + (fx.oscurece_lado ?? 0.1) * Math.abs(c);
+          if (osc > 0) {
+            const t = crear("div", "tinte", cel);
+            t.style.opacity = Math.min(0.92, osc).toFixed(3);
+          }
+          X.celdas.push({ el: cel, f, c });
+        }
+        if (losa && f > 0) {
+          // El forjado entre un nivel y el siguiente.
+          const l = crear("div", "losa", red);
+          l.style.cssText = `left:${-(lado + 1) * v.w}px;width:${(2 * lado + 3) * v.w}px;top:${f * v.h}px;height:${losa * v.h}px`; // dentro del nivel de abajo: con una sola casilla en pantalla no asoma
+        }
+      }
+      return true;
+    }
     case "barrido": {
       X.barra = crear("div", "mc-fx mc-fx-barrido", frente);
       X.barra.style.width = v.w * 0.07 + "px";
@@ -902,6 +1027,60 @@ export function actualizar(M, X, c) {
           }
         }
       }
+      return true;
+    }
+    case "transforma": {
+      const t = pasado ? c.p.pulsos : c.estado === "futuro" ? -1 : tb;
+      const tf = c.p.arteTf;
+      const base = X.base;
+      const r = t < 0 ? 0 : porClaves(fx.claves, t, "r");
+      const R = r * base.w;
+      const lejos = Math.hypot(Math.max(fx.x, 1 - fx.x) * base.w, Math.max(fx.y, 1 - fx.y) * base.h);
+      let tr = tf ? `translate(${tf.left.toFixed(2)}px,${tf.top.toFixed(2)}px) scale(${tf.s.toFixed(5)})` : "";
+      if (fx.encuadre) {
+        // Encuadre propio de la ilustración de encima; el círculo se da en la viñeta y se pasa a sus píxeles.
+        const E = fx.encuadre;
+        const k = ease.inOutSine(clamp(t < 0 ? 0 : t / c.p.pulsos));
+        const a2 = E.a || E.de;
+        const s = v.w / (lerp(E.de.ancho, a2.ancho, k) * X.rec.w);
+        const left = v.w / 2 - lerp(E.de.cx, a2.cx, k) * X.rec.w * s;
+        const top = v.h / 2 - lerp(E.de.cy, a2.cy, k) * X.rec.h * s;
+        if (R <= 0.5) poner(X.caja, "visibility", "hidden");
+        else {
+          poner(X.caja, "visibility", "visible");
+          X.caja.style.transform = `translate(${left.toFixed(2)}px,${top.toFixed(2)}px) scale(${s.toFixed(5)})`;
+          poner(X.caja, "clipPath", `circle(${fx1(Math.min(R, lejos * 1.02) / s)}px at ${fx1((fx.x * v.w - left) / s)}px ${fx1((fx.y * v.h - top) / s)}px)`);
+        }
+        tr = "";
+      } else if (R <= 0.5) {
+        poner(X.caja, "visibility", "hidden");
+      } else {
+        poner(X.caja, "visibility", "visible");
+        X.caja.style.transform = tr;
+        // Cuando el círculo ya cubre toda la ilustración se quita el recorte: deja de costar.
+        poner(X.caja, "clipPath", R >= lejos ? "none" : `circle(${fx1(R)}px at ${fx1(fx.x * base.w)}px ${fx1(fx.y * base.h)}px)`);
+      }
+      X.marco.style.transform = tr;
+      // Velocidad del frente: los aros solo brillan mientras avanza.
+      const r0 = t < 0 ? 0 : porClaves(fx.claves, Math.max(0, t - 0.12), "r");
+      const avanza = activo ? clamp((r - r0) / 0.12 / (fx.vel_ref ?? 0.12)) : 0;
+      const ultimo = fx.claves[fx.claves.length - 1].r;
+      const vivo = activo && R > 0.5 && r < ultimo - 1e-4;
+      X.aros.forEach((a, i) => {
+        const Ri = R * (1 + i * (fx.eco_paso ?? 0.16)) + i * 30;
+        const o = vivo ? (i ? 0.5 / i : 1) * (0.35 + 0.65 * avanza) * (i ? 0.6 + 0.4 * golpe(((tb % 1) + 1) % 1, [0], 3) : 1) : 0;
+        poner(a, "opacity", fx3(o));
+        if (o > 0) a.style.transform = `scale(${(Ri / 500).toFixed(4)})`;
+      });
+      return true;
+    }
+    case "repite": {
+      const t = pasado ? c.p.pulsos : c.estado === "futuro" ? 0 : tb;
+      const s = porClaves(fx.claves, t, "s");
+      // La casilla central se queda centrada arriba; el resto aparece alrededor y debajo.
+      const ax = fx.ancla?.[0] ?? 0.5;
+      const ay = fx.ancla?.[1] ?? 0;
+      X.red.style.transform = `translate(${fx1(v.w * ax * (1 - s))}px,${fx1(v.h * ay * (1 - s))}px) scale(${s.toFixed(5)})`;
       return true;
     }
     case "barrido": {

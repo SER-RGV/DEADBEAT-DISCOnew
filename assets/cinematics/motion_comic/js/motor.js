@@ -142,6 +142,7 @@ export class Motor {
     this.pantalla = crear("div", "mc-pantalla", L);
     this.pasoSombra = crear("div", "mc-paso-sombra", this.pantalla);
     this.flash = crear("div", "mc-flash", this.pantalla);
+    this.negro = crear("div", "mc-negro", this.pantalla); // corte a negro de pantalla entera (0.5.0)
     this.cartelas = crear("div", "mc-cartelas", this.pantalla);
     crear("div", "mc-grano-global", this.pantalla);
     crear("div", "mc-vineteado", this.pantalla);
@@ -629,6 +630,13 @@ export class Motor {
       if (tn.tipo === "flash" && tn.antes > 0 && pulso >= next.b0 - tn.antes) fl = Math.max(fl, Math.pow((pulso - (next.b0 - tn.antes)) / tn.antes, 2));
     }
     this.flash.style.opacity = fl.toFixed(3);
+    // Corte a negro: { "negro": { "desde": pulso, "funde": pulsos } } en el plano. Tapa la pantalla entera, lámina incluida.
+    const ng = cur.negro ? clamp((tb - cur.negro.desde) / Math.max(1e-3, cur.negro.funde ?? 0.001)) : 0;
+    const ngTxt = ng.toFixed(3);
+    if (this.negro._o !== ngTxt) {
+      this.negro.style.opacity = this.negro._o = ngTxt;
+      this.negro.style.visibility = ng > 0 ? "visible" : "hidden";
+    }
 
     this.textos.render(pulso, si);
   }
@@ -660,7 +668,13 @@ export class Motor {
     const left = v.w / 2 - cx * rec.w * s;
     const top = v.h * (p.arte.y ?? 0.5) - cy * rec.h * s;
     p.arteTf = { left, top, s, rw: rec.w, rh: rec.h };
-    const tf = `translate(${left.toFixed(2)}px,${top.toFixed(2)}px) scale(${s.toFixed(5)})`;
+    let tf = `translate(${left.toFixed(2)}px,${top.toFixed(2)}px) scale(${s.toFixed(5)})`;
+    if (de.giro != null || a.giro != null) {
+      // Giro del arte alrededor del centro del encuadre (0.5.0): la ilustración gira dentro de la viñeta, no la cámara.
+      const px = (cx * rec.w).toFixed(1);
+      const py = (cy * rec.h).toFixed(1);
+      tf += ` translate(${px}px,${py}px) rotate(${lerp(de.giro ?? 0, a.giro ?? 0, k).toFixed(3)}deg) translate(-${px}px,-${py}px)`;
+    }
     V.lapiz.style.transform = tf;
     V.arteCaja.style.transform = tf;
 

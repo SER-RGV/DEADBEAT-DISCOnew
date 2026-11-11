@@ -1,8 +1,13 @@
-# Manifiesto de arte nuevo · motion comic 0.3.1
+# Manifiesto de arte nuevo · motion comic 0.3.1 y 0.5.0
 
-**Nada de esta carpeta es arte oficial del juego.** Son ilustraciones creadas para la versión
-0.3.1-preview de la introducción con una herramienta de generación de imagen por IA, dentro de la
-sesión de trabajo. Están pendientes de aprobación de dirección de arte.
+**Nada de esta carpeta es arte oficial del juego.** Son ilustraciones creadas para las versiones
+0.3.1-preview y 0.5.0-preview de la introducción con una herramienta de generación de imagen por IA,
+dentro de la sesión de trabajo. Están pendientes de aprobación de dirección de arte. **Ninguna ha
+sido revisada ni aprobada por dirección.**
+
+Las tres ilustraciones de la 0.5.0 se generaron después de presentar el inventario de recursos y con
+autorización expresa de dirección para generar esas tres (opción «Sí: 3 imágenes»). Esa autorización
+fue para generarlas y probarlas en el montaje, no una aprobación del resultado.
 
 - No sustituyen ni modifican ningún archivo original: el arte del juego sigue intacto en
   `assets/cinematics/`, `assets/characters/`, `assets/enemies/`, `assets/environments/` y `assets/ui/`.
@@ -12,7 +17,21 @@ sesión de trabajo. Están pendientes de aprobación de dirección de arte.
 - `generado/` guarda la salida de la herramienta tal cual, sin retocar. Los archivos de esta carpeta
   son los que usa el motion comic.
 
-## Recursos
+## Recursos de la 0.5.0
+
+La columna «Planos» de esta tabla se refiere a la numeración de la 0.5.0.
+
+| Archivo | Tamaño real | Qué es | Origen y tratamiento | Planos (0.5.0) | Estado |
+|---|---|---|---|---|---|
+| `ciudad_antes_de_la_noche.png` | 2560×1440 | La ciudad antes de la transformación: ciudad industrial europea de noche, fábricas y chimeneas, casas de ladrillo, viaducto con un tren de vapor, calle empedrada con farolas y, en el centro, la estación de hierro y cristal con torre de reloj, iluminada por dentro y con guirnaldas | Generada a 1376×768 (`generado/ciudad_antes_generado.png`) dando como referencia de composición el fondo oficial `cine_bg01_city.png` y, de estilo, `estacion_primera_noche.png`. Recortada a 16:9 y **ampliada a 2560×1440 por remuestreo Lanczos con un enfoque suave**. No es un dibujo nativo a ese tamaño | 01, 11, 12 | Nueva, sin aprobar. No existía ningún dibujo de la ciudad antes del cambio |
+| `estacion_fachada.png` | 2560×1440 | La entrada de la estación desde la calle, de frente: ladrillo y hierro remachado, puerta doble con montante de cristal, reloj sobre la puerta, dos ventanales, farolas, guirnaldas y banderines, carteles, un carro de equipajes. Tras el cristal de la puerta se ven sombras de dos parejas bailando | Generada a 1376×768 (`generado/estacion_fachada_generado.png`) dando como referencia de composición el fondo oficial `cine_bg02_club_exterior.png`: puerta, ventanales y columnas están en el mismo sitio, para que el antes y el después encajen. Mismo tratamiento de ampliación | 02, 10 | Nueva, sin aprobar. No existía ningún dibujo de la estación por fuera |
+| `corazon_torre.png` | 2560×1440 | El interior de la torre visto desde arriba, en vertical: anillos concéntricos de niveles con arcos góticos y columnas de hierro, cada uno con una luz de un color, pasarelas y escaleras que cruzan el hueco, y un punto negro en el centro. No se ve el fondo | Generada a 1376×768 (`generado/corazon_torre_generado.png`) dando como referencia de estilo `pozo_torre.png` y el fondo oficial `cine_bg03_entrance.png`. Mismo tratamiento de ampliación | 16 | Nueva, sin aprobar. No existía ninguna vista de la torre por dentro mirando hacia abajo |
+
+## Recursos de la 0.3.1
+
+La columna «Planos» de esta tabla conserva la numeración de la 0.3.1. En la 0.5.0 estos recursos se
+usan en los planos 03, 04, 05, 06, 08 y 09 (estación), 05 (anfitrión), 03, 04, 05, 08 y 09
+(invitados), 07 y 08 (tocadiscos) y 15 (pozo).
 
 | Archivo | Tamaño real | Qué es | Origen y tratamiento | Planos | Estado |
 |---|---|---|---|---|---|
@@ -42,18 +61,48 @@ Resumen de lo que se pidió; no se conserva el texto exacto de cada petición.
 - **Pozo:** corte vertical 9:16 de una torre gótica por dentro, hueco central vacío con carriles,
   balcones y pasarelas, una luz de color distinta por nivel.
 
+Indicaciones de la 0.5.0 (resumen):
+
+- **Ciudad de antes:** redibujar el fondo oficial de la ciudad como el mismo lugar antes del cambio,
+  con la misma cámara y el mismo viaducto, barandilla y pilar; ciudad industrial europea de finales
+  de los años cuarenta, recién terminada una guerra; sin neón, sin rosa, sin calaveras ni agujas
+  góticas; en el centro, una estación de hierro y cristal con torre de reloj, iluminada y con
+  guirnaldas; paleta sepia, hollín, azul noche y ámbar; sin personas, texto ni marcos.
+- **Fachada:** redibujar el fondo oficial de la fachada del club como el mismo edificio antes del
+  cambio, con la misma cámara frontal y la misma simetría; ladrillo y hierro, reloj donde está el
+  escudo, farolas donde están las estatuas, guirnaldas y banderines; luz ámbar de la fiesta por los
+  cristales, con sombras de parejas; sin neón ni adornos góticos.
+- **Corazón de la torre:** vista en vertical hacia abajo del interior de una torre gótica e industrial
+  que no termina; anillos de niveles con arcos, columnas de hierro, balcones y pasarelas; una luz de
+  color distinta por nivel; un punto negro en el centro; sin personajes, criaturas, rostros ni ojos.
+
 ## Revisión hecha
 
-Se miraron las cinco imágenes una a una antes de integrarlas. Ninguna contiene texto, logotipos, el
-rostro del anfitrión, a Tempo ni al protagonista.
+0.3.1: se miraron las cinco imágenes una a una antes de integrarlas. Ninguna contiene texto,
+logotipos, el rostro del anfitrión, a Tempo ni al protagonista.
+
+0.5.0: se miraron las tres imágenes una a una antes de integrarlas.
+
+- Ninguna contiene logotipos, criaturas, rostros, a Tempo, al protagonista, el Refugio ni el HUB.
+- La **fachada** tiene carteles con garabatos que imitan letras; no forman palabras legibles, pero a
+  tamaño grande se nota que no son texto de verdad. Tiene también un rótulo de madera vacío.
+- La **ciudad de antes** no conserva exactamente la composición del fondo oficial: mantiene el pilar
+  de la izquierda, el viaducto con el tren y la barandilla, pero el puente del fondo y las casas de
+  la derecha son distintos. Por eso el paso de una a otra se hace con un círculo que crece y no con
+  un fundido.
+- El **corazón de la torre** tiene un acabado de línea limpia, más cercano al del pozo que al pixel
+  art de los fondos oficiales.
 
 ## Lo que queda por decidir
 
 1. **Aprobación de estilo.** La estación tiene un acabado de ilustración con línea, más limpio que el
    pixel art de los fondos oficiales. Convive bien dentro de la viñeta de cómic, pero es una decisión
    de dirección de arte.
-2. **Resolución.** La estación y el pozo están ampliados. Si se aprueban como diseño, conviene
+2. **Resolución.** La estación, el pozo y las tres ilustraciones de la 0.5.0 están ampliados. Si se aprueban como diseño, conviene
    redibujarlos o regenerarlos al tamaño final.
 3. **Sustitución.** Si dirección encarga ilustraciones definitivas, basta con cambiar `src` en
    `data/composicion.json` (generado por la herramienta de composición), quitar `"nuevo": true` y
    retirar el sello del plano.
+4. **La ciudad (0.5.0).** La biblia no describe ninguna ciudad. Aprobar `ciudad_antes_de_la_noche.png`
+   y `estacion_fachada.png` es aprobar también cómo era el lugar antes de la Primera Noche: es una
+   decisión de dirección narrativa, no solo de arte.

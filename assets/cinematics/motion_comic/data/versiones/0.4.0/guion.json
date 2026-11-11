@@ -1,0 +1,517 @@
+{
+  "version": "0.4.0-preview",
+  "titulo": "DEADBEAT DISCO · Introducción · Motion comic narrativo · La noche que vuelve",
+  "aviso": "ESTE ARCHIVO CONTIENE TODOS LOS TEXTOS DEL MOTION COMIC. Los textos están separados de las ilustraciones y se pueden editar aquí o desde la vista previa (index.html). Ningún texto está pintado en los fondos. Cada texto dice de dónde sale: literal, adaptado o nuevo propuesto.",
+  "tempo": {
+    "bpm": 128,
+    "compas": 4,
+    "pulsos_totales": 96,
+    "planos": 15,
+    "nota": "96 pulsos a 128 BPM = 45,000 s exactos. Los tiempos de cada intervención se dan en pulsos desde el inicio de su plano. Quince planos en seis bloques. Pulsos por plano: 8, 4 · 5, 9 · 7, 6 · 5, 9 · 6, 5, 9 · 5, 4, 10, 4. Pulsos por bloque: 12, 14, 13, 14, 20, 23."
+  },
+  "lectura": {
+    "cps_comodo": 17,
+    "cps_maximo": 21,
+    "minimo_s": 0.9,
+    "tam_minimo_px": 26,
+    "contraste_minimo": 7,
+    "margen_seguro": 0.035,
+    "nota": "cps = caracteres por segundo. Hasta 17 se lee con comodidad; entre 17 y 21 es rápido; por encima de 21 no da tiempo. Las onomatopeyas, el rótulo de neón y las cartelas no cuentan como lectura obligatoria."
+  },
+  "estados": {
+    "literal": "Texto que existe letra por letra en una fuente del repositorio. 'fuente.cita' es el propio texto y el validador comprueba que aparece en 'fuente.archivo'.",
+    "adaptado": "Redacción de dirección (el texto del encargo) que cuenta con otras palabras un pasaje de la biblia. 'fuente.cita' guarda el pasaje literal que adapta, y el validador comprueba que existe en 'fuente.archivo'. 'fuente.fijado' guarda el texto exacto del encargo: si se retoca, deja de coincidir y pasa a BORRADOR.",
+    "propuesto": "PROPUESTA. Texto nuevo sin respaldo literal en la biblia ni en el juego, pendiente de decisión. No es canon. En la vista previa lleva el sello «PROPUESTA». Si viene del encargo, 'fuente.fijado' guarda su texto exacto.",
+    "borrador": "BORRADOR. Texto retocado o escrito en la vista previa que todavía no ha revisado nadie. No es canon y no está aprobado."
+  },
+  "personajes": {
+    "tempo": {
+      "nombre": "TEMPO",
+      "rol": "Tempo",
+      "nota": "Desde la 0.4.0 ningún texto de la intro lleva su rótulo: su frase es ahora narración. El nombre no aparece en pantalla; está pendiente decidir si debe aparecer. Nombre vigente según la biblia narrativa (§3). El HUB del juego todavía dice «DJ VIRGILIO» (src/dd_hub_system.js); el cambio allí está pendiente de autorización y este trabajo no lo toca."
+    },
+    "anfitrion": {
+      "nombre": "",
+      "rol": "Anfitrión",
+      "nota": "El anfitrión de la Primera Noche. Sin nombre, sin rostro y sin etiqueta: la intro no dice quién llegará a ser."
+    },
+    "heroe": {
+      "nombre": "",
+      "rol": "Protagonista",
+      "nota": "El Desafinado. No habla en la introducción y no tiene nombre, recuerdos ni pasado. No hay ninguna intervención suya."
+    }
+  },
+  "estilos": {
+    "dialogo": {
+      "fuente": "Comic Neue",
+      "tam": 35,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#fffbe9",
+      "borde": "#111016",
+      "grosor": 6,
+      "ancho": 430
+    },
+    "pensamiento": {
+      "fuente": "Comic Neue",
+      "cursiva": true,
+      "tam": 33,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#fffbe9",
+      "borde": "#111016",
+      "grosor": 5,
+      "ancho": 400
+    },
+    "grito": {
+      "fuente": "Bangers",
+      "tam": 50,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#ffe94a",
+      "borde": "#111016",
+      "grosor": 7,
+      "ancho": 560
+    },
+    "susurro": {
+      "fuente": "Comic Neue",
+      "cursiva": true,
+      "tam": 31,
+      "mayusculas": true,
+      "color": "#2e2a36",
+      "fondo": "#f4f0e2",
+      "borde": "#2b2733",
+      "grosor": 4,
+      "discontinuo": "14 11",
+      "ancho": 430
+    },
+    "narrador": {
+      "fuente": "Special Elite",
+      "tam": 30,
+      "mayusculas": true,
+      "color": "#17131b",
+      "fondo": "#ffd62e",
+      "borde": "#111016",
+      "grosor": 5,
+      "ancho": 540
+    },
+    "narrador_voz": {
+      "fuente": "Special Elite",
+      "tam": 30,
+      "mayusculas": true,
+      "color": "#fff6e0",
+      "fondo": "#131018",
+      "borde": "#ff2d95",
+      "grosor": 5,
+      "ancho": 520
+    },
+    "rotulo": {
+      "fuente": "Anton",
+      "tam": 46,
+      "mayusculas": true,
+      "color": "#fff6e0",
+      "fondo": "#111016",
+      "sub_fuente": "Special Elite",
+      "sub_tam": 28,
+      "sub_color": "#17131b",
+      "sub_fondo": "#ffd62e"
+    },
+    "cartela": {
+      "fuente": "Creepster",
+      "tam": 150,
+      "mayusculas": true,
+      "color": "#f3ecd6",
+      "fondo": "#0b090d",
+      "acento": "#ff2d95"
+    },
+    "onomatopeya": {
+      "fuente": "Bangers",
+      "tam": 150,
+      "color": "#ffe94a",
+      "borde": "#111016"
+    },
+    "neon": {
+      "fuente": "Knewave",
+      "tam": 92,
+      "color": "#fff0fa",
+      "brillo": "#ff2d95"
+    }
+  },
+  "intervenciones": [
+    {
+      "id": "p01_narrador_guerra",
+      "plano": 1,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.1 Antes de la torre",
+        "cita": "La fiesta celebraba el final de una guerra. Durante unas horas, personas que habían vivido esperando la muerte pudieron reunirse sin miedo.",
+        "fijado": "La guerra terminó. Por una noche, nadie tuvo que huir."
+      },
+      "bloques": [
+        "La guerra terminó.",
+        "Por una noche,",
+        "nadie tuvo que huir."
+      ],
+      "entra": 1.0,
+      "sale": 8,
+      "pos": {
+        "x": 0.16,
+        "y": 0.1
+      },
+      "capitular": true
+    },
+    {
+      "id": "p03_dialogo_deseo",
+      "plano": 3,
+      "tipo": "dialogo",
+      "habla": "anfitrion",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "Cuando la fiesta se acercaba a su final, el anfitrión pidió que aquella noche no terminase.",
+        "fijado": "Que esta noche no termine.",
+        "nota": "La biblia cuenta la petición en estilo indirecto; el encargo la pone en boca del anfitrión. No se le da nombre ni rostro."
+      },
+      "bloques": [
+        "Que esta noche",
+        "*no termine*."
+      ],
+      "entra": 1.0,
+      "sale": 5,
+      "pos": {
+        "x": 0.24,
+        "y": 0.2
+      },
+      "cola": {
+        "hacia": {
+          "x": 0.55,
+          "y": 0.33
+        }
+      }
+    },
+    {
+      "id": "p04_narrador_dormia",
+      "plano": 4,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.2 La Escucha",
+        "cita": "Bajo el salón dormía una presencia sin rostro llamada **la Escucha**.",
+        "fijado": "Bajo el salón dormía algo que escuchaba.",
+        "nota": "El texto dice «algo»: no nombra ni describe a la Escucha y no le atribuye intención. «Dormía» deja claro que ya estaba ahí antes del deseo (cronología §38, puntos 3 y 4)."
+      },
+      "bloques": [
+        "Bajo el salón dormía",
+        "algo que escuchaba."
+      ],
+      "entra": 0.3,
+      "sale": 5.5,
+      "pos": {
+        "x": 0.36,
+        "y": 0.36
+      }
+    },
+    {
+      "id": "p04_narrador_devolvio",
+      "plano": 4,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "La Escucha respondió repitiéndola.",
+        "fijado": "Y devolvió lo que recibió.",
+        "nota": "«Lo que recibió»: no elige, no interpreta y no actúa por maldad. Solo repite."
+      },
+      "bloques": [
+        "Y devolvió",
+        "lo que recibió."
+      ],
+      "entra": 5.7,
+      "sale": 9,
+      "pos": {
+        "x": 0.64,
+        "y": 0.6
+      }
+    },
+    {
+      "id": "p05_narrador_abajo",
+      "plano": 5,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "El salón creció hacia abajo, como un surco que se hunde en un disco.",
+        "fijado": "La noche empezó a crecer hacia abajo."
+      },
+      "bloques": [
+        "La noche empezó a crecer",
+        "*hacia abajo*."
+      ],
+      "entra": 2.3,
+      "sale": 7,
+      "pos": {
+        "x": 0.76,
+        "y": 0.6
+      }
+    },
+    {
+      "id": "p06_narrador_leyes",
+      "plano": 6,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "Los deseos más intensos de los invitados se convirtieron en las leyes de cada pista.",
+        "fijado": "Los deseos se convirtieron en leyes."
+      },
+      "bloques": [
+        "Los deseos se convirtieron",
+        "en *leyes*."
+      ],
+      "entra": 0.4,
+      "sale": 6,
+      "pos": {
+        "x": 0.2,
+        "y": 0.1
+      }
+    },
+    {
+      "id": "p07_sfx_salto",
+      "plano": 7,
+      "tipo": "onomatopeya",
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "TAC",
+        "nota": "Onomatopeya nueva para el salto de la aguja. No procede de la biblia ni del juego: es una propuesta de puesta en escena, dentro del lenguaje de cómic ya aprobado. El plano no lleva ningún otro texto."
+      },
+      "bloques": [
+        "TAC"
+      ],
+      "entra": 2,
+      "sale": 5,
+      "letras": {
+        "fuente": "Bangers",
+        "tam": 84,
+        "color": "#ffe94a",
+        "borde": "#111016",
+        "giro": -9
+      },
+      "animacion": "latido",
+      "sonido_guia": "clac",
+      "golpes": [
+        {
+          "en": 2,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 0.85
+        },
+        {
+          "en": 3,
+          "x": 0.4,
+          "y": 0.83,
+          "escala": 1.05
+        },
+        {
+          "en": 4,
+          "x": 0.36,
+          "y": 0.86,
+          "escala": 1.25
+        }
+      ],
+      "dura_golpe": 0.8
+    },
+    {
+      "id": "p08_narrador_tempo",
+      "plano": 8,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche",
+        "cita": "Vio a los invitados felices y pensó que unos minutos más no podían hacer daño.",
+        "fijado": "Los vio felices. Pensó que unos minutos más no podían hacer daño.",
+        "nota": "Decisión de dirección (encargo 0.3.2): sustituye a «Los vi felices. Creí que unos minutos más no podían hacer daño.», que era PROPUESTA en primera persona. Ahora es narración en tercera persona y adapta casi palabra por palabra el pasaje de la biblia: cambia «a los invitados» por «Los» y parte la frase en dos. Ya no es la voz de Tempo, así que no lleva su rótulo; el recuadro con su retrato deja claro de quién se habla."
+      },
+      "bloques": [
+        "Los vio felices.",
+        "Pensó que unos minutos más",
+        "no podían hacer daño."
+      ],
+      "entra": 0.6,
+      "sale": 9,
+      "pos": {
+        "x": 0.34,
+        "y": 0.17
+      }
+    },
+    {
+      "id": "p09_narrador_volvio",
+      "plano": 9,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "cita": "El tiempo se plegó sobre sí mismo.",
+        "fijado": "La noche volvió a empezar."
+      },
+      "bloques": [
+        "La noche",
+        "volvió a empezar."
+      ],
+      "entra": 0.4,
+      "sale": 6,
+      "pos": {
+        "x": 0.17,
+        "y": 0.1
+      }
+    },
+    {
+      "id": "p10_narrador_corregia",
+      "plano": 10,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§4.1 Origen",
+        "cita": "Durante la primera transición, alguien dio un paso fuera de tiempo. La torre corrigió el movimiento, pero descartó esa posibilidad.",
+        "fijado": "La torre corregía cada variación."
+      },
+      "bloques": [
+        "La torre corregía",
+        "cada variación."
+      ],
+      "entra": 0.5,
+      "sale": 5,
+      "pos": {
+        "x": 0.2,
+        "y": 0.17
+      }
+    },
+    {
+      "id": "p11_narrador_forma",
+      "plano": 11,
+      "tipo": "narrador",
+      "estado": "adaptado",
+      "fuente": {
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§4.1 Origen",
+        "cita": "Tras innumerables repeticiones, todas las decisiones rechazadas se acumularon hasta formar una persona.",
+        "fijado": "Lo que la torre rechazó terminó tomando forma."
+      },
+      "bloques": [
+        "Lo que la torre rechazó",
+        "terminó tomando forma."
+      ],
+      "entra": 1.6,
+      "sale": 9,
+      "pos": {
+        "x": 0.2,
+        "y": 0.11
+      }
+    },
+    {
+      "id": "p12_sfx_enganche",
+      "plano": 12,
+      "tipo": "onomatopeya",
+      "estado": "propuesto",
+      "fuente": {
+        "fijado": "TAC",
+        "nota": "La misma onomatopeya del plano 07, repetida aquí para que se vea, sin sonido, que la música vuelve a engancharse justo antes de que se abra el suelo (biblia §5.3: «La música se repite antes de terminar»). Propuesta de puesta en escena; no es canon."
+      },
+      "bloques": [
+        "TAC"
+      ],
+      "entra": 0.8,
+      "sale": 2.6,
+      "letras": {
+        "fuente": "Bangers",
+        "tam": 76,
+        "color": "#ffe94a",
+        "borde": "#111016",
+        "giro": -9
+      },
+      "animacion": "latido",
+      "sonido_guia": "clac",
+      "golpes": [
+        {
+          "en": 0.8,
+          "x": 0.76,
+          "y": 0.44,
+          "escala": 0.9
+        },
+        {
+          "en": 1.4,
+          "x": 0.83,
+          "y": 0.4,
+          "escala": 1.1
+        }
+      ],
+      "dura_golpe": 0.9
+    }
+  ],
+  "banco_de_alternativas": {
+    "nota": "Frases literales de la biblia que encajan en la intro y no se han colocado. Sirven para sustituir un texto adaptado por uno literal si dirección lo prefiere. Ninguna revela secretos de los soberanos ni de los finales.",
+    "frases": [
+      {
+        "cita": "No interpreta; repite.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.2 La Escucha"
+      },
+      {
+        "cita": "Las puertas dejaron de llevar al exterior.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición",
+        "nota": "Era la fuente de «El salón dejó de tener salida.», retirado en la 0.4.0: las puertas del plano 05 ya lo enseñan."
+      },
+      {
+        "cita": "La repetición no conserva la felicidad original. Conserva el instante anterior a la despedida y lo reproduce sin permitir que evolucione.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.4 La ley fundamental",
+        "nota": "Era la fuente de «La despedida nunca llegó.», retirado en la 0.4.0."
+      },
+      {
+        "cita": "El tiempo se plegó sobre sí mismo.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.3 La petición"
+      },
+      {
+        "cita": "Cada deseo se convierte en un ritmo; cada ritmo, en una prisión.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§2.4 La ley fundamental"
+      },
+      {
+        "cita": "Podía haber dejado acabar el disco.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche"
+      },
+      {
+        "cita": "Aquella transición fue el primer eslabón de la cadena.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.1 Papel en la Primera Noche"
+      },
+      {
+        "cita": "Tempo recuerda todas las vueltas.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.2 Su castigo"
+      },
+      {
+        "cita": "Los bailarines olvidan.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§3.2 Su castigo"
+      },
+      {
+        "cita": "Es el fragmento que Tempo no consiguió repetir.",
+        "archivo": "assets/cinematics/motion_comic/fuentes/biblia_extractos.md",
+        "donde": "§4.1 Origen"
+      }
+    ]
+  }
+}

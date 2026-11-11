@@ -12,8 +12,11 @@
   <header id="cabecera">
     <div class="marca">
       <strong>DEADBEAT DISCO</strong>
-      <span>Introducción · motion comic · vista previa</span>
+      <span>Introducción · motion comic · vista previa <b id="version-actual"></b></span>
     </div>
+    <label class="selector selector-version" title="La versión vigente está en data/. Las anteriores se conservan en data/versiones/ y se pueden reproducir igual.">Versión
+      <select id="op-version"></select>
+    </label>
     <div id="resumen" class="resumen" aria-live="polite"></div>
     <div class="acciones">
       <span id="sin-guardar" class="sin-guardar" hidden>Cambios sin guardar</span>
@@ -49,6 +52,7 @@
         <div class="lectura-plano">
           <span id="lt-plano" class="chip-plano">01</span>
           <span id="lt-nombre">—</span>
+          <span id="lt-clase" class="chip-clase" hidden></span>
           <span id="lt-compas" class="tenue"></span>
         </div>
         <span class="hueco-flex"></span>
@@ -99,7 +103,7 @@
         <label class="fila-op"><input type="checkbox" id="op-solo-texto"> Atenuar la ilustración para revisar los textos</label>
         <h3>Sonido de referencia</h3>
         <label class="fila-op"><input type="checkbox" id="op-guia-sfx" checked> Con la claqueta, marcar también las onomatopeyas</label>
-        <p class="nota">El repositorio no tiene música. La claqueta marca los 128 pulsos por minuto a los que está montada la secuencia; son sonidos sintetizados de referencia, no la banda sonora.</p>
+        <p class="nota">El repositorio no tiene música. La claqueta marca los pulsos a los que está montada la secuencia; son sonidos sintetizados de referencia, no la banda sonora.</p>
         <h3>Formas según la función</h3>
         <ul class="leyenda">
           <li><i class="ley ley-dialogo"></i><span><b>Diálogo</b> Bocadillo de contorno grueso con cola hacia quien habla.</span></li>
@@ -110,7 +114,7 @@
           <li><i class="ley ley-sfx"></i><span><b>Onomatopeya</b> Letras grandes dentro de la viñeta.</span></li>
         </ul>
         <h3>Teclado</h3>
-        <p class="nota"><kbd>Espacio</kbd> reproducir o pausar · <kbd>Flecha izquierda</kbd> y <kbd>derecha</kbd> un pulso · con <kbd>Mayús</kbd>, un fotograma · <kbd>1</kbd>…<kbd>0</kbd> ir al plano · <kbd>Inicio</kbd> principio</p>
+        <p class="nota"><kbd>Espacio</kbd> reproducir o pausar · <kbd>Flecha izquierda</kbd> y <kbd>derecha</kbd> un pulso · con <kbd>Mayús</kbd>, un fotograma · <kbd>1</kbd>…<kbd>0</kbd> ir al plano 1 a 10 (con <kbd>Mayús</kbd> o <kbd>Alt</kbd>, a los planos 11 a 20) · <kbd>Inicio</kbd> principio</p>
       </div>
     </aside>
   </main>

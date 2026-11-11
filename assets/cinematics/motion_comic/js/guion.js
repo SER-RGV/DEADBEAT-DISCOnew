@@ -102,6 +102,17 @@ export function analizar(guion, comp) {
   // El número de planos lo declara el guion (tempo.planos). Si no lo declara, son los diez de las versiones 0.2 y 0.3.
   const esperados = guion.tempo.planos ?? 10;
   if (planos.length !== esperados) globales.push({ nivel: "error", texto: `Hay ${planos.length} planos; el guion declara ${esperados}.` });
+  // Desde la 0.5.0 la composición declara sus clasificaciones: entonces cada plano tiene que decir qué es
+  // (canon, diseño definido o propuesta) y llevar su ficha completa: encuadre, movimiento, acción y función.
+  if (comp.clasificaciones) {
+    const validas = Object.keys(comp.clasificaciones);
+    for (const p of comp.planos || []) {
+      const nn = String(p.n).padStart(2, "0");
+      if (!validas.includes(p.clasificacion)) globales.push({ nivel: "error", texto: `Plano ${nn}: falta la clasificación o no es una de ${validas.join(", ")}.` });
+      for (const campo of ["encuadre", "movimiento", "historia", "funcion"]) if (!String(p[campo] || "").trim()) globales.push({ nivel: "error", texto: `Plano ${nn}: la ficha no tiene «${campo}».` });
+      if (p.clasificacion === "PROPUESTA" && !String(p.clasificacion_nota || "").trim()) globales.push({ nivel: "error", texto: `Plano ${nn}: una PROPUESTA tiene que explicar qué propone (clasificacion_nota).` });
+    }
+  }
   const ids = new Set();
 
   for (const iv of guion.intervenciones) {

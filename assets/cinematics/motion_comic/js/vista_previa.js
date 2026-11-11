@@ -13,6 +13,10 @@ const $$ = (s, r = document) => [...r.querySelectorAll(s)];
 const RAIZ = new URL("../", import.meta.url).href;
 const params = new URLSearchParams(location.search);
 const LIMPIO = params.get("limpio") === "1";
+/* Versiones: la vigente está en data/; las anteriores se conservan en data/versiones/<número>/ y se
+   abren con ?version=<número> o con el selector de la cabecera. Solo cambia de dónde se leen los datos. */
+const VERSION = (params.get("version") || "").replace(/[^0-9a-z.\-]/gi, "");
+const DATOS = VERSION ? `data/versiones/${VERSION}/` : "data/";
 const coma = (n, d = 2) => n.toFixed(d).replace(".", ",");
 
 const E = {
@@ -153,6 +157,16 @@ function actualizarLectura() {
     planoMostrado = i.plano.i;
     $("#lt-plano").textContent = String(i.plano.n).padStart(2, "0");
     $("#lt-nombre").textContent = i.plano.nombre;
+    const cl = $("#lt-clase");
+    if (cl) {
+      // Ficha del plano (0.5.0): clasificación a la vista; bloque, encuadre, movimiento y función al pasar el ratón.
+      const pc = E.comp.planos[i.plano.i] || {};
+      const bl = (E.comp.bloques || []).find((b) => b.n === pc.bloque);
+      cl.hidden = !pc.clasificacion;
+      cl.textContent = pc.clasificacion === "PROPUESTA" ? "PROPUESTA VISUAL" : pc.clasificacion || "";
+      cl.dataset.clase = pc.clasificacion || "";
+      cl.title = [bl ? `Bloque ${bl.n} · ${bl.nombre}` : "", pc.encuadre ? "Encuadre: " + pc.encuadre : "", pc.movimiento ? "Cámara: " + pc.movimiento : "", pc.funcion ? "Función: " + pc.funcion : "", pc.clasificacion_nota || ""].filter(Boolean).join("\n");
+    }
     $$("#linea-contenido .plano").forEach((e, k) => e.classList.toggle("actual", k === planoMostrado));
   }
 }
@@ -334,7 +348,7 @@ function pintarComprobaciones() {
   const fijMal = activas.filter((f) => f.avisos.some((x) => /fijado/.test(x.texto))).length;
   const fila = (ok, txt) => `<tr><td class="${ok === true ? "si" : ok === false ? "no" : "ojo"}">${ok === true ? "Sí" : ok === false ? "No" : "Ojo"}</td><td>${txt}</td></tr>`;
   let h = `<h3>Resultado</h3><table class="tabla-ok">`;
-  h += fila(Math.abs(a.duracion - 45) < 1e-6, `Duración total: <b>${coma(a.duracion, 3)} s</b> (${E.guion.tempo.pulsos_totales} pulsos a ${E.guion.tempo.bpm} por minuto).`);
+  h += fila(Math.abs(a.duracion - (E.guion.tempo.duracion_s ?? 45)) < 1e-6, `Duración total: <b>${coma(a.duracion, 3)} s</b> (${E.guion.tempo.pulsos_totales} pulsos a ${E.guion.tempo.bpm} por minuto).`);
   h += fila(a.planos.length === (E.guion.tempo.planos ?? 10), `Planos: <b>${a.planos.length}</b>, uno por viñeta (el guion declara ${E.guion.tempo.planos ?? 10}).`);
   h += fila(rapidas === 0 ? true : maxCps <= L.cps_maximo ? null : false, `Ritmo de lectura: el texto más rápido va a <b>${coma(maxCps, 1)}</b> caracteres por segundo (cómodo hasta ${L.cps_comodo}, máximo ${L.cps_maximo}).`);
   h += fila(solapes === 0 ? true : null, solapes ? `<b>${solapes}</b> ${solapes === 1 ? "texto entra" : "textos entran"} antes de que dé tiempo a leer el anterior.` : `Ningún texto entra antes de que dé tiempo a leer el anterior.`);
@@ -758,7 +772,18 @@ function prepararControles() {
   window.addEventListener("keydown", (e) => {
     const t = e.target;
     if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.tagName === "SELECT" || t.isContentEditable)) return;
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (e.metaKey || e.ctrlKey) return;
+    // Dígitos: saltan al plano. Con Mayús o con Alt, a los planos 11 a 20. Se lee la tecla física (e.code)
+    // porque con Mayús o Alt la tecla produce otro carácter según el teclado.
+    const dig = /^(Digit|Numpad)([0-9])$/.exec(e.code || "");
+    if (dig) {
+      e.preventDefault();
+      reproducir(false);
+      const n = (dig[2] === "0" ? 10 : +dig[2]) + (e.altKey || e.shiftKey ? 10 : 0);
+      if (n <= m.planos.length) irAPlano(n);
+      return;
+    }
+    if (e.altKey) return;
     if (e.code === "Space") {
       e.preventDefault();
       reproducir(!E.reproduciendo);
@@ -768,10 +793,6 @@ function prepararControles() {
       const paso = e.shiftKey ? 1 / 30 : m.spb;
       irA(m.t + (e.key === "ArrowRight" ? paso : -paso));
     } else if (e.key === "Home") irA(0);
-    else if (/^[0-9]$/.test(e.key)) {
-      reproducir(false);
-      irAPlano(e.key === "0" ? 10 : +e.key);
-    }
   });
   window.addEventListener("beforeunload", (e) => {
     if (E.sucio) {
@@ -781,6 +802,46 @@ function prepararControles() {
   });
 }
 
+/* ---------------- Versiones ---------------- */
+function prepararVersiones() {
+  const sel = $("#op-version");
+  if (!sel) return;
+  const vigente = String(E.guion.version || "").replace(/-preview$/, "");
+  $("#version-actual").textContent = (E.guion.version || "") + (VERSION ? " · versión anterior" : "");
+  document.body.classList.toggle("version-anterior", !!VERSION);
+  fetch(RAIZ + "data/versiones/indice.json", { cache: "no-store" })
+    .then((r) => (r.ok ? r.json() : { versiones: [] }))
+    .catch(() => ({ versiones: [] }))
+    .then((ind) => {
+      sel.innerHTML = "";
+      for (const v of ind.versiones || []) {
+        const o = document.createElement("option");
+        o.value = v.vigente ? "" : v.id;
+        o.textContent = v.id + (v.vigente ? " (vigente)" : "") + (v.titulo ? " · " + v.titulo : "");
+        o.selected = VERSION ? v.id === VERSION : !!v.vigente;
+        sel.appendChild(o);
+      }
+      if (!sel.options.length) {
+        const o = document.createElement("option");
+        o.textContent = vigente || "vigente";
+        o.value = "";
+        sel.appendChild(o);
+      }
+      sel.addEventListener("change", () => {
+        if (E.sucio && !confirm("Hay cambios sin guardar en el guion. ¿Cambiar de versión y perderlos?")) {
+          sel.value = VERSION;
+          return;
+        }
+        E.sucio = false;
+        const q = new URLSearchParams(location.search);
+        for (const k of ["t", "plano", "sel"]) q.delete(k);
+        if (sel.value) q.set("version", sel.value);
+        else q.delete("version");
+        location.search = q.toString();
+      });
+    });
+}
+
 /* ---------------- Arranque ---------------- */
 async function iniciar() {
   if (LIMPIO) document.body.classList.add("limpio");
@@ -788,12 +849,12 @@ async function iniciar() {
   const detalle = $("#carga-detalle");
   try {
     const [gt, comp] = await Promise.all([
-      fetch(RAIZ + "data/guion.json", { cache: "no-store" }).then((r) => {
-        if (!r.ok) throw new Error("No se pudo leer data/guion.json (" + r.status + ")");
+      fetch(RAIZ + DATOS + "guion.json", { cache: "no-store" }).then((r) => {
+        if (!r.ok) throw new Error("No se pudo leer " + DATOS + "guion.json (" + r.status + ")");
         return r.text();
       }),
-      fetch(RAIZ + "data/composicion.json", { cache: "no-store" }).then((r) => {
-        if (!r.ok) throw new Error("No se pudo leer data/composicion.json (" + r.status + ")");
+      fetch(RAIZ + DATOS + "composicion.json", { cache: "no-store" }).then((r) => {
+        if (!r.ok) throw new Error("No se pudo leer " + DATOS + "composicion.json (" + r.status + ")");
         return r.json();
       }),
     ]);
@@ -814,6 +875,7 @@ async function iniciar() {
   }
   m.construir();
   $("#lt-total").textContent = fmtTiempo(m.duracion);
+  prepararVersiones();
   prepararControles();
   prepararLinea();
   prepararArrastre();
@@ -837,7 +899,7 @@ async function iniciar() {
   else if (params.has("plano")) irAPlano(parseInt(params.get("plano"), 10) || 1);
   else if (!params.get("sel")) irA(0);
 
-  window.MC = { motor: m, estado: E, irA, irAPlano, seleccionar, reproducir, comprobar: recomprobar, totales };
+  window.MC = { version: E.guion.version, datos: DATOS, motor: m, estado: E, irA, irAPlano, seleccionar, reproducir, comprobar: recomprobar, totales };
   document.documentElement.dataset.listo = "1";
 }
 

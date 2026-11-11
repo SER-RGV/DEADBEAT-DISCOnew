@@ -5,6 +5,11 @@
      node assets/cinematics/motion_comic/validar_guion.mjs            informe en texto
      node assets/cinematics/motion_comic/validar_guion.mjs --json     informe en JSON
      node assets/cinematics/motion_comic/validar_guion.mjs otro.json  valida otro guion (p. ej. uno descargado)
+     node assets/cinematics/motion_comic/validar_guion.mjs --version 0.4.0   valida una versión anterior
+                                                                      (data/versiones/0.4.0/)
+
+   Sin argumentos valida la versión vigente (data/guion.json y data/composicion.json). Si se le da otro
+   guion, usa el composicion.json que haya en su misma carpeta; si no hay ninguno, el vigente.
 
    Comprueba, sin navegador:
      1. duración total, número de planos y tiempos de cada texto (mismas reglas que la vista previa);
@@ -29,11 +34,21 @@ const AQUI = path.dirname(fileURLToPath(import.meta.url));
 const RAIZ = path.resolve(AQUI, "../../..");
 const args = process.argv.slice(2);
 const enJson = args.includes("--json");
-const rutaGuion = args.find((a) => !a.startsWith("--")) || path.join(AQUI, "data/guion.json");
+const iVer = args.indexOf("--version");
+const version = iVer >= 0 ? String(args[iVer + 1] || "").replace(/[^0-9a-z.\-]/gi, "") : "";
+if (iVer >= 0) args.splice(iVer, 2);
+const carpetaDatos = version ? path.join(AQUI, "data/versiones", version) : path.join(AQUI, "data");
+const rutaGuion = args.find((a) => !a.startsWith("--")) || path.join(carpetaDatos, "guion.json");
 
 const leerJson = async (r) => JSON.parse(await readFile(r, "utf8"));
-const guion = await leerJson(rutaGuion);
-const comp = await leerJson(path.join(AQUI, "data/composicion.json"));
+const guion = await leerJson(rutaGuion).catch((e) => {
+  console.error(`No se puede leer el guion «${rutaGuion}»: ${e.message}`);
+  process.exit(1);
+});
+// La composición que acompaña al guion: la de su carpeta si existe; si no, la vigente.
+const junto = path.join(path.dirname(path.resolve(rutaGuion)), "composicion.json");
+const rutaComp = await access(junto).then(() => junto, () => path.join(AQUI, "data/composicion.json"));
+const comp = await leerJson(rutaComp);
 
 const an = analizar(guion, comp);
 const errores = [];
@@ -41,7 +56,10 @@ const avisos = [];
 for (const g of an.globales) (g.nivel === "error" ? errores : avisos).push({ id: "(general)", texto: g.texto });
 for (const f of an.filas) for (const a of f.avisos) (a.nivel === "error" ? errores : avisos).push({ id: f.iv.id, texto: a.texto });
 
-if (Math.abs(an.duracion - 45) > 1e-6) errores.push({ id: "(general)", texto: `La duración es ${an.duracion.toFixed(3)} s y debe ser 45,000 s.` });
+// La duración la declara el guion (tempo.duracion_s). Si no la declara, son los 45 s de las versiones 0.2 a 0.4.
+const durEsperada = guion.tempo.duracion_s ?? 45;
+if (Math.abs(an.duracion - durEsperada) > 1e-6) errores.push({ id: "(general)", texto: `La duración es ${an.duracion.toFixed(3)} s y el guion declara ${durEsperada.toFixed(3)} s.` });
+if (guion.version && comp.version && guion.version !== comp.version) errores.push({ id: "(general)", texto: `El guion es de la versión ${guion.version} y la composición, de la ${comp.version}.` });
 // El número de planos se comprueba en analizar(): debe coincidir con guion.tempo.planos.
 
 /* Citas contra los archivos del repositorio. */
@@ -122,7 +140,9 @@ const resumen = {
   recursos_comprobados: recursosComprobados,
   recursos_nuevos: nuevos,
   sellos_de_arte: sellosArte,
+  version: guion.version || "",
   guion: path.relative(process.cwd(), rutaGuion) || rutaGuion,
+  composicion: path.relative(process.cwd(), rutaComp) || rutaComp,
   duracion_s: an.duracion,
   planos: an.planos.length,
   bpm: guion.tempo.bpm,
@@ -138,7 +158,9 @@ if (enJson) {
   console.log(JSON.stringify({ ...resumen, citas, filas: an.filas.map((f) => ({ id: f.iv.id, plano: f.plano.n, tipo: f.iv.tipo, estado: f.iv.estado, activa: f.activa, t0: f.t0, t1: f.t1, texto: f.texto, cps: f.cps })) }, null, 2));
 } else {
   const s = (x) => x.toFixed(2).padStart(6);
+  console.log(`Versión ${resumen.version || "(sin declarar)"}`);
   console.log(`Guion: ${resumen.guion}`);
+  console.log(`Composición: ${resumen.composicion}`);
   console.log(`Duración ${an.duracion.toFixed(3)} s · ${an.planos.length} planos · ${guion.tempo.bpm} pulsos por minuto · ${resumen.textos_activos} textos activos`);
   console.log("Estados: " + Object.entries(an.porEstado).map(([k, v]) => `${NOMBRE_ESTADO[k] || k} ${v}`).join(" · "));
   console.log("");
