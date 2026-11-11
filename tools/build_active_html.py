@@ -23,9 +23,19 @@ cover_clock_anchor = 'now:function(){return y?y.currentTime-(y.outputLatency||0)
 assert html.count(cover_clock_anchor) == 1, "Cover music clock anchor changed"
 html = html.replace(cover_clock_anchor,
     'now:function(){return y?y.currentTime-(y.outputLatency||0):0},'
+    'cinematicClock:function(){return y&&S&&y.state==="running"?y.currentTime:null},'
     'cinematicBeatPhase:function(){if(!y||!S||y.state!=="running")return null;'
     'var t=y.currentTime-(y.outputLatency||0)-(E-C*R);'
     'return ((t%(.4)+.4)%.4)/.4},drain:function', 1)
+
+# Si el hilo principal se bloquea, no programar juntos todos los pasos que
+# quedaron en el pasado: saltarlos manteniendo el índice y el compás reales.
+cover_scheduler_anchor = 'function ae(){if(y&&S)for(var e=y.currentTime+.14;E<e;)ee(E),E+=R,++C%16==0&&L++}'
+assert html.count(cover_scheduler_anchor) == 1, "Cover scheduler anchor changed"
+html = html.replace(cover_scheduler_anchor,
+    'function ae(){if(y&&S){var missed=Math.max(0,Math.floor((y.currentTime-E)/R));'
+    'if(missed){E+=missed*R;L+=Math.floor((C+missed)/16)-Math.floor(C/16);C+=missed}'
+    'for(var e=y.currentTime+.14;E<e;)ee(E),E+=R,++C%16==0&&L++}}', 1)
 
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")

@@ -296,20 +296,33 @@
 
     // Advance active cinematic & compute camera targets
     if (activeSeq) {
-      // Solo la intro usa el tiempo entre renders, no el dt de simulación.
-      // Limitar pausas largas evita saltos grandes tras ocultar la pestaña.
-      // Otros tipos conservan su reloj anterior y la cámara interpola con cdt.
-      let introDt = Number.isFinite(renderDt) && renderDt >= 0
-        ? Math.min(0.5, renderDt) : cdt;
+      // El reloj de audio compartido evita que la intro se retrase con pérdida
+      // de frames. Si no hay audio/autoplay, se usa el delta real de render.
+      // Las otras secuencias y la interpolación de cámara conservan cdt.
+      let introDt = Number.isFinite(renderDt) && renderDt >= 0 ? renderDt : cdt;
       if (activeSeq.type === "intro") {
-        // Una pestaña oculta pausa la intro. El primer delta al volver puede
-        // incluir tiempo oculto y se descarta, sin alterar otras secuencias.
-        if (document.hidden) {
-          activeSeq.introWasHidden = true;
+        let music = window.DDC_COVER && window.DDC_COVER.music;
+        let audioClock = null;
+        try {
+          if (music && typeof music.cinematicClock === "function") audioClock = music.cinematicClock();
+        } catch (e) { /* Audio opcional. */ }
+        if (!Number.isFinite(audioClock) || audioClock < 0) audioClock = null;
+        // La transición de visibilidad descarta el delta que incluye tiempo
+        // oculto. También descarta la muestra anterior del reloj de audio.
+        if (document.hidden || activeSeq.introWasHidden) {
+          activeSeq.introWasHidden = !!document.hidden;
           introDt = 0;
-        } else if (activeSeq.introWasHidden) {
-          activeSeq.introWasHidden = false;
-          introDt = 0;
+          activeSeq.introAudioClock = audioClock;
+          activeSeq.introAudioOwner = audioClock === null ? null : music;
+        } else if (audioClock !== null) {
+          if (activeSeq.introAudioOwner === music && Number.isFinite(activeSeq.introAudioClock) && audioClock >= activeSeq.introAudioClock) {
+            introDt = audioClock - activeSeq.introAudioClock;
+          }
+          activeSeq.introAudioClock = audioClock;
+          activeSeq.introAudioOwner = music;
+        } else {
+          activeSeq.introAudioClock = null;
+          activeSeq.introAudioOwner = null;
         }
       }
       activeSeq.elapsed += activeSeq.type === "intro" ? introDt : cdt;
@@ -336,62 +349,62 @@
 
         // Diez planos cinematográficos continuos (35s total)
         if (t < 3.5) {
-          // PLANO 01 (00:00 - 00:35 · 3.5s) · Ciudad Exterior (EWS): Pan horizontal lento + Tilt Up suave
+          // PLANO 01 (00:00.0 - 00:03.5 · 3.5s) · Ciudad Exterior (EWS): Pan horizontal lento + Tilt Up suave
           const lp = t / 3.5;
           cam.targetOffX = (0.5 - lp) * (reducedMotion ? 20 : 55);
           cam.targetOffY = lp * (reducedMotion ? -8 : -22);
           cam.targetZoomMul = 1.0 + lp * (reducedMotion ? 0.015 : 0.04);
         } else if (t < 7.0) {
-          // PLANO 02 (00:35 - 00:70 · 3.5s) · Fachada del Club (WS): Dolly In continuo hacia el portal
+          // PLANO 02 (00:03.5 - 00:07.0 · 3.5s) · Fachada del Club (WS): Dolly In continuo hacia el portal
           const lp = (t - 3.5) / 3.5;
           cam.targetOffX = Math.sin(lp * Math.PI * 0.5) * 6;
           cam.targetOffY = lp * -14;
           cam.targetZoomMul = 1.02 + lp * (reducedMotion ? 0.04 : 0.12);
         } else if (t < 10.0) {
-          // PLANO 03 (00:70 - 01:00 · 3.0s) · Umbral (CU / Dutch Angle): Foco en marco y fuga de luz
+          // PLANO 03 (00:07.0 - 00:10.0 · 3.0s) · Umbral (CU / Dutch Angle): Foco en marco y fuga de luz
           const lp = (t - 7.0) / 3.0;
           cam.targetOffX = -18 + lp * 12;
           cam.targetOffY = 10 - lp * 8;
           cam.targetZoomMul = 1.15 + lp * 0.06;
         } else if (t < 13.5) {
-          // PLANO 04 (01:00 - 01:35 · 3.5s) · Aparición del Protagonista (MS Contraluz): Contrapicado
+          // PLANO 04 (00:10.0 - 00:13.5 · 3.5s) · Aparición del Protagonista (MS Contraluz): Contrapicado
           const lp = (t - 10.0) / 3.5;
           cam.targetOffX = Math.sin(lp * Math.PI) * 8;
           cam.targetOffY = 16 - lp * 10;
           cam.targetZoomMul = 1.12 - lp * 0.03 + kickPulse * (reducedMotion ? 0.005 : 0.018);
         } else if (t < 17.5) {
-          // PLANO 05 (01:35 - 01:75 · 4.0s) · Tracking Lateral: Seguimiento de izquierda a derecha
+          // PLANO 05 (00:13.5 - 00:17.5 · 4.0s) · Tracking Lateral: Seguimiento de izquierda a derecha
           const lp = (t - 13.5) / 4.0;
           cam.targetOffX = (-0.5 + lp) * (reducedMotion ? 40 : 120);
           cam.targetOffY = Math.sin(lp * Math.PI * 2) * 6;
           cam.targetZoomMul = 1.08;
         } else if (t < 21.0) {
-          // PLANO 06 (01:75 - 02:10 · 3.5s) · Gran Nave Principal (High Angle EWS): Grúa cenital
+          // PLANO 06 (00:17.5 - 00:21.0 · 3.5s) · Gran Nave Principal (High Angle EWS): Grúa cenital
           const lp = (t - 17.5) / 3.5;
           cam.targetOffX = Math.sin(lp * Math.PI) * 12;
           cam.targetOffY = -28 + lp * 22;
           cam.targetZoomMul = 1.18 - lp * (reducedMotion ? 0.05 : 0.12);
         } else if (t < 24.5) {
-          // PLANO 07 (02:10 - 02:45 · 3.5s) · Pista Principal (Dynamic WS · DROP): Retroceso y beat drop
+          // PLANO 07 (00:21.0 - 00:24.5 · 3.5s) · Pista Principal (Dynamic WS · DROP): Retroceso y beat drop
           const lp = (t - 21.0) / 3.5;
           cam.targetOffX = 0;
           cam.targetOffY = lp * -18;
           cam.targetZoomMul = 1.05 + lp * 0.08 + kickPulse * (reducedMotion ? 0.01 : 0.035);
         } else if (t < 28.5) {
-          // PLANO 08 (02:45 - 02:85 · 4.0s) · Presentación Heroica (MCU): Detención y micro-órbita
+          // PLANO 08 (00:24.5 - 00:28.5 · 4.0s) · Presentación Heroica (MCU): Detención y micro-órbita
           const lp = (t - 24.5) / 4.0;
           cam.targetOffX = Math.sin(lp * Math.PI) * (reducedMotion ? 10 : 28);
           cam.targetOffY = -6 + Math.cos(lp * Math.PI) * 4;
           cam.targetZoomMul = 1.22 + Math.sin(lp * Math.PI * 0.5) * 0.06;
         } else if (t < 32.0) {
-          // PLANO 09 (02:85 - 03:20 · 3.5s) · Identidad del Juego (Hero Shot): Logotipo oficial + camera shake
+          // PLANO 09 (00:28.5 - 00:32.0 · 3.5s) · Identidad del Juego (Hero Shot): Logotipo oficial + camera shake
           const lp = (t - 28.5) / 3.5;
           const shake = (1 - lp) * (Math.random() - 0.5) * (reducedMotion ? 3 : 14);
           cam.targetOffX = shake;
           cam.targetOffY = -4 + shake * 0.6;
           cam.targetZoomMul = 1.18 + kickPulse * 0.04;
         } else {
-          // PLANO 10 (03:20 - 03:55 · 3.5s) · Transición Seamless al Gameplay: Lerp suave hacia HUB / r0
+          // PLANO 10 (00:32.0 - 00:35.0 · 3.0s) · Transición al HUB / r0
           const lp = Math.min(1, (t - 32.0) / 3.0);
           const ease = lp * lp * (3 - 2 * lp);
           cam.targetOffX = (1 - ease) * cam.offX;
