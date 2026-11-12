@@ -45,12 +45,17 @@
   #aviso code { color: var(--cian); word-break: break-all; }
   footer b { color: var(--hueso); font-weight: 600; }
   footer .ok { color: #5dffa0; } footer .mal { color: var(--magenta); } footer .espera { color: var(--amarillo); }
+  footer .version { color: var(--amarillo); font-weight: 800; }
   footer .ayuda { margin-left: auto; }
 </style>
 </head>
 <body>
 <header>
   <h1>DEADBEAT <span>DISCO</span> · PRUEBA DE DIRECCIÓN ARTÍSTICA</h1>
+  <div class="grupo" role="group" aria-label="Versión de la composición">
+    <button id="v1" aria-pressed="false" title="Primera composición (tecla V alterna)">V1</button>
+    <button id="v2" aria-pressed="true" title="Segunda composición (tecla V alterna)">V2</button>
+  </div>
   <div class="grupo" role="group" aria-label="Zoom">
     <button id="menos" title="Reducir (tecla -)" aria-label="Reducir">−</button>
     <span id="escala" aria-live="polite">—</span>
@@ -68,17 +73,18 @@
 </header>
 
 <main id="visor" aria-label="Lienzo de inspección">
-  <img id="imagen" alt="Composición de prueba: el protagonista en la pista de la estación con el logotipo DEADBEAT DISCO" draggable="false">
+  <img id="imagen" alt="Composición de prueba: el protagonista en la pista de la estación" draggable="false">
   <div id="aviso"><div>Cargando la imagen…</div></div>
 </main>
 
 <footer>
+  <span>Versión: <b id="i-version" class="version">—</b></span>
   <span>Archivo: <b id="i-archivo">—</b></span>
   <span>Ruta: <b id="i-ruta">—</b></span>
   <span>Resolución original: <b id="i-res">—</b></span>
   <span>Escala: <b id="i-escala">—</b></span>
   <span>Estado: <b id="i-estado" class="espera">cargando</b></span>
-  <span class="ayuda">Rueda: zoom · Arrastrar: mover · Doble clic: ajustar / 100 %</span>
+  <span class="ayuda">V: cambiar versión · Rueda: zoom · Arrastrar: mover · Doble clic: ajustar / 100 %</span>
 </footer>
 
 <script>
@@ -86,13 +92,16 @@
   "use strict";
   /* Rutas relativas a esta página: assets/cinematics/preview/ -> assets/cinematics/restart/ */
   var BASE = "../restart/";
-  var VARIANTES = { conLogo: "art_direction_test.png", sinLogo: "art_direction_test_plate.png" };
+  var VERSIONES = {
+    v1: { nombre: "V1 · primera composición", conLogo: "art_direction_test.png", sinLogo: "art_direction_test_plate.png" },
+    v2: { nombre: "V2 · segunda composición", conLogo: "art_direction_test_v2.png", sinLogo: "art_direction_test_v2_plate.png" }
+  };
   var RUTA_REPO = "assets/cinematics/restart/";
   var MIN = 0.05, MAX = 8;
 
   var $ = function (id) { return document.getElementById(id); };
   var visor = $("visor"), img = $("imagen"), aviso = $("aviso");
-  var v = { s: 1, x: 0, y: 0, w: 0, h: 0, cargada: false, ajustada: true, conLogo: true };
+  var v = { s: 1, x: 0, y: 0, w: 0, h: 0, cargada: false, ajustada: true, conLogo: true, version: "v2" };
 
   function limitar() {
     var cw = visor.clientWidth, ch = visor.clientHeight, iw = v.w * v.s, ih = v.h * v.s;
@@ -120,7 +129,12 @@
   function mover(dx, dy) { if (!v.cargada) return; v.x += dx; v.y += dy; pintar(); }
 
   function cargar() {
-    var archivo = v.conLogo ? VARIANTES.conLogo : VARIANTES.sinLogo;
+    var ver = VERSIONES[v.version];
+    var archivo = v.conLogo ? ver.conLogo : ver.sinLogo;
+    $("i-version").textContent = ver.nombre + (v.conLogo ? "" : " · sin logotipo");
+    $("v1").setAttribute("aria-pressed", String(v.version === "v1"));
+    $("v2").setAttribute("aria-pressed", String(v.version === "v2"));
+    document.title = "DEADBEAT DISCO · Prueba de dirección artística · " + v.version.toUpperCase();
     var mantener = v.cargada;
     $("i-archivo").textContent = archivo;
     $("i-ruta").textContent = RUTA_REPO + archivo;
@@ -151,6 +165,9 @@
   $("menos").onclick = function () { zoomA(v.s / 1.25); };
   $("ajustar").onclick = ajustar;
   $("real").onclick = function () { zoomA(1); };
+  function elegir(ver) { if (v.version === ver) return; v.version = ver; cargar(); }
+  $("v1").onclick = function () { elegir("v1"); };
+  $("v2").onclick = function () { elegir("v2"); };
   $("logo").onclick = function () {
     v.conLogo = !v.conLogo; this.setAttribute("aria-pressed", String(v.conLogo)); cargar();
   };
@@ -187,6 +204,7 @@
     else if (k === "-" || k === "_") zoomA(v.s / 1.25);
     else if (k === "0") ajustar();
     else if (k === "1") zoomA(1);
+    else if (k === "v" || k === "V") elegir(v.version === "v1" ? "v2" : "v1");
     else if (k === "l" || k === "L") $("logo").click();
     else if (k === "f" || k === "F") $("fondo").click();
     else if (k === "ArrowLeft") mover(paso, 0);
@@ -200,7 +218,7 @@
   window.addEventListener("resize", function () { if (v.ajustada) ajustar(); else pintar(); });
 
   /* Lectura para pruebas automáticas. */
-  window.DD_VISOR = { estado: function () { return { s: v.s, x: v.x, y: v.y, w: v.w, h: v.h, cargada: v.cargada, ajustada: v.ajustada, conLogo: v.conLogo }; } };
+  window.DD_VISOR = { estado: function () { return { s: v.s, x: v.x, y: v.y, w: v.w, h: v.h, cargada: v.cargada, ajustada: v.ajustada, conLogo: v.conLogo, version: v.version }; } };
 
   cargar();
 })();

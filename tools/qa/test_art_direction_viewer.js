@@ -27,7 +27,8 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
     return { ...window.DD_VISOR.estado(), r: { x: r.x, y: r.y, w: r.width, h: r.height }, v: { x: v.x, y: v.y, w: v.width, h: v.height },
       estado: document.getElementById("i-estado").textContent, res: document.getElementById("i-res").textContent,
       archivo: document.getElementById("i-archivo").textContent, ruta: document.getElementById("i-ruta").textContent,
-      escala: document.getElementById("i-escala").textContent, juego: !!(window.DD_BOOT || window.__DD_BRIDGE) };
+      escala: document.getElementById("i-escala").textContent, verTxt: document.getElementById("i-version").textContent,
+      p1: document.getElementById("v1").getAttribute("aria-pressed"), p2: document.getElementById("v2").getAttribute("aria-pressed"), juego: !!(window.DD_BOOT || window.__DD_BRIDGE) };
   });
   const loaded = (pg) => pg.waitForFunction(() => window.DD_VISOR && window.DD_VISOR.estado().cargada, null, { timeout: 20000 });
 
@@ -38,9 +39,29 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
   check("1 la página carga", resp.status() === 200 && s.estado === "cargada", "HTTP " + resp.status() + ", estado «" + s.estado + "»");
   check("2 imagen completa dentro del lienzo", s.r.x >= s.v.x - 0.5 && s.r.y >= s.v.y - 0.5 && s.r.x + s.r.w <= s.v.x + s.v.w + 0.5 && s.r.y + s.r.h <= s.v.y + s.v.h + 0.5,
     Math.round(s.r.w) + "×" + Math.round(s.r.h) + " en lienzo " + s.v.w + "×" + s.v.h);
-  check("datos del recurso", s.res === "1920 × 1080 px" && s.archivo === "art_direction_test.png" && s.ruta === "assets/cinematics/restart/art_direction_test.png", s.archivo + " · " + s.res + " · " + s.ruta);
+  check("abre en V2 y lo indica", s.version === "v2" && /^V2/.test(s.verTxt) && s.p2 === "true" && s.p1 === "false", s.verTxt);
+  check("datos del recurso V2", s.res === "1920 × 1080 px" && s.archivo === "art_direction_test_v2.png" && s.ruta === "assets/cinematics/restart/art_direction_test_v2.png", s.archivo + " · " + s.res + " · " + s.ruta);
   check("5 proporción conservada (ajustada)", Math.abs(s.r.w / s.r.h - s.w / s.h) < 0.002, (s.r.w / s.r.h).toFixed(4) + " frente a " + (s.w / s.h).toFixed(4));
-  if (OUT) await pg.screenshot({ path: OUT + "/visor_1920x1080_ajustada.jpg", type: "jpeg", quality: 80 });
+  if (OUT) await pg.screenshot({ path: OUT + "/visor_v2_1920x1080.jpg", type: "jpeg", quality: 80 });
+
+  /* Comparación V1 / V2: mismas dimensiones y mismo encuadre, ajustada y ampliada. */
+  const wait = (file) => pg.waitForFunction((f) => document.getElementById("i-archivo").textContent === f && document.getElementById("i-estado").textContent === "cargada", file);
+  const same = (a, b) => ["x", "y", "w", "h"].every((k) => Math.abs(a.r[k] - b.r[k]) < 0.01) && a.s === b.s;
+  await pg.click("#v1"); await wait("art_direction_test.png"); let c1 = await st(pg);
+  check("11 selector: V1", c1.version === "v1" && /^V1/.test(c1.verTxt) && c1.p1 === "true" && c1.p2 === "false" && c1.res === "1920 × 1080 px", c1.verTxt + " · " + c1.archivo);
+  check("11 V1 y V2 con el mismo encuadre (ajustada)", same(c1, s), Math.round(c1.r.w) + "×" + Math.round(c1.r.h) + " en ambas");
+  if (OUT) await pg.screenshot({ path: OUT + "/visor_v1_1920x1080.jpg", type: "jpeg", quality: 80 });
+  await pg.mouse.move(1300, 420); await pg.mouse.wheel(0, -500); c1 = await st(pg);
+  await pg.keyboard.press("v"); await wait("art_direction_test_v2.png"); let c2 = await st(pg);
+  check("11 tecla V: el zoom y la posición se conservan al cambiar de versión", c2.version === "v2" && c2.s > 1.5 && same(c1, c2), c2.escala + " en ambas");
+  if (OUT) await pg.screenshot({ path: OUT + "/visor_v2_detalle_protagonista.jpg", type: "jpeg", quality: 80 });
+  await pg.keyboard.press("v"); await wait("art_direction_test.png");
+  if (OUT) await pg.screenshot({ path: OUT + "/visor_v1_detalle_protagonista.jpg", type: "jpeg", quality: 80 });
+  await pg.click("#logo"); await wait("art_direction_test_plate.png"); c1 = await st(pg);
+  check("11 V1 sin logotipo", !c1.conLogo && /sin logotipo/.test(c1.verTxt), c1.verTxt);
+  await pg.click("#v2"); await wait("art_direction_test_v2_plate.png"); c2 = await st(pg);
+  check("11 V2 sin logotipo (se conserva el modo al cambiar)", !c2.conLogo && c2.version === "v2" && c2.res === "1920 × 1080 px", c2.verTxt);
+  await pg.click("#logo"); await wait("art_direction_test_v2.png"); await pg.click("#ajustar");
 
   const fit = s.s;
   await pg.click("#mas"); let a = await st(pg);
@@ -63,10 +84,10 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
   await pg.click("#ajustar"); a = await st(pg);
   check("7 ajustar a pantalla", a.ajustada && Math.abs(a.s - fit) < 1e-6, a.escala);
 
-  await pg.click("#logo"); await pg.waitForFunction(() => document.getElementById("i-estado").textContent === "cargada" && document.getElementById("i-archivo").textContent === "art_direction_test_plate.png");
+  await pg.click("#logo"); await pg.waitForFunction(() => document.getElementById("i-estado").textContent === "cargada" && document.getElementById("i-archivo").textContent === "art_direction_test_v2_plate.png");
   a = await st(pg);
   check("alternar sin logotipo", !a.conLogo && a.w === 1920 && a.h === 1080, a.archivo);
-  await pg.click("#logo"); await pg.waitForFunction(() => document.getElementById("i-archivo").textContent === "art_direction_test.png" && document.getElementById("i-estado").textContent === "cargada");
+  await pg.click("#logo"); await pg.waitForFunction(() => document.getElementById("i-archivo").textContent === "art_direction_test_v2.png" && document.getElementById("i-estado").textContent === "cargada");
   await pg.click("#fondo");
   check("alternar solo fondo oscuro", await pg.evaluate(() => getComputedStyle(document.getElementById("imagen")).visibility === "hidden"));
   await pg.click("#fondo");
@@ -88,10 +109,10 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
 
   /* Recurso ausente: debe verse un mensaje claro. */
   const pg2 = await ctx.newPage();
-  await pg2.route("**/art_direction_test.png", (r) => r.fulfill({ status: 404, body: "" }));
+  await pg2.route("**/art_direction_test_v2.png", (r) => r.fulfill({ status: 404, body: "" }));
   await pg2.goto(PAGE); await pg2.waitForFunction(() => /error/.test(document.getElementById("i-estado").textContent));
   const msg = await pg2.evaluate(() => ({ visible: !document.getElementById("aviso").hidden, text: document.getElementById("aviso").textContent }));
-  check("mensaje claro si el recurso no carga", msg.visible && /NO SE PUDO CARGAR/.test(msg.text) && /art_direction_test\.png/.test(msg.text), msg.text.slice(0, 70) + "…");
+  check("mensaje claro si el recurso no carga", msg.visible && /NO SE PUDO CARGAR/.test(msg.text) && /art_direction_test_v2\.png/.test(msg.text), msg.text.slice(0, 70) + "…");
   if (OUT) await pg2.screenshot({ path: OUT + "/visor_recurso_ausente.jpg", type: "jpeg", quality: 80 });
   await pg2.close();
 
