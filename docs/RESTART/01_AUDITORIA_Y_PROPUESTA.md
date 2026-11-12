@@ -3,6 +3,7 @@
 ## Etapas A y B: auditoría y propuesta (pendiente de aprobación)
 
 - **Fecha:** 2026-11-12
+- **Nota posterior:** las menciones de este documento a los tatuajes como «partitura» y al aspecto del protagonista son anteriores al cierre del diseño; manda `03_PERSONAJE_MAESTRO.md`.
 - **Rama:** `arena/1a801cc0-deadbeat-disconew` (base `main` @ `000e7c6`)
 - **Estado:** nada del juego se ha modificado. Este commit solo añade la carpeta `docs/RESTART/`.
 - **Alcance:** cinemática de introducción, menú principal, transición a nueva partida y llegada al Refugio. Quedan fuera las nueve pistas, enemigos, progresión y animaciones generales.

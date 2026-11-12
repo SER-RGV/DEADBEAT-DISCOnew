@@ -1,7 +1,7 @@
 # PROJECT RESTART — Prueba visual y visor
 
 - **Fecha:** 2026-11-12 · **Rama:** `arena/1a801cc0-deadbeat-disconew`
-- **Estado:** prueba de dirección artística, **pendiente de tu evaluación**. No sustituye nada del juego.
+- **Estado:** **material histórico.** V1 y V2 se conservan, pero no son modelo canónico para producir recursos nuevos; el protagonista de ambas (incluidos los tatuajes de partitura de V2) queda sustituido por la lámina maestra aprobada (`03_PERSONAJE_MAESTRO.md`). No sustituye nada del juego.
 
 ## Cómo abrirla
 

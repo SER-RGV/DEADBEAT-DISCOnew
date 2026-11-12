@@ -2,6 +2,8 @@
 
 ## Fuentes Artísticas Oficiales (Obligatorias)
 
+> **Canon del protagonista (2026-11-12):** el diseño oficial es la lámina `assets/cinematics/restart/character_master/protagonist_master_approved.png`. Ficha y reglas: `docs/RESTART/03_PERSONAJE_MAESTRO.md`. Sustituye a `REF_04` y a cualquier otra referencia **en lo relativo al aspecto del protagonista** (rostro, pelo, sombrero, vestuario, tatuajes). `REF_04` se conserva como histórico.
+
 | ID Referencia | Archivo en Repositorio | Resolución | Contenido Extraído |
 |---|---|---|---|
 | `REF_01` | `assets/references/REF_01_neon_fox_disco_muerto.png` | 1672×941 | Key art cinematográfico del club infernal, bola de espejos magenta, cabina DJ al fondo, estandartes del zorro coronado, protagonista tatuado sentado en escalinata neón, botellas y humo volumétrico cian/rosa. |

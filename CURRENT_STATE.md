@@ -141,3 +141,11 @@ Toda modificación debe partir de una copia de seguridad.
 - Resultado medido: línea magenta recta **1089 → 0 px** (restaurado 1117), separación de planos en el borde **17,95 → 23,65**, 62 props / 11 estaciones intactos, `startCampaignFromHub(0)` sin cambios → `CAMPAIGN_ROOM`.
 - QA `ART_EVIDENCE/hub/correccion/qa_matrix.json`: **18 APROBADO / 0 FALLIDO**, 0 `pageerror` en 5 contextos, reversibilidad en caliente verificada. Evidencias: 16 sweep, 12 A/B + 2 restaurado, 9 descenso, `flag_off_boot_borde.jpg`, `compatibilidad_t09_legibilidad.jpg`, `comparativa_antes_despues.png`, `report.json`, `qa_matrix.json`, `metricas.json`, `hashes.json` (46 ficheros).
 - `main`/`origin/main` en `d75e021`, PR #1 `OPEN` sin merge. Informe: `ART_CORRECCION_LEGIBILIDAD_HUB.md`.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · diseño del protagonista CERRADO)
+- Modelo maestro oficial: `assets/cinematics/restart/character_master/protagonist_master_approved.png` (1672×941, SHA-256 `43d9e58fcd1c9f9e04aabcc95da2194496a8aef765e2b9a56d34e75933004e5d`). Congelado: no regenerar, redibujar ni sustituir.
+- Ficha consolidada y reglas de producción: `docs/RESTART/03_PERSONAJE_MAESTRO.md`.
+- Tatuajes: los de la lámina. Retirada la descripción «partitura incompleta» de la biblia (§4.1); versión anterior en `docs/LORE/historico/`.
+- Los 22 sprites `assets/characters/player_*` son del **diseño anterior**; siguen intactos y en uso hasta una futura fase de reconstrucción de animaciones, que deberá partir de la lámina.
+- V1 y V2 de la composición de intro: histórico, no canónicas. Logotipo oficial: `assets/logos/logo_deadbeat_graffiti.png` (el rótulo de la lámina no lo sustituye).
+- Sin cambios en motor, cinemática activa, menú ni sprites.

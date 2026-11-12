@@ -55,8 +55,8 @@
 <header>
   <h1>DEADBEAT <span>DISCO</span> · PRUEBA DE DIRECCIÓN ARTÍSTICA</h1>
   <div class="grupo" role="group" aria-label="Qué se examina">
-    <button id="c-comp" aria-pressed="false" title="Composición de la intro: V1 y V2 (tecla C alterna)">COMPOSICIÓN</button>
-    <button id="c-pers" aria-pressed="true" title="Lámina maestra del protagonista y su reproducción (tecla C alterna)">PERSONAJE</button>
+    <button id="c-comp" aria-pressed="false" title="Composiciones históricas de la intro: V1 y V2 (tecla C alterna)">COMPOSICIÓN</button>
+    <button id="c-pers" aria-pressed="true" title="Modelo maestro oficial del protagonista y su reproducción (tecla C alterna)">PERSONAJE</button>
   </div>
   <div class="grupo" role="group" aria-label="Versión">
     <button id="v1" aria-pressed="false">—</button>
@@ -105,16 +105,16 @@
     comp: {
       carpeta: "",
       versiones: [
-        { id: "v1", boton: "V1", nombre: "V1 · primera composición", conLogo: "art_direction_test.png", sinLogo: "art_direction_test_plate.png" },
-        { id: "v2", boton: "V2", nombre: "V2 · segunda composición", conLogo: "art_direction_test_v2.png", sinLogo: "art_direction_test_v2_plate.png" }
+        { id: "v1", boton: "V1", nombre: "V1 · primera composición · HISTÓRICO, no canónica", conLogo: "art_direction_test.png", sinLogo: "art_direction_test_plate.png" },
+        { id: "v2", boton: "V2", nombre: "V2 · segunda composición · HISTÓRICO, no canónica", conLogo: "art_direction_test_v2.png", sinLogo: "art_direction_test_v2_plate.png" }
       ],
       inicial: "v2", regiones: []
     },
     pers: {
       carpeta: "character_master/",
       versiones: [
-        { id: "v1", boton: "MAESTRA", nombre: "Lámina maestra aprobada (original intacto)", conLogo: "protagonist_master_approved.png" },
-        { id: "v2", boton: "REPRODUCCIÓN", nombre: "Reproducción de Arena", conLogo: "protagonist_master_reproduction.png" }
+        { id: "v1", boton: "MAESTRA", nombre: "MODELO MAESTRO OFICIAL · lámina aprobada, original intacto", conLogo: "protagonist_master_approved.png" },
+        { id: "v2", boton: "REPRODUCCIÓN", nombre: "Reproducción de Arena · HISTÓRICO, no usar como modelo", conLogo: "protagonist_master_reproduction.png" }
       ],
       inicial: "v1",
       regiones: [

@@ -29,6 +29,7 @@ Las tres láminas de referencia contienen etiquetas incompatibles con las decisi
 4. **Las etiquetas de catálogo** («ARMAS (120)», «SUELOS (10 MATERIALES BASE)») son inventarios de diseño, **no autorización para producir todos sus recursos de una vez**. Se respeta el límite de ≤10 assets por tanda.
 5. **El estilo painterly de alta definición se adapta** a silueta, material y neón para sobrevivir a la escala isométrica, **sin degradar la definición**: se reduce microdetalle, no se pixela, no se aplican filtros de baja resolución.
 6. **El protagonista del banner** (`REF_01`, ilustración 3/4 sentada) debe convertirse en un **sprite isométrico orientable** (pelo despeinado, camiseta negra con ribetes magenta, tatuajes, pantalón con piping neón). No se pega como imagen plana.
+   > **Canon del protagonista (2026-11-12):** el diseño oficial es la lámina `assets/cinematics/restart/character_master/protagonist_master_approved.png`. Ficha y reglas: `docs/RESTART/03_PERSONAJE_MAESTRO.md`. La descripción anterior de este punto corresponde al diseño previo y queda como histórico.
 7. **El texto `CÍRCULO I · LIMBO` visible en el HUD no se modifica en esta fase**: es texto/lore del motor, fuera del alcance artístico de Fase 1. Se registra la contradicción; cualquier renombrado requiere una tanda de narrativa/UI con sus propias pruebas.
 
 Consecuencia operativa: se usa el **lenguaje de formas, paleta, iluminación y siluetas** de las referencias; se descarta su nomenclatura infernal y su conteo de niveles.
