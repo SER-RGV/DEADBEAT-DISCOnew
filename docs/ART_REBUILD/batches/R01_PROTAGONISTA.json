@@ -1,0 +1,1031 @@
+{
+ "batch": "R01_PROTAGONISTA",
+ "title": "Protagonista jugable y cinemático — 27 PNG (22 ilustraciones únicas + 2 alias cinemáticos + 3 capas derivadas)",
+ "created": "2026-11-11",
+ "style": "ilustración digital estilizada (no pixel art)",
+ "layout": {
+  "scale_master_to_canvas": 0.493,
+  "canvas_height": 512,
+  "baseline_y": 504,
+  "torso_axis_raw_x": 562,
+  "belt_bottom_raw_y": 490,
+  "note": "Todos los fotogramas de pie (incluidos los seis torsos de puntería) comparten escala (figura en reposo = 461 px = 90 % del lienzo) y línea de suelo (y=504). El generador conservó el torso en la misma posición del maestro en todas las poses (hebilla en x≈604, borde inferior del cinturón en y≈490, medido por correlación de plantilla; desviación ≤4 px): el eje del lienzo es ese eje de torso (ax = 562 + dx) y cada asset registra anchors.belt = fila normalizada del borde inferior de su cinturón. DD_WORLD.drawProtagonist corta cada mitad por SU cinturón y sube/baja el torso para que ambos coincidan, de modo que la pelvis de las piernas manda (balanceo natural de la zancada) y no hay escalón en la costura."
+ },
+ "defaults": {
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "assets": [
+  {
+   "id": "player_idle_00",
+   "raw": "player_idle_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Reposo SIN arma: Refugio (DD_HUB) y pose base de las cinemáticas. En sala, con el arma a la vista, el reposo usa la familia de puntería (DD_WORLD.resolvePlayerPose).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: de pie en reposo, perfil mirando a la derecha, brazos relajados, manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     666,
+     587
+    ]
+   }
+  },
+  {
+   "id": "hero_walk_00",
+   "raw": "player_walk_02.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 560,
+    "ay": 981,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Ciclo de caminata de CUERPO ENTERO: Refugio (HUB) y cinemática de entrada (planos 3-7, DD_CINE usa hero_walk_0X antes que player_walk_0X).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 1/4 del ciclo: zancada máxima (contacto). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Caminata cuerpo entero 1/4 (zancada máxima (contacto))",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_walk_00.png",
+   "original_id": "cine:characters:hero_walk_00",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 04, 05, 07)",
+    "DD_WORLD.drawProtagonist → HERO_WALK_IDS (caminata en el Refugio)",
+    "assets/cinematics/manifest.json"
+   ],
+   "anchors_raw": {
+    "belt_y": 492
+   }
+  },
+  {
+   "id": "hero_walk_01",
+   "raw": "player_walk_01.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 975,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Ciclo de caminata de CUERPO ENTERO: Refugio (HUB) y cinemática de entrada (planos 3-7, DD_CINE usa hero_walk_0X antes que player_walk_0X).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 2/4 del ciclo: zancada cerrándose (carga de peso). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Caminata cuerpo entero 2/4 (zancada cerrándose (carga de peso))",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_walk_01.png",
+   "original_id": "cine:characters:hero_walk_01",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 04, 05, 07)",
+    "DD_WORLD.drawProtagonist → HERO_WALK_IDS (caminata en el Refugio)",
+    "assets/cinematics/manifest.json"
+   ],
+   "anchors_raw": {
+    "belt_y": 492
+   }
+  },
+  {
+   "id": "hero_walk_02",
+   "raw": "player_walk_03.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 561,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Ciclo de caminata de CUERPO ENTERO: Refugio (HUB) y cinemática de entrada (planos 3-7, DD_CINE usa hero_walk_0X antes que player_walk_0X).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 3/4 del ciclo: paso (piernas juntas, rodilla adelantada). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Caminata cuerpo entero 3/4 (paso (piernas juntas, rodilla adelantada))",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_walk_02.png",
+   "original_id": "cine:characters:hero_walk_02",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 04, 05, 07)",
+    "DD_WORLD.drawProtagonist → HERO_WALK_IDS (caminata en el Refugio)",
+    "assets/cinematics/manifest.json"
+   ],
+   "anchors_raw": {
+    "belt_y": 491
+   }
+  },
+  {
+   "id": "hero_walk_03",
+   "raw": "player_walk_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 981,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Ciclo de caminata de CUERPO ENTERO: Refugio (HUB) y cinemática de entrada (planos 3-7, DD_CINE usa hero_walk_0X antes que player_walk_0X).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 4/4 del ciclo: zancada abriéndose (impulso). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Caminata cuerpo entero 4/4 (zancada abriéndose (impulso))",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_walk_03.png",
+   "original_id": "cine:characters:hero_walk_03",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 04, 05, 07)",
+    "DD_WORLD.drawProtagonist → HERO_WALK_IDS (caminata en el Refugio)",
+    "assets/cinematics/manifest.json"
+   ],
+   "anchors_raw": {
+    "belt_y": 494
+   }
+  },
+  {
+   "id": "hero_idle_00",
+   "raw": "player_idle_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Cinemática de entrada, planos 08 y 10 (DD_CINE usa hero_idle_00 antes que player_idle_00).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: de pie en reposo, perfil mirando a la derecha, brazos relajados, manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista Cinemático · Pose Estática (Idle)",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_idle_00.png",
+   "original_id": "cine:characters:hero_idle_00",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 08, 10)",
+    "assets/cinematics/manifest.json"
+   ],
+   "notes": "Misma ilustración y mismo lienzo que player_idle_00: el manifiesto de la cinemática mantiene su propio identificador sustituible (antes era una copia del sprite pixel-art).",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     666,
+     587
+    ]
+   }
+  },
+  {
+   "id": "hero_shoot_00",
+   "raw": "player_shoot_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Cinemática de entrada, planos 08 y 09 (DD_CINE usa hero_shoot_00 antes que player_shoot_00).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: guardia de disparo con pistola: rodillas algo flexionadas, ambos puños juntos ante el pecho a la altura de la barbilla como empuñando una pistola invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista Cinemático · Guardia de disparo",
+   "category": "characters",
+   "location": "assets/cinematics/characters/protagonist/hero_shoot_00.png",
+   "original_id": "cine:characters:hero_shoot_00",
+   "pivot": "bottom-center",
+   "code_references": [
+    "DD_CINE.intro (planos 08, 09)",
+    "assets/cinematics/manifest.json"
+   ],
+   "notes": "Misma ilustración y mismo lienzo que player_shoot_00: el manifiesto de la cinemática mantiene su propio identificador sustituible (antes era una copia del sprite pixel-art).",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     789,
+     245
+    ]
+   }
+  },
+  {
+   "id": "player_walk_00",
+   "raw": "legs_up.png",
+   "size": [
+    336,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 561,
+    "ay": 982,
+    "cx": 168,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Fuente de PIERNAS del corte de cintura en combate: sólo se dibuja de SU cinturón hacia abajo, bajo el torso de puntería, cadera o daño. Los brazos van alzados para que ninguna mano cuelgue por debajo del cinturón.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 1/4 del ciclo: zancada máxima. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Piernas de caminata en guardia 1/4 (zancada máxima)",
+   "anchors_raw": {
+    "belt_y": 489
+   }
+  },
+  {
+   "id": "player_walk_01",
+   "raw": "legs_down.png",
+   "size": [
+    336,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 565,
+    "ay": 962,
+    "cx": 168,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Fuente de PIERNAS del corte de cintura en combate: sólo se dibuja de SU cinturón hacia abajo, bajo el torso de puntería, cadera o daño. Los brazos van alzados para que ninguna mano cuelgue por debajo del cinturón.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 2/4 del ciclo: zancada cerrándose. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Piernas de caminata en guardia 2/4 (zancada cerrándose)",
+   "erase": [
+    {
+     "rect": [
+      0,
+      962,
+      1050,
+      1008
+     ]
+    }
+   ],
+   "notes": "El maestro legs_down.png salió con una sombra de suelo no pedida; se borra con el rectángulo y>=962 (fila donde termina la suela).",
+   "anchors_raw": {
+    "belt_y": 491
+   }
+  },
+  {
+   "id": "player_walk_02",
+   "raw": "legs_passing_b.png",
+   "size": [
+    336,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1001,
+    "cx": 168,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Fuente de PIERNAS del corte de cintura en combate: sólo se dibuja de SU cinturón hacia abajo, bajo el torso de puntería, cadera o daño. Los brazos van alzados para que ninguna mano cuelgue por debajo del cinturón.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 3/4 del ciclo: paso — pierna de apoyo recta bajo la cadera, la otra adelanta con la rodilla apenas flexionada y la bota a pocos centímetros del suelo; SIN rodilla alta. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Piernas de caminata en guardia 3/4 (paso, pierna adelantando)",
+   "notes": "Sustituye a legs_passing.png (rodilla alzada hasta la cadera): el muslo cruzaba la línea de cintura y el corte lo seccionaba. Maestro descartado conservado en dd_work/raw.",
+   "anchors_raw": {
+    "belt_y": 490
+   }
+  },
+  {
+   "id": "player_walk_03",
+   "raw": "legs_contact.png",
+   "size": [
+    336,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 988,
+    "cx": 168,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Fuente de PIERNAS del corte de cintura en combate: sólo se dibuja de SU cinturón hacia abajo, bajo el torso de puntería, cadera o daño. Los brazos van alzados para que ninguna mano cuelgue por debajo del cinturón.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 4/4 del ciclo: zancada abriéndose. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "name": "Protagonista · Piernas de caminata en guardia 4/4 (zancada abriéndose)",
+   "anchors_raw": {
+    "belt_y": 490
+   }
+  },
+  {
+   "id": "player_shoot_00",
+   "raw": "player_shoot_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Torso de puntería HORIZONTAL (sector −15°…+19°) para armas cortas, y PIERNAS en parado de toda la familia de puntería. El arma la dibuja el motor sobre anchors.hand.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: guardia de disparo con pistola: rodillas algo flexionadas, ambos puños juntos ante el pecho a la altura de la barbilla como empuñando una pistola invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     789,
+     245
+    ]
+   }
+  },
+  {
+   "id": "player_fire2",
+   "raw": "player_fire2.png",
+   "size": [
+    384,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 560,
+    "ay": 997,
+    "cx": 192,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Postura de fusil a dos manos: la elige DD_WORLD.resolvePlayerPose para armas largas (regla del puente: apoyo a ≥10 px de la empuñadura) en el sector horizontal de puntería.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: postura de fusil a dos manos: piernas abiertas, brazo delantero extendido como sosteniendo el cañón de un arma larga invisible, mano trasera junto al hombro; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     677,
+     317
+    ]
+   }
+  },
+  {
+   "id": "player_aim_up_01",
+   "raw": "player_aim_up45.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería alta 1 (≈ +38°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_up_01.png",
+   "original_id": "aim:player_aim_up_01",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ +38° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims diagonally UPWARD: both arms fully extended together, up and forward at a 45-degree angle above horizontal, both hands clasped together in a two-handed pistol grip at the end of the arms (hands EMPTY, no weapon, no gun), fists higher than the top of his head, head tilted back, eyes looking up along the arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     779,
+     98
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Medición: hebilla por correlación de plantilla (tools/art_master/measure.py) y centro de los puños sobre rejilla."
+  },
+  {
+   "id": "player_aim_up_02",
+   "raw": "player_aim_up80.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería alta 2 (≈ +57°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_up_02.png",
+   "original_id": "aim:player_aim_up_02",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ +57° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims almost STRAIGHT UP at the ceiling: both arms fully extended together almost vertically (about 80 degrees above horizontal, leaning only slightly forward), both hands clasped together high above his head in a two-handed pistol grip (hands EMPTY, no weapon, no gun), head tilted far back, looking up at his hands. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     716,
+     74
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Medición: hebilla por correlación de plantilla (tools/art_master/measure.py) y centro de los puños sobre rejilla."
+  },
+  {
+   "id": "player_aim_up_03",
+   "raw": "player_aim_up90.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería vertical arriba (≈ +88°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_up_03.png",
+   "original_id": "aim:player_aim_up_03",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ +88° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: both arms stretched STRAIGHT UP above his head, perfectly vertical like a diver reaching for the ceiling: upper arms right next to his ears, elbows locked, forearms vertical, both hands clasped together DIRECTLY ABOVE the top of his own head (not in front of him) in a two-handed pistol grip, hands EMPTY, no weapon, no gun; head tilted back, face looking straight up at the ceiling between his arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 492,
+    "hand": [
+     562,
+     45
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Medición: hebilla por correlación de plantilla (tools/art_master/measure.py) y centro de los puños sobre rejilla."
+  },
+  {
+   "id": "player_aim_down_01",
+   "raw": "player_aim_down45.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 565,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería baja 1 (≈ −30°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_down_01.png",
+   "original_id": "aim:player_aim_down_01",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ −30° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims diagonally DOWNWARD: both arms fully extended together, down and forward at a 45-degree angle below horizontal, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) out in front of his hips, held well away from the body so that green background is clearly visible between the arms and the legs, head tilted down, eyes looking down along the arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     780,
+     452
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Medición: hebilla por correlación de plantilla (tools/art_master/measure.py) y centro de los puños sobre rejilla."
+  },
+  {
+   "id": "player_aim_down_02",
+   "raw": "player_aim_down75.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 546,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería baja 2 (≈ −52°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_down_02.png",
+   "original_id": "aim:player_aim_down_02",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ −52° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims steeply DOWN at the floor just ahead of his boots: torso bent slightly forward at the waist, both arms fully extended together pointing down and a little forward (about 70 degrees below horizontal), both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his knees, held clearly in front of the legs so that a strip of green background is visible between the forearms/hands and the legs; head bowed, looking down at the floor. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 494,
+    "hand": [
+     770,
+     578
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Medición: hebilla por correlación de plantilla (tools/art_master/measure.py) y centro de los puños sobre rejilla."
+  },
+  {
+   "id": "player_aim_down_03",
+   "raw": "player_aim_down90.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Puntería vertical abajo (≈ −88°)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_down_03.png",
+   "original_id": "aim:player_aim_down_03",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Torso de puntería del protagonista para el sector de elevación ≈ −88° (brazos a dos manos, manos vacías: el arma la dibuja el motor sobre anchors.hand). DD_WORLD.resolvePlayerPose lo elige según el ángulo de puntería; sólo se dibuja de la cintura hacia arriba (las piernas son las de player_shoot_00 o las de caminata).",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: low-ready stance aiming STRAIGHT DOWN at the floor right in front of his boots: both arms straight down in front of his body with elbows locked, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his upper thighs just below the belt buckle, fists pointing at the floor; head bowed, looking straight down. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_aim_down45 (maestro R01) como imagen de referencia del generador",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     672,
+     552
+    ]
+   },
+   "code_references": [
+    "DD_WORLD.resolvePlayerPose → PLAYER_AIM_SECTORS",
+    "DD_WORLD.getPlayerWeaponMount"
+   ],
+   "notes": "Hebilla tapada por las muñecas (NCC 0,39): eje y cinturón medidos a mano sobre rejilla (pantalón y tachuelas en la misma posición que la referencia)."
+  },
+  {
+   "id": "player_aim_down_02_arms",
+   "raw": "player_aim_down75.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 546,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Antebrazos y puños de la puntería baja 2 (capa sobre el corte de cintura)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_down_02_arms.png",
+   "original_id": "overlay:player_aim_down_02_arms",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Capa derivada de la MISMA ilustración que player_aim_down_02 (mismo maestro, mismo encaje): sólo las muñecas y puños que quedan por debajo del cinturón. DD_WORLD.drawProtagonist la dibuja encima de las piernas; sin ella el corte de cintura los amputaría.",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims steeply DOWN at the floor just ahead of his boots: torso bent slightly forward at the waist, both arms fully extended together pointing down and a little forward (about 70 degrees below horizontal), both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his knees, held clearly in front of the legs so that a strip of green background is visible between the forearms/hands and the legs; head bowed, looking down at the floor. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_shoot_00 (maestro R01) como imagen de referencia del generador; diseño según REF_06_guia_visual_maestra.png#protagonista",
+   "anchors_raw": {
+    "belt_y": 494
+   },
+   "overlay_of": "player_aim_down_02",
+   "keep": [
+    {
+     "rect": [
+      660,
+      488,
+      900,
+      660
+     ]
+    }
+   ],
+   "code_references": [
+    "DD_WORLD.drawProtagonist → PLAYER_SPLIT_OVERLAY"
+   ],
+   "notes": "No es una ilustración nueva: es un recorte (batch key \"keep\") del maestro player_aim_down75.png."
+  },
+  {
+   "id": "player_aim_down_03_arms",
+   "raw": "player_aim_down90.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "name": "Protagonista · Muñecas y puños de la puntería vertical abajo (capa sobre el corte de cintura)",
+   "category": "characters",
+   "location": "assets/characters/player_aim_down_03_arms.png",
+   "original_id": "overlay:player_aim_down_03_arms",
+   "pivot": "bottom-center",
+   "entity": "protagonista",
+   "use": "Capa derivada de la MISMA ilustración que player_aim_down_03 (mismo maestro, mismo encaje): sólo las muñecas y puños que quedan por debajo del cinturón. DD_WORLD.drawProtagonist la dibuja encima de las piernas; sin ella el corte de cintura los amputaría.",
+   "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: low-ready stance aiming STRAIGHT DOWN at the floor right in front of his boots: both arms straight down in front of his body with elbows locked, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his upper thighs just below the belt buckle, fists pointing at the floor; head bowed, looking straight down. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+   "reference": "player_aim_down45 (maestro R01) como imagen de referencia del generador",
+   "anchors_raw": {
+    "belt_y": 490
+   },
+   "overlay_of": "player_aim_down_03",
+   "keep": [
+    [
+     [
+      588,
+      486
+     ],
+     [
+      694,
+      486
+     ],
+     [
+      700,
+      510
+     ],
+     [
+      718,
+      535
+     ],
+     [
+      720,
+      568
+     ],
+     [
+      702,
+      594
+     ],
+     [
+      648,
+      598
+     ],
+     [
+      628,
+      584
+     ],
+     [
+      626,
+      558
+     ],
+     [
+      606,
+      548
+     ],
+     [
+      596,
+      520
+     ],
+     [
+      588,
+      500
+     ]
+    ]
+   ],
+   "code_references": [
+    "DD_WORLD.drawProtagonist → PLAYER_SPLIT_OVERLAY"
+   ],
+   "notes": "No es una ilustración nueva: es un recorte (batch key \"keep\") del maestro player_aim_down90.png."
+  },
+  {
+   "id": "player_firehip",
+   "raw": "player_firehip.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 979,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Torso de combate para armas pesadas (xt[...]: minigun, LMG, BFG, m60…).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: disparo pesado desde la cadera: piernas muy abiertas, torso echado atrás, puños a la altura de la cintura como sujetando una ametralladora invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "anchors_raw": {
+    "belt_y": 490,
+    "hand": [
+     757,
+     500
+    ]
+   }
+  },
+  {
+   "raw": "player_firehip.png",
+   "size": [
+    288,
+    512
+   ],
+   "entity": "protagonista",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: disparo pesado desde la cadera: piernas muy abiertas, torso echado atrás, puños a la altura de la cintura como sujetando una ametralladora invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "id": "player_firehip_arms",
+   "name": "Protagonista · Antebrazos y puños de la pose de cadera (capa sobre el corte de cintura)",
+   "category": "characters",
+   "location": "assets/characters/player_firehip_arms.png",
+   "original_id": "overlay:player_firehip_arms",
+   "pivot": "bottom-center",
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 562,
+    "ay": 979,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "belt_y": 490
+   },
+   "overlay_of": "player_firehip",
+   "keep": [
+    [
+     [
+      380,
+      484
+     ],
+     [
+      470,
+      484
+     ],
+     [
+      470,
+      545
+     ],
+     [
+      482,
+      548
+     ],
+     [
+      484,
+      578
+     ],
+     [
+      492,
+      580
+     ],
+     [
+      502,
+      586
+     ],
+     [
+      508,
+      598
+     ],
+     [
+      510,
+      612
+     ],
+     [
+      508,
+      626
+     ],
+     [
+      500,
+      638
+     ],
+     [
+      490,
+      643
+     ],
+     [
+      470,
+      643
+     ],
+     [
+      447,
+      640
+     ],
+     [
+      380,
+      640
+     ]
+    ],
+    [
+     [
+      660,
+      484
+     ],
+     [
+      795,
+      484
+     ],
+     [
+      795,
+      545
+     ],
+     [
+      702,
+      545
+     ],
+     [
+      686,
+      528
+     ],
+     [
+      670,
+      512
+     ],
+     [
+      660,
+      502
+     ]
+    ]
+   ],
+   "use": "Capa derivada de la MISMA ilustración que player_firehip (mismo maestro, mismo encaje): sólo los antebrazos y puños que quedan por debajo del cinturón. DD_WORLD.drawProtagonist la dibuja encima cuando el torso de cadera se combina con las piernas de caminata; sin ella el corte de cintura amputaba ambos puños.",
+   "code_references": [
+    "DD_WORLD.drawProtagonist → PLAYER_SPLIT_OVERLAY"
+   ],
+   "notes": "No es una ilustración nueva: es un recorte por polígonos (batch key \"keep\") del maestro player_firehip.png."
+  },
+  {
+   "id": "player_hurt_00",
+   "raw": "player_hurt_00.png",
+   "size": [
+    288,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 563,
+    "ay": 1002,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Estados hurt / stun.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: recibiendo un golpe: cabeza y hombros hacia atrás, antebrazo alzado cubriendo la cara, rodillas cediendo, mueca de dolor. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "anchors_raw": {
+    "belt_y": 489,
+    "hand": [
+     615,
+     457
+    ]
+   }
+  },
+  {
+   "id": "player_boost_00",
+   "raw": "player_boost_00.png",
+   "size": [
+    512,
+    512
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.493,
+    "ax": 525,
+    "ay": 967,
+    "cx": 256,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Estado ability (impulso / bomba).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: embestida explosiva hacia la derecha: cuerpo muy inclinado, puño adelantado, pierna trasera extendida, rayos finos cian y magenta en puños y botas. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses",
+   "allow_green": true,
+   "notes": "Sin ancla de mano a propósito: durante el impulso no se dibuja el arma (con armas largas tapaba la cara)."
+  },
+  {
+   "id": "player_roll_00",
+   "raw": "player_roll_00.png",
+   "size": [
+    384,
+    384
+   ],
+   "fit": {
+    "mode": "contain",
+    "margin": 54,
+    "anchor": "center",
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Estado dodge (voltereta); el renderizador lo hace girar alrededor del centro del lienzo.",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: voltereta de esquiva: cuerpo recogido en bola, rodillas al pecho, brazos abrazando las espinillas. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses"
+  },
+  {
+   "id": "player_death_00",
+   "raw": "player_death_00.png",
+   "size": [
+    640,
+    320
+   ],
+   "fit": {
+    "mode": "contain",
+    "margin": 34,
+    "anchor": "bottom",
+    "dy": 22,
+    "sharpen": 30
+   },
+   "entity": "protagonista",
+   "use": "Estado death (pantalla de derrota).",
+   "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: derribado, tumbado boca arriba en horizontal, cabeza a la izquierda y botas a la derecha, ojos cerrados. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+   "reference": "REF_06_guia_visual_maestra.png#protagonista + REF_01_neon_fox_disco_muerto.png (diseño); player_idle_00 como hoja de modelo del resto de poses"
+  }
+ ]
+}

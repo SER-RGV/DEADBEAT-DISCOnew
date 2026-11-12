@@ -151,12 +151,16 @@
 
   /* D. BOSS INTRODUCTION */
   function playBossIntro(bossObj, circleIdx) {
-    const slug = window.DD_WORLD ? window.DD_WORLD.resolveBossSlug(bossObj, circleIdx) : "boss_01_magneta";
+    // El puente ya dice quién es (bossObj.slug); el nombre sólo se usa como respaldo.
+    const slug = (bossObj && bossObj.slug) || (window.DD_WORLD ? window.DD_WORLD.resolveBossSlug(bossObj, circleIdx) : "boss_01_magneta");
     const bName = (bossObj && (bossObj.name || bossObj.title)) || "RESIDENTE DEL CÍRCULO";
-    const bRule = (bossObj && (bossObj.rule || bossObj.subtitle)) || "Anfitrión de la Cámara · Duelo a Muerte";
+    // El título es el que el motor da a cada residente (llega en bossObj.subtitle). El
+    // texto de respaldo era lo que se leía en las once presentaciones.
+    const bRule = (bossObj && (bossObj.subtitle || bossObj.rule)) || "Residente de la Cámara";
     startSeq({
       type: "boss",
       boss: bossObj,
+      color: (bossObj && bossObj.color) || "#ff2d7a",
       slug,
       title: String(bName).toUpperCase(),
       subtitle: bRule,
@@ -475,6 +479,19 @@
         ctx.restore();
       };
 
+      // Capa de PRIMER PLANO (se pinta por delante del protagonista). Una capa cuyo
+      // archivo es 100 % opaco no puede ser un primer plano: tapa el cuadro entero y
+      // con él al héroe. El registro dice la verdad del archivo (entries[id].alpha,
+      // mantenido por `tools/art_master/batch.py audit --fix`); si la capa no tiene
+      // transparencia, no se dibuja aquí y el plano queda con sus capas de fondo.
+      const drawForegroundLayer = function (assetId, parX, parY, zoom, alpha, blendMode) {
+        try {
+          const entry = window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries[assetId];
+          if (entry && entry.alpha === false) return;
+        } catch (e) { /* sin registro: se comporta como drawLayer */ }
+        drawLayer(assetId, parX, parY, zoom, alpha, blendMode);
+      };
+
       // RENDERIZADO ESPECÍFICO POR PLANO CON ACABADO PREMIUM FASE 05
       const dustImg = getAsset("effect_dust_particles");
       const flareImg = getAsset("effect_anamorphic_flare");
@@ -605,7 +622,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
+        drawForegroundLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", 0, 0, 1.18, 1.0);
 
       } else if (shotIdx === 5) {
         // PLANO 05 · CAMINATA CINEMATOGRÁFICA (cine_bg03_entrance - Tracking Lateral)
@@ -639,7 +656,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
+        drawForegroundLayer("cine_bg03_entrance_03_foreground_pillars_occlusion", parFg, 0, 1.18, 1.0);
 
       } else if (shotIdx === 6) {
         // PLANO 06 · GRAN NAVE PRINCIPAL (cine_bg04_main_hall - High Angle EWS)
@@ -722,7 +739,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
+        drawForegroundLayer("cine_bg05_dancefloor_03_tables_foreground_ambient", 0, sp * -6, 1.10, 1.0);
 
         // Estallido estroboscópico del DROP musical sincronizado a 128 BPM
         ctx.save();
@@ -777,7 +794,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
+        drawForegroundLayer("cine_bg06_hero_03_flanking_speakers_framing", orbX * 1.2, 0, 1.25, 1.0);
 
       } else if (shotIdx === 9) {
         // PLANO 09 · IDENTIDAD DEL JUEGO (cine_bg06_hero - Logotipo Oficial)
@@ -799,7 +816,7 @@
           ctx.restore();
         }
 
-        drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
+        drawForegroundLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
 
         // LOGOTIPO MODULAR DEADBEAT DISCO (assets/cinematics/logos/logo_deadbeat_cinematic.png con fallback)
         const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_trim") || getAsset("logo_deadbeat_graffiti");
@@ -885,7 +902,32 @@
       if (bImg) {
         const bh = Math.min(340, viewH * 0.52);
         const bw = bh * (bImg.naturalWidth / Math.max(1, bImg.naturalHeight));
-        ctx.drawImage(bImg, viewW * 0.74 - bw * 0.5, viewH * 0.52 - bh * 0.5, bw, bh);
+        const pcx = viewW * 0.74, pcy = viewH * 0.52;
+        // Fondo del retrato: sin él la ilustración quedaba plantada sobre el suelo de la
+        // sala, como un segundo jefe, y las figuras oscuras se perdían.
+        const veil = ctx.createRadialGradient(pcx, pcy, bh * 0.12, pcx, pcy, bh * 0.9);
+        veil.addColorStop(0, "rgba(9, 4, 18, 0.82)");
+        veil.addColorStop(0.62, "rgba(9, 4, 18, 0.6)");
+        veil.addColorStop(1, "rgba(9, 4, 18, 0)");
+        ctx.fillStyle = veil;
+        ctx.fillRect(pcx - bh, pcy - bh, bh * 2, bh * 2);
+        const tint = ctx.createRadialGradient(pcx, pcy + bh * 0.1, 0, pcx, pcy + bh * 0.1, bh * 0.62);
+        tint.addColorStop(0, "rgba(255, 255, 255, 0.16)");
+        tint.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        ctx.fillStyle = tint;
+        ctx.fillRect(pcx - bh, pcy - bh, bh * 2, bh * 2);
+        ctx.restore();
+        // El arte mira a la derecha: a la derecha de la pantalla se refleja para que mire
+        // hacia la sala y hacia su rótulo.
+        ctx.save();
+        ctx.translate(pcx, pcy);
+        ctx.scale(-1, 1);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(bImg, -bw * 0.5, -bh * 0.5, bw, bh);
+        ctx.restore();
       }
       ctx.fillStyle = "rgba(9, 4, 18, 0.92)";
       ctx.strokeStyle = "#ff2d7a";

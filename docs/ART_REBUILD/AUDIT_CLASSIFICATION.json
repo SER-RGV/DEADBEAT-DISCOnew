@@ -1,0 +1,2672 @@
+{
+  "scale": {
+    "A": "Conservar: ilustración al nivel objetivo, sin defectos visibles.",
+    "B": "Rehacer por estilo: funciona, pero es pixel art / paleta reducida o no sigue las guías de referencia.",
+    "C": "Falta: no existe arte de la línea nueva; el juego muestra el sprite heredado del motor.",
+    "D": "Defectuoso: defecto visible en el archivo (damero horneado, huecos, fotograma basura, identidad distinta, halo).",
+    "E": "Rehecho: sustituido en esta reconstrucción y validado dentro del juego."
+  },
+  "updated_at": "2026-11-12T05:25:24Z",
+  "total": 374,
+  "assets": {
+    "logo_deadbeat_graffiti": {
+      "class": "A",
+      "category": "logos",
+      "path": "assets/logos/logo_deadbeat_graffiti.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "emblem_fox_crown": {
+      "class": "A",
+      "category": "logos",
+      "path": "assets/logos/emblem_fox_crown.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "menu_main_backdrop": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/menu_main_backdrop.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "cine_intro_club_panorama": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_intro_club_panorama.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "hud_portrait_protagonist": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/hud_portrait_protagonist.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "dialogue_portrait_dj": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/dialogue_portrait_dj.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "map_infernal_tower": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/map_infernal_tower.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "prop_hub_fox_neon": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_hub_fox_neon.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_sofa_magenta": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_sofa_magenta.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "threshold_descent_pad": {
+      "class": "B",
+      "category": "environments",
+      "path": "assets/environments/threshold_descent_pad.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "floor_00_limbo_marble": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_00_limbo_marble.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_01_lust_dancefloor": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_01_lust_dancefloor.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_02_gula_terracotta": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_02_gula_terracotta.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_03_greed_slate_gold": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_03_greed_slate_gold.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_04_wrath_burgundy": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_04_wrath_burgundy.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_05_pride_obsidian_gold": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_05_pride_obsidian_gold.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_06_violence_ash_slabs": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_06_violence_ash_slabs.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_07_envy_travertine": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_07_envy_travertine.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_08_ice_abyssal": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_08_ice_abyssal.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_09_core_cosmic_vein": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_09_core_cosmic_vein.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_10_hub_checker": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_10_hub_checker.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "floor_11_vip_velvet": {
+      "class": "A",
+      "category": "floors",
+      "path": "assets/floors/floor_11_vip_velvet.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "wall_panel_gothic_niche": {
+      "class": "D",
+      "category": "walls",
+      "path": "assets/walls/wall_panel_gothic_niche.png",
+      "why": "damero de transparencia o huecos blancos horneados en la imagen",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_panel_neon_crown": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_panel_neon_crown.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_panel_vip_window": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_panel_vip_window.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_pillar_obsidian": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_pillar_obsidian.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_panel_tall_neon": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_panel_tall_neon.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_panel_heavy_base": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_panel_heavy_base.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_gula_banquet": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_gula_banquet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_ice_glacier": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_ice_glacier.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_wrath_furnace": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_wrath_furnace.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "wall_core_monolith": {
+      "class": "B",
+      "category": "walls",
+      "path": "assets/walls/wall_core_monolith.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "door_stained_closed": {
+      "class": "B",
+      "category": "environments",
+      "path": "assets/environments/door_stained_closed.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "door_arched_open": {
+      "class": "B",
+      "category": "environments",
+      "path": "assets/environments/door_arched_open.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "door_gothic_closed": {
+      "class": "D",
+      "category": "environments",
+      "path": "assets/environments/door_gothic_closed.png",
+      "why": "damero de transparencia o huecos blancos horneados en la imagen",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "door_gothic_open": {
+      "class": "D",
+      "category": "environments",
+      "path": "assets/environments/door_gothic_open.png",
+      "why": "damero de transparencia o huecos blancos horneados en la imagen",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "door_vip_crimson": {
+      "class": "B",
+      "category": "environments",
+      "path": "assets/environments/door_vip_crimson.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "portal_baroque_gold": {
+      "class": "B",
+      "category": "environments",
+      "path": "assets/environments/portal_baroque_gold.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "portal_avaricia_gold": {
+      "class": "D",
+      "category": "environments",
+      "path": "assets/environments/portal_avaricia_gold.png",
+      "why": "halo / flecos claros alrededor de la silueta",
+      "batch": "R09_ARQUITECTURA"
+    },
+    "hud_heart_full": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_heart_full.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_heart_empty": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_heart_empty.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_shield_badge": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_shield_badge.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_skill_bomb": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_skill_bomb.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_skill_boost": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_skill_boost.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_skill_dodge": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_skill_dodge.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "hud_credit_coin": {
+      "class": "B",
+      "category": "ui",
+      "path": "assets/ui/hud_credit_coin.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "ui_victory_emblem": {
+      "class": "D",
+      "category": "ui",
+      "path": "assets/ui/ui_victory_emblem.png",
+      "why": "halo / flecos claros alrededor de la silueta",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "ui_defeat_emblem": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/ui_defeat_emblem.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "prop_neon_palm": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_neon_palm.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_chandelier_gold": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_chandelier_gold.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_sofa_black": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_sofa_black.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_armchair_vip": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_armchair_vip.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_potted_plant": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_potted_plant.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_speaker_tower": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_speaker_tower.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_subwoofer_cyan": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_subwoofer_cyan.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_gothic_statue": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_gothic_statue.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_gilded_altar": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_gilded_altar.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_chest_closed": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_chest_closed.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_chest_open": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_chest_open.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_neon_flower": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_neon_flower.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_arcane_pedestal": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_arcane_pedestal.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_sigil_poster": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_sigil_poster.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_bar_bottles": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_bar_bottles.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_bench_neon": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_bench_neon.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_bollard_pair": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_bollard_pair.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_dj_booth": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_dj_booth.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_arcade_cabinet": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_arcade_cabinet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_vending_machine": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_vending_machine.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_cooler_neon": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_cooler_neon.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_mirror_baroque": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_mirror_baroque.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_banquet_table": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_banquet_table.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_bar_counter": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_bar_counter.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_crate_club": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_crate_club.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_barrel_infernal": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_barrel_infernal.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_bookshelf_hub": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_bookshelf_hub.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "prop_candelabra_floor": {
+      "class": "B",
+      "category": "props",
+      "path": "assets/props/prop_candelabra_floor.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R08_MOBILIARIO"
+    },
+    "npc_dj_booth_world": {
+      "class": "D",
+      "category": "characters",
+      "path": "assets/characters/npc_dj_booth_world.png",
+      "why": "no coincide con el retrato dialogue_portrait_dj (otro personaje)",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "npc_armorer_hub": {
+      "class": "B",
+      "category": "characters",
+      "path": "assets/characters/npc_armorer_hub.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "npc_bartender_hub": {
+      "class": "B",
+      "category": "characters",
+      "path": "assets/characters/npc_bartender_hub.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "companion_drone_ally": {
+      "class": "B",
+      "category": "characters",
+      "path": "assets/characters/companion_drone_ally.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R04_PNJ_Y_HUD"
+    },
+    "player_idle_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_idle_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_walk_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_walk_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_walk_01": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_walk_01.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_walk_02": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_walk_02.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_walk_03": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_walk_03.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_shoot_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_shoot_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_fire2": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_fire2.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_firehip": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_firehip.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_boost_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_boost_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_roll_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_roll_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_hurt_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_hurt_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_death_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_death_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "enemy_security_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_security_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_security_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_security_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_security_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_security_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_security_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_security_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_fanatic_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_fanatic_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_fanatic_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_fanatic_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_fanatic_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_fanatic_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_fanatic_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_fanatic_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_chef_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_chef_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_chef_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_chef_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_chef_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_chef_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_chef_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_chef_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_dancer_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_dancer_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_dancer_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_dancer_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_dancer_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_dancer_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_dancer_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_dancer_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_drone_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_drone_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_drone_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_drone_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_drone_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_drone_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_drone_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_drone_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_elite_walk": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_elite_walk.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_elite_windup": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_elite_windup.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_elite_attack": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_elite_attack.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "enemy_elite_death": {
+      "class": "E",
+      "category": "enemies",
+      "path": "assets/enemies/enemy_elite_death.png",
+      "why": "rehecho en la tanda R02_ENEMIGOS y validado dentro del juego",
+      "batch": "R02_ENEMIGOS",
+      "evidence": "docs/ART_REBUILD/evidence/R02"
+    },
+    "boss_00_anden_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_00_anden_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_00_anden_attack": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_00_anden_attack.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_00_anden_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_00_anden_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_00_anden_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_00_anden_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_01_magneta_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_01_magneta_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_01_magneta_attack": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_01_magneta_attack.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_01_magneta_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_01_magneta_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_01_magneta_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_01_magneta_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_02_bufe_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_02_bufe_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_02_bufe_attack": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_02_bufe_attack.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_02_bufe_hit": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_02_bufe_hit.png",
+      "why": "identidad distinta de la del resto de fotogramas de su familia",
+      "batch": "R03_JEFES"
+    },
+    "boss_02_bufe_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_02_bufe_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_03_cajero_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_03_cajero_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_03_cajero_attack": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_03_cajero_attack.png",
+      "why": "fotograma basura: no representa al personaje de su familia",
+      "batch": "R03_JEFES"
+    },
+    "boss_03_cajero_hit": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_03_cajero_hit.png",
+      "why": "fotograma basura: no representa al personaje de su familia",
+      "batch": "R03_JEFES"
+    },
+    "boss_03_cajero_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_03_cajero_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_04_pogo_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_04_pogo_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_04_pogo_attack": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_04_pogo_attack.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_04_pogo_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_04_pogo_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_04_pogo_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_04_pogo_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_05_oficiante_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_05_oficiante_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_05_oficiante_attack": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_05_oficiante_attack.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_05_oficiante_hit": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_05_oficiante_hit.png",
+      "why": "fotograma basura: no representa al personaje de su familia",
+      "batch": "R03_JEFES"
+    },
+    "boss_05_oficiante_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_05_oficiante_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_06_matarife_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_06_matarife_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_06_matarife_attack": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_06_matarife_attack.png",
+      "why": "damero de transparencia o huecos blancos horneados en la imagen",
+      "batch": "R03_JEFES"
+    },
+    "boss_06_matarife_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_06_matarife_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_06_matarife_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_06_matarife_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_07_imitador_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_07_imitador_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_07_imitador_attack": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_07_imitador_attack.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_07_imitador_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_07_imitador_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_07_imitador_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_07_imitador_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_08_traidor_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_08_traidor_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_08_traidor_attack": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_08_traidor_attack.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_08_traidor_hit": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_08_traidor_hit.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_08_traidor_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_08_traidor_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "boss_09_nucleo_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_09_nucleo_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_09_nucleo_attack": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_09_nucleo_attack.png",
+      "why": "damero de transparencia o huecos blancos horneados en la imagen",
+      "batch": "R03_JEFES"
+    },
+    "boss_09_nucleo_hit": {
+      "class": "D",
+      "category": "bosses",
+      "path": "assets/bosses/boss_09_nucleo_hit.png",
+      "why": "fotograma basura: no representa al personaje de su familia",
+      "batch": "R03_JEFES"
+    },
+    "boss_09_nucleo_death": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_09_nucleo_death.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "pickup_credits_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_credits_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_heart_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_heart_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_ammo_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_ammo_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_bomb_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_bomb_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_boost_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_boost_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_shield_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_shield_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_damageup_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_damageup_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_fireup_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_fireup_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_speedup_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_speedup_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_turret_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_turret_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_companion_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_companion_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "pickup_mutation_00": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/pickup_mutation_00.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_needle": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_needle.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_lowpass": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_lowpass.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_magnet": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_magnet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_pact": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_pact.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_echo": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_echo.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_coil": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_coil.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_prism": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_prism.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "relic_tempo": {
+      "class": "B",
+      "category": "pickups",
+      "path": "assets/pickups/relic_tempo.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R06_RECOGIBLES"
+    },
+    "proj_slug": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_slug.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_heavy": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_heavy.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_pellet": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_pellet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_cryo": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_cryo.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_plasma": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_plasma.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_ricochet": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_ricochet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_lane": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_lane.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_flame": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_flame.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_rail": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_rail.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "proj_homing": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/proj_homing.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_muzzle_gold": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_muzzle_gold.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_muzzle_plasma": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_muzzle_plasma.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_impact_spark": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_impact_spark.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_impact_plasma": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_impact_plasma.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_explosion_inferno": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_explosion_inferno.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_shockwave_magenta": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_shockwave_magenta.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_fire_plume": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_fire_plume.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_soul_flame": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_soul_flame.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_lightning_purple": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_lightning_purple.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "vfx_smoke_cloud": {
+      "class": "B",
+      "category": "effects",
+      "path": "assets/effects/vfx_smoke_cloud.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R07_EFECTOS"
+    },
+    "cine_circle_01_lujuria": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_01_lujuria.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_02_gula": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_02_gula.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_03_avaricia": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_03_avaricia.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_04_ira": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_04_ira.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_05_herejia": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_05_herejia.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_06_violencia": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_06_violencia.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_07_fraude": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_07_fraude.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_08_traicion": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_08_traicion.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_circle_09_nucleo": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_09_nucleo.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "weapon_ricochet": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_ricochet.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "boss_10_arquitecto_idle": {
+      "class": "E",
+      "category": "bosses",
+      "path": "assets/bosses/boss_10_arquitecto_idle.png",
+      "why": "rehecho en la tanda R03_JEFES y validado dentro del juego",
+      "batch": "R03_JEFES",
+      "evidence": "docs/ART_REBUILD/evidence/R03"
+    },
+    "boss_10_arquitecto_attack": {
+      "class": "B",
+      "category": "bosses",
+      "path": "assets/bosses/boss_10_arquitecto_attack.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R03_JEFES"
+    },
+    "cine_circle_00_hub": {
+      "class": "B",
+      "category": "cinematics",
+      "path": "assets/cinematics/cine_circle_00_hub.png",
+      "why": "tarjeta de 960×540 (1280×720 la de entrada) con acabado pixelado; se amplía a pantalla completa",
+      "batch": "R10_CINEMATICA"
+    },
+    "ui_shop_emblem": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/ui_shop_emblem.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "weapon_m1911": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_m1911.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_magnum": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_magnum.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c003_laser": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c003_laser.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_uzi": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_uzi.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c005_needler": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c005_needler.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_plasma": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_plasma.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c007_magnum": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c007_magnum.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c008_silenciada": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c008_silenciada.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c009_desert_eagle": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c009_desert_eagle.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c010_explosiva": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c010_explosiva.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c011_de_veneno": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c011_de_veneno.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c012_de_hielo": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c012_de_hielo.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c013_escopeta": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c013_escopeta.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_olympia": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_olympia.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c015_escopeta_automatica": {
+      "class": "B",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c015_escopeta_automatica.png",
+      "why": "pixel art de paleta reducida; no sigue el acabado de ilustración de las guías",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c016_de_canon": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c016_de_canon.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c017_de_fuego": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c017_de_fuego.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_cryo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_cryo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c019_electrica": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c019_electrica.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_spas12": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_spas12.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c021_doble": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c021_doble.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c022_de_gancho": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c022_de_gancho.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c023_flechetes": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c023_flechetes.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c024_incendiaria": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c024_incendiaria.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_thompson": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_thompson.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_ak47": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_ak47.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_m16": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_m16.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c028_famas": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c028_famas.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c029_scar": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c029_scar.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c030_g36": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c030_g36.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c031_aug": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c031_aug.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_mp40": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_mp40.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c033_pulsos": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c033_pulsos.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c034_laser": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c034_laser.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_winchester": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_winchester.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c036_bullpup": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c036_bullpup.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_m60": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_m60.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c038_minigun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c038_minigun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c039_lmg_neon": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c039_lmg_neon.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c040_pesado": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c040_pesado.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c041_lanzacohetes": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c041_lanzacohetes.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c042_lanzagranadas": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c042_lanzagranadas.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_railgun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_railgun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c044_bfg": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c044_bfg.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c045_mortero": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c045_mortero.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c046_rotatorio": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c046_rotatorio.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_flamer": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_flamer.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c048_artilleria": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c048_artilleria.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c049_plasma_cutter": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c049_plasma_cutter.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c050_rayo_continuo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c050_rayo_continuo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c051_rayo_tesla": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c051_rayo_tesla.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c052_canon_plasma": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c052_canon_plasma.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c053_particulas": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c053_particulas.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c054_haz_de_energia": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c054_haz_de_energia.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c055_rayo_cadenas": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c055_rayo_cadenas.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c056_orbe_energia": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c056_orbe_energia.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_trident": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_trident.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c058_canon_sonico": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c058_canon_sonico.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c059_pistola_toxica": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c059_pistola_toxica.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c060_lanza_acido": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c060_lanza_acido.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c061_fuego": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c061_fuego.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c062_hielo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c062_hielo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c063_electrica": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c063_electrica.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c064_veneno": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c064_veneno.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c065_nube_toxica": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c065_nube_toxica.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c066_meteoritos": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c066_meteoritos.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c067_congelacios": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c067_congelacios.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c068_relampagos": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c068_relampagos.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c069_tormenta": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c069_tormenta.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c070_arena": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c070_arena.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c071_gravedad": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c071_gravedad.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c072_vacio": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c072_vacio.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c073_gravity_gun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c073_gravity_gun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c074_portal_gun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c074_portal_gun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c075_dron": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c075_dron.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c076_torreta": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c076_torreta.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c077_satelites": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c077_satelites.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c078_mina": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c078_mina.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c079_trampa_laser": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c079_trampa_laser.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c080_ancla": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c080_ancla.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c081_teletransportador": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c081_teletransportador.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c082_generador_de_paredes": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c082_generador_de_paredes.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c083_clonador": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c083_clonador.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c084_orbes_orbitales": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c084_orbes_orbitales.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c085_espada_laser": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c085_espada_laser.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c086_katana": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c086_katana.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c087_hacha": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c087_hacha.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c088_martillo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c088_martillo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c089_guadana": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c089_guadana.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c090_manoplas": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c090_manoplas.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c091_bate": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c091_bate.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c092_sierra_circular": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c092_sierra_circular.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c093_cadena": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c093_cadena.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c094_lanza": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c094_lanza.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c095_cuchillo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c095_cuchillo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c096_alabarda": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c096_alabarda.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_raygun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_raygun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c098_thundergun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c098_thundergun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c099_wunderwaffe": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c099_wunderwaffe.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c100_winter_u2019s_howl": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c100_winter_u2019s_howl.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c101_wave_gun": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c101_wave_gun.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c102_baston_de_fuego": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c102_baston_de_fuego.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c103_baston_de_hielo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c103_baston_de_hielo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c104_baston_de_rayo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c104_baston_de_rayo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c105_baston_de_viento": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c105_baston_de_viento.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c106_arco_ancestral": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c106_arco_ancestral.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c107_arco_del_lobo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c107_arco_del_lobo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c108_arco_de_fuego": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c108_arco_de_fuego.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c109_arco_del_vacio": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c109_arco_del_vacio.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c110_arco_de_tormenta": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c110_arco_de_tormenta.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c111_devoracaos": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c111_devoracaos.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c112_harvester": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c112_harvester.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c113_espada_de_energia": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c113_espada_de_energia.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c114_espada_caos": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c114_espada_caos.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c115_lanza_espectral": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c115_lanza_espectral.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c116_orbe_del_abismo": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c116_orbe_del_abismo.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c117_bomba_flotante": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c117_bomba_flotante.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c118_summon_infernal": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c118_summon_infernal.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c119_dragon_espiritual": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c119_dragon_espiritual.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "weapon_c120_director": {
+      "class": "C",
+      "category": "weapons",
+      "path": "assets/weapons/weapon_c120_director.png",
+      "why": "sin arte de la línea nueva: se ve el sprite heredado del motor",
+      "batch": "R05_ARMAS"
+    },
+    "hero_walk_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_walk_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "hero_walk_01": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_walk_01.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "hero_walk_02": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_walk_02.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "hero_walk_03": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_walk_03.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "hero_idle_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_idle_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "hero_shoot_00": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/cinematics/characters/protagonist/hero_shoot_00.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_firehip_arms": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_firehip_arms.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_up_01": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_up_01.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_up_02": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_up_02.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_up_03": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_up_03.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_down_01": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_down_01.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_down_02": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_down_02.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_down_03": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_down_03.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_down_02_arms": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_down_02_arms.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "player_aim_down_03_arms": {
+      "class": "E",
+      "category": "characters",
+      "path": "assets/characters/player_aim_down_03_arms.png",
+      "why": "rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego",
+      "batch": "R01_PROTAGONISTA",
+      "evidence": "docs/ART_REBUILD/evidence/R01"
+    },
+    "menu_main_backdrop_a": {
+      "class": "A",
+      "category": "ui",
+      "path": "assets/ui/menu_main_backdrop_a.jpg",
+      "why": "ilustración sin defectos visibles"
+    },
+    "cine_bg01_city": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg01_city_01_sky_moon_atmosphere": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg01_city/01_sky_moon_atmosphere.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg01_city_02_gothic_skyline_architecture": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg01_city/02_gothic_skyline_architecture.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg01_city_03_foreground_industrial_pipes": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg01_city/03_foreground_industrial_pipes.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg02_club_exterior": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg02_club_exterior_01_gothic_cathedral_facade": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/01_gothic_cathedral_facade.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg02_club_exterior_02_portal_speakers_entrance": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/02_portal_speakers_entrance.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg02_club_exterior_03_wet_pavement_reflections": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/03_wet_pavement_reflections.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg03_entrance": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg03_entrance_01_vaulted_hallway_depth": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg03_entrance/01_vaulted_hallway_depth.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg03_entrance_02_midground_columns_banners": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg03_entrance/02_midground_columns_banners.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg03_entrance_03_foreground_pillars_occlusion": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg03_entrance/03_foreground_pillars_occlusion.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg04_main_hall": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg04_main_hall_01_cathedral_nave_vaults": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/01_cathedral_nave_vaults.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg04_main_hall_02_laser_beams_equalizer": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/02_laser_beams_equalizer.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg04_main_hall_03_chandeliers_stage_framing": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/03_chandeliers_stage_framing.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg05_dancefloor": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg05_dancefloor_01_astrological_dancefloor_grid": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/01_astrological_dancefloor_grid.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg05_dancefloor_02_sound_towers_dj_stage": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/02_sound_towers_dj_stage.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg05_dancefloor_03_tables_foreground_ambient": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/03_tables_foreground_ambient.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg06_hero": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg06_hero_01_axial_portal_rosette": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg06_hero/01_axial_portal_rosette.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg06_hero_02_hero_rimlight_spotlight": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg06_hero/02_hero_rimlight_spotlight.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "cine_bg06_hero_03_flanking_speakers_framing": {
+      "class": "D",
+      "category": "cinematics",
+      "path": "assets/cinematics/backgrounds/final/cine_bg06_hero/03_flanking_speakers_framing.png",
+      "why": "lámina con muestras de paleta, marco y restos de texto horneados en el borde superior; las capas 02/03 son cuadros 100 % opacos",
+      "batch": "R10_CINEMATICA"
+    },
+    "logo_deadbeat_cinematic": {
+      "class": "A",
+      "category": "logos",
+      "path": "assets/cinematics/logos/logo_deadbeat_cinematic.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "overlay_vignette_gothic": {
+      "class": "A",
+      "category": "overlays",
+      "path": "assets/cinematics/overlays/overlay_vignette_gothic.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "effect_anamorphic_flare": {
+      "class": "A",
+      "category": "effects",
+      "path": "assets/cinematics/effects/effect_anamorphic_flare.png",
+      "why": "ilustración sin defectos visibles"
+    },
+    "effect_dust_particles": {
+      "class": "A",
+      "category": "effects",
+      "path": "assets/cinematics/effects/effect_dust_particles.png",
+      "why": "ilustración sin defectos visibles"
+    }
+  }
+}

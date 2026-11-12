@@ -261,13 +261,58 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return origLc.apply(this, arguments);
     };
 
+    // Capa de arma del protagonista.
+    // El renderizador de armas del motor (it) espera exactamente lo que le daba
+    // su propio Pf: el contexto trasladado al "hombro" (0, -0.55·canonH), girado
+    // con el ángulo de puntería, y ut.handLocal = posición de la mano en ese
+    // marco. Sin eso dibuja el arma en el origen del jugador (a la altura de las
+    // rodillas), apuntando siempre a la derecha. DD_WORLD conoce el lienzo de
+    // cada pose y dice dónde está la mano (getPlayerWeaponMount).
+    const DD_WEAPON_CANON_H = 95;
+    const DD_WEAPON_PIVOT_Y = -0.55 * DD_WEAPON_CANON_H;
+    function ddIsLongGun(wid) {
+      try {
+        if (xt[wid]) return false; // pesadas: se disparan desde la cadera
+        const a = pt(wid);
+        return !!(a && a.hd && a.hd.sup && (a.hd.sup - a.hd.grip) * a.len * DD_WEAPON_CANON_H >= 10);
+      } catch (e) { return false; }
+    }
+
     Pf = function () {
       if (window.DD_WORLD && w.playerAnim) {
+        const pA = w.playerAnim;
+        const aimA = (pA.forcedAimAngle !== null && pA.forcedAimAngle !== undefined)
+          ? pA.forcedAimAngle
+          : ((ye && ye.aimAngle) || 0);
+        pA.ddLongGun = ddIsLongGun((Yo && Yo.weapon) || "m1911");
+        const mount = (typeof window.DD_WORLD.getPlayerWeaponMount === "function")
+          ? window.DD_WORLD.getPlayerWeaponMount(pA, aimA, 1)
+          : null;
+        const weaponLayer = function (layer, customCtx) {
+          const c = customCtx || g;
+          const prevH = ut.h, prevHand = ut.handLocal, prevPose = ut.poseKey;
+          c.save();
+          try {
+            if (mount) {
+              const relY = mount.y - DD_WEAPON_PIVOT_Y;
+              const cosA = Math.cos(aimA), sinA = Math.sin(aimA);
+              ut.h = DD_WEAPON_CANON_H;
+              ut.poseKey = pA.upperPose || "player_idle";
+              ut.handLocal = [cosA * mount.x + sinA * relY, -sinA * mount.x + cosA * relY];
+              c.translate(0, DD_WEAPON_PIVOT_Y);
+              c.rotate(aimA);
+            }
+            return it(layer, c);
+          } finally {
+            c.restore();
+            ut.h = prevH; ut.handLocal = prevHand; ut.poseKey = prevPose;
+          }
+        };
         const drew = window.DD_WORLD.drawProtagonist(
           g,
           ye,
-          w.playerAnim,
-          function (layer, customCtx) { return it(layer, customCtx); },
+          pA,
+          weaponLayer,
           typeof Ee === "number" ? Ee : 0,
           typeof De === "number" ? De : 0
         );
@@ -276,18 +321,281 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return origPf.apply(this, arguments);
     };
 
+    /* ----------------------------------------------------------------------
+       ENEMIGOS — el contrato de animación es el del motor, no uno inventado.
+       El módulo de combate 2.86 del motor (objeto `f`) y su Rf original deciden:
+         - familia de arte: élite → elite; guardián → security; sprinter →
+           fanatic; tank → chef; speaker → drone; dancer → security en el
+           círculo I y dancer en los demás; minijefe → chef (círculo III),
+           elite (círculo VIII) o security;
+         - estado: impacto (hitFlash) > aviso (st "windup", amago, mState
+           "…Wind") > ataque (st "charge"/"dash", disparo recién hecho del
+           tirador, bailarín en contacto) > caminar;
+         - orientación: siempre de cara al jugador.
+       La versión anterior de este puente miraba campos que el motor no tiene
+       (attackT, windupT, hurtT, vx): sólo se veía el fotograma de caminar,
+       siempre mirando a la derecha, y sprinter y tirador salían como guardias.
+       DD_WORLD sólo dibuja; las reglas viven aquí, junto al motor.
+       ---------------------------------------------------------------------- */
+    function ddEnemyView(e) {
+      const circle = currentCircle();
+      let fam = e.elite ? "elite"
+        : e.guardian ? "security"
+        : e.type === "sprinter" ? "fanatic"
+        : e.type === "tank" ? "chef"
+        : e.type === "speaker" ? "drone"
+        : e.type === "dancer" ? (circle === 0 ? "security" : "dancer")
+        : "security";
+      if (e.mini) fam = circle === 2 ? "chef" : circle === 7 ? "elite" : "security";
+      let state = "walk";
+      if (f.enemyState(e) === "hit") {
+        state = "hit";
+      } else if (e.st === "windup" || e.feinting || /Wind$/.test(e.mState || "")) {
+        state = "windup";
+      } else if (e.st === "charge" || e.st === "dash" || e.mState === "charge" ||
+                 (e.type === "speaker" && e.st === "recover") ||
+                 (e.type === "dancer" && e.slot && Math.hypot(ye.x - e.x, ye.y - e.y) < e.r + ye.r + 18)) {
+        state = "attack";
+      }
+      return {
+        family: fam,
+        state: state,
+        flip: ye.x < e.x,
+        flash: e.hitFlash || 0,
+        phase: (e.animT || 0) * (e.type === "tank" ? 1.2 : e.type === "sprinter" ? 3.4 : 2),
+        marker: e.mini ? "mini" : e.elite ? "elite" : e.guardian ? "guardian" : null,
+        hpAlways: !!(e.elite || e.mini || e.type === "tank"),
+        frozen: e.freezeTimer > 0,
+        objective: !!Cp(),
+        circle: circle
+      };
+    }
+
     Rf = function (enemy) {
-      if (window.DD_WORLD && window.DD_WORLD.drawEnemy(g, enemy, Z)) {
+      const view = ddEnemyView(enemy);
+      if (window.DD_WORLD && window.DD_WORLD.drawEnemy(g, enemy, Z, view)) {
+        // Señal de variante elemental (placa, llama, hielo, rayo…): la pinta el
+        // motor. Espera la altura del sprite medida desde y + 0.65·r.
+        if (enemy.variant86 && enemy.variant86 !== "none") {
+          try {
+            const geo = window.DD_WORLD.enemyGeometry(enemy, view);
+            lu.drawVariantCue(g, enemy, Math.max(20, enemy.y + 0.65 * enemy.r - geo.topY));
+          } catch (err) { /* la señal es opcional: nunca debe romper el fotograma */ }
+        }
         return;
       }
       return origRf.apply(this, arguments);
     };
 
-    Bf = function (boss) {
-      if (window.DD_WORLD && window.DD_WORLD.drawBoss(g, boss, currentCircle(), Z)) {
+    /* Orden de profundidad de la lista de dibujo (props altos, enemigos, jugador…).
+       Se ordena por la LÍNEA DE APOYO en el suelo de cada cosa:
+         enemigo / abatido  pies en y + 0.65·r   (DD_WORLD.ENEMY_FOOT_K)
+         jugador            suelas en y + 14     (DD_WORLD.PLAYER_GROUND_Y)
+         jefe / abatido     pies en y + 0.8·r    (DD_WORLD.BOSS_FOOT_K)
+         prop alto          su sortY del motor   (borde delantero de su huella)
+         resto              su y (las torretas se revisan en su tanda)
+       Antes los actores entraban por el CENTRO de su círculo de colisión y los
+       props por su borde delantero: con figuras de 80-100 px, un actor de pie
+       junto a una caja, con los pies por delante de ella, se pintaba detrás.
+       Sólo cambia QUIÉN TAPA A QUIÉN; posiciones y colisiones no se tocan. */
+    function ddGroundY(kind, o) {
+      const W = window.DD_WORLD || {};
+      if (kind === "enemy" || kind === "enemyDeath") {
+        return o.y + (typeof W.ENEMY_FOOT_K === "number" ? W.ENEMY_FOOT_K : 0.65) * (o.r || 12);
+      }
+      if (kind === "player") return o.y + (typeof W.PLAYER_GROUND_Y === "number" ? W.PLAYER_GROUND_Y : 14);
+      if (kind === "boss" || kind === "bossDeath") {
+        return o.y + (typeof W.BOSS_FOOT_K === "number" ? W.BOSS_FOOT_K : 0.8) * (o.r || 34);
+      }
+      return o.y;
+    }
+
+    /* Muerte de enemigos: el motor guarda un registro por abatido y lo dibujaba
+       con el sprite pixel art heredado. Ahora lo dibuja DD_WORLD con el arte de
+       la familia; el registro recuerda familia y dura un poco más (sólo visual:
+       el enemigo ya salió de la lógica cuando se crea el registro). */
+    const origAddEnemyDeath = f.addEnemyDeath;
+    const origDrawEnemyDeath = f.drawEnemyDeath;
+    f.addEnemyDeath = function (enemy) {
+      let fam = null;
+      try { fam = ddEnemyView(enemy).family; } catch (err) { fam = null; }
+      const added = origAddEnemyDeath.apply(this, arguments);
+      if (added && f.enemyDeaths.length) {
+        const rec = f.enemyDeaths[f.enemyDeaths.length - 1];
+        rec.ddFamily = fam || rec.key;
+        rec.duration = 0.6;
+      }
+      return added;
+    };
+    f.drawEnemyDeath = function (rec) {
+      if (window.DD_WORLD && window.DD_WORLD.drawEnemyDeath && window.DD_WORLD.drawEnemyDeath(g, rec, Z)) {
         return;
       }
+      return origDrawEnemyDeath.apply(this, arguments);
+    };
+
+    /* ----------------------------------------------------------------------
+       JEFES — mismas reglas que con los enemigos: el contrato es el del motor.
+       El Bf del motor hace tres cosas: pinta un arco decorativo, pinta el sprite
+       (Of) y pinta las SEÑALES DE JUEGO del combate: anillos de aparición, aro de
+       ventana expuesta, arco de «esbirros vivos», aro de congelación, el sector
+       de aviso y el rayo del barrido, y la barra de vida.
+       La versión anterior de este puente sustituía Bf entero por un dibujo del
+       sprite: ninguna de esas señales se veía (el barrido golpeaba con un rayo
+       invisible), el jefe no encaraba al protagonista ni cambiaba de estado
+       (leía attackT, castT, dashT, hurtT y vx, que el motor no tiene) y aparecía
+       de golpe, sin la entrada del motor.
+       Ahora: la figura la dibuja DD_WORLD con la vista de ddBossView y las
+       señales del motor se pintan aquí con su misma geometría (son la verdad de
+       las colisiones). El arco decorativo no se recupera.
+         - quién es:  secretBoss → Arquitecto; final → Núcleo; `resident` del
+                      motor; si no, el registro de arte del motor (f.bossProfile)
+         - estado:    attack mientras el motor avisa o ejecuta un patrón
+                      (pattern71), barre (phase "sweep") o acaba de cambiar de
+                      fase (_ddaAttackT); recover en la ventana expuesta que sigue
+                      (exposedT); si no, idle. f.bossState da "attack" durante
+                      TODA la fase berserk (el último 35 % de la vida): con un
+                      fotograma de ataque propio el jefe se pasaría el final del
+                      combate congelado en esa pose, así que berserk se señala
+                      aparte (aura roja, paso más vivo) y no fija el fotograma.
+         - impacto:   destello sobre el fotograma que toque, sin cambiar de pose.
+         - orientación: siempre de cara al protagonista.
+       ---------------------------------------------------------------------- */
+    const DD_BOSS_SLUG = {
+      anden: "boss_00_anden", magneta: "boss_01_magneta", bufe: "boss_02_bufe", cajero: "boss_03_cajero",
+      pogo: "boss_04_pogo", oficiante: "boss_05_oficiante", matarife: "boss_06_matarife", imitador: "boss_07_imitador",
+      traidor: "boss_08_traidor", nucleo: "boss_09_nucleo", arquitecto: "boss_10_arquitecto"
+    };
+    const DD_BOSS_BY_KEY = ["boss_00_anden", "boss_01_magneta", "boss_02_bufe", "boss_03_cajero", "boss_04_pogo",
+      "boss_05_oficiante", "boss_06_matarife", "boss_07_imitador", "boss_08_traidor", "boss_09_nucleo"];
+
+    function ddBossSlug(e) {
+      if (!e) return DD_BOSS_BY_KEY[currentCircle()];
+      if (e.secretBoss || e.resident === "arquitecto") return DD_BOSS_SLUG.arquitecto;
+      if (e.final) return DD_BOSS_SLUG.nucleo;
+      if (e.resident && DD_BOSS_SLUG[e.resident]) return DD_BOSS_SLUG[e.resident];
+      try {
+        const prof = f.bossProfile(e);
+        if (prof && prof.resident && DD_BOSS_SLUG[prof.resident]) return DD_BOSS_SLUG[prof.resident];
+        const m = prof && /^boss(\d)$/.exec(prof.key || "");
+        if (m) return DD_BOSS_BY_KEY[Number(m[1])];       // jefes sin residente: el motor les presta el sprite de ese índice
+      } catch (err) { /* sin registro de arte: se decide por círculo */ }
+      return DD_BOSS_BY_KEY[currentCircle()];
+    }
+
+    function ddBossView(e) {
+      const casting = !!e.pattern71 || e.phase === "sweep" || (e._ddaAttackT || 0) > 0;
+      const exposed = (e.exposedT || 0) > 0;
+      return {
+        slug: ddBossSlug(e),
+        state: e._ddaDead ? "death" : casting ? "attack" : exposed ? "recover" : "idle",
+        flip: ye.x < e.x,
+        flash: e.hitFlash || 0,
+        entrance: e.entrance > 0 ? Math.max(0, Math.min(1, 1 - e.entrance / 1.3)) : 1,
+        frozen: e.freezeTimer > 0,
+        berserk: !!e.berserk || e.phase === "berserk",
+        exposed: exposed,
+        color: e.color || null,
+        circle: currentCircle()
+      };
+    }
+
+    /* Señales de juego del jefe, con la geometría del motor (círculo de colisión en
+       (x, y), radio r). `front` = mitad del aro que queda por delante de la figura:
+       se pinta después de ella, para que el aro rodee los pies en vez de cruzarlos. */
+    function ddBossRings(e, front) {
+      if (!((e.exposedT > 0) || (e.addsAlive || 0) > 0 || e.freezeTimer > 0)) return;
+      g.save();
+      g.beginPath();
+      if (front) g.rect(e.x - 4 * e.r, e.y, 8 * e.r, 4 * e.r);
+      else g.rect(e.x - 4 * e.r, e.y - 4 * e.r, 8 * e.r, 4 * e.r);
+      g.clip();
+      if (e.freezeTimer > 0) {
+        g.strokeStyle = "#67e8f9"; g.lineWidth = 3;
+        g.beginPath(); g.arc(e.x, e.y, e.r + 8, 0, 2 * Math.PI); g.stroke();
+      }
+      if (e.exposedT > 0) {
+        g.strokeStyle = "#67e8f9"; g.lineWidth = 4; g.globalAlpha = 0.6 + 0.4 * Math.sin(12 * Z);
+        g.beginPath(); g.arc(e.x, e.y, e.r + 12, 0, 2 * Math.PI); g.stroke();
+        g.globalAlpha = 1;
+      }
+      if ((e.addsAlive || 0) > 0) {
+        g.strokeStyle = "#22d3ee"; g.lineWidth = 3; g.setLineDash([10, 8]); g.globalAlpha = 0.75;
+        g.beginPath(); g.arc(e.x, e.y, e.r + 18 + 2 * Math.sin(5 * Z), 1.2 * Z, 1.2 * Z + 1.2 * Math.PI); g.stroke();
+        g.setLineDash([]);
+      }
+      g.restore();
+    }
+
+    function ddBossFloorCues(e) {
+      g.save();
+      if (e.entrance > 0) {
+        const a = 1 - e.entrance / 1.3;
+        g.strokeStyle = "#fca5a5"; g.lineWidth = 3;
+        for (let i = 0; i < 3; i++) {
+          const o = (((a + i / 3) % 1) + 1) % 1;
+          g.globalAlpha = 0.55 * (1 - o);
+          g.beginPath(); g.arc(e.x, e.y, e.r * (0.7 + 2.4 * o), 0, 2 * Math.PI); g.stroke();
+        }
+        g.globalAlpha = 1;
+      }
+      if (e.sweep) {
+        const sw = e.sweep;
+        const ang = sw.a0 + sw.dir * Math.min(1, Math.max(0, (sw.t - sw.warn) / sw.fire)) * sw.arc;
+        const ex = e.x + 720 * Math.cos(ang), ey = e.y + 720 * Math.sin(ang);
+        g.save();
+        g.lineCap = "round";
+        if (sw.t < sw.warn) {
+          wf(e.x, e.y, sw.a0, sw.a0 + sw.dir * sw.arc, 720, "#f43f5e", 0.06);
+          g.globalAlpha = 0.4 + 0.25 * Math.sin(18 * Z);
+          g.strokeStyle = "#fda4af"; g.lineWidth = 3; g.setLineDash([12, 10]);
+        } else {
+          g.globalAlpha = 0.35; g.strokeStyle = "#f43f5e"; g.lineWidth = 26;
+          g.beginPath(); g.moveTo(e.x, e.y); g.lineTo(ex, ey); g.stroke();
+          g.globalAlpha = 0.95; g.strokeStyle = "#fecdd3"; g.lineWidth = 6;
+        }
+        g.beginPath(); g.moveTo(e.x, e.y); g.lineTo(ex, ey); g.stroke();
+        g.restore();
+      }
+      g.restore();
+      ddBossRings(e, false);
+    }
+
+    Bf = function (boss) {
+      const W = window.DD_WORLD;
+      if (W && W.canDrawBoss) {
+        const view = ddBossView(boss);
+        if (W.canDrawBoss(view.slug)) {
+          ddBossFloorCues(boss);
+          W.drawBoss(g, boss, view, Z);
+          ddBossRings(boss, true);
+          return;
+        }
+      }
       return origBf.apply(this, arguments);
+    };
+
+    /* Muerte del jefe: igual que con los enemigos. El registro del motor recuerda
+       quién era y hacia dónde miraba, y dura 1 s (sólo visual: el jefe ya salió de
+       la lógica cuando se crea el registro). */
+    const origAddBossDeath = f.addBossDeath;
+    const origDrawBossDeath = f.drawBossDeath;
+    f.addBossDeath = function (boss) {
+      let view = null;
+      try { view = ddBossView(boss); } catch (err) { view = null; }
+      const added = origAddBossDeath.apply(this, arguments);
+      if (added && f.bossDeaths.length) {
+        const rec = f.bossDeaths[f.bossDeaths.length - 1];
+        if (view) { rec.ddSlug = view.slug; rec.ddFlip = view.flip; }
+        rec.duration = 1.0;
+      }
+      return added;
+    };
+    f.drawBossDeath = function (rec) {
+      if (window.DD_WORLD && window.DD_WORLD.drawBossDeath && window.DD_WORLD.drawBossDeath(g, rec, Z)) {
+        return;
+      }
+      return origDrawBossDeath.apply(this, arguments);
     };
 
     Lf = function (turret) {
@@ -339,7 +647,10 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         weaponName: wMeta.name || wid,
         owned: Dt && Array.isArray(Dt.owned) ? Dt.owned.slice() : [wid],
         bossActive: !!ir,
-        boss: ir && sr ? { id: sr.id, name: sr.name, hp: sr.hp, maxHp: sr.maxHp, x: sr.x, y: sr.y } : null,
+        // subtitle: el título que el motor da a cada residente («EL PORTERO», «LA ANFITRIONA»…).
+        // Sin él, la tarjeta de presentación rotulaba a los once jefes con el mismo texto.
+        boss: ir && sr ? { id: sr.id, name: sr.name, hp: sr.hp, maxHp: sr.maxHp, x: sr.x, y: sr.y, slug: ddBossSlug(sr),
+          subtitle: String(sr.residentTitle || sr.variantLabel || ""), color: sr.residentColor72 || sr.color || "" } : null,
         player: ye ? { x: ye.x, y: ye.y, aimAngle: ye.aimAngle } : null,
         roomRect: Ps ? { x: Ps.x, y: Ps.y, w: Ps.w, h: Ps.h } : null,
         doors: Ot && Array.isArray(Ot.doors) ? Ot.doors.map(dr => ({ x: dr.x, y: dr.y, open: !!(dr.open || dr.unlocked) })) : [],
@@ -437,19 +748,19 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       }
       for (const en of Ta) {
         if (!en._ddaDead && en.x > cullL && en.x < cullR && en.y > cullT && en.y < cullB) {
-          renderQueue.push({ y: en.y, k: "enemy", o: en });
+          renderQueue.push({ y: ddGroundY("enemy", en), k: "enemy", o: en });
         }
       }
       for (const ed of f.enemyDeaths) {
         if (ed.x > cullL && ed.x < cullR && ed.y > cullT && ed.y < cullB) {
-          renderQueue.push({ y: ed.y, k: "enemyDeath", o: ed });
+          renderQueue.push({ y: ddGroundY("enemyDeath", ed), k: "enemyDeath", o: ed });
         }
       }
       if (ir && sr && !sr._ddaDead) {
-        renderQueue.push({ y: sr.y, k: "boss", o: sr });
+        renderQueue.push({ y: ddGroundY("boss", sr), k: "boss", o: sr });
       }
       for (const bd of f.bossDeaths) {
-        renderQueue.push({ y: bd.y, k: "bossDeath", o: bd });
+        renderQueue.push({ y: ddGroundY("bossDeath", bd), k: "bossDeath", o: bd });
       }
       for (const tu of Pa) renderQueue.push({ y: tu.y, k: "turret", o: tu });
       for (const pk of Ca) renderQueue.push({ y: pk.y, k: "pickup", o: pk });
@@ -460,7 +771,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           for (const ob of _o.orbs) if (!ob.collected) renderQueue.push({ y: ob.y, k: "objective", o: ob });
         }
       }
-      renderQueue.push({ y: ye.y, k: "player", o: ye });
+      renderQueue.push({ y: ddGroundY("player", ye), k: "player", o: ye });
       renderQueue.sort((a, bItem) => a.y - bItem.y);
 
       for (const item of renderQueue) {
@@ -571,6 +882,120 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       },
       getWeaponsList: function () {
         return (w.weaponRig && typeof w.weaponRig.catalog === "function") ? w.weaponRig.catalog() : [];
+      },
+      /* QA: actores vivos con la vista de arte que el puente entrega a DD_WORLD
+         (familia, estado, orientación) y los proyectiles. Sólo lectura. */
+      getActors: function () {
+        const out = { time: Z, circle: currentCircle(), player: null, enemies: [], deaths: [], bullets: [], enemyBullets: [] };
+        if (ye) out.player = { x: ye.x, y: ye.y, r: ye.r, aim: ye.aimAngle };
+        if (Array.isArray(Ta)) {
+          for (const e of Ta.slice(0, 60)) {
+            if (!e || e._ddaDead) continue;
+            const v = ddEnemyView(e);
+            out.enemies.push({
+              x: e.x, y: e.y, r: e.r, type: e.type, elite: !!e.elite, mini: !!e.mini, guardian: !!e.guardian,
+              st: e.st || null, mState: e.mState || null, hp: e.hp, maxHp: e.maxHp, variant: e.variant86 || null,
+              family: v.family, state: v.state, flip: v.flip, flash: v.flash, marker: v.marker, frozen: v.frozen
+            });
+          }
+        }
+        for (const d of f.enemyDeaths) out.deaths.push({ x: d.x, y: d.y, r: d.r, family: d.ddFamily || d.key, age: d.age, duration: d.duration });
+        if (Array.isArray(wa)) for (const b of wa.slice(0, 40)) out.bullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
+        if (Array.isArray(Ia)) for (const b of Ia.slice(0, 40)) out.enemyBullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
+        return out;
+      },
+      /* QA: fija el estado de IA de los enemigos vivos para poder fotografiar cada
+         fotograma (aviso, ataque) sin esperar a que la IA lo elija. `st` nulo lo suelta. */
+      debugPoseEnemies: function (st, opts) {
+        opts = opts || {};
+        let n = 0;
+        if (Array.isArray(Ta)) {
+          for (let i = 0; i < Ta.length; i++) {
+            const e = Ta[i];
+            if (!e || e._ddaDead) continue;
+            if (opts.type && e.type !== opts.type) continue;
+            if (typeof opts.index === "number" && opts.index !== i) continue;
+            if (opts.assign && typeof opts.assign === "object") {
+              // p. ej. { mini: true, r: 26 } para ver la escala y la marca de un minijefe
+              for (const k of ["mini", "guardian", "guardRadius", "elite", "r", "freezeTimer", "feinting", "mState"]) {
+                if (k in opts.assign) e[k] = opts.assign[k];
+              }
+            }
+            if (st !== undefined) {
+              e.st = st || null;
+              // stT = tiempo que le queda al estado. Con 9 s la IA no lo suelta; con un
+              // valor corto (opts.stT) el aro de aviso del motor se ve a medio llenar.
+              // Con st = null también se respeta opts.stT: el minijefe no usa `st`
+              // sino `mState`, y su reloj es el mismo stT.
+              e.stT = typeof opts.stT === "number" ? opts.stT : (st ? 9 : 0);
+            }
+            if (opts.hit) f.damage(e, 0, 0.14);   // destello de impacto sin quitar vida
+            n++;
+          }
+        }
+        return n;
+      },
+      /* QA: el jefe activo con la vista de arte que el puente entrega a DD_WORLD, el
+         fotograma que DD_WORLD resuelve para ella y los registros de muerte. Sólo lectura. */
+      getBoss: function () {
+        const W = window.DD_WORLD || {};
+        const out = { active: !!(ir && sr), time: Z, circle: currentCircle(), deaths: [] };
+        for (const d of f.bossDeaths) {
+          const fr = d.ddSlug && W.resolveBossFrame ? W.resolveBossFrame(d.ddSlug, "death") : null;
+          const gd = W.bossGeometry ? W.bossGeometry({ x: d.x, y: d.y, r: d.r }, { slug: d.ddSlug }) : null;
+          out.deaths.push({ x: d.x, y: d.y, r: d.r, slug: d.ddSlug || null, flip: !!d.ddFlip, age: d.age, duration: d.duration,
+            frame: fr ? fr.id : null, dedicated: fr ? fr.dedicated : null, figH: gd ? gd.figH : null, footY: gd ? gd.footY : null });
+        }
+        if (!out.active) return out;
+        const v = ddBossView(sr);
+        const fr = W.resolveBossFrame ? W.resolveBossFrame(v.slug, v.state) : null;
+        const geo = W.bossGeometry ? W.bossGeometry(sr, v) : null;
+        return Object.assign(out, {
+          x: sr.x, y: sr.y, r: sr.r, hp: sr.hp, maxHp: sr.maxHp, name: sr.name || null, resident: sr.resident || null,
+          final: !!sr.final, secret: !!sr.secretBoss, variant: sr.variant || null, phase: sr.phase || null,
+          pattern: sr.pattern71 || null, patternWarn: sr.patternWarn71 || 0, entrance: sr.entrance || 0,
+          exposedT: sr.exposedT || 0, addsAlive: sr.addsAlive || 0, sweep: sr.sweep ? { t: sr.sweep.t, warn: sr.sweep.warn, fire: sr.sweep.fire } : null,
+          engineState: f.bossState(sr), view: v, frame: fr ? fr.id : null, dedicated: fr ? fr.dedicated : null, rev: fr ? fr.rev : null,
+          figH: geo ? geo.figH : null, footY: geo ? geo.footY : null
+        });
+      },
+      /* QA: fija campos del jefe activo para fotografiar cada estado y cada señal sin
+         esperar a que la IA los elija (posición, aparición, patrón, barrido, vida…). */
+      debugPoseBoss: function (o) {
+        if (!(ir && sr) || !o) return false;
+        for (const k of ["x", "y", "entrance", "hitFlash", "exposedT", "freezeTimer", "addsAlive", "addTimer", "pattern71", "patternWarn71",
+          "phase", "phaseTimer", "attackTimer", "berserk", "_ddaAttackT", "hp", "sweep"]) {
+          if (k in o) sr[k] = o[k];
+        }
+        return true;
+      },
+      /* QA: abate al jefe por la vía real del motor (Ep → registro de muerte), sin el
+         cierre de sala ni el final de partida que encadena un disparo de verdad. */
+      killBoss: function () {
+        if (!(ir && sr)) return false;
+        const b = sr;
+        try { Ep(b, false, "qa:probe"); } catch (err) { return "error: " + err; }
+        try { vs(b.x, b.y, b.color, 30, 40); } catch (err) { /* partículas opcionales */ }
+        ir = false;
+        sr = null;
+        return true;
+      },
+      /* QA: repinta el fotograma actual sin avanzar la simulación. */
+      renderNow: function () { Qf(); return true; },
+      /* QA: props sólidos de la sala (posición, huella y clave de profundidad). */
+      getProps: function () {
+        const out = [];
+        try {
+          for (const pr of tc) {
+            if (!pr || pr.hidden || !pr.onFloor) continue;
+            out.push({ x: pr.x, y: pr.y, br: pr.br, footH: pr.footH, sortY: pr.sortY, tall: !!pr.tall, solid: pr.solid !== false, kind: pr.kind || null, style: pr.style || null, name: pr.name || null });
+          }
+        } catch (err) { /* sin sala activa */ }
+        return out;
+      },
+      /* QA: abate a todos por la vía real del motor (deja registro de muerte). */
+      killAllEnemies: function () {
+        try { return !!(window.DMO && window.DMO.playtest && window.DMO.playtest.killAll()); } catch (err) { return false; }
       },
       getWeaponStats: function (wid) {
         const meta = (ja && ja[wid]) || {};

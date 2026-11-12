@@ -1,0 +1,960 @@
+{
+ "batch": "R03_JEFES",
+ "title": "Jefes — 10 residentes × 4 estados + Arquitecto × 2 (42 ilustraciones). EN CURSO: 15 de 42 (los 11 reposos y 4 ataques).",
+ "created": "2026-11-12",
+ "status": "EN CURSO. Integrados los 11 `idle` y los `attack` de Andén, Magneta, Bufé y El Pogo. El renderizador nunca mezcla revisiones: un jefe sin `attack`, `hit` o `death` de R03 resuelve ese estado sobre su `idle` nuevo con una señal procedimental; los PNG pixel art de esos estados siguen en assets/bosses/ pero no se dibujan.",
+ "mapping": {
+  "criterio": "El aspecto sigue la lámina REF_03, emparejada con el jefe del motor por el TEMA del círculo (el motor tiene un círculo más, Limbo, y sus números van uno por delante). Nombre, título y color son los del motor. De la biblia de lore se toman los motivos que no contradicen a la lámina."
+ },
+ "view": "Tres cuartos mirando a la derecha (en perfil estricto se pierden los rasgos del pecho: horno, amplificador, tambor). El motor refleja el sprite según dónde esté el protagonista.",
+ "references": {
+  "design": "dd_work/refcrops/bosses/design_<n>.png: recorte de la tarjeta de REF_03 ampliado ×5 sobre lienzo oscuro (816×1020 o 1020×1020)",
+  "style": "1.ª pasada (8 reposos): enemy_security_walk.png. Desde la 2.ª: dd_work/raw/R03_JEFES/boss_00_anden_idle.png (figura de pie; misma proporción 4:5 que las referencias de diseño).",
+  "state": "Fotogramas de estado: el reposo del propio jefe, ya limpio, centrado en un lienzo croma un 30–40 % más ancho (tools/art_master/state_ref.py → dd_work/raw/R03_JEFES/_refs/ref_<nn>_<nombre>_wide.png). Hechas las de los 11 jefes. Los 4 `attack` actuales salieron de una primera versión montada a mano con el croma original (_refs/_v1_croma_original/), que les pasó la línea de suelo."
+ },
+ "prompt_head": "Create a new video game boss character sprite. IMAGE 1 is the character design reference: a small, low-resolution concept thumbnail. Redraw THIS character (same costume, colours, silhouette and attributes) as a clean full-body figure. Leave out everything around the character in the thumbnail (scenery, pedestal, table, floor, numeral, frame). IMAGE 2 is ONLY a rendering style reference. Copy its drawing style: black ink outlines, hard-edged cel shading, magenta rim light on the back of the figure, cyan rim light on the front, flat chroma green background, whole figure visible. Do NOT copy the character of image 2.",
+ "prompt_tail": "VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single character, whole body visible from the top of the head (headgear and halo included) to the feet, nothing cropped, feet on one ground line near the bottom, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no cast shadow, no scenery, no text, no frame. Nothing green on the character.",
+ "prompt_note": "Entre cabecera y cola iba el bloque CHARACTER (el diseño de cada ficha, en inglés) y POSE, IDLE. El texto de diseño de cada ficha resume ese bloque.",
+ "generation_lessons": {
+  "proporcion": "Con DOS imágenes de referencia la salida no sigue la proporción de la primera: 5 de 7 salieron a 1050×1008 (la de la imagen de estilo, que iba en segundo lugar), 1 a 922×1152 (la de diseño) y 1 a 1376×768. Para fijar el lienzo, dar las dos referencias con la misma proporción. Confirmado en la 2.ª pasada: con las dos referencias en 4:5, 4 de 4 salieron a 921–922×1152.",
+  "hoja_de_modelo": "1 de 8 volvió como hoja con tres vistas. Añadir «ONE single figure, not a model sheet, not a turnaround».",
+  "linea_de_suelo": "6 de 8 traen una línea fina de suelo bajo los pies pese a «no floor». Añadir «no ground line» y borrarla al procesar.",
+  "elementos_colgantes": "Cables e hilos que debían acabar sobre la cabeza llegan al borde superior (2 de 2). Evitarlos o recortarlos con fundido.",
+  "pose_de_la_referencia_de_estilo": "La zancada de la imagen de estilo se coló en 1 de 7 (el Cajero camina). Usar como estilo una figura de pie: el Portero ya sirve. Y sirve al revés: para sacar de pie al Cajero (que con una sola referencia repitió la zancada dos veces) se usó su propio dibujo como diseño y el Portero de pie como «pose and style reference».",
+  "escala_de_los_estados": "Los `attack` hechos sobre el `idle` centrado en un lienzo más ancho conservan el tamaño relativo de la figura (4 de 4: el cociente de alturas de la figura coincide con el de los lienzos con un error ≤ 1 %). K = alto de la salida / alto de la referencia.",
+  "cristal_verde": "Un cristal (la puerta del horno de Bufé) salió pintado en verde croma y el recorte lo vació. Pedir cristales «tinted dark amber» o aceptarlos huecos."
+ },
+ "assets": [
+  {
+   "id": "boss_00_anden_idle",
+   "raw": "boss_00_anden_idle.png",
+   "name": "ANDÉN · El Portero (Limbo) · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 196,
+    "ax": 480
+   },
+   "boss": "ANDÉN · EL PORTERO",
+   "circle_engine": "I Limbo",
+   "engine_color": "#9fb3c8",
+   "entity": "ANDÉN · EL PORTERO (I Limbo)",
+   "use": "Jefe `boss_00_anden`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Portero altísimo y sin rostro (superficie de porcelana lisa bajo la gorra de plato), abrigo cruzado gris pizarra con botones plateados, guantes blancos, poste de latón con cordón de terciopelo rojo a modo de báculo, contador mecánico en la mano y sello de caucho al cinto.",
+   "design_reference": "ninguna (sólo referencia de estilo)",
+   "lore": "§17.1 El Portero sin Rostro",
+   "reference": "ninguna (sólo referencia de estilo)",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "Sin lámina en REF_03: diseñado con el título del motor («el Portero no negocia, cuenta») y el subjefe §17.1 de la biblia."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    304,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.503,
+    "ax": 480.0,
+    "ay": 1140.0,
+    "cx": 129,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     480.0,
+     1140.0
+    ],
+    "unit_h": 1091.0
+   }
+  },
+  {
+   "id": "boss_01_magneta_idle",
+   "raw": "boss_01_magneta_idle.png",
+   "name": "MAGNETA · La Anfitriona (Lujuria) · reposo",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "fade": [
+    {
+     "rect": [
+      330,
+      0,
+      426,
+      70
+     ],
+     "dir": "up"
+    },
+    {
+     "rect": [
+      644,
+      0,
+      712,
+      70
+     ],
+     "dir": "up"
+    }
+   ],
+   "layout": {
+    "unit_world": 190,
+    "ax": 520,
+    "unit_rows": [
+     32,
+     969
+    ]
+   },
+   "boss": "MAGNETA · LA ANFITRIONA",
+   "circle_engine": "II Lujuria",
+   "engine_color": "#f472b6",
+   "entity": "MAGNETA · LA ANFITRIONA (II Lujuria)",
+   "use": "Jefe `boss_01_magneta`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Anfitriona esbelta de piel rosa y melena magenta muy larga, sujetador enjoyado, falda larga de terciopelo negro con forro magenta abierta sobre una pierna, guantes negros, joyas doradas, antifaz, aro rosa tras la cabeza y cables de marioneta que suben desde la espalda.",
+   "design_reference": "REF_03 · I Lujuria",
+   "lore": "Véspera, la Última Invitación",
+   "reference": "REF_03 · I Lujuria",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "Los cables llegaban al borde superior del cuadro: se desvanecen con `fade` en los 70 px superiores (dos franjas, a los lados del aro).",
+    "Línea de suelo bajo los pies: quitada con `ground_line`.",
+    "La altura de referencia (190 px de mundo) va del borde superior del aro a los pies; los cables quedan por encima."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    352,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5678,
+    "ax": 520.0,
+    "ay": 969.0,
+    "cx": 166,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     520.0,
+     969.0
+    ],
+    "unit_h": 937.0
+   }
+  },
+  {
+   "id": "boss_02_bufe_idle",
+   "raw": "boss_02_bufe_idle.png",
+   "name": "BUFÉ · El Anfitrión Sin Fondo (Gula) · reposo",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "unit_world": 178,
+    "ax": 557
+   },
+   "boss": "BUFÉ · EL ANFITRIÓN SIN FONDO",
+   "circle_engine": "III Gula",
+   "engine_color": "#f59e0b",
+   "entity": "BUFÉ · EL ANFITRIÓN SIN FONDO (III Gula)",
+   "use": "Jefe `boss_02_bufe`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Cocinero-anfitrión obeso y enorme, gorro alto con trozos de plato roto, cara roja y sonrisa voraz, chaqueta blanca manchada, babero con dibujo de carne veteada, un horno de puerta redonda en el vientre con fuego ámbar y un cucharón de hierro en cada mano.",
+   "design_reference": "REF_03 · II Gula",
+   "lore": "Voraz, el Anfitrión Hueco",
+   "reference": "REF_03 · II Gula",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "Línea de suelo bajo los pies: quitada con `ground_line`."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    464,
+    528
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5285,
+    "ax": 557.0,
+    "ay": 970.0,
+    "cx": 223,
+    "cy": 520,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     557.0,
+     970.0
+    ],
+    "unit_h": 943.0
+   }
+  },
+  {
+   "id": "boss_03_cajero_idle",
+   "raw": "boss_03_cajero_idle.png",
+   "name": "EL CAJERO · Señor del VIP (Avaricia) · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 190,
+    "ax": 468
+   },
+   "boss": "EL CAJERO · EL QUE COBRA LA ENTRADA",
+   "circle_engine": "IV Avaricia",
+   "engine_color": "#eab308",
+   "entity": "EL CAJERO · EL QUE COBRA LA ENTRADA (IV Avaricia)",
+   "use": "Jefe `boss_03_cajero`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Figura esbelta de género ambiguo en exoesqueleto dorado: hombreras, coraza con ventanilla en el pecho (una moneda dentro), ropa negra, moño negro, máscara dorada lisa, dedos-llave y el halo hexagonal dorado de la lámina. De pie, erguida, con una moneda en alto entre dos dedos.",
+   "design_reference": "REF_03 · III Avaricia",
+   "lore": "Áurea, la Coleccionista de Instantes",
+   "reference": "_refs/ref_03_cajero_4x5.png (2.º intento reencuadrado a 4:5) + boss_00_anden_idle.png (pose de pie y estilo)",
+   "prompt": "Create a new video game boss character sprite. IMAGE 1 is the character design reference. Redraw THIS exact character with the same costume, colours and attributes […]. Give the character a completely NEW pose; do not copy the walking pose of image 1. IMAGE 2 is the POSE and style reference. Copy its stance: standing still, perfectly upright, both legs straight and close together, both feet planted side by side on the ground, whole figure visible. Copy also its drawing style. Do NOT copy the character or clothes of image 2. POSE, IDLE: standing still like a statue, haughty, legs straight and together. One key-fingered hand is extended forward at waist height, palm up, demanding payment. The other hand holds up a single golden coin between two fingers at shoulder height. + prompt_tail_v2",
+   "issues": [
+    "La lámina y la biblia muestran a una mujer y el motor lo llama «EL CAJERO»: se resolvió con una figura enmascarada de género ambiguo. Decisión a confirmar.",
+    "Tercer intento. El 1.º salió caminando (copió la zancada de la imagen de estilo); el 2.º, pidiendo «same character… must NOT be walking» sobre el 1.º, volvió a salir en zancada. El 3.º se hizo con DOS referencias: el 2.º intento como diseño (reencuadrado a 4:5) y el Portero de pie como pose y estilo. Los dos descartes están en dd_work/raw/R03_JEFES/_descartados/.",
+    "No hizo la palma extendida que se pedía: una mano sostiene la moneda y la otra cuelga con los dedos-llave."
+   ],
+   "decision": "Integrado (3.er intento).",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    304,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.4841,
+    "ax": 468.0,
+    "ay": 1138.0,
+    "cx": 148,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     468.0,
+     1138.0
+    ],
+    "unit_h": 1099.0
+   }
+  },
+  {
+   "id": "boss_04_pogo_idle",
+   "raw": "boss_04_pogo_idle.png",
+   "name": "EL POGO · Demonio de la Fosa (Ira) · reposo",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "unit_world": 186,
+    "ax": 525
+   },
+   "boss": "EL POGO · EL QUE ABRE LA PISTA",
+   "circle_engine": "V Ira",
+   "engine_color": "#ef4444",
+   "entity": "EL POGO · EL QUE ABRE LA PISTA (V Ira)",
+   "use": "Jefe `boss_04_pogo`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Demonio cornudo de carbón negro con grietas al rojo, brazos largos con garras alzadas, un amplificador de guitarra encajado en el pecho con cables colgando, pulseras de pinchos, pantalón negro roto y botas.",
+   "design_reference": "REF_03 · IV Ira",
+   "lore": "Brama, el Santo del Ruido",
+   "reference": "REF_03 · IV Ira",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "Línea de suelo bajo los pies: quitada con `ground_line`."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    448,
+    544
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5459,
+    "ax": 525.0,
+    "ay": 983.0,
+    "cx": 213,
+    "cy": 536,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     525.0,
+     983.0
+    ],
+    "unit_h": 954.0
+   }
+  },
+  {
+   "id": "boss_05_oficiante_idle",
+   "raw": "boss_05_oficiante_idle.png",
+   "name": "EL OFICIANTE · Pontífice del Ruido (Herejía) · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 194,
+    "ax": 470
+   },
+   "boss": "EL OFICIANTE · EL QUE OFICIA EL RUIDO",
+   "circle_engine": "VI Herejía",
+   "engine_color": "#a855f7",
+   "entity": "EL OFICIANTE · EL QUE OFICIA EL RUIDO (VI Herejía)",
+   "use": "Jefe `boss_05_oficiante`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Sumo sacerdote del sonido, alto y enjuto, de barba blanca larga: casulla carmesí y oro, estola violeta larga, mitra con un diapasón dorado al frente, tubos de órgano de latón asomando por la abertura del pecho, báculo rematado en tubos de órgano y batuta en la otra mano.",
+   "design_reference": "REF_03 · V Herejía",
+   "lore": "El Obispo de la Nota Ausente",
+   "reference": "_refs/ref_05_oficiante_central.png (figura central del 1.er intento, 880×1100)",
+   "prompt": "Same character as in the reference image, drawn at the same size […]. ONE single figure only: not a model sheet, not a turnaround, exactly one character in the whole image. NEW POSE, IDLE: standing perfectly upright and solemn, in three-quarter view turned toward the RIGHT side of the image. His left hand holds a tall staff topped with brass organ pipes, planted on the ground in front of him. His right hand is raised with two fingers extended as if conducting. + encuadre, estilo y fondo de la tanda",
+   "issues": [
+    "Segundo intento. El 1.º volvió como hoja de modelo con tres vistas (1376×768); su figura central, recortada y centrada en un lienzo 4:5 (_refs/ref_05_oficiante_central.png), fue la única referencia del 2.º.",
+    "La figura ocupa menos cuadro que las demás (964 px de 1152): al procesarla se escala a la misma altura de mundo, con algo menos de resolución de origen."
+   ],
+   "decision": "Integrado (2.º intento, figura única).",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    352,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5635,
+    "ax": 470.0,
+    "ay": 1079.0,
+    "cx": 158,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     470.0,
+     1079.0
+    ],
+    "unit_h": 964.0
+   }
+  },
+  {
+   "id": "boss_06_matarife_idle",
+   "raw": "boss_06_matarife_idle.png",
+   "name": "EL MATARIFE · Coloso del Matadero (Violencia) · reposo",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "unit_world": 188,
+    "ax": 548
+   },
+   "boss": "EL MATARIFE · EL QUE DESPIEZA EL SET",
+   "circle_engine": "VII Violencia",
+   "engine_color": "#dc2626",
+   "entity": "EL MATARIFE · EL QUE DESPIEZA EL SET (VII Violencia)",
+   "use": "Jefe `boss_06_matarife`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Coloso cornudo de piel roja, armadura veteada como carne cruda con púas de hueso, cadenas de hierro, delantal de cuero manchado, un tambor de piel pálida en el pecho y un mazo de hierro con forma de campana.",
+   "design_reference": "REF_03 · VI Violencia",
+   "lore": "El Corazón Encadenado",
+   "reference": "REF_03 · VI Violencia",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "Vista frontal, no de tres cuartos.",
+    "Línea de suelo bajo los pies: quitada con `ground_line`."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    496,
+    544
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5672,
+    "ax": 548.0,
+    "ay": 955.0,
+    "cx": 268,
+    "cy": 536,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     548.0,
+     955.0
+    ],
+    "unit_h": 928.0
+   }
+  },
+  {
+   "id": "boss_07_imitador_idle",
+   "raw": "boss_07_imitador_idle.png",
+   "name": "EL IMITADOR · Dama de los Espejos (Fraude) · reposo",
+   "pivot": "anchors.foot",
+   "fade": [
+    {
+     "rect": [
+      270,
+      0,
+      336,
+      90
+     ],
+     "dir": "up"
+    },
+    {
+     "rect": [
+      586,
+      0,
+      684,
+      90
+     ],
+     "dir": "up"
+    }
+   ],
+   "layout": {
+    "unit_world": 192,
+    "ax": 475,
+    "unit_rows": [
+     43,
+     1123
+    ]
+   },
+   "boss": "EL IMITADOR · EL QUE DUPLICA LA PISTA",
+   "circle_engine": "VIII Fraude",
+   "engine_color": "#22d3ee",
+   "entity": "EL IMITADOR · EL QUE DUPLICA LA PISTA (VIII Fraude)",
+   "use": "Jefe `boss_07_imitador`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Figura pálida de género ambiguo, melena negra lisa, rostro de máscara de porcelana, disco de espejo oscuro tras la cabeza, capa de plumas gris plata como alas plegadas, corpiño claro, vestido oscuro que acaba en volutas de humo sólidas, espejo de mano y tres máscaras colgando de hilos.",
+   "design_reference": "REF_03 · VII Fraude",
+   "lore": "El Crupier de las Mil Voces",
+   "reference": "REF_03 · VII Fraude",
+   "prompt": "prompt_head + CHARACTER (el texto de `design`, en inglés) + POSE, IDLE + prompt_tail",
+   "issues": [
+    "De la biblia se tomaron las máscaras; el «traje ocupado por humo» se sustituyó por el diseño de la lámina.",
+    "Los hilos de las máscaras llegaban al borde superior: se desvanecen con `fade` en los 90 px superiores. La altura de referencia va del borde superior del espejo a la base de nubes."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    336,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.4978,
+    "ax": 475.0,
+    "ay": 1123.0,
+    "cx": 166,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     475.0,
+     1123.0
+    ],
+    "unit_h": 1080.0
+   }
+  },
+  {
+   "id": "boss_08_traidor_idle",
+   "raw": "boss_08_traidor_idle.png",
+   "name": "EL TRAIDOR · Monarca Glacial (Traición) · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 200,
+    "ax": 450
+   },
+   "boss": "EL TRAIDOR · EL ÚLTIMO RESIDENTE",
+   "circle_engine": "IX Traición",
+   "engine_color": "#7dd3fc",
+   "entity": "EL TRAIDOR · EL ÚLTIMO RESIDENTE (IX Traición)",
+   "use": "Jefe `boss_08_traidor`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Monarca pálido y regio de la lámina: corona dorada de puntas altas, melena blanca, rostro blanco inexpresivo, túnica ceremonial azul verdoso de mangas anchas con ribete dorado y tabardo blanco bordado con medallones rojos. De la biblia: cristales de hielo negro en los hombros y en el bajo, y un velo blanco que cae de la corona por la espalda. Báculo dorado en una mano; la otra, sobre el pecho.",
+   "design_reference": "REF_03 · VIII Traición",
+   "lore": "Nix (hielo negro, velo blanco)",
+   "reference": "dd_work/refcrops/bosses/design_08_traicion.png (tarjeta de REF_03) + boss_00_anden_idle.png (estilo)",
+   "prompt": "Create a new video game boss character sprite. IMAGE 1 is the character design reference: a small, low-resolution concept thumbnail. Redraw THIS character (same costume, colours, silhouette and attributes) as a clean full-body standing figure. Leave out everything around the character in the thumbnail. IMAGE 2 is ONLY a rendering style reference. Copy its drawing style: black ink outlines, hard-edged cel shading, magenta rim light on the back of the figure, cyan rim light on the front, flat chroma green background, whole figure visible, standing. Do NOT copy the character of image 2. CHARACTER: THE TRAITOR (\"El Traidor\"), the last resident, sovereign of the frozen final circle of a damned nightclub. A tall, regal, pale monarch as in the reference: a tall golden spiked crown, long pale hair, a cold expressionless white face, a heavy teal-blue ceremonial robe with wide sleeves and gold trim, and a long white tabard down the front embroidered with red medallions. Black ice crystals grow on the shoulders and along the hem of the robe, and a long white veil falls from the crown down the back. He holds ONE tall ornate golden staff. Palette: ice blue, teal, gold, white, black ice. POSE, IDLE: standing perfectly upright and motionless, the staff planted on the ground in one hand, the other hand resting on the chest. VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single figure, not a model sheet, not a turnaround. Whole body visible from the top of the headgear to the feet, nothing cropped, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground line, no cast shadow, no scenery, no text, no frame. Nothing green on the character.",
+   "issues": [
+    "La lámina trae dos báculos; se dejó uno.",
+    "Mira casi de frente (tres cuartos poco marcado)."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    368,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5,
+    "ax": 450.0,
+    "ay": 1141.0,
+    "cx": 164,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     450.0,
+     1141.0
+    ],
+    "unit_h": 1120.0
+   }
+  },
+  {
+   "id": "boss_09_nucleo_idle",
+   "raw": "boss_09_nucleo_idle.png",
+   "name": "NÚCLEO FINAL · La Última Canción (Núcleo) · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 204,
+    "ax": 495
+   },
+   "boss": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN",
+   "circle_engine": "Núcleo final",
+   "engine_color": "#fde047",
+   "entity": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN (Núcleo final)",
+   "use": "Jefe `boss_09_nucleo`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Figura humanoide alta y majestuosa hecha de cientos de teselas de espejo, como una bola de discoteca agrietada, con huecos oscuros entre fragmentos. En el pecho, la esfera negra de la lámina sujeta por cadenas rotas. Sin rostro: cabeza de espejo facetado. Corona dorada cuyas dos puntas altas recuerdan orejas de zorro. Capa hecha jirones de esquirlas de espejo. Brazos algo abiertos, palmas al frente.",
+   "design_reference": "REF_03 · IX Núcleo (sólo el motivo: esfera negra colgada de una cadena)",
+   "lore": "El Rey del Compás (fragmentos de bola de espejos que forman un cuerpo; corona como orejas de zorro)",
+   "reference": "_refs/ref_09_nucleo_motivo.png (tarjeta IX de REF_03 sobre lienzo 4:5) + boss_00_anden_idle.png (estilo)",
+   "prompt": "Create a new video game boss character sprite. IMAGE 1 is a motif reference: a small concept thumbnail of the final core of a damned nightclub, a glossy black sphere hanging from a chain. Do NOT copy its composition; use its motifs (the black sphere, the chains, the black and white palette). IMAGE 2 is ONLY a rendering style reference […]. CHARACTER: THE CORE (\"Núcleo Final\", the King of the Beat), final boss of the nightclub. A tall, majestic humanoid figure whose whole body is built from hundreds of small square mirror tiles like a cracked disco ball, with dark gaps between the fragments. In the middle of its chest sits a large glossy black sphere, the same sphere as in the reference, held in place by short broken chains. It has no face: the head is a smooth faceted mirror surface. On its head it wears a golden crown whose two tall points are shaped like the pointed ears of a fox. A long tattered cape made of mirror shards hangs from its shoulders. Palette: silver mirror, black, gold and warm yellow accents, white highlights. POSE, IDLE: standing upright with regal calm, arms slightly open at its sides, palms turned forward. VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single figure, not a model sheet, not a turnaround. Whole body visible from the top of the headgear to the feet, nothing cropped, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground line, no cast shadow, no scenery, no text, no frame. Nothing green on the character. …and the mirrors must not reflect green.",
+   "issues": [
+    "La lámina no muestra un personaje sino una esfera colgada: el cuerpo es el que describe la biblia (§15), con la esfera en el pecho. Decisión de diseño a confirmar.",
+    "Mira de frente."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    352,
+    592
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5059,
+    "ax": 495.0,
+    "ay": 1143.0,
+    "cx": 190,
+    "cy": 584,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     495.0,
+     1143.0
+    ],
+    "unit_h": 1129.0
+   }
+  },
+  {
+   "id": "boss_10_arquitecto_idle",
+   "raw": "boss_10_arquitecto_idle.png",
+   "name": "Jefe secreto · El Arquitecto · reposo",
+   "pivot": "anchors.foot",
+   "layout": {
+    "unit_world": 192,
+    "ax": 497
+   },
+   "boss": "EL ARQUITECTO · DJ-DIRECTOR EN PERSONA",
+   "circle_engine": "jefe secreto",
+   "engine_color": "#c084fc",
+   "entity": "EL ARQUITECTO · DJ-DIRECTOR EN PERSONA (jefe secreto)",
+   "use": "Jefe `boss_10_arquitecto`, fotograma de reposo. Lo dibuja DD_WORLD.drawBoss con la vista que entrega el puente (ddBossView): apoyado en y + 0,8·r, de cara al protagonista, con respiración, balanceo al andar y destello de impacto. Mientras no existan `hit` y `death` de esta misma revisión, esos estados se resuelven sobre este fotograma (retroceso y colapso procedimentales).",
+   "design": "Soberano acorazado alto: armadura de placas negra y plata con líneas de plano grabadas en violeta y cian, corona de púas fundida con unos auriculares de DJ, rostro en sombra con dos ojos violeta, capa negra larga, un guantelete cian encendido y un compás de dibujo largo, de plata, a modo de cetro.",
+   "design_reference": "sin lámina en REF_03: sprite anterior del repositorio (assets/bosses/boss_10_arquitecto_idle.png)",
+   "lore": "sin ficha propia en la biblia; el motor lo presenta como «DJ-Director en persona · Fusión Cósmica», dueño de la cabina",
+   "reference": "_refs/ref_10_arquitecto_antiguo.png (sprite anterior ampliado sobre lienzo 4:5) + boss_00_anden_idle.png (estilo)",
+   "prompt": "Create a new video game boss character sprite. IMAGE 1 is the character design reference: an old low-resolution pixel-art sprite of this boss. Redraw THIS character (same armour, crown, cape, colours and silhouette) as a clean high-resolution illustration. IMAGE 2 is ONLY a rendering style reference […]. CHARACTER: THE ARCHITECT OF THE CLUB (\"El Arquitecto\"), the secret final boss: the DJ-director who designed the damned nightclub. A tall armoured sovereign as in the reference: ornate black and silver plate armour, a tall spiked silver crown fused with a pair of large DJ headphones, a face hidden in shadow with two violet eyes, a long black cape, and one gauntlet that shines cyan (drawn solid and hard-edged). In his other hand he holds a long silver drafting compass like a sceptre. Thin violet and cyan blueprint lines are engraved on the armour. Palette: black, silver, violet, cyan. POSE, IDLE: standing upright and imperious, the cyan gauntlet raised at chest height, the compass-sceptre planted on the ground. VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single figure, not a model sheet, not a turnaround. Whole body visible from the top of the headgear to the feet, nothing cropped, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground line, no cast shadow, no scenery, no text, no frame. Nothing green on the character.",
+   "issues": [
+    "Sin lámina: se partió del sprite anterior (armadura, corona, capa, guantelete) y se le dio el compás por su título de arquitecto. Decisión de diseño a confirmar.",
+    "El motor le da radio 38 (los demás, 34): se dibuja un 9 % más alto que su altura base."
+   ],
+   "decision": "Integrado.",
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    496,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5365,
+    "ax": 497.0,
+    "ay": 1103.0,
+    "cx": 267,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     497.0,
+     1103.0
+    ],
+    "unit_h": 1002.0
+   }
+  },
+  {
+   "id": "boss_00_anden_attack",
+   "raw": "boss_00_anden_attack.png",
+   "name": "ANDÉN · El Portero (Limbo) · ataque",
+   "pivot": "anchors.foot",
+   "layout": {
+    "ref": "boss_00_anden_idle",
+    "k": 0.861,
+    "ax": 484
+   },
+   "boss": "ANDÉN · EL PORTERO",
+   "circle_engine": "I Limbo",
+   "entity": "ANDÉN · EL PORTERO (I Limbo)",
+   "use": "Jefe `boss_00_anden`, fotograma de ataque: se muestra mientras el motor avisa o ejecuta un patrón (`pattern71`), durante el barrido (`phase` = sweep) y 0,28 s al cambiar de fase (`_ddaAttackT`). No se usa para la fase berserk entera (duraría todo el último tercio del combate).",
+   "rel_scale": {
+    "k": 0.861,
+    "how": "0,861 = alto de la salida / alto de la referencia (992/1152). Comprobado con la altura gorra-suela: 936 px frente a 1086 del reposo (0,862)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_00_anden_wide.png: el `idle` del mismo jefe centrado sobre un lienzo de croma un 30–40 % más ancho, para que quepan los brazos extendidos",
+   "prompt": "attack_prompt con <pose> = he thrusts the white-gloved hand that held the counter straight forward toward the RIGHT side of the image, arm fully extended at shoulder height, palm open and fingers up in a firm STOP gesture. His other hand slams the brass stanchion post down on the ground beside him, and the red velvet rope whips forward. Shoulders squared, the skirts of the greatcoat flaring behind him.",
+   "issues": [],
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    464,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5842,
+    "ax": 484.0,
+    "ay": 982.0,
+    "cx": 214,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     484.0,
+     982.0
+    ],
+    "unit_h": 939.4
+   }
+  },
+  {
+   "id": "boss_01_magneta_attack",
+   "raw": "boss_01_magneta_attack.png",
+   "name": "MAGNETA · La Anfitriona (Lujuria) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "fade": [
+    {
+     "rect": [
+      438,
+      0,
+      524,
+      70
+     ],
+     "dir": "up"
+    },
+    {
+     "rect": [
+      712,
+      0,
+      772,
+      70
+     ],
+     "dir": "up"
+    }
+   ],
+   "layout": {
+    "ref": "boss_01_magneta_idle",
+    "k": 0.873,
+    "ax": 598
+   },
+   "boss": "MAGNETA · LA ANFITRIONA",
+   "circle_engine": "II Lujuria",
+   "entity": "MAGNETA · LA ANFITRIONA (II Lujuria)",
+   "use": "Jefe `boss_01_magneta`, fotograma de ataque: se muestra mientras el motor avisa o ejecuta un patrón (`pattern71`), durante el barrido (`phase` = sweep) y 0,28 s al cambiar de fase (`_ddaAttackT`). No se usa para la fase berserk entera (duraría todo el último tercio del combate).",
+   "rel_scale": {
+    "k": 0.873,
+    "how": "0,873 = 880/1008. Comprobado con la altura aro-pies: 818 px frente a 937 del reposo (0,873)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_01_magneta_wide.png: el `idle` del mismo jefe centrado sobre un lienzo de croma un 30–40 % más ancho, para que quepan los brazos extendidos",
+   "prompt": "attack_prompt con <pose> = she thrusts both arms straight forward toward the RIGHT side of the image, palms open and fingers spread, as if pulling someone toward her with invisible strings. Her long hair and her skirt blow backward to the left. Chin lowered, intense stare. The pink ring stays behind her head.",
+   "issues": [
+    "Cables hasta el borde superior (igual que el reposo): `fade`.",
+    "Línea de suelo: `ground_line`."
+   ],
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    496,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6504,
+    "ax": 598.0,
+    "ay": 847.0,
+    "cx": 260,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     598.0,
+     847.0
+    ],
+    "unit_h": 818.0
+   }
+  },
+  {
+   "id": "boss_02_bufe_attack",
+   "raw": "boss_02_bufe_attack.png",
+   "name": "BUFÉ · El Anfitrión Sin Fondo (Gula) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_02_bufe_idle",
+    "k": 0.845,
+    "ax": 604
+   },
+   "boss": "BUFÉ · EL ANFITRIÓN SIN FONDO",
+   "circle_engine": "III Gula",
+   "entity": "BUFÉ · EL ANFITRIÓN SIN FONDO (III Gula)",
+   "use": "Jefe `boss_02_bufe`, fotograma de ataque: se muestra mientras el motor avisa o ejecuta un patrón (`pattern71`), durante el barrido (`phase` = sweep) y 0,28 s al cambiar de fase (`_ddaAttackT`). No se usa para la fase berserk entera (duraría todo el último tercio del combate).",
+   "rel_scale": {
+    "k": 0.845,
+    "how": "0,845: media entre 848/1008 (0,841) y la altura gorro-botas (791 px frente a 933: 0,848)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_02_bufe_wide.png: el `idle` del mismo jefe centrado sobre un lienzo de croma un 30–40 % más ancho, para que quepan los brazos extendidos",
+   "prompt": "attack_prompt con <pose> = he swings one iron ladle forward in a wide strike toward the RIGHT side of the image, arm fully extended at chest height, while the other ladle is raised back over his shoulder, ready for the next blow. The round oven door in his belly is flung open and the fire inside burns high: solid stylised flames with ink outlines, kept inside the oven opening. Mouth wide open, laughing.",
+   "issues": [
+    "El generador pintó el cristal de la puerta del horno en verde croma: el recorte lo deja transparente (se ve el suelo a través, con un brillo). Se acepta como cristal.",
+    "Línea de suelo: `ground_line`."
+   ],
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    592,
+    528
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6255,
+    "ax": 604.0,
+    "ay": 817.0,
+    "cx": 228,
+    "cy": 520,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     604.0,
+     817.0
+    ],
+    "unit_h": 796.8
+   }
+  },
+  {
+   "id": "boss_04_pogo_attack",
+   "raw": "boss_04_pogo_attack.png",
+   "name": "EL POGO · Demonio de la Fosa (Ira) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_04_pogo_idle",
+    "k": 0.84,
+    "ax": 602
+   },
+   "boss": "EL POGO · EL QUE ABRE LA PISTA",
+   "circle_engine": "V Ira",
+   "entity": "EL POGO · EL QUE ABRE LA PISTA (V Ira)",
+   "use": "Jefe `boss_04_pogo`, fotograma de ataque: se muestra mientras el motor avisa o ejecuta un patrón (`pattern71`), durante el barrido (`phase` = sweep) y 0,28 s al cambiar de fase (`_ddaAttackT`). No se usa para la fase berserk entera (duraría todo el último tercio del combate).",
+   "rel_scale": {
+    "k": 0.84,
+    "how": "0,840: 848/1008 = 0,841 y altura cuernos-botas 774 px frente a 924 (0,838)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_04_pogo_wide.png: el `idle` del mismo jefe centrado sobre un lienzo de croma un 30–40 % más ancho, para que quepan los brazos extendidos",
+   "prompt": "attack_prompt con <pose> = he roars with his head pushed forward and his mouth wide open, both clawed arms flung wide open to the sides at shoulder height, chest thrust out, the speaker cone of the amplifier in his ribcage bulging outward. Legs wide apart as in the reference.",
+   "issues": [
+    "Línea de suelo: `ground_line`."
+   ],
+   "code_references": [
+    "Bf",
+    "ddBossView",
+    "f.addBossDeath",
+    "f.drawBossDeath",
+    "DD_WORLD.drawBoss",
+    "DD_WORLD.drawBossDeath"
+   ],
+   "size": [
+    576,
+    544
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6499,
+    "ax": 602.0,
+    "ay": 827.0,
+    "cx": 297,
+    "cy": 536,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     602.0,
+     827.0
+    ],
+    "unit_h": 801.4
+   }
+  }
+ ],
+ "defaults": {
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "layout_defaults": {
+  "ppu": 2.8,
+  "pad": 8,
+  "note": "2,8 texeles por px de mundo: un jefe de 196 px de mundo mide ≈550 px en su lienzo (los enemigos van a 4,7; un jefe a esa densidad pesaría el triple y se ve a la misma escala de pantalla)."
+ },
+ "layout": {
+  "note": "Cada jefe es su propia familia: su `idle` fija la escala (layout.unit_world = alto de la figura de referencia en px de mundo con el radio 34 del motor) y los demás estados la heredan corregida por K. tools/art_master/layout.py calcula `size`, `fit` y `anchors_raw` a partir de la clave `layout` de cada asset. El renderizador apoya anchors.foot en (x, y + 0,8·r) y escala para que la figura de referencia mida BOSS_BASE[slug].h × (r/34)^0,75."
+ },
+ "prompt_head_v2": "Create a new video game boss character sprite. IMAGE 1 is the character design reference: a small, low-resolution concept thumbnail. Redraw THIS character (same costume, colours, silhouette and attributes) as a clean full-body standing figure. Leave out everything around the character in the thumbnail. IMAGE 2 is ONLY a rendering style reference. Copy its drawing style: black ink outlines, hard-edged cel shading, magenta rim light on the back of the figure, cyan rim light on the front, flat chroma green background, whole figure visible, standing. Do NOT copy the character of image 2.",
+ "prompt_tail_v2": "VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single figure, not a model sheet, not a turnaround. Whole body visible from the top of the headgear to the feet, nothing cropped, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground line, no cast shadow, no scenery, no text, no frame. Nothing green on the character.",
+ "attack_prompt": "Same character as in the reference image, drawn at EXACTLY the same size, with the same proportions, the same costume and the same art style: <rasgos>. ONE single character only: exactly one figure in the whole image. Replace the reference pose completely. NEW POSE, ATTACK: <pose>. He/she stays upright at full height, with the head at the same height as in the reference and the feet in the same place. VIEW: three-quarter view; body and face turned toward the RIGHT side of the image, as in the reference. STYLE: (la de la tanda) … no soft glows, no smoke, no particles, no motion lines, no impact effects. BACKGROUND: flat solid chroma green (#00FF00)… No floor, no ground line, no cast shadow, no scenery, no text. Nothing green on the character.",
+ "drafts_discarded": {
+  "boss_03_cajero_idle v1, v2": "caminando; dd_work/raw/R03_JEFES/_descartados/",
+  "boss_05_oficiante_idle v1": "hoja de tres vistas; dd_work/raw/R03_JEFES/_descartados/"
+ },
+ "pending": [
+  "attack: boss_03_cajero, boss_05_oficiante, boss_06_matarife, boss_07_imitador, boss_08_traidor, boss_09_nucleo, boss_10_arquitecto (7)",
+  "hit: los 10 residentes (10)",
+  "death: los 10 residentes (10)"
+ ],
+ "next_generation": {
+  "note": "Poses previstas para los 7 `attack` que faltan. Van en el hueco <pose> de `attack_prompt`. No se nombra mano izquierda ni derecha: el generador las confunde; se dice «la mano que sostiene…» y «la mano libre».",
+  "boss_03_cajero_attack": {
+   "ref": "_refs/ref_03_cajero_wide.png",
+   "pose": "the free arm thrust straight forward toward the right at shoulder height, open palm facing right, fingers spread, as if demanding payment; the hand that holds the golden mask pulls it back against the chest; feet apart, weight on the front foot"
+  },
+  "boss_05_oficiante_attack": {
+   "ref": "_refs/ref_05_oficiante_wide.png",
+   "pose": "the staff tilted forward and thrust toward the right, its head pointing right at chest height; the free hand raised open above the shoulder; the robes swing back"
+  },
+  "boss_06_matarife_attack": {
+   "ref": "_refs/ref_06_matarife_wide.png",
+   "pose": "the bell-mace raised high above the head in the hand that holds it, about to smash down toward the right; the free arm stretched forward toward the right with a clenched fist; knees bent, feet wide apart"
+  },
+  "boss_07_imitador_attack": {
+   "ref": "_refs/ref_07_imitador_wide.png",
+   "pose": "the hand mirror thrust out at arm's length toward the right side of the image, the mirror face turned to the right; the free arm swept back; the wings spread wide; the masks keep floating around the head"
+  },
+  "boss_08_traidor_attack": {
+   "ref": "_refs/ref_08_traidor_wide.png",
+   "pose": "the staff levelled like a spear toward the right, gripped with both hands at chest height; the head lowered; robes and hair blown back"
+  },
+  "boss_09_nucleo_attack": {
+   "ref": "_refs/ref_09_nucleo_wide.png",
+   "pose": "both arms thrust forward toward the right at chest height, palms open and fingers spread; the chest pushed forward so the black sphere leads; the cape of mirror shards flares back"
+  },
+  "boss_10_arquitecto_attack": {
+   "ref": "_refs/ref_10_arquitecto_wide.png",
+   "pose": "the glowing cyan hand thrust forward toward the right at head height, palm open toward the right, fingers spread; the other hand lifts the drafting-compass sceptre off the ground and holds it diagonally behind the body; the cape flares back"
+  },
+  "hit": "Ventana de vulnerabilidad (no impacto de bala): tambaleo de pie. «staggered: the torso bent back, the head thrown back, the arms flung open, one knee buckling; still standing, feet in the same place».",
+  "death": "Derrumbe: de rodillas y vencido, sin tumbarse del todo (el registro dura 1 s y el fotograma se desvanece). La pose tiene que caber en el lienzo ancho de `state_ref.py`."
+ },
+ "open_decisions": [
+  "Aspecto según REF_03 emparejada por tema de círculo; nombre, título y color del motor; motivos de la biblia donde no chocan (sin respuesta).",
+  "El Cajero: figura enmascarada de género ambiguo (la guía y la biblia muestran a una mujer; el motor lo llama EL CAJERO) (sin respuesta).",
+  "El Núcleo: humanoide de teselas de espejo con la esfera negra de REF_03 en el pecho (la lámina sólo muestra la esfera; el cuerpo sale de la biblia §15).",
+  "El Arquitecto: sin lámina; diseñado a partir del sprite antiguo, con un compás de dibujo como cetro.",
+  "El Traidor: un báculo (la lámina muestra dos).",
+  "Muerte del Núcleo: hoy no se ve, la pantalla de fin de partida se abre en el mismo fotograma. O se retrasa esa pantalla 1 s, o `boss_09_nucleo_death` no hace falta. Por defecto no se toca el flujo del juego y esa ilustración queda la última."
+ ]
+}

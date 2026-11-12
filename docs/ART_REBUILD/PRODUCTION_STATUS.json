@@ -1,50 +1,87 @@
 {
-  "updated_at": "2026-11-07T12:44:27Z",
-  "total_assets": 330,
-  "generated": 225,
-  "integrated": 225,
-  "verified": 225,
-  "pending": 105,
-  "failed": 0,
+  "updated_at": "2026-11-12T05:26:04Z",
+  "branch": "arena/662f0d27-deadbeat-disconew",
+  "pipeline": "tools/art_master (tandas R01, R02, …)",
+  "registry": {
+    "registered": 269,
+    "loaded_in_game": 269,
+    "errors": 0,
+    "integrity_pass": true
+  },
+  "classification": {
+    "total": 374,
+    "A_conservar": 25,
+    "B_rehacer_estilo": 141,
+    "C_falta": 105,
+    "D_defectuoso": 37,
+    "E_rehecho_validado": 66
+  },
+  "pending_to_produce": 283,
   "completed_batches": [
-    "TANDA_01",
-    "TANDA_02",
-    "TANDA_03",
-    "TANDA_04",
-    "TANDA_05",
-    "TANDA_06",
-    "TANDA_07",
-    "TANDA_08",
-    "TANDA_09",
-    "TANDA_10",
-    "TANDA_11",
-    "TANDA_12",
-    "TANDA_13",
-    "TANDA_14",
-    "TANDA_15",
-    "TANDA_16",
-    "TANDA_17",
-    "TANDA_18",
-    "TANDA_19",
-    "TANDA_20",
-    "TANDA_21",
-    "TANDA_22"
+    "R01_PROTAGONISTA",
+    "R02_ENEMIGOS"
   ],
-  "completed_batches_count": 22,
-  "current_batch": "TANDA_23",
-  "completed_categories": [
-    "bosses",
-    "characters",
-    "cinematics",
-    "effects",
-    "enemies",
-    "environments",
-    "floors",
-    "logos",
-    "pickups",
-    "props",
-    "ui",
-    "walls"
+  "current_batch": "R03_JEFES",
+  "current_batch_progress": {
+    "illustrations_total": 42,
+    "generated_masters": 15,
+    "integrated_and_validated_in_game": 15,
+    "pending": 27,
+    "integrated": [
+      "boss_00_anden_idle",
+      "boss_01_magneta_idle",
+      "boss_02_bufe_idle",
+      "boss_03_cajero_idle",
+      "boss_04_pogo_idle",
+      "boss_05_oficiante_idle",
+      "boss_06_matarife_idle",
+      "boss_07_imitador_idle",
+      "boss_08_traidor_idle",
+      "boss_09_nucleo_idle",
+      "boss_10_arquitecto_idle",
+      "boss_00_anden_attack",
+      "boss_01_magneta_attack",
+      "boss_02_bufe_attack",
+      "boss_04_pogo_attack"
+    ],
+    "pending_detail": {
+      "attack": [
+        "boss_03_cajero",
+        "boss_05_oficiante",
+        "boss_06_matarife",
+        "boss_07_imitador",
+        "boss_08_traidor",
+        "boss_09_nucleo",
+        "boss_10_arquitecto"
+      ],
+      "hit": "los 10 residentes (boss_00 a boss_09)",
+      "death": "los 10 residentes (boss_00 a boss_09)"
+    },
+    "note": "Los once jefes se ven ilustrados en combate. Un jefe sin fotograma nuevo de ataque, vulnerable o muerte resuelve ese estado sobre su reposo nuevo; los 27 PNG antiguos siguen en assets/bosses/ pero el juego no los dibuja.",
+    "validation": "probe_bosses.js sobre la compilación de este commit: 11 jefes, 207 recortes, 55 cuadros, 0 errores de página y de red, 269/269 assets cargados. Los estados se fuerzan con un gancho de QA; no se ha jugado un combate completo.",
+    "open_decisions": 6,
+    "batch": "docs/ART_REBUILD/batches/R03_JEFES.json",
+    "evidence": "docs/ART_REBUILD/evidence/R03/"
+  },
+  "planned_batches": [
+    "R03_JEFES",
+    "R04_PNJ_Y_HUD",
+    "R05_ARMAS",
+    "R06_RECOGIBLES",
+    "R07_EFECTOS",
+    "R08_MOBILIARIO",
+    "R09_ARQUITECTURA",
+    "R10_CINEMATICA"
   ],
-  "branch": "arena/d58c4d15-deadbeat-disconew"
+  "generation_limit_per_turn": 10,
+  "legacy_line": {
+    "note": "Estado de la línea anterior (TANDA_01…TANDA_23) a 2026-11-07; 'verified' significaba 'carga sin error', no calidad visual.",
+    "total_assets": 330,
+    "generated": 225,
+    "integrated": 225,
+    "verified": 225,
+    "pending": 105,
+    "completed_batches_count": 22,
+    "branch": "arena/d58c4d15-deadbeat-disconew"
+  }
 }

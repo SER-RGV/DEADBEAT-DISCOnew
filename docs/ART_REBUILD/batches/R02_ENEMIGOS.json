@@ -1,0 +1,1057 @@
+{
+  "batch": "R02_ENEMIGOS",
+  "title": "Enemigos comunes — 6 familias × 4 estados (24 ilustraciones). Entregadas las 24.",
+  "created": "2026-11-12",
+  "style": "ilustración digital estilizada (no pixel art)",
+  "layout": {
+    "note": "Todos los fotogramas de una familia comparten escala: la fija su `walk`. Cada asset registra anchors.foot (punto de apoyo: línea de suelo y eje del cuerpo) y anchors.unit (alto de la figura de referencia como fracción del lienzo). El renderizador apoya anchors.foot en (x, y + 0,65·r) y escala para que la figura de referencia mida ENEMY_BASE[familia].h × (r / r_base)^0,75 px de mundo. `world_h` de aquí es ese ENEMY_BASE.h; los PNG guardan entre 4,3 y 4,7 texeles por px de mundo (el protagonista, 4,9). Valores medidos con `measure.py --actor` y revisados con `preview_actors.py --onion`, no puestos a ojo. Las muertes se apoyan en el pie que queda plantado: el generador lo deja donde estaba en el `walk`, así que comparten su eje (`--ax`).",
+    "families": {
+      "security": {
+        "world_h": 94,
+        "entity": "Seguridad del club (antidisturbios)",
+        "engine": "tipo `dancer` en el círculo I, guardianes y minijefes por defecto",
+        "scale": 0.4476,
+        "unit_h_raw": 924,
+        "design": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta.",
+        "texels_per_world_px": 4.4
+      },
+      "dancer": {
+        "world_h": 90,
+        "entity": "Bailarina (gogó no-muerta)",
+        "engine": "tipo `dancer` del círculo II en adelante",
+        "scale": 0.5156,
+        "unit_h_raw": 784,
+        "design": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra.",
+        "texels_per_world_px": 4.49
+      },
+      "fanatic": {
+        "world_h": 80,
+        "entity": "Sprinter (corredor no-muerto)",
+        "engine": "tipo `sprinter`",
+        "scale": 0.4519,
+        "unit_h_raw": 832,
+        "design": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra.",
+        "texels_per_world_px": 4.7
+      },
+      "chef": {
+        "world_h": 106,
+        "entity": "Tanque (bruto colosal)",
+        "engine": "tipo `tank`; minijefe del círculo III",
+        "scale": 0.6243,
+        "unit_h_raw": 783,
+        "design": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras.",
+        "texels_per_world_px": 4.61
+      },
+      "drone": {
+        "world_h": 90,
+        "entity": "Tirador (pistolero no-muerto)",
+        "engine": "tipo `speaker` (mantiene distancia y dispara)",
+        "scale": 0.4716,
+        "unit_h_raw": 877,
+        "design": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos.",
+        "texels_per_world_px": 4.6
+      },
+      "elite": {
+        "world_h": 100,
+        "entity": "Élite · Mascota del club",
+        "engine": "cualquier tipo con la marca élite; minijefe del círculo VIII",
+        "scale": 0.4137,
+        "unit_h_raw": 1136,
+        "design": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos.",
+        "texels_per_world_px": 4.7
+      }
+    },
+    "mapping_note": "Los ids conservan los nombres internos del motor (security, fanatic, chef, drone, elite). El diseño sigue las familias de REF_06: fanatic = SPRINTER, chef = TANQUE, drone = TIRADOR, elite = ESPECIAL (mascota), dancer = BAILARÍN. `security` no figura en REF_06 y conserva el concepto anterior (antidisturbios de visor magenta)."
+  },
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3
+  },
+  "assets": [
+    {
+      "id": "enemy_security_walk",
+      "raw": "enemy_security_walk.png",
+      "name": "Seguridad · caminar / reposo",
+      "size": [
+        224,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4476,
+        "ax": 546.5,
+        "ay": 985,
+        "cx": 106,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          546.5,
+          985
+        ],
+        "unit_h": 924
+      },
+      "pivot": "anchors.foot",
+      "entity": "Seguridad del club (antidisturbios)",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: caminando erguido y amenazante, torso algo adelantado, la porra baja junto al muslo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "assets/enemies/enemy_security_walk.png (diseño anterior del repositorio; REF_06 no trae esta familia) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_security_windup",
+      "raw": "enemy_security_windup.png",
+      "name": "Seguridad · aviso",
+      "size": [
+        400,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4476,
+        "ax": 551.5,
+        "ay": 986,
+        "cx": 202,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          551.5,
+          986
+        ],
+        "unit_h": 924
+      },
+      "pivot": "anchors.foot",
+      "entity": "Seguridad del club (antidisturbios)",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con la porra alzada por detrás de la cabeza y el otro brazo extendido al frente para equilibrarse. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_security_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_security_attack",
+      "raw": "enemy_security_attack.png",
+      "name": "Seguridad · ataque",
+      "size": [
+        480,
+        400
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4476,
+        "ax": 418.2,
+        "ay": 986,
+        "cx": 186,
+        "cy": 392,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          418.2,
+          986
+        ],
+        "unit_h": 924
+      },
+      "pivot": "anchors.foot",
+      "entity": "Seguridad del club (antidisturbios)",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: fondo de esgrima hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, brazo derecho totalmente extendido a la altura del hombro con la porra horizontal prolongando el brazo, brazo izquierdo recogido atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_security_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_security_death",
+      "raw": "enemy_security_death.png",
+      "name": "Seguridad · muerte",
+      "size": [
+        432,
+        416
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4263,
+        "ax": 546.5,
+        "ay": 985,
+        "cx": 218,
+        "cy": 408,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          546.5,
+          985
+        ],
+        "unit_h": 970.2
+      },
+      "pivot": "anchors.foot",
+      "entity": "Seguridad del club (antidisturbios)",
+      "rel_scale": {
+        "k": 1.05,
+        "how": "≈1,05: mismo lienzo que la referencia; casco y botas medidos sobre rejilla salen entre 1,00 y 1,07."
+      },
+      "erase": [
+        [
+          [
+            300,
+            668
+          ],
+          [
+            500,
+            668
+          ],
+          [
+            512,
+            669
+          ],
+          [
+            520,
+            666
+          ],
+          [
+            527,
+            678
+          ],
+          [
+            532,
+            690
+          ],
+          [
+            535,
+            699
+          ],
+          [
+            550,
+            706
+          ],
+          [
+            554,
+            714
+          ],
+          [
+            558,
+            726
+          ],
+          [
+            560,
+            740
+          ],
+          [
+            562,
+            752
+          ],
+          [
+            558,
+            768
+          ],
+          [
+            550,
+            776
+          ],
+          [
+            550,
+            1008
+          ],
+          [
+            300,
+            1008
+          ]
+        ]
+      ],
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. MUERTE: recibe el disparo de frente y cae de espaldas (hacia la izquierda): torso arqueado unos 40°, casco vencido hacia atrás, brazos abiertos, la porra saliendo despedida; una pierna pateando al aire y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_security_walk.png",
+      "note": "El generador dibujó TRES piernas (conservó las dos de la referencia y añadió la que patea). `erase` borra la pierna trasera sobrante siguiendo el contorno entintado de la pierna de apoyo y el borde inferior de la funda; no se pinta nada nuevo.",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_dancer_walk",
+      "raw": "enemy_dancer_walk.png",
+      "name": "Bailarina · caminar / reposo",
+      "size": [
+        272,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5156,
+        "ax": 592.5,
+        "ay": 853,
+        "cx": 114,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          592.5,
+          853
+        ],
+        "unit_h": 784
+      },
+      "pivot": "anchors.foot",
+      "entity": "Bailarina (gogó no-muerta)",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: paso de baile arrastrado: rodillas flexionadas, caderas ladeadas, ambos brazos al frente con las muñecas caídas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "REF_06_guia_visual_maestra.png#enemigos/BAILARÍN (diseño) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_dancer_windup",
+      "raw": "enemy_dancer_windup.png",
+      "name": "Bailarina · aviso",
+      "size": [
+        320,
+        448
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5156,
+        "ax": 608.6,
+        "ay": 854,
+        "cx": 154,
+        "cy": 440,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          608.6,
+          854
+        ],
+        "unit_h": 784
+      },
+      "pivot": "anchors.foot",
+      "entity": "Bailarina (gogó no-muerta)",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa muy atrás sobre la pierna trasera, torso inclinado hacia atrás, ambos brazos alzados por encima de la cabeza con las garras abiertas, boca abierta en un chillido, pierna delantera estirada con la punta en el suelo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_dancer_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_dancer_attack",
+      "raw": "enemy_dancer_attack.png",
+      "name": "Bailarina · ataque",
+      "size": [
+        480,
+        416
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5156,
+        "ax": 503.3,
+        "ay": 841,
+        "cx": 198,
+        "cy": 408,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          503.3,
+          841
+        ],
+        "unit_h": 784
+      },
+      "pivot": "anchors.foot",
+      "entity": "Bailarina (gogó no-muerta)",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: zancada profunda hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, torso lanzado adelante, ambos brazos extendidos al frente a la altura del hombro con las garras abiertas, melena hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_dancer_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_dancer_death",
+      "raw": "enemy_dancer_death.png",
+      "name": "Bailarina · muerte",
+      "size": [
+        384,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5156,
+        "ax": 592.5,
+        "ay": 853,
+        "cx": 171,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          592.5,
+          853
+        ],
+        "unit_h": 784
+      },
+      "pivot": "anchors.foot",
+      "entity": "Bailarina (gogó no-muerta)",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. MUERTE: recibe el disparo de frente y cae de espaldas: cuerpo arqueado como un arco, cabeza vencida hacia atrás con la melena al vuelo, mandíbula abierta, brazos lanzados arriba, falda al vuelo; una pierna al aire y el tacón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_dancer_walk.png",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_fanatic_walk",
+      "raw": "enemy_fanatic_walk.png",
+      "name": "Sprinter · caminar / reposo",
+      "size": [
+        336,
+        400
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4519,
+        "ax": 490.7,
+        "ay": 963,
+        "cx": 160,
+        "cy": 392,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          490.7,
+          963
+        ],
+        "unit_h": 832
+      },
+      "pivot": "anchors.foot",
+      "entity": "Sprinter (corredor no-muerto)",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: acecho agazapado: torso muy inclinado, rodillas flexionadas, cabeza adelantada, garras abiertas colgando. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "REF_06_guia_visual_maestra.png#enemigos/SPRINTER (diseño) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_fanatic_windup",
+      "raw": "enemy_fanatic_windup.png",
+      "name": "Sprinter · aviso",
+      "size": [
+        384,
+        320
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4519,
+        "ax": 490.7,
+        "ay": 973,
+        "cx": 160,
+        "cy": 312,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          490.7,
+          973
+        ],
+        "unit_h": 832
+      },
+      "pivot": "anchors.foot",
+      "entity": "Sprinter (corredor no-muerto)",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: agazapado para saltar: torso doblado hacia el suelo, ambas manos tocando el suelo por delante, cabeza baja mirando al frente con la mandíbula abierta, caderas altas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_fanatic_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ],
+      "foot_note": "Eje de apoyo fijado a mano en x=490.7 (el del `walk`): el generador dejó los pies en el mismo sitio y el eje automático (583.1) incluía torso y manos, con lo que el cuerpo retrocedía ~9 px al entrar en el aviso."
+    },
+    {
+      "id": "enemy_fanatic_attack",
+      "raw": "enemy_fanatic_attack.png",
+      "name": "Sprinter · ataque",
+      "size": [
+        384,
+        400
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4519,
+        "ax": 437.4,
+        "ay": 963,
+        "cx": 188,
+        "cy": 392,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          437.4,
+          963
+        ],
+        "unit_h": 832
+      },
+      "pivot": "anchors.foot",
+      "entity": "Sprinter (corredor no-muerto)",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: embestida a la carrera: torso casi horizontal, boca abierta, pierna trasera estirada, brazos lanzados hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_fanatic_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_fanatic_death",
+      "raw": "enemy_fanatic_death.png",
+      "name": "Sprinter · muerte",
+      "size": [
+        496,
+        448
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4912,
+        "ax": 490.7,
+        "ay": 963,
+        "cx": 240,
+        "cy": 440,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          490.7,
+          963
+        ],
+        "unit_h": 765.4
+      },
+      "pivot": "anchors.foot",
+      "entity": "Sprinter (corredor no-muerto)",
+      "rel_scale": {
+        "k": 0.92,
+        "how": "≈0,92: mismo lienzo; las zapatillas miden lo mismo (1,03) pero calavera y torso salieron al 0,85. Se toma un valor intermedio."
+      },
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. MUERTE: el disparo lo levanta del suelo y lo dobla hacia atrás: cabeza a la izquierda y pies a la derecha, pecho y calavera hacia arriba, mandíbula abierta, brazos con las garras lacias al aire; una pierna pateando y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_fanatic_walk.png",
+      "note": "Segundo intento. El primero (referencia ampliada a 1400×1008) devolvió DOS figuras: la de caminar intacta y la que cae, además mirando al lado contrario.",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_chef_walk",
+      "raw": "enemy_chef_walk.png",
+      "name": "Tanque · caminar / reposo",
+      "size": [
+        608,
+        512
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.6243,
+        "ax": 616.0,
+        "ay": 858,
+        "cx": 308,
+        "cy": 504,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          616.0,
+          858
+        ],
+        "unit_h": 783
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tanque (bruto colosal)",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar de gorila sobre los nudillos: un puño plantado delante, piernas cortas flexionadas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "REF_06_guia_visual_maestra.png#enemigos/TANQUE (diseño) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_chef_windup",
+      "raw": "enemy_chef_windup.png",
+      "name": "Tanque · aviso",
+      "size": [
+        432,
+        704
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5574,
+        "ax": 417.5,
+        "ay": 1257,
+        "cx": 216,
+        "cy": 696,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          417.5,
+          1257
+        ],
+        "unit_h": 877.0
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tanque (bruto colosal)",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. AVISO antes de la carga: se yergue sobre las dos piernas como un gorila enfurecido, mucho más alto que al caminar, con los dos puños alzados y juntos por encima de la cabeza, pecho fuera y boca abierta rugiendo; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "_refs/ref_chef_tall.png (el `walk` de la familia sobre un lienzo de 1240×1400: el original, de 864 px de alto, no dejaba sitio para una pose erguida y por eso el primer intento volvió al andar sobre los nudillos)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ],
+      "rel_scale": {
+        "k": 1.12,
+        "how": "1,12 por el área de las botas (el rasgo que mejor se conserva: 1,01–1,03 en los fotogramas de escala conocida). La cabeza salió más pequeña en proporción (≈0,8 del `walk` a igualdad de botas)."
+      },
+      "note": "Segundo intento; sustituye al que se entregó en el turno anterior (andar sobre los nudillos con un puño alzado)."
+    },
+    {
+      "id": "enemy_chef_attack",
+      "raw": "enemy_chef_attack.png",
+      "name": "Tanque · ataque",
+      "size": [
+        800,
+        528
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.6838,
+        "ax": 449.4,
+        "ay": 812,
+        "cx": 251,
+        "cy": 520,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          449.4,
+          812
+        ],
+        "unit_h": 714.9
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tanque (bruto colosal)",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. ATAQUE, puñetazo en carrera: se lanza hacia la derecha sobre dos piernas, cuerpo inclinado unos 45°, pierna trasera estirada, brazo derecho totalmente extendido en horizontal con el puño por delante de la cabeza, brazo izquierdo atrás; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "_refs/ref_chef_wide.png (el `walk` de la familia sobre un lienzo de 1560×1000)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ],
+      "rel_scale": {
+        "k": 0.913,
+        "how": "0,913 por el área de las botas."
+      },
+      "note": "Segundo intento; sustituye al que se entregó en el turno anterior (casi idéntico al de caminar, con la boca abierta)."
+    },
+    {
+      "id": "enemy_chef_death",
+      "raw": "enemy_chef_death.png",
+      "name": "Tanque · muerte",
+      "size": [
+        656,
+        592
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.7804,
+        "ax": 609.0,
+        "ay": 865,
+        "cx": 318,
+        "cy": 584,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          609.0,
+          865
+        ],
+        "unit_h": 626.4
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tanque (bruto colosal)",
+      "rel_scale": {
+        "k": 0.8,
+        "how": "0,80: raíz del cociente de áreas de la silueta completa (0,804). Los rasgos rígidos dan entre 0,73 y 0,77 (grosor del cinturón, área de cada bota) y la relación con que se fijaron `windup` y `attack` daría 0,86; se toma el valor intermedio y se comprueba a ojo en una rejilla junto a los otros tres fotogramas."
+      },
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. MUERTE: acaba de recibir un disparo en el pecho desde la derecha y cae de ESPALDAS hacia la izquierda, con todo el cuerpo inclinado unos 40 grados: cabeza echada atrás arriba a la izquierda, boca abierta y ojos cerrados, pecho y vientre hacia arriba, los dos brazos sueltos con las manos abiertas (ninguna toca el suelo), una pierna pateando hacia la derecha y el talón de la otra bota todavía en el suelo. UNA sola figura en la imagen; la pose de la referencia se sustituye por completo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "_refs/ref_chef_center.png (el `walk` de la familia CENTRADO sobre un lienzo de 1500×1300 para que la caída quepa)",
+      "note": "Tercer intento. El primero devolvió dos figuras superpuestas (la referencia tenía la figura descentrada). Esta vez se pidieron dos variantes a la vez; la otra (árbol talado, botas juntas) queda en dd_work/raw/R02_ENEMIGOS/_descartados/enemy_chef_death_v3_alternativa.png.",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_drone_walk",
+      "raw": "enemy_drone_walk.png",
+      "name": "Tirador · caminar / reposo",
+      "size": [
+        272,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4716,
+        "ax": 519.3,
+        "ay": 959,
+        "cx": 107,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          519.3,
+          959
+        ],
+        "unit_h": 877
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tirador (pistolero no-muerto)",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: avance cauteloso con las rodillas flexionadas y el arma lista a la altura del pecho, sin disparar. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "REF_06_guia_visual_maestra.png#enemigos/TIRADOR (diseño) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_drone_windup",
+      "raw": "enemy_drone_windup.png",
+      "name": "Tirador · aviso",
+      "size": [
+        240,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4716,
+        "ax": 518.9,
+        "ay": 959,
+        "cx": 107,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          518.9,
+          959
+        ],
+        "unit_h": 877
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tirador (pistolero no-muerto)",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se planta con los pies separados y alza el subfusil en vertical junto a la cara, cañón hacia arriba, las dos manos en el arma, mirando a su objetivo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_drone_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_drone_attack",
+      "raw": "enemy_drone_attack.png",
+      "name": "Tirador · ataque",
+      "size": [
+        432,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4716,
+        "ax": 449.8,
+        "ay": 955,
+        "cx": 177,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          449.8,
+          955
+        ],
+        "unit_h": 877
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tirador (pistolero no-muerto)",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: postura de tiro baja y abierta, cuerpo volcado hacia adelante, ambos brazos totalmente extendidos al frente a la altura del hombro, cañón horizontal; sin fogonazo (el motor pone los proyectiles). Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_drone_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_drone_death",
+      "raw": "enemy_drone_death.png",
+      "name": "Tirador · muerte",
+      "size": [
+        416,
+        448
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4716,
+        "ax": 519.3,
+        "ay": 959,
+        "cx": 202,
+        "cy": 440,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          519.3,
+          959
+        ],
+        "unit_h": 877
+      },
+      "pivot": "anchors.foot",
+      "entity": "Tirador (pistolero no-muerto)",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. MUERTE: recibe el disparo de frente y cae de espaldas: torso arqueado, cabeza vencida hacia atrás, la gorra roja saliendo despedida, brazos abiertos y el subfusil girando en el aire; una pierna al aire y el talón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_drone_walk.png",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_elite_walk",
+      "raw": "enemy_elite_walk.png",
+      "name": "Élite · Mascota · caminar / reposo",
+      "size": [
+        320,
+        496
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4137,
+        "ax": 388.7,
+        "ay": 1245,
+        "cx": 153,
+        "cy": 488,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          388.7,
+          1245
+        ],
+        "unit_h": 1136
+      },
+      "pivot": "anchors.foot",
+      "entity": "Élite · Mascota del club",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar pesado y amenazante, torso adelantado, brazos algo abiertos con las garras listas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "REF_06_guia_visual_maestra.png#enemigos/ESPECIAL (oso de peluche con mono rosa) + player_idle_00 (estilo)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_elite_windup",
+      "raw": "enemy_elite_windup.png",
+      "name": "Élite · Mascota · aviso",
+      "size": [
+        336,
+        512
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.4137,
+        "ax": 374.0,
+        "ay": 1245,
+        "cx": 148,
+        "cy": 504,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          374.0,
+          1245
+        ],
+        "unit_h": 1136
+      },
+      "pivot": "anchors.foot",
+      "entity": "Élite · Mascota del club",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con ambos brazos alzados por encima de la cabeza y las garras de acero abiertas, un pie en el aire al dar el paso. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "enemy_elite_walk (hoja de modelo de la familia)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    },
+    {
+      "id": "enemy_elite_attack",
+      "raw": "enemy_elite_attack.png",
+      "name": "Élite · Mascota · ataque",
+      "size": [
+        672,
+        432
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.6673,
+        "ax": 476.4,
+        "ay": 646,
+        "cx": 252,
+        "cy": 424,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          476.4,
+          646
+        ],
+        "unit_h": 704.3
+      },
+      "pivot": "anchors.foot",
+      "entity": "Élite · Mascota del club",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. ATAQUE de garra: zancada larga hacia la derecha con el torso adelantado; brazo derecho extendido en horizontal a la altura del hombro con las garras abiertas por delante, brazo izquierdo recogido atrás; el cabezón entero a la vista, sin nada que lo tape. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "_refs/ref_elite_wide_attack.png (el `walk` de la familia sobre un lienzo de 1400×1314: en el original, de 800 px de ancho, no cabía un brazo extendido y por eso el primer intento cruzó los brazos sobre la cara)",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ],
+      "rel_scale": {
+        "k": 0.62,
+        "how": "0,62 por el área de la cabeza de peluche (rígida y en la misma vista; 0,99 en los fotogramas de escala conocida)."
+      },
+      "note": "Segundo intento; sustituye al que se entregó en el turno anterior (los brazos tapaban media cara)."
+    },
+    {
+      "id": "enemy_elite_death",
+      "raw": "enemy_elite_death.png",
+      "name": "Mascota (élite) · muerte",
+      "size": [
+        496,
+        464
+      ],
+      "fit": {
+        "mode": "anchor",
+        "scale": 0.5443,
+        "ax": 695.0,
+        "ay": 849,
+        "cx": 323,
+        "cy": 456,
+        "sharpen": 30
+      },
+      "anchors_raw": {
+        "foot": [
+          695.0,
+          849
+        ],
+        "unit_h": 863.4
+      },
+      "pivot": "anchors.foot",
+      "entity": "Élite · Mascota del club",
+      "rel_scale": {
+        "k": 0.76,
+        "how": "0,76: cabeza 0,75, traje 0,79."
+      },
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. MUERTE: cae de espaldas con el cuerpo a unos 45°: cabezón de oso vencido hacia atrás y torcido, relleno blanco saliendo por una costura reventada del pecho, brazos arriba con las garras abiertas; una bota al aire y el talón de la otra tocando el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "reference": "_refs/ref_elite_wide_death.png (el `walk` de la familia sobre un lienzo de 1500×1314 para que la caída quepa)",
+      "note": "El generador lo dibujó mirando a la IZQUIERDA (cayendo hacia la derecha). El maestro archivado está ESPEJADO en horizontal para que mire a la derecha como pide el motor; el original sin espejar queda en dd_work/raw/R02_ENEMIGOS/_descartados/enemy_elite_death_sin_espejar.png.",
+      "code_references": [
+        "Rf",
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
+      ]
+    }
+  ],
+  "discarded": {
+    "enemy_fanatic_windup (1.er intento)": "«agachado como un velocista en los tacos de salida» devolvió la pose de caminar sin cambios; repetido como «a cuatro patas, manos en el suelo».",
+    "enemy_security_attack (1.er intento)": "se leía como un paso con la porra baja, no como un golpe; sustituido por el fondo de esgrima. Maestro en dd_work/raw/R02_ENEMIGOS/_descartados/.",
+    "enemy_chef_windup (1.ª entrega)": "andar sobre los nudillos con un puño alzado: el lienzo de referencia (864 px de alto) no dejaba sitio para erguirse. Sustituido. Maestro en _descartados/enemy_chef_windup_v1.png.",
+    "enemy_chef_attack (1.ª entrega)": "casi idéntico al de caminar. Sustituido por el puñetazo en carrera. Maestro en _descartados/enemy_chef_attack_v1.png.",
+    "enemy_elite_attack (1.ª entrega)": "los brazos tapaban media cara: en un lienzo de 800 px de ancho no cabía un brazo extendido. Sustituido. Maestro en _descartados/enemy_elite_attack_v1.png.",
+    "enemy_fanatic_death (1.er intento)": "dos figuras en la imagen (la de la referencia y la que cae) y mirando al lado contrario. Maestro en _descartados/enemy_fanatic_death_v1.png.",
+    "enemy_chef_death (1.er intento)": "dos figuras superpuestas (la de caminar delante y la que cae detrás); irrecuperable. Maestro en _descartados/enemy_chef_death_v1.png. Repetido con la referencia centrada y la orden expresa de una sola figura."
+  },
+  "scale_check": "Los 18 maestros de caminar, aviso y ataque generados sobre el lienzo de su `walk` se revisaron sobre rejilla de 50 px: la cabeza de cada familia mide lo mismo (±5 %), así que comparten la escala del `walk`. Los fotogramas generados sobre una referencia AMPLIADA (o que el generador recompuso) no conservan la escala: la salida mide siempre ~1,06 Mpx. Cada uno lleva `rel_scale.k` (cuántas veces mide respecto al `walk`), medido por el área de un rasgo rígido de color propio (botas, cabeza de peluche) y contrastado sobre rejilla; `measure.py --actor --rel` lo convierte en `fit.scale = escala/k` y `unit_h = unit_h·k`. La correlación de plantilla (`measure.py --scale`) se probó y aquí no bastó: el generador redibuja la cabeza con otro sombreado y otra expresión y la puntuación se queda en ~0,5.",
+  "generation_lessons": {
+    "lienzo": "La salida del generador mide ~1,06 Mpx con la proporción de la imagen de referencia. Si la pose nueva no cabe en ese lienzo a la misma escala (erguirse, extender un brazo, caer hacia atrás), el generador NO reduce la figura: devuelve la pose de la referencia casi sin cambios o encoge los miembros. Solución: dar como referencia el mismo `walk` pegado sobre un lienzo más alto o más ancho (dd_work/raw/R02_ENEMIGOS/_refs/) y medir después la escala relativa.",
+    "duplicados": "Dos de las seis primeras salidas hechas con referencia ampliada trajeron DOS figuras (la original y la nueva); en ambas la figura estaba descentrada en el lienzo ampliado. Con la figura CENTRADA y la orden expresa «ONE single character only: exactly one figure in the whole image. Replace the reference pose completely» salieron bien las dos variantes de la muerte del Tanque (y, con el `walk` sin ampliar y la misma orden, la muerte del Sprinter). Son tres muestras: sigue siendo un indicio, no una prueba. Revisar siempre el resultado: número de figuras, número de miembros y orientación.",
+    "miembros": "Revisar siempre el número de piernas y brazos: la muerte de Seguridad salió con tres piernas.",
+    "orientación": "Una caída «hacia atrás» puede salir mirando al lado contrario: comprobar que la cabeza queda a la IZQUIERDA y los pies a la DERECHA; si no, espejar el maestro."
+  }
+}
