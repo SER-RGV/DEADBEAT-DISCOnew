@@ -194,7 +194,7 @@
       {
         "pista": "01",
         "nombre_propuesta": "La Invitacion",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Vespera, la Ultima Invitacion",
         "tema_musical": "bajo",
         "jefe_motor": {
@@ -215,7 +215,7 @@
       {
         "pista": "02",
         "nombre_propuesta": "El Banquete",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Voraz, el Anfitrion Hueco",
         "tema_musical": "percusion",
         "jefe_motor": {
@@ -236,7 +236,7 @@
       {
         "pista": "03",
         "nombre_propuesta": "La Camara de los Instantes",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Aurea, la Coleccionista de Instantes",
         "tema_musical": "metales",
         "jefe_motor": {
@@ -257,7 +257,7 @@
       {
         "pista": "04",
         "nombre_propuesta": "La Amplificacion",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Brama, el Santo del Ruido",
         "tema_musical": "distorsion",
         "jefe_motor": {
@@ -278,7 +278,7 @@
       {
         "pista": "05",
         "nombre_propuesta": "La Nota Ausente",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Obispo de la Nota Ausente",
         "tema_musical": "ausencia / hueco armonico",
         "jefe_motor": {
@@ -299,7 +299,7 @@
       {
         "pista": "06",
         "nombre_propuesta": "El Umbral Encadenado",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Corazon Encadenado",
         "tema_musical": "latido / cadenas",
         "jefe_motor": {
@@ -320,7 +320,7 @@
       {
         "pista": "07",
         "nombre_propuesta": "El Salon de las Mil Voces",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Crupier de las Mil Voces",
         "tema_musical": "voz",
         "jefe_motor": {
@@ -341,7 +341,7 @@
       {
         "pista": "08",
         "nombre_propuesta": "El Anden de la Ausente",
-        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "estado_nombre": "CANON",
         "soberano_canon": "Nix, la Voz que Faltaba",
         "tema_musical": "coro",
         "jefe_motor": {
@@ -362,7 +362,7 @@
       {
         "pista": "09",
         "nombre_propuesta": "El Nucleo",
-        "estado_nombre": "CANON (Pista final)",
+        "estado_nombre": "CANON",
         "soberano_canon": "Rey del Compas",
         "tema_musical": "nota sostenida (sin acompanamiento)",
         "jefe_motor": {
@@ -411,7 +411,9 @@
     "Infierno / inframundo": "Torre / estructura subterranea",
     "Limbo": "Refugio (HUB, no numerado)",
     "Pecados capitales": "Deseos convertidos en leyes de la pista",
-    "Summon infernal": "Convocador disonante [PROPUESTA]"
+    "Summon infernal": "Convocador disonante [PROPUESTA]",
+    "cazador": "Desafinado",
+    "Cazador": "Desafinado"
   },
   "vacios_oficiales_Biblia_S42": [
     "Nombre definitivo de cada pista",
@@ -435,5 +437,13 @@
     "git diff src/ solo documental (sin tocar combate/progresion/movimiento)",
     "Inventario 374 A-E aceptado como baseline",
     "Vacios S42 aceptados como pendientes"
-  ]
+  ],
+  "decisiones_resueltas": {
+    "D01": "APROBADO: Biblia v1.0 es canon, S41 entero aprobado — 9 nombres de pistas pasan a CANON",
+    "D02": "DESCARTADO: La ciudad que no termina no es canon",
+    "D03": "SOBERANOS_BIBLIA: Vespera/Voraz/Aurea/Brama/Obispo/Corazon/Crupier/Nix/Rey — IDs tecnicos conservados, display migra",
+    "D04": "ALCANCE_INTEGRAL: arte + mecanicas por pista + rediseno de niveles",
+    "D05": "TEXTO_AUTORIZADO: circulos->pistas, infierno->torre, Virgilio->Tempo, cazador->Desafinado, todo",
+    "D06": "BACKUP_R03_24DE42: 9 ilustraciones + 3 fixes validados, commit de respaldo ordenado"
+  }
 }
