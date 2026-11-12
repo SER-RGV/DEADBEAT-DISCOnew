@@ -1,5 +1,16 @@
 # DEADBEAT DISCO — Fase 06 · Muestra IDLE del protagonista
 
+> ## ESTADO: `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`
+>
+> **Experimento fallido. No es una animación aprobada ni un recurso definitivo.**
+> La muestra de cuatro fotogramas se declaró fallida porque los tatuajes no son consistentes entre fotogramas.
+> Se conserva completa como registro: cuatro PNG y manifiesto en `assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/`,
+> maestros en `ART_ASSETS/rebuild_masters/R05_PROTAGONISTA_MAESTRO/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/`, evidencia, GIF y tanda en
+> `docs/RESTART/evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/`. El visor la muestra con `?set=4f` y un rótulo de «fallido».
+> La sustituye el IDLE de fotograma único: [`06_IDLE_FOTOGRAMA_UNICO.md`](06_IDLE_FOTOGRAMA_UNICO.md).
+> El texto que sigue es el informe original; las rutas se han actualizado a la ubicación de archivo.
+
+
 - **Fecha:** 2026-11-12 · **Rama:** `arena/1a801cc0-deadbeat-disconew`
 - **Estado:** muestra producida y visor en marcha. **Pendiente de tu evaluación.** No se ha empezado ninguna otra animación.
 - **Canon:** lámina maestra intacta (SHA-256 `43d9e58f…004e5d`, comprobado al terminar).
@@ -20,11 +31,11 @@
 
 - A tamaño de juego (figura de ~106 px) el cambio de tinta **no se aprecia**. Ampliado en el visor, **sí**: la tinta «hierve» dos veces por ciclo.
 - Causa: el generador de imágenes vuelve a entintar los tatuajes en cada fotograma. Los fotogramas 1–2 proceden de una generación y los 3–4 de otra; dentro de cada pareja la tinta coincide.
-- Evidencia: `evidencia_idle/detalle_tatuajes_maestros_x4.jpg`, `detalle_torso_brazo_x4.jpg`, `detalle_cabeza_x4.jpg`, `medidas_deriva.json`.
+- Evidencia: `evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/detalle_tatuajes_maestros_x4.jpg`, `detalle_torso_brazo_x4.jpg`, `detalle_cabeza_x4.jpg`, `medidas_deriva.json`.
 
 ## Fidelidad a la lámina (vista «PERFIL D.»)
 
-Comparación: `evidencia_idle/lamina_perfil_d_frente_a_muestra.jpg`.
+Comparación: `evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/lamina_perfil_d_frente_a_muestra.jpg`.
 
 | Aspecto | Resultado |
 |---|---|
@@ -46,13 +57,13 @@ El perfil de la lámina mide 370 px de alto: a ese tamaño no contiene el dibujo
 
 | Archivo | Qué es |
 |---|---|
-| `assets/characters/protagonist_master/pm_idle_00…03.png` | Los cuatro fotogramas, 288×512, RGBA, mirando a la derecha |
-| `assets/characters/protagonist_master/pm_idle.manifest.json` | Entradas con el formato del registro del juego, más tiempos (4 × 560 ms, en bucle) |
+| `assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle_00…03.png` | Los cuatro fotogramas, 288×512, RGBA, mirando a la derecha |
+| `assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json` | Entradas con el formato del registro del juego, más tiempos (4 × 560 ms, en bucle) |
 | `ART_ASSETS/rebuild_masters/R05_PROTAGONISTA_MAESTRO/*.webp` | Maestros archivados |
 | `docs/ART_REBUILD/batches/R05_PROTAGONISTA_MAESTRO.json` y `.report.json` | Descripción de la tanda e informe del proceso |
 | `assets/cinematics/preview/protagonist_anim_test.html` | Visor independiente |
 | `tools/qa/test_protagonist_anim_viewer.js` | Pruebas del visor |
-| `docs/RESTART/evidencia_idle/` | Capturas, hojas de comparación, medidas y `pm_idle_animacion.gif` |
+| `docs/RESTART/evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/` | Capturas, hojas de comparación, medidas y `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY.gif` |
 
 **Orden de los fotogramas:** reposo → inspirando → pecho alto → espirando.
 
@@ -90,7 +101,7 @@ El pie muestra fotograma, archivo, dimensiones del lienzo y de la figura, milise
 
 ## Pruebas ejecutadas
 
-`tools/qa/test_protagonist_anim_viewer.js`, Chromium 153 sin cabeza: **37 de 37 superadas** (`evidencia_idle/qa_visor_idle.json`).
+`tools/qa/test_protagonist_anim_viewer.js`, Chromium 153 sin cabeza: **37 de 37 superadas** (`evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/qa_visor_idle.json`).
 
 **De animación (medidas con la reproducción en marcha):**
 

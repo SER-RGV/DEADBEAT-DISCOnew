@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DEADBEAT DISCO · Muestra IDLE del protagonista</title>
+<title>DEADBEAT DISCO · IDLE del protagonista</title>
 <style>
   :root { --negro:#0B0B12; --panel:#14121d; --linea:#2a2438; --magenta:#FF007A; --cian:#00E5FF; --amarillo:#FFD400; --hueso:#F0E6DB; --tenue:#9a92ab; }
   * { box-sizing: border-box; }
@@ -33,16 +33,24 @@
   footer b { color: var(--hueso); font-weight: 600; font-variant-numeric: tabular-nums; }
   footer .ok { color: #5dffa0; } footer .mal { color: var(--magenta); } footer .espera { color: var(--amarillo); }
   footer .nota { flex-basis: 100%; }
+  a.btn { font-weight: 700; font-size: 12.5px; letter-spacing: .04em; color: var(--hueso); background: #1e1a2b; border: 1px solid var(--linea); border-radius: 4px; padding: 6px 10px; text-decoration: none; white-space: nowrap; }
+  a.btn:hover { border-color: var(--cian); color: #fff; } a.btn:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+  a.btn[aria-current="true"] { background: var(--amarillo); border-color: var(--amarillo); color: #0B0B12; }
+  #fallido { flex: none; background: var(--magenta); color: #0B0B12; font-weight: 800; letter-spacing: .06em; padding: 7px 14px; font-size: 13px; }
 </style>
 </head>
 <body>
 <header>
-  <h1>DEADBEAT <span>DISCO</span> · MUESTRA IDLE</h1>
+  <h1>DEADBEAT <span>DISCO</span> · IDLE DEL PROTAGONISTA</h1>
+  <div class="grupo" role="group" aria-label="Recurso">
+    <a class="btn" id="s-1f" href="?" title="IDLE de un solo fotograma con la respiración del motor">FOTOGRAMA ÚNICO</a>
+    <a class="btn" id="s-4f" href="?set=4f" title="Experimento de cuatro fotogramas, archivado como fallido">EXPERIMENTO 4F · FALLIDO</a>
+  </div>
   <div class="grupo" role="group" aria-label="Reproducción">
     <button id="play" aria-pressed="true" title="Reproducir o pausar (Espacio)">PAUSA</button>
-    <button id="ant" title="Fotograma anterior (flecha izquierda)">ANTERIOR</button>
+    <span id="pasos"><button id="ant" title="Fotograma anterior (flecha izquierda)">ANTERIOR</button>
     <span id="nframe" class="dato">1 / 4</span>
-    <button id="sig" title="Fotograma siguiente (flecha derecha)">SIGUIENTE</button>
+    <button id="sig" title="Fotograma siguiente (flecha derecha)">SIGUIENTE</button></span>
   </div>
   <div class="grupo" role="group" aria-label="Velocidad"><span>VELOCIDAD</span>
     <button data-vel="0.25">¼×</button><button data-vel="0.5">½×</button><button data-vel="1" aria-pressed="true">1×</button><button data-vel="2">2×</button>
@@ -55,15 +63,18 @@
   <div class="grupo" role="group" aria-label="Fondo"><span>FONDO</span>
     <button data-fondo="trans" aria-pressed="true">TRANSPARENTE</button><button data-fondo="oscuro">OSCURO</button><button data-fondo="claro">CLARO</button><button data-fondo="magenta">MAGENTA</button>
   </div>
+  <div class="grupo" role="group" aria-label="Respiración del motor"><span>RESPIRACIÓN</span>
+    <button data-bob="0" title="Sin balanceo">SIN</button><button data-bob="0.55" title="Amplitud que el motor usa en combate: 0,55 px">COMBATE</button><button data-bob="1.1" title="Amplitud que el motor usa en el Refugio: 1,1 px">REFUGIO</button>
+  </div>
   <div class="grupo" role="group" aria-label="Comprobaciones">
     <button id="cebolla" aria-pressed="false" title="Superpone el fotograma anterior al 45 % para ver qué cambia (C)">PAPEL CEBOLLA</button>
     <button id="reflejo" aria-pressed="false" title="Mirando a la izquierda: el reflejo horizontal del motor (R)">REFLEJO</button>
-    <button id="bob" aria-pressed="false" title="Suma el balanceo vertical de respiración que el motor aplica en el Refugio (1,1 px)">BALANCEO DEL MOTOR</button>
     <button id="antiguo" aria-pressed="false" title="Dibuja al lado el sprite antiguo player_idle_00 a la misma escala">SPRITE ANTIGUO</button>
     <button id="guias" aria-pressed="false" title="Línea de suelo, eje, ancla de cinturón, ancla de mano y círculo de colisión (G)">GUÍAS</button>
   </div>
 </header>
 
+<div id="fallido" hidden>IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY · Experimento archivado. Fallido por inconsistencia de los tatuajes entre fotogramas. No es una animación aprobada.</div>
 <main id="visor" class="f-trans">
   <canvas id="lienzo"></canvas>
   <div id="aviso"><div>Cargando la muestra…</div></div>
@@ -74,12 +85,14 @@
   <span>Archivo: <b id="i-ruta">—</b></span>
   <span>Lienzo: <b id="i-dim">—</b></span>
   <span>Figura: <b id="i-fig">—</b></span>
+  <span>Recurso: <b id="i-set">—</b></span>
   <span>Tiempo por fotograma: <b id="i-ms">—</b></span>
+  <span>Respiración: <b id="i-bob">—</b></span>
   <span>Ciclo: <b id="i-ciclo">—</b></span>
   <span>Anclas: <b id="i-anclas">—</b></span>
   <span>Dibujo: <b id="i-dibujo">—</b></span>
   <span>Estado: <b id="i-estado" class="espera">cargando</b></span>
-  <span class="nota">Pinta <b>DD_WORLD.drawProtagonist</b> de <b>src/dd_world_renderer.js</b>, sin modificar. El renderizador solo conoce el identificador <b>player_idle_00</b>: este visor le entrega en ese hueco el fotograma en curso. El cambio de fotograma por tiempo lo hace el visor; el juego todavía no sabe reproducir secuencias. · Espacio: pausa · ← →: fotograma · + −: tamaño · A: ajustar · J: juego · C: cebolla · R: reflejo · G: guías</span>
+  <span class="nota">Pinta <b>DD_WORLD.drawProtagonist</b> de <b>src/dd_world_renderer.js</b>, sin modificar. El renderizador solo conoce el identificador <b>player_idle_00</b>: este visor le entrega en ese hueco el fotograma en curso. La respiración es la fórmula del motor (seno a 2,8 rad/s sobre <b>pAnim.bobY</b>), que desplaza la figura entera, pies incluidos. En el experimento 4F, el cambio de fotograma por tiempo lo hace el visor; el juego no reproduce secuencias. · Espacio: pausa · flechas izquierda y derecha: fotograma (solo 4F) · + −: tamaño · A: ajustar · J: juego · C: cebolla (solo 4F) · R: reflejo · G: guías</span>
 </footer>
 
 <!-- Renderizador real del juego. Solo necesita window.DD_ASSETS. -->
@@ -88,14 +101,17 @@
 (function () {
   "use strict";
   var RAIZ = "../../../";
-  var MANIFIESTO = "assets/characters/protagonist_master/pm_idle.manifest.json";
+  var ES_4F = /[?&]set=4f/.test(location.search);
+  var MANIFIESTO = ES_4F ? "assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json"
+                         : "assets/characters/protagonist_master/pm_idle.manifest.json";
+  var RITMO = 2.8;   /* rad/s: breathePhase += dt * 2.8 en el motor y en el Refugio */
   var ANTIGUO = { id: "player_idle_00", src: "assets/characters/player_idle_00.png", anchors: { belt: 0.4914, hand: [0.678, 0.5848] } };
   var BASE_H = 104, PIE_Y = 16, SUELO_Y = 14, RADIO = 14, ZOOM_JUEGO = 1.16;   // contrato de dd_world_renderer.js y del motor
 
   var $ = function (id) { return document.getElementById(id); };
   var lienzo = $("lienzo"), ctx = lienzo.getContext("2d"), visor = $("visor"), aviso = $("aviso");
   var v = { cuadros: [], ms: [], i: 0, t: 0, vel: 1, activo: true, z: 1, ajustada: true, fondo: "trans",
-            cebolla: false, reflejo: false, bob: false, antiguo: false, guias: false, lista: false, dibujoMs: 0, reloj: 0, pintados: 0, errores: [] };
+            cebolla: false, reflejo: false, bob: ES_4F ? 0 : 1.1, fase: 0, bobY: 0, etiqueta: "", antiguo: false, guias: false, lista: false, dibujoMs: 0, reloj: 0, pintados: 0, errores: [] };
   var imgAntiguo = null;
 
   /* Lo que el renderizador real pide: DD_ASSETS.get(id) y DD_ASSETS.manifest.entries[id].anchors.
@@ -127,7 +143,10 @@
 
   fetch(RAIZ + MANIFIESTO).then(function (r) { if (!r.ok) throw new Error(MANIFIESTO); return r.json(); }).then(function (m) {
     var ids = m.animation.frames;
-    v.ms = m.animation.ms.slice(); v.loop = m.animation.loop;
+    v.ms = (m.animation.ms || []).slice(); v.loop = m.animation.loop; v.etiqueta = m.label || "";
+    $("i-set").textContent = v.etiqueta; $("fallido").hidden = !ES_4F;
+    $(ES_4F ? "s-4f" : "s-1f").setAttribute("aria-current", "true");
+    $("pasos").hidden = ids.length < 2; $("cebolla").hidden = ids.length < 2; grupo("bob", v.bob);
     return Promise.all(ids.map(function (id) { return cargarImagen(m.entries[id].src); }).concat([cargarImagen(ANTIGUO.src)])).then(function (ims) {
       imgAntiguo = { img: ims.pop(), anchors: ANTIGUO.anchors };
       v.cuadros = ids.map(function (id, k) { var e = m.entries[id]; return { id: id, src: e.src, img: ims[k], anchors: e.anchors, w: e.w, h: e.h, caja: cajaFigura(ims[k]) }; });
@@ -174,7 +193,7 @@
     /* Mundo → pantalla: origen del jugador centrado, con el lienzo del sprite centrado en vertical. */
     var k = v.dpr * v.z, cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z;
     ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr);
-    var x = v.antiguo ? 34 : 0, bobY = v.bob ? Math.sin(v.reloj / 1000 * 2.8) * 1.1 : 0, ok = true;
+    var x = v.antiguo ? 34 : 0, bobY = v.bob ? Math.sin(v.fase) * v.bob : 0, ok = true; v.bobY = bobY;
     if (v.antiguo) ok = pintarPersonaje(imgAntiguo, -34, 1, bobY) && ok;
     if (v.cebolla) ok = pintarPersonaje(prev, x, 0.45, bobY) && ok;
     ok = pintarPersonaje(c, x, v.cebolla ? 0.6 : 1, bobY) && ok;
@@ -186,9 +205,10 @@
     $("i-id").textContent = c.id; $("i-ruta").textContent = c.src;
     $("i-dim").textContent = c.img.naturalWidth + " × " + c.img.naturalHeight + " px";
     $("i-fig").textContent = c.caja.ancho + " × " + c.caja.alto + " px (suelas en y=" + c.caja.y1 + ") → " + Math.round(c.caja.alto / c.img.naturalHeight * BASE_H * v.z) + " px en pantalla";
-    $("i-ms").textContent = v.ms[v.i] + " ms" + (v.vel !== 1 ? " (a " + v.vel + "×: " + Math.round(v.ms[v.i] / v.vel) + " ms)" : "");
-    var ciclo = v.ms.reduce(function (a, b) { return a + b; }, 0);
+    var unico = v.cuadros.length < 2, ciclo = unico ? 2 * Math.PI / RITMO * 1000 : v.ms.reduce(function (a, b) { return a + b; }, 0);
+    $("i-ms").textContent = unico ? "fotograma único, no cambia" : v.ms[v.i] + " ms" + (v.vel !== 1 ? " (a " + v.vel + "×: " + Math.round(v.ms[v.i] / v.vel) + " ms)" : "");
     $("i-ciclo").textContent = (ciclo / 1000).toFixed(2) + " s · " + (v.loop ? "en bucle" : "una vez");
+    $("i-bob").textContent = v.bob ? "±" + String(v.bob).replace(".", ",") + " px de mundo · ahora " + bobY.toFixed(2).replace(".", ",") + " px" : "sin balanceo";
     $("i-anclas").textContent = "cinturón " + c.anchors.belt + " · mano " + (c.anchors.hand ? c.anchors.hand.join(", ") : "—");
     $("i-dibujo").textContent = v.dibujoMs.toFixed(2) + " ms";
   }
@@ -196,14 +216,14 @@
   function bucle(ahora) {
     var dt = antes ? Math.min(100, ahora - antes) : 0; antes = ahora; v.reloj += dt;
     if (v.activo) {
-      v.t += dt * v.vel;
-      while (v.t >= v.ms[v.i]) { v.t -= v.ms[v.i]; v.i = (v.i + 1) % v.cuadros.length; }
+      v.fase += dt / 1000 * RITMO * v.vel;
+      if (v.cuadros.length > 1) { v.t += dt * v.vel; while (v.t >= v.ms[v.i]) { v.t -= v.ms[v.i]; v.i = (v.i + 1) % v.cuadros.length; } }
     }
     pintar(); requestAnimationFrame(bucle);
   }
 
   function reproducir(si) { v.activo = si; $("play").textContent = si ? "PAUSA" : "REPRODUCIR"; $("play").setAttribute("aria-pressed", String(si)); if (v.lista) estado(si ? "reproduciendo" : "en pausa", si ? "ok" : "espera"); }
-  function paso(d) { reproducir(false); v.t = 0; v.i = (v.i + d + v.cuadros.length) % v.cuadros.length; }
+  function paso(d) { if (v.cuadros.length < 2) return; reproducir(false); v.t = 0; v.i = (v.i + d + v.cuadros.length) % v.cuadros.length; }
   function conmutar(clave, id) { v[clave] = !v[clave]; $(id).setAttribute("aria-pressed", String(v[clave])); }
   function grupo(attr, valor) { document.querySelectorAll("[data-" + attr + "]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-" + attr) === String(valor))); }); }
 
@@ -214,7 +234,8 @@
   $("mas").onclick = function () { poner(v.z * 1.25); }; $("menos").onclick = function () { poner(v.z / 1.25); };
   $("ajustar").onclick = function () { poner(zAjuste(), true); }; $("juego").onclick = function () { poner(ZOOM_JUEGO); };
   $("cebolla").onclick = function () { conmutar("cebolla", "cebolla"); }; $("reflejo").onclick = function () { conmutar("reflejo", "reflejo"); };
-  $("bob").onclick = function () { conmutar("bob", "bob"); }; $("antiguo").onclick = function () { conmutar("antiguo", "antiguo"); }; $("guias").onclick = function () { conmutar("guias", "guias"); };
+  document.querySelectorAll("[data-bob]").forEach(function (b) { b.onclick = function () { v.bob = Number(b.getAttribute("data-bob")); grupo("bob", v.bob); }; });
+  $("antiguo").onclick = function () { conmutar("antiguo", "antiguo"); }; $("guias").onclick = function () { conmutar("guias", "guias"); };
   visor.addEventListener("wheel", function (e) { e.preventDefault(); poner(v.z * (e.deltaY < 0 ? 1.15 : 1 / 1.15)); }, { passive: false });
   window.addEventListener("resize", medir);
   window.addEventListener("keydown", function (e) {
@@ -224,7 +245,7 @@
     else if (k === "ArrowLeft") paso(-1); else if (k === "ArrowRight") paso(1);
     else if (k === "+" || k === "=") poner(v.z * 1.25); else if (k === "-") poner(v.z / 1.25);
     else if (k === "a" || k === "A") poner(zAjuste(), true); else if (k === "j" || k === "J") poner(ZOOM_JUEGO);
-    else if (k === "c" || k === "C") conmutar("cebolla", "cebolla"); else if (k === "r" || k === "R") conmutar("reflejo", "reflejo");
+    else if ((k === "c" || k === "C") && v.cuadros.length > 1) conmutar("cebolla", "cebolla"); else if (k === "r" || k === "R") conmutar("reflejo", "reflejo");
     else if (k === "g" || k === "G") conmutar("guias", "guias"); else return;
     e.preventDefault();
   });
@@ -233,7 +254,7 @@
   window.DD_ANIM_VISOR = {
     estado: function () {
       return { lista: v.lista, cuadro: v.i, id: v.lista ? v.cuadros[v.i].id : null, total: v.cuadros.length, activo: v.activo, vel: v.vel, z: v.z, ajustada: v.ajustada,
-               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
+               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
                pintados: v.pintados, ultimoOk: v.ultimoOk, errores: v.errores.slice(), cajas: v.cuadros.map(function (c) { return c.caja; }),
                tamanos: v.cuadros.map(function (c) { return [c.img.naturalWidth, c.img.naturalHeight]; }) };
     }

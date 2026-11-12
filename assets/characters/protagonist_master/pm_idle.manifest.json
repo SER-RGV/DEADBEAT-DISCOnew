@@ -1,29 +1,27 @@
 {
  "batch": "R05_PROTAGONISTA_MAESTRO",
- "status": "MUESTRA · no registrada en src/dd_asset_registry.js",
- "note": "Entradas con el mismo formato que MANIFEST.entries del juego, más el campo `anim` (el motor actual lo ignora).",
+ "label": "IDLE_1F",
+ "status": "IDLE de fotograma único · pendiente de aprobación · no registrado en src/dd_asset_registry.js",
+ "note": "Entrada con el mismo formato que MANIFEST.entries del juego.",
  "animation": {
   "set": "idle",
   "frames": [
-   "pm_idle_00",
-   "pm_idle_01",
-   "pm_idle_02",
-   "pm_idle_03"
-  ],
-  "ms": [
-   560,
-   560,
-   560,
-   560
+   "pm_idle_00"
   ],
   "loop": true,
-  "cycle_ms": 2240
+  "procedural": {
+   "source": "pAnim.bobY (motor)",
+   "rate_rad_s": 2.8,
+   "cycle_ms": 2244,
+   "amp_px_refugio": 1.1,
+   "amp_px_combate": 0.55
+  }
  },
  "entries": {
   "pm_idle_00": {
    "id": "pm_idle_00",
    "originalId": "pm:idle:00",
-   "name": "Protagonista (lámina maestra) · IDLE 1/4 · reposo (aire fuera)",
+   "name": "Protagonista (lámina maestra) · IDLE · fotograma único",
    "category": "characters",
    "src": "assets/characters/protagonist_master/pm_idle_00.png",
    "w": 288,
@@ -31,7 +29,7 @@
    "alpha": true,
    "pivot": "bottom-center",
    "tanda": "R05_PROTAGONISTA_MAESTRO",
-   "sha16": "4e00024685f1676f",
+   "sha16": "a13a0917997e6447",
    "rev": "R05_PROTAGONISTA_MAESTRO",
    "anchors": {
     "belt": 0.511,
@@ -39,93 +37,6 @@
      0.5796,
      0.5767
     ]
-   },
-   "anim": {
-    "set": "idle",
-    "frame": 0,
-    "ms": 560,
-    "loop": true
-   }
-  },
-  "pm_idle_01": {
-   "id": "pm_idle_01",
-   "originalId": "pm:idle:01",
-   "name": "Protagonista (lámina maestra) · IDLE 2/4 · inspirando",
-   "category": "characters",
-   "src": "assets/characters/protagonist_master/pm_idle_01.png",
-   "w": 288,
-   "h": 512,
-   "alpha": true,
-   "pivot": "bottom-center",
-   "tanda": "R05_PROTAGONISTA_MAESTRO",
-   "sha16": "2b7a13f109091fbd",
-   "rev": "R05_PROTAGONISTA_MAESTRO",
-   "anchors": {
-    "belt": 0.511,
-    "hand": [
-     0.5796,
-     0.5767
-    ]
-   },
-   "anim": {
-    "set": "idle",
-    "frame": 1,
-    "ms": 560,
-    "loop": true
-   }
-  },
-  "pm_idle_02": {
-   "id": "pm_idle_02",
-   "originalId": "pm:idle:02",
-   "name": "Protagonista (lámina maestra) · IDLE 3/4 · pecho alto",
-   "category": "characters",
-   "src": "assets/characters/protagonist_master/pm_idle_02.png",
-   "w": 288,
-   "h": 512,
-   "alpha": true,
-   "pivot": "bottom-center",
-   "tanda": "R05_PROTAGONISTA_MAESTRO",
-   "sha16": "02f0e3963c3fbec9",
-   "rev": "R05_PROTAGONISTA_MAESTRO",
-   "anchors": {
-    "belt": 0.511,
-    "hand": [
-     0.5796,
-     0.5767
-    ]
-   },
-   "anim": {
-    "set": "idle",
-    "frame": 2,
-    "ms": 560,
-    "loop": true
-   }
-  },
-  "pm_idle_03": {
-   "id": "pm_idle_03",
-   "originalId": "pm:idle:03",
-   "name": "Protagonista (lámina maestra) · IDLE 4/4 · espirando",
-   "category": "characters",
-   "src": "assets/characters/protagonist_master/pm_idle_03.png",
-   "w": 288,
-   "h": 512,
-   "alpha": true,
-   "pivot": "bottom-center",
-   "tanda": "R05_PROTAGONISTA_MAESTRO",
-   "sha16": "4e11d879dd9e7151",
-   "rev": "R05_PROTAGONISTA_MAESTRO",
-   "anchors": {
-    "belt": 0.511,
-    "hand": [
-     0.5796,
-     0.5767
-    ]
-   },
-   "anim": {
-    "set": "idle",
-    "frame": 3,
-    "ms": 560,
-    "loop": true
    }
   }
  }

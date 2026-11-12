@@ -149,3 +149,10 @@ Toda modificación debe partir de una copia de seguridad.
 - Los 22 sprites `assets/characters/player_*` son del **diseño anterior**; siguen intactos y en uso hasta una futura fase de reconstrucción de animaciones, que deberá partir de la lámina.
 - V1 y V2 de la composición de intro: histórico, no canónicas. Logotipo oficial: `assets/logos/logo_deadbeat_graffiti.png` (el rótulo de la lámina no lo sustituye).
 - Sin cambios en motor, cinemática activa, menú ni sprites.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: IDLE de fotograma único) — PENDIENTE DE APROBACIÓN
+- El juego sigue usando los 22 sprites anteriores. Nada nuevo está registrado ni integrado.
+- IDLE nuevo: un fotograma (`assets/characters/protagonist_master/pm_idle_00.png`) con la respiración procedural del motor. Informe: `docs/RESTART/06_IDLE_FOTOGRAMA_UNICO.md`.
+- Muestra de 4 fotogramas: fallida por inconsistencia de tatuajes, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`.
+- Abierto para la revisión de ilustración: sigilo del hombro (estrella en círculo), lobo reconocible, cadenas.
+- No iniciadas: WALK, RUN, SHOOT y el resto. Se espera la aprobación del IDLE.

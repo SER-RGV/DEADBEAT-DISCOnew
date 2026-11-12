@@ -134,3 +134,11 @@ Registrar aquí cada modificación:
 - Archivos nuevos: `docs/LORE/historico/` (biblia anterior sin modificar).
 - Sistemas afectados: ninguno del juego (solo documentación y visor de arte).
 - Pruebas: QA del visor y huella SHA-256 de la lámina maestra (`docs/RESTART/evidencia_visor/qa_visor.json`).
+
+## 2026-11-12 · PROJECT RESTART · protagonista: IDLE de fotograma único
+- Archivos nuevos: `assets/characters/protagonist_master/pm_idle_00.png` y `pm_idle.manifest.json` (IDLE_1F), maestro webp y tanda `R05_PROTAGONISTA_MAESTRO`, `docs/RESTART/06_IDLE_FOTOGRAMA_UNICO.md`, `docs/RESTART/evidencia_idle_1f/`, `tools/qa/probe_idle_1f_in_game.js`.
+- Archivos modificados: `assets/cinematics/preview/protagonist_anim_test.html`, `tools/qa/test_protagonist_anim_viewer.js`, `docs/RESTART/04_PROTAGONISTA_PRODUCCION.md`, `docs/RESTART/05_MUESTRA_IDLE.md`.
+- Archivos movidos (sin borrar): la muestra de 4 fotogramas, a carpetas `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`.
+- Sistemas afectados: ninguno del juego. Sin cambios en `src/`, sprites `player_*`, registro, `index.html`, menú, cinemática ni Refugio. Recurso no registrado.
+- Pruebas: visor 61/61; visor de arte 48/48; sonda en el Refugio con sustitución solo en el navegador de prueba (control y nuevo, sin errores).
+- Resultado: pendiente de aprobación. Quedan sin corregir el sigilo del hombro y el lobo respecto a la lámina.

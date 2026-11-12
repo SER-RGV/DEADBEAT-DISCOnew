@@ -1,0 +1,296 @@
+{
+ "url": "http://localhost:8080/assets/cinematics/preview/protagonist_anim_test.html",
+ "results": [
+  {
+   "name": "[4F] ESTÁTICA la página carga y la muestra queda lista",
+   "ok": true,
+   "detail": "HTTP 200, 4 fotogramas"
+  },
+  {
+   "name": "[4F] 4F se presenta como experimento fallido, no como animación aprobada",
+   "ok": true,
+   "detail": "IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY"
+  },
+  {
+   "name": "[4F] ESTÁTICA los cuatro fotogramas miden 288 × 512",
+   "ok": true,
+   "detail": "[[288,512],[288,512],[288,512],[288,512]]"
+  },
+  {
+   "name": "[4F] ESTÁTICA tiempos del manifiesto: 4 × 560 ms = 2,24 s",
+   "ok": true,
+   "detail": "560, 560, 560, 560"
+  },
+  {
+   "name": "[4F] ESTÁTICA usa el renderizador real del juego (src/dd_world_renderer.js), sin arrancar el juego",
+   "ok": true,
+   "detail": "http://localhost:8080/src/dd_world_renderer.js"
+  },
+  {
+   "name": "[4F] ESTÁTICA transparencia: las cuatro esquinas de cada PNG son transparentes",
+   "ok": true
+  },
+  {
+   "name": "[4F] ESTÁTICA la figura no toca los bordes del lienzo",
+   "ok": true,
+   "detail": "89-43-190-505 | 89-43-190-504 | 89-43-190-504 | 89-43-190-504"
+  },
+  {
+   "name": "[4F] ESTÁTICA pies: misma línea de suelas en los cuatro (y=504 ± 1)",
+   "ok": true,
+   "detail": "505, 504, 504, 504"
+  },
+  {
+   "name": "[4F] ESTÁTICA misma altura de figura en los cuatro (± 1 px)",
+   "ok": true,
+   "detail": "463, 462, 462, 462"
+  },
+  {
+   "name": "[4F] ANIM los fotogramas avanzan en orden y en bucle",
+   "ok": true,
+   "detail": "0 → 1 → 2 → 3 → 0 → 1 → 2"
+  },
+  {
+   "name": "[4F] ANIM cada fotograma dura 560 ms (± 40 ms)",
+   "ok": true,
+   "detail": "567, 550, 566, 567, 550 ms"
+  },
+  {
+   "name": "[4F] ANIM ciclo completo de 2,24 s (± 60 ms)",
+   "ok": true,
+   "detail": "2250 ms"
+  },
+  {
+   "name": "[4F] ANIM el renderizador pinta cada cuadro sin fallos",
+   "ok": true,
+   "detail": "226 cuadros pintados"
+  },
+  {
+   "name": "[4F] ANIM rendimiento: tiempo medio de dibujo por cuadro < 4 ms",
+   "ok": true,
+   "detail": "0.14 ms (Chromium sin GPU)"
+  },
+  {
+   "name": "[4F] ANIM pausa: el fotograma no cambia",
+   "ok": true,
+   "detail": "fotograma 3 durante 900 ms"
+  },
+  {
+   "name": "[4F] fotograma siguiente",
+   "ok": true,
+   "detail": "3 → 4"
+  },
+  {
+   "name": "[4F] fotograma anterior (con vuelta)",
+   "ok": true,
+   "detail": "→ 2"
+  },
+  {
+   "name": "[4F] teclado: flechas",
+   "ok": true,
+   "detail": "→ 3"
+  },
+  {
+   "name": "[4F] ANIM reanudar con Espacio",
+   "ok": true,
+   "detail": "fotograma 4"
+  },
+  {
+   "name": "[4F] ANIM velocidad 2×: 280 ms por fotograma (± 30 ms)",
+   "ok": true,
+   "detail": "267, 283, 283, 283, 283 ms"
+  },
+  {
+   "name": "[4F] velocidad ¼× seleccionable",
+   "ok": true
+  },
+  {
+   "name": "[4F] ajustar a pantalla: la figura cabe entera",
+   "ok": true,
+   "detail": "805 % · figura 750 de 885 px"
+  },
+  {
+   "name": "[4F] ESTÁTICA fondo transparente: el lienzo no pinta fondo",
+   "ok": true
+  },
+  {
+   "name": "[4F] ampliar",
+   "ok": true,
+   "detail": "1006 %"
+  },
+  {
+   "name": "[4F] reducir",
+   "ok": true,
+   "detail": "644 %"
+  },
+  {
+   "name": "[4F] tamaño de juego: zoom 1,16 y figura de ≈109 px",
+   "ok": true,
+   "detail": "106 px de alto"
+  },
+  {
+   "name": "[4F] volver a ajustar",
+   "ok": true
+  },
+  {
+   "name": "[4F] fondos de contraste seleccionables",
+   "ok": true
+  },
+  {
+   "name": "[4F] ESTÁTICA reflejo del motor: la figura queda espejada",
+   "ok": true,
+   "detail": "centro 0.4958 → 0.5036"
+  },
+  {
+   "name": "[4F] papel cebolla activable",
+   "ok": true
+  },
+  {
+   "name": "[4F] ESTÁTICA comparación con el sprite antiguo: se dibujan dos figuras",
+   "ok": true,
+   "detail": "46806 frente a 19857 píxeles opacos"
+  },
+  {
+   "name": "[4F] balanceo del motor activable con la animación en marcha",
+   "ok": true
+  },
+  {
+   "name": "[4F] se adapta a 1280×720",
+   "ok": true,
+   "detail": "figura 336 de 425 px"
+  },
+  {
+   "name": "[4F] se adapta a 1366×768",
+   "ok": true,
+   "detail": "figura 380 de 473 px"
+  },
+  {
+   "name": "[4F] se adapta a 2560×1440",
+   "ok": true,
+   "detail": "figura 1056 de 1224 px"
+  },
+  {
+   "name": "[4F] sin errores de consola ni peticiones fallidas",
+   "ok": true,
+   "detail": "0 errores"
+  },
+  {
+   "name": "[1F] ESTÁTICA abre por defecto el IDLE de fotograma único",
+   "ok": true,
+   "detail": "assets/characters/protagonist_master/pm_idle_00.png"
+  },
+  {
+   "name": "[1F] ESTÁTICA sin controles que no aplican (anterior, siguiente, papel cebolla ocultos)",
+   "ok": true
+  },
+  {
+   "name": "[1F] ESTÁTICA usa el renderizador real del juego, sin arrancar el juego",
+   "ok": true,
+   "detail": "http://localhost:8080/src/dd_world_renderer.js"
+  },
+  {
+   "name": "[1F] ESTÁTICA dimensiones: lienzo 288 × 512",
+   "ok": true
+  },
+  {
+   "name": "[1F] ESTÁTICA transparencia: esquinas transparentes y figura sin tocar bordes",
+   "ok": true,
+   "detail": "89-43-190-504"
+  },
+  {
+   "name": "[1F] ESTÁTICA línea de suelo: suelas en y=504 y figura de 462 px, como los sprites actuales",
+   "ok": true,
+   "detail": "suelas y=504, alto 462"
+  },
+  {
+   "name": "[1F] ESTÁTICA respiración del Refugio activa al abrir (±1,1 px)",
+   "ok": true
+  },
+  {
+   "name": "[1F] ANIM respiración: oscila entre −1,1 y +1,1 px de mundo",
+   "ok": true,
+   "detail": "-1.100 … 1.100"
+  },
+  {
+   "name": "[1F] ANIM respiración: ciclo de 2,24 s (± 60 ms), el del motor",
+   "ok": true,
+   "detail": "2250 ms"
+  },
+  {
+   "name": "[1F] ANIM el fotograma no cambia durante el ciclo",
+   "ok": true,
+   "detail": "315 muestras, siempre pm_idle_00"
+  },
+  {
+   "name": "[1F] ANIM a tamaño de juego la cabeza sube y baja ≈2,6 px (2 × 1,1 × 1,16)",
+   "ok": true,
+   "detail": "2 px de recorrido"
+  },
+  {
+   "name": "[1F] ANIM pausa: la respiración se detiene",
+   "ok": true,
+   "detail": "bobY 0.401 durante 700 ms"
+  },
+  {
+   "name": "[1F] ANIM velocidad 2×: ciclo de 1,12 s (± 40 ms)",
+   "ok": true,
+   "detail": "1117 ms"
+  },
+  {
+   "name": "[1F] respiración de combate seleccionable (±0,55 px)",
+   "ok": true
+  },
+  {
+   "name": "[1F] ANIM tatuajes y figura sin cambios durante el ciclo: 6 lecturas del lienzo en 2,2 s, idénticas píxel a píxel",
+   "ok": true,
+   "detail": "huella 1784910543"
+  },
+  {
+   "name": "[1F] ajustar a pantalla: la figura cabe entera",
+   "ok": true,
+   "detail": "836 %"
+  },
+  {
+   "name": "[1F] ESTÁTICA fondo transparente: el lienzo no pinta fondo",
+   "ok": true
+  },
+  {
+   "name": "[1F] ESTÁTICA escala real de juego: figura de ≈106 px con zoom 1,16",
+   "ok": true,
+   "detail": "106 px"
+  },
+  {
+   "name": "[1F] ESTÁTICA reflejo del motor: la figura queda espejada",
+   "ok": true,
+   "detail": "0.4952 → 0.5043"
+  },
+  {
+   "name": "[1F] ESTÁTICA comparación con el sprite antiguo y guías de anclaje",
+   "ok": true
+  },
+  {
+   "name": "[1F] teclado: Espacio pausa; las flechas no hacen nada con un solo fotograma",
+   "ok": true
+  },
+  {
+   "name": "[1F] rendimiento: tiempo medio de dibujo por cuadro < 4 ms",
+   "ok": true,
+   "detail": "0.13 ms"
+  },
+  {
+   "name": "[1F] sin errores de consola ni peticiones fallidas",
+   "ok": true,
+   "detail": "0 errores"
+  },
+  {
+   "name": "[4F] mensaje claro si falta un fotograma",
+   "ok": true,
+   "detail": "NO SE PUDO CARGAR LA MUESTRAFalta assets/characters/protagonist_master/IDLE_4F_E…"
+  },
+  {
+   "name": "[4F] el juego original arranca y sigue usando el sprite antiguo",
+   "ok": true,
+   "detail": "0 errores · assets/characters/player_idle_00.png"
+  }
+ ]
+}

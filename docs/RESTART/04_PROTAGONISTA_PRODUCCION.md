@@ -1,7 +1,7 @@
 # DEADBEAT DISCO — Fase 06: reconstrucción técnica del protagonista
 
 - **Fecha:** 2026-11-12 · **Rama:** `arena/1a801cc0-deadbeat-disconew`
-- **Estado:** auditoría y especificación aprobadas. Decisiones cerradas: sin sombrero en Refugio y combate, perfil puro a la derecha, reflejo horizontal provisional, IDLE de 4 fotogramas. Muestra IDLE y visor: `05_MUESTRA_IDLE.md`.
+- **Estado:** auditoría y especificación aprobadas. Decisiones cerradas: sin sombrero en Refugio y combate, perfil puro a la derecha, reflejo horizontal provisional, IDLE de **un fotograma** con la respiración del motor (`06_IDLE_FOTOGRAMA_UNICO.md`, pendiente de aprobación). La muestra de 4 fotogramas quedó fallida y archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY` (`05_MUESTRA_IDLE.md`).
 - **Canon visual:** `assets/cinematics/restart/character_master/protagonist_master_approved.png` (SHA-256 `43d9e58f…004e5d`, verificado al empezar y al terminar). Ficha del diseño: `03_PERSONAJE_MAESTRO.md`.
 - **Canon narrativo:** «Sus tatuajes representan los caminos que la canción eliminó». Sin significados añadidos.
 
@@ -13,7 +13,7 @@
 | D. Matriz de animaciones | **Diseñada** |
 | E. Reglas de continuidad | **Terminadas** |
 | F. Arquitectura de recursos | **Diseñada** |
-| G. Muestra IDLE y visor | **Producida** (ver `05_MUESTRA_IDLE.md`). No supera la continuidad de tatuajes; pendiente de evaluación |
+| G. Muestra IDLE y visor | Muestra de 4 fotogramas: **fallida**, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`. IDLE de fotograma único: **producido, pendiente de aprobación** (`06_IDLE_FOTOGRAMA_UNICO.md`) |
 
 Evidencia gráfica: `evidencia_produccion/hoja_vistas_proporciones.jpg` y `evidencia_produccion/sprites_antiguos_contrato.jpg`.
 
@@ -263,7 +263,7 @@ Requiere añadir al renderizador un selector de fotograma por tiempo (unas 30 l�
 
 | Animación | Fotogramas | Duración | Loop | Anticipación → acción → recuperación | Transiciones |
 |---|---|---|---|---|---|
-| IDLE | 4 | 2,24 s (560 ms c/u) | Sí | Neutro → inspiración → pecho alto → espiración | A cualquiera, sin espera |
+| IDLE | 1 (antes 4; el experimento de 4 falló) | 2,24 s, respiración procedural del motor | Sí | Neutro | A cualquiera, sin espera |
 | CAMINAR | 6 | 0,48–0,60 s | Sí | Contacto, bajada, paso, subida ×2 pies | Desde IDLE por el fotograma de paso |
 | CORRER | 6 | 0,36–0,42 s | Sí | Zancada más larga, torso inclinado, fase de vuelo | Desde CAMINAR al superar 135 px/s |
 | DISPARAR | +1 retroceso por torso horizontal | 60–80 ms | No | Sin anticipación (respuesta inmediata) → retroceso → vuelta a guardia | Vuelve a la guardia |
