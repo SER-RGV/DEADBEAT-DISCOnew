@@ -1,0 +1,183 @@
+{
+ "url": "http://localhost:8080/assets/cinematics/preview/protagonist_anim_test.html",
+ "results": [
+  {
+   "name": "ESTÁTICA la página carga y la muestra queda lista",
+   "ok": true,
+   "detail": "HTTP 200, 4 fotogramas"
+  },
+  {
+   "name": "ESTÁTICA los cuatro fotogramas miden 288 × 512",
+   "ok": true,
+   "detail": "[[288,512],[288,512],[288,512],[288,512]]"
+  },
+  {
+   "name": "ESTÁTICA tiempos del manifiesto: 4 × 560 ms = 2,24 s",
+   "ok": true,
+   "detail": "560, 560, 560, 560"
+  },
+  {
+   "name": "ESTÁTICA usa el renderizador real del juego (src/dd_world_renderer.js), sin arrancar el juego",
+   "ok": true,
+   "detail": "http://localhost:8080/src/dd_world_renderer.js"
+  },
+  {
+   "name": "ESTÁTICA transparencia: las cuatro esquinas de cada PNG son transparentes",
+   "ok": true
+  },
+  {
+   "name": "ESTÁTICA la figura no toca los bordes del lienzo",
+   "ok": true,
+   "detail": "89-43-190-505 | 89-43-190-504 | 89-43-190-504 | 89-43-190-504"
+  },
+  {
+   "name": "ESTÁTICA pies: misma línea de suelas en los cuatro (y=504 ± 1)",
+   "ok": true,
+   "detail": "505, 504, 504, 504"
+  },
+  {
+   "name": "ESTÁTICA misma altura de figura en los cuatro (± 1 px)",
+   "ok": true,
+   "detail": "463, 462, 462, 462"
+  },
+  {
+   "name": "ANIM los fotogramas avanzan en orden y en bucle",
+   "ok": true,
+   "detail": "0 → 1 → 2 → 3 → 0 → 1 → 2"
+  },
+  {
+   "name": "ANIM cada fotograma dura 560 ms (± 40 ms)",
+   "ok": true,
+   "detail": "567, 550, 566, 567, 550 ms"
+  },
+  {
+   "name": "ANIM ciclo completo de 2,24 s (± 60 ms)",
+   "ok": true,
+   "detail": "2250 ms"
+  },
+  {
+   "name": "ANIM el renderizador pinta cada cuadro sin fallos",
+   "ok": true,
+   "detail": "225 cuadros pintados"
+  },
+  {
+   "name": "ANIM rendimiento: tiempo medio de dibujo por cuadro < 4 ms",
+   "ok": true,
+   "detail": "0.08 ms (Chromium sin GPU)"
+  },
+  {
+   "name": "ANIM pausa: el fotograma no cambia",
+   "ok": true,
+   "detail": "fotograma 3 durante 900 ms"
+  },
+  {
+   "name": "fotograma siguiente",
+   "ok": true,
+   "detail": "3 → 4"
+  },
+  {
+   "name": "fotograma anterior (con vuelta)",
+   "ok": true,
+   "detail": "→ 2"
+  },
+  {
+   "name": "teclado: flechas",
+   "ok": true,
+   "detail": "→ 3"
+  },
+  {
+   "name": "ANIM reanudar con Espacio",
+   "ok": true,
+   "detail": "fotograma 4"
+  },
+  {
+   "name": "ANIM velocidad 2×: 280 ms por fotograma (± 30 ms)",
+   "ok": true,
+   "detail": "283, 283, 284, 267, 283 ms"
+  },
+  {
+   "name": "velocidad ¼× seleccionable",
+   "ok": true
+  },
+  {
+   "name": "ajustar a pantalla: la figura cabe entera",
+   "ok": true,
+   "detail": "836 % · figura 780 de 918 px"
+  },
+  {
+   "name": "ESTÁTICA fondo transparente: el lienzo no pinta fondo",
+   "ok": true
+  },
+  {
+   "name": "ampliar",
+   "ok": true,
+   "detail": "1045 %"
+  },
+  {
+   "name": "reducir",
+   "ok": true,
+   "detail": "669 %"
+  },
+  {
+   "name": "tamaño de juego: zoom 1,16 y figura de ≈109 px",
+   "ok": true,
+   "detail": "106 px de alto"
+  },
+  {
+   "name": "volver a ajustar",
+   "ok": true
+  },
+  {
+   "name": "fondos de contraste seleccionables",
+   "ok": true
+  },
+  {
+   "name": "ESTÁTICA reflejo del motor: la figura queda espejada",
+   "ok": true,
+   "detail": "centro 0.4957 → 0.5038"
+  },
+  {
+   "name": "papel cebolla activable",
+   "ok": true
+  },
+  {
+   "name": "ESTÁTICA comparación con el sprite antiguo: se dibujan dos figuras",
+   "ok": true,
+   "detail": "51071 frente a 21427 píxeles opacos"
+  },
+  {
+   "name": "balanceo del motor activable con la animación en marcha",
+   "ok": true
+  },
+  {
+   "name": "se adapta a 1280×720",
+   "ok": true,
+   "detail": "figura 400 de 497 px"
+  },
+  {
+   "name": "se adapta a 1366×768",
+   "ok": true,
+   "detail": "figura 444 de 545 px"
+  },
+  {
+   "name": "se adapta a 2560×1440",
+   "ok": true,
+   "detail": "figura 1156 de 1335 px"
+  },
+  {
+   "name": "sin errores de consola ni peticiones fallidas",
+   "ok": true,
+   "detail": "0 errores"
+  },
+  {
+   "name": "mensaje claro si falta un fotograma",
+   "ok": true,
+   "detail": "NO SE PUDO CARGAR LA MUESTRAFalta assets/characters/protagonist_master/pm_idle_0…"
+  },
+  {
+   "name": "el juego original arranca y sigue usando el sprite antiguo",
+   "ok": true,
+   "detail": "0 errores · assets/characters/player_idle_00.png"
+  }
+ ]
+}

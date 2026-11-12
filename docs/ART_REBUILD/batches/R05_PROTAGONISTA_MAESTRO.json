@@ -1,0 +1,122 @@
+{
+ "batch": "R05_PROTAGONISTA_MAESTRO",
+ "title": "Protagonista según la lámina maestra — MUESTRA TÉCNICA: IDLE de 4 fotogramas (no registrada en el juego)",
+ "created": "2026-11-12",
+ "style": "NEON GRAFFITI HORROR DISCO, cómic ilustrado (no pixel art)",
+ "status": "MUESTRA_PENDIENTE_DE_APROBACION",
+ "reference": "assets/cinematics/restart/character_master/protagonist_master_approved.png (vista PERFIL D.); pelo descubierto según assets/characters/player_idle_00.png",
+ "layout": {
+  "scale_master_to_canvas": 0.3823,
+  "canvas_height": 512,
+  "baseline_y": 504,
+  "torso_axis_raw_x": 440,
+  "note": "Figura sin sombrero = 461 px (cabeza y=43, suelas y=504), igual que R01. Los cuatro fotogramas comparten el mismo encaje: mismo ax/ay, sin ajuste por fotograma. El cinturón queda oculto por el chaleco y el brazo en perfil: belt_y es estimado."
+ },
+ "animation": {
+  "set": "idle",
+  "frames": [
+   "pm_idle_00",
+   "pm_idle_01",
+   "pm_idle_02",
+   "pm_idle_03"
+  ],
+  "ms": [
+   560,
+   560,
+   560,
+   560
+  ],
+  "loop": true,
+  "cycle_ms": 2240
+ },
+ "defaults": {
+  "key": "green",
+  "matte": "hard",
+  "band": 3,
+  "category": "characters",
+  "pivot": "bottom-center",
+  "size": [
+   288,
+   512
+  ],
+  "fit": {
+   "mode": "anchor",
+   "scale": 0.3823,
+   "ax": 440,
+   "ay": 1246,
+   "cx": 144,
+   "cy": 504,
+   "sharpen": 30
+  },
+  "anchors_raw": {
+   "belt_y": 612,
+   "hand": [
+    500,
+    700
+   ]
+  },
+  "entity": "protagonista"
+ },
+ "assets": [
+  {
+   "id": "pm_idle_00",
+   "raw": "pm_idle_00.png",
+   "name": "Protagonista (lámina maestra) · IDLE 1/4 · reposo (aire fuera)",
+   "location": "assets/characters/protagonist_master/pm_idle_00.png",
+   "original_id": "pm:idle:00",
+   "anim": {
+    "set": "idle",
+    "frame": 0,
+    "ms": 560,
+    "loop": true
+   },
+   "generation": "gen_f",
+   "use": "Muestra técnica. Reposo sin arma, perfil puro mirando a la derecha, sin sombrero."
+  },
+  {
+   "id": "pm_idle_01",
+   "raw": "pm_idle_01.png",
+   "name": "Protagonista (lámina maestra) · IDLE 2/4 · inspirando",
+   "location": "assets/characters/protagonist_master/pm_idle_01.png",
+   "original_id": "pm:idle:01",
+   "anim": {
+    "set": "idle",
+    "frame": 1,
+    "ms": 560,
+    "loop": true
+   },
+   "generation": "gen_e",
+   "use": "Muestra técnica. Reposo sin arma, perfil puro mirando a la derecha, sin sombrero."
+  },
+  {
+   "id": "pm_idle_02",
+   "raw": "pm_idle_02.png",
+   "name": "Protagonista (lámina maestra) · IDLE 3/4 · pecho alto",
+   "location": "assets/characters/protagonist_master/pm_idle_02.png",
+   "original_id": "pm:idle:02",
+   "anim": {
+    "set": "idle",
+    "frame": 2,
+    "ms": 560,
+    "loop": true
+   },
+   "generation": "gen_b",
+   "use": "Muestra técnica. Reposo sin arma, perfil puro mirando a la derecha, sin sombrero."
+  },
+  {
+   "id": "pm_idle_03",
+   "raw": "pm_idle_03.png",
+   "name": "Protagonista (lámina maestra) · IDLE 4/4 · espirando",
+   "location": "assets/characters/protagonist_master/pm_idle_03.png",
+   "original_id": "pm:idle:03",
+   "anim": {
+    "set": "idle",
+    "frame": 3,
+    "ms": 560,
+    "loop": true
+   },
+   "generation": "gen_a_base",
+   "use": "Muestra técnica. Reposo sin arma, perfil puro mirando a la derecha, sin sombrero."
+  }
+ ]
+}

@@ -1,7 +1,7 @@
 # DEADBEAT DISCO — Fase 06: reconstrucción técnica del protagonista
 
 - **Fecha:** 2026-11-12 · **Rama:** `arena/1a801cc0-deadbeat-disconew`
-- **Estado:** auditoría y especificación **entregadas, pendientes de aprobación**. No se ha producido ningún sprite, ni la muestra IDLE, ni el visor de animación.
+- **Estado:** auditoría y especificación aprobadas. Decisiones cerradas: sin sombrero en Refugio y combate, perfil puro a la derecha, reflejo horizontal provisional, IDLE de 4 fotogramas. Muestra IDLE y visor: `05_MUESTRA_IDLE.md`.
 - **Canon visual:** `assets/cinematics/restart/character_master/protagonist_master_approved.png` (SHA-256 `43d9e58f…004e5d`, verificado al empezar y al terminar). Ficha del diseño: `03_PERSONAJE_MAESTRO.md`.
 - **Canon narrativo:** «Sus tatuajes representan los caminos que la canción eliminó». Sin significados añadidos.
 
@@ -13,7 +13,7 @@
 | D. Matriz de animaciones | **Diseñada** |
 | E. Reglas de continuidad | **Terminadas** |
 | F. Arquitectura de recursos | **Diseñada** |
-| G. Muestra IDLE y visor | **No implementado.** Espera aprobación |
+| G. Muestra IDLE y visor | **Producida** (ver `05_MUESTRA_IDLE.md`). No supera la continuidad de tatuajes; pendiente de evaluación |
 
 Evidencia gráfica: `evidencia_produccion/hoja_vistas_proporciones.jpg` y `evidencia_produccion/sprites_antiguos_contrato.jpg`.
 
