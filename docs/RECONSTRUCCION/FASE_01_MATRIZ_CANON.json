@@ -1,0 +1,439 @@
+{
+  "rama": "arena/719117d9-deadbeat-disconew",
+  "base": "000e7c6",
+  "fecha": "2026-11-12",
+  "autoridad": "docs/LORE/BIBLIA_MAESTRA_UNIVERSO_v1.0.txt v1.0 (2971 lineas)",
+  "estado": "AUDITORIA_COMPLETA_PENDIENTE_DECISIONES",
+  "decision_ids": [
+    "D-01",
+    "D-02",
+    "D-03",
+    "D-04",
+    "D-05",
+    "D-06",
+    "D-07"
+  ],
+  "auditoria_visual_baseline": {
+    "total": 374,
+    "A_conservar": 25,
+    "B_rehacer_estilo": 141,
+    "C_falta": 105,
+    "D_defectuoso": 37,
+    "E_rehecho_validado": 66,
+    "pendientes": 283,
+    "familias": {
+      "bosses": {
+        "total": 42,
+        "A": 0,
+        "B": 20,
+        "C": 0,
+        "D": 7,
+        "E": 15,
+        "next": "R03 (27 restantes)"
+      },
+      "characters": {
+        "total": 31,
+        "A": 0,
+        "B": 3,
+        "C": 0,
+        "D": 1,
+        "E": 27,
+        "next": "R04"
+      },
+      "effects": {
+        "total": 22,
+        "A": 2,
+        "B": 20,
+        "C": 0,
+        "D": 0,
+        "E": 0,
+        "next": "R07"
+      },
+      "enemies": {
+        "total": 24,
+        "A": 0,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 24,
+        "next": "✔ R02"
+      },
+      "weapons": {
+        "total": 121,
+        "A": 0,
+        "B": 16,
+        "C": 105,
+        "D": 0,
+        "E": 0,
+        "next": "R05"
+      },
+      "floors": {
+        "total": 12,
+        "A": 12,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0,
+        "next": "✔ A"
+      },
+      "walls": {
+        "total": 10,
+        "A": 0,
+        "B": 9,
+        "C": 0,
+        "D": 1,
+        "E": 0,
+        "next": "R09"
+      },
+      "environments": {
+        "total": 8,
+        "A": 0,
+        "B": 5,
+        "C": 0,
+        "D": 3,
+        "E": 0,
+        "next": "R09"
+      },
+      "props": {
+        "total": 30,
+        "A": 0,
+        "B": 30,
+        "C": 0,
+        "D": 0,
+        "E": 0,
+        "next": "R08"
+      },
+      "pickups": {
+        "total": 20,
+        "A": 0,
+        "B": 20,
+        "C": 0,
+        "D": 0,
+        "E": 0,
+        "next": "R06"
+      },
+      "cinematics": {
+        "total": 35,
+        "A": 0,
+        "B": 11,
+        "C": 0,
+        "D": 24,
+        "E": 0,
+        "next": "R10"
+      },
+      "ui": {
+        "total": 15,
+        "A": 7,
+        "B": 7,
+        "C": 0,
+        "D": 1,
+        "E": 0,
+        "next": "R04/R09"
+      },
+      "logos": {
+        "total": 3,
+        "A": 3,
+        "B": 0,
+        "C": 0,
+        "D": 0,
+        "E": 0,
+        "next": "✔ A"
+      }
+    }
+  },
+  "universo": {
+    "principios": {
+      "autoridad": "Biblia v1.0 es la unica fuente narrativa primaria",
+      "terminologia_heredada_descartada": [
+        "Dante",
+        "9 circulos del infierno",
+        "pecados capitales",
+        "infierno/inframundo"
+      ],
+      "regla_produccion": "Antes de implementar: identificar CANON/DISENO/PROPUESTA/LEGADO/PENDIENTE; comprobar existencia; conservar sistemas validos; no inventar assets; registrar cambios; validar sin confundir automatizacion con QA real"
+    },
+    "refugio": {
+      "es_pista": false,
+      "funcion": "HUB — tregua sagrada mientras zorro neon siga encendido",
+      "zonas_canon": [
+        "Armeria",
+        "Espacio de Tempo",
+        "Mapa",
+        "Plataforma de incursion",
+        "Tocadiscos central",
+        "Archivo/vinilos",
+        "Mesa de mezclas",
+        "Espejo agrietado",
+        "Sofa roto",
+        "Ventanas circulares"
+      ],
+      "zonas_implementadas": [
+        "descent",
+        "armory",
+        "dj (Virgilio->Tempo pendiente)",
+        "map"
+      ],
+      "zonas_pendientes": [
+        "Tocadiscos central",
+        "Archivo fisico",
+        "Mesa de mezclas",
+        "Espejo agrietado",
+        "Sofa interactivo",
+        "Ventanas circulares"
+      ],
+      "evolucion_visual": [
+        "oscuro/parpadeo inicial",
+        "Tempo tras 1er jefe",
+        "Archivo tras testimonios",
+        "neones intensos Compas",
+        "amanecer Silencio",
+        "puerta abierta Contratiempo"
+      ]
+    },
+    "pistas": [
+      {
+        "pista": "01",
+        "nombre_propuesta": "La Invitacion",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Vespera, la Ultima Invitacion",
+        "tema_musical": "bajo",
+        "jefe_motor": {
+          "id": "boss_01_magneta",
+          "nombre_motor": "MAGNETA, la Anfitriona",
+          "altura_mundo": 190,
+          "halo": 0.36
+        },
+        "deseo": "ser elegida; que alguien se quedara",
+        "identidad_visual_biblia": "terciopelo negro, lamparas rosas, columnas curvas, zonas rosas de arrastre",
+        "regla_musical": "pulsos graves concentran ataques en zonas de atraccion",
+        "arma_legendaria": {
+          "nombre": "Ultima Invitacion",
+          "tipo": "pistola-bajo",
+          "mecanica": "orbes lentos que se adhieren; al recargar atraen enemigos y estallan"
+        }
+      },
+      {
+        "pista": "02",
+        "nombre_propuesta": "El Banquete",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Voraz, el Anfitrion Hueco",
+        "tema_musical": "percusion",
+        "jefe_motor": {
+          "id": "boss_02_bufe",
+          "nombre_motor": "BUFE, el Anfitrion sin Fondo",
+          "altura_mundo": 178,
+          "halo": 0.3
+        },
+        "deseo": "que nunca faltara nada en la mesa",
+        "identidad_visual_biblia": "salones interminables, mesas largas, vajilla rota, hornos industriales",
+        "regla_musical": "cada enemigo puede anadir capa de percusion; algunas aceleran trampas",
+        "arma_legendaria": {
+          "nombre": "Sobremesa",
+          "tipo": "escopeta sopera plata ennegrecida",
+          "mecanica": "abatidos dejan bocados espectrales; recogerlos alimenta disparo secundario ancho"
+        }
+      },
+      {
+        "pista": "03",
+        "nombre_propuesta": "La Camara de los Instantes",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Aurea, la Coleccionista de Instantes",
+        "tema_musical": "metales",
+        "jefe_motor": {
+          "id": "boss_03_cajero",
+          "nombre_motor": "EL CAJERO, el que cobra la entrada",
+          "altura_mundo": 190,
+          "halo": 0.36
+        },
+        "deseo": "conservar los momentos hermosos",
+        "identidad_visual_biblia": "oro envejecido, vitrinas, relojes sin agujas, escenas congeladas",
+        "regla_musical": "mecanismos alternan recoger/guardar/expulsar proyectiles",
+        "arma_legendaria": {
+          "nombre": "El Ultimo Centavo",
+          "tipo": "revolver tambor-reloj",
+          "mecanica": "rebote 1x; si alcanza 2o enemigo deja marca dorada que aumenta siguiente rebote"
+        }
+      },
+      {
+        "pista": "04",
+        "nombre_propuesta": "La Amplificacion",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Brama, el Santo del Ruido",
+        "tema_musical": "distorsion",
+        "jefe_motor": {
+          "id": "boss_04_pogo",
+          "nombre_motor": "EL POGO, el que abre la pista",
+          "altura_mundo": 186,
+          "halo": 0.42
+        },
+        "deseo": "tener una voz imposible de ignorar",
+        "identidad_visual_biblia": "amplificadores, altavoces, cableado, metal ennegrecido, sala de conciertos destruida",
+        "regla_musical": "distorsion anuncia sobrecargas e incendios; fuentes destructibles/usables",
+        "arma_legendaria": {
+          "nombre": "[Por consolidar — Brama]",
+          "tipo": "—",
+          "mecanica": "—"
+        }
+      },
+      {
+        "pista": "05",
+        "nombre_propuesta": "La Nota Ausente",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Obispo de la Nota Ausente",
+        "tema_musical": "ausencia / hueco armonico",
+        "jefe_motor": {
+          "id": "boss_05_oficiante",
+          "nombre_motor": "EL OFICIANTE, el que oficia el ruido",
+          "altura_mundo": 194,
+          "halo": 0.34
+        },
+        "deseo": "[fe/silencio — ver Biblia §11]",
+        "identidad_visual_biblia": "catedral profanada, organo, diapasones, vidrieras rotas",
+        "regla_musical": "silencio como amenaza; ataque que no suena hasta tarde",
+        "arma_legendaria": {
+          "nombre": "[Por consolidar — Obispo]",
+          "tipo": "—",
+          "mecanica": "—"
+        }
+      },
+      {
+        "pista": "06",
+        "nombre_propuesta": "El Umbral Encadenado",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Corazon Encadenado",
+        "tema_musical": "latido / cadenas",
+        "jefe_motor": {
+          "id": "boss_06_matarife",
+          "nombre_motor": "EL MATARIFE, el que despieza el set",
+          "altura_mundo": 188,
+          "halo": 0.36
+        },
+        "deseo": "proteger; que nadie saliera herido — proteccion hecha prision",
+        "identidad_visual_biblia": "puerta monumental, tambor, cadenas, acero ritual",
+        "regla_musical": "golpes de tambor anuncian cierre de rutas",
+        "arma_legendaria": {
+          "nombre": "Primer Latido",
+          "tipo": "canon-tambor con pendulo",
+          "mecanica": "proyectil pesado + segundo pulso en impacto"
+        }
+      },
+      {
+        "pista": "07",
+        "nombre_propuesta": "El Salon de las Mil Voces",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Crupier de las Mil Voces",
+        "tema_musical": "voz",
+        "jefe_motor": {
+          "id": "boss_07_imitador",
+          "nombre_motor": "EL IMITADOR, el que duplica la pista",
+          "altura_mundo": 192,
+          "halo": 0.46
+        },
+        "deseo": "dar a cada uno lo que queria escuchar",
+        "identidad_visual_biblia": "casino de espejos, palcos, mascaras, camerinos",
+        "regla_musical": "voces senuelo; pista visual constante identifica amenazas reales",
+        "arma_legendaria": {
+          "nombre": "Palabra Prestada",
+          "tipo": "microfono cromado sobre revolver",
+          "mecanica": "recargar deja doble estacionario que repite ultima rafaga"
+        }
+      },
+      {
+        "pista": "08",
+        "nombre_propuesta": "El Anden de la Ausente",
+        "estado_nombre": "PROPUESTA_REQUIERE_APROBACION",
+        "soberano_canon": "Nix, la Voz que Faltaba",
+        "tema_musical": "coro",
+        "jefe_motor": {
+          "id": "boss_08_traidor",
+          "nombre_motor": "EL TRAIDOR, el ultimo residente",
+          "altura_mundo": 200,
+          "halo": 0.34
+        },
+        "deseo": "permanecer juntas y cruzar la salida con su hermana",
+        "identidad_visual_biblia": "anden congelado hielo negro, railes, velos blancos, trenes espectrales",
+        "regla_musical": "sala recuerda ataques del jugador y los reproduce despues",
+        "arma_legendaria": {
+          "nombre": "Venias Detras",
+          "tipo": "placas espejo con vacio",
+          "mecanica": "rafaga deja imagen; instante despues reproduce rafaga desde posicion anterior"
+        }
+      },
+      {
+        "pista": "09",
+        "nombre_propuesta": "El Nucleo",
+        "estado_nombre": "CANON (Pista final)",
+        "soberano_canon": "Rey del Compas",
+        "tema_musical": "nota sostenida (sin acompanamiento)",
+        "jefe_motor": {
+          "id": "boss_09_nucleo",
+          "nombre_motor": "LA ULTIMA CANCION (Nucleo Final)",
+          "altura_mundo": 204,
+          "halo": 0.3,
+          "fases": [
+            "I Espejo (reproduce ataques de jefes anteriores)",
+            "II Corona (usa rasgo de armas del jugador)",
+            "III Ultima vuelta (reconstruye salas, anclajes -> suelo blanco)"
+          ]
+        },
+        "deseo": "no tener que despedirse",
+        "identidad_visual_biblia": "vacio con fragmentos flotantes de todos los niveles; memoria incompleta de la fiesta",
+        "regla_musical": "desaparece acompanamiento; el jugador debe reconocer patrones sin contexto musical",
+        "arma_legendaria": {
+          "nombre": "Punto Final / Silencio",
+          "tipo": "grieta negra sobre empunadura blanca",
+          "mecanica": "al llenar carga, siguiente recarga crea zona que disuelve proyectiles comunes e interrumpe mecanismos de sala"
+        }
+      }
+    ],
+    "subjefes_y_secretos": [
+      {
+        "id": "boss_00_anden",
+        "nombre_canon": "Portero sin Rostro",
+        "estado": "LEGACY_JEFE_RECLASIFICADO_A_SUBJEFE",
+        "altura": 196,
+        "ubicacion": "sala secreta entre pistas"
+      },
+      {
+        "id": "boss_10_arquitecto",
+        "nombre_canon": "Rey del Contratiempo / Arquitecto del Club (DJ-Director)",
+        "estado": "CANON_SECRETO",
+        "altura": 192,
+        "ubicacion": "Cabina Original tras Nix, ruta Contratiempo"
+      }
+    ]
+  },
+  "glosario_migracion": {
+    "Circulo": "Pista",
+    "Nueve circulos": "Nueve pistas de la torre",
+    "Circulo final": "Nucleo (Pista 09)",
+    "DJ Virgilio": "Tempo",
+    "Infierno / inframundo": "Torre / estructura subterranea",
+    "Limbo": "Refugio (HUB, no numerado)",
+    "Pecados capitales": "Deseos convertidos en leyes de la pista",
+    "Summon infernal": "Convocador disonante [PROPUESTA]"
+  },
+  "vacios_oficiales_Biblia_S42": [
+    "Nombre definitivo de cada pista",
+    "Geometria y plano arquitectonico exacto por nivel",
+    "Distribucion final de salas, rutas y duracion por piso",
+    "Mecanica individual de las 120 armas heredadas",
+    "Lista completa de objetos mas alla de documentados",
+    "Costes finales CR/Ecos/Fragmentos",
+    "Curvas dano/vida/velocidad/dificultad",
+    "Dialogos completos de Tempo y desbloqueos de testimonios",
+    "Estacion fisica del Archivo en el HUB",
+    "Musica/FX/animacion de cinematica",
+    "Relacion plataforma cinematica <-> acceso jugable"
+  ],
+  "version": "1.0",
+  "criterios_aceptacion_F01": [
+    "D-01..D-07 con resolucion escrita",
+    "Lista canonica de 9 pistas congelada",
+    "Glosario de migracion congelado",
+    "git diff assets/ vacio (cero assets generados en F01)",
+    "git diff src/ solo documental (sin tocar combate/progresion/movimiento)",
+    "Inventario 374 A-E aceptado como baseline",
+    "Vacios S42 aceptados como pendientes"
+  ]
+}
