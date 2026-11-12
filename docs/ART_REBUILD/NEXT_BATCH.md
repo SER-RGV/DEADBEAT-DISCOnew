@@ -6,6 +6,19 @@
   de identidad; lista en [`AUDITORIA_VISUAL.md`](AUDITORIA_VISUAL.md), apartado 4).
 - **Commit previsto:** `feat(art): R03 jefes en ilustración, validados en juego`
 
+## Estado: en curso, nada integrado todavía
+
+- **Generados 8 `idle`** (jefes 00 a 07). Maestros recortados en
+  `ART_ASSETS/rebuild_masters/R03_JEFES/`; fichas, incidencias y lecciones en
+  [`batches/R03_JEFES.json`](batches/R03_JEFES.json); antes y después en
+  [`evidence/R03/00_en_curso_idle_de_8_jefes_sin_integrar.jpg`](evidence/R03/00_en_curso_idle_de_8_jefes_sin_integrar.jpg).
+- **El juego sigue mostrando los jefes en pixel art.** No se integra un `idle` suelto:
+  se mezclaría con `attack`, `hit` y `death` antiguos. Primero va el renderizador.
+- **Faltan 34 ilustraciones:** `idle` de 08 Traidor, 09 Núcleo y 10 Arquitecto, y los
+  estados `attack`, `hit` y `death` de todos.
+- **Por decidir** (ver «Incidencias» más abajo): el Cajero salió caminando; el
+  Oficiante volvió como hoja de tres vistas.
+
 ## Quién es cada jefe (tres fuentes que no coinciden)
 
 El motor, las guías visuales y la biblia de lore nombran y describen a los jefes de
@@ -75,6 +88,26 @@ protagonista). La muerte del jefe la sigue pintando el motor (`f.drawBossDeath`)
 3. `idle` de cada jefe (hoja de modelo) y, a partir de él, los otros tres estados.
    Vista de tres cuartos mirando a la derecha: en perfil estricto se perderían los
    rasgos del pecho (horno, amplificador, tambor, núcleo).
+
+## Incidencias de los 8 `idle` generados
+
+| Jefe | Incidencia | Qué hacer |
+|---|---|---|
+| Magneta, Imitador | Cables e hilos que llegan al borde superior | Recortar con fundido al procesar |
+| Magneta, Bufé, Cajero, Pogo, Matarife | Línea fina de suelo bajo los pies | Borrar al procesar (`erase`) |
+| Cajero | Salió caminando y casi de perfil (copió la zancada de la imagen de estilo) | Repetir de pie o aceptarlo como rasgo |
+| Cajero | La guía y la biblia muestran a una mujer; el motor lo llama «EL CAJERO» | Resuelto con una figura enmascarada de género ambiguo; confirmar |
+| Oficiante | Hoja con tres vistas a menor resolución (unos 700 px por figura) | Usar la figura central o repetir a figura única |
+| Matarife | Vista frontal, no de tres cuartos | Aceptable |
+
+Orden propuesto para los próximos turnos (10 generaciones cada uno):
+
+| Turno | Código | Ilustraciones |
+|---|---|---|
+| 1 | `ddBossView`, `drawBoss`, `drawBossDeath`, `probe_bosses.js`; integrar los `idle` | `idle` de 08, 09 y 10; repetir Cajero y Oficiante si procede; `attack` de 00–04 |
+| 2 | — | `attack` de 05–10 (6) + `hit` de 00–03 (4) |
+| 3 | — | `hit` de 04–09 (6) + `death` de 00–03 (4) |
+| 4 | — | `death` de 04–09 (6) + repeticiones |
 
 ## Validación obligatoria en juego
 

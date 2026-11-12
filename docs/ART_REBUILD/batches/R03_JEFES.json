@@ -1,0 +1,253 @@
+{
+  "batch": "R03_JEFES",
+  "title": "Jefes — 10 residentes × 4 estados + Arquitecto × 2 (42 ilustraciones). EN CURSO: generados 8 `idle`; ninguno integrado.",
+  "created": "2026-11-12",
+  "status": "BORRADOR. `assets` está vacío a propósito: `batch.py process` escribiría los PNG en assets/bosses/ y el juego mezclaría el `idle` nuevo con los `attack`, `hit` y `death` en pixel art. No integrar hasta tener el renderizador de jefes con el contrato de R02 (ver NEXT_BATCH.md).",
+  "mapping": {
+    "criterio": "El aspecto sigue la lámina REF_03, emparejada con el jefe del motor por el TEMA del círculo (el motor tiene un círculo más, Limbo, y sus números van uno por delante). Nombre, título y color son los del motor. De la biblia de lore se toman los motivos que no contradicen a la lámina.",
+    "pendientes": [
+      "boss_08_traidor (IX Traición · REF_03 VIII · Nix)",
+      "boss_09_nucleo (Núcleo final · REF_03 IX · El Rey del Compás)",
+      "boss_10_arquitecto (jefe secreto; sin lámina)"
+    ]
+  },
+  "view": "Tres cuartos mirando a la derecha (en perfil estricto se pierden los rasgos del pecho: horno, amplificador, tambor). El motor refleja el sprite según dónde esté el protagonista.",
+  "references": {
+    "design": "dd_work/refcrops/bosses/design_<n>.png: recorte de la tarjeta de REF_03 ampliado ×5 sobre lienzo oscuro (816×1020 o 1020×1020)",
+    "style": "dd_work/raw/R02_ENEMIGOS/enemy_security_walk.png (para el Portero, la misma imagen en lienzo 4:5)"
+  },
+  "prompt_head": "Create a new video game boss character sprite. IMAGE 1 is the character design reference: a small, low-resolution concept thumbnail. Redraw THIS character (same costume, colours, silhouette and attributes) as a clean full-body figure. Leave out everything around the character in the thumbnail (scenery, pedestal, table, floor, numeral, frame). IMAGE 2 is ONLY a rendering style reference. Copy its drawing style: black ink outlines, hard-edged cel shading, magenta rim light on the back of the figure, cyan rim light on the front, flat chroma green background, whole figure visible. Do NOT copy the character of image 2.",
+  "prompt_tail": "VIEW: three-quarter view; body and face turned toward the RIGHT side of the image. FRAMING: ONE single character, whole body visible from the top of the head (headgear and halo included) to the feet, nothing cropped, feet on one ground line near the bottom, the figure fills about 85 percent of the image height and is centred. STYLE: high resolution stylised digital illustration, NOT pixel art; crisp black ink outlines, hard-edged cel shading, magenta rim light along the back, cyan rim light along the front. Every part of the character is solid and opaque with an ink outline: no soft glows, no smoke, no particles, no motion lines. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no cast shadow, no scenery, no text, no frame. Nothing green on the character.",
+  "prompt_note": "Entre cabecera y cola iba el bloque CHARACTER (el diseño de cada ficha, en inglés) y POSE, IDLE. El texto de diseño de cada ficha resume ese bloque.",
+  "generation_lessons": {
+    "proporcion": "Con DOS imágenes de referencia la salida no sigue la proporción de la primera: 5 de 7 salieron a 1050×1008 (la de la imagen de estilo, que iba en segundo lugar), 1 a 922×1152 (la de diseño) y 1 a 1376×768. Para fijar el lienzo, dar las dos referencias con la misma proporción.",
+    "hoja_de_modelo": "1 de 8 volvió como hoja con tres vistas. Añadir «ONE single figure, not a model sheet, not a turnaround».",
+    "linea_de_suelo": "6 de 8 traen una línea fina de suelo bajo los pies pese a «no floor». Añadir «no ground line» y borrarla al procesar.",
+    "elementos_colgantes": "Cables e hilos que debían acabar sobre la cabeza llegan al borde superior (2 de 2). Evitarlos o recortarlos con fundido.",
+    "pose_de_la_referencia_de_estilo": "La zancada de la imagen de estilo se coló en 1 de 7 (el Cajero camina). Usar como estilo una figura de pie: el Portero ya sirve."
+  },
+  "assets": [],
+  "drafts": [
+    {
+      "id": "boss_00_anden_idle",
+      "raw": "boss_00_anden_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_00_anden_idle.webp",
+      "boss": "ANDÉN · EL PORTERO",
+      "circle_engine": "I Limbo",
+      "engine_color": "#9fb3c8",
+      "design_reference": "ninguna (sólo referencia de estilo)",
+      "lore": "§17.1 El Portero sin Rostro",
+      "design": "Portero altísimo y sin rostro (superficie de porcelana lisa bajo la gorra de plato), abrigo cruzado gris pizarra con botones plateados, guantes blancos, poste de latón con cordón de terciopelo rojo a modo de báculo, contador mecánico en la mano y sello de caucho al cinto.",
+      "raw_size": [
+        921,
+        1152
+      ],
+      "figure_bbox_raw": [
+        251,
+        49,
+        800,
+        1139
+      ],
+      "touches_edge": [],
+      "issues": [
+        "Sin lámina en REF_03: diseñado con el título del motor («el Portero no negocia, cuenta») y el subjefe §17.1 de la biblia."
+      ],
+      "decision": "Utilizable tal cual."
+    },
+    {
+      "id": "boss_01_magneta_idle",
+      "raw": "boss_01_magneta_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_01_magneta_idle.webp",
+      "boss": "MAGNETA · LA ANFITRIONA",
+      "circle_engine": "II Lujuria",
+      "engine_color": "#f472b6",
+      "design_reference": "REF_03 · I Lujuria",
+      "lore": "Véspera, la Última Invitación",
+      "design": "Anfitriona esbelta de piel rosa y melena magenta muy larga, sujetador enjoyado, falda larga de terciopelo negro con forro magenta abierta sobre una pierna, guantes negros, joyas doradas, antifaz, aro rosa tras la cabeza y cables de marioneta que suben desde la espalda.",
+      "raw_size": [
+        1050,
+        1008
+      ],
+      "figure_bbox_raw": [
+        198,
+        0,
+        822,
+        969
+      ],
+      "touches_edge": [
+        "top"
+      ],
+      "issues": [
+        "Los cables llegan al borde superior de la imagen (se pidió que acabaran sobre la cabeza): recortarlos con fundido.",
+        "Línea de suelo dibujada bajo los pies: borrar.",
+        "La «media máscara de labios dorados» de la biblia salió como antifaz negro."
+      ],
+      "decision": "Utilizable tras limpiar."
+    },
+    {
+      "id": "boss_02_bufe_idle",
+      "raw": "boss_02_bufe_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_02_bufe_idle.webp",
+      "boss": "BUFÉ · EL ANFITRIÓN SIN FONDO",
+      "circle_engine": "III Gula",
+      "engine_color": "#f59e0b",
+      "design_reference": "REF_03 · II Gula",
+      "lore": "Voraz, el Anfitrión Hueco",
+      "design": "Cocinero-anfitrión obeso y enorme, gorro alto con trozos de plato roto, cara roja y sonrisa voraz, chaqueta blanca manchada, babero con dibujo de carne veteada, un horno de puerta redonda en el vientre con fuego ámbar y un cucharón de hierro en cada mano.",
+      "raw_size": [
+        1050,
+        1008
+      ],
+      "figure_bbox_raw": [
+        154,
+        27,
+        994,
+        970
+      ],
+      "touches_edge": [],
+      "issues": [
+        "Línea de suelo bajo los pies: borrar."
+      ],
+      "decision": "Utilizable tras limpiar."
+    },
+    {
+      "id": "boss_03_cajero_idle",
+      "raw": "boss_03_cajero_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_03_cajero_idle.webp",
+      "boss": "EL CAJERO · EL QUE COBRA LA ENTRADA",
+      "circle_engine": "IV Avaricia",
+      "engine_color": "#eab308",
+      "design_reference": "REF_03 · III Avaricia",
+      "lore": "Áurea, la Coleccionista de Instantes",
+      "design": "Figura esbelta de género ambiguo en exoesqueleto dorado: hombreras, coraza con ventanilla en el pecho, ropa negra, moño negro, máscara dorada lisa, dedos-llave y el halo hexagonal dorado de la lámina.",
+      "raw_size": [
+        1050,
+        1008
+      ],
+      "figure_bbox_raw": [
+        277,
+        13,
+        938,
+        985
+      ],
+      "touches_edge": [],
+      "issues": [
+        "La lámina y la biblia muestran a una mujer y el motor lo llama «EL CAJERO»: se resolvió con una figura enmascarada de género ambiguo. Decisión a confirmar.",
+        "Salió CAMINANDO (copió la zancada de la imagen de estilo) y casi de perfil; se pidió de pie. Repetir con una referencia de estilo que esté de pie, o aceptarlo como rasgo («viene a cobrar»).",
+        "Línea de suelo bajo los pies: borrar."
+      ],
+      "decision": "Pendiente de decisión: repetir o aceptar."
+    },
+    {
+      "id": "boss_04_pogo_idle",
+      "raw": "boss_04_pogo_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_04_pogo_idle.webp",
+      "boss": "EL POGO · EL QUE ABRE LA PISTA",
+      "circle_engine": "V Ira",
+      "engine_color": "#ef4444",
+      "design_reference": "REF_03 · IV Ira",
+      "lore": "Brama, el Santo del Ruido",
+      "design": "Demonio cornudo de carbón negro con grietas al rojo, brazos largos con garras alzadas, un amplificador de guitarra encajado en el pecho con cables colgando, pulseras de pinchos, pantalón negro roto y botas.",
+      "raw_size": [
+        1050,
+        1008
+      ],
+      "figure_bbox_raw": [
+        158,
+        29,
+        933,
+        982
+      ],
+      "touches_edge": [],
+      "issues": [
+        "Línea de suelo bajo los pies: borrar.",
+        "La garganta cosida con cuerdas de guitarra (biblia) apenas se distingue."
+      ],
+      "decision": "Utilizable tras limpiar."
+    },
+    {
+      "id": "boss_05_oficiante_idle",
+      "raw": "boss_05_oficiante_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_05_oficiante_idle.webp",
+      "boss": "EL OFICIANTE · EL QUE OFICIA EL RUIDO",
+      "circle_engine": "VI Herejía",
+      "engine_color": "#a855f7",
+      "design_reference": "REF_03 · V Herejía",
+      "lore": "El Obispo de la Nota Ausente",
+      "design": "Sumo sacerdote del sonido, alto y enjuto, barba blanca larga, vestiduras carmesí y oro, estola violeta, mitra rematada en diapasón; por la abertura del pecho se ven tubos de órgano. Sin cruces: los adornos son diapasones, ondas y notas.",
+      "raw_size": [
+        1376,
+        768
+      ],
+      "figure_bbox_raw": [
+        44,
+        16,
+        1334,
+        755
+      ],
+      "touches_edge": [],
+      "issues": [
+        "El generador devolvió una HOJA CON TRES VISTAS (frente, tres cuartos y espalda) en 1376×768: cada figura mide unos 700 px, menos resolución que el resto.",
+        "Se propone usar la figura central (estola violeta, tubos en el pecho, gesto de dirigir); no lleva báculo.",
+        "Las tres figuras no coinciden entre sí (la primera no lleva estola)."
+      ],
+      "decision": "Utilizable la figura central con `keep`; valorar repetirlo a figura única."
+    },
+    {
+      "id": "boss_06_matarife_idle",
+      "raw": "boss_06_matarife_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_06_matarife_idle.webp",
+      "boss": "EL MATARIFE · EL QUE DESPIEZA EL SET",
+      "circle_engine": "VII Violencia",
+      "engine_color": "#dc2626",
+      "design_reference": "REF_03 · VI Violencia",
+      "lore": "El Corazón Encadenado",
+      "design": "Coloso cornudo de piel roja, armadura veteada como carne cruda con púas de hueso, cadenas de hierro, delantal de cuero manchado, un tambor de piel pálida en el pecho y un mazo de hierro con forma de campana.",
+      "raw_size": [
+        1050,
+        1008
+      ],
+      "figure_bbox_raw": [
+        100,
+        28,
+        927,
+        955
+      ],
+      "touches_edge": [],
+      "issues": [
+        "Vista frontal, no de tres cuartos.",
+        "Línea de suelo bajo los pies: borrar."
+      ],
+      "decision": "Utilizable tras limpiar."
+    },
+    {
+      "id": "boss_07_imitador_idle",
+      "raw": "boss_07_imitador_idle.png",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_07_imitador_idle.webp",
+      "boss": "EL IMITADOR · EL QUE DUPLICA LA PISTA",
+      "circle_engine": "VIII Fraude",
+      "engine_color": "#22d3ee",
+      "design_reference": "REF_03 · VII Fraude",
+      "lore": "El Crupier de las Mil Voces",
+      "design": "Figura pálida de género ambiguo, melena negra lisa, rostro de máscara de porcelana, disco de espejo oscuro tras la cabeza, capa de plumas gris plata como alas plegadas, corpiño claro, vestido oscuro que acaba en volutas de humo sólidas, espejo de mano y tres máscaras colgando de hilos.",
+      "raw_size": [
+        922,
+        1152
+      ],
+      "figure_bbox_raw": [
+        162,
+        0,
+        798,
+        1123
+      ],
+      "touches_edge": [
+        "top"
+      ],
+      "issues": [
+        "Los hilos de las máscaras llegan al borde superior: recortarlos con fundido.",
+        "De la biblia se tomaron las máscaras; el «traje ocupado por humo» se sustituyó por el diseño de la lámina."
+      ],
+      "decision": "Utilizable tras limpiar."
+    }
+  ]
+}

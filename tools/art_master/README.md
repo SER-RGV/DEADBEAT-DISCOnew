@@ -231,6 +231,14 @@ muerte) y `debugPoseEnemies(st, {type, index, hit, stT, assign:{…}})`.
 
 ## Trampas conocidas
 
+- **Varias imágenes de referencia** (diseño + estilo, tanda R03): la salida no sigue la
+  proporción de la primera. De 7 pruebas, 5 tomaron la de la segunda imagen, 1 la de
+  la primera y 1 volvió como hoja de tres vistas en 16:9. Dar las dos con la misma
+  proporción y pedir «ONE single figure, not a model sheet, not a turnaround».
+  La pose de la imagen de estilo puede colarse: usar como estilo una figura de pie.
+- **Línea de suelo**: 6 de 8 salidas de R03 traen una raya fina bajo los pies pese a
+  «no floor». Pedir también «no ground line» y borrarla con `erase`.
+
 - El motor **sortea** qué enemigos nacen élite o guardián y `DMO_FLOOR.filterEnemyType`
   cambia el tipo pedido por uno que la sala permita. Una sonda que necesite un reparto
   fijo debe anular `currentCell.allowedEnemyTypes` al crear y fijar después los papeles

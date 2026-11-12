@@ -4,7 +4,7 @@
 - **Rama activa:** `arena/662f0d27-deadbeat-disconew` (base `main` @ `2d9386f`)
 - **Línea de producción vigente:** `tools/art_master/` (tandas `R01`, `R02`, …). Ver [`tools/art_master/README.md`](../../tools/art_master/README.md).
 - **Tandas completadas y validadas en juego:** `R01_PROTAGONISTA` (27 PNG: 22 ilustraciones, 2 alias cinemáticos, 3 capas derivadas) y `R02_ENEMIGOS` (24 ilustraciones: 6 familias × caminar, aviso, ataque y muerte; vistas en los círculos I, II, III, V y VIII).
-- **Siguiente tanda:** `R03_JEFES` — ver [`NEXT_BATCH.md`](NEXT_BATCH.md).
+- **Tanda en curso:** `R03_JEFES` — generados 8 `idle` de 42 ilustraciones; **ninguno integrado**: el juego sigue mostrando los jefes en pixel art. Ver [`NEXT_BATCH.md`](NEXT_BATCH.md).
 - **Inventario clasificado:** 374 assets · A 25 · B 153 · C 105 · D 40 · E 51 (quedan 298 por producir) — [`AUDIT_INVENTORY.md`](AUDIT_INVENTORY.md).
 - **Auditoría y plan:** [`AUDITORIA_VISUAL.md`](AUDITORIA_VISUAL.md).
 - **Registro:** 269 assets registrados, 269 cargados, 0 errores; `DD_ASSETS.integrity()` pasa (269/269).
