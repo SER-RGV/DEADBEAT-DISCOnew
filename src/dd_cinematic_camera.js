@@ -7,16 +7,16 @@
   "use strict";
 
   const CIRCLE_META = [
-    { num: "0",   title: "EL REFUGIO · COLA DEL CLUB",   sub: "Tregua Sagrada · Zona Segura",           cine: "cine_circle_00_hub",      accent: "#ff2d7a" },
-    { num: "I",   title: "CÍRCULO I · LUJURIA",          sub: "El Salón de los Deseos · 124 BPM",       cine: "cine_circle_01_lujuria",  accent: "#ff2d7a" },
-    { num: "II",  title: "CÍRCULO II · GULA",            sub: "El Banquete Interminable · 128 BPM",     cine: "cine_circle_02_gula",     accent: "#f59e0b" },
-    { num: "III", title: "CÍRCULO III · AVARICIA",       sub: "El Club VIP · 130 BPM",                  cine: "cine_circle_03_avaricia", accent: "#facc15" },
-    { num: "IV",  title: "CÍRCULO IV · IRA",             sub: "La Pista de las Peleas · 136 BPM",       cine: "cine_circle_04_ira",      accent: "#ef4444" },
-    { num: "V",   title: "CÍRCULO V · HEREJÍA",          sub: "La Catedral del Ruido · 138 BPM",        cine: "cine_circle_05_herejia",  accent: "#a855f7" },
-    { num: "VI",  title: "CÍRCULO VI · VIOLENCIA",       sub: "El Matadero · 142 BPM",                  cine: "cine_circle_06_violencia",accent: "#fb7185" },
-    { num: "VII", title: "CÍRCULO VII · FRAUDE",         sub: "El Club de los Espejos · 145 BPM",       cine: "cine_circle_07_fraude",   accent: "#22d3ee" },
-    { num: "VIII",title: "CÍRCULO VIII · TRAICIÓN",      sub: "La Última Sala · 150 BPM",               cine: "cine_circle_08_traicion", accent: "#38bdf8" },
-    { num: "IX",  title: "CÍRCULO IX · EL NÚCLEO FINAL", sub: "La Última Canción · 160 BPM",            cine: "cine_circle_09_nucleo",   accent: "#f8fafc" }
+    { num: "0",   title: "EL REFUGIO · COLA DEL CLUB",                    sub: "Tregua Sagrada · Zona Segura · Cabina de Tempo",                       cine: "cine_circle_00_hub",      accent: "#ff2d7a" },
+    { num: "I",   title: "PISTA I · EL VESTÍBULO DEL ESPEJO (LUJURIA)",   sub: "Soberana: Véspera, La Reina del Espejo · 124 BPM",                     cine: "cine_circle_01_lujuria",  accent: "#ff2d7a" },
+    { num: "II",  title: "PISTA II · LA BARRA SIN FONDO (GULA)",          sub: "Soberano: Voraz, El Señor de la Barra · 128 BPM",                      cine: "cine_circle_02_gula",     accent: "#f59e0b" },
+    { num: "III", title: "PISTA III · EL RESERVADO DE ORO (AVARICIA)",    sub: "Soberana: Áurea, La Contadora de Almas · 130 BPM",                     cine: "cine_circle_03_avaricia", accent: "#facc15" },
+    { num: "IV",  title: "PISTA IV · EL FOSO DE COBRE (IRA)",             sub: "Soberano: Brama, El Señor del Mosh · 136 BPM",                         cine: "cine_circle_04_ira",      accent: "#ef4444" },
+    { num: "V",   title: "PISTA V · LA CAPILLA DEL BAJO PROFUNDO (HEREJÍA)", sub: "Soberano: El Obispo de la Nota Ausente · 138 BPM",                  cine: "cine_circle_05_herejia",  accent: "#a855f7" },
+    { num: "VI",  title: "PISTA VI · EL MATADERO DE TERCIOPELO (VIOLENCIA)", sub: "Soberano: El Corazón Encadenado · 142 BPM",                         cine: "cine_circle_06_violencia",accent: "#fb7185" },
+    { num: "VII", title: "PISTA VII · LA SALA DE LOS ESPEJOS ROTOS (FRAUDE)", sub: "Soberano: El Crupier de las Mil Voces · 145 BPM",                  cine: "cine_circle_07_fraude",   accent: "#22d3ee" },
+    { num: "VIII",title: "PISTA VIII · LA PISTA HELADA (TRAICIÓN)",       sub: "Soberana: Nix, La Dama del Hielo Seco · 150 BPM",                      cine: "cine_circle_08_traicion", accent: "#38bdf8" },
+    { num: "IX",  title: "PISTA IX · EL FOSO DEL SILENCIO / EL NÚCLEO",   sub: "Soberano: El Rey del Compás · Fundador del Sello · 160 BPM",           cine: "cine_circle_09_nucleo",   accent: "#f8fafc" }
   ];
 
   let reducedMotion = false;
@@ -48,8 +48,8 @@
     el = document.createElement("div");
     el.id = "dd-cine-overlay";
     el.innerHTML =
-      '<div class="dd-letterbox-bar top"><span id="dd-cine-tag" style="color:#ff2d7a;font-weight:800;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;">DEADBEAT DISCO</span><button class="dd-cine-skip" id="dd-cine-skip-btn" type="button">SALTAR [ESPACIO]</button></div>' +
-      '<div class="dd-letterbox-bar bottom"><span id="dd-cine-sub" style="color:#cbd5e1;font-size:12px;letter-spacing:0.08em;"></span><span style="color:#22d3ee;font-size:11px;font-weight:700;">CINEMÁTICA EN TIEMPO REAL</span></div>';
+      '<div class="dd-letterbox-bar top"><span id="dd-cine-tag" style="color:#ff2d7a;font-weight:800;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;"></span><button class="dd-cine-skip" id="dd-cine-skip-btn" type="button">SALTAR [ESPACIO]</button></div>' +
+      '<div class="dd-letterbox-bar bottom"><span id="dd-cine-sub" style="color:#f8fafc;font-size:13px;font-weight:700;letter-spacing:0.16em;"></span><span></span></div>';
     document.body.appendChild(el);
     document.getElementById("dd-cine-skip-btn").addEventListener("click", skip);
     return el;
@@ -99,8 +99,8 @@
   function playIntro(onComplete) {
     startSeq({
       type: "intro",
-      tag: "DEADBEAT DISCO · PRÓLOGO",
-      subtitle: "DIEZ PLANOS · SEIS ESCENARIOS · DESCENSO AL CLUB",
+      tag: "",
+      subtitle: "",
       duration: 35.0,
       blocking: true,
       skippable: true,
@@ -424,36 +424,12 @@
       }
       shotProgress = Math.min(1, Math.max(0, shotElapsed / shotDur));
 
-      // Actualizar subtítulo y tag en el overlay letterbox
+      // Actualizar texto ambiental en el overlay letterbox (sin notas técnicas de cámara)
       const tagEl = document.getElementById("dd-cine-tag");
       const subEl = document.getElementById("dd-cine-sub");
       if (tagEl && subEl) {
-        const SHOT_TITLES = [
-          "PLANO 01 · LA METRÓPOLIS BRUTALISTA",
-          "PLANO 02 · LA FACHADA MONUMENTAL",
-          "PLANO 03 · EL UMBRAL DE ACCESO",
-          "PLANO 04 · APARICIÓN DEL PROTAGONISTA",
-          "PLANO 05 · CAMINATA Y CORREDOR",
-          "PLANO 06 · LA NAVE CATEDRALICIA",
-          "PLANO 07 · EL DROP EN LA PISTA DE BAILE",
-          "PLANO 08 · PRESENTACIÓN HEROICA",
-          "PLANO 09 · DEADBEAT DISCO",
-          "PLANO 10 · INGRESO AL REFUGIO JUGABLE"
-        ];
-        const SHOT_SUBS = [
-          "EXTREME WIDE SHOT · LA NOCHE ETERNA SOBRE LA CIUDAD INFERNAL",
-          "WIDE SHOT · ACCESO AL TEMPLO DE OBSIDIANA Y NEÓN",
-          "CLOSE-UP / DUTCH ANGLE · TRASPASANDO EL PESADO PORTAL",
-          "MEDIUM SHOT · SILUETA EN CONTRALUZ MAGENTA Y DORADO",
-          "TRACKING SHOT · SEGUIMIENTO LATERAL CON OCLUSIÓN DE COLUMNAS",
-          "HIGH ANGLE EWS · BÓVEDAS DE CRUCERÍA Y LÁSERES VOLUMÉTRICOS",
-          "DYNAMIC WS · DROP RÍTMICO 128 BPM Y SUELO DE OBSIDIANA",
-          "MEDIUM CLOSE-UP · PARADA EN SECO Y DESENFUNDE M1911",
-          "HERO SHOT · LOGOTIPO OFICIAL DEADBEAT DISCO",
-          "TRANSICIÓN SEAMLESS · VINCULACIÓN AL HUB ISOMÉTRICO"
-        ];
-        tagEl.textContent = SHOT_TITLES[shotIdx - 1] || "DEADBEAT DISCO";
-        subEl.textContent = SHOT_SUBS[shotIdx - 1] || "CINEMÁTICA EN TIEMPO REAL";
+        tagEl.textContent = "";
+        subEl.textContent = (shotIdx === 10) ? "LA NOCHE NO TERMINA." : "";
       }
 
       // Helper para renderizar capas o fondo maestro con overscan y paralaje
@@ -744,8 +720,8 @@
         drawLayer("cine_bg06_hero_01_axial_portal_rosette", orbX * 0.5, 0, 1.20, 1.0);
         drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", orbX * 0.8, 0, 1.22 + kickPulse * 0.04, 1.0);
 
-        // El héroe se detiene (idle_00) y empuña su M1911 (shoot_00 windup)
-        const pImg = (sp > 0.45 && pShoot) ? pShoot : pIdle;
+        // El protagonista se detiene en pose firme (idle_00); no desenfunda ni dispara
+        const pImg = pIdle;
         if (pImg && pImg.naturalWidth > 0) {
           const ph = Math.min(440, viewH * 0.52);
           const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
@@ -785,14 +761,18 @@
         drawLayer("cine_bg06_hero_01_axial_portal_rosette", 0, 0, 1.18, 1.0);
         drawLayer("cine_bg06_hero_02_hero_rimlight_spotlight", 0, 0, 1.20, 1.0);
 
-        // Protagonista visible al pie en guardia de combate
-        const pImg = pShoot || pIdle;
+        // Protagonista visible en pose idle_00 sin fogonazo
+        const pImg = pIdle;
         if (pImg && pImg.naturalWidth > 0) {
-          const ph = Math.min(360, viewH * 0.42);
+          const ph = Math.min(310, viewH * 0.36);
           const pw = ph * (pImg.naturalWidth / pImg.naturalHeight);
           const px = viewW * 0.5;
           const py = viewH * 0.92;
           ctx.save();
+          ctx.fillStyle = "rgba(4, 1, 8, 0.82)";
+          ctx.beginPath();
+          ctx.ellipse(px, py - 4, pw * 0.55, 14, 0, 0, Math.PI * 2);
+          ctx.fill();
           ctx.shadowColor = "#ff007f";
           ctx.shadowBlur = 24;
           ctx.drawImage(pImg, px - pw * 0.5, py - ph, pw, ph);
@@ -801,41 +781,76 @@
 
         drawLayer("cine_bg06_hero_03_flanking_speakers_framing", 0, 0, 1.22, 1.0);
 
-        // LOGOTIPO MODULAR DEADBEAT DISCO (assets/cinematics/logos/logo_deadbeat_cinematic.png con fallback)
-        const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_trim") || getAsset("logo_deadbeat_graffiti");
+        // LOGOTIPO MODULAR DEADBEAT DISCO COMPLETO (Zorro Coronado + DEADBEAT + DISCO sin recorte)
+        const logoImg = getAsset("logo_deadbeat_cinematic") || getAsset("logo_deadbeat_graffiti") || getAsset("logo_deadbeat_trim");
         if (logoImg && logoImg.naturalWidth > 0) {
-          const lw = Math.min(viewW * 0.65, 780);
-          const lh = lw * (logoImg.naturalHeight / logoImg.naturalWidth);
+          const lh = Math.min(viewH * 0.37, 320);
+          const lw = lh * (logoImg.naturalWidth / logoImg.naturalHeight);
           const lx = (viewW - lw) * 0.5;
-          const ly = viewH * 0.22 - lh * 0.5;
+          const ly = Math.max(82, viewH * 0.12);
 
           ctx.save();
-          ctx.globalCompositeOperation = "screen";
+          // Halo oscuro de respaldo para garantizar contraste nítido de DEADBEAT + DISCO + Zorro Coronado
+          const backGlow = ctx.createRadialGradient(
+            lx + lw * 0.5, ly + lh * 0.5, lh * 0.08,
+            lx + lw * 0.5, ly + lh * 0.5, lw * 0.62
+          );
+          backGlow.addColorStop(0, "rgba(6, 2, 14, 0.78)");
+          backGlow.addColorStop(0.68, "rgba(6, 2, 14, 0.45)");
+          backGlow.addColorStop(1, "rgba(6, 2, 14, 0)");
+          ctx.fillStyle = backGlow;
+          ctx.beginPath();
+          ctx.ellipse(lx + lw * 0.5, ly + lh * 0.5, lw * 0.62, lh * 0.58, 0, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.globalCompositeOperation = "source-over";
           ctx.shadowColor = "#ff007f";
-          ctx.shadowBlur = 36 + kickPulse * 22;
+          ctx.shadowBlur = 28 + kickPulse * 18;
           ctx.drawImage(logoImg, lx, ly, lw, lh);
 
           if (flareImg && flareImg.naturalWidth > 0 && kickPulse > 0.4) {
-            ctx.globalAlpha = kickPulse * 0.65;
-            ctx.drawImage(flareImg, 0, ly + lh * 0.5 - 64, viewW, 128);
+            ctx.globalCompositeOperation = "screen";
+            ctx.globalAlpha = kickPulse * 0.45;
+            ctx.drawImage(flareImg, 0, ly + lh * 0.52 - 48, viewW, 96);
           }
           ctx.restore();
         }
 
       } else {
-        // PLANO 10 · TRANSICIÓN AL JUEGO ISOMÉTRICO (Conexión directa con HUB / r0)
+        // PLANO 10 · DESCENSO AL REFUGIO Y ENTREGA AL JUEGO (loreybibilia.txt §5.3 + storyboardcinematica.txt Plano 10)
         const sp = shotProgress;
         const ease = sp * sp * (3 - 2 * sp);
 
         ctx.save();
-        ctx.globalAlpha = Math.max(0, 1.0 - ease);
-        drawLayer("cine_bg06_hero", 0, ease * 30, 1.14 - ease * 0.14, 1.0);
+        ctx.globalAlpha = Math.max(0, 1.0 - ease * 0.72);
+        drawLayer("cine_bg06_hero", 0, -ease * 48, 1.16 - ease * 0.14, 1.0);
+
+        // Anillo energético de la plataforma de descenso abriéndose hacia El Refugio (pozo vertical del club)
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = Math.min(0.85, 0.35 + sp * 0.55) * (1.0 - ease * 0.35);
+        const padX = viewW * 0.5;
+        const padY = viewH * 0.85 + ease * 14;
+        const padRx = Math.min(220, viewW * 0.18) * (0.9 + ease * 0.15);
+        const padRy = padRx * 0.28;
+        const ringGrad = ctx.createRadialGradient(padX, padY, padRx * 0.1, padX, padY, padRx);
+        ringGrad.addColorStop(0, "rgba(0, 240, 255, 0.45)");
+        ringGrad.addColorStop(0.65, "rgba(255, 0, 127, 0.65)");
+        ringGrad.addColorStop(1, "rgba(6, 2, 12, 0)");
+        ctx.fillStyle = ringGrad;
+        ctx.beginPath();
+        ctx.ellipse(padX, padY, padRx, padRy, 0, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.restore();
 
         if (pIdle && pIdle.naturalWidth > 0) {
-          const ph = Math.min(320, viewH * 0.38) * (1.0 - ease * 0.15);
+          ctx.globalAlpha = Math.max(0, 1.0 - ease * 0.55);
+          const ph = Math.min(300, viewH * 0.36) * (1.0 - ease * 0.14);
           const pw = ph * (pIdle.naturalWidth / pIdle.naturalHeight);
           const px = viewW * 0.5;
-          const py = viewH * 0.88 - ease * 20;
+          const py = viewH * 0.86 + ease * 16;
+          ctx.shadowColor = "#ff007f";
+          ctx.shadowBlur = 22;
           ctx.drawImage(pIdle, px - pw * 0.5, py - ph, pw, ph);
         }
         ctx.restore();

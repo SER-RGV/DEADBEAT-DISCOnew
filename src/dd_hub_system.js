@@ -72,16 +72,16 @@
     },
     {
       id: "dj",
-      label: "CABINA DE DJ VIRGILIO",
-      prompt: "Pulsa [E] / (A) para hablar con DJ Virgilio",
+      label: "CABINA DE TEMPO · DJ RESIDENTE",
+      prompt: "Pulsa [E] / (A) para hablar con Tempo (DJ Virgilio)",
       x: 1165,
       y: 335,
       r: 105
     },
     {
       id: "map",
-      label: "MESA ASTRAL · MAPA DE PROGRESIÓN",
-      prompt: "Pulsa [E] / (A) para inspeccionar la Torre de los 9 Círculos",
+      label: "MESA ASTRAL · MAPA DE LAS 9 PISTAS",
+      prompt: "Pulsa [E] / (A) para inspeccionar las Nueve Pistas del Descenso",
       x: 1345,
       y: 605,
       r: 95
@@ -89,10 +89,10 @@
   ];
 
   const DJ_QUOTES = [
-    "Bienvenido al Refugio, cazador. Ajusta tu hierro en la Armería; abajo en Lujuria el bajo rompe huesos.",
-    "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
-    "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.",
-    "Revisa tus créditos antes de saltar a la Plataforma Cian. El Cajero no perdona deudas en el tercer piso."
+    "Bienvenido al Refugio, Desafinado. Ajusta tu hierro en la Cabina; abajo en la Pista I Véspera no perdona un paso en falso.",
+    "Nueve pistas, nueve soberanos y el Rey del Compás latiendo en el Núcleo. Si pierdes el ritmo, El Sello cobra en carne.",
+    "¿Ves el zorro coronado en el muro? Mientras siga encendido, esta sala es tregua sagrada entre bajadas.",
+    "Revisa tus créditos antes de saltar a la Plataforma Cian. Áurea, la Contadora de Almas, nunca olvida una deuda en el Reservado de Oro."
   ];
   let quoteIdx = 0;
 
@@ -328,6 +328,16 @@
       ctx.drawImage(foxSign, fx, fy, 112, 148);
     }
 
+    // Central Astrological Dancefloor Medallion (from ART_ASSETS/hub/tanda_01)
+    const hubPista = (window.DD_ASSETS && window.DD_ASSETS.get("art_hub_02_pista_central")) ||
+                     (window.DD_ASSETS && window.DD_ASSETS.get("v5_hub_pista_medallion"));
+    if (hubPista) {
+      ctx.save();
+      ctx.globalAlpha = 0.85;
+      ctx.drawImage(hubPista, 880 - 250, 560 - 140, 500, 280);
+      ctx.restore();
+    }
+
     // Central Glowing Cyan Descent Pad
     W.drawDescentPad(ctx, { x: 880, y: 785 }, state.time);
 
@@ -354,6 +364,8 @@
     drawList.push({ y: 268, kind: "npc", id: "npc_dj_booth_world", x: 1165, h: 118 });
     drawList.push({ y: 262, kind: "npc", id: "npc_bartender_hub", x: 740, h: 102 });
     drawList.push({ y: 505, kind: "npc", id: "npc_armorer_hub", x: 432, h: 104 });
+    drawList.push({ y: 395, kind: "npc", id: "art_hub_t09_02_observador", x: 590, h: 96 });
+    drawList.push({ y: 405, kind: "npc", id: "art_hub_t09_03_gesto", x: 1215, h: 96 });
     drawList.push({ y: state.py, kind: "player" });
 
     drawList.sort((a, b) => a.y - b.y);

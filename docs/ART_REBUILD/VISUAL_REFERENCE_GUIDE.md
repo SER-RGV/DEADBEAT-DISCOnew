@@ -1,18 +1,24 @@
-# VISUAL REFERENCE GUIDE — DEADBEAT DISCO
+# GUÍA DE REFERENCIAS VISUALES CANÓNICAS (`ART_REFERENCES/canonical_uploads/`)
 
-## Fuentes Artísticas Oficiales (Obligatorias)
+Esta guía vincula cada una de las **14 láminas de referencia canónicas** entregadas por dirección de arte con los assets finales en producción (`v4.0.0-UNIFIED-DEFINITIVE`). Todas las láminas originales se conservan íntegras en `ART_REFERENCES/canonical_uploads/`.
 
-| ID Referencia | Archivo en Repositorio | Resolución | Contenido Extraído |
-|---|---|---|---|
-| `REF_01` | `assets/references/REF_01_neon_fox_disco_muerto.png` | 1672×941 | Key art cinematográfico del club infernal, bola de espejos magenta, cabina DJ al fondo, estandartes del zorro coronado, protagonista tatuado sentado en escalinata neón, botellas y humo volumétrico cian/rosa. |
-| `REF_02` | `assets/references/REF_02_logotipo_graffiti.png` | 1536×1024 | Logotipo maestro *DEADBEAT DISCO*: máscara geométrica de zorro crema-dorado con ojos magenta, corona fucsia de tres puntas, círculo-diana neón y lettering brush *DEADBEAT* (magenta) / *DISCO* (crema con goteos). |
-| `REF_03` | `assets/references/REF_03_circulos_bosses_salas.png` | 736×645 | Franja superior: arquitectura y paleta de los 9 círculos (`I Lujuria`, `II Gula`, `III Avaricia`, `IV Ira`, `V Herejía`, `VI Violencia`, `VII Fraude`, `VIII Traición`, `IX Núcleo`). Franja central: diseños íntegros y siluetas de los Jefes `I–IX`. Franja inferior: 4 salas isométricas en juego con iluminación volumétrica. |
-| `REF_04` | `assets/references/REF_04_banner_protagonista.png` | 823×212 | Identidad del protagonista de perfil tres cuartos fumando junto al ventanal sobre la pista: pelo negro despeinado en puntas, chaleco negro sin mangas con ribete carmesí, tatuajes densos en tinta negra en ambos brazos, guantes sin dedos, botas tácticas y lema *DESCENSO · MÚSICA · CAOS · REDENCIÓN*. |
-| `REF_05` | `assets/references/REF_05_master_sheet_assets_ui_hub.png` | 1536×559 | Hoja maestra unificada: 12 materiales de suelo, 6 muros modulares góticos, 8 puertas/umbrales, 20+ props de club, catálogo de armas ilustradas, pickups/reliquias, efectos de disparo/impacto/habilidad, HUD unificado, Menú principal, Inventario/Tienda, Diálogo de DJ, Mapa de Progresión en torre e interior completo del *Refugio / HUB*. |
+---
 
-## Reglas Estrictas de Dirección Artística
+## 1. Mapa de Referencias Canónicas a Assets de Runtime
 
-1. **Cero Pixel Art:** Prohibido `imageSmoothingEnabled = false`, `image-rendering: pixelated`, escalado por vecino más próximo o bloques geométricos de relleno.
-2. **Ilustración Digital con Tinta Oscura:** Contorno cerrado en tinta negra profunda (`#08040e`), volúmenes pintados con iluminación principal NO y luz de recorte (*rim light*) neón magenta (`#ff2d7a`), rosa (`#f472b6`), cian (`#22d3ee`) y oro (`#facc15`).
-3. **Perspectiva Isométrica / 2.5D:** Suelos con profundidad y reflejos especulares, muros modulares con relieve arquitectónico, mobiliario en proyección 2:1 coherente con las salas de `REF_03` y `REF_05`.
-4. **Transparencia Limpia:** Todo personaje, enemigo, jefe, arma, pickup, prop, puerta y efecto se entrega como PNG RGBA independiente sin dameros horneados ni halos de recorte.
+| Archivo en `ART_REFERENCES/canonical_uploads/` | Resolución | Categoría | Assets de Runtime Vinculados |
+| :--- | :--- | :--- | :--- |
+| `PERSONAJE_PRINCIPAL.png` | `1376x768` | Protagonista (8 direcciones) | `assets/characters/player_dir_{N,S,E,O,NE,NO,SE,SO}.png` y `ART_ASSETS/tanda_03/fase_b/*.png` |
+| `POSES_CLAVE.png` | `1024x559` | Protagonista (Poses de Combate) | `assets/characters/player_{idle_00,walk_00..03,shoot_00,fire2,firehip,boost_00,roll_00,hurt_00,death_00}.png` |
+| `ENEMIGOS.jpg` | `1024x576` | Enemigos (10 Arquetipos Club) | `assets/enemies/enemy_{security,fanatic,chef,dancer,drone,elite}_*.png` y `ART_ASSETS/tanda_E01/enemy_01..10_*.png` |
+| `BOSSES.jpg` | `1024x576` | Los 9 Soberanos + Andén | `assets/bosses/boss_00_anden_*` .. `boss_09_nucleo_*` y `ART_ASSETS/bosses/tanda_01..02/*` |
+| `HUB.png` | `1408x768` | El Refugio (Key Art Maestro) | `src/dd_hub_system.js`, `ART_ASSETS/hub/tanda_01..09/*`, `assets/environments/v5/hub_*` |
+| `pista_de_baile.png` | `1408x768` | Medallón Astrológico Central | `ART_ASSETS/hub/tanda_01/hub_02_pista_central.png`, `assets/environments/v5/hub_pista_medallion.png` |
+| `cabina_del_dj.png` | `1408x768` | Cabina de Tempo y Altar Sónico | `ART_ASSETS/hub/tanda_01/hub_04_cabina_dj.png`, `assets/characters/npc_dj_booth_world.png` |
+| `NPCS.png` | `1360x768` | Habitantes de El Refugio | `assets/characters/npc_{bartender,armorer}_hub.png`, `ART_ASSETS/hub/tanda_09/01..04_*` |
+| `cinematica_1.png` | `1408x768` | Escena BG01 · La Ciudad | `assets/cinematics/backgrounds/final/cine_bg01_city/*` y `CINEMATIC_ASSETS/scenes/BG01_CITY/*` |
+| `cinematica_2.png` | `1408x768` | Escena BG02 · La Cola y Fachada | `assets/cinematics/backgrounds/final/cine_bg02_queue_facade/*` y `CINEMATIC_ASSETS/scenes/BG02_EXTERIOR/*` |
+| `cinematica_3.png` | `1376x768` | Escena BG03 · El Pasillo de Entrada | `assets/cinematics/backgrounds/final/cine_bg03_entrance/*` y `CINEMATIC_ASSETS/scenes/BG03_CORRIDOR/*` |
+| `cinematica_4.png` | `1376x768` | Escena BG04 · La Pista Principal | `assets/cinematics/backgrounds/final/cine_bg04_main_hall/*` y `CINEMATIC_ASSETS/scenes/BG04_MAIN_FLOOR/*` |
+| `cinematica_5.png` | `1376x768` | Escena BG05 · Cabina de Tempo | `assets/cinematics/backgrounds/final/cine_bg05_dj_booth/*` y `CINEMATIC_ASSETS/scenes/BG05_DJ_BOOTH/*` |
+| `cinematica_6.png` | `1376x768` | Escena BG06 · Plano Heroico | `assets/cinematics/backgrounds/final/cine_bg06_hero/*` y `CINEMATIC_ASSETS/scenes/BG06_HERO/*` |
