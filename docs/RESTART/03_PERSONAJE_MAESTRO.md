@@ -51,7 +51,7 @@ Vistas que la lámina no incluye (cenital, isométricas, poses de acción) se co
 Leído de las vistas de cuerpo entero; valores aproximados, medidos a ojo sobre la vista frontal.
 
 - Adulto, complexión atlética y delgada, hombros anchos, cintura estrecha, brazos musculados.
-- Altura total de unas 7,5 cabezas contando el sombrero.
+- Cabeza pequeña: la altura sin sombrero equivale a entre 9 y 10 cabezas (estimado; la coronilla queda oculta). Medidas detalladas en `04_PROTAGONISTA_PRODUCCION.md`.
 - Pose base: de pie, piernas separadas al ancho de hombros, brazos sueltos algo separados del torso.
 - Rostro: un ojo en sombra bajo el ala y el otro ámbar encendido; barba de dos días; media sonrisa; dilatación negra en la oreja.
 
