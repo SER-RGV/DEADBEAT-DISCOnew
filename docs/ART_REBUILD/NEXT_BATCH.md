@@ -1,46 +1,47 @@
-# SIGUIENTE TRABAJO
+# SIGUIENTE TANDA: `R03_JEFES`
 
-1. **Cerrar `R02_ENEMIGOS`** — falta 1 ilustración de 24.
-2. **Empezar `R03_JEFES`** — 42 ilustraciones (cinco turnos de generación a 10 por turno).
-
----
-
-## 1. Lo que queda de `R02_ENEMIGOS`
-
-| Pendiente | Detalle |
-|---|---|
-| `enemy_chef_death` | Muerte del Tanque. El único intento devolvió dos figuras superpuestas (la de caminar y la que cae) y no quedaban generaciones en el turno. Hasta entonces el juego desploma el fotograma de caminar: nunca mezcla el pixel art antiguo con el arte nuevo |
-
-Cómo repetirla (ver «Generar una pose que no cabe…» en [`tools/art_master/README.md`](../../tools/art_master/README.md)):
-
-- Referencia: el `walk` del Tanque pegado **centrado** sobre un lienzo de croma de unos
-  1500×1300 (`dd_work/raw/R02_ENEMIGOS/_refs/`); la del intento fallido lo tenía
-  descentrado.
-- Texto: «ONE single character only… Replace the reference pose completely…»; cae de
-  espaldas hacia la **izquierda**, cabeza a la izquierda y pies a la derecha, ninguna
-  mano en el suelo.
-- Alternativa si vuelve a fallar: desplome hacia delante sobre el lienzo original
-  (1240×864), que no necesita ampliar la referencia.
-- Después: contar miembros, medir la escala relativa por el área de las botas
-  (`--rel`), `--ax` en el pie plantado, `batch.py process|register`, reconstruir,
-  `probe_enemies.js --circles=3` (en el círculo III el minijefe es un Tanque) y
-  `batch.py mark`.
-
-Mejoras opcionales, si sobran generaciones:
-
-- `enemy_fanatic_death`: la cabeza y el torso salieron un 15 % más pequeños que en el
-  resto de sus fotogramas (se compensó a medias con la escala).
-- `enemy_chef_windup`: la cabeza es más pequeña en proporción que en `walk`.
-
-## 2. `R03_JEFES`
-
-- **Contenido:** 10 jefes × 4 estados + Arquitecto × 2 = **42 ilustraciones**.
+- **Contenido:** 10 jefes × 4 estados + Arquitecto × 2 = **42 ilustraciones** (cinco turnos de generación a 10 por turno).
 - **Por qué ahora:** tras protagonista y enemigos son lo más visible; hoy son pixel art
   y 10 de los 42 tienen defecto visible (damero horneado, fotogramas basura, cambios
   de identidad; lista en [`AUDITORIA_VISUAL.md`](AUDITORIA_VISUAL.md), apartado 4).
 - **Commit previsto:** `feat(art): R03 jefes en ilustración, validados en juego`
 
-### Contrato que espera el juego
+## Quién es cada jefe (tres fuentes que no coinciden)
+
+El motor, las guías visuales y la biblia de lore nombran y describen a los jefes de
+forma distinta. Se documenta la correspondencia que se adopta; **no se cambia ningún
+nombre del juego**.
+
+| Id del asset | Círculo y jefe según el motor (lo que el juego muestra) | Guía `REF_03` | Biblia de lore |
+|---|---|---|---|
+| `boss_00_anden` | I Limbo · ANDÉN, el Portero | — (no hay Limbo en la guía) | §17.1 El Portero sin Rostro (subjefe) |
+| `boss_01_magneta` | II Lujuria · MAGNETA, la Anfitriona | I Lujuria | Véspera, la Última Invitación |
+| `boss_02_bufe` | III Gula · BUFÉ, el Anfitrión sin Fondo | II Gula | Voraz, el Anfitrión Hueco |
+| `boss_03_cajero` | IV Avaricia · EL CAJERO, el que cobra la entrada | III Avaricia | Áurea, la Coleccionista de Instantes |
+| `boss_04_pogo` | V Ira · EL POGO, el que abre la pista | IV Ira | Brama, el Santo del Ruido |
+| `boss_05_oficiante` | VI Herejía · EL OFICIANTE, el que oficia el ruido | V Herejía | El Obispo de la Nota Ausente |
+| `boss_06_matarife` | VII Violencia · EL MATARIFE, el que despieza el set | VI Violencia | El Corazón Encadenado |
+| `boss_07_imitador` | VIII Fraude · EL IMITADOR, el que duplica la pista | VII Fraude | El Crupier de las Mil Voces |
+| `boss_08_traidor` | IX Traición · EL TRAIDOR, el último residente | VIII Traición | Nix, la Voz que Faltaba |
+| `boss_09_nucleo` | Núcleo final · la Última Canción | IX Núcleo | El Rey del Compás |
+| `boss_10_arquitecto` | Jefe secreto · el Arquitecto del Club (DJ-Director) | — | — |
+
+Criterio de diseño adoptado:
+
+1. **El aspecto sigue la guía `REF_03`** (es la referencia visual que manda en esta
+   reconstrucción), emparejada con el jefe del motor **por el tema del círculo**
+   (Lujuria, Gula, Avaricia…), no por el número: el motor tiene un círculo más (Limbo)
+   y por eso sus números van uno por delante de los de la guía.
+2. **Nombre, título y color** son los del motor (son los que el juego enseña).
+3. **De la biblia** se toman los motivos que no contradicen a la guía (el horno en el
+   vientre del Bufé, el amplificador entre las costillas del Pogo, la mitra en forma de
+   diapasón del Oficiante, el tambor en el pecho del Matarife, las máscaras del Imitador).
+4. El Portero no está en la guía: se diseña con el título del motor y el subjefe §17.1.
+
+Si este criterio no es el deseado, hay que decirlo antes de producir los estados
+`attack`, `hit` y `death`, que se generan a partir del `idle` de cada jefe.
+
+## Contrato que espera el juego
 
 | Dato | Valor |
 |---|---|
@@ -48,35 +49,34 @@ Mejoras opcionales, si sobran generaciones:
 | Rutas | `assets/bosses/…` (ya registradas: la tanda **actualiza**, no da de alta) |
 | Radio de colisión en el motor | 34 px |
 | Alto del sprite heredado | 4,2 × radio |
-| Estado (`f.bossState`) | muerte > impacto > ataque (`_ddaAttackT`, `pattern71`, fases `sweep`, `volley`, `berserk`) > reposo |
-| Muertes | registro `f.bossDeaths`, 0,48 s |
+| Estado real (`f.bossState`) | muerte > impacto > ataque (`_ddaAttackT`, `pattern71`, fases `sweep`, `volley`, `berserk`) > reposo |
+| Muertes | registro `f.bossDeaths`, 0,48 s; hoy las dibuja el motor en pixel art |
 
-### Antes de generar
+## Defecto de código ya localizado (hay que corregirlo antes de integrar)
 
-1. Leer cómo dibuja hoy `DD_WORLD` al jefe (`resolveBossSlug` y lo que sigue) y qué le
-   pasa el puente. Con los enemigos, el renderizador leía campos que el motor no tiene
-   y sólo enseñaba un fotograma: **comprobar lo mismo aquí antes de dibujar nada**.
-2. Llevar a los jefes el contrato de R02: anclas `foot` y `unit` en el registro, sin
-   mezcla de revisiones, halo de separación, orden por línea de apoyo, y una vista del
-   puente (`ddBossView`) con las mismas reglas que el motor.
-3. Escribir `probe_bosses.js` sobre el modelo de `probe_enemies.js`
-   (`DMO.debug.boss()` invoca al jefe del círculo; última sala del círculo `c` = nivel `c × 11`).
-4. Decidir el diseño de cada jefe con la biblia de lore y `REF_06`…`REF_16`. Los
-   nombres de los soberanos en la biblia no coinciden con los residentes del motor:
-   documentar la correspondencia que se adopte, no resolverla en silencio.
-5. Hoja de modelo por jefe (su `idle`) y, a partir de ella, los otros tres estados.
+`DD_WORLD.drawBoss` decide el estado leyendo `hurtT`, `attackT`, `castT`, `dashT`,
+`phaseT` y `vx` del jefe, y el puente le pasa el objeto del motor tal cual. En el
+código del motor `attackT`, `castT` y `dashT` no existen (0 apariciones): el estado
+real lo decide `f.bossState` con `_ddaDead`, `hitFlash`, `_ddaAttackT`, `pattern71` y
+`phase`. Es el mismo patrón que impedía ver los estados de los enemigos; lo más
+probable es que el jefe se vea siempre en `idle` y mirando a la derecha. **Falta
+comprobarlo en juego** (nunca se ha capturado un combate contra un jefe) y sustituirlo
+por una vista del puente (`ddBossView`: estado de `f.bossState`, orientación hacia el
+protagonista). La muerte del jefe la sigue pintando el motor (`f.drawBossDeath`).
 
-### Orden dentro de la tanda (prioridad a los defectuosos)
+## Pasos
 
-| Turno | Contenido |
-|---|---|
-| 1 | Cierre de R02 (1) + contrato y sonda de jefes + `idle` de los jefes 00–08 (9) |
-| 2 | `idle` de 09 y Arquitecto (2) + `attack` de 00–07 (8) |
-| 3 | `attack` de 08, 09 y Arquitecto (3) + `hit` de 00–06 (7) |
-| 4 | `hit` de 07–09 (3) + `death` de 00–06 (7) |
-| 5 | `death` de 07–09 (3) + repeticiones |
+1. `ddBossView` en el puente y `drawBoss` / `drawBossDeath` nuevos en `DD_WORLD` con el
+   contrato de R02: anclas `foot` y `unit`, **sin mezcla de revisiones** (mientras un
+   jefe no tenga sus cuatro estados nuevos, se usa su `idle` nuevo con señal
+   procedural), halo de separación, orden por línea de apoyo.
+2. `probe_bosses.js` sobre el modelo de `probe_enemies.js` (`DMO.debug.boss()` invoca
+   al jefe del círculo; última sala del círculo `c` = nivel `c × 11`).
+3. `idle` de cada jefe (hoja de modelo) y, a partir de él, los otros tres estados.
+   Vista de tres cuartos mirando a la derecha: en perfil estricto se perderían los
+   rasgos del pecho (horno, amplificador, tambor, núcleo).
 
-### Validación obligatoria en juego
+## Validación obligatoria en juego
 
 - Cada jefe invocado en su círculo, con los cuatro estados vistos en pantalla, mirando
   a ambos lados, junto al protagonista y a enemigos comunes (escala relativa).
@@ -96,4 +96,8 @@ De R01 (protagonista):
 De R02 (enemigos):
 
 - Vistos en juego en los círculos I, II, III, V y VIII; faltan IV, VI, VII y IX.
+- Un solo fotograma por estado: el cambio de caminar a aviso o a ataque no tiene
+  intermedios (se nota sobre todo en el Tanque, que se yergue de golpe).
+- Proporciones que el generador cambió entre fotogramas: cabeza del Tanque más pequeña
+  en `windup` y `attack`; cabeza y torso del Sprinter un 15 % menores en `death`.
 - Balas enemigas todavía en pixel art (van en R07).

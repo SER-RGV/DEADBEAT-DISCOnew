@@ -2781,7 +2781,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 94,
@@ -2821,7 +2821,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 95,
@@ -2861,7 +2861,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 96,
@@ -2901,7 +2901,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 97,
@@ -2941,7 +2941,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 98,
@@ -2981,7 +2981,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 99,
@@ -3021,7 +3021,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 100,
@@ -3061,7 +3061,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 101,
@@ -3101,7 +3101,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 102,
@@ -3141,7 +3141,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 103,
@@ -3181,7 +3181,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 104,
@@ -3189,27 +3189,39 @@
       "tanda_number": 11,
       "original_id": "atlas:chef_death",
       "id": "enemy_chef_death",
-      "name": "Cocinero Carnicero (Tanque Gula) · Impacto y Colapso",
+      "name": "Tanque · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_chef_death.png",
       "dimensions": [
-        288,
-        224
+        656,
+        592
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:chef"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of massive blood-stained banquet butcher in tall dirty chef hat, leather apron and cleaver, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "_refs/ref_chef_center.png (el `walk` de la familia CENTRADO sobre un lienzo de 1500×1300 para que la caída quepa)",
+      "prompt_spec": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. MUERTE: acaba de recibir un disparo en el pecho desde la derecha y cae de ESPALDAS hacia la izquierda, con todo el cuerpo inclinado unos 40 grados: cabeza echada atrás arriba a la izquierda, boca abierta y ojos cerrados, pecho y vientre hacia arriba, los dos brazos sueltos con las manos abiertas (ninguna toca el suelo), una pierna pateando hacia la derecha y el talón de la otra bota todavía en el suelo. UNA sola figura en la imagen; la pose de la referencia se sustituye por completo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "968ca74bdf0c31804dbb118154b94ffdc7844fca10252208e724e355168a3d3c",
-      "bytes": 10042
+      "sha256": "f4115acdb9d59eb926e1c73e4db107ddeef9dd0e0d486fd9b630925d460329ab",
+      "bytes": 405272,
+      "format": "PNG RGBA",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Tanque (bruto colosal)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_chef_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T03:14:17Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 105,
@@ -3249,7 +3261,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 106,
@@ -3289,7 +3301,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 107,
@@ -3329,7 +3341,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 108,
@@ -3369,7 +3381,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 109,
@@ -3409,7 +3421,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 110,
@@ -3449,7 +3461,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 111,
@@ -3489,7 +3501,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 112,
@@ -3529,7 +3541,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 113,
@@ -3569,7 +3581,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 114,
@@ -3609,7 +3621,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 115,
@@ -3649,7 +3661,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 116,
@@ -3689,7 +3701,7 @@
       "notes": null,
       "updated_at": "2026-11-12T02:29:32Z",
       "evidence": "docs/ART_REBUILD/evidence/R02",
-      "validated_at": "2026-11-12T02:37:28Z"
+      "validated_at": "2026-11-12T03:21:49Z"
     },
     {
       "index": 117,
@@ -10442,5 +10454,5 @@
       "validated_at": "2026-11-11T17:27:33Z"
     }
   ],
-  "updated_at": "2026-11-12T02:37:28Z"
+  "updated_at": "2026-11-12T03:21:49Z"
 }

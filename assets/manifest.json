@@ -1504,15 +1504,23 @@
     "enemy_chef_death": {
       "id": "enemy_chef_death",
       "originalId": "atlas:chef_death",
-      "name": "Cocinero Carnicero (Tanque Gula) · Impacto y Colapso",
+      "name": "Tanque · muerte",
       "category": "enemies",
       "src": "assets/enemies/enemy_chef_death.png",
-      "w": 288,
-      "h": 224,
+      "w": 656,
+      "h": 592,
       "alpha": true,
-      "pivot": "bottom-center",
+      "pivot": "anchors.foot",
       "tanda": "TANDA_11",
-      "sha16": "968ca74bdf0c3180"
+      "sha16": "f4115acdb9d59eb9",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.4848,
+          0.9865
+        ],
+        "unit": 0.8257
+      }
     },
     "enemy_dancer_walk": {
       "id": "enemy_dancer_walk",

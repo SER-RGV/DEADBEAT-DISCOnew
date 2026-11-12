@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-12T02:39:00Z",
+  "updated_at": "2026-11-12T03:21:49Z",
   "branch": "arena/662f0d27-deadbeat-disconew",
   "pipeline": "tools/art_master (tandas R01, R02, …)",
   "registry": {
@@ -13,32 +13,16 @@
     "A_conservar": 25,
     "B_rehacer_estilo": 153,
     "C_falta": 105,
-    "D_defectuoso": 41,
-    "E_rehecho_validado": 50
+    "D_defectuoso": 40,
+    "E_rehecho_validado": 51
   },
-  "pending_to_produce": 299,
+  "pending_to_produce": 298,
   "completed_batches": [
-    "R01_PROTAGONISTA"
+    "R01_PROTAGONISTA",
+    "R02_ENEMIGOS"
   ],
-  "current_batch": "R02_ENEMIGOS",
-  "current_batch_progress": {
-    "illustrations_total": 24,
-    "integrated_and_validated_in_game": 23,
-    "pending": [
-      "enemy_chef_death"
-    ],
-    "pending_fallback": "el juego desploma el fotograma `walk` del Tanque; no mezcla pixel art antiguo con arte nuevo",
-    "validated_in_circles": [
-      1,
-      2,
-      3,
-      5,
-      8
-    ],
-    "evidence": "docs/ART_REBUILD/evidence/R02"
-  },
+  "current_batch": "R03_JEFES",
   "planned_batches": [
-    "R02_ENEMIGOS",
     "R03_JEFES",
     "R04_PNJ_Y_HUD",
     "R05_ARMAS",

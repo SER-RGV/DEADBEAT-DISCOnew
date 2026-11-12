@@ -11,15 +11,15 @@
 | **A** | Conservar: ilustración sin defectos | 25 |
 | **B** | Rehacer por estilo: pixel art o acabado que no sigue las guías | 153 |
 | **C** | Falta: el juego muestra el sprite heredado del motor | 105 |
-| **D** | Defectuoso: defecto visible en el propio archivo | 41 |
-| **E** | Rehecho y validado dentro del juego (R01: 27 · R02: 23) | 50 |
+| **D** | Defectuoso: defecto visible en el propio archivo | 40 |
+| **E** | Rehecho y validado dentro del juego (R01: 27 · R02: 24) | 51 |
 
-Quedan **299 assets por producir** (B + C + D). El generador de imágenes admite
+Quedan **298 assets por producir** (B + C + D). El generador de imágenes admite
 **10 ilustraciones por turno de trabajo**, así que la reconstrucción completa son del
 orden de 30 turnos más; el orden propuesto está en el apartado 6.
 
 Estado a 2026-11-12: clasificación inicial A 25 · B 168 · C 105 · D 49 · E 27; la
-tanda R02 ha pasado 23 enemigos (15 de clase B y 8 de clase D) a la clase E.
+tanda R02 ha pasado los 24 enemigos (15 de clase B y 9 de clase D) a la clase E.
 
 ## 2. Método
 
@@ -48,7 +48,7 @@ tanda R02 ha pasado 23 enemigos (15 de clase B y 8 de clase D) a la clase E.
 | Familia | Estado | Detalle |
 |---|---|---|
 | **Protagonista** | **E** (27) | Rehecho en R01. Antes: el reposo y uno de los cuatro pasos tenían la figura comida por la transparencia (9 % de cobertura del lienzo frente al 24 % de los otros pasos), así que en el Refugio se veía como un fantasma; en sala era un personaje de pixel art con otro diseño y el arma no quedaba en las manos. |
-| **Enemigos** (24) | **E 23** · D 1 | Rehechos en R02 (ver apartado 4 bis). Falta `enemy_chef_death`; mientras, el Tanque muere con el desplome procedural de su fotograma de caminar. Antes: pixel art; damero o huecos horneados en `enemy_dancer_attack`, `enemy_security_attack`, `enemy_fanatic_attack`; `enemy_elite_attack` no representaba al personaje; los cuatro fotogramas del chef y `enemy_security_windup` cambiaban de identidad. |
+| **Enemigos** (24) | **E 24** | Rehechos en R02 (ver apartado 4 bis). Antes: pixel art; damero o huecos horneados en `enemy_dancer_attack`, `enemy_security_attack`, `enemy_fanatic_attack`; `enemy_elite_attack` no representaba al personaje; los cuatro fotogramas del chef y `enemy_security_windup` cambiaban de identidad. |
 | **Jefes** (42) | B 32 · D 10 | Pixel art. Damero en `boss_04_pogo_attack`, `boss_06_matarife_attack`, `boss_09_nucleo_attack`. Fotogramas basura: `boss_03_cajero_hit`, `boss_03_cajero_attack`, `boss_05_oficiante_hit`, `boss_09_nucleo_hit`, `boss_04_pogo_idle`, `boss_08_traidor_idle`. Identidad distinta en `boss_02_bufe_hit`. |
 | **Armas** (121) | B 16 · C 105 | 16 con arte de la línea anterior (pixel art); 105 sin arte nuevo. |
 | **Recogibles y reliquias** (20) | B | Pixel art coherente entre sí. |
@@ -81,7 +81,6 @@ alto frente a los 104 del protagonista; el minijefe usa la familia que decide el
 
 Limitaciones conocidas de R02:
 
-- Falta la muerte del Tanque (un intento fallido; ver `batches/R02_ENEMIGOS.json`).
 - Un solo fotograma por estado: el paso de caminar a aviso o a ataque es un cambio de
   pose sin intermedios. Al Tanque se le nota más: pasa de andar sobre los nudillos a
   erguirse (de 106 a unos 146 px de alto con los puños alzados).
@@ -112,7 +111,7 @@ completa.
 | Tanda | Contenido | Ilustraciones | Por qué en este orden |
 |---|---|---:|---|
 | **R01** ✔ | Protagonista | 22 | Es lo que más tiempo está en pantalla |
-| **R02** ◐ | Enemigos: 6 familias × 4 estados | 24 (hechas 23) | Segundo elemento más visible; 9 defectuosos. Falta la muerte del Tanque |
+| **R02** ✔ | Enemigos: 6 familias × 4 estados | 24 | Hecha y validada en juego (círculos I, II, III, V y VIII) |
 | **R03** | Jefes: 10 × 4 estados + Arquitecto × 2 | 42 | 10 defectuosos |
 | **R04** | PNJ del Refugio, dron aliado, iconos de HUD, emblema de victoria | 12 | Coherencia del Refugio y del HUD con R01 |
 | **R05** | Armas: 16 existentes + 105 que faltan | 121 | La familia más grande; hoy mezcla dos estilos |

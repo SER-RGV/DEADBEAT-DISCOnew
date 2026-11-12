@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T02:37:28Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T03:21:49Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -15,7 +15,7 @@
 | Familia | Total | A | B | C | D | E |
 |---|---:|---:|---:|---:|---:|---:|
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
-| `enemies` | 24 | 0 | 0 | 0 | 1 | 23 |
+| `enemies` | 24 | 0 | 0 | 0 | 0 | 24 |
 | `bosses` | 42 | 0 | 32 | 0 | 10 | 0 |
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **374** | **25** | **153** | **105** | **41** | **50** |
+| **Total** | **374** | **25** | **153** | **105** | **40** | **51** |
 
 ## `characters` (31)
 
@@ -70,8 +70,8 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `enemy_chef_death` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
 | `enemy_chef_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_chef_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_chef_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_chef_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_dancer_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
