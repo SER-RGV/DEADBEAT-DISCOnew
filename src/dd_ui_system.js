@@ -15,16 +15,16 @@
   "use strict";
 
   var CIRCLES_INFO = [
-    { idx: 0, code: "REFUGIO", name: "Cola del Club · El Refugio", boss: "Andén · El Portero" },
-    { idx: 1, code: "I", name: "Lujuria · Salón de los Deseos", boss: "Magneta · La Anfitriona" },
-    { idx: 2, code: "II", name: "Gula · Banquete Interminable", boss: "Bufé · Anfitrión Sin Fondo" },
-    { idx: 3, code: "III", name: "Avaricia · El Club VIP", boss: "El Cajero · Señor del VIP" },
-    { idx: 4, code: "IV", name: "Ira · Pista de las Peleas", boss: "El Pogo · Demonio de la Fosa" },
-    { idx: 5, code: "V", name: "Herejía · Catedral del Ruido", boss: "El Oficiante · Pontífice" },
-    { idx: 6, code: "VI", name: "Violencia · El Matadero", boss: "El Matarife · Coloso" },
-    { idx: 7, code: "VII", name: "Fraude · Club de los Espejos", boss: "El Imitador · Espejismo" },
-    { idx: 8, code: "VIII", name: "Traición · La Última Sala", boss: "El Traidor · Monarca Glacial" },
-    { idx: 9, code: "IX", name: "El Núcleo Final · Última Canción", boss: "El Núcleo / El Arquitecto" }
+    { idx: 0, code: "REFUGIO", name: "El Refugio · Tregua Sagrada", boss: "Portero sin Rostro" },
+    { idx: 1, code: "I", name: "La Invitación · Véspera", boss: "Véspera · La Última Invitación" },
+    { idx: 2, code: "II", name: "El Banquete · Voraz", boss: "Voraz · El Anfitrión Hueco" },
+    { idx: 3, code: "III", name: "La Cámara de los Instantes · Áurea", boss: "Áurea · Coleccionista de Instantes" },
+    { idx: 4, code: "IV", name: "La Amplificación · Brama", boss: "Brama · Santo del Ruido" },
+    { idx: 5, code: "V", name: "La Nota Ausente · El Obispo", boss: "Obispo de la Nota Ausente" },
+    { idx: 6, code: "VI", name: "El Umbral Encadenado · Corazón", boss: "Corazón Encadenado" },
+    { idx: 7, code: "VII", name: "El Salón de las Mil Voces · Crupier", boss: "Crupier de las Mil Voces" },
+    { idx: 8, code: "VIII", name: "El Andén de la Ausente · Nix", boss: "Nix · La Voz que Faltaba" },
+    { idx: 9, code: "IX", name: "El Núcleo · Rey del Compás", boss: "Rey del Compás" }
   ];
 
   var uiState = {
@@ -110,7 +110,7 @@
 
   /* ============================ A. MENÚ PRINCIPAL ========================= */
   var MENU_ITEMS = [
-    { action: "new", icon: "new", label: "NUEVA PARTIDA", sub: "Desciende al Círculo I · Lujuria" },
+    { action: "new", icon: "new", label: "NUEVA PARTIDA", sub: "Desciende a la Pista 01 · La Invitación" },
     { action: "continue", icon: "cont", label: "CONTINUAR", sub: "Retoma tu último descenso registrado" },
     { action: "slots", icon: "load", label: "SELECCIONAR PARTIDA", sub: "Ranuras de guardado disponibles" },
     { action: "options", icon: "opts", label: "OPCIONES", sub: "Audio, vídeo, controles y accesibilidad" },
@@ -303,7 +303,7 @@
             window.DD_BOOT.exitGameToMenu();
           }
           if (typeof showDialogue === "function") {
-            showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+            showDialogue("TEMPO", "El descenso no arrancó. Prueba otra vez.", 5);
           }
         } catch (e) {
           console.warn("[DD_UI] no se pudo restaurar el menú", e);
@@ -424,7 +424,7 @@
     }
     sfx("ok");
     /* El motor no guarda partidas a medias (diseño declarado del propio juego):
-       continuar = reanudar el descenso en el círculo más profundo alcanzado,
+       continuar = reanudar el descenso en el pista más profundo alcanzado,
        conservando el meta-progreso real. */
     var idx = p.bestRound >= 100 ? 9 : Math.max(0, Math.min(8, Math.ceil(Math.max(1, p.bestRound) / 11) - 1));
     doStartAt(idx, "continue");
@@ -770,7 +770,7 @@
       '  <div class="dd-slot-head">' +
       '    <span class="dd-slot-tag">' + (opts.noSave ? "SIN PROGRESO GUARDADO" : "RANURA ACTIVA") + '</span>' +
       '    <b>' + (p.hasProgress ? "DESCENSO EN " + c.code : "SIN DESCENSOS REGISTRADOS") + '</b>' +
-      '    <span>' + (p.hasProgress ? esc(c.name) : "Cada descenso empieza en el Círculo I · Lujuria") + '</span>' +
+      '    <span>' + (p.hasProgress ? esc(c.name) : "Cada descenso empieza en la Pista 01 · La Invitación") + '</span>' +
       '  </div>' +
       '  <dl class="dd-slot-stats">' +
       '    <div><dt>SALA MÁS PROFUNDA</dt><dd>' + (p.bestRound || "—") + '</dd></div>' +
@@ -902,7 +902,7 @@
       '  </div>' +
       '</div>' +
       '<div id="dd-boss-hud" class="dd-hidden">' +
-      '  <div class="dd-boss-hud-title" id="dd-boss-name">RESIDENTE</div>' +
+      '  <div class="dd-boss-hud-title" id="dd-boss-name">SOBERANO</div>' +
       '  <div class="dd-bar-track"><div class="dd-bar-fill" id="dd-boss-hp-fill" style="width:100%"></div></div>' +
       '</div>' +
       '<div class="dd-hud-top-right">' +
@@ -934,8 +934,8 @@
     dlg.id = "dd-dialogue-box";
     dlg.className = "dd-hidden";
     dlg.innerHTML =
-      '<div class="dd-dj-portrait-wrap"><img id="dd-dj-portrait" alt="DJ Virgilio" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
-      '<div class="dd-dj-speech"><div class="dd-dj-speaker-tab" id="dd-dj-speaker">DJ VIRGILIO</div><div class="dd-dj-text" id="dd-dj-text"></div></div>';
+      '<div class="dd-dj-portrait-wrap"><img id="dd-dj-portrait" alt="Tempo" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
+      '<div class="dd-dj-speech"><div class="dd-dj-speaker-tab" id="dd-dj-speaker">TEMPO</div><div class="dd-dj-text" id="dd-dj-text"></div></div>';
     document.body.appendChild(dlg);
   }
 
@@ -967,7 +967,7 @@
     mapModal.id = "dd-map-modal";
     mapModal.className = "dd-modal-backdrop dd-hidden";
     mapModal.innerHTML =
-      '<div class="dd-modal-window" role="dialog" aria-label="Mapa de Progresión de los Nueve Círculos">' +
+      '<div class="dd-modal-window" role="dialog" aria-label="Mapa de Progresión de los Nueve Pistas">' +
       '  <div class="dd-modal-header">' +
       '    <span class="dd-modal-title">MAPA DE PROGRESIÓN · DESCENSO POR LA TORRE</span>' +
       '    <button type="button" class="dd-close-btn" id="dd-map-close">CERRAR [ESC]</button>' +
@@ -1216,7 +1216,7 @@
     var box = el("dd-dialogue-box");
     var spk = el("dd-dj-speaker");
     var txt = el("dd-dj-text");
-    if (spk) spk.textContent = speaker || "DJ VIRGILIO";
+    if (spk) spk.textContent = speaker || "TEMPO";
     if (txt) txt.textContent = text;
     if (box) box.classList.remove("dd-hidden");
     uiState.dialogueTimer = durationSec || 4.2;
@@ -1340,7 +1340,7 @@
       var txt = (subs.textContent || "").trim();
       if (txt && txt !== uiState.lastSubsText) {
         uiState.lastSubsText = txt;
-        showDialogue("DJ VIRGILIO", txt, 4.0);
+        showDialogue("TEMPO", txt, 4.0);
       }
     }
     if (uiState.dialogueTimer > 0) {
@@ -1603,7 +1603,7 @@
     var roomEl = el("dd-hud-room");
     if (roomEl) {
       roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
-        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
+        : (snap.roomBanner || ("PISTA " + (snap.circle + 1)));
     }
     var bCnt = el("dd-skill-bomb-cnt");
     if (bCnt) bCnt.textContent = String(snap.bombs || 0);
@@ -1617,7 +1617,7 @@
     if (bossHud) {
       if (!inHub && snap.bossActive && snap.boss) {
         bossHud.classList.remove("dd-hidden");
-        el("dd-boss-name").textContent = String(snap.boss.name || "RESIDENTE").toUpperCase();
+        el("dd-boss-name").textContent = String(snap.boss.name || "SOBERANO").toUpperCase();
         var bpct = Math.max(0, Math.min(100, ((snap.boss.hp || 0) / Math.max(1, snap.boss.maxHp || 1)) * 100));
         el("dd-boss-hp-fill").style.width = bpct.toFixed(1) + "%";
       } else {

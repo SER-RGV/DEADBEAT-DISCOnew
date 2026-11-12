@@ -7,16 +7,16 @@
   "use strict";
 
   const CIRCLE_META = [
-    { num: "0",   title: "EL REFUGIO · COLA DEL CLUB",   sub: "Tregua Sagrada · Zona Segura",           cine: "cine_circle_00_hub",      accent: "#ff2d7a" },
-    { num: "I",   title: "CÍRCULO I · LUJURIA",          sub: "El Salón de los Deseos · 124 BPM",       cine: "cine_circle_01_lujuria",  accent: "#ff2d7a" },
-    { num: "II",  title: "CÍRCULO II · GULA",            sub: "El Banquete Interminable · 128 BPM",     cine: "cine_circle_02_gula",     accent: "#f59e0b" },
-    { num: "III", title: "CÍRCULO III · AVARICIA",       sub: "El Club VIP · 130 BPM",                  cine: "cine_circle_03_avaricia", accent: "#facc15" },
-    { num: "IV",  title: "CÍRCULO IV · IRA",             sub: "La Pista de las Peleas · 136 BPM",       cine: "cine_circle_04_ira",      accent: "#ef4444" },
-    { num: "V",   title: "CÍRCULO V · HEREJÍA",          sub: "La Catedral del Ruido · 138 BPM",        cine: "cine_circle_05_herejia",  accent: "#a855f7" },
-    { num: "VI",  title: "CÍRCULO VI · VIOLENCIA",       sub: "El Matadero · 142 BPM",                  cine: "cine_circle_06_violencia",accent: "#fb7185" },
-    { num: "VII", title: "CÍRCULO VII · FRAUDE",         sub: "El Club de los Espejos · 145 BPM",       cine: "cine_circle_07_fraude",   accent: "#22d3ee" },
-    { num: "VIII",title: "CÍRCULO VIII · TRAICIÓN",      sub: "La Última Sala · 150 BPM",               cine: "cine_circle_08_traicion", accent: "#38bdf8" },
-    { num: "IX",  title: "CÍRCULO IX · EL NÚCLEO FINAL", sub: "La Última Canción · 160 BPM",            cine: "cine_circle_09_nucleo",   accent: "#f8fafc" }
+    { num: "REFUGIO", title: "EL REFUGIO · TREGUA SAGRADA", sub: "Zona Segura · La Torre Descansa · 0 BPM", cine: "cine_circle_00_hub", accent: "#ff2d7a" },
+    { num: "I",   title: "PISTA 01 · LA INVITACIÓN · VÉSPERA",         sub: "El Salón de los Deseos · 124 BPM",       cine: "cine_circle_01_lujuria",  accent: "#ff2d7a" },
+    { num: "II",  title: "PISTA 02 · EL BANQUETE · VORAZ",            sub: "El Banquete Interminable · 128 BPM",     cine: "cine_circle_02_gula",     accent: "#f59e0b" },
+    { num: "III", title: "PISTA 03 · LA CÁMARA DE LOS INSTANTES · ÁUREA", sub: "Vitrinas del Tiempo Detenido · 130 BPM",  cine: "cine_circle_03_avaricia", accent: "#facc15" },
+    { num: "IV",  title: "PISTA 04 · LA AMPLIFICACIÓN · BRAMA",         sub: "La Sala del Ruido Imposible · 136 BPM",   cine: "cine_circle_04_ira",      accent: "#ef4444" },
+    { num: "V",   title: "PISTA 05 · LA NOTA AUSENTE · EL OBISPO",    sub: "La Catedral del Silencio · 138 BPM",      cine: "cine_circle_05_herejia",  accent: "#a855f7" },
+    { num: "VI",  title: "PISTA 06 · EL UMBRAL ENCADENADO · EL CORAZÓN",sub: "La Puerta que No Debía Abrirse · 142 BPM", cine: "cine_circle_06_violencia",accent: "#fb7185" },
+    { num: "VII", title: "PISTA 07 · EL SALÓN DE LAS MIL VOCES · CRUPIER",sub: "El Casino de los Rostros Prestados · 145 BPM",cine: "cine_circle_07_fraude",   accent: "#22d3ee" },
+    { num: "VIII",title: "PISTA 08 · EL ANDÉN DE LA AUSENTE · NIX",     sub: "La Sala de la Despedida Inconclusa · 150 BPM",cine: "cine_circle_08_traicion", accent: "#38bdf8" },
+    { num: "IX",  title: "PISTA 09 · EL NÚCLEO · REY DEL COMPÁS",    sub: "La Última Canción · 160 BPM",            cine: "cine_circle_09_nucleo",   accent: "#f8fafc" }
   ];
 
   let reducedMotion = false;
@@ -132,7 +132,7 @@
     });
   }
 
-  /* C. CIRCLE DESCENT TRANSITION */
+  /* C. PISTA DESCENT TRANSITION */
   function playCircleDescent(circleIdx, onComplete) {
     const meta = CIRCLE_META[Math.max(0, Math.min(9, circleIdx || 0))];
     startSeq({
@@ -153,10 +153,10 @@
   function playBossIntro(bossObj, circleIdx) {
     // El puente ya dice quién es (bossObj.slug); el nombre sólo se usa como respaldo.
     const slug = (bossObj && bossObj.slug) || (window.DD_WORLD ? window.DD_WORLD.resolveBossSlug(bossObj, circleIdx) : "boss_01_magneta");
-    const bName = (bossObj && (bossObj.name || bossObj.title)) || "RESIDENTE DEL CÍRCULO";
+    const bName = (bossObj && (bossObj.name || bossObj.title)) || "SOBERANO DEL PISTA";
     // El título es el que el motor da a cada residente (llega en bossObj.subtitle). El
     // texto de respaldo era lo que se leía en las once presentaciones.
-    const bRule = (bossObj && (bossObj.subtitle || bossObj.rule)) || "Residente de la Cámara";
+    const bRule = (bossObj && (bossObj.subtitle || bossObj.rule)) || "Soberano de la Pista";
     startSeq({
       type: "boss",
       boss: bossObj,
@@ -164,7 +164,7 @@
       slug,
       title: String(bName).toUpperCase(),
       subtitle: bRule,
-      tag: "AMENAZA RESIDENTE · " + String(bName).toUpperCase(),
+      tag: "AMENAZA SOBERANA · " + String(bName).toUpperCase(),
       duration: 2.5,
       blocking: false,
       skippable: true,
@@ -190,9 +190,9 @@
     startSeq({
       type: "victory",
       isFinal: !!isFinal,
-      title: title || (isFinal ? "REDENCIÓN EN EL NÚCLEO" : "RESIDENTE DERROTADO"),
+      title: title || (isFinal ? "REDENCIÓN EN EL NÚCLEO" : "SOBERANO DERROTADO"),
       tag: isFinal ? "FINAL · LA ÚLTIMA CANCIÓN COMPLETADA" : "CÁMARA DESPEJADA",
-      subtitle: isFinal ? "Has quebrado el bucle de los Nueve Círculos" : "Portal de descenso desbloqueado",
+      subtitle: isFinal ? "Has quebrado el bucle de las Nueve Pistas" : "Portal de descenso desbloqueado",
       duration: isFinal ? 4.2 : 2.2,
       blocking: false,
       skippable: true,
@@ -206,7 +206,7 @@
     startSeq({
       type: "special",
       title: title || "SOBRECARGA RAVE",
-      subtitle: subtitle || "El DJ-Director altera el pulso de la sala",
+      subtitle: subtitle || "El Rey del Compás altera el pulso de la sala",
       duration: 1.05,
       blocking: false,
       skippable: true,

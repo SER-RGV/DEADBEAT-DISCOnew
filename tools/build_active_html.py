@@ -1160,6 +1160,37 @@ assert "src/dd_rebuild_ui.css" in html  # provenance comment survives
 for fname in MODULE_ORDER:
     assert "=== INLINED FROM src/" + fname in html, f"{fname} provenance comment missing"
 
+# 5b. Post-build narrative migration (D-01..D-05): baked legacy HTML still
+#    contains user-facing strings from the 3.3 backup (DJ Virgilio, cazador,
+#    CÍRCULO, Nueve Círculos) that are not driven by src/* — patch them here
+#    so every future regeneration respects the canon. IDs like cine_circle_*
+#    are preserved (asset refs).
+_legacy_pairs = [
+    ("DJ Virgilio", "Tempo"),
+    ("DJ VIRGILIO", "TEMPO"),
+    ("cazador", "Desafinado"),
+    ("Cazador", "Desafinado"),
+    ("CAZADOR", "DESAFINADO"),
+    ("comenta cada círculo", "comenta cada pista"),
+    ("Nueve Círculos", "Nueve Pistas"),
+    ("nueve círculos", "nueve pistas"),
+    ("NUEVE CÍRCULOS", "NUEVE PISTAS"),
+    ("CÍRCULO I ·", "PISTA 01 ·"),
+    ("CÍRCULO II ·", "PISTA 02 ·"),
+    ("CÍRCULO III ·", "PISTA 03 ·"),
+    ("CÍRCULO IV ·", "PISTA 04 ·"),
+    ("CÍRCULO V ·", "PISTA 05 ·"),
+    ("CÍRCULO VI ·", "PISTA 06 ·"),
+    ("CÍRCULO VII ·", "PISTA 07 ·"),
+    ("CÍRCULO VIII ·", "PISTA 08 ·"),
+    ("CÍRCULO IX ·", "PISTA 09 ·"),
+    ("al Círculo", "a la Pista"),
+    ("del Círculo", "de la Pista"),
+    ("el Círculo", "la Pista"),
+]
+for _a, _b in _legacy_pairs:
+    html = html.replace(_a, _b)
+
 for fname in ("index.html", "DEADBEAT_DISCO.html"):
     with open(os.path.join(ROOT, fname), "w", encoding="utf-8") as f:
         f.write(html)

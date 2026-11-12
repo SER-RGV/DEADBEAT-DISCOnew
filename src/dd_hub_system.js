@@ -30,7 +30,7 @@
     { kind: "shelf", x: 560, y: 245, br: 44 },
     { kind: "barcounter", x: 740, y: 278, br: 56 },
     { kind: "cooler", x: 325, y: 280, br: 36 },
-    // DJ Virgilio Booth upper-right
+    // Tempo Booth upper-right
     { kind: "speaker", x: 1035, y: 255, br: 36 },
     { kind: "djbooth", x: 1165, y: 278, br: 58 },
     { kind: "subwoofer", x: 1305, y: 265, br: 38 },
@@ -57,7 +57,7 @@
     {
       id: "descent",
       label: "PLATAFORMA DE DESCENSO · INICIAR INCURSIÓN",
-      prompt: "Pulsa [E] / (A) para descender al Círculo I · Lujuria",
+      prompt: "Pulsa [E] / (A) para descender a la Pista 01 · La Invitación",
       x: 880,
       y: 785,
       r: 96
@@ -72,8 +72,8 @@
     },
     {
       id: "dj",
-      label: "CABINA DE DJ VIRGILIO",
-      prompt: "Pulsa [E] / (A) para hablar con DJ Virgilio",
+      label: "CABINA DE TEMPO",
+      prompt: "Pulsa [E] / (A) para hablar con Tempo",
       x: 1165,
       y: 335,
       r: 105
@@ -81,7 +81,7 @@
     {
       id: "map",
       label: "MESA ASTRAL · MAPA DE PROGRESIÓN",
-      prompt: "Pulsa [E] / (A) para inspeccionar la Torre de los 9 Círculos",
+      prompt: "Pulsa [E] / (A) para inspeccionar la Torre de las 9 Pistas",
       x: 1345,
       y: 605,
       r: 95
@@ -89,10 +89,10 @@
   ];
 
   const DJ_QUOTES = [
-    "Bienvenido al Refugio, cazador. Ajusta tu hierro en la Armería; abajo en Lujuria el bajo rompe huesos.",
-    "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
+    "Bienvenido al Refugio, Desafinado. Ajusta tu hierro en la Armería; abajo en La Invitación el bajo rompe huesos.",
+    "Nueve pistas, nueve soberanos y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
     "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.",
-    "Revisa tus créditos antes de saltar a la Plataforma Cian. El Cajero no perdona deudas en el tercer piso."
+    "Revisa tus créditos antes de saltar a la Plataforma Cian. Áurea no perdona deudas en la tercera pista."
   ];
   let quoteIdx = 0;
 
@@ -110,7 +110,7 @@
     }
     if (window.DD_UI) {
       window.DD_UI.hideMainMenu();
-      window.DD_UI.showDialogue("DJ VIRGILIO", DJ_QUOTES[0], 5.2);
+      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[0], 5.2);
     }
   }
 
@@ -155,7 +155,7 @@
       window.DD_UI.openMap();
     } else if (st.id === "dj" && window.DD_UI) {
       quoteIdx = (quoteIdx + 1) % DJ_QUOTES.length;
-      window.DD_UI.showDialogue("DJ VIRGILIO", DJ_QUOTES[quoteIdx], 5.5);
+      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.5);
     }
   }
 

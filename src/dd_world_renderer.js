@@ -1,7 +1,7 @@
 /* ==========================================================================
    DEADBEAT DISCO — HIGH-RESOLUTION 2.5D WORLD RENDERER (window.DD_WORLD)
    Replaces pixel-art blitting & procedural blockouts with native-DPR smooth
-   digital illustration rendering across all Circles, Props, Characters & VFX.
+   digital illustration rendering across all Pistas, Props, Characters & VFX.
    ========================================================================== */
 (function () {
   "use strict";
@@ -187,7 +187,7 @@
       ctx.clip();
     }
 
-    // Fill with high-res seamless Circle floor material (fallback to limbo marble or rich dark-stone gradient while pending)
+    // Fill with high-res seamless Pista floor material (fallback to limbo marble or rich dark-stone gradient while pending)
     const floorPat =
       getFloorPattern(ctx, cfg.floor) ||
       getFloorPattern(ctx, "floor_00_limbo_marble") ||
