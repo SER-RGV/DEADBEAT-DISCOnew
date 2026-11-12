@@ -1,0 +1,142 @@
+{
+  "madre": {
+    "base_oscura": "#0a0c12",
+    "superficie": "#191a25",
+    "borgona": "#2d0619",
+    "magenta": "#ff2d95",
+    "oro": "#facc15",
+    "oro_claro": "#f0e090",
+    "cian": "#38bdf8",
+    "cian2": "#22d3ee",
+    "violeta": "#c084fc"
+  },
+  "pistas": {
+    "01_La_Invitacion": {
+      "soberano": "Véspera",
+      "tema": "bajo",
+      "suelo": "#1b0826/#3b0f4c/#86198f",
+      "muro": "wall_panel_neon_crown",
+      "neon": "#ff2d7a",
+      "sec": "#c026d3",
+      "haze": "rgba(255,45,122,0.13)",
+      "temp": "cálida íntima",
+      "estructura": "curvas concéntricas"
+    },
+    "02_El_Banquete": {
+      "soberano": "Voraz",
+      "tema": "percusión",
+      "suelo": "#210e09/#7c2d12/#f97316",
+      "muro": "wall_gula_banquet",
+      "neon": "#f59e0b",
+      "sec": "#ef4444",
+      "haze": "rgba(245,158,11,0.10)",
+      "temp": "cálida glotona",
+      "estructura": "líneas horizontales largas"
+    },
+    "03_Camara_Instantes": {
+      "soberano": "Áurea",
+      "tema": "metales",
+      "suelo": "#171206/#854d0e/#facc15",
+      "muro": "wall_gula_banquet",
+      "neon": "#facc15",
+      "sec": "#fb7185",
+      "haze": "rgba(250,204,21,0.10)",
+      "temp": "cálida opulenta",
+      "estructura": "retícula ortogonal"
+    },
+    "04_Amplificacion": {
+      "soberano": "Brama",
+      "tema": "distorsión",
+      "suelo": "#210709/#7f1d1d/#ef4444",
+      "muro": "wall_wrath_furnace",
+      "neon": "#ef4444",
+      "sec": "#f97316",
+      "haze": "rgba(239,68,68,0.12)",
+      "temp": "cálida agresiva",
+      "estructura": "paralelogramos y conos"
+    },
+    "05_Nota_Ausente": {
+      "soberano": "Obispo de la Nota Ausente",
+      "tema": "ausencia/hueco",
+      "suelo": "#150826/#581c87/#c084fc",
+      "muro": "wall_panel_heavy_base",
+      "neon": "#a855f7",
+      "sec": "#facc15",
+      "haze": "rgba(168,85,247,0.11)",
+      "temp": "fría solemne",
+      "estructura": "verticales góticas"
+    },
+    "06_Umbral_Encadenado": {
+      "soberano": "Corazón Encadenado",
+      "tema": "latido/cadenas",
+      "suelo": "#091813/#14532d/#4ade80",
+      "muro": "wall_wrath_furnace",
+      "neon": "#fb7185",
+      "sec": "#94a3b8",
+      "haze": "rgba(251,113,133,0.09)",
+      "temp": "neutra bloqueada",
+      "estructura": "masa y cierre"
+    },
+    "07_Mil_Voces": {
+      "soberano": "Crupier de las Mil Voces",
+      "tema": "voz",
+      "suelo": "#081829/#0e7490/#22d3ee",
+      "muro": "wall_panel_vip_window",
+      "neon": "#22d3ee",
+      "sec": "#ff2d7a",
+      "haze": "rgba(34,211,238,0.11)",
+      "temp": "fría espejada",
+      "estructura": "fragmentación diagonal"
+    },
+    "08_Anden_Ausente": {
+      "soberano": "Nix",
+      "tema": "coro",
+      "suelo": "#081526/#0c4a6e/#38bdf8",
+      "muro": "wall_ice_glacier",
+      "neon": "#38bdf8",
+      "sec": "#f43f5e",
+      "haze": "rgba(56,189,248,0.12)",
+      "temp": "fría desolada",
+      "estructura": "líneas de fuga (raíles)"
+    },
+    "09_Nucleo": {
+      "soberano": "Rey del Compás",
+      "tema": "nota sostenida",
+      "suelo": "#120924/#3b0764/#e2e8f0",
+      "muro": "wall_core_monolith",
+      "neon": "#f8fafc",
+      "sec": "#ff2d7a",
+      "haze": "rgba(248,250,252,0.10)",
+      "temp": "neutra vacía",
+      "estructura": "vacío + fragmentos flotantes"
+    },
+    "00_Refugio": {
+      "soberano": "Portero sin Rostro (§17.1 subjefe)",
+      "tema": "tregua",
+      "suelo": "#0e1525/#1e293b/#475569",
+      "muro": "wall_panel_gothic_niche",
+      "neon": "#ff2d7a",
+      "sec": "#22d3ee",
+      "haze": "rgba(255,45,122,0.08)",
+      "temp": "neutra cálida",
+      "estructura": "estación reconvertida (hierro+cristal+damero)"
+    }
+  },
+  "materiales": [
+    "mármol marfil",
+    "terciopelo negro",
+    "terracota",
+    "pizarra oro",
+    "obsidiana",
+    "metal ennegrecido",
+    "acero ritual",
+    "hielo negro",
+    "tesela-espejo"
+  ],
+  "luz": {
+    "principal": "NW #fff6e0 1.0",
+    "bloom": "solo neón screen 0.20-0.36",
+    "sombras": "motor drawSoftShadow, no horneadas",
+    "rim": "magenta back + cian front"
+  }
+}
