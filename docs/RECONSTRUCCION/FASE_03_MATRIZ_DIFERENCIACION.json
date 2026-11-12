@@ -1,0 +1,167 @@
+{
+  "criterio": "Diferenciación estructural (no solo cromática) — prueba de grises + geometría + mecánica",
+  "escala": "0=indistinguible 3=muy diferente",
+  "pistas": {
+    "01_La_Invitacion": {
+      "soberano": "Véspera",
+      "forma": "curvas concéntricas",
+      "arquitectura": "abanico terciopelo, corazón roto, columnas curvas tulipa, arcos carpanel cortina",
+      "paleta": "terciopelo negro #0a0c12 + rosa #ff2d7a + haze magenta 0.13",
+      "hazard_protagonista": "focos que arrastran",
+      "mecanica": "pulsos graves → arrastre a zonas atracción",
+      "enemigo_canonico": "Sombra abrazadora (adhesión)",
+      "nodos": 8,
+      "verticalidad": "desniveles 12px alfombra, balcones decorativos",
+      "ritmo": "lento introductorio"
+    },
+    "02_El_Banquete": {
+      "soberano": "Voraz",
+      "forma": "líneas largas horizontales",
+      "arquitectura": "rectángulos 2:1 mesas interminables, hornos industriales, arcos adintelados vajilla rota",
+      "paleta": "terracota #210e09→#f97316 + haze ámbar 0.10",
+      "hazard_protagonista": "bandejas móviles + hornos",
+      "mecanica": "capas percusión → trampas aceleradas (identificar capa peligrosa)",
+      "enemigo_canonico": "Comensal insaciable (devora proyectiles)",
+      "nodos": 9,
+      "verticalidad": "hornos +18px",
+      "ritmo": "creciente claustrofóbico"
+    },
+    "03_Camara_Instantes": {
+      "soberano": "Áurea",
+      "forma": "retícula ortogonal",
+      "arquitectura": "grid 90°, caja fuerte 4×4 vitrinas, arcos conopiales, relojes sin agujas",
+      "paleta": "pizarra #171206 + oro #facc15 + haze oro 0.10",
+      "hazard_protagonista": "vitrinas reflejo + paneles orientación compás",
+      "mecanica": "recoger/guardar/expulsar proyectiles (elegir cuándo disparar)",
+      "enemigo_canonico": "Vitrina ambulante (refleja, junta atrás)",
+      "nodos": 10,
+      "verticalidad": "vitrinas 32px cover alto",
+      "ritmo": "táctico pausado"
+    },
+    "04_Amplificacion": {
+      "soberano": "Brama",
+      "forma": "paralelogramos y conos",
+      "arquitectura": "estrella trapecio, stacks altavoz pilares, cables colgando, escenario hundido",
+      "paleta": "metal ennegrecido #210709→#ef4444 + haze rojo 0.12",
+      "hazard_protagonista": "altavoces + cables + zonas incendiadas",
+      "mecanica": "distorsión anuncia sobrecarga → altavoces destructibles/usables (conos presión)",
+      "enemigo_canonico": "Altavoz viviente (cono estacionario + descarga)",
+      "nodos": 9,
+      "verticalidad": "escenario -24px + pasarela +24px",
+      "ritmo": "intenso con ventanas de calma"
+    },
+    "05_Nota_Ausente": {
+      "soberano": "Obispo de la Nota Ausente",
+      "forma": "verticales góticas",
+      "arquitectura": "cruz latina, nave alta, órgano fondo, diapasones 2m, vitrales rotos",
+      "paleta": "obsidiana #150826→#c084fc + haze violeta 0.11",
+      "hazard_protagonista": "diapasones + órgano + vitrales",
+      "mecanica": "silencio como amenaza (ataque no suena hasta 0.2s, solo vibración diapasón)",
+      "enemigo_canonico": "Afinadores (diapasones, corrigen disonancia)",
+      "nodos": 10,
+      "verticalidad": "coro +24px + confesionario -12px",
+      "ritmo": "tenso contemplativo"
+    },
+    "06_Umbral_Encadenado": {
+      "soberano": "Corazón Encadenado",
+      "forma": "masa y cierre",
+      "arquitectura": "sala-búnker 60% + 2 ante-salas, puerta blindada 4 cadenas radiales, tambor 2m",
+      "paleta": "acero #091813→#4ade80 desat + haze rosa 0.09",
+      "hazard_protagonista": "tambor + cadenas + puerta no jugable",
+      "mecanica": "golpes tambor cierran salidas (posicionarse cerca de salidas deseadas)",
+      "enemigo_canonico": "Guardianes umbral (bloquean salidas)",
+      "nodos": 8,
+      "verticalidad": "búnker 2 alturas + pasarela +18px",
+      "ritmo": "pesado claustrofóbico"
+    },
+    "07_Mil_Voces": {
+      "soberano": "Crupier de las Mil Voces",
+      "forma": "fragmentación diagonal",
+      "arquitectura": "casino rombo/diamante, espejos cada pared, palcos elevados, camerinos, ruleta",
+      "paleta": "espejo + cian #22d3ee + haze cian 0.11 (magenta trampa)",
+      "hazard_protagonista": "espejos + máscaras + mesa ruleta",
+      "mecanica": "voces señuelo: solo suelo (floorCues) fiable; vida/controles nunca mienten",
+      "enemigo_canonico": "Eco falso (copia apariencia, solo real proyecta sombra)",
+      "nodos": 10,
+      "verticalidad": "palcos +18px + camerinos -12px",
+      "ritmo": "desorientador paranoico"
+    },
+    "08_Anden_Ausente": {
+      "soberano": "Nix",
+      "forma": "líneas de fuga",
+      "arquitectura": "andén 3:1 (andén central + 2 vías), raíles traviesas, bancos, velos, marquesina hielo",
+      "paleta": "hielo negro #081526 + cian #38bdf8 + haze cian 0.12",
+      "hazard_protagonista": "raíles/trenes + línea divisoria + velos",
+      "mecanica": "memoria proyectiles (sala reproduce tus últimos 8 disparos); línea divisoria cian; tren lineal",
+      "enemigo_canonico": "Espejo viviente (repite último ataque con demora)",
+      "nodos": 9,
+      "verticalidad": "andenes +12px vs vías -8px =20px",
+      "ritmo": "melancólico tenso"
+    },
+    "09_Nucleo": {
+      "soberano": "Rey del Compás",
+      "forma": "vacío",
+      "arquitectura": "sala blanca + fragmentos flotantes todas pistas + corona orejas zorro + cadena + anclajes",
+      "paleta": "obsidiana cósmica #120924 + blanco #e2e8f0 + haze blanco 0.10",
+      "hazard_protagonista": "anclajes + fragmentos + corona/cadena finales",
+      "mecanica": "sin acompañamiento; combinaciones 2 pistas anticipadas por siluetas; anclajes destructibles",
+      "enemigo_canonico": "Fragmentos (2 pistas) + Anclajes",
+      "nodos": 6,
+      "verticalidad": "fragmentos 20-40px plataformas temporales",
+      "ritmo": "solemne conclusivo"
+    }
+  },
+  "validacion_grises": {
+    "01_curvas": "abanico + corazón roto reconocible en grises",
+    "02_horizontal": "mesas largas 2:1 reconocibles",
+    "03_reticula": "grid 90° + caja fuerte reconocibles",
+    "04_conos": "estrella + trapecios altavoz reconocibles",
+    "05_vertical": "cruz latina + órgano reconocibles",
+    "06_masa": "sala-búnker + puerta blindada reconocibles",
+    "07_diagonal": "rombo + palcos reconocibles",
+    "08_lineal": "3 vías + raíles reconocibles",
+    "09_vacio": "vacío con fragmentos flotantes reconocible",
+    "veredicto": "APROBADO — Todas distinguibles en grises por geometría"
+  },
+  "matriz_similitud": {
+    "nota": "0=muy distinto, 3=muy similar — pares con ≥2 son riesgo de variación cromática detectado",
+    "umbral_alarma": 2,
+    "max_similitud_detectada": 1.33,
+    "pares_riesgo": [
+      {
+        "par": [
+          "02_El_Banquete",
+          "03_Camara_Instantes"
+        ],
+        "forma": 1,
+        "mecanica": 1,
+        "paleta": 1,
+        "total": 1,
+        "riesgo": "BAJO — horizontal vs retícula"
+      },
+      {
+        "par": [
+          "05_Nota_Ausente",
+          "06_Umbral_Encadenado"
+        ],
+        "forma": 1,
+        "mecanica": 1,
+        "paleta": 2,
+        "total": 1.33,
+        "riesgo": "MEDIO — pero vertical vs masa compensa"
+      },
+      {
+        "par": [
+          "04_Amplificacion",
+          "06_Umbral_Encadenado"
+        ],
+        "forma": 1,
+        "mecanica": 1,
+        "paleta": 1,
+        "total": 1,
+        "riesgo": "BAJO — conos vs masa"
+      }
+    ],
+    "veredicto": "APROBADO — Ningún par supera el umbral. La diferenciación estructural es suficiente."
+  }
+}
