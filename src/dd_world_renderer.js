@@ -905,6 +905,31 @@
     return cv;
   }
 
+  /* Silueta de un color cualquiera (el filo rojo del jefe en berserk). A media
+     resolución: sólo se usa como velo, nunca como dibujo. */
+  const enemyColorSilCache = (typeof Map === "function") ? new Map() : null;
+
+  function enemyColorSilhouette(im, color) {
+    if (!enemyColorSilCache || !im || !im.naturalWidth || !color) return null;
+    const key = (im.src || "") + "|" + color;
+    let cv = enemyColorSilCache.get(key);
+    if (cv === undefined) {
+      cv = null;
+      try {
+        cv = document.createElement("canvas");
+        cv.width = Math.max(1, Math.round(im.naturalWidth / 2));
+        cv.height = Math.max(1, Math.round(im.naturalHeight / 2));
+        const c2 = cv.getContext("2d");
+        c2.drawImage(im, 0, 0, cv.width, cv.height);
+        c2.globalCompositeOperation = "source-in";
+        c2.fillStyle = color;
+        c2.fillRect(0, 0, cv.width, cv.height);
+      } catch (e) { cv = null; }
+      enemyColorSilCache.set(key, cv);
+    }
+    return cv;
+  }
+
   /* Halo de separación. Las figuras oscuras (Seguridad, Sprinter) se perdían sobre
      los suelos oscuros de los círculos II en adelante: sólo quedaba el filo de luz
      del propio dibujo, de menos de 1 px en pantalla. Detrás de cada fotograma se
@@ -950,6 +975,31 @@
     return cv;
   }
 
+  /* El mismo halo, teñido (se recolorea el ya construido: conserva su caída). */
+  const enemyHaloTintCache = (typeof Map === "function") ? new Map() : null;
+
+  function enemyHaloTinted(im, color) {
+    if (!enemyHaloTintCache || !color) return null;
+    const base = enemyHalo(im);
+    if (!base) return null;
+    const key = (im.src || "") + "|" + color;
+    let cv = enemyHaloTintCache.get(key);
+    if (cv === undefined) {
+      cv = null;
+      try {
+        cv = document.createElement("canvas");
+        cv.width = base.width; cv.height = base.height;
+        const c2 = cv.getContext("2d");
+        c2.drawImage(base, 0, 0);
+        c2.globalCompositeOperation = "source-in";
+        c2.fillStyle = color;
+        c2.fillRect(0, 0, cv.width, cv.height);
+      } catch (e) { cv = null; }
+      enemyHaloTintCache.set(key, cv);
+    }
+    return cv;
+  }
+
   /* Borde superior real del dibujo dentro del lienzo (fracción del alto, 0 = arriba).
      Sirve para colocar la barra de vida y la marca por encima de las poses que
      superan la altura de referencia (el Tanque con los puños en alto mide un 40 %
@@ -982,8 +1032,10 @@
     return top;
   }
 
-  /* Dibuja un fotograma con su pie en (0, 0) del contexto actual. */
-  function blitEnemyFrame(ctx, frame, figH, flash, haloAlpha) {
+  /* Dibuja un fotograma con su pie en (0, 0) del contexto actual.
+     `rim` (opcional): { color, alpha, tint } añade un halo de ese color sobre el de
+     separación y un velo del mismo color sobre la figura (jefe en berserk). */
+  function blitEnemyFrame(ctx, frame, figH, flash, haloAlpha, flashCap, rim) {
     const im = frame.im;
     const scale = figH / (frame.unit * im.naturalHeight);
     const w = im.naturalWidth * scale;
@@ -996,14 +1048,30 @@
       const prev = ctx.globalAlpha;
       ctx.globalAlpha = prev * (typeof haloAlpha === "number" ? haloAlpha : ENEMY_HALO.alpha);
       ctx.drawImage(halo, x - pad, y - pad, w + 2 * pad, h + 2 * pad);
+      if (rim && rim.color && rim.alpha > 0) {
+        const hc = enemyHaloTinted(im, rim.color);
+        if (hc) {
+          ctx.globalAlpha = prev * Math.min(1, rim.alpha);
+          ctx.drawImage(hc, x - pad, y - pad, w + 2 * pad, h + 2 * pad);
+        }
+      }
       ctx.globalAlpha = prev;
     }
     ctx.drawImage(im, x, y, w, h);
+    if (rim && rim.color && rim.tint > 0) {
+      const veil = enemyColorSilhouette(im, rim.color);
+      if (veil) {
+        const prev = ctx.globalAlpha;
+        ctx.globalAlpha = prev * Math.min(0.6, rim.tint);
+        ctx.drawImage(veil, x, y, w, h);
+        ctx.globalAlpha = prev;
+      }
+    }
     if (flash > 0) {
       const tint = enemyWhiteSilhouette(im);
       if (tint) {
         const prev = ctx.globalAlpha;
-        ctx.globalAlpha = prev * Math.min(0.68, 6 * flash);
+        ctx.globalAlpha = prev * Math.min(typeof flashCap === "number" ? flashCap : 0.68, 6 * flash);
         ctx.drawImage(tint, x, y, w, h);
         ctx.globalAlpha = prev;
       }
@@ -1194,10 +1262,60 @@
     return true;
   }
 
+  /* ======================================================================
+     JEFES (R03)
+     El puente (ddBossView, en tools/build_active_html.py) traduce el jefe del
+     motor a una vista y este módulo sólo dibuja:
+       slug      boss_00_anden … boss_10_arquitecto
+       state     idle | attack | recover | death
+                 attack  = el motor avisa o ejecuta un patrón, o barre
+                 recover = ventana expuesta tras disparar (fotograma `hit` cuando
+                           exista; hasta entonces, el reposo algo vencido)
+       flip      true = mira a la izquierda (siempre encara al protagonista)
+       flash     destello blanco de impacto (s): no cambia de fotograma — un arma
+                 automática lo tendría parpadeando entre dos poses
+       entrance  0 → 1 durante la aparición        frozen, berserk
+
+     Contrato de lienzo: el de los enemigos (anchors.foot, anchors.unit). Cada
+     jefe es su propia familia: su `idle` fija la escala y los demás estados la
+     comparten. El apoyo cae en (x, y + 0,8·r), donde lo ponía el sprite heredado.
+
+     Nunca se mezclan dos generaciones de arte: un `attack`, `hit` o `death` de
+     otra revisión que el `idle` no se dibuja; el estado se resuelve sobre el
+     `idle` con una señal procedimental (empuje, vencimiento, colapso).
+     ====================================================================== */
+  const BOSS_BASE = {
+    // h = alto de la figura de referencia (el `idle`: del tocado a los pies) en px de
+    // mundo con el radio 34 que el motor da a los residentes. Un minijefe mide hasta
+    // 190 y el protagonista 104: el residente tiene que imponerse a los dos.
+    // halo = opacidad del halo de separación (más en las figuras negras).
+    boss_00_anden: { h: 196, halo: 0.46 },
+    boss_01_magneta: { h: 190, halo: 0.36 },
+    boss_02_bufe: { h: 178, halo: 0.3 },
+    boss_03_cajero: { h: 190, halo: 0.36 },
+    boss_04_pogo: { h: 186, halo: 0.42 },
+    boss_05_oficiante: { h: 194, halo: 0.34 },
+    boss_06_matarife: { h: 188, halo: 0.36 },
+    boss_07_imitador: { h: 192, halo: 0.46 },
+    boss_08_traidor: { h: 200, halo: 0.34 },
+    boss_09_nucleo: { h: 204, halo: 0.3 },
+    boss_10_arquitecto: { h: 192, halo: 0.42 }
+  };
+  const BOSS_REF_R = 34;
+  const BOSS_FOOT_K = 0.8;
+  const BOSS_LEGACY_UNIT = 0.9;
+  const BOSS_LEGACY_FOOT = [0.5, 0.97];
+  const BOSS_STATE_ASSET = { idle: "idle", attack: "attack", recover: "hit", hit: "hit", death: "death" };
+  const BOSS_FLASH_CAP = 0.36;            // un jefe encaja disparos sin parar: que el dibujo siga viéndose
+  const bossMotion = (typeof WeakMap === "function") ? new WeakMap() : null;
+
   function resolveBossSlug(boss, circleIdx) {
-    const raw = String((boss && (boss.id || boss.name || boss.key)) || "").toLowerCase();
+    const res = String((boss && boss.resident) || "").toLowerCase();
+    if ((boss && boss.secretBoss) || res === "arquitecto") return "boss_10_arquitecto";
+    if (boss && boss.final) return "boss_09_nucleo";
+    const raw = (res + " " + String((boss && (boss.id || boss.name || boss.key)) || "")).toLowerCase();
     if (raw.includes("arquitecto") || raw.includes("secret")) return "boss_10_arquitecto";
-    if (raw.includes("nucleo") || raw.includes("final")) return "boss_09_nucleo";
+    if (raw.includes("nucleo") || raw.includes("núcleo")) return "boss_09_nucleo";
     if (raw.includes("traidor")) return "boss_08_traidor";
     if (raw.includes("imitador")) return "boss_07_imitador";
     if (raw.includes("matarife")) return "boss_06_matarife";
@@ -1210,32 +1328,221 @@
     return BOSS_INDEX_TO_SLUG[Math.max(0, Math.min(9, Number(circleIdx) || 0))];
   }
 
-  function drawBoss(ctx, boss, circleIdx, timeSec) {
-    if (!boss) return false;
-    const slug = resolveBossSlug(boss, circleIdx);
-    let state = "idle";
-    if (boss.hurtT > 0.06) state = "hit";
-    else if (boss.attackT > 0 || boss.castT > 0 || boss.dashT > 0 || boss.phaseT > 0) state = "attack";
+  /* Elige el fotograma de (jefe, estado) sin mezclar revisiones de arte. */
+  function resolveBossFrame(slug, state) {
+    if (!window.DD_ASSETS) return null;
+    const idleId = slug + "_idle";
+    const idleIm = window.DD_ASSETS.get(idleId);
+    if (!idleIm) return null;
+    const idleEntry = enemyEntry(idleId) || {};
+    const wanted = BOSS_STATE_ASSET[state] || "idle";
+    let id = idleId;
+    let im = idleIm;
+    let entry = idleEntry;
+    // El arte anterior no trae anclas y cada estado tiene otro lienzo: con él sólo se
+    // usa el reposo (el estado se marca con la señal procedimental).
+    if (wanted !== "idle" && idleEntry.anchors) {
+      const sid = slug + "_" + wanted;
+      const sim = window.DD_ASSETS.get(sid);
+      const sentry = enemyEntry(sid) || {};
+      if (sim && sentry.anchors && (sentry.rev || null) === (idleEntry.rev || null)) {
+        id = sid; im = sim; entry = sentry;
+      }
+    }
+    const an = entry.anchors || null;
+    const foot = (an && Array.isArray(an.foot) && an.foot.length === 2) ? an.foot : BOSS_LEGACY_FOOT;
+    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 1.5) ? an.unit : BOSS_LEGACY_UNIT;
+    return { id: id, im: im, foot: foot, unit: unit, dedicated: id !== idleId || wanted === "idle", rev: entry.rev || null };
+  }
 
-    const im =
-      (window.DD_ASSETS && window.DD_ASSETS.get(slug + "_" + state)) ||
-      (window.DD_ASSETS && window.DD_ASSETS.get(slug + "_idle"));
-    if (!im) return false;
+  function bossFigureHeight(slug, r) {
+    const b = BOSS_BASE[slug] || BOSS_BASE.boss_00_anden;
+    const k = Math.pow(Math.max(0.6, Math.min(2, (Number(r) || BOSS_REF_R) / BOSS_REF_R)), 0.75);
+    return b.h * k;
+  }
+
+  function bossHaloAlpha(slug) {
+    const b = BOSS_BASE[slug];
+    return (b && typeof b.halo === "number") ? b.halo : ENEMY_HALO.alpha;
+  }
+
+  function bossGeometry(boss, view) {
+    const slug = (view && view.slug) || resolveBossSlug(boss, view && view.circle);
+    const r = Math.max(16, Number(boss && boss.r) || BOSS_REF_R);
+    const figH = bossFigureHeight(slug, r);
+    const footY = (Number(boss && boss.y) || 0) + r * BOSS_FOOT_K;
+    return { slug: slug, r: r, figH: figH, footY: footY, topY: footY - figH };
+  }
+
+  /* ¿Hay arte para este jefe? El puente lo pregunta antes de pintar sus señales de
+     suelo: si no lo hay, deja todo el dibujo al motor. */
+  function canDrawBoss(slug) {
+    return !!resolveBossFrame(slug, "idle");
+  }
+
+  function drawBoss(ctx, boss, view, timeSec) {
+    if (!boss) return false;
+    // Llamadas antiguas: (ctx, boss, índiceDeCírculo, t).
+    if (view == null || typeof view !== "object") view = { circle: Number(view) || 0 };
+    const geo = bossGeometry(boss, view);
+    const state = view.state || "idle";
+    const frame = resolveBossFrame(geo.slug, state);
+    if (!frame) return false;
 
     setSmooth(ctx);
-    const r = Math.max(38, Number(boss.r || 52));
-    const h = Math.max(176, r * 3.45);
-    const w = h * (im.naturalWidth / Math.max(1, im.naturalHeight));
-    const hover = Math.sin((timeSec || 0) * 2.8) * 4.5;
-    const facingLeft = (boss.vx || 0) < -8;
+    const t = Number(timeSec) || 0;
+    const flip = !!view.flip;
+    const flash = Math.max(0, Number(view.flash != null ? view.flash : boss.hitFlash) || 0);
+    const frozen = view.frozen != null ? !!view.frozen : (boss.freezeTimer > 0);
+    const berserk = !!view.berserk;
+    const ent = view.entrance == null ? 1 : Math.max(0, Math.min(1, Number(view.entrance) || 0));
+    const alpha = 0.25 + 0.75 * ent;                // la aparición del motor: se funde y crece
+    const grow = 0.78 + 0.22 * ent;
+    const k = geo.figH / 190;
 
-    drawNeonGlow(ctx, boss.x, boss.y - h * 0.32, r * 2.5, "#ff2d7a", 0.28);
-    drawSoftShadow(ctx, boss.x, boss.y + r * 0.78, r * 1.45, r * 0.56, 0.68);
+    // Cuánto sobresale este fotograma de la altura de referencia: la barra de vida sube eso.
+    const lift = Math.max(0, (frame.foot[1] - enemyContentTop(frame.im)) * geo.figH / frame.unit - geo.figH);
+    geo.topY = geo.footY - (geo.figH + lift) * grow;
+
+    // Velocidad real entre dibujos: el balanceo sólo se marca si se desplaza.
+    let speed = 0;
+    if (bossMotion) {
+      const m = bossMotion.get(boss);
+      if (m && t > m.t) {
+        const inst = Math.hypot(boss.x - m.x, boss.y - m.y) / Math.max(1e-3, t - m.t);
+        speed = m.spd + (Math.min(600, inst) - m.spd) * 0.35;
+      } else if (m) {
+        speed = m.spd;
+      }
+      bossMotion.set(boss, { x: boss.x, y: boss.y, t: t, spd: speed });
+    }
+    const moving = !frozen && ent >= 1 && speed > 12;
+
+    let bob = 0, tilt = 0, sx = 1, sy = 1;
+    if (!frozen) {
+      if (state === "attack") {
+        if (frame.dedicated) {
+          sy = 1 + Math.sin(t * 11) * 0.006;                      // tensión contenida
+        } else {
+          tilt = 0.07; sx = 1.045; sy = 0.965; bob = -2 * k;      // la señal del motor: se adelanta y se aplasta
+        }
+      } else if (moving) {
+        const cyc = t * (berserk ? 7.6 : 5.2);
+        bob = -Math.abs(Math.sin(cyc)) * 2.4 * k;
+        tilt = Math.sin(cyc) * 0.016;
+      } else {
+        sy = 1 + Math.sin(t * 2.1 + (boss.x || 0) * 0.01) * 0.009;   // respiración
+      }
+      if (state === "recover" && !frame.dedicated) {
+        tilt -= 0.05; sx *= 1.02; sy *= 0.975;                    // vencido: acaba de vaciarse
+      }
+    }
+    const n = Math.min(1, flash / 0.12);
+    if (n > 0) {
+      tilt -= 0.03 * n;
+      sx *= 1 + 0.025 * n;
+      sy *= 1 - 0.035 * n;
+    }
+
+    // Aura del color del residente (roja y pulsante en berserk) y sombra de apoyo.
+    const auraColor = berserk ? "#ff3b2f" : (view.color || boss.color || "#ff2d7a");
+    const auraAlpha = (berserk ? 0.2 + 0.08 * Math.sin(t * 9) : 0.13) * alpha;
+    drawNeonGlow(ctx, boss.x, geo.footY - geo.figH * 0.42, geo.figH * 0.66, auraColor, auraAlpha);
+    drawSoftShadow(ctx, boss.x, geo.footY, Math.max(geo.r * 1.5, geo.figH * 0.25) * grow, Math.max(8, geo.r * 0.5) * grow, 0.62 * alpha);
 
     ctx.save();
-    ctx.translate(boss.x, boss.y + hover);
-    if (facingLeft) ctx.scale(-1, 1);
-    ctx.drawImage(im, -w / 2, -h + r * 0.82, w, h);
+    ctx.globalAlpha *= alpha;
+    ctx.translate(boss.x, geo.footY + bob);
+    if (grow !== 1) ctx.scale(grow, grow);
+    if (flip) ctx.scale(-1, 1);
+    if (tilt) ctx.rotate(tilt);
+    if (sx !== 1 || sy !== 1) ctx.scale(sx, sy);
+    // Destello de impacto: tope bajo y caída cuadrática. Con un arma automática el
+    // motor reinicia hitFlash a cada bala; con caída lineal el jefe pasaba la pelea
+    // entera velado de blanco y no se veía el dibujo.
+    const flashDraw = BOSS_FLASH_CAP * n * n / 6;
+    // Berserk (vida < 35 %): filo rojo que late. El aura de suelo no basta: sobre la
+    // alfombra roja del Limbo no se distinguía del reposo.
+    const pulse = 0.5 + 0.5 * Math.sin(t * 9);
+    const rim = berserk ? { color: "#ff2a1f", alpha: 0.62 + 0.38 * pulse, tint: 0.07 + 0.09 * pulse } : null;
+    blitEnemyFrame(ctx, frame, geo.figH, flashDraw, bossHaloAlpha(geo.slug), BOSS_FLASH_CAP, rim);
+    ctx.restore();
+
+    if (frozen) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(145, 240, 255, 0.85)";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.ellipse(boss.x, geo.footY - geo.figH * 0.5, geo.figH * 0.32, geo.figH * 0.56, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 0.14;
+      ctx.fillStyle = "#91f0ff";
+      ctx.fill();
+      ctx.restore();
+    }
+
+    drawBossOverlays(ctx, boss, geo, alpha);
+    return true;
+  }
+
+  /* Barra de vida del jefe. El motor la pintaba en y − r − 16, que con una figura de
+     190 px cae a media altura del cuerpo: aquí va por encima del tope real del dibujo. */
+  function drawBossOverlays(ctx, boss, geo, alpha) {
+    const maxHp = Math.max(1, Number(boss.maxHp) || 1);
+    const pct = Math.max(0, Math.min(1, (Number(boss.hp) || 0) / maxHp));
+    if (pct <= 0) return;
+    const bw = Math.max(72, geo.r * 2.7);
+    const y = geo.topY - 12;
+    ctx.save();
+    ctx.globalAlpha *= (typeof alpha === "number" ? alpha : 1);
+    ctx.fillStyle = "rgba(5, 2, 10, 0.88)";
+    ctx.fillRect(boss.x - bw / 2 - 2, y - 2, bw + 4, 10);
+    ctx.fillStyle = "#3b1d33";
+    ctx.fillRect(boss.x - bw / 2, y, bw, 6);
+    ctx.fillStyle = pct > 0.35 ? "#ff2d7a" : "#ffb020";      // 35 %: ahí entra en berserk
+    ctx.fillRect(boss.x - bw / 2, y, bw * pct, 6);
+    ctx.restore();
+  }
+
+  /* Muerte del jefe. El motor guarda un registro ({x, y, r, age, duration}); el puente
+     le añade ddSlug y ddFlip. Con fotograma `death` de la misma revisión se muestra
+     ese fotograma (destello y fundido); sin él, el reposo se hunde y se ensancha —el
+     mismo colapso que hacía el motor con su sprite— y se desvanece. */
+  function drawBossDeath(ctx, rec, timeSec) {
+    if (!rec || !rec.ddSlug) return false;
+    const slug = rec.ddSlug;
+    const frame = resolveBossFrame(slug, "death");
+    if (!frame) return false;
+    setSmooth(ctx);
+    const dur = Math.max(0.05, Number(rec.duration) || 0.48);
+    const a = Math.max(0, Math.min(1, (Number(rec.age) || 0) / dur));
+    const r = Math.max(16, Number(rec.r) || BOSS_REF_R);
+    const figH = bossFigureHeight(slug, r);
+    const footY = (Number(rec.y) || 0) + r * BOSS_FOOT_K;
+    const flip = !!rec.ddFlip;
+    const fade = a < 0.6 ? 1 : Math.max(0, 1 - (a - 0.6) / 0.4);
+    // El destello ENTRA en rampa (pico a los 60 ms) en vez de empezar en su máximo: el
+    // motor abre la elección de fin de ronda en el fotograma siguiente a la muerte del
+    // último enemigo y congela la simulación; si el jefe era el último, su registro
+    // se queda en el primer instante hasta que el jugador elige. Con el pico en t = 0
+    // quedaba una silueta blanca plantada detrás del panel.
+    const fl = a < 0.06 ? a / 0.06 : Math.max(0, 1 - (a - 0.06) / 0.24);
+    const flash = fl * 0.62 / 6;
+    const back = (flip ? 1 : -1) * 10 * (1 - Math.pow(1 - a, 2)) * (figH / 190);   // retroceso, alejándose del protagonista
+
+    drawNeonGlow(ctx, rec.x, footY - figH * 0.42, figH * (0.66 + 0.5 * a), rec.color || "#ff2d7a", 0.2 * fade);
+    drawSoftShadow(ctx, rec.x + back, footY, Math.max(r * 1.5, figH * 0.25), Math.max(8, r * 0.5), 0.62 * fade);
+    ctx.save();
+    ctx.globalAlpha *= fade;
+    ctx.translate(rec.x + back, footY);
+    if (flip) ctx.scale(-1, 1);
+    if (!frame.dedicated) {
+      const fall = Math.max(0, (a - 0.04) / 0.96);
+      const ease = 1 - Math.pow(1 - fall, 2);
+      ctx.rotate(-0.09 * ease);
+      ctx.scale(1 + 0.16 * ease, Math.max(0.24, 1 - 0.62 * ease));
+    }
+    blitEnemyFrame(ctx, frame, figH, flash, bossHaloAlpha(slug), 0.62);
     ctx.restore();
     return true;
   }
@@ -1369,6 +1676,11 @@
     ENEMY_FOOT_K,
     PLAYER_GROUND_Y,
     drawBoss,
+    drawBossDeath,
+    canDrawBoss,
+    bossGeometry,
+    resolveBossFrame,
+    BOSS_FOOT_K,
     drawPickup,
     drawTurret,
     drawProjectiles,

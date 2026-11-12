@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-DEADBEAT DISCO — previsualización FUERA DEL MOTOR de los enemigos sobre el suelo.
+DEADBEAT DISCO — previsualización FUERA DEL MOTOR de los enemigos (y, con --bosses,
+de los jefes) sobre el suelo.
 
 Reproduce en Pillow lo que hace DD_WORLD.drawEnemy con los PNG finales y sus anclas
 (anchors.foot, anchors.unit): cada fotograma se apoya en la línea de suelo, con el
@@ -57,6 +58,23 @@ def renderer_constants():
     return base, num("ENEMY_FOOT_K", 0.65), num("PLAYER_BASE_H", 104), num("PLAYER_FOOT_Y", 16)
 
 
+def boss_constants():
+    """Tabla de jefes del renderizador: {slug: (alto, radio)} y el factor de apoyo."""
+    src = open(RENDERER, encoding="utf-8").read()
+    block = re.search(r"const BOSS_BASE = \{(.*?)\};", src, re.S)
+    if not block:
+        raise SystemExit("No se encontró BOSS_BASE en " + RENDERER)
+
+    def num(name, default):
+        m = re.search(r"const %s = ([\d.]+);" % name, src)
+        return float(m.group(1)) if m else default
+
+    r = num("BOSS_REF_R", 34)
+    base = {m.group(1): (float(m.group(2)), r)
+            for m in re.finditer(r"(\w+):\s*\{\s*h:\s*([\d.]+)[^}]*\}", block.group(1))}
+    return base, num("BOSS_FOOT_K", 0.8)
+
+
 def load_meta(batch_path):
     """Anclas por id: el registro (lo que verá el juego) y, por encima, el informe del lote."""
     meta = {}
@@ -78,23 +96,36 @@ def main() -> None:
     ap.add_argument("out")
     ap.add_argument("--batch", default=os.path.join(ROOT, "docs", "ART_REBUILD", "batches", "R02_ENEMIGOS.json"))
     ap.add_argument("--zoom", type=float, default=3.0, help="px de imagen por px de mundo")
-    ap.add_argument("--states", default="walk,windup,attack,death")
+    ap.add_argument("--states", default=None, help="por defecto walk,windup,attack,death (jefes: idle,attack,hit,death)")
     ap.add_argument("--onion", action="store_true")
+    ap.add_argument("--bosses", action="store_true", help="jefes (BOSS_BASE, ids <slug>_<estado>, referencia `idle`) en vez de enemigos")
+    ap.add_argument("--only", default="", help="familias o jefes a dibujar, separados por comas")
     a = ap.parse_args()
 
     base, foot_k, player_h, player_foot = renderer_constants()
+    ref_state, id_fmt, cell_world = "walk", "enemy_%s_%s", 150
+    if a.bosses:
+        base, foot_k = boss_constants()
+        ref_state, id_fmt, cell_world = "idle", "%s_%s", 270
+        if a.batch.endswith("R02_ENEMIGOS.json"):
+            a.batch = os.path.join(ROOT, "docs", "ART_REBUILD", "batches", "R03_JEFES.json")
+    if a.only:
+        want = set(a.only.split(","))
+        base = {k: v for k, v in base.items() if k in want or k.split("_", 2)[-1] in want}
     meta = load_meta(a.batch)
-    states = [s for s in a.states.split(",") if s]
+    states = [s for s in (a.states or ("idle,attack,hit,death" if a.bosses else "walk,windup,attack,death")).split(",") if s]
     z = a.zoom
 
-    cell_w = int(150 * z)
+    cell_w = int(cell_world * z)
     rows = []
     for fam, (fig_h, r) in base.items():
-        walk = meta.get("enemy_%s_walk" % fam)
+        walk = meta.get(id_fmt % (fam, ref_state))
         if not walk:
             continue
         row_h = int((max(fig_h, player_h) * 1.32 + 30) * z)
         cols = 1 + len(states) + (1 if a.onion else 0)
+        if a.bosses:
+            row_h = int((fig_h * 1.22 + 34) * z)
         row = Image.new("RGBA", (cell_w * cols, row_h), FLOOR + (255,))
         d = ImageDraw.Draw(row)
         ground = row_h - int(20 * z)            # y de pantalla del punto de apoyo (pies)
@@ -131,7 +162,7 @@ def main() -> None:
         frames = []
         for i, st in enumerate(states):
             cx = cell_w * (i + 1) + cell_w // 2
-            m = meta.get("enemy_%s_%s" % (fam, st))
+            m = meta.get(id_fmt % (fam, st))
             floor_marks(cx)
             if not m or m.get("rev") != walk.get("rev"):
                 d.text((cell_w * (i + 1) + 6, 4), "%s: pendiente" % st, fill=(255, 170, 120))

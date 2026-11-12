@@ -12,20 +12,21 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 
 | Paso | Qué se hace | Herramienta |
 |---|---|---|
-| 1 | Generar cada ilustración sobre croma verde liso, **pasando siempre una hoja de modelo como imagen de referencia** (sólo con texto el diseño se desvía) | generador de imágenes |
+| 1 | Generar cada ilustración sobre croma verde liso, **pasando siempre una hoja de modelo como imagen de referencia** (sólo con texto el diseño se desvía). Para un fotograma de estado, la referencia es el reposo del personaje montado con `state_ref.py` | generador de imágenes, `state_ref.py` |
 | 2 | Describir la tanda: maestro, lienzo, encaje, limpiezas y anclas | `docs/ART_REBUILD/batches/<TANDA>.json` |
-| 3 | Medir el registro de cada fotograma (protagonista: hebilla, cinturón, suelo; enemigos: apoyo y altura de referencia) | `measure.py`, `measure.py --actor` |
+| 3 | Medir el registro de cada fotograma (protagonista: hebilla, cinturón, suelo; enemigos: apoyo y altura de referencia; jefes: eje de apoyo a mano y escala K) | `measure.py`, `measure.py --actor`, `layout.py` |
 | 4 | Croma → PNG final + maestro archivado + métricas de control | `batch.py process` |
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
 
 ### `artlib.py`
-Biblioteca común: recorte de croma (`chroma_matte`), limpieza puntual (`erase_regions`),
+Biblioteca común: recorte de croma (`chroma_matte`), limpieza puntual (`erase_regions`,
+`remove_ground_line`, `fade_regions`; `apply_cleanup` las aplica en ese orden),
 capas parciales de una misma ilustración (`keep_regions`), encaje al lienzo
 (`fit_canvas`: `contain`, `figure`, `anchor`, `cover`, `stretch`), anclas normalizadas
 (`canvas_anchors`), guardado de PNG y de maestros WebP, y métricas de control
@@ -58,6 +59,9 @@ Claves de cada asset del JSON de tanda:
 | `id`, `raw`, `size`, `location` | identidad, maestro, lienzo final y ruta |
 | `fit` | encaje. Para personajes: `{"mode":"anchor","scale":s,"ax":x,"ay":y,"cx":…,"cy":…}` lleva el punto `(ax, ay)` del maestro a `(cx, cy)` del lienzo |
 | `erase` | polígonos o `{"rect":[…]}` del maestro que se borran (p. ej. una sombra de suelo no pedida) |
+| `ground_line` | `true` (o parámetros: `{"max_thick":12, "search":0.14, "min_run":28, "min_cover":0.10}`) busca y borra la raya horizontal fina que el generador dibuja bajo los pies aunque se le pida «no floor». Sólo mira la franja inferior de la figura y sólo borra tramos finos y largos: una bota, un bajo de túnica o una peana no lo son. Nunca pinta |
+| `fade` | `[{"rect":[x0,y0,x1,y1],"dir":"up"}]`: funde a transparente hacia un lado. Para cables o hilos que el dibujo lleva hasta el borde del lienzo: un corte recto con `erase` se ve |
+| `layout` | sólo jefes: datos para `layout.py` (`unit_world`, `ax`, `ay`, `unit_rows`, `ref`, `k`), que calcula `size`, `fit` y `anchors_raw` |
 | `keep` | polígonos del maestro que se conservan; el resto queda transparente (capas derivadas) |
 | `overlay_of` | id del fotograma al que pertenece una capa derivada |
 | `anchors_raw` | en píxeles del maestro; se guardan normalizados en `entries[id].anchors`. Protagonista: `belt_y` (borde inferior del cinturón) y `hand` (`[x, y]` del agarre). Enemigos: `foot` (`[x, y]` del punto de apoyo) y `unit_h` (alto de la figura de referencia de la familia) |
@@ -97,15 +101,48 @@ generador redibuja la cabeza con otra expresión) y K se midió por el **área d
 rígido de color propio** (botas, cabeza de peluche), que en los fotogramas de escala
 conocida acierta con un 1–3 % de error, contrastada sobre rejilla.
 
+### `layout.py`
+```
+layout.py docs/ART_REBUILD/batches/R03_JEFES.json [--only id,id] [--ppu 2.8] [--pad 8]
+          [--raw DIR] [--write]
+```
+Jefes: cada figura tiene su propia silueta (capa, báculo, cuernos, tambor) y el eje de
+apoyo automático no sirve en ninguna; se elige **a mano** sobre una hoja con rejilla y se
+anota en `layout.ax`. Con eso y con la altura de mundo (`unit_world`) calcula el lienzo
+(múltiplo de 16), el encaje y las anclas `foot` / `unit_h` de cada fotograma.
+- Reposo: `{"unit_world": 196, "ax": 512}` (el alto de referencia es el de la figura,
+  salvo que se dé `unit_rows: [y0, y1]`).
+- Estado: `{"ref": "<id del reposo>", "ax": 600, "k": 0.861}`. `k` = cuánto mide la
+  figura de este maestro respecto al reposo. Si el estado se generó dando como
+  referencia el reposo pegado en un lienzo más ancho, `k = alto de la salida / alto de
+  la referencia` (comprobado en 4 de 4 contra la altura de las figuras).
+Sin `--write` sólo imprime la tabla.
+
+### `state_ref.py`
+```
+state_ref.py docs/ART_REBUILD/batches/R03_JEFES.json [--only id,id] [--k 1.35] [--raw DIR] [--out DIR]
+```
+Monta la imagen de referencia para pedir un fotograma de estado: la figura de reposo,
+**ya limpia** (mismas claves `erase`, `keep`, `ground_line` y `fade` que aplica
+`batch.py process`), centrada en un lienzo croma `k` veces más ancho. Escribe
+`<raw>/_refs/ref_<nombre>_wide.png`. Dos motivos:
+- el generador conserva la proporción del lienzo y el tamaño de la figura de la
+  referencia: una pose que no cabe se recorta o se pliega, no se dibuja más pequeña;
+- hereda lo que la referencia traiga de más. Con el croma original como referencia, la
+  línea de suelo pasó a 3 de 3 fotogramas de ataque.
+El factor para la ficha del fotograma es `k` de `layout` = alto de la imagen generada /
+alto de esta referencia.
+
 ### `preview_actors.py`
 ```
 preview_actors.py <salida.jpg> [--batch …/R02_ENEMIGOS.json] [--zoom 1.6]
                   [--states walk,windup,attack,death] [--onion]
+preview_actors.py <salida.jpg> --bosses [--only anden,pogo] [--states idle,attack] [--onion]
 ```
-Apoya cada fotograma de enemigo en la línea de suelo con el círculo de colisión del
-motor debajo y el protagonista al lado. Lee las alturas de `src/dd_world_renderer.js`
-(no hay copia que se quede vieja). `--onion` superpone los estados alineados por el
-apoyo: enseña cuánto se desplaza el cuerpo al cambiar de estado.
+Apoya cada fotograma de enemigo (o de jefe, con `--bosses`) en la línea de suelo con el
+círculo de colisión del motor debajo y el protagonista al lado. Lee las alturas de
+`src/dd_world_renderer.js` (no hay copia que se quede vieja). `--onion` superpone los
+estados alineados por el apoyo: enseña cuánto se desplaza el cuerpo al cambiar de estado.
 
 ### `sheet.py`
 ```
@@ -137,6 +174,31 @@ de la muerte. Guarda además el fotograma completo (`<c>_frame_walk.jpg`,
 detrás, al lado y delante de un mueble alto). La familia y el estado que anota el
 informe son los que el puente entrega al renderizador (`__DD_BRIDGE.getActors()`), no
 una suposición de la sonda. ≈75 s por círculo: lanzarlo en segundo plano.
+
+### `probe_bosses.js`
+```
+node tools/art_master/probe_bosses.js <salida> [--bosses=1,2,…,11] [--box=300] [--pass=full|intro]
+```
+Por cada jefe (1–9 = residentes de los círculos I–IX, 10 = Núcleo, 11 = Arquitecto) va a
+su sala, lo invoca por la vía del motor y lo recorta en: aparición, reposo a ambos
+lados del protagonista, persecución, aviso de patrón, ventana expuesta, impacto,
+barrido (aviso y rayo), esbirros vivos, congelado, berserk, vida baja, delante y detrás
+del protagonista, y la muerte (`death_frozen` = lo que queda detrás del panel de fin de
+ronda; `death_a/b/c` = tres instantes del desplome). Guarda además los fotogramas
+completos `_frame_intro` (tarjeta de presentación de `DD_CINE`), `_frame_idle`,
+`_frame_attack`, `_frame_fired` y `_frame_sweep`. El informe anota el fotograma que el
+puente entregó de verdad y si es propio del estado (`dedicated`) o el reposo con señal.
+≈100 s por jefe: lanzarlo en segundo plano. `--pass=intro` se queda en la tarjeta de
+presentación, la aparición y el reposo (≈45 s por jefe): sirve para revisar un cambio
+que no toca el combate. Con un HTML anterior a R03 hace una pasada reducida (reposo y
+patrón) que sirve de «antes».
+
+Dos límites de lo que la sonda puede enseñar:
+- Al morir el Núcleo o el Arquitecto, el motor abre la pantalla de fin de partida en el
+  mismo fotograma y deja de simular: su registro de muerte no envejece (`death_a/b/c`
+  salen iguales y sin `death_frozen`). En juego, esa pantalla tapa la escena.
+- Los estados se fuerzan con `__DD_BRIDGE.debugPoseBoss`; el patrón y la muerte son
+  los del motor. No sustituye a jugar un combate entero.
 
 ### `probe_cinematic.js`
 Captura un fotograma por plano de la cinemática de entrada adelantando el reloj de
@@ -172,7 +234,8 @@ figura**: devuelve la pose de la referencia casi intacta o pliega los miembros p
 quepan. Así fallaron en R02 el aviso y el ataque del Tanque y el ataque de la Mascota.
 
 1. Pegar el `walk` recortado sobre un lienzo de croma más alto o más ancho, con la
-   figura **centrada** (`dd_work/raw/<TANDA>/_refs/`), y usarlo como referencia.
+   figura **centrada** (`dd_work/raw/<TANDA>/_refs/`), y usarlo como referencia. Para
+   ensanchar, `state_ref.py` lo hace con la figura ya limpia.
 2. Pedir «ONE single character only… Replace the reference pose completely…»: dos de
    las seis salidas hechas con referencia ampliada trajeron la figura original **y** la
    nueva. En las dos la figura estaba descentrada; con seis muestras no es una prueba,
@@ -229,6 +292,56 @@ Ganchos de prueba del puente: `getActors()`, `getProps()`, `renderNow()`,
 `killAllEnemies()` (abate por la vía real del motor, la única que deja registro de
 muerte) y `debugPoseEnemies(st, {type, index, hit, stT, assign:{…}})`.
 
+## Contrato de los jefes (R03)
+
+El **puente** (`ddBossView` en `tools/build_active_html.py`) traduce el jefe del motor a
+`{slug, estado, orientación, aparición, berserk}` y `DD_WORLD.drawBoss` lo pinta. Las
+señales de juego del motor (anillos de aparición, arco de esbirros, aro de ventana
+expuesta, sector y rayo del barrido) las vuelve a pintar el puente en torno a la figura:
+el puente anterior sustituía el `Bf` del motor entero y **ninguna** llegaba a pantalla.
+
+| Jefe del motor | `slug` (`<slug>_idle`, `_attack`, `_hit`, `_death`) |
+|---|---|
+| residente del círculo I…IX | `boss_00_anden`, `boss_01_magneta`, `boss_02_bufe`, `boss_03_cajero`, `boss_04_pogo`, `boss_05_oficiante`, `boss_06_matarife`, `boss_07_imitador`, `boss_08_traidor` |
+| `final` (nivel 100) | `boss_09_nucleo` |
+| `secretBoss` | `boss_10_arquitecto` (sólo `_idle` y `_attack`) |
+
+- **Estados.** `attack` mientras hay un patrón en aviso o disparando (`pattern71`), en
+  el barrido (`phase === "sweep"`) o durante `_ddaAttackT`; `recover` en la ventana
+  expuesta (`exposedT > 0`); `idle` en el resto. **No** se usa `f.bossState()`: devuelve
+  `attack` durante toda la fase berserk. El jefe mira siempre al protagonista (el arte
+  mira a la derecha y se refleja).
+- **Anclas** como los enemigos (`foot`, `unit`). El apoyo va en `(x, y + 0,8·r)` y la
+  figura de referencia mide `BOSS_BASE[slug].h × (r / 34)^0,75` px de mundo (el
+  protagonista mide 104).
+- **Sin mezcla de revisiones.** Un fotograma de estado sólo se usa si tiene anclas y la
+  misma `rev` que el reposo. Si falta, se dibuja el reposo con una señal procedimental
+  (ataque: se inclina y se aplasta; ventana expuesta: se vence hacia atrás). El arte
+  anterior (pixel art sin anclas) no se dibuja nunca junto al nuevo.
+- **Impacto.** No cambia de fotograma: destello con tope 0,36 y caída cuadrática. Un
+  arma automática reinicia `hitFlash` a cada bala; con caída lineal el jefe pasaba la
+  pelea velado de blanco.
+- **Berserk** (vida < 35 %): filo rojo que late alrededor de la figura y velo rojo
+  suave; la barra de vida pasa a ámbar.
+- **Barra de vida** por encima del tope real del dibujo (`enemyContentTop`), no en
+  `y − r − 16`, que con figuras de 190 px cae a media altura del cuerpo.
+- **Muerte.** El registro del motor dura 1 s y recuerda `ddSlug` y `ddFlip`. Con
+  fotograma `death` se muestra ese; sin él, el reposo se hunde, se ensancha y se funde.
+  El destello entra en rampa: el motor abre la elección de fin de ronda en el fotograma
+  siguiente y congela la simulación, así que el primer instante puede quedarse en
+  pantalla mientras el jugador elige.
+- **Profundidad.** `ddGroundY`: jefe y registro de muerte en `y + 0,8·r`.
+- **Tarjeta de presentación** (`DD_CINE.playBossIntro`). La instantánea del puente
+  entrega `boss.slug`, `boss.subtitle` (el título del residente en el motor,
+  `residentTitle`; si no tiene, `variantLabel`) y `boss.color`. La tarjeta dibuja
+  `<slug>_idle` reflejado —el arte mira a la derecha y el retrato va a la derecha de la
+  pantalla— sobre un velo oscuro. Sin `subtitle` los once jefes mostraban el mismo
+  texto de respaldo.
+
+Ganchos de prueba: `getBoss()`, `debugPoseBoss({x, y, entrance, hitFlash, exposedT,
+freezeTimer, addsAlive, pattern71, patternWarn71, phase, phaseTimer, attackTimer,
+berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del motor).
+
 ## Trampas conocidas
 
 - **Varias imágenes de referencia** (diseño + estilo, tanda R03): la salida no sigue la
@@ -236,8 +349,17 @@ muerte) y `debugPoseEnemies(st, {type, index, hit, stT, assign:{…}})`.
   la primera y 1 volvió como hoja de tres vistas en 16:9. Dar las dos con la misma
   proporción y pedir «ONE single figure, not a model sheet, not a turnaround».
   La pose de la imagen de estilo puede colarse: usar como estilo una figura de pie.
-- **Línea de suelo**: 6 de 8 salidas de R03 traen una raya fina bajo los pies pese a
-  «no floor». Pedir también «no ground line» y borrarla con `erase`.
+- **Línea de suelo**: 6 de las 8 primeras salidas de R03 traen una raya fina bajo los
+  pies pese a «no floor». Con una figura de estilo que no la tiene, 0 de 5; pero los
+  fotogramas de estado la **heredan** de su referencia (3 de 3). Se quita con
+  `"ground_line": true`.
+- **Cables e hilos hasta el borde** (Magneta, Imitador): se funden con `fade`.
+- **Cristal pintado de verde croma** (la puerta del horno del Bufé en ataque): el
+  recorte lo vacía. Pedir cristal oscuro ahumado.
+- **Muerte del jefe y fin de ronda.** Al morir el último enemigo de la sala el motor
+  abre «VARÍA TU DISPARO» en el paso siguiente y deja de simular hasta que se elige.
+  Una sonda que no pulse una opción se queda con el registro de muerte en su primer
+  instante y con el siguiente jefe congelado (así salió la primera pasada de R03).
 
 - El motor **sortea** qué enemigos nacen élite o guardián y `DMO_FLOOR.filterEnemyType`
   cambia el tipo pedido por uno que la sala permita. Una sonda que necesite un reparto

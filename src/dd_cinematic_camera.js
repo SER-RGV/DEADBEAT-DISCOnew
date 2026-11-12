@@ -151,12 +151,16 @@
 
   /* D. BOSS INTRODUCTION */
   function playBossIntro(bossObj, circleIdx) {
-    const slug = window.DD_WORLD ? window.DD_WORLD.resolveBossSlug(bossObj, circleIdx) : "boss_01_magneta";
+    // El puente ya dice quién es (bossObj.slug); el nombre sólo se usa como respaldo.
+    const slug = (bossObj && bossObj.slug) || (window.DD_WORLD ? window.DD_WORLD.resolveBossSlug(bossObj, circleIdx) : "boss_01_magneta");
     const bName = (bossObj && (bossObj.name || bossObj.title)) || "RESIDENTE DEL CÍRCULO";
-    const bRule = (bossObj && (bossObj.rule || bossObj.subtitle)) || "Anfitrión de la Cámara · Duelo a Muerte";
+    // El título es el que el motor da a cada residente (llega en bossObj.subtitle). El
+    // texto de respaldo era lo que se leía en las once presentaciones.
+    const bRule = (bossObj && (bossObj.subtitle || bossObj.rule)) || "Residente de la Cámara";
     startSeq({
       type: "boss",
       boss: bossObj,
+      color: (bossObj && bossObj.color) || "#ff2d7a",
       slug,
       title: String(bName).toUpperCase(),
       subtitle: bRule,
@@ -898,7 +902,32 @@
       if (bImg) {
         const bh = Math.min(340, viewH * 0.52);
         const bw = bh * (bImg.naturalWidth / Math.max(1, bImg.naturalHeight));
-        ctx.drawImage(bImg, viewW * 0.74 - bw * 0.5, viewH * 0.52 - bh * 0.5, bw, bh);
+        const pcx = viewW * 0.74, pcy = viewH * 0.52;
+        // Fondo del retrato: sin él la ilustración quedaba plantada sobre el suelo de la
+        // sala, como un segundo jefe, y las figuras oscuras se perdían.
+        const veil = ctx.createRadialGradient(pcx, pcy, bh * 0.12, pcx, pcy, bh * 0.9);
+        veil.addColorStop(0, "rgba(9, 4, 18, 0.82)");
+        veil.addColorStop(0.62, "rgba(9, 4, 18, 0.6)");
+        veil.addColorStop(1, "rgba(9, 4, 18, 0)");
+        ctx.fillStyle = veil;
+        ctx.fillRect(pcx - bh, pcy - bh, bh * 2, bh * 2);
+        const tint = ctx.createRadialGradient(pcx, pcy + bh * 0.1, 0, pcx, pcy + bh * 0.1, bh * 0.62);
+        tint.addColorStop(0, "rgba(255, 255, 255, 0.16)");
+        tint.addColorStop(1, "rgba(255, 255, 255, 0)");
+        ctx.save();
+        ctx.globalCompositeOperation = "lighter";
+        ctx.fillStyle = tint;
+        ctx.fillRect(pcx - bh, pcy - bh, bh * 2, bh * 2);
+        ctx.restore();
+        // El arte mira a la derecha: a la derecha de la pantalla se refleja para que mire
+        // hacia la sala y hacia su rótulo.
+        ctx.save();
+        ctx.translate(pcx, pcy);
+        ctx.scale(-1, 1);
+        ctx.imageSmoothingEnabled = true;
+        ctx.imageSmoothingQuality = "high";
+        ctx.drawImage(bImg, -bw * 0.5, -bh * 0.5, bw, bh);
+        ctx.restore();
       }
       ctx.fillStyle = "rgba(9, 4, 18, 0.92)";
       ctx.strokeStyle = "#ff2d7a";

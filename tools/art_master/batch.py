@@ -144,12 +144,8 @@ def cmd_process(args):
             print("  [FALTA MAESTRO] %s -> %s (ni croma ni %s)" % (a["id"], raw, os.path.relpath(mpath, ROOT)))
             report["assets"][a["id"]] = {"status": "MISSING_RAW"}
             continue
-        if a.get("erase"):
-            keyed = artlib.erase_regions(keyed.convert("RGBA"), a["erase"])
-            rec["erase"] = a["erase"]
-        if a.get("keep"):
-            keyed = artlib.keep_regions(keyed.convert("RGBA"), a["keep"])
-            rec["keep"] = a["keep"]
+        keyed, cleaned = artlib.apply_cleanup(keyed, a)   # erase, keep, ground_line, fade
+        rec.update(cleaned)
         if a.get("flip_x"):
             keyed = keyed.transpose(Image.Transpose.FLIP_LEFT_RIGHT)
         fit = dict(a.get("fit", {}))

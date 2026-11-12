@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T03:21:49Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T05:25:24Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -16,7 +16,7 @@
 |---|---:|---:|---:|---:|---:|---:|
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
 | `enemies` | 24 | 0 | 0 | 0 | 0 | 24 |
-| `bosses` | 42 | 0 | 32 | 0 | 10 | 0 |
+| `bosses` | 42 | 0 | 20 | 0 | 7 | 15 |
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **374** | **25** | **153** | **105** | **40** | **51** |
+| **Total** | **374** | **25** | **141** | **105** | **37** | **66** |
 
 ## `characters` (31)
 
@@ -102,45 +102,45 @@
 | `boss_02_bufe_hit` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R03_JEFES` |
 | `boss_03_cajero_attack` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_03_cajero_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
-| `boss_04_pogo_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R03_JEFES` |
-| `boss_04_pogo_idle` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_05_oficiante_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_06_matarife_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R03_JEFES` |
-| `boss_08_traidor_idle` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_09_nucleo_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R03_JEFES` |
 | `boss_09_nucleo_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
-| `boss_00_anden_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_00_anden_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_00_anden_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_00_anden_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_01_magneta_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_01_magneta_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_01_magneta_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_01_magneta_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_02_bufe_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_02_bufe_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_02_bufe_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_03_cajero_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_03_cajero_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_04_pogo_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_04_pogo_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_05_oficiante_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_05_oficiante_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_05_oficiante_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_06_matarife_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_06_matarife_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_06_matarife_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_07_imitador_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_07_imitador_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_07_imitador_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_07_imitador_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_08_traidor_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_08_traidor_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_08_traidor_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_09_nucleo_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_09_nucleo_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_10_arquitecto_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_10_arquitecto_idle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
+| `boss_00_anden_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_00_anden_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_01_magneta_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_01_magneta_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_02_bufe_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_02_bufe_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_03_cajero_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_04_pogo_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_04_pogo_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_05_oficiante_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_06_matarife_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_07_imitador_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_08_traidor_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_09_nucleo_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_10_arquitecto_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 
 ## `weapons` (121)
 

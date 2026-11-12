@@ -204,6 +204,151 @@ def keep_regions(im: Image.Image, regions) -> Image.Image:
     return out
 
 
+def remove_ground_line(im: Image.Image, max_thick: int = 12, search: float = 0.14,
+                       min_run: int = 28, min_cover: float = 0.10) -> Tuple[Image.Image, Dict]:
+    """
+    Borra la «línea de suelo» que el generador traza bajo los pies aunque se pida fondo
+    liso (6 de las 8 primeras ilustraciones de jefes la traían): un trazo de tinta
+    horizontal y fino que sobresale a ambos lados de la figura.
+
+    Cómo se reconoce, sin tocar la figura:
+      1. sólo se mira la franja inferior (`search` del alto de la figura);
+      2. por columna, cuentan los tramos verticales de tinta de `max_thick` px o menos
+         (la línea es fina; un zapato, un bajo de túnica o una peana no lo son);
+      3. la fila con más píxeles de ese tipo es la línea, si cubre al menos
+         `min_cover` del ancho de la figura; se toma la banda de filas contiguas;
+      4. dentro de la banda sólo se borran los tramos horizontales de `min_run` px o
+         más: la punta de una bota o el pico de una capa no llegan.
+    Donde la línea pasa por debajo de un pie queda fundida con la suela (el tramo
+    vertical ya no es fino) y no se toca. Sólo borra; nunca pinta.
+    Devuelve (imagen, info) con `found`, las filas de la banda y los píxeles borrados.
+    """
+    # Cualquier alfa cuenta: así el tramo fino incluye el borde suavizado de la línea
+    # y no queda un rastro de puntos semitransparentes donde estuvo.
+    a = np.asarray(im.getchannel("A")) > 0
+    ys, xs = np.where(a)
+    if ys.size == 0:
+        return im, {"found": False, "reason": "vacío"}
+    y0, y1 = int(ys.min()), int(ys.max()) + 1
+    x0, x1 = int(xs.min()), int(xs.max()) + 1
+    top = max(y0, y1 - max(8, int((y1 - y0) * float(search))))
+    thin = np.zeros(a.shape, dtype=bool)
+    for x in range(x0, x1):
+        col = a[:, x]
+        if not col[top:y1].any():
+            continue
+        d = np.diff(np.concatenate(([0], col.astype(np.int8), [0])))
+        for s_, e_ in zip(np.where(d == 1)[0], np.where(d == -1)[0]):
+            if e_ > top and (e_ - s_) <= max_thick:
+                thin[s_:e_, x] = True
+    rows = thin[top:y1].sum(axis=1)
+    if rows.size == 0 or rows.max() < min_cover * (x1 - x0):
+        return im, {"found": False, "reason": "sin trazo fino horizontal", "max_row_px": int(rows.max()) if rows.size else 0}
+    peak = int(rows.argmax())
+    thr = max(6, rows[peak] * 0.2)
+    b0 = peak
+    while b0 > 0 and rows[b0 - 1] >= thr and peak - (b0 - 1) <= max_thick:
+        b0 -= 1
+    b1 = peak + 1
+    while b1 < rows.size and rows[b1] >= thr and b1 - peak <= max_thick:
+        b1 += 1
+    b0 += top
+    b1 += top
+    hit = thin[b0:b1].any(axis=0)
+    # tramos horizontales (se toleran huecos de 2 px)
+    cols = np.where(hit)[0]
+    kill = np.zeros(a.shape[1], dtype=bool)
+    if cols.size:
+        start = prev = int(cols[0])
+        for c in list(cols[1:]) + [None]:
+            if c is not None and c - prev <= 3:
+                prev = int(c)
+                continue
+            if prev - start + 1 >= min_run:
+                kill[start:prev + 1] = True
+            if c is not None:
+                start = prev = int(c)
+    if not kill.any():
+        return im, {"found": False, "reason": "tramos demasiado cortos"}
+    # Se borra el tramo vertical fino completo de cada columna marcada (aunque asome
+    # un píxel fuera de la banda), no la banda entera.
+    erase = np.zeros(a.shape, dtype=bool)
+    lo, hi = max(0, b0 - max_thick), min(a.shape[0], b1 + max_thick)
+    erase[lo:hi, kill] = thin[lo:hi, kill]
+    # …pero sólo los tramos que realmente cruzan la banda
+    lab_keep = np.zeros(a.shape, dtype=bool)
+    for x in np.where(kill)[0]:
+        colv = erase[:, x]
+        d = np.diff(np.concatenate(([0], colv.astype(np.int8), [0])))
+        for s_, e_ in zip(np.where(d == 1)[0], np.where(d == -1)[0]):
+            if e_ > b0 and s_ < b1:
+                lab_keep[s_:e_, x] = True
+    alpha = np.asarray(im.getchannel("A")).copy()
+    alpha[lab_keep] = 0
+    out = im.copy()
+    out.putalpha(Image.fromarray(alpha, "L"))
+    return out, {"found": True, "rows": [int(b0), int(b1)], "erased_px": int(lab_keep.sum()),
+                 "columns": [int(np.where(kill)[0].min()), int(np.where(kill)[0].max()) + 1]}
+
+
+def fade_regions(im: Image.Image, regions) -> Image.Image:
+    """
+    Desvanece hacia un borde lo que el generador prolongó hasta el límite del cuadro
+    (cables, hilos de marioneta): un corte recto se ve; un fundido se lee como «sigue
+    hacia arriba». `regions` es una lista de {"rect": [x0, y0, x1, y1], "dir": "up" |
+    "down" | "left" | "right"} en píxeles del maestro: el alfa se multiplica por una
+    rampa lineal que vale 0 en el borde hacia el que apunta `dir` y 1 en el opuesto.
+    Sólo reduce el alfa; nunca pinta.
+    """
+    if not regions:
+        return im
+    alpha = np.asarray(im.getchannel("A")).astype(np.float32)
+    H, W = alpha.shape
+    for reg in regions:
+        x0, y0, x1, y1 = [int(v) for v in reg["rect"]]
+        x0, y0, x1, y1 = max(0, x0), max(0, y0), min(W, x1), min(H, y1)
+        if x1 <= x0 or y1 <= y0:
+            continue
+        d = reg.get("dir", "up")
+        if d in ("up", "down"):
+            ramp = np.linspace(0.0, 1.0, y1 - y0, dtype=np.float32)
+            if d == "down":
+                ramp = ramp[::-1]
+            alpha[y0:y1, x0:x1] *= ramp[:, None]
+        else:
+            ramp = np.linspace(0.0, 1.0, x1 - x0, dtype=np.float32)
+            if d == "right":
+                ramp = ramp[::-1]
+            alpha[y0:y1, x0:x1] *= ramp[None, :]
+    out = im.copy()
+    out.putalpha(Image.fromarray(np.clip(alpha + 0.5, 0, 255).astype(np.uint8), "L"))
+    return out
+
+
+def apply_cleanup(keyed: Image.Image, asset: Dict) -> Tuple[Image.Image, Dict]:
+    """
+    Limpiezas declaradas en el asset de una tanda, siempre en este orden y siempre en
+    píxeles del MAESTRO (antes de `flip_x` y del encaje): `erase`, `keep`,
+    `ground_line`, `fade`. Lo usan `batch.py process` y `layout.py`, para que lo que
+    se mide sea exactamente lo que luego se guarda.
+    """
+    rec: Dict = {}
+    if asset.get("erase"):
+        keyed = erase_regions(keyed.convert("RGBA"), asset["erase"])
+        rec["erase"] = asset["erase"]
+    if asset.get("keep"):
+        keyed = keep_regions(keyed.convert("RGBA"), asset["keep"])
+        rec["keep"] = asset["keep"]
+    if asset.get("ground_line"):
+        params = asset["ground_line"] if isinstance(asset["ground_line"], dict) else {}
+        keyed, info = remove_ground_line(keyed.convert("RGBA"), **params)
+        rec["ground_line"] = info
+    if asset.get("fade"):
+        keyed = fade_regions(keyed.convert("RGBA"), asset["fade"])
+        rec["fade"] = asset["fade"]
+    return keyed, rec
+
+
 def canvas_anchors(fit: Dict, size: Tuple[int, int], anchors_raw: Optional[Dict]) -> Dict:
     """
     Convierte puntos medidos sobre el MAESTRO (px) en anclas normalizadas del lienzo
