@@ -1,0 +1,927 @@
+{
+  "motor": "DMO_DUNGEON 8-12 nodos, 4-5 capas, cada nodo = sala 480x640 (880x460 jugable), puerta 320x64 diamante 2:1, muros 320px",
+  "pistas": {
+    "01_La_Invitacion": {
+      "nodos": 8,
+      "capas": 4,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "T",
+        "H",
+        "$",
+        "A",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "700,700",
+          "conexiones": [
+            "C01",
+            "C02"
+          ],
+          "tipo": "spawn",
+          "suelo": "floor_01_lust_dancefloor",
+          "muro": "wall_panel_neon_crown"
+        },
+        "C01": {
+          "pos": "700,1150",
+          "conexiones": [
+            "C03",
+            "T"
+          ],
+          "tipo": "combate",
+          "enemigos": "3 bailarinas + sombra",
+          "interactivo": "cortina rosa destructible → secreto"
+        },
+        "C02": {
+          "pos": "1600,1150",
+          "conexiones": [
+            "C04",
+            "$"
+          ],
+          "tipo": "combate",
+          "enemigos": "4 bailarinas"
+        },
+        "C03": {
+          "pos": "700,1600",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate",
+          "interactivo": "cortina + foco arrastre"
+        },
+        "C04": {
+          "pos": "1600,1600",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "T": {
+          "pos": "700,2050",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "H": {
+          "pos": "1150,2050",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "curacion"
+        },
+        "$": {
+          "pos": "1600,2050",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tesoro",
+          "recompensa": "Última Invitación tras ★"
+        },
+        "A": {
+          "pos": "1150,2250",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "armeria_afinacion"
+        },
+        "★": {
+          "pos": "1150,1600",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Véspera",
+          "arena": "corazón roto 880×460 curvo radio 440px"
+        }
+      },
+      "rutas": {
+        "principal": "S→C01→C03→★→T→H→A",
+        "alternativa": "S→C02→C04→★→$→H",
+        "secretos": [
+          "C01 cortina→Archivo Véspera"
+        ]
+      },
+      "verticalidad": "desniveles 12px + balcones 0px decorativos"
+    },
+    "02_El_Banquete": {
+      "nodos": 9,
+      "capas": 4,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "T",
+        "H",
+        "$",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "200,600",
+          "conexiones": [
+            "C01",
+            "C02"
+          ],
+          "tipo": "spawn"
+        },
+        "C01": {
+          "pos": "200,1050",
+          "conexiones": [
+            "C03"
+          ],
+          "tipo": "combate",
+          "prop": "mesa 640×80 br32"
+        },
+        "C02": {
+          "pos": "1100,1050",
+          "conexiones": [
+            "C04"
+          ],
+          "tipo": "combate"
+        },
+        "C03": {
+          "pos": "200,1500",
+          "conexiones": [
+            "$"
+          ],
+          "tipo": "combate",
+          "prop": "horno +18px br38"
+        },
+        "C04": {
+          "pos": "1100,1500",
+          "conexiones": [
+            "H"
+          ],
+          "tipo": "combate"
+        },
+        "C05": {
+          "pos": "650,1700",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate",
+          "prop": "bandejas móviles br36"
+        },
+        "T": {
+          "pos": "200,1950",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "H": {
+          "pos": "1100,1950",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "curacion"
+        },
+        "$": {
+          "pos": "650,1950",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tesoro"
+        },
+        "★": {
+          "pos": "650,2400",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Voraz"
+        }
+      },
+      "rutas": {
+        "principal": "S→C01→C03→$→★",
+        "alternativa1": "S→C02→C04→H→★",
+        "alternativa2": "S→C01→C05→$ (bandejas)"
+      },
+      "verticalidad": "hornos +18px"
+    },
+    "03_Camara_Instantes": {
+      "nodos": 10,
+      "capas": 5,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "●",
+        "C04",
+        "C05",
+        "C06",
+        "T",
+        "H",
+        "A",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,200",
+          "conexiones": [
+            "C01",
+            "C02"
+          ],
+          "tipo": "spawn"
+        },
+        "C01": {
+          "pos": "660,600",
+          "conexiones": [
+            "C03"
+          ],
+          "tipo": "combate"
+        },
+        "C02": {
+          "pos": "1540,600",
+          "conexiones": [
+            "●"
+          ],
+          "tipo": "combate"
+        },
+        "C03": {
+          "pos": "660,1000",
+          "conexiones": [
+            "H"
+          ],
+          "tipo": "combate"
+        },
+        "●": {
+          "pos": "1100,1000",
+          "conexiones": [
+            "$",
+            "T"
+          ],
+          "tipo": "especial",
+          "prop": "caja fuerte 4×4 vitrinas 80×80 br40",
+          "nota": "abrir sin limpiar =3 enemigos reflejados"
+        },
+        "C04": {
+          "pos": "1540,1000",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "combate"
+        },
+        "C05": {
+          "pos": "1100,1600",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "H": {
+          "pos": "660,1400",
+          "conexiones": [
+            "T"
+          ],
+          "tipo": "curacion"
+        },
+        "$": {
+          "pos": "1100,1400",
+          "conexiones": [
+            "C06"
+          ],
+          "tipo": "tesoro"
+        },
+        "T": {
+          "pos": "660,1800",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "A": {
+          "pos": "1100,1800",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "armeria"
+        },
+        "C06": {
+          "pos": "1540,1800",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "★": {
+          "pos": "1100,2200",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Áurea"
+        }
+      },
+      "rutas": {
+        "externa": "S→C01→C03→H→T→★ (segura)",
+        "interna": "S→C02→●→$→A→★ (caja fuerte+2 secretos)"
+      },
+      "verticalidad": "vitrinas 32px cover alto"
+    },
+    "04_Amplificacion": {
+      "nodos": 9,
+      "capas": 4,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "T",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,300",
+          "conexiones": [
+            "C01",
+            "C02",
+            "C03"
+          ],
+          "tipo": "spawn",
+          "forma": "trapecio 880→640"
+        },
+        "C01": {
+          "pos": "600,700",
+          "conexiones": [
+            "C04"
+          ],
+          "tipo": "combate",
+          "prop": "altavoz br38"
+        },
+        "C02": {
+          "pos": "1100,700",
+          "conexiones": [
+            "T"
+          ],
+          "tipo": "combate"
+        },
+        "C03": {
+          "pos": "1600,700",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "combate"
+        },
+        "C04": {
+          "pos": "750,1100",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate",
+          "prop": "cables br12"
+        },
+        "C05": {
+          "pos": "1450,1100",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "T": {
+          "pos": "1100,1100",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "★": {
+          "pos": "1100,1600",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Brama",
+          "escenario": "hundido -24px radio360 + pasarela +24px"
+        }
+      },
+      "rutas": {
+        "central": "S→C02→T→★ (2 altavoces)",
+        "laterales": "S→C01→C04→★ y S→C03→C05→★ (1 altavoz + cables cortables)"
+      },
+      "verticalidad": "escenario -24px + pasarela +24px"
+    },
+    "05_Nota_Ausente": {
+      "nodos": 10,
+      "capas": 5,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "H",
+        "T",
+        "$",
+        "★",
+        "?"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,600",
+          "conexiones": [
+            "C01",
+            "C02",
+            "C03"
+          ],
+          "tipo": "spawn",
+          "forma": "cruz latina"
+        },
+        "C01": {
+          "pos": "1100,200",
+          "conexiones": [
+            "S"
+          ],
+          "tipo": "combate",
+          "prop": "diapasón 1100,150 br36"
+        },
+        "C02": {
+          "pos": "800,600",
+          "conexiones": [
+            "H"
+          ],
+          "tipo": "combate"
+        },
+        "C03": {
+          "pos": "1400,600",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "combate"
+        },
+        "H": {
+          "pos": "800,1000",
+          "conexiones": [
+            "T"
+          ],
+          "tipo": "curacion"
+        },
+        "C04": {
+          "pos": "1100,1000",
+          "conexiones": [
+            "C07"
+          ],
+          "tipo": "combate"
+        },
+        "C05": {
+          "pos": "1400,1000",
+          "conexiones": [
+            "C06"
+          ],
+          "tipo": "combate"
+        },
+        "C06": {
+          "pos": "1400,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate",
+          "prop": "órgano 1400,1350 160×384 +32px (abre atajo C05→C07 tras limpiar)"
+        },
+        "C07": {
+          "pos": "1100,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "T": {
+          "pos": "800,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "$": {
+          "pos": "1100,1600",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tesoro"
+        },
+        "?": {
+          "pos": "800,1700",
+          "conexiones": [
+            "S"
+          ],
+          "tipo": "secreta",
+          "prop": "confesionario -12px 320×240 → Archivo + Eco Pasillo"
+        },
+        "★": {
+          "pos": "1100,1800",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Obispo",
+          "nave": "alta 640px"
+        }
+      },
+      "rutas": {
+        "central": "S→C04→C07→★ (diapasones)",
+        "laterales": "S→C02→H→T→★ (oscura afinadores)",
+        "secreta": "? confesionario tras órgano"
+      },
+      "verticalidad": "coro +24px + confesionario -12px"
+    },
+    "06_Umbral_Encadenado": {
+      "nodos": 8,
+      "capas": 3,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,400",
+          "conexiones": [
+            "C01",
+            "C02"
+          ],
+          "tipo": "spawn"
+        },
+        "C01": {
+          "pos": "730,700",
+          "conexiones": [
+            "C03"
+          ],
+          "tipo": "combate"
+        },
+        "C02": {
+          "pos": "1470,700",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "combate"
+        },
+        "C03": {
+          "pos": "700,1100",
+          "conexiones": [
+            "C04"
+          ],
+          "tipo": "combate"
+        },
+        "C04": {
+          "pos": "1100,1100",
+          "conexiones": [
+            "C05",
+            "C06",
+            "C07"
+          ],
+          "tipo": "especial",
+          "prop": "tambor 1100,1100 br48 +32px (3 golpes abre cadena)"
+        },
+        "C05": {
+          "pos": "1500,1100",
+          "conexiones": [
+            "C07"
+          ],
+          "tipo": "combate"
+        },
+        "C06": {
+          "pos": "1100,1400",
+          "conexiones": [
+            "C07"
+          ],
+          "tipo": "combate"
+        },
+        "C07": {
+          "pos": "1100,1700",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "curacion_tienda",
+          "nota": "ante-sala norte"
+        },
+        "★": {
+          "pos": "1100,2000",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Corazón Encadenado",
+          "puerta": "blindada 1100,1900 320×32 +4 cadenas br12"
+        }
+      },
+      "rutas": {
+        "masa": "S→búnker(4 malla)→C07→★",
+        "búnker_malla": "C03↔C04↔C05↔C06 elige orden"
+      },
+      "verticalidad": "búnker 0/+18px pasarela 1100,1250 240×60"
+    },
+    "07_Mil_Voces": {
+      "nodos": 10,
+      "capas": 5,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "C06",
+        "C07",
+        "T",
+        "H",
+        "★",
+        "?"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,300",
+          "conexiones": [
+            "C02",
+            "C03"
+          ],
+          "tipo": "spawn"
+        },
+        "C01": {
+          "pos": "1100,300",
+          "conexiones": [
+            "C02",
+            "C03"
+          ],
+          "tipo": "spawn",
+          "forma": "diamante"
+        },
+        "C02": {
+          "pos": "800,600",
+          "conexiones": [
+            "C04",
+            "C06"
+          ],
+          "tipo": "combate",
+          "prop": "espejo br40"
+        },
+        "C03": {
+          "pos": "1400,600",
+          "conexiones": [
+            "C05",
+            "C07"
+          ],
+          "tipo": "combate"
+        },
+        "C04": {
+          "pos": "600,1000",
+          "conexiones": [
+            "C06"
+          ],
+          "tipo": "combate",
+          "prop": "palco +18px 200×160"
+        },
+        "C05": {
+          "pos": "1600,1000",
+          "conexiones": [
+            "C07"
+          ],
+          "tipo": "combate"
+        },
+        "C06": {
+          "pos": "700,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate"
+        },
+        "C07": {
+          "pos": "1100,1450",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "especial",
+          "prop": "ruleta 1100,1400 80×80 (baraja, revela real por sombra)"
+        },
+        "T": {
+          "pos": "1100,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "H": {
+          "pos": "1500,1400",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "curacion"
+        },
+        "?": {
+          "pos": "1600,1000",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "secreta",
+          "prop": "espejo roto → camerino -12px Archivo Crupier"
+        },
+        "★": {
+          "pos": "1100,1800",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Crupier"
+        }
+      },
+      "rutas": {
+        "centro": "S→C02/C03→C04/C05→C06/C07→★ (engano max)",
+        "laterales": "palcos +18px / camerinos -12px seguras con espejos ocultos"
+      },
+      "verticalidad": "palcos +18px + camerinos -12px"
+    },
+    "08_Anden_Ausente": {
+      "nodos": 9,
+      "capas": 4,
+      "nodo_ids": [
+        "S",
+        "C02",
+        "C03",
+        "C04",
+        "C05",
+        "T",
+        "H",
+        "$",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,400",
+          "conexiones": [
+            "C02",
+            "C03",
+            "C04"
+          ],
+          "tipo": "spawn",
+          "forma": "andén 3:1 400×1200 +2 vías 8×1200 (700 y 1500) + traviesas cada 80px"
+        },
+        "C02": {
+          "pos": "600,700",
+          "conexiones": [
+            "T"
+          ],
+          "tipo": "combate",
+          "nivel": "vía izq -8px"
+        },
+        "C03": {
+          "pos": "1100,700",
+          "conexiones": [
+            "H"
+          ],
+          "tipo": "combate",
+          "nivel": "andén central +12px"
+        },
+        "C04": {
+          "pos": "1600,700",
+          "conexiones": [
+            "C05"
+          ],
+          "tipo": "combate",
+          "nivel": "vía dcha"
+        },
+        "C05": {
+          "pos": "1600,1000",
+          "conexiones": [
+            "$"
+          ],
+          "tipo": "combate",
+          "prop": "velos br30"
+        },
+        "T": {
+          "pos": "600,1000",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tienda"
+        },
+        "H": {
+          "pos": "1100,1000",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "curacion"
+        },
+        "$": {
+          "pos": "1100,1300",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "tesoro",
+          "prop": "vagón detenido → secreto"
+        },
+        "★": {
+          "pos": "1100,1400",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberana": "Nix",
+          "linea": "divisoria cian 880×4 1100,1350"
+        }
+      },
+      "rutas": {
+        "central": "S→C03→H→★ (andén con trenes+línea)",
+        "laterales": "S→C02→T→★ y S→C04→C05→$→★ (vías con velos)"
+      },
+      "verticalidad": "andenes +12px vs vías -8px =20px"
+    },
+    "09_Nucleo": {
+      "nodos": 6,
+      "capas": 5,
+      "nodo_ids": [
+        "S",
+        "C01",
+        "C02",
+        "C03",
+        "●1",
+        "●2",
+        "●3",
+        "★"
+      ],
+      "grafo": {
+        "S": {
+          "pos": "1100,300",
+          "conexiones": [
+            "C01"
+          ],
+          "tipo": "spawn",
+          "prop": "fragmentos P01-04 flotando 20-40px"
+        },
+        "C01": {
+          "pos": "1100,600",
+          "conexiones": [
+            "C02"
+          ],
+          "tipo": "combate",
+          "prop": "Anclaje1 1100,550 br40"
+        },
+        "C02": {
+          "pos": "1100,900",
+          "conexiones": [
+            "C03"
+          ],
+          "tipo": "combate",
+          "prop": "Anclaje2 1100,850 br40"
+        },
+        "C03": {
+          "pos": "1100,1200",
+          "conexiones": [
+            "★"
+          ],
+          "tipo": "combate",
+          "prop": "Anclaje3 1100,1150 br40"
+        },
+        "●1": {
+          "pos": "1100,550",
+          "conexiones": [
+            "S"
+          ],
+          "tipo": "anclaje",
+          "nota": "cristal cadena — rota quita capa"
+        },
+        "●2": {
+          "pos": "1100,850",
+          "conexiones": [
+            "S"
+          ],
+          "tipo": "anclaje"
+        },
+        "●3": {
+          "pos": "1100,1150",
+          "conexiones": [
+            "S"
+          ],
+          "tipo": "anclaje"
+        },
+        "★": {
+          "pos": "1100,1600",
+          "conexiones": [],
+          "tipo": "jefe",
+          "soberano": "Rey del Compás",
+          "fases": [
+            "Espejo",
+            "Corona",
+            "Última Vuelta"
+          ],
+          "final": "vacío blanco -60px 1100,1800 corona 1100,1750 + cadena 1100,1850"
+        }
+      },
+      "rutas": {
+        "lineal": "S→C01→C02→C03→★ (fragmentos flotantes como plataformas 2s)"
+      },
+      "verticalidad": "fragmentos 20-40px temporales"
+    }
+  },
+  "refugio": {
+    "nodos": 1,
+    "tipo": "HUB 1800×1180 single room",
+    "bounds": "260,210,1240×760",
+    "props": 22,
+    "estaciones": 8,
+    "validacion": "all props >64px huecos, 0 callejones, cam clamp"
+  }
+}

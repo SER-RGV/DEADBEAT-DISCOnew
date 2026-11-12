@@ -1,0 +1,208 @@
+{
+  "torre_vertical": [
+    "Refugio(Z9)",
+    "P01 Invitación(Z8)",
+    "P02 Banquete(Z7)",
+    "P03 Cámara(Z6)",
+    "P04 Amplificación(Z5)",
+    "P05 Nota Ausente(Z4)",
+    "P06 Umbral(Z3)",
+    "P07 Mil Voces(Z2)",
+    "P08 Andén(Z1)",
+    "P09 Núcleo(Z0)",
+    "Vacío blanco(Z-1)"
+  ],
+  "conexiones_fisicas": [
+    {
+      "de": "Refugio",
+      "a": "P01",
+      "via": "Plataforma cian shaft circular 260·shaftOpen, 5 planos parallax .92/.66/.40/.20/.08",
+      "cinematica": "Descenso §5.3 (8s, sin diálogo)",
+      "trigger": "[E] descent 880,785 r96 → playCircleDescent(1)→startRun"
+    },
+    {
+      "de": "P01",
+      "a": "P02",
+      "via": "Portal barroco oro 320×416 centro arena Véspera",
+      "cinematica": "playCircleDescent(2) 2.9s",
+      "trigger": "victoryDelay 1000ms + portal"
+    },
+    {
+      "de": "P02",
+      "a": "P03",
+      "via": "Portal oro",
+      "cinematica": "playCircleDescent(3)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P03",
+      "a": "P04",
+      "via": "Portal rojo quemado",
+      "cinematica": "playCircleDescent(4)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P04",
+      "a": "P05",
+      "via": "Portal violeta (silencio)",
+      "cinematica": "playCircleDescent(5)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P05",
+      "a": "P06",
+      "via": "Portal acero",
+      "cinematica": "playCircleDescent(6)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P06",
+      "a": "P07",
+      "via": "Portal espejo fragmentado",
+      "cinematica": "playCircleDescent(7)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P07",
+      "a": "P08",
+      "via": "Portal hielo",
+      "cinematica": "playCircleDescent(8)",
+      "trigger": "victory"
+    },
+    {
+      "de": "P08",
+      "a": "P09",
+      "via": "Ascensor fragmentos (teselas se desprenden)",
+      "cinematica": "playCircleDescent(9) + fragmentos flotantes",
+      "trigger": "victory Nix"
+    },
+    {
+      "de": "P09",
+      "a": "Vacío blanco",
+      "via": "4 anclajes rotos → corona/cadena",
+      "cinematica": "playVictory final 4.2s",
+      "trigger": "victoryDelay 1000ms → 3 finales"
+    }
+  ],
+  "conexiones_narrativas": [
+    {
+      "de": "Refugio",
+      "a": "Todas",
+      "via": "Tempo recuerda, Mapa progresión 9 pistas, Archivo testimonios, Mesa mezclas desbloqueos",
+      "tipo": "narrativa"
+    },
+    {
+      "de": "P01 Véspera",
+      "a": "Refugio",
+      "via": "Testimonio lámparas → diálogo Tempo sobre atención/amor",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P02 Voraz",
+      "a": "Refugio",
+      "via": "Testimonio ración → diálogo generosidad compulsiva",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P03 Áurea",
+      "a": "Refugio",
+      "via": "Flor marchita → colección vs vida",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P04 Brama",
+      "a": "Refugio",
+      "via": "Testimonio advertencia puertas → Tempo bucle",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P05 Obispo",
+      "a": "Refugio",
+      "via": "Eco Pasillo → cómo torre corrige",
+      "tipo": "subjefe"
+    },
+    {
+      "de": "P06 Corazón",
+      "a": "Refugio",
+      "via": "Caída orientada a puerta → proteger vs encerrar",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P07 Crupier",
+      "a": "Refugio",
+      "via": "¿Esta era la mía? → identidad prestada",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P08 Nix",
+      "a": "Refugio",
+      "via": "Novena voz Lo sé → hermana",
+      "tipo": "testimonio"
+    },
+    {
+      "de": "P09 Rey",
+      "a": "Refugio",
+      "via": "Suelo blanco → 3 finales (Compás neones/Silencio amanecer/Contratiempo puerta dorada + Arquitecto)",
+      "tipo": "finales"
+    }
+  ],
+  "conexiones_secretas": [
+    {
+      "de": "P02 horno apagado",
+      "a": "Portero sin Rostro",
+      "tipo": "secreta",
+      "recompensa": "Sello caucho cosmético"
+    },
+    {
+      "de": "P03 vitrina junta",
+      "a": "Archivo Áurea",
+      "recompensa": "Arma alternativa P03"
+    },
+    {
+      "de": "P03 caja fuerte",
+      "a": "Tesoros",
+      "recompensa": "Arma alternativa"
+    },
+    {
+      "de": "P05 confesionario",
+      "a": "Eco del Pasillo + Archivo Obispo",
+      "recompensa": "Testimonio"
+    },
+    {
+      "de": "P06 4 cadenas rotas sin tambor",
+      "a": "Archivista",
+      "recompensa": "CR masiva"
+    },
+    {
+      "de": "P07 espejo roto",
+      "a": "Camerino Archivo Crupier",
+      "recompensa": "Voz desconocida"
+    },
+    {
+      "de": "P08 vagón detenido",
+      "a": "Archivo Nix + novena voz",
+      "recompensa": "Arma Nix"
+    },
+    {
+      "de": "P09 fragmento P08 velos",
+      "a": "Archivo Rey",
+      "recompensa": "Frase final"
+    },
+    {
+      "de": "Refugio estantería norte 3×",
+      "a": "Portero sin Rostro",
+      "recompensa": "Easter egg"
+    },
+    {
+      "de": "P09 tras Rey",
+      "a": "Arquitecto (Cabina Original)",
+      "recompensa": "Final Contratiempo"
+    }
+  ],
+  "progresion": {
+    "economia": "CR/Ecos/Fragmentos (costes PENDIENTES §42)",
+    "desbloqueos": "Mesa mezclas HUB (CR→permanentes)",
+    "armas": "A armería por pista (120+9), legendaria tras soberano",
+    "validacion": "Refugio→P01→...→P09→3 finales sin bloqueo: todos los portales generan ruta viable si grafo lo permite (§6.2)"
+  }
+}
