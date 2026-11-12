@@ -142,3 +142,10 @@ Registrar aquí cada modificación:
 - Sistemas afectados: ninguno del juego. Sin cambios en `src/`, sprites `player_*`, registro, `index.html`, menú, cinemática ni Refugio. Recurso no registrado.
 - Pruebas: visor 61/61; visor de arte 48/48; sonda en el Refugio con sustitución solo en el navegador de prueba (control y nuevo, sin errores).
 - Resultado: pendiente de aprobación. Quedan sin corregir el sigilo del hombro y el lobo respecto a la lámina.
+
+## 2026-11-12 · PROJECT RESTART · protagonista: corrección de fidelidad del IDLE
+- Archivos nuevos: `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png` y `pm_idle_fid.manifest.json`, maestro y tanda `R05B_PROTAGONISTA_MAESTRO_FIDELIDAD`, `docs/RESTART/07_IDLE_FIDELIDAD.md`, `docs/RESTART/evidencia_fidelidad/`.
+- Archivos modificados: visor `protagonist_anim_test.html` (recurso «CORREGIDO · POR VALIDAR», comparación lado a lado, panel de lámina y tatuajes), `tools/qa/test_protagonist_anim_viewer.js`, `docs/RESTART/04_…md`, `06_…md`.
+- Sistemas afectados: ninguno del juego. `pm_idle_00.png` sin cambios. Nada registrado.
+- Pruebas: visor 74/74; visor de arte 48/48. Sin prueba en partida de la versión corregida.
+- Resultado: pendiente de validación visual.

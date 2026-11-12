@@ -21,10 +21,21 @@
   button:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
   button[aria-pressed="true"] { background: var(--amarillo); border-color: var(--amarillo); color: #0B0B12; }
   .dato { min-width: 54px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--cian); }
-  #visor { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+  #zona { flex: 1; min-height: 0; display: flex; }
+  #visor { flex: 1; min-width: 0; min-height: 0; position: relative; overflow: hidden; }
+  #panel { flex: none; width: min(48vw, 820px); overflow-y: auto; background: #14111d; border-left: 1px solid var(--linea); padding: 12px 14px; }
+  #panel h2 { font-size: 12.5px; letter-spacing: .08em; color: var(--amarillo); margin: 0 0 6px; }
+  #panel p { font-size: 12px; color: #b9b2c6; margin: 0 0 8px; line-height: 1.4; }
+  #panel .fila { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; }
+  #panel figure { margin: 0; } #panel figcaption { font-size: 11.5px; color: var(--hueso); margin-top: 4px; font-weight: 700; letter-spacing: .04em; }
+  #panel canvas { height: min(52vh, 560px); width: auto; }
+  #panel canvas, #panel img { display: block; background: #0B0B12; border: 1px solid var(--linea); max-width: 100%; }
+  #panel img { height: auto; }
+  #porvalidar { flex: none; background: var(--amarillo); color: #0B0B12; font-weight: 800; letter-spacing: .05em; padding: 7px 14px; font-size: 13px; }
+  @media (max-width: 900px) { #zona { flex-direction: column; } #panel { width: auto; max-height: 45%; border-left: 0; border-top: 1px solid var(--linea); } }
   #visor.f-trans { background: repeating-conic-gradient(#3a3648 0% 25%, #24212f 0% 50%) 0 0 / 24px 24px; }
   #visor.f-oscuro { background: #0B0B12; } #visor.f-claro { background: #cfc8d6; } #visor.f-magenta { background: #5a1238; }
-  canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #lienzo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
   #aviso { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; color: var(--tenue); }
   #aviso[hidden] { display: none; }
   #aviso.error div { border: 2px solid var(--magenta); background: var(--panel); padding: 20px 26px; border-radius: 6px; max-width: 600px; color: var(--hueso); }
@@ -43,7 +54,8 @@
 <header>
   <h1>DEADBEAT <span>DISCO</span> · IDLE DEL PROTAGONISTA</h1>
   <div class="grupo" role="group" aria-label="Recurso">
-    <a class="btn" id="s-1f" href="?" title="IDLE de un solo fotograma con la respiración del motor">FOTOGRAMA ÚNICO</a>
+    <a class="btn" id="s-1f" href="?" title="IDLE de un solo fotograma, versión aprobada técnicamente">ACTUAL · APROBADO TÉCNICAMENTE</a>
+    <a class="btn" id="s-fid" href="?set=fid" title="Mismo fotograma con el sigilo del hombro, el lobo y las cadenas corregidos; pendiente de validación visual">CORREGIDO · POR VALIDAR</a>
     <a class="btn" id="s-4f" href="?set=4f" title="Experimento de cuatro fotogramas, archivado como fallido">EXPERIMENTO 4F · FALLIDO</a>
   </div>
   <div class="grupo" role="group" aria-label="Reproducción">
@@ -69,16 +81,33 @@
   <div class="grupo" role="group" aria-label="Comprobaciones">
     <button id="cebolla" aria-pressed="false" title="Superpone el fotograma anterior al 45 % para ver qué cambia (C)">PAPEL CEBOLLA</button>
     <button id="reflejo" aria-pressed="false" title="Mirando a la izquierda: el reflejo horizontal del motor (R)">REFLEJO</button>
+    <button id="comparar" aria-pressed="false" hidden title="Dibuja al lado la otra versión del fotograma único (actual o corregida) a la misma escala">ACTUAL JUNTO A CORREGIDO</button>
+    <button id="lamina" aria-pressed="false" title="Abre el panel con la lámina maestra y los tatuajes ampliados">LÁMINA Y TATUAJES</button>
     <button id="antiguo" aria-pressed="false" title="Dibuja al lado el sprite antiguo player_idle_00 a la misma escala">SPRITE ANTIGUO</button>
     <button id="guias" aria-pressed="false" title="Línea de suelo, eje, ancla de cinturón, ancla de mano y círculo de colisión (G)">GUÍAS</button>
   </div>
 </header>
 
 <div id="fallido" hidden>IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY · Experimento archivado. Fallido por inconsistencia de los tatuajes entre fotogramas. No es una animación aprobada.</div>
+<div id="porvalidar" hidden>IDLE_1F_FIDELIDAD · Corrección de fidelidad pendiente de validación visual. No registrada en el juego. La versión actual se conserva sin cambios.</div>
+<div id="zona">
 <main id="visor" class="f-trans">
   <canvas id="lienzo"></canvas>
   <div id="aviso"><div>Cargando la muestra…</div></div>
 </main>
+<aside id="panel" hidden aria-label="Lámina maestra y tatuajes ampliados">
+  <h2>TATUAJES AMPLIADOS ×5 · BRAZO DEL FOTOGRAMA</h2>
+  <p>Recorte de los dos PNG de 288 × 512 tal como están, ampliado cinco veces.</p>
+  <div class="fila">
+    <figure><canvas id="z-actual" width="450" height="900"></canvas><figcaption>ACTUAL · pm_idle_00</figcaption></figure>
+    <figure><canvas id="z-fid" width="450" height="900"></canvas><figcaption>CORREGIDO · pm_idle_fid_00</figcaption></figure>
+    <figure><canvas id="z-perfil" width="250" height="900"></canvas><figcaption>LÁMINA MAESTRA · PERFIL D.</figcaption></figure>
+  </div>
+  <h2>LÁMINA MAESTRA · DETALLE DE TATUAJES (CANON)</h2>
+  <p>Recorte de la lámina aprobada. Es la referencia; el fotograma se compara con ella, no al revés.</p>
+  <img id="z-detalles" alt="Detalle de tatuajes de la lámina maestra: cuello, hombro, antebrazo (lobo), antebrazo (patrón orgánico) y mano" src="../../cinematics/restart/character_master/protagonist_master_crop_tattoo_details.png">
+</aside>
+</div>
 
 <footer>
   <span>Fotograma: <b id="i-id">—</b></span>
@@ -101,9 +130,13 @@
 (function () {
   "use strict";
   var RAIZ = "../../../";
-  var ES_4F = /[?&]set=4f/.test(location.search);
-  var MANIFIESTO = ES_4F ? "assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json"
-                         : "assets/characters/protagonist_master/pm_idle.manifest.json";
+  var ES_4F = /[?&]set=4f/.test(location.search), ES_FID = !ES_4F && /[?&]set=fid/.test(location.search);
+  var M_ACTUAL = "assets/characters/protagonist_master/pm_idle.manifest.json";
+  var M_FID = "assets/characters/protagonist_master/fidelidad/pm_idle_fid.manifest.json";
+  var MANIFIESTO = ES_4F ? "assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json" : ES_FID ? M_FID : M_ACTUAL;
+  var PERFIL = { src: "assets/cinematics/restart/character_master/protagonist_master_crop_turnaround.png", x: 365, w: 115 };   /* vista PERFIL D. de la lámina */
+  var BRAZO = { x: 100, y: 120, w: 90, h: 180 };   /* recorte del brazo en el PNG de 288 × 512 */
+  var otro = null;   /* la otra versión del fotograma único (actual ↔ corregida) */
   var RITMO = 2.8;   /* rad/s: breathePhase += dt * 2.8 en el motor y en el Refugio */
   var ANTIGUO = { id: "player_idle_00", src: "assets/characters/player_idle_00.png", anchors: { belt: 0.4914, hand: [0.678, 0.5848] } };
   var BASE_H = 104, PIE_Y = 16, SUELO_Y = 14, RADIO = 14, ZOOM_JUEGO = 1.16;   // contrato de dd_world_renderer.js y del motor
@@ -111,7 +144,7 @@
   var $ = function (id) { return document.getElementById(id); };
   var lienzo = $("lienzo"), ctx = lienzo.getContext("2d"), visor = $("visor"), aviso = $("aviso");
   var v = { cuadros: [], ms: [], i: 0, t: 0, vel: 1, activo: true, z: 1, ajustada: true, fondo: "trans",
-            cebolla: false, reflejo: false, bob: ES_4F ? 0 : 1.1, fase: 0, bobY: 0, etiqueta: "", antiguo: false, guias: false, lista: false, dibujoMs: 0, reloj: 0, pintados: 0, errores: [] };
+            cebolla: false, reflejo: false, comparar: false, lamina: false, bob: ES_4F ? 0 : 1.1, fase: 0, bobY: 0, etiqueta: "", antiguo: false, guias: false, lista: false, dibujoMs: 0, reloj: 0, pintados: 0, errores: [] };
   var imgAntiguo = null;
 
   /* Lo que el renderizador real pide: DD_ASSETS.get(id) y DD_ASSETS.manifest.entries[id].anchors.
@@ -145,12 +178,26 @@
     var ids = m.animation.frames;
     v.ms = (m.animation.ms || []).slice(); v.loop = m.animation.loop; v.etiqueta = m.label || "";
     $("i-set").textContent = v.etiqueta; $("fallido").hidden = !ES_4F;
-    $(ES_4F ? "s-4f" : "s-1f").setAttribute("aria-current", "true");
+    $(ES_4F ? "s-4f" : ES_FID ? "s-fid" : "s-1f").setAttribute("aria-current", "true"); $("porvalidar").hidden = !ES_FID;
     $("pasos").hidden = ids.length < 2; $("cebolla").hidden = ids.length < 2; grupo("bob", v.bob);
     return Promise.all(ids.map(function (id) { return cargarImagen(m.entries[id].src); }).concat([cargarImagen(ANTIGUO.src)])).then(function (ims) {
       imgAntiguo = { img: ims.pop(), anchors: ANTIGUO.anchors };
       v.cuadros = ids.map(function (id, k) { var e = m.entries[id]; return { id: id, src: e.src, img: ims[k], anchors: e.anchors, w: e.w, h: e.h, caja: cajaFigura(ims[k]) }; });
       if (!window.DD_WORLD || typeof window.DD_WORLD.drawProtagonist !== "function") throw new Error("src/dd_world_renderer.js (DD_WORLD.drawProtagonist)");
+      if (ES_4F) return null;
+      /* La otra versión del fotograma único y la lámina, para comparar. Si faltan, la comparación no se ofrece. */
+      return fetch(RAIZ + (ES_FID ? M_ACTUAL : M_FID)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (mo) {
+        var e = mo.entries[mo.animation.frames[0]];
+        return Promise.all([cargarImagen(e.src), cargarImagen(PERFIL.src)]).then(function (xs) {
+          otro = { id: e.id, src: e.src, img: xs[0], anchors: e.anchors, caja: cajaFigura(xs[0]), etiqueta: mo.label };
+          var act = ES_FID ? otro : v.cuadros[0], fid = ES_FID ? v.cuadros[0] : otro;
+          [["z-actual", act], ["z-fid", fid]].forEach(function (p) { var c = $(p[0]).getContext("2d"); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(p[1].img, BRAZO.x, BRAZO.y, BRAZO.w, BRAZO.h, 0, 0, 450, 900); });
+          var zp = $("z-perfil"), k = 900 / xs[1].naturalHeight; zp.width = Math.round(PERFIL.w * k); zp.getContext("2d").drawImage(xs[1], PERFIL.x, 0, PERFIL.w, xs[1].naturalHeight, 0, 0, zp.width, 900);
+          $("comparar").hidden = false;
+          if (ES_FID) { v.comparar = true; $("comparar").setAttribute("aria-pressed", "true"); v.lamina = true; $("lamina").setAttribute("aria-pressed", "true"); $("panel").hidden = false; }
+        });
+      }).catch(function () { otro = null; $("lamina").hidden = true; });
+    }).then(function () {
       v.lista = true; aviso.hidden = true; estado("reproduciendo", "ok"); medir(); requestAnimationFrame(bucle);
     });
   }).catch(function (e) {
@@ -163,7 +210,7 @@
     v.ancho = r.width; v.alto = r.height; v.dpr = dpr;
     if (v.ajustada) v.z = zAjuste();
   }
-  function zAjuste() { return Math.max(0.5, (v.alto - 48) / BASE_H); }
+  function zAjuste() { return Math.max(0.5, Math.min((v.alto - 48) / BASE_H, v.ancho / (((v.fila || [0]).length - 1) * 68 + 64))); }
   function poner(z, ajustada) { v.z = Math.max(0.5, Math.min(24, z)); v.ajustada = !!ajustada; }
 
   /* Una llamada al renderizador real con el fotograma dado en el hueco player_idle_00. */
@@ -193,11 +240,24 @@
     /* Mundo → pantalla: origen del jugador centrado, con el lienzo del sprite centrado en vertical. */
     var k = v.dpr * v.z, cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z;
     ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr);
-    var x = v.antiguo ? 34 : 0, bobY = v.bob ? Math.sin(v.fase) * v.bob : 0, ok = true; v.bobY = bobY;
-    if (v.antiguo) ok = pintarPersonaje(imgAntiguo, -34, 1, bobY) && ok;
+    var bobY = v.bob ? Math.sin(v.fase) * v.bob : 0, ok = true; v.bobY = bobY;
+    /* Figuras en fila, de izquierda a derecha: sprite antiguo · actual · corregido. */
+    var cmp = v.comparar && otro, fila = [];
+    if (v.antiguo) fila.push("antiguo");
+    if (cmp) { fila.push(ES_FID ? "otro" : "este"); fila.push(ES_FID ? "este" : "otro"); } else fila.push("este");
+    var PASO = 68, x0 = -(fila.length - 1) * PASO / 2, xAnt = x0 + fila.indexOf("antiguo") * PASO, x = x0 + fila.indexOf("este") * PASO, xOtro = x0 + fila.indexOf("otro") * PASO;
+    v.fila = fila.map(function (f) { return f === "antiguo" ? "player_idle_00" : f === "otro" ? otro.id : c.id; });
+    if (v.ajustada && v.z !== zAjuste()) { v.z = zAjuste(); k = v.dpr * v.z; cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z; ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr); }
+    if (v.antiguo) ok = pintarPersonaje(imgAntiguo, xAnt, 1, bobY) && ok;
+    if (cmp) ok = pintarPersonaje(otro, xOtro, 1, bobY) && ok;
     if (v.cebolla) ok = pintarPersonaje(prev, x, 0.45, bobY) && ok;
     ok = pintarPersonaje(c, x, v.cebolla ? 0.6 : 1, bobY) && ok;
-    if (v.guias) { guias(x, c); if (v.antiguo) guias(-34, imgAntiguo); }
+    if (v.guias) { guias(x, c); if (v.antiguo) guias(xAnt, imgAntiguo); if (cmp) guias(xOtro, otro); }
+    if (fila.length > 1) {   /* rótulo bajo cada figura */
+      ctx.save(); ctx.setTransform(v.dpr, 0, 0, v.dpr, 0, 0); ctx.font = "700 13px 'Open Sans', sans-serif"; ctx.textAlign = "center"; ctx.fillStyle = "#FFD400";
+      fila.forEach(function (f, n) { ctx.fillText(f === "antiguo" ? "ANTIGUO" : (f === "este") === ES_FID ? "CORREGIDO" : "ACTUAL", v.ancho / 2 + (x0 + n * PASO) * v.z, Math.max(14, cy + (-BASE_H + PIE_Y) * v.z - 6)); });
+      ctx.restore();
+    }
     v.dibujoMs = v.dibujoMs * 0.9 + (performance.now() - t0) * 0.1; v.pintados++; v.ultimoOk = ok;
     if (!ok) v.errores.push("drawProtagonist devolvió false");
     $("nframe").textContent = (v.i + 1) + " / " + v.cuadros.length;
@@ -235,6 +295,8 @@
   $("ajustar").onclick = function () { poner(zAjuste(), true); }; $("juego").onclick = function () { poner(ZOOM_JUEGO); };
   $("cebolla").onclick = function () { conmutar("cebolla", "cebolla"); }; $("reflejo").onclick = function () { conmutar("reflejo", "reflejo"); };
   document.querySelectorAll("[data-bob]").forEach(function (b) { b.onclick = function () { v.bob = Number(b.getAttribute("data-bob")); grupo("bob", v.bob); }; });
+  $("comparar").onclick = function () { conmutar("comparar", "comparar"); };
+  $("lamina").onclick = function () { conmutar("lamina", "lamina"); $("panel").hidden = !v.lamina; medir(); };
   $("antiguo").onclick = function () { conmutar("antiguo", "antiguo"); }; $("guias").onclick = function () { conmutar("guias", "guias"); };
   visor.addEventListener("wheel", function (e) { e.preventDefault(); poner(v.z * (e.deltaY < 0 ? 1.15 : 1 / 1.15)); }, { passive: false });
   window.addEventListener("resize", medir);
@@ -254,7 +316,7 @@
   window.DD_ANIM_VISOR = {
     estado: function () {
       return { lista: v.lista, cuadro: v.i, id: v.lista ? v.cuadros[v.i].id : null, total: v.cuadros.length, activo: v.activo, vel: v.vel, z: v.z, ajustada: v.ajustada,
-               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
+               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, esFid: ES_FID, comparar: v.comparar, lamina: v.lamina, fila: (v.fila || []).slice(), otro: otro ? { id: otro.id, src: otro.src, caja: otro.caja, etiqueta: otro.etiqueta } : null, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
                pintados: v.pintados, ultimoOk: v.ultimoOk, errores: v.errores.slice(), cajas: v.cuadros.map(function (c) { return c.caja; }),
                tamanos: v.cuadros.map(function (c) { return [c.img.naturalWidth, c.img.naturalHeight]; }) };
     }

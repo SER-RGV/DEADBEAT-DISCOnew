@@ -1,7 +1,7 @@
 # DEADBEAT DISCO — Fase 06: reconstrucción técnica del protagonista
 
 - **Fecha:** 2026-11-12 · **Rama:** `arena/1a801cc0-deadbeat-disconew`
-- **Estado:** auditoría y especificación aprobadas. Decisiones cerradas: sin sombrero en Refugio y combate, perfil puro a la derecha, reflejo horizontal provisional, IDLE de **un fotograma** con la respiración del motor (`06_IDLE_FOTOGRAMA_UNICO.md`, pendiente de aprobación). La muestra de 4 fotogramas quedó fallida y archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY` (`05_MUESTRA_IDLE.md`).
+- **Estado:** auditoría y especificación aprobadas. Decisiones cerradas: sin sombrero en Refugio y combate, perfil puro a la derecha, reflejo horizontal provisional, IDLE de **un fotograma** con la respiración del motor (`06_IDLE_FOTOGRAMA_UNICO.md`, arquitectura aprobada). Corrección de fidelidad de tatuajes y cadenas: `07_IDLE_FIDELIDAD.md`, pendiente de validación visual. La muestra de 4 fotogramas quedó fallida y archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY` (`05_MUESTRA_IDLE.md`).
 - **Canon visual:** `assets/cinematics/restart/character_master/protagonist_master_approved.png` (SHA-256 `43d9e58f…004e5d`, verificado al empezar y al terminar). Ficha del diseño: `03_PERSONAJE_MAESTRO.md`.
 - **Canon narrativo:** «Sus tatuajes representan los caminos que la canción eliminó». Sin significados añadidos.
 
@@ -13,7 +13,7 @@
 | D. Matriz de animaciones | **Diseñada** |
 | E. Reglas de continuidad | **Terminadas** |
 | F. Arquitectura de recursos | **Diseñada** |
-| G. Muestra IDLE y visor | Muestra de 4 fotogramas: **fallida**, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`. IDLE de fotograma único: **producido, pendiente de aprobación** (`06_IDLE_FOTOGRAMA_UNICO.md`) |
+| G. Muestra IDLE y visor | Muestra de 4 fotogramas: **fallida**, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`. IDLE de fotograma único: **arquitectura aprobada** (`06_IDLE_FOTOGRAMA_UNICO.md`). Fidelidad: versión corregida **pendiente de validación visual** (`07_IDLE_FIDELIDAD.md`) |
 
 Evidencia gráfica: `evidencia_produccion/hoja_vistas_proporciones.jpg` y `evidencia_produccion/sprites_antiguos_contrato.jpg`.
 

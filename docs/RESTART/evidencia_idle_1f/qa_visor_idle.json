@@ -53,7 +53,7 @@
   {
    "name": "[4F] ANIM cada fotograma dura 560 ms (± 40 ms)",
    "ok": true,
-   "detail": "567, 550, 566, 567, 550 ms"
+   "detail": "566, 551, 566, 567, 550 ms"
   },
   {
    "name": "[4F] ANIM ciclo completo de 2,24 s (± 60 ms)",
@@ -68,7 +68,7 @@
   {
    "name": "[4F] ANIM rendimiento: tiempo medio de dibujo por cuadro < 4 ms",
    "ok": true,
-   "detail": "0.14 ms (Chromium sin GPU)"
+   "detail": "0.13 ms (Chromium sin GPU)"
   },
   {
    "name": "[4F] ANIM pausa: el fotograma no cambia",
@@ -98,7 +98,7 @@
   {
    "name": "[4F] ANIM velocidad 2×: 280 ms por fotograma (± 30 ms)",
    "ok": true,
-   "detail": "267, 283, 283, 283, 283 ms"
+   "detail": "283, 284, 283, 267, 283 ms"
   },
   {
    "name": "[4F] velocidad ¼× seleccionable",
@@ -148,7 +148,7 @@
   {
    "name": "[4F] ESTÁTICA comparación con el sprite antiguo: se dibujan dos figuras",
    "ok": true,
-   "detail": "46806 frente a 19857 píxeles opacos"
+   "detail": "46899 frente a 19857 píxeles opacos"
   },
   {
    "name": "[4F] balanceo del motor activable con la animación en marcha",
@@ -157,12 +157,12 @@
   {
    "name": "[4F] se adapta a 1280×720",
    "ok": true,
-   "detail": "figura 336 de 425 px"
+   "detail": "figura 302 de 386 px"
   },
   {
    "name": "[4F] se adapta a 1366×768",
    "ok": true,
-   "detail": "figura 380 de 473 px"
+   "detail": "figura 344 de 434 px"
   },
   {
    "name": "[4F] se adapta a 2560×1440",
@@ -229,7 +229,7 @@
   {
    "name": "[1F] ANIM pausa: la respiración se detiene",
    "ok": true,
-   "detail": "bobY 0.401 durante 700 ms"
+   "detail": "bobY 0.402 durante 700 ms"
   },
   {
    "name": "[1F] ANIM velocidad 2×: ciclo de 1,12 s (± 40 ms)",
@@ -275,12 +275,76 @@
   {
    "name": "[1F] rendimiento: tiempo medio de dibujo por cuadro < 4 ms",
    "ok": true,
-   "detail": "0.13 ms"
+   "detail": "0.20 ms"
   },
   {
    "name": "[1F] sin errores de consola ni peticiones fallidas",
    "ok": true,
    "detail": "0 errores"
+  },
+  {
+   "name": "[FID] ESTÁTICA abre el fotograma corregido, rotulado como pendiente de validación visual",
+   "ok": true,
+   "detail": "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png"
+  },
+  {
+   "name": "[FID] ESTÁTICA mismo contrato que el actual: 288 × 512, suelas y=504, 462 px, esquinas transparentes",
+   "ok": true,
+   "detail": "89-43-190-504"
+  },
+  {
+   "name": "[FID] ESTÁTICA misma silueta que el actual (caja de la figura idéntica)",
+   "ok": true,
+   "detail": "89-43-190-504"
+  },
+  {
+   "name": "[FID] ESTÁTICA comparación abierta: actual y corregido uno junto al otro, en ese orden",
+   "ok": true,
+   "detail": "pm_idle_00 · pm_idle_fid_00"
+  },
+  {
+   "name": "[FID] ESTÁTICA panel con la lámina (PERFIL D. y detalle de tatuajes) y los dos brazos ampliados",
+   "ok": true,
+   "detail": "83 %, 84 %, 100 %"
+  },
+  {
+   "name": "[FID] ESTÁTICA los brazos ampliados de actual y corregido difieren (hay corrección que ver)",
+   "ok": true,
+   "detail": "13 % de píxeles distintos"
+  },
+  {
+   "name": "[FID] ESTÁTICA ajustar a pantalla: las dos figuras caben",
+   "ok": true,
+   "detail": "805 %"
+  },
+  {
+   "name": "[FID] ANIM respiración del motor en marcha sobre las dos figuras",
+   "ok": true,
+   "detail": "1.00 → -0.29"
+  },
+  {
+   "name": "[FID] ESTÁTICA con el sprite antiguo: antiguo · actual · corregido",
+   "ok": true,
+   "detail": "player_idle_00 · pm_idle_00 · pm_idle_fid_00"
+  },
+  {
+   "name": "[FID] los botones de comparación y de lámina se apagan",
+   "ok": true
+  },
+  {
+   "name": "[FID] ESTÁTICA escala real de juego: figura de ≈106 px",
+   "ok": true,
+   "detail": "104 px"
+  },
+  {
+   "name": "[FID] sin errores de consola ni peticiones fallidas",
+   "ok": true,
+   "detail": "0 errores"
+  },
+  {
+   "name": "[FID] desde el fotograma actual: comparación apagada al abrir y disponible",
+   "ok": true,
+   "detail": "pm_idle_00 · pm_idle_fid_00"
   },
   {
    "name": "[4F] mensaje claro si falta un fotograma",

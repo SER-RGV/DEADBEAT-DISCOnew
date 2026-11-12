@@ -1,7 +1,7 @@
 # 06 · IDLE de fotograma único del protagonista
 
 - **Fecha:** 2026-11-12
-- **Estado:** `PENDIENTE_DE_APROBACION`. Recurso producido, **no registrado**, no sustituye al activo.
+- **Estado:** arquitectura IDLE **aprobada** (un fotograma + respiración del motor); `pm_idle_00.png` aprobado técnicamente. **No registrado**, no sustituye al activo. La fidelidad de los tatuajes y las cadenas se trata en [`07_IDLE_FIDELIDAD.md`](07_IDLE_FIDELIDAD.md), pendiente de validación visual.
 - **Sustituye a:** la muestra de cuatro fotogramas, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY` (informe: [`05_MUESTRA_IDLE.md`](05_MUESTRA_IDLE.md)).
 - **Canon:** `assets/cinematics/restart/character_master/protagonist_master_approved.png` (sin cambios; SHA-256 `43d9e58f…004e5d` comprobado).
 - No se ha empezado WALK, RUN, SHOOT ni ninguna otra animación.
@@ -131,4 +131,6 @@ Sigue abierta, sin inventar respuesta, la cuestión de qué brazo lleva cada tat
 
 ## 9. Siguiente paso
 
-Parado hasta la aprobación de este IDLE.
+Arquitectura aprobada. Corrección de fidelidad entregada en `07_IDLE_FIDELIDAD.md`; parado hasta su validación visual.
+
+Nota: desde esa entrega el QA del visor suma 74 comprobaciones (se añadieron 13 de la corrección) y sus capturas `fid_*.jpg` están en `evidencia_fidelidad/`.

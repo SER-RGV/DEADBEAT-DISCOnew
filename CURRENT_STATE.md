@@ -156,3 +156,8 @@ Toda modificación debe partir de una copia de seguridad.
 - Muestra de 4 fotogramas: fallida por inconsistencia de tatuajes, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`.
 - Abierto para la revisión de ilustración: sigilo del hombro (estrella en círculo), lobo reconocible, cadenas.
 - No iniciadas: WALK, RUN, SHOOT y el resto. Se espera la aprobación del IDLE.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: fidelidad del IDLE) — PENDIENTE DE VALIDACIÓN VISUAL
+- Arquitectura IDLE aprobada: un fotograma + respiración procedural del motor. `pm_idle_00.png` aprobado técnicamente y conservado.
+- Versión corregida (sigilo del hombro, lobo, cadenas): `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png`. Informe: `docs/RESTART/07_IDLE_FIDELIDAD.md`.
+- El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.
