@@ -161,3 +161,8 @@ Toda modificación debe partir de una copia de seguridad.
 - Arquitectura IDLE aprobada: un fotograma + respiración procedural del motor. `pm_idle_00.png` aprobado técnicamente y conservado.
 - Versión corregida (sigilo del hombro, lobo, cadenas): `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png`. Informe: `docs/RESTART/07_IDLE_FIDELIDAD.md`.
 - El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: FASE 07B) — PENDIENTE DE APROBACIÓN
+- Corrección de fidelidad v2 del IDLE: tinta del hombro y del lobo tomada directamente de los paneles de la lámina; cadenas reforzadas. Informe: `docs/RESTART/08_IDLE_FIDELIDAD_07B.md`.
+- Se conservan `pm_idle_00.png` (aprobado técnicamente) y la v1 de la corrección.
+- El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.

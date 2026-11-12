@@ -3,9 +3,9 @@
  "title": "Protagonista según la lámina maestra — IDLE de fotograma único, corrección de fidelidad (no registrado en el juego)",
  "created": "2026-11-12",
  "style": "NEON GRAFFITI HORROR DISCO, cómic ilustrado (no pixel art)",
- "status": "PENDIENTE_DE_VALIDACION_VISUAL",
+ "status": "PENDIENTE_DE_APROBACION",
  "reference": "assets/cinematics/restart/character_master/protagonist_master_approved.png (vista PERFIL D.); pelo descubierto según assets/characters/player_idle_00.png",
- "history": "Parte de pm_idle_00 (R05, aprobado técnicamente, conservado sin cambios). Solo cambian la tinta del brazo (sigilo del hombro, lobo del antebrazo) y las cadenas del cuello.",
+ "history": "Parte de pm_idle_00 (R05, aprobado técnicamente, conservado sin cambios). Solo cambian la tinta del brazo (sigilo del hombro, lobo del antebrazo) y las cadenas del cuello. FASE 07B (v2): tinta del hombro y del lobo tomada directamente de los paneles HOMBRO y ANTEBRAZO (LOBO) de la lámina; cadenas reforzadas. La v1 se conserva en assets/characters/protagonist_master/fidelidad/versiones/.",
  "layout": {
   "scale_master_to_canvas": 0.3823,
   "canvas_height": 512,
@@ -62,7 +62,7 @@
      700
     ]
    },
-   "generation": "gen_j_1f_fidelidad = gen_h_1f + recorte del brazo regenerado a 3x (gen_i_brazo) con los paneles HOMBRO y ANTEBRAZO (LOBO) de la lámina como referencia, pegado con máscara: el 94 % del bruto es idéntico a gen_h_1f",
+   "generation": "gen_l_1f_fidelidad2 = fid v1 + brazo sin tinta y cadenas reforzadas (gen_k, pegado con máscara, placa protegida) + tinta de los paneles HOMBRO y ANTEBRAZO (LOBO) de protagonist_master_crop_tattoo_details.png colocada por transformación afín (escala y giro), sin redibujar. Guion: docs/RESTART/evidencia_fidelidad_07b/compose_fid2.py",
    "use": "Reposo sin arma, perfil puro mirando a la derecha, sin sombrero. Respiración: la procedural del motor."
   }
  ]

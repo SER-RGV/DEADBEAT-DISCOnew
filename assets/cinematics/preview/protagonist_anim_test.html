@@ -28,7 +28,7 @@
   #panel p { font-size: 12px; color: #b9b2c6; margin: 0 0 8px; line-height: 1.4; }
   #panel .fila { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; }
   #panel figure { margin: 0; } #panel figcaption { font-size: 11.5px; color: var(--hueso); margin-top: 4px; font-weight: 700; letter-spacing: .04em; }
-  #panel canvas { height: min(52vh, 560px); width: auto; }
+  #panel canvas { height: min(46vh, 500px); width: auto; }
   #panel canvas, #panel img { display: block; background: #0B0B12; border: 1px solid var(--linea); max-width: 100%; }
   #panel img { height: auto; }
   #porvalidar { flex: none; background: var(--amarillo); color: #0B0B12; font-weight: 800; letter-spacing: .05em; padding: 7px 14px; font-size: 13px; }
@@ -81,7 +81,7 @@
   <div class="grupo" role="group" aria-label="Comprobaciones">
     <button id="cebolla" aria-pressed="false" title="Superpone el fotograma anterior al 45 % para ver qué cambia (C)">PAPEL CEBOLLA</button>
     <button id="reflejo" aria-pressed="false" title="Mirando a la izquierda: el reflejo horizontal del motor (R)">REFLEJO</button>
-    <button id="comparar" aria-pressed="false" hidden title="Dibuja al lado la otra versión del fotograma único (actual o corregida) a la misma escala">ACTUAL JUNTO A CORREGIDO</button>
+    <button id="comparar" aria-pressed="false" hidden title="Dibuja en fila el fotograma actual, la corrección anterior y la nueva corrección, a la misma escala">ACTUAL JUNTO A CORRECCIONES</button>
     <button id="lamina" aria-pressed="false" title="Abre el panel con la lámina maestra y los tatuajes ampliados">LÁMINA Y TATUAJES</button>
     <button id="antiguo" aria-pressed="false" title="Dibuja al lado el sprite antiguo player_idle_00 a la misma escala">SPRITE ANTIGUO</button>
     <button id="guias" aria-pressed="false" title="Línea de suelo, eje, ancla de cinturón, ancla de mano y círculo de colisión (G)">GUÍAS</button>
@@ -89,7 +89,7 @@
 </header>
 
 <div id="fallido" hidden>IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY · Experimento archivado. Fallido por inconsistencia de los tatuajes entre fotogramas. No es una animación aprobada.</div>
-<div id="porvalidar" hidden>IDLE_1F_FIDELIDAD · Corrección de fidelidad pendiente de validación visual. No registrada en el juego. La versión actual se conserva sin cambios.</div>
+<div id="porvalidar" hidden>IDLE_1F_FIDELIDAD · Corrección de fidelidad PENDIENTE DE APROBACIÓN. No registrada en el juego. La versión actual se conserva sin cambios.</div>
 <div id="zona">
 <main id="visor" class="f-trans">
   <canvas id="lienzo"></canvas>
@@ -97,10 +97,11 @@
 </main>
 <aside id="panel" hidden aria-label="Lámina maestra y tatuajes ampliados">
   <h2>TATUAJES AMPLIADOS ×5 · BRAZO DEL FOTOGRAMA</h2>
-  <p>Recorte de los dos PNG de 288 × 512 tal como están, ampliado cinco veces.</p>
+  <p>Recorte de los PNG de 288 × 512 tal como están, ampliado cinco veces. Incluye hombro, lobo y cadenas.</p>
   <div class="fila">
     <figure><canvas id="z-actual" width="450" height="900"></canvas><figcaption>ACTUAL · pm_idle_00</figcaption></figure>
-    <figure><canvas id="z-fid" width="450" height="900"></canvas><figcaption>CORREGIDO · pm_idle_fid_00</figcaption></figure>
+    <figure id="f-ant" hidden><canvas id="z-ant" width="450" height="900"></canvas><figcaption>CORRECCIÓN ANTERIOR · v1</figcaption></figure>
+    <figure><canvas id="z-fid" width="450" height="900"></canvas><figcaption>NUEVA CORRECCIÓN · pm_idle_fid_00</figcaption></figure>
     <figure><canvas id="z-perfil" width="250" height="900"></canvas><figcaption>LÁMINA MAESTRA · PERFIL D.</figcaption></figure>
   </div>
   <h2>LÁMINA MAESTRA · DETALLE DE TATUAJES (CANON)</h2>
@@ -136,6 +137,7 @@
   var MANIFIESTO = ES_4F ? "assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json" : ES_FID ? M_FID : M_ACTUAL;
   var PERFIL = { src: "assets/cinematics/restart/character_master/protagonist_master_crop_turnaround.png", x: 365, w: 115 };   /* vista PERFIL D. de la lámina */
   var BRAZO = { x: 100, y: 120, w: 90, h: 180 };   /* recorte del brazo en el PNG de 288 × 512 */
+  var anterior = null;   /* corrección anterior (v1), si el manifiesto de la corrección la declara */
   var otro = null;   /* la otra versión del fotograma único (actual ↔ corregida) */
   var RITMO = 2.8;   /* rad/s: breathePhase += dt * 2.8 en el motor y en el Refugio */
   var ANTIGUO = { id: "player_idle_00", src: "assets/characters/player_idle_00.png", anchors: { belt: 0.4914, hand: [0.678, 0.5848] } };
@@ -187,11 +189,12 @@
       if (ES_4F) return null;
       /* La otra versión del fotograma único y la lámina, para comparar. Si faltan, la comparación no se ofrece. */
       return fetch(RAIZ + (ES_FID ? M_ACTUAL : M_FID)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (mo) {
-        var e = mo.entries[mo.animation.frames[0]];
-        return Promise.all([cargarImagen(e.src), cargarImagen(PERFIL.src)]).then(function (xs) {
+        var e = mo.entries[mo.animation.frames[0]], prev = (ES_FID ? m : mo).previous || null;
+        return Promise.all([cargarImagen(e.src), cargarImagen(PERFIL.src)].concat(prev ? [cargarImagen(prev.src)] : [])).then(function (xs) {
+          if (prev) { anterior = { id: prev.id, src: prev.src, img: xs[2], anchors: prev.anchors, caja: cajaFigura(xs[2]), etiqueta: prev.label }; $("f-ant").hidden = false; }
           otro = { id: e.id, src: e.src, img: xs[0], anchors: e.anchors, caja: cajaFigura(xs[0]), etiqueta: mo.label };
           var act = ES_FID ? otro : v.cuadros[0], fid = ES_FID ? v.cuadros[0] : otro;
-          [["z-actual", act], ["z-fid", fid]].forEach(function (p) { var c = $(p[0]).getContext("2d"); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(p[1].img, BRAZO.x, BRAZO.y, BRAZO.w, BRAZO.h, 0, 0, 450, 900); });
+          [["z-actual", act], ["z-fid", fid]].concat(anterior ? [["z-ant", anterior]] : []).forEach(function (p) { var c = $(p[0]).getContext("2d"); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(p[1].img, BRAZO.x, BRAZO.y, BRAZO.w, BRAZO.h, 0, 0, 450, 900); });
           var zp = $("z-perfil"), k = 900 / xs[1].naturalHeight; zp.width = Math.round(PERFIL.w * k); zp.getContext("2d").drawImage(xs[1], PERFIL.x, 0, PERFIL.w, xs[1].naturalHeight, 0, 0, zp.width, 900);
           $("comparar").hidden = false;
           if (ES_FID) { v.comparar = true; $("comparar").setAttribute("aria-pressed", "true"); v.lamina = true; $("lamina").setAttribute("aria-pressed", "true"); $("panel").hidden = false; }
@@ -244,18 +247,19 @@
     /* Figuras en fila, de izquierda a derecha: sprite antiguo · actual · corregido. */
     var cmp = v.comparar && otro, fila = [];
     if (v.antiguo) fila.push("antiguo");
-    if (cmp) { fila.push(ES_FID ? "otro" : "este"); fila.push(ES_FID ? "este" : "otro"); } else fila.push("este");
-    var PASO = 68, x0 = -(fila.length - 1) * PASO / 2, xAnt = x0 + fila.indexOf("antiguo") * PASO, x = x0 + fila.indexOf("este") * PASO, xOtro = x0 + fila.indexOf("otro") * PASO;
-    v.fila = fila.map(function (f) { return f === "antiguo" ? "player_idle_00" : f === "otro" ? otro.id : c.id; });
+    if (cmp) { fila.push(ES_FID ? "otro" : "este"); if (anterior) fila.push("anterior"); fila.push(ES_FID ? "este" : "otro"); } else fila.push("este");
+    var PASO = 68, x0 = -(fila.length - 1) * PASO / 2, xAnt = x0 + fila.indexOf("antiguo") * PASO, x = x0 + fila.indexOf("este") * PASO, xOtro = x0 + fila.indexOf("otro") * PASO, xPrev = x0 + fila.indexOf("anterior") * PASO;
+    v.fila = fila.map(function (f) { return f === "antiguo" ? "player_idle_00" : f === "anterior" ? anterior.id : f === "otro" ? otro.id : c.id; });
     if (v.ajustada && v.z !== zAjuste()) { v.z = zAjuste(); k = v.dpr * v.z; cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z; ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr); }
     if (v.antiguo) ok = pintarPersonaje(imgAntiguo, xAnt, 1, bobY) && ok;
     if (cmp) ok = pintarPersonaje(otro, xOtro, 1, bobY) && ok;
+    if (cmp && anterior) ok = pintarPersonaje(anterior, xPrev, 1, bobY) && ok;
     if (v.cebolla) ok = pintarPersonaje(prev, x, 0.45, bobY) && ok;
     ok = pintarPersonaje(c, x, v.cebolla ? 0.6 : 1, bobY) && ok;
     if (v.guias) { guias(x, c); if (v.antiguo) guias(xAnt, imgAntiguo); if (cmp) guias(xOtro, otro); }
     if (fila.length > 1) {   /* rótulo bajo cada figura */
       ctx.save(); ctx.setTransform(v.dpr, 0, 0, v.dpr, 0, 0); ctx.font = "700 13px 'Open Sans', sans-serif"; ctx.textAlign = "center"; ctx.fillStyle = "#FFD400";
-      fila.forEach(function (f, n) { ctx.fillText(f === "antiguo" ? "ANTIGUO" : (f === "este") === ES_FID ? "CORREGIDO" : "ACTUAL", v.ancho / 2 + (x0 + n * PASO) * v.z, Math.max(14, cy + (-BASE_H + PIE_Y) * v.z - 6)); });
+      fila.forEach(function (f, n) { ctx.fillText(f === "antiguo" ? "ANTIGUO" : f === "anterior" ? "CORRECCIÓN ANTERIOR" : (f === "este") === ES_FID ? (anterior ? "NUEVA CORRECCIÓN" : "CORREGIDO") : "ACTUAL", v.ancho / 2 + (x0 + n * PASO) * v.z, Math.max(14, cy + (-BASE_H + PIE_Y) * v.z - 6)); });
       ctx.restore();
     }
     v.dibujoMs = v.dibujoMs * 0.9 + (performance.now() - t0) * 0.1; v.pintados++; v.ultimoOk = ok;
@@ -316,7 +320,7 @@
   window.DD_ANIM_VISOR = {
     estado: function () {
       return { lista: v.lista, cuadro: v.i, id: v.lista ? v.cuadros[v.i].id : null, total: v.cuadros.length, activo: v.activo, vel: v.vel, z: v.z, ajustada: v.ajustada,
-               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, esFid: ES_FID, comparar: v.comparar, lamina: v.lamina, fila: (v.fila || []).slice(), otro: otro ? { id: otro.id, src: otro.src, caja: otro.caja, etiqueta: otro.etiqueta } : null, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
+               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, esFid: ES_FID, comparar: v.comparar, lamina: v.lamina, fila: (v.fila || []).slice(), otro: otro ? { id: otro.id, src: otro.src, caja: otro.caja, etiqueta: otro.etiqueta } : null, anterior: anterior ? { id: anterior.id, src: anterior.src, caja: anterior.caja } : null, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
                pintados: v.pintados, ultimoOk: v.ultimoOk, errores: v.errores.slice(), cajas: v.cuadros.map(function (c) { return c.caja; }),
                tamanos: v.cuadros.map(function (c) { return [c.img.naturalWidth, c.img.naturalHeight]; }) };
     }

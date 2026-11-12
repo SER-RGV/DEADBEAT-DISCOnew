@@ -13,7 +13,7 @@
 | D. Matriz de animaciones | **Diseñada** |
 | E. Reglas de continuidad | **Terminadas** |
 | F. Arquitectura de recursos | **Diseñada** |
-| G. Muestra IDLE y visor | Muestra de 4 fotogramas: **fallida**, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`. IDLE de fotograma único: **arquitectura aprobada** (`06_IDLE_FOTOGRAMA_UNICO.md`). Fidelidad: versión corregida **pendiente de validación visual** (`07_IDLE_FIDELIDAD.md`) |
+| G. Muestra IDLE y visor | Muestra de 4 fotogramas: **fallida**, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`. IDLE de fotograma único: **arquitectura aprobada** (`06_IDLE_FOTOGRAMA_UNICO.md`). Fidelidad: v2 **pendiente de aprobación** (`08_IDLE_FIDELIDAD_07B.md`); v1 conservada (`07_IDLE_FIDELIDAD.md`) |
 
 Evidencia gráfica: `evidencia_produccion/hoja_vistas_proporciones.jpg` y `evidencia_produccion/sprites_antiguos_contrato.jpg`.
 

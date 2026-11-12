@@ -175,25 +175,28 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
   await pg.waitForFunction(() => window.DD_ANIM_VISOR && window.DD_ANIM_VISOR.estado().lista, null, { timeout: 20000 });
   const F = (n, ok, d) => check("[FID] " + n, ok, d);
   let f = await st();
-  const fui = await pg.evaluate(() => ({ banda: !document.getElementById("porvalidar").hidden && /pendiente de validación visual/.test(document.getElementById("porvalidar").textContent), fallido: document.getElementById("fallido").hidden, panel: !document.getElementById("panel").hidden, ruta: document.getElementById("i-ruta").textContent,
+  const fui = await pg.evaluate(() => ({ banda: !document.getElementById("porvalidar").hidden && /PENDIENTE DE APROBACIÓN/.test(document.getElementById("porvalidar").textContent), fallido: document.getElementById("fallido").hidden, panel: !document.getElementById("panel").hidden, ruta: document.getElementById("i-ruta").textContent,
     det: (() => { const i = document.getElementById("z-detalles"); return i.complete && i.naturalWidth > 0 && /character_master\/protagonist_master_crop_tattoo_details\.png$/.test(i.src); })(),
-    tinta: ["z-actual", "z-fid", "z-perfil"].map((id) => { const c = document.getElementById(id), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 200) n++; return n / (c.width * c.height); }),
+    tinta: ["z-actual", "z-ant", "z-fid", "z-perfil"].map((id) => { const c = document.getElementById(id), d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 3; i < d.length; i += 4) if (d[i] > 200) n++; return n / (c.width * c.height); }),
     difBrazo: (() => { const a = document.getElementById("z-actual"), b = document.getElementById("z-fid"), da = a.getContext("2d").getImageData(0, 0, 450, 900).data, db = b.getContext("2d").getImageData(0, 0, 450, 900).data; let n = 0; for (let i = 0; i < da.length; i += 4) if (Math.abs(da[i] - db[i]) + Math.abs(da[i + 1] - db[i + 1]) + Math.abs(da[i + 2] - db[i + 2]) > 90) n++; return n / (450 * 900); })() }));
-  F("ESTÁTICA abre el fotograma corregido, rotulado como pendiente de validación visual", rf.status() === 200 && f.esFid && f.total === 1 && f.etiqueta === "IDLE_1F_FIDELIDAD" && fui.banda && fui.fallido && fui.ruta === "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png", fui.ruta);
+  F("ESTÁTICA abre el fotograma corregido, rotulado como PENDIENTE DE APROBACIÓN", rf.status() === 200 && f.esFid && f.total === 1 && f.etiqueta === "IDLE_1F_FIDELIDAD" && fui.banda && fui.fallido && fui.ruta === "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png", fui.ruta);
   const fc = f.cajas[0];
   F("ESTÁTICA mismo contrato que el actual: 288 × 512, suelas y=504, 462 px, esquinas transparentes", f.tamanos[0][0] === 288 && f.tamanos[0][1] === 512 && fc.y1 === 504 && Math.abs(fc.alto - 462) <= 1 && fc.esquinasTransparentes, [fc.x0, fc.y0, fc.x1, fc.y1].join("-"));
   F("ESTÁTICA misma silueta que el actual (caja de la figura idéntica)", f.otro && f.otro.id === "pm_idle_00" && ["x0", "y0", "x1", "y1"].every((k) => f.otro.caja[k] === fc[k]), f.otro ? [f.otro.caja.x0, f.otro.caja.y0, f.otro.caja.x1, f.otro.caja.y1].join("-") : "sin la otra versión");
-  F("ESTÁTICA comparación abierta: actual y corregido uno junto al otro, en ese orden", f.comparar && f.fila.join(",") === "pm_idle_00,pm_idle_fid_00", f.fila.join(" · "));
-  F("ESTÁTICA panel con la lámina (PERFIL D. y detalle de tatuajes) y los dos brazos ampliados", fui.panel && fui.det && fui.tinta.every((t) => t > 0.3), fui.tinta.map((t) => Math.round(t * 100) + " %").join(", "));
+  F("ESTÁTICA comparación abierta: actual · corrección anterior · nueva corrección, en ese orden", f.comparar && f.fila.join(",") === "pm_idle_00,pm_idle_fid_00_v1,pm_idle_fid_00", f.fila.join(" · "));
+  F("ESTÁTICA la corrección anterior se conserva y tiene la misma silueta (caja idéntica)", f.anterior && /versiones\/pm_idle_fid_00_v1\.png$/.test(f.anterior.src) && ["x0", "y0", "x1", "y1"].every((k) => f.anterior.caja[k] === fc[k]), f.anterior ? f.anterior.src : "falta");
+  const dAnt = await pg.evaluate(() => { const a = document.getElementById("z-ant"), b = document.getElementById("z-fid"), da = a.getContext("2d").getImageData(0, 0, 450, 900).data, db = b.getContext("2d").getImageData(0, 0, 450, 900).data; let n = 0; for (let i = 0; i < da.length; i += 4) if (Math.abs(da[i] - db[i]) + Math.abs(da[i + 1] - db[i + 1]) + Math.abs(da[i + 2] - db[i + 2]) > 90) n++; return n / (450 * 900); });
+  F("ESTÁTICA la nueva corrección difiere de la anterior en el brazo ampliado", dAnt > 0.03, Math.round(dAnt * 100) + " % de píxeles distintos");
+  F("ESTÁTICA panel con la lámina (PERFIL D. y detalle de tatuajes) y los tres brazos ampliados", fui.panel && fui.det && fui.tinta.every((t) => t > 0.3), fui.tinta.map((t) => Math.round(t * 100) + " %").join(", "));
   F("ESTÁTICA los brazos ampliados de actual y corregido difieren (hay corrección que ver)", fui.difBrazo > 0.05, Math.round(fui.difBrazo * 100) + " % de píxeles distintos");
   const dosFig = await lienzo();
-  F("ESTÁTICA ajustar a pantalla: las dos figuras caben", (await st()).ajustada && dosFig.alto > 0.5 * dosFig.h && dosFig.alto < dosFig.h, Math.round((await st()).z * 100) + " %");
+  F("ESTÁTICA ajustar a pantalla: las tres figuras caben", (await st()).ajustada && dosFig.alto > 0.3 * dosFig.h && dosFig.alto < dosFig.h, Math.round((await st()).z * 100) + " %");
   await pg.waitForTimeout(600); const fb1 = (await st()).bobY; await pg.waitForTimeout(500); const fb2 = (await st()).bobY;
-  F("ANIM respiración del motor en marcha sobre las dos figuras", (await st()).activo && fb1 !== fb2 && Math.abs(fb1) <= 1.1001, fb1.toFixed(2) + " → " + fb2.toFixed(2));
+  F("ANIM respiración del motor en marcha sobre las tres figuras", (await st()).activo && fb1 !== fb2 && Math.abs(fb1) <= 1.1001, fb1.toFixed(2) + " → " + fb2.toFixed(2));
   await shot1("fid_comparacion_visor.jpg");
   await pg.click("#antiguo"); await pg.waitForTimeout(150);
-  F("ESTÁTICA con el sprite antiguo: antiguo · actual · corregido", (await st()).fila.join(",") === "player_idle_00,pm_idle_00,pm_idle_fid_00", (await st()).fila.join(" · "));
-  await shot1("fid_antiguo_actual_corregido.jpg"); await pg.click("#antiguo");
+  F("ESTÁTICA con el sprite antiguo: antiguo · actual · corrección anterior · nueva", (await st()).fila.join(",") === "player_idle_00,pm_idle_00,pm_idle_fid_00_v1,pm_idle_fid_00", (await st()).fila.join(" · "));
+  await shot1("fid_antiguo_actual_correcciones.jpg"); await pg.click("#antiguo");
   await pg.click("#lamina"); await pg.click("#comparar"); await pg.click('[data-bob="0"]'); await pg.click('[data-fondo="oscuro"]'); await pg.waitForTimeout(150);
   F("los botones de comparación y de lámina se apagan", !(await st()).comparar && !(await st()).lamina && await pg.evaluate(() => document.getElementById("panel").hidden) && (await st()).fila.length === 1);
   await shot1("fid_solo_ajustada.jpg");
@@ -203,7 +206,7 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
   /* El visor del fotograma actual ofrece la misma comparación, apagada al abrir. */
   await pg.goto(PAGE1); await pg.waitForFunction(() => window.DD_ANIM_VISOR && window.DD_ANIM_VISOR.estado().lista, null, { timeout: 20000 });
   const a0 = await st(); await pg.click("#comparar"); await pg.waitForTimeout(120); const a1 = await st();
-  F("desde el fotograma actual: comparación apagada al abrir y disponible", !a0.comparar && !a0.lamina && a1.comparar && a1.fila.join(",") === "pm_idle_00,pm_idle_fid_00", a1.fila.join(" · "));
+  F("desde el fotograma actual: comparación apagada al abrir y disponible", !a0.comparar && !a0.lamina && a1.comparar && a1.fila.join(",") === "pm_idle_00,pm_idle_fid_00_v1,pm_idle_fid_00", a1.fila.join(" · "));
 
   /* Recurso ausente. */
   const pg2 = await ctx.newPage();

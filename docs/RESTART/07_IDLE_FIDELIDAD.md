@@ -1,7 +1,7 @@
 # 07 · IDLE de fotograma único — corrección de fidelidad
 
 - **Fecha:** 2026-11-12
-- **Estado:** `PENDIENTE_DE_VALIDACION_VISUAL`. No registrado. No sustituye a ningún recurso.
+- **Estado:** superado por la FASE 07B ([`08_IDLE_FIDELIDAD_07B.md`](08_IDLE_FIDELIDAD_07B.md)). El fotograma descrito aquí es la **v1**, conservada en `assets/characters/protagonist_master/fidelidad/versiones/pm_idle_fid_00_v1.png`. Matiz posterior: esta v1 difiere del fotograma actual en 422 píxeles de alfa y alcanzó parte del frente del chaleco (ver §4 del informe 08).
 - **Arquitectura IDLE:** aprobada (un fotograma + respiración procedural del motor). Ver [`06_IDLE_FOTOGRAMA_UNICO.md`](06_IDLE_FOTOGRAMA_UNICO.md).
 - **Versión actual:** `assets/characters/protagonist_master/pm_idle_00.png`, aprobada técnicamente, **conservada sin cambios** (sha16 `a13a0917997e6447`, igual que antes).
 - **Canon:** lámina maestra, sin cambios (SHA-256 `43d9e58f…004e5d` comprobado).

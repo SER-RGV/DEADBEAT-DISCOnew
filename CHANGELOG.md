@@ -149,3 +149,10 @@ Registrar aquí cada modificación:
 - Sistemas afectados: ninguno del juego. `pm_idle_00.png` sin cambios. Nada registrado.
 - Pruebas: visor 74/74; visor de arte 48/48. Sin prueba en partida de la versión corregida.
 - Resultado: pendiente de validación visual.
+
+## 2026-11-12 · PROJECT RESTART · protagonista: FASE 07B, última corrección de fidelidad del IDLE
+- Archivos modificados: `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png` (v2) y su manifiesto, maestro y tanda `R05B`; visor `protagonist_anim_test.html` (fila actual · anterior · nueva y tres ampliaciones); `tools/qa/test_protagonist_anim_viewer.js`; `docs/RESTART/04_…md`, `07_…md`.
+- Archivos nuevos: `fidelidad/versiones/` (v1 conservada), `docs/RESTART/08_IDLE_FIDELIDAD_07B.md`, `docs/RESTART/evidencia_fidelidad_07b/`.
+- Sistemas afectados: ninguno del juego. `pm_idle_00.png`, lámina, `src/`, sprites y registro sin cambios (hashes en la evidencia).
+- Pruebas: visor 76/76; visor de arte 48/48. Sin prueba en partida.
+- Resultado: pendiente de aprobación.
