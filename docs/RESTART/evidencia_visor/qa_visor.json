@@ -1,5 +1,5 @@
 {
- "url": "http://localhost:8080/assets/cinematics/preview/art_direction_test.html",
+ "url": "http://localhost:8080/assets/cinematics/preview/art_direction_test.html?ver=composicion",
  "results": [
   {
    "name": "1 la página carga",
@@ -127,7 +127,7 @@
   {
    "name": "9 sin recorte a 1366×768",
    "ok": true,
-   "detail": "1175×661 · 61 % (ajustada)"
+   "detail": "1093×615 · 57 % (ajustada)"
   },
   {
    "name": "9 sin recorte a 1920×1080",
@@ -148,6 +148,70 @@
    "name": "3 sin errores de rutas · 4 sin errores JavaScript",
    "ok": true,
    "detail": "0 errores, 0 peticiones fallidas"
+  },
+  {
+   "name": "P1 abre en PERSONAJE con la lámina maestra",
+   "ok": true,
+   "detail": "Lámina maestra aprobada (original intacto) · protagonist_master_approved.png"
+  },
+  {
+   "name": "P1 resolución de la maestra",
+   "ok": true,
+   "detail": "1672 × 941 px"
+  },
+  {
+   "name": "P el botón de logotipo se oculta (no hay variante)",
+   "ok": true
+  },
+  {
+   "name": "P2 reproducción de Arena",
+   "ok": true,
+   "detail": "Reproducción de Arena · 1376 × 768 px"
+  },
+  {
+   "name": "P2 proporción propia conservada",
+   "ok": true,
+   "detail": "1.7917"
+  },
+  {
+   "name": "P3 rostro: ampliado y con el mismo encuadre en maestra y reproducción",
+   "ok": true,
+   "detail": "299 % / 363 %"
+  },
+  {
+   "name": "P4 tatuajes: ampliado y con el mismo encuadre en maestra y reproducción",
+   "ok": true,
+   "detail": "137 % / 166 %"
+  },
+  {
+   "name": "P4 detalles de tatuajes: ampliado y con el mismo encuadre en maestra y reproducción",
+   "ok": true,
+   "detail": "205 % / 249 %"
+  },
+  {
+   "name": "P5 vistas: ampliado y con el mismo encuadre en maestra y reproducción",
+   "ok": true,
+   "detail": "197 % / 239 %"
+  },
+  {
+   "name": "P ajustar vuelve a la lámina completa",
+   "ok": true,
+   "detail": "99 % (ajustada)"
+  },
+  {
+   "name": "P tecla C: cambia a COMPOSICIÓN y vuelve",
+   "ok": true,
+   "detail": "V2 · segunda composición"
+  },
+  {
+   "name": "P la lámina maestra servida es el archivo original, byte a byte",
+   "ok": true,
+   "detail": "43d9e58fcd1c9f9e…"
+  },
+  {
+   "name": "P sin errores de rutas ni de JavaScript (ambos conjuntos)",
+   "ok": true,
+   "detail": "0 errores"
   },
   {
    "name": "mensaje claro si el recurso no carga",

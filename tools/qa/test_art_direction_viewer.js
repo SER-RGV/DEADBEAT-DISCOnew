@@ -4,7 +4,8 @@
 const { chromium } = require("playwright-core");
 const BASE = process.argv[2] || "http://localhost:8080";
 const OUT = process.argv[3] || null;
-const PAGE = BASE + "/assets/cinematics/preview/art_direction_test.html";
+const VIEWER = BASE + "/assets/cinematics/preview/art_direction_test.html";
+const PAGE = VIEWER + "?ver=composicion";   /* comparación V1 / V2 */
 const RES = [[1280, 720], [1366, 768], [1920, 1080], [2560, 1440], [3440, 1440]];
 const results = [];
 const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); console.log((ok ? "PASS " : "FAIL ") + name + (detail ? "  · " + detail : "")); };
@@ -106,6 +107,39 @@ const check = (name, ok, detail) => { results.push({ name, ok: !!ok, detail }); 
     if (OUT && w === 1366) await pg.screenshot({ path: OUT + "/visor_1366x768_ajustada.jpg", type: "jpeg", quality: 80 });
   }
   check("3 sin errores de rutas · 4 sin errores JavaScript", errors.length === 0, errors.join(" | ") || "0 errores, 0 peticiones fallidas");
+
+  /* ---- Conjunto PERSONAJE: lámina maestra aprobada frente a la reproducción. ---- */
+  await pg.setViewportSize({ width: 1920, height: 1080 });
+  await pg.goto(VIEWER); await loaded(pg);
+  let m = await st(pg);
+  check("P1 abre en PERSONAJE con la lámina maestra", m.conjunto === "pers" && m.version === "v1" && m.archivo === "protagonist_master_approved.png" && /maestra/i.test(m.verTxt), m.verTxt + " · " + m.archivo);
+  check("P1 resolución de la maestra", m.res === "1672 × 941 px" && m.ruta === "assets/cinematics/restart/character_master/protagonist_master_approved.png", m.res);
+  check("P el botón de logotipo se oculta (no hay variante)", await pg.evaluate(() => document.getElementById("logo").hidden));
+  const fitM = m;
+  if (OUT) await pg.screenshot({ path: OUT + "/personaje_maestra.jpg", type: "jpeg", quality: 80 });
+  await pg.click("#v2"); await wait("protagonist_master_reproduction.png"); let r = await st(pg);
+  check("P2 reproducción de Arena", r.version === "v2" && r.res === "1376 × 768 px" && /Reproducción/.test(r.verTxt), r.verTxt + " · " + r.res);
+  check("P2 proporción propia conservada", Math.abs(r.r.w / r.r.h - r.w / r.h) < 0.002, (r.r.w / r.r.h).toFixed(4));
+  if (OUT) await pg.screenshot({ path: OUT + "/personaje_reproduccion.jpg", type: "jpeg", quality: 80 });
+  await pg.click("#v1"); await wait("protagonist_master_approved.png");
+  for (const [id, n] of [["rostro", "3 rostro"], ["tatuajes", "4 tatuajes"], ["detalles", "4 detalles de tatuajes"], ["vistas", "5 vistas"]]) {
+    await pg.click("#r-" + id); const a1 = await st(pg);
+    const pressed = await pg.getAttribute("#r-" + id, "aria-pressed");
+    await pg.keyboard.press("v"); await wait("protagonist_master_reproduction.png"); const a2 = await st(pg);
+    const sameBox = Math.abs(a1.r.x - a2.r.x) < 0.5 && Math.abs(a1.r.y - a2.r.y) < 0.5 && Math.abs(a1.r.w - a2.r.w) < 0.5;
+    check("P" + n + ": ampliado y con el mismo encuadre en maestra y reproducción", a1.region === id && pressed === "true" && a1.s > fitM.s * 1.3 && sameBox, a1.escala + " / " + a2.escala);
+    if (OUT) await pg.screenshot({ path: OUT + "/personaje_" + id + "_reproduccion.jpg", type: "jpeg", quality: 80 });
+    await pg.keyboard.press("v"); await wait("protagonist_master_approved.png");
+    if (OUT) await pg.screenshot({ path: OUT + "/personaje_" + id + "_maestra.jpg", type: "jpeg", quality: 80 });
+  }
+  await pg.click("#ajustar"); m = await st(pg);
+  check("P ajustar vuelve a la lámina completa", m.ajustada && m.region === null && Math.abs(m.s - fitM.s) < 1e-6, m.escala);
+  await pg.keyboard.press("c"); await wait("art_direction_test_v2.png"); m = await st(pg);
+  check("P tecla C: cambia a COMPOSICIÓN y vuelve", m.conjunto === "comp" && m.ajustada && await pg.evaluate(() => !document.getElementById("logo").hidden && document.getElementById("regiones").children.length === 0), m.verTxt);
+  await pg.click("#c-pers"); await wait("protagonist_master_approved.png");
+  const hash = require("crypto").createHash("sha256").update(await (await ctx.request.get(BASE + "/assets/cinematics/restart/character_master/protagonist_master_approved.png")).body()).digest("hex");
+  check("P la lámina maestra servida es el archivo original, byte a byte", hash === "43d9e58fcd1c9f9e04aabcc95da2194496a8aef765e2b9a56d34e75933004e5d", hash.slice(0, 16) + "…");
+  check("P sin errores de rutas ni de JavaScript (ambos conjuntos)", errors.length === 0, errors.join(" | ") || "0 errores");
 
   /* Recurso ausente: debe verse un mensaje claro. */
   const pg2 = await ctx.newPage();
