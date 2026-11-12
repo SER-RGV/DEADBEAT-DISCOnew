@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEADBEAT DISCO · Prueba de dirección artística</title>
+<style>
+  :root {
+    --negro: #0B0B12; --panel: #14121d; --linea: #2a2438;
+    --magenta: #FF007A; --cian: #00E5FF; --amarillo: #FFD400; --hueso: #F0E6DB; --tenue: #9a92ab;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    display: flex; flex-direction: column; background: var(--negro); color: var(--hueso);
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden;
+  }
+  header, footer { flex: none; background: var(--panel); display: flex; align-items: center; gap: 14px; padding: 8px 14px; flex-wrap: wrap; }
+  header { border-bottom: 2px solid var(--magenta); }
+  footer { border-top: 1px solid var(--linea); font-size: 12.5px; color: var(--tenue); gap: 6px 22px; }
+  h1 { margin: 0; font-size: 14px; letter-spacing: .14em; font-weight: 800; white-space: nowrap; }
+  h1 span { color: var(--magenta); }
+  .grupo { display: flex; align-items: center; gap: 4px; padding-left: 14px; border-left: 1px solid var(--linea); }
+  button, a.btn {
+    font: inherit; font-weight: 700; font-size: 12.5px; letter-spacing: .04em; color: var(--hueso);
+    background: #1e1a2b; border: 1px solid var(--linea); border-radius: 4px; padding: 6px 11px; min-width: 34px;
+    cursor: pointer; text-decoration: none; white-space: nowrap;
+  }
+  button:hover, a.btn:hover { border-color: var(--cian); color: #fff; }
+  button:focus-visible, a.btn:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--amarillo); border-color: var(--amarillo); color: #0B0B12; }
+  #escala { min-width: 54px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--cian); }
+  #visor { flex: 1; min-height: 0; position: relative; overflow: hidden; background: var(--negro); cursor: grab; touch-action: none; user-select: none; }
+  #visor.arrastrando { cursor: grabbing; }
+  #imagen { position: absolute; left: 0; top: 0; transform-origin: 0 0; max-width: none; display: block; -webkit-user-drag: none; }
+  #imagen.oculta { visibility: hidden; }
+  #aviso {
+    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center;
+    padding: 24px; pointer-events: none; color: var(--tenue);
+  }
+  #aviso[hidden] { display: none; }
+  #aviso.error { color: var(--hueso); }
+  #aviso.error div { border: 2px solid var(--magenta); background: var(--panel); padding: 20px 26px; border-radius: 6px; max-width: 560px; }
+  #aviso b { display: block; color: var(--magenta); font-size: 16px; letter-spacing: .08em; margin-bottom: 8px; }
+  #aviso code { color: var(--cian); word-break: break-all; }
+  footer b { color: var(--hueso); font-weight: 600; }
+  footer .ok { color: #5dffa0; } footer .mal { color: var(--magenta); } footer .espera { color: var(--amarillo); }
+  footer .ayuda { margin-left: auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1>DEADBEAT <span>DISCO</span> · PRUEBA DE DIRECCIÓN ARTÍSTICA</h1>
+  <div class="grupo" role="group" aria-label="Zoom">
+    <button id="menos" title="Reducir (tecla -)" aria-label="Reducir">−</button>
+    <span id="escala" aria-live="polite">—</span>
+    <button id="mas" title="Ampliar (tecla +)" aria-label="Ampliar">+</button>
+    <button id="ajustar" title="Ajustar a la ventana (tecla 0)">AJUSTAR</button>
+    <button id="real" title="Tamaño real, 1 píxel = 1 píxel (tecla 1)">100 %</button>
+  </div>
+  <div class="grupo" role="group" aria-label="Vista">
+    <button id="logo" aria-pressed="true" title="Mostrar la composición con o sin logotipo (tecla L)">LOGOTIPO</button>
+    <button id="fondo" aria-pressed="false" title="Ocultar la imagen y dejar solo el fondo oscuro (tecla F)">SOLO FONDO</button>
+  </div>
+  <div class="grupo">
+    <a class="btn" id="abrir" target="_blank" rel="noopener" href="#">ABRIR ORIGINAL ↗</a>
+  </div>
+</header>
+
+<main id="visor" aria-label="Lienzo de inspección">
+  <img id="imagen" alt="Composición de prueba: el protagonista en la pista de la estación con el logotipo DEADBEAT DISCO" draggable="false">
+  <div id="aviso"><div>Cargando la imagen…</div></div>
+</main>
+
+<footer>
+  <span>Archivo: <b id="i-archivo">—</b></span>
+  <span>Ruta: <b id="i-ruta">—</b></span>
+  <span>Resolución original: <b id="i-res">—</b></span>
+  <span>Escala: <b id="i-escala">—</b></span>
+  <span>Estado: <b id="i-estado" class="espera">cargando</b></span>
+  <span class="ayuda">Rueda: zoom · Arrastrar: mover · Doble clic: ajustar / 100 %</span>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+  /* Rutas relativas a esta página: assets/cinematics/preview/ -> assets/cinematics/restart/ */
+  var BASE = "../restart/";
+  var VARIANTES = { conLogo: "art_direction_test.png", sinLogo: "art_direction_test_plate.png" };
+  var RUTA_REPO = "assets/cinematics/restart/";
+  var MIN = 0.05, MAX = 8;
+
+  var $ = function (id) { return document.getElementById(id); };
+  var visor = $("visor"), img = $("imagen"), aviso = $("aviso");
+  var v = { s: 1, x: 0, y: 0, w: 0, h: 0, cargada: false, ajustada: true, conLogo: true };
+
+  function limitar() {
+    var cw = visor.clientWidth, ch = visor.clientHeight, iw = v.w * v.s, ih = v.h * v.s;
+    v.x = iw <= cw ? (cw - iw) / 2 : Math.min(0, Math.max(cw - iw, v.x));
+    v.y = ih <= ch ? (ch - ih) / 2 : Math.min(0, Math.max(ch - ih, v.y));
+  }
+  function pintar() {
+    if (!v.cargada) return;
+    limitar();
+    img.style.transform = "translate(" + v.x + "px," + v.y + "px) scale(" + v.s + ")";
+    var pct = Math.round(v.s * 100) + " %";
+    $("escala").textContent = pct;
+    $("i-escala").textContent = pct + (v.ajustada ? " (ajustada)" : "");
+  }
+  function escalaAjuste() { return Math.min(visor.clientWidth / v.w, visor.clientHeight / v.h); }
+  function ajustar() { if (!v.cargada) return; v.s = escalaAjuste(); v.x = v.y = 0; v.ajustada = true; pintar(); }
+  /* Zoom manteniendo fijo el punto (px, py) del visor. */
+  function zoomA(s, px, py) {
+    if (!v.cargada) return;
+    s = Math.min(MAX, Math.max(MIN, s));
+    if (px == null) { px = visor.clientWidth / 2; py = visor.clientHeight / 2; }
+    var ix = (px - v.x) / v.s, iy = (py - v.y) / v.s;
+    v.s = s; v.x = px - ix * s; v.y = py - iy * s; v.ajustada = false; pintar();
+  }
+  function mover(dx, dy) { if (!v.cargada) return; v.x += dx; v.y += dy; pintar(); }
+
+  function cargar() {
+    var archivo = v.conLogo ? VARIANTES.conLogo : VARIANTES.sinLogo;
+    var mantener = v.cargada;
+    $("i-archivo").textContent = archivo;
+    $("i-ruta").textContent = RUTA_REPO + archivo;
+    $("abrir").href = BASE + archivo;
+    estado("cargando", "espera");
+    img.onload = function () {
+      var mismas = mantener && v.w === img.naturalWidth && v.h === img.naturalHeight;
+      v.w = img.naturalWidth; v.h = img.naturalHeight; v.cargada = true;
+      $("i-res").textContent = v.w + " × " + v.h + " px";
+      aviso.hidden = true; aviso.className = "";
+      estado("cargada", "ok");
+      if (mismas) pintar(); else ajustar();   /* al alternar variantes se conserva el encuadre */
+    };
+    img.onerror = function () {
+      v.cargada = false; img.removeAttribute("src");
+      $("i-res").textContent = "—"; $("escala").textContent = "—"; $("i-escala").textContent = "—";
+      estado("error: no se encontró el archivo", "mal");
+      aviso.hidden = false; aviso.className = "error";
+      aviso.innerHTML = "<div><b>NO SE PUDO CARGAR LA IMAGEN</b>No se encontró <code>" + RUTA_REPO + archivo +
+        "</code>.<br>Comprueba que el archivo existe y que la página se abre desde la raíz del repositorio.</div>";
+    };
+    img.src = BASE + archivo;
+  }
+  function estado(t, c) { var e = $("i-estado"); e.textContent = t; e.className = c; }
+
+  /* Controles */
+  $("mas").onclick = function () { zoomA(v.s * 1.25); };
+  $("menos").onclick = function () { zoomA(v.s / 1.25); };
+  $("ajustar").onclick = ajustar;
+  $("real").onclick = function () { zoomA(1); };
+  $("logo").onclick = function () {
+    v.conLogo = !v.conLogo; this.setAttribute("aria-pressed", String(v.conLogo)); cargar();
+  };
+  $("fondo").onclick = function () {
+    var on = this.getAttribute("aria-pressed") !== "true";
+    this.setAttribute("aria-pressed", String(on)); img.classList.toggle("oculta", on);
+  };
+
+  visor.addEventListener("wheel", function (e) {
+    e.preventDefault();
+    var r = visor.getBoundingClientRect();
+    zoomA(v.s * Math.exp(-e.deltaY * 0.0015), e.clientX - r.left, e.clientY - r.top);
+  }, { passive: false });
+
+  var arr = null;
+  visor.addEventListener("pointerdown", function (e) {
+    if (e.button !== 0) return;
+    arr = { x: e.clientX, y: e.clientY }; visor.classList.add("arrastrando"); visor.setPointerCapture(e.pointerId);
+  });
+  visor.addEventListener("pointermove", function (e) {
+    if (!arr) return; mover(e.clientX - arr.x, e.clientY - arr.y); arr.x = e.clientX; arr.y = e.clientY;
+  });
+  var soltar = function () { arr = null; visor.classList.remove("arrastrando"); };
+  visor.addEventListener("pointerup", soltar); visor.addEventListener("pointercancel", soltar);
+  visor.addEventListener("dblclick", function (e) {
+    if (v.ajustada) { var r = visor.getBoundingClientRect(); zoomA(1, e.clientX - r.left, e.clientY - r.top); }
+    else ajustar();
+  });
+
+  window.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+    var k = e.key, paso = 80;
+    if (k === "+" || k === "=") zoomA(v.s * 1.25);
+    else if (k === "-" || k === "_") zoomA(v.s / 1.25);
+    else if (k === "0") ajustar();
+    else if (k === "1") zoomA(1);
+    else if (k === "l" || k === "L") $("logo").click();
+    else if (k === "f" || k === "F") $("fondo").click();
+    else if (k === "ArrowLeft") mover(paso, 0);
+    else if (k === "ArrowRight") mover(-paso, 0);
+    else if (k === "ArrowUp") mover(0, paso);
+    else if (k === "ArrowDown") mover(0, -paso);
+    else return;
+    e.preventDefault();
+  });
+
+  window.addEventListener("resize", function () { if (v.ajustada) ajustar(); else pintar(); });
+
+  /* Lectura para pruebas automáticas. */
+  window.DD_VISOR = { estado: function () { return { s: v.s, x: v.x, y: v.y, w: v.w, h: v.h, cargada: v.cargada, ajustada: v.ajustada, conLogo: v.conLogo }; } };
+
+  cargar();
+})();
+</script>
+</body>
+</html>
