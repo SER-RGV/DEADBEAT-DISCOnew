@@ -1,22 +1,25 @@
 # Auditoría visual y plan de reconstrucción de arte
 
-- **Fecha:** 2026-11-11 · **Rama:** `arena/662f0d27-deadbeat-disconew` · **Base:** `main` @ `2d9386f`
+- **Fecha:** 2026-11-11 (auditoría) · **actualizada 2026-11-12** (tanda R02) · **Rama:** `arena/662f0d27-deadbeat-disconew` · **Base:** `main` @ `2d9386f`
 - **Inventario clasificado (374 assets):** [`AUDIT_INVENTORY.md`](AUDIT_INVENTORY.md) · datos en [`AUDIT_CLASSIFICATION.json`](AUDIT_CLASSIFICATION.json)
-- **Evidencia en juego de la tanda R01:** [`evidence/R01/`](evidence/R01/)
+- **Evidencia en juego:** [`evidence/R01/`](evidence/R01/) (protagonista) · [`evidence/R02/`](evidence/R02/) (enemigos)
 
 ## 1. Resultado en una tabla
 
 | Clase | Significado | Assets |
 |---|---|---:|
 | **A** | Conservar: ilustración sin defectos | 25 |
-| **B** | Rehacer por estilo: pixel art o acabado que no sigue las guías | 168 |
+| **B** | Rehacer por estilo: pixel art o acabado que no sigue las guías | 153 |
 | **C** | Falta: el juego muestra el sprite heredado del motor | 105 |
-| **D** | Defectuoso: defecto visible en el propio archivo | 49 |
-| **E** | Rehecho y validado dentro del juego (tanda R01) | 27 |
+| **D** | Defectuoso: defecto visible en el propio archivo | 41 |
+| **E** | Rehecho y validado dentro del juego (R01: 27 · R02: 23) | 50 |
 
-Quedan **322 assets por producir** (B + C + D). El generador de imágenes admite
+Quedan **299 assets por producir** (B + C + D). El generador de imágenes admite
 **10 ilustraciones por turno de trabajo**, así que la reconstrucción completa son del
 orden de 30 turnos más; el orden propuesto está en el apartado 6.
+
+Estado a 2026-11-12: clasificación inicial A 25 · B 168 · C 105 · D 49 · E 27; la
+tanda R02 ha pasado 23 enemigos (15 de clase B y 8 de clase D) a la clase E.
 
 ## 2. Método
 
@@ -45,7 +48,7 @@ orden de 30 turnos más; el orden propuesto está en el apartado 6.
 | Familia | Estado | Detalle |
 |---|---|---|
 | **Protagonista** | **E** (27) | Rehecho en R01. Antes: el reposo y uno de los cuatro pasos tenían la figura comida por la transparencia (9 % de cobertura del lienzo frente al 24 % de los otros pasos), así que en el Refugio se veía como un fantasma; en sala era un personaje de pixel art con otro diseño y el arma no quedaba en las manos. |
-| **Enemigos** (24) | B 15 · D 9 | Pixel art. Damero o huecos horneados en `enemy_dancer_attack`, `enemy_security_attack`, `enemy_fanatic_attack`. `enemy_elite_attack` no representa al personaje. Los cuatro fotogramas del chef y `enemy_security_windup` cambian de identidad. |
+| **Enemigos** (24) | **E 23** · D 1 | Rehechos en R02 (ver apartado 4 bis). Falta `enemy_chef_death`; mientras, el Tanque muere con el desplome procedural de su fotograma de caminar. Antes: pixel art; damero o huecos horneados en `enemy_dancer_attack`, `enemy_security_attack`, `enemy_fanatic_attack`; `enemy_elite_attack` no representaba al personaje; los cuatro fotogramas del chef y `enemy_security_windup` cambiaban de identidad. |
 | **Jefes** (42) | B 32 · D 10 | Pixel art. Damero en `boss_04_pogo_attack`, `boss_06_matarife_attack`, `boss_09_nucleo_attack`. Fotogramas basura: `boss_03_cajero_hit`, `boss_03_cajero_attack`, `boss_05_oficiante_hit`, `boss_09_nucleo_hit`, `boss_04_pogo_idle`, `boss_08_traidor_idle`. Identidad distinta en `boss_02_bufe_hit`. |
 | **Armas** (121) | B 16 · C 105 | 16 con arte de la línea anterior (pixel art); 105 sin arte nuevo. |
 | **Recogibles y reliquias** (20) | B | Pixel art coherente entre sí. |
@@ -58,6 +61,32 @@ orden de 30 turnos más; el orden propuesto está en el apartado 6.
 | **Interfaz** (15) | A 7 · B 7 · D 1 | Se conservan retratos, fondo de menú, mapa de la torre y emblemas de tienda y derrota. Iconos de vida, escudo, habilidades y moneda en pixel art. `ui_victory_emblem` tiene halo claro. |
 | **Logotipos** (3) | **A** | |
 | **Cinemática** (35) | B 11 · D 24 | Ver apartado 5. |
+
+## 4 bis. Enemigos (tanda R02): qué estaba roto además del arte
+
+Al rehacer los enemigos aparecieron cuatro defectos de **código** que habrían hecho
+inútil el arte nuevo. Están corregidos y comprobados en juego (`evidence/R02/`):
+
+| Defecto | Causa | Corrección |
+|---|---|---|
+| Sólo se veía el fotograma de caminar, siempre mirando a la derecha | `DD_WORLD.drawEnemy` leía campos que el motor no tiene (`attackT`, `windupT`, `hurtT`, `vx`) | El puente traduce el estado real del motor (`ddEnemyView`: familia, estado, orientación hacia el protagonista) y se lo entrega al renderizador |
+| Las balas salían unos 43 px por debajo del cañón y el protagonista «flotaba» sobre su círculo de colisión | El pase HD dibujaba los pies en `y + 32` y las balas a ras de suelo | Convención única: `(x, y)` es el círculo de colisión en el suelo; suelas en `y + 14`, balas a la altura del cañón |
+| Una figura junto a una caja se dibujaba detrás de ella | Los actores se ordenaban por el centro del círculo y los muebles por su borde frontal | El puente ordena todo por la línea de apoyo (`ddGroundY`) |
+| Los enemigos oscuros desaparecían sobre los suelos oscuros de los círculos II en adelante | El único separador era el filo de luz del dibujo, de menos de 1 px en pantalla | Halo claro difuminado detrás de cada figura, con opacidad por familia |
+
+Las seis familias siguen la hoja `REF_06`: Seguridad (antidisturbios), Bailarina,
+Sprinter, Tanque, Tirador y Mascota (élite). Tamaños: entre 80 y 106 px de mundo de
+alto frente a los 104 del protagonista; el minijefe usa la familia que decide el motor
+(Tanque en el círculo III, Mascota en el VIII, Seguridad en el resto) a mayor escala.
+
+Limitaciones conocidas de R02:
+
+- Falta la muerte del Tanque (un intento fallido; ver `batches/R02_ENEMIGOS.json`).
+- Un solo fotograma por estado: el paso de caminar a aviso o a ataque es un cambio de
+  pose sin intermedios. Al Tanque se le nota más: pasa de andar sobre los nudillos a
+  erguirse (de 106 a unos 146 px de alto con los puños alzados).
+- La Mascota élite usa su zarpazo aunque el enemigo de base sea un tirador.
+- Las balas enemigas siguen siendo las de pixel art del motor (tanda R07).
 
 ## 5. Cinemática de entrada
 
@@ -83,7 +112,7 @@ completa.
 | Tanda | Contenido | Ilustraciones | Por qué en este orden |
 |---|---|---:|---|
 | **R01** ✔ | Protagonista | 22 | Es lo que más tiempo está en pantalla |
-| **R02** | Enemigos: 6 familias × 4 estados | 24 | Segundo elemento más visible; 9 defectuosos |
+| **R02** ◐ | Enemigos: 6 familias × 4 estados | 24 (hechas 23) | Segundo elemento más visible; 9 defectuosos. Falta la muerte del Tanque |
 | **R03** | Jefes: 10 × 4 estados + Arquitecto × 2 | 42 | 10 defectuosos |
 | **R04** | PNJ del Refugio, dron aliado, iconos de HUD, emblema de victoria | 12 | Coherencia del Refugio y del HUD con R01 |
 | **R05** | Armas: 16 existentes + 105 que faltan | 121 | La familia más grande; hoy mezcla dos estilos |
@@ -117,5 +146,5 @@ del motor.
 - Las 105 armas heredadas una a una (se sabe que se ven en pixel art, no cuáles fallan).
 - La clasificación de enemigos, jefes, efectos y recogibles procede de hojas de
   contacto; los defectos listados son los vistos ahí.
-- `capture_game.js --circles=N` no selecciona el círculo N (el motor usa su propia
-  tabla); el círculo real de cada captura está en el informe.
+- Los enemigos se han visto en juego en los círculos I, II, III, V y VIII; faltan el
+  IV, VI, VII y IX (mismos fotogramas, otros suelos).

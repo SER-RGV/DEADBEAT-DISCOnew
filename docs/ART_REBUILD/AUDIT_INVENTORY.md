@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-11T17:27:33Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T02:37:28Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -15,7 +15,7 @@
 | Familia | Total | A | B | C | D | E |
 |---|---:|---:|---:|---:|---:|---:|
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
-| `enemies` | 24 | 0 | 15 | 0 | 9 | 0 |
+| `enemies` | 24 | 0 | 0 | 0 | 1 | 23 |
 | `bosses` | 42 | 0 | 32 | 0 | 10 | 0 |
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **374** | **25** | **168** | **105** | **49** | **27** |
+| **Total** | **374** | **25** | **153** | **105** | **41** | **50** |
 
 ## `characters` (31)
 
@@ -70,30 +70,30 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `enemy_chef_attack` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
 | `enemy_chef_death` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
-| `enemy_chef_walk` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
-| `enemy_chef_windup` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
-| `enemy_dancer_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R02_ENEMIGOS` |
-| `enemy_elite_attack` | **D** | fotograma basura: no representa al personaje de su familia | `R02_ENEMIGOS` |
-| `enemy_fanatic_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R02_ENEMIGOS` |
-| `enemy_security_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R02_ENEMIGOS` |
-| `enemy_security_windup` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R02_ENEMIGOS` |
-| `enemy_dancer_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_dancer_walk` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_dancer_windup` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_drone_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_drone_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_drone_walk` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_drone_windup` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_elite_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_elite_walk` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_elite_windup` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_fanatic_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_fanatic_walk` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_fanatic_windup` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_security_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
-| `enemy_security_walk` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R02_ENEMIGOS` |
+| `enemy_chef_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_chef_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_chef_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_dancer_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_dancer_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_dancer_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_dancer_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_drone_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_drone_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_drone_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_drone_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_elite_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_elite_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_elite_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_elite_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_fanatic_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_fanatic_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_fanatic_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_fanatic_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_security_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_security_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_security_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_security_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 
 ## `bosses` (42)
 

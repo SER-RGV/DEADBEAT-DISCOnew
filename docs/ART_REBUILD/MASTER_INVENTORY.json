@@ -2749,27 +2749,39 @@
       "tanda_number": 10,
       "original_id": "atlas:security_walk",
       "id": "enemy_security_walk",
-      "name": "Seguridad Infernal (Gorila de Club) · Ciclo Movimiento / Guardia",
+      "name": "Seguridad · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_security_walk.png",
       "dimensions": [
-        256,
-        288
+        224,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:security"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hulking demonic nightclub bouncer in black tactical suit, glowing magenta visor sunglasses and heavy earpiece, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "assets/enemies/enemy_security_walk.png (diseño anterior del repositorio; REF_06 no trae esta familia) + player_idle_00 (estilo)",
+      "prompt_spec": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: caminando erguido y amenazante, torso algo adelantado, la porra baja junto al muslo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "b462ef8e4c5e14d9e141119f61b1b1ca13f858a501d55edbb41ff19cc1116b1e",
-      "bytes": 10169
+      "sha256": "eec1c96369ada1980104251a657e8819b7b6294773142b462b547ebaef58b935",
+      "bytes": 122593,
+      "format": "PNG RGBA",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Seguridad del club (antidisturbios)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_security_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 94,
@@ -2777,27 +2789,39 @@
       "tanda_number": 10,
       "original_id": "atlas:security_windup",
       "id": "enemy_security_windup",
-      "name": "Seguridad Infernal (Gorila de Club) · Preparación de Ataque",
+      "name": "Seguridad · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_security_windup.png",
       "dimensions": [
-        256,
-        288
+        400,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:security"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hulking demonic nightclub bouncer in black tactical suit, glowing magenta visor sunglasses and heavy earpiece, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "enemy_security_walk (hoja de modelo de la familia)",
+      "prompt_spec": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con la porra alzada por detrás de la cabeza y el otro brazo extendido al frente para equilibrarse. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "ddbe5c4c85ffffbf19ae53f901a9c0d3ff0487a699639b7937542b35122b3c24",
-      "bytes": 12393
+      "sha256": "47d3ecef851abe8b2be2954f6ac57a25bf8210e647c861cb4978ea4396d0cfdb",
+      "bytes": 135906,
+      "format": "PNG RGBA",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Seguridad del club (antidisturbios)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_security_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 95,
@@ -2805,27 +2829,39 @@
       "tanda_number": 10,
       "original_id": "atlas:security_attack",
       "id": "enemy_security_attack",
-      "name": "Seguridad Infernal (Gorila de Club) · Ataque Activo",
+      "name": "Seguridad · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_security_attack.png",
       "dimensions": [
-        288,
-        288
+        480,
+        400
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:security"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hulking demonic nightclub bouncer in black tactical suit, glowing magenta visor sunglasses and heavy earpiece, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "enemy_security_walk (hoja de modelo de la familia)",
+      "prompt_spec": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: fondo de esgrima hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, brazo derecho totalmente extendido a la altura del hombro con la porra horizontal prolongando el brazo, brazo izquierdo recogido atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "7d4afc642c1acf902aa8fdbfc65218759cd75939cf2a4af4c2f78c27de469693",
-      "bytes": 12319
+      "sha256": "4e880d89d54d4afbda99fa771d1b669961a1fe6784b4b69b801da6637a28d439",
+      "bytes": 135921,
+      "format": "PNG RGBA",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Seguridad del club (antidisturbios)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_security_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 96,
@@ -2833,27 +2869,39 @@
       "tanda_number": 10,
       "original_id": "atlas:security_death",
       "id": "enemy_security_death",
-      "name": "Seguridad Infernal (Gorila de Club) · Impacto y Colapso",
+      "name": "Seguridad · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_security_death.png",
       "dimensions": [
-        288,
-        224
+        432,
+        416
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:security"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hulking demonic nightclub bouncer in black tactical suit, glowing magenta visor sunglasses and heavy earpiece, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "enemy_security_walk.png",
+      "prompt_spec": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. MUERTE: recibe el disparo de frente y cae de espaldas (hacia la izquierda): torso arqueado unos 40°, casco vencido hacia atrás, brazos abiertos, la porra saliendo despedida; una pierna pateando al aire y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "021bc5c651023516be697f598700c98c7f13371668de67333c93a9523ba6755d",
-      "bytes": 5661
+      "sha256": "a45a4d8744197eb927f9d0cc5d02b390d173fdb35addfdf8882f59841cd4d74b",
+      "bytes": 144979,
+      "format": "PNG RGBA",
+      "use": "Familia `security` (tipo `dancer` en el círculo I, guardianes y minijefes por defecto), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Seguridad del club (antidisturbios)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_security_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 97,
@@ -2861,27 +2909,39 @@
       "tanda_number": 10,
       "original_id": "atlas:fanatic_walk",
       "id": "enemy_fanatic_walk",
-      "name": "Fanático del Ritmo (Sprinter) · Ciclo Movimiento / Guardia",
+      "name": "Sprinter · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_fanatic_walk.png",
       "dimensions": [
-        256,
-        288
+        336,
+        400
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:fanatic"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of frenzied neon-painted rave cultist in torn sleeveless hoodie, glowing pink horned mask and dual glow-blades, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "REF_06_guia_visual_maestra.png#enemigos/SPRINTER (diseño) + player_idle_00 (estilo)",
+      "prompt_spec": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: acecho agazapado: torso muy inclinado, rodillas flexionadas, cabeza adelantada, garras abiertas colgando. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "fd9abb259a649cbd2eb5f89d0b7e40c21b3c0d2d22a6d000244b4cf17051a0e6",
-      "bytes": 10594
+      "sha256": "de5ea27f501a7d34e5c279385927399cde85bc9a17e6268096f71729e3349670",
+      "bytes": 134564,
+      "format": "PNG RGBA",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Sprinter (corredor no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_fanatic_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 98,
@@ -2889,27 +2949,39 @@
       "tanda_number": 10,
       "original_id": "atlas:fanatic_windup",
       "id": "enemy_fanatic_windup",
-      "name": "Fanático del Ritmo (Sprinter) · Preparación de Ataque",
+      "name": "Sprinter · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_fanatic_windup.png",
       "dimensions": [
-        256,
-        288
+        384,
+        320
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:fanatic"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of frenzied neon-painted rave cultist in torn sleeveless hoodie, glowing pink horned mask and dual glow-blades, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "enemy_fanatic_walk (hoja de modelo de la familia)",
+      "prompt_spec": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: agazapado para saltar: torso doblado hacia el suelo, ambas manos tocando el suelo por delante, cabeza baja mirando al frente con la mandíbula abierta, caderas altas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "25ac60d5eaba916791d0c5c69e51d441eb43de495f54056d21382928c1c3540d",
-      "bytes": 13203
+      "sha256": "75c9ae9eeddb39616344623a47532771c98763547a68626e21fde46831e38702",
+      "bytes": 138054,
+      "format": "PNG RGBA",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Sprinter (corredor no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_fanatic_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 99,
@@ -2917,27 +2989,39 @@
       "tanda_number": 10,
       "original_id": "atlas:fanatic_attack",
       "id": "enemy_fanatic_attack",
-      "name": "Fanático del Ritmo (Sprinter) · Ataque Activo",
+      "name": "Sprinter · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_fanatic_attack.png",
       "dimensions": [
-        288,
-        288
+        384,
+        400
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:fanatic"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of frenzied neon-painted rave cultist in torn sleeveless hoodie, glowing pink horned mask and dual glow-blades, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "enemy_fanatic_walk (hoja de modelo de la familia)",
+      "prompt_spec": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: embestida a la carrera: torso casi horizontal, boca abierta, pierna trasera estirada, brazos lanzados hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d173b01f082cc1f5fc0bf44a66cb493ea5d4edce5386c7d30d79d3086cf0a851",
-      "bytes": 11679
+      "sha256": "cd54e7dbcc0f78cf7f134d769ab452d5e441eb6202e546254edb44809def511f",
+      "bytes": 130795,
+      "format": "PNG RGBA",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Sprinter (corredor no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_fanatic_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 100,
@@ -2945,27 +3029,39 @@
       "tanda_number": 10,
       "original_id": "atlas:fanatic_death",
       "id": "enemy_fanatic_death",
-      "name": "Fanático del Ritmo (Sprinter) · Impacto y Colapso",
+      "name": "Sprinter · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_fanatic_death.png",
       "dimensions": [
-        288,
-        224
+        496,
+        448
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:fanatic"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of frenzied neon-painted rave cultist in torn sleeveless hoodie, glowing pink horned mask and dual glow-blades, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "enemy_fanatic_walk.png",
+      "prompt_spec": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. MUERTE: el disparo lo levanta del suelo y lo dobla hacia atrás: cabeza a la izquierda y pies a la derecha, pecho y calavera hacia arriba, mandíbula abierta, brazos con las garras lacias al aire; una pierna pateando y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "06c5804ffda79d6b2d888481e89163e39a5a40c6eecd3e37e70ab7d11ae27f01",
-      "bytes": 7573
+      "sha256": "0b151ff9fdf5531a6cebc4496caa15085eb28f978c7eedf99bd46b3f20bb8ff2",
+      "bytes": 145008,
+      "format": "PNG RGBA",
+      "use": "Familia `fanatic` (tipo `sprinter`), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Sprinter (corredor no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_fanatic_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 101,
@@ -2973,27 +3069,39 @@
       "tanda_number": 11,
       "original_id": "atlas:chef_walk",
       "id": "enemy_chef_walk",
-      "name": "Cocinero Carnicero (Tanque Gula) · Ciclo Movimiento / Guardia",
+      "name": "Tanque · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_chef_walk.png",
       "dimensions": [
-        256,
-        288
+        608,
+        512
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:chef"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of massive blood-stained banquet butcher in tall dirty chef hat, leather apron and cleaver, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "REF_06_guia_visual_maestra.png#enemigos/TANQUE (diseño) + player_idle_00 (estilo)",
+      "prompt_spec": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar de gorila sobre los nudillos: un puño plantado delante, piernas cortas flexionadas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "5ff043464e2e023c340394d80dcfd805ffeac3a793a6bef000119964a1acd07f",
-      "bytes": 9695
+      "sha256": "815695c5f4ce397332efe73df81bd957b3611a1ba7748808e064db59d476f5f4",
+      "bytes": 358804,
+      "format": "PNG RGBA",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tanque (bruto colosal)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_chef_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 102,
@@ -3001,27 +3109,39 @@
       "tanda_number": 11,
       "original_id": "atlas:chef_windup",
       "id": "enemy_chef_windup",
-      "name": "Cocinero Carnicero (Tanque Gula) · Preparación de Ataque",
+      "name": "Tanque · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_chef_windup.png",
       "dimensions": [
-        256,
-        288
+        432,
+        704
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:chef"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of massive blood-stained banquet butcher in tall dirty chef hat, leather apron and cleaver, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "_refs/ref_chef_tall.png (el `walk` de la familia sobre un lienzo de 1240×1400: el original, de 864 px de alto, no dejaba sitio para una pose erguida y por eso el primer intento volvió al andar sobre los nudillos)",
+      "prompt_spec": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. AVISO antes de la carga: se yergue sobre las dos piernas como un gorila enfurecido, mucho más alto que al caminar, con los dos puños alzados y juntos por encima de la cabeza, pecho fuera y boca abierta rugiendo; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d5991d1c199e1425b9c888cc3e74c8e0db6148c2bc7635d3d11e02fabe1748f7",
-      "bytes": 12934
+      "sha256": "76188a1a511a5c9a088a69fd6824cfebadffdd10c890e44311d954fbf0df09e6",
+      "bytes": 359214,
+      "format": "PNG RGBA",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tanque (bruto colosal)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_chef_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 103,
@@ -3029,27 +3149,39 @@
       "tanda_number": 11,
       "original_id": "atlas:chef_attack",
       "id": "enemy_chef_attack",
-      "name": "Cocinero Carnicero (Tanque Gula) · Ataque Activo",
+      "name": "Tanque · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_chef_attack.png",
       "dimensions": [
-        288,
-        288
+        800,
+        528
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:chef"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of massive blood-stained banquet butcher in tall dirty chef hat, leather apron and cleaver, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "_refs/ref_chef_wide.png (el `walk` de la familia sobre un lienzo de 1560×1000)",
+      "prompt_spec": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. ATAQUE, puñetazo en carrera: se lanza hacia la derecha sobre dos piernas, cuerpo inclinado unos 45°, pierna trasera estirada, brazo derecho totalmente extendido en horizontal con el puño por delante de la cabeza, brazo izquierdo atrás; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "e82246b7d382d87ef6c3560472fcae537d78f602fb31c252730e60985c56eb4b",
-      "bytes": 17863
+      "sha256": "44aabf185ad3f3f175387406cbd40187d9443f2feb4f426c0eec49b2fb1f8272",
+      "bytes": 340328,
+      "format": "PNG RGBA",
+      "use": "Familia `chef` (tipo `tank`; minijefe del círculo III), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tanque (bruto colosal)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_chef_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 104,
@@ -3085,27 +3217,39 @@
       "tanda_number": 11,
       "original_id": "atlas:dancer_walk",
       "id": "enemy_dancer_walk",
-      "name": "Bailarina Letal (Sombra Lujuria) · Ciclo Movimiento / Guardia",
+      "name": "Bailarina · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_dancer_walk.png",
       "dimensions": [
-        256,
-        288
+        272,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:dancer"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of agile cyber-gothic club dancer in dark magenta-trimmed bodysuit with glowing neon ribbons andiletto heels, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "REF_06_guia_visual_maestra.png#enemigos/BAILARÍN (diseño) + player_idle_00 (estilo)",
+      "prompt_spec": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: paso de baile arrastrado: rodillas flexionadas, caderas ladeadas, ambos brazos al frente con las muñecas caídas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "def06bce6ce7be124ceb55ce52b7b957584acb100ae05cdd825ca8958521a816",
-      "bytes": 12733
+      "sha256": "9849a27d3d378d5b44c86687212d647dda4607ec53487f6bfa779d382dacedbb",
+      "bytes": 96518,
+      "format": "PNG RGBA",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Bailarina (gogó no-muerta)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_dancer_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 106,
@@ -3113,27 +3257,39 @@
       "tanda_number": 11,
       "original_id": "atlas:dancer_windup",
       "id": "enemy_dancer_windup",
-      "name": "Bailarina Letal (Sombra Lujuria) · Preparación de Ataque",
+      "name": "Bailarina · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_dancer_windup.png",
       "dimensions": [
-        256,
-        288
+        320,
+        448
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:dancer"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of agile cyber-gothic club dancer in dark magenta-trimmed bodysuit with glowing neon ribbons andiletto heels, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "enemy_dancer_walk (hoja de modelo de la familia)",
+      "prompt_spec": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa muy atrás sobre la pierna trasera, torso inclinado hacia atrás, ambos brazos alzados por encima de la cabeza con las garras abiertas, boca abierta en un chillido, pierna delantera estirada con la punta en el suelo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "9fd5f86b897e20ba41ce7880aa18e647c1c6eb7be1ab0068a31a0fbe0128a6ef",
-      "bytes": 17064
+      "sha256": "33864eeddf769706a54f3b8f790b6ef7be575b5933e6b3c72bd6fcbf88090726",
+      "bytes": 109771,
+      "format": "PNG RGBA",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Bailarina (gogó no-muerta)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_dancer_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 107,
@@ -3141,27 +3297,39 @@
       "tanda_number": 11,
       "original_id": "atlas:dancer_attack",
       "id": "enemy_dancer_attack",
-      "name": "Bailarina Letal (Sombra Lujuria) · Ataque Activo",
+      "name": "Bailarina · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_dancer_attack.png",
       "dimensions": [
-        288,
-        288
+        480,
+        416
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:dancer"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of agile cyber-gothic club dancer in dark magenta-trimmed bodysuit with glowing neon ribbons andiletto heels, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "enemy_dancer_walk (hoja de modelo de la familia)",
+      "prompt_spec": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: zancada profunda hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, torso lanzado adelante, ambos brazos extendidos al frente a la altura del hombro con las garras abiertas, melena hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "82e069eb4feeb4e2dbad157ee1ed6fa496736f980471b73a726909cddd227116",
-      "bytes": 20859
+      "sha256": "ed069aba5cec772b912852d034403096a880dcecec96401dbe329e72e9797cef",
+      "bytes": 110566,
+      "format": "PNG RGBA",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Bailarina (gogó no-muerta)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_dancer_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 108,
@@ -3169,27 +3337,39 @@
       "tanda_number": 11,
       "original_id": "atlas:dancer_death",
       "id": "enemy_dancer_death",
-      "name": "Bailarina Letal (Sombra Lujuria) · Impacto y Colapso",
+      "name": "Bailarina · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_dancer_death.png",
       "dimensions": [
-        288,
-        224
+        384,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:dancer"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of agile cyber-gothic club dancer in dark magenta-trimmed bodysuit with glowing neon ribbons andiletto heels, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "enemy_dancer_walk.png",
+      "prompt_spec": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. MUERTE: recibe el disparo de frente y cae de espaldas: cuerpo arqueado como un arco, cabeza vencida hacia atrás con la melena al vuelo, mandíbula abierta, brazos lanzados arriba, falda al vuelo; una pierna al aire y el tacón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "058c8a7b6104ed57a1b1d75927200d126be7392eb53724a415d07b2d96bb4ab2",
-      "bytes": 5561
+      "sha256": "07faba6c46690557566965395c6c072bdb90b0e57459ee9ddb4bcb92bfa62679",
+      "bytes": 115064,
+      "format": "PNG RGBA",
+      "use": "Familia `dancer` (tipo `dancer` del círculo II en adelante), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Bailarina (gogó no-muerta)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_dancer_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 109,
@@ -3197,27 +3377,39 @@
       "tanda_number": 11,
       "original_id": "atlas:drone_walk",
       "id": "enemy_drone_walk",
-      "name": "Dron Altavoz Sónico (Ranged) · Ciclo Movimiento / Guardia",
+      "name": "Tirador · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_drone_walk.png",
       "dimensions": [
-        256,
-        288
+        272,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:drone"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hovering infernal anti-gravity acoustic speaker-skull drone with glowing cyan sonic cannon, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "REF_06_guia_visual_maestra.png#enemigos/TIRADOR (diseño) + player_idle_00 (estilo)",
+      "prompt_spec": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: avance cauteloso con las rodillas flexionadas y el arma lista a la altura del pecho, sin disparar. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "90324093ba6399bba01c9ee3fd2788d08993570377fe3e0c7b0e3bb90073a743",
-      "bytes": 16177
+      "sha256": "231e6502acf2af24b4150c4605c623eb4d907c45fe02d0953960b2f078ac61af",
+      "bytes": 110937,
+      "format": "PNG RGBA",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tirador (pistolero no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_drone_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 110,
@@ -3225,27 +3417,39 @@
       "tanda_number": 11,
       "original_id": "atlas:drone_windup",
       "id": "enemy_drone_windup",
-      "name": "Dron Altavoz Sónico (Ranged) · Preparación de Ataque",
+      "name": "Tirador · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_drone_windup.png",
       "dimensions": [
-        256,
-        288
+        240,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:drone"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hovering infernal anti-gravity acoustic speaker-skull drone with glowing cyan sonic cannon, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "enemy_drone_walk (hoja de modelo de la familia)",
+      "prompt_spec": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se planta con los pies separados y alza el subfusil en vertical junto a la cara, cañón hacia arriba, las dos manos en el arma, mirando a su objetivo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "a204e1fb8db59f6cce8ee3db674809ab222de6eaad451fae3f11815457908894",
-      "bytes": 9826
+      "sha256": "06346960fb859f5fdf9f733d304029d9c76e4adb48be8d6dd5cc63aa8ad08892",
+      "bytes": 116260,
+      "format": "PNG RGBA",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tirador (pistolero no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_drone_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 111,
@@ -3253,27 +3457,39 @@
       "tanda_number": 12,
       "original_id": "atlas:drone_attack",
       "id": "enemy_drone_attack",
-      "name": "Dron Altavoz Sónico (Ranged) · Ataque Activo",
+      "name": "Tirador · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_drone_attack.png",
       "dimensions": [
-        288,
-        288
+        432,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:drone"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hovering infernal anti-gravity acoustic speaker-skull drone with glowing cyan sonic cannon, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "enemy_drone_walk (hoja de modelo de la familia)",
+      "prompt_spec": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: postura de tiro baja y abierta, cuerpo volcado hacia adelante, ambos brazos totalmente extendidos al frente a la altura del hombro, cañón horizontal; sin fogonazo (el motor pone los proyectiles). Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "17271732e991b20fb7b62f557377bececa6a0c5ed9c7e51b6ab8ba24c41528e4",
-      "bytes": 12185
+      "sha256": "343fb88ae9a8a9fd933b42e1bb4f438ef6bee33af9f8dfd94f4b8a0e61137ce8",
+      "bytes": 131980,
+      "format": "PNG RGBA",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Tirador (pistolero no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_drone_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 112,
@@ -3281,27 +3497,39 @@
       "tanda_number": 12,
       "original_id": "atlas:drone_death",
       "id": "enemy_drone_death",
-      "name": "Dron Altavoz Sónico (Ranged) · Impacto y Colapso",
+      "name": "Tirador · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_drone_death.png",
       "dimensions": [
-        288,
-        224
+        416,
+        448
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:drone"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of hovering infernal anti-gravity acoustic speaker-skull drone with glowing cyan sonic cannon, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "enemy_drone_walk.png",
+      "prompt_spec": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. MUERTE: recibe el disparo de frente y cae de espaldas: torso arqueado, cabeza vencida hacia atrás, la gorra roja saliendo despedida, brazos abiertos y el subfusil girando en el aire; una pierna al aire y el talón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "c443f9e0a97adf3113323834a0a59f2b1159804b69da8e36b1295d323343afb3",
-      "bytes": 8427
+      "sha256": "97524cdf4415b4559b7a60a817de0f33acb884e566d90a3328321cc46623217e",
+      "bytes": 133780,
+      "format": "PNG RGBA",
+      "use": "Familia `drone` (tipo `speaker` (mantiene distancia y dispara)), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Tirador (pistolero no-muerto)",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_drone_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 113,
@@ -3309,27 +3537,39 @@
       "tanda_number": 12,
       "original_id": "atlas:elite_walk",
       "id": "enemy_elite_walk",
-      "name": "Élite Guardia Real del Club · Ciclo Movimiento / Guardia",
+      "name": "Élite · Mascota · caminar / reposo",
       "category": "enemies",
       "location": "assets/enemies/enemy_elite_walk.png",
       "dimensions": [
-        256,
-        288
+        320,
+        496
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:elite"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of imposing armored VIP inquisitor-enforcer in black-and-gold coat, horned crimson visor and plasma halberd, menacing combat movement stance facing right, neon rim lighting",
+      "reference_source": "REF_06_guia_visual_maestra.png#enemigos/ESPECIAL (oso de peluche con mono rosa) + player_idle_00 (estilo)",
+      "prompt_spec": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar pesado y amenazante, torso adelantado, brazos algo abiertos con las garras listas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "1b0adc21e0af950f59ff0af709b6f3cd9b6e6ed5e70e9952c9de23f9beb912e2",
-      "bytes": 14187
+      "sha256": "2db12e39ef92d4b59e87def8a3a1e1101c0d70cde1d0cbf623a6b40996c97498",
+      "bytes": 168915,
+      "format": "PNG RGBA",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `walk`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Élite · Mascota del club",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_elite_walk.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 114,
@@ -3337,27 +3577,39 @@
       "tanda_number": 12,
       "original_id": "atlas:elite_windup",
       "id": "enemy_elite_windup",
-      "name": "Élite Guardia Real del Club · Preparación de Ataque",
+      "name": "Élite · Mascota · aviso",
       "category": "enemies",
       "location": "assets/enemies/enemy_elite_windup.png",
       "dimensions": [
-        256,
-        288
+        336,
+        512
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:elite"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of imposing armored VIP inquisitor-enforcer in black-and-gold coat, horned crimson visor and plasma halberd, coiled telegraph windup pose charging neon energy before strike, neon rim lighting",
+      "reference_source": "enemy_elite_walk (hoja de modelo de la familia)",
+      "prompt_spec": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con ambos brazos alzados por encima de la cabeza y las garras de acero abiertas, un pie en el aire al dar el paso. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "bb29ce1e4bd37e625dc3fe5d2a05d5728078319b135819aad7bb40b98f425fd1",
-      "bytes": 9323
+      "sha256": "879f1c6ef4c57023ef2fbcd06acfaff84b044249a48f1c0df5f87c6e86927a85",
+      "bytes": 177402,
+      "format": "PNG RGBA",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `windup`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Élite · Mascota del club",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_elite_windup.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 115,
@@ -3365,27 +3617,39 @@
       "tanda_number": 12,
       "original_id": "atlas:elite_attack",
       "id": "enemy_elite_attack",
-      "name": "Élite Guardia Real del Club · Ataque Activo",
+      "name": "Élite · Mascota · ataque",
       "category": "enemies",
       "location": "assets/enemies/enemy_elite_attack.png",
       "dimensions": [
-        288,
-        288
+        672,
+        432
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:elite"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of imposing armored VIP inquisitor-enforcer in black-and-gold coat, horned crimson visor and plasma halberd, explosive forward strike / firing attack pose facing right, neon rim lighting",
+      "reference_source": "_refs/ref_elite_wide_attack.png (el `walk` de la familia sobre un lienzo de 1400×1314: en el original, de 800 px de ancho, no cabía un brazo extendido y por eso el primer intento cruzó los brazos sobre la cara)",
+      "prompt_spec": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. ATAQUE de garra: zancada larga hacia la derecha con el torso adelantado; brazo derecho extendido en horizontal a la altura del hombro con las garras abiertas por delante, brazo izquierdo recogido atrás; el cabezón entero a la vista, sin nada que lo tape. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "4ce8f4acbf85ccbba4a3fab59e6ceb42f7dacbd52c14549ad7e74384737e8f7d",
-      "bytes": 13050
+      "sha256": "39014fe5566ceb6c3ac3ba3b7a4b00fddfd9737aa477f35fb08310dc4a42a3fa",
+      "bytes": 225381,
+      "format": "PNG RGBA",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `attack`. Lo dibuja DD_WORLD.drawEnemy con la familia y el estado que decide el puente (ddEnemyView).",
+      "entity": "Élite · Mascota del club",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_elite_attack.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 116,
@@ -3393,27 +3657,39 @@
       "tanda_number": 12,
       "original_id": "atlas:elite_death",
       "id": "enemy_elite_death",
-      "name": "Élite Guardia Real del Club · Impacto y Colapso",
+      "name": "Mascota (élite) · muerte",
       "category": "enemies",
       "location": "assets/enemies/enemy_elite_death.png",
       "dimensions": [
-        288,
-        224
+        496,
+        464
       ],
       "alpha": true,
       "pivot": "bottom-center",
       "dependencies": [],
       "code_references": [
         "Rf",
-        "combatArt:elite"
+        "ddEnemyView",
+        "DD_WORLD.drawEnemy",
+        "DD_WORLD.drawEnemyDeath"
       ],
-      "reference_source": "REF_01+REF_03",
-      "prompt_spec": "High-res dark-ink digital illustration of imposing armored VIP inquisitor-enforcer in black-and-gold coat, horned crimson visor and plasma halberd, shattered recoiling defeat collapse pose with neon sparks, neon rim lighting",
+      "reference_source": "_refs/ref_elite_wide_death.png (el `walk` de la familia sobre un lienzo de 1500×1314 para que la caída quepa)",
+      "prompt_spec": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. MUERTE: cae de espaldas con el cuerpo a unos 45°: cabezón de oso vencido hacia atrás y torcido, relleno blanco saliendo por una costura reventada del pecho, brazos arriba con las garras abiertas; una bota al aire y el talón de la otra tocando el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d2fd115c07e7c957791613067326a1ceb40f7494b12c62bc16732692d041919a",
-      "bytes": 7772
+      "sha256": "22f4419116f9535e91df0763fc096bc1aa109fc8a8da495ea9a3d53ee5248c69",
+      "bytes": 199145,
+      "format": "PNG RGBA",
+      "use": "Familia `elite` (cualquier tipo con la marca élite; minijefe del círculo VIII), estado `death`. Lo dibuja DD_WORLD.drawEnemyDeath con el registro de abatidos del motor (0,6 s: destello, retroceso y fundido).",
+      "entity": "Élite · Mascota del club",
+      "art_revision": "R02_ENEMIGOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R02_ENEMIGOS/enemy_elite_death.webp",
+      "notes": null,
+      "updated_at": "2026-11-12T02:29:32Z",
+      "evidence": "docs/ART_REBUILD/evidence/R02",
+      "validated_at": "2026-11-12T02:37:28Z"
     },
     {
       "index": 117,
@@ -10166,5 +10442,5 @@
       "validated_at": "2026-11-11T17:27:33Z"
     }
   ],
-  "updated_at": "2026-11-11T17:27:33Z"
+  "updated_at": "2026-11-12T02:37:28Z"
 }

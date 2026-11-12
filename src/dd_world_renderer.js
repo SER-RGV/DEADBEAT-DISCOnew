@@ -463,6 +463,13 @@
        torso centrado en el lienzo; el ANCHO del lienzo puede variar por pose.
      - El lienzo completo se dibuja con PLAYER_BASE_H px de alto y su borde
        inferior cae en y + PLAYER_FOOT_Y (voltereta 84 px, derribo 56 px).
+     - CONVENCIÓN DE SUELO (la del motor): el punto lógico (x, y) es el círculo
+       de colisión apoyado en el suelo; los pies caen en y + r (r = 14). Con ella
+       el arma queda a la altura del "hombro" del motor (y − 56), que es la altura
+       a la que el motor eleva las balas del jugador (bala.rigH), los pies no
+       pisan el muro inferior y el orden de profundidad coincide con el de los
+       enemigos (pies en y + 0.65·r). La pasada HD anterior usaba y + 32: las
+       balas salían 43 px por debajo del cañón.
      - Cada fotograma registra en el manifiesto (entries[id].anchors) dónde cae el
        borde inferior de SU cinturón (belt, fracción del alto) y, si lleva arma, la
        mano que la empuña (hand = [u, v]). Los mide tools/art_master/batch.py sobre
@@ -474,7 +481,8 @@
   const PLAYER_BASE_H = 104;
   const PLAYER_ROLL_H = 84;
   const PLAYER_DEATH_H = 56;
-  const PLAYER_FOOT_Y = 32;
+  const PLAYER_FOOT_Y = 16;
+  const PLAYER_GROUND_Y = 14;         // suelas: el lienzo deja ~8 texeles (1,6 px) bajo los pies
   const PLAYER_BELT_FALLBACK = 0.4914;
   const PLAYER_SEAM_OVERLAP = 0.004;
 
@@ -685,9 +693,9 @@
     const bobY = (pAnim && pAnim.bobY) || 0;
     const lean = (pAnim && pAnim.turnLean) || 0;
 
-    drawSoftShadow(ctx, px, py + 28, isDeath ? 46 : 34, 14, 0.62);
+    drawSoftShadow(ctx, px, py + (PLAYER_FOOT_Y - 3) * scl, (isDeath ? 46 : 34) * scl, 14 * scl, 0.62);
     if (raveTimer > 0) {
-      drawNeonGlow(ctx, px, py - 18, 78, "#ff2d7a", 0.35);
+      drawNeonGlow(ctx, px, py - 34 * scl, 78, "#ff2d7a", 0.35);
     }
 
     ctx.save();
@@ -760,7 +768,7 @@
       ctx.strokeStyle = "rgba(34, 211, 238, 0.62)";
       ctx.lineWidth = 2.2;
       ctx.beginPath();
-      ctx.ellipse(0, -14, 34, 48, 0, 0, Math.PI * 2);
+      ctx.ellipse(0, -33 * scl, 34 * scl, 54 * scl, 0, 0, Math.PI * 2);
       ctx.stroke();
     }
 
@@ -768,56 +776,421 @@
     return true;
   }
 
+  /* ======================================================================
+     ENEMIGOS (tanda de arte R02)
+
+     Quién decide qué: el PUENTE (tools/build_active_html.py → ddEnemyView)
+     aplica las reglas del propio motor y entrega una "vista" por enemigo:
+       family  security | dancer | fanatic | chef | drone | elite
+       state   walk | windup | attack | hit
+       flip    true = mira a la izquierda (el motor los encara al jugador)
+       flash   destello blanco de impacto (s)        phase  reloj de zancada
+       marker  elite | guardian | mini | null        hpAlways, frozen, objective
+     Este módulo sólo dibuja. Sin vista (llamadas antiguas) usa una estimación.
+
+     Contrato de lienzo (entries[id].anchors, medido por tools/art_master):
+       foot = [u, v]  punto de apoyo en el suelo (entre los pies)
+       unit = fracción del alto del lienzo que mide la figura de referencia de
+              la familia (la de `walk`, erguida). Los cuatro estados de una
+              familia comparten escala, así que `unit × alto` es el mismo
+              número de píxeles en todos: un ataque no "crece".
+     El arte anterior no trae anclas: se dibuja con el contrato viejo
+     (pivote abajo-centro, figura ≈ 86 % del lienzo).
+
+     Nunca se mezclan dos generaciones de arte dentro de una familia: si el
+     fotograma de un estado es de otra revisión que su `walk`, se usa `walk`
+     con una señal procedimental (inclinación, destello, colapso).
+     ====================================================================== */
+  const ENEMY_BASE = {
+    // h = alto de la figura (px de mundo) con el radio base r de su tipo en el motor
+    // REF_06 dibuja a las familias humanoides a la altura del protagonista (≈ 90 px
+    // de figura) y al Tanque igual de alto pero el doble de ancho.
+    // halo = opacidad del halo de separación (ver ENEMY_HALO): más en las figuras
+    // negras, que son las que se pierden sobre suelo oscuro; menos en las claras.
+    security: { h: 94, r: 12, halo: 0.56 },
+    dancer: { h: 90, r: 12, halo: 0.36 },
+    fanatic: { h: 80, r: 10, halo: 0.5 },     // agazapado; erguido mediría como los demás
+    chef: { h: 106, r: 16, halo: 0.32 },
+    drone: { h: 90, r: 12, halo: 0.42 },
+    elite: { h: 100, r: 13.92, halo: 0.36 }
+  };
+  /* Convención de suelo del motor: (x, y) es el círculo de colisión apoyado en el
+     suelo y los pies caen en y + 0.65·r. Las balas del jugador vuelan a ras de
+     suelo pero se dibujan 56 px más arriba (altura del arma): con esta regla y
+     figuras de 80 px o más, el impacto se ve en el torso. */
+  const ENEMY_FOOT_K = 0.65;
+  const ENEMY_LEGACY_UNIT = 0.86;
+  const ENEMY_LEGACY_FOOT = [0.5, 0.985];
+  const ENEMY_STATE_ASSET = { walk: "walk", windup: "windup", attack: "attack", hit: "walk", death: "death" };
+  const enemyMotion = (typeof WeakMap === "function") ? new WeakMap() : null;
+  const enemyTintCache = (typeof Map === "function") ? new Map() : null;
+
+  function enemyEntry(id) {
+    try {
+      return (window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries[id]) || null;
+    } catch (e) { return null; }
+  }
+
+  function enemyFigureHeight(family, r) {
+    const b = ENEMY_BASE[family] || ENEMY_BASE.security;
+    const k = Math.pow(Math.max(0.5, Math.min(4, (Number(r) || b.r) / b.r)), 0.75);
+    return b.h * Math.max(0.8, Math.min(2.0, k));
+  }
+
+  function enemyHaloAlpha(family) {
+    const b = ENEMY_BASE[family];
+    return (b && typeof b.halo === "number") ? b.halo : ENEMY_HALO.alpha;
+  }
+
+  /* Elige el fotograma de (familia, estado) sin mezclar revisiones de arte. */
+  function resolveEnemyFrame(family, state) {
+    if (!window.DD_ASSETS) return null;
+    const walkId = "enemy_" + family + "_walk";
+    const walkIm = window.DD_ASSETS.get(walkId);
+    if (!walkIm) return null;
+    const walkEntry = enemyEntry(walkId) || {};
+    const wanted = ENEMY_STATE_ASSET[state] || "walk";
+    let id = walkId;
+    let im = walkIm;
+    let entry = walkEntry;
+    if (wanted !== "walk") {
+      const sid = "enemy_" + family + "_" + wanted;
+      const sim = window.DD_ASSETS.get(sid);
+      const sentry = enemyEntry(sid) || {};
+      if (sim && (sentry.rev || null) === (walkEntry.rev || null)) {
+        id = sid; im = sim; entry = sentry;
+      }
+    }
+    const an = entry.anchors || null;
+    const foot = (an && Array.isArray(an.foot) && an.foot.length === 2) ? an.foot : ENEMY_LEGACY_FOOT;
+    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 1.5) ? an.unit : ENEMY_LEGACY_UNIT;
+    return { id: id, im: im, foot: foot, unit: unit, dedicated: id !== walkId || wanted === "walk", rev: entry.rev || null };
+  }
+
+  /* Estimación para llamadas sin vista del puente (herramientas, pruebas). */
   function resolveEnemyFamily(e) {
     const raw = String((e && (e.artFamily || e.family || e.type || e.kind)) || "").toLowerCase();
-    if (raw.includes("chef") || raw.includes("tank") || raw.includes("brute") || raw.includes("gula")) return "chef";
-    if (raw.includes("fanatic") || raw.includes("rush") || raw.includes("runner") || raw.includes("cult")) return "fanatic";
-    if (raw.includes("dancer") || raw.includes("lust") || raw.includes("siren") || raw.includes("assassin")) return "dancer";
-    if (raw.includes("drone") || raw.includes("turret") || raw.includes("fly") || raw.includes("ranged")) return "drone";
-    if (raw.includes("elite") || raw.includes("guard") || raw.includes("royal") || (e && e.elite)) return "elite";
+    if (e && e.elite) return "elite";
+    if (raw.includes("sprinter") || raw.includes("fanatic")) return "fanatic";
+    if (raw.includes("tank") || raw.includes("chef")) return "chef";
+    if (raw.includes("speaker") || raw.includes("drone") || raw.includes("ranged")) return "drone";
+    if (raw.includes("dancer")) return "dancer";
+    if (raw.includes("elite")) return "elite";
     return "security";
   }
 
-  function drawEnemy(ctx, enemy, timeSec) {
-    if (!enemy) return false;
-    const fam = resolveEnemyFamily(enemy);
-    let state = "walk";
-    if (enemy.attackT > 0 || enemy.firingT > 0) state = "attack";
-    else if (enemy.windupT > 0 || enemy.telegraphT > 0) state = "windup";
-    else if (enemy.hurtT > 0.05) state = "death";
+  function enemyGeometry(enemy, view) {
+    const family = (view && view.family) || resolveEnemyFamily(enemy);
+    const r = Math.max(6, Number(enemy && enemy.r) || 12);
+    const figH = enemyFigureHeight(family, r);
+    const footY = (Number(enemy && enemy.y) || 0) + r * ENEMY_FOOT_K;
+    return { family: family, r: r, figH: figH, footY: footY, topY: footY - figH };
+  }
 
-    const im =
-      (window.DD_ASSETS && window.DD_ASSETS.get("enemy_" + fam + "_" + state)) ||
-      (window.DD_ASSETS && window.DD_ASSETS.get("enemy_" + fam + "_walk"));
-    if (!im) return false;
+  function enemyWhiteSilhouette(im) {
+    if (!enemyTintCache || !im || !im.naturalWidth) return null;
+    const key = im.src || im;
+    let cv = enemyTintCache.get(key);
+    if (!cv) {
+      cv = document.createElement("canvas");
+      cv.width = im.naturalWidth;
+      cv.height = im.naturalHeight;
+      const c2 = cv.getContext("2d");
+      c2.drawImage(im, 0, 0);
+      c2.globalCompositeOperation = "source-in";
+      c2.fillStyle = "#fff3dd";
+      c2.fillRect(0, 0, cv.width, cv.height);
+      enemyTintCache.set(key, cv);
+    }
+    return cv;
+  }
+
+  /* Halo de separación. Las figuras oscuras (Seguridad, Sprinter) se perdían sobre
+     los suelos oscuros de los círculos II en adelante: sólo quedaba el filo de luz
+     del propio dibujo, de menos de 1 px en pantalla. Detrás de cada fotograma se
+     pinta su silueta en claro, difuminada unos 5 px de mundo; sobre suelo claro
+     apenas se nota y sobre suelo oscuro recorta la figura.
+     Se construye una vez por imagen, a media resolución, estampando la silueta en
+     tres anillos (la suma da una caída casi lineal: no depende de ctx.filter, que
+     no todos los navegadores aplican al lienzo). */
+  const ENEMY_HALO = { color: "#f1e6ff", alpha: 0.45, pad: 28, rings: [8, 16, 24], dirs: 16, stamp: 0.09, res: 0.5 };
+  const enemyHaloCache = (typeof Map === "function") ? new Map() : null;
+
+  function enemyHalo(im) {
+    if (!enemyHaloCache || !im || !im.naturalWidth) return null;
+    const key = im.src || im;
+    let cv = enemyHaloCache.get(key);
+    if (cv === undefined) {
+      cv = null;
+      try {
+        const H = ENEMY_HALO;
+        const k = H.res;
+        const w = Math.ceil((im.naturalWidth + 2 * H.pad) * k);
+        const h = Math.ceil((im.naturalHeight + 2 * H.pad) * k);
+        const sil = document.createElement("canvas");
+        sil.width = w; sil.height = h;
+        const c1 = sil.getContext("2d");
+        c1.drawImage(im, H.pad * k, H.pad * k, im.naturalWidth * k, im.naturalHeight * k);
+        c1.globalCompositeOperation = "source-in";
+        c1.fillStyle = H.color;
+        c1.fillRect(0, 0, w, h);
+        cv = document.createElement("canvas");
+        cv.width = w; cv.height = h;
+        const c2 = cv.getContext("2d");
+        c2.globalAlpha = H.stamp;
+        for (const ring of H.rings) {
+          for (let i = 0; i < H.dirs; i++) {
+            const a = (i / H.dirs) * Math.PI * 2;
+            c2.drawImage(sil, Math.cos(a) * ring * k, Math.sin(a) * ring * k);
+          }
+        }
+      } catch (e) { cv = null; }
+      enemyHaloCache.set(key, cv);
+    }
+    return cv;
+  }
+
+  /* Borde superior real del dibujo dentro del lienzo (fracción del alto, 0 = arriba).
+     Sirve para colocar la barra de vida y la marca por encima de las poses que
+     superan la altura de referencia (el Tanque con los puños en alto mide un 40 %
+     más que caminando): antes le cruzaban la cara. Se mide una vez por imagen, a un
+     cuarto de resolución. */
+  const enemyTopCache = (typeof Map === "function") ? new Map() : null;
+
+  function enemyContentTop(im) {
+    if (!enemyTopCache || !im || !im.naturalWidth) return 0;
+    const key = im.src || im;
+    let top = enemyTopCache.get(key);
+    if (top === undefined) {
+      top = 0;
+      try {
+        const w = Math.max(1, Math.round(im.naturalWidth / 4));
+        const h = Math.max(1, Math.round(im.naturalHeight / 4));
+        const cv = document.createElement("canvas");
+        cv.width = w; cv.height = h;
+        const c2 = cv.getContext("2d", { willReadFrequently: true });
+        c2.drawImage(im, 0, 0, w, h);
+        const px = c2.getImageData(0, 0, w, h).data;
+        scan: for (let y = 0; y < h; y++) {
+          for (let x = 0; x < w; x++) {
+            if (px[(y * w + x) * 4 + 3] > 48) { top = y / h; break scan; }
+          }
+        }
+      } catch (e) { top = 0; }
+      enemyTopCache.set(key, top);
+    }
+    return top;
+  }
+
+  /* Dibuja un fotograma con su pie en (0, 0) del contexto actual. */
+  function blitEnemyFrame(ctx, frame, figH, flash, haloAlpha) {
+    const im = frame.im;
+    const scale = figH / (frame.unit * im.naturalHeight);
+    const w = im.naturalWidth * scale;
+    const h = im.naturalHeight * scale;
+    const x = -frame.foot[0] * w;
+    const y = -frame.foot[1] * h;
+    const halo = enemyHalo(im);
+    if (halo) {
+      const pad = ENEMY_HALO.pad * scale;
+      const prev = ctx.globalAlpha;
+      ctx.globalAlpha = prev * (typeof haloAlpha === "number" ? haloAlpha : ENEMY_HALO.alpha);
+      ctx.drawImage(halo, x - pad, y - pad, w + 2 * pad, h + 2 * pad);
+      ctx.globalAlpha = prev;
+    }
+    ctx.drawImage(im, x, y, w, h);
+    if (flash > 0) {
+      const tint = enemyWhiteSilhouette(im);
+      if (tint) {
+        const prev = ctx.globalAlpha;
+        ctx.globalAlpha = prev * Math.min(0.68, 6 * flash);
+        ctx.drawImage(tint, x, y, w, h);
+        ctx.globalAlpha = prev;
+      }
+    }
+    return { w: w, h: h };
+  }
+
+  function drawEnemy(ctx, enemy, timeSec, view) {
+    if (!enemy) return false;
+    const geo = enemyGeometry(enemy, view);
+    let state = (view && view.state) || "walk";
+    if (!view) {
+      if (enemy.st === "windup" || enemy.feinting) state = "windup";
+      else if (enemy.st === "charge" || enemy.st === "dash") state = "attack";
+    }
+    const frame = resolveEnemyFrame(geo.family, state);
+    if (!frame) return false;
 
     setSmooth(ctx);
-    const r = Math.max(18, Number(enemy.r || 24));
-    const h = Math.max(78, r * 3.8);
-    const w = h * (im.naturalWidth / Math.max(1, im.naturalHeight));
-    const spd = Math.hypot(enemy.vx || 0, enemy.vy || 0);
-    const strideBob = spd > 10 ? Math.sin((timeSec || 0) * 12 + (enemy.id || 0)) * 3.5 : Math.sin((timeSec || 0) * 3.2) * 1.4;
-    const strideTilt = spd > 10 ? Math.cos((timeSec || 0) * 12 + (enemy.id || 0)) * 0.055 : 0;
-    const facingLeft = (enemy.vx || 0) < -4 || (enemy.facing && enemy.facing < 0);
+    const t = Number(timeSec) || 0;
+    const flip = view ? !!view.flip : false;
+    const flash = view ? Math.max(0, Number(view.flash) || 0) : Math.max(0, Number(enemy.hitFlash) || 0);
+    const frozen = view ? !!view.frozen : (enemy.freezeTimer > 0);
 
-    drawSoftShadow(ctx, enemy.x, enemy.y + r * 0.85, r * 1.25, r * 0.52, 0.55);
+    // Cuánto sobresale este fotograma de la altura de referencia (px de mundo). Las
+    // señales (barra de vida, marca) suben eso mismo, a la vez que cambia la pose;
+    // nunca bajan de la altura de referencia.
+    const lift = Math.max(0, (frame.foot[1] - enemyContentTop(frame.im)) * geo.figH / frame.unit - geo.figH);
+    geo.topY = geo.footY - geo.figH - lift;
+
+    // Velocidad real (px/s) medida entre dibujos: la zancada sólo se marca si se mueve.
+    let speed = 0;
+    if (enemyMotion) {
+      const m = enemyMotion.get(enemy);
+      if (m && t > m.t) {
+        const inst = Math.hypot(enemy.x - m.x, enemy.y - m.y) / Math.max(1e-3, t - m.t);
+        speed = m.spd + (Math.min(600, inst) - m.spd) * 0.35;
+      } else if (m) {
+        speed = m.spd;
+      }
+      enemyMotion.set(enemy, { x: enemy.x, y: enemy.y, t: t, spd: speed });
+    }
+    const moving = !frozen && speed > 14;
+    const phase = (view && typeof view.phase === "number") ? view.phase : t * 8;
+    const cyc = phase * (Math.PI / 2);          // una zancada completa cada 4 unidades de fase
+    const k = geo.figH / 88;
+
+    let bob = 0, tilt = 0, sx = 1, sy = 1;
+    if (state === "walk" || state === "hit") {
+      if (moving) {
+        bob = -Math.abs(Math.sin(cyc)) * 2.6 * k;
+        tilt = Math.sin(cyc) * 0.035;
+      } else if (!frozen) {
+        sy = 1 + Math.sin(t * 2.6 + (enemy.x || 0) * 0.05) * 0.012;   // respiración
+      }
+    }
+    if (!frame.dedicated) {
+      // Sin fotograma propio del estado: señal procedimental sobre el de caminar.
+      if (state === "windup") { tilt = -0.15; sx = 1.04; sy = 0.96; }
+      else if (state === "attack") { tilt = 0.2; sx = 0.97; sy = 1.04; bob = -2 * k; }
+    }
+    if (state === "hit") {
+      const n = Math.min(1, flash / 0.12);
+      tilt -= 0.1 * n;
+      sx *= 1 + 0.05 * n;
+      sy *= 1 - 0.07 * n;
+    }
+
+    drawSoftShadow(ctx, enemy.x, geo.footY, Math.max(geo.r * 1.35, geo.figH * 0.2), Math.max(5, geo.r * 0.5), 0.5);
 
     ctx.save();
-    ctx.translate(enemy.x, enemy.y + strideBob);
-    if (facingLeft) ctx.scale(-1, 1);
-    ctx.rotate(strideTilt);
-    ctx.drawImage(im, -w / 2, -h + r * 0.9, w, h);
+    ctx.translate(enemy.x, geo.footY + bob);
+    if (flip) ctx.scale(-1, 1);
+    if (tilt) ctx.rotate(tilt);
+    if (sx !== 1 || sy !== 1) ctx.scale(sx, sy);
+    blitEnemyFrame(ctx, frame, geo.figH, flash, enemyHaloAlpha(geo.family));
     ctx.restore();
 
-    // Crisp enemy HP micro-bar when damaged
-    if (enemy.hp < enemy.maxHp && enemy.hp > 0) {
-      const pct = Math.max(0, Math.min(1, enemy.hp / Math.max(1, enemy.maxHp)));
-      const bw = 42;
-      ctx.fillStyle = "rgba(5, 2, 10, 0.85)";
-      ctx.fillRect(enemy.x - bw / 2, enemy.y - h + r * 0.65, bw, 5);
-      ctx.fillStyle = "#ff2d7a";
-      ctx.fillRect(enemy.x - bw / 2 + 1, enemy.y - h + r * 0.65 + 1, (bw - 2) * pct, 3);
+    if (frozen) {
+      ctx.save();
+      ctx.strokeStyle = "rgba(145, 240, 255, 0.85)";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.ellipse(enemy.x, geo.footY - geo.figH * 0.5, geo.figH * 0.3, geo.figH * 0.56, 0, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.globalAlpha = 0.16;
+      ctx.fillStyle = "#91f0ff";
+      ctx.fill();
+      ctx.restore();
     }
+
+    drawEnemyOverlays(ctx, enemy, view, geo, t);
+    return true;
+  }
+
+  /* Señales de juego que el motor dibujaba junto al sprite y que deben seguir
+     viéndose: marca de élite / guardián / minijefe, barra de vida y flecha de
+     "último enemigo". (La señal de variante elemental la pinta el motor.) */
+  function drawEnemyOverlays(ctx, enemy, view, geo, t) {
+    const top = geo.topY;
+    const marker = view ? view.marker : (enemy.mini ? "mini" : enemy.elite ? "elite" : enemy.guardian ? "guardian" : null);
+    const hpAlways = view ? !!view.hpAlways : !!(enemy.elite || enemy.mini || enemy.type === "tank");
+    const maxHp = Math.max(1, Number(enemy.maxHp) || 1);
+    const pct = Math.max(0, Math.min(1, (Number(enemy.hp) || 0) / maxHp));
+    let y = top - 7;
+
+    if ((pct < 0.999 || hpAlways) && pct > 0) {
+      const bw = marker === "mini" ? 68 : 40;
+      ctx.save();
+      ctx.fillStyle = "rgba(5, 2, 10, 0.88)";
+      ctx.fillRect(enemy.x - bw / 2 - 1.5, y - 1.5, bw + 3, 7);
+      ctx.fillStyle = "#3b1d33";
+      ctx.fillRect(enemy.x - bw / 2, y, bw, 4);
+      ctx.fillStyle = pct > 0.4 ? "#ff2d7a" : "#ffb020";
+      ctx.fillRect(enemy.x - bw / 2, y, bw * pct, 4);
+      ctx.restore();
+      y -= 9;
+    }
+
+    if (marker) {
+      const col = marker === "guardian" ? "#aff3e7" : marker === "mini" ? "#ffb020" : "#f6ca72";
+      const s = marker === "mini" ? 6.5 : 4.5;
+      ctx.save();
+      ctx.translate(enemy.x, y - s);
+      ctx.rotate(Math.PI / 4);
+      ctx.fillStyle = "rgba(5, 2, 10, 0.9)";
+      ctx.fillRect(-s - 1.5, -s - 1.5, 2 * s + 3, 2 * s + 3);
+      ctx.fillStyle = col;
+      ctx.fillRect(-s, -s, 2 * s, 2 * s);
+      ctx.fillStyle = "rgba(5, 2, 10, 0.9)";
+      ctx.fillRect(-s * 0.35, -s * 0.35, s * 0.7, s * 0.7);
+      ctx.restore();
+      y -= 2 * s + 6;
+    }
+
+    if (view && view.objective) {
+      const b = Math.sin((t || 0) * 6) * 2.5;
+      ctx.save();
+      ctx.fillStyle = "#f7d77f";
+      ctx.strokeStyle = "rgba(5, 2, 10, 0.9)";
+      ctx.lineWidth = 1.5;
+      ctx.beginPath();
+      ctx.moveTo(enemy.x, y + b);
+      ctx.lineTo(enemy.x - 6, y - 10 + b);
+      ctx.lineTo(enemy.x + 6, y - 10 + b);
+      ctx.closePath();
+      ctx.fill();
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+
+  /* Muerte: el motor guarda un registro breve por enemigo abatido
+     ({x, y, r, key = familia, flip, age, duration}). Con fotograma `death` de la
+     misma revisión se muestra ese fotograma (destello, retroceso y fundido); sin
+     él, el de caminar se desploma hacia atrás y se desvanece. */
+  function drawEnemyDeath(ctx, rec, timeSec) {
+    if (!rec) return false;
+    const family = rec.ddFamily || rec.key || "security";
+    const frame = resolveEnemyFrame(family, "death");
+    if (!frame) return false;
+    setSmooth(ctx);
+    const dur = Math.max(0.05, Number(rec.duration) || 0.38);
+    const a = Math.max(0, Math.min(1, (Number(rec.age) || 0) / dur));
+    const r = Math.max(6, Number(rec.r) || 12);
+    const figH = enemyFigureHeight(family, r);
+    const footY = (Number(rec.y) || 0) + r * ENEMY_FOOT_K;
+    const flip = !!rec.flip;
+    const back = (flip ? 1 : -1) * 14 * (1 - Math.pow(1 - a, 2)) * (figH / 88);   // retroceso, alejándose del jugador
+    const fade = a < 0.55 ? 1 : Math.max(0, 1 - (a - 0.55) / 0.45);
+    const flash = a < 0.18 ? (0.18 - a) * 0.9 : 0;
+
+    drawSoftShadow(ctx, rec.x + back, footY, Math.max(r * 1.35, figH * 0.2), Math.max(5, r * 0.5), 0.5 * fade);
+    ctx.save();
+    ctx.globalAlpha = fade;
+    ctx.translate(rec.x + back, footY);
+    if (flip) ctx.scale(-1, 1);
+    if (frame.dedicated) {
+      blitEnemyFrame(ctx, frame, figH, flash, enemyHaloAlpha(family));
+    } else {
+      const fall = Math.min(1, a / 0.6);
+      const ease = 1 - Math.pow(1 - fall, 3);
+      ctx.rotate(-1.32 * ease);
+      ctx.scale(1, 1 - 0.12 * ease);
+      blitEnemyFrame(ctx, frame, figH, flash, enemyHaloAlpha(family));
+    }
+    ctx.restore();
     return true;
   }
 
@@ -940,8 +1313,12 @@
       const im = (window.DD_ASSETS && window.DD_ASSETS.get(pid)) || slugImg;
       const len = Math.max(28, Math.min(68, (b.r || 5) * 6.5));
       const h = len * (im.naturalHeight / Math.max(1, im.naturalWidth));
+      // El motor guarda en cada bala la altura del arma que la disparó (rigH: 56 px,
+      // 38 px las de cadera) y la dibuja elevada esa altura: la lógica vuela a ras
+      // de suelo, la imagen a la altura del cañón.
+      const lift = (typeof b.rigH === "number" && isFinite(b.rigH)) ? b.rigH : 0;
       ctx.save();
-      ctx.translate(b.x, b.y);
+      ctx.translate(b.x, b.y - lift);
       ctx.rotate(ang);
       ctx.drawImage(im, -len * 0.65, -h * 0.5, len, h);
       ctx.restore();
@@ -985,6 +1362,12 @@
     getPlayerWeaponMount,
     resolvePlayerPose,
     drawEnemy,
+    drawEnemyDeath,
+    enemyGeometry,
+    resolveEnemyFrame,
+    // Línea de apoyo en el suelo respecto al punto lógico (la usa el orden de profundidad).
+    ENEMY_FOOT_K,
+    PLAYER_GROUND_Y,
     drawBoss,
     drawPickup,
     drawTurret,

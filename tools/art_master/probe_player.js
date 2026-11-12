@@ -129,7 +129,10 @@ function installProbe() {
     console.log("shot", name, JSON.stringify(g.anim), JSON.stringify(g.mount && g.mount.hand));
   };
   const grabNow = (box, dy) => page.evaluate(([b, d]) => window.__ddProbe.grab(b, d), [box, dy || 0]);
-  const stepGrab = (inp, frames, forced) => page.evaluate(([i, f, b, st]) => window.__ddProbe.stepGrab(i, f, b, -14, st === null ? undefined : st), [inp || {}, frames || 1, RUN_BOX, forced === undefined ? null : forced]);
+  /* Recorte de sala centrado en la figura: desde R02 las suelas caen en y+14 px de
+     mundo y la coronilla en y-88 (zoom 0,8 → centro a unos -30 px de pantalla). */
+  const RUN_DY = -30;
+  const stepGrab = (inp, frames, forced) => page.evaluate(([i, f, b, st, dy]) => window.__ddProbe.stepGrab(i, f, b, dy, st === null ? undefined : st), [inp || {}, frames || 1, RUN_BOX, forced === undefined ? null : forced, RUN_DY]);
   const step = (inp, frames) => page.evaluate(([i, f]) => { window.__DD_BRIDGE.testStep(i, f); return true; }, [inp || {}, frames || 10]);
 
   /* ---------------- REFUGIO ---------------- */

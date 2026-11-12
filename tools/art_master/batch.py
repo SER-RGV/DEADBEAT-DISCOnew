@@ -308,7 +308,8 @@ def cmd_register(args):
             "prompt_spec": a.get("prompt", rec.get("prompt_spec")),
             "use": a.get("use", rec.get("use")), "entity": a.get("entity", rec.get("entity")),
             "art_revision": b["batch"], "art_style": "ilustración digital estilizada (no pixel art)",
-            "master": os.path.join("ART_ASSETS", "rebuild_masters", b["batch"], a["id"] + ".webp"),
+            "master": ((report.get("assets") or {}).get(a["id"]) or {}).get("master")
+                      or os.path.join("ART_ASSETS", "rebuild_masters", b["batch"], os.path.splitext(a.get("raw", a["id"] + ".png"))[0] + ".webp"),
             "reconstruction_status": "DONE", "integration_status": "REGISTERED", "validation_status": "PENDING",
             "notes": a.get("notes", rec.get("notes")), "updated_at": now_iso(),
         })

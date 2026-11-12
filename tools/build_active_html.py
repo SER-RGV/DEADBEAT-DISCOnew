@@ -321,11 +321,113 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return origPf.apply(this, arguments);
     };
 
+    /* ----------------------------------------------------------------------
+       ENEMIGOS — el contrato de animación es el del motor, no uno inventado.
+       El módulo de combate 2.86 del motor (objeto `f`) y su Rf original deciden:
+         - familia de arte: élite → elite; guardián → security; sprinter →
+           fanatic; tank → chef; speaker → drone; dancer → security en el
+           círculo I y dancer en los demás; minijefe → chef (círculo III),
+           elite (círculo VIII) o security;
+         - estado: impacto (hitFlash) > aviso (st "windup", amago, mState
+           "…Wind") > ataque (st "charge"/"dash", disparo recién hecho del
+           tirador, bailarín en contacto) > caminar;
+         - orientación: siempre de cara al jugador.
+       La versión anterior de este puente miraba campos que el motor no tiene
+       (attackT, windupT, hurtT, vx): sólo se veía el fotograma de caminar,
+       siempre mirando a la derecha, y sprinter y tirador salían como guardias.
+       DD_WORLD sólo dibuja; las reglas viven aquí, junto al motor.
+       ---------------------------------------------------------------------- */
+    function ddEnemyView(e) {
+      const circle = currentCircle();
+      let fam = e.elite ? "elite"
+        : e.guardian ? "security"
+        : e.type === "sprinter" ? "fanatic"
+        : e.type === "tank" ? "chef"
+        : e.type === "speaker" ? "drone"
+        : e.type === "dancer" ? (circle === 0 ? "security" : "dancer")
+        : "security";
+      if (e.mini) fam = circle === 2 ? "chef" : circle === 7 ? "elite" : "security";
+      let state = "walk";
+      if (f.enemyState(e) === "hit") {
+        state = "hit";
+      } else if (e.st === "windup" || e.feinting || /Wind$/.test(e.mState || "")) {
+        state = "windup";
+      } else if (e.st === "charge" || e.st === "dash" || e.mState === "charge" ||
+                 (e.type === "speaker" && e.st === "recover") ||
+                 (e.type === "dancer" && e.slot && Math.hypot(ye.x - e.x, ye.y - e.y) < e.r + ye.r + 18)) {
+        state = "attack";
+      }
+      return {
+        family: fam,
+        state: state,
+        flip: ye.x < e.x,
+        flash: e.hitFlash || 0,
+        phase: (e.animT || 0) * (e.type === "tank" ? 1.2 : e.type === "sprinter" ? 3.4 : 2),
+        marker: e.mini ? "mini" : e.elite ? "elite" : e.guardian ? "guardian" : null,
+        hpAlways: !!(e.elite || e.mini || e.type === "tank"),
+        frozen: e.freezeTimer > 0,
+        objective: !!Cp(),
+        circle: circle
+      };
+    }
+
     Rf = function (enemy) {
-      if (window.DD_WORLD && window.DD_WORLD.drawEnemy(g, enemy, Z)) {
+      const view = ddEnemyView(enemy);
+      if (window.DD_WORLD && window.DD_WORLD.drawEnemy(g, enemy, Z, view)) {
+        // Señal de variante elemental (placa, llama, hielo, rayo…): la pinta el
+        // motor. Espera la altura del sprite medida desde y + 0.65·r.
+        if (enemy.variant86 && enemy.variant86 !== "none") {
+          try {
+            const geo = window.DD_WORLD.enemyGeometry(enemy, view);
+            lu.drawVariantCue(g, enemy, Math.max(20, enemy.y + 0.65 * enemy.r - geo.topY));
+          } catch (err) { /* la señal es opcional: nunca debe romper el fotograma */ }
+        }
         return;
       }
       return origRf.apply(this, arguments);
+    };
+
+    /* Orden de profundidad de la lista de dibujo (props altos, enemigos, jugador…).
+       Se ordena por la LÍNEA DE APOYO en el suelo de cada cosa:
+         enemigo / abatido  pies en y + 0.65·r   (DD_WORLD.ENEMY_FOOT_K)
+         jugador            suelas en y + 14     (DD_WORLD.PLAYER_GROUND_Y)
+         prop alto          su sortY del motor   (borde delantero de su huella)
+         resto              su y (jefes y torretas se revisan en su tanda)
+       Antes los actores entraban por el CENTRO de su círculo de colisión y los
+       props por su borde delantero: con figuras de 80-100 px, un actor de pie
+       junto a una caja, con los pies por delante de ella, se pintaba detrás.
+       Sólo cambia QUIÉN TAPA A QUIÉN; posiciones y colisiones no se tocan. */
+    function ddGroundY(kind, o) {
+      const W = window.DD_WORLD || {};
+      if (kind === "enemy" || kind === "enemyDeath") {
+        return o.y + (typeof W.ENEMY_FOOT_K === "number" ? W.ENEMY_FOOT_K : 0.65) * (o.r || 12);
+      }
+      if (kind === "player") return o.y + (typeof W.PLAYER_GROUND_Y === "number" ? W.PLAYER_GROUND_Y : 14);
+      return o.y;
+    }
+
+    /* Muerte de enemigos: el motor guarda un registro por abatido y lo dibujaba
+       con el sprite pixel art heredado. Ahora lo dibuja DD_WORLD con el arte de
+       la familia; el registro recuerda familia y dura un poco más (sólo visual:
+       el enemigo ya salió de la lógica cuando se crea el registro). */
+    const origAddEnemyDeath = f.addEnemyDeath;
+    const origDrawEnemyDeath = f.drawEnemyDeath;
+    f.addEnemyDeath = function (enemy) {
+      let fam = null;
+      try { fam = ddEnemyView(enemy).family; } catch (err) { fam = null; }
+      const added = origAddEnemyDeath.apply(this, arguments);
+      if (added && f.enemyDeaths.length) {
+        const rec = f.enemyDeaths[f.enemyDeaths.length - 1];
+        rec.ddFamily = fam || rec.key;
+        rec.duration = 0.6;
+      }
+      return added;
+    };
+    f.drawEnemyDeath = function (rec) {
+      if (window.DD_WORLD && window.DD_WORLD.drawEnemyDeath && window.DD_WORLD.drawEnemyDeath(g, rec, Z)) {
+        return;
+      }
+      return origDrawEnemyDeath.apply(this, arguments);
     };
 
     Bf = function (boss) {
@@ -482,12 +584,12 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       }
       for (const en of Ta) {
         if (!en._ddaDead && en.x > cullL && en.x < cullR && en.y > cullT && en.y < cullB) {
-          renderQueue.push({ y: en.y, k: "enemy", o: en });
+          renderQueue.push({ y: ddGroundY("enemy", en), k: "enemy", o: en });
         }
       }
       for (const ed of f.enemyDeaths) {
         if (ed.x > cullL && ed.x < cullR && ed.y > cullT && ed.y < cullB) {
-          renderQueue.push({ y: ed.y, k: "enemyDeath", o: ed });
+          renderQueue.push({ y: ddGroundY("enemyDeath", ed), k: "enemyDeath", o: ed });
         }
       }
       if (ir && sr && !sr._ddaDead) {
@@ -505,7 +607,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           for (const ob of _o.orbs) if (!ob.collected) renderQueue.push({ y: ob.y, k: "objective", o: ob });
         }
       }
-      renderQueue.push({ y: ye.y, k: "player", o: ye });
+      renderQueue.push({ y: ddGroundY("player", ye), k: "player", o: ye });
       renderQueue.sort((a, bItem) => a.y - bItem.y);
 
       for (const item of renderQueue) {
@@ -616,6 +718,75 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       },
       getWeaponsList: function () {
         return (w.weaponRig && typeof w.weaponRig.catalog === "function") ? w.weaponRig.catalog() : [];
+      },
+      /* QA: actores vivos con la vista de arte que el puente entrega a DD_WORLD
+         (familia, estado, orientación) y los proyectiles. Sólo lectura. */
+      getActors: function () {
+        const out = { time: Z, circle: currentCircle(), player: null, enemies: [], deaths: [], bullets: [], enemyBullets: [] };
+        if (ye) out.player = { x: ye.x, y: ye.y, r: ye.r, aim: ye.aimAngle };
+        if (Array.isArray(Ta)) {
+          for (const e of Ta.slice(0, 60)) {
+            if (!e || e._ddaDead) continue;
+            const v = ddEnemyView(e);
+            out.enemies.push({
+              x: e.x, y: e.y, r: e.r, type: e.type, elite: !!e.elite, mini: !!e.mini, guardian: !!e.guardian,
+              st: e.st || null, mState: e.mState || null, hp: e.hp, maxHp: e.maxHp, variant: e.variant86 || null,
+              family: v.family, state: v.state, flip: v.flip, flash: v.flash, marker: v.marker, frozen: v.frozen
+            });
+          }
+        }
+        for (const d of f.enemyDeaths) out.deaths.push({ x: d.x, y: d.y, r: d.r, family: d.ddFamily || d.key, age: d.age, duration: d.duration });
+        if (Array.isArray(wa)) for (const b of wa.slice(0, 40)) out.bullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
+        if (Array.isArray(Ia)) for (const b of Ia.slice(0, 40)) out.enemyBullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
+        return out;
+      },
+      /* QA: fija el estado de IA de los enemigos vivos para poder fotografiar cada
+         fotograma (aviso, ataque) sin esperar a que la IA lo elija. `st` nulo lo suelta. */
+      debugPoseEnemies: function (st, opts) {
+        opts = opts || {};
+        let n = 0;
+        if (Array.isArray(Ta)) {
+          for (let i = 0; i < Ta.length; i++) {
+            const e = Ta[i];
+            if (!e || e._ddaDead) continue;
+            if (opts.type && e.type !== opts.type) continue;
+            if (typeof opts.index === "number" && opts.index !== i) continue;
+            if (opts.assign && typeof opts.assign === "object") {
+              // p. ej. { mini: true, r: 26 } para ver la escala y la marca de un minijefe
+              for (const k of ["mini", "guardian", "guardRadius", "elite", "r", "freezeTimer", "feinting", "mState"]) {
+                if (k in opts.assign) e[k] = opts.assign[k];
+              }
+            }
+            if (st !== undefined) {
+              e.st = st || null;
+              // stT = tiempo que le queda al estado. Con 9 s la IA no lo suelta; con un
+              // valor corto (opts.stT) el aro de aviso del motor se ve a medio llenar.
+              // Con st = null también se respeta opts.stT: el minijefe no usa `st`
+              // sino `mState`, y su reloj es el mismo stT.
+              e.stT = typeof opts.stT === "number" ? opts.stT : (st ? 9 : 0);
+            }
+            if (opts.hit) f.damage(e, 0, 0.14);   // destello de impacto sin quitar vida
+            n++;
+          }
+        }
+        return n;
+      },
+      /* QA: repinta el fotograma actual sin avanzar la simulación. */
+      renderNow: function () { Qf(); return true; },
+      /* QA: props sólidos de la sala (posición, huella y clave de profundidad). */
+      getProps: function () {
+        const out = [];
+        try {
+          for (const pr of tc) {
+            if (!pr || pr.hidden || !pr.onFloor) continue;
+            out.push({ x: pr.x, y: pr.y, br: pr.br, footH: pr.footH, sortY: pr.sortY, tall: !!pr.tall, solid: pr.solid !== false, kind: pr.kind || null, style: pr.style || null, name: pr.name || null });
+          }
+        } catch (err) { /* sin sala activa */ }
+        return out;
+      },
+      /* QA: abate a todos por la vía real del motor (deja registro de muerte). */
+      killAllEnemies: function () {
+        try { return !!(window.DMO && window.DMO.playtest && window.DMO.playtest.killAll()); } catch (err) { return false; }
       },
       getWeaponStats: function (wid) {
         const meta = (ja && ja[wid]) || {};

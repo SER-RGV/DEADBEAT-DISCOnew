@@ -210,8 +210,12 @@ def canvas_anchors(fit: Dict, size: Tuple[int, int], anchors_raw: Optional[Dict]
     final (0..1), para fotogramas colocados con fit.mode == "anchor":
         belt_y : fila del borde inferior del cinturón  -> "belt"  (fracción de alto)
         hand   : [x, y] de la mano que empuña el arma  -> "hand"  ([u, v])
+        foot   : [x, y] del punto de apoyo en el suelo -> "foot"  ([u, v])
+        unit_h : alto en px de la figura de referencia
+                 de la familia (su `walk` erguido)     -> "unit"  (fracción de alto)
     El renderizador lee estas anclas del registro (entries[id].anchors) para el
-    corte de cintura y para colocar el arma; no hay coordenadas a ojo en el código.
+    corte de cintura, para colocar el arma y para apoyar y escalar a los enemigos;
+    no hay coordenadas a ojo en el código.
     """
     if not anchors_raw or fit.get("mode") != "anchor":
         return {}
@@ -224,6 +228,11 @@ def canvas_anchors(fit: Dict, size: Tuple[int, int], anchors_raw: Optional[Dict]
     if "hand" in anchors_raw:
         hx, hy = anchors_raw["hand"]
         out["hand"] = [round((cx + (float(hx) - ax) * s) / W, 4), round((cy - (ay - float(hy)) * s) / H, 4)]
+    if "foot" in anchors_raw:
+        fx, fy = anchors_raw["foot"]
+        out["foot"] = [round((cx + (float(fx) - ax) * s) / W, 4), round((cy - (ay - float(fy)) * s) / H, 4)]
+    if "unit_h" in anchors_raw:
+        out["unit"] = round(float(anchors_raw["unit_h"]) * s / H, 4)
     return out
 
 

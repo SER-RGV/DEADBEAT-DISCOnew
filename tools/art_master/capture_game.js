@@ -101,17 +101,18 @@ fs.mkdirSync(OUT, { recursive: true });
   const spawnPack = async () => page.evaluate(() => {
     const s = window.__DD_BRIDGE.getSnapshot(); const p = s.player; const out = [];
     const types = [["dancer", -190, -70, false], ["sprinter", 190, -80, false], ["tank", -230, 80, false], ["speaker", 240, 70, false], ["dancer", 0, -170, true], ["sprinter", -90, 150, false]];
-    for (const [t, dx, dy, elite] of types) { try { out.push([t, !!window.DMO.debug.spawnEnemyAt(t, p.x + dx, p.y + dy, true, elite)]); } catch (e) { out.push([t, String(e)]); } }
+    /* spawnEnemyAt(tipo, x, y, élite, esbirroDeJefe). Hasta R02 esta sonda pasaba
+       `true` como 4.º argumento y TODOS salían élite. */
+    for (const [t, dx, dy, elite] of types) { try { out.push([t, !!window.DMO.debug.spawnEnemyAt(t, p.x + dx, p.y + dy, elite, false)]); } catch (e) { out.push([t, String(e)]); } }
     return out;
   });
 
   for (const c of CIRCLES) {
-    /* OJO: `--circles=c` NO garantiza el círculo c. El motor decide el círculo con su
-       propia tabla (Ot.floor / Xe(sala)), que no es "10 salas por círculo": medido en el
-       juego, nivel 2 → circle 0, nivel 10 → circle 0, nivel 32 → circle 2. El círculo
-       REAL de cada captura queda en capture_report.json (steps.cNN.snap.circle, índice 0).
-       Pendiente: elegir el nivel leyendo esa tabla en vez de esta fórmula. */
-    const level = Math.max(1, (c - 0) * 10 - 8);   /* sala 2 del círculo c (c=1 → nivel 2) */
+    /* El motor reparte 11 salas por círculo: círculo c (1-9) = niveles (c-1)·11+1 … c·11.
+       Se entra en la sala 2 del círculo. El círculo REAL de cada captura queda además en
+       capture_report.json (steps.cNN.snap.circle, índice 0) y debe valer c-1.
+       (Hasta R02 se usaba una fórmula de 10 salas por círculo y `--circles=4` caía en el III.) */
+    const level = (c - 1) * 11 + 2;
     const went = await page.evaluate((lv) => { try { return window.DMO.debug.exploreGoTo(lv); } catch (e) { return String(e); } }, level);
     await page.waitForTimeout(500);
     await page.evaluate(() => window.DD_CINE && window.DD_CINE.skip());
@@ -139,7 +140,7 @@ fs.mkdirSync(OUT, { recursive: true });
 
   /* ---- JEFES ---- */
   for (const c of BOSSES) {
-    const level = c * 10;  /* misma salvedad que arriba: el círculo real está en el informe */
+    const level = c * 11;  /* última sala del círculo c (11 salas por círculo); el círculo real queda en el informe */
     await page.evaluate((lv) => { try { window.DMO.debug.exploreGoTo(lv); } catch (e) {} }, level);
     await page.waitForTimeout(500);
     await page.evaluate(() => window.DD_CINE && window.DD_CINE.skip());
