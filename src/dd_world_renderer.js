@@ -7,16 +7,16 @@
   "use strict";
 
   const CIRCLE_CONFIG = [
-    { idx: 0, key: "limbo",    floor: "floor_00_limbo_marble",     wall: "wall_panel_gothic_niche", pillar: "wall_pillar_obsidian", neon: "#ff2d7a", sec: "#22d3ee", haze: "rgba(255,45,122,0.08)" },
-    { idx: 1, key: "lust",     floor: "floor_01_lust_dancefloor",  wall: "wall_panel_neon_crown",   pillar: "wall_pillar_obsidian", neon: "#ff2d7a", sec: "#c026d3", haze: "rgba(255,45,122,0.13)" },
-    { idx: 2, key: "gula",     floor: "floor_02_gula_terracotta",  wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", neon: "#f59e0b", sec: "#ef4444", haze: "rgba(245,158,11,0.10)" },
-    { idx: 3, key: "greed",    floor: "floor_03_greed_slate_gold", wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", neon: "#facc15", sec: "#fb7185", haze: "rgba(250,204,21,0.10)" },
-    { idx: 4, key: "wrath",    floor: "floor_04_wrath_burgundy",   wall: "wall_wrath_furnace",      pillar: "wall_pillar_obsidian", neon: "#ef4444", sec: "#f97316", haze: "rgba(239,68,68,0.12)" },
-    { idx: 5, key: "pride",    floor: "floor_05_pride_obsidian_gold", wall: "wall_panel_heavy_base", pillar: "wall_pillar_obsidian", neon: "#a855f7", sec: "#facc15", haze: "rgba(168,85,247,0.11)" },
-    { idx: 6, key: "violence", floor: "floor_06_violence_ash_slabs", wall: "wall_wrath_furnace",    pillar: "wall_pillar_obsidian", neon: "#fb7185", sec: "#94a3b8", haze: "rgba(251,113,133,0.09)" },
-    { idx: 7, key: "envy",     floor: "floor_07_envy_travertine",  wall: "wall_panel_vip_window",   pillar: "wall_pillar_obsidian", neon: "#22d3ee", sec: "#ff2d7a", haze: "rgba(34,211,238,0.11)" },
-    { idx: 8, key: "ice",      floor: "floor_08_ice_abyssal",      wall: "wall_ice_glacier",        pillar: "wall_pillar_obsidian", neon: "#38bdf8", sec: "#f43f5e", haze: "rgba(56,189,248,0.12)" },
-    { idx: 9, key: "core",     floor: "floor_09_core_cosmic_vein", wall: "wall_core_monolith",      pillar: "wall_pillar_obsidian", neon: "#f8fafc", sec: "#ff2d7a", haze: "rgba(248,250,252,0.10)" }
+    { idx: 0, key: "limbo",    floor: "floor_00_limbo_marble",     wall: "wall_panel_gothic_niche", pillar: "wall_pillar_obsidian", medallion: "v5_limbo_floor_medallion",     stage: "v5_limbo_gate_stage",       neon: "#ff2d7a", sec: "#22d3ee", haze: "rgba(255,45,122,0.08)" },
+    { idx: 1, key: "lust",     floor: "floor_01_lust_dancefloor",  wall: "wall_panel_neon_crown",   pillar: "wall_pillar_obsidian", medallion: "v5_hub_pista_medallion",       stage: "v5_lujuria_boudoir_stage",  neon: "#ff2d7a", sec: "#c026d3", haze: "rgba(255,45,122,0.13)" },
+    { idx: 2, key: "gula",     floor: "floor_02_gula_terracotta",  wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", medallion: "v5_gula_floor_medallion",      stage: "v5_gula_banquet_stage",     neon: "#f59e0b", sec: "#ef4444", haze: "rgba(245,158,11,0.10)" },
+    { idx: 3, key: "greed",    floor: "floor_03_greed_slate_gold", wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", medallion: "v5_avaricia_floor_medallion",  stage: "v5_avaricia_vault_stage",   neon: "#facc15", sec: "#fb7185", haze: "rgba(250,204,21,0.10)" },
+    { idx: 4, key: "wrath",    floor: "floor_04_wrath_burgundy",   wall: "wall_wrath_furnace",      pillar: "wall_pillar_obsidian", medallion: "v5_ira_floor_medallion",       stage: "v5_ira_furnace_stage",      neon: "#ef4444", sec: "#f97316", haze: "rgba(239,68,68,0.12)" },
+    { idx: 5, key: "pride",    floor: "floor_05_pride_obsidian_gold", wall: "wall_panel_heavy_base", pillar: "wall_pillar_obsidian", medallion: "v5_herejia_floor_medallion",   stage: "v5_herejia_altar_stage",    neon: "#a855f7", sec: "#facc15", haze: "rgba(168,85,247,0.11)" },
+    { idx: 6, key: "violence", floor: "floor_06_violence_ash_slabs", wall: "wall_wrath_furnace",    pillar: "wall_pillar_obsidian", medallion: "v5_violencia_floor_medallion", stage: "v5_violencia_biolab_stage", neon: "#fb7185", sec: "#10b981", haze: "rgba(251,113,133,0.09)" },
+    { idx: 7, key: "envy",     floor: "floor_07_envy_travertine",  wall: "wall_panel_vip_window",   pillar: "wall_pillar_obsidian", medallion: "v5_fraude_floor_medallion",    stage: "v5_fraude_mirror_stage",    neon: "#22d3ee", sec: "#ff2d7a", haze: "rgba(34,211,238,0.11)" },
+    { idx: 8, key: "ice",      floor: "floor_08_ice_abyssal",      wall: "wall_ice_glacier",        pillar: "wall_pillar_obsidian", medallion: "v5_traicion_floor_medallion",  stage: "v5_traicion_abyss_stage",   neon: "#38bdf8", sec: "#f43f5e", haze: "rgba(56,189,248,0.12)" },
+    { idx: 9, key: "core",     floor: "floor_09_core_cosmic_vein", wall: "wall_core_monolith",      pillar: "wall_pillar_obsidian", medallion: "v5_nucleo_floor_mandala",      stage: "v5_nucleo_cathedral_stage", neon: "#f8fafc", sec: "#ff2d7a", haze: "rgba(248,250,252,0.10)" }
   ];
 
   const PROP_KIND_TO_ASSET = {
@@ -241,8 +241,17 @@
     ctx.stroke();
     ctx.restore();
 
-    // Specular neon floor reflection pools
+    // Specular neon floor reflection pools + Canonical Pista Floor Medallion (V5)
     drawNeonGlow(ctx, cx, cy, Math.min(rw, rh) * 0.42, cfg.neon, 0.16);
+    const medImg = cfg.medallion && window.DD_ASSETS && window.DD_ASSETS.get(cfg.medallion);
+    if (medImg && rw >= 640 && rh >= 480) {
+      const mw = Math.min(rw * 0.44, 520);
+      const mh = mw * (medImg.naturalHeight / Math.max(1, medImg.naturalWidth));
+      ctx.save();
+      ctx.globalAlpha = 0.72;
+      ctx.drawImage(medImg, cx - mw * 0.5, cy - mh * 0.5, mw, mh);
+      ctx.restore();
+    }
     drawNeonGlow(ctx, rx + rw * 0.22, ry + rh * 0.28, 240, cfg.sec, 0.13);
     drawNeonGlow(ctx, rx + rw * 0.78, ry + rh * 0.72, 240, cfg.sec, 0.13);
 
@@ -305,7 +314,16 @@
       ctx.drawImage(pillarImg, rx + rw - 38, wallTopY - 8, 56, wallH + 16);
     }
 
-    // Signature neon wall emblem at upper facade flanks
+    // Signature neon wall emblem at upper facade flanks + Canonical Pista North Stage Centerpiece (V5)
+    const stageImg = cfg.stage && window.DD_ASSETS && window.DD_ASSETS.get(cfg.stage);
+    if (stageImg && rw >= 820) {
+      const sw = Math.min(380, rw * 0.34);
+      const sh = sw * (stageImg.naturalHeight / Math.max(1, stageImg.naturalWidth));
+      ctx.save();
+      ctx.globalAlpha = 0.90;
+      ctx.drawImage(stageImg, rx + (rw - sw) * 0.5, wallTopY + wallH - sh + 12, sw, sh);
+      ctx.restore();
+    }
     if (foxNeonImg && rw >= 900) {
       ctx.drawImage(foxNeonImg, rx + 96, wallTopY + 10, 82, 108);
       ctx.drawImage(foxNeonImg, rx + rw - 178, wallTopY + 10, 82, 108);
@@ -495,7 +513,7 @@
     if (facingLeft) ctx.scale(-1, 1);
     ctx.rotate(lean * (facingLeft ? -0.55 : 0.55));
 
-    const targetH = (upperId === "player_death_00" ? 56 : (upperId === "player_roll_00" ? 84 : 104)) * scl;
+    const targetH = (upperId === "player_death_00" ? 64 : (upperId === "player_roll_00" ? 92 : 122)) * scl;
     const targetW = targetH * (upperImg.naturalWidth / Math.max(1, upperImg.naturalHeight));
     const drawX = -targetW * 0.5;
     const drawY = -targetH + 32;
@@ -525,12 +543,21 @@
       ctx.restore();
     }
 
-    if (shieldVal > 0) {
-      ctx.strokeStyle = "rgba(34, 211, 238, 0.62)";
-      ctx.lineWidth = 2.2;
-      ctx.beginPath();
-      ctx.ellipse(0, -14, 34, 48, 0, 0, Math.PI * 2);
-      ctx.stroke();
+    if (Number(shieldVal) > 0) {
+      const auraImg = window.DD_ASSETS && window.DD_ASSETS.get("v5_player_aegis_shield_aura");
+      if (auraImg && auraImg.naturalWidth > 0) {
+        ctx.save();
+        ctx.globalCompositeOperation = "screen";
+        ctx.globalAlpha = 0.55;
+        ctx.drawImage(auraImg, -46, -68, 92, 112);
+        ctx.restore();
+      } else {
+        ctx.strokeStyle = "rgba(34, 211, 238, 0.62)";
+        ctx.lineWidth = 2.2;
+        ctx.beginPath();
+        ctx.ellipse(0, -14, 34, 48, 0, 0, Math.PI * 2);
+        ctx.stroke();
+      }
     }
 
     ctx.restore();
@@ -561,8 +588,8 @@
     if (!im) return false;
 
     setSmooth(ctx);
-    const r = Math.max(18, Number(enemy.r || 24));
-    const h = Math.max(78, r * 3.8);
+    const r = Math.max(28, Number(enemy.r || 30));
+    const h = Math.max(126, r * 4.4);
     const w = h * (im.naturalWidth / Math.max(1, im.naturalHeight));
     const spd = Math.hypot(enemy.vx || 0, enemy.vy || 0);
     const strideBob = spd > 10 ? Math.sin((timeSec || 0) * 12 + (enemy.id || 0)) * 3.5 : Math.sin((timeSec || 0) * 3.2) * 1.4;
@@ -606,6 +633,9 @@
     return BOSS_INDEX_TO_SLUG[Math.max(0, Math.min(9, Number(circleIdx) || 0))];
   }
 
+  // Phase 2 retains each boss's canonical character identity (no unrelated monster substitutions)
+  const PHASE2_BOSS_MAP = {};
+
   function drawBoss(ctx, boss, circleIdx, timeSec) {
     if (!boss) return false;
     const slug = resolveBossSlug(boss, circleIdx);
@@ -613,24 +643,42 @@
     if (boss.hurtT > 0.06) state = "hit";
     else if (boss.attackT > 0 || boss.castT > 0 || boss.dashT > 0 || boss.phaseT > 0) state = "attack";
 
+    // Phase-2 / Enraged visual aura below 42% HP while preserving canonical boss identity
+    const hpRatio = (boss.hp && boss.maxHp) ? (boss.hp / Math.max(1, boss.maxHp)) : 1;
     const im =
       (window.DD_ASSETS && window.DD_ASSETS.get(slug + "_" + state)) ||
       (window.DD_ASSETS && window.DD_ASSETS.get(slug + "_idle"));
     if (!im) return false;
 
+    // Evaluate shared visual Boss Animation FSM (DMO_BOSS_ANIMATION_FSM) if loaded
+    let fsmPose = null;
+    if (window.DMO_BOSS_ANIMATION_FSM && typeof window.DMO_BOSS_ANIMATION_FSM.update === "function") {
+      try {
+        fsmPose = window.DMO_BOSS_ANIMATION_FSM.update(boss, 0.016, { circleIdx: circleIdx, timeSec: timeSec });
+        if (fsmPose && fsmPose.renderState && state === "idle") {
+          state = fsmPose.renderState;
+        }
+      } catch (e) { fsmPose = null; }
+    }
+
     setSmooth(ctx);
     const r = Math.max(38, Number(boss.r || 52));
     const h = Math.max(176, r * 3.45);
     const w = h * (im.naturalWidth / Math.max(1, im.naturalHeight));
-    const hover = Math.sin((timeSec || 0) * 2.8) * 4.5;
+    const hover = fsmPose ? (fsmPose.offsetY || 0) : (Math.sin((timeSec || 0) * 2.8) * 4.5);
+    const scaleX = fsmPose ? (fsmPose.scaleX || 1) : 1;
+    const scaleY = fsmPose ? (fsmPose.scaleY || 1) : 1;
+    const tiltRad = fsmPose ? ((fsmPose.tiltDeg || 0) * Math.PI / 180) : 0;
     const facingLeft = (boss.vx || 0) < -8;
 
-    drawNeonGlow(ctx, boss.x, boss.y - h * 0.32, r * 2.5, "#ff2d7a", 0.28);
+    drawNeonGlow(ctx, boss.x, boss.y - h * 0.32, r * 2.5, hpRatio <= 0.42 ? "#38bdf8" : "#ff2d7a", 0.30);
     drawSoftShadow(ctx, boss.x, boss.y + r * 0.78, r * 1.45, r * 0.56, 0.68);
 
     ctx.save();
     ctx.translate(boss.x, boss.y + hover);
     if (facingLeft) ctx.scale(-1, 1);
+    ctx.rotate(tiltRad);
+    ctx.scale(scaleX, scaleY);
     ctx.drawImage(im, -w / 2, -h + r * 0.82, w, h);
     ctx.restore();
     return true;

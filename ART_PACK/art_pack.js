@@ -48,6 +48,7 @@
   var BASEH = 'ART_ASSETS/hub/tanda_01/';
   var BOSS_BASE = 'ART_ASSETS/bosses/tanda_01/';
   var BOSS_BASE2 = 'ART_ASSETS/bosses/tanda_02/';
+  var ENEMY_BASE = 'ART_ASSETS/tanda_E01/';
 
   /* id, archivo, dimensiones esperadas, loader, pivote, alfa */
   var MANIFEST = [
@@ -86,7 +87,18 @@
     { id: 'bosses/boss_06_djabismo_hit_00.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_hit_00.png', base: BOSS_BASE2, w: 440, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_hit', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
     { id: 'bosses/boss_06_djabismo_death_00.png', bossId: 'boss_06_djabismo', file: 'boss_06_djabismo_death_00.png', base: BOSS_BASE2, w: 402, h: 400, loader: 'HD', cacheKey: 'boss_06_djabismo_death', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
     { id: 'bosses/boss_07_altavoztitan_attack_00.png', bossId: 'boss_07_altavoztitan', file: 'boss_07_altavoztitan_attack_00.png', base: BOSS_BASE2, w: 687, h: 400, loader: 'HD', cacheKey: 'boss_07_altavoztitan_attack', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
-    { id: 'bosses/boss_07_altavoztitan_attack_01.png', bossId: 'boss_07_altavoztitan', file: 'boss_07_altavoztitan_attack_01.png', base: BOSS_BASE2, w: 669, h: 400, loader: 'HD', cacheKey: 'boss_07_altavoztitan_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T02' }
+    { id: 'bosses/boss_07_altavoztitan_attack_01.png', bossId: 'boss_07_altavoztitan', file: 'boss_07_altavoztitan_attack_01.png', base: BOSS_BASE2, w: 669, h: 400, loader: 'HD', cacheKey: 'boss_07_altavoztitan_attack1', pivot: 'center', alpha: true, batch: 'BOSS-T02' },
+    /* TANDA E01 · 10 Unified Enemy Archetypes (from ENEMIGOS_user_reference.jpg) */
+    { id: 'enemy_01_gorila_discoteca',  file: 'enemy_01_gorila_discoteca.png',  base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_02_bailarin_poseido',  file: 'enemy_02_bailarin_poseido.png',  base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_03_mascara_flotante',  file: 'enemy_03_mascara_flotante.png',  base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_04_boca_devoradora',   file: 'enemy_04_boca_devoradora.png',   base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_05_mancha_mutante',    file: 'enemy_05_mancha_mutante.png',    base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_06_seguidores',        file: 'enemy_06_seguidores.png',        base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_07_voladores',         file: 'enemy_07_voladores.png',         base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_08_explosivos',        file: 'enemy_08_explosivos.png',        base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_09_rapidos',           file: 'enemy_09_rapidos.png',           base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' },
+    { id: 'enemy_10_tanque_pesado',     file: 'enemy_10_tanque_pesado.png',     base: ENEMY_BASE, w: 288, h: 288, loader: 'ILT', pivot: 'bottom-center', alpha: true, batch: 'TANDA-E01' }
   ];
 
   /* Tanda 02 · familia modular de arquitectura. Las claves 'slot' son las

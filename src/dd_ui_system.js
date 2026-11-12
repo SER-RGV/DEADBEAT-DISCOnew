@@ -15,16 +15,16 @@
   "use strict";
 
   var CIRCLES_INFO = [
-    { idx: 0, code: "REFUGIO", name: "Cola del Club · El Refugio", boss: "Andén · El Portero" },
-    { idx: 1, code: "I", name: "Lujuria · Salón de los Deseos", boss: "Magneta · La Anfitriona" },
-    { idx: 2, code: "II", name: "Gula · Banquete Interminable", boss: "Bufé · Anfitrión Sin Fondo" },
-    { idx: 3, code: "III", name: "Avaricia · El Club VIP", boss: "El Cajero · Señor del VIP" },
-    { idx: 4, code: "IV", name: "Ira · Pista de las Peleas", boss: "El Pogo · Demonio de la Fosa" },
-    { idx: 5, code: "V", name: "Herejía · Catedral del Ruido", boss: "El Oficiante · Pontífice" },
-    { idx: 6, code: "VI", name: "Violencia · El Matadero", boss: "El Matarife · Coloso" },
-    { idx: 7, code: "VII", name: "Fraude · Club de los Espejos", boss: "El Imitador · Espejismo" },
-    { idx: 8, code: "VIII", name: "Traición · La Última Sala", boss: "El Traidor · Monarca Glacial" },
-    { idx: 9, code: "IX", name: "El Núcleo Final · Última Canción", boss: "El Núcleo / El Arquitecto" }
+    { idx: 0, code: "REFUGIO", name: "Cola del Club · El Refugio", boss: "El Portero sin Rostro / Andén" },
+    { idx: 1, code: "I", name: "Pista I · El Vestíbulo del Espejo (Lujuria)", boss: "Véspera · La Reina del Espejo" },
+    { idx: 2, code: "II", name: "Pista II · La Barra Sin Fondo (Gula)", boss: "Voraz · El Señor de la Barra" },
+    { idx: 3, code: "III", name: "Pista III · El Reservado de Oro (Avaricia)", boss: "Áurea · La Contadora de Almas" },
+    { idx: 4, code: "IV", name: "Pista IV · El Foso de Cobre (Ira)", boss: "Brama · El Señor del Mosh" },
+    { idx: 5, code: "V", name: "Pista V · La Capilla del Bajo Profundo (Herejía)", boss: "El Obispo de la Nota Ausente" },
+    { idx: 6, code: "VI", name: "Pista VI · El Matadero de Terciopelo (Violencia)", boss: "El Corazón Encadenado" },
+    { idx: 7, code: "VII", name: "Pista VII · La Sala de los Espejos Rotos (Fraude)", boss: "El Crupier de las Mil Voces" },
+    { idx: 8, code: "VIII", name: "Pista VIII · La Pista Helada (Traición)", boss: "Nix · La Dama del Hielo Seco" },
+    { idx: 9, code: "IX", name: "Pista IX · El Foso del Silencio / El Núcleo", boss: "El Rey del Compás · Fundador del Sello" }
   ];
 
   var uiState = {

@@ -709,6 +709,14 @@ MODULE_ORDER = (
     "dd_ui_system.js",
 )
 _parts = []
+if os.path.exists(os.path.join(ROOT, "boss_animation_state_machine.js")):
+    with open(os.path.join(ROOT, "boss_animation_state_machine.js"), "r", encoding="utf-8") as f:
+        fsm_src = f.read()
+    _parts.append(
+        "  <script>\n/* === INLINED FROM boss_animation_state_machine.js === */\n"
+        + fsm_src
+        + "\n  </script>"
+    )
 for fname in MODULE_ORDER:
     with open(os.path.join(ROOT, "src", fname), "r", encoding="utf-8") as f:
         js_src = f.read()
