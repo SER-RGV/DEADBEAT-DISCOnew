@@ -7,8 +7,8 @@ Si acabas de abrir el proyecto, sigue este orden:
 1. Lee este archivo para orientarte.
 2. Entra en `src/` para ver el código del juego.
 3. Entra en `assets/` para ver los recursos que usa el juego.
-4. Entra en `docs/` para encontrar planes, informes y pruebas.
-5. Lee el `README.md` de cada carpeta antes de mover o borrar archivos.
+4. Consulta `CURRENT_STATE.md` para conocer el estado del proyecto.
+5. Entra en `docs/` para encontrar diseño, lore, informes y evidencias.
 
 ## Mapa del proyecto
 
@@ -26,7 +26,6 @@ Si acabas de abrir el proyecto, sigue este orden:
 | `docs/` | Documentación, informes y evidencias organizadas. |
 | `tools/` | Herramientas generales y scripts del proyecto. |
 | `backups/` | Copias de seguridad. No borrar como limpieza. |
-| `artevi2/` | Comparaciones visuales. |
 | `.github/` | Automatizaciones de GitHub. |
 | `FASE_0_3_EVIDENCE/` y `FASE_0_3_1_EVIDENCE/` | Evidencias de versiones anteriores. |
 
@@ -43,6 +42,7 @@ Si acabas de abrir el proyecto, sigue este orden:
 - No cambies nombres de carpetas técnicas sin revisar imports, rutas, scripts y automatizaciones.
 - No borres capturas, informes históricos ni copias de seguridad solo porque parezcan repetidos.
 - Los archivos `index.html` y `DEADBEAT_DISCO.html` son iguales ahora, pero ambos los genera la automatización de construcción. **No borrar ninguno.**
-- Los archivos HTML grandes son builds; no editarlos manualmente si el cambio debe hacerse en el código fuente.
+- `index.html` y `DEADBEAT_DISCO.html` son builds generadas. Edita `src/` y usa `tools/build_active_html.py`.
+- La build histórica `v9_t3_fase1b_cache_probe.html` se conserva como copia en `backups/`; no forma parte del arranque actual.
 
 Los nombres técnicos se conservan cuando otras partes del proyecto dependen de ellos. La explicación sencilla está aquí y en los README de las carpetas.

@@ -1,7 +1,7 @@
 # Inventario técnico — DEADBEAT DISCO (Fase 0.2)
 
 - Fecha: 2026-11-02.
-- Fuente: lectura íntegra de `v9_t3_fase1b_cache_probe.html` (13.380.910 bytes, 19.835 líneas, SHA-256 `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a`) y de los 4 archivos de `main` en el commit `09df237d5f98de7aee8b0499648610acdf1bae71`.
+- Fuente: lectura íntegra de `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` (13.380.910 bytes, 19.835 líneas, SHA-256 `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a`) y de los 4 archivos de `main` en el commit `09df237d5f98de7aee8b0499648610acdf1bae71`.
 - Método: análisis estático (lectura de bytes, recorrido con `HTMLParser`, conteo de etiquetas/globales/URIs, compilación de los bloques JS con `vm.Script`, decodificación Base64, validación del JSON, hashes Git).
 
 ## Leyenda de estado — lectura obligatoria

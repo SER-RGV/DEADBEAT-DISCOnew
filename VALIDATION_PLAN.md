@@ -10,7 +10,7 @@ Este documento **prepara** la validación; no la realiza. Se ha comprobado que e
 | # | Requisito | Motivo |
 |---|---|---|
 | P-1 | Navegador de escritorio actualizado con DevTools (consola + pestaña Network) | Observar errores JS y peticiones de red |
-| P-2 | Servir `v9_t3_fase1b_cache_probe.html` desde un servidor HTTP estático local, con un **origen estable** y único durante toda la batería | `localStorage` está ligado al origen; el guardado no es fiable bajo `file://` o cambiando de puerto/dominio |
+| P-2 | Servir `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` desde un servidor HTTP estático local, con un **origen estable** y único durante toda la batería | `localStorage` está ligado al origen; el guardado no es fiable bajo `file://` o cambiando de puerto/dominio |
 | P-3 | Perfil de navegador limpio o con `localStorage` vaciado antes de empezar | Evitar partidas previas que falseen «inicio» y «guardado» |
 | P-4 | Consola abierta y captura de logs; registrar también errores no capturados | Evidencia verificable |
 | P-5 | Salida de audio disponible y un **gesto del usuario** (clic/tecla) para desbloquear WebAudio | Los navegadores bloquean audio sin interacción |
@@ -51,7 +51,7 @@ Plantilla a rellenar **solo cuando la prueba se ejecute realmente** (añadir una
 
 | ID | Fecha | Navegador + versión | Origen (URL) | Resultado (SUPERADA / FALLIDA / PARCIAL / PENDIENTE / BLOQUEADA) | Evidencia (log/captura) | Notas |
 |---|---|---|---|---|---|---|
-| V-01 | 2026-11-02 | Chromium Headless 153.0.8010.0 | `http://127.0.0.1:8123/v9_t3_fase1b_cache_probe.html` | PARCIAL | `FASE_0_3_EVIDENCE/01_boot_cover.png`, `log_console_network_boot.json` | 17,4 s; 0 `pageerror`; 2×404 externos (INC-003) |
+| V-01 | 2026-11-02 | Chromium Headless 153.0.8010.0 | `http://127.0.0.1:8123/backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` | PARCIAL | `FASE_0_3_EVIDENCE/01_boot_cover.png`, `log_console_network_boot.json` | 17,4 s; 0 `pageerror`; 2×404 externos (INC-003) |
 | V-02 | 2026-11-02 | Chromium Headless 153.0.8010.0 | ídem | PARCIAL | `03_hub_render.png`, `05_hub_glyph_defect.png` | Assets y fuente cargan; glifos «□» (INC-004) |
 | V-03 | 2026-11-02 | Chromium Headless 153.0.8010.0 | ídem | PARCIAL | `08_resized_800x600.png`, `log_combat_rooms_resize.json` | 27 canvas; redimensionado real; solapamiento HUD (INC-006) |
 | V-04 | 2026-11-02 | Chromium Headless 153.0.8010.0 | ídem | PARCIAL | `log_combat_rooms_resize.json`, `log_event_listeners.json` | `px/py` vivos; faltan colisiones/límites/diagonales |

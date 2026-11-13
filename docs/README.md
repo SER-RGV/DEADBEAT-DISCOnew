@@ -2,7 +2,10 @@
 
 Esta carpeta reúne documentación y pruebas. Usa este índice para encontrar cada tema sin tener que recorrer todo el repositorio.
 
-## Diseño y arte
+## Guía del repositorio
+
+- [Guía de carpetas, rutas y reglas de mantenimiento](REPOSITORY_GUIDE.md)
+- [Diseño y arte
 
 - [Biblia visual](../ART_BIBLE.md)
 - [Inventario de recursos](../ASSET_INVENTORY.md)

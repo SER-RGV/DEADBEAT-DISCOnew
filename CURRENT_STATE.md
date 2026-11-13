@@ -177,3 +177,15 @@ Toda modificación debe partir de una copia de seguridad.
 - QA del inicio: `tools/qa/test_restart_flow.js`, 65 de 65. Sonido audible y mando físico, sin probar.
 - Pendiente: animaciones del protagonista e integración en la partida; reinicio del progreso permanente en NUEVA PARTIDA.
 - Detalle: `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.
+
+
+---
+
+## Estado del repositorio · 2026-11-13 (limpieza previa a integración)
+
+- Rama de trabajo: `chore/pre-merge-cleanup`, creada desde `arena/1a801cc0-deadbeat-disconew`.
+- Build histórica `v9_t3_fase1b_cache_probe.html`: conservada en `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html`; la copia duplicada de la raíz se retiró.
+- `artevi2/` retirado porque sus 35 archivos eran duplicados exactos de `ART_EVIDENCE/tanda_01/tanda_02/`; se conserva la copia canónica.
+- Builds de entrada actuales: `index.html` y `DEADBEAT_DISCO.html`; ambos se mantienen porque los genera el workflow de construcción.
+- Código fuente: `src/`; construcción: `tools/build_active_html.py`.
+- Esta limpieza no modifica el motor ni el contenido del juego. La reorganización de informes históricos y carpetas técnicas queda pendiente de auditoría de enlaces y rutas.

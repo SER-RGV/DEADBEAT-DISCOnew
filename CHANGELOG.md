@@ -171,3 +171,14 @@ Registrar aquí cada modificación:
 - Fondo del menú: pozo y sombrero. Fuentes definitivas en `assets/fonts/` (Barlow Condensed, Bangers; OFL).
 - Protagonista en pantalla sólo con la lámina maestra y el IDLE 07B.
 - Archivos: `src/dd_opening.js`, `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `tools/qa/test_restart_flow.js`, láminas `mc_*`. QA 65 de 65. Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md`.
+
+
+## 2026-11-13 · Limpieza previa a integración
+
+- Rama: `chore/pre-merge-cleanup` (basada en `arena/1a801cc0-deadbeat-disconew`).
+- Retirada `artevi2/` (35 archivos): duplicados exactos de `ART_EVIDENCE/tanda_01/tanda_02/`, comprobados mediante SHA Git; se conserva la copia canónica.
+- Retirada `v9_t3_fase1b_cache_probe.html` de la raíz: duplicado exacto de `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html`; copia preservada.
+- Actualizados README, índice de documentación, inventario y plan histórico de validación para reflejar las rutas conservadas.
+- Añadida `docs/REPOSITORY_GUIDE.md` con mapa de carpetas y reglas de mantenimiento.
+- Alcance: limpieza documental y de duplicados exactos. Sin cambios en código de juego, builds actuales, assets activos, manifiestos, partidas guardadas ni `main`.
+- Pruebas: verificación estática de SHA Git y estructura del árbol. No se declara ejecutada una prueba funcional del juego.
