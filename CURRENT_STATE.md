@@ -189,3 +189,35 @@ Toda modificación debe partir de una copia de seguridad.
 - Builds de entrada actuales: `index.html` y `DEADBEAT_DISCO.html`; ambos se mantienen porque los genera el workflow de construcción.
 - Código fuente: `src/`; construcción: `tools/build_active_html.py`.
 - Esta limpieza no modifica el motor ni el contenido del juego. La reorganización de informes históricos y carpetas técnicas queda pendiente de auditoría de enlaces y rutas.
+
+
+---
+
+## Estado vigente consolidado · 2026-11-13
+
+Este bloque es la referencia vigente para el estado de la introducción y del protagonista. Las secciones anteriores de PROJECT RESTART registran iteraciones históricas y no deben leerse como el estado final.
+
+### Introducción y menú
+- Intro Motion Comic integrada en la build de la rama de trabajo Arena: 7 planos, aproximadamente 32 segundos.
+- Flujo previsto: carga → intro → menú → Nueva partida → descenso de 4,6 s → Refugio.
+- La intro presenta grietas, caída y sombrero; el descenso de Nueva partida completa la caída sin repetir esos elementos.
+- QA reportada: 65/65 en el flujo automatizado. No equivale a validación de audio audible, mando físico ni hardware real.
+- Documentación de producción: `docs/RESTART/10_INTRO_COMIC_NARRACION.md`, `11_INTRO_COMIC_STORYBOARD.md`, `12_INTRO_COMIC_PRODUCCION.md`.
+
+### Protagonista
+- Lámina maestra aprobada: `assets/cinematics/restart/character_master/protagonist_master_approved.png`; no regenerar ni reinterpretar.
+- IDLE 07B aceptado como referencia estática de un fotograma para el Refugio. No sustituye los sprites de gameplay.
+- Los 22 sprites anteriores permanecen intactos para gameplay hasta una fase autorizada de reconstrucción.
+- No modificar motor, sprites de gameplay ni animaciones restantes como parte de esta limpieza.
+
+### Contrato de Nueva partida y Continuar
+- Nueva partida debe reiniciar la run y la progresión temporal, conservando desbloqueos, recursos, estadísticas e hitos permanentes.
+- Continuar debe recuperar la partida guardada.
+- El borrado de datos debe ser una acción separada y requerir confirmación explícita.
+- Este bloque registra el comportamiento acordado; no afirma por sí solo que todos los casos de persistencia hayan superado QA.
+
+### Validación pendiente
+- Audio audible y sincronización percibida.
+- Mando físico.
+- Navegadores y hardware reales adicionales.
+- Validación visual/funcional completa fuera de Chromium headless.

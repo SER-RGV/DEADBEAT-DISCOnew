@@ -43,6 +43,7 @@ Si acabas de abrir el proyecto, sigue este orden:
 - No borres capturas, informes históricos ni copias de seguridad solo porque parezcan repetidos.
 - Los archivos `index.html` y `DEADBEAT_DISCO.html` son iguales ahora, pero ambos los genera la automatización de construcción. **No borrar ninguno.**
 - `index.html` y `DEADBEAT_DISCO.html` son builds generadas. Edita `src/` y usa `tools/build_active_html.py`.
-- La build histórica `v9_t3_fase1b_cache_probe.html` se conserva como copia en `backups/`; no forma parte del arranque actual.
+- La build histórica se conserva como `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html`; no forma parte del arranque actual.
+- [Índice de informes y auditorías](docs/REPORTS_INDEX.md): localiza los informes por tanda y tema.
 
 Los nombres técnicos se conservan cuando otras partes del proyecto dependen de ellos. La explicación sencilla está aquí y en los README de las carpetas.

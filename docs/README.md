@@ -2,6 +2,9 @@
 
 Esta carpeta reúne documentación y pruebas. Usa este índice para encontrar cada tema sin recorrer todo el repositorio.
 
+## Índices
+- [Informes, auditorías y entregas](REPORTS_INDEX.md)
+
 ## Guía del repositorio
 - [Guía de carpetas, rutas y reglas de mantenimiento](REPOSITORY_GUIDE.md)
 

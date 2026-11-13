@@ -1,9 +1,9 @@
 # Guía del repositorio — DEADBEAT DISCO
 
 ## Empieza aquí
-1. [README principal](../../README.md): orientación rápida.
-2. [Estado actual](../../CURRENT_STATE.md): qué está vigente y qué sigue pendiente.
-3. [CHANGELOG](../../CHANGELOG.md): cambios registrados.
+1. [README principal](../README.md): orientación rápida.
+2. [Estado actual](../CURRENT_STATE.md): qué está vigente y qué sigue pendiente.
+3. [CHANGELOG](../CHANGELOG.md): cambios registrados.
 4. [Biblia maestra del universo](LORE/BIBLIA_MAESTRA_UNIVERSO_v1.0.txt): canon narrativo.
 5. [RESTART](RESTART/): reconstrucción visual del protagonista y la introducción.
 

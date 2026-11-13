@@ -1,4 +1,6 @@
-# Inventario técnico — DEADBEAT DISCO (Fase 0.2)
+# Inventario técnico histórico — DEADBEAT DISCO (Fase 0.2)
+
+> **Documento de referencia histórica, no fotografía del repositorio actual.** Describe la build original analizada el 2026-11-02. Para el estado vigente consulta [CURRENT_STATE.md](CURRENT_STATE.md), el [inventario de archivos](docs/REPORTS_INDEX.md) y el [README](README.md). No extrapoles sus recuentos, versiones o conclusiones a las builds actuales.
 
 - Fecha: 2026-11-02.
 - Fuente: lectura íntegra de `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` (13.380.910 bytes, 19.835 líneas, SHA-256 `b2ef4ad892d6411b1745bdf8b2786202db5cea8daba397cd9023d41749f22e4a`) y de los 4 archivos de `main` en el commit `09df237d5f98de7aee8b0499648610acdf1bae71`.
