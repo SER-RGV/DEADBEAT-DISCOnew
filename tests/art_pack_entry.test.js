@@ -11,8 +11,7 @@ assert.ok(match, "ART_PACK debe exponer la funci√≥n entry(m) en su implementaci√
 
 const context = { BASE: "ART_ASSETS/tanda_01/" };
 vm.createContext(context);
-vm.runInContext("(" + match[0] + ")", context);
-const entry = context.entry;
+const entry = vm.runInContext("(" + match[0] + ")", context);
 
 const custom = entry({
   id: "hub-floor",

@@ -92,12 +92,16 @@ No se encontró una ejecución del workflow para `chore/pre-merge-cleanup`. El e
 - Comparar capturas de la build regenerada con la build aprobada.
 - Probar expresamente que HUB-01 carga el PNG esperado tras corregir `entry(m)`.
 
-## Recomendación de integración
+## Correcciones aplicadas en la rama de limpieza
 
-1. Corregir las propiedades duplicadas de `ART_PACK/art_pack.js` y añadir una prueba de rutas.
-2. Hacer que la rama `chore/**` tenga validación automatizada.
-3. Declarar dependencias reproducibles para QA.
-4. Resolver o etiquetar los maestros pendientes de `CINEMATIC_ASSETS`.
-5. Ejecutar la batería funcional y revisar el resultado antes de abrir/aceptar el merge.
+- `ART_PACK/art_pack.js`: eliminadas las propiedades duplicadas; `file` respeta ahora `m.path`, después `m.base + m.file` y finalmente `BASE + m.file`. La versión de estado se ha unificado para incluir las tandas registradas.
+- `tests/art_pack_entry.test.js`: prueba de regresión para las tres estrategias de resolución de rutas.
+- `package.json`: dependencia de QA `playwright-core` fijada a `1.58.2` y comandos npm para ejecutar las pruebas.
+- `.github/workflows/rebuild-active-html.yml`: incluye `chore/**` y `ART_PACK/**`; reconstruye HTML, instala Chromium, ejecuta la prueba de rutas y la regresión Playwright del flujo de inicio.
+- `CINEMATIC_ASSETS/manifest.json`: no se inventaron ni generaron los seis maestros ausentes. El propio manifiesto ya los marca `PENDING_UPLOAD`; se conserva ese estado y no se consideran assets activos.
 
-**No se ha modificado el motor, los assets, los manifiestos activos ni las builds durante esta revisión.**
+## Validación posterior pendiente
+
+Los cambios se han guardado en la rama, pero todavía no se ha ejecutado GitHub Actions sobre el nuevo commit. La suite Playwright requiere que Actions termine. Si falla, se debe corregir antes de integrar. También siguen pendientes las pruebas de audio audible, mando físico y hardware real.
+
+**No se modificaron el motor de juego, los sprites, los manifiestos activos de cinemática ni el contenido visual aprobado.**
