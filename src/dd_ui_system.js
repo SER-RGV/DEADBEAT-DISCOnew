@@ -63,8 +63,8 @@
      última escritura ganaba y el fondo quedaba roto para siempre aunque el
      onerror inline hubiera actuado a tiempo. */
   function menuBackdropSrc() {
-    try { if (window.__DD_BACKDROP_FALLBACK) return "assets/ui/menu_main_backdrop.png"; } catch (e) {}
-    return assetSrc("menu_main_backdrop_a") || "assets/ui/menu_main_backdrop_a.jpg";
+    /* PROJECT RESTART: el fondo del menú es el último plano de la intro. */
+    return "assets/cinematics/restart/opening/mc_07_pit.jpg";
   }
 
   function weaponImgSrc(wid) {
@@ -110,17 +110,102 @@
 
   /* ============================ A. MENÚ PRINCIPAL ========================= */
   var MENU_ITEMS = [
-    { action: "new", icon: "new", label: "NUEVA PARTIDA", sub: "Desciende al Círculo I · Lujuria" },
-    { action: "continue", icon: "cont", label: "CONTINUAR", sub: "Retoma tu último descenso registrado" },
-    { action: "slots", icon: "load", label: "SELECCIONAR PARTIDA", sub: "Ranuras de guardado disponibles" },
-    { action: "options", icon: "opts", label: "OPCIONES", sub: "Audio, vídeo, controles y accesibilidad" },
-    { action: "credits", icon: "cred", label: "CRÉDITOS", sub: "Quién hizo latir esta pista" },
-    { action: "exit", icon: null, label: "SALIR", sub: "Cerrar el club" }
+    { action: "new", label: "NUEVA PARTIDA", sub: "Baja al Refugio" },
+    { action: "continue", label: "CONTINUAR", sub: "Vuelve al Refugio con tu progreso" },
+    { action: "options", label: "OPCIONES", sub: "Audio, vídeo, controles y accesibilidad" },
+    { action: "credits", label: "CRÉDITOS", sub: "Quién hizo sonar esta pista" },
+    { action: "exit", label: "SALIR", sub: "Apagar las luces" }
   ];
+
+  /* ------------------------------ guardado -------------------------------- */
+  /* El motor no guarda incursiones a medias. Lo que identifica una partida es
+     esta ficha (creada al llegar al Refugio por primera vez) más el progreso
+     permanente que el propio motor ya persiste. */
+  var SAVE_KEY = "dd_save_v1";
+  /* Reparto de lo que hay en localStorage. Es la única lista: la usan NUEVA
+     PARTIDA, BORRAR DATOS y las pruebas.
+     - RUN: estado de la partida en curso. NUEVA PARTIDA lo reinicia.
+     - PERMANENT: desbloqueos, recursos, estadísticas e hitos. Sólo los toca
+       BORRAR DATOS, con confirmación.
+     - SETTINGS: ajustes. No los borra nadie. */
+  var STORAGE = {
+    RUN: [
+      { key: "dd_save_v1", label: "Ficha de la partida actual" },
+      { key: "dmo_floor_v32", label: "Planta generada de la última incursión" }
+    ],
+    PERMANENT: [
+      { key: "dmodisco_currency_v1", label: "Fichas" },
+      { key: "dmodisco_upgrades_v1", label: "Mejoras compradas" },
+      { key: "dmodisco_weapon_prestige_v1", label: "Prestigio de armas" },
+      { key: "dmodisco_ach_v1", label: "Logros" },
+      { key: "dmodisco_best_v5", label: "Mejor puntuación" },
+      { key: "dmodisco_best_round_v1", label: "Sala más profunda" },
+      { key: "dmodisco_best_combo_v216", label: "Mejor combo" },
+      { key: "dmodisco_hist_v3", label: "Historial de incursiones" },
+      { key: "dmo_victories_v214", label: "Victorias" },
+      { key: "dmo_secret_route_v32", label: "Ruta secreta" }
+    ],
+    SETTINGS: [
+      { key: "dmodisco_vol_v1", label: "Mezcla de sonido" },
+      { key: "dmodisco_muted_v1", label: "Silencio" },
+      { key: "ddc_cover_settings_v1", label: "Volumen del menú" },
+      { key: "dmodisco_a11y_v1", label: "Vídeo y accesibilidad" },
+      { key: "dmo_roll_v271", label: "Ajuste de la voltereta" }
+    ]
+  };
+  function storageKeys(group) { return STORAGE[group].map(function (e) { return e.key; }); }
+  /* NUEVA PARTIDA: sólo el estado de run que no es la ficha (la ficha se
+     reescribe en writeSave). No toca nada de PERMANENT ni de SETTINGS. */
+  function resetRunState() {
+    var removed = [];
+    STORAGE.RUN.forEach(function (e) {
+      if (e.key === SAVE_KEY) return;
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
+  /* BORRAR DATOS: partida y progreso permanente. Sólo se llama desde la
+     confirmación explícita de OPCIONES. Devuelve las claves eliminadas. */
+  function eraseAllProgress() {
+    var removed = [];
+    STORAGE.RUN.concat(STORAGE.PERMANENT).forEach(function (e) {
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
+  function readSave() {
+    var v = storeJson(SAVE_KEY);
+    return v && typeof v === "object" && v.v === 1 ? v : null;
+  }
+  function writeSave(isNew) {
+    var now = new Date().toISOString();
+    var prev = readSave();
+    /* Mismo formato (v: 1). `runs` es un campo añadido y opcional: cuenta las
+       partidas empezadas en este navegador y sobrevive a NUEVA PARTIDA. */
+    var rec = (!isNew && prev) ? prev : { v: 1, created: now, visits: 0, runs: ((prev && prev.runs) || (prev ? 1 : 0)) + 1 };
+    rec.last = now;
+    rec.visits = (rec.visits || 0) + 1;
+    try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(rec)); return true; } catch (e) { return false; }
+  }
+  function hasSave() {
+    return !!readSave() || readProgress().hasProgress;
+  }
+  /* CONTINUAR sólo existe en el menú cuando hay partida guardada. */
+  function refreshContinue() {
+    var btn = document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="continue"]');
+    if (!btn) return;
+    var on = hasSave();
+    btn.hidden = !on;
+    btn.disabled = !on;
+    btn.setAttribute("aria-hidden", on ? "false" : "true");
+    var btns = menuButtons();
+    if (uiState.menuIndex >= btns.length) uiState.menuIndex = 0;
+  }
 
   function buildMainMenu() {
     var menu = document.createElement("section");
     menu.id = "dd-main-menu";
+    menu.className = "dd-rs";
     menu.setAttribute("aria-label", "Menú principal de DEADBEAT DISCO");
 
     var nav = MENU_ITEMS.map(function (it, i) {
@@ -133,43 +218,47 @@
     }).join("");
 
     menu.innerHTML =
-      '<img id="dd-menu-backdrop" alt="" onerror="this.onerror=null;window.__DD_BACKDROP_FALLBACK=1;this.src=\'assets/ui/menu_main_backdrop.png\'" src="' + menuBackdropSrc() + '">' +
+      '<img id="dd-menu-backdrop" alt="" onerror="this.onerror=null;this.style.visibility=\'hidden\'" src="' + menuBackdropSrc() + '">' +
       '<div class="dd-menu-atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>' +
       '<div class="dd-menu-vig" aria-hidden="true"></div>' +
       '<div class="dd-menu-left">' +
       '  <div class="dd-menu-brand">' +
       '    <img id="dd-menu-logo-img" class="dd-menu-logo" alt="DEADBEAT DISCO" src="' + (assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png") + '">' +
-      '    <div class="dd-menu-tagline"><span>UN DESCENSO MUY BAILABLE</span><i aria-hidden="true"></i></div>' +
+      '    <div class="dd-menu-tagline"><span>LA NOCHE QUE DEVORÓ EL AMANECER</span><i aria-hidden="true"></i></div>' +
       '  </div>' +
       '  <nav class="dd-menu-nav" id="dd-menu-nav" role="menu" aria-label="Opciones del menú principal">' + nav + '</nav>' +
       '  <div class="dd-menu-footer">' +
-      '    <span class="dd-pill" id="dd-gamepad-pill">TECLADO + RATÓN · MANDO XBOX</span>' +
+      '    <span class="dd-pill" id="dd-gamepad-pill">TECLADO · RATÓN · MANDO</span>' +
       '    <span class="dd-menu-build" id="dd-menu-build">v3.3.0</span>' +
       '  </div>' +
       '</div>' +
-      '<div class="dd-menu-side">' +
-      '  <div class="dd-menu-badge"><img src="assets/fase01/emblem_fox_glow.png" alt=""></div>' +
-      '  <div class="dd-menu-hint" id="dd-menu-hint">' +
-      '    <span><kbd>↑</kbd><kbd>↓</kbd> NAVEGAR</span>' +
-      '    <span><kbd>ENTER</kbd> ELEGIR</span>' +
-      '    <span><kbd>ESC</kbd> ATRÁS</span>' +
-      '    <span class="dd-gp"><kbd>A</kbd> ELEGIR · <kbd>B</kbd> ATRÁS</span>' +
-      '  </div>' +
+      '<div class="dd-menu-hint" id="dd-menu-hint">' +
+      '  <span class="dd-kb"><kbd>W</kbd><kbd>S</kbd> MOVER</span>' +
+      '  <span class="dd-kb"><kbd>ENTER</kbd> ELEGIR</span>' +
+      '  <span class="dd-kb"><kbd>ESC</kbd> ATRÁS</span>' +
+      '  <span class="dd-gp"><kbd>CRUCETA</kbd> MOVER</span>' +
+      '  <span class="dd-gp"><kbd>A</kbd> ELEGIR</span>' +
+      '  <span class="dd-gp"><kbd>B</kbd> ATRÁS</span>' +
       '</div>';
     document.body.appendChild(menu);
 
     menu.querySelectorAll(".dd-menu-btn").forEach(function (btn, idx) {
-      btn.addEventListener("mouseenter", function () {
+      /* Sólo un movimiento REAL del ratón cambia la selección. Con mouseenter, un
+         cursor quieto sobre el menú le quitaba la selección al teclado o al mando
+         cada vez que la pantalla se recomponía (por ejemplo al cerrar un submenú). */
+      btn.addEventListener("mousemove", function (ev) {
         if (uiState.busy) return;
-        setMenuSelection(idx, false);
+        if (ev.screenX === uiState.mouseX && ev.screenY === uiState.mouseY) return;
+        uiState.mouseX = ev.screenX; uiState.mouseY = ev.screenY;
+        if (!btn.classList.contains("dd-selected")) selectButton(btn);
       });
       btn.addEventListener("focus", function () {
         if (uiState.busy) return;
-        setMenuSelection(idx, false);
+        selectButton(btn);
       });
       btn.addEventListener("click", function () {
-        if (uiState.busy) return;
-        setMenuSelection(idx, false);
+        if (uiState.busy || btn.disabled) return;
+        selectButton(btn);
         triggerMenuAction(btn.getAttribute("data-action"));
       });
     });
@@ -179,30 +268,23 @@
       var meta = document.querySelector('meta[name="version"]');
       build.textContent = "v" + ((meta && meta.content) || "3.3.0");
     }
-    paintBtnIcons();
+    refreshContinue();
   }
 
+  /* Los iconos genéricos de la FASE 01 ya no se usan: la marca de selección es
+     un brochazo dibujado en CSS. Se conserva la función como no-op documentado
+     porque refreshAssets la invoca. */
   function paintBtnIcons() {
-    var btns = document.querySelectorAll("#dd-menu-nav .dd-menu-btn");
-    Array.prototype.forEach.call(btns, function (b) {
-      var icon = b.querySelector(".dd-btn-icon");
-      if (!icon) return;
-      var action = b.getAttribute("data-action");
-      var map = { new: "new", continue: "cont", slots: "load", options: "opts", credits: "cred" };
-      var name = map[action];
-      if (!name) { icon.style.backgroundImage = "none"; return; }
-      /* Las dos variantes van cargadas para que el cambio de estado no parpadee. */
-      if (!icon.dataset.ready) {
-        icon.dataset.ready = "1";
-        var pre = new Image();
-        pre.src = "assets/fase01/menu_icon_" + name + "_sel.png";
-      }
-      icon.style.backgroundImage = 'url("assets/fase01/menu_icon_' + name + '_idle.png")';
-    });
+    return;
   }
-
+  /* Sólo los botones presentes: CONTINUAR oculto no cuenta para la navegación. */
   function menuButtons() {
-    return document.querySelectorAll("#dd-menu-nav .dd-menu-btn");
+    return document.querySelectorAll("#dd-menu-nav .dd-menu-btn:not([hidden])");
+  }
+  function selectButton(btn) {
+    var i = Array.prototype.indexOf.call(menuButtons(), btn);
+    if (i >= 0 && i !== uiState.menuIndex) setMenuSelection(i, false);
+    else if (i >= 0) setMenuSelection(i, false);
   }
 
   function setMenuSelection(idx, withSfx) {
@@ -210,6 +292,9 @@
     if (!btns.length) return;
     var n = btns.length;
     uiState.menuIndex = ((idx % n) + n) % n;
+    Array.prototype.forEach.call(document.querySelectorAll("#dd-menu-nav .dd-menu-btn[hidden]"), function (b) {
+      b.classList.remove("dd-selected"); b.setAttribute("tabindex", "-1");
+    });
     Array.prototype.forEach.call(btns, function (b, i) {
       var on = i === uiState.menuIndex;
       b.classList.toggle("dd-selected", on);
@@ -232,14 +317,61 @@
 
     if (action === "new") return doNewGame();
     if (action === "continue") return doContinue();
-    if (action === "slots") { sfx("ok"); return openSubmenu("partidas"); }
     if (action === "options") { sfx("ok"); return openSubmenu("options"); }
     if (action === "credits") { sfx("ok"); return openSubmenu("credits"); }
     if (action === "exit") { sfx("ok"); return doExit(); }
   }
 
+  function pressFx(action) {
+    var btn = document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="' + action + '"]');
+    if (!btn) return;
+    btn.classList.add("dd-press");
+    setTimeout(function () { btn.classList.remove("dd-press"); }, 420);
+  }
+
+  /* Entrada al Refugio. Única puerta para NUEVA PARTIDA y CONTINUAR.
+     PLAYING sólo se declara si DD_BOOT.enterGame() lo acepta; si no, el menú
+     vuelve y `busy` se libera siempre. */
+  function arriveAtRefuge(isNew) {
+    var entered = false;
+    try {
+      if (window.DD_HUB && typeof window.DD_HUB.enter === "function") window.DD_HUB.enter();
+      entered = !!(window.DD_BOOT && window.DD_BOOT.enterGame() === true);
+    } catch (e) { entered = false; console.warn("[DD_UI] no se pudo entrar al Refugio", e); }
+    if (entered) {
+      if (isNew) resetRunState();
+      writeSave(isNew);
+    } else {
+      try {
+        if (window.DD_BOOT) window.DD_BOOT.exitGameToMenu();
+        else showMainMenu();
+      } catch (e2) {}
+    }
+    uiState.busy = false;
+    return entered;
+  }
+
+  /* NUEVA PARTIDA: descenso (se puede saltar) → Refugio → ficha nueva y estado de
+     run reiniciado. El progreso permanente no se toca (ver STORAGE).
+     No hay camino que entre al Refugio sin pasar por la secuencia. */
   function doNewGame() {
-    startRunWithDescent(1);
+    if (uiState.busy) return;
+    uiState.busy = true;
+    sfx("ok");
+    pressFx("new");
+    var op = window.DD_OPENING;
+    var started = false;
+    try {
+      if (op && typeof op.playDescent === "function") {
+        started = op.playDescent(function () { arriveAtRefuge(true); }) !== false;
+      }
+    } catch (e) { started = false; }
+    if (!started) { hideMainMenu({ keepState: true }); arriveAtRefuge(true); return; }
+    /* La música del menú se apaga durante el descenso: al Refugio se llega en
+       silencio de menú. */
+    if (window.DD_BOOT) window.DD_BOOT.audio.stopMenuMusic(0.8);
+    /* El menú se retira cuando el lienzo del descenso ya lo cubre. */
+    setTimeout(function () { if (uiState.busy) hideMainMenu({ keepState: true }); }, 380);
   }
 
   /* Arranque real de partida.
@@ -303,7 +435,7 @@
             window.DD_BOOT.exitGameToMenu();
           }
           if (typeof showDialogue === "function") {
-            showDialogue("DJ VIRGILIO", "El descenso no arrancó. Prueba otra vez.", 5);
+            showDialogue("TEMPO", "El descenso no arrancó. Prueba otra vez.", 5);
           }
         } catch (e) {
           console.warn("[DD_UI] no se pudo restaurar el menú", e);
@@ -415,19 +547,16 @@
     };
   }
 
+  /* CONTINUAR: vuelve al Refugio con el progreso guardado, sin repetir el
+     descenso. Sólo es alcanzable cuando hay partida (el botón no existe si no). */
   function doContinue() {
-    var p = readProgress();
-    if (!p.hasProgress) {
-      sfx("back");
-      openSubmenu("partidas", { noSave: true });
-      return;
-    }
+    if (uiState.busy) return;
+    if (!hasSave()) { sfx("back"); refreshContinue(); return; }
+    uiState.busy = true;
     sfx("ok");
-    /* El motor no guarda partidas a medias (diseño declarado del propio juego):
-       continuar = reanudar el descenso en el círculo más profundo alcanzado,
-       conservando el meta-progreso real. */
-    var idx = p.bestRound >= 100 ? 9 : Math.max(0, Math.min(8, Math.ceil(Math.max(1, p.bestRound) / 11) - 1));
-    doStartAt(idx, "continue");
+    pressFx("continue");
+    hideMainMenu({ keepState: true });
+    arriveAtRefuge(false);
   }
 
   function doStartAt(circleIdx, why) {
@@ -450,7 +579,8 @@
     options: { title: "OPCIONES", sub: "Ajustes del club · se recuerdan en este navegador" },
     credits: { title: "CRÉDITOS", sub: "La pista no se construyó sola" },
     partidas: { title: "SELECCIÓN DE PARTIDA", sub: "Estado persistente del club" },
-    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" }
+    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" },
+    erase: { title: "BORRAR DATOS", sub: "Esta acción no se puede deshacer" }
   };
 
   function submenuHost() {
@@ -468,7 +598,7 @@
       '    <div><span class="dd-submenu-kicker" id="dd-submenu-kicker">CLUB</span>' +
       '    <h2 id="dd-submenu-title">SUBMENÚ</h2>' +
       '    <p id="dd-submenu-sub"></p></div>' +
-      '    <button type="button" class="dd-submenu-back" id="dd-submenu-back">◀ VOLVER <kbd>ESC</kbd></button>' +
+      '    <button type="button" class="dd-submenu-back" id="dd-submenu-back">VOLVER <kbd>ESC</kbd></button>' +
       '  </header>' +
       '  <div class="dd-submenu-body" id="dd-submenu-body"></div>' +
       '  <footer class="dd-submenu-foot">' +
@@ -488,25 +618,38 @@
     el("dd-submenu-kicker").textContent = "DEADBEAT DISCO · " + String(name).toUpperCase();
     el("dd-submenu-title").textContent = meta.title;
     el("dd-submenu-sub").textContent = meta.sub;
-    el("dd-submenu-foot").textContent = "↑↓ NAVEGAR · ENTER APLICAR · ESC VOLVER";
+    el("dd-submenu-foot").textContent = name === "credits" ? "ESC VOLVER" : "FLECHAS NAVEGAR · ENTER APLICAR · ESC VOLVER";
     var body = el("dd-submenu-body");
+    returnMixPanel();
     body.innerHTML = "";
 
     if (name === "options") renderOptions(body);
     else if (name === "credits") renderCredits(body);
     else if (name === "partidas") renderSlots(body, opts || {});
     else if (name === "exit") renderExit(body, opts || {});
+    else if (name === "erase") renderErase(body);
 
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
-    var first = body.querySelector("button, input, select");
+    var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
+  }
+
+  /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
+     volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
+     segunda vez se destruía y la mezcla del juego desaparecía hasta recargar. */
+  function returnMixPanel() {
+    var mixSrc = el("audio-panel-menu-body");
+    if (mixSrc && mixSrc._ddHome && mixSrc.parentNode !== mixSrc._ddHome) {
+      try { mixSrc._ddHome.appendChild(mixSrc); } catch (e) {}
+    }
   }
 
   function closeSubmenu() {
     resetDirectionalState();
+    returnMixPanel();
     var host = el("dd-submenu");
     if (host) {
       host.classList.remove("is-open");
@@ -518,6 +661,23 @@
     if (window.DD_BOOT && window.DD_BOOT.closeSubmenu) window.DD_BOOT.closeSubmenu();
     var btn = menu && menu.querySelector(".dd-menu-btn.dd-selected");
     if (btn) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
+  }
+
+  /* Mezcla que se oye en el menú. MAESTRO y MÚSICA son del motor del juego, que
+     en el menú está callado: sin esto, moverlos no cambiaba nada audible.
+     La música del menú = VOLUMEN DEL MENÚ × MAESTRO × MÚSICA; los sonidos de
+     interfaz y la intro obedecen a MAESTRO. */
+  window.DD_MENU_MIX = function () {
+    var m = storeJson("dmodisco_vol_v1") || {};
+    var c = function (v, d) { v = +v; return isFinite(v) ? Math.max(0, Math.min(1, v)) : d; };
+    var master = c(m.master, 1);
+    /* 0,85 es el valor por defecto de MÚSICA: con él la música del menú queda a su nivel calibrado. */
+    /* Igual con EFECTOS (0,9 por defecto) para los sonidos de interfaz. */
+    return { master: master, music: Math.min(1.2, master * c(m.music, 0.85) / 0.85), ui: Math.min(1.2, master * c(m.sfx, 0.9) / 0.9) };
+  };
+  function applyMenuMix() {
+    var cover = window.DDC_COVER;
+    try { if (cover && cover.music && cover.music.setVol) cover.music.setVol(); } catch (e) {}
   }
 
   /* --------------------------------- OPCIONES ----------------------------- */
@@ -537,7 +697,7 @@
       '<div class="dd-opt-grid">' +
       '  <section class="dd-opt-col">' +
       '    <h3>MEZCLA DEL JUEGO</h3>' +
-      '    <p class="dd-opt-note">Controla la música y los efectos de la partida (motor DMO).</p>' +
+      '    <p class="dd-opt-note">MAESTRO, MÚSICA y EFECTOS se oyen también aquí, en el menú. VOZ DJ sólo suena durante la partida.</p>' +
       '    <div class="dd-mix" id="dd-opt-mix"></div>' +
       '  </section>' +
       '  <section class="dd-opt-col">' +
@@ -573,6 +733,11 @@
       '    <div class="dd-opt-row"><label for="dd-opt-pad">MANDO XBOX</label><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
       '  </section>' +
       '</div>' +
+      '<div class="dd-opt-data">' +
+      '  <h3>DATOS GUARDADOS</h3>' +
+      '  <p class="dd-opt-note">NUEVA PARTIDA no borra tus fichas, mejoras, logros ni récords. Para eliminarlos hay que hacerlo aquí.</p>' +
+      '  <button type="button" class="dd-btn-ghost" id="dd-opt-erase">BORRAR DATOS…</button>' +
+      '</div>' +
       '<p class="dd-opt-note dd-opt-foot">Los cambios se aplican al instante y se guardan en este navegador. ' +
       'La sensibilidad del ratón la define el sistema operativo: el juego no la expone.</p>';
 
@@ -591,6 +756,13 @@
       mixHost.innerHTML = '<p class="dd-opt-note">La mezcla del motor aún no está lista. Vuelve a abrir OPCIONES en unos segundos.</p>';
     }
 
+    var eraseBtn = el("dd-opt-erase");
+    if (eraseBtn) eraseBtn.addEventListener("click", function () {
+      sfx("ok");
+      closeSubmenu();            /* devuelve a su sitio el panel de mezcla del motor antes de cambiar de pantalla */
+      openSubmenu("erase");
+    });
+
     var resEl = el("dd-opt-res");
     function paintRes() {
       if (!resEl) return;
@@ -599,6 +771,17 @@
     }
     paintRes();
     window.addEventListener("resize", paintRes);
+
+    /* Los deslizadores del motor guardan su valor al moverse; aquí se reaplica
+       al instante sobre lo que suena en el menú. */
+    if (mixHost && !mixHost._ddMixBound) {
+      mixHost._ddMixBound = true;
+      mixHost.addEventListener("input", function () { setTimeout(applyMenuMix, 0); });
+      /* Al soltar un deslizador suena un toque de interfaz al nuevo volumen. */
+      mixHost.addEventListener("change", function (ev) {
+        setTimeout(function () { applyMenuMix(); if (ev.target && ev.target.type === "range") sfx("move"); }, 0);
+      });
+    }
 
     /* Volumen del menú (motor de la portada, con persistencia propia). */
     var mv = el("dd-opt-menuvol");
@@ -610,6 +793,8 @@
           var s = JSON.parse(store("ddc_cover_settings_v1", "null")) || {};
           s.vol = v;
           window.localStorage.setItem("ddc_cover_settings_v1", JSON.stringify(s));
+          /* Se aplica al instante sobre el motor de música del menú. */
+          if (cover && cover.music && typeof cover.music.setVol === "function") cover.music.setVol(v);
         } catch (e) {}
       });
     }
@@ -733,7 +918,7 @@
       '<div class="dd-cred">' +
       '  <div class="dd-cred-hero">' +
       '    <img src="assets/fase01/emblem_fox_glow.png" alt="">' +
-      '    <div><b>DEADBEAT DISCO</b><span>DESCENSO · MÚSICA · CAOS · REDENCIÓN</span></div>' +
+      '    <div><b>DEADBEAT DISCO</b><span>LA NOCHE QUE DEVORÓ EL AMANECER</span></div>' +
       '  </div>' +
       '  <dl class="dd-cred-list">' +
       '    <div><dt>DIRECCIÓN Y PRODUCCIÓN</dt><dd>SER-RGV</dd></div>' +
@@ -742,7 +927,7 @@
       '    <div><dt>MOTOR</dt><dd>' + (engine ? "DMO " + esc(engine) : "DMO") + ' · render isométrico propio · sin dependencias externas</dd></div>' +
       '    <div><dt>TIPOGRAFÍA DE PISTA</dt><dd>DDPixel — fuente bitmap incluida en la propia build' + (fontOk ? " (cargada correctamente)" : "") + '</dd></div>' +
       '    <div><dt>MÚSICA Y AUDIO</dt><dd>Síntesis procedural WebAudio original del proyecto</dd></div>' +
-      '    <div><dt>FASE 01 · MENÚ Y CINEMÁTICA</dt><dd>Integración sobre el motor existente (DD_BOOT · DD_UI · DD_CINE)</dd></div>' +
+      '    <div><dt>INTRODUCCIÓN «LA NOCHE QUE VUELVE»</dt><dd>Ilustraciones generadas con IA a partir de la lámina maestra del protagonista; montaje, animación y sonido por código</dd></div>' +
       '    <div><dt>VERSIÓN</dt><dd>v' + esc(version) + '</dd></div>' +
       '  </dl>' +
       '  <p class="dd-cred-note">Créditos construidos sólo con la información real del proyecto. ' +
@@ -810,6 +995,55 @@
     });
   }
 
+  /* BORRAR DATOS: pantalla propia, con la lista de lo que se elimina y de lo que
+     se conserva. El foco entra en CANCELAR; borrar exige ir al otro botón. */
+  function describeStored(key) {
+    var raw = store(key, null);
+    if (raw === null) return null;
+    if (key === "dmodisco_currency_v1") return String(parseInt(raw, 10) || 0);
+    if (key === "dmodisco_best_combo_v216") return "x" + (parseInt(raw, 10) || 0);
+    if (/^-?\d+$/.test(raw)) return String(parseInt(raw, 10));
+    try {
+      var v = JSON.parse(raw);
+      if (key === "dmo_victories_v214" && v && typeof v.count === "number") return String(v.count);
+      if (key === SAVE_KEY && v && v.created) return "creada el " + String(v.created).slice(0, 10);
+      if (Array.isArray(v)) return v.length + (v.length === 1 ? " entrada" : " entradas");
+      if (v && typeof v === "object") {
+        var n = Object.keys(v).filter(function (k) { return v[k]; }).length;
+        return key === "dmo_secret_route_v32" || key === "dmo_floor_v32" ? "guardada" : n + (n === 1 ? " elemento" : " elementos");
+      }
+    } catch (e) {}
+    return "guardado";
+  }
+  function renderErase(body) {
+    var doomed = STORAGE.RUN.concat(STORAGE.PERMANENT).map(function (e) { return { label: e.label, val: describeStored(e.key) }; });
+    var present = doomed.filter(function (d) { return d.val !== null; });
+    body.innerHTML =
+      '<div class="dd-exit dd-erase">' +
+      '  <p class="dd-exit-q">¿Borrar la partida y todo el progreso?</p>' +
+      '  <p class="dd-exit-note">Se eliminará de este navegador, sin copia y sin vuelta atrás:</p>' +
+      '  <dl class="dd-slot-stats" id="dd-erase-list">' +
+      doomed.map(function (d) { return '<div' + (d.val === null ? ' class="is-empty"' : '') + '><dt>' + d.label.toUpperCase() + '</dt><dd>' + (d.val === null ? "—" : d.val) + '</dd></div>'; }).join("") +
+      '  </dl>' +
+      '  <p class="dd-exit-note" id="dd-erase-keep">Se conservan los ajustes: ' + STORAGE.SETTINGS.map(function (e) { return e.label.toLowerCase(); }).join(", ") + '.</p>' +
+      '  <p class="dd-exit-note">' + (present.length ? 'Al terminar, el juego se recarga desde el principio.' : 'Ahora mismo no hay nada guardado que borrar.') + '</p>' +
+      '  <div class="dd-slot-actions">' +
+      '    <button type="button" class="dd-btn-ghost" id="dd-erase-no" data-autofocus>CANCELAR</button>' +
+      '    <button type="button" class="dd-btn-primary dd-btn-danger" id="dd-erase-yes"' + (present.length ? '' : ' disabled') + '>SÍ, BORRAR TODO</button>' +
+      '  </div>' +
+      '</div>';
+    el("dd-erase-no").addEventListener("click", function () { sfx("back"); closeSubmenu(); });
+    el("dd-erase-yes").addEventListener("click", function () {
+      if (!present.length) return;
+      sfx("ok");
+      var removed = eraseAllProgress();
+      try { window.sessionStorage.setItem("dd_last_erase", JSON.stringify(removed)); } catch (e) {}
+      /* El motor tiene el progreso también en memoria: se recarga para que no lo
+         vuelva a escribir. */
+      try { window.location.reload(); } catch (e2) { closeSubmenu(); refreshContinue(); }
+    });
+  }
+
   function renderExit(body, opts) {
     var p = readProgress();
     var canClose = false;
@@ -820,7 +1054,7 @@
     } catch (e) {}
     body.innerHTML =
       '<div class="dd-exit">' +
-      '  <p class="dd-exit-q">¿Cerrar el club y salir a la calle?</p>' +
+      '  <p class="dd-exit-q">¿Apagar las luces de la pista?</p>' +
       '  <p class="dd-exit-note">' + (canClose
         ? 'La ventana se cerrará si el navegador lo permite.'
         : 'El navegador no permite que una pestaña se cierre a sí misma. Se detendrá el audio y se mostrará la pantalla de despedida; puedes cerrar la pestaña con Ctrl+W.') + '</p>' +
@@ -860,6 +1094,7 @@
   }
 
   function closeSubmenuImmediate() {
+    returnMixPanel();
     var host = el("dd-submenu");
     if (host) { host.classList.remove("is-open"); host.setAttribute("aria-hidden", "true"); }
     var m = el("dd-main-menu");
@@ -934,8 +1169,8 @@
     dlg.id = "dd-dialogue-box";
     dlg.className = "dd-hidden";
     dlg.innerHTML =
-      '<div class="dd-dj-portrait-wrap"><img id="dd-dj-portrait" alt="DJ Virgilio" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
-      '<div class="dd-dj-speech"><div class="dd-dj-speaker-tab" id="dd-dj-speaker">DJ VIRGILIO</div><div class="dd-dj-text" id="dd-dj-text"></div></div>';
+      '<div class="dd-dj-portrait-wrap"><img id="dd-dj-portrait" alt="Tempo" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
+      '<div class="dd-dj-speech"><div class="dd-dj-speaker-tab" id="dd-dj-speaker">TEMPO</div><div class="dd-dj-text" id="dd-dj-text"></div></div>';
     document.body.appendChild(dlg);
   }
 
@@ -1193,6 +1428,7 @@
     if (m) { m.classList.remove("dd-hidden"); m.classList.add("dd-menu-in"); }
     var h = el("dd-hud");
     if (h) h.classList.add("dd-hidden");
+    refreshContinue();
     setMenuSelection(uiState.menuIndex, false);
   }
 
@@ -1216,7 +1452,7 @@
     var box = el("dd-dialogue-box");
     var spk = el("dd-dj-speaker");
     var txt = el("dd-dj-text");
-    if (spk) spk.textContent = speaker || "DJ VIRGILIO";
+    if (spk) spk.textContent = speaker || "TEMPO";
     if (txt) txt.textContent = text;
     if (box) box.classList.remove("dd-hidden");
     uiState.dialogueTimer = durationSec || 4.2;
@@ -1319,7 +1555,7 @@
        PLAYING. Un motor corriendo en MAIN_MENU no es una partida. */
     var enPartida = false;
     try { enPartida = !!(window.DD_BOOT && window.DD_BOOT.getState().state === "PLAYING"); } catch (e) {}
-    if (uiState.menuVisible && (enPartida || inHub)) {
+    if (uiState.menuVisible && enPartida) {
       hideMainMenu();
     }
     var hudEl = el("dd-hud");
@@ -1340,7 +1576,7 @@
       var txt = (subs.textContent || "").trim();
       if (txt && txt !== uiState.lastSubsText) {
         uiState.lastSubsText = txt;
-        showDialogue("DJ VIRGILIO", txt, 4.0);
+        showDialogue("TEMPO", txt, 4.0);
       }
     }
     if (uiState.dialogueTimer > 0) {
@@ -1452,10 +1688,13 @@
      listeners existentes apliquen el cambio de verdad (motor Xl.set /
      ddc_cover_settings_v1) y actualicen el <output>. En el límite no hace nada
      (devuelve false, sin evento, sin cambio visual ni sonoro). */
-  function adjustRange(input, dir) {
+  function adjustRange(input, dir, coarse) {
     var min = parseFloat(input.min); if (!isFinite(min)) min = 0;
     var max = parseFloat(input.max); if (!isFinite(max)) max = 100;
     var step = parseFloat(input.step); if (!(step > 0)) step = GP_CONFIG.stepFallback;
+    /* Con flechas o cruceta el paso es de una vigésima parte del recorrido (5 %
+       en los volúmenes): con el paso nativo de 1 hacían falta cien pulsaciones. */
+    if (coarse) step = Math.max(step, Math.round((max - min) / 20 / step) * step);
     var v = parseFloat(input.value); if (!isFinite(v)) v = min;
     var next = Math.max(min, Math.min(max, Math.round((v + dir * step) * 1000) / 1000));
     if (next === v) return false;
@@ -1498,6 +1737,7 @@
       var right = repeatFire("right", dir.right, wallSec);
       var btnA = gpEdge(gp, 0, gp.buttons[0] && gp.buttons[0].pressed);
       var btnB = gpEdge(gp, 1, gp.buttons[1] && gp.buttons[1].pressed);
+      if (up || down || left || right || btnA || btnB) document.body.classList.add("dd-input-pad");
 
       if (uiState.submenu) {
         /* B (volver) manda sobre cualquier dirección y sobre A. */
@@ -1526,7 +1766,9 @@
           if (range) {
             /* Slider enfocado: ←→ AJUSTAN el valor (nunca mueven el foco ni
                cambian nada en los límites). */
-            if (adjustRange(range, left ? -1 : 1)) sfx("move");
+            if (adjustRange(range, left ? -1 : 1, true)) sfx("move");
+          } else if (focusedInSubmenu() && focusedInSubmenu().tagName === "SELECT") {
+            if (cycleSelect(focusedInSubmenu(), left ? -1 : 1)) sfx("move");
           } else {
             focusStep(left ? -1 : 1); /* fuera de sliders conserva FASE 01 */
           }
@@ -1548,14 +1790,37 @@
     }
   }
 
+  /* Selector enfocado: cambia de opción sin abrir la lista nativa del navegador
+     (que no se puede manejar con mando y tapa el menú). Da la vuelta en los extremos. */
+  function cycleSelect(sel, dir) {
+    var n = sel.options ? sel.options.length : 0;
+    if (!n) return false;
+    var i = (sel.selectedIndex + dir + n) % n, guard = 0;
+    while (sel.options[i].disabled && guard++ < n) i = (i + dir + n) % n;
+    if (i === sel.selectedIndex) return false;
+    sel.selectedIndex = i;
+    sel.dispatchEvent(new Event("input", { bubbles: true }));
+    sel.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+  }
+  function focusedInSubmenu() {
+    var a = document.activeElement;
+    return a && a.closest && a.closest("#dd-submenu") ? a : null;
+  }
+
   function focusStep(dir) {
     var host = el("dd-submenu-body");
     if (!host) return;
     var items = Array.prototype.slice.call(host.querySelectorAll("button:not([disabled]), input, select"));
+    /* Un submenú sin controles propios (CRÉDITOS) conserva el foco en VOLVER. */
+    if (!items.length && el("dd-submenu-back")) items = [el("dd-submenu-back")];
     if (!items.length) return;
     var i = items.indexOf(document.activeElement);
-    i = i < 0 ? 0 : (i + dir + items.length) % items.length;
+    i = i < 0 ? (dir < 0 ? items.length - 1 : 0) : (i + dir + items.length) % items.length;
     try { items[i].focus({ preventScroll: true }); } catch (e) { items[i].focus(); }
+    /* En ventanas bajas el panel tiene desplazamiento: el control elegido se
+       trae a la vista en vez de quedar seleccionado fuera de pantalla. */
+    try { items[i].scrollIntoView({ block: "nearest", inline: "nearest" }); } catch (e2) {}
     sfx("move");
   }
 
@@ -1563,7 +1828,7 @@
     var a = document.activeElement;
     if (!a) return;
     if (a.tagName === "INPUT" && a.type === "range") return; /* lo ajusta ←→ (adjustRange) */
-    if (a.tagName === "SELECT") { return; }
+    if (a.tagName === "SELECT") { if (cycleSelect(a, 1)) sfx("move"); return; }
     a.click();
   }
 
@@ -1629,25 +1894,57 @@
 
   /* ============================== G. TECLADO ============================== */
   window.addEventListener("keydown", function (ev) {
-    if (ev.repeat) return;
     var k = ev.code;
+    var isLeft = k === "ArrowLeft" || k === "KeyA", isRight = k === "ArrowRight" || k === "KeyD";
+    /* La repetición de tecla sólo se admite para arrastrar un deslizador. */
+    if (ev.repeat && !(uiState.submenu && (isLeft || isRight) && focusedRange())) return;
+    document.body.classList.remove("dd-input-pad");
 
-    /* SUBCONTROL: un submenú abierto captura la navegación. */
+    /* SUBCONTROL: un submenú abierto captura la navegación. Todos los controles
+       responden igual con teclado que con mando:
+         ↑↓ / W S ......... control anterior / siguiente
+         ←→ / A D ......... deslizador: ±5 % · selector: opción anterior / siguiente
+                            botones: el de al lado
+         ENTER / ESPACIO .. botón: pulsar · casilla: marcar · selector: siguiente
+         ESC .............. volver */
     if (uiState.submenu) {
+      var a = focusedInSubmenu();
+      var tag = a ? a.tagName : "", type = a ? a.type : "";
       if (k === "Escape") { ev.preventDefault(); closeSubmenu(); sfx("back"); return; }
-      if (k === "ArrowDown") { ev.preventDefault(); focusStep(1); return; }
-      if (k === "ArrowUp") { ev.preventDefault(); focusStep(-1); return; }
-      if (k === "Enter" || k === "Space") {
-        var a = document.activeElement;
-        if (a && a.tagName === "BUTTON") { ev.preventDefault(); a.click(); return; }
+      /* TAB no sale nunca del panel: recorre los mismos controles que ↑↓. */
+      if (k === "Tab") { ev.preventDefault(); focusStep(ev.shiftKey ? -1 : 1); return; }
+      /* Si el foco se perdió (clic fuera, cambio de ventana), la primera tecla lo recupera. */
+      if (!a && (isLeft || isRight || k === "Enter" || k === "Space")) { ev.preventDefault(); focusStep(1); return; }
+      if (k === "ArrowDown" || k === "KeyS") { ev.preventDefault(); focusStep(1); return; }
+      if (k === "ArrowUp" || k === "KeyW") { ev.preventDefault(); focusStep(-1); return; }
+      if (tag === "INPUT" && type === "range") {
+        if (isLeft || isRight) { ev.preventDefault(); if (adjustRange(a, isLeft ? -1 : 1, true)) sfx("move"); }
+        return;
       }
-      if (k === "ArrowLeft" || k === "ArrowRight") return; /* deja a los sliders */
+      if (tag === "SELECT") {
+        if (isLeft || isRight || k === "Enter" || k === "Space") {
+          ev.preventDefault();
+          if (cycleSelect(a, isLeft ? -1 : 1)) sfx("move");
+        }
+        return;
+      }
+      if (tag === "INPUT" && type === "checkbox") {
+        if (k === "Enter" || k === "Space") { ev.preventDefault(); a.click(); sfx("ok"); }
+        else if (isLeft || isRight) { ev.preventDefault(); focusStep(isLeft ? -1 : 1); }
+        return;
+      }
+      if (k === "Enter" || k === "Space") {
+        if (tag === "BUTTON") { ev.preventDefault(); a.click(); }
+        return;
+      }
+      if (isLeft || isRight) { ev.preventDefault(); focusStep(isLeft ? -1 : 1); }
       return;
     }
 
     if (uiState.menuVisible) {
       if (k === "ArrowUp" || k === "KeyW") { ev.preventDefault(); setMenuSelection(uiState.menuIndex - 1); }
       else if (k === "ArrowDown" || k === "KeyS") { ev.preventDefault(); setMenuSelection(uiState.menuIndex + 1); }
+      else if (k === "Tab") { ev.preventDefault(); setMenuSelection(uiState.menuIndex + (ev.shiftKey ? -1 : 1)); }
       else if (k === "Home") { ev.preventDefault(); setMenuSelection(0); }
       else if (k === "End") { ev.preventDefault(); setMenuSelection(menuButtons().length - 1); }
       else if (k === "Enter" || k === "Space") {
@@ -1674,6 +1971,17 @@
     }
   });
 
+  /* Un clic en una zona vacía del menú o de un submenú no debe dejar el teclado
+     sin destino: se impide que el navegador retire el foco del control actual. */
+  document.addEventListener("mousedown", function (ev) {
+    if (!uiState.menuVisible && !uiState.submenu) return;
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    if (!t.closest("#dd-main-menu, #dd-submenu")) return;
+    if (t.closest("button, input, select, label, a")) return;
+    ev.preventDefault();
+  });
+
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", buildDOM);
   } else {
@@ -1694,6 +2002,10 @@
     closeSubmenu: closeSubmenu,
     triggerMenuAction: triggerMenuAction,
     readProgress: readProgress,
+    hasSave: hasSave,
+    readSave: readSave,
+    STORAGE: STORAGE,
+    storageKeys: storageKeys,
     isModalOpen: function () { return uiState.shopOpen || uiState.mapOpen || !!uiState.submenu; },
     getState: function () {
       return {

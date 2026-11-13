@@ -1,0 +1,43 @@
+{
+ "batch": "R05_PROTAGONISTA_MAESTRO",
+ "label": "IDLE_1F",
+ "status": "IDLE de fotograma único · pendiente de aprobación · no registrado en src/dd_asset_registry.js",
+ "note": "Entrada con el mismo formato que MANIFEST.entries del juego.",
+ "animation": {
+  "set": "idle",
+  "frames": [
+   "pm_idle_00"
+  ],
+  "loop": true,
+  "procedural": {
+   "source": "pAnim.bobY (motor)",
+   "rate_rad_s": 2.8,
+   "cycle_ms": 2244,
+   "amp_px_refugio": 1.1,
+   "amp_px_combate": 0.55
+  }
+ },
+ "entries": {
+  "pm_idle_00": {
+   "id": "pm_idle_00",
+   "originalId": "pm:idle:00",
+   "name": "Protagonista (lámina maestra) · IDLE · fotograma único",
+   "category": "characters",
+   "src": "assets/characters/protagonist_master/pm_idle_00.png",
+   "w": 288,
+   "h": 512,
+   "alpha": true,
+   "pivot": "bottom-center",
+   "tanda": "R05_PROTAGONISTA_MAESTRO",
+   "sha16": "a13a0917997e6447",
+   "rev": "R05_PROTAGONISTA_MAESTRO",
+   "anchors": {
+    "belt": 0.511,
+    "hand": [
+     0.5796,
+     0.5767
+    ]
+   }
+  }
+ }
+}

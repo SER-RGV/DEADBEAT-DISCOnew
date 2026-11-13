@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DEADBEAT DISCO · IDLE del protagonista</title>
+<style>
+  :root { --negro:#0B0B12; --panel:#14121d; --linea:#2a2438; --magenta:#FF007A; --cian:#00E5FF; --amarillo:#FFD400; --hueso:#F0E6DB; --tenue:#9a92ab; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { display: flex; flex-direction: column; background: var(--negro); color: var(--hueso); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif; overflow: hidden; }
+  header, footer { flex: none; background: var(--panel); display: flex; align-items: center; gap: 8px 14px; padding: 8px 14px; flex-wrap: wrap; }
+  header { border-bottom: 2px solid var(--magenta); }
+  footer { border-top: 1px solid var(--linea); font-size: 12.5px; color: var(--tenue); gap: 4px 22px; }
+  h1 { margin: 0; font-size: 14px; letter-spacing: .14em; font-weight: 800; white-space: nowrap; }
+  h1 span { color: var(--magenta); }
+  .grupo { display: flex; align-items: center; gap: 4px; padding-left: 14px; border-left: 1px solid var(--linea); }
+  .grupo > span { font-size: 11.5px; color: var(--tenue); letter-spacing: .06em; margin-right: 2px; }
+  button { font: inherit; font-weight: 700; font-size: 12.5px; letter-spacing: .04em; color: var(--hueso); background: #1e1a2b; border: 1px solid var(--linea); border-radius: 4px; padding: 6px 10px; min-width: 34px; cursor: pointer; white-space: nowrap; }
+  button:hover { border-color: var(--cian); color: #fff; }
+  button:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+  button[aria-pressed="true"] { background: var(--amarillo); border-color: var(--amarillo); color: #0B0B12; }
+  .dato { min-width: 54px; text-align: center; font-variant-numeric: tabular-nums; font-weight: 700; color: var(--cian); }
+  #zona { flex: 1; min-height: 0; display: flex; }
+  #visor { flex: 1; min-width: 0; min-height: 0; position: relative; overflow: hidden; }
+  #panel { flex: none; width: min(48vw, 820px); overflow-y: auto; background: #14111d; border-left: 1px solid var(--linea); padding: 12px 14px; }
+  #panel h2 { font-size: 12.5px; letter-spacing: .08em; color: var(--amarillo); margin: 0 0 6px; }
+  #panel p { font-size: 12px; color: #b9b2c6; margin: 0 0 8px; line-height: 1.4; }
+  #panel .fila { display: flex; gap: 12px; align-items: flex-start; margin-bottom: 14px; flex-wrap: wrap; }
+  #panel figure { margin: 0; } #panel figcaption { font-size: 11.5px; color: var(--hueso); margin-top: 4px; font-weight: 700; letter-spacing: .04em; }
+  #panel canvas { height: min(46vh, 500px); width: auto; }
+  #panel canvas, #panel img { display: block; background: #0B0B12; border: 1px solid var(--linea); max-width: 100%; }
+  #panel img { height: auto; }
+  #porvalidar { flex: none; background: var(--amarillo); color: #0B0B12; font-weight: 800; letter-spacing: .05em; padding: 7px 14px; font-size: 13px; }
+  @media (max-width: 900px) { #zona { flex-direction: column; } #panel { width: auto; max-height: 45%; border-left: 0; border-top: 1px solid var(--linea); } }
+  #visor.f-trans { background: repeating-conic-gradient(#3a3648 0% 25%, #24212f 0% 50%) 0 0 / 24px 24px; }
+  #visor.f-oscuro { background: #0B0B12; } #visor.f-claro { background: #cfc8d6; } #visor.f-magenta { background: #5a1238; }
+  #lienzo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+  #aviso { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 24px; color: var(--tenue); }
+  #aviso[hidden] { display: none; }
+  #aviso.error div { border: 2px solid var(--magenta); background: var(--panel); padding: 20px 26px; border-radius: 6px; max-width: 600px; color: var(--hueso); }
+  #aviso b { display: block; color: var(--magenta); font-size: 16px; letter-spacing: .08em; margin-bottom: 8px; }
+  #aviso code { color: var(--cian); word-break: break-all; }
+  footer b { color: var(--hueso); font-weight: 600; font-variant-numeric: tabular-nums; }
+  footer .ok { color: #5dffa0; } footer .mal { color: var(--magenta); } footer .espera { color: var(--amarillo); }
+  footer .nota { flex-basis: 100%; }
+  a.btn { font-weight: 700; font-size: 12.5px; letter-spacing: .04em; color: var(--hueso); background: #1e1a2b; border: 1px solid var(--linea); border-radius: 4px; padding: 6px 10px; text-decoration: none; white-space: nowrap; }
+  a.btn:hover { border-color: var(--cian); color: #fff; } a.btn:focus-visible { outline: 2px solid var(--amarillo); outline-offset: 2px; }
+  a.btn[aria-current="true"] { background: var(--amarillo); border-color: var(--amarillo); color: #0B0B12; }
+  #fallido { flex: none; background: var(--magenta); color: #0B0B12; font-weight: 800; letter-spacing: .06em; padding: 7px 14px; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>DEADBEAT <span>DISCO</span> · IDLE DEL PROTAGONISTA</h1>
+  <div class="grupo" role="group" aria-label="Recurso">
+    <a class="btn" id="s-1f" href="?" title="IDLE de un solo fotograma, versión aprobada técnicamente">ACTUAL · APROBADO TÉCNICAMENTE</a>
+    <a class="btn" id="s-fid" href="?set=fid" title="Mismo fotograma con el sigilo del hombro, el lobo y las cadenas corregidos; pendiente de validación visual">CORREGIDO · POR VALIDAR</a>
+    <a class="btn" id="s-4f" href="?set=4f" title="Experimento de cuatro fotogramas, archivado como fallido">EXPERIMENTO 4F · FALLIDO</a>
+  </div>
+  <div class="grupo" role="group" aria-label="Reproducción">
+    <button id="play" aria-pressed="true" title="Reproducir o pausar (Espacio)">PAUSA</button>
+    <span id="pasos"><button id="ant" title="Fotograma anterior (flecha izquierda)">ANTERIOR</button>
+    <span id="nframe" class="dato">1 / 4</span>
+    <button id="sig" title="Fotograma siguiente (flecha derecha)">SIGUIENTE</button></span>
+  </div>
+  <div class="grupo" role="group" aria-label="Velocidad"><span>VELOCIDAD</span>
+    <button data-vel="0.25">¼×</button><button data-vel="0.5">½×</button><button data-vel="1" aria-pressed="true">1×</button><button data-vel="2">2×</button>
+  </div>
+  <div class="grupo" role="group" aria-label="Tamaño">
+    <button id="menos" title="Reducir (−)">−</button><span id="escala" class="dato">—</span><button id="mas" title="Ampliar (+)">+</button>
+    <button id="ajustar" title="Ajustar a pantalla (A)">AJUSTAR</button>
+    <button id="juego" title="Tamaño real en combate: zoom de cámara 1,16 (J)">TAMAÑO DE JUEGO</button>
+  </div>
+  <div class="grupo" role="group" aria-label="Fondo"><span>FONDO</span>
+    <button data-fondo="trans" aria-pressed="true">TRANSPARENTE</button><button data-fondo="oscuro">OSCURO</button><button data-fondo="claro">CLARO</button><button data-fondo="magenta">MAGENTA</button>
+  </div>
+  <div class="grupo" role="group" aria-label="Respiración del motor"><span>RESPIRACIÓN</span>
+    <button data-bob="0" title="Sin balanceo">SIN</button><button data-bob="0.55" title="Amplitud que el motor usa en combate: 0,55 px">COMBATE</button><button data-bob="1.1" title="Amplitud que el motor usa en el Refugio: 1,1 px">REFUGIO</button>
+  </div>
+  <div class="grupo" role="group" aria-label="Comprobaciones">
+    <button id="cebolla" aria-pressed="false" title="Superpone el fotograma anterior al 45 % para ver qué cambia (C)">PAPEL CEBOLLA</button>
+    <button id="reflejo" aria-pressed="false" title="Mirando a la izquierda: el reflejo horizontal del motor (R)">REFLEJO</button>
+    <button id="comparar" aria-pressed="false" hidden title="Dibuja en fila el fotograma actual, la corrección anterior y la nueva corrección, a la misma escala">ACTUAL JUNTO A CORRECCIONES</button>
+    <button id="lamina" aria-pressed="false" title="Abre el panel con la lámina maestra y los tatuajes ampliados">LÁMINA Y TATUAJES</button>
+    <button id="antiguo" aria-pressed="false" title="Dibuja al lado el sprite antiguo player_idle_00 a la misma escala">SPRITE ANTIGUO</button>
+    <button id="guias" aria-pressed="false" title="Línea de suelo, eje, ancla de cinturón, ancla de mano y círculo de colisión (G)">GUÍAS</button>
+  </div>
+</header>
+
+<div id="fallido" hidden>IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY · Experimento archivado. Fallido por inconsistencia de los tatuajes entre fotogramas. No es una animación aprobada.</div>
+<div id="porvalidar" hidden>IDLE_1F_FIDELIDAD · Corrección de fidelidad PENDIENTE DE APROBACIÓN. No registrada en el juego. La versión actual se conserva sin cambios.</div>
+<div id="zona">
+<main id="visor" class="f-trans">
+  <canvas id="lienzo"></canvas>
+  <div id="aviso"><div>Cargando la muestra…</div></div>
+</main>
+<aside id="panel" hidden aria-label="Lámina maestra y tatuajes ampliados">
+  <h2>TATUAJES AMPLIADOS ×5 · BRAZO DEL FOTOGRAMA</h2>
+  <p>Recorte de los PNG de 288 × 512 tal como están, ampliado cinco veces. Incluye hombro, lobo y cadenas.</p>
+  <div class="fila">
+    <figure><canvas id="z-actual" width="450" height="900"></canvas><figcaption>ACTUAL · pm_idle_00</figcaption></figure>
+    <figure id="f-ant" hidden><canvas id="z-ant" width="450" height="900"></canvas><figcaption>CORRECCIÓN ANTERIOR · v1</figcaption></figure>
+    <figure><canvas id="z-fid" width="450" height="900"></canvas><figcaption>NUEVA CORRECCIÓN · pm_idle_fid_00</figcaption></figure>
+    <figure><canvas id="z-perfil" width="250" height="900"></canvas><figcaption>LÁMINA MAESTRA · PERFIL D.</figcaption></figure>
+  </div>
+  <h2>LÁMINA MAESTRA · DETALLE DE TATUAJES (CANON)</h2>
+  <p>Recorte de la lámina aprobada. Es la referencia; el fotograma se compara con ella, no al revés.</p>
+  <img id="z-detalles" alt="Detalle de tatuajes de la lámina maestra: cuello, hombro, antebrazo (lobo), antebrazo (patrón orgánico) y mano" src="../../cinematics/restart/character_master/protagonist_master_crop_tattoo_details.png">
+</aside>
+</div>
+
+<footer>
+  <span>Fotograma: <b id="i-id">—</b></span>
+  <span>Archivo: <b id="i-ruta">—</b></span>
+  <span>Lienzo: <b id="i-dim">—</b></span>
+  <span>Figura: <b id="i-fig">—</b></span>
+  <span>Recurso: <b id="i-set">—</b></span>
+  <span>Tiempo por fotograma: <b id="i-ms">—</b></span>
+  <span>Respiración: <b id="i-bob">—</b></span>
+  <span>Ciclo: <b id="i-ciclo">—</b></span>
+  <span>Anclas: <b id="i-anclas">—</b></span>
+  <span>Dibujo: <b id="i-dibujo">—</b></span>
+  <span>Estado: <b id="i-estado" class="espera">cargando</b></span>
+  <span class="nota">Pinta <b>DD_WORLD.drawProtagonist</b> de <b>src/dd_world_renderer.js</b>, sin modificar. El renderizador solo conoce el identificador <b>player_idle_00</b>: este visor le entrega en ese hueco el fotograma en curso. La respiración es la fórmula del motor (seno a 2,8 rad/s sobre <b>pAnim.bobY</b>), que desplaza la figura entera, pies incluidos. En el experimento 4F, el cambio de fotograma por tiempo lo hace el visor; el juego no reproduce secuencias. · Espacio: pausa · flechas izquierda y derecha: fotograma (solo 4F) · + −: tamaño · A: ajustar · J: juego · C: cebolla (solo 4F) · R: reflejo · G: guías</span>
+</footer>
+
+<!-- Renderizador real del juego. Solo necesita window.DD_ASSETS. -->
+<script src="../../../src/dd_world_renderer.js"></script>
+<script>
+(function () {
+  "use strict";
+  var RAIZ = "../../../";
+  var ES_4F = /[?&]set=4f/.test(location.search), ES_FID = !ES_4F && /[?&]set=fid/.test(location.search);
+  var M_ACTUAL = "assets/characters/protagonist_master/pm_idle.manifest.json";
+  var M_FID = "assets/characters/protagonist_master/fidelidad/pm_idle_fid.manifest.json";
+  var MANIFIESTO = ES_4F ? "assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/pm_idle.manifest.json" : ES_FID ? M_FID : M_ACTUAL;
+  var PERFIL = { src: "assets/cinematics/restart/character_master/protagonist_master_crop_turnaround.png", x: 365, w: 115 };   /* vista PERFIL D. de la lámina */
+  var BRAZO = { x: 100, y: 120, w: 90, h: 180 };   /* recorte del brazo en el PNG de 288 × 512 */
+  var anterior = null;   /* corrección anterior (v1), si el manifiesto de la corrección la declara */
+  var otro = null;   /* la otra versión del fotograma único (actual ↔ corregida) */
+  var RITMO = 2.8;   /* rad/s: breathePhase += dt * 2.8 en el motor y en el Refugio */
+  var ANTIGUO = { id: "player_idle_00", src: "assets/characters/player_idle_00.png", anchors: { belt: 0.4914, hand: [0.678, 0.5848] } };
+  var BASE_H = 104, PIE_Y = 16, SUELO_Y = 14, RADIO = 14, ZOOM_JUEGO = 1.16;   // contrato de dd_world_renderer.js y del motor
+
+  var $ = function (id) { return document.getElementById(id); };
+  var lienzo = $("lienzo"), ctx = lienzo.getContext("2d"), visor = $("visor"), aviso = $("aviso");
+  var v = { cuadros: [], ms: [], i: 0, t: 0, vel: 1, activo: true, z: 1, ajustada: true, fondo: "trans",
+            cebolla: false, reflejo: false, comparar: false, lamina: false, bob: ES_4F ? 0 : 1.1, fase: 0, bobY: 0, etiqueta: "", antiguo: false, guias: false, lista: false, dibujoMs: 0, reloj: 0, pintados: 0, errores: [] };
+  var imgAntiguo = null;
+
+  /* Lo que el renderizador real pide: DD_ASSETS.get(id) y DD_ASSETS.manifest.entries[id].anchors.
+     `servir` decide qué imagen ocupa el hueco player_idle_00 en cada llamada. */
+  var servir = null;
+  window.DD_ASSETS = {
+    get: function (id) { return (id === "player_idle_00" && servir) ? servir.img : null; },
+    manifest: { entries: { get player_idle_00() { return servir ? { anchors: servir.anchors } : null; } } }
+  };
+
+  function estado(t, c) { var e = $("i-estado"); e.textContent = t; e.className = c; }
+  function fallo(titulo, detalle) {
+    estado("error", "mal"); aviso.hidden = false; aviso.className = "error";
+    aviso.innerHTML = "<div><b>" + titulo + "</b>" + detalle + "</div>";
+  }
+  function cargarImagen(src) {
+    return new Promise(function (ok, mal) { var im = new Image(); im.onload = function () { ok(im); }; im.onerror = function () { mal(src); }; im.src = RAIZ + src; });
+  }
+  function cajaFigura(im) {
+    var c = document.createElement("canvas"); c.width = im.naturalWidth; c.height = im.naturalHeight;
+    var x = c.getContext("2d"); x.drawImage(im, 0, 0);
+    var d = x.getImageData(0, 0, c.width, c.height).data, x0 = c.width, y0 = c.height, x1 = -1, y1 = -1, esquinas = 0;
+    for (var py = 0; py < c.height; py++) for (var px = 0; px < c.width; px++) {
+      if (d[(py * c.width + px) * 4 + 3] > 8) { if (px < x0) x0 = px; if (px > x1) x1 = px; if (py < y0) y0 = py; if (py > y1) y1 = py; }
+    }
+    [[0, 0], [c.width - 1, 0], [0, c.height - 1], [c.width - 1, c.height - 1]].forEach(function (p) { esquinas += d[(p[1] * c.width + p[0]) * 4 + 3]; });
+    return { x0: x0, y0: y0, x1: x1, y1: y1, alto: y1 - y0 + 1, ancho: x1 - x0 + 1, esquinasTransparentes: esquinas === 0 };
+  }
+
+  fetch(RAIZ + MANIFIESTO).then(function (r) { if (!r.ok) throw new Error(MANIFIESTO); return r.json(); }).then(function (m) {
+    var ids = m.animation.frames;
+    v.ms = (m.animation.ms || []).slice(); v.loop = m.animation.loop; v.etiqueta = m.label || "";
+    $("i-set").textContent = v.etiqueta; $("fallido").hidden = !ES_4F;
+    $(ES_4F ? "s-4f" : ES_FID ? "s-fid" : "s-1f").setAttribute("aria-current", "true"); $("porvalidar").hidden = !ES_FID;
+    $("pasos").hidden = ids.length < 2; $("cebolla").hidden = ids.length < 2; grupo("bob", v.bob);
+    return Promise.all(ids.map(function (id) { return cargarImagen(m.entries[id].src); }).concat([cargarImagen(ANTIGUO.src)])).then(function (ims) {
+      imgAntiguo = { img: ims.pop(), anchors: ANTIGUO.anchors };
+      v.cuadros = ids.map(function (id, k) { var e = m.entries[id]; return { id: id, src: e.src, img: ims[k], anchors: e.anchors, w: e.w, h: e.h, caja: cajaFigura(ims[k]) }; });
+      if (!window.DD_WORLD || typeof window.DD_WORLD.drawProtagonist !== "function") throw new Error("src/dd_world_renderer.js (DD_WORLD.drawProtagonist)");
+      if (ES_4F) return null;
+      /* La otra versión del fotograma único y la lámina, para comparar. Si faltan, la comparación no se ofrece. */
+      return fetch(RAIZ + (ES_FID ? M_ACTUAL : M_FID)).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (mo) {
+        var e = mo.entries[mo.animation.frames[0]], prev = (ES_FID ? m : mo).previous || null;
+        return Promise.all([cargarImagen(e.src), cargarImagen(PERFIL.src)].concat(prev ? [cargarImagen(prev.src)] : [])).then(function (xs) {
+          if (prev) { anterior = { id: prev.id, src: prev.src, img: xs[2], anchors: prev.anchors, caja: cajaFigura(xs[2]), etiqueta: prev.label }; $("f-ant").hidden = false; }
+          otro = { id: e.id, src: e.src, img: xs[0], anchors: e.anchors, caja: cajaFigura(xs[0]), etiqueta: mo.label };
+          var act = ES_FID ? otro : v.cuadros[0], fid = ES_FID ? v.cuadros[0] : otro;
+          [["z-actual", act], ["z-fid", fid]].concat(anterior ? [["z-ant", anterior]] : []).forEach(function (p) { var c = $(p[0]).getContext("2d"); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = "high"; c.drawImage(p[1].img, BRAZO.x, BRAZO.y, BRAZO.w, BRAZO.h, 0, 0, 450, 900); });
+          var zp = $("z-perfil"), k = 900 / xs[1].naturalHeight; zp.width = Math.round(PERFIL.w * k); zp.getContext("2d").drawImage(xs[1], PERFIL.x, 0, PERFIL.w, xs[1].naturalHeight, 0, 0, zp.width, 900);
+          $("comparar").hidden = false;
+          if (ES_FID) { v.comparar = true; $("comparar").setAttribute("aria-pressed", "true"); v.lamina = true; $("lamina").setAttribute("aria-pressed", "true"); $("panel").hidden = false; }
+        });
+      }).catch(function () { otro = null; $("lamina").hidden = true; });
+    }).then(function () {
+      v.lista = true; aviso.hidden = true; estado("reproduciendo", "ok"); medir(); requestAnimationFrame(bucle);
+    });
+  }).catch(function (e) {
+    fallo("NO SE PUDO CARGAR LA MUESTRA", "Falta <code>" + String(e && e.message || e) + "</code>.<br>Abre la página desde un servidor en la raíz del repositorio.");
+  });
+
+  function medir() {
+    var r = visor.getBoundingClientRect(), dpr = Math.max(1, Math.min(3, window.devicePixelRatio || 1));
+    lienzo.width = Math.max(1, Math.round(r.width * dpr)); lienzo.height = Math.max(1, Math.round(r.height * dpr));
+    v.ancho = r.width; v.alto = r.height; v.dpr = dpr;
+    if (v.ajustada) v.z = zAjuste();
+  }
+  function zAjuste() { return Math.max(0.5, Math.min((v.alto - 48) / BASE_H, v.ancho / (((v.fila || [0]).length - 1) * 68 + 64))); }
+  function poner(z, ajustada) { v.z = Math.max(0.5, Math.min(24, z)); v.ajustada = !!ajustada; }
+
+  /* Una llamada al renderizador real con el fotograma dado en el hueco player_idle_00. */
+  function pintarPersonaje(cuadro, x, alfa, bobY) {
+    servir = cuadro;
+    var pAnim = { upperPose: "player_idle", lowerPose: "player_idle", waistSplitActive: false, bobY: bobY, turnLean: 0, forcedAimAngle: null };
+    ctx.save(); ctx.globalAlpha = alfa;
+    var ok = window.DD_WORLD.drawProtagonist(ctx, { x: x, y: 0, aimAngle: v.reflejo ? Math.PI : 0 }, pAnim, null, 0, 0, 1);
+    ctx.restore(); servir = null;
+    return ok;
+  }
+  function guias(x, cuadro) {
+    var arriba = -BASE_H + PIE_Y, s = v.reflejo ? -1 : 1, lw = 1 / v.z;
+    var wMundo = BASE_H * cuadro.img.naturalWidth / cuadro.img.naturalHeight;
+    ctx.save(); ctx.lineWidth = lw;
+    ctx.strokeStyle = "#FF007A"; ctx.beginPath(); ctx.moveTo(x - 60, SUELO_Y); ctx.lineTo(x + 60, SUELO_Y); ctx.stroke();                 // suelas
+    ctx.strokeStyle = "#00E5FF"; ctx.beginPath(); ctx.moveTo(x, arriba); ctx.lineTo(x, PIE_Y); ctx.stroke();                               // eje
+    ctx.strokeStyle = "#FFD400"; var by = arriba + cuadro.anchors.belt * BASE_H; ctx.beginPath(); ctx.moveTo(x - 30, by); ctx.lineTo(x + 30, by); ctx.stroke(); // cinturón
+    if (cuadro.anchors.hand) { ctx.beginPath(); ctx.arc(x + (cuadro.anchors.hand[0] - 0.5) * wMundo * s, arriba + cuadro.anchors.hand[1] * BASE_H, 2.2, 0, 6.2832); ctx.stroke(); }
+    ctx.strokeStyle = "#F0E6DB"; ctx.setLineDash([3 * lw, 3 * lw]); ctx.beginPath(); ctx.arc(x, 0, RADIO, 0, 6.2832); ctx.stroke();        // colisión
+    ctx.strokeRect(x - wMundo / 2, arriba, wMundo, BASE_H);                                                                                // lienzo
+    ctx.restore();
+  }
+  function pintar() {
+    var t0 = performance.now(), c = v.cuadros[v.i], prev = v.cuadros[(v.i + v.cuadros.length - 1) % v.cuadros.length];
+    ctx.setTransform(1, 0, 0, 1, 0, 0); ctx.clearRect(0, 0, lienzo.width, lienzo.height);
+    /* Mundo → pantalla: origen del jugador centrado, con el lienzo del sprite centrado en vertical. */
+    var k = v.dpr * v.z, cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z;
+    ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr);
+    var bobY = v.bob ? Math.sin(v.fase) * v.bob : 0, ok = true; v.bobY = bobY;
+    /* Figuras en fila, de izquierda a derecha: sprite antiguo · actual · corregido. */
+    var cmp = v.comparar && otro, fila = [];
+    if (v.antiguo) fila.push("antiguo");
+    if (cmp) { fila.push(ES_FID ? "otro" : "este"); if (anterior) fila.push("anterior"); fila.push(ES_FID ? "este" : "otro"); } else fila.push("este");
+    var PASO = 68, x0 = -(fila.length - 1) * PASO / 2, xAnt = x0 + fila.indexOf("antiguo") * PASO, x = x0 + fila.indexOf("este") * PASO, xOtro = x0 + fila.indexOf("otro") * PASO, xPrev = x0 + fila.indexOf("anterior") * PASO;
+    v.fila = fila.map(function (f) { return f === "antiguo" ? "player_idle_00" : f === "anterior" ? anterior.id : f === "otro" ? otro.id : c.id; });
+    if (v.ajustada && v.z !== zAjuste()) { v.z = zAjuste(); k = v.dpr * v.z; cy = v.alto / 2 + (BASE_H / 2 - PIE_Y) * v.z; ctx.setTransform(k, 0, 0, k, v.ancho / 2 * v.dpr, cy * v.dpr); }
+    if (v.antiguo) ok = pintarPersonaje(imgAntiguo, xAnt, 1, bobY) && ok;
+    if (cmp) ok = pintarPersonaje(otro, xOtro, 1, bobY) && ok;
+    if (cmp && anterior) ok = pintarPersonaje(anterior, xPrev, 1, bobY) && ok;
+    if (v.cebolla) ok = pintarPersonaje(prev, x, 0.45, bobY) && ok;
+    ok = pintarPersonaje(c, x, v.cebolla ? 0.6 : 1, bobY) && ok;
+    if (v.guias) { guias(x, c); if (v.antiguo) guias(xAnt, imgAntiguo); if (cmp) guias(xOtro, otro); }
+    if (fila.length > 1) {   /* rótulo bajo cada figura */
+      ctx.save(); ctx.setTransform(v.dpr, 0, 0, v.dpr, 0, 0); ctx.font = "700 13px 'Open Sans', sans-serif"; ctx.textAlign = "center"; ctx.fillStyle = "#FFD400";
+      fila.forEach(function (f, n) { ctx.fillText(f === "antiguo" ? "ANTIGUO" : f === "anterior" ? "CORRECCIÓN ANTERIOR" : (f === "este") === ES_FID ? (anterior ? "NUEVA CORRECCIÓN" : "CORREGIDO") : "ACTUAL", v.ancho / 2 + (x0 + n * PASO) * v.z, Math.max(14, cy + (-BASE_H + PIE_Y) * v.z - 6)); });
+      ctx.restore();
+    }
+    v.dibujoMs = v.dibujoMs * 0.9 + (performance.now() - t0) * 0.1; v.pintados++; v.ultimoOk = ok;
+    if (!ok) v.errores.push("drawProtagonist devolvió false");
+    $("nframe").textContent = (v.i + 1) + " / " + v.cuadros.length;
+    $("escala").textContent = Math.round(v.z * 100) + " %";
+    $("i-id").textContent = c.id; $("i-ruta").textContent = c.src;
+    $("i-dim").textContent = c.img.naturalWidth + " × " + c.img.naturalHeight + " px";
+    $("i-fig").textContent = c.caja.ancho + " × " + c.caja.alto + " px (suelas en y=" + c.caja.y1 + ") → " + Math.round(c.caja.alto / c.img.naturalHeight * BASE_H * v.z) + " px en pantalla";
+    var unico = v.cuadros.length < 2, ciclo = unico ? 2 * Math.PI / RITMO * 1000 : v.ms.reduce(function (a, b) { return a + b; }, 0);
+    $("i-ms").textContent = unico ? "fotograma único, no cambia" : v.ms[v.i] + " ms" + (v.vel !== 1 ? " (a " + v.vel + "×: " + Math.round(v.ms[v.i] / v.vel) + " ms)" : "");
+    $("i-ciclo").textContent = (ciclo / 1000).toFixed(2) + " s · " + (v.loop ? "en bucle" : "una vez");
+    $("i-bob").textContent = v.bob ? "±" + String(v.bob).replace(".", ",") + " px de mundo · ahora " + bobY.toFixed(2).replace(".", ",") + " px" : "sin balanceo";
+    $("i-anclas").textContent = "cinturón " + c.anchors.belt + " · mano " + (c.anchors.hand ? c.anchors.hand.join(", ") : "—");
+    $("i-dibujo").textContent = v.dibujoMs.toFixed(2) + " ms";
+  }
+  var antes = 0;
+  function bucle(ahora) {
+    var dt = antes ? Math.min(100, ahora - antes) : 0; antes = ahora; v.reloj += dt;
+    if (v.activo) {
+      v.fase += dt / 1000 * RITMO * v.vel;
+      if (v.cuadros.length > 1) { v.t += dt * v.vel; while (v.t >= v.ms[v.i]) { v.t -= v.ms[v.i]; v.i = (v.i + 1) % v.cuadros.length; } }
+    }
+    pintar(); requestAnimationFrame(bucle);
+  }
+
+  function reproducir(si) { v.activo = si; $("play").textContent = si ? "PAUSA" : "REPRODUCIR"; $("play").setAttribute("aria-pressed", String(si)); if (v.lista) estado(si ? "reproduciendo" : "en pausa", si ? "ok" : "espera"); }
+  function paso(d) { if (v.cuadros.length < 2) return; reproducir(false); v.t = 0; v.i = (v.i + d + v.cuadros.length) % v.cuadros.length; }
+  function conmutar(clave, id) { v[clave] = !v[clave]; $(id).setAttribute("aria-pressed", String(v[clave])); }
+  function grupo(attr, valor) { document.querySelectorAll("[data-" + attr + "]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-" + attr) === String(valor))); }); }
+
+  $("play").onclick = function () { reproducir(!v.activo); };
+  $("ant").onclick = function () { paso(-1); }; $("sig").onclick = function () { paso(1); };
+  document.querySelectorAll("[data-vel]").forEach(function (b) { b.onclick = function () { v.vel = Number(b.getAttribute("data-vel")); grupo("vel", v.vel); }; });
+  document.querySelectorAll("[data-fondo]").forEach(function (b) { b.onclick = function () { v.fondo = b.getAttribute("data-fondo"); visor.className = "f-" + v.fondo; grupo("fondo", v.fondo); }; });
+  $("mas").onclick = function () { poner(v.z * 1.25); }; $("menos").onclick = function () { poner(v.z / 1.25); };
+  $("ajustar").onclick = function () { poner(zAjuste(), true); }; $("juego").onclick = function () { poner(ZOOM_JUEGO); };
+  $("cebolla").onclick = function () { conmutar("cebolla", "cebolla"); }; $("reflejo").onclick = function () { conmutar("reflejo", "reflejo"); };
+  document.querySelectorAll("[data-bob]").forEach(function (b) { b.onclick = function () { v.bob = Number(b.getAttribute("data-bob")); grupo("bob", v.bob); }; });
+  $("comparar").onclick = function () { conmutar("comparar", "comparar"); };
+  $("lamina").onclick = function () { conmutar("lamina", "lamina"); $("panel").hidden = !v.lamina; medir(); };
+  $("antiguo").onclick = function () { conmutar("antiguo", "antiguo"); }; $("guias").onclick = function () { conmutar("guias", "guias"); };
+  visor.addEventListener("wheel", function (e) { e.preventDefault(); poner(v.z * (e.deltaY < 0 ? 1.15 : 1 / 1.15)); }, { passive: false });
+  window.addEventListener("resize", medir);
+  window.addEventListener("keydown", function (e) {
+    if (e.ctrlKey || e.metaKey || e.altKey || !v.lista) return;
+    var k = e.key;
+    if (k === " ") reproducir(!v.activo);   /* Espacio siempre es pausa, aunque el foco esté en un botón */
+    else if (k === "ArrowLeft") paso(-1); else if (k === "ArrowRight") paso(1);
+    else if (k === "+" || k === "=") poner(v.z * 1.25); else if (k === "-") poner(v.z / 1.25);
+    else if (k === "a" || k === "A") poner(zAjuste(), true); else if (k === "j" || k === "J") poner(ZOOM_JUEGO);
+    else if ((k === "c" || k === "C") && v.cuadros.length > 1) conmutar("cebolla", "cebolla"); else if (k === "r" || k === "R") conmutar("reflejo", "reflejo");
+    else if (k === "g" || k === "G") conmutar("guias", "guias"); else return;
+    e.preventDefault();
+  });
+
+  window.addEventListener("keyup", function (e) { if (e.key === " ") e.preventDefault(); });
+  window.DD_ANIM_VISOR = {
+    estado: function () {
+      return { lista: v.lista, cuadro: v.i, id: v.lista ? v.cuadros[v.i].id : null, total: v.cuadros.length, activo: v.activo, vel: v.vel, z: v.z, ajustada: v.ajustada,
+               fondo: v.fondo, cebolla: v.cebolla, reflejo: v.reflejo, bob: v.bob, bobY: v.bobY, fase: v.fase, etiqueta: v.etiqueta, es4f: ES_4F, esFid: ES_FID, comparar: v.comparar, lamina: v.lamina, fila: (v.fila || []).slice(), otro: otro ? { id: otro.id, src: otro.src, caja: otro.caja, etiqueta: otro.etiqueta } : null, anterior: anterior ? { id: anterior.id, src: anterior.src, caja: anterior.caja } : null, antiguo: v.antiguo, guias: v.guias, ms: v.ms.slice(), dibujoMs: v.dibujoMs,
+               pintados: v.pintados, ultimoOk: v.ultimoOk, errores: v.errores.slice(), cajas: v.cuadros.map(function (c) { return c.caja; }),
+               tamanos: v.cuadros.map(function (c) { return [c.img.naturalWidth, c.img.naturalHeight]; }) };
+    }
+  };
+})();
+</script>
+</body>
+</html>

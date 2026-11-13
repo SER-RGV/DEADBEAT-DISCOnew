@@ -1,0 +1,64 @@
+{
+ "batch": "R05B_PROTAGONISTA_MAESTRO_FIDELIDAD",
+ "label": "IDLE_1F_FIDELIDAD",
+ "status": "Corrección de fidelidad v2 del IDLE de fotograma único · PENDIENTE DE APROBACIÓN · no registrado en src/dd_asset_registry.js",
+ "note": "Entrada con el mismo formato que MANIFEST.entries del juego.",
+ "animation": {
+  "set": "idle",
+  "frames": [
+   "pm_idle_fid_00"
+  ],
+  "loop": true,
+  "procedural": {
+   "source": "pAnim.bobY (motor)",
+   "rate_rad_s": 2.8,
+   "cycle_ms": 2244,
+   "amp_px_refugio": 1.1,
+   "amp_px_combate": 0.55
+  }
+ },
+ "entries": {
+  "pm_idle_fid_00": {
+   "id": "pm_idle_fid_00",
+   "originalId": "pm:idle_fid:00",
+   "name": "Protagonista (lámina maestra) · IDLE · fotograma único · fidelidad corregida",
+   "category": "characters",
+   "src": "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
+   "w": 288,
+   "h": 512,
+   "alpha": true,
+   "pivot": "bottom-center",
+   "tanda": "R05B_PROTAGONISTA_MAESTRO_FIDELIDAD",
+   "sha16": "c17c46554f0e6389",
+   "rev": "R05B_PROTAGONISTA_MAESTRO_FIDELIDAD",
+   "anchors": {
+    "belt": 0.511,
+    "hand": [
+     0.5796,
+     0.5767
+    ]
+   }
+  }
+ },
+ "base": "assets/characters/protagonist_master/pm_idle_00.png (aprobado técnicamente, conservado sin cambios)",
+ "version": "v2 (FASE 07B)",
+ "previous": {
+  "id": "pm_idle_fid_00_v1",
+  "label": "IDLE_1F_FIDELIDAD v1 (FASE 07)",
+  "src": "assets/characters/protagonist_master/fidelidad/versiones/pm_idle_fid_00_v1.png",
+  "sha16": "8f985055b54d5c06",
+  "anchors": {
+   "belt": 0.511,
+   "hand": [
+    0.5796,
+    0.5767
+   ]
+  },
+  "note": "Corrección anterior, conservada como versión de comparación."
+ },
+ "sources": {
+  "hombro": "protagonist_master_crop_tattoo_details.png · panel HOMBRO (SIGILO GEOMÉTRICO)",
+  "antebrazo": "protagonist_master_crop_tattoo_details.png · panel ANTEBRAZO (LOBO)",
+  "metodo": "transferencia directa de la tinta del panel por escala y giro; sin redibujar"
+ }
+}

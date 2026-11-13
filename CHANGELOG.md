@@ -128,3 +128,66 @@ Registrar aquí cada modificación:
 - Causas raíces corregidas (verificados en runtime, no hipótesis): (1) `index.html` dependía de `src/*.css|js` externos → publicado solo, no existían menú nuevo, HUB, cinemática ni puente visual (menú antiguo visible, todo lo demás caído); ahora la build es autocontenida. (2) El cover legacy ddc registra `keydown/keyup` en **fase de captura sobre `window`** y, con su flag interno `Z`, llama a `stopImmediatePropagation()` → ese secuestro mataba WASD/flechas, la navegación del menú HD y ESPACIO (saltar cinemática); el guard del puente neutraliza exactamente esos dos listeners mientras `body.dd-highres-edition` esté activo (retirable; el input del motor es bubble y queda intacto). (3) La cinemática no dejaba al jugador en el HUB utilizable porque el HUB no llegaba a existir (1) o el teclado estaba secuestrado (2); el callback `DD_HUB.enter()` y la liberación de `isBlocking` ya eran correctos. (4) Entrar al HUB con una partida viva no pausaba la simulación (`Tf`) ni bloqueaba el estado; ahora `setPaused(true)` congela el mundo tras la cámara del HUB y `setPaused(false)` + `rp()` reanudan al descender. (5) Composición del HUB: el zoom <1 dejaba bandas negras de vacío y el protagonista (sprite oscuro ~104 px) se leía mal sobre la alfombra; corregido con zoom adaptativo con clamp, foco de luz y halo.
 - Pruebas (Chromium headless `@sparticuz/chromium` + puppeteer-core, entorno sin GUI, rAF ≈5–22 fps, dt clamp ×4): flujo completo `carga → menú (único) → navegación teclado y mando → cinemática (fin + skip ESPACIO) → HUB activo → WASD/flechas → estación descenso [E] → cinemática círculo → partida iniciada → teclado en partida → [H] vuelve al HUB con motor pausado`: **13/13 checkpoints en modo ficheros completos y en modo fichero único (sin `src/` ni `assets/`)**; mando **emulado** (stick, D-pad, A) 8/8; `pageerror` 0, panel de error fatal 0, `DMO.diag.errors` 0. Mando físico y GUI real: **NO VERIFICADO** (sin hardware ni display en el sandbox). Detalle en el informe de esta sesión.
 - Sin cambios en: balance, enemigos, armas, progresión, economía, scripts Cloudflare, mecánicas, `v9_t3_fase1b_cache_probe.html`, `DEADBEAT_DISCO.ART.html` ni assets. Ningún sistema heredado eliminado: ddc cover y `#overlay` siguen vivos en el DOM y recuperan su comportamiento si se retira la clase `dd-highres-edition`.
+
+## 2026-11-12 · PROJECT RESTART · cierre del diseño del protagonista
+- Archivos modificados: `docs/RESTART/03_PERSONAJE_MAESTRO.md` (ficha consolidada), `docs/LORE/BIBLIA_MAESTRA_UNIVERSO_v1.0.txt` (§4.1, §4.4), `ART_BIBLE.md`, `docs/ART_REBUILD/VISUAL_REFERENCE_GUIDE.md`, `docs/RESTART/01_…` y `02_…` (notas), `CURRENT_STATE.md`, visor `assets/cinematics/preview/art_direction_test.html`, `tools/qa/test_art_direction_viewer.js`.
+- Archivos nuevos: `docs/LORE/historico/` (biblia anterior sin modificar).
+- Sistemas afectados: ninguno del juego (solo documentación y visor de arte).
+- Pruebas: QA del visor y huella SHA-256 de la lámina maestra (`docs/RESTART/evidencia_visor/qa_visor.json`).
+
+## 2026-11-12 · PROJECT RESTART · protagonista: IDLE de fotograma único
+- Archivos nuevos: `assets/characters/protagonist_master/pm_idle_00.png` y `pm_idle.manifest.json` (IDLE_1F), maestro webp y tanda `R05_PROTAGONISTA_MAESTRO`, `docs/RESTART/06_IDLE_FOTOGRAMA_UNICO.md`, `docs/RESTART/evidencia_idle_1f/`, `tools/qa/probe_idle_1f_in_game.js`.
+- Archivos modificados: `assets/cinematics/preview/protagonist_anim_test.html`, `tools/qa/test_protagonist_anim_viewer.js`, `docs/RESTART/04_PROTAGONISTA_PRODUCCION.md`, `docs/RESTART/05_MUESTRA_IDLE.md`.
+- Archivos movidos (sin borrar): la muestra de 4 fotogramas, a carpetas `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`.
+- Sistemas afectados: ninguno del juego. Sin cambios en `src/`, sprites `player_*`, registro, `index.html`, menú, cinemática ni Refugio. Recurso no registrado.
+- Pruebas: visor 61/61; visor de arte 48/48; sonda en el Refugio con sustitución solo en el navegador de prueba (control y nuevo, sin errores).
+- Resultado: pendiente de aprobación. Quedan sin corregir el sigilo del hombro y el lobo respecto a la lámina.
+
+## 2026-11-12 · PROJECT RESTART · protagonista: corrección de fidelidad del IDLE
+- Archivos nuevos: `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png` y `pm_idle_fid.manifest.json`, maestro y tanda `R05B_PROTAGONISTA_MAESTRO_FIDELIDAD`, `docs/RESTART/07_IDLE_FIDELIDAD.md`, `docs/RESTART/evidencia_fidelidad/`.
+- Archivos modificados: visor `protagonist_anim_test.html` (recurso «CORREGIDO · POR VALIDAR», comparación lado a lado, panel de lámina y tatuajes), `tools/qa/test_protagonist_anim_viewer.js`, `docs/RESTART/04_…md`, `06_…md`.
+- Sistemas afectados: ninguno del juego. `pm_idle_00.png` sin cambios. Nada registrado.
+- Pruebas: visor 74/74; visor de arte 48/48. Sin prueba en partida de la versión corregida.
+- Resultado: pendiente de validación visual.
+
+## 2026-11-12 · PROJECT RESTART · protagonista: FASE 07B, última corrección de fidelidad del IDLE
+- Archivos modificados: `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png` (v2) y su manifiesto, maestro y tanda `R05B`; visor `protagonist_anim_test.html` (fila actual · anterior · nueva y tres ampliaciones); `tools/qa/test_protagonist_anim_viewer.js`; `docs/RESTART/04_…md`, `07_…md`.
+- Archivos nuevos: `fidelidad/versiones/` (v1 conservada), `docs/RESTART/08_IDLE_FIDELIDAD_07B.md`, `docs/RESTART/evidencia_fidelidad_07b/`.
+- Sistemas afectados: ninguno del juego. `pm_idle_00.png`, lámina, `src/`, sprites y registro sin cambios (hashes en la evidencia).
+- Pruebas: visor 76/76; visor de arte 48/48. Sin prueba en partida.
+- Resultado: pendiente de aprobación.
+
+## 2026-11-12 · PROJECT RESTART · Cierre del protagonista e inicio del juego
+- Protagonista: diseño CERRADO, lámina CANÓNICA, IDLE 07B ACEPTADO COMO REFERENCIA, experimentos ARCHIVADOS, resto de animaciones PENDIENTES. Sin cambios en sus archivos.
+- Nuevo `src/dd_opening.js`: intro «La noche que vuelve» (32 s, 7 planos) y descenso al Refugio (7 s).
+- Flujo: carga → intro → menú → nueva partida → descenso → Refugio. Antes la intro entraba directamente al Refugio.
+- Menú: NUEVA PARTIDA, CONTINUAR (sólo con partida), OPCIONES, CRÉDITOS, SALIR; aspecto nuevo; guardado `dd_save_v1`.
+- Archivos: `src/dd_boot.js`, `src/dd_ui_system.js`, `src/dd_hub_system.js` (textos), `src/dd_rebuild_ui.css`, `tools/build_active_html.py`, `assets/cinematics/restart/opening/`, `ART_ASSETS/rebuild_masters/R06_INICIO/`, `tools/qa/test_restart_flow.js`.
+- QA: 62 de 62. Detalle y limitaciones en `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.
+
+## 2026-11-13 · PROJECT RESTART · Intro en cómic animado
+- La intro pasa a ser un cómic animado de siete planos (viñetas, cartelas, onomatopeyas, transiciones de tinta); mismos 32 s.
+- El descenso se reparte: inicio y sombrero en la intro; NUEVA PARTIDA completa la caída en 4,6 s.
+- Fondo del menú: pozo y sombrero. Fuentes definitivas en `assets/fonts/` (Barlow Condensed, Bangers; OFL).
+- Protagonista en pantalla sólo con la lámina maestra y el IDLE 07B.
+- Archivos: `src/dd_opening.js`, `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `tools/qa/test_restart_flow.js`, láminas `mc_*`. QA 65 de 65. Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md`.
+
+## 2026-11-13 · PROJECT RESTART · Cierre de intro, IDLE 07B en el Refugio y persistencia
+- Cartelas: dos textos sustituidos por indicación de dirección y «canción» → «nota» por correspondencia con la biblia.
+- Refugio: el protagonista se dibuja con el IDLE 07B aprobado (`src/dd_hub_system.js`); sprites de combate sin cambios.
+- Persistencia: NUEVA PARTIDA reinicia sólo el estado de run; nueva acción BORRAR DATOS en OPCIONES con confirmación (`src/dd_ui_system.js`, `src/dd_rebuild_ui.css`).
+- Plano 06 y descenso: balanceo, tirones, estela, viento y polvo sobre el mismo dibujo (`src/dd_opening.js`).
+- Pruebas: `tools/qa/test_persistencia.js` (39 de 39); flujo 65 de 65. Sonido grabado y medido, no escuchado.
+- Storyboard v2 vigente; v1 marcado como histórico. Detalle: `docs/RESTART/13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.
+
+## 2026-11-13 · RESTART 14 · Menú, pantalla de carga y volumen
+- Volumen: intro ≈ −21,6 dB y música del menú −20,7 dB (antes ≈ −26 y −13,7). Medido, no escuchado.
+- Menú: corregida la desaparición de la mezcla del juego al reabrir OPCIONES; ESC, ENTER, ← →, TAB, foco y mando en todos los submenús.
+- Carga: sólo logotipo y barra; la portada antigua ya no se ve en ningún fotograma.
+- Archivos: `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `src/dd_boot.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
+- Pruebas: menú 48 de 48, inicio 65 de 65, persistencia 39 de 39. Detalle en `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.
+
+## 2026-11-13 · RESTART 14b · Los volúmenes de OPCIONES se oyen
+- VOLUMEN DEL MENÚ, MAESTRO, MÚSICA y EFECTOS cambian al instante lo que suena en el menú (antes sólo guardaban el número).
+- Archivos: `src/dd_ui_system.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
+- Pruebas: menú 53 de 53 (con medición de salida real), inicio 65 de 65, persistencia 39 de 39.

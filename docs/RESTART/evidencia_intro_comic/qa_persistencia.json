@@ -1,0 +1,204 @@
+{
+ "fecha": "2026-11-13T11:56:34.898Z",
+ "url": "http://localhost:8080",
+ "nota": "Perfil de navegador desechable con datos sembrados por la prueba.",
+ "superadas": 39,
+ "total": 39,
+ "resultados": [
+  {
+   "name": "[AUDITORÍA] toda clave sembrada pertenece a un grupo declarado (run, permanente o ajustes)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MENÚ] con partida guardada, CONTINUAR está disponible",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CONTINUAR] entra al Refugio sin reproducir el descenso",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CONTINUAR] conserva la ficha: misma fecha de creación, una visita más",
+   "ok": true,
+   "detail": "2026-10-01T10:00:00.000Z · visitas 6"
+  },
+  {
+   "name": "[CONTINUAR] no borra el estado de run (planta guardada intacta)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CONTINUAR] progreso permanente idéntico byte a byte",
+   "ok": true,
+   "detail": "10 claves iguales"
+  },
+  {
+   "name": "[NUEVA PARTIDA] al pulsar no aparece ninguna confirmación de borrado ni se borra nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[NUEVA PARTIDA] ficha nueva: fecha de creación de hoy y visitas a 1",
+   "ok": true,
+   "detail": "2026-11-13T11:56:19.363Z · visitas 1 · partida nº 2"
+  },
+  {
+   "name": "[NUEVA PARTIDA] reinicia el estado de run: la planta de la incursión anterior ya no está",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_currency_v1",
+   "ok": true,
+   "detail": "1234"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_upgrades_v1",
+   "ok": true,
+   "detail": "{\"hp\":2,\"dmg\":1}"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_weapon_prestige_v1",
+   "ok": true,
+   "detail": "{\"m1911\":1}"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_ach_v1",
+   "ok": true,
+   "detail": "{\"first_blood\":true,\"combo10\":true}"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_best_v5",
+   "ok": true,
+   "detail": "98765"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_best_round_v1",
+   "ok": true,
+   "detail": "7"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_best_combo_v216",
+   "ok": true,
+   "detail": "33"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmodisco_hist_v3",
+   "ok": true,
+   "detail": "[{\"score\":98765,\"round\":7,\"date\":\"2026-1"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmo_victories_v214",
+   "ok": true,
+   "detail": "{\"count\":2,\"best\":311.5}"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva dmo_secret_route_v32",
+   "ok": true,
+   "detail": "{\"version\":\"3.2\",\"unlockedEver\":true,\"vi"
+  },
+  {
+   "name": "[NUEVA PARTIDA] conserva los ajustes",
+   "ok": true,
+   "detail": "2 claves"
+  },
+  {
+   "name": "[NUEVA PARTIDA] no elimina ninguna otra clave del almacenamiento",
+   "ok": true,
+   "detail": "dmo_floor_v32"
+  },
+  {
+   "name": "[NUEVA PARTIDA] el juego sigue leyendo el progreso: 1234 fichas, récord 98765, 2 logros",
+   "ok": true,
+   "detail": "{\"currency\":1234,\"best\":98765,\"ach\":2}"
+  },
+  {
+   "name": "[REFUGIO] el protagonista es el IDLE 07B (PNG aprobado)",
+   "ok": true,
+   "detail": "idle_07b"
+  },
+  {
+   "name": "[REFUGIO] sin deformar: proporción 288:512 exacta",
+   "ok": true,
+   "detail": "0.5625"
+  },
+  {
+   "name": "[REFUGIO] se dibuja el PNG completo (288×512 a escala uniforme), no un recorte",
+   "ok": true,
+   "detail": "{\"x\":846.1,\"y\":509.3,\"w\":69.82,\"h\":124.12} · el encuadre en pantalla se revisa a ojo en las capturas"
+  },
+  {
+   "name": "[REFUGIO] al andar sigue siendo el mismo dibujo, con la misma proporción",
+   "ok": true,
+   "detail": "de 880,615 a 562,295"
+  },
+  {
+   "name": "[REFUGIO] 1920×1080: IDLE 07B con proporción correcta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[REFUGIO] 2560×1440: IDLE 07B con proporción correcta",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] es una acción aparte, dentro de OPCIONES; no está en el menú principal",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] abrir la pantalla no borra nada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] informa de qué se elimina (12 conceptos, con su valor actual)",
+   "ok": true,
+   "detail": "FICHA DE LA PARTIDA ACTUAL creada el 2026-11-13 PLANTA GENERADA DE LA ÚLTIMA INCURSIÓN — FICHAS 1234 MEJORAS C"
+  },
+  {
+   "name": "[BORRAR DATOS] informa de qué se conserva (ajustes)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] el foco entra en CANCELAR",
+   "ok": true,
+   "detail": "dd-erase-no"
+  },
+  {
+   "name": "[BORRAR DATOS] CANCELAR (Enter con el foco inicial) no borra nada y vuelve al menú",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] ESC tampoco borra",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] tras confirmar: partida y progreso permanente eliminados (también después de recargar)",
+   "ok": true,
+   "detail": "12 claves fuera"
+  },
+  {
+   "name": "[BORRAR DATOS] los ajustes siguen intactos",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[BORRAR DATOS] sin partida, CONTINUAR desaparece del menú",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[GENERAL] sin errores de JavaScript durante la prueba",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

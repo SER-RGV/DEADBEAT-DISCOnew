@@ -1,0 +1,69 @@
+{
+ "batch": "R05_PROTAGONISTA_MAESTRO",
+ "title": "Protagonista según la lámina maestra — IDLE de fotograma único (no registrado en el juego)",
+ "created": "2026-11-12",
+ "style": "NEON GRAFFITI HORROR DISCO, cómic ilustrado (no pixel art)",
+ "status": "PENDIENTE_DE_APROBACION",
+ "reference": "assets/cinematics/restart/character_master/protagonist_master_approved.png (vista PERFIL D.); pelo descubierto según assets/characters/player_idle_00.png",
+ "history": "El experimento de cuatro fotogramas (IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY) está archivado en assets/characters/protagonist_master/IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/ y docs/RESTART/evidencia_IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY/.",
+ "layout": {
+  "scale_master_to_canvas": 0.3823,
+  "canvas_height": 512,
+  "baseline_y": 504,
+  "torso_axis_raw_x": 440,
+  "note": "Figura sin sombrero = 462 px (cabeza y=43, suelas y=504), como R01. El cinturón queda oculto por el chaleco y el brazo en perfil: belt_y es estimado."
+ },
+ "animation": {
+  "set": "idle",
+  "frames": [
+   "pm_idle_00"
+  ],
+  "loop": true,
+  "procedural": {
+   "source": "pAnim.bobY (motor)",
+   "rate_rad_s": 2.8,
+   "cycle_ms": 2244,
+   "amp_px_refugio": 1.1,
+   "amp_px_combate": 0.55
+  }
+ },
+ "defaults": {
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "assets": [
+  {
+   "id": "pm_idle_00",
+   "raw": "pm_idle_00.png",
+   "name": "Protagonista (lámina maestra) · IDLE · fotograma único",
+   "category": "characters",
+   "pivot": "bottom-center",
+   "size": [
+    288,
+    512
+   ],
+   "location": "assets/characters/protagonist_master/pm_idle_00.png",
+   "original_id": "pm:idle:00",
+   "entity": "protagonista",
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.3823,
+    "ax": 440,
+    "ay": 1246,
+    "cx": 144,
+    "cy": 504,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "belt_y": 612,
+    "hand": [
+     500,
+     700
+    ]
+   },
+   "generation": "gen_h_1f (edición de gen_a_base: chaleco negro, camiseta y cadenas)",
+   "use": "Reposo sin arma, perfil puro mirando a la derecha, sin sombrero. Respiración: la procedural del motor."
+  }
+ ]
+}

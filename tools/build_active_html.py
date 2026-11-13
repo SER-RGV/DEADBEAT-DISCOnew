@@ -23,6 +23,33 @@ if cf_idx > len(html) - 2000:
     if cf_end > cf_idx:
         html = html[:cf_idx] + html[cf_end + len("</script>"):]
 
+# 1b. Nivel de la música del menú. El motor de la portada antigua (que sigue
+#     siendo el que toca la música del menú) multiplica su volumen por 0,9; medido,
+#     eso deja el menú unos 13 dB por encima de la intro. Se baja a 0,40 (−7 dB) y
+#     la intro se sube en src/dd_opening.js. El control de volumen del usuario no
+#     cambia de significado: sigue siendo un factor sobre este nivel.
+_menu_gain_old = "function ne(){return x.muted?0:x.vol*(te?.32:1)*.9}"
+# La música del menú obedece además a MAESTRO y MÚSICA de OPCIONES
+# (window.DD_MENU_MIX, definido en src/dd_ui_system.js). Con la mezcla por defecto
+# ese factor vale 1, así que el nivel calibrado (0,4) no cambia.
+_menu_gain_new = "function ne(){return x.muted?0:x.vol*(te?.32:1)*.4*(window.DD_MENU_MIX?window.DD_MENU_MIX().music:1)}"
+assert html.count(_menu_gain_old) == 1, "No se encuentra la ganancia de la música del menú"
+html = html.replace(_menu_gain_old, _menu_gain_new, 1)
+
+# 1c. El motor de la portada exponía setVol() SIN argumento (sólo reaplicaba su
+#     valor interno): el deslizador VOLUMEN DEL MENÚ guardaba el número pero no
+#     cambiaba lo que se oía hasta recargar. Ahora setVol(v) fija el volumen.
+_setvol_old = "setVol:ie,"
+_setvol_new = ('setVol:function(a){"number"==typeof a&&isFinite(a)&&(x.vol=Math.max(0,Math.min(1,a)),x.muted=!1),ie()},'
+               'setMuted:function(a){x.muted=!!a,ie()},targetGain:function(){return ne()},')
+assert html.count(_setvol_old) == 1, "No se encuentra setVol del motor de la portada"
+html = html.replace(_setvol_old, _setvol_new, 1)
+# Los sonidos de interfaz del menú también obedecen a MAESTRO y EFECTOS.
+_ui_old = "a=y.currentTime+.005,t=x.vol"
+_ui_new = "a=y.currentTime+.005,t=x.vol*(window.DD_MENU_MIX?window.DD_MENU_MIX().ui:1)"
+assert html.count(_ui_old) == 1, "No se encuentra el volumen de los sonidos de interfaz"
+html = html.replace(_ui_old, _ui_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
@@ -1131,6 +1158,7 @@ MODULE_ORDER = (
     "dd_world_renderer.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",
+    "dd_opening.js",
     "dd_ui_system.js",
 )
 _parts = []

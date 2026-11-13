@@ -1,0 +1,274 @@
+{
+ "fecha": "2026-11-13T13:04:09.581Z",
+ "url": "http://localhost:8080",
+ "nota": "Mando simulado; no sustituye a un mando físico.",
+ "superadas": 53,
+ "total": 53,
+ "resultados": [
+  {
+   "name": "[CARGA] en pantalla sólo quedan el logotipo, la barra y, si hace falta, el aviso de pulsar una tecla",
+   "ok": true,
+   "detail": "[]"
+  },
+  {
+   "name": "[CARGA] la portada antigua no se puede ver (oculta desde la hoja de estilos, no desde un script)",
+   "ok": true,
+   "detail": "none"
+  },
+  {
+   "name": "[CARGA] sin imagen antigua de fondo",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MENÚ] responde desde el primer instante (tecla a 0,1 s de aparecer)",
+   "ok": true,
+   "detail": "continue"
+  },
+  {
+   "name": "[MENÚ] teclado: ↓ recorre las cinco opciones y da la vuelta",
+   "ok": true,
+   "detail": "options,credits,exit,new,continue"
+  },
+  {
+   "name": "[MENÚ] teclado: W, S, Inicio y Fin",
+   "ok": true,
+   "detail": "new,continue,exit,new"
+  },
+  {
+   "name": "[MENÚ] ratón: pasar por encima selecciona cada opción, también en el borde del botón",
+   "ok": true,
+   "detail": "new,continue,options,credits,exit"
+  },
+  {
+   "name": "[MENÚ] ratón: zona de pulsación de cada opción de al menos 44 px de alto",
+   "ok": true,
+   "detail": "53/53/53/53/53 px de alto, 320 px de ancho"
+  },
+  {
+   "name": "[MENÚ] mando (simulado): cruceta abajo y arriba",
+   "ok": true,
+   "detail": "options → continue"
+  },
+  {
+   "name": "[MENÚ] un clic en el fondo no quita el foco y TAB / MAYÚS+TAB recorren las opciones sin salirse",
+   "ok": true,
+   "detail": "continue → continue → options → continue"
+  },
+  {
+   "name": "[OPCIONES] se abre con un clic y el foco entra en el primer control",
+   "ok": true,
+   "detail": "menu-vol-master"
+  },
+  {
+   "name": "[OPCIONES] teclado: ↓ pasa por todos los controles y vuelve al primero",
+   "ok": true,
+   "detail": "12 pasos, 12 controles"
+  },
+  {
+   "name": "[OPCIONES] el control enfocado siempre lleva marca visible (también cuando el foco lo mueve el mando)",
+   "ok": true,
+   "detail": "todos con contorno"
+  },
+  {
+   "name": "[OPCIONES] teclado: deslizador menu-vol-music — ←/→ y A/D mueven de 5 en 5",
+   "ok": true,
+   "detail": "85 → 80 → 90 → 85"
+  },
+  {
+   "name": "[OPCIONES] teclado: deslizador menu-vol-sfx — ←/→ y A/D mueven de 5 en 5",
+   "ok": true,
+   "detail": "90 → 85 → 95 → 90"
+  },
+  {
+   "name": "[OPCIONES] teclado: deslizador menu-vol-dj — ←/→ y A/D mueven de 5 en 5",
+   "ok": true,
+   "detail": "80 → 75 → 85 → 80"
+  },
+  {
+   "name": "[OPCIONES] teclado: deslizador dd-opt-menuvol — ←/→ y A/D mueven de 5 en 5",
+   "ok": true,
+   "detail": "80 → 75 → 85 → 80"
+  },
+  {
+   "name": "[OPCIONES] teclado: mantener ← arrastra el deslizador",
+   "ok": true,
+   "detail": "85 → 65"
+  },
+  {
+   "name": "[OPCIONES] el porcentaje mostrado sigue al deslizador",
+   "ok": true,
+   "detail": "65%"
+  },
+  {
+   "name": "[OPCIONES] teclado: selector menu-gfx — ←/→ y ENTER cambian de opción sin abrir la lista del navegador",
+   "ok": true,
+   "detail": "auto → low → auto → low"
+  },
+  {
+   "name": "[OPCIONES] ESC cierra a la primera con el foco en menu-gfx",
+   "ok": true,
+   "detail": "MAIN_MENU"
+  },
+  {
+   "name": "[OPCIONES] teclado: selector dd-opt-gfx — ←/→ y ENTER cambian de opción sin abrir la lista del navegador",
+   "ok": true,
+   "detail": "auto → high → auto → high"
+  },
+  {
+   "name": "[OPCIONES] ESC cierra a la primera con el foco en dd-opt-gfx",
+   "ok": true,
+   "detail": "MAIN_MENU"
+  },
+  {
+   "name": "[OPCIONES] al abrirla por tercera vez conserva todos sus controles (la mezcla del juego no desaparece)",
+   "ok": true,
+   "detail": "12 de 12"
+  },
+  {
+   "name": "[OPCIONES] teclado: casilla menu-flash — ENTER y ESPACIO la marcan y desmarcan",
+   "ok": true,
+   "detail": "true → false → true"
+  },
+  {
+   "name": "[OPCIONES] teclado: casilla menu-shake — ENTER y ESPACIO la marcan y desmarcan",
+   "ok": true,
+   "detail": "true → false → true"
+  },
+  {
+   "name": "[OPCIONES] teclado: MÚSICA DEL MENÚ se silencia y se reactiva de verdad",
+   "ok": true,
+   "detail": "ACTIVA → SILENCIADA → ACTIVA · sonando silenciada: false"
+  },
+  {
+   "name": "[OPCIONES] TAB da la vuelta dentro del panel y un clic en vacío no quita el foco",
+   "ok": true,
+   "detail": "menu-vol-master → dd-opt-erase → dd-opt-erase"
+  },
+  {
+   "name": "[SONIDO] arrastrar menu-vol-master con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.0895 · 24 % → 0.0213 · 0 % → 0.0000 · 90 % → 0.0844"
+  },
+  {
+   "name": "[SONIDO] arrastrar menu-vol-music con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.1259 · 24 % → 0.0291 · 0 % → 0.0000 · 90 % → 0.1160"
+  },
+  {
+   "name": "[SONIDO] arrastrar dd-opt-menuvol con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.1514 · 24 % → 0.0349 · 0 % → 0.0000 · 90 % → 0.1356"
+  },
+  {
+   "name": "[SONIDO] MAESTRO con el teclado baja el volumen real",
+   "ok": true,
+   "detail": "100 % → 0.1381 · 40 % → 0.0550"
+  },
+  {
+   "name": "[SONIDO] el conmutador MÚSICA DEL MENÚ la calla y la devuelve de verdad",
+   "ok": true,
+   "detail": "0.0000 → 0.1523"
+  },
+  {
+   "name": "[OPCIONES] ratón: los deslizadores van adonde se pulsa",
+   "ok": true,
+   "detail": "24, 76, 50"
+  },
+  {
+   "name": "[OPCIONES] ratón: la casilla responde al clic en la casilla y en su texto",
+   "ok": true,
+   "detail": "true → false → true"
+  },
+  {
+   "name": "[OPCIONES] ratón: el conmutador responde",
+   "ok": true,
+   "detail": "ACTIVA → SILENCIADA"
+  },
+  {
+   "name": "[OPCIONES] los cambios quedan guardados",
+   "ok": true,
+   "detail": "{\"vol\":{\"master\":1,\"music\":0.87,\"sfx\":0.76,\"dj\":0.8},\"cover\":{\"vol\":0.5}}"
+  },
+  {
+   "name": "[OPCIONES] mando (simulado): izquierda/derecha ajustan el deslizador de 5 en 5",
+   "ok": true,
+   "detail": "80 → 85 → 80"
+  },
+  {
+   "name": "[OPCIONES] mando (simulado): abajo pasa al control siguiente",
+   "ok": true,
+   "detail": "menu-gfx"
+  },
+  {
+   "name": "[OPCIONES] mando (simulado): el selector cambia con izquierda/derecha y con A",
+   "ok": true,
+   "detail": "auto → low → auto → low"
+  },
+  {
+   "name": "[OPCIONES] mando (simulado): A marca la casilla",
+   "ok": true,
+   "detail": "true → false"
+  },
+  {
+   "name": "[OPCIONES] mando (simulado): B vuelve al menú con OPCIONES seleccionada",
+   "ok": true,
+   "detail": "MAIN_MENU / options"
+  },
+  {
+   "name": "[SUBMENÚ] el botón VOLVER responde al ratón",
+   "ok": true,
+   "detail": "MAIN_MENU"
+  },
+  {
+   "name": "[CRÉDITOS] se abre con ENTER y se cierra con ESC, volviendo a su opción",
+   "ok": true,
+   "detail": "credits (foco dd-submenu-back) → credits"
+  },
+  {
+   "name": "[SALIR] ←/→ y ↑/↓ pasan de un botón al otro",
+   "ok": true,
+   "detail": "dd-exit-yes → dd-exit-no → dd-exit-yes → dd-exit-no"
+  },
+  {
+   "name": "[SALIR] SEGUIR BAILANDO (ENTER) vuelve al menú",
+   "ok": true,
+   "detail": "MAIN_MENU"
+  },
+  {
+   "name": "[SALIR] SALIR DEL CLUB muestra la despedida y VOLVER A ENTRAR devuelve un menú que responde",
+   "ok": true,
+   "detail": "MAIN_MENU"
+  },
+  {
+   "name": "[SALIR] tras volver a entrar, el teclado sigue navegando",
+   "ok": true,
+   "detail": "credits"
+  },
+  {
+   "name": "[BORRAR DATOS] se abre con teclado, el foco entra en CANCELAR y ←/→ cambian de botón",
+   "ok": true,
+   "detail": "dd-erase-no → dd-erase-yes → dd-erase-no"
+  },
+  {
+   "name": "[BORRAR DATOS] ESC vuelve al menú sin borrar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[OPCIONES] en una ventana de 1024×540 el último control queda visible al llegar a él con el teclado",
+   "ok": true,
+   "detail": "{\"id\":\"dd-opt-erase\",\"ok\":true,\"scroll\":true}"
+  },
+  {
+   "name": "[CONTINUAR] responde y entra al Refugio",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[GENERAL] sin errores de JavaScript durante la prueba",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

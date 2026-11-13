@@ -141,3 +141,45 @@ Toda modificación debe partir de una copia de seguridad.
 - Resultado medido: línea magenta recta **1089 → 0 px** (restaurado 1117), separación de planos en el borde **17,95 → 23,65**, 62 props / 11 estaciones intactos, `startCampaignFromHub(0)` sin cambios → `CAMPAIGN_ROOM`.
 - QA `ART_EVIDENCE/hub/correccion/qa_matrix.json`: **18 APROBADO / 0 FALLIDO**, 0 `pageerror` en 5 contextos, reversibilidad en caliente verificada. Evidencias: 16 sweep, 12 A/B + 2 restaurado, 9 descenso, `flag_off_boot_borde.jpg`, `compatibilidad_t09_legibilidad.jpg`, `comparativa_antes_despues.png`, `report.json`, `qa_matrix.json`, `metricas.json`, `hashes.json` (46 ficheros).
 - `main`/`origin/main` en `d75e021`, PR #1 `OPEN` sin merge. Informe: `ART_CORRECCION_LEGIBILIDAD_HUB.md`.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · diseño del protagonista CERRADO)
+- Modelo maestro oficial: `assets/cinematics/restart/character_master/protagonist_master_approved.png` (1672×941, SHA-256 `43d9e58fcd1c9f9e04aabcc95da2194496a8aef765e2b9a56d34e75933004e5d`). Congelado: no regenerar, redibujar ni sustituir.
+- Ficha consolidada y reglas de producción: `docs/RESTART/03_PERSONAJE_MAESTRO.md`.
+- Tatuajes: los de la lámina. Retirada la descripción «partitura incompleta» de la biblia (§4.1); versión anterior en `docs/LORE/historico/`.
+- Los 22 sprites `assets/characters/player_*` son del **diseño anterior**; siguen intactos y en uso hasta una futura fase de reconstrucción de animaciones, que deberá partir de la lámina.
+- V1 y V2 de la composición de intro: histórico, no canónicas. Logotipo oficial: `assets/logos/logo_deadbeat_graffiti.png` (el rótulo de la lámina no lo sustituye).
+- Sin cambios en motor, cinemática activa, menú ni sprites.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: IDLE de fotograma único) — PENDIENTE DE APROBACIÓN
+- El juego sigue usando los 22 sprites anteriores. Nada nuevo está registrado ni integrado.
+- IDLE nuevo: un fotograma (`assets/characters/protagonist_master/pm_idle_00.png`) con la respiración procedural del motor. Informe: `docs/RESTART/06_IDLE_FOTOGRAMA_UNICO.md`.
+- Muestra de 4 fotogramas: fallida por inconsistencia de tatuajes, archivada como `IDLE_4F_EXPERIMENT_FAILED_TATTOO_CONTINUITY`.
+- Abierto para la revisión de ilustración: sigilo del hombro (estrella en círculo), lobo reconocible, cadenas.
+- No iniciadas: WALK, RUN, SHOOT y el resto. Se espera la aprobación del IDLE.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: fidelidad del IDLE) — PENDIENTE DE VALIDACIÓN VISUAL
+- Arquitectura IDLE aprobada: un fotograma + respiración procedural del motor. `pm_idle_00.png` aprobado técnicamente y conservado.
+- Versión corregida (sigilo del hombro, lobo, cadenas): `assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png`. Informe: `docs/RESTART/07_IDLE_FIDELIDAD.md`.
+- El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · protagonista: FASE 07B) — PENDIENTE DE APROBACIÓN
+- Corrección de fidelidad v2 del IDLE: tinta del hombro y del lobo tomada directamente de los paneles de la lámina; cadenas reforzadas. Informe: `docs/RESTART/08_IDLE_FIDELIDAD_07B.md`.
+- Se conservan `pm_idle_00.png` (aprobado técnicamente) y la v1 de la corrección.
+- El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.
+
+---
+
+## Estado actual · 2026-11-13 (PROJECT RESTART · inicio del juego)
+
+- Build activa: `index.html` = `DEADBEAT_DISCO.html`, generadas por `tools/build_active_html.py`.
+- Inicio: carga → intro en cómic animado (32 s) → menú → nueva partida → descenso (4,6 s) → Refugio.
+- Protagonista: diseño cerrado. **IDLE 07B integrado en el Refugio** (un fotograma, sin animación de paso). En las incursiones siguen los sprites anteriores.
+- Persistencia: NUEVA PARTIDA reinicia sólo el estado de run; CONTINUAR no reinicia nada; BORRAR DATOS es una acción aparte en OPCIONES, con confirmación.
+- QA: `tools/qa/test_restart_flow.js` 65 de 65; `tools/qa/test_persistencia.js` 39 de 39.
+- **Sonido: grabado y medido, NO ESCUCHADO NI VALIDADO.** Pendiente de escucha humana; hay un salto de volumen de unos 13 dB entre la intro y la música del menú por decidir.
+- Storyboard vigente: v2 (`docs/RESTART/storyboard_intro/storyboard_v2_motor.jpg`); v1 es histórico.
+- Pendiente: escucha; animaciones del protagonista (andar, combate); retrato del HUD; mando físico y otros navegadores.
+- Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md` y `13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.
+
+## 2026-11-13 · RESTART 14
+Menú revisado control por control, pantalla de carga reducida a logotipo y barra, portada antigua oculta desde el primer fotograma, intro y música del menú igualadas en nivel medido (sin escuchar). Ver `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.

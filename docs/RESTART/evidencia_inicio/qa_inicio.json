@@ -1,0 +1,399 @@
+{
+ "fecha": "2026-11-13T00:17:50.100Z",
+ "url": "http://localhost:8080/index.html",
+ "superadas": 62,
+ "total": 62,
+ "resultados": [
+  {
+   "name": "[CARGA] index.html responde 200 y la carga termina sin errores críticos",
+   "ok": true,
+   "detail": "carga 1697 ms"
+  },
+  {
+   "name": "[CARGA] sin pulsación previa, la carga espera una tecla (el navegador bloquearía el sonido)",
+   "ok": true,
+   "detail": "PULSA CUALQUIER TECLA PARA EMPEZAR"
+  },
+  {
+   "name": "[CARGA] la intro no empieza sola mientras espera",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CARGA] la carga incluye el paso de los planos de la introducción",
+   "ok": true,
+   "detail": "engine, assets, images, fase01, opening, fonts, ui, audio, storage, final"
+  },
+  {
+   "name": "[INTRO] una pulsación arranca la intro; estado INTRO",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[INTRO] tabla de planos: 7 planos contiguos que suman 32 s",
+   "ok": true,
+   "detail": "1:0–4 2:4–9 3:9–14 4:14–18 5:18–23 6:23–28 7:28–32"
+  },
+  {
+   "name": "[INTRO] dura 32 s de reloj real (±1,5 s)",
+   "ok": true,
+   "detail": "32.00 s, fin: complete, 978 fotogramas"
+  },
+  {
+   "name": "[INTRO] los 7 planos se ven en orden",
+   "ok": true,
+   "detail": "1@0.0 2@4.0 3@9.0 4@14.1 5@18.0 6@23.2 7@28.2"
+  },
+  {
+   "name": "[INTRO] cada plano entra en su tiempo (±0,5 s)",
+   "ok": true,
+   "detail": "0.00 0.03 0.03 0.10 0.02 0.17 0.17"
+  },
+  {
+   "name": "[INTRO] ANIM los 7 planos se mueven (dos fotogramas distintos a 260 ms)",
+   "ok": true,
+   "detail": "{\"1\":true,\"2\":true,\"3\":true,\"4\":true,\"5\":true,\"6\":true,\"7\":true}"
+  },
+  {
+   "name": "[INTRO] no entra al Refugio ni muestra el menú durante la intro",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[AUDIO] el sonido de la intro está activo (contexto de audio en marcha) y dispara sucesos",
+   "ok": true,
+   "detail": "100 % de las muestras, 129 sucesos"
+  },
+  {
+   "name": "[AUDIO] el tema del menú NO suena en los planos 1–6 y arranca en el plano 7",
+   "ok": true,
+   "detail": "{\"1\":false,\"2\":false,\"3\":false,\"4\":false,\"5\":false,\"6\":false,\"7\":true}"
+  },
+  {
+   "name": "[AUDIO] al terminar, el sonido de la intro queda a cero y sólo suena el tema del menú",
+   "ok": true,
+   "detail": "ganancia 0.0001"
+  },
+  {
+   "name": "[INTRO] el lienzo de la intro se retira al terminar",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[INTRO] sin rótulos técnicos: bandas de DD_CINE inactivas, botón de depuración oculto, único texto «SALTAR»",
+   "ok": true,
+   "detail": "{\"cine\":false,\"pill\":\"none\",\"hint\":\"SALTAR\"}"
+  },
+  {
+   "name": "[MENÚ] la intro termina en el menú principal (estado MAIN_MENU, menú visible)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MENÚ] sin partida guardada: NUEVA PARTIDA, OPCIONES, CRÉDITOS, SALIR (CONTINUAR no existe)",
+   "ok": true,
+   "detail": "NUEVA PARTIDA · OPCIONES · CRÉDITOS · SALIR"
+  },
+  {
+   "name": "[MENÚ] una sola opción seleccionada y con el foco",
+   "ok": true,
+   "detail": "sel new, foco new"
+  },
+  {
+   "name": "[MENÚ] usa el logotipo oficial y el último plano de la intro como fondo",
+   "ok": true,
+   "detail": "logo_deadbeat_graffiti.png · op_06_face.jpg"
+  },
+  {
+   "name": "[MENÚ] estado de selección distinto por forma (brochazo) y color",
+   "ok": true,
+   "detail": "texto rgb(7, 3, 13) / rgba(244, 236, 216, 0.72)"
+  },
+  {
+   "name": "[TECLADO] ↓ recorre las opciones y da la vuelta",
+   "ok": true,
+   "detail": "options → credits → exit → new"
+  },
+  {
+   "name": "[TECLADO] ↑, W, S e Inicio funcionan; el foco sigue a la selección",
+   "ok": true,
+   "detail": "exit → new → exit → new"
+  },
+  {
+   "name": "[RATÓN] pasar el cursor selecciona (mismo indicador que el teclado)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CRÉDITOS] el clic abre los créditos (estado SUBMENU) con contenido",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CRÉDITOS] Esc vuelve al menú con la misma opción seleccionada",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[OPCIONES] Enter abre OPCIONES",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[OPCIONES] el volumen del menú se guarda al moverlo",
+   "ok": true,
+   "detail": "{\"vol\":0.35}"
+  },
+  {
+   "name": "[OPCIONES] el interruptor de destellos cambia y se guarda",
+   "ok": true,
+   "detail": "{\"gfx\":\"auto\",\"flash\":true,\"shake\":true} → {\"gfx\":\"auto\",\"flash\":false,\"shake\":true}"
+  },
+  {
+   "name": "[OPCIONES][AUDIO] silenciar la música del menú la para; reactivarla la arranca",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MANDO] B cierra el submenú y vuelve al menú",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MANDO] la cruceta mueve la selección (abajo y arriba)",
+   "ok": true,
+   "detail": "options → new"
+  },
+  {
+   "name": "[MANDO] la ayuda de controles cambia a la del mando",
+   "ok": true,
+   "detail": "{\"cls\":true,\"gp\":\"block\",\"kb\":\"none\"}"
+  },
+  {
+   "name": "[MANDO][SALIR] A sobre SALIR abre el diálogo de salida",
+   "ok": true,
+   "detail": "submenú exit"
+  },
+  {
+   "name": "[SALIR] «Seguir bailando» vuelve al menú",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[SALIR][AUDIO] salir muestra la despedida y para la música; no arranca partida",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[SALIR] «Volver a entrar» restaura el menú y su música",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[MENÚ] estado de pulsación distinto del de reposo",
+   "ok": true,
+   "detail": "rgb(250, 204, 21) → rgb(255, 45, 122)"
+  },
+  {
+   "name": "[NUEVA] NUEVA PARTIDA arranca el descenso; cuatro activaciones seguidas producen una sola secuencia",
+   "ok": true,
+   "detail": "descenso en 0.72 s"
+  },
+  {
+   "name": "[DESCENSO] dura 7 s de reloj real (±0,8 s)",
+   "ok": true,
+   "detail": "7.08 s"
+  },
+  {
+   "name": "[DESCENSO] tres fases en orden: grietas, pozo, llegada",
+   "ok": true,
+   "detail": "1@0.9 2@2.2 3@5.4"
+  },
+  {
+   "name": "[DESCENSO] ANIM las tres fases se mueven",
+   "ok": true,
+   "detail": "{\"1\":true,\"2\":true,\"3\":true}"
+  },
+  {
+   "name": "[DESCENSO] no se entra al Refugio antes de terminar la secuencia",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[DESCENSO][AUDIO] la música del menú se apaga durante el descenso",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[REFUGIO] el descenso desemboca en el Refugio: estado PLAYING, Refugio activo, menú y lienzo retirados, HUD visible",
+   "ok": true,
+   "detail": "{\"active\":true,\"x\":880,\"y\":615,\"nearStation\":null,\"bounds\":{\"x\":260,\"y\":210,\"w\":1240,\"h\":760},\"stations\":[\"descent\",\"arm"
+  },
+  {
+   "name": "[REFUGIO][AUDIO] en el Refugio no suena la música del menú ni la del descenso",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[REFUGIO] la bienvenida es de Tempo y sin nomenclatura descartada",
+   "ok": true,
+   "detail": "TEMPO: Has llegado al Refugio. Aquí la canción no te alcanza. Elige un arma en la Armería antes de bajar."
+  },
+  {
+   "name": "[GUARDADO] llegar al Refugio crea la ficha de partida",
+   "ok": true,
+   "detail": "{\"v\":1,\"created\":\"2026-11-13T00:15:44.740Z\",\"visits\":1,\"last\":\"2026-11-13T00:15:44.740Z\"}"
+  },
+  {
+   "name": "[REFUGIO] el control se entrega: el personaje se mueve con el teclado",
+   "ok": true,
+   "detail": "{\"active\":true,\"x\":880,\"y\":615,\"nearStation\":null,\"bounds\":{\"x\":260,\"y → {\"active\":true,\"x\":1086,\"y\":615,\"nearStation\":null,\"bounds\":{\"x\":260,\""
+  },
+  {
+   "name": "[REFUGIO] el estado se mantiene estable (sigue en PLAYING, sin menú)",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[CONTINUAR] con partida guardada aparece CONTINUAR en segundo lugar",
+   "ok": true,
+   "detail": "NUEVA PARTIDA · CONTINUAR · OPCIONES · CRÉDITOS · SALIR"
+  },
+  {
+   "name": "[OPCIONES] las opciones persisten tras recargar (volumen 35 % y destellos)",
+   "ok": true,
+   "detail": "volumen mostrado 35 %"
+  },
+  {
+   "name": "[CONTINUAR] lleva directamente al Refugio, sin repetir el descenso",
+   "ok": true,
+   "detail": "0.22 s"
+  },
+  {
+   "name": "[CONTINUAR][GUARDADO] conserva la ficha (misma fecha de creación, visita 2) y para la música del menú",
+   "ok": true,
+   "detail": "{\"v\":1,\"created\":\"2026-11-13T00:15:44.740Z\",\"visits\":2,\"last\":\"2026-11-13T00:15:53.069Z\"}"
+  },
+  {
+   "name": "[SALTO] la intro se puede saltar en los 7 planos (Espacio, clic y Start) y siempre acaba en el menú con su música",
+   "ok": true,
+   "detail": "1:Espacio✓ 2:Start✓ 3:clic✓ 4:Espacio✓ 5:Start✓ 6:clic✓ 7:Espacio✓"
+  },
+  {
+   "name": "[VUELTAS] tres recorridos completos seguidos; el descenso saltado en cada fase llega igual al Refugio",
+   "ok": true,
+   "detail": "fase 1✓ fase 2✓ fase 3✓"
+  },
+  {
+   "name": "[ESCALADO] menú en 7 resoluciones (4:3 a 21:9): todo dentro de la ventana, sin solapes ni desbordes, fondo a pantalla completa",
+   "ok": true,
+   "detail": "1024×768✓ 1280×720✓ 1366×768✓ 1920×1080✓ 2560×1080✓ 2560×1440✓ 3440×1440✓"
+  },
+  {
+   "name": "[ESCALADO] el lienzo de la intro ocupa la ventana con su misma proporción (sin estirar)",
+   "ok": true,
+   "detail": "1024×768 1280×720 1366×768 1920×1080 2560×1080 2560×1440 2560×1072"
+  },
+  {
+   "name": "[ACCESIBILIDAD] con movimiento reducido la intro se reproduce y termina en el menú",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "name": "[AUDIO] con el audio silenciado en opciones, la intro no crea sonido",
+   "ok": true,
+   "detail": "música del menú en el título: true"
+  },
+  {
+   "name": "[ROBUSTEZ] si falta una imagen de la intro, el plano usa un fondo de reserva y el flujo llega al menú",
+   "ok": true,
+   "detail": "fin: complete"
+  },
+  {
+   "name": "[CONSOLA] cero errores, avisos, peticiones fallidas y respuestas ≥400 en todo el recorrido",
+   "ok": true,
+   "detail": ""
+  }
+ ],
+ "resoluciones": [
+  {
+   "w": 1024,
+   "h": 768,
+   "ok": true
+  },
+  {
+   "w": 1280,
+   "h": 720,
+   "ok": true
+  },
+  {
+   "w": 1366,
+   "h": 768,
+   "ok": true
+  },
+  {
+   "w": 1920,
+   "h": 1080,
+   "ok": true
+  },
+  {
+   "w": 2560,
+   "h": 1080,
+   "ok": true
+  },
+  {
+   "w": 2560,
+   "h": 1440,
+   "ok": true
+  },
+  {
+   "w": 3440,
+   "h": 1440,
+   "ok": true
+  }
+ ],
+ "saltos": [
+  {
+   "plano": 1,
+   "via": "Espacio",
+   "en": 1,
+   "ok": true
+  },
+  {
+   "plano": 2,
+   "via": "Start",
+   "en": 2,
+   "ok": true
+  },
+  {
+   "plano": 3,
+   "via": "clic",
+   "en": 3,
+   "ok": true
+  },
+  {
+   "plano": 4,
+   "via": "Espacio",
+   "en": 4,
+   "ok": true
+  },
+  {
+   "plano": 5,
+   "via": "Start",
+   "en": 5,
+   "ok": true
+  },
+  {
+   "plano": 6,
+   "via": "clic",
+   "en": 6,
+   "ok": true
+  },
+  {
+   "plano": 7,
+   "via": "Espacio",
+   "en": 7,
+   "ok": true
+  }
+ ]
+}

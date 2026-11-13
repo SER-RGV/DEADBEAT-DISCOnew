@@ -301,7 +301,7 @@
       detail: "Esperando las imágenes de arranque y del menú…",
       critical: true,
       run: function () {
-        var ids = ["cine_bg01_city", "cine_bg02_club_exterior", "cine_bg03_entrance", "cine_bg04_main_hall", "cine_bg05_dancefloor", "cine_bg06_hero", "player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
+        var ids = ["player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
         var t0 = performance.now();
         return new Promise(function (resolve, reject) {
           var missing = [], done = 0;
@@ -347,6 +347,20 @@
             resolve({ files: files.length, ms: Math.round(performance.now() - t0) });
           }
           if (done === files.length) end();
+        });
+      }
+    },
+    {
+      id: "opening",
+      timeoutMs: 9000,
+      label: "INTRODUCCIÓN",
+      detail: "Cargando los planos de la introducción y del descenso…",
+      run: function () {
+        if (!window.DD_OPENING) throw new Error("La introducción no está disponible.");
+        var t0 = performance.now();
+        return window.DD_OPENING.preload().then(function (r) {
+          if (r.missing.length) throw new Error("Faltan planos de la introducción: " + r.missing.join(", "));
+          return { files: r.total, ms: Math.round(performance.now() - t0) };
         });
       }
     },
@@ -647,6 +661,7 @@
         }
       } catch (e) {}
 
+      if (el.root) el.root.classList.add("is-failed");   /* vuelve a mostrar el diagnóstico */
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
@@ -769,14 +784,46 @@
   }
 
   function waitForExit() {
-    /* Salida de la pantalla de carga: se espera a que la transición termine y a
-       un mínimo perceptible para que la marca no parpadee. Es el único tiempo de
-       espera no ligado a una tarea real, y está declarado como tal. */
+    /* Salida de la pantalla de carga. Dos esperas, las dos declaradas:
+       1) un mínimo perceptible para que la marca no parpadee;
+       2) si el navegador aún no ha recibido ninguna pulsación, se pide una. Sin
+          ella el navegador bloquea el sonido y la intro empezaría muda. */
     return new Promise(function (resolve) {
       setProgress(100, "PISTA PREPARADA", "done");
       if (el.root) el.root.classList.add("is-complete");
       var minHold = reducedMotion ? 200 : 520;
-      setTimeout(function () { resolve(true); }, minHold);
+      setTimeout(function () {
+        var active = true;
+        try { if (navigator.userActivation) active = navigator.userActivation.hasBeenActive; } catch (e) {}
+        if (active) { resolve(true); return; }
+        state.waitingGesture = true;
+        if (el.root) el.root.classList.add("is-waiting");
+        if (el.stage) el.stage.textContent = "PULSA CUALQUIER TECLA PARA EMPEZAR";
+        var done = false, poll = 0;
+        var go = function (ev) {
+          if (done) return;
+          if (ev && ev.type === "keydown" && /^(F\d+|Tab|Shift.*|Control.*|Alt.*|Meta.*)$/.test(ev.code || "")) return;
+          done = true;
+          state.waitingGesture = false;
+          document.removeEventListener("keydown", go, true);
+          window.removeEventListener("pointerdown", go, true);
+          clearInterval(poll);
+          if (el.root) el.root.classList.remove("is-waiting");
+          resolve(true);
+        };
+        /* en document: el guardián de teclado del build anula los keydown de captura sobre window */
+        document.addEventListener("keydown", go, true);
+        window.addEventListener("pointerdown", go, true);
+        poll = setInterval(function () {
+          try {
+            var pads = navigator.getGamepads ? navigator.getGamepads() : [];
+            for (var i = 0; i < pads.length; i++) {
+              var gp = pads[i];
+              if (gp && gp.connected && gp.buttons.some(function (b) { return b && b.pressed; })) { go(null); return; }
+            }
+          } catch (e) {}
+        }, 80);
+      }, minHold);
     });
   }
 
@@ -821,8 +868,9 @@
     hideLoadingScreen();
     state.introActive = true;
     state.introPlayed = true;
-    audio.startMenuMusic(4);
 
+    /* La intro termina SIEMPRE en el menú principal (completa, saltada, no
+       disponible o estancada). Nunca arranca partida ni entra al Refugio. */
     var finished = false;
     var finish = function (why) {
       if (finished) return;
@@ -830,70 +878,44 @@
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
-
-      // FASE 06: Transición directa de la cinemática al HUB canónico r0
-      if (window.DD_HUB && typeof window.DD_HUB.enter === "function") {
-        try { window.DD_HUB.enter(); } catch (e) { console.warn("[DD_BOOT] error al entrar al HUB", e); }
-      }
-      if (window.DD_UI && typeof window.DD_UI.hideMainMenu === "function") {
-        try { window.DD_UI.hideMainMenu(); } catch (e) {}
-      }
-      setState("PLAYING");
+      enterMainMenu();
       emit("intro-end", { by: state.introEndedBy });
     };
 
     document.body.classList.add("dd-intro-running");
 
-    /* La intro CANÓNICA del juego. DD_CINE gestiona su propio temporizador, su
-       overlay de letterbox y la tecla de salto; aquí sólo se enlaza su final. */
+    /* «La noche que vuelve» (DD_OPENING): lienzo y reloj propios, sonido
+       programado contra ese reloj. El tema del menú arranca en el golpe del
+       título (plano 7), no antes. */
     var started = false;
     try {
-      if (window.DD_CINE && typeof window.DD_CINE.playIntro === "function") {
-        window.DD_CINE.playIntro(function () { finish("complete"); });
-        started = true;
+      if (window.DD_OPENING && typeof window.DD_OPENING.playIntro === "function") {
+        started = window.DD_OPENING.playIntro(function (why) { finish(why || "complete"); }, {
+          onTitle: function () { audio.startMenuMusic(4); }
+        }) !== false;
       }
     } catch (e) {
-      console.warn("[DD_BOOT] la intro canónica falló; se entra directo al menú", e);
+      console.warn("[DD_BOOT] la intro falló; se entra directo al menú", e);
     }
     if (!started) { finish("unavailable"); return; }
 
-    /* Salvaguarda por ESTANCAMIENTO, no por tiempo total: en un equipo lento o
-       con el render limitado la cinemática puede tardar más de lo nominal y no
-       debe cortarse. Sólo se fuerza la salida si su reloj deja de avanzar
-       (pestaña en segundo plano, contexto perdido), que es el caso en que el
-       jugador se quedaría mirando una pantalla congelada. */
-    var lastElapsed = -1, lastAdvance = Date.now(), guardDone = false;
+    /* Salvaguarda por ESTANCAMIENTO, no por tiempo total: sólo se fuerza la
+       salida si el reloj de la intro deja de avanzar (pestaña en segundo plano,
+       contexto perdido), que es cuando el jugador vería una imagen congelada. */
+    var lastElapsed = -1, lastAdvance = Date.now();
     var guard = setInterval(function () {
-      if (finished || guardDone) return;
-      var st = window.DD_CINE && window.DD_CINE.getState ? window.DD_CINE.getState() : null;
-      if (!st) { guardDone = true; clearInterval(guard); finish("complete"); return; }
-      if (st.elapsed > lastElapsed + 0.001) {
+      if (finished) { clearInterval(guard); return; }
+      var st = window.DD_OPENING.getState();
+      if (!st) { clearInterval(guard); finish("complete"); return; }
+      if (st.frozen || st.elapsed > lastElapsed + 0.001) {
         lastElapsed = st.elapsed;
         lastAdvance = Date.now();
-      } else if (Date.now() - lastAdvance > 4000) {
-        guardDone = true;
+      } else if (Date.now() - lastAdvance > 4000 && !document.hidden) {
         clearInterval(guard);
-        try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
+        try { window.DD_OPENING.skip(); } catch (e) {}
         finish("stalled");
       }
     }, 120);
-    on("intro-end", function () { clearInterval(guard); });
-
-    /* Saltar con clic o tecla durante la intro (la cinemática ya escucha
-       Espacio/Esc/Enter; esto añade ratón y mando sin duplicar el salto). */
-    var skipOnce = function (ev) {
-      if (!state.introActive) return;
-      if (ev && ev.type === "keydown" && ev.repeat) return;
-      try { if (window.DD_CINE && window.DD_CINE.skip) window.DD_CINE.skip(); } catch (e) {}
-      finish("skip");
-    };
-    var skipEl = q("dd-cine-overlay");
-    if (skipEl) skipEl.addEventListener("click", skipOnce, { once: true });
-    window.addEventListener("pointerdown", function (ev) {
-      if (!state.introActive) return;
-      if (ev.target && ev.target.closest && ev.target.closest("#dd-cine-skip-btn")) return;
-      skipOnce(ev);
-    }, { passive: true });
   }
 
   function enterMainMenu() {
@@ -903,9 +925,10 @@
     var menu = q("dd-main-menu");
     if (menu) menu.classList.add("dd-menu-in");
     setState("MAIN_MENU");
-    audio.startMenuMusic(4);
+    if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(4);
     /* Foco inicial válido y visible. */
-    var first = menu && menu.querySelector(".dd-menu-btn:not([disabled])");
+    /* Al volver de un submenú se conserva la opción que estaba elegida. */
+    var first = menu && (menu.querySelector(".dd-menu-btn.dd-selected:not([disabled]):not([hidden])") || menu.querySelector(".dd-menu-btn:not([disabled]):not([hidden])"));
     if (first) {
       try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
     }
@@ -979,7 +1002,7 @@
   function exitGameToMenu() {
     if (window.DD_UI) window.DD_UI.showMainMenu();
     setState("MAIN_MENU");
-    audio.startMenuMusic(3);
+    if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(3);
     return true;
   }
 
@@ -994,6 +1017,7 @@
       introPlayed: state.introPlayed,
       introActive: state.introActive,
       introEndedBy: state.introEndedBy || null,
+      waitingGesture: !!state.waitingGesture,
       criticalErrors: state.criticalErrors.slice(),
       menuMusic: audio.isMenuMusicPlaying(),
       loadMs: state.loadEnd ? Math.round(state.loadEnd - state.loadStart) : null,
