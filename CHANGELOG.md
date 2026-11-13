@@ -156,3 +156,11 @@ Registrar aquí cada modificación:
 - Sistemas afectados: ninguno del juego. `pm_idle_00.png`, lámina, `src/`, sprites y registro sin cambios (hashes en la evidencia).
 - Pruebas: visor 76/76; visor de arte 48/48. Sin prueba en partida.
 - Resultado: pendiente de aprobación.
+
+## 2026-11-12 · PROJECT RESTART · Cierre del protagonista e inicio del juego
+- Protagonista: diseño CERRADO, lámina CANÓNICA, IDLE 07B ACEPTADO COMO REFERENCIA, experimentos ARCHIVADOS, resto de animaciones PENDIENTES. Sin cambios en sus archivos.
+- Nuevo `src/dd_opening.js`: intro «La noche que vuelve» (32 s, 7 planos) y descenso al Refugio (7 s).
+- Flujo: carga → intro → menú → nueva partida → descenso → Refugio. Antes la intro entraba directamente al Refugio.
+- Menú: NUEVA PARTIDA, CONTINUAR (sólo con partida), OPCIONES, CRÉDITOS, SALIR; aspecto nuevo; guardado `dd_save_v1`.
+- Archivos: `src/dd_boot.js`, `src/dd_ui_system.js`, `src/dd_hub_system.js` (textos), `src/dd_rebuild_ui.css`, `tools/build_active_html.py`, `assets/cinematics/restart/opening/`, `ART_ASSETS/rebuild_masters/R06_INICIO/`, `tools/qa/test_restart_flow.js`.
+- QA: 62 de 62. Detalle y limitaciones en `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.

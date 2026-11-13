@@ -166,3 +166,14 @@ Toda modificación debe partir de una copia de seguridad.
 - Corrección de fidelidad v2 del IDLE: tinta del hombro y del lobo tomada directamente de los paneles de la lámina; cadenas reforzadas. Informe: `docs/RESTART/08_IDLE_FIDELIDAD_07B.md`.
 - Se conservan `pm_idle_00.png` (aprobado técnicamente) y la v1 de la corrección.
 - El juego sigue usando los 22 sprites anteriores. Nada registrado. Ninguna otra animación iniciada.
+
+---
+
+## Estado actual · 2026-11-12 (PROJECT RESTART · inicio del juego)
+
+- Build activa: `index.html` = `DEADBEAT_DISCO.html`, generadas por `tools/build_active_html.py`.
+- Protagonista: diseño cerrado; IDLE 07B aceptado como referencia, **no integrado en la partida**.
+- Inicio del juego: carga → intro (32 s) → menú → nueva partida → descenso (7 s) → Refugio.
+- QA del inicio: `tools/qa/test_restart_flow.js`, 62 de 62. Sonido audible y mando físico, sin probar.
+- Pendiente: animaciones del protagonista e integración en la partida; reinicio del progreso permanente en NUEVA PARTIDA.
+- Detalle: `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.

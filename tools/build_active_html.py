@@ -1131,6 +1131,7 @@ MODULE_ORDER = (
     "dd_world_renderer.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",
+    "dd_opening.js",
     "dd_ui_system.js",
 )
 _parts = []

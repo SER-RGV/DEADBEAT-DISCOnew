@@ -89,7 +89,7 @@
   ];
 
   const DJ_QUOTES = [
-    "Bienvenido al Refugio, cazador. Ajusta tu hierro en la Armería; abajo en Lujuria el bajo rompe huesos.",
+    "Has llegado al Refugio. Aquí la canción no te alcanza. Elige un arma en la Armería antes de bajar.",
     "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
     "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.",
     "Revisa tus créditos antes de saltar a la Plataforma Cian. El Cajero no perdona deudas en el tercer piso."
@@ -110,7 +110,7 @@
     }
     if (window.DD_UI) {
       window.DD_UI.hideMainMenu();
-      window.DD_UI.showDialogue("DJ VIRGILIO", DJ_QUOTES[0], 5.2);
+      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[0], 5.2);
     }
   }
 
@@ -155,7 +155,7 @@
       window.DD_UI.openMap();
     } else if (st.id === "dj" && window.DD_UI) {
       quoteIdx = (quoteIdx + 1) % DJ_QUOTES.length;
-      window.DD_UI.showDialogue("DJ VIRGILIO", DJ_QUOTES[quoteIdx], 5.5);
+      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.5);
     }
   }
 

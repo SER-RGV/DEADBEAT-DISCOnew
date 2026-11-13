@@ -1964,3 +1964,298 @@ body.dd-menu-owning #menu-scene53 * ,
 body.dd-menu-owning #menu-card * {
   animation-play-state: paused !important;
 }
+
+/* ==========================================================================
+   PROJECT RESTART · APERTURA DEL JUEGO
+   Lienzo de la intro y del descenso (DD_OPENING) y aspecto nuevo del menú
+   principal (#dd-main-menu.dd-rs). Dirección: NEON GRAFFITI HORROR DISCO —
+   cómic ilustrado. Este bloque va al final y sólo sobreescribe el aspecto; la
+   lógica del menú es la de siempre.
+   ========================================================================== */
+:root {
+  --rs-ink: #07030d;
+  --rs-magenta: #ff2d7a;
+  --rs-cyan: #22d3ee;
+  --rs-yellow: #facc15;
+  --rs-bone: #f4ecd8;
+  --rs-font: "Barlow Condensed", "Oswald", "Roboto Condensed", "Arial Narrow", "Impact", "Haettenschweiler", sans-serif;
+}
+
+/* ---- lienzo de las secuencias ------------------------------------------ */
+#dd-opening {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 30000;
+  display: none;
+  background: var(--rs-ink);
+  opacity: 1;
+  transition: opacity 0.6s ease;
+  cursor: default;
+}
+#dd-opening.is-on { display: block; }
+#dd-opening.is-out { opacity: 0; pointer-events: none; }
+#dd-opening-hint {
+  position: fixed;
+  right: clamp(14px, 2.2vw, 40px);
+  bottom: clamp(8px, 2.2vh, 26px);
+  z-index: 30001;
+  font: italic 700 clamp(11px, 1.5vh, 16px)/1 var(--rs-font);
+  letter-spacing: 0.22em;
+  color: var(--rs-bone);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+#dd-opening-hint.is-on { opacity: 0.55; transition-delay: 1.2s; }
+#dd-opening-hint::before { content: "ESPACIO · "; color: var(--rs-yellow); }
+body.dd-input-pad #dd-opening-hint::before { content: "A · "; }
+/* La herramienta de depuración del motor no aparece fuera de la partida. */
+body:not([data-dd-state="playing"]) #dmo-v32-toggle-pill { display: none !important; }
+@media (prefers-reduced-motion: reduce) {
+  #dd-opening { transition-duration: 0.05s; }
+}
+/* Carga terminada, a la espera de la primera pulsación. */
+#dd-boot-frame.is-waiting #dd-boot-stage {
+  color: var(--rs-yellow);
+  animation: rs-wait 1.1s ease-in-out infinite alternate;
+}
+#dd-boot-frame.is-waiting #dd-boot-pct { visibility: hidden; }
+@keyframes rs-wait { from { opacity: 0.45; } to { opacity: 1; } }
+
+/* ---- menú principal ------------------------------------------------------ */
+#dd-main-menu.dd-rs { background: var(--rs-ink); }
+#dd-main-menu.dd-rs #dd-menu-backdrop {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  opacity: 1;
+  filter: none;
+  transform-origin: 70% 40%;
+  animation: rs-drift 38s ease-in-out infinite alternate;
+}
+@keyframes rs-drift { from { transform: scale(1); } to { transform: scale(1.04); } }
+/* Misma sombra lateral que el último fotograma de la intro. */
+#dd-main-menu.dd-rs .dd-menu-vig {
+  background:
+    linear-gradient(90deg, rgba(5, 2, 10, 0.94) 0%, rgba(5, 2, 10, 0.72) 36%, rgba(5, 2, 10, 0) 72%),
+    linear-gradient(180deg, rgba(5, 2, 10, 0.5) 0%, rgba(5, 2, 10, 0) 22%, rgba(5, 2, 10, 0) 72%, rgba(5, 2, 10, 0.78) 100%);
+}
+#dd-main-menu.dd-rs .dd-menu-atmos i { mix-blend-mode: screen; opacity: 0.5; }
+#dd-main-menu.dd-rs .dd-menu-left {
+  width: min(100%, max(46vw, 420px));
+  padding: 5vh 4vw 4vh;
+  justify-content: flex-start;
+  gap: clamp(8px, 2.4vh, 34px);
+}
+#dd-main-menu.dd-rs.dd-menu-in .dd-menu-left { animation: none; }
+#dd-main-menu.dd-rs .dd-menu-brand { width: min(30vw, 50vh); min-width: 200px; }
+#dd-main-menu.dd-rs .dd-menu-logo {
+  width: 100%;
+  max-height: none;
+  aspect-ratio: 1024 / 682;
+  object-fit: contain;
+  filter: drop-shadow(0 10px 26px rgba(0, 0, 0, 0.7));
+  animation: none;
+  opacity: 1;
+}
+#dd-main-menu.dd-rs .dd-menu-tagline {
+  display: block;
+  margin-top: 1.2vh;
+  text-align: center;
+  opacity: 1;
+  animation: none;
+}
+#dd-main-menu.dd-rs .dd-menu-tagline span {
+  font: italic 800 clamp(11px, min(1.58vw, 2.63vh), 28px)/1 var(--rs-font) !important;
+  white-space: nowrap;
+  letter-spacing: 0.02em;
+  color: var(--rs-bone);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+#dd-main-menu.dd-rs .dd-menu-tagline i { display: none; }
+
+#dd-main-menu.dd-rs .dd-menu-nav {
+  gap: clamp(2px, 0.8vh, 10px);
+  margin: clamp(4px, 1.5vh, 24px) 0 0;
+  max-width: none;
+  width: max-content;
+  min-width: min(100%, 320px);
+}
+#dd-main-menu.dd-rs .dd-menu-btn {
+  position: relative;
+  display: block;
+  width: auto;
+  padding: clamp(5px, 1vh, 12px) clamp(22px, 2.2vw, 40px) clamp(5px, 1vh, 12px) clamp(12px, 1.2vw, 22px);
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  color: rgba(244, 236, 216, 0.72);
+  cursor: pointer;
+  isolation: isolate;
+  transition: transform 0.14s cubic-bezier(0.2, 0.9, 0.3, 1.3), color 0.1s ease;
+}
+#dd-main-menu.dd-rs .dd-menu-btn[hidden] { display: none; }
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-icon,
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-mark { display: none; }
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-text { display: flex; align-items: baseline; gap: 0.9em; }
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-text b {
+  font: italic 800 clamp(22px, min(3vw, 5.2vh), 62px)/1.02 var(--rs-font) !important;
+  letter-spacing: 0.03em;
+  color: inherit;
+  text-shadow: 0 2px 0 rgba(0, 0, 0, 0.85), 0 0 18px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-text small {
+  font: italic 600 clamp(10px, min(1.05vw, 1.9vh), 19px)/1 var(--rs-font) !important;
+  letter-spacing: 0.08em;
+  color: rgba(7, 3, 13, 0.82);
+  display: none;
+}
+/* El brochazo: un bloque amarillo de bordes rasgados detrás del texto. */
+#dd-main-menu.dd-rs .dd-menu-btn::before {
+  content: "";
+  position: absolute;
+  inset: 6% -1% 4% -2%;
+  z-index: -1;
+  background: var(--rs-yellow);
+  clip-path: polygon(0 18%, 3% 4%, 22% 9%, 41% 0, 63% 7%, 82% 2%, 97% 10%, 100% 34%, 98% 62%, 100% 86%, 88% 96%, 66% 91%, 47% 100%, 26% 93%, 9% 99%, 1% 84%, 2% 52%);
+  transform: scaleX(0) skewX(-8deg);
+  transform-origin: 0 50%;
+  transition: transform 0.16s cubic-bezier(0.2, 0.9, 0.3, 1.2);
+}
+/* La salpicadura de la pulsación. */
+#dd-main-menu.dd-rs .dd-menu-btn::after {
+  content: "";
+  position: absolute;
+  right: -4.2em;
+  top: 50%;
+  width: 5.2em;
+  height: 3.2em;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 18% 50%, var(--rs-yellow) 0 17%, transparent 18%),
+    radial-gradient(circle at 46% 22%, var(--rs-yellow) 0 9%, transparent 10%),
+    radial-gradient(circle at 52% 74%, var(--rs-yellow) 0 11%, transparent 12%),
+    radial-gradient(circle at 74% 42%, var(--rs-magenta) 0 7%, transparent 8%),
+    radial-gradient(circle at 90% 66%, var(--rs-yellow) 0 5%, transparent 6%);
+  transform: translateY(-50%) scale(0);
+  transform-origin: 0 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+/* foco con ratón, teclado o mando: mismo estado */
+#dd-main-menu.dd-rs .dd-menu-btn:hover,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected {
+  background: none;
+  border: 0;
+  box-shadow: none;
+  padding-left: clamp(12px, 1.2vw, 22px);
+  color: var(--rs-ink);
+  transform: translateX(8px);
+}
+#dd-main-menu.dd-rs .dd-menu-btn:hover::before,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected::before { transform: scaleX(1) skewX(-8deg); }
+#dd-main-menu.dd-rs .dd-menu-btn:hover .dd-btn-text b,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected .dd-btn-text b { color: var(--rs-ink); text-shadow: none; }
+#dd-main-menu.dd-rs .dd-menu-btn:hover .dd-btn-text small,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected .dd-btn-text small { opacity: 1; color: rgba(7, 3, 13, 0.82); }
+#dd-main-menu.dd-rs .dd-menu-btn:focus-visible { outline: 2px solid var(--rs-cyan); outline-offset: 4px; }
+/* pulsado */
+#dd-main-menu.dd-rs .dd-menu-btn:active,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-press {
+  background: none;
+  transform: translateX(14px) scale(0.985);
+}
+#dd-main-menu.dd-rs .dd-menu-btn:active::before,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-press::before { background: var(--rs-magenta); transform: scaleX(1.03) skewX(-8deg); }
+#dd-main-menu.dd-rs .dd-menu-btn:active::after,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-press::after { animation: rs-splat 0.4s ease-out both; }
+@keyframes rs-splat {
+  0% { transform: translateY(-50%) scale(0.2); opacity: 1; }
+  60% { transform: translateY(-50%) scale(1.05); opacity: 1; }
+  100% { transform: translateY(-50%) scale(1.15); opacity: 0; }
+}
+/* desactivado */
+#dd-main-menu.dd-rs .dd-menu-btn[disabled] {
+  cursor: not-allowed;
+  filter: none;
+  opacity: 1;
+  color: rgba(244, 236, 216, 0.28);
+  transform: none;
+}
+#dd-main-menu.dd-rs .dd-menu-btn[disabled]::before { transform: scaleX(0); }
+#dd-main-menu.dd-rs .dd-menu-btn[disabled] .dd-btn-text b { color: inherit; text-decoration: line-through; text-decoration-thickness: 2px; }
+
+#dd-main-menu.dd-rs .dd-menu-footer {
+  position: fixed;
+  right: 3vw;
+  bottom: 3.2vh;
+  max-width: none;
+  gap: 14px;
+  opacity: 1;
+  animation: none;
+  z-index: 3;
+}
+#dd-main-menu.dd-rs .dd-pill,
+#dd-main-menu.dd-rs .dd-menu-build {
+  font: italic 600 clamp(10px, 1.5vh, 15px)/1 var(--rs-font) !important;
+  letter-spacing: 0.16em;
+  border: 0;
+  background: none;
+  padding: 0;
+  color: rgba(244, 236, 216, 0.55);
+}
+#dd-main-menu.dd-rs .dd-menu-hint {
+  position: absolute;
+  left: 4vw;
+  bottom: 3.2vh;
+  z-index: 3;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  justify-items: start;
+  text-align: left;
+  font: italic 600 clamp(10px, 1.6vh, 16px)/1 var(--rs-font) !important;
+  letter-spacing: 0.14em;
+  color: rgba(244, 236, 216, 0.7);
+}
+#dd-main-menu.dd-rs .dd-menu-hint kbd {
+  font: 700 0.85em/1 var(--rs-font) !important;
+  font-style: normal;
+  padding: 3px 6px;
+  margin-right: 5px;
+  border: 1px solid rgba(244, 236, 216, 0.5);
+  border-bottom-width: 2px;
+  border-radius: 3px;
+  color: var(--rs-bone);
+  background: rgba(7, 3, 13, 0.65);
+}
+#dd-main-menu.dd-rs .dd-menu-hint .dd-gp { display: none; color: rgba(244, 236, 216, 0.7); }
+body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-gp { display: inline; }
+body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
+
+/* Ventanas estrechas o verticales: el logotipo manda menos y la sombra cubre más. */
+@media (max-aspect-ratio: 4/3), (max-width: 900px) {
+  #dd-main-menu.dd-rs .dd-menu-left { width: 100%; }
+  #dd-main-menu.dd-rs .dd-menu-brand { width: min(46vw, 34vh); }
+  #dd-main-menu.dd-rs .dd-menu-vig {
+    background: linear-gradient(90deg, rgba(5, 2, 10, 0.94) 0%, rgba(5, 2, 10, 0.8) 55%, rgba(5, 2, 10, 0.35) 100%);
+  }
+  #dd-main-menu.dd-rs .dd-menu-btn .dd-btn-text small { display: none; }
+  #dd-main-menu.dd-rs .dd-menu-footer { display: none; }
+}
+@media (max-height: 560px) {
+  #dd-main-menu.dd-rs .dd-menu-brand { width: min(26vw, 40vh); }
+  #dd-main-menu.dd-rs .dd-menu-tagline { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu.dd-rs #dd-menu-backdrop { animation: none; }
+  #dd-main-menu.dd-rs .dd-menu-btn,
+  #dd-main-menu.dd-rs .dd-menu-btn::before { transition: none; }
+}
