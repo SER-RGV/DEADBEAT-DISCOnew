@@ -1,9 +1,9 @@
 {
- "fecha": "2026-11-13T12:36:35.434Z",
+ "fecha": "2026-11-13T13:04:09.581Z",
  "url": "http://localhost:8080",
  "nota": "Mando simulado; no sustituye a un mando físico.",
- "superadas": 48,
- "total": 48,
+ "superadas": 53,
+ "total": 53,
  "resultados": [
   {
    "name": "[CARGA] en pantalla sólo quedan el logotipo, la barra y, si hace falta, el aviso de pulsar una tecla",
@@ -146,6 +146,31 @@
    "detail": "menu-vol-master → dd-opt-erase → dd-opt-erase"
   },
   {
+   "name": "[SONIDO] arrastrar menu-vol-master con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.0895 · 24 % → 0.0213 · 0 % → 0.0000 · 90 % → 0.0844"
+  },
+  {
+   "name": "[SONIDO] arrastrar menu-vol-music con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.1259 · 24 % → 0.0291 · 0 % → 0.0000 · 90 % → 0.1160"
+  },
+  {
+   "name": "[SONIDO] arrastrar dd-opt-menuvol con el ratón cambia el volumen que sale por los altavoces",
+   "ok": true,
+   "detail": "100 % → 0.1514 · 24 % → 0.0349 · 0 % → 0.0000 · 90 % → 0.1356"
+  },
+  {
+   "name": "[SONIDO] MAESTRO con el teclado baja el volumen real",
+   "ok": true,
+   "detail": "100 % → 0.1381 · 40 % → 0.0550"
+  },
+  {
+   "name": "[SONIDO] el conmutador MÚSICA DEL MENÚ la calla y la devuelve de verdad",
+   "ok": true,
+   "detail": "0.0000 → 0.1523"
+  },
+  {
    "name": "[OPCIONES] ratón: los deslizadores van adonde se pulsa",
    "ok": true,
    "detail": "24, 76, 50"
@@ -163,7 +188,7 @@
   {
    "name": "[OPCIONES] los cambios quedan guardados",
    "ok": true,
-   "detail": "{\"vol\":{\"master\":1,\"music\":0.65,\"sfx\":0.76,\"dj\":0.8},\"cover\":{\"vol\":0.5}}"
+   "detail": "{\"vol\":{\"master\":1,\"music\":0.87,\"sfx\":0.76,\"dj\":0.8},\"cover\":{\"vol\":0.5}}"
   },
   {
    "name": "[OPCIONES] mando (simulado): izquierda/derecha ajustan el deslizador de 5 en 5",

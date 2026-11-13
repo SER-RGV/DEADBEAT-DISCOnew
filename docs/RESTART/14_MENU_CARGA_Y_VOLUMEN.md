@@ -37,6 +37,20 @@ Fecha: 2026-11-13. Parte de `f034ba0`. No se ha reconstruido la intro ni redise�
 
 Los controles repetidos de OPCIONES (calidad gráfica aparece en las dos columnas) se mantienen: funcionan los dos y quitarlos sería rediseñar el panel.
 
+### 2 bis. Corrección posterior (aviso del usuario): los volúmenes de OPCIONES no se oían
+
+El usuario avisó de que los controles de OPCIONES no subían ni bajaban el volumen. Era cierto, y la prueba anterior no lo detectaba porque comprobaba el número del deslizador y no el sonido.
+
+| Control | Qué pasaba | Ahora |
+|---|---|---|
+| VOLUMEN DEL MENÚ | Guardaba el valor, pero el motor de la música lo ignoraba hasta recargar (`setVol` no aceptaba argumento) | Cambia al instante |
+| MAESTRO | Sólo actuaba sobre el motor de la partida, callado en el menú | Manda sobre música del menú, sonidos de interfaz, intro y descenso |
+| MÚSICA | Igual | Manda también sobre la música del menú |
+| EFECTOS | Igual | Manda también sobre los sonidos de interfaz; al soltar el deslizador suena un toque al nuevo nivel |
+| VOZ DJ | Sólo suena en partida | Sin cambios; el panel lo dice |
+
+Con la mezcla por defecto el nivel calibrado no cambia. La prueba mide ahora la **salida real de audio** al arrastrar cada deslizador con el ratón (100 % → 25 % → 0 % → 90 %) y con el teclado.
+
 ## 3. Pantalla de carga
 
 - Quedan el logotipo y la barra de progreso sobre fondo liso. Se han retirado de la vista el rótulo superior, la versión, el porcentaje, la lista de diez pasos, el pie y la imagen de fondo.
@@ -53,9 +67,9 @@ Comprobación: vídeo del arranque revisado fotograma a fotograma (25 fps), sin 
 
 | Prueba | Resultado |
 |---|---|
-| `tools/qa/test_menu_respuesta.js` (nueva) | 48 de 48, tres ejecuciones |
-| `tools/qa/test_restart_flow.js` | 65 de 65, dos ejecuciones |
-| `tools/qa/test_persistencia.js` | 39 de 39, dos ejecuciones |
+| `tools/qa/test_menu_respuesta.js` (nueva) | 53 de 53, dos ejecuciones (incluye 5 comprobaciones de salida real de audio) |
+| `tools/qa/test_restart_flow.js` | 65 de 65 |
+| `tools/qa/test_persistencia.js` | 39 de 39 |
 | OPCIONES a 1920×1080 y 2560×1440 | los 12 controles alcanzables con teclado; capturas en la carpeta de evidencias |
 
 ## 6. Limitaciones

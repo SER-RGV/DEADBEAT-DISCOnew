@@ -663,6 +663,23 @@
     if (btn) { try { btn.focus({ preventScroll: true }); } catch (e) { btn.focus(); } }
   }
 
+  /* Mezcla que se oye en el menú. MAESTRO y MÚSICA son del motor del juego, que
+     en el menú está callado: sin esto, moverlos no cambiaba nada audible.
+     La música del menú = VOLUMEN DEL MENÚ × MAESTRO × MÚSICA; los sonidos de
+     interfaz y la intro obedecen a MAESTRO. */
+  window.DD_MENU_MIX = function () {
+    var m = storeJson("dmodisco_vol_v1") || {};
+    var c = function (v, d) { v = +v; return isFinite(v) ? Math.max(0, Math.min(1, v)) : d; };
+    var master = c(m.master, 1);
+    /* 0,85 es el valor por defecto de MÚSICA: con él la música del menú queda a su nivel calibrado. */
+    /* Igual con EFECTOS (0,9 por defecto) para los sonidos de interfaz. */
+    return { master: master, music: Math.min(1.2, master * c(m.music, 0.85) / 0.85), ui: Math.min(1.2, master * c(m.sfx, 0.9) / 0.9) };
+  };
+  function applyMenuMix() {
+    var cover = window.DDC_COVER;
+    try { if (cover && cover.music && cover.music.setVol) cover.music.setVol(); } catch (e) {}
+  }
+
   /* --------------------------------- OPCIONES ----------------------------- */
   var GFX_LEVELS = [["auto", "AUTOMÁTICO"], ["high", "ALTO"], ["med", "MEDIO"], ["low", "BAJO"]];
 
@@ -680,7 +697,7 @@
       '<div class="dd-opt-grid">' +
       '  <section class="dd-opt-col">' +
       '    <h3>MEZCLA DEL JUEGO</h3>' +
-      '    <p class="dd-opt-note">Controla la música y los efectos de la partida (motor DMO).</p>' +
+      '    <p class="dd-opt-note">MAESTRO, MÚSICA y EFECTOS se oyen también aquí, en el menú. VOZ DJ sólo suena durante la partida.</p>' +
       '    <div class="dd-mix" id="dd-opt-mix"></div>' +
       '  </section>' +
       '  <section class="dd-opt-col">' +
@@ -754,6 +771,17 @@
     }
     paintRes();
     window.addEventListener("resize", paintRes);
+
+    /* Los deslizadores del motor guardan su valor al moverse; aquí se reaplica
+       al instante sobre lo que suena en el menú. */
+    if (mixHost && !mixHost._ddMixBound) {
+      mixHost._ddMixBound = true;
+      mixHost.addEventListener("input", function () { setTimeout(applyMenuMix, 0); });
+      /* Al soltar un deslizador suena un toque de interfaz al nuevo volumen. */
+      mixHost.addEventListener("change", function (ev) {
+        setTimeout(function () { applyMenuMix(); if (ev.target && ev.target.type === "range") sfx("move"); }, 0);
+      });
+    }
 
     /* Volumen del menú (motor de la portada, con persistencia propia). */
     var mv = el("dd-opt-menuvol");

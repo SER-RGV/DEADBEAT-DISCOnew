@@ -186,3 +186,8 @@ Registrar aquí cada modificación:
 - Carga: sólo logotipo y barra; la portada antigua ya no se ve en ningún fotograma.
 - Archivos: `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `src/dd_boot.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
 - Pruebas: menú 48 de 48, inicio 65 de 65, persistencia 39 de 39. Detalle en `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.
+
+## 2026-11-13 · RESTART 14b · Los volúmenes de OPCIONES se oyen
+- VOLUMEN DEL MENÚ, MAESTRO, MÚSICA y EFECTOS cambian al instante lo que suena en el menú (antes sólo guardaban el número).
+- Archivos: `src/dd_ui_system.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
+- Pruebas: menú 53 de 53 (con medición de salida real), inicio 65 de 65, persistencia 39 de 39.

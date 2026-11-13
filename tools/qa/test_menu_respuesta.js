@@ -13,6 +13,13 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     window.__pad = null;
     window.__padSet = (btn, on) => { if (!window.__pad) window.__pad = mk(); if (btn != null) window.__pad.buttons[btn] = { pressed: !!on, value: on ? 1 : 0 }; };
     navigator.getGamepads = () => [window.__pad];
+    /* Escucha de la salida REAL: cada nodo que se conecta a los altavoces se conecta también a un analizador. */
+    window.__taps = []; const orig = AudioNode.prototype.connect;
+    AudioNode.prototype.connect = function (dest) {
+      if (dest && dest === this.context.destination) { let t = window.__taps.find((x) => x.ctx === this.context); if (!t) { const an = this.context.createAnalyser(); an.fftSize = 2048; t = { ctx: this.context, an, buf: new Float32Array(2048) }; window.__taps.push(t); } try { orig.call(this, t.an); } catch (e) {} }
+      return orig.apply(this, arguments);
+    };
+    window.__outRms = () => { let m = 0; for (const t of window.__taps) { t.an.getFloatTimeDomainData(t.buf); let q = 0; for (let i = 0; i < t.buf.length; i++) q += t.buf[i] * t.buf[i]; m = Math.max(m, Math.sqrt(q / t.buf.length)); } return m; };
   });
   await pg.goto(URL + "/index.html", { waitUntil: "domcontentloaded" });
   await pg.evaluate(() => { localStorage.clear(); localStorage.setItem("dd_save_v1", JSON.stringify({ v: 1, created: "2026-10-01T10:00:00.000Z", last: "x", visits: 2 })); });
@@ -95,10 +102,24 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const tabs = []; await focus("dd-opt-erase"); await key("Tab"); tabs.push((await S()).focus); await pg.keyboard.press("Shift+Tab"); await sleep(110); tabs.push((await S()).focus);
   await pg.mouse.click(640, 715); await sleep(120); tabs.push((await S()).focus);
   check("[OPCIONES] TAB da la vuelta dentro del panel y un clic en vacío no quita el foco", tabs.join(",") === "menu-vol-master,dd-opt-erase,dd-opt-erase", tabs.join(" → "));
+  /* ---------- OPCIONES: lo que se oye (salida real medida, no el número del deslizador) ---------- */
+  const heard = async () => { const v = []; for (let i = 0; i < 30; i++) { v.push(await pg.evaluate(() => window.__outRms())); await sleep(100); } v.sort((a, b) => a - b); return v[Math.floor(v.length * 0.8)]; };
+  const dragTo = async (id, frac) => { const r = await pg.evaluate((id) => { const e = document.getElementById(id); e.scrollIntoView({ block: "nearest" }); const q = e.getBoundingClientRect(); return { x: q.x, y: q.y, w: q.width, h: q.height, v: (+e.value - +e.min) / (+e.max - +e.min) }; }, id); const y = r.y + r.h / 2; await pg.mouse.move(r.x + 8 + (r.w - 16) * r.v, y); await pg.mouse.down(); await pg.mouse.move(r.x + r.w * frac, y, { steps: 8 }); await pg.mouse.up(); await sleep(450); return +(await val(id)); };
+  if (await val("dd-opt-menuon") !== "ACTIVA") { await pg.click("#dd-opt-menuon"); await sleep(900); }
+  for (const id of ["menu-vol-master", "menu-vol-music", "dd-opt-menuvol"]) {
+    const top = await dragTo(id, 1); const loud = await heard(); const low = await dragTo(id, 0.25); const quiet = await heard(); const zero = await dragTo(id, 0); const none = await heard(); await dragTo(id, 0.9); const back = await heard();
+    check("[SONIDO] arrastrar " + id + " con el ratón cambia el volumen que sale por los altavoces", top === 100 && low < 40 && zero === 0 && quiet < loud * 0.6 && none < loud * 0.05 && back > loud * 0.6, "100 % → " + loud.toFixed(4) + " · " + low + " % → " + quiet.toFixed(4) + " · 0 % → " + none.toFixed(4) + " · 90 % → " + back.toFixed(4));
+  }
+  await dragTo("menu-vol-master", 1); await focus("menu-vol-master"); const k0 = await heard(); for (let i = 0; i < 12; i++) await key("ArrowLeft", 50); const kv = +(await val("menu-vol-master")); await sleep(400); const k1h = await heard(); for (let i = 0; i < 12; i++) await key("ArrowRight", 50);
+  check("[SONIDO] MAESTRO con el teclado baja el volumen real", kv === 40 && k1h < k0 * 0.6, "100 % → " + k0.toFixed(4) + " · " + kv + " % → " + k1h.toFixed(4));
+  await pg.click("#dd-opt-menuon"); await sleep(900); const mOff = await heard(); await pg.click("#dd-opt-menuon"); await sleep(1200); const mOn = await heard();
+  check("[SONIDO] el conmutador MÚSICA DEL MENÚ la calla y la devuelve de verdad", mOff < k0 * 0.05 && mOn > k0 * 0.5, mOff.toFixed(4) + " → " + mOn.toFixed(4));
+  await dragTo("menu-vol-music", 0.85); await dragTo("dd-opt-menuvol", 0.8);
   /* ---------- OPCIONES: ratón ---------- */
   const drag = async (id, frac) => { const r = await pg.evaluate((id) => { const q = document.getElementById(id).getBoundingClientRect(); return { x: q.x, y: q.y, w: q.width, h: q.height }; }, id); await pg.mouse.click(r.x + r.w * frac, r.y + r.h / 2); await sleep(120); return +(await val(id)); };
   const d1 = await drag("menu-vol-sfx", 0.25), d2 = await drag("menu-vol-sfx", 0.75), d3 = await drag("dd-opt-menuvol", 0.5);
   check("[OPCIONES] ratón: los deslizadores van adonde se pulsa", Math.abs(d1 - 25) <= 6 && Math.abs(d2 - 75) <= 6 && Math.abs(d3 - 50) <= 6, [d1, d2, d3].join(", "));
+  const persistedMenuVol = d3;
   const c0 = await val("menu-flash"); await pg.click("#menu-flash"); const c1 = await val("menu-flash"); await pg.evaluate(() => { const l = document.querySelector('label[for="menu-flash"]') || document.getElementById("menu-flash").closest("label"); if (l) l.click(); }); const c2 = await val("menu-flash");
   check("[OPCIONES] ratón: la casilla responde al clic en la casilla y en su texto", c1 !== c0 && c2 === c0, [c0, c1, c2].join(" → "));
   const m0 = await val("dd-opt-menuon"); await pg.click("#dd-opt-menuon"); const m1 = await val("dd-opt-menuon"); await pg.click("#dd-opt-menuon");
@@ -111,8 +132,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await pad(13); s = await S(); check("[OPCIONES] mando (simulado): abajo pasa al control siguiente", s.focus === "menu-gfx", s.focus);
   const g0 = await val("menu-gfx"); await pad(15); const g1 = await val("menu-gfx"); await pad(14); const g2 = await val("menu-gfx"); await pad(0); const g3 = await val("menu-gfx"); await pad(14);
   check("[OPCIONES] mando (simulado): el selector cambia con izquierda/derecha y con A", g1 !== g0 && g2 === g0 && g3 !== g0, [g0, g1, g2, g3].join(" → "));
-  await pad(13); const k0 = await val("menu-flash"); await pad(0); await sleep(300); const k1 = await val("menu-flash"); await sleep(300); await pad(0); await sleep(300);
-  check("[OPCIONES] mando (simulado): A marca la casilla", k1 !== k0, k0 + " → " + k1);
+  await pad(13); const kf0 = await val("menu-flash"); await pad(0); await sleep(300); const kf1 = await val("menu-flash"); await sleep(300); await pad(0); await sleep(300);
+  check("[OPCIONES] mando (simulado): A marca la casilla", kf1 !== kf0, kf0 + " → " + kf1);
   await sleep(300); await pad(1, 200); await sleep(350); s = await S();
   check("[OPCIONES] mando (simulado): B vuelve al menú con OPCIONES seleccionada", s.st === "MAIN_MENU" && s.sel === "options", s.st + " / " + s.sel);
   /* ---------- VOLVER, CRÉDITOS, SALIR, BORRAR ---------- */

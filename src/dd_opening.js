@@ -84,6 +84,11 @@
       var s = JSON.parse(localStorage.getItem("ddc_cover_settings_v1") || "null");
       if (s && typeof s.vol === "number") vol = s.vol;
     } catch (e) {}
+    /* El deslizador MAESTRO de OPCIONES manda también sobre la intro y el descenso. */
+    try {
+      var mx = JSON.parse(localStorage.getItem("dmodisco_vol_v1") || "null");
+      if (mx && isFinite(+mx.master)) vol *= Math.max(0, Math.min(1, +mx.master));
+    } catch (e) {}
     return { flash: !(a && a.flash === false), shake: !(a && a.shake === false) && !reduced, muted: muted, vol: vol };
   }
 
