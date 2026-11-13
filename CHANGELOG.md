@@ -191,3 +191,7 @@ Registrar aquí cada modificación:
 - VOLUMEN DEL MENÚ, MAESTRO, MÚSICA y EFECTOS cambian al instante lo que suena en el menú (antes sólo guardaban el número).
 - Archivos: `src/dd_ui_system.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
 - Pruebas: menú 53 de 53 (con medición de salida real), inicio 65 de 65, persistencia 39 de 39.
+
+## 2026-11-13 · HTML autónomo para descargar
+- Nuevo `tools/build_standalone_html.py`: genera `descarga/DEADBEAT_DISCO_COMPLETO.html`, un único archivo con los 290 recursos dentro (PNG recodificados a WebP sin pérdida, píxeles idénticos). No se sube a Git (110 MB).
+- Prueba: abierto desde disco, sin red y sin carpeta `assets/`: carga, intro, menú, OPCIONES, NUEVA PARTIDA y Refugio sin peticiones externas ni errores.
