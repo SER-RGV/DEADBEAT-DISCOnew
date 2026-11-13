@@ -1,0 +1,14 @@
+{
+  "name": "deadbeat-disco",
+  "private": true,
+  "version": "1.0.0",
+  "description": "DEADBEAT DISCO — herramientas de QA del juego",
+  "scripts": {
+    "test:art-pack": "node tests/art_pack_entry.test.js",
+    "test:restart": "node tools/qa/test_restart_flow.js",
+    "test:ci": "npm run test:art-pack && npm run test:restart"
+  },
+  "devDependencies": {
+    "playwright-core": "1.58.2"
+  }
+}

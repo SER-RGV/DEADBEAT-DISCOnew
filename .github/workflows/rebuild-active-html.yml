@@ -6,30 +6,57 @@ on:
       - main
       - "fix/**"
       - "arena/**"
+      - "chore/**"
     paths:
       - "src/**"
+      - "ART_PACK/**"
       - "backups/**"
       - "tools/build_active_html.py"
+      - "tools/qa/test_restart_flow.js"
+      - "tests/**"
+      - "package.json"
       - ".github/workflows/rebuild-active-html.yml"
 
 permissions:
   contents: write
 
 jobs:
-  rebuild:
+  rebuild-and-qa:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
       - name: Checkout current branch
         uses: actions/checkout@v4
         with:
           ref: ${{ github.ref_name }}
           token: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Rebuild the single-file game
         run: python tools/build_active_html.py
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - name: Install pinned QA dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Install Chromium for Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Test ART_PACK path resolution
+        run: npm run test:art-pack
+
+      - name: Run browser regression on the real game
+        run: npm run test:restart
+
       - name: Commit generated playable HTML
         run: |
           git config user.name "github-actions[bot]"

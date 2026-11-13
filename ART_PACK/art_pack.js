@@ -168,8 +168,7 @@
   var archApplied = false;
 
   var st = {
-    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07+hub-tanda08',
-    version: 'fase1-tanda01+tanda02+boss-t01+boss-t02',
+    version: 'fase1-tanda01+tanda02+tanda03+hub-tanda01+hub-tanda02+hub-tanda03+hub-tanda05+hub-tanda06+hub-tanda07+hub-tanda08+boss-t01+boss-t02',
     status: 'pending',
     startedAt: Date.now(),
     appliedAt: null,
@@ -180,11 +179,19 @@
 
   function entry(m) {
     return {
-      id: m.id, file: m.path || BASE + m.file, loader: m.loader, pivot: m.pivot,
-      id: m.id, file: (m.base || BASE) + m.file, loader: m.loader, pivot: m.pivot,
-      bossId: m.bossId || null, cacheKey: m.cacheKey || null,
-      alpha: m.alpha, expected: [m.w, m.h], natural: null,
-      applied: false, loaded: false, exactSize: false, note: ''
+      id: m.id,
+      file: m.path || (m.base || BASE) + m.file,
+      loader: m.loader,
+      pivot: m.pivot,
+      bossId: m.bossId || null,
+      cacheKey: m.cacheKey || null,
+      alpha: m.alpha,
+      expected: [m.w, m.h],
+      natural: null,
+      applied: false,
+      loaded: false,
+      exactSize: false,
+      note: ''
     };
   }
   MANIFEST.forEach(function (m) { st.assets.push(entry(m)); });
