@@ -9,7 +9,7 @@
 
 | Campo | Valor |
 |---|---|
-| Original (no se modifica) | `v9_t3_fase1b_cache_probe.html` |
+| Archivo histórico original (retirado de la raíz en la limpieza 2026-11-13) | `v9_t3_fase1b_cache_probe.html` |
 | Copia de seguridad | `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` |
 | Tamaño | 13.380.910 bytes |
 | Líneas | 19.835 |
@@ -28,8 +28,8 @@ Estas son comprobaciones de integridad de archivo, **no** pruebas de funcionamie
 ## Regla de uso
 
 - El archivo `backups/v9_t3_fase1b_cache_probe.ORIGINAL.html` es inmutable: no editar, no regenerar, no sustituir.
-- El original `v9_t3_fase1b_cache_probe.html` **no se ha sobrescrito** en esta fase y conserva el mismo SHA-256.
-- Para restaurar: copiar el contenido del backup sobre el original y verificar de nuevo el SHA-256 indicado arriba.
+- En la rama `chore/pre-merge-cleanup`, la copia raíz `v9_t3_fase1b_cache_probe.html` se retiró al comprobar que era idéntica al backup. El backup inmutable conserva el SHA-256 registrado.
+- Para recuperar la ruta histórica, copiar el backup a `v9_t3_fase1b_cache_probe.html` y verificar de nuevo el SHA-256 indicado arriba.
 
 ## Ampliación 2026-11-07 — copia previa a la reparación del arranque/HUB/controles
 
