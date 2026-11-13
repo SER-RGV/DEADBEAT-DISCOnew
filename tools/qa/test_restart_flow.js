@@ -113,6 +113,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await waitState(pg, "MAIN_MENU");
   const end = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
   check("[INTRO] dura 32 s de reloj real (±1,5 s)", Math.abs(wall - 32) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
+  const comic = await pg.evaluate(() => ({ fonts: window.DD_OPENING.fontsReady(), cap: document.fonts.check('italic 700 40px "Barlow Condensed"'), sfx: document.fonts.check('400 40px "Bangers"'), nine: window.DD_OPENING.NINE_LEVELS, files: window.DD_OPENING.FILES }));
+  check("[RÓTULOS] las dos fuentes definitivas están cargadas en el juego (Barlow Condensed y Bangers)", comic.fonts && comic.cap && comic.sfx);
+  check("[PLANO 3] la tabla del corte tiene exactamente nueve pistas", comic.nine === 9, comic.nine + " (la lámina se revisa además a ojo en la captura)");
+  check("[PROTAGONISTA] sólo se cargan la lámina maestra y el IDLE 07B; ninguna ilustración generada del personaje", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && !comic.files.some((f) => /op_05b_back|op_06_face|mc_06_fall/.test(f)), comic.files.length + " archivos");
   check("[INTRO] los 7 planos se ven en orden", seen.map((s) => s.shot).join("") === "1234567", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
   check("[INTRO] cada plano entra en su tiempo (±0,5 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.5), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));
   check("[INTRO] ANIM los 7 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7].every((i) => moving[i] === true), JSON.stringify(moving));
@@ -143,7 +147,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       selBrush: getComputedStyle(sel, "::before").transform, idleBrush: getComputedStyle(idle, "::before").transform,
       selColor: getComputedStyle(sel).color, idleColor: getComputedStyle(idle).color };
   });
-  check("[MENÚ] usa el logotipo oficial y el último plano de la intro como fondo", /logos\/logo_deadbeat_graffiti\.png$/.test(look.logo) && look.logoOk > 0 && /opening\/op_06_face\.jpg$/.test(look.bd) && look.bdOk > 0, look.logo.split("/").pop() + " · " + look.bd.split("/").pop());
+  check("[MENÚ] usa el logotipo oficial y el último plano de la intro como fondo", /logos\/logo_deadbeat_graffiti\.png$/.test(look.logo) && look.logoOk > 0 && /opening\/mc_07_pit\.jpg$/.test(look.bd) && look.bdOk > 0, look.logo.split("/").pop() + " · " + look.bd.split("/").pop());
   check("[MENÚ] estado de selección distinto por forma (brochazo) y color", look.selBrush !== look.idleBrush && look.selColor !== look.idleColor, "texto " + look.selColor + " / " + look.idleColor);
 
   /* teclado */
@@ -251,9 +255,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const wallD = (Date.now() - tD) / 1000;
   await waitState(pg, "PLAYING", 8000);
   const endD = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
-  check("[DESCENSO] dura 7 s de reloj real (±0,8 s)", Math.abs(wallD - 7) <= 0.8 && endD.type === "descent" && endD.by === "complete", wallD.toFixed(2) + " s");
-  check("[DESCENSO] tres fases en orden: grietas, pozo, llegada", phases.map((p) => p.p).join("") === "123", phases.map((p) => p.p + "@" + p.at.toFixed(1)).join(" "));
-  check("[DESCENSO] ANIM las tres fases se mueven", dMoving[1] && dMoving[2] && dMoving[3], JSON.stringify(dMoving));
+  check("[DESCENSO] dura 4,6 s de reloj real (±0,8 s) y es más corto que el plano 6 de la intro", Math.abs(wallD - 4.6) <= 0.8 && endD.type === "descent" && endD.by === "complete", wallD.toFixed(2) + " s");
+  check("[DESCENSO] dos fases en orden: pozo, llegada (sin repetir grietas ni sombrero)", phases.map((p) => p.p).join("") === "12", phases.map((p) => p.p + "@" + p.at.toFixed(1)).join(" "));
+  check("[DESCENSO] ANIM las dos fases se mueven", dMoving[1] && dMoving[2], JSON.stringify(dMoving));
   check("[DESCENSO] no se entra al Refugio antes de terminar la secuencia", !hubEarly);
   check("[DESCENSO][AUDIO] la música del menú se apaga durante el descenso", musicDesc === false);
   await sleep(1600);
@@ -329,7 +333,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     await toMenu(p3);
     await p3.keyboard.press("Home"); await p3.keyboard.press("Enter");
     await p3.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 5000 });
-    await sleep([900, 2600, 5700][i]);
+    await sleep([600, 1700, 3300][i]);
     const at = await op(p3);
     if (i === 1) { await p3.evaluate(() => window.__padSet(0, true)); await sleep(150); await p3.evaluate(() => window.__padSet(0, false)); } else await p3.keyboard.press("Space");
     await waitState(p3, "PLAYING", 6000).catch(() => {});
@@ -338,7 +342,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     laps.push({ fase: at && at.shot, ok: r.s.state === "PLAYING" && r.hub && r.end.type === "descent" && r.end.by === "skip" && !r.busy && r.s.menuMusic === false && r.gain <= 0.001 });
     if (i === 2) { await sleep(700); laps.canvas = await p3.evaluate(() => getComputedStyle(document.getElementById("dd-opening")).display); }
   }
-  check("[VUELTAS] tres recorridos completos seguidos; el descenso saltado en cada fase llega igual al Refugio", laps.every((l) => l.ok) && laps.map((l) => l.fase).join("") === "123" && laps.canvas === "none", laps.map((l) => "fase " + l.fase + (l.ok ? "✓" : "✗")).join(" "));
+  check("[VUELTAS] tres recorridos completos seguidos; el descenso saltado en cada fase llega igual al Refugio", laps.every((l) => l.ok) && laps.map((l) => l.fase).join("") === "112" && laps.canvas === "none", laps.map((l) => "fase " + l.fase + (l.ok ? "✓" : "✗")).join(" "));
   await p3.context().close();
 
   /* ================= 8. RESOLUCIONES ================= */
@@ -400,9 +404,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   let fb = { s: "error", by: null, px: 0 };
   if (!errPanel) {
     await pf.keyboard.press("KeyX"); await pf.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 8000 });
-    await pf.evaluate(() => window.DD_OPENING.debugSeek(11, true)); await sleep(250);
+    await pf.evaluate(() => window.DD_OPENING.debugSeek(6, true)); await sleep(250);
     const px = await canvasSum(pf);
-    await shot(pf, "intro_plano_3_sin_imagen_reserva");
+    await shot(pf, "intro_plano_2_sin_imagen_reserva");
     await pf.evaluate(() => window.DD_OPENING.debugSeek(31.2, false));
     await waitState(pf, "MAIN_MENU", 8000);
     fb = await pf.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by })); fb.px = px;

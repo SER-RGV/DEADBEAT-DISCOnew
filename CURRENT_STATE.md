@@ -173,7 +173,7 @@ Toda modificación debe partir de una copia de seguridad.
 
 - Build activa: `index.html` = `DEADBEAT_DISCO.html`, generadas por `tools/build_active_html.py`.
 - Protagonista: diseño cerrado; IDLE 07B aceptado como referencia, **no integrado en la partida**.
-- Inicio del juego: carga → intro (32 s) → menú → nueva partida → descenso (7 s) → Refugio.
-- QA del inicio: `tools/qa/test_restart_flow.js`, 62 de 62. Sonido audible y mando físico, sin probar.
+- Inicio del juego: carga → intro en cómic animado (32 s) → menú → nueva partida → descenso (4,6 s) → Refugio. Ver `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md`.
+- QA del inicio: `tools/qa/test_restart_flow.js`, 65 de 65. Sonido audible y mando físico, sin probar.
 - Pendiente: animaciones del protagonista e integración en la partida; reinicio del progreso permanente en NUEVA PARTIDA.
 - Detalle: `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.

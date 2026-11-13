@@ -64,7 +64,7 @@
      onerror inline hubiera actuado a tiempo. */
   function menuBackdropSrc() {
     /* PROJECT RESTART: el fondo del menú es el último plano de la intro. */
-    return "assets/cinematics/restart/opening/op_06_face.jpg";
+    return "assets/cinematics/restart/opening/mc_07_pit.jpg";
   }
 
   function weaponImgSrc(wid) {

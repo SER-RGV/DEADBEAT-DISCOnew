@@ -1,7 +1,6 @@
 # 10 · Intro en cómic animado — narración para validar
 
-Estado: **BORRADOR PENDIENTE DE VALIDACIÓN.** Nada de esto está integrado en el juego ni
-grabado. Fuente única: `docs/LORE/BIBLIA_MAESTRA_UNIVERSO_v1.0.txt`.
+Estado: **REVISIÓN 2, INTEGRADA EN EL JUEGO COMO CARTELAS.** Sin voz. Fuente única: `docs/LORE/BIBLIA_MAESTRA_UNIVERSO_v1.0.txt`.
 
 Todos los textos son **cartelas de narrador** (cajas de texto dentro de la viñeta). No hay
 ninguna frase puesta en boca de un personaje: la biblia no da diálogos para esta escena.
@@ -37,22 +36,11 @@ Tempo «no explique el misterio completo al principio» (§3.4). Por eso no apar
 - de dónde sale el protagonista ni qué son sus tatuajes;
 - quién abre el suelo (§5.3 lo prohíbe expresamente).
 
-## Tres puntos del encargo que chocan con la biblia
+## Revisión 2 (validada la dirección; aplicada en el juego)
 
-1. **«La llegada del protagonista» y «el motivo por el que debe entrar en este mundo».**
-   La biblia lo prohíbe: «No presentarlo como visitante que llega desde el exterior»
-   (§4.4, §39.1). En el guion no llega: ya está dentro y simplemente pisa tarde. Su motivo
-   es el de §4.3: la torre le duele.
-2. **«La ciudad».** La biblia no describe ninguna ciudad; sólo dice que el salón era un
-   edificio real. El plano 01 muestra la estación en una ciudad a oscuras tras la guerra:
-   es una deducción mínima y necesita tu visto bueno.
-3. **El plano 05 cuenta el paso fuera de tiempo**, que es parte del origen del Desafinado
-   (§4.1). Se enseña el gesto, no su significado. Si prefieres guardarlo, la cartela puede
-   quedarse en «A ÉL, LA TORRE LE DUELE».
-
-## Voz
-
-No hay voz grabada ni sintetizada. Propuesta: la intro funciona sólo con cartelas y
-sonido. Si quieres narrador, este mismo texto es el guion; hay que decidir antes el
-timbre, porque la biblia no define ningún narrador y Tempo «no debe convertirse en un
-narrador constante» (§3.4).
+- **Sin narrador hablado:** sólo cartelas y sonido. No hay ninguna voz grabada ni integrada.
+- **El protagonista ya está dentro.** No llega de ninguna parte; aparece pisando fuera de compás.
+- **Eliminada la ciudad.** El plano 01 muestra únicamente la estación sobre negro.
+- La tabla de textos de arriba no cambia y es la que está en `src/dd_opening.js`.
+- Se mantiene el paso fuera de compás (§4.1) y «la torre le duele» (§4.3) sin explicar el origen.
+- Onomatopeya añadida en el descenso de NUEVA PARTIDA: **CLONK** (la plataforma toca fondo).

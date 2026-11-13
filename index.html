@@ -2354,6 +2354,12 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
   #dd-main-menu.dd-rs .dd-menu-btn::before { transition: none; }
 }
 
+/* ---- Rotulación definitiva (SIL OFL 1.1, licencias en assets/fonts/) ------- */
+@font-face { font-family: "Barlow Condensed"; font-style: italic; font-weight: 500 900; font-display: swap; src: url("assets/fonts/barlow-condensed-latin-700-italic.woff2") format("woff2"); }
+@font-face { font-family: "Bangers"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/bangers-latin-400-normal.woff2") format("woff2"); }
+/* Fondo del menú: el pozo y el sombrero. La zona oscura queda a la izquierda. */
+#dd-main-menu.dd-rs #dd-menu-backdrop { transform-origin: 46% 43%; }
+
   </style>
 </head>
 <body class="booting">
@@ -12955,17 +12961,22 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   "use strict";
 
   var BASE = "assets/cinematics/restart/opening/";
+  var MASTER = "assets/cinematics/restart/character_master/";
   var FILES = {
-    vinyl: BASE + "op_01_vinyl.jpg",
-    tower: BASE + "op_02_tower.jpg",
+    station: BASE + "mc_01_station.jpg",
     floor: BASE + "op_03_dancefloor.jpg",
-    hand: BASE + "op_04a_tempo_hand.jpg",
+    nine: BASE + "mc_03_nine.jpg",
+    doors: BASE + "mc_04_doors.jpg",
+    vinyl: BASE + "op_01_vinyl.jpg",
     smiles: BASE + "op_04b_smiles.jpg",
-    vespera: BASE + "op_04c_vespera.jpg",
+    hand: BASE + "op_04a_tempo_hand.jpg",
     boots: BASE + "op_05a_boots.jpg",
-    back: BASE + "op_05b_back.jpg",
-    face: BASE + "op_06_face.jpg",
+    pit: BASE + "mc_07_pit.jpg",
     hat: BASE + "op_hat.png",
+    /* El protagonista sólo aparece con arte canónico: la lámina maestra y el IDLE aceptado. */
+    master: MASTER + "protagonist_master_crop_hero.png",
+    marm: MASTER + "protagonist_master_crop_arm_tattoos.png",
+    mface: MASTER + "protagonist_master_crop_face.png",
     hero: "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
     logo: "assets/logos/logo_deadbeat_graffiti.png"
   };
@@ -12973,20 +12984,21 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   /* Tabla de planos de la intro: [inicio, fin, nombre]. Es la única fuente de
      tiempos; la pintura, el sonido y las pruebas la leen de aquí. */
   var INTRO_DURATION = 32;
+  var TITLE_AT = 29;
   var SHOTS = [
-    { id: 1, from: 0, to: 4, name: "aguja" },
-    { id: 2, from: 4, to: 9, name: "torre" },
-    { id: 3, from: 9, to: 14, name: "pista" },
-    { id: 4, from: 14, to: 18, name: "insertos" },
-    { id: 5, from: 18, to: 23, name: "paso tarde" },
-    { id: 6, from: 23, to: 28, name: "rostro" },
-    { id: 7, from: 28, to: 32, name: "titulo" }
+    { id: 1, from: 0, to: 4, name: "el mundo" },
+    { id: 2, from: 4, to: 9, name: "la estacion" },
+    { id: 3, from: 9, to: 14, name: "las nueve pistas" },
+    { id: 4, from: 14, to: 19, name: "algo no funciona" },
+    { id: 5, from: 19, to: 24, name: "el protagonista" },
+    { id: 6, from: 24, to: 29, name: "el descenso" },
+    { id: 7, from: 29, to: 32, name: "el comienzo" }
   ];
-  var DESCENT_DURATION = 7;
+  /* NUEVA PARTIDA: el resto de la caída. Más corta que el plano 6 de la intro. */
+  var DESCENT_DURATION = 4.6;
   var DESCENT_PHASES = [
-    { id: 1, from: 0, to: 2, name: "grietas" },
-    { id: 2, from: 2, to: 5.2, name: "pozo" },
-    { id: 3, from: 5.2, to: 7, name: "llegada" }
+    { id: 1, from: 0, to: 3.05, name: "pozo" },
+    { id: 2, from: 3.05, to: 4.6, name: "llegada" }
   ];
   var BEAT = 0.5;
 
@@ -13019,6 +13031,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
   function preload() {
     if (preloadPromise) return preloadPromise;
+    askFonts();
     var keys = Object.keys(FILES);
     preloadPromise = new Promise(function (resolve) {
       var left = keys.length, missing = [];
@@ -13031,6 +13044,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       });
     });
     return preloadPromise;
+  }
+  /* Rotulación: Barlow Condensed (cartelas) y Bangers (onomatopeyas), declaradas
+     en el CSS del build. Se piden antes de pintar para que el primer rótulo no
+     salga con la fuente de reserva. */
+  var fontsAsked = false, fontsReady = false;
+  function askFonts() {
+    if (fontsAsked) return; fontsAsked = true;
+    try {
+      Promise.all([document.fonts.load('italic 700 40px "Barlow Condensed"'), document.fonts.load('400 40px "Bangers"')])
+        .then(function (r) { fontsReady = r.every(function (x) { return x && x.length > 0; }); }, function () {});
+    } catch (e) {}
   }
   function ok(im) { return !!(im && im.complete && im.naturalWidth > 0); }
 
@@ -13151,6 +13175,137 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   }
   function beatPulse(t) { var f = (t % BEAT) / BEAT; return Math.exp(-f * 6); }
 
+  /* ============================================================ CÓMIC ANIMADO */
+  /* Escenario 16:9 centrado: las viñetas y las cartelas se colocan en él para
+     que la página se lea igual en 4:3, 16:9 y 21:9. Los fondos a página
+     completa sí cubren todo el lienzo. */
+  var SW = 0, SX = 0, U = 1;
+  function stage() { SW = Math.min(W, H * 16 / 9 * 1.12); SX = (W - SW) / 2; U = Math.min(SW / 1920, H / 1080 * 1.12); }
+  function X(f) { return SX + f * SW; }
+  function Y(f) { return f * H; }
+  var FONT_CAP = '"Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif';
+  var FONT_SFX = '"Bangers", "Impact", "Haettenschweiler", "Arial Black", sans-serif';
+  var dots = null;
+  function halftone(x, y, w, h, a) {
+    if (!dots) {
+      var c = document.createElement("canvas"); c.width = c.height = 12;
+      var d = c.getContext("2d"); d.fillStyle = "#07030d";
+      d.beginPath(); d.arc(3, 3, 1.5, 0, 7); d.fill(); d.beginPath(); d.arc(9, 9, 1.5, 0, 7); d.fill();
+      dots = cx.createPattern(c, "repeat");
+    }
+    cx.save(); cx.globalAlpha = a; cx.fillStyle = dots; cx.fillRect(x, y, w, h); cx.restore();
+  }
+  function pop(t, t0, dur) { return reduced ? (t >= t0 ? 1 : 0) : easeOut(seg(t, t0, t0 + (dur || 0.26))); }
+
+  /* Viñeta: sombra, marco de tinta, filete hueso, imagen recortada y trama.
+     src = [x0, y0, x1, y1] en fracciones de la imagen. o: rot, a, zoom, px, py. */
+  function panel(im, src, x, y, w, h, o) {
+    o = o || {};
+    var a = o.a == null ? 1 : o.a; if (a <= 0 || w <= 2 || h <= 2) return;
+    var b = Math.max(3, 11 * U) * (o.border == null ? 1 : o.border);
+    cx.save(); cx.globalAlpha = a;
+    cx.translate(x + w / 2, y + h / 2); if (o.rot) cx.rotate(o.rot);
+    if (o.shadow !== false) { cx.fillStyle = "rgba(0,0,0,0.6)"; cx.fillRect(-w / 2 - b + 14 * U, -h / 2 - b + 16 * U, w + 2 * b, h + 2 * b); }
+    cx.fillStyle = C.bone; cx.fillRect(-w / 2 - b - 2.5 * U, -h / 2 - b - 2.5 * U, w + 2 * b + 5 * U, h + 2 * b + 5 * U);
+    cx.fillStyle = C.ink; cx.fillRect(-w / 2 - b, -h / 2 - b, w + 2 * b, h + 2 * b);
+    cx.beginPath(); cx.rect(-w / 2, -h / 2, w, h); cx.clip();
+    if (ok(im)) {
+      var nw = im.naturalWidth, nh = im.naturalHeight;
+      var s = Math.max(w / ((src[2] - src[0]) * nw), h / ((src[3] - src[1]) * nh)) * (o.zoom || 1);
+      /* La ventana nunca sale del recorte pedido: lo que queda fuera de src no se enseña. */
+      var fx = clamp((src[0] + src[2]) / 2 + (o.px || 0), src[0] + w / (2 * nw * s), src[2] - w / (2 * nw * s));
+      var fy = clamp((src[1] + src[3]) / 2 + (o.py || 0), src[1] + h / (2 * nh * s), src[3] - h / (2 * nh * s));
+      cx.drawImage(im, -fx * nw * s, -fy * nh * s, nw * s, nh * s);
+    } else {
+      var g = cx.createLinearGradient(0, -h / 2, 0, h / 2); g.addColorStop(0, "#2a0a3a"); g.addColorStop(1, C.ink);
+      cx.fillStyle = g; cx.fillRect(-w / 2, -h / 2, w, h);
+    }
+    if (o.tint) { cx.fillStyle = o.tint; cx.fillRect(-w / 2, -h / 2, w, h); }
+    halftone(-w / 2, -h / 2, w, h, 0.22);
+    cx.restore();
+  }
+  /* Viñeta que entra deslizándose desde (dx, dy) a compás y sale en tOut. */
+  function slidePanel(t, t0, tOut, im, src, fx, fy, fw, fh, rot, dx, dy, o) {
+    if (t < t0) return;
+    var p = pop(t, t0, 0.3), q = tOut ? ease(seg(t, tOut, tOut + 0.3)) : 0;
+    var k = (1 - p) + q * 1.2;
+    o = o || {}; o.rot = rot + (1 - p) * 0.12 * (dx >= 0 ? 1 : -1); o.a = Math.min(1, p * 3) * (1 - q);
+    panel(im, src, X(fx) + dx * SW * k, Y(fy) + dy * H * k, fw * SW, fh * H, o);
+  }
+  /* Cartela de narrador. Entra de golpe (escala) en t0 y se retira en tOut. */
+  function caption(t, t0, tOut, text, fx, fy, size, bg, fg, rot) {
+    if (t < t0 || (tOut && t > tOut + 0.2)) return;
+    var p = pop(t, t0, 0.22), q = tOut ? seg(t, tOut, tOut + 0.2) : 0;
+    var fs = Math.max(13, size * U), lines = text.split("\n"), pad = fs * 0.36, lh = fs * 1.06, w = 0, i;
+    cx.save();
+    cx.font = "italic 700 " + fs + "px " + FONT_CAP; cx.textBaseline = "top"; cx.textAlign = "left";
+    for (i = 0; i < lines.length; i++) w = Math.max(w, cx.measureText(lines[i]).width);
+    var bw = w + pad * 2.2, bh = lh * lines.length + pad * 1.5;
+    var x = clamp(X(fx), 8 * U, W - bw - 14 * U), y = Y(fy);
+    cx.globalAlpha = Math.min(1, p * 4) * (1 - q);
+    cx.translate(x + bw / 2, y + bh / 2); cx.rotate((rot || 0) + (1 - p) * -0.08); var sc = 1 + 0.35 * (1 - p); cx.scale(sc, sc);
+    cx.fillStyle = C.ink; cx.fillRect(-bw / 2 + 7 * U, -bh / 2 + 7 * U, bw, bh);
+    cx.fillStyle = bg || C.yellow; cx.fillRect(-bw / 2, -bh / 2, bw, bh);
+    cx.strokeStyle = C.ink; cx.lineWidth = Math.max(2, 4 * U); cx.strokeRect(-bw / 2, -bh / 2, bw, bh);
+    cx.fillStyle = fg || C.ink;
+    for (i = 0; i < lines.length; i++) cx.fillText(lines[i], -bw / 2 + pad * 1.1, -bh / 2 + pad * 0.8 + i * lh);
+    cx.restore();
+  }
+  /* Onomatopeya dibujada. */
+  function sfxWord(t, t0, tOut, text, fx, fy, size, color, rot) {
+    if (t < t0 || (tOut && t > tOut + 0.25)) return;
+    var p = pop(t, t0, 0.2), q = tOut ? seg(t, tOut, tOut + 0.25) : 0, fs = size * U;
+    cx.save();
+    cx.translate(X(fx), Y(fy)); cx.rotate(rot + (reduced ? 0 : Math.sin(t * 40) * 0.012 * (1 - seg(t, t0, t0 + 0.6))));
+    var sc = (1 + 0.9 * (1 - p)) * (1 + q * 0.3); cx.scale(sc, sc); cx.globalAlpha = Math.min(1, p * 4) * (1 - q);
+    cx.font = "400 " + fs + "px " + FONT_SFX; cx.textAlign = "center"; cx.textBaseline = "middle"; cx.lineJoin = "round";
+    cx.lineWidth = fs * 0.16; cx.strokeStyle = C.ink; cx.fillStyle = C.ink;
+    cx.strokeText(text, fs * 0.06, fs * 0.07); cx.strokeText(text, 0, 0);
+    cx.fillStyle = color; cx.fillText(text, 0, 0);
+    cx.restore();
+  }
+  /* Grieta que avanza: línea quebrada (fracciones del escenario) trazada hasta p. */
+  function crack(pts, p, wd) {
+    if (p <= 0) return;
+    var n = pts.length - 1, upto = p * n, i;
+    function path() {
+      cx.beginPath(); cx.moveTo(X(pts[0][0]), Y(pts[0][1]));
+      for (i = 1; i <= n; i++) {
+        if (i <= upto) cx.lineTo(X(pts[i][0]), Y(pts[i][1]));
+        else { var f = upto - (i - 1); if (f > 0) cx.lineTo(X(lerp(pts[i - 1][0], pts[i][0], f)), Y(lerp(pts[i - 1][1], pts[i][1], f))); break; }
+      }
+    }
+    cx.save(); cx.lineJoin = "miter"; cx.lineCap = "round";
+    cx.strokeStyle = C.ink; cx.lineWidth = (wd + 9) * U; path(); cx.stroke();
+    cx.strokeStyle = C.bone; cx.lineWidth = wd * U; path(); cx.stroke();
+    cx.restore();
+  }
+  /* Transición de tinta: p 0→0,5 cubre, 0,5→1 descubre. */
+  function inkWipe(p, seed) {
+    if (p <= 0 || p >= 1) return;
+    var k = p < 0.5 ? p * 2 : (1 - p) * 2, R = Math.hypot(W, H) * 0.42;
+    for (var i = 0; i < 7; i++) splat(W * (0.1 + 0.8 * rnd(seed + i * 2.3)), H * (0.15 + 0.7 * rnd(seed + i * 5.1)), R * k * (0.7 + 0.6 * rnd(seed + i)), C.ink, seed + i * 9, 1);
+    if (k > 0.92) tint(C.ink, (k - 0.92) / 0.08);
+  }
+  function speedLines(fx, fy, a, seed) {
+    if (reduced || a <= 0) return;
+    var x0 = X(fx), y0 = Y(fy), R = Math.hypot(W, H);
+    cx.save(); cx.globalAlpha = a; cx.fillStyle = C.ink;
+    for (var i = 0; i < 46; i++) {
+      var an = rnd(seed + i) * Math.PI * 2 + Math.floor(seq ? seq.t * 12 : 0) * 0.37, r0 = R * (0.3 + 0.16 * rnd(seed + i * 3.3)), wd = 0.006 + 0.016 * rnd(seed + i * 7.7);
+      cx.beginPath(); cx.moveTo(x0 + Math.cos(an) * r0, y0 + Math.sin(an) * r0);
+      cx.lineTo(x0 + Math.cos(an - wd) * R, y0 + Math.sin(an - wd) * R); cx.lineTo(x0 + Math.cos(an + wd) * R, y0 + Math.sin(an + wd) * R); cx.fill();
+    }
+    cx.restore();
+  }
+  function page(im, fx, fy, zoom, dx, dy, dark) {
+    var m = cover(im, fx, fy, zoom, 1, dx, dy);
+    if (dark) tint(C.ink, dark);
+    halftone(0, 0, W, H, 0.13);
+    return m;
+  }
+  function flash(t, t0, dur, color, a) { var st = settings(); if (st.flash && t >= t0 && t < t0 + dur) tint(color, a * (1 - (t - t0) / dur)); }
+
   /* ================================================================= INTRO */
   function logoBox() {
     /* Misma caja que usa el menú (CSS .dd-menu-logo): el título se queda donde
@@ -13161,369 +13316,314 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
   function drawIntro(t) {
     var st = settings();
+    stage();
     cx.fillStyle = C.ink; cx.fillRect(0, 0, W, H);
-
-    if (t < 4.6) shotVinyl(t);
-    if (t >= 3.7 && t < 9.5) {
-      /* Fundido por forma: la etiqueta del disco se abre en círculo a la torre. */
-      var open = ease(seg(t, 3.7, 4.7));
-      if (open < 1) {
-        cx.save(); cx.beginPath();
-        cx.arc(W * 0.36, H * 0.42, Math.hypot(W, H) * open, 0, Math.PI * 2); cx.clip();
-        shotTower(t); cx.restore();
-      } else shotTower(t);
-    }
-    if (t >= 9 && t < 14) { shotFloor(t); tint(C.ink, 1 - seg(t, 9, 9.5)); }
-    if (t >= 14 && t < 18) shotInserts(t, st);
-    if (t >= 18 && t < 23) shotStep(t, st);
-    if (t >= 23) shotFaceAndTitle(t, st);
-
-    vignette(0.5);
-    bars();
-    if (t < 1.2) tint("#000", 1 - seg(t, 0.1, 1.2));
+    if (t < 4) shotWorld(t);
+    else if (t < 9) shotStation(t);
+    else if (t < 14) shotNine(t);
+    else if (t < 19) shotWrong(t, st);
+    else if (t < 24) shotHero(t, st);
+    else if (t < 29) shotFall(t, st);
+    else shotTitle(t, st);
+    /* Transiciones de tinta entre páginas. */
+    inkWipe(seg(t, 8.7, 9.3), 3);
+    inkWipe(seg(t, 18.75, 19.25), 11);
+    if (t < 0.8) tint("#000", 1 - seg(t, 0.1, 0.8));
   }
 
-  function shotVinyl(t) {
-    var p = seg(t, 0, 4.6);
-    var m = cover(img.vinyl, lerp(0.5, 0.56, ease(p)), 0.5, lerp(1.0, 1.2, ease(p)));
-    /* El surco gira: brillos que barren el disco alrededor de la etiqueta. */
-    var ox = m.x + m.w * 0.21, oy = m.y + m.h * 0.42;
-    cx.save(); cx.globalCompositeOperation = "lighter"; cx.lineCap = "round";
-    for (var i = 0; i < 7; i++) {
-      var r = m.w * (0.13 + i * 0.045), a0 = t * 2.6 + i * 0.9;
-      cx.strokeStyle = i % 2 ? "rgba(34,211,238,0.30)" : "rgba(255,45,122,0.34)";
-      cx.lineWidth = Math.max(1, m.w * 0.0016);
-      cx.beginPath(); cx.ellipse(ox, oy, r, r * 0.62, -0.12, a0, a0 + 0.5); cx.stroke();
-      cx.beginPath(); cx.ellipse(ox, oy, r, r * 0.62, -0.12, a0 + Math.PI, a0 + Math.PI + 0.35); cx.stroke();
+  /* 01 · EL MUNDO — viñeta panorámica sobre negro que crece a página completa. */
+  function shotWorld(t) {
+    var g = ease(seg(t, 2.9, 3.9));                       /* la viñeta se expande */
+    var push = ease(seg(t, 0, 4));
+    var x = lerp(X(0.06), 0, g), y = lerp(Y(0.26), 0, g), w = lerp(SW * 0.88, W, g), h = lerp(H * 0.48, H, g);
+    panel(img.station, [0, 0.12, 1, 0.95], x, y, w, h, { rot: lerp(-0.012, 0, g), zoom: lerp(1.0, 1.1, push) + g * g * 0.55, py: lerp(-0.04, 0.12, g), border: 1 - g, shadow: g < 0.5 });
+    /* Luz que respira al compás lejano. */
+    glow(x + w / 2, y + h * 0.62, h * 0.5, "rgba(250,204,21,0.5)", 0.10 + 0.10 * beatPulse(t));
+    splat(X(0.09), Y(0.8), 58 * U * pop(t, 1.0) * (1 - g), C.magenta, 2, 1 - g);
+    splat(X(0.93), Y(0.2), 44 * U * pop(t, 2.5) * (1 - g), C.cyan, 5, 1 - g);
+    caption(t, 1.0, 3.2, "LA GUERRA HABÍA TERMINADO.", 0.08, 0.16, 58, C.yellow, C.ink, -0.035);
+    caption(t, 2.5, 3.3, "ESA NOCHE, POR FIN,\nNADIE ESPERABA MORIR.", 0.6, 0.72, 48, C.bone, C.ink, 0.02);
+  }
+
+  /* 02 · LA ESTACIÓN — se cruza la puerta: página completa y viñetas de detalle. */
+  function shotStation(t) {
+    var p = seg(t, 4, 9), sh = shakeOf(t, 4, 0.3, 8);
+    page(img.floor, 0.5, lerp(0.5, 0.36, ease(p)), lerp(1.22, 1.04, easeOut(seg(t, 4, 5.2))) + p * 0.05, sh[0], sh[1]);
+    glow(W / 2, H * 0.3, H * 0.4, "rgba(255,45,122,0.6)", 0.10 + 0.18 * beatPulse(t));
+    slidePanel(t, 4.5, 8.3, img.station, [0.2, 0.0, 0.8, 0.3], 0.62, 0.07, 0.33, 0.32, 0.05, 0.5, -0.3, { zoom: 1 + p * 0.1 });
+    slidePanel(t, 5.0, 8.4, img.floor, [0.4, 0.3, 0.6, 0.62], 0.75, 0.36, 0.2, 0.34, -0.06, 0.5, 0.1, { zoom: 1.05 });
+    slidePanel(t, 5.5, 8.5, img.floor, [0.05, 0.62, 0.5, 1.0], 0.04, 0.58, 0.3, 0.34, -0.045, -0.5, 0.2, { px: p * 0.04 });
+    caption(t, 4.5, 6.6, "UNA VIEJA ESTACIÓN DE TREN.\nCRISTAL, HIERRO… Y UN BAILE.", 0.045, 0.07, 52, C.yellow, C.ink, -0.03);
+    caption(t, 6.9, 8.6, "POR UNAS HORAS, TODOS\nIMAGINARON UN MAÑANA.", 0.5, 0.78, 50, C.bone, C.ink, 0.025);
+    flash(t, 4, 0.22, C.yellow, 0.8);
+  }
+
+  /* 03 · LAS NUEVE PISTAS — corte del edificio; la cámara baja como una aguja por el surco. */
+  var NINE_Y = [480, 590, 700, 810, 920, 1030, 1140, 1250, 1360], NINE_H = 1706, NINE_FLOOR = 110;
+  function shotNine(t) {
+    var im = img.nine;
+    /* Encuadre: primero de cerca y bajando; al final se abre para ver las nueve. */
+    var out = ease(seg(t, 12.2, 13.2));
+    var ph = H * 0.96, pw = Math.min(SW * 0.36, ph * 0.5), px0 = W / 2 - pw / 2, py0 = H * 0.02;
+    var travel = ease(seg(t, 9.3, 12.2));
+    var cyImg = lerp(lerp(0.2, 0.74, travel), 0.5, out);
+    cx.save(); cx.globalAlpha = 0.5;
+    cover(im, 0.5, cyImg, 1.5); cx.restore(); tint(C.ink, 0.72);
+    /* Viñeta central: se dibuja la lámina a mano para poder verla entera. */
+    var b = 11 * U;
+    cx.fillStyle = "rgba(0,0,0,0.6)"; cx.fillRect(px0 - b + 14 * U, py0 - b + 16 * U, pw + 2 * b, ph + 2 * b);
+    cx.fillStyle = C.bone; cx.fillRect(px0 - b - 2.5 * U, py0 - b - 2.5 * U, pw + 2 * b + 5 * U, ph + 2 * b + 5 * U);
+    cx.fillStyle = C.ink; cx.fillRect(px0 - b, py0 - b, pw + 2 * b, ph + 2 * b);
+    var s = lerp(pw / 768 * 1.35, ph / NINE_H, out), iw = 768 * s, ih = NINE_H * s;
+    var ix = px0 + pw / 2 - iw / 2, iy = clamp(py0 + ph / 2 - ih * cyImg, py0 + ph - ih, py0);
+    cx.save(); cx.beginPath(); cx.rect(px0, py0, pw, ph); cx.clip();
+    if (ok(im)) cx.drawImage(im, ix, iy, iw, ih); else fallback();
+    halftone(px0, py0, pw, ph, 0.18);
+    /* Nueve marcas de pintura, una por pista, al compás: se cuentan solas. */
+    for (var i = 0; i < 9; i++) {
+      var ti = 12.3 + i * 0.12, k = pop(t, ti, 0.18);
+      if (k <= 0) continue;
+      var fyc = iy + (NINE_Y[i] + NINE_FLOOR * 0.5) * s, pulse = 1 + 0.5 * Math.max(0, 1 - (t - ti) * 4);
+      cx.fillStyle = C.yellow; cx.strokeStyle = C.ink; cx.lineWidth = Math.max(2, 3 * U);
+      var mw = pw * 0.07 * k * pulse, mh = NINE_FLOOR * s * 0.34 * pulse;
+      cx.beginPath(); cx.moveTo(px0 + pw * 0.015, fyc - mh / 2); cx.lineTo(px0 + pw * 0.015 + mw, fyc - mh * 0.3); cx.lineTo(px0 + pw * 0.015 + mw * 0.9, fyc + mh / 2); cx.lineTo(px0 + pw * 0.01, fyc + mh * 0.4); cx.closePath(); cx.fill(); cx.stroke();
     }
     cx.restore();
-    glow(ox, oy, m.w * 0.16, "rgba(255,45,122,0.5)", 0.25 + 0.2 * (t > 1.5 ? beatPulse(t) : 0));
-  }
-
-  function shotTower(t) {
-    var p = seg(t, 4, 9.2);
-    var m = portrait(img.tower, lerp(0.14, 0.8, ease(p)), 0.62);
-    /* Niebla en tres bandas que derivan a distinta velocidad. */
-    for (var i = 0; i < 3; i++) {
-      var gx = W * (0.2 + 0.3 * i) + Math.sin(t * (0.2 + i * 0.07) + i) * W * 0.12;
-      glow(gx, H * (0.92 - i * 0.05), H * (0.55 + i * 0.1), "rgba(124,58,237,0.5)", 0.22 + 0.1 * p);
-    }
-    glow(W / 2, m.y + m.h * 0.07, m.w * 0.5, "rgba(255,45,122,0.6)", 0.3 * (1 - p));
-    tint(C.magenta, 0.05 * beatPulse(t));
-    if (t > 9) tint(C.ink, seg(t, 9, 9.5));
-  }
-
-  function beams(m, t, a) {
-    var ox = m.x + m.w * 0.785, oy = m.y + m.h * 0.2;
-    cx.save(); cx.globalCompositeOperation = "lighter";
-    for (var i = 0; i < 5; i++) {
-      var an = Math.PI / 2 + Math.sin(t * (0.5 + i * 0.13) + i * 1.7) * 0.9, wd = 0.07;
-      var L = H * 1.3;
-      var g = cx.createLinearGradient(ox, oy, ox + Math.cos(an) * L, oy + Math.sin(an) * L);
-      var col = [C.magenta, C.cyan, C.yellow, C.violet, C.magenta][i];
-      g.addColorStop(0, col); g.addColorStop(1, "rgba(0,0,0,0)");
-      cx.globalAlpha = a; cx.fillStyle = g;
-      cx.beginPath(); cx.moveTo(ox, oy);
-      cx.lineTo(ox + Math.cos(an - wd) * L, oy + Math.sin(an - wd) * L);
-      cx.lineTo(ox + Math.cos(an + wd) * L, oy + Math.sin(an + wd) * L);
-      cx.closePath(); cx.fill();
-    }
-    cx.restore();
-  }
-  function shotFloor(t) {
-    var p = seg(t, 9, 14), bp = beatPulse(t);
-    var bob = reduced ? 0 : -bp * H * 0.004;
-    var m = cover(img.floor, 0.5, lerp(0.5, 0.56, p), lerp(1.02, 1.16, ease(p)), 1, 0, bob);
-    beams(m, t, 0.16);
-    glow(m.x + m.w * 0.785, m.y + m.h * 0.2, H * 0.3, "rgba(255,255,255,0.8)", 0.25 + 0.3 * bp);
-    for (var i = 0; i < 3; i++) glow(W * (0.25 + i * 0.25) + Math.sin(t * 0.3 + i * 2) * W * 0.1, H * 0.86, H * 0.5, "rgba(34,211,238,0.35)", 0.16);
-    tint(C.magenta, 0.06 * bp);
-  }
-
-  function shotInserts(t, st) {
-    /* El último compás se repite: la imagen salta atrás un tiempo, dos veces. */
-    var jump = t >= 17 && !reduced;
-    var tt = t >= 17 ? 16.5 + ((t - 17) % 0.5) : t;
-    if (reduced && t >= 17) tt = t - 0.5;
-    var bp = beatPulse(t);
-    if (tt < 15) {
-      var p = seg(tt, 14, 15);
-      cover(img.hand, lerp(0.42, 0.36, p), 0.48, lerp(1.06, 1.16, easeOut(p)));
-      glow(W * 0.3, H * 0.75, H * 0.5, "rgba(34,211,238,0.5)", 0.12 + 0.12 * bp);
-    } else if (tt < 16) {
-      var p2 = seg(tt, 15, 16);
-      cover(img.smiles, 0.5, 0.36, lerp(1.1, 1.2, p2));
-      tint(C.magenta, 0.08 * bp);
-    } else {
-      var p3 = seg(tt, 16, 17);
-      var m = cover(img.vespera, 0.75, lerp(0.5, 0.42, ease(p3)), lerp(1.18, 1.34, ease(p3)));
-      glow(m.x + m.w * 0.83, m.y + m.h * 0.3, H * 0.16, "rgba(250,204,21,0.8)", 0.18 + 0.14 * bp);
-    }
-    /* Corte al compás: un destello de pintura de dos fotogramas. */
-    var since = Math.min(t - 14, Math.abs(t - 15), Math.abs(t - 16), jump ? (t - 17) % 0.5 : 9);
-    if (t >= 15 && t < 15.07 || t >= 16 && t < 16.07 || (jump && since < 0.06)) {
-      if (st.flash) tint(jump ? C.yellow : C.bone, jump ? 0.28 : 0.2);
-    }
-    if (jump) {
-      var k = 1 - ((t - 17) % 0.5) / 0.5;
-      splat(W * 0.12, H * 0.2, H * 0.09 * easeOut(1 - k), C.yellow, 5 + Math.floor((t - 17) / 0.5), 0.9 * k);
-    }
-  }
-
-  function shotStep(t, st) {
-    if (t < 20.8) {
-      /* Pies que pisan a la vez; cada golpe sacude el encuadre. */
-      var p = seg(t, 18, 20.8), bp = beatPulse(t);
-      var jolt = st.shake ? bp * H * 0.006 : 0;
-      var m = cover(img.boots, lerp(0.42, 0.5, p), 0.5, lerp(1.0, 1.08, p), 1, 0, jolt);
-      tint(C.ink, 0.25 * (1 - bp));
-      /* La bota que llega tarde: 20,25 s, fuera del compás. */
-      var late = t - 20.25;
-      if (late >= 0) {
-        var k = easeOut(seg(late, 0, 0.3));
-        splat(m.x + m.w * 0.5, m.y + m.h * 0.8, H * 0.13 * k, C.yellow, 11, 0.85 * (1 - seg(late, 0.2, 0.5)));
-        if (st.flash && late < 0.07) tint(C.yellow, 0.25);
+    /* Viñetas de detalle enlazadas al plano. */
+    var det = [[10.0, 0, 0.04, 0.14, -0.06, -1], [10.5, 2, 0.7, 0.2, 0.05, 1], [11.0, 4, 0.05, 0.6, 0.04, -1], [11.5, 7, 0.7, 0.58, -0.05, 1]];
+    for (var d = 0; d < det.length; d++) {
+      var D = det[d], y0 = NINE_Y[D[1]] / NINE_H;
+      slidePanel(t, D[0], 13.5, im, [0.14, y0, 0.86, y0 + NINE_FLOOR / NINE_H], D[2], D[3], 0.26, 0.16, D[4], D[5] * 0.4, 0, { zoom: 1.0 });
+      var lk = pop(t, D[0] + 0.15, 0.2) * (1 - seg(t, 13.5, 13.7));
+      if (lk > 0) {
+        var ax = D[5] < 0 ? X(D[2] + 0.26) + 11 * U : X(D[2]) - 11 * U, ay = Y(D[3] + 0.08), bx = D[5] < 0 ? px0 : px0 + pw, by = iy + (NINE_Y[D[1]] + 55) * s;
+        cx.save(); cx.globalAlpha = lk; cx.strokeStyle = C.ink; cx.lineWidth = 9 * U; cx.beginPath(); cx.moveTo(ax, ay); cx.lineTo(lerp(ax, bx, lk), lerp(ay, clamp(by, py0, py0 + ph), lk)); cx.stroke();
+        cx.strokeStyle = C.yellow; cx.lineWidth = 4 * U; cx.stroke(); cx.restore();
       }
-      tint(C.ink, 1 - seg(t, 18, 18.25));
-    } else {
-      /* Subida por la figura: de las botas al sombrero. */
-      var p2 = ease(seg(t, 20.8, 22.8));
-      var m2 = portrait(img.back, lerp(0.9, 0.2, p2), 0.6);
-      glow(W * 0.5, m2.y + m2.h * 0.3, H * 0.6, "rgba(255,45,122,0.4)", 0.14);
-      tint(C.ink, 1 - seg(t, 20.8, 21.0));
     }
+    caption(t, 9.35, 11.4, "PERO LA NOCHE NO TERMINÓ.", 0.3, 0.035, 56, C.yellow, C.ink, -0.03);
+    caption(t, 10.6, 12.3, "EL SALÓN CRECIÓ HACIA ABAJO.", 0.47, 0.45, 46, C.bone, C.ink, 0.03);
+    caption(t, 12.4, 13.7, "NUEVE PISTAS.\nUNA DEBAJO DE OTRA.", 0.64, 0.84, 56, C.magenta, C.bone, -0.02);
   }
 
-  function shotFaceAndTitle(t, st) {
-    var p = seg(t, 23, 28), q = seg(t, 28, 30.5);
-    /* Plano 6: fija, con un acercamiento mínimo. Plano 7: se abre hasta la
-       composición exacta del menú (zoom 1, centro 0,5 / 0,5). */
-    var zoom = t < 28 ? lerp(1.0, 1.06, p) : lerp(1.06, 1.0, easeOut(q));
-    var sh = shakeOf(t, 25, 0.9, 10), sh2 = shakeOf(t, 28, 0.5, 16);
-    var m = cover(img.face, 0.5, 0.5, zoom, 1, sh[0] + sh2[0], sh[1] + sh2[1]);
-    /* El golpe grave llega desde abajo. */
-    var boom = t >= 25 ? Math.exp(-(t - 25) * 1.6) : 0;
-    if (boom > 0.01) {
-      var g = cx.createLinearGradient(0, H, 0, H * 0.45);
-      g.addColorStop(0, "rgba(255,45,122," + (0.55 * boom) + ")"); g.addColorStop(1, "rgba(255,45,122,0)");
-      cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = g; cx.fillRect(0, 0, W, H); cx.restore();
-    }
-    if (t < 23.12) tint(C.ink, 1 - seg(t, 23, 23.12));
-
-    if (t >= 28) {
-      var tq = t - 28;
-      /* Lado izquierdo en sombra, como en el menú. */
-      var a = ease(seg(tq, 0.2, 2.2));
-      var lg = cx.createLinearGradient(0, 0, W * 0.72, 0);
-      lg.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")"); lg.addColorStop(0.5, "rgba(5,2,10," + (0.72 * a) + ")"); lg.addColorStop(1, "rgba(5,2,10,0)");
-      cx.fillStyle = lg; cx.fillRect(0, 0, W, H);
-      /* Salpicadura y logotipo oficial. */
-      var b = logoBox(), k = easeOut(seg(tq, 0, 0.35));
-      var cxm = b.x + b.w / 2, cym = b.y + b.h / 2;
-      splat(cxm, cym, b.w * 0.62 * k, C.magenta, 3, 0.5 * (1 - 0.45 * seg(tq, 0.5, 2)));
-      splat(cxm + b.w * 0.34, cym + b.h * 0.3, b.w * 0.2 * k, C.yellow, 8, 0.7 * (1 - 0.5 * seg(tq, 0.5, 2)));
-      if (ok(img.logo)) {
-        var sc = reduced ? 1 : 1 + 0.5 * Math.pow(1 - seg(tq, 0, 0.4), 2);
-        cx.save(); cx.globalAlpha = seg(tq, 0, 0.12);
-        cx.drawImage(img.logo, cxm - b.w * sc / 2, cym - b.h * sc / 2, b.w * sc, b.h * sc);
-        cx.restore();
-      }
-      var ta = ease(seg(tq, 1.0, 1.9));
-      if (ta > 0) {
-        cx.save(); cx.globalAlpha = ta; cx.fillStyle = C.bone;
-        var fs = Math.max(11, b.w / 19);
-        var ff = 'px "Barlow Condensed", "Oswald", "Roboto Condensed", "Arial Narrow", "Impact", "Haettenschweiler", sans-serif';
-        cx.font = "italic 800 " + fs + ff;
-        var tw = cx.measureText("LA NOCHE QUE DEVORÓ EL AMANECER").width;
-        if (tw > b.w) cx.font = "italic 800 " + (fs * b.w / tw) + ff;
-        cx.textAlign = "center"; cx.textBaseline = "top";
-        cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
-        cx.fillText("LA NOCHE QUE DEVORÓ EL AMANECER", cxm, b.y + b.h + H * 0.012);
-        cx.restore();
-      }
-      if (st.flash && tq < 0.09) tint("#fff", 0.55 * (1 - tq / 0.09));
-    }
+  /* 04 · ALGO NO FUNCIONA — la página se raja; viñetas torcidas; el compás se repite. */
+  function shotWrong(t, st) {
+    /* A los 17 s el compás salta: la imagen también repite el mismo instante. */
+    var tv = t >= 17 && t < 18 ? 16.5 + ((t - 17) % 0.5) : t;
+    var sh = shakeOf(t, 14, 0.4, 16), bp = st.shake ? beatPulse(t) * 5 * U : 0;
+    var z = lerp(1.32, 1.04, easeOut(seg(t, 14, 14.5))) + seg(tv, 14, 19) * 0.06;
+    page(img.doors, 0.5, 0.4, z, sh[0] + (t >= 17 && t < 18 ? Math.sin(t * 60) * 6 * U : 0), sh[1] + bp, 0.1);
+    tint(C.magenta, 0.07 + 0.09 * beatPulse(t));
+    slidePanel(t, 15.0, 18.6, img.vinyl, [0.3, 0.1, 1, 0.9], 0.035, 0.52, 0.31, 0.39, -0.085, -0.5, 0.2, { px: Math.sin(tv * 6) * 0.004 });
+    slidePanel(t, 15.5, 18.65, img.smiles, [0, 0.05, 1, 0.75], 0.63, 0.07, 0.335, 0.36, 0.07, 0.5, -0.2, { zoom: 1 + seg(tv, 15.5, 19) * 0.12 });
+    slidePanel(t, 16.0, 18.7, img.hand, [0, 0, 1, 1], 0.67, 0.53, 0.285, 0.37, -0.05, 0.5, 0.2, { zoom: 1.04 });
+    var cp = seg(t, 14.6, 16.9);
+    cp = Math.floor(cp * 7) / 7 + (cp * 7 % 1 > 0.7 ? 1 / 7 : 0);            /* avanza a tirones */
+    crack([[0.525, -0.02], [0.5, 0.16], [0.54, 0.3], [0.485, 0.48], [0.52, 0.65], [0.47, 0.82], [0.5, 1.02]], Math.min(1, cp), 9);
+    crack([[0.485, 0.48], [0.4, 0.52], [0.34, 0.49]], seg(t, 16.0, 16.4), 6);
+    crack([[0.52, 0.65], [0.6, 0.68], [0.67, 0.65]], seg(t, 16.4, 16.8), 6);
+    splat(X(0.365), Y(0.935), 66 * U * pop(t, 17.6), C.magenta, 9, 1);
+    splat(X(0.615), Y(0.48), 46 * U * pop(t, 16.0), C.yellow, 4, 1);
+    caption(t, 14.3, 16.2, "LAS PUERTAS YA NO LLEVAN FUERA.", 0.04, 0.055, 54, C.yellow, C.ink, -0.03);
+    caption(t, 16.0, 17.6, "LA ÚLTIMA CANCIÓN VUELVE\nANTES DE TERMINAR.", 0.33, 0.3, 46, C.bone, C.ink, 0.03);
+    caption(t, 17.6, 18.7, "TODOS BAILAN.\nNADIE RECUERDA DESDE CUÁNDO.", 0.36, 0.81, 48, C.magenta, C.bone, -0.025);
+    sfxWord(t, 17.0, 18.5, "CLAC", 0.27, 0.5, 170, C.yellow, -0.17);
+    sfxWord(t, 17.5, 18.6, "TUM-TUM", 0.79, 0.47, 120, C.magenta, 0.1);
+    flash(t, 14, 0.18, "#fff", 0.7); flash(t, 17, 0.1, "#fff", 0.45); flash(t, 17.5, 0.1, "#fff", 0.35);
   }
 
-  /* =============================================================== DESCENSO */
-  function drawDescent(t) {
-    var st = settings();
-    cx.fillStyle = C.ink; cx.fillRect(0, 0, W, H);
-    if (t < 2) descentCracks(t, st); else descentShaft(t, st);
-    vignette(0.55);
-    bars();
-    if (t < 0.35) tint(C.ink, 1 - t / 0.35);
-    /* Fundido de color hacia el Refugio. */
-    if (t > 6.15) tint("#3a0d2c", ease(seg(t, 6.15, 6.9)));
+  /* 05 · EL PROTAGONISTA — la lámina maestra, sin redibujar. */
+  function shotHero(t, st) {
+    var late = 20.25;
+    page(img.boots, 0.55, 0.6, 1.08 + seg(t, 19, 24) * 0.04, 0, 0, 0.55);
+    /* Las botas: cada pisada es el bombo; la última llega tarde. */
+    slidePanel(t, 19.0, 0, img.boots, [0.25, 0.05, 1, 1], 0.035, 0.09, 0.4, 0.4, -0.05, -0.5, 0, { py: 0, zoom: 1.02, px: 0 });
+    if (t >= late) splat(X(0.33), Y(0.44), 62 * U * pop(t, late, 0.16), C.yellow, 7, 1);
+    /* La lámina entra de un tirón y respira. */
+    if (t >= 20.75) {
+      var p = pop(t, 20.75, 0.28), w = SW * 0.5 + (W - SW) / 2 + 20 * U, x = W - w + (1 - p) * w, pain = t > 22.3 && !reduced ? Math.sin(t * 47) * 2.2 * U * seg(t, 22.3, 22.8) : 0;
+      panel(img.master, [0.385, 0.0, 1.0, 0.86], x + pain, -12 * U, w, H + 24 * U, { zoom: 1 + seg(t, 20.75, 24) * 0.06, py: -0.5 });
+      if (t > 22.3 && !reduced) {                         /* la torre intenta corregirlo */
+        cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.16 * seg(t, 22.3, 22.8) * (0.5 + 0.5 * Math.sin(t * 31));
+        cx.fillStyle = C.cyan; cx.fillRect(x, H * (0.2 + 0.6 * rnd(Math.floor(t * 14))), w, 5 * U); cx.restore();
+      }
+    }
+    slidePanel(t, 21.5, 0, img.marm, [0, 0.02, 1, 0.98], 0.07, 0.53, 0.165, 0.4, 0.06, -0.3, 0.3, { zoom: 1 + seg(t, 21.5, 24) * 0.05 });
+    slidePanel(t, 22.0, 0, img.mface, [0.22, 0.05, 1, 0.95], 0.26, 0.57, 0.22, 0.3, -0.06, -0.3, 0.3, { zoom: 1.02 });
+    caption(t, 19.4, 0, "UNO NO SIGUE EL COMPÁS.", 0.04, 0.035, 56, C.yellow, C.ink, -0.03);
+    caption(t, 22.5, 0, "A ÉL, LA TORRE LE DUELE.", 0.56, 0.86, 58, C.magenta, C.bone, -0.03);
+    sfxWord(t, late, 21.6, "TAC", 0.36, 0.34, 150, C.yellow, -0.2);
+    flash(t, late, 0.12, "#fff", 0.6);
   }
 
-  function descentCracks(t, st) {
-    var p = seg(t, 0, 2);
-    var s1 = shakeOf(t, 0, 0.7, 12), s2 = shakeOf(t, 1, 0.9, 20);
-    var m = portrait(img.back, lerp(0.62, 0.84, ease(p)), 0.6, s1[0] + s2[0], s1[1] + s2[1]);
-    var fx = m.x + m.w * 0.5, fy = m.y + m.h * 0.93;
-    var R = m.w * lerp(0.2, 0.62, easeOut(p));
-    cx.save(); cx.globalCompositeOperation = "lighter"; cx.lineCap = "round"; cx.lineJoin = "round";
-    /* Mecanismo circular: anillo en perspectiva y dientes que giran. */
-    cx.strokeStyle = "rgba(255,45,122,0.9)"; cx.lineWidth = Math.max(2, m.w * 0.008);
-    cx.beginPath(); cx.ellipse(fx, fy, R, R * 0.3, 0, 0, Math.PI * 2); cx.stroke();
-    cx.strokeStyle = "rgba(250,204,21,0.85)"; cx.lineWidth = Math.max(2, m.w * 0.005);
-    for (var i = 0; i < 12; i++) {
-      var an = i / 12 * Math.PI * 2 + t * 1.4, r1 = R * 0.74, r2 = R * lerp(0.74, 0.3, ease(p));
-      cx.beginPath(); cx.moveTo(fx + Math.cos(an) * r1, fy + Math.sin(an) * r1 * 0.3);
-      cx.lineTo(fx + Math.cos(an + 0.35) * r2, fy + Math.sin(an + 0.35) * r2 * 0.3); cx.stroke();
+  /* Pozo visto de lado: plataforma, cadenas y el IDLE aceptado (07B). Lo usan la
+     intro (inicio de la caída) y NUEVA PARTIDA (el resto del descenso).
+     scroll: avance por la torre (0–1); hatP: -1 sin sombrero, 0–1 desprendiéndose. */
+  function shaftSide(t, scroll, speed, platFy, hatP, shx, shy) {
+    cx.fillStyle = "#0b0416"; cx.fillRect(0, 0, W, H);
+    if (ok(img.nine)) {
+      var iw = Math.max(W * 0.74, H * 1.25), s = iw / 768, ih = NINE_H * s, ix = W / 2 - iw / 2;
+      var iy = -lerp(380 * s, ih - H, clamp(scroll, 0, 1));
+      cx.drawImage(img.nine, ix, iy, iw, ih);
+      tint("rgba(7,3,13,1)", 0.38);
+      halftone(0, 0, W, H, 0.16);
     }
-    /* Grietas de luz que salen de debajo de las botas. */
-    for (var c = 0; c < 9; c++) {
-      var a0 = rnd(c * 3.3) * Math.PI * 2, len = m.w * (0.3 + rnd(c) * 0.7) * easeOut(seg(t, c * 0.08, 1.7));
-      var x = fx, y = fy;
-      cx.strokeStyle = c % 3 ? "rgba(255,45,122,0.95)" : "rgba(250,204,21,0.95)";
-      cx.lineWidth = Math.max(1.5, m.w * (0.004 + rnd(c * 2) * 0.006));
-      cx.beginPath(); cx.moveTo(x, y);
-      for (var k = 1; k <= 6; k++) {
-        var aa = a0 + (rnd(c * 10 + k) - 0.5) * 0.9;
-        x += Math.cos(aa) * len / 6; y += Math.sin(aa) * len / 6 * 0.32; cx.lineTo(x, y);
-      }
-      cx.stroke();
-    }
-    cx.restore();
-    glow(fx, fy, R * 1.5, "rgba(255,120,180,0.9)", 0.25 + 0.5 * p);
-    if (st.flash && t > 1.86) tint(C.bone, seg(t, 1.86, 2) * 0.9);
-  }
-
-  /* Profundidad recorrida (en alturas de pantalla): acelera, cruza y frena. */
-  function depthAt(t) {
-    var u = clamp(t - 2, 0, 5);
-    if (u < 0.5) return 1.6 * u * u;                       /* arranque */
-    if (u < 3.2) return 0.4 + 1.6 * (u - 0.5);             /* velocidad de crucero */
-    var b = Math.min(u - 3.2, 1.1);                        /* frenada */
-    return 4.72 + 1.6 * b - (1.6 / 2.2) * b * b;
-  }
-  function descentShaft(t, st) {
-    var d = depthAt(t), u = t - 2;
-    var g = cx.createLinearGradient(0, 0, 0, H);
-    g.addColorStop(0, "#1b0830"); g.addColorStop(0.5, "#0b0416"); g.addColorStop(1, "#05020a");
-    cx.fillStyle = g; cx.fillRect(0, 0, W, H);
-    glow(W / 2, -H * 0.1 - d * H * 0.25, H * 0.7, "rgba(255,45,122,0.8)", 0.5 * (1 - seg(u, 0, 2.5)));
-
-    /* Fondo del pozo: la propia lámina de la torre (sus plantas encendidas),
-       en mosaico vertical y espejada a cada lado del hueco central. */
-    if (ok(img.tower)) {
-      var tw = W * 0.5, th = tw * 0.62 * img.tower.naturalHeight / img.tower.naturalWidth;
-      var sy0 = img.tower.naturalHeight * 0.17, sh0 = img.tower.naturalHeight * 0.62;
-      var sc0 = (d * H * 0.4) % th;
-      cx.save(); cx.globalAlpha = 0.62;
-      for (var ti = -1; ti < Math.ceil(H / th) + 1; ti++) {
-        var ty = ti * th - sc0 + th;
-        cx.drawImage(img.tower, 0, sy0, img.tower.naturalWidth, sh0, -tw * 0.42, ty - th, tw, th);
-        cx.save(); cx.translate(W, 0); cx.scale(-1, 1);
-        cx.drawImage(img.tower, 0, sy0, img.tower.naturalWidth, sh0, -tw * 0.42, ty - th * 1.5, tw, th);
-        cx.restore();
-      }
-      cx.restore();
-      var cg = cx.createLinearGradient(W * 0.22, 0, W * 0.78, 0);
-      cg.addColorStop(0, "rgba(7,3,13,0)"); cg.addColorStop(0.3, "rgba(9,4,18,0.96)"); cg.addColorStop(0.7, "rgba(9,4,18,0.96)"); cg.addColorStop(1, "rgba(7,3,13,0)");
-      cx.fillStyle = cg; cx.fillRect(0, 0, W, H);
-    }
-    /* Paredes cercanas en dos planos: balcones encendidos con barandilla y
-       siluetas, y vigas. Todo sale de la misma semilla. */
-    var layers = [{ par: 0.8, wall: 0.17, sc: 0.8, a: 0.9 }, { par: 1.25, wall: 0.085, sc: 1.15, a: 1 }];
-    var cols = [C.magenta, C.cyan, C.yellow, C.violet];
-    for (var li = 0; li < layers.length; li++) {
-      var L = layers[li], fh = H * 0.46 * L.sc, scroll = d * H * L.par;
-      var first = Math.floor(scroll / fh) - 1;
-      cx.save(); cx.globalAlpha = L.a;
-      for (var side = 0; side < 2; side++) {
-        var wx = side ? W * (1 - L.wall) : 0, ww = W * L.wall;
-        cx.fillStyle = li === 1 ? "#0a0512" : "#120820";
-        cx.fillRect(wx, 0, ww, H);
-        for (var f = first; f < first + Math.ceil(H / fh) + 3; f++) {
-          var y = f * fh - scroll, sd = f * 13.7 + side * 5.1 + li * 31;
-          var col = cols[Math.floor(rnd(sd) * 4)];
-          var bw = ww * (0.5 + rnd(sd + 1) * 0.35), bh = fh * 0.42;
-          var bx = side ? wx : wx + ww - bw, by = y + fh * 0.2;
-          cx.fillStyle = col; cx.globalAlpha = L.a * (0.5 + 0.4 * rnd(sd + 2));
-          cx.fillRect(bx, by, bw, bh);
-          cx.globalAlpha = L.a;
-          cx.fillStyle = "rgba(5,2,10,0.55)"; cx.fillRect(bx, by, bw, bh * 0.3);
-          cx.strokeStyle = "#030108"; cx.lineWidth = Math.max(2, H * 0.005 * L.sc);
-          cx.strokeRect(bx, by, bw, bh);
-          /* siluetas y barandilla */
-          cx.fillStyle = "#030108";
-          for (var n = 0; n < 4; n++) {
-            if (rnd(sd + n * 2.3) < 0.35) continue;
-            var px = bx + bw * (0.12 + n * 0.24), ph = bh * (0.5 + rnd(sd + n) * 0.2);
-            cx.fillRect(px - bh * 0.07, by + bh - ph, bh * 0.14, ph);
-            cx.beginPath(); cx.arc(px, by + bh - ph, bh * 0.09, 0, Math.PI * 2); cx.fill();
-          }
-          cx.fillRect(bx, by + bh * 0.72, bw, Math.max(2, bh * 0.05));
-          for (var r = 0; r < 9; r++) cx.fillRect(bx + bw * r / 9, by + bh * 0.72, Math.max(1.5, bw * 0.012), bh * 0.28);
-          /* viga */
-          cx.fillStyle = "#06030c"; cx.fillRect(wx, y + fh * 0.86, ww, fh * 0.07);
-          cx.fillStyle = col; cx.globalAlpha = L.a * 0.5; cx.fillRect(wx, y + fh * 0.86, ww, Math.max(1, fh * 0.008)); cx.globalAlpha = L.a;
-        }
-        cx.fillStyle = "#030108"; cx.fillRect(side ? wx : wx + ww - Math.max(3, W * 0.004), 0, Math.max(3, W * 0.004), H);
-      }
-      cx.restore();
-    }
-
-    /* Suelo del Refugio que sube al encuentro de la plataforma. */
-    var platY = H * 0.74;
-    var arrive = seg(u, 3.2, 4.3);
-    if (arrive > 0) {
-      var fyy = lerp(H * 1.5, platY + H * 0.02, easeOut(arrive));
-      var fg = cx.createLinearGradient(0, fyy, 0, H);
-      fg.addColorStop(0, "#7a1f4a"); fg.addColorStop(1, "#2a0a24");
-      cx.fillStyle = fg; cx.fillRect(0, fyy, W, H - fyy + 2);
-      cx.fillStyle = "#030108"; cx.fillRect(0, fyy - Math.max(3, H * 0.006), W, Math.max(3, H * 0.006));
-      glow(W / 2, fyy, H * 0.6, "rgba(255,45,122,0.7)", 0.3 * arrive);
-    }
-
-    /* Líneas de velocidad. */
-    var speed = clamp((depthAt(t + 0.05) - d) / 0.08, 0, 1);
+    var gl = cx.createLinearGradient(0, 0, W, 0);
+    gl.addColorStop(0, "rgba(7,3,13,0.9)"); gl.addColorStop(0.22, "rgba(7,3,13,0)"); gl.addColorStop(0.78, "rgba(7,3,13,0)"); gl.addColorStop(1, "rgba(7,3,13,0.9)");
+    cx.fillStyle = gl; cx.fillRect(0, 0, W, H);
     if (!reduced && speed > 0.05) {
-      cx.save(); cx.globalAlpha = 0.35 * speed; cx.strokeStyle = C.bone; cx.lineWidth = Math.max(1, H * 0.002);
-      for (var s = 0; s < 26; s++) {
-        var sx = W * (0.2 + rnd(s * 1.9) * 0.6), sy = ((rnd(s) * H * 2 - d * H * 2.4) % (H * 1.4) + H * 1.4) % (H * 1.4) - H * 0.2;
-        cx.beginPath(); cx.moveTo(sx, sy); cx.lineTo(sx, sy + H * 0.14 * speed); cx.stroke();
+      cx.save(); cx.globalAlpha = 0.5 * speed; cx.fillStyle = C.ink;
+      for (var i = 0; i < 30; i++) {
+        var sx = W * (0.08 + rnd(i * 1.9) * 0.84), sy = ((rnd(i) * H * 2 - t * H * 3.1) % (H * 1.4) + H * 1.4) % (H * 1.4) - H * 0.2, ww = (3 + 6 * rnd(i * 3)) * U;
+        cx.fillRect(sx, sy, ww, H * 0.2 * speed);
+        if (i % 3 === 0) { cx.fillStyle = C.bone; cx.fillRect(sx + ww, sy, Math.max(1, 1.5 * U), H * 0.14 * speed); cx.fillStyle = C.ink; }
       }
       cx.restore();
     }
-
-    /* Plataforma de servicio con cadenas. */
-    var sway = reduced ? 0 : Math.sin(t * 5) * H * 0.003 * speed;
-    var sh = shakeOf(t, 6.1, 0.5, 14);
-    var pxm = W / 2 + sh[0], pym = platY + sway + sh[1], pr = H * 0.26;
-    cx.strokeStyle = "#030108"; cx.lineWidth = Math.max(3, H * 0.007);
-    for (var cI = -1; cI <= 1; cI += 2) { cx.beginPath(); cx.moveTo(pxm + cI * pr * 0.92, pym); cx.lineTo(pxm + cI * pr * 0.7, -10); cx.stroke(); }
-    cx.strokeStyle = "rgba(244,236,216,0.35)"; cx.lineWidth = Math.max(1, H * 0.002); cx.setLineDash([H * 0.012, H * 0.012]);
-    for (var cJ = -1; cJ <= 1; cJ += 2) { cx.beginPath(); cx.moveTo(pxm + cJ * pr * 0.92, pym); cx.lineTo(pxm + cJ * pr * 0.7, -10); cx.stroke(); }
-    cx.setLineDash([]);
-    cx.fillStyle = "#030108"; cx.beginPath(); cx.ellipse(pxm, pym + pr * 0.1, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
-    cx.fillStyle = "#241036"; cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
-    cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, H * 0.005);
-    cx.beginPath(); cx.ellipse(pxm, pym, pr * 0.96, pr * 0.235, 0, 0, Math.PI * 2); cx.stroke();
-    cx.strokeStyle = "#030108"; cx.lineWidth = Math.max(3, H * 0.006);
-    cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
-    glow(pxm, pym, pr * 1.2, "rgba(255,45,122,0.6)", 0.22);
-
-    /* El Desafinado, ya sin sombrero: el fotograma IDLE aceptado (07B). */
-    var hh = H * 0.4, hw = hh * 288 / 512, feet = 504 / 512;
-    var hx = pxm - hw * 0.49, hy = pym - hh * feet + pr * 0.02;
+    var pxm = W / 2 + (shx || 0), pym = H * platFy + (shy || 0) + (reduced ? 0 : Math.sin(t * 5) * H * 0.004 * speed), pr = H * 0.25;
+    for (var cI = -1; cI <= 1; cI += 2) {
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 11 * U); cx.beginPath(); cx.moveTo(pxm + cI * pr * 0.92, pym); cx.lineTo(pxm + cI * pr * 0.62, -10); cx.stroke();
+      cx.strokeStyle = "rgba(244,236,216,0.55)"; cx.lineWidth = Math.max(1.5, 4 * U); cx.setLineDash([14 * U, 10 * U]); cx.lineDashOffset = -t * 300 * U * speed; cx.stroke(); cx.setLineDash([]);
+    }
+    cx.fillStyle = C.ink; cx.beginPath(); cx.ellipse(pxm, pym + pr * 0.12, pr * 1.02, pr * 0.27, 0, 0, Math.PI * 2); cx.fill();
+    cx.fillStyle = "#2a1040"; cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
+    cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 6 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr * 0.94, pr * 0.225, 0, 0, Math.PI * 2); cx.stroke();
+    cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 8 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
+    var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02;
     if (ok(img.hero)) cx.drawImage(img.hero, hx, hy, hw, hh);
-    /* El sombrero se desprende y se queda arriba. */
-    var hatP = seg(u, 0, 2.4);
-    if (hatP < 1 && ok(img.hat)) {
-      var headX = hx + hw * 0.5, headY = hy + hh * 0.1;
-      var hatW = hw * 0.62 * lerp(1, 0.75, hatP), hatH = hatW * img.hat.naturalHeight / img.hat.naturalWidth;
-      var rise = H * 0.7 * Math.pow(hatP, 1.3);   /* se separa despacio: debe verse cómo se queda arriba */
+    if (hatP >= 0 && hatP < 1 && ok(img.hat)) {
+      var hatW = hw * 0.62 * lerp(1, 0.8, hatP), hatH = hatW * img.hat.naturalHeight / img.hat.naturalWidth;
       cx.save();
-      cx.translate(headX + Math.sin(u * 3.1) * hw * 0.5 * hatP, headY - rise);
-      cx.rotate(reduced ? 0 : Math.sin(u * 2.4) * 0.5 + hatP * 1.1);
+      cx.translate(hx + hw * 0.5 + Math.sin(hatP * 5) * hw * 0.45 * hatP, hy + hh * 0.1 - H * 0.75 * Math.pow(hatP, 1.25));
+      cx.rotate(reduced ? 0 : Math.sin(hatP * 4.2) * 0.5 + hatP * 1.0);
       cx.drawImage(img.hat, -hatW / 2, -hatH / 2, hatW, hatH);
       cx.restore();
     }
-    if (st.flash && u < 0.15) tint(C.bone, 0.9 * (1 - u / 0.15));
+    return { x: pxm, y: pym, r: pr };
+  }
+
+  /* 06 · EL DESCENSO — el suelo se abre, empieza la caída y el sombrero se queda arriba. */
+  var PIT = [0.52, 0.5], PIT_CAM = [0.44, 0.4];                                 /* centro del pozo en la lámina */
+  function shotFall(t, st) {
+    if (t < 25.5) {
+      var sh = shakeOf(t, 24, 0.7, 20), sh2 = shakeOf(t, 25, 0.5, 26);
+      page(img.boots, 0.6, 0.62, 1.12 + seg(t, 24, 25.5) * 0.1, sh[0] + sh2[0], sh[1] + sh2[1], 0.08);
+      var boom = Math.exp(-(t - 24) * 1.4);
+      var g = cx.createLinearGradient(0, H, 0, H * 0.4); g.addColorStop(0, "rgba(255,45,122," + (0.6 * boom) + ")"); g.addColorStop(1, "rgba(255,45,122,0)");
+      cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = g; cx.fillRect(0, 0, W, H); cx.restore();
+      crack([[0.56, 1.02], [0.6, 0.86], [0.52, 0.76], [0.6, 0.66], [0.5, 0.58], [0.38, 0.62], [0.26, 0.55]], seg(t, 24.15, 25.0), 10);
+      crack([[0.6, 0.86], [0.74, 0.82], [0.86, 0.88], [1.0, 0.8]], seg(t, 24.5, 25.1), 8);
+      crack([[0.52, 0.76], [0.4, 0.84], [0.3, 0.8], [0.14, 0.9]], seg(t, 24.7, 25.3), 8);
+      crack([[0.6, 0.66], [0.72, 0.6], [0.8, 0.64]], seg(t, 25.0, 25.4), 6);
+      caption(t, 24.3, 25.35, "Y EL SUELO SE ABRE.", 0.04, 0.05, 58, C.yellow, C.ink, -0.03);
+      sfxWord(t, 24.5, 25.4, "CRRRAC", 0.3, 0.36, 170, C.yellow, -0.1);
+      flash(t, 24, 0.14, "#fff", 0.6);
+    } else if (t < 27.5) {
+      /* La página se parte en dos y deja ver el pozo de lado. */
+      var u = t - 25.5, sp = clamp(u / 0.5, 0, 1), s3 = shakeOf(t, 25.5, 0.4, 14);
+      var hatP = seg(u, 0.25, 2.3);
+      shaftSide(t, u * 0.07, sp, lerp(0.56, 0.74, easeOut(seg(u, 0, 0.6))), hatP, s3[0], s3[1]);
+      var open = easeOut(seg(u, 0, 0.45));
+      if (open < 1) {
+        for (var k = -1; k <= 1; k += 2) {
+          cx.save(); cx.beginPath();
+          if (k < 0) { cx.moveTo(0, 0); cx.lineTo(W * 0.56, 0); cx.lineTo(W * 0.44, H); cx.lineTo(0, H); }
+          else { cx.moveTo(W * 0.56, 0); cx.lineTo(W, 0); cx.lineTo(W, H); cx.lineTo(W * 0.44, H); }
+          cx.closePath(); cx.translate(k * open * W * 0.6, k * open * H * 0.08); cx.clip();
+          page(img.boots, 0.6, 0.62, 1.22, 0, 0, 0.08);
+          cx.restore();
+        }
+      }
+      sfxWord(t, 26.0, 27.3, "FSSSSH", 0.8, 0.82, 130, C.cyan, 0.12);
+      flash(t, 25.5, 0.14, "#fff", 0.7);
+    } else {
+      /* Picado desde el borde: la plataforma se pierde abajo; el sombrero sube y cae junto al agujero. */
+      var v = t - 27.5, back = ease(seg(v, 0.95, 1.5));
+      var zoom = lerp(2.5, 1.0, back), fx = lerp(PIT_CAM[0], 0.5, back), fy = lerp(PIT_CAM[1], 0.5, back);
+      var m = page(img.pit, fx, fy, zoom + (1 - back) * seg(v, 0, 1) * 0.12, 0, 0, 0);
+      var pcx = m.x + m.w * PIT[0], pcy = m.y + m.h * PIT[1];
+      var far = easeOut(seg(v, 0, 1.2)), pr = m.w * lerp(0.085, 0.012, far);
+      cx.save(); cx.globalAlpha = 1 - seg(v, 0.9, 1.3);
+      cx.fillStyle = C.ink; cx.beginPath(); cx.arc(pcx, pcy, pr * 1.15, 0, 7); cx.fill();
+      cx.fillStyle = "#2a1040"; cx.beginPath(); cx.arc(pcx, pcy, pr, 0, 7); cx.fill();
+      cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(1.5, pr * 0.12); cx.beginPath(); cx.arc(pcx, pcy, pr * 0.9, 0, 7); cx.stroke();
+      cx.fillStyle = C.ink; cx.beginPath(); cx.ellipse(pcx, pcy, pr * 0.2, pr * 0.3, 0, 0, 7); cx.fill();   /* él, ya sólo una mancha de tinta */
+      cx.restore();
+      speedLines((pcx - SX) / SW, pcy / H, 0.5 * (1 - back), 4);
+      /* El sombrero vuela hacia el borde, donde la lámina ya lo tiene dibujado. */
+      if (v < 1.12 && ok(img.hat)) {
+        var hp = seg(v, 0, 1.12), hx = lerp(pcx, m.x + m.w * 0.77, Math.pow(hp, 1.6)), hy = lerp(pcy, m.y + m.h * 0.74, Math.pow(hp, 2.2)) - Math.sin(hp * Math.PI) * H * 0.2;
+        var hw2 = m.w * lerp(0.03, 0.2, hp), hh2 = hw2 * img.hat.naturalHeight / img.hat.naturalWidth;
+        cx.save(); cx.translate(hx, hy); cx.rotate(reduced ? 0 : hp * 7); cx.drawImage(img.hat, -hw2 / 2, -hh2 / 2, hw2, hh2); cx.restore();
+      }
+      flash(t, 27.5, 0.12, "#fff", 0.6); flash(t, 28.62, 0.14, C.yellow, 0.5);
+    }
+  }
+
+  /* 07 · EL COMIENZO — el encuadre final es, exactamente, el fondo del menú. */
+  function shotTitle(t, st) {
+    var tq = t - 29, sh = shakeOf(t, 29, 0.5, 16);
+    page(img.pit, 0.5, 0.5, 1, sh[0], sh[1], 0);
+    var a = ease(seg(tq, 0.1, 1.6));
+    var lg = cx.createLinearGradient(0, 0, W * 0.72, 0);
+    lg.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")"); lg.addColorStop(0.5, "rgba(5,2,10," + (0.72 * a) + ")"); lg.addColorStop(1, "rgba(5,2,10,0)");
+    cx.fillStyle = lg; cx.fillRect(0, 0, W, H);
+    var b = logoBox(), k = easeOut(seg(tq, 0, 0.35)), cxm = b.x + b.w / 2, cym = b.y + b.h / 2;
+    splat(cxm, cym, b.w * 0.62 * k, C.magenta, 3, 0.5 * (1 - 0.6 * seg(tq, 0.5, 2)));
+    splat(cxm + b.w * 0.34, cym + b.h * 0.3, b.w * 0.2 * k, C.yellow, 8, 0.7 * (1 - 0.7 * seg(tq, 0.5, 2)));
+    if (ok(img.logo)) {
+      var sc = reduced ? 1 : 1 + 0.6 * Math.pow(1 - seg(tq, 0, 0.35), 2);
+      cx.save(); cx.globalAlpha = seg(tq, 0, 0.1);
+      cx.drawImage(img.logo, cxm - b.w * sc / 2, cym - b.h * sc / 2, b.w * sc, b.h * sc);
+      cx.restore();
+    }
+    var ta = ease(seg(tq, 0.9, 1.6));
+    if (ta > 0) {
+      cx.save(); cx.globalAlpha = ta; cx.fillStyle = C.bone;
+      var fs = Math.max(11, b.w / 19), txt = "LA NOCHE QUE DEVORÓ EL AMANECER";
+      cx.font = "italic 700 " + fs + "px " + FONT_CAP;
+      var tw = cx.measureText(txt).width; if (tw > b.w) cx.font = "italic 700 " + (fs * b.w / tw) + "px " + FONT_CAP;
+      cx.textAlign = "center"; cx.textBaseline = "top"; cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
+      cx.fillText(txt, cxm, b.y + b.h + H * 0.012);
+      cx.restore();
+    }
+    flash(t, 29, 0.1, "#fff", 0.6);
+  }
+
+  /* =============================================================== DESCENSO */
+  /* NUEVA PARTIDA retoma la caída donde la intro la dejó: se entra por el pozo
+     del menú y se llega al Refugio. Más corta que la de la intro y sin repetir
+     sus planos (ni grietas ni sombrero). */
+  function drawDescent(t) {
+    var st = settings();
+    stage();
+    cx.fillStyle = C.ink; cx.fillRect(0, 0, W, H);
+    if (t < 0.55) {
+      /* Zambullida desde el encuadre del menú hacia el fondo del pozo. */
+      var d = ease(seg(t, 0, 0.55));
+      page(img.pit, lerp(0.5, PIT[0], d), lerp(0.5, PIT[1], d), 1 + d * d * 5, 0, 0, d * 0.5);
+      speedLines(lerp(0.5, PIT[0], d), lerp(0.5, PIT[1], d), 0.6 * d, 9);
+    } else {
+      var u = t - 0.55;                                    /* 0 – 4,05 */
+      var brake = seg(u, 2.2, 3.3), speed = 1 - ease(brake);
+      var scroll = 0.3 + 0.2 * u - 0.09 * brake * brake * 1.1 + 0.0;
+      var sh = shakeOf(t, 3.85, 0.5, 18);
+      var arrive = ease(seg(u, 2.5, 3.3));
+      shaftSide(t, Math.min(scroll, 0.86), speed, lerp(0.74, 0.8, arrive), -1, sh[0], sh[1]);
+      if (arrive > 0) {                                    /* el suelo del Refugio sube a su encuentro */
+        var fyy = lerp(H * 1.25, H * 0.8 + H * 0.25 * 0.2, arrive);
+        var fg = cx.createLinearGradient(0, fyy, 0, H); fg.addColorStop(0, "#7a1f4a"); fg.addColorStop(1, "#2a0a24");
+        cx.fillStyle = fg; cx.fillRect(0, fyy, W, H - fyy + 2);
+        cx.fillStyle = C.ink; cx.fillRect(0, fyy - Math.max(3, 8 * U), W, Math.max(3, 8 * U));
+        halftone(0, fyy, W, H - fyy, 0.2);
+        glow(W / 2, fyy, H * 0.6, "rgba(255,45,122,0.7)", 0.3 * arrive);
+      }
+      sfxWord(t, 3.85, 4.4, "CLONK", 0.74, 0.6, 130, C.yellow, 0.1);
+      flash(t, 3.85, 0.12, "#fff", 0.5);
+    }
+    inkWipe(seg(t, 0.3, 0.8), 5);
+    /* Fundido de color hacia el Refugio. */
+    if (t > 4.0) tint("#3a0d2c", ease(seg(t, 4.0, 4.55)));
   }
 
   /* ================================================================= SONIDO */
@@ -13585,62 +13685,89 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   var LEAD = [440, 523.3, 659.3, 523.3, 587.3, 440, 392, 523.3];
 
   /* Partitura de la intro como lista de sucesos [t, fn]. Se dispara contra el
-     mismo reloj que la imagen: si la imagen se retrasa, el sonido también. */
+     mismo reloj que la imagen: si la imagen se retrasa, el sonido también.
+     Cada entrada de viñeta, cartela u onomatopeya tiene aquí su golpe. */
   function buildIntroScore() {
-    var ev = [], i, tb;
+    var ev = [], tb;
     function at(t, fn) { ev.push({ t: t, fn: fn }); }
-    for (i = 0; i < 40; i++) at(0.15 + i * 0.22 + rnd(i) * 0.1, function (w) { S.crackle(w, 0.12); });
-    at(0.05, function (w) { noise(w, 0.12, 0.3, "bandpass", 1800); });
-    /* Bombo lejano que se acerca (1,5 – 9 s); entra el bajo (6 s). */
-    for (tb = 1.5; tb < 9; tb += BEAT) (function (tb) {
-      at(tb, function (w) { S.kick(w, lerp(0.12, 0.7, seg(tb, 1.5, 9)), musicBus); });
-    })(tb);
-    for (tb = 6; tb < 9; tb += BEAT / 2) (function (tb, n) {
-      at(tb, function (w) { S.bass(w, BASS[n % 8], lerp(0.05, 0.22, seg(tb, 6, 9)), musicBus); });
-    })(tb, Math.round((tb - 6) / (BEAT / 2)));
-    /* Tema completo (9 – 17 s). */
-    function bar(t0, len) {
-      for (var s = 0; s < len / (BEAT / 2); s++) (function (tt, n) {
-        at(tt, function (w) {
-          if (n % 2 === 0) S.kick(w, 0.75, musicBus); else S.hat(w, 0.16, musicBus);
-          if (n % 4 === 2) S.snare(w, 0.28, musicBus);
-          S.bass(w, BASS[n % 8], 0.22, musicBus);
-          if (n % 2 === 0) S.lead(w, LEAD[(n / 2) % 8], 0.07, musicBus);
-        });
-      })(t0 + s * (BEAT / 2), Math.round((t0 - 9) / (BEAT / 2)) + s);
+    function step(tt, n, tr, vol, full) {
+      at(tt, function (w) {
+        var k = Math.pow(2, -tr / 12);
+        if (n % 2 === 0) S.kick(w, 0.75 * vol, musicBus); else S.hat(w, 0.16 * vol, musicBus);
+        if (n % 4 === 2) S.snare(w, 0.28 * vol, musicBus);
+        S.bass(w, BASS[n % 8] * k, 0.22 * vol, musicBus);
+        if (n % 2 === 0) S.lead(w, LEAD[(n / 2) % 8] * k, 0.07 * vol, musicBus);
+        if (full && n % 2 === 1) S.lead(w, LEAD[((n + 1) / 2) % 8] * k * 2, 0.04 * vol, musicBus);
+      });
     }
-    bar(9, 8);
-    /* La repetición: el último tiempo (16,5 – 17) suena dos veces más. */
+    /* 01 · la orquesta suena lejos, detrás de los muros. */
+    at(0, function (w) { musicBus.frequency.setValueAtTime(380, w); noise(w, 4.2, 0.10, "bandpass", 300, 520); });
+    for (tb = 0.5; tb < 4; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), 0, 0.8, false);
+    at(1.0, function (w) { S.boom(w, 0.5); });
+    at(2.5, function (w) { S.boom(w, 0.45); });
+    at(2.9, function (w) { S.whoosh(w, 1.0, 0.25, true); });
+    /* 02 · se cruza la puerta: se abre el filtro. */
+    at(3.98, function (w) { musicBus.frequency.setValueAtTime(380, w); musicBus.frequency.exponentialRampToValueAtTime(18000, w + 0.35); S.hit(w, 0.45); });
+    for (tb = 4; tb < 9; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), 0, 1, false);
+    [4.5, 5.0, 5.5, 6.9].forEach(function (x) { at(x, function (w) { S.snare(w, 0.5); S.whoosh(w, 0.18, 0.2, false); }); });
+    at(8.7, function (w) { S.whoosh(w, 0.6, 0.35, false); });
+    /* 03 · la misma melodía, un tono más abajo cada compás. */
+    for (tb = 9; tb < 14; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), Math.floor((tb - 9) / 1) * 2, 1, false);
+    at(9.3, function (w) { S.rumble(w, 4.6, 0.16); });
+    [9.35, 10.6, 12.4].forEach(function (x) { at(x, function (w) { S.snare(w, 0.45); }); });
+    [10.0, 10.5, 11.0, 11.5].forEach(function (x) { at(x, function (w) { S.whoosh(w, 0.18, 0.2, false); }); });
+    for (var i = 0; i < 9; i++) (function (i) { at(12.3 + i * 0.12, function (w) { tone(w, 880 * Math.pow(2, -i / 12), 0.09, "square", 0.16); S.hat(w, 0.3); }); })(i);
+    /* 04 · más agresiva; a los 17 s el compás se repite. */
+    at(14, function (w) { S.hit(w, 0.7); });
+    for (tb = 14; tb < 17; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), 0, 1.15, true);
+    for (tb = 14.25; tb < 17; tb += BEAT) (function (tb) { at(tb, function (w) { S.snare(w, 0.22, musicBus); }); })(tb);
+    [15.0, 15.5, 16.0].forEach(function (x) { at(x, function (w) { S.snare(w, 0.55); S.whoosh(w, 0.16, 0.25, false); }); });
+    for (i = 0; i < 6; i++) (function (i) { at(14.7 + i * 0.36, function (w) { noise(w, 0.07, 0.3, "highpass", 2400); }); })(i);
     function stutter(t0) {
-      at(t0, function (w) { S.kick(w, 0.75, musicBus); S.bass(w, BASS[6], 0.22, musicBus); S.lead(w, LEAD[3], 0.09, musicBus); });
-      at(t0 + 0.25, function (w) { S.hat(w, 0.16, musicBus); S.bass(w, BASS[7], 0.22, musicBus); });
+      at(t0, function (w) { noise(w, 0.03, 0.6, "bandpass", 3200); S.kick(w, 0.8, musicBus); S.bass(w, BASS[6], 0.24, musicBus); S.lead(w, LEAD[3], 0.1, musicBus); });
+      at(t0 + 0.25, function (w) { S.hat(w, 0.18, musicBus); S.bass(w, BASS[7], 0.24, musicBus); });
     }
-    stutter(17); stutter(17.5);
-    /* Plano 5: la música queda detrás de un filtro; los pasos son el bombo. */
-    at(18, function (w) { musicBus.frequency.setValueAtTime(18000, w); musicBus.frequency.exponentialRampToValueAtTime(420, w + 0.4); });
-    for (tb = 18; tb < 23; tb += BEAT) (function (tb) {
+    stutter(17); stutter(17.5); stutter(18); stutter(18.5);
+    at(18.75, function (w) { S.whoosh(w, 0.5, 0.35, false); });
+    /* 05 · la música queda detrás de un filtro; las pisadas son el bombo. */
+    at(19, function (w) { musicBus.frequency.setValueAtTime(18000, w); musicBus.frequency.exponentialRampToValueAtTime(420, w + 0.3); });
+    for (tb = 19; tb < 20.2; tb += BEAT) (function (tb) {
       at(tb, function (w) { S.kick(w, 0.8, musicBus); noise(w, 0.08, 0.2, "lowpass", 500, 0, null); });
       at(tb + 0.25, function (w) { S.bass(w, BASS[Math.round(tb * 2) % 8], 0.2, musicBus); });
     })(tb);
-    at(20.25, function (w) { S.snare(w, 0.6); });              /* el paso fuera de tiempo */
-    /* Plano 6: la música se corta en seco. */
-    at(22.98, function (w) { musicBus._gain.gain.setValueAtTime(1, w); musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.03); });
-    at(25, function (w) { S.boom(w, 0.9); });                  /* golpe grave desde abajo */
-    at(28, function (w) { S.hit(w, 0.9); });                   /* golpe final: título */
+    at(19.4, function (w) { S.snare(w, 0.35); });
+    at(20.25, function (w) {                                  /* el paso fuera de tiempo: la música se corta */
+      S.snare(w, 0.7); noise(w, 0.05, 0.5, "bandpass", 1500);
+      musicBus._gain.gain.setValueAtTime(1, w); musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.03);
+    });
+    at(20.75, function (w) { S.whoosh(w, 0.25, 0.4, false); S.boom(w, 0.5); });
+    [21.5, 22.0].forEach(function (x) { at(x, function (w) { S.snare(w, 0.4); }); });
+    at(22.3, function (w) {                                   /* disonancia sostenida: la torre le duele */
+      tone(w, 110, 1.75, "sawtooth", 0.10, null, 108); tone(w, 116.5, 1.75, "sawtooth", 0.10, null, 119); tone(w, 233, 1.7, "square", 0.03, null, 240);
+    });
+    at(22.5, function (w) { S.snare(w, 0.4); });
+    /* 06 · el suelo se abre. */
+    at(24, function (w) { S.boom(w, 1.0); });
+    at(24.15, function (w) { S.rumble(w, 1.3, 0.2); });
+    for (i = 0; i < 5; i++) (function (i) { at(24.5 + i * 0.2, function (w) { noise(w, 0.09, 0.35, "highpass", 1800 + i * 300); }); })(i);
+    at(25.5, function (w) { S.boom(w, 1.0); S.whoosh(w, 0.9, 0.5, false); tone(w, 300, 1.2, "sine", 0.3, null, 60); });
+    at(25.6, function (w) { S.rumble(w, 1.9, 0.22); });
+    for (i = 0; i < 4; i++) (function (i) { at(26.0 + i * 0.4, function (w) { S.whoosh(w, 0.3, 0.16, i % 2 === 0); }); })(i);
+    at(27.5, function (w) { S.snare(w, 0.6); S.whoosh(w, 1.0, 0.3, true); });
+    at(28.62, function (w) { tone(w, 120, 0.25, "sine", 0.5, null, 60); noise(w, 0.12, 0.25, "lowpass", 700, 200); });
+    /* 07 · título. */
+    at(29, function (w) { S.hit(w, 0.9); });
     ev.sort(function (a, b) { return a.t - b.t; });
     return ev;
   }
   function buildDescentScore() {
     var ev = [];
     function at(t, fn) { ev.push({ t: t, fn: fn }); }
-    at(0, function (w) { S.boom(w, 0.9); });
-    at(1, function (w) { S.boom(w, 1.0); noise(w, 0.5, 0.3, "highpass", 2000, 600); });
-    at(0.3, function (w) { S.rumble(w, 1.7, 0.18); });
-    at(1.95, function (w) { S.whoosh(w, 0.9, 0.5, false); tone(w, 300, 1.2, "sine", 0.3, null, 60); });
-    at(2.4, function (w) { S.rumble(w, 2.9, 0.22); });
-    for (var i = 0; i < 6; i++) (function (i) { at(2.6 + i * 0.45, function (w) { S.whoosh(w, 0.3, 0.14, i % 2 === 0); }); })(i);
-    at(5.2, function (w) { S.screech(w, 0.9, 0.16); });
-    at(6.1, function (w) { tone(w, 90, 0.5, "sine", 0.8, null, 36); noise(w, 0.3, 0.3, "lowpass", 400, 80); });
+    at(0, function (w) { S.whoosh(w, 0.7, 0.5, false); tone(w, 300, 0.9, "sine", 0.3, null, 60); });
+    at(0.5, function (w) { S.rumble(w, 2.4, 0.22); });
+    for (var i = 0; i < 5; i++) (function (i) { at(0.7 + i * 0.42, function (w) { S.whoosh(w, 0.3, 0.14, i % 2 === 0); }); })(i);
+    at(2.75, function (w) { S.screech(w, 1.0, 0.16); });
+    at(3.85, function (w) { tone(w, 90, 0.5, "sine", 0.8, null, 36); noise(w, 0.3, 0.3, "lowpass", 400, 80); });
     ev.sort(function (a, b) { return a.t - b.t; });
     return ev;
   }
@@ -13707,7 +13834,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (pd && !padWas && seq.t > 0.4) { padWas = pd; return finish("skip"); }
     padWas = pd;
     if (seq.t >= seq.duration) { paint(seq.duration - 0.001); return finish("complete"); }
-    if (seq.type === "intro" && !seq.titleFired && seq.t >= 28) {
+    if (seq.type === "intro" && !seq.titleFired && seq.t >= TITLE_AT) {
       seq.titleFired = true;
       if (typeof seq.opts.onTitle === "function") { try { seq.opts.onTitle(); } catch (e) {} }
     }
@@ -13758,6 +13885,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
   window.DD_OPENING = Object.freeze({
     INTRO_DURATION: INTRO_DURATION,
+    NINE_LEVELS: NINE_Y.length,
+    TITLE_AT: TITLE_AT,
+    fontsReady: function () { return fontsReady; },
     DESCENT_DURATION: DESCENT_DURATION,
     SHOTS: SHOTS.map(function (s) { return { id: s.id, from: s.from, to: s.to, name: s.name }; }),
     DESCENT_PHASES: DESCENT_PHASES.map(function (s) { return { id: s.id, from: s.from, to: s.to, name: s.name }; }),
@@ -13859,7 +13989,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
      onerror inline hubiera actuado a tiempo. */
   function menuBackdropSrc() {
     /* PROJECT RESTART: el fondo del menú es el último plano de la intro. */
-    return "assets/cinematics/restart/opening/op_06_face.jpg";
+    return "assets/cinematics/restart/opening/mc_07_pit.jpg";
   }
 
   function weaponImgSrc(wid) {
