@@ -3,6 +3,7 @@
 Esta carpeta reúne documentación y pruebas. Usa este índice para encontrar cada tema sin recorrer todo el repositorio.
 
 ## Índices
+- [Revisión técnica previa a integración](TECHNICAL_REVIEW_PRE_MERGE.md)
 - [Informes, auditorías y entregas](REPORTS_INDEX.md)
 
 ## Guía del repositorio
