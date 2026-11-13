@@ -2360,6 +2360,14 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 /* Fondo del menú: el pozo y el sombrero. La zona oscura queda a la izquierda. */
 #dd-main-menu.dd-rs #dd-menu-backdrop { transform-origin: 46% 43%; }
 
+/* ---- OPCIONES › DATOS GUARDADOS y pantalla BORRAR DATOS -------------------- */
+.dd-opt-data { grid-column: 1 / -1; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(148, 163, 184, 0.12); }
+.dd-opt-data h3 { margin: 0 0 4px; font-size: 12px; letter-spacing: 0.18em; color: #facc15; }
+.dd-opt-data .dd-opt-note { margin: 0 0 8px; }
+.dd-erase .dd-slot-stats > div.is-empty { opacity: 0.4; }
+.dd-btn-primary.dd-btn-danger { background: linear-gradient(180deg, #ef4444, #991b1b); border-color: #fecaca; }
+.dd-btn-primary.dd-btn-danger:hover { background: linear-gradient(180deg, #f87171, #b91c1c); }
+
   </style>
 </head>
 <body class="booting">
@@ -11484,6 +11492,45 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     roomCacheStamp: ""
   };
 
+  /* Protagonista en el Refugio: el IDLE 07B aprobado, sin sombrero (lo perdió en
+     el descenso). Se carga aquí, directamente, sin tocar el registro de recursos
+     ni el pintor del motor. Es un único fotograma: se dibuja siempre entero, con
+     escala uniforme y sin espejar (espejarlo cambiaría los tatuajes de brazo).
+     Los sprites de combate no cambian: fuera del Refugio pinta el motor. */
+  const REFUGE_IDLE = {
+    src: "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
+    w: 288, h: 512,          /* tamaño del PNG */
+    feetY: 505, midX: 140,   /* suela y eje del cuerpo dentro del PNG */
+    bodyH: 462,              /* alto del dibujo (sin márgenes transparentes) */
+    drawH: 112,              /* alto del cuerpo en unidades del Refugio (como la figura anterior y los personajes de la sala) */
+    img: null, ok: false, failed: false, lastRect: null
+  };
+  function ensureRefugeIdle() {
+    if (REFUGE_IDLE.img) return;
+    const im = new Image();
+    im.onload = function () { REFUGE_IDLE.ok = im.naturalWidth === REFUGE_IDLE.w && im.naturalHeight === REFUGE_IDLE.h; REFUGE_IDLE.failed = !REFUGE_IDLE.ok; };
+    im.onerror = function () { REFUGE_IDLE.failed = true; };
+    im.src = REFUGE_IDLE.src;
+    REFUGE_IDLE.img = im;
+  }
+  function drawRefugeIdle(ctx) {
+    ensureRefugeIdle();
+    if (!REFUGE_IDLE.ok) return false;
+    const k = REFUGE_IDLE.drawH / REFUGE_IDLE.bodyH;
+    const moving = Math.hypot(state.vx, state.vy) > 12;
+    /* Sólo traslación: respiración de menos de un píxel parado, paso corto al andar. */
+    const bob = moving ? -Math.abs(Math.sin(state.time * 9.5)) * 2.2 : Math.sin(state.time * 2.4) * 0.7;
+    const dw = REFUGE_IDLE.w * k, dh = REFUGE_IDLE.h * k;
+    const dx = state.px - REFUGE_IDLE.midX * k, dy = state.py + 16 - REFUGE_IDLE.feetY * k + bob;
+    ctx.save();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(REFUGE_IDLE.img, dx, dy, dw, dh);
+    ctx.restore();
+    REFUGE_IDLE.lastRect = { x: +dx.toFixed(1), y: +dy.toFixed(1), w: +dw.toFixed(2), h: +dh.toFixed(2) };
+    return true;
+  }
+
   // Layout faithfully matching REF_05 (r5_refugio_hub.png)
   const HUB_PROPS = [
     // Upper gothic liquor bookshelves & bar lounge
@@ -11558,6 +11605,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   let quoteIdx = 0;
 
   function enter() {
+    ensureRefugeIdle();
     state.active = true;
     state.px = 880;
     state.py = 615;
@@ -11847,7 +11895,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         ctx.fill();
         ctx.restore();
         W.drawNeonGlow(ctx, state.px, state.py + 4, 78, "#ffe4f1", 0.34);
-        const drewHi = W.drawProtagonist(
+        const drewHi = drawRefugeIdle(ctx) || W.drawProtagonist(
           ctx,
           { x: state.px, y: state.py, aimAngle: state.aimAngle },
           window.DMO && window.DMO.playerAnim,
@@ -11922,7 +11970,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         y: Math.round(state.py),
         nearStation: state.nearStation ? state.nearStation.id : null,
         bounds: HUB_BOUNDS,
-        stations: STATIONS.map(s => s.id)
+        stations: STATIONS.map(s => s.id),
+        protagonist: REFUGE_IDLE.ok ? "idle_07b" : "sprites_anteriores",
+        protagonistSrc: REFUGE_IDLE.src,
+        protagonistRect: REFUGE_IDLE.lastRect,
+        protagonistAspect: REFUGE_IDLE.lastRect ? +(REFUGE_IDLE.lastRect.w / REFUGE_IDLE.lastRect.h).toFixed(4) : null
       };
     }
   });
@@ -13342,7 +13394,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     splat(X(0.09), Y(0.8), 58 * U * pop(t, 1.0) * (1 - g), C.magenta, 2, 1 - g);
     splat(X(0.93), Y(0.2), 44 * U * pop(t, 2.5) * (1 - g), C.cyan, 5, 1 - g);
     caption(t, 1.0, 3.2, "LA GUERRA HABÍA TERMINADO.", 0.08, 0.16, 58, C.yellow, C.ink, -0.035);
-    caption(t, 2.5, 3.3, "ESA NOCHE, POR FIN,\nNADIE ESPERABA MORIR.", 0.6, 0.72, 48, C.bone, C.ink, 0.02);
+    caption(t, 2.5, 3.3, "ESA NOCHE, ALGUNOS PUDIERON\nREUNIRSE SIN MIEDO.", 0.6, 0.72, 48, C.bone, C.ink, 0.02);
   }
 
   /* 02 · LA ESTACIÓN — se cruza la puerta: página completa y viñetas de detalle. */
@@ -13354,7 +13406,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     slidePanel(t, 5.0, 8.4, img.floor, [0.4, 0.3, 0.6, 0.62], 0.75, 0.36, 0.2, 0.34, -0.06, 0.5, 0.1, { zoom: 1.05 });
     slidePanel(t, 5.5, 8.5, img.floor, [0.05, 0.62, 0.5, 1.0], 0.04, 0.58, 0.3, 0.34, -0.045, -0.5, 0.2, { px: p * 0.04 });
     caption(t, 4.5, 6.6, "UNA VIEJA ESTACIÓN DE TREN.\nCRISTAL, HIERRO… Y UN BAILE.", 0.045, 0.07, 52, C.yellow, C.ink, -0.03);
-    caption(t, 6.9, 8.6, "POR UNAS HORAS, TODOS\nIMAGINARON UN MAÑANA.", 0.5, 0.78, 50, C.bone, C.ink, 0.025);
+    caption(t, 6.9, 8.6, "POR FIN, HABÍA QUIEN PODÍA\nIMAGINAR UN MAÑANA.", 0.5, 0.78, 50, C.bone, C.ink, 0.025);
     flash(t, 4, 0.22, C.yellow, 0.8);
   }
 
@@ -13425,7 +13477,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     splat(X(0.365), Y(0.935), 66 * U * pop(t, 17.6), C.magenta, 9, 1);
     splat(X(0.615), Y(0.48), 46 * U * pop(t, 16.0), C.yellow, 4, 1);
     caption(t, 14.3, 16.2, "LAS PUERTAS YA NO LLEVAN FUERA.", 0.04, 0.055, 54, C.yellow, C.ink, -0.03);
-    caption(t, 16.0, 17.6, "LA ÚLTIMA CANCIÓN VUELVE\nANTES DE TERMINAR.", 0.33, 0.3, 46, C.bone, C.ink, 0.03);
+    caption(t, 16.0, 17.6, "LA ÚLTIMA NOTA VUELVE\nANTES DE TERMINAR.", 0.33, 0.3, 46, C.bone, C.ink, 0.03);
     caption(t, 17.6, 18.7, "TODOS BAILAN.\nNADIE RECUERDA DESDE CUÁNDO.", 0.36, 0.81, 48, C.magenta, C.bone, -0.025);
     sfxWord(t, 17.0, 18.5, "CLAC", 0.27, 0.5, 170, C.yellow, -0.17);
     sfxWord(t, 17.5, 18.6, "TUM-TUM", 0.79, 0.47, 120, C.magenta, 0.1);
@@ -13478,9 +13530,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         cx.fillRect(sx, sy, ww, H * 0.2 * speed);
         if (i % 3 === 0) { cx.fillStyle = C.bone; cx.fillRect(sx + ww, sy, Math.max(1, 1.5 * U), H * 0.14 * speed); cx.fillStyle = C.ink; }
       }
+      /* Polvo y esquirlas que suben: es la torre la que pasa hacia arriba. */
+      for (var q = 0; q < 26; q++) {
+        var qx = W * (0.14 + rnd(q * 5.3 + 2) * 0.72), qv = 1.6 + rnd(q * 2.1) * 2.2;
+        var qy = H * 1.1 - ((rnd(q * 9.7) * H * 1.3 + t * H * qv) % (H * 1.3));
+        cx.globalAlpha = 0.75 * speed; cx.fillStyle = q % 4 === 0 ? C.magenta : (q % 4 === 1 ? C.cyan : C.bone);
+        cx.fillRect(qx, qy, Math.max(1.5, (2 + 3 * rnd(q)) * U), (10 + 26 * rnd(q * 3)) * U * (0.4 + speed));
+      }
       cx.restore();
     }
-    var pxm = W / 2 + (shx || 0), pym = H * platFy + (shy || 0) + (reduced ? 0 : Math.sin(t * 5) * H * 0.004 * speed), pr = H * 0.25;
+    /* La plataforma cuelga de cadenas: se balancea como un péndulo y da tirones.
+       El personaje va rígido con ella (traslación, escala uniforme y un giro
+       pequeño de todo el conjunto); su dibujo no se deforma. */
+    var live = reduced ? 0 : speed;
+    var sway = Math.sin(t * 2.3) * 0.05 * live + Math.sin(t * 7.1) * 0.01 * live;
+    var jolt = Math.exp(-((t * 1.25) % 1) * 7) * live;                         /* tirón de cadena, periódico */
+    var camZ = 1 + 0.035 * live + 0.012 * Math.sin(t * 3.1) * live;
+    var pxm = W / 2 + (shx || 0) + Math.sin(t * 2.3) * W * 0.014 * live;
+    var pym = H * platFy + (shy || 0) + Math.sin(t * 5) * H * 0.006 * live + jolt * H * 0.012, pr = H * 0.25;
+    cx.save();
+    cx.translate(pxm, -H * 0.5); cx.rotate(sway); cx.scale(camZ, camZ); cx.translate(-pxm, H * 0.5);
     for (var cI = -1; cI <= 1; cI += 2) {
       cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 11 * U); cx.beginPath(); cx.moveTo(pxm + cI * pr * 0.92, pym); cx.lineTo(pxm + cI * pr * 0.62, -10); cx.stroke();
       cx.strokeStyle = "rgba(244,236,216,0.55)"; cx.lineWidth = Math.max(1.5, 4 * U); cx.setLineDash([14 * U, 10 * U]); cx.lineDashOffset = -t * 300 * U * speed; cx.stroke(); cx.setLineDash([]);
@@ -13489,8 +13558,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cx.fillStyle = "#2a1040"; cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
     cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 6 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr * 0.94, pr * 0.225, 0, 0, Math.PI * 2); cx.stroke();
     cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 8 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
-    var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02;
-    if (ok(img.hero)) cx.drawImage(img.hero, hx, hy, hw, hh);
+    /* En cada tirón los pies se despegan un instante de la plataforma. */
+    var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02 - jolt * H * 0.016;
+    if (ok(img.hero)) {
+      if (live > 0.05) {                                                       /* estela: copias enteras, más arriba */
+        for (var gI = 3; gI >= 1; gI--) { cx.globalAlpha = 0.2 * live * (4 - gI) / 3; cx.drawImage(img.hero, hx, hy - gI * H * 0.026 * live, hw, hh); }
+        cx.globalAlpha = 1;
+      }
+      cx.drawImage(img.hero, hx, hy, hw, hh);
+      if (live > 0.05) {                                                       /* trazos de viento a los lados del cuerpo */
+        cx.strokeStyle = "rgba(244,236,216,0.8)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.lineCap = "round";
+        for (var wI = 0; wI < 8; wI++) {
+          var wx = hx + hw * (wI % 2 ? 0.16 : 0.84) + (rnd(wI * 3.7) - 0.5) * hw * 0.3;
+          var wy = hy + hh * (((rnd(wI * 1.3) - t * (2.2 + rnd(wI) * 1.5)) % 1 + 1) % 1), wl = hh * (0.05 + 0.07 * rnd(wI * 5.1)) * live;
+          cx.globalAlpha = 0.7 * live; cx.beginPath(); cx.moveTo(wx, wy); cx.lineTo(wx, wy - wl); cx.stroke();
+        }
+        cx.globalAlpha = 1;
+      }
+    }
     if (hatP >= 0 && hatP < 1 && ok(img.hat)) {
       var hatW = hw * 0.62 * lerp(1, 0.8, hatP), hatH = hatW * img.hat.naturalHeight / img.hat.naturalWidth;
       cx.save();
@@ -13499,6 +13584,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       cx.drawImage(img.hat, -hatW / 2, -hatH / 2, hatW, hatH);
       cx.restore();
     }
+    cx.restore();
     return { x: pxm, y: pym, r: pr };
   }
 
@@ -13522,7 +13608,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       /* La página se parte en dos y deja ver el pozo de lado. */
       var u = t - 25.5, sp = clamp(u / 0.5, 0, 1), s3 = shakeOf(t, 25.5, 0.4, 14);
       var hatP = seg(u, 0.25, 2.3);
-      shaftSide(t, u * 0.07, sp, lerp(0.56, 0.74, easeOut(seg(u, 0, 0.6))), hatP, s3[0], s3[1]);
+      shaftSide(t, 0.03 * u + 0.06 * u * u, sp, lerp(0.5, 0.72, easeOut(seg(u, 0, 0.7))), hatP, s3[0], s3[1]);
+      speedLines(0.5, 0.45, 0.4 * sp, 31);
       var open = easeOut(seg(u, 0, 0.45));
       if (open < 1) {
         for (var k = -1; k <= 1; k += 2) {
@@ -13609,7 +13696,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       var scroll = 0.3 + 0.2 * u - 0.09 * brake * brake * 1.1 + 0.0;
       var sh = shakeOf(t, 3.85, 0.5, 18);
       var arrive = ease(seg(u, 2.5, 3.3));
-      shaftSide(t, Math.min(scroll, 0.86), speed, lerp(0.74, 0.8, arrive), -1, sh[0], sh[1]);
+      shaftSide(t, Math.min(scroll, 0.86), speed, lerp(0.72, 0.8, arrive), -1, sh[0], sh[1]);
+      speedLines(0.5, 0.45, 0.4 * speed, 31);
       if (arrive > 0) {                                    /* el suelo del Refugio sube a su encuentro */
         var fyy = lerp(H * 1.25, H * 0.8 + H * 0.25 * 0.2, arrive);
         var fg = cx.createLinearGradient(0, fyy, 0, H); fg.addColorStop(0, "#7a1f4a"); fg.addColorStop(1, "#2a0a24");
@@ -14047,6 +14135,57 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
      esta ficha (creada al llegar al Refugio por primera vez) más el progreso
      permanente que el propio motor ya persiste. */
   var SAVE_KEY = "dd_save_v1";
+  /* Reparto de lo que hay en localStorage. Es la única lista: la usan NUEVA
+     PARTIDA, BORRAR DATOS y las pruebas.
+     - RUN: estado de la partida en curso. NUEVA PARTIDA lo reinicia.
+     - PERMANENT: desbloqueos, recursos, estadísticas e hitos. Sólo los toca
+       BORRAR DATOS, con confirmación.
+     - SETTINGS: ajustes. No los borra nadie. */
+  var STORAGE = {
+    RUN: [
+      { key: "dd_save_v1", label: "Ficha de la partida actual" },
+      { key: "dmo_floor_v32", label: "Planta generada de la última incursión" }
+    ],
+    PERMANENT: [
+      { key: "dmodisco_currency_v1", label: "Fichas" },
+      { key: "dmodisco_upgrades_v1", label: "Mejoras compradas" },
+      { key: "dmodisco_weapon_prestige_v1", label: "Prestigio de armas" },
+      { key: "dmodisco_ach_v1", label: "Logros" },
+      { key: "dmodisco_best_v5", label: "Mejor puntuación" },
+      { key: "dmodisco_best_round_v1", label: "Sala más profunda" },
+      { key: "dmodisco_best_combo_v216", label: "Mejor combo" },
+      { key: "dmodisco_hist_v3", label: "Historial de incursiones" },
+      { key: "dmo_victories_v214", label: "Victorias" },
+      { key: "dmo_secret_route_v32", label: "Ruta secreta" }
+    ],
+    SETTINGS: [
+      { key: "dmodisco_vol_v1", label: "Mezcla de sonido" },
+      { key: "dmodisco_muted_v1", label: "Silencio" },
+      { key: "ddc_cover_settings_v1", label: "Volumen del menú" },
+      { key: "dmodisco_a11y_v1", label: "Vídeo y accesibilidad" },
+      { key: "dmo_roll_v271", label: "Ajuste de la voltereta" }
+    ]
+  };
+  function storageKeys(group) { return STORAGE[group].map(function (e) { return e.key; }); }
+  /* NUEVA PARTIDA: sólo el estado de run que no es la ficha (la ficha se
+     reescribe en writeSave). No toca nada de PERMANENT ni de SETTINGS. */
+  function resetRunState() {
+    var removed = [];
+    STORAGE.RUN.forEach(function (e) {
+      if (e.key === SAVE_KEY) return;
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
+  /* BORRAR DATOS: partida y progreso permanente. Sólo se llama desde la
+     confirmación explícita de OPCIONES. Devuelve las claves eliminadas. */
+  function eraseAllProgress() {
+    var removed = [];
+    STORAGE.RUN.concat(STORAGE.PERMANENT).forEach(function (e) {
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
   function readSave() {
     var v = storeJson(SAVE_KEY);
     return v && typeof v === "object" && v.v === 1 ? v : null;
@@ -14054,7 +14193,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   function writeSave(isNew) {
     var now = new Date().toISOString();
     var prev = readSave();
-    var rec = (!isNew && prev) ? prev : { v: 1, created: now, visits: 0 };
+    /* Mismo formato (v: 1). `runs` es un campo añadido y opcional: cuenta las
+       partidas empezadas en este navegador y sobrevive a NUEVA PARTIDA. */
+    var rec = (!isNew && prev) ? prev : { v: 1, created: now, visits: 0, runs: ((prev && prev.runs) || (prev ? 1 : 0)) + 1 };
     rec.last = now;
     rec.visits = (rec.visits || 0) + 1;
     try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(rec)); return true; } catch (e) { return false; }
@@ -14211,6 +14352,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       entered = !!(window.DD_BOOT && window.DD_BOOT.enterGame() === true);
     } catch (e) { entered = false; console.warn("[DD_UI] no se pudo entrar al Refugio", e); }
     if (entered) {
+      if (isNew) resetRunState();
       writeSave(isNew);
     } else {
       try {
@@ -14222,7 +14364,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     return entered;
   }
 
-  /* NUEVA PARTIDA: ficha nueva → descenso (7 s, se puede saltar) → Refugio.
+  /* NUEVA PARTIDA: descenso (se puede saltar) → Refugio → ficha nueva y estado de
+     run reiniciado. El progreso permanente no se toca (ver STORAGE).
      No hay camino que entre al Refugio sin pasar por la secuencia. */
   function doNewGame() {
     if (uiState.busy) return;
@@ -14449,7 +14592,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     options: { title: "OPCIONES", sub: "Ajustes del club · se recuerdan en este navegador" },
     credits: { title: "CRÉDITOS", sub: "La pista no se construyó sola" },
     partidas: { title: "SELECCIÓN DE PARTIDA", sub: "Estado persistente del club" },
-    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" }
+    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" },
+    erase: { title: "BORRAR DATOS", sub: "Esta acción no se puede deshacer" }
   };
 
   function submenuHost() {
@@ -14495,12 +14639,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     else if (name === "credits") renderCredits(body);
     else if (name === "partidas") renderSlots(body, opts || {});
     else if (name === "exit") renderExit(body, opts || {});
+    else if (name === "erase") renderErase(body);
 
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
-    var first = body.querySelector("button, input, select");
+    var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
   }
 
@@ -14572,6 +14717,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       '    <div class="dd-opt-row"><label for="dd-opt-pad">MANDO XBOX</label><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
       '  </section>' +
       '</div>' +
+      '<div class="dd-opt-data">' +
+      '  <h3>DATOS GUARDADOS</h3>' +
+      '  <p class="dd-opt-note">NUEVA PARTIDA no borra tus fichas, mejoras, logros ni récords. Para eliminarlos hay que hacerlo aquí.</p>' +
+      '  <button type="button" class="dd-btn-ghost" id="dd-opt-erase">BORRAR DATOS…</button>' +
+      '</div>' +
       '<p class="dd-opt-note dd-opt-foot">Los cambios se aplican al instante y se guardan en este navegador. ' +
       'La sensibilidad del ratón la define el sistema operativo: el juego no la expone.</p>';
 
@@ -14589,6 +14739,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     } else if (mixHost) {
       mixHost.innerHTML = '<p class="dd-opt-note">La mezcla del motor aún no está lista. Vuelve a abrir OPCIONES en unos segundos.</p>';
     }
+
+    var eraseBtn = el("dd-opt-erase");
+    if (eraseBtn) eraseBtn.addEventListener("click", function () {
+      sfx("ok");
+      closeSubmenu();            /* devuelve a su sitio el panel de mezcla del motor antes de cambiar de pantalla */
+      openSubmenu("erase");
+    });
 
     var resEl = el("dd-opt-res");
     function paintRes() {
@@ -14808,6 +14965,55 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (uiState.busy) return;
       closeSubmenuImmediate();
       doNewGame();
+    });
+  }
+
+  /* BORRAR DATOS: pantalla propia, con la lista de lo que se elimina y de lo que
+     se conserva. El foco entra en CANCELAR; borrar exige ir al otro botón. */
+  function describeStored(key) {
+    var raw = store(key, null);
+    if (raw === null) return null;
+    if (key === "dmodisco_currency_v1") return String(parseInt(raw, 10) || 0);
+    if (key === "dmodisco_best_combo_v216") return "x" + (parseInt(raw, 10) || 0);
+    if (/^-?\d+$/.test(raw)) return String(parseInt(raw, 10));
+    try {
+      var v = JSON.parse(raw);
+      if (key === "dmo_victories_v214" && v && typeof v.count === "number") return String(v.count);
+      if (key === SAVE_KEY && v && v.created) return "creada el " + String(v.created).slice(0, 10);
+      if (Array.isArray(v)) return v.length + (v.length === 1 ? " entrada" : " entradas");
+      if (v && typeof v === "object") {
+        var n = Object.keys(v).filter(function (k) { return v[k]; }).length;
+        return key === "dmo_secret_route_v32" || key === "dmo_floor_v32" ? "guardada" : n + (n === 1 ? " elemento" : " elementos");
+      }
+    } catch (e) {}
+    return "guardado";
+  }
+  function renderErase(body) {
+    var doomed = STORAGE.RUN.concat(STORAGE.PERMANENT).map(function (e) { return { label: e.label, val: describeStored(e.key) }; });
+    var present = doomed.filter(function (d) { return d.val !== null; });
+    body.innerHTML =
+      '<div class="dd-exit dd-erase">' +
+      '  <p class="dd-exit-q">¿Borrar la partida y todo el progreso?</p>' +
+      '  <p class="dd-exit-note">Se eliminará de este navegador, sin copia y sin vuelta atrás:</p>' +
+      '  <dl class="dd-slot-stats" id="dd-erase-list">' +
+      doomed.map(function (d) { return '<div' + (d.val === null ? ' class="is-empty"' : '') + '><dt>' + d.label.toUpperCase() + '</dt><dd>' + (d.val === null ? "—" : d.val) + '</dd></div>'; }).join("") +
+      '  </dl>' +
+      '  <p class="dd-exit-note" id="dd-erase-keep">Se conservan los ajustes: ' + STORAGE.SETTINGS.map(function (e) { return e.label.toLowerCase(); }).join(", ") + '.</p>' +
+      '  <p class="dd-exit-note">' + (present.length ? 'Al terminar, el juego se recarga desde el principio.' : 'Ahora mismo no hay nada guardado que borrar.') + '</p>' +
+      '  <div class="dd-slot-actions">' +
+      '    <button type="button" class="dd-btn-ghost" id="dd-erase-no" data-autofocus>CANCELAR</button>' +
+      '    <button type="button" class="dd-btn-primary dd-btn-danger" id="dd-erase-yes"' + (present.length ? '' : ' disabled') + '>SÍ, BORRAR TODO</button>' +
+      '  </div>' +
+      '</div>';
+    el("dd-erase-no").addEventListener("click", function () { sfx("back"); closeSubmenu(); });
+    el("dd-erase-yes").addEventListener("click", function () {
+      if (!present.length) return;
+      sfx("ok");
+      var removed = eraseAllProgress();
+      try { window.sessionStorage.setItem("dd_last_erase", JSON.stringify(removed)); } catch (e) {}
+      /* El motor tiene el progreso también en memoria: se recarga para que no lo
+         vuelva a escribir. */
+      try { window.location.reload(); } catch (e2) { closeSubmenu(); refreshContinue(); }
     });
   }
 
@@ -15700,6 +15906,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     readProgress: readProgress,
     hasSave: hasSave,
     readSave: readSave,
+    STORAGE: STORAGE,
+    storageKeys: storageKeys,
     isModalOpen: function () { return uiState.shopOpen || uiState.mapOpen || !!uiState.submenu; },
     getState: function () {
       return {

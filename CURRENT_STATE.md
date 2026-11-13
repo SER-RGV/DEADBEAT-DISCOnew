@@ -169,11 +169,14 @@ Toda modificación debe partir de una copia de seguridad.
 
 ---
 
-## Estado actual · 2026-11-12 (PROJECT RESTART · inicio del juego)
+## Estado actual · 2026-11-13 (PROJECT RESTART · inicio del juego)
 
 - Build activa: `index.html` = `DEADBEAT_DISCO.html`, generadas por `tools/build_active_html.py`.
-- Protagonista: diseño cerrado; IDLE 07B aceptado como referencia, **no integrado en la partida**.
-- Inicio del juego: carga → intro en cómic animado (32 s) → menú → nueva partida → descenso (4,6 s) → Refugio. Ver `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md`.
-- QA del inicio: `tools/qa/test_restart_flow.js`, 65 de 65. Sonido audible y mando físico, sin probar.
-- Pendiente: animaciones del protagonista e integración en la partida; reinicio del progreso permanente en NUEVA PARTIDA.
-- Detalle: `docs/RESTART/09_CIERRE_PROTAGONISTA_E_INICIO.md`.
+- Inicio: carga → intro en cómic animado (32 s) → menú → nueva partida → descenso (4,6 s) → Refugio.
+- Protagonista: diseño cerrado. **IDLE 07B integrado en el Refugio** (un fotograma, sin animación de paso). En las incursiones siguen los sprites anteriores.
+- Persistencia: NUEVA PARTIDA reinicia sólo el estado de run; CONTINUAR no reinicia nada; BORRAR DATOS es una acción aparte en OPCIONES, con confirmación.
+- QA: `tools/qa/test_restart_flow.js` 65 de 65; `tools/qa/test_persistencia.js` 39 de 39.
+- **Sonido: grabado y medido, NO ESCUCHADO NI VALIDADO.** Pendiente de escucha humana; hay un salto de volumen de unos 13 dB entre la intro y la música del menú por decidir.
+- Storyboard vigente: v2 (`docs/RESTART/storyboard_intro/storyboard_v2_motor.jpg`); v1 es histórico.
+- Pendiente: escucha; animaciones del protagonista (andar, combate); retrato del HUD; mando físico y otros navegadores.
+- Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md` y `13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.

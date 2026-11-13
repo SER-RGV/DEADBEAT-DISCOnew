@@ -2265,3 +2265,11 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 @font-face { font-family: "Bangers"; font-style: normal; font-weight: 400; font-display: swap; src: url("assets/fonts/bangers-latin-400-normal.woff2") format("woff2"); }
 /* Fondo del menú: el pozo y el sombrero. La zona oscura queda a la izquierda. */
 #dd-main-menu.dd-rs #dd-menu-backdrop { transform-origin: 46% 43%; }
+
+/* ---- OPCIONES › DATOS GUARDADOS y pantalla BORRAR DATOS -------------------- */
+.dd-opt-data { grid-column: 1 / -1; margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(148, 163, 184, 0.12); }
+.dd-opt-data h3 { margin: 0 0 4px; font-size: 12px; letter-spacing: 0.18em; color: #facc15; }
+.dd-opt-data .dd-opt-note { margin: 0 0 8px; }
+.dd-erase .dd-slot-stats > div.is-empty { opacity: 0.4; }
+.dd-btn-primary.dd-btn-danger { background: linear-gradient(180deg, #ef4444, #991b1b); border-color: #fecaca; }
+.dd-btn-primary.dd-btn-danger:hover { background: linear-gradient(180deg, #f87171, #b91c1c); }

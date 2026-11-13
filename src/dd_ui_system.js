@@ -122,6 +122,57 @@
      esta ficha (creada al llegar al Refugio por primera vez) más el progreso
      permanente que el propio motor ya persiste. */
   var SAVE_KEY = "dd_save_v1";
+  /* Reparto de lo que hay en localStorage. Es la única lista: la usan NUEVA
+     PARTIDA, BORRAR DATOS y las pruebas.
+     - RUN: estado de la partida en curso. NUEVA PARTIDA lo reinicia.
+     - PERMANENT: desbloqueos, recursos, estadísticas e hitos. Sólo los toca
+       BORRAR DATOS, con confirmación.
+     - SETTINGS: ajustes. No los borra nadie. */
+  var STORAGE = {
+    RUN: [
+      { key: "dd_save_v1", label: "Ficha de la partida actual" },
+      { key: "dmo_floor_v32", label: "Planta generada de la última incursión" }
+    ],
+    PERMANENT: [
+      { key: "dmodisco_currency_v1", label: "Fichas" },
+      { key: "dmodisco_upgrades_v1", label: "Mejoras compradas" },
+      { key: "dmodisco_weapon_prestige_v1", label: "Prestigio de armas" },
+      { key: "dmodisco_ach_v1", label: "Logros" },
+      { key: "dmodisco_best_v5", label: "Mejor puntuación" },
+      { key: "dmodisco_best_round_v1", label: "Sala más profunda" },
+      { key: "dmodisco_best_combo_v216", label: "Mejor combo" },
+      { key: "dmodisco_hist_v3", label: "Historial de incursiones" },
+      { key: "dmo_victories_v214", label: "Victorias" },
+      { key: "dmo_secret_route_v32", label: "Ruta secreta" }
+    ],
+    SETTINGS: [
+      { key: "dmodisco_vol_v1", label: "Mezcla de sonido" },
+      { key: "dmodisco_muted_v1", label: "Silencio" },
+      { key: "ddc_cover_settings_v1", label: "Volumen del menú" },
+      { key: "dmodisco_a11y_v1", label: "Vídeo y accesibilidad" },
+      { key: "dmo_roll_v271", label: "Ajuste de la voltereta" }
+    ]
+  };
+  function storageKeys(group) { return STORAGE[group].map(function (e) { return e.key; }); }
+  /* NUEVA PARTIDA: sólo el estado de run que no es la ficha (la ficha se
+     reescribe en writeSave). No toca nada de PERMANENT ni de SETTINGS. */
+  function resetRunState() {
+    var removed = [];
+    STORAGE.RUN.forEach(function (e) {
+      if (e.key === SAVE_KEY) return;
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
+  /* BORRAR DATOS: partida y progreso permanente. Sólo se llama desde la
+     confirmación explícita de OPCIONES. Devuelve las claves eliminadas. */
+  function eraseAllProgress() {
+    var removed = [];
+    STORAGE.RUN.concat(STORAGE.PERMANENT).forEach(function (e) {
+      try { if (window.localStorage.getItem(e.key) !== null) { window.localStorage.removeItem(e.key); removed.push(e.key); } } catch (err) {}
+    });
+    return removed;
+  }
   function readSave() {
     var v = storeJson(SAVE_KEY);
     return v && typeof v === "object" && v.v === 1 ? v : null;
@@ -129,7 +180,9 @@
   function writeSave(isNew) {
     var now = new Date().toISOString();
     var prev = readSave();
-    var rec = (!isNew && prev) ? prev : { v: 1, created: now, visits: 0 };
+    /* Mismo formato (v: 1). `runs` es un campo añadido y opcional: cuenta las
+       partidas empezadas en este navegador y sobrevive a NUEVA PARTIDA. */
+    var rec = (!isNew && prev) ? prev : { v: 1, created: now, visits: 0, runs: ((prev && prev.runs) || (prev ? 1 : 0)) + 1 };
     rec.last = now;
     rec.visits = (rec.visits || 0) + 1;
     try { window.localStorage.setItem(SAVE_KEY, JSON.stringify(rec)); return true; } catch (e) { return false; }
@@ -286,6 +339,7 @@
       entered = !!(window.DD_BOOT && window.DD_BOOT.enterGame() === true);
     } catch (e) { entered = false; console.warn("[DD_UI] no se pudo entrar al Refugio", e); }
     if (entered) {
+      if (isNew) resetRunState();
       writeSave(isNew);
     } else {
       try {
@@ -297,7 +351,8 @@
     return entered;
   }
 
-  /* NUEVA PARTIDA: ficha nueva → descenso (7 s, se puede saltar) → Refugio.
+  /* NUEVA PARTIDA: descenso (se puede saltar) → Refugio → ficha nueva y estado de
+     run reiniciado. El progreso permanente no se toca (ver STORAGE).
      No hay camino que entre al Refugio sin pasar por la secuencia. */
   function doNewGame() {
     if (uiState.busy) return;
@@ -524,7 +579,8 @@
     options: { title: "OPCIONES", sub: "Ajustes del club · se recuerdan en este navegador" },
     credits: { title: "CRÉDITOS", sub: "La pista no se construyó sola" },
     partidas: { title: "SELECCIÓN DE PARTIDA", sub: "Estado persistente del club" },
-    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" }
+    exit: { title: "SALIR DEL CLUB", sub: "Cerrar la sesión de juego" },
+    erase: { title: "BORRAR DATOS", sub: "Esta acción no se puede deshacer" }
   };
 
   function submenuHost() {
@@ -570,12 +626,13 @@
     else if (name === "credits") renderCredits(body);
     else if (name === "partidas") renderSlots(body, opts || {});
     else if (name === "exit") renderExit(body, opts || {});
+    else if (name === "erase") renderErase(body);
 
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
-    var first = body.querySelector("button, input, select");
+    var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
   }
 
@@ -647,6 +704,11 @@
       '    <div class="dd-opt-row"><label for="dd-opt-pad">MANDO XBOX</label><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
       '  </section>' +
       '</div>' +
+      '<div class="dd-opt-data">' +
+      '  <h3>DATOS GUARDADOS</h3>' +
+      '  <p class="dd-opt-note">NUEVA PARTIDA no borra tus fichas, mejoras, logros ni récords. Para eliminarlos hay que hacerlo aquí.</p>' +
+      '  <button type="button" class="dd-btn-ghost" id="dd-opt-erase">BORRAR DATOS…</button>' +
+      '</div>' +
       '<p class="dd-opt-note dd-opt-foot">Los cambios se aplican al instante y se guardan en este navegador. ' +
       'La sensibilidad del ratón la define el sistema operativo: el juego no la expone.</p>';
 
@@ -664,6 +726,13 @@
     } else if (mixHost) {
       mixHost.innerHTML = '<p class="dd-opt-note">La mezcla del motor aún no está lista. Vuelve a abrir OPCIONES en unos segundos.</p>';
     }
+
+    var eraseBtn = el("dd-opt-erase");
+    if (eraseBtn) eraseBtn.addEventListener("click", function () {
+      sfx("ok");
+      closeSubmenu();            /* devuelve a su sitio el panel de mezcla del motor antes de cambiar de pantalla */
+      openSubmenu("erase");
+    });
 
     var resEl = el("dd-opt-res");
     function paintRes() {
@@ -883,6 +952,55 @@
       if (uiState.busy) return;
       closeSubmenuImmediate();
       doNewGame();
+    });
+  }
+
+  /* BORRAR DATOS: pantalla propia, con la lista de lo que se elimina y de lo que
+     se conserva. El foco entra en CANCELAR; borrar exige ir al otro botón. */
+  function describeStored(key) {
+    var raw = store(key, null);
+    if (raw === null) return null;
+    if (key === "dmodisco_currency_v1") return String(parseInt(raw, 10) || 0);
+    if (key === "dmodisco_best_combo_v216") return "x" + (parseInt(raw, 10) || 0);
+    if (/^-?\d+$/.test(raw)) return String(parseInt(raw, 10));
+    try {
+      var v = JSON.parse(raw);
+      if (key === "dmo_victories_v214" && v && typeof v.count === "number") return String(v.count);
+      if (key === SAVE_KEY && v && v.created) return "creada el " + String(v.created).slice(0, 10);
+      if (Array.isArray(v)) return v.length + (v.length === 1 ? " entrada" : " entradas");
+      if (v && typeof v === "object") {
+        var n = Object.keys(v).filter(function (k) { return v[k]; }).length;
+        return key === "dmo_secret_route_v32" || key === "dmo_floor_v32" ? "guardada" : n + (n === 1 ? " elemento" : " elementos");
+      }
+    } catch (e) {}
+    return "guardado";
+  }
+  function renderErase(body) {
+    var doomed = STORAGE.RUN.concat(STORAGE.PERMANENT).map(function (e) { return { label: e.label, val: describeStored(e.key) }; });
+    var present = doomed.filter(function (d) { return d.val !== null; });
+    body.innerHTML =
+      '<div class="dd-exit dd-erase">' +
+      '  <p class="dd-exit-q">¿Borrar la partida y todo el progreso?</p>' +
+      '  <p class="dd-exit-note">Se eliminará de este navegador, sin copia y sin vuelta atrás:</p>' +
+      '  <dl class="dd-slot-stats" id="dd-erase-list">' +
+      doomed.map(function (d) { return '<div' + (d.val === null ? ' class="is-empty"' : '') + '><dt>' + d.label.toUpperCase() + '</dt><dd>' + (d.val === null ? "—" : d.val) + '</dd></div>'; }).join("") +
+      '  </dl>' +
+      '  <p class="dd-exit-note" id="dd-erase-keep">Se conservan los ajustes: ' + STORAGE.SETTINGS.map(function (e) { return e.label.toLowerCase(); }).join(", ") + '.</p>' +
+      '  <p class="dd-exit-note">' + (present.length ? 'Al terminar, el juego se recarga desde el principio.' : 'Ahora mismo no hay nada guardado que borrar.') + '</p>' +
+      '  <div class="dd-slot-actions">' +
+      '    <button type="button" class="dd-btn-ghost" id="dd-erase-no" data-autofocus>CANCELAR</button>' +
+      '    <button type="button" class="dd-btn-primary dd-btn-danger" id="dd-erase-yes"' + (present.length ? '' : ' disabled') + '>SÍ, BORRAR TODO</button>' +
+      '  </div>' +
+      '</div>';
+    el("dd-erase-no").addEventListener("click", function () { sfx("back"); closeSubmenu(); });
+    el("dd-erase-yes").addEventListener("click", function () {
+      if (!present.length) return;
+      sfx("ok");
+      var removed = eraseAllProgress();
+      try { window.sessionStorage.setItem("dd_last_erase", JSON.stringify(removed)); } catch (e) {}
+      /* El motor tiene el progreso también en memoria: se recarga para que no lo
+         vuelva a escribir. */
+      try { window.location.reload(); } catch (e2) { closeSubmenu(); refreshContinue(); }
     });
   }
 
@@ -1775,6 +1893,8 @@
     readProgress: readProgress,
     hasSave: hasSave,
     readSave: readSave,
+    STORAGE: STORAGE,
+    storageKeys: storageKeys,
     isModalOpen: function () { return uiState.shopOpen || uiState.mapOpen || !!uiState.submenu; },
     getState: function () {
       return {

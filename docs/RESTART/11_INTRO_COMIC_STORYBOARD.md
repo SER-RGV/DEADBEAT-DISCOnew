@@ -1,7 +1,16 @@
 # 11 · Intro en cómic animado — auditoría, storyboard y prueba de estilo
 
-Estado: **PREPRODUCCIÓN, PENDIENTE DE VALIDACIÓN.** El juego no se ha tocado: la intro que
-se reproduce hoy sigue siendo la del documento `09`.
+Estado: **HISTÓRICO (storyboard v1, preproducción).** No describe la intro actual.
+
+> **Referencia vigente: storyboard v2** — `storyboard_intro/storyboard_v2_motor.jpg`,
+> hecho con fotogramas del juego real, y la tabla de planos de
+> `12_INTRO_COMIC_PRODUCCION.md`. Textos vigentes: `10_INTRO_COMIC_NARRACION.md`.
+>
+> Diferencias de v1 que ya no valen: la ciudad a oscuras del plano 01, los rótulos
+> «LEVEL» del plano 03, la ilustración generada del protagonista en el plano 06, el
+> descenso completo dentro de la intro y tres cartelas (ver revisión 3 en el documento 10).
+> Los tableros `plano_0*.jpg`, `storyboard_hoja_completa.jpg` y `prueba_estilo_plano_04.jpg`
+> se conservan sin modificar, igual que `tools/art_master/storyboard_intro.py`.
 
 ## 1. Auditoría de lo existente
 

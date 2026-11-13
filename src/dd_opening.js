@@ -400,7 +400,7 @@
     splat(X(0.09), Y(0.8), 58 * U * pop(t, 1.0) * (1 - g), C.magenta, 2, 1 - g);
     splat(X(0.93), Y(0.2), 44 * U * pop(t, 2.5) * (1 - g), C.cyan, 5, 1 - g);
     caption(t, 1.0, 3.2, "LA GUERRA HABÍA TERMINADO.", 0.08, 0.16, 58, C.yellow, C.ink, -0.035);
-    caption(t, 2.5, 3.3, "ESA NOCHE, POR FIN,\nNADIE ESPERABA MORIR.", 0.6, 0.72, 48, C.bone, C.ink, 0.02);
+    caption(t, 2.5, 3.3, "ESA NOCHE, ALGUNOS PUDIERON\nREUNIRSE SIN MIEDO.", 0.6, 0.72, 48, C.bone, C.ink, 0.02);
   }
 
   /* 02 · LA ESTACIÓN — se cruza la puerta: página completa y viñetas de detalle. */
@@ -412,7 +412,7 @@
     slidePanel(t, 5.0, 8.4, img.floor, [0.4, 0.3, 0.6, 0.62], 0.75, 0.36, 0.2, 0.34, -0.06, 0.5, 0.1, { zoom: 1.05 });
     slidePanel(t, 5.5, 8.5, img.floor, [0.05, 0.62, 0.5, 1.0], 0.04, 0.58, 0.3, 0.34, -0.045, -0.5, 0.2, { px: p * 0.04 });
     caption(t, 4.5, 6.6, "UNA VIEJA ESTACIÓN DE TREN.\nCRISTAL, HIERRO… Y UN BAILE.", 0.045, 0.07, 52, C.yellow, C.ink, -0.03);
-    caption(t, 6.9, 8.6, "POR UNAS HORAS, TODOS\nIMAGINARON UN MAÑANA.", 0.5, 0.78, 50, C.bone, C.ink, 0.025);
+    caption(t, 6.9, 8.6, "POR FIN, HABÍA QUIEN PODÍA\nIMAGINAR UN MAÑANA.", 0.5, 0.78, 50, C.bone, C.ink, 0.025);
     flash(t, 4, 0.22, C.yellow, 0.8);
   }
 
@@ -483,7 +483,7 @@
     splat(X(0.365), Y(0.935), 66 * U * pop(t, 17.6), C.magenta, 9, 1);
     splat(X(0.615), Y(0.48), 46 * U * pop(t, 16.0), C.yellow, 4, 1);
     caption(t, 14.3, 16.2, "LAS PUERTAS YA NO LLEVAN FUERA.", 0.04, 0.055, 54, C.yellow, C.ink, -0.03);
-    caption(t, 16.0, 17.6, "LA ÚLTIMA CANCIÓN VUELVE\nANTES DE TERMINAR.", 0.33, 0.3, 46, C.bone, C.ink, 0.03);
+    caption(t, 16.0, 17.6, "LA ÚLTIMA NOTA VUELVE\nANTES DE TERMINAR.", 0.33, 0.3, 46, C.bone, C.ink, 0.03);
     caption(t, 17.6, 18.7, "TODOS BAILAN.\nNADIE RECUERDA DESDE CUÁNDO.", 0.36, 0.81, 48, C.magenta, C.bone, -0.025);
     sfxWord(t, 17.0, 18.5, "CLAC", 0.27, 0.5, 170, C.yellow, -0.17);
     sfxWord(t, 17.5, 18.6, "TUM-TUM", 0.79, 0.47, 120, C.magenta, 0.1);
@@ -536,9 +536,26 @@
         cx.fillRect(sx, sy, ww, H * 0.2 * speed);
         if (i % 3 === 0) { cx.fillStyle = C.bone; cx.fillRect(sx + ww, sy, Math.max(1, 1.5 * U), H * 0.14 * speed); cx.fillStyle = C.ink; }
       }
+      /* Polvo y esquirlas que suben: es la torre la que pasa hacia arriba. */
+      for (var q = 0; q < 26; q++) {
+        var qx = W * (0.14 + rnd(q * 5.3 + 2) * 0.72), qv = 1.6 + rnd(q * 2.1) * 2.2;
+        var qy = H * 1.1 - ((rnd(q * 9.7) * H * 1.3 + t * H * qv) % (H * 1.3));
+        cx.globalAlpha = 0.75 * speed; cx.fillStyle = q % 4 === 0 ? C.magenta : (q % 4 === 1 ? C.cyan : C.bone);
+        cx.fillRect(qx, qy, Math.max(1.5, (2 + 3 * rnd(q)) * U), (10 + 26 * rnd(q * 3)) * U * (0.4 + speed));
+      }
       cx.restore();
     }
-    var pxm = W / 2 + (shx || 0), pym = H * platFy + (shy || 0) + (reduced ? 0 : Math.sin(t * 5) * H * 0.004 * speed), pr = H * 0.25;
+    /* La plataforma cuelga de cadenas: se balancea como un péndulo y da tirones.
+       El personaje va rígido con ella (traslación, escala uniforme y un giro
+       pequeño de todo el conjunto); su dibujo no se deforma. */
+    var live = reduced ? 0 : speed;
+    var sway = Math.sin(t * 2.3) * 0.05 * live + Math.sin(t * 7.1) * 0.01 * live;
+    var jolt = Math.exp(-((t * 1.25) % 1) * 7) * live;                         /* tirón de cadena, periódico */
+    var camZ = 1 + 0.035 * live + 0.012 * Math.sin(t * 3.1) * live;
+    var pxm = W / 2 + (shx || 0) + Math.sin(t * 2.3) * W * 0.014 * live;
+    var pym = H * platFy + (shy || 0) + Math.sin(t * 5) * H * 0.006 * live + jolt * H * 0.012, pr = H * 0.25;
+    cx.save();
+    cx.translate(pxm, -H * 0.5); cx.rotate(sway); cx.scale(camZ, camZ); cx.translate(-pxm, H * 0.5);
     for (var cI = -1; cI <= 1; cI += 2) {
       cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 11 * U); cx.beginPath(); cx.moveTo(pxm + cI * pr * 0.92, pym); cx.lineTo(pxm + cI * pr * 0.62, -10); cx.stroke();
       cx.strokeStyle = "rgba(244,236,216,0.55)"; cx.lineWidth = Math.max(1.5, 4 * U); cx.setLineDash([14 * U, 10 * U]); cx.lineDashOffset = -t * 300 * U * speed; cx.stroke(); cx.setLineDash([]);
@@ -547,8 +564,24 @@
     cx.fillStyle = "#2a1040"; cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
     cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 6 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr * 0.94, pr * 0.225, 0, 0, Math.PI * 2); cx.stroke();
     cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 8 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
-    var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02;
-    if (ok(img.hero)) cx.drawImage(img.hero, hx, hy, hw, hh);
+    /* En cada tirón los pies se despegan un instante de la plataforma. */
+    var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02 - jolt * H * 0.016;
+    if (ok(img.hero)) {
+      if (live > 0.05) {                                                       /* estela: copias enteras, más arriba */
+        for (var gI = 3; gI >= 1; gI--) { cx.globalAlpha = 0.2 * live * (4 - gI) / 3; cx.drawImage(img.hero, hx, hy - gI * H * 0.026 * live, hw, hh); }
+        cx.globalAlpha = 1;
+      }
+      cx.drawImage(img.hero, hx, hy, hw, hh);
+      if (live > 0.05) {                                                       /* trazos de viento a los lados del cuerpo */
+        cx.strokeStyle = "rgba(244,236,216,0.8)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.lineCap = "round";
+        for (var wI = 0; wI < 8; wI++) {
+          var wx = hx + hw * (wI % 2 ? 0.16 : 0.84) + (rnd(wI * 3.7) - 0.5) * hw * 0.3;
+          var wy = hy + hh * (((rnd(wI * 1.3) - t * (2.2 + rnd(wI) * 1.5)) % 1 + 1) % 1), wl = hh * (0.05 + 0.07 * rnd(wI * 5.1)) * live;
+          cx.globalAlpha = 0.7 * live; cx.beginPath(); cx.moveTo(wx, wy); cx.lineTo(wx, wy - wl); cx.stroke();
+        }
+        cx.globalAlpha = 1;
+      }
+    }
     if (hatP >= 0 && hatP < 1 && ok(img.hat)) {
       var hatW = hw * 0.62 * lerp(1, 0.8, hatP), hatH = hatW * img.hat.naturalHeight / img.hat.naturalWidth;
       cx.save();
@@ -557,6 +590,7 @@
       cx.drawImage(img.hat, -hatW / 2, -hatH / 2, hatW, hatH);
       cx.restore();
     }
+    cx.restore();
     return { x: pxm, y: pym, r: pr };
   }
 
@@ -580,7 +614,8 @@
       /* La página se parte en dos y deja ver el pozo de lado. */
       var u = t - 25.5, sp = clamp(u / 0.5, 0, 1), s3 = shakeOf(t, 25.5, 0.4, 14);
       var hatP = seg(u, 0.25, 2.3);
-      shaftSide(t, u * 0.07, sp, lerp(0.56, 0.74, easeOut(seg(u, 0, 0.6))), hatP, s3[0], s3[1]);
+      shaftSide(t, 0.03 * u + 0.06 * u * u, sp, lerp(0.5, 0.72, easeOut(seg(u, 0, 0.7))), hatP, s3[0], s3[1]);
+      speedLines(0.5, 0.45, 0.4 * sp, 31);
       var open = easeOut(seg(u, 0, 0.45));
       if (open < 1) {
         for (var k = -1; k <= 1; k += 2) {
@@ -667,7 +702,8 @@
       var scroll = 0.3 + 0.2 * u - 0.09 * brake * brake * 1.1 + 0.0;
       var sh = shakeOf(t, 3.85, 0.5, 18);
       var arrive = ease(seg(u, 2.5, 3.3));
-      shaftSide(t, Math.min(scroll, 0.86), speed, lerp(0.74, 0.8, arrive), -1, sh[0], sh[1]);
+      shaftSide(t, Math.min(scroll, 0.86), speed, lerp(0.72, 0.8, arrive), -1, sh[0], sh[1]);
+      speedLines(0.5, 0.45, 0.4 * speed, 31);
       if (arrive > 0) {                                    /* el suelo del Refugio sube a su encuentro */
         var fyy = lerp(H * 1.25, H * 0.8 + H * 0.25 * 0.2, arrive);
         var fg = cx.createLinearGradient(0, fyy, 0, H); fg.addColorStop(0, "#7a1f4a"); fg.addColorStop(1, "#2a0a24");

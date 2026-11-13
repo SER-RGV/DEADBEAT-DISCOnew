@@ -1,5 +1,5 @@
 /* QA del inicio del juego sobre el JUEGO REAL (index.html), no sobre un visor:
-     carga → pulsación → intro (32 s, 7 planos) → menú → nueva partida → descenso (7 s) → Refugio
+     carga → pulsación → intro (32 s, 7 planos) → menú → nueva partida → descenso (4,6 s) → Refugio
    Uso:  DD_CHROMIUM=/ruta/a/chromium node tools/qa/test_restart_flow.js [http://localhost:8080] [carpeta_capturas]
    Requiere playwright-core y un servidor estático en la raíz del repositorio.
    Lo que NO puede comprobar: sonido audible (sólo el estado lógico del audio), mando físico

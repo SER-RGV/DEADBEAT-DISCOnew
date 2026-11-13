@@ -23,6 +23,45 @@
     roomCacheStamp: ""
   };
 
+  /* Protagonista en el Refugio: el IDLE 07B aprobado, sin sombrero (lo perdió en
+     el descenso). Se carga aquí, directamente, sin tocar el registro de recursos
+     ni el pintor del motor. Es un único fotograma: se dibuja siempre entero, con
+     escala uniforme y sin espejar (espejarlo cambiaría los tatuajes de brazo).
+     Los sprites de combate no cambian: fuera del Refugio pinta el motor. */
+  const REFUGE_IDLE = {
+    src: "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
+    w: 288, h: 512,          /* tamaño del PNG */
+    feetY: 505, midX: 140,   /* suela y eje del cuerpo dentro del PNG */
+    bodyH: 462,              /* alto del dibujo (sin márgenes transparentes) */
+    drawH: 112,              /* alto del cuerpo en unidades del Refugio (como la figura anterior y los personajes de la sala) */
+    img: null, ok: false, failed: false, lastRect: null
+  };
+  function ensureRefugeIdle() {
+    if (REFUGE_IDLE.img) return;
+    const im = new Image();
+    im.onload = function () { REFUGE_IDLE.ok = im.naturalWidth === REFUGE_IDLE.w && im.naturalHeight === REFUGE_IDLE.h; REFUGE_IDLE.failed = !REFUGE_IDLE.ok; };
+    im.onerror = function () { REFUGE_IDLE.failed = true; };
+    im.src = REFUGE_IDLE.src;
+    REFUGE_IDLE.img = im;
+  }
+  function drawRefugeIdle(ctx) {
+    ensureRefugeIdle();
+    if (!REFUGE_IDLE.ok) return false;
+    const k = REFUGE_IDLE.drawH / REFUGE_IDLE.bodyH;
+    const moving = Math.hypot(state.vx, state.vy) > 12;
+    /* Sólo traslación: respiración de menos de un píxel parado, paso corto al andar. */
+    const bob = moving ? -Math.abs(Math.sin(state.time * 9.5)) * 2.2 : Math.sin(state.time * 2.4) * 0.7;
+    const dw = REFUGE_IDLE.w * k, dh = REFUGE_IDLE.h * k;
+    const dx = state.px - REFUGE_IDLE.midX * k, dy = state.py + 16 - REFUGE_IDLE.feetY * k + bob;
+    ctx.save();
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(REFUGE_IDLE.img, dx, dy, dw, dh);
+    ctx.restore();
+    REFUGE_IDLE.lastRect = { x: +dx.toFixed(1), y: +dy.toFixed(1), w: +dw.toFixed(2), h: +dh.toFixed(2) };
+    return true;
+  }
+
   // Layout faithfully matching REF_05 (r5_refugio_hub.png)
   const HUB_PROPS = [
     // Upper gothic liquor bookshelves & bar lounge
@@ -97,6 +136,7 @@
   let quoteIdx = 0;
 
   function enter() {
+    ensureRefugeIdle();
     state.active = true;
     state.px = 880;
     state.py = 615;
@@ -386,7 +426,7 @@
         ctx.fill();
         ctx.restore();
         W.drawNeonGlow(ctx, state.px, state.py + 4, 78, "#ffe4f1", 0.34);
-        const drewHi = W.drawProtagonist(
+        const drewHi = drawRefugeIdle(ctx) || W.drawProtagonist(
           ctx,
           { x: state.px, y: state.py, aimAngle: state.aimAngle },
           window.DMO && window.DMO.playerAnim,
@@ -461,7 +501,11 @@
         y: Math.round(state.py),
         nearStation: state.nearStation ? state.nearStation.id : null,
         bounds: HUB_BOUNDS,
-        stations: STATIONS.map(s => s.id)
+        stations: STATIONS.map(s => s.id),
+        protagonist: REFUGE_IDLE.ok ? "idle_07b" : "sprites_anteriores",
+        protagonistSrc: REFUGE_IDLE.src,
+        protagonistRect: REFUGE_IDLE.lastRect,
+        protagonistAspect: REFUGE_IDLE.lastRect ? +(REFUGE_IDLE.lastRect.w / REFUGE_IDLE.lastRect.h).toFixed(4) : null
       };
     }
   });

@@ -171,3 +171,11 @@ Registrar aquí cada modificación:
 - Fondo del menú: pozo y sombrero. Fuentes definitivas en `assets/fonts/` (Barlow Condensed, Bangers; OFL).
 - Protagonista en pantalla sólo con la lámina maestra y el IDLE 07B.
 - Archivos: `src/dd_opening.js`, `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `tools/qa/test_restart_flow.js`, láminas `mc_*`. QA 65 de 65. Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md`.
+
+## 2026-11-13 · PROJECT RESTART · Cierre de intro, IDLE 07B en el Refugio y persistencia
+- Cartelas: dos textos sustituidos por indicación de dirección y «canción» → «nota» por correspondencia con la biblia.
+- Refugio: el protagonista se dibuja con el IDLE 07B aprobado (`src/dd_hub_system.js`); sprites de combate sin cambios.
+- Persistencia: NUEVA PARTIDA reinicia sólo el estado de run; nueva acción BORRAR DATOS en OPCIONES con confirmación (`src/dd_ui_system.js`, `src/dd_rebuild_ui.css`).
+- Plano 06 y descenso: balanceo, tirones, estela, viento y polvo sobre el mismo dibujo (`src/dd_opening.js`).
+- Pruebas: `tools/qa/test_persistencia.js` (39 de 39); flujo 65 de 65. Sonido grabado y medido, no escuchado.
+- Storyboard v2 vigente; v1 marcado como histórico. Detalle: `docs/RESTART/13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.

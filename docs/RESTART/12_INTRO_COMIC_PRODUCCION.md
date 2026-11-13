@@ -47,31 +47,12 @@ maestros en `ART_ASSETS/rebuild_masters/R07_COMIC/`; `docs/RESTART/evidencia_int
 **Ya no se cargan** (se conservan): `op_02_tower`, `op_04c_vespera`, `op_05b_back`,
 `op_06_face`.
 
-## 4. Pruebas
+## 4. Pruebas, sonido y limitaciones
 
-`tools/qa/test_restart_flow.js` sobre `index.html`: **65 de 65**
-(`evidencia_intro_comic/qa_inicio.json`). Incluye la intro completa en tiempo real, las
-dos fuentes cargadas, tabla de nueve pistas, que no se carga ninguna ilustración generada
-del protagonista, menú con ratón, teclado y mando simulado, NUEVA PARTIDA, descenso,
-Refugio, CONTINUAR, saltos, y 7 resoluciones (entre ellas 1280×720, 1920×1080 y 2560×1440).
+Actualizado en `13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md` (2026-11-13): cartelas revisadas,
+caída del plano 06 con más movimiento, IDLE 07B en el Refugio, persistencia, medición del
+sonido y vídeo en tiempo real con audio. Las cifras y limitaciones vigentes están allí.
 
-Revisado a ojo en capturas del juego: los siete planos a 1280×720, 1024×768 y 3440×1440;
-nueve plantas en el plano 03; ausencia de rótulos de la lámina en el plano 05.
-
-`evidencia_intro_comic/reproduccion_completa_sin_sonido.mp4`: intro → menú → nueva
-partida → descenso → Refugio. Está montado con fotogramas del juego tomados a 12 por
-segundo: **no es una grabación de pantalla en tiempo real y no lleva sonido.**
-
-### No probado
-
-- Sonido audible y su sincronía percibida (sin salida de audio: sólo estado lógico y tabla de tiempos).
-- Mando físico; Firefox y Safari; hardware real.
-
-## 5. Limitaciones
-
-1. `mc_03_nine`: las plantas 5, 6 y 7 son copias en espejo y oscurecidas de las plantas 1, 2 y 3. Son nueve, pero no nueve dibujos distintos.
-2. Las botas (`op_05a_boots`) siguen siendo la ilustración anterior, con máquinas recreativas al fondo. No muestra tatuajes ni rostro.
-3. El sombrero suelto (`op_hat.png`) es un recorte de una ilustración generada; sólo el sombrero.
-4. En el plano 06 el personaje es un único fotograma estático (no hay animación de caída).
-5. El Refugio sigue mostrando al protagonista con los sprites antiguos, con sombrero.
-6. NUEVA PARTIDA sigue sin borrar el progreso permanente.
+Nota que se mantiene sobre el plano 03: `mc_03_nine` muestra nueve posiciones, pero las
+plantas 5, 6 y 7 son **variaciones** (en espejo y oscurecidas) de las plantas 1, 2 y 3, no
+ilustraciones independientes. Dirección ha decidido no bloquear el cierre por ello.
