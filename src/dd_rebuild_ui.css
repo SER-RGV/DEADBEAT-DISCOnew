@@ -2273,3 +2273,41 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 .dd-erase .dd-slot-stats > div.is-empty { opacity: 0.4; }
 .dd-btn-primary.dd-btn-danger { background: linear-gradient(180deg, #ef4444, #991b1b); border-color: #fecaca; }
 .dd-btn-primary.dd-btn-danger:hover { background: linear-gradient(180deg, #f87171, #b91c1c); }
+
+/* ---- Foco siempre visible en los submenús ---------------------------------
+   :focus-visible no se activa cuando el foco lo mueve el mando después de usar
+   el ratón: el control elegido quedaba sin marca. Aquí se marca con :focus. */
+#dd-submenu button:focus, #dd-submenu select:focus, #dd-submenu input:focus {
+  outline: 2px solid #facc15; outline-offset: 3px;
+}
+#dd-submenu input[type="checkbox"]:focus { outline-offset: 2px; }
+#dd-submenu button, #dd-submenu select, #dd-submenu input[type="range"], #dd-submenu input[type="checkbox"], #dd-submenu label { cursor: pointer; }
+#dd-submenu button[disabled] { cursor: not-allowed; }
+
+/* ---- Portada antigua: no existe en esta versión ---------------------------
+   Antes sólo se ocultaba cuando arrancaba la interfaz nueva, y durante ese
+   intervalo se veía un instante por encima de la pantalla de carga. */
+#ddc-cover, #ddc-img, #ddc-fx { display: none !important; }
+
+/* ---- Pantalla de carga: logotipo y barra, nada más ------------------------
+   Los textos de diagnóstico siguen en el DOM (los leen las pruebas y los
+   lectores de pantalla) y vuelven a mostrarse sólo si el arranque falla. */
+#dd-boot-frame .dd-boot-top,
+#dd-boot-frame .dd-boot-foot,
+#dd-boot-frame .dd-boot-wordmark,
+#dd-boot-frame #dd-boot-pct,
+#dd-boot-frame .dd-boot-steps { display: none !important; }
+#dd-boot-frame #dd-boot-stage { visibility: hidden; }
+#dd-boot-frame.is-waiting #dd-boot-stage,
+#dd-boot-frame.is-failed #dd-boot-stage { visibility: visible; }
+#dd-boot-frame.is-failed .dd-boot-steps { display: grid !important; }
+#dd-boot-frame.is-waiting .dd-boot-statusline { justify-content: center; }
+#dd-boot-frame.is-waiting #dd-boot-stage { font-size: clamp(13px, 1.5vw, 20px); letter-spacing: 0.2em; }
+#dd-boot-frame .is-missing .dd-boot-wordmark { display: inline-block !important; }  /* sólo si falta el logotipo */
+/* Fondo de la carga: tinta lisa. La imagen antigua del club ya no se usa aquí. */
+#dd-boot-frame .dd-boot-bg, #dd-boot-frame .dd-boot-beams { display: none !important; }
+#dd-boot-frame { background: #07030d; }
+
+/* Si el arranque falla, el logotipo cede sitio para que el aviso y sus dos
+   botones quepan enteros en 1280×720. */
+#dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }

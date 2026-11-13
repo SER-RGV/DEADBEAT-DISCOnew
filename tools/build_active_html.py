@@ -23,6 +23,16 @@ if cf_idx > len(html) - 2000:
     if cf_end > cf_idx:
         html = html[:cf_idx] + html[cf_end + len("</script>"):]
 
+# 1b. Nivel de la música del menú. El motor de la portada antigua (que sigue
+#     siendo el que toca la música del menú) multiplica su volumen por 0,9; medido,
+#     eso deja el menú unos 13 dB por encima de la intro. Se baja a 0,40 (−7 dB) y
+#     la intro se sube en src/dd_opening.js. El control de volumen del usuario no
+#     cambia de significado: sigue siendo un factor sobre este nivel.
+_menu_gain_old = "function ne(){return x.muted?0:x.vol*(te?.32:1)*.9}"
+_menu_gain_new = "function ne(){return x.muted?0:x.vol*(te?.32:1)*.4}"
+assert html.count(_menu_gain_old) == 1, "No se encuentra la ganancia de la música del menú"
+html = html.replace(_menu_gain_old, _menu_gain_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;

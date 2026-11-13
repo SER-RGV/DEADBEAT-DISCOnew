@@ -598,7 +598,7 @@
       '    <div><span class="dd-submenu-kicker" id="dd-submenu-kicker">CLUB</span>' +
       '    <h2 id="dd-submenu-title">SUBMENÚ</h2>' +
       '    <p id="dd-submenu-sub"></p></div>' +
-      '    <button type="button" class="dd-submenu-back" id="dd-submenu-back">◀ VOLVER <kbd>ESC</kbd></button>' +
+      '    <button type="button" class="dd-submenu-back" id="dd-submenu-back">VOLVER <kbd>ESC</kbd></button>' +
       '  </header>' +
       '  <div class="dd-submenu-body" id="dd-submenu-body"></div>' +
       '  <footer class="dd-submenu-foot">' +
@@ -618,8 +618,9 @@
     el("dd-submenu-kicker").textContent = "DEADBEAT DISCO · " + String(name).toUpperCase();
     el("dd-submenu-title").textContent = meta.title;
     el("dd-submenu-sub").textContent = meta.sub;
-    el("dd-submenu-foot").textContent = "↑↓ NAVEGAR · ENTER APLICAR · ESC VOLVER";
+    el("dd-submenu-foot").textContent = name === "credits" ? "ESC VOLVER" : "FLECHAS NAVEGAR · ENTER APLICAR · ESC VOLVER";
     var body = el("dd-submenu-body");
+    returnMixPanel();
     body.innerHTML = "";
 
     if (name === "options") renderOptions(body);
@@ -632,12 +633,23 @@
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
-    var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select");
+    var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
+  }
+
+  /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
+     volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
+     segunda vez se destruía y la mezcla del juego desaparecía hasta recargar. */
+  function returnMixPanel() {
+    var mixSrc = el("audio-panel-menu-body");
+    if (mixSrc && mixSrc._ddHome && mixSrc.parentNode !== mixSrc._ddHome) {
+      try { mixSrc._ddHome.appendChild(mixSrc); } catch (e) {}
+    }
   }
 
   function closeSubmenu() {
     resetDirectionalState();
+    returnMixPanel();
     var host = el("dd-submenu");
     if (host) {
       host.classList.remove("is-open");
@@ -1054,6 +1066,7 @@
   }
 
   function closeSubmenuImmediate() {
+    returnMixPanel();
     var host = el("dd-submenu");
     if (host) { host.classList.remove("is-open"); host.setAttribute("aria-hidden", "true"); }
     var m = el("dd-main-menu");
@@ -1647,10 +1660,13 @@
      listeners existentes apliquen el cambio de verdad (motor Xl.set /
      ddc_cover_settings_v1) y actualicen el <output>. En el límite no hace nada
      (devuelve false, sin evento, sin cambio visual ni sonoro). */
-  function adjustRange(input, dir) {
+  function adjustRange(input, dir, coarse) {
     var min = parseFloat(input.min); if (!isFinite(min)) min = 0;
     var max = parseFloat(input.max); if (!isFinite(max)) max = 100;
     var step = parseFloat(input.step); if (!(step > 0)) step = GP_CONFIG.stepFallback;
+    /* Con flechas o cruceta el paso es de una vigésima parte del recorrido (5 %
+       en los volúmenes): con el paso nativo de 1 hacían falta cien pulsaciones. */
+    if (coarse) step = Math.max(step, Math.round((max - min) / 20 / step) * step);
     var v = parseFloat(input.value); if (!isFinite(v)) v = min;
     var next = Math.max(min, Math.min(max, Math.round((v + dir * step) * 1000) / 1000));
     if (next === v) return false;
@@ -1722,7 +1738,9 @@
           if (range) {
             /* Slider enfocado: ←→ AJUSTAN el valor (nunca mueven el foco ni
                cambian nada en los límites). */
-            if (adjustRange(range, left ? -1 : 1)) sfx("move");
+            if (adjustRange(range, left ? -1 : 1, true)) sfx("move");
+          } else if (focusedInSubmenu() && focusedInSubmenu().tagName === "SELECT") {
+            if (cycleSelect(focusedInSubmenu(), left ? -1 : 1)) sfx("move");
           } else {
             focusStep(left ? -1 : 1); /* fuera de sliders conserva FASE 01 */
           }
@@ -1744,14 +1762,37 @@
     }
   }
 
+  /* Selector enfocado: cambia de opción sin abrir la lista nativa del navegador
+     (que no se puede manejar con mando y tapa el menú). Da la vuelta en los extremos. */
+  function cycleSelect(sel, dir) {
+    var n = sel.options ? sel.options.length : 0;
+    if (!n) return false;
+    var i = (sel.selectedIndex + dir + n) % n, guard = 0;
+    while (sel.options[i].disabled && guard++ < n) i = (i + dir + n) % n;
+    if (i === sel.selectedIndex) return false;
+    sel.selectedIndex = i;
+    sel.dispatchEvent(new Event("input", { bubbles: true }));
+    sel.dispatchEvent(new Event("change", { bubbles: true }));
+    return true;
+  }
+  function focusedInSubmenu() {
+    var a = document.activeElement;
+    return a && a.closest && a.closest("#dd-submenu") ? a : null;
+  }
+
   function focusStep(dir) {
     var host = el("dd-submenu-body");
     if (!host) return;
     var items = Array.prototype.slice.call(host.querySelectorAll("button:not([disabled]), input, select"));
+    /* Un submenú sin controles propios (CRÉDITOS) conserva el foco en VOLVER. */
+    if (!items.length && el("dd-submenu-back")) items = [el("dd-submenu-back")];
     if (!items.length) return;
     var i = items.indexOf(document.activeElement);
-    i = i < 0 ? 0 : (i + dir + items.length) % items.length;
+    i = i < 0 ? (dir < 0 ? items.length - 1 : 0) : (i + dir + items.length) % items.length;
     try { items[i].focus({ preventScroll: true }); } catch (e) { items[i].focus(); }
+    /* En ventanas bajas el panel tiene desplazamiento: el control elegido se
+       trae a la vista en vez de quedar seleccionado fuera de pantalla. */
+    try { items[i].scrollIntoView({ block: "nearest", inline: "nearest" }); } catch (e2) {}
     sfx("move");
   }
 
@@ -1759,7 +1800,7 @@
     var a = document.activeElement;
     if (!a) return;
     if (a.tagName === "INPUT" && a.type === "range") return; /* lo ajusta ←→ (adjustRange) */
-    if (a.tagName === "SELECT") { return; }
+    if (a.tagName === "SELECT") { if (cycleSelect(a, 1)) sfx("move"); return; }
     a.click();
   }
 
@@ -1825,26 +1866,57 @@
 
   /* ============================== G. TECLADO ============================== */
   window.addEventListener("keydown", function (ev) {
-    if (ev.repeat) return;
     var k = ev.code;
+    var isLeft = k === "ArrowLeft" || k === "KeyA", isRight = k === "ArrowRight" || k === "KeyD";
+    /* La repetición de tecla sólo se admite para arrastrar un deslizador. */
+    if (ev.repeat && !(uiState.submenu && (isLeft || isRight) && focusedRange())) return;
     document.body.classList.remove("dd-input-pad");
 
-    /* SUBCONTROL: un submenú abierto captura la navegación. */
+    /* SUBCONTROL: un submenú abierto captura la navegación. Todos los controles
+       responden igual con teclado que con mando:
+         ↑↓ / W S ......... control anterior / siguiente
+         ←→ / A D ......... deslizador: ±5 % · selector: opción anterior / siguiente
+                            botones: el de al lado
+         ENTER / ESPACIO .. botón: pulsar · casilla: marcar · selector: siguiente
+         ESC .............. volver */
     if (uiState.submenu) {
+      var a = focusedInSubmenu();
+      var tag = a ? a.tagName : "", type = a ? a.type : "";
       if (k === "Escape") { ev.preventDefault(); closeSubmenu(); sfx("back"); return; }
-      if (k === "ArrowDown") { ev.preventDefault(); focusStep(1); return; }
-      if (k === "ArrowUp") { ev.preventDefault(); focusStep(-1); return; }
-      if (k === "Enter" || k === "Space") {
-        var a = document.activeElement;
-        if (a && a.tagName === "BUTTON") { ev.preventDefault(); a.click(); return; }
+      /* TAB no sale nunca del panel: recorre los mismos controles que ↑↓. */
+      if (k === "Tab") { ev.preventDefault(); focusStep(ev.shiftKey ? -1 : 1); return; }
+      /* Si el foco se perdió (clic fuera, cambio de ventana), la primera tecla lo recupera. */
+      if (!a && (isLeft || isRight || k === "Enter" || k === "Space")) { ev.preventDefault(); focusStep(1); return; }
+      if (k === "ArrowDown" || k === "KeyS") { ev.preventDefault(); focusStep(1); return; }
+      if (k === "ArrowUp" || k === "KeyW") { ev.preventDefault(); focusStep(-1); return; }
+      if (tag === "INPUT" && type === "range") {
+        if (isLeft || isRight) { ev.preventDefault(); if (adjustRange(a, isLeft ? -1 : 1, true)) sfx("move"); }
+        return;
       }
-      if (k === "ArrowLeft" || k === "ArrowRight") return; /* deja a los sliders */
+      if (tag === "SELECT") {
+        if (isLeft || isRight || k === "Enter" || k === "Space") {
+          ev.preventDefault();
+          if (cycleSelect(a, isLeft ? -1 : 1)) sfx("move");
+        }
+        return;
+      }
+      if (tag === "INPUT" && type === "checkbox") {
+        if (k === "Enter" || k === "Space") { ev.preventDefault(); a.click(); sfx("ok"); }
+        else if (isLeft || isRight) { ev.preventDefault(); focusStep(isLeft ? -1 : 1); }
+        return;
+      }
+      if (k === "Enter" || k === "Space") {
+        if (tag === "BUTTON") { ev.preventDefault(); a.click(); }
+        return;
+      }
+      if (isLeft || isRight) { ev.preventDefault(); focusStep(isLeft ? -1 : 1); }
       return;
     }
 
     if (uiState.menuVisible) {
       if (k === "ArrowUp" || k === "KeyW") { ev.preventDefault(); setMenuSelection(uiState.menuIndex - 1); }
       else if (k === "ArrowDown" || k === "KeyS") { ev.preventDefault(); setMenuSelection(uiState.menuIndex + 1); }
+      else if (k === "Tab") { ev.preventDefault(); setMenuSelection(uiState.menuIndex + (ev.shiftKey ? -1 : 1)); }
       else if (k === "Home") { ev.preventDefault(); setMenuSelection(0); }
       else if (k === "End") { ev.preventDefault(); setMenuSelection(menuButtons().length - 1); }
       else if (k === "Enter" || k === "Space") {
@@ -1869,6 +1941,17 @@
         window.DD_HUB.isActive() ? window.DD_HUB.exitToRun() : window.DD_HUB.enter();
       }
     }
+  });
+
+  /* Un clic en una zona vacía del menú o de un submenú no debe dejar el teclado
+     sin destino: se impide que el navegador retire el foco del control actual. */
+  document.addEventListener("mousedown", function (ev) {
+    if (!uiState.menuVisible && !uiState.submenu) return;
+    var t = ev.target;
+    if (!t || !t.closest) return;
+    if (!t.closest("#dd-main-menu, #dd-submenu")) return;
+    if (t.closest("button, input, select, label, a")) return;
+    ev.preventDefault();
   });
 
   if (document.readyState === "loading") {

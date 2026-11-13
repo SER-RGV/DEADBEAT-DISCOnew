@@ -179,3 +179,10 @@ Registrar aquí cada modificación:
 - Plano 06 y descenso: balanceo, tirones, estela, viento y polvo sobre el mismo dibujo (`src/dd_opening.js`).
 - Pruebas: `tools/qa/test_persistencia.js` (39 de 39); flujo 65 de 65. Sonido grabado y medido, no escuchado.
 - Storyboard v2 vigente; v1 marcado como histórico. Detalle: `docs/RESTART/13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.
+
+## 2026-11-13 · RESTART 14 · Menú, pantalla de carga y volumen
+- Volumen: intro ≈ −21,6 dB y música del menú −20,7 dB (antes ≈ −26 y −13,7). Medido, no escuchado.
+- Menú: corregida la desaparición de la mezcla del juego al reabrir OPCIONES; ESC, ENTER, ← →, TAB, foco y mando en todos los submenús.
+- Carga: sólo logotipo y barra; la portada antigua ya no se ve en ningún fotograma.
+- Archivos: `src/dd_ui_system.js`, `src/dd_rebuild_ui.css`, `src/dd_boot.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
+- Pruebas: menú 48 de 48, inicio 65 de 65, persistencia 39 de 39. Detalle en `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.

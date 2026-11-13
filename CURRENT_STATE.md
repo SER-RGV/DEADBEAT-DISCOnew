@@ -180,3 +180,6 @@ Toda modificación debe partir de una copia de seguridad.
 - Storyboard vigente: v2 (`docs/RESTART/storyboard_intro/storyboard_v2_motor.jpg`); v1 es histórico.
 - Pendiente: escucha; animaciones del protagonista (andar, combate); retrato del HUD; mando físico y otros navegadores.
 - Detalle: `docs/RESTART/12_INTRO_COMIC_PRODUCCION.md` y `13_CIERRE_INTRO_REFUGIO_PERSISTENCIA.md`.
+
+## 2026-11-13 · RESTART 14
+Menú revisado control por control, pantalla de carga reducida a logotipo y barra, portada antigua oculta desde el primer fotograma, intro y música del menú igualadas en nivel medido (sin escuchar). Ver `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.

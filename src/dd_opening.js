@@ -722,6 +722,9 @@
 
   /* ================================================================= SONIDO */
   var ac = null, master = null, musicBus = null, noiseBuf = null;
+  /* Nivel de salida de la intro y del descenso (antes 0,5). Medido contra la
+     música del menú: ver docs/RESTART/14. */
+  var MASTER_LEVEL = 0.7;
   function audioReady() {
     var st = settings();
     if (st.muted) return false;
@@ -730,14 +733,20 @@
         var AC = window.AudioContext || window.webkitAudioContext;
         if (!AC) return false;
         ac = new AC();
-        master = ac.createGain(); master.connect(ac.destination);
+        /* Salida: ganancia → limitador → altavoces. La intro se ha subido para
+           igualarla con la música del menú; el limitador sólo actúa en los picos
+           (por encima de −3 dB) para que la subida no sature. */
+        master = ac.createGain();
+        var lim = ac.createDynamicsCompressor();
+        lim.threshold.value = -3; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = 0.002; lim.release.value = 0.12;
+        master.connect(lim); lim.connect(ac.destination);
         var n = ac.sampleRate * 1.5; noiseBuf = ac.createBuffer(1, n, ac.sampleRate);
         var dta = noiseBuf.getChannelData(0);
         for (var i = 0; i < n; i++) dta[i] = Math.random() * 2 - 1;
       }
       if (ac.state === "suspended") ac.resume();
       master.gain.cancelScheduledValues(ac.currentTime);
-      master.gain.setValueAtTime(0.5 * st.vol, ac.currentTime);
+      master.gain.setValueAtTime(MASTER_LEVEL * st.vol, ac.currentTime);
       return ac.state === "running";
     } catch (e) { return false; }
   }

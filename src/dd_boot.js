@@ -661,6 +661,7 @@
         }
       } catch (e) {}
 
+      if (el.root) el.root.classList.add("is-failed");   /* vuelve a mostrar el diagnóstico */
       if (el.stage) el.stage.textContent = "ERROR DE INICIALIZACIÓN";
       var retry = q("dd-boot-retry");
       var safe = q("dd-boot-safe");
