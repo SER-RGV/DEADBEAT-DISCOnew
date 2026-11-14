@@ -312,6 +312,50 @@
    }
   },
   {
+   "id": "boss_03_cajero_death",
+   "raw": "boss_03_cajero_death.png",
+   "name": "EL CAJERO · Señor del VIP (Avaricia) · muerte",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_03_cajero_idle",
+    "k": 0.85
+   },
+   "boss": "EL CAJERO · EL QUE COBRA LA ENTRADA",
+   "circle_engine": "IV Avaricia",
+   "entity": "EL CAJERO · EL QUE COBRA LA ENTRADA (IV Avaricia)",
+   "use": "Jefe `boss_03_cajero`, fotograma de muerte: DD_WORLD.drawBossDeath lo muestra ~1 s (retrocede, se desvanece desde el 60 %) apoyado en anchors.foot sobre (x, y + 0,8·r). Pose de derrota de rodillas (cabe en el lienzo de la referencia y se lee en un solo fotograma).",
+   "rel_scale": {
+    "k": 0.85,
+    "how": "Halo (rasgo rígido) medido por máscara dorada en los PNG procesados: vértice→lado vertical 46 px en el reposo frente a 33 px en la muerte con k 1,17 → k real 1,17·0,72 ≈ 0,85 (= factor del lienzo 992/1152). Una primera lectura a ojo sobre rejilla (1,17) era errónea."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_03_cajero_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = DEFEAT pose: collapsed onto both knees, torso slumped forward and down, head hanging, arms limp, weapon dropped on the ground beside the knees; the knees rest where the feet were.",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    368,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5695,
+    "ax": 531.2,
+    "ay": 968.0,
+    "cx": 190,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     531.2,
+     968.0
+    ],
+    "unit_h": 934.1
+   }
+  },
+  {
    "id": "boss_04_pogo_idle",
    "raw": "boss_04_pogo_idle.png",
    "name": "EL POGO · Demonio de la Fosa (Ira) · reposo",
@@ -517,6 +561,51 @@
    }
   },
   {
+   "id": "boss_06_matarife_attack",
+   "raw": "boss_06_matarife_attack.png",
+   "name": "EL MATARIFE · Coloso del Matadero (Violencia) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_06_matarife_idle",
+    "k": 0.86,
+    "ax": 627.4
+   },
+   "boss": "EL MATARIFE · EL QUE DESPIEZA EL SET",
+   "circle_engine": "VII Violencia",
+   "entity": "EL MATARIFE · EL QUE DESPIEZA EL SET (VII Violencia)",
+   "use": "Jefe `boss_06_matarife`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "NCC del tambor del pecho (measure.scale_match, score 0,94): 0,86 = factor del lienzo (864/1008)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_06_matarife_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the bell-mace raised high above the head in the hand that holds it, about to smash down toward the right; the free arm stretched forward toward the right with a clenched fist; knees bent, feet wide apart",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    720,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6596,
+    "ax": 627.4,
+    "ay": 823.0,
+    "cx": 373,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     627.4,
+     823.0
+    ],
+    "unit_h": 798.1
+   }
+  },
+  {
    "id": "boss_07_imitador_idle",
    "raw": "boss_07_imitador_idle.png",
    "name": "EL IMITADOR · Dama de los Espejos (Fraude) · reposo",
@@ -594,6 +683,71 @@
    }
   },
   {
+   "id": "boss_07_imitador_attack",
+   "raw": "boss_07_imitador_attack.png",
+   "name": "EL IMITADOR · Dama de los Espejos (Fraude) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_07_imitador_idle",
+    "k": 0.86,
+    "ax": 548.5
+   },
+   "boss": "EL IMITADOR · EL QUE DUPLICA LA PISTA",
+   "circle_engine": "VIII Fraude",
+   "entity": "EL IMITADOR · EL QUE DUPLICA LA PISTA (VIII Fraude)",
+   "use": "Jefe `boss_07_imitador`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "NCC de la cabeza (score 0,73): 0,86 = factor del lienzo (992/1152)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_07_imitador_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the hand mirror thrust out at arm's length toward the right side of the image, the mirror face turned to the right; the free arm swept back; the wings spread wide; the masks keep floating around the head",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "fade": [
+    {
+     "rect": [
+      78,
+      0,
+      116,
+      120
+     ],
+     "dir": "up"
+    },
+    {
+     "rect": [
+      641,
+      0,
+      664,
+      120
+     ],
+     "dir": "up"
+    }
+   ],
+   "size": [
+    576,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5788,
+    "ax": 548.5,
+    "ay": 967.0,
+    "cx": 303,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     548.5,
+     967.0
+    ],
+    "unit_h": 928.8
+   }
+  },
+  {
    "id": "boss_08_traidor_idle",
    "raw": "boss_08_traidor_idle.png",
    "name": "EL TRAIDOR · Monarca Glacial (Traición) · reposo",
@@ -644,6 +798,51 @@
      1141.0
     ],
     "unit_h": 1120.0
+   }
+  },
+  {
+   "id": "boss_08_traidor_attack",
+   "raw": "boss_08_traidor_attack.png",
+   "name": "EL TRAIDOR · Monarca Glacial (Traición) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_08_traidor_idle",
+    "k": 0.86,
+    "ax": 527.0
+   },
+   "boss": "EL TRAIDOR · EL ÚLTIMO RESIDENTE",
+   "circle_engine": "IX Traición",
+   "entity": "EL TRAIDOR · EL ÚLTIMO RESIDENTE (IX Traición)",
+   "use": "Jefe `boss_08_traidor`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "Factor del lienzo (992/1152); la NCC de la corona (0,85, score 0,40) lo confirma sin ser concluyente."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_08_traidor_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the staff levelled like a spear toward the right, gripped with both hands at chest height; the head lowered; robes and hair blown back",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    560,
+    576
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5814,
+    "ax": 527.0,
+    "ay": 983.0,
+    "cx": 254,
+    "cy": 568,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     527.0,
+     983.0
+    ],
+    "unit_h": 963.2
    }
   },
   {
@@ -700,6 +899,51 @@
    }
   },
   {
+   "id": "boss_09_nucleo_attack",
+   "raw": "boss_09_nucleo_attack.png",
+   "name": "NÚCLEO FINAL · La Última Canción (Núcleo) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_09_nucleo_idle",
+    "k": 0.85,
+    "ax": 564.9
+   },
+   "boss": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN",
+   "circle_engine": "Núcleo final",
+   "entity": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN (Núcleo final)",
+   "use": "Jefe `boss_09_nucleo`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.85,
+    "how": "NCC de la cabeza (score 0,85): 0,84–0,86 = factor del lienzo."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_09_nucleo_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = both arms thrust forward toward the right at chest height, palms open and fingers spread; the chest pushed forward so the black sphere leads; the cape of mirror shards flares back",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    544,
+    608
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5952,
+    "ax": 564.9,
+    "ay": 985.0,
+    "cx": 301,
+    "cy": 600,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     564.9,
+     985.0
+    ],
+    "unit_h": 959.6
+   }
+  },
+  {
    "id": "boss_10_arquitecto_idle",
    "raw": "boss_10_arquitecto_idle.png",
    "name": "Jefe secreto · El Arquitecto · reposo",
@@ -753,6 +997,51 @@
    }
   },
   {
+   "id": "boss_10_arquitecto_attack",
+   "raw": "boss_10_arquitecto_attack.png",
+   "name": "Jefe secreto · El Arquitecto · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_10_arquitecto_idle",
+    "k": 0.85,
+    "ax": 567.5
+   },
+   "boss": "EL ARQUITECTO · DJ-DIRECTOR EN PERSONA",
+   "circle_engine": "jefe secreto",
+   "entity": "EL ARQUITECTO · DJ-DIRECTOR EN PERSONA (jefe secreto)",
+   "use": "Jefe `boss_10_arquitecto`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.85,
+    "how": "NCC de la corona (0,84, score 0,57) ≈ factor del lienzo (992/1152)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_10_arquitecto_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the glowing cyan hand thrust forward toward the right at head height, palm open toward the right, fingers spread; the other hand lifts the drafting-compass sceptre off the ground and holds it diagonally behind the body; the cape flares back",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    624,
+    608
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6312,
+    "ax": 567.5,
+    "ay": 950.0,
+    "cx": 340,
+    "cy": 600,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     567.5,
+     950.0
+    ],
+    "unit_h": 851.7
+   }
+  },
+  {
    "id": "boss_00_anden_attack",
    "raw": "boss_00_anden_attack.png",
    "name": "ANDÉN · El Portero (Limbo) · ataque",
@@ -800,6 +1089,50 @@
      982.0
     ],
     "unit_h": 939.4
+   }
+  },
+  {
+   "id": "boss_00_anden_death",
+   "raw": "boss_00_anden_death.png",
+   "name": "ANDÉN · El Portero (Limbo) · muerte",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_00_anden_idle",
+    "k": 0.88
+   },
+   "boss": "ANDÉN · EL PORTERO",
+   "circle_engine": "I Limbo",
+   "entity": "ANDÉN · EL PORTERO (I Limbo)",
+   "use": "Jefe `boss_00_anden`, fotograma de muerte: DD_WORLD.drawBossDeath lo muestra ~1 s (retrocede, se desvanece desde el 60 %) apoyado en anchors.foot sobre (x, y + 0,8·r). Pose de derrota de rodillas (cabe en el lienzo de la referencia y se lee en un solo fotograma).",
+   "rel_scale": {
+    "k": 0.88,
+    "how": "Gorra medida sobre rejilla: 165 px en la referencia; 152 px de extensión horizontal inclinada ~30° en la muerte → ≈0,88 (el generador NO mantuvo el factor del lienzo en todas las muertes)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_00_anden_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = DEFEAT pose: collapsed onto both knees, torso slumped forward and down, head hanging, arms limp, weapon dropped on the ground beside the knees; the knees rest where the feet were.",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    528,
+    544
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5716,
+    "ax": 550.0,
+    "ay": 952.0,
+    "cx": 225,
+    "cy": 536,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     550.0,
+     952.0
+    ],
+    "unit_h": 960.1
    }
   },
   {
@@ -877,6 +1210,61 @@
    }
   },
   {
+   "id": "boss_01_magneta_death",
+   "raw": "boss_01_magneta_death.png",
+   "name": "MAGNETA · La Anfitriona (Lujuria) · muerte",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_01_magneta_idle",
+    "k": 1.3
+   },
+   "boss": "MAGNETA · LA ANFITRIONA",
+   "circle_engine": "II Lujuria",
+   "entity": "MAGNETA · LA ANFITRIONA (II Lujuria)",
+   "use": "Jefe `boss_01_magneta`, fotograma de muerte: DD_WORLD.drawBossDeath lo muestra ~1 s (retrocede, se desvanece desde el 60 %) apoyado en anchors.foot sobre (x, y + 0,8·r). Pose de derrota de rodillas (cabe en el lienzo de la referencia y se lee en un solo fotograma).",
+   "rel_scale": {
+    "k": 1.3,
+    "how": "Aro: diámetro 143 px en el reposo y eje mayor 153 px en la muerte con k 1,2 (PCA de la máscara magenta brillante en los PNG procesados) → k real ≈ 1,2·1,07–1,09 ≈ 1,30. Corregido tras la primera pasada (1,20)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_01_magneta_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = DEFEAT pose: collapsed onto both knees, torso slumped forward and down, head hanging, arms limp, weapon dropped on the ground beside the knees; the knees rest where the feet were.",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "fade": [
+    {
+     "rect": [
+      290,
+      0,
+      990,
+      100
+     ],
+     "dir": "up"
+    }
+   ],
+   "size": [
+    464,
+    368
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.4367,
+    "ax": 616.0,
+    "ay": 838.0,
+    "cx": 233,
+    "cy": 360,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     616.0,
+     838.0
+    ],
+    "unit_h": 1218.1
+   }
+  },
+  {
    "id": "boss_02_bufe_attack",
    "raw": "boss_02_bufe_attack.png",
    "name": "BUFÉ · El Anfitrión Sin Fondo (Gula) · ataque",
@@ -931,6 +1319,50 @@
    }
   },
   {
+   "id": "boss_02_bufe_death",
+   "raw": "boss_02_bufe_death.png",
+   "name": "BUFÉ · El Anfitrión Sin Fondo (Gula) · muerte",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_02_bufe_idle",
+    "k": 1.15
+   },
+   "boss": "BUFÉ · EL ANFITRIÓN SIN FONDO",
+   "circle_engine": "III Gula",
+   "entity": "BUFÉ · EL ANFITRIÓN SIN FONDO (III Gula)",
+   "use": "Jefe `boss_02_bufe`, fotograma de muerte: DD_WORLD.drawBossDeath lo muestra ~1 s (retrocede, se desvanece desde el 60 %) apoyado en anchors.foot sobre (x, y + 0,8·r). Pose de derrota de rodillas (cabe en el lienzo de la referencia y se lee en un solo fotograma).",
+   "rel_scale": {
+    "k": 1.15,
+    "how": "Gorro: 150 px de ancho en la referencia, ≈175 en la muerte; cara 120 → 140. NCC del gorro 1,07 (score 0,54). Se toma 1,15."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_02_bufe_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = DEFEAT pose: collapsed onto both knees, torso slumped forward and down, head hanging, arms limp, weapon dropped on the ground beside the knees; the knees rest where the feet were.",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    400,
+    400
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.4596,
+    "ax": 607.5,
+    "ay": 844.0,
+    "cx": 195,
+    "cy": 392,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     607.5,
+     844.0
+    ],
+    "unit_h": 1084.4
+   }
+  },
+  {
    "id": "boss_04_pogo_attack",
    "raw": "boss_04_pogo_attack.png",
    "name": "EL POGO · Demonio de la Fosa (Ira) · ataque",
@@ -982,6 +1414,50 @@
     ],
     "unit_h": 801.4
    }
+  },
+  {
+   "id": "boss_04_pogo_death",
+   "raw": "boss_04_pogo_death.png",
+   "name": "EL POGO · Demonio de la Fosa (Ira) · muerte",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_04_pogo_idle",
+    "k": 0.93
+   },
+   "boss": "EL POGO · EL QUE ABRE LA PISTA",
+   "circle_engine": "V Ira",
+   "entity": "EL POGO · EL QUE ABRE LA PISTA (V Ira)",
+   "use": "Jefe `boss_04_pogo`, fotograma de muerte: DD_WORLD.drawBossDeath lo muestra ~1 s (retrocede, se desvanece desde el 60 %) apoyado en anchors.foot sobre (x, y + 0,8·r). Pose de derrota de rodillas (cabe en el lienzo de la referencia y se lee en un solo fotograma).",
+   "rel_scale": {
+    "k": 0.93,
+    "how": "NCC del amplificador del pecho (score 0,84): 0,93."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_04_pogo_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = DEFEAT pose: collapsed onto both knees, torso slumped forward and down, head hanging, arms limp, weapon dropped on the ground beside the knees; the knees rest where the feet were.",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    464,
+    448
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.587,
+    "ax": 608.2,
+    "ay": 817.0,
+    "cx": 243,
+    "cy": 440,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     608.2,
+     817.0
+    ],
+    "unit_h": 887.2
+   }
   }
  ],
  "defaults": {
@@ -1023,23 +1499,28 @@
   },
   "boss_06_matarife_attack": {
    "ref": "_refs/ref_06_matarife_wide.png",
-   "pose": "the bell-mace raised high above the head in the hand that holds it, about to smash down toward the right; the free arm stretched forward toward the right with a clenched fist; knees bent, feet wide apart"
+   "pose": "the bell-mace raised high above the head in the hand that holds it, about to smash down toward the right; the free arm stretched forward toward the right with a clenched fist; knees bent, feet wide apart",
+   "done": "2026-11-14"
   },
   "boss_07_imitador_attack": {
    "ref": "_refs/ref_07_imitador_wide.png",
-   "pose": "the hand mirror thrust out at arm's length toward the right side of the image, the mirror face turned to the right; the free arm swept back; the wings spread wide; the masks keep floating around the head"
+   "pose": "the hand mirror thrust out at arm's length toward the right side of the image, the mirror face turned to the right; the free arm swept back; the wings spread wide; the masks keep floating around the head",
+   "done": "2026-11-14"
   },
   "boss_08_traidor_attack": {
    "ref": "_refs/ref_08_traidor_wide.png",
-   "pose": "the staff levelled like a spear toward the right, gripped with both hands at chest height; the head lowered; robes and hair blown back"
+   "pose": "the staff levelled like a spear toward the right, gripped with both hands at chest height; the head lowered; robes and hair blown back",
+   "done": "2026-11-14"
   },
   "boss_09_nucleo_attack": {
    "ref": "_refs/ref_09_nucleo_wide.png",
-   "pose": "both arms thrust forward toward the right at chest height, palms open and fingers spread; the chest pushed forward so the black sphere leads; the cape of mirror shards flares back"
+   "pose": "both arms thrust forward toward the right at chest height, palms open and fingers spread; the chest pushed forward so the black sphere leads; the cape of mirror shards flares back",
+   "done": "2026-11-14"
   },
   "boss_10_arquitecto_attack": {
    "ref": "_refs/ref_10_arquitecto_wide.png",
-   "pose": "the glowing cyan hand thrust forward toward the right at head height, palm open toward the right, fingers spread; the other hand lifts the drafting-compass sceptre off the ground and holds it diagonally behind the body; the cape flares back"
+   "pose": "the glowing cyan hand thrust forward toward the right at head height, palm open toward the right, fingers spread; the other hand lifts the drafting-compass sceptre off the ground and holds it diagonally behind the body; the cape flares back",
+   "done": "2026-11-14"
   },
   "hit": "Ventana de vulnerabilidad (no impacto de bala): tambaleo de pie. «staggered: the torso bent back, the head thrown back, the arms flung open, one knee buckling; still standing, feet in the same place».",
   "death": "Derrumbe: de rodillas y vencido, sin tumbarse del todo (el registro dura 1 s y el fotograma se desvanece). La pose tiene que caber en el lienzo ancho de `state_ref.py`."

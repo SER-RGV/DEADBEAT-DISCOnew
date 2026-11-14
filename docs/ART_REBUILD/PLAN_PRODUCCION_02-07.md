@@ -41,6 +41,7 @@ Tóxico, Corrupto(espectral), Experimental/Sangrante(caotico).
 Encadenado), `07_imitador` (Crupier), `08_traidor` (Nix), `09_nucleo` (Rey del Compás), `10_arquitecto` (jefe secreto,
 sin lámina). Las etiquetas de las láminas (Lujuria/Placer, Avaricia/Posesión, Fe rota, Lealtad…) **no** se adoptan.
 Los `idle` nuevos (R03) son la referencia obligatoria de cada jefe; faltan 7 `attack`, 10 `hit`, 10 `death`.
+*Avance 2026-11-14:* hechos los 7 `attack` y 5 `death` (Andén, Magneta, Bufé, Cajero, El Pogo) → R03 27/42; faltan 5 `death` y 10 `hit`.
 
 **04 Escenarios.** El motor compone cada sala con suelos, muros, puertas y props individuales (profundidad por línea
 de apoyo): no se usan fondos planos. El HUB es DOM + canvas (`DD_HUB`). Las láminas sólo dan ambiente; las referencias
@@ -77,7 +78,7 @@ escudo, habilidades, moneda, emblemas); botones y lógica no se tocan.
 | Tanda | Alcance | Assets nuevos | Integración |
 |---|---|---|---|
 | **02 Enemigos** | `hit` × 6 familias; lectura de variantes por color (tinte de contorno por `variant86`) sobre los sprites R02; mapa lámina↔motor; QA con sonda | 6 PNG + 6 maestros | `ENEMY_STATE_ASSET.hit`, `view.variant` en puente, tinte cacheado en `blitEnemyFrame` |
-| **03 Jefes** | 7 `attack` + 10 `hit` + 10 `death` (27) con el reposo nuevo como referencia; fin de R03 | 27 PNG + 27 maestros | ya contemplada (`BOSS_STATE_ASSET`), sólo `rev` nueva |
+| **03 Jefes** | 7 `attack` + 10 `hit` + 10 `death` (27) con el reposo nuevo como referencia; fin de R03 — **12/27 hechos** (7 `attack`, 5 `death`) | 27 PNG + 27 maestros | ya contemplada (`BOSS_STATE_ASSET`), sólo `rev` nueva |
 | **04 Escenarios** | Rehacer los 5 elementos defectuosos (nicho gótico, 3 puertas góticas, portal Avaricia) y piezas faltantes del `CIRCLE_CONFIG`; HUB: sólo lo que `DD_HUB` consume | según inventario D/C | sin cambios de código salvo registro |
 | **05 Armas** | Sprites HD 320×160 para las 105 armas `cNNN_*` sin sprite, por familias (pistola → … → míticas), con calibración `hd.grip/tip` real; icono = mismo PNG (el motor ya lo reutiliza) | hasta 105 PNG | `__HD_ASSETS.images["weapon_"+id]` / `DD_ASSETS` (ya enganchado) |
 | **06 Objetos** | 20 pickups/reliquias en el estilo neón; efectos sólo si el renderizador los consume | 20 PNG | ids existentes (sin código) |

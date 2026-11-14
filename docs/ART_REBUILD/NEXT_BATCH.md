@@ -1,18 +1,20 @@
 # TANDA EN CURSO: `R03_JEFES`
 
 - **Contenido:** 10 jefes × 4 estados + Arquitecto × 2 = **42 ilustraciones**.
-- **Hecho:** 17 de 42, integradas y vistas en juego (2026-11-14: + `attack` de Cajero y Oficiante).
-  **Faltan 25** (tres turnos de generación a 10 por turno). Referencias listas en
+- **Hecho:** 27 de 42, integradas y vistas en juego (2026-11-14: + `attack` de Cajero, Oficiante,
+  Matarife, Imitador, Traidor, Núcleo y Arquitecto; + `death` de Andén, Magneta, Bufé, Cajero y El Pogo).
+  **Faltan 15** (dos turnos de generación a 10 por turno). Referencias listas en
   `/home/user/dd_work/raw/R03_JEFES/_refs/` (regenerables con `state_ref.py` desde los maestros WebP).
-  Orden previsto: 5 `attack` (Matarife, Imitador, Traidor, Núcleo, Arquitecto) → 10 `death` → 10 `hit`.
+  Orden previsto: 5 `death` (Oficiante, Matarife, Imitador, Traidor, Núcleo) → 10 `hit`.
+  **Los once `attack` están hechos.**
 - **Commit de cierre previsto:** `feat(art): R03 jefes en ilustración, validados en juego`
 
 ## Estado
 
 | | Ilustraciones | Detalle |
 |---|---:|---|
-| Integradas y vistas en juego | **17** | `idle` de los 11 jefes; `attack` de Andén, Magneta, Bufé, Pogo, Cajero y Oficiante |
-| Por generar | **25** | `attack` × 5 (Matarife, Imitador, Traidor, Núcleo, Arquitecto) · `hit` × 10 · `death` × 10 |
+| Integradas y vistas en juego | **27** | `idle` de los 11 jefes; `attack` de los 11; `death` de Andén, Magneta, Bufé, Cajero y El Pogo |
+| Por generar | **15** | `death` × 5 (Oficiante, Matarife, Imitador, Traidor, Núcleo) · `hit` × 10 |
 
 **Los once jefes ya se ven ilustrados en combate.** Los 27 PNG antiguos en pixel art
 siguen en `assets/bosses/`, pero el juego ya no los dibuja: no se mezclan revisiones.
@@ -20,10 +22,10 @@ Mientras un jefe no tenga un fotograma nuevo, se ve así:
 
 | Estado | Con fotograma nuevo | Sin fotograma nuevo |
 |---|---|---|
-| Ataque | Fotograma `attack` (6 jefes) | `idle` algo inclinado + las señales del motor (anillo y sector de aviso) |
+| Ataque | Fotograma `attack` (los 11 jefes) | — |
 | Vulnerable tras un patrón | Fotograma `hit` (ninguno todavía) | `idle` + anillo de «expuesto» |
 | Impacto de bala | Destello breve; nunca cambia de fotograma | igual |
-| Muerte | Fotograma `death` (ninguno todavía) | El `idle` se hunde, se ensancha y se desvanece en 1 s |
+| Muerte | Fotograma `death` (5 jefes: Andén, Magneta, Bufé, Cajero, El Pogo): de rodillas, sin aplastado, destello y desvanecido | El `idle` se hunde, se ensancha y se desvanece en 1 s |
 
 El fotograma `hit` se usará en la ventana de vulnerabilidad que el motor abre después
 de cada patrón (`exposedT`, daño × 1,5), no en cada bala: a la cadencia del
@@ -138,11 +140,23 @@ Cada estado se genera con el `idle` del propio jefe como referencia, pegado en e
 centro de un lienzo croma entre un 30 y un 40 % más ancho (`_refs/ref_<nn>_<nombre>_wide.png`;
 hechos para 00, 01, 02 y 04, faltan los demás).
 
-| Turno | Ilustraciones |
-|---|---|
-| 1 | `attack` de Cajero, Oficiante, Matarife, Imitador, Traidor, Núcleo y Arquitecto (7) + `hit` de Andén, Magneta y Bufé (3) |
-| 2 | `hit` de Cajero a Núcleo (7) + `death` de Andén, Magneta y Bufé (3) |
-| 3 | `death` de Cajero a Núcleo (7) + hasta 3 repeticiones |
+| Turno | Ilustraciones | Estado |
+|---|---|---|
+| 1 | `attack` de Cajero y Oficiante (2) | hecho (2026-11-14) |
+| 2 | `attack` de Matarife, Imitador, Traidor, Núcleo y Arquitecto (5) + `death` de Andén, Magneta, Bufé, Cajero y El Pogo (5) | hecho (2026-11-14), 10/10 válidas a la primera |
+| 3 | `death` de Oficiante, Matarife, Imitador, Traidor y Núcleo (5) + `hit` de Andén a El Pogo (5) | siguiente |
+| 4 | `hit` de Oficiante a Núcleo (5) + hasta 5 repeticiones | — |
+
+**Lección de las muertes (turno 2).** En modo edición la pose de rodillas sale bien, pero el
+generador **re-encuadra la figura**: la escala real respecto de la referencia fue 0,85
+(Cajero), 0,88 (Andén), 0,93 (El Pogo), 1,15 (Bufé) y 1,30 (Magneta), aunque el lienzo
+siempre salga a 0,86. No sirve el factor del lienzo ni `measure.scale_match` sobre la cabeza
+(gira 30–60°): hay que medir un **rasgo rígido** (halo, aro, gorra, amplificador) por máscara
+de color en los PNG procesados y anotar `layout.k` con ese valor (`rel_scale.how` en la
+ficha). Para las cinco que faltan, pedir en el prompt un rasgo de anchura fija («the mitre
+keeps the same pixel width as in the reference») y comprobar con `preview_actors.py --onion`.
+Límite del renderizador: `anchors.unit ≤ 1,5` → el lienzo de una muerte no puede medir menos
+de 2/3 de la unidad del jefe (la de Magneta, 1,45, está al borde).
 
 Tras cada turno: `layout.py --write` → `batch.py process` → `batch.py register` →
 compilar → `preview_actors.py --bosses` (escala y apoyo) → `probe_bosses.js` → evidencia
