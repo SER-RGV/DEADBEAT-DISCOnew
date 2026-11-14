@@ -782,7 +782,8 @@
      Quién decide qué: el PUENTE (tools/build_active_html.py → ddEnemyView)
      aplica las reglas del propio motor y entrega una "vista" por enemigo:
        family  security | dancer | fanatic | chef | drone | elite
-       state   walk | windup | attack | hit
+       state   walk | windup | attack | hit   (hit: fotograma propio desde R02/T02; si falta, walk)
+       variant clave `variant86` del motor (blindado, incendiario, …): filo de color
        flip    true = mira a la izquierda (el motor los encara al jugador)
        flash   destello blanco de impacto (s)        phase  reloj de zancada
        marker  elite | guardian | mini | null        hpAlways, frozen, objective
@@ -821,7 +822,22 @@
   const ENEMY_FOOT_K = 0.65;
   const ENEMY_LEGACY_UNIT = 0.86;
   const ENEMY_LEGACY_FOOT = [0.5, 0.985];
-  const ENEMY_STATE_ASSET = { walk: "walk", windup: "windup", attack: "attack", hit: "walk", death: "death" };
+  const ENEMY_STATE_ASSET = { walk: "walk", windup: "windup", attack: "attack", hit: "hit", death: "death" };
+  /* Variantes elementales del motor (`variant86`, tabla `s` del motor: mismos colores).
+     El motor pinta su aro y su glifo (lu.drawVariantCue); aquí la figura entera toma
+     el color de la variante como filo neón, igual que el filo rojo del berserk de los
+     jefes (lámina 02 «Variantes de color»). `tint` vela ligeramente el dibujo; `alpha`
+     es el halo tintado detrás del contorno. */
+  const ENEMY_FLASH_CAP = 0.5;
+  const ENEMY_VARIANT_RIM = {
+    blindado:    { color: "#cbd5e1", alpha: 0.55, tint: 0.10 },
+    incendiario: { color: "#f97316", alpha: 0.70, tint: 0.12 },
+    criogenico:  { color: "#7dd3fc", alpha: 0.70, tint: 0.12 },
+    conductivo:  { color: "#fde047", alpha: 0.70, tint: 0.10 },
+    toxico:      { color: "#a3e635", alpha: 0.70, tint: 0.12 },
+    espectral:   { color: "#a855f7", alpha: 0.75, tint: 0.14 },
+    caotico:     { color: "#f472b6", alpha: 0.75, tint: 0.12 }
+  };
   const enemyMotion = (typeof WeakMap === "function") ? new WeakMap() : null;
   const enemyTintCache = (typeof Map === "function") ? new Map() : null;
 
@@ -1142,12 +1158,22 @@
 
     drawSoftShadow(ctx, enemy.x, geo.footY, Math.max(geo.r * 1.35, geo.figH * 0.2), Math.max(5, geo.r * 0.5), 0.5);
 
+    // Filo de color de la variante elemental (late despacio para no confundirse con el impacto).
+    const variantKey = String((view && view.variant) || enemy.variant86 || "").toLowerCase();
+    const vr = ENEMY_VARIANT_RIM[variantKey] || null;
+    const rim = vr ? { color: vr.color, alpha: vr.alpha * (0.8 + 0.2 * Math.sin(t * 4 + (enemy.x || 0) * 0.03)), tint: vr.tint } : null;
+
     ctx.save();
     ctx.translate(enemy.x, geo.footY + bob);
     if (flip) ctx.scale(-1, 1);
     if (tilt) ctx.rotate(tilt);
     if (sx !== 1 || sy !== 1) ctx.scale(sx, sy);
-    blitEnemyFrame(ctx, frame, geo.figH, flash, enemyHaloAlpha(geo.family));
+    // Destello de impacto con tope más bajo y caída cuadrática (como el de los jefes):
+    // con el fotograma `hit` propio la pose ya cuenta el golpe y el velo blanco no
+    // debe tapar el dibujo (pendiente «el destello vela la figura»).
+    const fn = Math.min(1, flash / 0.14);
+    const flashDraw = ENEMY_FLASH_CAP * fn * fn / 6;
+    blitEnemyFrame(ctx, frame, geo.figH, flashDraw, enemyHaloAlpha(geo.family), ENEMY_FLASH_CAP, rim);
     ctx.restore();
 
     if (frozen) {

@@ -264,6 +264,54 @@
    }
   },
   {
+   "id": "boss_03_cajero_attack",
+   "raw": "boss_03_cajero_attack.png",
+   "name": "EL CAJERO · Señor del VIP (Avaricia) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_03_cajero_idle",
+    "k": 0.861,
+    "ax": 541.6
+   },
+   "boss": "EL CAJERO · EL QUE COBRA LA ENTRADA",
+   "circle_engine": "IV Avaricia",
+   "entity": "EL CAJERO · EL QUE COBRA LA ENTRADA (IV Avaricia)",
+   "use": "Jefe `boss_03_cajero`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.861,
+    "how": "alto de la imagen generada / alto de la referencia ancha (992/1152): el generador devolvió el lienzo escalado uniformemente con los pies en su sitio."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_03_cajero_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the arm nearest the viewer thrust straight forward toward the right at shoulder height, open palm facing right, key-shaped golden fingers spread as if demanding payment; the other hand presses the golden coin against the breastplate",
+   "issues": [
+    "Dos intentos previos descartados: el primero conservó el brazo colgante del reposo (tres brazos); el segundo, al pedir «feet apart», duplicó las piernas. La ficha next_generation decía «mano que sostiene la máscara»: el Cajero sostiene una MONEDA (la máscara la lleva puesta); corregido aquí.",
+    "La moneda queda oculta en el puño contra el pecho."
+   ],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    400,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5622,
+    "ax": 541.6,
+    "ay": 981.0,
+    "cx": 145,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     541.6,
+     981.0
+    ],
+    "unit_h": 946.2
+   }
+  },
+  {
    "id": "boss_04_pogo_idle",
    "raw": "boss_04_pogo_idle.png",
    "name": "EL POGO · Demonio de la Fosa (Ira) · reposo",
@@ -367,6 +415,51 @@
      1079.0
     ],
     "unit_h": 964.0
+   }
+  },
+  {
+   "id": "boss_05_oficiante_attack",
+   "raw": "boss_05_oficiante_attack.png",
+   "name": "EL OFICIANTE · Pontífice del Ruido (Herejía) · ataque",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_05_oficiante_idle",
+    "k": 0.861,
+    "ax": 544.2
+   },
+   "boss": "EL OFICIANTE · EL QUE OFICIA EL RUIDO",
+   "circle_engine": "VI Herejía",
+   "entity": "EL OFICIANTE · EL QUE OFICIA EL RUIDO (VI Herejía)",
+   "use": "Jefe `boss_05_oficiante`, fotograma de ataque (ddBossView: aviso/ejecución de patrón, barrido y 0,28 s al cambiar de fase). Sustituye al PNG de TANDA_13–21 que el juego ya no dibujaba por no compartir `rev` con el reposo R03.",
+   "rel_scale": {
+    "k": 0.861,
+    "how": "alto de la imagen generada / alto de la referencia ancha (992/1152): el generador devolvió el lienzo escalado uniformemente con los pies en su sitio."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_05_oficiante_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = the staff tilted forward and thrust toward the right, its head pointing right at chest height; the free hand raised open above the shoulder; the robes swing back",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    624,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6545,
+    "ax": 544.2,
+    "ay": 929.0,
+    "cx": 284,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     544.2,
+     929.0
+    ],
+    "unit_h": 830.0
    }
   },
   {
@@ -912,7 +1005,7 @@
   "boss_05_oficiante_idle v1": "hoja de tres vistas; dd_work/raw/R03_JEFES/_descartados/"
  },
  "pending": [
-  "attack: boss_03_cajero, boss_05_oficiante, boss_06_matarife, boss_07_imitador, boss_08_traidor, boss_09_nucleo, boss_10_arquitecto (7)",
+  "attack: boss_06_matarife, boss_07_imitador, boss_08_traidor, boss_09_nucleo, boss_10_arquitecto (5)",
   "hit: los 10 residentes (10)",
   "death: los 10 residentes (10)"
  ],
@@ -920,11 +1013,13 @@
   "note": "Poses previstas para los 7 `attack` que faltan. Van en el hueco <pose> de `attack_prompt`. No se nombra mano izquierda ni derecha: el generador las confunde; se dice «la mano que sostiene…» y «la mano libre».",
   "boss_03_cajero_attack": {
    "ref": "_refs/ref_03_cajero_wide.png",
-   "pose": "the free arm thrust straight forward toward the right at shoulder height, open palm facing right, fingers spread, as if demanding payment; the hand that holds the golden mask pulls it back against the chest; feet apart, weight on the front foot"
+   "pose": "the free arm thrust straight forward toward the right at shoulder height, open palm facing right, fingers spread, as if demanding payment; the hand that holds the golden mask pulls it back against the chest; feet apart, weight on the front foot",
+   "done": "2026-11-14 · generado, integrado y validado con probe_bosses.js"
   },
   "boss_05_oficiante_attack": {
    "ref": "_refs/ref_05_oficiante_wide.png",
-   "pose": "the staff tilted forward and thrust toward the right, its head pointing right at chest height; the free hand raised open above the shoulder; the robes swing back"
+   "pose": "the staff tilted forward and thrust toward the right, its head pointing right at chest height; the free hand raised open above the shoulder; the robes swing back",
+   "done": "2026-11-14 · generado, integrado y validado con probe_bosses.js"
   },
   "boss_06_matarife_attack": {
    "ref": "_refs/ref_06_matarife_wide.png",

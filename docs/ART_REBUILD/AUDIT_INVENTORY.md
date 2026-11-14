@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-12T05:25:24Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-14T18:07:46Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -15,8 +15,8 @@
 | Familia | Total | A | B | C | D | E |
 |---|---:|---:|---:|---:|---:|---:|
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
-| `enemies` | 24 | 0 | 0 | 0 | 0 | 24 |
-| `bosses` | 42 | 0 | 20 | 0 | 7 | 15 |
+| `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
+| `bosses` | 42 | 0 | 19 | 0 | 6 | 17 |
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **374** | **25** | **141** | **105** | **37** | **66** |
+| **Total** | **380** | **25** | **140** | **105** | **36** | **74** |
 
 ## `characters` (31)
 
@@ -66,32 +66,38 @@
 | `player_walk_02` | **E** | rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego | `R01_PROTAGONISTA` |
 | `player_walk_03` | **E** | rehecho en la tanda R01_PROTAGONISTA y validado dentro del juego | `R01_PROTAGONISTA` |
 
-## `enemies` (24)
+## `enemies` (30)
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
 | `enemy_chef_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_chef_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_chef_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_chef_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_chef_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_dancer_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_dancer_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_dancer_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_dancer_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_dancer_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_drone_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_drone_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_drone_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_drone_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_drone_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_elite_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_elite_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_elite_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_elite_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_elite_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_fanatic_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_fanatic_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_fanatic_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_fanatic_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_fanatic_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_security_attack` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_security_death` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
+| `enemy_security_hit` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_security_walk` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 | `enemy_security_windup` | **E** | rehecho en la tanda R02_ENEMIGOS y validado dentro del juego | `R02_ENEMIGOS` |
 
@@ -100,7 +106,6 @@
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
 | `boss_02_bufe_hit` | **D** | identidad distinta de la del resto de fotogramas de su familia | `R03_JEFES` |
-| `boss_03_cajero_attack` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_03_cajero_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_05_oficiante_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
 | `boss_06_matarife_attack` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R03_JEFES` |
@@ -114,7 +119,6 @@
 | `boss_03_cajero_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_04_pogo_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_04_pogo_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_05_oficiante_attack` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_05_oficiante_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_06_matarife_death` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_06_matarife_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
@@ -132,9 +136,11 @@
 | `boss_01_magneta_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_02_bufe_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_02_bufe_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_03_cajero_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_03_cajero_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_04_pogo_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_04_pogo_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_05_oficiante_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_05_oficiante_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_06_matarife_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_07_imitador_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |

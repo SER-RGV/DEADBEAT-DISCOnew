@@ -1,6 +1,6 @@
 {
-  "totalRegistered": 269,
-  "totalPlanned": 345,
+  "totalRegistered": 275,
+  "totalPlanned": 351,
   "entries": {
     "logo_deadbeat_graffiti": {
       "id": "logo_deadbeat_graffiti",
@@ -2002,15 +2002,23 @@
     "boss_03_cajero_attack": {
       "id": "boss_03_cajero_attack",
       "originalId": "resident_04_cajero:attack",
-      "name": "EL CAJERO · Señor del VIP (III Avaricia) · Ataque / Despliegue",
+      "name": "EL CAJERO · Señor del VIP (Avaricia) · ataque",
       "category": "bosses",
       "src": "assets/bosses/boss_03_cajero_attack.png",
-      "w": 416,
-      "h": 448,
+      "w": 400,
+      "h": 560,
       "alpha": true,
-      "pivot": "bottom-center",
+      "pivot": "anchors.foot",
       "tanda": "TANDA_13",
-      "sha16": "ca8445d53cbf9d1a"
+      "sha16": "914c49d9d64a2871",
+      "rev": "R03_JEFES",
+      "anchors": {
+        "foot": [
+          0.3625,
+          0.9857
+        ],
+        "unit": 0.9499
+      }
     },
     "boss_03_cajero_hit": {
       "id": "boss_03_cajero_hit",
@@ -2130,15 +2138,23 @@
     "boss_05_oficiante_attack": {
       "id": "boss_05_oficiante_attack",
       "originalId": "resident_06_oficiante:attack",
-      "name": "EL OFICIANTE · Pontífice del Ruido (V Herejía) · Ataque / Despliegue",
+      "name": "EL OFICIANTE · Pontífice del Ruido (Herejía) · ataque",
       "category": "bosses",
       "src": "assets/bosses/boss_05_oficiante_attack.png",
-      "w": 416,
-      "h": 448,
+      "w": 624,
+      "h": 560,
       "alpha": true,
-      "pivot": "bottom-center",
+      "pivot": "anchors.foot",
       "tanda": "TANDA_14",
-      "sha16": "ea6477f1f8744ea0"
+      "sha16": "d0375c5f24c1b4d8",
+      "rev": "R03_JEFES",
+      "anchors": {
+        "foot": [
+          0.4551,
+          0.9857
+        ],
+        "unit": 0.9701
+      }
     },
     "boss_05_oficiante_hit": {
       "id": "boss_05_oficiante_hit",
@@ -3970,6 +3986,132 @@
         "belt": 0.4914
       },
       "overlayOf": "player_aim_down_03"
+    },
+    "enemy_security_hit": {
+      "id": "enemy_security_hit",
+      "originalId": "atlas:security_hit",
+      "name": "Seguridad · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_security_hit.png",
+      "w": 352,
+      "h": 432,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "01b882b8b6595067",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.5597,
+          0.9815
+        ],
+        "unit": 0.9574
+      }
+    },
+    "enemy_dancer_hit": {
+      "id": "enemy_dancer_hit",
+      "originalId": "atlas:dancer_hit",
+      "name": "Bailarina · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_dancer_hit.png",
+      "w": 288,
+      "h": 448,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "bbba6542c8e11290",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.3889,
+          0.9821
+        ],
+        "unit": 0.9023
+      }
+    },
+    "enemy_fanatic_hit": {
+      "id": "enemy_fanatic_hit",
+      "originalId": "atlas:fanatic_hit",
+      "name": "Sprinter · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_fanatic_hit.png",
+      "w": 352,
+      "h": 448,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "7546dfaa42ac8fe7",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.4631,
+          0.9821
+        ],
+        "unit": 0.8391
+      }
+    },
+    "enemy_chef_hit": {
+      "id": "enemy_chef_hit",
+      "originalId": "atlas:chef_hit",
+      "name": "Tanque · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_chef_hit.png",
+      "w": 640,
+      "h": 512,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "ef75561128bc3bc8",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.5125,
+          0.9844
+        ],
+        "unit": 0.9548
+      }
+    },
+    "enemy_drone_hit": {
+      "id": "enemy_drone_hit",
+      "originalId": "atlas:drone_hit",
+      "name": "Tirador · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_drone_hit.png",
+      "w": 240,
+      "h": 464,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "a158db587babfc7f",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.5875,
+          0.9828
+        ],
+        "unit": 0.8913
+      }
+    },
+    "enemy_elite_hit": {
+      "id": "enemy_elite_hit",
+      "originalId": "atlas:elite_hit",
+      "name": "Élite · Mascota · impacto",
+      "category": "enemies",
+      "src": "assets/enemies/enemy_elite_hit.png",
+      "w": 320,
+      "h": 496,
+      "alpha": true,
+      "pivot": "anchors.foot",
+      "tanda": "R02_ENEMIGOS",
+      "sha16": "968bafcd54a050c8",
+      "rev": "R02_ENEMIGOS",
+      "anchors": {
+        "foot": [
+          0.4813,
+          0.9839
+        ],
+        "unit": 0.9475
+      }
     }
   },
   "byOriginalId": {
@@ -4237,6 +4379,12 @@
     "aim:player_aim_down_02": "player_aim_down_02",
     "aim:player_aim_down_03": "player_aim_down_03",
     "overlay:player_aim_down_02_arms": "player_aim_down_02_arms",
-    "overlay:player_aim_down_03_arms": "player_aim_down_03_arms"
+    "overlay:player_aim_down_03_arms": "player_aim_down_03_arms",
+    "atlas:security_hit": "enemy_security_hit",
+    "atlas:dancer_hit": "enemy_dancer_hit",
+    "atlas:fanatic_hit": "enemy_fanatic_hit",
+    "atlas:chef_hit": "enemy_chef_hit",
+    "atlas:drone_hit": "enemy_drone_hit",
+    "atlas:elite_hit": "enemy_elite_hit"
   }
 }

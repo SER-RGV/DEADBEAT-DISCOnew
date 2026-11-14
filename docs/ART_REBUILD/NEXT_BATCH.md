@@ -1,16 +1,18 @@
 # TANDA EN CURSO: `R03_JEFES`
 
 - **Contenido:** 10 jefes × 4 estados + Arquitecto × 2 = **42 ilustraciones**.
-- **Hecho:** 15 de 42, integradas y vistas en juego. **Faltan 27** (tres turnos de
-  generación a 10 por turno).
+- **Hecho:** 17 de 42, integradas y vistas en juego (2026-11-14: + `attack` de Cajero y Oficiante).
+  **Faltan 25** (tres turnos de generación a 10 por turno). Referencias listas en
+  `/home/user/dd_work/raw/R03_JEFES/_refs/` (regenerables con `state_ref.py` desde los maestros WebP).
+  Orden previsto: 5 `attack` (Matarife, Imitador, Traidor, Núcleo, Arquitecto) → 10 `death` → 10 `hit`.
 - **Commit de cierre previsto:** `feat(art): R03 jefes en ilustración, validados en juego`
 
 ## Estado
 
 | | Ilustraciones | Detalle |
 |---|---:|---|
-| Integradas y vistas en juego | **15** | `idle` de los 11 jefes; `attack` de Andén, Magneta, Bufé y Pogo |
-| Por generar | **27** | `attack` × 7 (Cajero, Oficiante, Matarife, Imitador, Traidor, Núcleo, Arquitecto) · `hit` × 10 · `death` × 10 |
+| Integradas y vistas en juego | **17** | `idle` de los 11 jefes; `attack` de Andén, Magneta, Bufé, Pogo, Cajero y Oficiante |
+| Por generar | **25** | `attack` × 5 (Matarife, Imitador, Traidor, Núcleo, Arquitecto) · `hit` × 10 · `death` × 10 |
 
 **Los once jefes ya se ven ilustrados en combate.** Los 27 PNG antiguos en pixel art
 siguen en `assets/bosses/`, pero el juego ya no los dibuja: no se mezclan revisiones.
@@ -18,7 +20,7 @@ Mientras un jefe no tenga un fotograma nuevo, se ve así:
 
 | Estado | Con fotograma nuevo | Sin fotograma nuevo |
 |---|---|---|
-| Ataque | Fotograma `attack` (4 jefes) | `idle` algo inclinado + las señales del motor (anillo y sector de aviso) |
+| Ataque | Fotograma `attack` (6 jefes) | `idle` algo inclinado + las señales del motor (anillo y sector de aviso) |
 | Vulnerable tras un patrón | Fotograma `hit` (ninguno todavía) | `idle` + anillo de «expuesto» |
 | Impacto de bala | Destello breve; nunca cambia de fotograma | igual |
 | Muerte | Fotograma `death` (ninguno todavía) | El `idle` se hunde, se ensancha y se desvanece en 1 s |

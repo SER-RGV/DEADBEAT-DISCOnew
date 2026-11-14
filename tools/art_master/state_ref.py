@@ -67,18 +67,27 @@ def main():
         if not want and not asset["id"].endswith("_idle"):
             continue
         asset = dict(defaults, **asset)
-        raw = os.path.join(raw_dir, asset.get("raw", asset["id"] + ".png"))
-        if not os.path.exists(raw):
-            print("  [FALTA] %s" % raw)
+        raw_name = asset.get("raw", asset["id"] + ".png")
+        raw = os.path.join(raw_dir, raw_name)
+        # Sin el croma original (clon limpio del repositorio) se parte del maestro
+        # archivado, igual que hace `batch.py process`: mismo alfa, color ≈ 2/255.
+        master = os.path.join(HERE, "..", "..", "ART_ASSETS", "rebuild_masters", b["batch"],
+                              os.path.splitext(raw_name)[0] + ".webp")
+        if os.path.exists(raw):
+            src = Image.open(raw).convert("RGB")
+            px = np.asarray(src)
+            frame = np.concatenate([px[:6].reshape(-1, 3), px[-6:].reshape(-1, 3),
+                                    px[:, :6].reshape(-1, 3), px[:, -6:].reshape(-1, 3)])
+            chroma = tuple(int(v) for v in np.median(frame, axis=0))
+            keyed, _ = artlib.chroma_matte(src, key=asset.get("key", "green"), mode=asset.get("matte", "hard"),
+                                           band=int(asset.get("band", 3)),
+                                           despill_all=bool(asset.get("despill_all", False)))
+        elif os.path.exists(master):
+            keyed = Image.open(master).convert("RGBA")
+            chroma = (0, 255, 0)
+        else:
+            print("  [FALTA] %s (ni maestro %s)" % (raw, os.path.relpath(master)))
             continue
-        src = Image.open(raw).convert("RGB")
-        px = np.asarray(src)
-        frame = np.concatenate([px[:6].reshape(-1, 3), px[-6:].reshape(-1, 3),
-                                px[:, :6].reshape(-1, 3), px[:, -6:].reshape(-1, 3)])
-        chroma = tuple(int(v) for v in np.median(frame, axis=0))
-        keyed, _ = artlib.chroma_matte(src, key=asset.get("key", "green"), mode=asset.get("matte", "hard"),
-                                       band=int(asset.get("band", 3)),
-                                       despill_all=bool(asset.get("despill_all", False)))
         keyed, cleaned = artlib.apply_cleanup(keyed, asset)
         w, h = keyed.size
         big_w = int(round(w * a.k))

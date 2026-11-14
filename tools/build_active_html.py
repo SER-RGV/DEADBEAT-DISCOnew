@@ -394,7 +394,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         hpAlways: !!(e.elite || e.mini || e.type === "tank"),
         frozen: e.freezeTimer > 0,
         objective: !!Cp(),
-        circle: circle
+        circle: circle,
+        variant: (e.variant86 && e.variant86 !== "none") ? e.variant86 : null
       };
     }
 
@@ -944,7 +945,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
             if (typeof opts.index === "number" && opts.index !== i) continue;
             if (opts.assign && typeof opts.assign === "object") {
               // p. ej. { mini: true, r: 26 } para ver la escala y la marca de un minijefe
-              for (const k of ["mini", "guardian", "guardRadius", "elite", "r", "freezeTimer", "feinting", "mState"]) {
+              // variant86: clave de variante elemental del motor (blindado, incendiario, …) para fotografiar su filo.
+              for (const k of ["mini", "guardian", "guardRadius", "elite", "r", "freezeTimer", "feinting", "mState", "variant86"]) {
                 if (k in opts.assign) e[k] = opts.assign[k];
               }
             }

@@ -202,6 +202,20 @@ function installProbe() {
     saveFull(tag + "_frame_attack", await page.evaluate(() => window.__ddEnemyProbe.full()));
     // impacto
     save(tag, "hit", await page.evaluate((b) => { window.__DD_BRIDGE.debugPoseEnemies(null, { hit: true }); window.__DD_BRIDGE.debugPoseEnemies(null, { index: 5, stT: 3, hit: true, assign: { mState: "roam" } }); window.__DD_BRIDGE.renderNow(); return window.__ddEnemyProbe.shootAll(b); }, BOX));
+    // variantes elementales (T02): a cada enemigo una clave `variant86` distinta; el motor
+    // pinta su aro+glifo y DD_WORLD el filo de color. Se restaura "none" después.
+    save(tag, "variants", await page.evaluate((b) => {
+      const B = window.__DD_BRIDGE;
+      const keys = ["blindado", "incendiario", "criogenico", "conductivo", "toxico", "espectral", "caotico"];
+      B.debugPoseEnemies(null, {});
+      B.testStep({}, 2);
+      keys.forEach((k, i) => B.debugPoseEnemies(undefined, { index: i, assign: { variant86: k } }));
+      B.renderNow();
+      const out = window.__ddEnemyProbe.shootAll(b);
+      keys.forEach((k, i) => B.debugPoseEnemies(undefined, { index: i, assign: { variant86: "none" } }));
+      return out;
+    }, BOX));
+    saveFull(tag + "_frame_variants", await page.evaluate(() => { const B = window.__DD_BRIDGE; const keys = ["blindado", "incendiario", "criogenico", "conductivo", "toxico", "espectral", "caotico"]; keys.forEach((k, i) => B.debugPoseEnemies(undefined, { index: i, assign: { variant86: k } })); B.renderNow(); const f = window.__ddEnemyProbe.full(); keys.forEach((k, i) => B.debugPoseEnemies(undefined, { index: i, assign: { variant86: "none" } })); return f; }));
     /* muerte: tres instantes del registro de abatidos (dura 0,6 s = 36 pasos).
        DMO.debug.killAll() sólo vacía la sala; killAllEnemies() abate por la vía
        real del motor, que es la que deja registro de muerte. Los tres instantes se
