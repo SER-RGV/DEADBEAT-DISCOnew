@@ -1,5 +1,5 @@
 {
- "updated_at": "2026-11-14T19:01:28Z",
+ "updated_at": "2026-11-14T23:20:49Z",
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
@@ -11,12 +11,12 @@
  "classification": {
   "total": 380,
   "A_conservar": 25,
-  "B_rehacer_estilo": 132,
+  "B_rehacer_estilo": 124,
   "C_falta": 105,
-  "D_defectuoso": 34,
-  "E_rehecho_validado": 84
+  "D_defectuoso": 33,
+  "E_rehecho_validado": 93
  },
- "pending_to_produce": 271,
+ "pending_to_produce": 262,
  "completed_batches": [
   "R01_PROTAGONISTA",
   "R02_ENEMIGOS"
@@ -24,9 +24,9 @@
  "current_batch": "R03_JEFES",
  "current_batch_progress": {
   "illustrations_total": 42,
-  "generated_masters": 27,
-  "integrated_and_validated_in_game": 27,
-  "pending": 15,
+  "generated_masters": 36,
+  "integrated_and_validated_in_game": 36,
+  "pending": 6,
   "integrated": [
    "boss_00_anden_idle",
    "boss_01_magneta_idle",
@@ -54,12 +54,22 @@
    "boss_01_magneta_death",
    "boss_02_bufe_death",
    "boss_03_cajero_death",
-   "boss_04_pogo_death"
+   "boss_04_pogo_death",
+   "boss_05_oficiante_death",
+   "boss_06_matarife_death",
+   "boss_07_imitador_death",
+   "boss_08_traidor_death",
+   "boss_09_nucleo_death",
+   "boss_00_anden_hit",
+   "boss_01_magneta_hit",
+   "boss_02_bufe_hit",
+   "boss_04_pogo_hit"
   ],
   "pending_detail": {
    "attack": [],
-   "hit": "los 10 residentes (boss_00 a boss_09)",
-   "death": [
+   "death": [],
+   "hit": [
+    "boss_03_cajero (repetir: halo gigante)",
     "boss_05_oficiante",
     "boss_06_matarife",
     "boss_07_imitador",
@@ -67,8 +77,8 @@
     "boss_09_nucleo"
    ]
   },
-  "note": "Los once jefes se ven ilustrados en combate con reposo y ataque propios; cinco tienen ya muerte dedicada (de rodillas, sin aplastado). Un jefe sin fotograma nuevo de vulnerable o muerte resuelve ese estado sobre su reposo nuevo; los PNG antiguos siguen en assets/bosses/ pero el juego no los dibuja.",
-  "validation": "probe_bosses.js sobre la compilación de este commit (2026-11-14): círculos 1–5 (muertes) y 7–11 (ataques), 19 situaciones por jefe, 0 errores de página y de red, 275/275 assets cargados. Los estados se fuerzan con un gancho de QA; no se ha jugado un combate completo. La muerte del Núcleo y del Arquitecto sigue sin verse (pantalla final).",
+  "note": "Los once jefes se ven ilustrados en combate con reposo y ataque propios; los diez residentes tienen muerte dedicada (de rodillas, sin aplastado) y cuatro tienen el fotograma de vulnerable (ventana expuesta tras cada patrón). Un jefe sin fotograma de vulnerable resuelve ese estado sobre su reposo nuevo.",
+  "validation": "probe_bosses.js sobre la compilación de este commit (2026-11-14): círculos 1–3 y 5 (vulnerable) y 6–10 (muertes), 19 situaciones por jefe, 0 errores de página y de red, 275/275 assets cargados. La muerte del Núcleo sigue sin verse (pantalla final).",
   "open_decisions": 6,
   "batch": "docs/ART_REBUILD/batches/R03_JEFES.json",
   "evidence": "docs/ART_REBUILD/evidence/R03/ y docs/ART_REBUILD/evidence/T03_JEFES/"
@@ -117,14 +127,13 @@
    "evidence": "docs/ART_REBUILD/evidence/T02_ENEMIGOS/"
   },
   "T03_JEFES": {
-   "status": "EN CURSO 27/42",
+   "status": "EN CURSO 36/42",
    "done_this_pack": [
     "boss_03_cajero_attack",
     "boss_05_oficiante_attack"
    ],
    "pending": [
-    "death × 5 (05–09)",
-    "hit × 10 (00–09)"
+    "hit × 6 (03 repetir, 05–09)"
    ],
    "evidence": "docs/ART_REBUILD/evidence/T03_JEFES/ (01–06 + informes de sonda)",
    "new_assets_2026-11-14": [
@@ -139,9 +148,21 @@
     "boss_01_magneta_death",
     "boss_02_bufe_death",
     "boss_03_cajero_death",
-    "boss_04_pogo_death"
+    "boss_04_pogo_death",
+    "boss_05_oficiante_death",
+    "boss_06_matarife_death",
+    "boss_07_imitador_death",
+    "boss_08_traidor_death",
+    "boss_09_nucleo_death",
+    "boss_00_anden_hit",
+    "boss_01_magneta_hit",
+    "boss_02_bufe_hit",
+    "boss_04_pogo_hit"
    ],
-   "scale_lesson": "las poses de rodillas salen re-encuadradas: k real 0,85–1,30 medido por rasgo rígido (halo/aro/gorra/ampli) en vez del factor del lienzo"
+   "scale_lesson": "las poses de rodillas salen re-encuadradas: k real 0,85–1,30 medido por rasgo rígido (halo/aro/gorra/ampli) en vez del factor del lienzo",
+   "code": [
+    "src/dd_world_renderer.js: anchors.unit aceptado hasta 2,0 (antes 1,5) en resolveBossFrame y en el equivalente de enemigos"
+   ]
   },
   "T04_ESCENARIOS": {
    "status": "PENDIENTE"

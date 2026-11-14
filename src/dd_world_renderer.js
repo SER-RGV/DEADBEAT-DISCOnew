@@ -879,7 +879,7 @@
     }
     const an = entry.anchors || null;
     const foot = (an && Array.isArray(an.foot) && an.foot.length === 2) ? an.foot : ENEMY_LEGACY_FOOT;
-    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 1.5) ? an.unit : ENEMY_LEGACY_UNIT;
+    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 2.0) ? an.unit : ENEMY_LEGACY_UNIT;
     return { id: id, im: im, foot: foot, unit: unit, dedicated: id !== walkId || wanted === "walk", rev: entry.rev || null };
   }
 
@@ -1377,7 +1377,9 @@
     }
     const an = entry.anchors || null;
     const foot = (an && Array.isArray(an.foot) && an.foot.length === 2) ? an.foot : BOSS_LEGACY_FOOT;
-    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 1.5) ? an.unit : BOSS_LEGACY_UNIT;
+    // La unidad puede superar el alto del lienzo (una muerte de rodillas y encorvada mide
+    // ~0,6 del alto de pie → unit ≈ 1,6): el tope 2,0 sólo descarta valores absurdos.
+    const unit = (an && typeof an.unit === "number" && an.unit > 0.1 && an.unit <= 2.0) ? an.unit : BOSS_LEGACY_UNIT;
     return { id: id, im: im, foot: foot, unit: unit, dedicated: id !== idleId || wanted === "idle", rev: entry.rev || null };
   }
 
