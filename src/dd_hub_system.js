@@ -19,6 +19,9 @@
     keys: Object.create(null),
     nearStation: null,
     interactCooldown: 0,
+    transitioning: false,
+    transitionToken: 0,
+    transitionError: "",
     roomCache: null,
     roomCacheStamp: ""
   };
@@ -155,33 +158,88 @@
   }
 
   function exitToRun() {
-    if (!state.active) return;
+    if (!state.active || state.transitioning) return false;
+
+    state.transitioning = true;
+    state.transitionError = "";
     state.active = false;
-    const triggerRun = function () {
-      // rp() clears the pause flag on startRun; this covers the no-run case too.
+    const token = ++state.transitionToken;
+    let settled = false;
+    let watchdog = 0;
+
+    const restoreHub = function (reason) {
+      if (settled || token !== state.transitionToken) return false;
+      settled = true;
+      if (watchdog) clearTimeout(watchdog);
+      state.transitioning = false;
+      state.active = true;
+      state.vx = 0;
+      state.vy = 0;
+      state.transitionError = String(reason || "No se pudo iniciar la incursión");
       if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
-        window.__DD_BRIDGE.setPaused(false);
+        try { window.__DD_BRIDGE.setPaused(true); } catch (e) {}
       }
+      if (window.DD_UI && typeof window.DD_UI.showDialogue === "function") {
+        window.DD_UI.showDialogue("TEMPO", "La plataforma no respondió. Sigues en el Refugio; puedes intentarlo de nuevo.", 5.5);
+      }
+      return false;
+    };
+
+    const triggerRun = function () {
+      if (settled || token !== state.transitionToken) return false;
+      let started = false;
       const br = window.__DD_BRIDGE;
-      if (br && typeof br.startRun === "function") {
-        br.startRun();
-      } else if (window.DDC_COVER && typeof window.DDC_COVER.start === "function") {
-        // Legacy sanctioned entry: the ddc cover owns #start-btn while locked,
-        // so route through its own exposed start() (unlocks keyboard too).
-        window.DDC_COVER.start();
-      } else {
-        const startBtn = document.getElementById("start-btn");
-        if (startBtn) { startBtn.disabled = false; startBtn.click(); }
+      try {
+        if (br && typeof br.setPaused === "function") br.setPaused(false);
+        if (br && typeof br.startRun === "function") {
+          started = br.startRun() !== false;
+        } else if (window.DDC_COVER && typeof window.DDC_COVER.start === "function") {
+          started = window.DDC_COVER.start() !== false;
+        } else {
+          const startBtn = document.getElementById("start-btn");
+          if (startBtn) {
+            startBtn.disabled = false;
+            startBtn.click();
+            started = true;
+          }
+        }
+      } catch (e) {
+        return restoreHub(e && e.message ? e.message : e);
       }
-      if (window.DD_UI) {
+
+      if (!started) return restoreHub("El motor rechazó el inicio de la incursión");
+      settled = true;
+      if (watchdog) clearTimeout(watchdog);
+      state.transitioning = false;
+      state.transitionError = "";
+      if (window.DD_UI && typeof window.DD_UI.hideMainMenu === "function") {
         window.DD_UI.hideMainMenu();
       }
+      return true;
     };
+
     if (window.DD_CINE && typeof window.DD_CINE.playCircleDescent === "function") {
-      window.DD_CINE.playCircleDescent(1, triggerRun);
+      try {
+        window.DD_CINE.playCircleDescent(1, triggerRun);
+        // Si el callback de la cinemática se pierde, nunca dejamos al jugador
+        // sin Refugio ni partida. Se intenta completar la secuencia una vez.
+        watchdog = setTimeout(function () {
+          if (settled || token !== state.transitionToken) return;
+          try {
+            if (window.DD_CINE && window.DD_CINE.isBlocking && window.DD_CINE.isBlocking() &&
+                typeof window.DD_CINE.skip === "function") {
+              window.DD_CINE.skip();
+            }
+          } catch (e) {}
+          if (!settled) triggerRun();
+        }, 6500);
+      } catch (e) {
+        restoreHub(e && e.message ? e.message : e);
+      }
     } else {
       triggerRun();
     }
+    return true;
   }
 
   function triggerStation(st) {
@@ -497,6 +555,8 @@
     getState: function () {
       return {
         active: state.active,
+        transitioning: state.transitioning,
+        transitionError: state.transitionError,
         x: Math.round(state.px),
         y: Math.round(state.py),
         nearStation: state.nearStation ? state.nearStation.id : null,
