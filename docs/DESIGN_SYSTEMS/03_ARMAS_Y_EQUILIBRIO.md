@@ -128,3 +128,39 @@ Crear una tabla exportable con:
 - Identificar estadísticas y fórmulas reales.
 - Verificar categorías de tienda y filtro `ALL`.
 - Obtener baseline de combate en runtime.
+
+
+## 11. Auditoría del árbol de assets (main)
+
+La inspección del árbol de GitHub en `main` encuentra **16 archivos PNG** bajo `assets/weapons/`:
+
+- `weapon_c003_laser.png`
+- `weapon_c005_needler.png`
+- `weapon_c007_magnum.png`
+- `weapon_c008_silenciada.png`
+- `weapon_c009_desert_eagle.png`
+- `weapon_c010_explosiva.png`
+- `weapon_c011_de_veneno.png`
+- `weapon_c012_de_hielo.png`
+- `weapon_c013_escopeta.png`
+- `weapon_c015_escopeta_automatica.png`
+- `weapon_m1911.png`
+- `weapon_magnum.png`
+- `weapon_olympia.png`
+- `weapon_plasma.png`
+- `weapon_ricochet.png`
+- `weapon_uzi.png`
+
+Este recuento describe únicamente ese directorio: no demuestra que el juego tenga 16 armas, ni que las imágenes sean el inventario completo. El manifiesto embebido y los datos HD mencionados en el inventario general pueden vivir en otras rutas o dentro del HTML.
+
+**Bloqueo de extracción:** el HTML activo `DEADBEAT_DISCO.ART.html` tiene 13.490.978 bytes y está minificado en una línea. La lectura disponible del archivo devuelve contenido vacío, incluso al pedir codificación base64; no se ha podido inspeccionar de forma fiable su tabla de definiciones. No se inventa una cifra ni se extraen estadísticas por inferencia.
+
+**Siguiente paso técnico:** obtener el HTML o su fuente desde un checkout local/entorno que pueda leer archivos grandes; localizar la definición autoritativa del catálogo, exportarla a JSON y contrastar:
+1. IDs de armas seleccionables.
+2. Alias y duplicados.
+3. Assets de icono/sprite.
+4. Estadísticas y fórmulas de daño.
+5. Precio, rareza y desbloqueos.
+6. Referencias desde tienda, HUD, guardado y lógica de disparo.
+
+Hasta completar ese paso, la discrepancia 120/121 sigue abierta y no se modifica el balance.
