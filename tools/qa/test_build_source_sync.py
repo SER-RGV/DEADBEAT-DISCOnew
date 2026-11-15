@@ -16,6 +16,8 @@ CSS_SOURCE = ROOT / "src" / "dd_rebuild_ui.css"
 JS_MODULES = (
     "dd_boot.js",
     "dd_asset_registry.js",
+    "dd_world_scale.js",
+    "dd_camera.js",
     "dd_world_renderer.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",
