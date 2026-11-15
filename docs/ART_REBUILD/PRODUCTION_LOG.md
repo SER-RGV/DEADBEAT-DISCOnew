@@ -72,3 +72,8 @@
 - 6/10 generadas (`c041_lanzacohetes` y `railgun` al 3.er intento, `c053_particulas`, `c054_haz_de_energia`, `trident`, `c059_pistola_toxica`); fallos del servicio en `c046_rotatorio` (2.ª vez), `c055_rayo_cadenas`, `c056_orbe_energia`, `c058_canon_sonico`.
 - Calibración: hints `grip`/`grip_v`/`sup` en lanzacohetes, partículas y trident (bastón-fusil con pistolete en el extremo). Registradas (317, caché `20261115.11`), verificadas en mano (evidencias `16–18`, 0 errores), marcadas. Turno 3 cerrado. Inventario A25·B107·C65·D26·E159.
 
+## 2026-11-15 (9) — T05 ARMAS, 7.º tramo: rotatorio, energía 55–58, elementales 62–65 (48/105)
+
+- 8/10 generadas (`c046_rotatorio` al 3.er intento, `c055_rayo_cadenas`, `c056_orbe_energia`, `c058_canon_sonico`, `c062_hielo`, `c063_electrica`, `c064_veneno`, `c065_nube_toxica`); fallos del servicio en `c060_lanza_acido` y `c061_fuego`.
+- Calibración: hints `grip`/`grip_v`/`sup` en rotatorio, orbe, sónico, veneno y nube tóxica; `tip` en rayo en cadena (0.92) y nube tóxica (0.86) por los efectos pintados en la boca. Registradas (325, caché `20261115.12`), verificadas en mano (evidencias `19–21`, 0 errores), marcadas. Turno 4 cerrado. Inventario A25·B107·C57·D26·E167.
+

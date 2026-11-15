@@ -135,8 +135,9 @@
     "weapon_c054_haz_de_energia",
     "weapon_c055_rayo_cadenas"
    ],
-   "estado": "parcial 8/10 verificadas en mano (2026-11-15); c046_rotatorio DOS fallos del generador (simplificar DESIGN), c055_rayo_cadenas uno",
+   "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15; rotatorio al 3.er intento con DESIGN simplificado)",
    "hechas": [
+    "weapon_c046_rotatorio",
     "weapon_c048_artilleria",
     "weapon_c049_plasma_cutter",
     "weapon_c050_rayo_continuo",
@@ -144,12 +145,10 @@
     "weapon_c052_canon_plasma",
     "weapon_c053_particulas",
     "weapon_c054_haz_de_energia",
+    "weapon_c055_rayo_cadenas",
     "weapon_flamer"
    ],
-   "reintentar": [
-    "weapon_c046_rotatorio",
-    "weapon_c055_rayo_cadenas"
-   ]
+   "reintentar": []
   },
   {
    "turno": 5,
@@ -165,14 +164,20 @@
     "weapon_c064_veneno",
     "weapon_c065_nube_toxica"
    ],
-   "estado": "parcial 2/10 (trident y pistola_toxica verificadas en mano 2026-11-15); fallo del generador en c056_orbe_energia y c058_canon_sonico (1.ª vez)",
+   "estado": "parcial 8/10 verificadas en mano (2026-11-15); fallo del generador en c060_lanza_acido y c061_fuego (1.ª vez)",
    "hechas": [
+    "weapon_c056_orbe_energia",
+    "weapon_c058_canon_sonico",
     "weapon_c059_pistola_toxica",
+    "weapon_c062_hielo",
+    "weapon_c063_electrica",
+    "weapon_c064_veneno",
+    "weapon_c065_nube_toxica",
     "weapon_trident"
    ],
    "reintentar": [
-    "weapon_c056_orbe_energia",
-    "weapon_c058_canon_sonico"
+    "weapon_c060_lanza_acido",
+    "weapon_c061_fuego"
    ]
   },
   {
@@ -1452,7 +1457,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "ametralladora"
+    "cls": "ametralladora",
+    "grip": 0.19,
+    "grip_v": 0.66,
+    "sup": 0.45
    },
    "engine": {
     "wid": "c046_rotatorio",
@@ -1808,7 +1816,8 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "energia"
+    "cls": "energia",
+    "tip": 0.92
    },
    "engine": {
     "wid": "c055_rayo_cadenas",
@@ -1846,7 +1855,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "energia"
+    "cls": "energia",
+    "grip": 0.25,
+    "grip_v": 0.66
    },
    "engine": {
     "wid": "c056_orbe_energia",
@@ -1925,7 +1936,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.18,
+    "grip_v": 0.74,
+    "sup": 0.44
    },
    "engine": {
     "wid": "c058_canon_sonico",
@@ -2153,7 +2167,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "pistolaEnergia"
+    "cls": "pistolaEnergia",
+    "grip": 0.12,
+    "grip_v": 0.7
    },
    "engine": {
     "wid": "c064_veneno",
@@ -2191,7 +2207,11 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.2,
+    "grip_v": 0.7,
+    "sup": 0.3,
+    "tip": 0.86
    },
    "engine": {
     "wid": "c065_nube_toxica",
@@ -4307,7 +4327,7 @@
   }
  ],
  "progress": {
-  "verified": 40,
+  "verified": 48,
   "total": 105,
   "updated": "2026-11-15"
  },
@@ -4319,6 +4339,7 @@
   "Turno 3: 8/10 generadas. Calibración de serie correcta en 6/8; mp40 (pistolete en el extremo izquierdo) con grip 0.08 y m60 (pistolete fundido con la caja de munición) con hang:false + grip 0.31. weapon_cal.py: en el previo directo la mano baja a media caída si en esa columna cuelga algo bajo el eje (>1,3·grosor del cañón).",
   "Turno 4 (pesadas): 8/10 generadas. Las armas gordas (minigun, LMG, pesado, BFG, mortero) rompen la detección por caída (el grosor del cuerpo o la caja de munición tapan el pistolete) → hints grip + grip_v (altura explícita) y sup relativo; la escopeta con depósito bajo el cañón necesita axis_band 0.12 para medir el eje en el tramo de cañón desnudo. Las xt de cadera salen bien con la postura player_firehip.",
   "Turno 5 (energía): 6/10 generadas (4 fallos del servicio). Las de energía con cuerpo grueso (plasma_cutter, canon_plasma, artilleria) y la pistola tesla necesitan grip + grip_v; el lanzallamas lleva la llama piloto pintada → hint tip 0.91 (nuevo en weapon_cal.py) para que la boca quede en la tobera. La pistola de energía sale a una mano con la postura de pistola.",
-  "Turno 6: 6/10 generadas (4 fallos del servicio; lanzacohetes y railgun salieron al 3.er intento con el DESIGN simplificado). Bastón-fusil (trident) con pistolete en el extremo izquierdo: grip 0.10 + grip_v y sup 0.40 sobre el asta → en mano queda bien (mano en el pistolete, apoyo en el asta). Lanzador de tubo: grip_v 0.70 y sup 0.40 para caer en la empuñadura delantera."
+  "Turno 6: 6/10 generadas (4 fallos del servicio; lanzacohetes y railgun salieron al 3.er intento con el DESIGN simplificado). Bastón-fusil (trident) con pistolete en el extremo izquierdo: grip 0.10 + grip_v y sup 0.40 sobre el asta → en mano queda bien (mano en el pistolete, apoyo en el asta). Lanzador de tubo: grip_v 0.70 y sup 0.40 para caer en la empuñadura delantera.",
+  "Turno 7: 8/10 generadas (los 4 reintentos salieron). Efectos pintados en la boca (relámpagos del rayo en cadena, humo de la nube tóxica) → hint tip (0.92 / 0.86). Pistolas ornamentadas anchas (veneno) y lanzadores con empuñadura delantera profunda (nube tóxica, cañón sónico) → grip + grip_v + sup relativo. Las pistolas elementales salen a una mano."
  ]
 }

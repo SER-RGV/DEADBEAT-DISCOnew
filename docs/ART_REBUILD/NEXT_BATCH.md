@@ -1,10 +1,9 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 6.º tramo):** **40/105 verificadas en mano.** Turnos 1–3 COMPLETOS (lanzacohetes y railgun al
-  3.er intento con el DESIGN simplificado); turno 4 parcial 8/10 (faltan `c046_rotatorio`, DOS fallos → simplificar
-  DESIGN, y `c055_rayo_cadenas`); turno 5 parcial 2/10 (`trident`, `c059_pistola_toxica`; fallaron `c056_orbe_energia`
-  y `c058_canon_sonico`). Registro 317, caché `20261115.11`. Evidencias `evidence/T05_ARMAS/00–18`. Siguen: los 4
-  reintentos + `c060_lanza_acido`, `c061_fuego`, `c062_hielo`, `c063_electrica`, `c064_veneno`, `c065_nube_toxica`.
+- **Estado (2026-11-15, 7.º tramo):** **48/105 verificadas en mano.** Turnos 1–4 COMPLETOS; turno 5 parcial 8/10
+  (faltan `c060_lanza_acido` y `c061_fuego`, un fallo del generador cada una). Registro 325, caché `20261115.12`.
+  Evidencias `evidence/T05_ARMAS/00–21`. Siguen: los 2 reintentos + turno 6: `c066_meteoritos`, `c067_congelacios`,
+  `c068_relampagos`, `c069_tormenta`, `c070_arena`, `c071_gravedad`, `c072_vacio`, `c073_gravity_gun`.
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

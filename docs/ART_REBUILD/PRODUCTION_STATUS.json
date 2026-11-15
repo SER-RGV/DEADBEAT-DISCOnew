@@ -3,8 +3,8 @@
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
-  "total": 317,
-  "cache_version": "20261115.11"
+  "total": 325,
+  "cache_version": "20261115.12"
  },
  "classification": {
   "total": 382,
@@ -21,7 +21,7 @@
   "R03_JEFES",
   "T04_ESCENARIOS"
  ],
- "current_batch": "T05_ARMAS (ABIERTA · 40/105 verificadas · turnos 1–3 completos, 4 parcial 8/10, 5 parcial 2/10)",
+ "current_batch": "T05_ARMAS (ABIERTA · 48/105 verificadas · turnos 1–4 completos, 5 parcial 8/10)",
  "current_batch_progress": {
   "status": "pendiente de abrir",
   "batch_file": null,
@@ -175,7 +175,7 @@
   },
   "T05_ARMAS": {
    "status": "ABIERTA",
-   "verified": 40,
+   "verified": 48,
    "total": 105,
    "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
    "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
@@ -185,7 +185,7 @@
     "batch.py calibrate",
     "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
    ],
-   "next": "reintentar c046_rotatorio (2 fallos), c055_rayo_cadenas, c056_orbe_energia, c058_canon_sonico; resto del turno 5 (lanza_acido, elementales 61–65) → turnos 6–11"
+   "next": "reintentar c060_lanza_acido y c061_fuego; turno 6 (elementales 66–72, especiales 73–75) → turnos 7–11"
   },
   "T06_OBJETOS": {
    "status": "PENDIENTE"
@@ -198,8 +198,8 @@
  "inventory_classes": {
   "A": 25,
   "B": 107,
-  "C": 65,
+  "C": 57,
   "D": 26,
-  "E": 159
+  "E": 167
  }
 }
