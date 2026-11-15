@@ -1,13 +1,16 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 12.º tramo):** **89/105 verificadas en mano.** Turnos 1–8 COMPLETOS; turno 9 parcial 9/10
-  (`c095_cuchillo`, `c096_alabarda`, `raygun`, `c098_thundergun`, `c099_wunderwaffe`, `c100_winter_u2019s_howl`,
-  `c101_wave_gun`, `c102`–`c104` bastones; falta `c105_baston_de_viento` por cupo). Registro 366, caché `20261115.18`.
-  Evidencias `evidence/T05_ARMAS/00–36`. Siguen: `c105_baston_de_viento` + turno 10 (`c106`–`c110` arcos — el PNG se
-  pide vertical y se registra con `spriteRot`; revisar `isBow` en el motor: `wHgt = len·95`, cuerda y flecha dibujadas
-  por el motor — y `c111`–`c115`) → turno 11 (`c116`–`c120`).
-  **Bastones** (`cls baston`, `fam staff`): el motor los lleva horizontales al canalizar y el ancla `hand` de
-  `player_fire2` está en la base del puño → `grip_v = axis + .08` (evidencia `36_turno12_bastones_antes_despues.jpg`).
+- **Estado (2026-11-15, 13.º tramo):** **99/105 verificadas en mano.** Turnos 1–9 COMPLETOS; turno 10 parcial 9/10
+  (`c105_baston_de_viento`, arcos `c106`–`c110`, `c111_devoracaos`, `c112_harvester`, `c113_espada_de_energia`,
+  `c114_espada_caos`; falta `c115_lanza_espectral` por cupo). Registro 376, caché `20261115.20`. Evidencias
+  `evidence/T05_ARMAS/00–39`. **Último tramo:** `c115_lanza_espectral` (cls lanza, de serie) + turno 11
+  (`c116_orbe_del_abismo`, `c117_bomba_flotante`, `c118_summon_infernal` — dispositivos/orbes: revisar `grip`/`grip_v` en la hoja —,
+  `c119_dragon_espiritual` y `c120_director` — `xt` cadera → `player_firehip`, sin `sup`). Después: cierre de la tanda
+  (`TANDA_05_INFORME.md`, CHECKPOINT, PLAN).
+  **Arcos** (cls `arco`): contrato propio — lienzo **320×80** (4:1), `fit {contain, margin 6, anchor bottom}`, `spriteRot +1.5708`,
+  hints `grip .35 grip_v .5 sup .37 sup_v .5`; prompt de arco de puente (puntas en los extremos, riser arriba, vientre hacia abajo,
+  cuerda fina, sin flecha). Motivo: `it` dibuja el arco en una caja fija `x∈[14−0.65·wLen, 14+0.35·wLen]` respecto a la mano trasera
+  de `player_fire2`, con `wLen = 65·(ancho/alto del lienzo)`; cuerda y flecha son procedurales (evidencias `39_turno13_arcos_*`).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

@@ -280,7 +280,7 @@
         "weapon_c104_baston_de_rayo",
         "weapon_c105_baston_de_viento"
       ],
-      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c105_baston_de_viento sin generar aún (cupo de 10 por mensaje)",
+      "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15); bastones con grip_v = axis + .08",
       "hechas": [
         "weapon_c096_alabarda",
         "weapon_raygun",
@@ -290,7 +290,8 @@
         "weapon_c101_wave_gun",
         "weapon_c102_baston_de_fuego",
         "weapon_c103_baston_de_hielo",
-        "weapon_c104_baston_de_rayo"
+        "weapon_c104_baston_de_rayo",
+        "weapon_c105_baston_de_viento"
       ],
       "reintentar": []
     },
@@ -308,7 +309,19 @@
         "weapon_c114_espada_caos",
         "weapon_c115_lanza_espectral"
       ],
-      "estado": "pendiente"
+      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c115_lanza_espectral sin generar aún (cupo de 10 por mensaje)",
+      "hechas": [
+        "weapon_c106_arco_ancestral",
+        "weapon_c107_arco_del_lobo",
+        "weapon_c108_arco_de_fuego",
+        "weapon_c109_arco_del_vacio",
+        "weapon_c110_arco_de_tormenta",
+        "weapon_c111_devoracaos",
+        "weapon_c112_harvester",
+        "weapon_c113_espada_de_energia",
+        "weapon_c114_espada_caos"
+      ],
+      "reintentar": []
     },
     {
       "turno": 11,
@@ -3849,7 +3862,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "baston"
+        "cls": "baston",
+        "grip_v": 0.573
       },
       "engine": {
         "wid": "c105_baston_de_viento",
@@ -3877,18 +3891,23 @@
       "original_id": "weapons/weapon_c106_arco_ancestral.png",
       "size": [
         320,
-        160
+        80
       ],
       "pivot": "center",
       "alpha": true,
       "fit": {
         "mode": "contain",
         "margin": 6,
+        "anchor": "bottom",
         "sharpen": 25
       },
       "calibrate": {
         "cls": "arco",
-        "spriteRot": 1.5708
+        "spriteRot": 1.5708,
+        "grip": 0.35,
+        "grip_v": 0.5,
+        "sup": 0.37,
+        "sup_v": 0.5
       },
       "engine": {
         "wid": "c106_arco_ancestral",
@@ -3904,8 +3923,8 @@
         "hip": false
       },
       "entity": "ARCO ANCESTRAL",
-      "use": "Sprite HD del arma ARCO ANCESTRAL (míticas · arco). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
-      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: bow lying horizontal: limbs to the left and right, string along the bottom edge. DESIGN: ancestral longbow lying horizontally: both limbs pointing left and right, carved bone and dark wood, neon green runes, bow string along the BOTTOM edge, outer back of the bow at the TOP, no arrow. MAIN ACCENT COLOUR: neon green (#4ade80). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
+      "use": "Sprite HD del arma ARCO ANCESTRAL (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: ancestral longbow: limbs of carved bone and dark wood with neon green runes, leather-wrapped riser at the top centre. MAIN ACCENT COLOUR: neon green (#4ade80). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
     },
     {
       "id": "weapon_c107_arco_del_lobo",
@@ -3916,18 +3935,23 @@
       "original_id": "weapons/weapon_c107_arco_del_lobo.png",
       "size": [
         320,
-        160
+        80
       ],
       "pivot": "center",
       "alpha": true,
       "fit": {
         "mode": "contain",
         "margin": 6,
+        "anchor": "bottom",
         "sharpen": 25
       },
       "calibrate": {
         "cls": "arco",
-        "spriteRot": 1.5708
+        "spriteRot": 1.5708,
+        "grip": 0.35,
+        "grip_v": 0.5,
+        "sup": 0.37,
+        "sup_v": 0.5
       },
       "engine": {
         "wid": "c107_arco_del_lobo",
@@ -3943,8 +3967,8 @@
         "hip": false
       },
       "entity": "ARCO DEL LOBO",
-      "use": "Sprite HD del arma ARCO DEL LOBO (míticas · arco). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
-      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: bow lying horizontal: limbs to the left and right, string along the bottom edge. DESIGN: wolf bow lying horizontally: limbs left and right carved as wolf jaws, rose red neon, fur wrap, string along the BOTTOM edge, no arrow. MAIN ACCENT COLOUR: rose red (#fb7185). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
+      "use": "Sprite HD del arma ARCO DEL LOBO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: wolf bow: limbs carved as snarling wolf jaws with rose red neon eyes, grey fur wrap on the riser at the top centre. MAIN ACCENT COLOUR: rose red (#fb7185). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
     },
     {
       "id": "weapon_c108_arco_de_fuego",
@@ -3955,18 +3979,23 @@
       "original_id": "weapons/weapon_c108_arco_de_fuego.png",
       "size": [
         320,
-        160
+        80
       ],
       "pivot": "center",
       "alpha": true,
       "fit": {
         "mode": "contain",
         "margin": 6,
+        "anchor": "bottom",
         "sharpen": 25
       },
       "calibrate": {
         "cls": "arco",
-        "spriteRot": 1.5708
+        "spriteRot": 1.5708,
+        "grip": 0.35,
+        "grip_v": 0.5,
+        "sup": 0.37,
+        "sup_v": 0.5
       },
       "engine": {
         "wid": "c108_arco_de_fuego",
@@ -3982,8 +4011,8 @@
         "hip": false
       },
       "entity": "ARCO DE FUEGO",
-      "use": "Sprite HD del arma ARCO DE FUEGO (míticas · arco). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
-      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: bow lying horizontal: limbs to the left and right, string along the bottom edge. DESIGN: fire bow lying horizontally: limbs left and right of charred wood with burning orange flames, string along the BOTTOM edge, no arrow. MAIN ACCENT COLOUR: orange (#f97316). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
+      "use": "Sprite HD del arma ARCO DE FUEGO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: fire bow: limbs of charred black wood with glowing orange ember cracks, small orange flame tufts at both tips, dark riser at the top centre. MAIN ACCENT COLOUR: orange (#f97316). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
     },
     {
       "id": "weapon_c109_arco_del_vacio",
@@ -3994,18 +4023,23 @@
       "original_id": "weapons/weapon_c109_arco_del_vacio.png",
       "size": [
         320,
-        160
+        80
       ],
       "pivot": "center",
       "alpha": true,
       "fit": {
         "mode": "contain",
         "margin": 6,
+        "anchor": "bottom",
         "sharpen": 25
       },
       "calibrate": {
         "cls": "arco",
-        "spriteRot": 1.5708
+        "spriteRot": 1.5708,
+        "grip": 0.35,
+        "grip_v": 0.5,
+        "sup": 0.37,
+        "sup_v": 0.5
       },
       "engine": {
         "wid": "c109_arco_del_vacio",
@@ -4021,8 +4055,8 @@
         "hip": false
       },
       "entity": "ARCO DEL VACÍO",
-      "use": "Sprite HD del arma ARCO DEL VACÍO (míticas · arco). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
-      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: bow lying horizontal: limbs to the left and right, string along the bottom edge. DESIGN: void bow lying horizontally: limbs left and right of black obsidian with a deep purple void glow, string along the BOTTOM edge, no arrow. MAIN ACCENT COLOUR: deep purple (#a855f7). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
+      "use": "Sprite HD del arma ARCO DEL VACÍO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: void bow: limbs of jagged black obsidian with a deep purple void glow, violet crystal riser at the top centre. MAIN ACCENT COLOUR: deep purple (#a855f7). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
     },
     {
       "id": "weapon_c110_arco_de_tormenta",
@@ -4033,18 +4067,23 @@
       "original_id": "weapons/weapon_c110_arco_de_tormenta.png",
       "size": [
         320,
-        160
+        80
       ],
       "pivot": "center",
       "alpha": true,
       "fit": {
         "mode": "contain",
         "margin": 6,
+        "anchor": "bottom",
         "sharpen": 25
       },
       "calibrate": {
         "cls": "arco",
-        "spriteRot": 1.5708
+        "spriteRot": 1.5708,
+        "grip": 0.35,
+        "grip_v": 0.5,
+        "sup": 0.37,
+        "sup_v": 0.5
       },
       "engine": {
         "wid": "c110_arco_de_tormenta",
@@ -4060,8 +4099,8 @@
         "hip": false
       },
       "entity": "ARCO DE TORMENTA",
-      "use": "Sprite HD del arma ARCO DE TORMENTA (míticas · arco). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
-      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: bow lying horizontal: limbs to the left and right, string along the bottom edge. DESIGN: storm bow lying horizontally: limbs left and right of sky-blue crystal with lightning, string along the BOTTOM edge, no arrow. MAIN ACCENT COLOUR: sky blue (#60a5fa). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
+      "use": "Sprite HD del arma ARCO DE TORMENTA (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "prompt": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: storm bow: limbs of translucent sky-blue crystal with tiny lightning sparks, steel riser at the top centre. MAIN ACCENT COLOUR: sky blue (#60a5fa). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia)."
     },
     {
       "id": "weapon_c111_devoracaos",
@@ -4082,7 +4121,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.1,
+        "sup": 0.13
       },
       "engine": {
         "wid": "c111_devoracaos",
@@ -4120,7 +4161,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.14
       },
       "engine": {
         "wid": "c112_harvester",
@@ -4196,7 +4238,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.11,
+        "sup": 0.13
       },
       "engine": {
         "wid": "c114_espada_caos",
@@ -4445,7 +4489,7 @@
     }
   ],
   "progress": {
-    "verified": 89,
+    "verified": 99,
     "total": 105,
     "updated": "2026-11-15"
   },
@@ -4463,6 +4507,7 @@
     "Turno 9 (especiales/dispositivos): 7/10 generadas. Los dispositivos tipo pistola grande (portal gun, dron, torreta, trampa láser, teletransportador) traen el pistolete en el extremo izquierdo (x 0.07–0.10) → grip + grip_v 0.68–0.76; el SMG con cargador curvo largo necesita sup 0.42 para que el apoyo no caiga en el cargador. Evitar «coordinates/readout» en el DESIGN: el generador pinta cifras (teletransportador; ilegibles a 320 px, aceptado).",
     "Turno 10 (especiales + primeras cuerpo a cuerpo): 7/10 generadas (fallos del servicio en c067 3.º, c078 2.º, c082 1.º). Las armas blancas horizontales (espada láser, katana, hacha, martillo) calibran bien DE SERIE con el prior de armaLigera/armaPesada (grip 0.173–0.231, sup 0.519 en las pesadas) y el motor las sostiene como un arma apuntada (ligera a una mano, pesada a dos) en las tres poses; no hace falta hint alguno. Los dispositivos tipo pistola (satélites, orbes) siguen la regla del pistolete izquierdo: grip 0.10 + grip_v 0.74; el clonador (doble cañón con depósito ADN central) necesita grip_v 0.68 y sup 0.40 para que el apoyo no caiga bajo la caja. Si el generador pinta el efecto en la boca (satélites: disco de energía), fijar tip explícito (0.82).",
     "Turno 11 (reintentos + cuerpo a cuerpo 89–94): 9/10 generadas; los tres reintentos acumulados salieron con DESIGN mínimo (c067 «ice blue shotgun» al 4.º, c078 una frase sin «spiked ball» al 3.º, c082 al 2.º) → ante fallos repetidos del servicio, recortar el DESIGN a una frase funciona. Melee: bate (armaLigera) y lanza (prior lanza grip .288/sup .558 sobre el astil) calibran de serie; guadaña → grip .12 para que la mano caiga en la empuñadura vendada; cadena/mayal → sup null (una mano) porque el apoyo del prior caía sobre los eslabones; sierra circular (cuerpo de motosierra) → grip .09 + grip_v .68 en el asa trasera y sup .42 bajo el cubo del disco. El generador añade asas/pistoletes a las armas que no los tienen (manopla con asa inferior, lanza con culata-pistolete): se calibra la mano sobre esa asa (punos → grip .09, grip_v .74) y queda natural. Dispositivo con bbox < 1.9 (placa emisora alta, c082) → el calibrador lo trata como compacto y lo deja a una mano aunque se pida sup.",
-    "Turno 12 (cuchillo + míticas 96–104): 10/10 generadas sin fallos del servicio. BASTONES (cls baston, fam staff): el motor los lleva horizontales mientras se canaliza (sin ángulo de guardia) y el ancla `hand` de player_fire2 está en la BASE del puño trasero (pensada para pistoletes): con el agarre medido sobre el propio astil, el astil quedaba ~5 px bajo las manos. Regla: grip_v = axis + 0.08 (≈3,5 px bajo el astil) → cruza los puños en horizontal y la pose «arriba» no se resiente (evidencia 36_turno12_bastones_antes_despues). La lanza/alabarda no lo necesitan porque llevan guardia de −0.27 rad. Alabarda: la hoja arrastra el eje medido hacia abajo → axis_v .48 + axis_band .70. Thundergun (lanzador): grip .23/grip_v .74 en el pistolete y sup .27 en la empuñadura delantera. Wave gun: discos de onda pintados en la boca → tip .87. Los fusiles de energía míticos con pistolete bajo la caja (Winter's Howl, Wave Gun) necesitan grip_v .70–.72 para que la mano no quede en el guardamonte."
+    "Turno 12 (cuchillo + míticas 96–104): 10/10 generadas sin fallos del servicio. BASTONES (cls baston, fam staff): el motor los lleva horizontales mientras se canaliza (sin ángulo de guardia) y el ancla `hand` de player_fire2 está en la BASE del puño trasero (pensada para pistoletes): con el agarre medido sobre el propio astil, el astil quedaba ~5 px bajo las manos. Regla: grip_v = axis + 0.08 (≈3,5 px bajo el astil) → cruza los puños en horizontal y la pose «arriba» no se resiente (evidencia 36_turno12_bastones_antes_despues). La lanza/alabarda no lo necesitan porque llevan guardia de −0.27 rad. Alabarda: la hoja arrastra el eje medido hacia abajo → axis_v .48 + axis_band .70. Thundergun (lanzador): grip .23/grip_v .74 en el pistolete y sup .27 en la empuñadura delantera. Wave gun: discos de onda pintados en la boca → tip .87. Los fusiles de energía míticos con pistolete bajo la caja (Winter's Howl, Wave Gun) necesitan grip_v .70–.72 para que la mano no quede en el guardamonte.",
+    "Turno 13 (bastón de viento, arcos 106–110, Devoracaos, Harvester, espada de energía, espada del caos): 10/10 sin fallos. ARCOS — geometría del motor (`it` v3.2, isBow): gira el PNG spriteRot=+π/2 (borde INFERIOR del PNG → lado del arquero), lo escala a wHgt=len·95 (≈65 px) y wLen=wHgt·(ancho/alto DEL LIENZO), y lo dibuja en la caja FIJA x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2 (el puño delantero está a ≈+19 px); cuerda procedural desde (bx+2, ±wHgt/2−4) hasta el nock x=14−(6..17) y flecha hasta x=32. Por eso el lienzo 2:1 NO sirve (wLen=32 → cuerda 5 px por detrás de la mano trasera y V de 13 px): el contrato de arcos es LIENZO FINO 320×80 (4:1, como los embebidos 160×31..47) con fit anchor=bottom (la cuerda pintada queda en el borde inferior = cuerda procedural, las puntas se tocan) y el riser en el borde superior (= puño delantero). Prompt propio: arco tumbado como arco de puente, puntas en los extremos, riser arriba, vientre cóncavo hacia ABAJO, cuerda fina de 1 px (invisible en mano, legible en el icono), SIN flecha, 4 veces más largo que profundo. Anclas: grip .35 / sup +.37 con grip_v = sup_v = .5 (nuevo hint `sup_v`): el motor dibuja el antebrazo de apoyo en el marco SIN girar y, medido sobre la silueta, sup_v caía en la cuerda (antebrazo 28 px hacia abajo). ESPADONES a dos manos (armaPesada): grip en la empuñadura (.10–.11) y sup +.13 en la base de la guarda → (sup−grip)·len·95 ≥ 10 → player_fire2 con el puño delantero en la guarda (no sobre la hoja). Harvester: grip .14 en la empuñadura envuelta. Bastón de viento: regla grip_v = axis + .08."
   ]
 }

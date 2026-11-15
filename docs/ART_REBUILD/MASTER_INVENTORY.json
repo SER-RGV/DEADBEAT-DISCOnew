@@ -10960,7 +10960,7 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c105_baston_de_viento.png",
       "id": "weapon_c105_baston_de_viento",
-      "name": "Arma #105 · Bastón de viento (c105_baston_de_viento)",
+      "name": "Arma 105 · BASTÓN DE VIENTO",
       "category": "weapons",
       "location": "assets/weapons/weapon_c105_baston_de_viento.png",
       "dimensions": [
@@ -10976,12 +10976,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Bastón de viento' (family: míticas, id: c105_baston_de_viento) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: long staff lying perfectly horizontal across the frame, head at the RIGHT end. DESIGN: wind staff lying horizontally: long pale wooden shaft, aqua swirling wind-crystal head at the RIGHT end. MAIN ACCENT COLOUR: aqua (#5eead4). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "554cbe4b30f55e9ac72703685eda1ae162056ded9c5c43833d78c2c98c641687",
+      "bytes": 23758,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma BASTÓN DE VIENTO (míticas · baston). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
+      "entity": "BASTÓN DE VIENTO",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c105_baston_de_viento.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T07:59:18Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 316,
@@ -10989,12 +10999,12 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c106_arco_ancestral.png",
       "id": "weapon_c106_arco_ancestral",
-      "name": "Arma #106 · Arco ancestral (c106_arco_ancestral)",
+      "name": "Arma 106 · ARCO ANCESTRAL",
       "category": "weapons",
       "location": "assets/weapons/weapon_c106_arco_ancestral.png",
       "dimensions": [
         320,
-        160
+        80
       ],
       "alpha": true,
       "pivot": "grip-calibrated",
@@ -11005,12 +11015,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Arco ancestral' (family: míticas, id: c106_arco_ancestral) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: ancestral longbow: limbs of carved bone and dark wood with neon green runes, leather-wrapped riser at the top centre. MAIN ACCENT COLOUR: neon green (#4ade80). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "9718c317946301d3d27ed4ab8a4c19770ebb573df59f3bd33695fa70363c55d3",
+      "bytes": 15710,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ARCO ANCESTRAL (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "entity": "ARCO ANCESTRAL",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c106_arco_ancestral.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T08:07:07Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 317,
@@ -11018,12 +11038,12 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c107_arco_del_lobo.png",
       "id": "weapon_c107_arco_del_lobo",
-      "name": "Arma #107 · Arco del lobo (c107_arco_del_lobo)",
+      "name": "Arma 107 · ARCO DEL LOBO",
       "category": "weapons",
       "location": "assets/weapons/weapon_c107_arco_del_lobo.png",
       "dimensions": [
         320,
-        160
+        80
       ],
       "alpha": true,
       "pivot": "grip-calibrated",
@@ -11034,12 +11054,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Arco del lobo' (family: míticas, id: c107_arco_del_lobo) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: wolf bow: limbs carved as snarling wolf jaws with rose red neon eyes, grey fur wrap on the riser at the top centre. MAIN ACCENT COLOUR: rose red (#fb7185). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "b889fed7e34b518ea9a149e2c162502bd42f75a147dd945d662e3b9dcba18c69",
+      "bytes": 27526,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ARCO DEL LOBO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "entity": "ARCO DEL LOBO",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c107_arco_del_lobo.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T08:07:07Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 318,
@@ -11047,12 +11077,12 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c108_arco_de_fuego.png",
       "id": "weapon_c108_arco_de_fuego",
-      "name": "Arma #108 · Arco de fuego (c108_arco_de_fuego)",
+      "name": "Arma 108 · ARCO DE FUEGO",
       "category": "weapons",
       "location": "assets/weapons/weapon_c108_arco_de_fuego.png",
       "dimensions": [
         320,
-        160
+        80
       ],
       "alpha": true,
       "pivot": "grip-calibrated",
@@ -11063,12 +11093,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Arco de fuego' (family: míticas, id: c108_arco_de_fuego) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: fire bow: limbs of charred black wood with glowing orange ember cracks, small orange flame tufts at both tips, dark riser at the top centre. MAIN ACCENT COLOUR: orange (#f97316). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "04bdfe5c80b28983a3ae9b69e60bd7f3f55f2c9b86a43da551704a4f8e1f1cd8",
+      "bytes": 17888,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ARCO DE FUEGO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "entity": "ARCO DE FUEGO",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c108_arco_de_fuego.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T08:07:07Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 319,
@@ -11076,12 +11116,12 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c109_arco_del_vacio.png",
       "id": "weapon_c109_arco_del_vacio",
-      "name": "Arma #109 · Arco del vacío (c109_arco_del_vacio)",
+      "name": "Arma 109 · ARCO DEL VACÍO",
       "category": "weapons",
       "location": "assets/weapons/weapon_c109_arco_del_vacio.png",
       "dimensions": [
         320,
-        160
+        80
       ],
       "alpha": true,
       "pivot": "grip-calibrated",
@@ -11092,12 +11132,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Arco del vacío' (family: míticas, id: c109_arco_del_vacio) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: void bow: limbs of jagged black obsidian with a deep purple void glow, violet crystal riser at the top centre. MAIN ACCENT COLOUR: deep purple (#a855f7). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "1bb9deb33b27efaf40eb607087b0e21ae1b5f56d6746741818e0c668ef1be48a",
+      "bytes": 18058,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ARCO DEL VACÍO (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "entity": "ARCO DEL VACÍO",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c109_arco_del_vacio.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T08:07:07Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 320,
@@ -11105,12 +11155,12 @@
       "tanda_number": 32,
       "original_id": "weapons/weapon_c110_arco_de_tormenta.png",
       "id": "weapon_c110_arco_de_tormenta",
-      "name": "Arma #110 · Arco de tormenta (c110_arco_de_tormenta)",
+      "name": "Arma 110 · ARCO DE TORMENTA",
       "category": "weapons",
       "location": "assets/weapons/weapon_c110_arco_de_tormenta.png",
       "dimensions": [
         320,
-        160
+        80
       ],
       "alpha": true,
       "pivot": "grip-calibrated",
@@ -11121,12 +11171,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Arco de tormenta' (family: míticas, id: c110_arco_de_tormenta) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW of a BOW lying perfectly horizontal like a long shallow arch (bridge shape): the two limb tips touch the far LEFT and far RIGHT ends of the frame, the grip riser sits at the TOP centre of the arch and the concave belly faces DOWN. A thin straight 1-pixel bowstring runs along the BOTTOM edge from tip to tip. NO arrow. The arch is long and shallow, about four times longer than it is deep. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, small neon accents and a thin rim light. Wide 2:1 landscape composition, the bow spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. DESIGN: storm bow: limbs of translucent sky-blue crystal with tiny lightning sparks, steel riser at the top centre. MAIN ACCENT COLOUR: sky blue (#60a5fa). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "aa3a7a81d1ecf548c0b67012d7d3243fed357f988d82acd1584b4db7d95b260e",
+      "bytes": 17365,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ARCO DE TORMENTA (míticas · arco). MARCO FINO 320×80 (4:1): el motor gira el PNG +π/2 (spriteRot) y lo dibuja con wHgt=len·95 y wLen=wHgt·(ancho/alto del PNG) en la caja fija x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2; con 4:1 la cuerda procedural (x=bx+2) coincide con la cuerda pintada en el borde inferior y el riser cae en el puño delantero. Cuerda tensada y flecha las dibuja el motor. El mismo PNG es el icono de tienda/HUD/armería.",
+      "entity": "ARCO DE TORMENTA",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c110_arco_de_tormenta.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T08:07:07Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 321,
@@ -11134,7 +11194,7 @@
       "tanda_number": 33,
       "original_id": "weapons/weapon_c111_devoracaos.png",
       "id": "weapon_c111_devoracaos",
-      "name": "Arma #111 · Devoracaos (c111_devoracaos)",
+      "name": "Arma 111 · DEVORACAOS",
       "category": "weapons",
       "location": "assets/weapons/weapon_c111_devoracaos.png",
       "dimensions": [
@@ -11150,12 +11210,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Devoracaos' (family: míticas, id: c111_devoracaos) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: heavy two-handed melee weapon lying horizontal: handle at the LEFT, head or blade to the RIGHT. DESIGN: Devoracaos: monstrous blood-red greatsword lying horizontally, jagged blade with a screaming demon face at the guard, blade to the right. MAIN ACCENT COLOUR: blood red (#ef4444). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "b4c2f66b8c582fa7ca9a002b39c1d7c40cf5fb92f9b24d8c5f71a99dfbb96c38",
+      "bytes": 38490,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma DEVORACAOS (míticas · armaPesada). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
+      "entity": "DEVORACAOS",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c111_devoracaos.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T07:59:18Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 322,
@@ -11163,7 +11233,7 @@
       "tanda_number": 33,
       "original_id": "weapons/weapon_c112_harvester.png",
       "id": "weapon_c112_harvester",
-      "name": "Arma #112 · Harvester (c112_harvester)",
+      "name": "Arma 112 · HARVESTER",
       "category": "weapons",
       "location": "assets/weapons/weapon_c112_harvester.png",
       "dimensions": [
@@ -11179,12 +11249,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Harvester' (family: míticas, id: c112_harvester) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: heavy two-handed melee weapon lying horizontal: handle at the LEFT, head or blade to the RIGHT. DESIGN: Harvester: magenta neon war scythe lying horizontally, mechanical blade with vents, handle to the left. MAIN ACCENT COLOUR: magenta (#e879f9). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "58a5e7efb325b8fc68728181967bb4640240a6a73e46f0914d3630aa677a18a7",
+      "bytes": 34215,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma HARVESTER (míticas · armaPesada). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
+      "entity": "HARVESTER",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c112_harvester.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T07:59:18Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 323,
@@ -11192,7 +11272,7 @@
       "tanda_number": 33,
       "original_id": "weapons/weapon_c113_espada_de_energia.png",
       "id": "weapon_c113_espada_de_energia",
-      "name": "Arma #113 · Espada de energía (c113_espada_de_energia)",
+      "name": "Arma 113 · ESPADA DE ENERGÍA",
       "category": "weapons",
       "location": "assets/weapons/weapon_c113_espada_de_energia.png",
       "dimensions": [
@@ -11208,12 +11288,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Espada de energía' (family: míticas, id: c113_espada_de_energia) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: one-handed blade lying horizontal: handle and pommel at the LEFT, blade to the RIGHT. DESIGN: energy sword: electric blue plasma blade pointing right, sleek silver hilt at the left. MAIN ACCENT COLOUR: electric blue (#38bdf8). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "06c7199c2647833745bdcc6f94028c8b8220fbb035d7f14c031072098bb37e32",
+      "bytes": 19447,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ESPADA DE ENERGÍA (míticas · armaLigera). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
+      "entity": "ESPADA DE ENERGÍA",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c113_espada_de_energia.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T07:59:18Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 324,
@@ -11221,7 +11311,7 @@
       "tanda_number": 33,
       "original_id": "weapons/weapon_c114_espada_caos.png",
       "id": "weapon_c114_espada_caos",
-      "name": "Arma #114 · Espada caos (c114_espada_caos)",
+      "name": "Arma 114 · ESPADA DEL CAOS",
       "category": "weapons",
       "location": "assets/weapons/weapon_c114_espada_caos.png",
       "dimensions": [
@@ -11237,12 +11327,22 @@
         "DD_UI.shop"
       ],
       "reference_source": "REF_05#armas",
-      "prompt_spec": "Side-profile right-pointing high-resolution dark-ink illustrated weapon 'Espada caos' (family: míticas, id: c114_espada_caos) in Deadbeat Disco infernal nightclub aesthetic: metallic obsidian/steel/brass body, glowing neon magenta/cyan/amber accents, bold black ink contour, distinct silhouette",
-      "reconstruction_status": "PENDING",
-      "integration_status": "PENDING",
-      "validation_status": "PENDING",
-      "sha256": null,
-      "bytes": 0
+      "prompt_spec": "Pixel-art game weapon sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. STRICT SIDE VIEW, perfectly horizontal, MUZZLE / TIP POINTING RIGHT, grip or handle at the lower LEFT. Exactly ONE weapon, no hands, no character, no text, no letters, no logo, no watermark, no shadow, no floor. Clean chunky pixel art: crisp 1-pixel dark outline, hand-shaded cel colours with 3-4 tones per material, matte black-navy metal body, small neon accents (magenta, cyan, gold) and a thin rim light. Wide 2:1 landscape composition, the weapon spans about 90% of the width and is centred. Background: SOLID FLAT CHROMA GREEN #00FF00 only, no gradient, no glow bleeding into the background. WEAPON SHAPE: heavy two-handed melee weapon lying horizontal: handle at the LEFT, head or blade to the RIGHT. DESIGN: chaos sword: crimson blade pointing right made of shifting shards, black horned hilt at the left. MAIN ACCENT COLOUR: crimson (#dc2626). Same rendering style and scale family as the existing DEADBEAT DISCO weapon sprites (M1911, Desert Eagle, pump shotgun, Olympia).",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "sha256": "02a1631339be141f87ef195677248952d81b8b18642b0fa4e6fc17194576b1db",
+      "bytes": 40832,
+      "format": "PNG RGBA",
+      "use": "Sprite HD del arma ESPADA DEL CAOS (míticas · armaPesada). En la mano del protagonista lo dibuja `it` (módulo v3.2) a través del puente, con la calibración MEDIDA de manifest.anchors (grip/axis/tip/sup); el mismo PNG es el icono de la tienda (wo), HUD y armería (weaponImgSrc). Boca a la DERECHA; el motor voltea al apuntar a la izquierda.",
+      "entity": "ESPADA DEL CAOS",
+      "art_revision": "T05_ARMAS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T05_ARMAS/weapon_c114_espada_caos.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T07:59:18Z",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "validated_at": "2026-11-15T08:11:15Z"
     },
     {
       "index": 325,
@@ -12306,5 +12406,5 @@
       "validated_at": "2026-11-15T01:36:38Z"
     }
   ],
-  "updated_at": "2026-11-15T07:37:00Z"
+  "updated_at": "2026-11-15T08:11:15Z"
 }

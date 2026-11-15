@@ -181,6 +181,12 @@ def measure(png_path: str, cls: str, hints: Optional[Dict] = None) -> Dict:
         sb = float(np.median(win)) if win else axis_y + thick / 2
         sy = sb - 0.22 * thick
         sy = max(sy, axis_y + 0.15 * thick)
+        if "sup_v" in hints:
+            # Altura explícita de la mano de apoyo (fracción del alto del PNG): arcos (el motor
+            # dibuja el antebrazo de apoyo desde el grip hasta sup en el marco SIN girar, así que
+            # sup_v = grip_v lo deja horizontal) y armas con la mano delantera sobre un cuerpo grueso.
+            sy = float(hints["sup_v"]) * H
+            method["sup_v"] = "hint"
         sup = [round(sx / W, 3), round(min(sy, y1 - 1) / H, 3)]
         # apoyo demasiado cerca del grip (arma corta): el motor exige ≥ 10 px de separación
         if (sup[0] - gx / W) * W < 0.10 * W:
@@ -237,7 +243,7 @@ def main() -> int:
     ap.add_argument("png")
     ap.add_argument("--cls", default="fusil")
     ap.add_argument("--out", default=None, help="PNG con la superposición de medidas")
-    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, grip_v, sup, tip, hang, axis_v, axis_band, max_dev, spriteRot)")
+    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, grip_v, sup, sup_v, tip, hang, axis_v, axis_band, max_dev, spriteRot)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
     hints = json.loads(a.hints) if a.hints else {}
