@@ -2406,6 +2406,161 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
    botones quepan enteros en 1280×720. */
 #dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }
 
+/* ---- HUD responsive: conservar lectura y zonas seguras ------------------- */
+@media (max-width: 900px) {
+  .dd-hud-top-left {
+    top: 10px;
+    left: 10px;
+    gap: 8px;
+    padding: 8px 10px 9px 8px;
+  }
+  .dd-hud-portrait-frame {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+  }
+  .dd-hud-top-right {
+    top: 10px;
+    right: 10px;
+    gap: 6px;
+  }
+  .dd-minimap-box {
+    width: 156px;
+    height: 105px;
+  }
+  .dd-room-banner {
+    max-width: 220px;
+    padding: 4px 8px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+  .dd-quick-actions {
+    max-width: 230px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .dd-quick-btn {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+  .dd-hud-skills {
+    left: 10px;
+    bottom: 10px;
+    gap: 7px;
+  }
+  .dd-skill-card {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dd-hud-top-left {
+    top: 8px;
+    left: 8px;
+    width: calc(100vw - 16px);
+    max-width: none;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 9px;
+  }
+  .dd-hud-portrait-frame {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+  .dd-hud-vitals {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .dd-hud-hearts-row {
+    gap: 5px;
+  }
+  .dd-hud-top-right {
+    top: 112px;
+    right: 8px;
+    gap: 5px;
+  }
+  .dd-minimap-box {
+    width: 132px;
+    height: 89px;
+  }
+  .dd-room-banner {
+    max-width: min(190px, 48vw);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 9px;
+  }
+  .dd-quick-actions {
+    max-width: min(190px, 48vw);
+    gap: 4px;
+  }
+  .dd-quick-btn {
+    padding: 4px 6px;
+    font-size: 9px;
+    letter-spacing: 0.03em;
+  }
+  .dd-hud-skills {
+    left: 8px;
+    bottom: 8px;
+    gap: 6px;
+  }
+  .dd-skill-card {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dd-hud-top-left {
+    gap: 6px;
+    padding: 6px 7px;
+  }
+  .dd-hud-portrait-frame {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+  .dd-minimap-box {
+    width: 116px;
+    height: 78px;
+  }
+  .dd-hud-top-right {
+    top: 104px;
+  }
+  .dd-room-banner,
+  .dd-quick-actions {
+    max-width: 160px;
+  }
+  .dd-skill-card {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (max-height: 560px) and (max-width: 760px) {
+  .dd-hud-top-right {
+    top: 8px;
+  }
+  .dd-minimap-box {
+    width: 112px;
+    height: 76px;
+  }
+  .dd-room-banner,
+  .dd-quick-actions {
+    max-width: 150px;
+  }
+  .dd-hud-skills {
+    bottom: 6px;
+  }
+  .dd-skill-card {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+
   </style>
 </head>
 <body class="booting">
