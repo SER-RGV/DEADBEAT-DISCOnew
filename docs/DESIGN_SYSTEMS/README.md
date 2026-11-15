@@ -50,6 +50,7 @@ La FASE 08 de escala y cámara queda en manos de Arena. Esta rama define contrat
 | [07 — Plan espacial de 12 salas](07_PLAN_ESPACIAL_12_SALAS_V1.md) | Intención y geometría propuesta para cada nodo de la semilla A |
 | [08 — Variabilidad topológica](08_VARIABILIDAD_TOPOLOGICA_Y_ARQUETIPOS.md) | Comparación de dos semillas y reglas de diseño adaptables |
 | [09 — Blueprints espaciales](09_BLUEPRINTS_ESPACIALES_POR_TOPOLOGIA.md) | Plantillas reutilizables por grado, tipo y conexiones del nodo |
+| [10 — Recetas de encuentros](10_RECETAS_ENCUENTROS_POR_GEOMETRIA.md) | Composiciones por rol, topología y patrones B4 |
 
 ## Estado y rigor
 
