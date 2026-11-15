@@ -79,7 +79,23 @@ async function main() {
     await page.waitForFunction(() => !!document.getElementById("dd-weapons-grid"), null, { timeout: 10000 });
     await sleep(250);
 
-    const extracted = await page.evaluate(() => {
+    // Registra el estado inicial de la tienda y después fuerza el filtro TODAS.
+    // Esto evita que un sentinel interno distinto de "TODAS" oculte armas en la captura.
+    const initialShopState = await page.evaluate(() => ({
+      renderedCards: document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length,
+      activeFilter: (document.querySelector("#dd-shop-filters .dd-filter-chip.active") || {}).dataset
+        ? document.querySelector("#dd-shop-filters .dd-filter-chip.active").dataset.cat : null,
+      allFilterExists: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]')
+    }));
+    const allFilterClicked = await page.evaluate(() => {
+      const button = document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]');
+      if (!button) return false;
+      button.click();
+      return true;
+    });
+    if (allFilterClicked) await sleep(150);
+
+    const extracted = await page.evaluate((initialState) => {
       const bridge = window.__DD_BRIDGE;
       const rawList = bridge.getWeaponsList();
       if (!Array.isArray(rawList)) throw new Error("getWeaponsList() no devolvió un array");
@@ -123,11 +139,13 @@ async function main() {
         duplicateIds: Array.from(new Set(duplicateIds)),
         renderedCards: uiCards.length,
         renderedCardIds: uiCards,
+        initialShopState: initialState,
+        allFilterClicked,
         hdWeaponAssetKeys: hdWeaponKeys,
         manifestWeaponAssetKeys: manifestWeaponKeys,
         rows
       };
-    });
+    }, initialShopState);
 
     const rawPath = path.join(OUT, "weapon_catalog_raw.json");
     const csvPath = path.join(OUT, "weapon_catalog_normalized.csv");
@@ -172,7 +190,9 @@ async function main() {
       "- Registros: **" + extracted.totalRecords + "**",
       "- IDs únicos: **" + extracted.uniqueIds + "**",
       "- IDs duplicados: **" + extracted.duplicateIds.length + "**",
-      "- Tarjetas renderizadas en la armería: **" + extracted.renderedCards + "**",
+      "- Tarjetas renderizadas en la armería tras filtro TODAS: **" + extracted.renderedCards + "**",
+      "- Tarjetas al abrir la armería: **" + extracted.initialShopState.renderedCards + "**",
+      "- Filtro TODAS encontrado y pulsado: **" + extracted.allFilterClicked + "**",
       "- Recursos HD de armas: **" + extracted.hdWeaponAssetKeys.length + "**",
       "- Recursos de armas en DD_ASSETS: **" + extracted.manifestWeaponAssetKeys.length + "**", "",
       "## Discrepancias", "",
