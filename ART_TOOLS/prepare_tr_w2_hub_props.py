@@ -34,9 +34,19 @@ JOBS = [
     ("prop_sigil_poster",     "assets/props/prop_sigil_poster.png",     (224, 288), "center"),
     ("prop_bollard_pair",     "assets/props/prop_bollard_pair.png",     (224, 288), "bottom-center"),
     ("prop_chest_closed",     "assets/props/prop_chest_closed.png",     (256, 224), "bottom-center"),
+    # TR_W4
+    ("prop_potted_plant",   "assets/props/prop_potted_plant.png",     (256, 320), "bottom-center"),
+    ("prop_hub_fox_neon",   "assets/props/prop_hub_fox_neon.png",     (384, 512), "center"),
+    ("prop_neon_flower",    "assets/props/prop_neon_flower.png",      (256, 256), "center"),
+    ("prop_bar_bottles",    "assets/props/prop_bar_bottles.png",      (256, 224), "bottom-center"),
+    ("prop_chest_open",     "assets/props/prop_chest_open.png",       (256, 256), "bottom-center"),
+    ("enemy_security_walk",   "assets/enemies/enemy_security_walk.png",   (224, 432), "bottom-center"),
+    ("enemy_security_windup", "assets/enemies/enemy_security_windup.png", (400, 432), "bottom-center"),
+    ("enemy_security_attack", "assets/enemies/enemy_security_attack.png", (480, 400), "bottom-center"),
+    ("enemy_security_death",  "assets/enemies/enemy_security_death.png",  (432, 416), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -47,6 +57,9 @@ POST_DESPILL = {
     "prop_dj_booth", "prop_speaker_tower", "prop_candelabra_floor", "prop_bar_counter",
     "prop_subwoofer_cyan", "prop_cooler_neon", "prop_gothic_statue", "prop_bookshelf_hub",
     "prop_neon_palm", "prop_sigil_poster", "prop_bollard_pair",
+    "prop_potted_plant", "prop_hub_fox_neon", "prop_neon_flower", "prop_bar_bottles",
+    "prop_chest_open",
+    "enemy_security_walk", "enemy_security_windup", "enemy_security_attack", "enemy_security_death",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 

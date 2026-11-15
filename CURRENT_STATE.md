@@ -218,3 +218,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Integrados:** arcade, vending, crate_club, armchair_vip, bench_neon, neon_palm, sigil_poster, bollard_pair, chest_closed (navegador 271/271, QA PASS). Mobiliario de sala prácticamente completo.
 - **Rechazado 2ª vez:** prop_chandelier_gold (en mano provisional).
 - Pendiente: FX de fases de jefe, captura in-situ Círculos II–IX, HUD definitivo, cinemáticas (cine_*), merge PR #31.
+
+## Estado actual · 2026-11-15 (TR_W4)
+- **Integrados:** últimos 5 props de sala/HUB, chandelier v3 (v3 tras 2 rechazos), familia enemiga **Security** completa (walk/windup/attack/death) — integridad navegador 271/271.
+- **Los 271 assets del registry están regenerados o conservados legacy**; solo quedan por iterar en calidad/estilo si se decide (p.ej. unificar paleta Seguridad) y los bloques enormes: jefes, cinemáticas, HUD.
+- Sigue pendiente: captura in-situ de Círculos II–IX, FX de fases de jefe, decisión de merge PR #31 (borrador).
