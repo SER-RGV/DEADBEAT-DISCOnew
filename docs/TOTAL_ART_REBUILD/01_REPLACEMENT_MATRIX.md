@@ -47,8 +47,8 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
 | `floor_00_limbo_marble` | `floor_00_limbo_marble` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_01_lust_dancefloor` | `floor_01_lust_dancefloor` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_02_gula_terracotta` | `floor_02_gula_terracotta` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `floor_01_lust_dancefloor` | `floor_01_lust_dancefloor` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) |
+| `floor_02_gula_terracotta` | `floor_02_gula_terracotta` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) |
 | `floor_03_greed_slate_gold` | `floor_03_greed_slate_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `floor_04_wrath_burgundy` | `floor_04_wrath_burgundy` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `floor_05_pride_obsidian_gold` | `floor_05_pride_obsidian_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -64,11 +64,11 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
 | `wall_core_monolith` | `wall_core_monolith` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_gula_banquet` | `wall_gula_banquet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `wall_gula_banquet` | `wall_gula_banquet` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) |
 | `wall_ice_glacier` | `wall_ice_glacier` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_gothic_niche` | `wall_panel_gothic_niche` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_heavy_base` | `wall_panel_heavy_base` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_panel_neon_crown` | `wall_panel_neon_crown` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `wall_panel_neon_crown` | `wall_panel_neon_crown` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) |
 | `wall_panel_tall_neon` | `wall_panel_tall_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_vip_window` | `wall_panel_vip_window` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_pillar_obsidian` | `wall_pillar_obsidian` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -94,7 +94,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `prop_arcade_cabinet` | `prop_arcade_cabinet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_arcane_pedestal` | `prop_arcane_pedestal` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_armchair_vip` | `prop_armchair_vip` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_banquet_table` | `prop_banquet_table` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_banquet_table` | `prop_banquet_table` regenerado TR_T03 (mismo ID) | HUB y niveles | Integrado (código) |
 | `prop_bar_bottles` | `prop_bar_bottles` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_bar_counter` | `prop_bar_counter` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_barrel_infernal` | `prop_barrel_infernal` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -111,13 +111,13 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `prop_gilded_altar` | `prop_gilded_altar` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_gothic_statue` | `prop_gothic_statue` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_hub_fox_neon` | `prop_hub_fox_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_mirror_baroque` | `prop_mirror_baroque` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_mirror_baroque` | `prop_mirror_baroque` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) |
 | `prop_neon_flower` | `prop_neon_flower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_neon_palm` | `prop_neon_palm` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_potted_plant` | `prop_potted_plant` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_sigil_poster` | `prop_sigil_poster` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_sofa_black` | `prop_sofa_black` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_sofa_magenta` | `prop_sofa_magenta` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_sofa_magenta` | `prop_sofa_magenta` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) |
 | `prop_speaker_tower` | `prop_speaker_tower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_subwoofer_cyan` | `prop_subwoofer_cyan` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_vending_machine` | `prop_vending_machine` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
