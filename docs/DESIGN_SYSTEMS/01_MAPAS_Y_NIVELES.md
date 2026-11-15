@@ -11,14 +11,14 @@ La ampliación de escala de la FASE 08 se considera una dependencia externa. Est
 ## 2. Base existente verificada
 
 - El inventario técnico identifica `DMO_FLOOR`, `DMO_FLOOR_ANIM`, `DMO_LAYOUT` y `DMO_DUNGEON` como sistemas existentes.
-- La auditoría de la mazmorra registra 12 nodos y, después de iniciar campaña, `DMO_DUNGEON.audit()` devuelve `ok:true`; el inicio de campaña registra `r0` como primera sala y `bossDistance:5`.
-- El generador de salas contempla formas como octógonos, salas en L, catedrales, anillos y corredores.
+- La auditoría de campaña registra un grafo generado de 12 nodos. Dos grafos capturados en `ART_EVIDENCE/tanda_01/validation_run2_roomcapture.json` tienen `bossDistance:6`; una ejecución anterior de Fase 0.3 registró `bossDistance:5`. Es una propiedad de la semilla, no una constante. La muestra reconstruida está en `06_MAPA_MAESTRO_SEMILLA_17677515.md` y su JSON.
+- El generador de salas contempla formas como octógonos, salas en L, catedrales, anillos y corredores. Estas formas pertenecen al catálogo de geometrías; no deben confundirse con los 12 nodos del grafo de campaña.
 - El proyecto mantiene un HUB/refugio con estaciones y zonas; su geometría no debe confundirse con la geometría de las salas de campaña.
 - La estructura narrativa es híbrida. Los índices y nombres cromáticos que aparecen en código son identificadores de entorno y compatibilidad, no autorización para recuperar una cosmología de nueve círculos.
 
-**No se ha reconstruido aquí el grafo completo de todas las rutas ni se han medido todas las dimensiones de campaña.** Deben extraerse del runtime y de los datos reales antes de fijar un mapa maestro definitivo.
+**Primera reconstrucción completada:** se ha transcrito una semilla real (17677515), validando los 12 nodos, los enlaces recíprocos y la ruta principal. No representa todas las semillas ni sustituye el mapa maestro definitivo. Siguen pendientes las dimensiones de cada sala, las puertas, colisiones, spawns y asociaciones de encuentros.
 
-## 3. Gramática espacial
+## 3. Mapa maestro de referencia\n\nLa primera muestra verificada se documenta en [06_MAPA_MAESTRO_SEMILLA_17677515.md](06_MAPA_MAESTRO_SEMILLA_17677515.md), con su representación de datos en [06_MAPA_MAESTRO_SEMILLA_17677515.json](06_MAPA_MAESTRO_SEMILLA_17677515.json). La topología se mantiene como dato generado; las intenciones de sala son propuestas de diseño separadas de la configuración actual.\n\n## 4. Gramática espacial
 
 Cada habitación debe tener una función primaria y, como máximo, una secundaria clara.
 
@@ -35,7 +35,7 @@ Cada habitación debe tener una función primaria y, como máximo, una secundari
 | Transición | Cambio de ritmo | No introducir combate durante locks de transición |
 | Refugio | Gestión y descanso | Estaciones reconocibles y circulación sin obstáculos |
 
-## 4. Estructura de una incursión
+## 5. Estructura de una incursión
 
 Propuesta de ritmo, compatible con el grafo existente:
 
@@ -50,7 +50,7 @@ Propuesta de ritmo, compatible con el grafo existente:
 
 Esto es una plantilla de ritmo, no un nuevo número obligatorio de habitaciones. Debe mapearse sobre el grafo real de 12 nodos y sus reglas.
 
-## 5. Rutas y decisiones
+## 6. Rutas y decisiones
 
 Cada bifurcación debe ofrecer una diferencia comprensible, por ejemplo:
 
@@ -63,7 +63,7 @@ No crear bifurcaciones cosméticas que vuelvan al mismo punto sin impacto, salvo
 
 La recompensa y el riesgo deben mostrarse antes de elegir; no usar daño inevitable como sorpresa.
 
-## 6. Verticalidad mínima útil
+## 7. Verticalidad mínima útil
 
 La perspectiva es isométrica/2.5D. No se debe introducir una falsa verticalidad basada únicamente en decoración.
 
@@ -77,7 +77,7 @@ La verticalidad debe aportar al menos una de estas funciones:
 
 No añadir salto, gravedad, navegación multinivel ni nuevas físicas sin una fase técnica específica. Primero validar desniveles visuales y rutas en el sistema existente.
 
-## 7. Escala y composición para FASE 08
+## 8. Escala y composición para FASE 08
 
 La escala aprobada por el usuario es **intermedia**, con **cámara dinámica**.
 
@@ -90,7 +90,7 @@ Directrices:
 - Evitar muebles, pilares y decoración que formen cuellos de botella involuntarios.
 - No fijar multiplicadores absolutos hasta revisar el prototipo de Arena.
 
-## 8. Plantilla de ficha por sala
+## 9. Plantilla de ficha por sala
 
 Cada sala nueva o rediseñada debe documentar:
 
@@ -109,7 +109,7 @@ Cada sala nueva o rediseñada debe documentar:
 - Riesgos de oclusión y accesibilidad.
 - Capturas y pruebas de navegación.
 
-## 9. Criterios de aceptación
+## 10. Criterios de aceptación
 
 - Cada sala tiene una función distinguible.
 - No hay spawn dentro de colisiones ni sobre el jugador.
@@ -121,7 +121,7 @@ Cada sala nueva o rediseñada debe documentar:
 - La topología del grafo no se rompe al redimensionar.
 - Se conserva el comportamiento del HUB y las transiciones.
 
-## 10. Pendientes antes de producción
+## 11. Pendientes antes de producción
 
 1. Exportar el grafo de campaña completo con IDs y conexiones.
 2. Medir anchura/altura y área transitable por sala.
