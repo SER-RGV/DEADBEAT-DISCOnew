@@ -19,14 +19,15 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
 
 ### `artlib.py`
 Biblioteca común: recorte de croma (`chroma_matte`), limpieza puntual (`erase_regions`,
-`remove_ground_line`, `fade_regions`; `apply_cleanup` las aplica en ese orden),
+`remove_ground_line`, `fade_regions`, `mirror_half`; `apply_cleanup` las aplica en ese orden;
+`mirror_half` simetriza un módulo de muro para que las copias contiguas encajen),
 capas parciales de una misma ilustración (`keep_regions`), encaje al lienzo
 (`fit_canvas`: `contain`, `figure`, `anchor`, `cover`, `stretch`), anclas normalizadas
 (`canvas_anchors`), guardado de PNG y de maestros WebP, y métricas de control
@@ -200,6 +201,19 @@ Dos límites de lo que la sonda puede enseñar:
 - Los estados se fuerzan con `__DD_BRIDGE.debugPoseBoss`; el patrón y la muerte son
   los del motor. No sustituye a jugar un combate entero.
 
+### `probe_rooms.js`
+```
+node tools/art_master/probe_rooms.js <salida> [--circles=1,…,9] [--rooms=2,10] [--box=280] [--hubwalk=1] [--dom=1]
+```
+Sonda de **escenarios** (T04): entra en el Refugio por la misma puerta que NUEVA PARTIDA
+(`DD_HUB.enter()`), guarda su lienzo, y después visita las salas pedidas de cada círculo
+(nivel `(c−1)·11 + sala`). En cada sala guarda el cuadro completo con las puertas cerradas
+(`_a_cerrada`), tras vaciarla (`_b_abierta`) y con el protagonista pegado al muro norte
+(`_c_norte`: la franja de muro y su puerta entran en cámara), más el recorte de cada puerta
+(`getSnapshot().doors`) y de la franja norte (`roomRect`). `probe_report.json` lleva
+errores de página y de red, `roomRect`, puertas y posición final del protagonista. Las
+capturas se leen del `<canvas>` (la captura de página tarda >8 s en este Chromium).
+
 ### `probe_cinematic.js`
 Captura un fotograma por plano de la cinemática de entrada adelantando el reloj de
 `DD_CINE` (≈40 s en total).
@@ -342,7 +356,27 @@ Ganchos de prueba: `getBoss()`, `debugPoseBoss({x, y, entrance, hitFlash, expose
 freezeTimer, addsAlive, pattern71, patternWarn71, phase, phaseTimer, attackTimer,
 berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del motor).
 
+## Contrato de los escenarios (T04)
+
+- **Muros** (`CIRCLE_CONFIG.wall`): PNG **opaco** 384×576 (2:3), `alpha=false`, sin croma (`matte: none`,
+  `fit: cover`), **simetrizado** con `mirror_half: left` para que las copias contiguas encajen; media
+  pilastra en cada borde y cornisa continua. El renderizador dibuja módulos de `132·w/h` px de ancho
+  (88 px) y pilastras de `148·w/h` (74 px) cada 320 px: pedir formas legibles a 100 px.
+- **Puertas** (`drawDoor`): croma `#00FF00`, 448×544 (jefe 448×576), escalón horizontal abajo; en pantalla
+  136 px de ancho con el pie en la posición de la puerta (`-h·0.78`); en el muro sur se achatan a 0,82. La
+  hoja abierta se genera como **edición** de la cerrada (mismo marco).
+- **Clases de puerta** las decide el puente (`ddDoorState` en `build_active_html.py`): `room` (vidriera
+  I–IV / gótica V–IX, cerrada o abierta), `shop` → `door_vip_crimson`, `boss` → `portal_baroque_gold`,
+  `lift` (descenso) → `portal_avaricia_gold` + `threshold_descent_pad` 98 px hacia dentro de la sala.
+- QA: `probe_rooms.js … --hub=0` (el Refugio tumba a veces el Chromium de pruebas) y `--unlock=1`
+  (por defecto) abre todas las puertas como el modo «SALAS ABIERTAS» del motor.
+
 ## Trampas conocidas
+
+- **Escenarios:** `page.evaluate` con el Refugio activo ha cerrado el navegador varias veces (Chromium en
+  un solo proceso con swiftshader); las sondas de salas van con `--hub=0`. Con las puertas abiertas, subir
+  en línea recta hacia el muro norte mete al protagonista por la puerta (cambia de sala): la sonda busca
+  antes una x alejada de las puertas del muro norte.
 
 - **Varias imágenes de referencia** (diseño + estilo, tanda R03): la salida no sigue la
   proporción de la primera. De 7 pruebas, 5 tomaron la de la segunda imagen, 1 la de

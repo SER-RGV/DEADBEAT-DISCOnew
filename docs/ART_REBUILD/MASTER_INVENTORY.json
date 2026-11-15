@@ -654,12 +654,12 @@
       "tanda_number": 3,
       "original_id": "wall_limbo",
       "id": "wall_panel_gothic_niche",
-      "name": "Muro Modular 01 · Hornacina Gótica Obsidiana",
+      "name": "Muro Modular 01 · Hornacina Gótica Obsidiana (Limbo / Refugio)",
       "category": "walls",
       "location": "assets/walls/wall_panel_gothic_niche.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -668,13 +668,23 @@
         "$b",
         "d.rects.wall_limbo"
       ],
-      "reference_source": "REF_05#muros_01",
-      "prompt_spec": "Modular dark obsidian gothic nightclub wall panel with pointed arch niche, crimson inner glow, carved cornice and dark ink outline",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the Limbo and the Refuge: a pointed-arch gothic niche (hornacina) carved in dark obsidian stone in the centre, with a carved stone rosette inside the niche and a deep crimson-magenta glow filling the niche; slim magenta neon tube tracing the inner edge of the arch; dark grey ashlar stone blocks around it. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "e3344b5699cae80c5dc553c8e82a39aea83d56242b8f8daded1b1ae8e9344d32",
-      "bytes": 22300
+      "sha256": "ae3ef1d420c482f9cd6db17971a5a9b3d1400195813b800543ba0eb6c55bd602",
+      "bytes": 388405,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 0 Limbo · Refugio",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_panel_gothic_niche.webp",
+      "notes": "1/1 válida: hornacina centrada, pilastras completas junto a cada borde (al repetir quedan pilastras pareadas en la unión: aceptado). Aviso touches_edge esperado (panel opaco).",
+      "updated_at": "2026-11-15T00:30:30Z",
+      "evidence": "evidence/T04_ESCENARIOS/02_muro_limbo_en_juego.jpg, 03_puertas_goticas_cerradas.jpg, 04_puertas_cerradas_abiertas.jpg, 05_puertas_descenso_tienda_residente.jpg",
+      "validated_at": "2026-11-15T00:59:52Z"
     },
     {
       "index": 24,
@@ -994,8 +1004,8 @@
       "category": "environments",
       "location": "assets/environments/door_gothic_closed.png",
       "dimensions": [
-        320,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1004,13 +1014,23 @@
         "Bg",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_05",
-      "prompt_spec": "Pointed gothic cathedral double door in dark ironwood framed by carved antique-gold stone arch, sealed",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE closed double door of a gothic cathedral nightclub. The door: pointed gothic arch; two heavy leaves of near-black ironwood with iron studs, strap hinges and a pair of ring handles, closed; a carved dark-stone arch frame with antique gold trim and a small carved skull keystone at the top; a hot magenta neon tube follows the inside of the arch and casts flat magenta highlights on the stone. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "8fe4b3c4f87810dde5f957ce15921f19895e695a3e8d9dd60e5bd84d743c6e1e",
-      "bytes": 25665
+      "sha256": "87bcf59c228d5f4261c80170d1700ad6fb9e36953d7210ab39182831464caf84",
+      "bytes": 321415,
+      "format": "PNG RGBA",
+      "use": "Puerta cerrada de los círculos V–IX (drawDoor: circleIdx >= 4, 136 px de ancho en pantalla).",
+      "entity": "door_gothic_closed",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/door_gothic_closed.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T00:25:06Z",
+      "evidence": "evidence/T04_ESCENARIOS/02_muro_limbo_en_juego.jpg, 03_puertas_goticas_cerradas.jpg, 04_puertas_cerradas_abiertas.jpg, 05_puertas_descenso_tienda_residente.jpg",
+      "validated_at": "2026-11-15T00:59:52Z"
     },
     {
       "index": 36,
@@ -1018,12 +1038,12 @@
       "tanda_number": 4,
       "original_id": "Bg:door_gothic_open",
       "id": "door_gothic_open",
-      "name": "Puerta 04 · Portal Gótico con Escalón (Umbral)",
+      "name": "Puerta 04 · Portal Gótico Apuntado (Abierta)",
       "category": "environments",
       "location": "assets/environments/door_gothic_open.png",
       "dimensions": [
-        320,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1032,13 +1052,23 @@
         "Bg",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_06",
-      "prompt_spec": "Pointed gothic carved gold stone archway with three dark stone threshold steps and open glowing passage",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "EDIT the reference image. Keep EXACTLY the same door frame, arch, stone, gold trim, skull keystone, neon tube, size, position and drawing style. Change ONLY the door leaves: both leaves are now swung wide OPEN into the doorway (seen edge-on, thin, against the jambs), and the opening reveals a dark passage with three stone steps going down and a cyan (#22d3ee) glow rising from below. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "7a87a94e22f94d033f710ad955c9e34d211fedb26b6defd4b205c6d8582256fb",
-      "bytes": 19780
+      "sha256": "de8f14e60b2b6c552290510c0a247828c1ae916c0f3f7d0cef8c67fe3fa02a39",
+      "bytes": 293529,
+      "format": "PNG RGBA",
+      "use": "Puerta abierta de los círculos V–IX (drawDoor: circleIdx >= 4 y door.open).",
+      "entity": "door_gothic_open",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/door_gothic_open.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T00:25:06Z",
+      "evidence": "evidence/T04_ESCENARIOS/02_muro_limbo_en_juego.jpg, 03_puertas_goticas_cerradas.jpg, 04_puertas_cerradas_abiertas.jpg, 05_puertas_descenso_tienda_residente.jpg",
+      "validated_at": "2026-11-15T00:59:52Z"
     },
     {
       "index": 37,
@@ -1106,8 +1136,8 @@
       "category": "environments",
       "location": "assets/environments/portal_avaricia_gold.png",
       "dimensions": [
-        320,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1116,13 +1146,23 @@
         "Bg:elite",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_07",
-      "prompt_spec": "Arching golden reliquary doorway studded with sculpted skulls and coins framing a dark portal",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE doorway of a golden reliquary for a treasure vault. A round-topped arch built of sculpted antique gold: stacked gold coins, small sculpted skulls and chains worked into the arch; the opening is a dark portal with a flat warm gold glow (#facc15) at its centre, cel-shaded in two bands; a slim yellow-gold neon tube traces the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "2518fdde1cf2486b02dd5d81800072fb8cd690a14b5cffd8070b14f5a886bf05",
-      "bytes": 37418
+      "sha256": "90679fbaad76d3e2f68d3b73a1c7312feaede1c832b5adc5d8f5fa7e9fcd79cc",
+      "bytes": 237984,
+      "format": "PNG RGBA",
+      "use": "Puerta de sala de tesoro o de élite (drawDoor: door.kind treasure|elite), todos los círculos.",
+      "entity": "portal_avaricia_gold",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/portal_avaricia_gold.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T00:25:06Z",
+      "evidence": "evidence/T04_ESCENARIOS/02_muro_limbo_en_juego.jpg, 03_puertas_goticas_cerradas.jpg, 04_puertas_cerradas_abiertas.jpg, 05_puertas_descenso_tienda_residente.jpg",
+      "validated_at": "2026-11-15T00:59:52Z"
     },
     {
       "index": 40,
@@ -11160,5 +11200,5 @@
       "validated_at": "2026-11-14T18:07:46Z"
     }
   ],
-  "updated_at": "2026-11-14T23:41:38Z"
+  "updated_at": "2026-11-15T00:59:52Z"
 }

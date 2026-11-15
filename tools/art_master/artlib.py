@@ -346,7 +346,31 @@ def apply_cleanup(keyed: Image.Image, asset: Dict) -> Tuple[Image.Image, Dict]:
     if asset.get("fade"):
         keyed = fade_regions(keyed.convert("RGBA"), asset["fade"])
         rec["fade"] = asset["fade"]
+    if asset.get("mirror_half"):
+        keyed = mirror_half(keyed.convert("RGBA"), asset["mirror_half"])
+        rec["mirror_half"] = asset["mirror_half"]
     return keyed, rec
+
+
+def mirror_half(im: Image.Image, side: str = "left") -> Image.Image:
+    """
+    Simetría exacta izquierda-derecha: la mitad `side` ("left" | "right") se copia
+    reflejada sobre la otra. Para módulos de muro que se repiten en horizontal: con
+    la columna 0 igual a la última reflejada, dos copias contiguas encajan sin
+    salto (la pilastra cortada por la mitad en cada borde se completa en la unión).
+    """
+    im = im.convert("RGBA")
+    W, H = im.size
+    half = W // 2
+    if side == "right":
+        src = im.crop((W - half, 0, W, H)).transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+        out = im.copy()
+        out.paste(src, (0, 0))
+        return out
+    src = im.crop((0, 0, half, H)).transpose(Image.Transpose.FLIP_LEFT_RIGHT)
+    out = im.copy()
+    out.paste(src, (W - half, 0))
+    return out
 
 
 def canvas_anchors(fit: Dict, size: Tuple[int, int], anchors_raw: Optional[Dict]) -> Dict:

@@ -272,7 +272,11 @@
     const foxNeonImg = window.DD_ASSETS && window.DD_ASSETS.get("prop_hub_fox_neon");
     const wallH = 132;
     const wallTopY = ry - 34;
-    const modW = 128;
+    // Ancho del módulo con la proporción real de la imagen. Antes era fijo (128 px):
+    // un panel de 256×384 se aplastaba a 128×132 (arcos y hornacinas achatados).
+    const modW = wallImg
+      ? Math.max(48, Math.round(wallH * wallImg.naturalWidth / Math.max(1, wallImg.naturalHeight)))
+      : 128;
 
     // 2.5D North wall elevation band visible inside top room perimeter
     const nwGrad = ctx.createLinearGradient(0, wallTopY, 0, wallTopY + wallH + 10);
@@ -297,12 +301,16 @@
       }
     }
 
-    // Architectural pilasters every 320px + room corners
+    // Pilastras cada 320 px y en las dos esquinas, centradas en su eje y con la
+    // proporción real de la imagen (antes 56×148 fijos: una columna de 192×384
+    // quedaba estrechada un 25 %).
     if (pillarImg) {
-      for (let px = rx - 14; px <= rx + rw - 24; px += 320) {
-        ctx.drawImage(pillarImg, px, wallTopY - 8, 56, wallH + 16);
+      const pilH = wallH + 16;
+      const pilW = Math.max(24, Math.round(pilH * pillarImg.naturalWidth / Math.max(1, pillarImg.naturalHeight)));
+      for (let px = rx; px <= rx + rw - 160; px += 320) {
+        ctx.drawImage(pillarImg, px - pilW / 2, wallTopY - 8, pilW, pilH);
       }
-      ctx.drawImage(pillarImg, rx + rw - 38, wallTopY - 8, 56, wallH + 16);
+      ctx.drawImage(pillarImg, rx + rw - pilW / 2, wallTopY - 8, pilW, pilH);
     }
 
     // Signature neon wall emblem at upper facade flanks
@@ -339,7 +347,10 @@
     const open = !!door.open || !!door.unlocked;
     const isBoss = door.kind === "boss" || door.toType === "boss";
     const isShop = door.kind === "shop" || door.toType === "shop";
-    const isTreasure = door.kind === "treasure" || door.kind === "elite";
+    // El motor no tiene salas de tesoro: el arco relicario dorado señala el
+    // DESCENSO al círculo siguiente (puerta `lift`, la única que hay que buscar)
+    // y, si algún día existen, las salas de tesoro o de élite.
+    const isTreasure = door.kind === "treasure" || door.kind === "elite" || door.kind === "lift" || !!door.lift;
 
     let assetId = open ? "door_arched_open" : "door_stained_closed";
     if (isBoss) assetId = "portal_baroque_gold";

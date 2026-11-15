@@ -265,9 +265,25 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return origQc.apply(this, arguments);
     };
 
+    // Estado y clase de cada puerta. El motor no los guarda en la puerta: su Bg
+    // original los calculaba al dibujar (Mg(e) = puerta franqueable, Ot.openT =
+    // animación de apertura tras despejar la sala) y los distinguía por banderas
+    // (shop / final / lift). Sin este paso DD_WORLD.drawDoor sólo veía puertas
+    // cerradas y genéricas: nunca se mostraban las hojas abiertas, la puerta de
+    // la tienda, el retablo del Residente ni el portal del descenso (TANDA 04).
+    function ddDoorState(door) {
+      try {
+        const usable = typeof Mg === "function" ? !!Mg(door) : false;
+        const openT = Ot && Number.isFinite(Ot.openT) ? Ot.openT : 0;
+        door.open = usable && (openT >= 0.8 || !!(Bt && Bt.unlockRooms));
+        door.kind = door.lift ? "lift" : door.shop ? "shop" : door.final ? "boss" : "room";
+      } catch (e) {}
+      return door;
+    }
+
     Bg = function (door) {
       if (window.DD_WORLD) {
-        window.DD_WORLD.drawDoor(g, door, currentCircle(), Z);
+        window.DD_WORLD.drawDoor(g, ddDoorState(door), currentCircle(), Z);
         return;
       }
       return origBg.apply(this, arguments);
@@ -275,7 +291,12 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
     WA = function (door) {
       if (window.DD_WORLD) {
-        window.DD_WORLD.drawDescentPad(g, door, Z);
+        // La plataforma de descenso va 98 px hacia dentro de la sala desde la
+        // puerta del ascensor (como el WA original), no encima de la puerta.
+        const pad = door && Number.isFinite(door.wallX)
+          ? { x: door.wallX + 98 * (door.nx || 0), y: door.wallY + 98 * (door.ny || 0), open: !!door.open }
+          : door;
+        window.DD_WORLD.drawDescentPad(g, pad, Z);
         return;
       }
       return origWA.apply(this, arguments);
@@ -681,7 +702,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           subtitle: String(sr.residentTitle || sr.variantLabel || ""), color: sr.residentColor72 || sr.color || "" } : null,
         player: ye ? { x: ye.x, y: ye.y, aimAngle: ye.aimAngle } : null,
         roomRect: Ps ? { x: Ps.x, y: Ps.y, w: Ps.w, h: Ps.h } : null,
-        doors: Ot && Array.isArray(Ot.doors) ? Ot.doors.map(dr => ({ x: dr.x, y: dr.y, open: !!(dr.open || dr.unlocked) })) : [],
+        doors: Ot && Array.isArray(Ot.doors) ? Ot.doors.map(dr => ({ x: dr.x, y: dr.y, open: !!(dr.open || dr.unlocked),
+          kind: dr.kind || (dr.lift ? "lift" : dr.shop ? "shop" : dr.final ? "boss" : "room"), side: dr.side || "", label: String(dr.label || "") })) : [],
         enemies: Array.isArray(Ta) ? Ta.slice(0, 40).map(en => ({ x: en.x, y: en.y })) : []
       };
     }
@@ -889,6 +911,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return !!Y;
       },
       isPaused: function () { return !!Y; },
+      // QA (sondas de escenario): abre todas las puertas como el modo de depuración
+      // «SALAS ABIERTAS» (Bt.unlockRooms), para fotografiar las hojas abiertas, el
+      // retablo del Residente y el portal del descenso sin despejar el círculo.
+      setDoorsUnlocked: function (v) {
+        try { Bt.unlockRooms = !!v; if (v && Ot) Ot.openT = 0.8; } catch (e) {}
+        return !!(Bt && Bt.unlockRooms);
+      },
       invalidateRoomCache: function () { roomCacheInvalid = true; b = false; },
       invalidateWeaponCache: function (wid) {
         // Trigger fresh lookup when new weapon illustration loads

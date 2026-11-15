@@ -1,0 +1,534 @@
+{
+ "batch": "T04_ESCENARIOS",
+ "title": "TANDA 04 · Escenarios — muros modulares, pilastra, puertas y portales, plataforma de descenso y neón del Refugio (20 ilustraciones)",
+ "created": "2026-11-14",
+ "style": "ilustración digital estilizada (no pixel art): tinta negra, cel duro, neón magenta/cian como única luz",
+ "status": "EN CURSO · auditoría hecha con probe_rooms.js; generación por turnos de 10",
+ "scope": "Sólo lo que el motor consume: CIRCLE_CONFIG.wall/pillar (buildHighResRoomCache), drawDoor, drawDescentPad y el neón del zorro de la fachada/Refugio. Suelos (clase A) no se tocan. wall_panel_tall_neon no se usa y no se produce. Props y PNC del Refugio son mobiliario (R08).",
+ "renderer": "Corrección 2026-11-14: el módulo de muro y la pilastra se dibujan con la proporción real de la imagen (antes 128×132 y 56×148 fijos: los paneles 2:3 salían achatados). Dos ids nuevos para los círculos sin muro propio: wall_greed_vault (idx 3) y wall_violence_chains (idx 6).",
+ "contract": {
+  "walls": "PNG opaco 384×576 (2:3), alpha=false, sin croma (matte none, fit cover) y simetrizado (mirror_half left) para que los módulos encajen; en pantalla 88×132 px; media pilastra en cada borde y cornisa continua.",
+  "pillar": "croma → 288×576, apoyo abajo; 148 px de alto en pantalla, ancho según proporción (74 px).",
+  "doors": "croma → 448×544 (jefe 448×576), apoyo abajo con escalón horizontal; drawDoor los dibuja a 136 px de ancho con la base 0,22·h bajo el punto de la puerta.",
+  "pad": "croma → 640×400, centrado; drawDescentPad a 196 px de ancho.",
+  "fox": "croma → 384×512, centrado; 82×108 en la fachada y 112×148 en el Refugio."
+ },
+ "defaults": {
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "generation_plan": [
+  "turno 1: wall_panel_gothic_niche, door_gothic_closed, portal_avaricia_gold, door_gothic_open (edición de la cerrada) — las 4 de clase D",
+  "turno 2: muros Lujuria, Gula, Ira, Herejía, Fraude, Traición, Núcleo + pilastra + door_stained_closed + door_arched_open (edición)",
+  "turno 3: door_vip_crimson, portal_baroque_gold, threshold_descent_pad, prop_hub_fox_neon, wall_greed_vault, wall_violence_chains + repeticiones"
+ ],
+ "assets": [
+  {
+   "id": "wall_panel_gothic_niche",
+   "raw": "wall_panel_gothic_niche.png",
+   "name": "Muro Modular 01 · Hornacina Gótica Obsidiana (Limbo / Refugio)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 0 Limbo · Refugio",
+   "circle_engine": "0 Limbo · Refugio",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the Limbo and the Refuge: a pointed-arch gothic niche (hornacina) carved in dark obsidian stone in the centre, with a carved stone rosette inside the niche and a deep crimson-magenta glow filling the niche; slim magenta neon tube tracing the inner edge of the arch; dark grey ashlar stone blocks around it. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": "2026-11-14",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_gothic_open en edición con la cerrada como referencia)",
+   "notes": "1/1 válida: hornacina centrada, pilastras completas junto a cada borde (al repetir quedan pilastras pareadas en la unión: aceptado). Aviso touches_edge esperado (panel opaco)."
+  },
+  {
+   "id": "door_gothic_closed",
+   "raw": "door_gothic_closed.png",
+   "name": "Puerta 03 · Portal Gótico Apuntado (Cerrada)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "door_gothic_closed",
+   "use": "Puerta cerrada de los círculos V–IX (drawDoor: circleIdx >= 4, 136 px de ancho en pantalla).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE closed double door of a gothic cathedral nightclub. The door: pointed gothic arch; two heavy leaves of near-black ironwood with iron studs, strap hinges and a pair of ring handles, closed; a carved dark-stone arch frame with antique gold trim and a small carved skull keystone at the top; a hot magenta neon tube follows the inside of the arch and casts flat magenta highlights on the stone. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": "2026-11-14",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_gothic_open en edición con la cerrada como referencia)",
+   "notes": "1/1 válida: croma limpio, escalón horizontal, calavera en la clave."
+  },
+  {
+   "id": "door_gothic_open",
+   "raw": "door_gothic_open.png",
+   "name": "Puerta 04 · Portal Gótico Apuntado (Abierta)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "door_gothic_open",
+   "use": "Puerta abierta de los círculos V–IX (drawDoor: circleIdx >= 4 y door.open).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "EDIT the reference image. Keep EXACTLY the same door frame, arch, stone, gold trim, skull keystone, neon tube, size, position and drawing style. Change ONLY the door leaves: both leaves are now swung wide OPEN into the doorway (seen edge-on, thin, against the jambs), and the opening reveals a dark passage with three stone steps going down and a cyan (#22d3ee) glow rising from below. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": "2026-11-14",
+   "issues": [],
+   "edit_of": "door_gothic_closed",
+   "generator": "generador de imágenes de la sesión (texto; door_gothic_open en edición con la cerrada como referencia)",
+   "notes": "1/1 válida (edición de la cerrada): mismo marco, hojas abiertas, pasadizo cian con escalones."
+  },
+  {
+   "id": "portal_avaricia_gold",
+   "raw": "portal_avaricia_gold.png",
+   "name": "Portal 07 · Arco Relicario Dorado (Tesoro / Élite)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "portal_avaricia_gold",
+   "use": "Puerta de sala de tesoro o de élite (drawDoor: door.kind treasure|elite), todos los círculos.",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE doorway of a golden reliquary for a treasure vault. A round-topped arch built of sculpted antique gold: stacked gold coins, small sculpted skulls and chains worked into the arch; the opening is a dark portal with a flat warm gold glow (#facc15) at its centre, cel-shaded in two bands; a slim yellow-gold neon tube traces the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": "2026-11-14",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_gothic_open en edición con la cerrada como referencia)",
+   "notes": "1/1 válida: arco de oro con calaveras, monedas y cadenas; el resplandor central salió como franja vertical dorada (aceptado)."
+  },
+  {
+   "id": "wall_panel_neon_crown",
+   "raw": "wall_panel_neon_crown.png",
+   "name": "Muro Modular 02 · Doble Pilastra Corona Neón (I Lujuria)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 1 Lujuria",
+   "circle_engine": "1 Lujuria",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Lust, a decadent dancefloor: dark lacquered wall with a tall recessed panel of quilted wine-red velvet in the centre, a crown-shaped frieze of hot magenta neon tubes above it, and a thin horizontal magenta neon line along the cornice; faint magenta glow on the stone. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_gula_banquet",
+   "raw": "wall_gula_banquet.png",
+   "name": "Muro Modular 07 · Panel Banquete Dorado (II Gula)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 2 Gula",
+   "circle_engine": "2 Gula",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Gluttony, an opulent banquet hall: dark crimson wall with gilded Art-Deco mouldings, a warm amber wall sconce with a small flame in the centre casting a flat warm glow, gold fan-shaped ornament above the sconce, dark red marble base. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_wrath_furnace",
+   "raw": "wall_wrath_furnace.png",
+   "name": "Muro Modular 08 · Forja Magma Industrial (IV Ira)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 4 Ira",
+   "circle_engine": "4 Ira",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Wrath, an industrial forge: charred iron plates riveted over dark basalt, a square furnace grate in the centre glowing molten orange-red from inside (flat cel bands), thick pipes running vertically, scorched soot marks; red neon strip along the cornice. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_panel_heavy_base",
+   "raw": "wall_panel_heavy_base.png",
+   "name": "Muro Modular 06 · Muro Pesado Zócalo Carmesí (V Herejía)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 5 Herejía",
+   "circle_engine": "5 Herejía",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Heresy, a profaned cathedral: dark violet-black stone with a tall recessed coffer in the centre containing a broken stained-glass window in purple (#a855f7) and gold, a glowing red header slot above the coffer, and a heavy crimson neon baseboard along the bottom. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_panel_vip_window",
+   "raw": "wall_panel_vip_window.png",
+   "name": "Muro Modular 03 · Mirador VIP Ventana Neón (VII Fraude)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 7 Fraude",
+   "circle_engine": "7 Fraude",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Fraud, a hall of mirrors and VIP boxes: dark industrial-gothic wall with an upper VIP viewing window in the centre showing a cyan-lit (#22d3ee) mirrored interior with silhouettes of masks, a cyan neon frame around the window, dark polished panels below. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_ice_glacier",
+   "raw": "wall_ice_glacier.png",
+   "name": "Muro Modular 08b · Muro de Hielo Abisal (VIII Traición)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 8 Traición",
+   "circle_engine": "8 Traición",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Treachery, a frozen crypt: dark blue-black stone encrusted with glowing cyan-blue glacial crystal ribs (#38bdf8) growing in the centre, iron bands and frost; thin cold-blue neon line along the cornice. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_core_monolith",
+   "raw": "wall_core_monolith.png",
+   "name": "Muro Modular 10 · Monolito Blanco y Negro (Núcleo)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 9 Núcleo",
+   "circle_engine": "9 Núcleo",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the final Core: stark monochrome architecture, a tall bone-white monolithic slab in the centre set into near-black obsidian, with a thin vertical rift glowing white-magenta down the middle of the slab; minimal ornament, geometric. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_pillar_obsidian",
+   "raw": "wall_pillar_obsidian.png",
+   "name": "Muro Modular 04 · Columna Pilastra Obsidiana",
+   "size": [
+    288,
+    576
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 4,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "pilastra",
+   "use": "Pilastras del muro norte: esquinas de la sala y cada 320 px (buildHighResRoomCache; 148 px de alto en pantalla, ancho según proporción).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE tall fluted column of black obsidian, front elevation, strictly orthographic: stepped square plinth at the bottom, fluted shaft, carved capital at the top with a thin crimson-magenta trim line; whole column visible and centred, filling about 95 percent of the image height; the plinth's lower edge perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "door_stained_closed",
+   "raw": "door_stained_closed.png",
+   "name": "Puerta 01 · Arco Vitral Carmesí y Oro (Cerrada)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "door_stained_closed",
+   "use": "Puerta cerrada de los círculos I–IV (drawDoor).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE closed arched door of an infernal nightclub cathedral: rounded (Romanesque) arch; the door is a single leaf of dark bronze framing a large stained-glass rose window in crimson, magenta and gold that glows from behind (flat cel bands); carved dark-stone arch frame with antique gold trim; a magenta neon tube follows the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "door_arched_open",
+   "raw": "door_arched_open.png",
+   "name": "Puerta 02 · Umbral Arco Dorado (Abierta)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "door_arched_open",
+   "use": "Puerta abierta de los círculos I–IV (drawDoor, door.open).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "EDIT the reference image. Keep EXACTLY the same arch, stone frame, gold trim, neon tube, size, position and drawing style. Change ONLY the door leaf: it is now swung wide OPEN (seen edge-on against the jamb) and the opening reveals a dark corridor with a cyan (#22d3ee) glow rising from below and two stone steps. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": [],
+   "edit_of": "door_stained_closed"
+  },
+  {
+   "id": "door_vip_crimson",
+   "raw": "door_vip_crimson.png",
+   "name": "Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda)",
+   "size": [
+    448,
+    544
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "door_vip_crimson",
+   "use": "Puerta de la tienda / cabina (drawDoor: door.kind shop).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE closed arched VIP club door: dark obsidian stone arch frame; the single leaf is upholstered in quilted crimson velvet with gold buttons and a gold crest medallion in the centre; a small gold 'VIP' plaque is allowed as a plain shape without legible letters; magenta neon tube along the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "portal_baroque_gold",
+   "raw": "portal_baroque_gold.png",
+   "name": "Portal 06 · Retablo Barroco Dorado (Cámara de Jefe)",
+   "size": [
+    448,
+    576
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "bottom",
+    "sharpen": 30
+   },
+   "entity": "portal_baroque_gold",
+   "use": "Puerta de la cámara del jefe (drawDoor: door.kind boss).",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE towering boss-chamber portal: a sculpted baroque gold altarpiece frame (scrolls, flames, a crowned fox skull at the top) around a tall dark obsidian mirror void; a flat warm gold glow (#facc15) outlines the void in two cel bands; the frame stands on a dark stone plinth with a perfectly horizontal lower edge. FORMAT: front elevation, strictly orthographic, portrait; whole portal visible and centred, filling about 92 percent of the image height. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "threshold_descent_pad",
+   "raw": "threshold_descent_pad.png",
+   "name": "Plataforma Cian de Descenso (Refugio)",
+   "size": [
+    640,
+    400
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "center",
+    "sharpen": 30
+   },
+   "entity": "plataforma de descenso",
+   "use": "Plataforma de descenso del Refugio (drawDescentPad, 196 px de ancho) y respaldo de puerta.",
+   "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+   "prompt": "Create ONE floor pad seen from above at a steep top-down angle (about 60 degrees, so it reads as a flattened rhombus/oval, wider than tall): a dark obsidian slab with bevelled edges, a cyan (#22d3ee) neon tube running around its rim, and in the centre a small sunken circle with a crimson crystal and a downward-pointing arrow glyph in cyan; flat cel glow bands only. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "prop_hub_fox_neon",
+   "raw": "prop_hub_fox_neon.png",
+   "name": "Neón Mural Zorro (muro norte y Refugio)",
+   "size": [
+    384,
+    512
+   ],
+   "matte": "hard",
+   "key": "green",
+   "band": 3,
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 6,
+    "anchor": "center",
+    "sharpen": 30
+   },
+   "entity": "neón del zorro",
+   "use": "Neón del zorro coronado en la fachada norte (82×108) y en el Refugio (112×148).",
+   "reference": "assets/logos/emblem_fox_crown.png (forma) · REF_01_neon_fox_disco_muerto.png",
+   "prompt": "Create ONE wall-mounted neon sign: the head of a fox wearing a small crown, drawn as hot magenta (#ff2d7a) neon tubes with a cyan (#22d3ee) accent on the crown, mounted on a dark matte-black rectangular backing board with rounded corners; the tubes are drawn as solid flat strokes with a thin black ink outline and a flat lighter core, no soft glow halo; portrait 3:4, the board fills about 90 percent of the image height. Match the project's fox emblem (IMAGE 1) for the shape of the fox head and crown. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": []
+  },
+  {
+   "id": "wall_greed_vault",
+   "raw": "wall_greed_vault.png",
+   "name": "Muro Modular 11 · Cámara Acorazada Dorada (III Avaricia)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 3 Avaricia",
+   "circle_engine": "3 Avaricia",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Greed, a bank vault turned club: dark slate wall with a round gold vault door (spoked wheel, rivets) in the centre, stacks of gold coins carved in relief at the base, thin yellow-gold neon line (#facc15) along the cornice; cold grey-black stone. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": [],
+   "category": "walls",
+   "location": "assets/walls/wall_greed_vault.png",
+   "original_id": "wall_greed",
+   "pivot": "bottom-center",
+   "code_references": [
+    "CIRCLE_CONFIG",
+    "buildHighResRoomCache"
+   ]
+  },
+  {
+   "id": "wall_violence_chains",
+   "raw": "wall_violence_chains.png",
+   "name": "Muro Modular 12 · Jaula de Cadenas (VI Violencia)",
+   "size": [
+    384,
+    576
+   ],
+   "matte": "none",
+   "alpha": false,
+   "fit": {
+    "mode": "cover",
+    "sharpen": 30
+   },
+   "mirror_half": "left",
+   "entity": "muro norte · 6 Violencia",
+   "circle_engine": "6 Violencia",
+   "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+   "reference": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+   "prompt": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Violence, a fighting pit: dark steel plates and a chain-link cage panel in the centre with heavy hanging chains and a meat hook, blood-red neon strip (#fb7185) along the cornice, ash-grey riveted base. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+   "generated": null,
+   "issues": [],
+   "category": "walls",
+   "location": "assets/walls/wall_violence_chains.png",
+   "original_id": "wall_violence",
+   "pivot": "bottom-center",
+   "code_references": [
+    "CIRCLE_CONFIG",
+    "buildHighResRoomCache"
+   ]
+  }
+ ]
+}

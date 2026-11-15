@@ -46,6 +46,11 @@ Los `idle` nuevos (R03) son la referencia obligatoria de cada jefe; faltan 7 `at
 **04 Escenarios.** El motor compone cada sala con suelos, muros, puertas y props individuales (profundidad por línea
 de apoyo): no se usan fondos planos. El HUB es DOM + canvas (`DD_HUB`). Las láminas sólo dan ambiente; las referencias
 aprobadas siguen siendo REF_07 (hub) y REF_08–16 (círculos).
+*Avance 2026-11-14:* auditoría en juego con `probe_rooms.js` (18 salas de los nueve círculos + Refugio): el muro norte
+se dibujaba aplastado 2:1 (corregido en el renderizador) y las puertas nunca cambiaban de estado ni de clase (corregido en
+el puente). Ficha de 20 ilustraciones con contrato nuevo (muros opacos 384×576 simetrizados, puertas 448×544 sobre croma);
+turno 1 hecho y visto en juego: `wall_panel_gothic_niche`, `door_gothic_closed`, `door_gothic_open`, `portal_avaricia_gold`
+(este último señala ahora la puerta de descenso). Quedan 16 (turnos 2 y 3, `NEXT_BATCH.md`).
 
 **05 Armas.** Catálogo real = tabla `ja` (120 heredadas + `m1911`). Las 9 legendarias canónicas de la biblia
 (Última Invitación, Sobremesa, El Último Centavo, Garganta Roja, Amén Vacío, Primer Latido, Palabra Prestada, Venías
@@ -79,7 +84,7 @@ escudo, habilidades, moneda, emblemas); botones y lógica no se tocan.
 |---|---|---|---|
 | **02 Enemigos** | `hit` × 6 familias; lectura de variantes por color (tinte de contorno por `variant86`) sobre los sprites R02; mapa lámina↔motor; QA con sonda | 6 PNG + 6 maestros | `ENEMY_STATE_ASSET.hit`, `view.variant` en puente, tinte cacheado en `blitEnemyFrame` |
 | **03 Jefes** | 7 `attack` + 10 `hit` + 10 `death` (27) con el reposo nuevo como referencia; fin de R03 — **27/27 hechos, cerrada 2026-11-14** (7 `attack`, 10 `death`, 10 `hit`) | 27 PNG + 27 maestros | ya contemplada (`BOSS_STATE_ASSET`), sólo `rev` nueva |
-| **04 Escenarios** | Rehacer los 5 elementos defectuosos (nicho gótico, 3 puertas góticas, portal Avaricia) y piezas faltantes del `CIRCLE_CONFIG`; HUB: sólo lo que `DD_HUB` consume | según inventario D/C | sin cambios de código salvo registro |
+| **04 Escenarios** | Rehacer los 4 elementos defectuosos (nicho gótico, 2 puertas góticas, portal Avaricia) y las 14 piezas en pixel art que consumen `CIRCLE_CONFIG`/`drawDoor`/`drawDescentPad`/`DD_HUB` + 2 muros nuevos (Avaricia, Violencia) — ficha `batches/T04_ESCENARIOS.json`, **4/20 hechos (turno 1), 2026-11-14** | 20 PNG + 20 maestros | módulos del muro proporcionales; estado/clase de puerta en el puente (`ddDoorState`); 2 cadenas nuevas en `CIRCLE_CONFIG` al registrar los muros nuevos |
 | **05 Armas** | Sprites HD 320×160 para las 105 armas `cNNN_*` sin sprite, por familias (pistola → … → míticas), con calibración `hd.grip/tip` real; icono = mismo PNG (el motor ya lo reutiliza) | hasta 105 PNG | `__HD_ASSETS.images["weapon_"+id]` / `DD_ASSETS` (ya enganchado) |
 | **06 Objetos** | 20 pickups/reliquias en el estilo neón; efectos sólo si el renderizador los consume | 20 PNG | ids existentes (sin código) |
 | **07 HUD** | corazón lleno/vacío, escudo, 3 habilidades, moneda, emblema victoria | ~8 PNG | ids ya consultados por `dd_ui_system.js` |

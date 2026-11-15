@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-14T23:41:38Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T00:59:52Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -22,13 +22,13 @@
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 30 | 0 | 0 | 0 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
-| `walls` | 10 | 0 | 9 | 0 | 1 | 0 |
-| `environments` | 8 | 0 | 5 | 0 | 3 | 0 |
+| `walls` | 10 | 0 | 9 | 0 | 0 | 1 |
+| `environments` | 8 | 0 | 5 | 0 | 0 | 3 |
 | `ui` | 15 | 7 | 7 | 0 | 1 | 0 |
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **380** | **25** | **121** | **105** | **30** | **99** |
+| **Total** | **380** | **25** | **121** | **105** | **26** | **103** |
 
 ## `characters` (31)
 
@@ -279,7 +279,6 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `wall_panel_gothic_niche` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R09_ARQUITECTURA` |
 | `wall_core_monolith` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `wall_gula_banquet` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `wall_ice_glacier` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
@@ -289,19 +288,20 @@
 | `wall_panel_vip_window` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `wall_pillar_obsidian` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `wall_wrath_furnace` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
+| `wall_panel_gothic_niche` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 
 ## `environments` (8)
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `door_gothic_closed` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R09_ARQUITECTURA` |
-| `door_gothic_open` | **D** | damero de transparencia o huecos blancos horneados en la imagen | `R09_ARQUITECTURA` |
-| `portal_avaricia_gold` | **D** | halo / flecos claros alrededor de la silueta | `R09_ARQUITECTURA` |
 | `door_arched_open` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `door_stained_closed` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `door_vip_crimson` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `portal_baroque_gold` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `threshold_descent_pad` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
+| `door_gothic_closed` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `door_gothic_open` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `portal_avaricia_gold` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 
 ## `ui` (15)
 
