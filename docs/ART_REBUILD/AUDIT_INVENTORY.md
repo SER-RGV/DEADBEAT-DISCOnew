@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T08:11:15Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T08:23:20Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -17,7 +17,7 @@
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
 | `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
 | `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
-| `weapons` | 121 | 0 | 16 | 6 | 0 | 99 |
+| `weapons` | 121 | 0 | 16 | 0 | 0 | 105 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 29 | 0 | 0 | 1 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **107** | **6** | **26** | **218** |
+| **Total** | **382** | **25** | **107** | **0** | **26** | **224** |
 
 ## `characters` (31)
 
@@ -256,6 +256,12 @@
 | `weapon_c112_harvester` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c113_espada_de_energia` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c114_espada_caos` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c115_lanza_espectral` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c116_orbe_del_abismo` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c117_bomba_flotante` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c118_summon_infernal` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c119_dragon_espiritual` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c120_director` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_cryo` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_flamer` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_m16` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
@@ -267,8 +273,6 @@
 | `weapon_thompson` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_trident` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_winchester` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
-
-**Clase C — 6 sin arte nuevo** (tanda `R05_ARMAS`): `weapon_c115_lanza_espectral`, `weapon_c116_orbe_del_abismo`, `weapon_c117_bomba_flotante`, `weapon_c118_summon_infernal`, `weapon_c119_dragon_espiritual`, `weapon_c120_director`
 
 ## `pickups` (20)
 

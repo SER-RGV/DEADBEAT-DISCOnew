@@ -2,7 +2,7 @@
   "batch": "T05_ARMAS",
   "title": "TANDA 05 · ARMAS — sprites HD 320×160 de las 105 armas sin ilustración (icono = mismo PNG)",
   "created": "2026-11-15",
-  "status": "ABIERTA",
+  "status": "CERRADA 105/105 (2026-11-15) — informe docs/ART_REBUILD/TANDA_05_INFORME.md",
   "style": "Pixel art limpio con contorno 1 px, cel shading 3–4 tonos, metal negro-azulado mate y acentos neón; misma familia visual que los 16 sprites existentes de assets/weapons.",
   "scope": {
     "total_catalog": 120,
@@ -309,7 +309,7 @@
         "weapon_c114_espada_caos",
         "weapon_c115_lanza_espectral"
       ],
-      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c115_lanza_espectral sin generar aún (cupo de 10 por mensaje)",
+      "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15)",
       "hechas": [
         "weapon_c106_arco_ancestral",
         "weapon_c107_arco_del_lobo",
@@ -319,7 +319,8 @@
         "weapon_c111_devoracaos",
         "weapon_c112_harvester",
         "weapon_c113_espada_de_energia",
-        "weapon_c114_espada_caos"
+        "weapon_c114_espada_caos",
+        "weapon_c115_lanza_espectral"
       ],
       "reintentar": []
     },
@@ -332,7 +333,15 @@
         "weapon_c119_dragon_espiritual",
         "weapon_c120_director"
       ],
-      "estado": "pendiente"
+      "estado": "COMPLETO 5/5 verificadas en mano (2026-11-15)",
+      "hechas": [
+        "weapon_c116_orbe_del_abismo",
+        "weapon_c117_bomba_flotante",
+        "weapon_c118_summon_infernal",
+        "weapon_c119_dragon_espiritual",
+        "weapon_c120_director"
+      ],
+      "reintentar": []
     }
   ],
   "assets": [
@@ -4316,7 +4325,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "varita"
+        "cls": "varita",
+        "grip": 0.1,
+        "grip_v": 0.62
       },
       "engine": {
         "wid": "c116_orbe_del_abismo",
@@ -4354,7 +4365,10 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "dispositivo"
+        "cls": "dispositivo",
+        "grip": 0.1,
+        "grip_v": 0.64,
+        "sup": null
       },
       "engine": {
         "wid": "c117_bomba_flotante",
@@ -4392,7 +4406,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "baston"
+        "cls": "baston",
+        "grip_v": 0.616
       },
       "engine": {
         "wid": "c118_summon_infernal",
@@ -4430,7 +4445,11 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "lanzador"
+        "cls": "lanzador",
+        "grip": 0.2,
+        "grip_v": 0.72,
+        "sup": 0.36,
+        "sup_v": 0.72
       },
       "engine": {
         "wid": "c119_dragon_espiritual",
@@ -4468,7 +4487,11 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "lanzador"
+        "cls": "lanzador",
+        "grip": 0.2,
+        "grip_v": 0.7,
+        "sup": 0.37,
+        "sup_v": 0.72
       },
       "engine": {
         "wid": "c120_director",
@@ -4489,7 +4512,7 @@
     }
   ],
   "progress": {
-    "verified": 99,
+    "verified": 105,
     "total": 105,
     "updated": "2026-11-15"
   },
@@ -4508,6 +4531,7 @@
     "Turno 10 (especiales + primeras cuerpo a cuerpo): 7/10 generadas (fallos del servicio en c067 3.º, c078 2.º, c082 1.º). Las armas blancas horizontales (espada láser, katana, hacha, martillo) calibran bien DE SERIE con el prior de armaLigera/armaPesada (grip 0.173–0.231, sup 0.519 en las pesadas) y el motor las sostiene como un arma apuntada (ligera a una mano, pesada a dos) en las tres poses; no hace falta hint alguno. Los dispositivos tipo pistola (satélites, orbes) siguen la regla del pistolete izquierdo: grip 0.10 + grip_v 0.74; el clonador (doble cañón con depósito ADN central) necesita grip_v 0.68 y sup 0.40 para que el apoyo no caiga bajo la caja. Si el generador pinta el efecto en la boca (satélites: disco de energía), fijar tip explícito (0.82).",
     "Turno 11 (reintentos + cuerpo a cuerpo 89–94): 9/10 generadas; los tres reintentos acumulados salieron con DESIGN mínimo (c067 «ice blue shotgun» al 4.º, c078 una frase sin «spiked ball» al 3.º, c082 al 2.º) → ante fallos repetidos del servicio, recortar el DESIGN a una frase funciona. Melee: bate (armaLigera) y lanza (prior lanza grip .288/sup .558 sobre el astil) calibran de serie; guadaña → grip .12 para que la mano caiga en la empuñadura vendada; cadena/mayal → sup null (una mano) porque el apoyo del prior caía sobre los eslabones; sierra circular (cuerpo de motosierra) → grip .09 + grip_v .68 en el asa trasera y sup .42 bajo el cubo del disco. El generador añade asas/pistoletes a las armas que no los tienen (manopla con asa inferior, lanza con culata-pistolete): se calibra la mano sobre esa asa (punos → grip .09, grip_v .74) y queda natural. Dispositivo con bbox < 1.9 (placa emisora alta, c082) → el calibrador lo trata como compacto y lo deja a una mano aunque se pida sup.",
     "Turno 12 (cuchillo + míticas 96–104): 10/10 generadas sin fallos del servicio. BASTONES (cls baston, fam staff): el motor los lleva horizontales mientras se canaliza (sin ángulo de guardia) y el ancla `hand` de player_fire2 está en la BASE del puño trasero (pensada para pistoletes): con el agarre medido sobre el propio astil, el astil quedaba ~5 px bajo las manos. Regla: grip_v = axis + 0.08 (≈3,5 px bajo el astil) → cruza los puños en horizontal y la pose «arriba» no se resiente (evidencia 36_turno12_bastones_antes_despues). La lanza/alabarda no lo necesitan porque llevan guardia de −0.27 rad. Alabarda: la hoja arrastra el eje medido hacia abajo → axis_v .48 + axis_band .70. Thundergun (lanzador): grip .23/grip_v .74 en el pistolete y sup .27 en la empuñadura delantera. Wave gun: discos de onda pintados en la boca → tip .87. Los fusiles de energía míticos con pistolete bajo la caja (Winter's Howl, Wave Gun) necesitan grip_v .70–.72 para que la mano no quede en el guardamonte.",
-    "Turno 13 (bastón de viento, arcos 106–110, Devoracaos, Harvester, espada de energía, espada del caos): 10/10 sin fallos. ARCOS — geometría del motor (`it` v3.2, isBow): gira el PNG spriteRot=+π/2 (borde INFERIOR del PNG → lado del arquero), lo escala a wHgt=len·95 (≈65 px) y wLen=wHgt·(ancho/alto DEL LIENZO), y lo dibuja en la caja FIJA x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2 (el puño delantero está a ≈+19 px); cuerda procedural desde (bx+2, ±wHgt/2−4) hasta el nock x=14−(6..17) y flecha hasta x=32. Por eso el lienzo 2:1 NO sirve (wLen=32 → cuerda 5 px por detrás de la mano trasera y V de 13 px): el contrato de arcos es LIENZO FINO 320×80 (4:1, como los embebidos 160×31..47) con fit anchor=bottom (la cuerda pintada queda en el borde inferior = cuerda procedural, las puntas se tocan) y el riser en el borde superior (= puño delantero). Prompt propio: arco tumbado como arco de puente, puntas en los extremos, riser arriba, vientre cóncavo hacia ABAJO, cuerda fina de 1 px (invisible en mano, legible en el icono), SIN flecha, 4 veces más largo que profundo. Anclas: grip .35 / sup +.37 con grip_v = sup_v = .5 (nuevo hint `sup_v`): el motor dibuja el antebrazo de apoyo en el marco SIN girar y, medido sobre la silueta, sup_v caía en la cuerda (antebrazo 28 px hacia abajo). ESPADONES a dos manos (armaPesada): grip en la empuñadura (.10–.11) y sup +.13 en la base de la guarda → (sup−grip)·len·95 ≥ 10 → player_fire2 con el puño delantero en la guarda (no sobre la hoja). Harvester: grip .14 en la empuñadura envuelta. Bastón de viento: regla grip_v = axis + .08."
+    "Turno 13 (bastón de viento, arcos 106–110, Devoracaos, Harvester, espada de energía, espada del caos): 10/10 sin fallos. ARCOS — geometría del motor (`it` v3.2, isBow): gira el PNG spriteRot=+π/2 (borde INFERIOR del PNG → lado del arquero), lo escala a wHgt=len·95 (≈65 px) y wLen=wHgt·(ancho/alto DEL LIENZO), y lo dibuja en la caja FIJA x∈[14−0.65·wLen, 14+0.35·wLen] respecto a la mano trasera de player_fire2 (el puño delantero está a ≈+19 px); cuerda procedural desde (bx+2, ±wHgt/2−4) hasta el nock x=14−(6..17) y flecha hasta x=32. Por eso el lienzo 2:1 NO sirve (wLen=32 → cuerda 5 px por detrás de la mano trasera y V de 13 px): el contrato de arcos es LIENZO FINO 320×80 (4:1, como los embebidos 160×31..47) con fit anchor=bottom (la cuerda pintada queda en el borde inferior = cuerda procedural, las puntas se tocan) y el riser en el borde superior (= puño delantero). Prompt propio: arco tumbado como arco de puente, puntas en los extremos, riser arriba, vientre cóncavo hacia ABAJO, cuerda fina de 1 px (invisible en mano, legible en el icono), SIN flecha, 4 veces más largo que profundo. Anclas: grip .35 / sup +.37 con grip_v = sup_v = .5 (nuevo hint `sup_v`): el motor dibuja el antebrazo de apoyo en el marco SIN girar y, medido sobre la silueta, sup_v caía en la cuerda (antebrazo 28 px hacia abajo). ESPADONES a dos manos (armaPesada): grip en la empuñadura (.10–.11) y sup +.13 en la base de la guarda → (sup−grip)·len·95 ≥ 10 → player_fire2 con el puño delantero en la guarda (no sobre la hoja). Harvester: grip .14 en la empuñadura envuelta. Bastón de viento: regla grip_v = axis + .08.",
+    "Turno 14 (cierre: lanza espectral, orbe del abismo, bomba flotante, summon infernal, dragón espiritual, Director): 6/6 sin fallos. Varita-pistola y dispositivo compacto con el pistolete en el extremo izquierdo: `grip .10` + `grip_v .62–.64` (la caída queda fuera del max_dev del prior); bomba flotante a una mano (`sup None`, como el motor). Lanzadores de cadera (xt: dragón espiritual, Director): el motor no dibuja el antebrazo de apoyo y usa player_firehip, pero las anclas se miden igual (grip en el pistolete `.20/.70–.72`, sup en la empuñadura delantera `+.36–.37` con `sup_v .72`) para la telemetría, el visor de depuración y el icono. Summon infernal: regla de bastón grip_v = axis + .08 aunque el astil sea fino (lo que manda es la ausencia de ángulo de guardia en isStaff, no el grosor). Balance de la tanda: 136 llamadas al generador para 105 válidas (31 fallos del servicio, resueltos acortando el DESIGN a una frase); 16 sondas, 352 capturas, 0 errores de página/red."
   ]
 }
