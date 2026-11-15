@@ -87,3 +87,8 @@
 - 7/10 generadas (`c070_arena`, `c074_portal_gun`, `c075_dron`, `c076_torreta`, `c079_trampa_laser`, `c080_ancla`, `c081_teletransportador`); fallos del servicio en `c067_congelacios` (2.ª vez), `c077_satelites`, `c078_mina`.
 - Calibración: hints `grip`/`grip_v`/`sup` en los 7 (pistoletes en el extremo izquierdo de los dispositivos; apoyo del SMG fuera del cargador; `tip 0.93` en la torreta). Registradas (340, caché `20261115.14`), verificadas en mano (evidencias `25–27`, 0 errores), marcadas. Inventario A25·B107·C42·D26·E182.
 
+## 2026-11-15 (12) — T05 ARMAS, 10.º tramo: satélites, clonador, orbes, espada láser, katana, hacha, martillo (70/105)
+
+- 7/10 generadas (`c077_satelites`, `c083_clonador`, `c084_orbes_orbitales`, `c085_espada_laser`, `c086_katana`, `c087_hacha`, `c088_martillo`); fallos del servicio en `c067_congelacios` (3.ª vez), `c078_mina` (2.ª vez), `c082_generador_de_paredes`.
+- Calibración: hints `grip`/`grip_v` en satélites y orbes (pistolete izquierdo), `sup 0.40` en el clonador, `tip 0.82` en satélites (disco de energía pintado en la boca); las cuatro armas blancas de serie (prior armaLigera/armaPesada). Registradas (347, caché `20261115.15`), verificadas en mano (evidencias `28–30`, 0 errores; espada/katana a una mano, hacha/martillo a dos), marcadas. Inventario A25·B107·C35·D26·E189.
+

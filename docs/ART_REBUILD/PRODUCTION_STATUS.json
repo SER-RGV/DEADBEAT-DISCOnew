@@ -1,205 +1,205 @@
 {
- "updated_at": "2026-11-15T02:05:57Z",
- "branch": "arena/e088e9d7-deadbeat-disconew",
- "pipeline": "tools/art_master (tandas R01, R02, …)",
- "registry": {
-  "total": 340,
-  "cache_version": "20261115.14"
- },
- "classification": {
-  "total": 382,
-  "A_conservar": 25,
-  "B_rehacer_estilo": 107,
-  "C_falta": 105,
-  "D_defectuoso": 26,
-  "E_rehecho_validado": 119
- },
- "pending_to_produce": 238,
- "completed_batches": [
-  "R01_PROTAGONISTA",
-  "R02_ENEMIGOS",
-  "R03_JEFES",
-  "T04_ESCENARIOS"
- ],
- "current_batch": "T05_ARMAS (ABIERTA · 63/105 verificadas · turnos 1–5 completos, 6 parcial 9/10, 7 parcial 4/10)",
- "current_batch_progress": {
-  "status": "pendiente de abrir",
-  "batch_file": null,
-  "scope": "Sprites HD 320×160 para las armas cNNN_* sin sprite (hasta 105), por familias, con calibración hd.grip/tip; icono = mismo PNG (PLAN_PRODUCCION_02-07.md §3, tanda 05)",
-  "illustrations_total": null,
-  "generated_masters": 0,
-  "integrated_and_validated_in_game": 0,
-  "pending": null
- },
- "last_closed_batch": {
-  "batch": "T04_ESCENARIOS",
-  "closed": "2026-11-15",
-  "illustrations_total": 20,
-  "generated_masters": 20,
-  "integrated_and_validated_in_game": 20,
-  "pending": 0,
-  "integrated": [
-   "wall_panel_gothic_niche",
-   "door_gothic_closed",
-   "door_gothic_open",
-   "portal_avaricia_gold",
-   "wall_panel_neon_crown",
-   "wall_gula_banquet",
-   "wall_wrath_furnace",
-   "wall_panel_heavy_base",
-   "wall_panel_vip_window",
-   "wall_ice_glacier",
-   "wall_core_monolith",
-   "wall_greed_vault",
-   "wall_violence_chains",
-   "wall_pillar_obsidian",
-   "door_stained_closed",
-   "door_arched_open",
-   "door_vip_crimson",
-   "portal_baroque_gold",
-   "threshold_descent_pad",
-   "prop_hub_fox_neon"
+  "updated_at": "2026-11-15T06:50:00Z",
+  "branch": "arena/e088e9d7-deadbeat-disconew",
+  "pipeline": "tools/art_master (tandas R01, R02, …)",
+  "registry": {
+    "total": 347,
+    "cache_version": "20261115.15"
+  },
+  "classification": {
+    "total": 382,
+    "A_conservar": 25,
+    "B_rehacer_estilo": 107,
+    "C_falta": 35,
+    "D_defectuoso": 26,
+    "E_rehecho_validado": 189
+  },
+  "pending_to_produce": 238,
+  "completed_batches": [
+    "R01_PROTAGONISTA",
+    "R02_ENEMIGOS",
+    "R03_JEFES",
+    "T04_ESCENARIOS"
   ],
-  "renderer_fixes": [
-   "módulos del muro norte proporcionales (modW = 132·w/h; antes 128×132 → aplastado 2:1)",
-   "puente: estado y clase de puerta (ddDoorState: open/kind desde Mg/Ot.openT/shop/final/lift)",
-   "puente: plataforma de descenso 98 px dentro de la sala (WA)",
-   "portal_avaricia_gold señala la puerta de descenso (lift)",
-   "gancho QA __DD_BRIDGE.setDoorsUnlocked",
-   "CIRCLE_CONFIG: Avaricia → wall_greed_vault, Violencia → wall_violence_chains (antes compartían el muro de Gula y el de Ira)"
+  "current_batch": "T05_ARMAS (ABIERTA · 70/105 verificadas · turnos 1–5 completos, 6 parcial 9/10, 7 parcial 8/10, 8 parcial 3/10)",
+  "current_batch_progress": {
+    "status": "pendiente de abrir",
+    "batch_file": null,
+    "scope": "Sprites HD 320×160 para las armas cNNN_* sin sprite (hasta 105), por familias, con calibración hd.grip/tip; icono = mismo PNG (PLAN_PRODUCCION_02-07.md §3, tanda 05)",
+    "illustrations_total": null,
+    "generated_masters": 0,
+    "integrated_and_validated_in_game": 0,
+    "pending": null
+  },
+  "last_closed_batch": {
+    "batch": "T04_ESCENARIOS",
+    "closed": "2026-11-15",
+    "illustrations_total": 20,
+    "generated_masters": 20,
+    "integrated_and_validated_in_game": 20,
+    "pending": 0,
+    "integrated": [
+      "wall_panel_gothic_niche",
+      "door_gothic_closed",
+      "door_gothic_open",
+      "portal_avaricia_gold",
+      "wall_panel_neon_crown",
+      "wall_gula_banquet",
+      "wall_wrath_furnace",
+      "wall_panel_heavy_base",
+      "wall_panel_vip_window",
+      "wall_ice_glacier",
+      "wall_core_monolith",
+      "wall_greed_vault",
+      "wall_violence_chains",
+      "wall_pillar_obsidian",
+      "door_stained_closed",
+      "door_arched_open",
+      "door_vip_crimson",
+      "portal_baroque_gold",
+      "threshold_descent_pad",
+      "prop_hub_fox_neon"
+    ],
+    "renderer_fixes": [
+      "módulos del muro norte proporcionales (modW = 132·w/h; antes 128×132 → aplastado 2:1)",
+      "puente: estado y clase de puerta (ddDoorState: open/kind desde Mg/Ot.openT/shop/final/lift)",
+      "puente: plataforma de descenso 98 px dentro de la sala (WA)",
+      "portal_avaricia_gold señala la puerta de descenso (lift)",
+      "gancho QA __DD_BRIDGE.setDoorsUnlocked",
+      "CIRCLE_CONFIG: Avaricia → wall_greed_vault, Violencia → wall_violence_chains (antes compartían el muro de Gula y el de Ira)"
+    ],
+    "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–13)",
+    "report": "docs/ART_REBUILD/TANDA_04_INFORME.md",
+    "generations": "20 generaciones para 20 válidas (0 repeticiones; 3 hojas abiertas/portal por edición de la cerrada)",
+    "scale_lesson": "muros: pedir ortográfico, borde a borde, media pilastra en cada lado y cornisa continua, y simetrizar con mirror_half (left/right según la mitad buena); puertas: croma hard y escalón horizontal; pad: cenital ~60° para que la losa lea como rombo"
+  },
+  "planned_batches": [
+    "R03_JEFES",
+    "R04_PNJ_Y_HUD",
+    "R05_ARMAS",
+    "R06_RECOGIBLES",
+    "R07_EFECTOS",
+    "R08_MOBILIARIO",
+    "R09_ARQUITECTURA",
+    "R10_CINEMATICA"
   ],
-  "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–13)",
-  "report": "docs/ART_REBUILD/TANDA_04_INFORME.md",
-  "generations": "20 generaciones para 20 válidas (0 repeticiones; 3 hojas abiertas/portal por edición de la cerrada)",
-  "scale_lesson": "muros: pedir ortográfico, borde a borde, media pilastra en cada lado y cornisa continua, y simetrizar con mirror_half (left/right según la mitad buena); puertas: croma hard y escalón horizontal; pad: cenital ~60° para que la losa lea como rombo"
- },
- "planned_batches": [
-  "R03_JEFES",
-  "R04_PNJ_Y_HUD",
-  "R05_ARMAS",
-  "R06_RECOGIBLES",
-  "R07_EFECTOS",
-  "R08_MOBILIARIO",
-  "R09_ARQUITECTURA",
-  "R10_CINEMATICA"
- ],
- "generation_limit_per_turn": 10,
- "legacy_line": {
-  "note": "Estado de la línea anterior (TANDA_01…TANDA_23) a 2026-11-07; 'verified' significaba 'carga sin error', no calidad visual.",
-  "total_assets": 330,
-  "generated": 225,
-  "integrated": 225,
-  "verified": 225,
-  "pending": 105,
-  "completed_batches_count": 22,
-  "branch": "arena/d58c4d15-deadbeat-disconew"
- },
- "pack_02_07": {
-  "plan": "docs/ART_REBUILD/PLAN_PRODUCCION_02-07.md",
-  "laminas": "ART_REFERENCES/LAMINAS_2026-11-14/",
-  "T02_ENEMIGOS": {
-   "status": "CERRADA",
-   "report": "docs/ART_REBUILD/TANDA_02_INFORME.md",
-   "new_assets": [
-    "enemy_security_hit",
-    "enemy_dancer_hit",
-    "enemy_fanatic_hit",
-    "enemy_chef_hit",
-    "enemy_drone_hit",
-    "enemy_elite_hit"
-   ],
-   "code": [
-    "ENEMY_STATE_ASSET.hit",
-    "ENEMY_VARIANT_RIM",
-    "ENEMY_FLASH_CAP",
-    "ddEnemyView.variant"
-   ],
-   "evidence": "docs/ART_REBUILD/evidence/T02_ENEMIGOS/"
+  "generation_limit_per_turn": 10,
+  "legacy_line": {
+    "note": "Estado de la línea anterior (TANDA_01…TANDA_23) a 2026-11-07; 'verified' significaba 'carga sin error', no calidad visual.",
+    "total_assets": 330,
+    "generated": 225,
+    "integrated": 225,
+    "verified": 225,
+    "pending": 105,
+    "completed_batches_count": 22,
+    "branch": "arena/d58c4d15-deadbeat-disconew"
   },
-  "T03_JEFES": {
-   "status": "CERRADA 42/42",
-   "done_this_pack": [
-    "boss_03_cajero_attack",
-    "boss_05_oficiante_attack"
-   ],
-   "pending": [],
-   "evidence": "docs/ART_REBUILD/evidence/T03_JEFES/ (01–13 + 6 informes de sonda)",
-   "new_assets_2026-11-14": [
-    "boss_03_cajero_attack",
-    "boss_05_oficiante_attack",
-    "boss_06_matarife_attack",
-    "boss_07_imitador_attack",
-    "boss_08_traidor_attack",
-    "boss_09_nucleo_attack",
-    "boss_10_arquitecto_attack",
-    "boss_00_anden_death",
-    "boss_01_magneta_death",
-    "boss_02_bufe_death",
-    "boss_03_cajero_death",
-    "boss_04_pogo_death",
-    "boss_05_oficiante_death",
-    "boss_06_matarife_death",
-    "boss_07_imitador_death",
-    "boss_08_traidor_death",
-    "boss_09_nucleo_death",
-    "boss_00_anden_hit",
-    "boss_01_magneta_hit",
-    "boss_02_bufe_hit",
-    "boss_04_pogo_hit",
-    "boss_03_cajero_hit",
-    "boss_05_oficiante_hit",
-    "boss_06_matarife_hit",
-    "boss_07_imitador_hit",
-    "boss_08_traidor_hit",
-    "boss_09_nucleo_hit"
-   ],
-   "scale_lesson": "las poses de rodillas salen re-encuadradas: k real 0,85–1,30 medido por rasgo rígido (halo/aro/gorra/ampli) en vez del factor del lienzo",
-   "code": [
-    "src/dd_world_renderer.js: anchors.unit aceptado hasta 2,0 (antes 1,5) en resolveBossFrame y en el equivalente de enemigos"
-   ],
-   "report": "docs/ART_REBUILD/TANDA_03_INFORME.md",
-   "generations": "29 generaciones para 27 válidas (Cajero attack ×3, Cajero hit ×2)"
+  "pack_02_07": {
+    "plan": "docs/ART_REBUILD/PLAN_PRODUCCION_02-07.md",
+    "laminas": "ART_REFERENCES/LAMINAS_2026-11-14/",
+    "T02_ENEMIGOS": {
+      "status": "CERRADA",
+      "report": "docs/ART_REBUILD/TANDA_02_INFORME.md",
+      "new_assets": [
+        "enemy_security_hit",
+        "enemy_dancer_hit",
+        "enemy_fanatic_hit",
+        "enemy_chef_hit",
+        "enemy_drone_hit",
+        "enemy_elite_hit"
+      ],
+      "code": [
+        "ENEMY_STATE_ASSET.hit",
+        "ENEMY_VARIANT_RIM",
+        "ENEMY_FLASH_CAP",
+        "ddEnemyView.variant"
+      ],
+      "evidence": "docs/ART_REBUILD/evidence/T02_ENEMIGOS/"
+    },
+    "T03_JEFES": {
+      "status": "CERRADA 42/42",
+      "done_this_pack": [
+        "boss_03_cajero_attack",
+        "boss_05_oficiante_attack"
+      ],
+      "pending": [],
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES/ (01–13 + 6 informes de sonda)",
+      "new_assets_2026-11-14": [
+        "boss_03_cajero_attack",
+        "boss_05_oficiante_attack",
+        "boss_06_matarife_attack",
+        "boss_07_imitador_attack",
+        "boss_08_traidor_attack",
+        "boss_09_nucleo_attack",
+        "boss_10_arquitecto_attack",
+        "boss_00_anden_death",
+        "boss_01_magneta_death",
+        "boss_02_bufe_death",
+        "boss_03_cajero_death",
+        "boss_04_pogo_death",
+        "boss_05_oficiante_death",
+        "boss_06_matarife_death",
+        "boss_07_imitador_death",
+        "boss_08_traidor_death",
+        "boss_09_nucleo_death",
+        "boss_00_anden_hit",
+        "boss_01_magneta_hit",
+        "boss_02_bufe_hit",
+        "boss_04_pogo_hit",
+        "boss_03_cajero_hit",
+        "boss_05_oficiante_hit",
+        "boss_06_matarife_hit",
+        "boss_07_imitador_hit",
+        "boss_08_traidor_hit",
+        "boss_09_nucleo_hit"
+      ],
+      "scale_lesson": "las poses de rodillas salen re-encuadradas: k real 0,85–1,30 medido por rasgo rígido (halo/aro/gorra/ampli) en vez del factor del lienzo",
+      "code": [
+        "src/dd_world_renderer.js: anchors.unit aceptado hasta 2,0 (antes 1,5) en resolveBossFrame y en el equivalente de enemigos"
+      ],
+      "report": "docs/ART_REBUILD/TANDA_03_INFORME.md",
+      "generations": "29 generaciones para 27 válidas (Cajero attack ×3, Cajero hit ×2)"
+    },
+    "T04_ESCENARIOS": {
+      "status": "CERRADA 20/20",
+      "closed": "2026-11-15",
+      "report": "docs/ART_REBUILD/TANDA_04_INFORME.md",
+      "batch_file": "docs/ART_REBUILD/batches/T04_ESCENARIOS.json",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–13)",
+      "code": [
+        "src/dd_world_renderer.js: módulos del muro norte proporcionales (modW=132·w/h, pilW=148·w/h); CIRCLE_CONFIG Avaricia→wall_greed_vault, Violencia→wall_violence_chains",
+        "tools/build_active_html.py: ddDoorState (open/kind), WA (pad a 98 px), __DD_BRIDGE.setDoorsUnlocked",
+        "tools/art_master/artlib.py: mirror_half left|right; batch.py register admite el tamaño de la ficha",
+        "tools/art_master/probe_rooms.js v10: pasos a/b/c(norte por teleport)/d(puertas especiales por teleport), --hub, --unlock"
+      ]
+    },
+    "T05_ARMAS": {
+      "status": "ABIERTA",
+      "verified": 70,
+      "total": 105,
+      "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
+      "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
+      "tools": [
+        "tools/art_master/weapon_cal.py",
+        "tools/art_master/probe_weapons.js",
+        "batch.py calibrate",
+        "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
+      ],
+      "next": "reintentar c067_congelacios (3 fallos → DESIGN mínimo), c078_mina (2 fallos), c082_generador_de_paredes (1 fallo); resto del turno 8 (cuerpo a cuerpo c089–c095) → turnos 9–11 (míticas)"
+    },
+    "T06_OBJETOS": {
+      "status": "PENDIENTE"
+    },
+    "T07_HUD": {
+      "status": "PENDIENTE"
+    }
   },
-  "T04_ESCENARIOS": {
-   "status": "CERRADA 20/20",
-   "closed": "2026-11-15",
-   "report": "docs/ART_REBUILD/TANDA_04_INFORME.md",
-   "batch_file": "docs/ART_REBUILD/batches/T04_ESCENARIOS.json",
-   "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–13)",
-   "code": [
-    "src/dd_world_renderer.js: módulos del muro norte proporcionales (modW=132·w/h, pilW=148·w/h); CIRCLE_CONFIG Avaricia→wall_greed_vault, Violencia→wall_violence_chains",
-    "tools/build_active_html.py: ddDoorState (open/kind), WA (pad a 98 px), __DD_BRIDGE.setDoorsUnlocked",
-    "tools/art_master/artlib.py: mirror_half left|right; batch.py register admite el tamaño de la ficha",
-    "tools/art_master/probe_rooms.js v10: pasos a/b/c(norte por teleport)/d(puertas especiales por teleport), --hub, --unlock"
-   ]
-  },
-  "T05_ARMAS": {
-   "status": "ABIERTA",
-   "verified": 63,
-   "total": 105,
-   "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
-   "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
-   "tools": [
-    "tools/art_master/weapon_cal.py",
-    "tools/art_master/probe_weapons.js",
-    "batch.py calibrate",
-    "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
-   ],
-   "next": "reintentar c067_congelacios (2 fallos), c077_satelites, c078_mina; c082–c085; turno 8 (cuerpo a cuerpo 86–95) → turnos 9–11"
-  },
-  "T06_OBJETOS": {
-   "status": "PENDIENTE"
-  },
-  "T07_HUD": {
-   "status": "PENDIENTE"
+  "updated": "2026-11-15",
+  "inventory_classes": {
+    "A": 25,
+    "B": 107,
+    "C": 35,
+    "D": 26,
+    "E": 189
   }
- },
- "updated": "2026-11-15",
- "inventory_classes": {
-  "A": 25,
-  "B": 107,
-  "C": 42,
-  "D": 26,
-  "E": 182
- }
 }
