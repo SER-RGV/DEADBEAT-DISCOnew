@@ -1,11 +1,11 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 2.º tramo):** **12/105 verificadas en mano.** Turno 1: 8/10 (`cryo`, `c019_electrica`, `spas12`,
-  `c021_doble`, `c022_de_gancho`, `c016_de_canon`, `c017_de_fuego`, `thompson`); turno 2: 4/10 (`ak47`, `m16`,
-  `c028_famas`, `c029_scar`). Registro 289, caché `20261115.6`. Evidencias `evidence/T05_ARMAS/00–06`.
-  **Por reintentar** (fallo del servicio de generación, no del prompt): `c023_flechetes` y `c024_incendiaria` (dos
-  veces: si vuelven a fallar, acortar el DESIGN del prompt), `c030_g36`. Siguen en el turno 2: `c031_aug`, `mp40`,
-  `c033_pulsos`, `c034_laser`, `winchester`, `c036_bullpup`.
+- **Estado (2026-11-15, 3.er tramo):** **20/105 verificadas en mano.** Turno 1: 9/10 (falta `c024_incendiaria`,
+  tres fallos seguidos del servicio de generación, también con el DESIGN acortado → cambiar el enfoque del prompt:
+  «tank» en vez de «canister», sin «pilot flame»); turno 2: 10/11 (falta `c034_laser`, un fallo); turno 3 iniciado
+  con `m60` (postura de cadera correcta). Registro 297, caché `20261115.8`. Evidencias `evidence/T05_ARMAS/00–09`.
+  Siguen: `c038_minigun`, `c039_lmg_neon`, `c040_pesado`, `c041_lanzacohetes`, `c042_lanzagranadas`, `railgun`,
+  `c044_bfg`, `c045_mortero`, `c046_rotatorio`, `flamer`, `c048_artilleria`.
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

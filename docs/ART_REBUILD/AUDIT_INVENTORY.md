@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T03:21:25Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T04:06:06Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -17,7 +17,7 @@
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
 | `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
 | `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
-| `weapons` | 121 | 0 | 16 | 93 | 0 | 12 |
+| `weapons` | 121 | 0 | 16 | 85 | 0 | 20 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 29 | 0 | 0 | 1 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **107** | **93** | **26** | **131** |
+| **Total** | **382** | **25** | **107** | **85** | **26** | **139** |
 
 ## `characters` (31)
 
@@ -174,14 +174,22 @@
 | `weapon_c019_electrica` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c021_doble` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c022_de_gancho` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c023_flechetes` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c028_famas` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_c029_scar` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c030_g36` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c031_aug` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c033_pulsos` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_c036_bullpup` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_cryo` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_m16` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_m60` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_mp40` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_spas12` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 | `weapon_thompson` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
+| `weapon_winchester` | **E** | rehecho en la tanda T05_ARMAS y validado dentro del juego | `T05_ARMAS` |
 
-**Clase C — 93 sin arte nuevo** (tanda `R05_ARMAS`): `weapon_c023_flechetes`, `weapon_c024_incendiaria`, `weapon_c030_g36`, `weapon_c031_aug`, `weapon_mp40`, `weapon_c033_pulsos`, `weapon_c034_laser`, `weapon_winchester`, `weapon_c036_bullpup`, `weapon_m60`, `weapon_c038_minigun`, `weapon_c039_lmg_neon`, `weapon_c040_pesado`, `weapon_c041_lanzacohetes`, `weapon_c042_lanzagranadas`, `weapon_railgun`, `weapon_c044_bfg`, `weapon_c045_mortero`, `weapon_c046_rotatorio`, `weapon_flamer`, `weapon_c048_artilleria`, `weapon_c049_plasma_cutter`, `weapon_c050_rayo_continuo`, `weapon_c051_rayo_tesla`, `weapon_c052_canon_plasma`, `weapon_c053_particulas`, `weapon_c054_haz_de_energia`, `weapon_c055_rayo_cadenas`, `weapon_c056_orbe_energia`, `weapon_trident`, `weapon_c058_canon_sonico`, `weapon_c059_pistola_toxica`, `weapon_c060_lanza_acido`, `weapon_c061_fuego`, `weapon_c062_hielo`, `weapon_c063_electrica`, `weapon_c064_veneno`, `weapon_c065_nube_toxica`, `weapon_c066_meteoritos`, `weapon_c067_congelacios`, `weapon_c068_relampagos`, `weapon_c069_tormenta`, `weapon_c070_arena`, `weapon_c071_gravedad`, `weapon_c072_vacio`, `weapon_c073_gravity_gun`, `weapon_c074_portal_gun`, `weapon_c075_dron`, `weapon_c076_torreta`, `weapon_c077_satelites`, `weapon_c078_mina`, `weapon_c079_trampa_laser`, `weapon_c080_ancla`, `weapon_c081_teletransportador`, `weapon_c082_generador_de_paredes`, `weapon_c083_clonador`, `weapon_c084_orbes_orbitales`, `weapon_c085_espada_laser`, `weapon_c086_katana`, `weapon_c087_hacha`, `weapon_c088_martillo`, `weapon_c089_guadana`, `weapon_c090_manoplas`, `weapon_c091_bate`, `weapon_c092_sierra_circular`, `weapon_c093_cadena`, `weapon_c094_lanza`, `weapon_c095_cuchillo`, `weapon_c096_alabarda`, `weapon_raygun`, `weapon_c098_thundergun`, `weapon_c099_wunderwaffe`, `weapon_c100_winter_u2019s_howl`, `weapon_c101_wave_gun`, `weapon_c102_baston_de_fuego`, `weapon_c103_baston_de_hielo`, `weapon_c104_baston_de_rayo`, `weapon_c105_baston_de_viento`, `weapon_c106_arco_ancestral`, `weapon_c107_arco_del_lobo`, `weapon_c108_arco_de_fuego`, `weapon_c109_arco_del_vacio`, `weapon_c110_arco_de_tormenta`, `weapon_c111_devoracaos`, `weapon_c112_harvester`, `weapon_c113_espada_de_energia`, `weapon_c114_espada_caos`, `weapon_c115_lanza_espectral`, `weapon_c116_orbe_del_abismo`, `weapon_c117_bomba_flotante`, `weapon_c118_summon_infernal`, `weapon_c119_dragon_espiritual`, `weapon_c120_director`
+**Clase C — 85 sin arte nuevo** (tanda `R05_ARMAS`): `weapon_c024_incendiaria`, `weapon_c034_laser`, `weapon_c038_minigun`, `weapon_c039_lmg_neon`, `weapon_c040_pesado`, `weapon_c041_lanzacohetes`, `weapon_c042_lanzagranadas`, `weapon_railgun`, `weapon_c044_bfg`, `weapon_c045_mortero`, `weapon_c046_rotatorio`, `weapon_flamer`, `weapon_c048_artilleria`, `weapon_c049_plasma_cutter`, `weapon_c050_rayo_continuo`, `weapon_c051_rayo_tesla`, `weapon_c052_canon_plasma`, `weapon_c053_particulas`, `weapon_c054_haz_de_energia`, `weapon_c055_rayo_cadenas`, `weapon_c056_orbe_energia`, `weapon_trident`, `weapon_c058_canon_sonico`, `weapon_c059_pistola_toxica`, `weapon_c060_lanza_acido`, `weapon_c061_fuego`, `weapon_c062_hielo`, `weapon_c063_electrica`, `weapon_c064_veneno`, `weapon_c065_nube_toxica`, `weapon_c066_meteoritos`, `weapon_c067_congelacios`, `weapon_c068_relampagos`, `weapon_c069_tormenta`, `weapon_c070_arena`, `weapon_c071_gravedad`, `weapon_c072_vacio`, `weapon_c073_gravity_gun`, `weapon_c074_portal_gun`, `weapon_c075_dron`, `weapon_c076_torreta`, `weapon_c077_satelites`, `weapon_c078_mina`, `weapon_c079_trampa_laser`, `weapon_c080_ancla`, `weapon_c081_teletransportador`, `weapon_c082_generador_de_paredes`, `weapon_c083_clonador`, `weapon_c084_orbes_orbitales`, `weapon_c085_espada_laser`, `weapon_c086_katana`, `weapon_c087_hacha`, `weapon_c088_martillo`, `weapon_c089_guadana`, `weapon_c090_manoplas`, `weapon_c091_bate`, `weapon_c092_sierra_circular`, `weapon_c093_cadena`, `weapon_c094_lanza`, `weapon_c095_cuchillo`, `weapon_c096_alabarda`, `weapon_raygun`, `weapon_c098_thundergun`, `weapon_c099_wunderwaffe`, `weapon_c100_winter_u2019s_howl`, `weapon_c101_wave_gun`, `weapon_c102_baston_de_fuego`, `weapon_c103_baston_de_hielo`, `weapon_c104_baston_de_rayo`, `weapon_c105_baston_de_viento`, `weapon_c106_arco_ancestral`, `weapon_c107_arco_del_lobo`, `weapon_c108_arco_de_fuego`, `weapon_c109_arco_del_vacio`, `weapon_c110_arco_de_tormenta`, `weapon_c111_devoracaos`, `weapon_c112_harvester`, `weapon_c113_espada_de_energia`, `weapon_c114_espada_caos`, `weapon_c115_lanza_espectral`, `weapon_c116_orbe_del_abismo`, `weapon_c117_bomba_flotante`, `weapon_c118_summon_infernal`, `weapon_c119_dragon_espiritual`, `weapon_c120_director`
 
 ## `pickups` (20)
 

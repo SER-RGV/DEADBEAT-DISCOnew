@@ -51,3 +51,8 @@
 - Reintento del turno 1 + inicio del turno 2: 7/10 generadas (`c016_de_canon`, `c017_de_fuego`, `thompson`, `ak47`, `m16`, `c028_famas`, `c029_scar`); fallos del servicio en `c023_flechetes`, `c024_incendiaria` (2.ª vez) y `c030_g36`.
 - Calibración medida correcta de serie en 6/7 (la recortada `c016` con `grip 0.12`); registradas (289, caché `20261115.6`), verificadas en mano a derecha/arriba/izquierda sin errores de página (evidencias `04–06`), marcadas. Inventario A25·B107·C93·D26·E131.
 
+## 2026-11-15 (5) — T05 ARMAS, 3.er tramo: 8 sprites más (20/105)
+
+- 8/10 generadas (`c023_flechetes`, `c030_g36`, `c031_aug`, `mp40`, `c033_pulsos`, `winchester`, `c036_bullpup`, `m60`); fallos del servicio en `c024_incendiaria` (3.ª vez) y `c034_laser`.
+- Calibración: 6/8 de serie; `mp40` grip 0.08, `m60` hang:false + grip 0.31; mejora del previo directo en `weapon_cal.py`. Registradas (297, caché `20261115.8`), verificadas en mano (evidencias `07–09`, 0 errores de página), marcadas. Inventario A25·B107·C85·D26·E139.
+

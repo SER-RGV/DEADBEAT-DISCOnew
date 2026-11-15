@@ -156,9 +156,12 @@ def measure(png_path: str, cls: str, hints: Optional[Dict] = None) -> Dict:
                 gy = axis_y + 0.46 * (run_bot - axis_y)
                 method = {"grip": "hang", "run": [int(ra), int(rb)], "run_bot": round(run_bot, 1), "cands": len(runs)}
     if gy is None:
+        # Previo directo: si en esa columna cuelga algo bajo el eje (pistolete, garganta de la
+        # culata) la mano va a media caída; si no (asta, hoja), al centro de masa de la columna.
         xi = int(min(max(round(gx), x0), x1 - 1))
         c = cen[xi] if not np.isnan(cen[xi]) else axis_y
-        gy = c if not prior.get("hang") else max(c, axis_y + 0.35 * (bh - (axis_y - y0)))
+        b = bot[xi] if not np.isnan(bot[xi]) else axis_y
+        gy = max(c, axis_y + 0.5 * (b - axis_y)) if (b - axis_y) > 1.3 * thick else c
     gx = float(min(max(gx, x0 + 2), x1 - 2))
     gy = float(min(max(gy, y0 + 1), y1 - 1))
 
