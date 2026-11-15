@@ -80,3 +80,10 @@ jobs:
           exit 1
       - name: Test weapon shop visibility
         run: node tools/qa/test_weapon_shop_visibility.js http://127.0.0.1:8080 artifacts/weapon-shop
+      - name: Upload weapon shop QA evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: weapon-shop-qa-evidence
+          path: artifacts/weapon-shop/
+          if-no-files-found: warn
