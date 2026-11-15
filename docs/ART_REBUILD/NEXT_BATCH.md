@@ -1,13 +1,13 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 10.º tramo):** **70/105 verificadas en mano.** Turnos 1–5 COMPLETOS; turno 6 parcial 9/10
-  (`c067_congelacios`, TRES fallos del generador, el último ya con una frase → 4.º intento con DESIGN mínimo «ice blue
-  shotgun»); turno 7 parcial 8/10 (hechas `c076`, `c077_satelites`, `c079`–`c081`, `c083_clonador`, `c084_orbes_orbitales`,
-  `c085_espada_laser`; fallaron `c078_mina` (2.ª vez → una frase sin «spiked ball») y `c082_generador_de_paredes` (1.ª vez));
-  turno 8 parcial 3/10 (`c086_katana`, `c087_hacha`, `c088_martillo`; `c089`–`c095` sin generar).
-  Registro 347, caché `20261115.15`. Evidencias `evidence/T05_ARMAS/00–30`. Siguen: los 3 reintentos +
-  `c089_guadana`, `c090_manoplas`, `c091_bate`, `c092_sierra_circular`, `c093_cadena`, `c094_lanza`, `c095_cuchillo`.
-  Las armas blancas horizontales calibran bien de serie (prior armaLigera/armaPesada), sin hints.
+- **Estado (2026-11-15, 11.º tramo):** **79/105 verificadas en mano.** Turnos 1–7 COMPLETOS (los reintentos
+  acumulados `c067_congelacios`, `c078_mina` y `c082_generador_de_paredes` salieron con DESIGN mínimo); turno 8 parcial 9/10
+  (`c086`–`c094`; falló `c095_cuchillo`, 1.ª vez → reintentar con el prompt de la ficha, si repite una frase).
+  Registro 356, caché `20261115.16`. Evidencias `evidence/T05_ARMAS/00–33`. Siguen: `c095_cuchillo` + turno 9 (míticas
+  96–105: `c096_alabarda`, `raygun`, `c098_thundergun`, `c099_wunderwaffe`, `c100_winter_u2019s_howl`, `c101_wave_gun`,
+  `c102`–`c105` bastones) → turno 10 (arcos 106–110 con `spriteRot`, 111–115) → turno 11 (116–120).
+  Melee: bate/lanza de serie; guadaña `grip .12`; cadena `sup null` (una mano); sierra `grip .09 grip_v .68 sup .42`;
+  si el generador añade un asa (manopla, lanza), la mano va sobre ella.
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

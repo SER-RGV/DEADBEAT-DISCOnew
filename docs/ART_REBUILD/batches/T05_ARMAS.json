@@ -193,9 +193,10 @@
         "weapon_c074_portal_gun",
         "weapon_c075_dron"
       ],
-      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c067_congelacios TRES fallos del generador (el último ya con DESIGN de una frase) → 4.º intento con DESIGN mínimo («ice blue shotgun»)",
+      "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15); c067_congelacios salió al 4.º intento con DESIGN mínimo («ice blue shotgun»)",
       "hechas": [
         "weapon_c066_meteoritos",
+        "weapon_c067_congelacios",
         "weapon_c068_relampagos",
         "weapon_c069_tormenta",
         "weapon_c070_arena",
@@ -205,9 +206,7 @@
         "weapon_c074_portal_gun",
         "weapon_c075_dron"
       ],
-      "reintentar": [
-        "weapon_c067_congelacios"
-      ]
+      "reintentar": []
     },
     {
       "turno": 7,
@@ -223,21 +222,20 @@
         "weapon_c084_orbes_orbitales",
         "weapon_c085_espada_laser"
       ],
-      "estado": "parcial 8/10 verificadas en mano (2026-11-15); c078_mina DOS fallos del generador (→ DESIGN de una frase sin «spiked ball»), c082_generador_de_paredes UN fallo (→ simplificar DESIGN)",
+      "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15); c078_mina al 3.º intento (una frase sin «spiked ball»), c082_generador_de_paredes al 2.º",
       "hechas": [
         "weapon_c076_torreta",
         "weapon_c077_satelites",
+        "weapon_c078_mina",
         "weapon_c079_trampa_laser",
         "weapon_c080_ancla",
         "weapon_c081_teletransportador",
+        "weapon_c082_generador_de_paredes",
         "weapon_c083_clonador",
         "weapon_c084_orbes_orbitales",
         "weapon_c085_espada_laser"
       ],
-      "reintentar": [
-        "weapon_c078_mina",
-        "weapon_c082_generador_de_paredes"
-      ]
+      "reintentar": []
     },
     {
       "turno": 8,
@@ -253,13 +251,21 @@
         "weapon_c094_lanza",
         "weapon_c095_cuchillo"
       ],
-      "estado": "parcial 3/10 verificadas en mano (2026-11-15); c089–c095 sin generar aún",
+      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c095_cuchillo UN fallo del generador → reintentar (si repite, DESIGN de una frase)",
       "hechas": [
         "weapon_c086_katana",
         "weapon_c087_hacha",
-        "weapon_c088_martillo"
+        "weapon_c088_martillo",
+        "weapon_c089_guadana",
+        "weapon_c090_manoplas",
+        "weapon_c091_bate",
+        "weapon_c092_sierra_circular",
+        "weapon_c093_cadena",
+        "weapon_c094_lanza"
       ],
-      "reintentar": []
+      "reintentar": [
+        "weapon_c095_cuchillo"
+      ]
     },
     {
       "turno": 9,
@@ -2767,7 +2773,10 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "dispositivo"
+        "cls": "dispositivo",
+        "grip": 0.1,
+        "grip_v": 0.72,
+        "sup": 0.5
       },
       "engine": {
         "wid": "c078_mina",
@@ -2927,7 +2936,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "dispositivo"
+        "cls": "dispositivo",
+        "grip": 0.14,
+        "grip_v": 0.74
       },
       "engine": {
         "wid": "c082_generador_de_paredes",
@@ -3198,7 +3209,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.12
       },
       "engine": {
         "wid": "c089_guadana",
@@ -3236,7 +3248,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "punos"
+        "cls": "punos",
+        "grip": 0.09,
+        "grip_v": 0.74
       },
       "engine": {
         "wid": "c090_manoplas",
@@ -3312,7 +3326,10 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.09,
+        "grip_v": 0.68,
+        "sup": 0.42
       },
       "engine": {
         "wid": "c092_sierra_circular",
@@ -3350,7 +3367,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "armaPesada"
+        "cls": "armaPesada",
+        "grip": 0.1,
+        "sup": null
       },
       "engine": {
         "wid": "c093_cadena",
@@ -4402,7 +4421,7 @@
     }
   ],
   "progress": {
-    "verified": 70,
+    "verified": 79,
     "total": 105,
     "updated": "2026-11-15"
   },
@@ -4418,6 +4437,7 @@
     "Turno 7: 8/10 generadas (los 4 reintentos salieron). Efectos pintados en la boca (relámpagos del rayo en cadena, humo de la nube tóxica) → hint tip (0.92 / 0.86). Pistolas ornamentadas anchas (veneno) y lanzadores con empuñadura delantera profunda (nube tóxica, cañón sónico) → grip + grip_v + sup relativo. Las pistolas elementales salen a una mano.",
     "Turno 8 (elementales/especiales): 8/10 generadas. Lanzadores de tubo (meteoritos, vacío) y dispositivo (gravity gun) → grip + grip_v 0.72–0.74 y sup relativo 0.40–0.45 para la empuñadura delantera; revólver de roca (fuego) → grip 0.14 + grip_v. Los fusiles de energía (relámpagos, tormenta, gravedad) calibran de serie.",
     "Turno 9 (especiales/dispositivos): 7/10 generadas. Los dispositivos tipo pistola grande (portal gun, dron, torreta, trampa láser, teletransportador) traen el pistolete en el extremo izquierdo (x 0.07–0.10) → grip + grip_v 0.68–0.76; el SMG con cargador curvo largo necesita sup 0.42 para que el apoyo no caiga en el cargador. Evitar «coordinates/readout» en el DESIGN: el generador pinta cifras (teletransportador; ilegibles a 320 px, aceptado).",
-    "Turno 10 (especiales + primeras cuerpo a cuerpo): 7/10 generadas (fallos del servicio en c067 3.º, c078 2.º, c082 1.º). Las armas blancas horizontales (espada láser, katana, hacha, martillo) calibran bien DE SERIE con el prior de armaLigera/armaPesada (grip 0.173–0.231, sup 0.519 en las pesadas) y el motor las sostiene como un arma apuntada (ligera a una mano, pesada a dos) en las tres poses; no hace falta hint alguno. Los dispositivos tipo pistola (satélites, orbes) siguen la regla del pistolete izquierdo: grip 0.10 + grip_v 0.74; el clonador (doble cañón con depósito ADN central) necesita grip_v 0.68 y sup 0.40 para que el apoyo no caiga bajo la caja. Si el generador pinta el efecto en la boca (satélites: disco de energía), fijar tip explícito (0.82)."
+    "Turno 10 (especiales + primeras cuerpo a cuerpo): 7/10 generadas (fallos del servicio en c067 3.º, c078 2.º, c082 1.º). Las armas blancas horizontales (espada láser, katana, hacha, martillo) calibran bien DE SERIE con el prior de armaLigera/armaPesada (grip 0.173–0.231, sup 0.519 en las pesadas) y el motor las sostiene como un arma apuntada (ligera a una mano, pesada a dos) en las tres poses; no hace falta hint alguno. Los dispositivos tipo pistola (satélites, orbes) siguen la regla del pistolete izquierdo: grip 0.10 + grip_v 0.74; el clonador (doble cañón con depósito ADN central) necesita grip_v 0.68 y sup 0.40 para que el apoyo no caiga bajo la caja. Si el generador pinta el efecto en la boca (satélites: disco de energía), fijar tip explícito (0.82).",
+    "Turno 11 (reintentos + cuerpo a cuerpo 89–94): 9/10 generadas; los tres reintentos acumulados salieron con DESIGN mínimo (c067 «ice blue shotgun» al 4.º, c078 una frase sin «spiked ball» al 3.º, c082 al 2.º) → ante fallos repetidos del servicio, recortar el DESIGN a una frase funciona. Melee: bate (armaLigera) y lanza (prior lanza grip .288/sup .558 sobre el astil) calibran de serie; guadaña → grip .12 para que la mano caiga en la empuñadura vendada; cadena/mayal → sup null (una mano) porque el apoyo del prior caía sobre los eslabones; sierra circular (cuerpo de motosierra) → grip .09 + grip_v .68 en el asa trasera y sup .42 bajo el cubo del disco. El generador añade asas/pistoletes a las armas que no los tienen (manopla con asa inferior, lanza con culata-pistolete): se calibra la mano sobre esa asa (punos → grip .09, grip_v .74) y queda natural. Dispositivo con bbox < 1.9 (placa emisora alta, c082) → el calibrador lo trata como compacto y lo deja a una mano aunque se pida sup."
   ]
 }

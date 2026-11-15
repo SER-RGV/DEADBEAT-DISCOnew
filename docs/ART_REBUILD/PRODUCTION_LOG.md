@@ -92,3 +92,8 @@
 - 7/10 generadas (`c077_satelites`, `c083_clonador`, `c084_orbes_orbitales`, `c085_espada_laser`, `c086_katana`, `c087_hacha`, `c088_martillo`); fallos del servicio en `c067_congelacios` (3.ª vez), `c078_mina` (2.ª vez), `c082_generador_de_paredes`.
 - Calibración: hints `grip`/`grip_v` en satélites y orbes (pistolete izquierdo), `sup 0.40` en el clonador, `tip 0.82` en satélites (disco de energía pintado en la boca); las cuatro armas blancas de serie (prior armaLigera/armaPesada). Registradas (347, caché `20261115.15`), verificadas en mano (evidencias `28–30`, 0 errores; espada/katana a una mano, hacha/martillo a dos), marcadas. Inventario A25·B107·C35·D26·E189.
 
+## 2026-11-15 (13) — T05 ARMAS, 11.º tramo: reintentos 67/78/82 + cuerpo a cuerpo 89–94 (79/105)
+
+- 9/10 generadas (`c067_congelacios` al 4.º intento, `c078_mina` al 3.º, `c082_generador_de_paredes` al 2.º — los tres con DESIGN mínimo —, `c089_guadana`, `c090_manoplas`, `c091_bate`, `c092_sierra_circular`, `c093_cadena`, `c094_lanza`); fallo del servicio en `c095_cuchillo` (1.ª vez). Turnos 6 y 7 COMPLETOS.
+- Calibración: pistoletes izquierdos en mina/generador/manopla/sierra (`grip`+`grip_v`), guadaña `grip .12`, cadena `sup null` (mayal a una mano), sierra `sup .42`; escopeta de hielo, bate y lanza de serie. Registradas (356, caché `20261115.16`), verificadas en mano (evidencias `31–33`, 0 errores), marcadas. Inventario A25·B107·C26·D26·E198.
+
