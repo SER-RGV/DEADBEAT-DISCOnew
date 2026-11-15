@@ -19,7 +19,7 @@ on:
       - ".github/workflows/integration-qa.yml"
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   static-and-build:
@@ -27,8 +27,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        with:
-          ref: ${{ github.head_ref || github.ref_name }}
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -39,15 +37,8 @@ jobs:
           node-version: "20"
       - name: Build single-file game
         run: python3 tools/build_active_html.py
-      - name: Commit regenerated single-file builds
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add index.html DEADBEAT_DISCO.html
-          if ! git diff --cached --quiet; then
-            git commit -m "build: regenerate single-file game from modular sources"
-            git push
-          fi
+      - name: Verify generated files are committed
+        run: git diff --exit-code -- index.html DEADBEAT_DISCO.html
       - name: Verify generated builds
         run: python3 tools/qa/test_build_source_sync.py
       - name: HUD responsive CSS
