@@ -1,6 +1,14 @@
-# SIGUIENTE TANDA: `T06_OBJETOS` (TANDA 06 del pack 02–07) — pendiente de abrir
+# TANDA EN CURSO: `T06_OBJETOS` (TANDA 06 del pack 02–07) — ABIERTA 9/20 · siguiente: turno 2
 
-- **Estado (2026-11-15):** `T05_ARMAS` **CERRADA 105/105** (14.º y último tramo: lanza espectral, orbe del abismo, bomba
+- **Estado T06 (2026-11-15):** turno 1 hecho: 9 pickups generados, procesados, registrados (caché `20261115.22`), vistos en juego
+  (`evidence/T06_OBJETOS/00_ingame_pickups_1080.jpg`) y marcados INTEGRATED/VERIFIED; inventario A25·B98·C0·D26·E233.
+  **Turno 2:** `pickup_bomb_00` (reintentar: bomba redonda negra, rejilla violeta, mecha, croma #00FF00), `pickup_speedup_00`,
+  `pickup_turret_00` y las 8 `relic_*` → `batch.py process --only … --no-sheet` → `register --only` → build →
+  `node tools/art_master/probe_pickups.js OUT` (deja los 11 tipos en el suelo con `__DD_BRIDGE.spawnPickupAt`; reliquias:
+  `DD_UI.openShop`) → `mark --only --evidence` → `audit` → `audit_report.py render` → docs → commit + push.
+  Nota: en headless el HUD queda tapado por `#dd-boot-frame.is-failed`/menú; la evidencia del HUD (corazón, escudo,
+  moneda) sigue pendiente de una captura manual.
+- **Estado T05 (2026-11-15):** `T05_ARMAS` **CERRADA 105/105** (14.º y último tramo: lanza espectral, orbe del abismo, bomba
   flotante, summon infernal, dragón espiritual y Director). Registro 382, caché `20261115.21`; inventario
   A25·B107·C0·D26·E224. Informe: [`TANDA_05_INFORME.md`](TANDA_05_INFORME.md); evidencias `evidence/T05_ARMAS/00–43`
   (`43_catalogo_105_sprites.jpg` = catálogo completo).

@@ -1191,6 +1191,11 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return out;
       },
       /* QA: abate a todos por la vía real del motor (deja registro de muerte). */
+      /* QA (T06): deja un pickup del motor en el suelo (misma tabla `mu` y misma
+         función `nf` que usa el botín real); sólo para capturas de evidencia. */
+      spawnPickupAt: function (type, x, y) {
+        try { if (typeof nf !== "function" || !mu || !mu[type]) return false; nf(x, y, type, false); return true; } catch (err) { return false; }
+      },
       killAllEnemies: function () {
         try { return !!(window.DMO && window.DMO.playtest && window.DMO.playtest.killAll()); } catch (err) { return false; }
       },

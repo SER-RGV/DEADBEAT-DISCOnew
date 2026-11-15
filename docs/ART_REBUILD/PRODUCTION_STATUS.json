@@ -4,7 +4,7 @@
   "pipeline": "tools/art_master (tandas R01, R02, …)",
   "registry": {
     "total": 382,
-    "cache_version": "20261115.21"
+    "cache_version": "20261115.22"
   },
   "classification": {
     "total": 382,
@@ -22,15 +22,40 @@
     "T04_ESCENARIOS",
     "T05_ARMAS"
   ],
-  "current_batch": "T06_OBJETOS (pendiente de abrir · 20 pickups/reliquias, ids existentes, sin código)",
+  "current_batch": "T06_OBJETOS (ABIERTA · turno 1: 9/20 pickups integrados y verificados; faltan bomb, speedup, turret y 8 reliquias)",
   "current_batch_progress": {
-    "status": "pendiente de abrir",
-    "batch_file": null,
-    "scope": "20 pickups/reliquias de assets/pickups/ (160×160, pivot center) en el estilo neón del pack; ids existentes mapeados en dd_world_renderer.js (pickup_*_00, relic_*); sin código (PLAN_PRODUCCION_02-07.md §3, tanda 06)",
+    "status": "ABIERTA",
+    "batch_file": "docs/ART_REBUILD/batches/T06_OBJETOS.json",
+    "scope": "20 pickups/reliquias de assets/pickups/ (160×160, pivot center) en el estilo neón del pack; ids existentes mapeados en dd_world_renderer.js (pickup_*_00, relic_*); sin código de juego (sólo gancho QA __DD_BRIDGE.spawnPickupAt)",
     "illustrations_total": 20,
-    "generated_masters": 0,
-    "integrated_and_validated_in_game": 0,
-    "pending": 20
+    "verified": 9,
+    "turno_1": [
+      "pickup_ammo_00",
+      "pickup_boost_00",
+      "pickup_companion_00",
+      "pickup_credits_00",
+      "pickup_damageup_00",
+      "pickup_fireup_00",
+      "pickup_heart_00",
+      "pickup_mutation_00",
+      "pickup_shield_00"
+    ],
+    "pending": [
+      "pickup_bomb_00 (generación fallida: límite de imágenes por turno)",
+      "pickup_speedup_00",
+      "pickup_turret_00",
+      "relic_needle",
+      "relic_lowpass",
+      "relic_magnet",
+      "relic_pact",
+      "relic_echo",
+      "relic_coil",
+      "relic_prism",
+      "relic_tempo"
+    ],
+    "evidence": "docs/ART_REBUILD/evidence/T06_OBJETOS",
+    "probe": "tools/art_master/probe_pickups.js",
+    "probe_errors": 0
   },
   "last_closed_batch": {
     "batch": "T05_ARMAS",
@@ -268,9 +293,13 @@
       "probe_errors": 0
     },
     "T06_OBJETOS": {
-      "status": "PENDIENTE (siguiente)",
+      "status": "ABIERTA 9/20",
       "total": 20,
-      "scope": "assets/pickups/ 160×160 pivot center, ids existentes; PLAN_PRODUCCION_02-07.md §3 fila 06"
+      "verified": 9,
+      "ficha": "docs/ART_REBUILD/batches/T06_OBJETOS.json",
+      "evidence": "docs/ART_REBUILD/evidence/T06_OBJETOS",
+      "scope": "assets/pickups/ 160×160 pivot center, ids existentes; PLAN_PRODUCCION_02-07.md §3 fila 06",
+      "next": "turno 2: bomb (reintento), speedup, turret y las 8 reliquias; después T07_HUD"
     },
     "T07_HUD": {
       "status": "PENDIENTE"
@@ -279,9 +308,9 @@
   "updated": "2026-11-15",
   "inventory_classes": {
     "A": 25,
-    "B": 107,
+    "B": 98,
     "C": 0,
     "D": 26,
-    "E": 224
+    "E": 233
   }
 }

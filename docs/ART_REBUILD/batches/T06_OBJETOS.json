@@ -1,0 +1,521 @@
+{
+ "batch": "T06_OBJETOS",
+ "title": "TANDA 06 · OBJETOS — 20 pickups y reliquias (ids existentes) en el acabado de ilustración neón del pack",
+ "created": "2026-11-15",
+ "status": "ABIERTA",
+ "style": "Ilustración digital estilizada (no pixel art): contorno de tinta, cel 3–4 tonos, luz de contorno magenta/cian; misma familia visual que R01–R03 y T04. Halo, sombra y flotación los pone el renderizador.",
+ "scope": {
+  "total": 20,
+  "to_produce": 20,
+  "not_in_scope": "Sin código: drawPickup y el HUD ya consumen estos ids. No se crean objetos nuevos ni se cambian kinds del motor."
+ },
+ "renderer": {
+  "world": "DD_WORLD.drawPickup: drawSoftShadow(p.x,p.y+14) + drawNeonGlow(#22d3ee) + drawImage 44×44 centrado con bob ±4 px (chest 82).",
+  "hud": "dd_ui_system.js usa pickup_heart_00/pickup_shield_00/pickup_bomb_00/pickup_boost_00/pickup_credits_00 como reserva de los iconos hud_*.",
+  "shop": "Reliquias en la tienda (DD_UI.openShop) por id relic_*."
+ },
+ "contract": {
+  "canvas": "160×160 PNG RGBA, objeto centrado (fit contain, margen 8 px), pivot center, sin suelo ni sombra; silueta legible a 44 px.",
+  "raw": "croma verde #00FF00 plano; un solo objeto; sin texto, marco ni fondo. Crudo en /home/user/dd_work/raw/T06_OBJETOS/<id>.png.",
+  "qa": "sonda en juego (botín tras matar enemigos + HUD de reserva) y hoja de los 20 a 44 px."
+ },
+ "defaults": {
+  "category": "pickups",
+  "size": [
+   160,
+   160
+  ],
+  "pivot": "center",
+  "alpha": true,
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "progress": {
+  "verified": 9,
+  "total": 20,
+  "updated": "2026-11-15",
+  "turno_1": "9 pickups INTEGRATED/VERIFIED (ammo, boost, companion, credits, damageup, fireup, heart, mutation, shield); pendientes bomb, speedup, turret y 8 reliquias"
+ },
+ "generation_plan": [
+  {
+   "turno": 1,
+   "ids": [
+    "pickup_ammo_00",
+    "pickup_bomb_00",
+    "pickup_boost_00",
+    "pickup_companion_00",
+    "pickup_credits_00",
+    "pickup_damageup_00",
+    "pickup_fireup_00",
+    "pickup_heart_00",
+    "pickup_mutation_00",
+    "pickup_shield_00"
+   ],
+   "hechas": [],
+   "reintentar": [],
+   "estado": "PENDIENTE"
+  },
+  {
+   "turno": 2,
+   "ids": [
+    "pickup_speedup_00",
+    "pickup_turret_00",
+    "relic_needle",
+    "relic_lowpass",
+    "relic_magnet",
+    "relic_pact",
+    "relic_echo",
+    "relic_coil",
+    "relic_prism",
+    "relic_tempo"
+   ],
+   "hechas": [],
+   "reintentar": [],
+   "estado": "PENDIENTE"
+  }
+ ],
+ "generation_lessons": [],
+ "assets": [
+  {
+   "id": "pickup_ammo_00",
+   "raw": "pickup_ammo_00.png",
+   "name": "Pickup · Caja de Munición / Batería",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_ammo_00.png",
+   "original_id": "pickups/pickup_ammo_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Caja de Munición / Batería",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: AMMO BOX: a compact black ammunition box with cyan glowing battery cells on the side and two brass cartridges standing in front of it. MAIN COLOUR: brass and cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_bomb_00",
+   "raw": "pickup_bomb_00.png",
+   "name": "Pickup · Bomba Sónica Violeta",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_bomb_00.png",
+   "original_id": "pickups/pickup_bomb_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Bomba Sónica Violeta",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: SONIC BOMB: a round black cast-iron bomb with a violet speaker grille on its face and a short lit fuse with a small violet spark. MAIN COLOUR: violet. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_boost_00",
+   "raw": "pickup_boost_00.png",
+   "name": "Pickup · Inyección / Cubo Boost Cian",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_boost_00.png",
+   "original_id": "pickups/pickup_boost_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Inyección / Cubo Boost Cian",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: BOOST CHIP: a hexagonal cyan crystal chip with bevelled dark metal rim and a bold magenta lightning bolt engraved in the center. MAIN COLOUR: cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_companion_00",
+   "raw": "pickup_companion_00.png",
+   "name": "Pickup · Medallón Compañero",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_companion_00.png",
+   "original_id": "pickups/pickup_companion_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Medallón Compañero",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: COMPANION MEDALLION: a small round dark metal drone-medallion with a single big cyan lens eye, two tiny magenta side lights and a short antenna. MAIN COLOUR: cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_credits_00",
+   "raw": "pickup_credits_00.png",
+   "name": "Pickup · Moneda de Créditos Oro",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_credits_00.png",
+   "original_id": "pickups/pickup_credits_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Moneda de Créditos Oro",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: CREDIT COIN: a thick gold coin seen at a slight angle, with a crowned skull embossed in the center and a ridged edge; warm gold highlights. MAIN COLOUR: gold. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_damageup_00",
+   "raw": "pickup_damageup_00.png",
+   "name": "Pickup · Subida de Daño Carmesí",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_damageup_00.png",
+   "original_id": "pickups/pickup_damageup_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Subida de Daño Carmesí",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: DAMAGE UP: a faceted crimson gem with two crossed black daggers behind it, blade tips pointing up. MAIN COLOUR: crimson. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_fireup_00",
+   "raw": "pickup_fireup_00.png",
+   "name": "Pickup · Cadencia Ígnea Naranja",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_fireup_00.png",
+   "original_id": "pickups/pickup_fireup_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Cadencia Ígnea Naranja",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: FIRE RATE UP: a spiral of orange flame curling around a single brass bullet standing upright. MAIN COLOUR: orange. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_heart_00",
+   "raw": "pickup_heart_00.png",
+   "name": "Pickup · Corazón Rubí Neón",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_heart_00.png",
+   "original_id": "pickups/pickup_heart_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Corazón Rubí Neón",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: HEART: a glossy ruby-red heart with a small white cross highlight on its upper left lobe, thick dark outline. MAIN COLOUR: ruby red. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_mutation_00",
+   "raw": "pickup_mutation_00.png",
+   "name": "Pickup · Mutación Arcana Cian",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_mutation_00.png",
+   "original_id": "pickups/pickup_mutation_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Mutación Arcana Cian",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: MUTATION: a cyan crystal cluster shaped like a short DNA double helix, with magenta veins inside the crystal. MAIN COLOUR: cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_shield_00",
+   "raw": "pickup_shield_00.png",
+   "name": "Pickup · Candado / Escudo Áurico",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_shield_00.png",
+   "original_id": "pickups/pickup_shield_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Candado / Escudo Áurico",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: SHIELD: a kite shield of black metal with a gold rim, a cyan gem set in the middle and a small gold padlock on the gem. MAIN COLOUR: gold and cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_speedup_00",
+   "raw": "pickup_speedup_00.png",
+   "name": "Pickup · Velocidad Doble Flecha Neón",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_speedup_00.png",
+   "original_id": "pickups/pickup_speedup_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Velocidad Doble Flecha Neón",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: SPEED UP: a white high-top sneaker with a small white wing on the ankle and a cyan-magenta double-chevron arrow on its side. MAIN COLOUR: cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "pickup_turret_00",
+   "raw": "pickup_turret_00.png",
+   "name": "Pickup · Módulo Torreta",
+   "category": "pickups",
+   "location": "assets/pickups/pickup_turret_00.png",
+   "original_id": "pickups/pickup_turret_00.png",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Módulo Torreta",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: TURRET MODULE: a compact dark grey automatic turret on a square base, short barrel, a magenta sensor eye. MAIN COLOUR: magenta. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_needle",
+   "raw": "relic_needle.png",
+   "name": "Reliquia · Aguja de Vinilo",
+   "category": "pickups",
+   "location": "assets/pickups/relic_needle.png",
+   "original_id": "rogue:needle",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Aguja de Vinilo",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: VINYL NEEDLE RELIC: a turntable tonearm with its cartridge and a sharp cyan-tipped stylus, dark chrome, held diagonally. MAIN COLOUR: chrome and cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_lowpass",
+   "raw": "relic_lowpass.png",
+   "name": "Reliquia · Filtro de Bajos",
+   "category": "pickups",
+   "location": "assets/pickups/relic_lowpass.png",
+   "original_id": "rogue:lowpass",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Filtro de Bajos",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: LOW-PASS FILTER RELIC: a round bronze audio knob with a dark rubber grip ring and a small engraved waveform on its face. MAIN COLOUR: bronze. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_magnet",
+   "raw": "relic_magnet.png",
+   "name": "Reliquia · Imán de Cabina",
+   "category": "pickups",
+   "location": "assets/pickups/relic_magnet.png",
+   "original_id": "rogue:magnet",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Imán de Cabina",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: MAGNET RELIC: a horseshoe magnet, red body with cyan glowing poles, with a few small metal shards stuck to the poles. MAIN COLOUR: red and cyan. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_pact",
+   "raw": "relic_pact.png",
+   "name": "Reliquia · Sello del DJ",
+   "category": "pickups",
+   "location": "assets/pickups/relic_pact.png",
+   "original_id": "rogue:pact",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Sello del DJ",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: DJ PACT RELIC: a folded black parchment contract sealed with a big red wax seal bearing a skull, a magenta ribbon. MAIN COLOUR: red wax on black. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_echo",
+   "raw": "relic_echo.png",
+   "name": "Reliquia · Vinilo Retrovisor",
+   "category": "pickups",
+   "location": "assets/pickups/relic_echo.png",
+   "original_id": "rogue:echo",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Vinilo Retrovisor",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: ECHO VINYL RELIC: a black vinyl record with a magenta label, seen at a slight angle, with a mirror-like cyan reflection arc on its surface. MAIN COLOUR: black and magenta. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_coil",
+   "raw": "relic_coil.png",
+   "name": "Reliquia · Bobina Infernal",
+   "category": "pickups",
+   "location": "assets/pickups/relic_coil.png",
+   "original_id": "rogue:coil",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Bobina Infernal",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: INFERNAL COIL RELIC: a copper tesla coil on a dark base with a small violet electric arc between its two top electrodes. MAIN COLOUR: copper and violet. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_prism",
+   "raw": "relic_prism.png",
+   "name": "Reliquia · Prisma de Humo",
+   "category": "pickups",
+   "location": "assets/pickups/relic_prism.png",
+   "original_id": "rogue:prism",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Prisma de Humo",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: SMOKE PRISM RELIC: a triangular glass prism, dark smoky glass, splitting one white beam into a short magenta-cyan rainbow inside the prism. MAIN COLOUR: smoky glass. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "relic_tempo",
+   "raw": "relic_tempo.png",
+   "name": "Reliquia · Metrónomo Negro",
+   "category": "pickups",
+   "location": "assets/pickups/relic_tempo.png",
+   "original_id": "rogue:tempo",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Metrónomo Negro",
+   "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
+   "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: BLACK METRONOME RELIC: a pyramid-shaped black lacquered metronome with a magenta pendulum needle, standing upright. MAIN COLOUR: black and magenta. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  }
+ ]
+}

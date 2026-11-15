@@ -114,3 +114,16 @@
 - Sonda `probe_t14` (der/arriba/izq, 18 capturas, 0 errores): lanza en el asta, orbe y bomba con la mano en el pistolete, bastón horizontal con la calavera al frente, dragón y Director desde la cadera. Evidencias `40–42` + `43_catalogo_105_sprites.jpg` (hoja de los 105).
 - Registro **382** (caché `20261115.21`), `audit` sin incidencias, marcadas 6 → inventario **A25·B107·C0·D26·E224**. Ficha `progress 105/105`, `status CERRADA`, lección «Turno 14» (balance: 136 llamadas para 105 válidas; 16 sondas, 352 capturas, 0 errores).
 - Cierre documental: `TANDA_05_INFORME.md` (auditoría, alcance, producido por familias, código del puente, QA, lecciones, pendientes, decisiones por defecto, contrato); `PLAN_PRODUCCION_02-07.md` fila 05 cerrada; STATUS/CHECKPOINT/NEXT_BATCH apuntan a **T06_OBJETOS** (20 pickups/reliquias, ids existentes, sin código).
+
+## (15) 2026-11-15 · T06_OBJETOS turno 1 (9/20) + Fase 08 escala/cámara
+
+- Ficha `batches/T06_OBJETOS.json` (20 assets, contrato 160×160 pivot center, prompts, plan de 2 turnos). `generate_image` ×10: 9 crudos OK;
+  `pickup_bomb_00` falló dos veces (error de generación + límite de 10 imágenes por turno) → turno 2.
+- `batch.py process --only <9> --no-sheet` → 9/9 en `assets/pickups/`; `register --only` → registro 382, caché `20261115.22`; build.
+- Sonda `tools/art_master/probe_pickups.js` (nuevo gancho QA `__DD_BRIDGE.spawnPickupAt(type,x,y)` → `nf()` del motor, misma tabla `mu`):
+  11 tipos en el suelo, 0 errores; evidencias `evidence/T06_OBJETOS/00_ingame_pickups_1080.jpg`, `01_ingame_full_1080.jpg`,
+  `02_hoja_turno1_procesados.jpg`, `03_hoja_antes_pickups.jpg`. HUD no capturable en headless (overlay de arranque).
+- `mark --only <9>` → INTEGRATED/VERIFIED; `audit` sin incidencias; `audit_report.py render` → A25·B98·C0·D26·E233.
+- En paralelo, **Fase 08** (ver `docs/WORLD_SCALE_REBUILD/`): los pickups se dibujan a 44×1,15 ≈ 51 px de mundo y la cámara va a
+  zoom 1,08 en calma, así que en pantalla miden ≈ 55 px (antes 35). Commits `ac78f24`…`70070f4`, PR #22.
+
