@@ -45,7 +45,7 @@ try {
   await page.waitForTimeout(300);
   const near = await state();
   log.push('near pad: ' + JSON.stringify({ x: near.hubState?.x, y: near.hubState?.y, nearStation: near.hubState?.nearStation }));
-  await page.screenshot({ path: OUT + '/05_descent_pad.png' });
+  await page.screenshot({ path: OUT + '/05_descent_pad.png', timeout: 120000 });
   // activate descent
   await page.keyboard.press('KeyE');
   log.push('pressed E on descent pad');
@@ -56,14 +56,14 @@ try {
     if (inGame) break;
   }
   await page.waitForTimeout(1500);
-  await page.screenshot({ path: OUT + '/06_first_room.png' });
+  await page.screenshot({ path: OUT + '/06_first_room.png', timeout: 120000 });
   const dmoKeys = await page.evaluate(() => { try { return window.DMO ? Object.keys(window.DMO) : null; } catch { return null; } });
   log.push('DMO keys: ' + JSON.stringify(dmoKeys));
   writeFileSync(OUT + '/qa_descent_report.json', JSON.stringify({ log, pageErrors, failed }, null, 2));
   console.log(JSON.stringify({ log, pageErrors, failed }, null, 2));
 } catch (e) {
   console.error('QA FATAL:', String(e && e.message || e));
-  try { await page.screenshot({ path: OUT + '/99_descent_fatal.png' }); } catch {}
+  try { await page.screenshot({ path: OUT + '/99_descent_fatal.png', timeout: 120000 }); } catch {}
   process.exitCode = 1;
 } finally {
   await browser.close();

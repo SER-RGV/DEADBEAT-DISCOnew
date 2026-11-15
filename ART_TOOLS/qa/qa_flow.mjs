@@ -52,7 +52,7 @@ try {
   }
   log.push('phase A reached: ' + reached);
   await page.waitForTimeout(800);
-  await page.screenshot({ path: OUT + '/02_menu.png' });
+  await page.screenshot({ path: OUT + '/02_menu.png', timeout: 120000 });
 
   // Real asset load integrity
   const integrity = await page.evaluate(() => {
@@ -77,11 +77,11 @@ try {
   const sAfter = await state();
   log.push('hub state: ' + JSON.stringify(sAfter.hubState));
   await page.waitForTimeout(1500);
-  await page.screenshot({ path: OUT + '/03_refugio_hub.png' });
+  await page.screenshot({ path: OUT + '/03_refugio_hub.png', timeout: 120000 });
 
   // Walk right, then screenshot again (movement + room still coherent)
   await page.keyboard.down('KeyD'); await page.waitForTimeout(800); await page.keyboard.up('KeyD');
-  await page.screenshot({ path: OUT + '/04_refugio_walk.png' });
+  await page.screenshot({ path: OUT + '/04_refugio_walk.png', timeout: 120000 });
 
   const summary = {
     log,
@@ -95,7 +95,7 @@ try {
   console.log(JSON.stringify(summary, null, 2));
 } catch (e) {
   console.error('QA FATAL:', String(e && e.message || e));
-  try { await page.screenshot({ path: OUT + '/99_fatal.png' }); } catch {}
+  try { await page.screenshot({ path: OUT + '/99_fatal.png', timeout: 60000 }); } catch {}
   writeFileSync(OUT + '/qa_run_report.json', JSON.stringify({ log, pageErrors, failedReqs, fatal: String(e && e.message || e) }, null, 2));
   process.exitCode = 1;
 } finally {

@@ -23,3 +23,11 @@
 - El protagonista en combate usa los sprites del motor (sin cambios); IDLE 07B solo en el Refugio, como está diseñado.
 
 **Reproducir:** `python3 -m http.server 8123 --bind 0.0.0.0` en la raíz del repo; `npm i playwright-core @sparticuz/chromium` fuera del repo; `node ART_TOOLS/qa/qa_flow.mjs` (y `qa_descent.mjs` para el descenso). Harness original ejecutado: `/tmp/qa_browser/*.mjs` (idénticos).
+
+## Pasada TR_W1 (2026-11-15, tras TR_T04–T10)
+Segunda generación clase B, misma ID/ruta: `floor_00_limbo_marble`, `wall_pillar_obsidian`,
+`threshold_descent_pad`, `door_gothic_closed`, `door_gothic_open`.
+- `06_first_room.png` demuestra el **suelo Limbo de mármol agrietado nuevo en sala de combate real** (VESTÍBULO DE TURNOS · Ronda 1).
+- `05_descent_pad.png` demuestra el **pad de descenso cian nuevo bajo los pies del protagonista** en el Refugio.
+- Integridad tras rebuild: **271/271 pass, 0 errores** (qa_run_report.json). QA headless: 0 pageErrors, 0 failedReqs, 0 console errors.
+- **Rechazados y revertidos** (composición encuadrada al fondo, lienzo casi vacío): `wall_panel_gothic_niche`, `wall_panel_heavy_base`, `wall_panel_vip_window`, `wall_core_monolith`, `portal_avaricia_gold`. Requieren regeneración v2 con «panel en retrato llenando 95% del lienzo vertical». Siguen Pendiente en la matriz.

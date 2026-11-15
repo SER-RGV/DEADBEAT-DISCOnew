@@ -46,7 +46,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
-| `floor_00_limbo_marble` | `floor_00_limbo_marble` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `floor_00_limbo_marble` | `floor_00_limbo_marble` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + captura en sala LIMBO real |
 | `floor_01_lust_dancefloor` | `floor_01_lust_dancefloor` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
 | `floor_02_gula_terracotta` | `floor_02_gula_terracotta` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
 | `floor_03_greed_slate_gold` | `floor_03_greed_slate_gold` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
@@ -71,7 +71,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `wall_panel_neon_crown` | `wall_panel_neon_crown` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
 | `wall_panel_tall_neon` | `wall_panel_tall_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_vip_window` | `wall_panel_vip_window` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_pillar_obsidian` | `wall_pillar_obsidian` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `wall_pillar_obsidian` | `wall_pillar_obsidian` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `wall_wrath_furnace` | `wall_wrath_furnace` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
 
 ### Apéndice environments (8)
@@ -79,13 +79,13 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
 | `door_arched_open` | `door_arched_open` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `door_gothic_closed` | `door_gothic_closed` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `door_gothic_open` | `door_gothic_open` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `door_gothic_closed` | `door_gothic_closed` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `door_gothic_open` | `door_gothic_open` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `door_stained_closed` | `door_stained_closed` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `door_vip_crimson` | `door_vip_crimson` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `portal_avaricia_gold` | `portal_avaricia_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `portal_baroque_gold` | `portal_baroque_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `threshold_descent_pad` | `threshold_descent_pad` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `threshold_descent_pad` | `threshold_descent_pad` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + captura en Refugio real |
 
 ### Apéndice props (30)
 
