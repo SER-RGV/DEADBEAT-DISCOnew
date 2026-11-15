@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-14T23:19:53Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-14T23:41:38Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -16,7 +16,7 @@
 |---|---:|---:|---:|---:|---:|---:|
 | `characters` | 31 | 0 | 3 | 0 | 1 | 27 |
 | `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
-| `bosses` | 42 | 0 | 3 | 0 | 3 | 36 |
+| `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **380** | **25** | **124** | **105** | **33** | **93** |
+| **Total** | **380** | **25** | **121** | **105** | **30** | **99** |
 
 ## `characters` (31)
 
@@ -105,12 +105,6 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `boss_03_cajero_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
-| `boss_05_oficiante_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
-| `boss_09_nucleo_hit` | **D** | fotograma basura: no representa al personaje de su familia | `R03_JEFES` |
-| `boss_06_matarife_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_07_imitador_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
-| `boss_08_traidor_hit` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R03_JEFES` |
 | `boss_00_anden_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_00_anden_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_00_anden_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
@@ -125,6 +119,7 @@
 | `boss_02_bufe_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_03_cajero_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_03_cajero_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_03_cajero_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_03_cajero_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_04_pogo_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_04_pogo_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
@@ -132,18 +127,23 @@
 | `boss_04_pogo_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_05_oficiante_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_05_oficiante_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_05_oficiante_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_05_oficiante_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_06_matarife_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_06_matarife_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_06_matarife_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_06_matarife_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_07_imitador_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_07_imitador_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_07_imitador_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_07_imitador_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_08_traidor_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_08_traidor_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_08_traidor_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_08_traidor_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_09_nucleo_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_09_nucleo_death` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
+| `boss_09_nucleo_hit` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_09_nucleo_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_10_arquitecto_attack` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |
 | `boss_10_arquitecto_idle` | **E** | rehecho en la tanda R03_JEFES y validado dentro del juego | `R03_JEFES` |

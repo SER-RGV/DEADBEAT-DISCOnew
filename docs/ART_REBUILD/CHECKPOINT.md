@@ -3,10 +3,10 @@
 - **Fecha UTC:** `2026-11-14`
 - **Rama activa:** `arena/e088e9d7-deadbeat-disconew` (base `main` @ `2d1f6e8`)
 - **Línea de producción vigente:** `tools/art_master/` (tandas `R01`, `R02`, …). Ver [`tools/art_master/README.md`](../../tools/art_master/README.md).
-- **Tandas completadas y validadas en juego:** `R01_PROTAGONISTA` (27 PNG: 22 ilustraciones, 2 alias cinemáticos, 3 capas derivadas), `R02_ENEMIGOS` (24 ilustraciones: 6 familias × caminar, aviso, ataque y muerte; vistas en los círculos I, II, III, V y VIII) y **TANDA 02 del pack 02–07** (6 `hit` + variantes por color; [`TANDA_02_INFORME.md`](TANDA_02_INFORME.md)).
-- **Pack visual 02–07 (2026-11-14):** láminas en `ART_REFERENCES/LAMINAS_2026-11-14/`; auditoría y plan en [`PLAN_PRODUCCION_02-07.md`](PLAN_PRODUCCION_02-07.md). Orden: 02 enemigos ✔ → 03 jefes (en curso) → 04 escenarios → 05 armas → 06 objetos → 07 HUD.
-- **Tanda en curso:** `R03_JEFES` (= TANDA 03 del pack) — **36 de 42** ilustraciones integradas y vistas en juego: reposo y ataque de los 11 jefes, muerte de los 10 residentes y vulnerable de Andén, Magneta, Bufé y El Pogo. Faltan 6 fotogramas de vulnerable (Cajero —repetir, halo gigante—, Oficiante, Matarife, Imitador, Traidor, Núcleo), que mientras tanto se resuelven sobre el reposo nuevo. Hay seis decisiones de diseño tomadas por defecto y sin confirmar. Ver [`NEXT_BATCH.md`](NEXT_BATCH.md).
-- **Inventario clasificado:** 380 assets · A 25 · B 140 · C 105 · D 36 · E 74 (quedan 281 por producir) — [`AUDIT_INVENTORY.md`](AUDIT_INVENTORY.md).
+- **Tandas completadas y validadas en juego:** `R01_PROTAGONISTA` (27 PNG: 22 ilustraciones, 2 alias cinemáticos, 3 capas derivadas), `R02_ENEMIGOS` (24 ilustraciones: 6 familias × caminar, aviso, ataque y muerte; vistas en los círculos I, II, III, V y VIII), **TANDA 02 del pack 02–07** (6 `hit` + variantes por color; [`TANDA_02_INFORME.md`](TANDA_02_INFORME.md)) y **`R03_JEFES` = TANDA 03 del pack — 42 de 42** (reposo y ataque de los 11 jefes, vulnerable y muerte de los 10 residentes; [`TANDA_03_INFORME.md`](TANDA_03_INFORME.md)).
+- **Pack visual 02–07 (2026-11-14):** láminas en `ART_REFERENCES/LAMINAS_2026-11-14/`; auditoría y plan en [`PLAN_PRODUCCION_02-07.md`](PLAN_PRODUCCION_02-07.md). Orden: 02 enemigos ✔ → 03 jefes ✔ → **04 escenarios (siguiente)** → 05 armas → 06 objetos → 07 HUD.
+- **Tanda en curso:** TANDA 04 ESCENARIOS — en auditoría (ver [`NEXT_BATCH.md`](NEXT_BATCH.md)). De R03 quedan seis decisiones de diseño tomadas por defecto y sin confirmar (`TANDA_03_INFORME.md` §8); la muerte del Núcleo y la del Arquitecto no llegan a verse (pantalla final).
+- **Inventario clasificado:** 380 assets · A 25 · B 121 · C 105 · D 30 · E 99 (quedan 256 por producir) — [`AUDIT_INVENTORY.md`](AUDIT_INVENTORY.md).
 - **Auditoría y plan:** [`AUDITORIA_VISUAL.md`](AUDITORIA_VISUAL.md).
 - **Registro:** 275 assets registrados, 275 cargados, 0 errores; `batch.py audit` sin incidencias.
 

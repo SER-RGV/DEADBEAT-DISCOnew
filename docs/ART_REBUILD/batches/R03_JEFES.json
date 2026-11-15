@@ -2,7 +2,7 @@
  "batch": "R03_JEFES",
  "title": "Jefes — 10 residentes × 4 estados + Arquitecto × 2 (42 ilustraciones). EN CURSO: 15 de 42 (los 11 reposos y 4 ataques).",
  "created": "2026-11-12",
- "status": "EN CURSO. Integrados los 11 `idle` y los `attack` de Andén, Magneta, Bufé y El Pogo. El renderizador nunca mezcla revisiones: un jefe sin `attack`, `hit` o `death` de R03 resuelve ese estado sobre su `idle` nuevo con una señal procedimental; los PNG pixel art de esos estados siguen en assets/bosses/ pero no se dibujan.",
+ "status": "CERRADA 2026-11-14 · 42/42 integradas, vistas en juego (probe_bosses.js) y marcadas (clase E): 11 `idle`, 11 `attack`, 10 `death` (00–09) y 10 `hit` (00–09); el Arquitecto sólo reposo y ataque por contrato. El renderizador nunca mezcla revisiones; los PNG pixel art antiguos de assets/bosses/ ya no se dibujan.",
  "mapping": {
   "criterio": "El aspecto sigue la lámina REF_03, emparejada con el jefe del motor por el TEMA del círculo (el motor tiene un círculo más, Limbo, y sus números van uno por delante). Nombre, título y color son los del motor. De la biblia de lore se toman los motivos que no contradicen a la lámina."
  },
@@ -356,6 +356,51 @@
    }
   },
   {
+   "id": "boss_03_cajero_hit",
+   "raw": "boss_03_cajero_hit.png",
+   "name": "EL CAJERO · Señor del VIP (Avaricia) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_03_cajero_idle",
+    "k": 0.86,
+    "ax": 541.6
+   },
+   "boss": "EL CAJERO · EL QUE COBRA LA ENTRADA",
+   "circle_engine": "IV Avaricia",
+   "entity": "EL CAJERO · EL QUE COBRA LA ENTRADA (IV Avaricia)",
+   "use": "Jefe `boss_03_cajero`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "Piernas sin cambiar: NCC del cuarto inferior (score 0,94): 0,86 = factor del lienzo. Segundo intento: en el primero el halo salió gigante; se pidió «SMALL hexagonal halo frame… about the width of the head and shoulders»."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_03_cajero_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    464,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5629,
+    "ax": 541.6,
+    "ay": 981.0,
+    "cx": 242,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     541.6,
+     981.0
+    ],
+    "unit_h": 945.1
+   }
+  },
+  {
    "id": "boss_04_pogo_idle",
    "raw": "boss_04_pogo_idle.png",
    "name": "EL POGO · Demonio de la Fosa (Ira) · reposo",
@@ -551,6 +596,50 @@
    }
   },
   {
+   "id": "boss_05_oficiante_hit",
+   "raw": "boss_05_oficiante_hit.png",
+   "name": "EL OFICIANTE · Pontífice del Ruido (Herejía) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_05_oficiante_idle",
+    "k": 0.9
+   },
+   "boss": "EL OFICIANTE · EL QUE OFICIA EL RUIDO",
+   "circle_engine": "VI Herejía",
+   "entity": "EL OFICIANTE · EL QUE OFICIA EL RUIDO (VI Herejía)",
+   "use": "Jefe `boss_05_oficiante`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.9,
+    "how": "NCC de las piernas 0,91 con score bajo (0,35: la túnica se abre); por altura mitra→pies ≈0,91. Se toma 0,90."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_05_oficiante_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    528,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6261,
+    "ax": 565.8,
+    "ay": 932.0,
+    "cx": 316,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     565.8,
+     932.0
+    ],
+    "unit_h": 867.6
+   }
+  },
+  {
    "id": "boss_06_matarife_idle",
    "raw": "boss_06_matarife_idle.png",
    "name": "EL MATARIFE · Coloso del Matadero (Violencia) · reposo",
@@ -689,6 +778,51 @@
     "foot": [
      642.5,
      825.0
+    ],
+    "unit_h": 798.1
+   }
+  },
+  {
+   "id": "boss_06_matarife_hit",
+   "raw": "boss_06_matarife_hit.png",
+   "name": "EL MATARIFE · Coloso del Matadero (Violencia) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_06_matarife_idle",
+    "k": 0.86,
+    "ax": 627.4
+   },
+   "boss": "EL MATARIFE · EL QUE DESPIEZA EL SET",
+   "circle_engine": "VII Violencia",
+   "entity": "EL MATARIFE · EL QUE DESPIEZA EL SET (VII Violencia)",
+   "use": "Jefe `boss_06_matarife`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "NCC del tambor del pecho (score 0,95): 0,86 = factor del lienzo."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_06_matarife_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    656,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.6596,
+    "ax": 627.4,
+    "ay": 821.0,
+    "cx": 305,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     627.4,
+     821.0
     ],
     "unit_h": 798.1
    }
@@ -880,6 +1014,51 @@
    }
   },
   {
+   "id": "boss_07_imitador_hit",
+   "raw": "boss_07_imitador_hit.png",
+   "name": "EL IMITADOR · Dama de los Espejos (Fraude) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_07_imitador_idle",
+    "k": 0.86,
+    "ax": 548.5
+   },
+   "boss": "EL IMITADOR · EL QUE DUPLICA LA PISTA",
+   "circle_engine": "VIII Fraude",
+   "entity": "EL IMITADOR · EL QUE DUPLICA LA PISTA (VIII Fraude)",
+   "use": "Jefe `boss_07_imitador`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "Piernas/base de humo sin cambiar: NCC del cuarto inferior (score 0,81): 0,86."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_07_imitador_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    544,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5788,
+    "ax": 548.5,
+    "ay": 967.0,
+    "cx": 266,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     548.5,
+     967.0
+    ],
+    "unit_h": 928.8
+   }
+  },
+  {
    "id": "boss_08_traidor_idle",
    "raw": "boss_08_traidor_idle.png",
    "name": "EL TRAIDOR · Monarca Glacial (Traición) · reposo",
@@ -1022,6 +1201,51 @@
    }
   },
   {
+   "id": "boss_08_traidor_hit",
+   "raw": "boss_08_traidor_hit.png",
+   "name": "EL TRAIDOR · Monarca Glacial (Traición) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_08_traidor_idle",
+    "k": 0.86,
+    "ax": 527.0
+   },
+   "boss": "EL TRAIDOR · EL ÚLTIMO RESIDENTE",
+   "circle_engine": "IX Traición",
+   "entity": "EL TRAIDOR · EL ÚLTIMO RESIDENTE (IX Traición)",
+   "use": "Jefe `boss_08_traidor`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "Piernas sin cambiar: NCC del cuarto inferior (score 0,84): 0,86. El báculo cae suelto a la izquierda (componente aparte, se conserva)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_08_traidor_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    528,
+    560
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5814,
+    "ax": 527.0,
+    "ay": 983.0,
+    "cx": 276,
+    "cy": 552,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     527.0,
+     983.0
+    ],
+    "unit_h": 963.2
+   }
+  },
+  {
    "id": "boss_09_nucleo_idle",
    "raw": "boss_09_nucleo_idle.png",
    "name": "NÚCLEO FINAL · La Última Canción (Núcleo) · reposo",
@@ -1161,6 +1385,51 @@
      963.0
     ],
     "unit_h": 1004.8
+   }
+  },
+  {
+   "id": "boss_09_nucleo_hit",
+   "raw": "boss_09_nucleo_hit.png",
+   "name": "NÚCLEO FINAL · La Última Canción (Núcleo) · vulnerable",
+   "pivot": "anchors.foot",
+   "ground_line": true,
+   "layout": {
+    "ref": "boss_09_nucleo_idle",
+    "k": 0.86,
+    "ax": 564.9
+   },
+   "boss": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN",
+   "circle_engine": "Núcleo final",
+   "entity": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN (Núcleo final)",
+   "use": "Jefe `boss_09_nucleo`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+   "rel_scale": {
+    "k": 0.86,
+    "how": "Piernas sin cambiar: NCC del cuarto inferior (score 0,87): 0,86. Teselas sueltas alrededor (se conservan)."
+   },
+   "reference": "dd_work/raw/R03_JEFES/_refs/ref_09_nucleo_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+   "prompt": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
+   "issues": [],
+   "generated": "2026-11-14",
+   "generator": "generador de imágenes de la sesión (edición con referencia)",
+   "size": [
+    464,
+    592
+   ],
+   "fit": {
+    "mode": "anchor",
+    "scale": 0.5883,
+    "ax": 564.9,
+    "ay": 985.0,
+    "cx": 302,
+    "cy": 584,
+    "sharpen": 30
+   },
+   "anchors_raw": {
+    "foot": [
+     564.9,
+     985.0
+    ],
+    "unit_h": 970.9
    }
   },
   {
@@ -1880,11 +2149,7 @@
   "boss_03_cajero_idle v1, v2": "caminando; dd_work/raw/R03_JEFES/_descartados/",
   "boss_05_oficiante_idle v1": "hoja de tres vistas; dd_work/raw/R03_JEFES/_descartados/"
  },
- "pending": [
-  "attack: boss_06_matarife, boss_07_imitador, boss_08_traidor, boss_09_nucleo, boss_10_arquitecto (5)",
-  "hit: los 10 residentes (10)",
-  "death: los 10 residentes (10)"
- ],
+ "pending": [],
  "next_generation": {
   "note": "Poses previstas para los 7 `attack` que faltan. Van en el hueco <pose> de `attack_prompt`. No se nombra mano izquierda ni derecha: el generador las confunde; se dice «la mano que sostiene…» y «la mano libre».",
   "boss_03_cajero_attack": {
@@ -1925,9 +2190,9 @@
   "hit": "Ventana de vulnerabilidad (no impacto de bala): tambaleo de pie. «staggered: the torso bent back, the head thrown back, the arms flung open, one knee buckling; still standing, feet in the same place».",
   "death": "Derrumbe: de rodillas y vencido, sin tumbarse del todo (el registro dura 1 s y el fotograma se desvanece). La pose tiene que caber en el lienzo ancho de `state_ref.py`.",
   "boss_03_cajero_hit": {
-   "pending": true,
    "attempts": 1,
-   "issue_2026-11-14": "el halo hexagonal salió gigante (cubre todo el cuerpo) pese a pedir «same pixel width»; repetir pidiendo «small hexagonal halo frame behind the head, same size as the reference»"
+   "issue_2026-11-14": "el halo hexagonal salió gigante (cubre todo el cuerpo) pese a pedir «same pixel width»; repetir pidiendo «small hexagonal halo frame behind the head, same size as the reference»",
+   "done": "2026-11-14"
   }
  },
  "open_decisions": [
@@ -1937,5 +2202,7 @@
   "El Arquitecto: sin lámina; diseñado a partir del sprite antiguo, con un compás de dibujo como cetro.",
   "El Traidor: un báculo (la lámina muestra dos).",
   "Muerte del Núcleo: hoy no se ve, la pantalla de fin de partida se abre en el mismo fotograma. O se retrasa esa pantalla 1 s, o `boss_09_nucleo_death` no hace falta. Por defecto no se toca el flujo del juego y esa ilustración queda la última."
- ]
+ ],
+ "closed": "2026-11-14",
+ "report": "docs/ART_REBUILD/TANDA_03_INFORME.md"
 }

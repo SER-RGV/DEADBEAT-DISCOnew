@@ -4276,12 +4276,12 @@
       "tanda_number": 14,
       "original_id": "resident_04_cajero:hit",
       "id": "boss_03_cajero_hit",
-      "name": "EL CAJERO · Señor del VIP (III Avaricia) · Impacto / Daño",
+      "name": "EL CAJERO · Señor del VIP (Avaricia) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_03_cajero_hit.png",
       "dimensions": [
-        384,
-        448
+        464,
+        560
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -4291,13 +4291,23 @@
         "Of",
         "combatArt:resident_04_cajero"
       ],
-      "reference_source": "REF_03#boss_III",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Opulent dark-haired sovereign in black-and-gold armor standing before a glowing geometric Art-Deco gold monolith surrounded by cascading gold coins, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_03_cajero_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d9458be634b09342671b28676fe04ad86ffbea3d6105b6b9bcfa8106ea3709f6",
-      "bytes": 22270
+      "sha256": "714dccbe4f5c04b400443c114fcb0813354f33d062e35c5feb7208336287e3c4",
+      "bytes": 223954,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_03_cajero`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "EL CAJERO · EL QUE COBRA LA ENTRADA (IV Avaricia)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_03_cajero_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 132,
@@ -4587,12 +4597,12 @@
       "tanda_number": 14,
       "original_id": "resident_06_oficiante:hit",
       "id": "boss_05_oficiante_hit",
-      "name": "EL OFICIANTE · Pontífice del Ruido (V Herejía) · Impacto / Daño",
+      "name": "EL OFICIANTE · Pontífice del Ruido (Herejía) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_05_oficiante_hit.png",
       "dimensions": [
-        384,
-        448
+        528,
+        560
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -4602,13 +4612,23 @@
         "Of",
         "combatArt:resident_06_oficiante"
       ],
-      "reference_source": "REF_03#boss_V",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Solemn white-bearded heretic high pontiff in towering crimson-and-gold mitre and heavy ceremonial cathedral vestments, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_05_oficiante_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "e1f3a1961d5bf54ef6e2d6237f7365919df601e434b1d4e3b6e636db9d4e293b",
-      "bytes": 21696
+      "sha256": "8e28e8806f259e0798d4d5af4de798db9a9184b7161a7cc7f5f9efd8f584774a",
+      "bytes": 351230,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_05_oficiante`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "EL OFICIANTE · EL QUE OFICIA EL RUIDO (VI Herejía)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_05_oficiante_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 140,
@@ -4736,12 +4756,12 @@
       "tanda_number": 15,
       "original_id": "resident_07_matarife:hit",
       "id": "boss_06_matarife_hit",
-      "name": "EL MATARIFE · Coloso del Matadero (VI Violencia) · Impacto / Daño",
+      "name": "EL MATARIFE · Coloso del Matadero (Violencia) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_06_matarife_hit.png",
       "dimensions": [
-        384,
-        448
+        656,
+        560
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -4751,13 +4771,23 @@
         "Of",
         "combatArt:resident_07_matarife"
       ],
-      "reference_source": "REF_03#boss_VI",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Colossal horned muscular butcher-juggernaut with scarred pale hide, spiked crimson iron gauntlets, chains and skull harness, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_06_matarife_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d666821b5b27f5a87f5110f9ced9e8ac8d242fca85babd0f2ce8b0b559ce835f",
-      "bytes": 23358
+      "sha256": "2d0424e5b1e96260deaa741f943659555f0272b310a8f2df8d1077b0d9a13ecf",
+      "bytes": 443860,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_06_matarife`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "EL MATARIFE · EL QUE DESPIEZA EL SET (VII Violencia)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_06_matarife_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 144,
@@ -4885,12 +4915,12 @@
       "tanda_number": 15,
       "original_id": "resident_08_imitador:hit",
       "id": "boss_07_imitador_hit",
-      "name": "EL IMITADOR · Dama de los Espejos (VII Fraude) · Impacto / Daño",
+      "name": "EL IMITADOR · Dama de los Espejos (Fraude) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_07_imitador_hit.png",
       "dimensions": [
-        384,
-        448
+        544,
+        560
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -4900,13 +4930,23 @@
         "Of",
         "combatArt:resident_08_imitador"
       ],
-      "reference_source": "REF_03#boss_VII",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Ethereal porcelain-skinned dark-haired illusionist queen with silver-white feathered wings, black-and-silver gown and circular moon halo, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_07_imitador_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "705265114c18f7e6b0b71919a9c6bfd3c2546cbbfffe88a04d89ec17f68ad6a9",
-      "bytes": 19439
+      "sha256": "0436fdfb04be3e47aa11436d9cb69c218ce3626a6d272e092bca1298cb32ac7e",
+      "bytes": 327339,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_07_imitador`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "EL IMITADOR · EL QUE DUPLICA LA PISTA (VIII Fraude)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_07_imitador_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 148,
@@ -5034,12 +5074,12 @@
       "tanda_number": 16,
       "original_id": "resident_09_traidor:hit",
       "id": "boss_08_traidor_hit",
-      "name": "EL TRAIDOR · Monarca Glacial (VIII Traición) · Impacto / Daño",
+      "name": "EL TRAIDOR · Monarca Glacial (Traición) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_08_traidor_hit.png",
       "dimensions": [
-        384,
-        448
+        528,
+        560
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -5049,13 +5089,23 @@
         "Of",
         "combatArt:resident_09_traidor"
       ],
-      "reference_source": "REF_03#boss_VIII",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Regal ice-pale sovereign crowned in gold seated/rising before golden spires in ornate ice-blue and crimson embroidered royal robes, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_08_traidor_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "6f9600e341f2e17f52be0147777c0763d791178d44bb5faf120694994f98c08c",
-      "bytes": 23823
+      "sha256": "80a242a983aa34169036c9627d7f9262fc36604a06909a6c00e437d18e91f5d0",
+      "bytes": 356174,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_08_traidor`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "EL TRAIDOR · EL ÚLTIMO RESIDENTE (IX Traición)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_08_traidor_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 152,
@@ -5183,12 +5233,12 @@
       "tanda_number": 16,
       "original_id": "boss_09_nucleofinal:hit",
       "id": "boss_09_nucleo_hit",
-      "name": "NÚCLEO FINAL · La Última Canción (IX Núcleo) · Impacto / Daño",
+      "name": "NÚCLEO FINAL · La Última Canción (Núcleo) · vulnerable",
       "category": "bosses",
       "location": "assets/bosses/boss_09_nucleo_hit.png",
       "dimensions": [
-        384,
-        448
+        464,
+        592
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -5198,13 +5248,23 @@
         "Of",
         "combatArt:boss_09_nucleofinal"
       ],
-      "reference_source": "REF_03#boss_IX",
-      "prompt_spec": "High-resolution dark-ink digital illustration of Monolithic suspended black-and-white void singularity sphere pierced vertically by a gleaming silver chain-spire radiating monochrome shockwaves, recoiling slightly under heavy fire with bright fracture sparks and fierce expression",
+      "reference_source": "dd_work/raw/R03_JEFES/_refs/ref_09_nucleo_wide.png (idle limpio centrado en lienzo 1,35x más ancho)",
+      "prompt_spec": "Edición con referencia («keep EXACTLY… change ONLY…»); <pose> = EXPOSED, STAGGERED pose: feet planted and legs unchanged; torso bent backwards, chest open, head thrown back, both arms flung wide and loose, weapon slipping from the hand; «the <rasgo> keeps exactly the same pixel width».",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "d511266936236722329b200d59fe614597e05a0704a72a04d22f17856b685fd4",
-      "bytes": 14288
+      "sha256": "3b40b7e183ef56e68f7d6cee94f38157fd22a601265b98be0d43a2ca6b5a6ffa",
+      "bytes": 352370,
+      "format": "PNG RGBA",
+      "use": "Jefe `boss_09_nucleo`, fotograma de vulnerable: ddBossView lo manda como `recover` → BOSS_STATE_ASSET.hit durante la ventana expuesta que el motor abre tras cada patrón (exposedT, daño × 1,5). No se usa por impacto de bala (sería un parpadeo continuo).",
+      "entity": "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN (Núcleo final)",
+      "art_revision": "R03_JEFES",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/R03_JEFES/boss_09_nucleo_hit.webp",
+      "notes": null,
+      "updated_at": "2026-11-14T23:32:59Z",
+      "evidence": "docs/ART_REBUILD/evidence/T03_JEFES",
+      "validated_at": "2026-11-14T23:41:38Z"
     },
     {
       "index": 156,
@@ -11100,5 +11160,5 @@
       "validated_at": "2026-11-14T18:07:46Z"
     }
   ],
-  "updated_at": "2026-11-14T23:19:53Z"
+  "updated_at": "2026-11-14T23:41:38Z"
 }
