@@ -193,18 +193,20 @@
     "weapon_c074_portal_gun",
     "weapon_c075_dron"
    ],
-   "estado": "parcial 6/10 verificadas en mano (2026-11-15); fallo del generador en c067_congelacios y c070_arena (1.ª vez); c074_portal_gun y c075_dron sin generar aún",
+   "estado": "parcial 9/10 verificadas en mano (2026-11-15); c067_congelacios DOS fallos del generador → simplificar DESIGN",
    "hechas": [
     "weapon_c066_meteoritos",
     "weapon_c068_relampagos",
     "weapon_c069_tormenta",
+    "weapon_c070_arena",
     "weapon_c071_gravedad",
     "weapon_c072_vacio",
-    "weapon_c073_gravity_gun"
+    "weapon_c073_gravity_gun",
+    "weapon_c074_portal_gun",
+    "weapon_c075_dron"
    ],
    "reintentar": [
-    "weapon_c067_congelacios",
-    "weapon_c070_arena"
+    "weapon_c067_congelacios"
    ]
   },
   {
@@ -221,7 +223,17 @@
     "weapon_c084_orbes_orbitales",
     "weapon_c085_espada_laser"
    ],
-   "estado": "pendiente"
+   "estado": "parcial 4/10 verificadas en mano (2026-11-15); fallo del generador en c077_satelites y c078_mina (1.ª vez); c082–c085 sin generar aún",
+   "hechas": [
+    "weapon_c076_torreta",
+    "weapon_c079_trampa_laser",
+    "weapon_c080_ancla",
+    "weapon_c081_teletransportador"
+   ],
+   "reintentar": [
+    "weapon_c077_satelites",
+    "weapon_c078_mina"
+   ]
   },
   {
    "turno": 8,
@@ -2420,7 +2432,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "smg"
+    "cls": "smg",
+    "grip_v": 0.64,
+    "sup": 0.42
    },
    "engine": {
     "wid": "c070_arena",
@@ -2578,7 +2592,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "dispositivo"
+    "cls": "dispositivo",
+    "grip": 0.1,
+    "grip_v": 0.68,
+    "sup": 0.5
    },
    "engine": {
     "wid": "c074_portal_gun",
@@ -2616,7 +2633,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "dispositivo"
+    "cls": "dispositivo",
+    "grip": 0.09,
+    "grip_v": 0.72,
+    "sup": 0.5
    },
    "engine": {
     "wid": "c075_dron",
@@ -2654,7 +2674,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "dispositivo"
+    "cls": "dispositivo",
+    "grip": 0.1,
+    "grip_v": 0.76,
+    "tip": 0.93
    },
    "engine": {
     "wid": "c076_torreta",
@@ -2768,7 +2791,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "dispositivo"
+    "cls": "dispositivo",
+    "grip": 0.07,
+    "grip_v": 0.7,
+    "sup": 0.5
    },
    "engine": {
     "wid": "c079_trampa_laser",
@@ -2806,7 +2832,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.18,
+    "grip_v": 0.76,
+    "sup": 0.36
    },
    "engine": {
     "wid": "c080_ancla",
@@ -2844,7 +2873,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "pistolaEnergia"
+    "cls": "pistolaEnergia",
+    "grip": 0.08,
+    "grip_v": 0.74
    },
    "engine": {
     "wid": "c081_teletransportador",
@@ -4352,7 +4383,7 @@
   }
  ],
  "progress": {
-  "verified": 56,
+  "verified": 63,
   "total": 105,
   "updated": "2026-11-15"
  },
@@ -4366,6 +4397,7 @@
   "Turno 5 (energía): 6/10 generadas (4 fallos del servicio). Las de energía con cuerpo grueso (plasma_cutter, canon_plasma, artilleria) y la pistola tesla necesitan grip + grip_v; el lanzallamas lleva la llama piloto pintada → hint tip 0.91 (nuevo en weapon_cal.py) para que la boca quede en la tobera. La pistola de energía sale a una mano con la postura de pistola.",
   "Turno 6: 6/10 generadas (4 fallos del servicio; lanzacohetes y railgun salieron al 3.er intento con el DESIGN simplificado). Bastón-fusil (trident) con pistolete en el extremo izquierdo: grip 0.10 + grip_v y sup 0.40 sobre el asta → en mano queda bien (mano en el pistolete, apoyo en el asta). Lanzador de tubo: grip_v 0.70 y sup 0.40 para caer en la empuñadura delantera.",
   "Turno 7: 8/10 generadas (los 4 reintentos salieron). Efectos pintados en la boca (relámpagos del rayo en cadena, humo de la nube tóxica) → hint tip (0.92 / 0.86). Pistolas ornamentadas anchas (veneno) y lanzadores con empuñadura delantera profunda (nube tóxica, cañón sónico) → grip + grip_v + sup relativo. Las pistolas elementales salen a una mano.",
-  "Turno 8 (elementales/especiales): 8/10 generadas. Lanzadores de tubo (meteoritos, vacío) y dispositivo (gravity gun) → grip + grip_v 0.72–0.74 y sup relativo 0.40–0.45 para la empuñadura delantera; revólver de roca (fuego) → grip 0.14 + grip_v. Los fusiles de energía (relámpagos, tormenta, gravedad) calibran de serie."
+  "Turno 8 (elementales/especiales): 8/10 generadas. Lanzadores de tubo (meteoritos, vacío) y dispositivo (gravity gun) → grip + grip_v 0.72–0.74 y sup relativo 0.40–0.45 para la empuñadura delantera; revólver de roca (fuego) → grip 0.14 + grip_v. Los fusiles de energía (relámpagos, tormenta, gravedad) calibran de serie.",
+  "Turno 9 (especiales/dispositivos): 7/10 generadas. Los dispositivos tipo pistola grande (portal gun, dron, torreta, trampa láser, teletransportador) traen el pistolete en el extremo izquierdo (x 0.07–0.10) → grip + grip_v 0.68–0.76; el SMG con cargador curvo largo necesita sup 0.42 para que el apoyo no caiga en el cargador. Evitar «coordinates/readout» en el DESIGN: el generador pinta cifras (teletransportador; ilegibles a 320 px, aceptado)."
  ]
 }

@@ -82,3 +82,8 @@
 - 8/10 generadas (`c060_lanza_acido`, `c061_fuego`, `c066_meteoritos`, `c068_relampagos`, `c069_tormenta`, `c071_gravedad`, `c072_vacio`, `c073_gravity_gun`); fallos del servicio en `c067_congelacios` y `c070_arena`.
 - Calibración: hints `grip`/`grip_v`/`sup` en lanza ácido, fuego, meteoritos, vacío y gravity gun; 3 de serie. Registradas (333, caché `20261115.13`), verificadas en mano (evidencias `22–24`, 0 errores), marcadas. Turno 5 cerrado. Inventario A25·B107·C49·D26·E175.
 
+## 2026-11-15 (11) — T05 ARMAS, 9.º tramo: arena, dispositivos 74–76/79–81 (63/105)
+
+- 7/10 generadas (`c070_arena`, `c074_portal_gun`, `c075_dron`, `c076_torreta`, `c079_trampa_laser`, `c080_ancla`, `c081_teletransportador`); fallos del servicio en `c067_congelacios` (2.ª vez), `c077_satelites`, `c078_mina`.
+- Calibración: hints `grip`/`grip_v`/`sup` en los 7 (pistoletes en el extremo izquierdo de los dispositivos; apoyo del SMG fuera del cargador; `tip 0.93` en la torreta). Registradas (340, caché `20261115.14`), verificadas en mano (evidencias `25–27`, 0 errores), marcadas. Inventario A25·B107·C42·D26·E182.
+

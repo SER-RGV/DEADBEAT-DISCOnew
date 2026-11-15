@@ -1,9 +1,10 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 8.º tramo):** **56/105 verificadas en mano.** Turnos 1–5 COMPLETOS; turno 6 parcial 6/10
-  (faltan `c067_congelacios` y `c070_arena`, un fallo del generador cada una, y `c074_portal_gun`, `c075_dron` sin
-  generar). Registro 333, caché `20261115.13`. Evidencias `evidence/T05_ARMAS/00–24`. Siguen: esos 4 + turno 7:
-  `c076_torreta`, `c077_satelites`, `c078_mina`, `c079_trampa_laser`, `c080_ancla`, `c081_teletransportador` (ver `generation_plan[6]`).
+- **Estado (2026-11-15, 9.º tramo):** **63/105 verificadas en mano.** Turnos 1–5 COMPLETOS; turno 6 parcial 9/10
+  (`c067_congelacios`, DOS fallos → simplificar DESIGN); turno 7 parcial 4/10 (`c076_torreta`, `c079_trampa_laser`,
+  `c080_ancla`, `c081_teletransportador`; fallaron `c077_satelites` y `c078_mina`; `c082`–`c085` sin generar).
+  Registro 340, caché `20261115.14`. Evidencias `evidence/T05_ARMAS/00–27`. Siguen: los 3 reintentos +
+  `c082_generador_de_paredes`, `c083_clonador`, `c084_orbes_orbitales`, `c085_espada_laser` + 3 del turno 8 (cuerpo a cuerpo).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).
