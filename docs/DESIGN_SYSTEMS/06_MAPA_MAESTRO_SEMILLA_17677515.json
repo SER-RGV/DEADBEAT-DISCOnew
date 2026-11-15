@@ -1,0 +1,189 @@
+{
+  "schema": "ddm_campaign_graph_sample_v1",
+  "source": "ART_EVIDENCE/tanda_01/validation_run2_roomcapture.json",
+  "captured_at": "2026-11-03",
+  "seed": 17677515,
+  "floor": 0,
+  "boss_distance": 6,
+  "total_nodes": 12,
+  "node_counts": {
+    "start": 1,
+    "combat": 8,
+    "treasure": 1,
+    "shop": 1,
+    "boss": 1
+  },
+  "main_path": [
+    "r0",
+    "r2",
+    "r3",
+    "r6",
+    "r8",
+    "r9",
+    "r10"
+  ],
+  "nodes": [
+    {
+      "id": "r0",
+      "index": 0,
+      "x": 0,
+      "y": 0,
+      "kind": "start",
+      "distance": 0,
+      "main": true,
+      "links": [
+        "r2",
+        "r5"
+      ]
+    },
+    {
+      "id": "r1",
+      "index": 1,
+      "x": 1,
+      "y": -1,
+      "kind": "treasure",
+      "distance": 2,
+      "main": false,
+      "links": [
+        "r2"
+      ]
+    },
+    {
+      "id": "r2",
+      "index": 2,
+      "x": 0,
+      "y": -1,
+      "kind": "combat",
+      "distance": 1,
+      "main": true,
+      "links": [
+        "r0",
+        "r3",
+        "r1",
+        "r4"
+      ]
+    },
+    {
+      "id": "r3",
+      "index": 3,
+      "x": 0,
+      "y": -2,
+      "kind": "combat",
+      "distance": 2,
+      "main": true,
+      "links": [
+        "r2",
+        "r6"
+      ]
+    },
+    {
+      "id": "r4",
+      "index": 4,
+      "x": -1,
+      "y": -1,
+      "kind": "combat",
+      "distance": 2,
+      "main": false,
+      "links": [
+        "r6",
+        "r2",
+        "r7"
+      ]
+    },
+    {
+      "id": "r5",
+      "index": 5,
+      "x": 0,
+      "y": 1,
+      "kind": "combat",
+      "distance": 1,
+      "main": false,
+      "links": [
+        "r0"
+      ]
+    },
+    {
+      "id": "r6",
+      "index": 6,
+      "x": -1,
+      "y": -2,
+      "kind": "combat",
+      "distance": 3,
+      "main": true,
+      "links": [
+        "r3",
+        "r8",
+        "r4"
+      ]
+    },
+    {
+      "id": "r7",
+      "index": 7,
+      "x": -2,
+      "y": -1,
+      "kind": "combat",
+      "distance": 3,
+      "main": false,
+      "links": [
+        "r4"
+      ]
+    },
+    {
+      "id": "r8",
+      "index": 8,
+      "x": -1,
+      "y": -3,
+      "kind": "combat",
+      "distance": 4,
+      "main": true,
+      "links": [
+        "r6",
+        "r9",
+        "s0"
+      ]
+    },
+    {
+      "id": "r9",
+      "index": 9,
+      "x": -1,
+      "y": -4,
+      "kind": "combat",
+      "distance": 5,
+      "main": true,
+      "links": [
+        "r8",
+        "r10"
+      ]
+    },
+    {
+      "id": "r10",
+      "index": 10,
+      "x": 0,
+      "y": -4,
+      "kind": "boss",
+      "distance": 6,
+      "main": true,
+      "links": [
+        "r9"
+      ]
+    },
+    {
+      "id": "s0",
+      "index": 11,
+      "x": -2,
+      "y": -3,
+      "kind": "shop",
+      "distance": 5,
+      "main": false,
+      "links": [
+        "r8"
+      ]
+    }
+  ],
+  "validation": {
+    "missing_links": 0,
+    "asymmetric_links": 0,
+    "graph_complete": true,
+    "scope": "two captured samples only; not exhaustive"
+  }
+}
