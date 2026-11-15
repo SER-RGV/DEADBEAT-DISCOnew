@@ -99,7 +99,7 @@ El registro histórico de Fase 0.3 documentó, entre otras observaciones:
 El informe RESTART 14 posterior registra correcciones de menú y pruebas adicionales. Por tanto, estas observaciones deben usarse como casos de regresión, no etiquetarse automáticamente como defectos actuales.
 
 Casos adicionales:
-- Armería vacía por incompatibilidad `TODAS`/`ALL` (reproducir y comprobar estado actual antes de corregir).
+- **Armería vacía al abrir (defecto confirmado por inspección estática):** `uiState.selectedCategory` nace como `"ALL"` en `src/dd_ui_system.js`; `renderShop()` crea el filtro visible `"TODAS"` y solo muestra todos los registros cuando el estado es exactamente `"TODAS"`. La primera renderización puede filtrar todo fuera. El clic en `TODAS` actualiza el estado y vuelve a renderizar. Pendiente de reproducción runtime y corrección aislada.
 - Minimap blanco.
 - Panel de mejora que congela la partida.
 - Diálogos pegados.
