@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T01:36:38Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T02:04:19Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -20,15 +20,15 @@
 | `weapons` | 121 | 0 | 16 | 105 | 0 | 0 |
 | `pickups` | 20 | 0 | 20 | 0 | 0 | 0 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
-| `props` | 30 | 0 | 30 | 0 | 0 | 0 |
+| `props` | 30 | 0 | 29 | 0 | 0 | 1 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
 | `walls` | 12 | 0 | 1 | 0 | 0 | 11 |
-| `environments` | 8 | 0 | 5 | 0 | 0 | 3 |
+| `environments` | 8 | 0 | 0 | 0 | 0 | 8 |
 | `ui` | 15 | 7 | 7 | 0 | 1 | 0 |
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **113** | **105** | **26** | **113** |
+| **Total** | **382** | **25** | **107** | **105** | **26** | **119** |
 
 ## `characters` (31)
 
@@ -246,7 +246,6 @@
 | `prop_dj_booth` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_gilded_altar` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_gothic_statue` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
-| `prop_hub_fox_neon` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_mirror_baroque` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_neon_flower` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_neon_palm` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
@@ -257,6 +256,7 @@
 | `prop_speaker_tower` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_subwoofer_cyan` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
 | `prop_vending_machine` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R08_MOBILIARIO` |
+| `prop_hub_fox_neon` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 
 ## `floors` (12)
 
@@ -296,14 +296,14 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `door_arched_open` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `door_stained_closed` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `door_vip_crimson` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `portal_baroque_gold` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `threshold_descent_pad` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
+| `door_arched_open` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 | `door_gothic_closed` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 | `door_gothic_open` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `door_stained_closed` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `door_vip_crimson` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 | `portal_avaricia_gold` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `portal_baroque_gold` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `threshold_descent_pad` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 
 ## `ui` (15)
 

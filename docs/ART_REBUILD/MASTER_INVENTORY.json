@@ -232,7 +232,7 @@
       "tanda_number": 1,
       "original_id": "hub:fox_neon",
       "id": "prop_hub_fox_neon",
-      "name": "Neón Mural Zorro Refugio HUB",
+      "name": "Neón Mural Zorro (muro norte y Refugio)",
       "category": "props",
       "location": "assets/props/prop_hub_fox_neon.png",
       "dimensions": [
@@ -246,13 +246,23 @@
         "DD_HUB.props",
         "Lc:poster"
       ],
-      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#refugio_hub",
-      "prompt_spec": "Isometric wall-mounted glowing hot-pink neon tube sign shaped like the Deadbeat Disco fox head with small crown on dark stone wall mount",
+      "reference_source": "assets/logos/emblem_fox_crown.png (forma) · REF_01_neon_fox_disco_muerto.png",
+      "prompt_spec": "Create ONE wall-mounted neon sign: the head of a fox wearing a small crown, drawn as hot magenta (#ff2d7a) neon tubes with a cyan (#22d3ee) accent on the crown, mounted on a dark matte-black rectangular backing board with rounded corners; the tubes are drawn as solid flat strokes with a thin black ink outline and a flat lighter core, no soft glow halo; portrait 3:4, the board fills about 90 percent of the image height. Match the project's fox emblem (IMAGE 1) for the shape of the fox head and crown. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "f3362ba7ccd7e4f2d849c662faceda0b4b6e24da9c70c83a0ea97a9bef1e164c",
-      "bytes": 34389
+      "sha256": "433d78e6752246af038393a0810e063e3d470195b386cd0ed3cc0fe5fedc91ca",
+      "bytes": 220025,
+      "format": "PNG RGBA",
+      "use": "Neón del zorro coronado en la fachada norte (82×108) y en el Refugio (112×148).",
+      "entity": "neón del zorro",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/prop_hub_fox_neon.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 9,
@@ -289,12 +299,12 @@
       "tanda_number": 1,
       "original_id": "hub:descent_pad",
       "id": "threshold_descent_pad",
-      "name": "Plataforma Cian de Descenso HUB",
+      "name": "Plataforma Cian de Descenso (Refugio)",
       "category": "environments",
       "location": "assets/environments/threshold_descent_pad.png",
       "dimensions": [
-        512,
-        320
+        640,
+        400
       ],
       "alpha": true,
       "pivot": "center",
@@ -304,13 +314,23 @@
         "Bg:lift",
         "DD_HUB.descentPad"
       ],
-      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#refugio_hub",
-      "prompt_spec": "Isometric recessed obsidian floor platform with glowing cyan neon square perimeter frame and central crimson-violet arcane crystal emitter",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE floor pad seen from above at a steep top-down angle (about 60 degrees, so it reads as a flattened rhombus/oval, wider than tall): a dark obsidian slab with bevelled edges, a cyan (#22d3ee) neon tube running around its rim, and in the centre a small sunken circle with a crimson crystal and a downward-pointing arrow glyph in cyan; flat cel glow bands only. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "51d766552cd2402436f8c66c4048f2e242e55807dbd2f802970f38f6a7a471c5",
-      "bytes": 29791
+      "sha256": "6eb24f0364ec2a1dea6cca991b52356b00dedcbf561bacad8f80de2a28eb7bc6",
+      "bytes": 245700,
+      "format": "PNG RGBA",
+      "use": "Plataforma de descenso del Refugio (drawDescentPad, 196 px de ancho) y respaldo de puerta.",
+      "entity": "plataforma de descenso",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/threshold_descent_pad.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 11,
@@ -1028,8 +1048,8 @@
       "category": "environments",
       "location": "assets/environments/door_stained_closed.png",
       "dimensions": [
-        320,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1038,13 +1058,23 @@
         "Bg",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_01",
-      "prompt_spec": "Ornate rounded golden-bronze arched nightclub door with glowing crimson-and-gold stained glass rose centerpiece, closed",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE closed arched door of an infernal nightclub cathedral: rounded (Romanesque) arch; the door is a single leaf of dark bronze framing a large stained-glass rose window in crimson, magenta and gold that glows from behind (flat cel bands); carved dark-stone arch frame with antique gold trim; a magenta neon tube follows the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "0bbeb127208798888fe68e58982661eca0e1341a34c30a4162f368acce752fd1",
-      "bytes": 28542
+      "sha256": "1f8395796c5f63f40f535fb679f830f62b71df77b98c8ffe6664a908513841d8",
+      "bytes": 358474,
+      "format": "PNG RGBA",
+      "use": "Puerta cerrada de los círculos I–IV (drawDoor).",
+      "entity": "door_stained_closed",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/door_stained_closed.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 34,
@@ -1056,8 +1086,8 @@
       "category": "environments",
       "location": "assets/environments/door_arched_open.png",
       "dimensions": [
-        320,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1066,13 +1096,23 @@
         "Bg",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_02",
-      "prompt_spec": "Ornate rounded golden-bronze arched doorway standing open into deep glowing cyan-indigo club corridor",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "EDIT the reference image. Keep EXACTLY the same arch, stone frame, gold trim, neon tube, size, position and drawing style. Change ONLY the door leaf: it is now swung wide OPEN (seen edge-on against the jamb) and the opening reveals a dark corridor with a cyan (#22d3ee) glow rising from below and two stone steps. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "23ed4c471502e476cd1d817c591a0909ca4507a7756442e284bb817270e9fd74",
-      "bytes": 19165
+      "sha256": "4c00b17ccb5965ab94572660665e1c90f067557a5fe34ea0ae0908cee6756073",
+      "bytes": 299643,
+      "format": "PNG RGBA",
+      "use": "Puerta abierta de los círculos I–IV (drawDoor, door.open).",
+      "entity": "door_arched_open",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/door_arched_open.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 35,
@@ -1156,12 +1196,12 @@
       "tanda_number": 4,
       "original_id": "Bg:door_vip_crimson",
       "id": "door_vip_crimson",
-      "name": "Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda/Cabina)",
+      "name": "Puerta 05 · Puerta VIP Acolchada Carmesí (Tienda)",
       "category": "environments",
       "location": "assets/environments/door_vip_crimson.png",
       "dimensions": [
-        288,
-        384
+        448,
+        544
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1170,13 +1210,23 @@
         "Bg:shop",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_08",
-      "prompt_spec": "Arched dark obsidian VIP club door upholstered in crimson velvet with golden crest medallion",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE closed arched VIP club door: dark obsidian stone arch frame; the single leaf is upholstered in quilted crimson velvet with gold buttons and a gold crest medallion in the centre; a small gold 'VIP' plaque is allowed as a plain shape without legible letters; magenta neon tube along the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "e6381f5f54da192dc5daff0f6f8b953763aa088db2820313e5ff2983ae11e8eb",
-      "bytes": 28822
+      "sha256": "d0331c4ea20bfe900028d46a30078a58be81994840544bde67eab210cbc54fdc",
+      "bytes": 298863,
+      "format": "PNG RGBA",
+      "use": "Puerta de la tienda / cabina (drawDoor: door.kind shop).",
+      "entity": "door_vip_crimson",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/door_vip_crimson.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 38,
@@ -1188,8 +1238,8 @@
       "category": "environments",
       "location": "assets/environments/portal_baroque_gold.png",
       "dimensions": [
-        320,
-        416
+        448,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -1198,13 +1248,23 @@
         "Bg:boss",
         "Ot.doors"
       ],
-      "reference_source": "REF_05#puertas_03",
-      "prompt_spec": "Towering ornate sculpted baroque gold shrine portal frame with dark obsidian mirror void at center",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE towering boss-chamber portal: a sculpted baroque gold altarpiece frame (scrolls, flames, a crowned fox skull at the top) around a tall dark obsidian mirror void; a flat warm gold glow (#facc15) outlines the void in two cel bands; the frame stands on a dark stone plinth with a perfectly horizontal lower edge. FORMAT: front elevation, strictly orthographic, portrait; whole portal visible and centred, filling about 92 percent of the image height. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "83e96ae57d0df2a636629a0073d537431fb3476d8439d1dbdb0ae18ec4a2fda8",
-      "bytes": 30748
+      "sha256": "59b4c02b4c8ccec2260e47a08fec7450f7b37b6cf24a621382454582eeac801b",
+      "bytes": 374550,
+      "format": "PNG RGBA",
+      "use": "Puerta de la cámara del jefe (drawDoor: door.kind boss).",
+      "entity": "portal_baroque_gold",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/portal_baroque_gold.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:44:11Z",
+      "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/10_puertas_circulo_I.jpg, 11_tienda_residente_descenso.jpg, 12_refugio_fox_neon.jpg, 13_hoja_turno3_procesados.jpg",
+      "validated_at": "2026-11-15T02:04:19Z"
     },
     {
       "index": 39,
@@ -11356,5 +11416,5 @@
       "validated_at": "2026-11-15T01:36:38Z"
     }
   ],
-  "updated_at": "2026-11-15T01:36:38Z"
+  "updated_at": "2026-11-15T02:04:19Z"
 }

@@ -264,6 +264,23 @@ function installProbe() {
       }, BOX);
       saveUrl(tag + "_c_norte", n.full, report.frames);
       n.crops.filter(cr => cr.name === "wall_n" || /door/.test(cr.name)).forEach(cr => saveUrl(tag + "_c_" + cr.name, cr.png, report.crops));
+      /* Puertas especiales (tienda, Residente, descenso): el protagonista se
+         teletransporta junto a cada una para que entre en cámara: `_d_doorN_kind`. */
+      const specials = (b.doors || []).map((d, i) => ({ d, i })).filter(o => o.d.kind && o.d.kind !== "room");
+      for (const o of specials) {
+        const dd = await page.evaluate((args) => {
+          const B = window.__DD_BRIDGE; const d = args.d;
+          const off = { top: [0, 130], bottom: [0, -130], left: [130, 0], right: [-130, 0] }[d.side] || [0, 130];
+          let ok = false;
+          try { ok = !!window.DMO.debug.teleport(d.x + off[0], d.y + off[1]); } catch (e) {}
+          B.testStep({}, 8);
+          const s = B.getSnapshot(); const cur = (s.doors || [])[args.i] || d;
+          return { ok, full: window.__ddRoomProbe.full(), crop: window.__ddRoomProbe.crop(cur.x, cur.y - args.box * 0.18, args.box, args.box), kind: cur.kind || d.kind, open: !!cur.open, player: s.player, sameRoom: s.globalRoom === args.level };
+        }, { d: o.d, i: o.i, box: BOX, level: b.level });
+        if (!dd.sameRoom) { report.rooms[tag + "_d" + o.i] = { note: "cambió de sala al acercarse a la puerta", kind: dd.kind }; continue; }
+        saveUrl(tag + "_d_door" + o.i + "_" + dd.kind + (dd.open ? "_open" : "_closed"), dd.crop, report.crops);
+        saveUrl(tag + "_d_" + dd.kind, dd.full, report.frames);
+      }
       report.rooms[tag] = { level, went, circle: b.circle, globalRoom: b.level, room: b.room, roomName: b.roomName, roomRect: b.roomRect,
         doorsClosed: a.doors, doorsOpen: b.doors, playerNorth: n.player, t: +((Date.now() - T0) / 1000).toFixed(1) };
       console.log(tag, JSON.stringify({ level, circle: b.circle, room: b.roomName, doors: b.doors.map(d => d.kind + (d.open ? "+" : "-") + (d.side || "")[0]) }));

@@ -1,9 +1,9 @@
 {
  "batch": "T04_ESCENARIOS",
- "title": "TANDA 04 · Escenarios — muros modulares, pilastra, puertas y portales, plataforma de descenso y neón del Refugio (20 ilustraciones)",
+ "title": "TANDA 04 · Escenarios — muros modulares, pilastra, puertas y portales, plataforma de descenso y neón del Refugio (20 ilustraciones) — CERRADA 20/20",
  "created": "2026-11-14",
  "style": "ilustración digital estilizada (no pixel art): tinta negra, cel duro, neón magenta/cian como única luz",
- "status": "EN CURSO · auditoría hecha con probe_rooms.js; generación por turnos de 10",
+ "status": "CERRADA 2026-11-15 · 20/20 integradas, vistas en juego (probe_rooms.js v10: sondas t04c–t04i + Refugio) y marcadas (clase E): 11 muros (9 círculos + Limbo/Refugio + 2 nuevos Avaricia/Violencia enlazados en CIRCLE_CONFIG), pilastra, puertas vidriera cerrada/abierta (I–IV) y góticas cerrada/abierta (V–IX), puerta VIP de tienda, retablo del Residente, portal relicario de descenso + plataforma de descenso y neón del zorro del Refugio. Suelos (12, clase A) intactos; `wall_panel_tall_neon` no se produce (ningún círculo lo usa). Generaciones: 20 para 20 válidas (0 repeticiones).",
  "scope": "Sólo lo que el motor consume: CIRCLE_CONFIG.wall/pillar (buildHighResRoomCache), drawDoor, drawDescentPad y el neón del zorro de la fachada/Refugio. Suelos (clase A) no se tocan. wall_panel_tall_neon no se usa y no se produce. Props y PNC del Refugio son mobiliario (R08).",
  "renderer": "Corrección 2026-11-14: el módulo de muro y la pilastra se dibujan con la proporción real de la imagen (antes 128×132 y 56×148 fijos: los paneles 2:3 salían achatados). Dos ids nuevos para los círculos sin muro propio: wall_greed_vault (idx 3) y wall_violence_chains (idx 6).",
  "contract": {
@@ -19,9 +19,9 @@
   "band": 3
  },
  "generation_plan": [
-  "turno 1: wall_panel_gothic_niche, door_gothic_closed, portal_avaricia_gold, door_gothic_open (edición de la cerrada) — las 4 de clase D",
-  "turno 2: muros Lujuria, Gula, Ira, Herejía, Fraude, Traición, Núcleo + pilastra + door_stained_closed + door_arched_open (edición)",
-  "turno 3: door_vip_crimson, portal_baroque_gold, threshold_descent_pad, prop_hub_fox_neon, wall_greed_vault, wall_violence_chains + repeticiones"
+  "turno 1 (hecho): wall_panel_gothic_niche, door_gothic_closed, portal_avaricia_gold, door_gothic_open (edición de la cerrada) — las 4 de clase D",
+  "turno 2 (hecho): muros Lujuria, Gula, Ira, Herejía, Fraude, Traición, Núcleo + wall_greed_vault + wall_violence_chains + pilastra (10/10 a la primera)",
+  "turno 3 (hecho): door_stained_closed, door_arched_open (edición), door_vip_crimson, portal_baroque_gold, threshold_descent_pad, prop_hub_fox_neon (6/6 a la primera)"
  ],
  "assets": [
   {
@@ -355,8 +355,10 @@
    "use": "Puerta cerrada de los círculos I–IV (drawDoor).",
    "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
    "prompt": "Create ONE closed arched door of an infernal nightclub cathedral: rounded (Romanesque) arch; the door is a single leaf of dark bronze framing a large stained-glass rose window in crimson, magenta and gold that glows from behind (flat cel bands); carved dark-stone arch frame with antique gold trim; a magenta neon tube follows the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
-   "issues": []
+   "generated": "2026-11-15",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida: rosetón de vidriera carmesí con tridente, calavera cornuda en la clave, gárgolas en las jambas, pentáculos en las enjutas."
   },
   {
    "id": "door_arched_open",
@@ -380,9 +382,11 @@
    "use": "Puerta abierta de los círculos I–IV (drawDoor, door.open).",
    "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
    "prompt": "EDIT the reference image. Keep EXACTLY the same arch, stone frame, gold trim, neon tube, size, position and drawing style. Change ONLY the door leaf: it is now swung wide OPEN (seen edge-on against the jamb) and the opening reveals a dark corridor with a cyan (#22d3ee) glow rising from below and two stone steps. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
+   "generated": "2026-11-15",
    "issues": [],
-   "edit_of": "door_stained_closed"
+   "edit_of": "door_stained_closed",
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida (edición de la cerrada): mismo marco, hoja abierta contra la jamba derecha, corredor cian con escalones."
   },
   {
    "id": "door_vip_crimson",
@@ -406,8 +410,10 @@
    "use": "Puerta de la tienda / cabina (drawDoor: door.kind shop).",
    "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
    "prompt": "Create ONE closed arched VIP club door: dark obsidian stone arch frame; the single leaf is upholstered in quilted crimson velvet with gold buttons and a gold crest medallion in the centre; a small gold 'VIP' plaque is allowed as a plain shape without legible letters; magenta neon tube along the inside of the arch. FORMAT: front elevation, strictly orthographic, portrait. ONE single door, whole door visible and centred, filling about 90 percent of the image height; the bottom of the door is a short, flat dark-stone threshold step whose lower edge is perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
-   "issues": []
+   "generated": "2026-11-15",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida: hoja de terciopelo carmesí acolchado con medallón de laurel; el generador rotuló «VIP» legible dentro del medallón (aceptado: es el nombre de la pieza y se lee a 136 px)."
   },
   {
    "id": "portal_baroque_gold",
@@ -431,8 +437,10 @@
    "use": "Puerta de la cámara del jefe (drawDoor: door.kind boss).",
    "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
    "prompt": "Create ONE towering boss-chamber portal: a sculpted baroque gold altarpiece frame (scrolls, flames, a crowned fox skull at the top) around a tall dark obsidian mirror void; a flat warm gold glow (#facc15) outlines the void in two cel bands; the frame stands on a dark stone plinth with a perfectly horizontal lower edge. FORMAT: front elevation, strictly orthographic, portrait; whole portal visible and centred, filling about 92 percent of the image height. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
-   "issues": []
+   "generated": "2026-11-15",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida: retablo dorado con calavera de zorro coronada, vacío de obsidiana con vetas violeta, antorchas magenta en los flancos."
   },
   {
    "id": "threshold_descent_pad",
@@ -456,8 +464,10 @@
    "use": "Plataforma de descenso del Refugio (drawDescentPad, 196 px de ancho) y respaldo de puerta.",
    "reference": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
    "prompt": "Create ONE floor pad seen from above at a steep top-down angle (about 60 degrees, so it reads as a flattened rhombus/oval, wider than tall): a dark obsidian slab with bevelled edges, a cyan (#22d3ee) neon tube running around its rim, and in the centre a small sunken circle with a crimson crystal and a downward-pointing arrow glyph in cyan; flat cel glow bands only. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
-   "issues": []
+   "generated": "2026-11-15",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida: losa rómbica 3:2 con perímetro cian, cristal carmesí y flecha; croma limpio."
   },
   {
    "id": "prop_hub_fox_neon",
@@ -481,8 +491,10 @@
    "use": "Neón del zorro coronado en la fachada norte (82×108) y en el Refugio (112×148).",
    "reference": "assets/logos/emblem_fox_crown.png (forma) · REF_01_neon_fox_disco_muerto.png",
    "prompt": "Create ONE wall-mounted neon sign: the head of a fox wearing a small crown, drawn as hot magenta (#ff2d7a) neon tubes with a cyan (#22d3ee) accent on the crown, mounted on a dark matte-black rectangular backing board with rounded corners; the tubes are drawn as solid flat strokes with a thin black ink outline and a flat lighter core, no soft glow halo; portrait 3:4, the board fills about 90 percent of the image height. Match the project's fox emblem (IMAGE 1) for the shape of the fox head and crown. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
-   "generated": null,
-   "issues": []
+   "generated": "2026-11-15",
+   "issues": [],
+   "generator": "generador de imágenes de la sesión (texto; door_arched_open en edición con la cerrada; prop_hub_fox_neon con el emblema como referencia de forma)",
+   "notes": "1/1 válida (forma tomada de emblem_fox_crown.png): zorro coronado en tubo magenta con corona cian sobre placa negra."
   },
   {
    "id": "wall_greed_vault",

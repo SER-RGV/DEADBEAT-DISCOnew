@@ -203,16 +203,22 @@ Dos límites de lo que la sonda puede enseñar:
 
 ### `probe_rooms.js`
 ```
-node tools/art_master/probe_rooms.js <salida> [--circles=1,…,9] [--rooms=2,10] [--box=280] [--hubwalk=1] [--dom=1]
+node tools/art_master/probe_rooms.js <salida> [--circles=1,…,9] [--rooms=2,10] [--box=280] [--dpr=2] [--hub=0|1] [--hubwalk=0|1] [--unlock=0|1] [--dom=0|1]
 ```
 Sonda de **escenarios** (T04): entra en el Refugio por la misma puerta que NUEVA PARTIDA
 (`DD_HUB.enter()`), guarda su lienzo, y después visita las salas pedidas de cada círculo
 (nivel `(c−1)·11 + sala`). En cada sala guarda el cuadro completo con las puertas cerradas
 (`_a_cerrada`), tras vaciarla (`_b_abierta`) y con el protagonista pegado al muro norte
 (`_c_norte`: la franja de muro y su puerta entran en cámara), más el recorte de cada puerta
-(`getSnapshot().doors`) y de la franja norte (`roomRect`). `probe_report.json` lleva
-errores de página y de red, `roomRect`, puertas y posición final del protagonista. Las
-capturas se leen del `<canvas>` (la captura de página tarda >8 s en este Chromium).
+(`getSnapshot().doors`) y de la franja norte (`roomRect`). El paso «norte» **teletransporta**
+(`DMO.debug.teleport`, probando varias x: en salas en L la franja sólo existe arriba) en vez de
+andar. Después, para cada puerta especial (`kind` ≠ `room`: `shop`, `boss`, `lift`) teletransporta
+al protagonista a 130 px de ella hacia dentro de la sala y guarda `_d_<kind>.jpg` +
+`_d_doorN_<kind>_open.png`: así entran en cámara las puertas laterales e inferiores que en los
+pasos a/b quedaban fuera (recorte negro). `probe_report.json` lleva errores de página y de red,
+`roomRect`, puertas y posición final del protagonista. Las capturas se leen del `<canvas>` (la
+captura de página tarda >8 s en este Chromium). Refugio solo: `--circles= --rooms=` (≈100 s).
+Una sola instancia a la vez: dos sondas simultáneas acaban en `TimeoutError`.
 
 ### `probe_cinematic.js`
 Captura un fotograma por plano de la cinemática de entrada adelantando el reloj de
@@ -359,7 +365,8 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
 ## Contrato de los escenarios (T04)
 
 - **Muros** (`CIRCLE_CONFIG.wall`): PNG **opaco** 384×576 (2:3), `alpha=false`, sin croma (`matte: none`,
-  `fit: cover`), **simetrizado** con `mirror_half: left` para que las copias contiguas encajen; media
+  `fit: cover`), **simetrizado** con `mirror_half: left` (o `right` cuando la mitad derecha es la buena:
+  `wall_panel_heavy_base`, `wall_greed_vault`) para que las copias contiguas encajen; media
   pilastra en cada borde y cornisa continua. El renderizador dibuja módulos de `132·w/h` px de ancho
   (88 px) y pilastras de `148·w/h` (74 px) cada 320 px: pedir formas legibles a 100 px.
 - **Puertas** (`drawDoor`): croma `#00FF00`, 448×544 (jefe 448×576), escalón horizontal abajo; en pantalla
@@ -368,8 +375,12 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
 - **Clases de puerta** las decide el puente (`ddDoorState` en `build_active_html.py`): `room` (vidriera
   I–IV / gótica V–IX, cerrada o abierta), `shop` → `door_vip_crimson`, `boss` → `portal_baroque_gold`,
   `lift` (descenso) → `portal_avaricia_gold` + `threshold_descent_pad` 98 px hacia dentro de la sala.
+- **Plataforma de descenso** (`drawDescentPad`): `threshold_descent_pad` 640×400 croma, `anchor: center`,
+  vista cenital pronunciada (losa como rombo); 196 px en pantalla y también en el Refugio.
+- **Neón del zorro** (`prop_hub_fox_neon`, 384×512): lo consume `DD_HUB` (`foxSign`) y la fachada del muro norte.
 - QA: `probe_rooms.js … --hub=0` (el Refugio tumba a veces el Chromium de pruebas) y `--unlock=1`
-  (por defecto) abre todas las puertas como el modo «SALAS ABIERTAS» del motor.
+  (por defecto) abre todas las puertas como el modo «SALAS ABIERTAS» del motor; los pasos `_d_` enseñan
+  tienda, Residente y descenso aunque la sala sea en L o la puerta esté abajo o a un lado.
 
 ## Trampas conocidas
 

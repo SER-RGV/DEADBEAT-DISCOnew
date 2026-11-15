@@ -13,7 +13,7 @@ cinco láminas «Biblia visual · Pack 02–07», «Pack visual producción v2.0
 | Rama estable / reciente | `main` = `origin/main` = `2d1f6e8` (única rama remota con trabajo; las ramas `arena/*` anteriores están integradas). |
 | Render | Canvas 2D. El motor dibuja; el puente (`build_active_html.py`) decide familia/estado (`ddEnemyView`, `ddBossView`) y delega en `src/dd_world_renderer.js` (`DD_WORLD.drawEnemy/drawBoss/drawEnemyDeath/drawBossDeath`, props, suelos, proyectiles, vfx). Orden de dibujado por línea de apoyo (`ddGroundY`). |
 | Carga de imágenes | `src/dd_asset_registry.js` (AUTO-GENERADO por `tools/art_master/batch.py register`) + `assets/manifest.json`. `window.DD_ASSETS.get(id)`. No hay atlas binario: cada asset es un PNG individual con `anchors.foot`/`anchors.unit` y `rev` (generación de arte). |
-| Arte vigente | R01 protagonista (27) ✔ · R02 enemigos (24 = 6 familias × walk/windup/attack/death) ✔ · R03 jefes 15/42 (11 `idle` + 4 `attack`). Maestros archivados en `ART_ASSETS/rebuild_masters/<TANDA>/*.webp`. Los croma originales (`/home/user/dd_work/raw`) no están en el repo. |
+| Arte vigente | R01 protagonista (27) ✔ · R02 enemigos (24 = 6 familias × walk/windup/attack/death) ✔ · TANDA 02 `hit` (6) ✔ · R03 jefes 42/42 ✔ · T04 escenarios 20/20 ✔. Maestros archivados en `ART_ASSETS/rebuild_masters/<TANDA>/*.webp`. Los croma originales (`/home/user/dd_work/raw`) no están en el repo. |
 | Armas | Tabla `ja` del motor: **121 ids** (18 con nombre propio + 103 `cNNN_*`, `role:"FAMILIA · NºNN"`). Sprite HD sólo para 16 (`assets/weapons/`, 320×160, `pivot: grip-calibrated`); el resto se dibuja procedimentalmente (`proc`) con `hd:{grip,tip,axis,…}` ya definido por arma. |
 | Pickups / reliquias | 20 PNG `assets/pickups/` (TANDA_16, pixel-art, 160×160, pivot center) mapeados en `dd_world_renderer.js` (`pickup_*_00`, `relic_*`). |
 | HUD | `src/dd_ui_system.js` usa `hud_portrait_protagonist`, `hud_credit_coin`, `hud_skill_bomb/boost/dodge`, `hud_heart_full/empty` con *fallback* a los pickups. Iconos de vida/escudo/habilidad/moneda y `ui_victory_emblem` marcados «rehacer» en `AUDITORIA_VISUAL.md`. |
@@ -51,8 +51,9 @@ se dibujaba aplastado 2:1 (corregido en el renderizador) y las puertas nunca cam
 el puente). Ficha de 20 ilustraciones con contrato nuevo (muros opacos 384×576 simetrizados, puertas 448×544 sobre croma);
 turno 1 hecho y visto en juego: `wall_panel_gothic_niche`, `door_gothic_closed`, `door_gothic_open`, `portal_avaricia_gold`
 (este último señala ahora la puerta de descenso). *Turno 2 (2026-11-15):* los ocho muros restantes y la pilastra,
-10/10 válidas a la primera; Avaricia y Violencia estrenan muro propio. Quedan 6 (turno 3: puertas I–IV y tienda,
-retablo del Residente, plataforma de descenso, neón del zorro).
+10/10 válidas a la primera; Avaricia y Violencia estrenan muro propio. *Turno 3 (2026-11-15):* vidriera cerrada y arco
+abierto (I–IV), puerta VIP de la tienda, retablo del Residente, plataforma de descenso y neón del zorro, 6/6 a la primera.
+**Tanda cerrada 20/20**, vista en juego con `probe_rooms.js` (sondas t04c–t04i + Refugio): informe en `TANDA_04_INFORME.md`.
 
 **05 Armas.** Catálogo real = tabla `ja` (120 heredadas + `m1911`). Las 9 legendarias canónicas de la biblia
 (Última Invitación, Sobremesa, El Último Centavo, Garganta Roja, Amén Vacío, Primer Latido, Palabra Prestada, Venías
@@ -86,7 +87,7 @@ escudo, habilidades, moneda, emblemas); botones y lógica no se tocan.
 |---|---|---|---|
 | **02 Enemigos** | `hit` × 6 familias; lectura de variantes por color (tinte de contorno por `variant86`) sobre los sprites R02; mapa lámina↔motor; QA con sonda | 6 PNG + 6 maestros | `ENEMY_STATE_ASSET.hit`, `view.variant` en puente, tinte cacheado en `blitEnemyFrame` |
 | **03 Jefes** | 7 `attack` + 10 `hit` + 10 `death` (27) con el reposo nuevo como referencia; fin de R03 — **27/27 hechos, cerrada 2026-11-14** (7 `attack`, 10 `death`, 10 `hit`) | 27 PNG + 27 maestros | ya contemplada (`BOSS_STATE_ASSET`), sólo `rev` nueva |
-| **04 Escenarios** | Rehacer los 4 elementos defectuosos (nicho gótico, 2 puertas góticas, portal Avaricia) y las 14 piezas en pixel art que consumen `CIRCLE_CONFIG`/`drawDoor`/`drawDescentPad`/`DD_HUB` + 2 muros nuevos (Avaricia, Violencia) — ficha `batches/T04_ESCENARIOS.json`, **14/20 hechos (turnos 1 y 2), 2026-11-15** | 20 PNG + 20 maestros | módulos del muro proporcionales; estado/clase de puerta en el puente (`ddDoorState`); 2 cadenas nuevas en `CIRCLE_CONFIG` al registrar los muros nuevos |
+| **04 Escenarios** | Rehacer los 4 elementos defectuosos (nicho gótico, 2 puertas góticas, portal Avaricia) y las 14 piezas en pixel art que consumen `CIRCLE_CONFIG`/`drawDoor`/`drawDescentPad`/`DD_HUB` + 2 muros nuevos (Avaricia, Violencia) — ficha `batches/T04_ESCENARIOS.json`, **20/20 hechos, cerrada 2026-11-15** ([`TANDA_04_INFORME.md`](TANDA_04_INFORME.md)) | 20 PNG + 20 maestros | módulos del muro proporcionales; estado/clase de puerta en el puente (`ddDoorState`); 2 cadenas nuevas en `CIRCLE_CONFIG` al registrar los muros nuevos |
 | **05 Armas** | Sprites HD 320×160 para las 105 armas `cNNN_*` sin sprite, por familias (pistola → … → míticas), con calibración `hd.grip/tip` real; icono = mismo PNG (el motor ya lo reutiliza) | hasta 105 PNG | `__HD_ASSETS.images["weapon_"+id]` / `DD_ASSETS` (ya enganchado) |
 | **06 Objetos** | 20 pickups/reliquias en el estilo neón; efectos sólo si el renderizador los consume | 20 PNG | ids existentes (sin código) |
 | **07 HUD** | corazón lleno/vacío, escudo, 3 habilidades, moneda, emblema victoria | ~8 PNG | ids ya consultados por `dd_ui_system.js` |
