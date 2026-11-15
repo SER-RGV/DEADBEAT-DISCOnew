@@ -16,6 +16,16 @@ El exportador lee esos métodos en el navegador. No intenta deducir armas a part
 
 La armería se abre con `window.DD_UI.openShop()`. El script no pulsa botones de compra/equipamiento; no invoca `buyOrEquipWeapon()`, no cambia el arma seleccionada deliberadamente y no escribe en `localStorage`.
 
+## 1.1 Comprobación adicional de la armería
+
+La inspección estática de `src/dd_ui_system.js` detectó una incoherencia inicial:
+- `uiState.selectedCategory` se inicializa como `"ALL"`.
+- El chip de categoría general se crea como `"TODAS"`.
+- El filtro solo trata `"TODAS"` como selección de todas las categorías.
+
+El exportador registra el estado inicial (número de tarjetas, registros de catálogo y filtro activo), y después pulsa el chip `TODAS` para capturar la lista completa. El informe indica si la tienda empezó vacía pese a existir registros. Esta instrumentación permite observar el defecto sin cambiar el código de producción.
+
+
 ## 2. Requisitos y ejecución
 
 Desde la raíz del repositorio:
