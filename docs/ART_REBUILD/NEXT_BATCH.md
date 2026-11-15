@@ -1,12 +1,12 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 4.º tramo):** **28/105 verificadas en mano.** Turnos 1 y 2 COMPLETOS (la incendiaria salió al
-  4.º intento con el DESIGN simplificado; el láser al 2.º); turno 3 parcial 8/10 (faltan `c041_lanzacohetes` y `railgun`,
-  un fallo del generador cada una). Las pesadas de cadera (`m60`, `c038_minigun`, `c039_lmg_neon`, `c040_pesado`,
-  `c044_bfg`, `c045_mortero`) salen bien con `player_firehip`; necesitan hints `grip` + `grip_v` (altura explícita)
-  porque el cuerpo gordo o la caja de munición tapan el pistolete. Registro 305, caché `20261115.9`. Evidencias
-  `evidence/T05_ARMAS/00–12`. Siguen (turno 4): `c046_rotatorio`, `flamer`, `c048_artilleria`, `c049_plasma_cutter`,
-  `c050_rayo_continuo`, `c051_rayo_tesla`, `c052_canon_plasma`, `c053_particulas` (+ los 2 reintentos).
+- **Estado (2026-11-15, 5.º tramo):** **34/105 verificadas en mano.** Turnos 1–2 completos; turno 3 parcial 8/10
+  (`c041_lanzacohetes` y `railgun` con DOS fallos del generador → simplificar el DESIGN en el próximo intento); turno 4
+  parcial 6/10 (`flamer`, `c048_artilleria`, `c049_plasma_cutter`, `c050_rayo_continuo`, `c051_rayo_tesla`,
+  `c052_canon_plasma`; faltan `c046_rotatorio` y `c053_particulas`, un fallo). Hints nuevos en `weapon_cal.py`:
+  `grip_v` (altura explícita) y `tip` (boca explícita; lanzallamas con llama pintada). Registro 311, caché
+  `20261115.10`. Evidencias `evidence/T05_ARMAS/00–15`. Siguen (turno 5): `c054_haz_de_energia`, `c055_rayo_cadenas`,
+  `c056_orbe_energia`, `trident`, `c058_canon_sonico`, `c059_lanzador_ionico` (+ los 4 reintentos).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

@@ -62,3 +62,8 @@
 - Calibración: hints `grip`/`grip_v` (nuevo en `weapon_cal.py`: altura explícita de la mano) para las gordas, `axis_band 0.12` en la incendiaria, `sup` relativo en minigun/pesado/lanzagranadas. Registradas (305, caché `20261115.9`), verificadas en mano (evidencias `10–12`, 0 errores), marcadas. Inventario A25·B107·C77·D26·E147.
 - `probe_*.js`/`capture_game.js`: el `timeout` de `waitForFunction` iba en el hueco de `arg` (se aplicaba el de 30 s por defecto y con 305 assets fallaba) → `null, { timeout: 120000 }`.
 
+## 2026-11-15 (7) — T05 ARMAS, 5.º tramo: lanzallamas, artillería y energía (34/105)
+
+- 6/10 generadas (`flamer`, `c048_artilleria`, `c049_plasma_cutter`, `c050_rayo_continuo`, `c051_rayo_tesla`, `c052_canon_plasma`); fallos del servicio en `c041_lanzacohetes` y `railgun` (2.ª vez), `c046_rotatorio`, `c053_particulas`.
+- Calibración: hints `grip`/`grip_v` en las gordas y la pistola tesla; nuevo hint `tip` (boca explícita) para el lanzallamas con llama piloto pintada. Registradas (311, caché `20261115.10`), verificadas en mano (evidencias `13–15`, 0 errores), marcadas. Inventario A25·B107·C71·D26·E153.
+

@@ -197,6 +197,10 @@ def measure(png_path: str, cls: str, hints: Optional[Dict] = None) -> Dict:
         "method": method,
         "thick_px": round(thick, 1),
     }
+    if "tip" in hints:
+        # Boca explícita (fracción del ancho del PNG): p. ej. lanzallamas con llama piloto pintada.
+        out["tip"] = round(float(hints["tip"]), 3)
+        method["tip"] = "hint"
     if "spriteRot" in hints:
         out["spriteRot"] = float(hints["spriteRot"])
         out["oriented"] = False
@@ -233,7 +237,7 @@ def main() -> int:
     ap.add_argument("png")
     ap.add_argument("--cls", default="fusil")
     ap.add_argument("--out", default=None, help="PNG con la superposición de medidas")
-    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, grip_v, sup, hang, axis_v, axis_band, max_dev, spriteRot)")
+    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, grip_v, sup, tip, hang, axis_v, axis_band, max_dev, spriteRot)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
     hints = json.loads(a.hints) if a.hints else {}

@@ -106,7 +106,7 @@
     "weapon_c044_bfg",
     "weapon_c045_mortero"
    ],
-   "estado": "parcial 8/10 verificadas en mano (2026-11-15); fallo del generador en c041_lanzacohetes y railgun (1.ª vez)",
+   "estado": "parcial 8/10 verificadas en mano (2026-11-15); c041_lanzacohetes y railgun han fallado DOS veces en el generador → reintentar con DESIGN simplificado",
    "hechas": [
     "weapon_c036_bullpup",
     "weapon_c038_minigun",
@@ -136,7 +136,19 @@
     "weapon_c054_haz_de_energia",
     "weapon_c055_rayo_cadenas"
    ],
-   "estado": "pendiente"
+   "estado": "parcial 6/10 verificadas en mano (2026-11-15); fallo del generador en c046_rotatorio y c053_particulas (1.ª vez)",
+   "hechas": [
+    "weapon_c048_artilleria",
+    "weapon_c049_plasma_cutter",
+    "weapon_c050_rayo_continuo",
+    "weapon_c051_rayo_tesla",
+    "weapon_c052_canon_plasma",
+    "weapon_flamer"
+   ],
+   "reintentar": [
+    "weapon_c046_rotatorio",
+    "weapon_c053_particulas"
+   ]
   },
   {
    "turno": 5,
@@ -1466,7 +1478,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.21,
+    "tip": 0.91,
+    "sup": 0.52
    },
    "engine": {
     "wid": "flamer",
@@ -1504,7 +1519,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.22,
+    "grip_v": 0.68,
+    "sup": 0.5
    },
    "engine": {
     "wid": "c048_artilleria",
@@ -1542,7 +1560,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "energia"
+    "cls": "energia",
+    "grip": 0.27,
+    "grip_v": 0.62
    },
    "engine": {
     "wid": "c049_plasma_cutter",
@@ -1618,7 +1638,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "pistolaEnergia"
+    "cls": "pistolaEnergia",
+    "grip": 0.14,
+    "grip_v": 0.7
    },
    "engine": {
     "wid": "c051_rayo_tesla",
@@ -1656,7 +1678,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "energia"
+    "cls": "energia",
+    "grip": 0.22,
+    "grip_v": 0.68
    },
    "engine": {
     "wid": "c052_canon_plasma",
@@ -4266,7 +4290,7 @@
   }
  ],
  "progress": {
-  "verified": 28,
+  "verified": 34,
   "total": 105,
   "updated": "2026-11-15"
  },
@@ -4276,6 +4300,7 @@
   "En mano (probe_weapons.js) las cinco quedaron con la mano en la empuñadura, el antebrazo de apoyo en el guardamanos y la boca alineada a derecha, arriba e izquierda; la escala en juego es len·95 px (escopetas ≈ 63–67 px).",
   "Turno 2: 7/10 generadas (fallos repetidos en c023_flechetes y c024_incendiaria, nuevo en c030_g36). Calibración automática correcta en 6/7; la recortada c016 necesitó grip 0.12 (empuñadura en el extremo izquierdo, sin culata). Las 7 verificadas en mano a derecha, arriba e izquierda sin errores de página.",
   "Turno 3: 8/10 generadas. Calibración de serie correcta en 6/8; mp40 (pistolete en el extremo izquierdo) con grip 0.08 y m60 (pistolete fundido con la caja de munición) con hang:false + grip 0.31. weapon_cal.py: en el previo directo la mano baja a media caída si en esa columna cuelga algo bajo el eje (>1,3·grosor del cañón).",
-  "Turno 4 (pesadas): 8/10 generadas. Las armas gordas (minigun, LMG, pesado, BFG, mortero) rompen la detección por caída (el grosor del cuerpo o la caja de munición tapan el pistolete) → hints grip + grip_v (altura explícita) y sup relativo; la escopeta con depósito bajo el cañón necesita axis_band 0.12 para medir el eje en el tramo de cañón desnudo. Las xt de cadera salen bien con la postura player_firehip."
+  "Turno 4 (pesadas): 8/10 generadas. Las armas gordas (minigun, LMG, pesado, BFG, mortero) rompen la detección por caída (el grosor del cuerpo o la caja de munición tapan el pistolete) → hints grip + grip_v (altura explícita) y sup relativo; la escopeta con depósito bajo el cañón necesita axis_band 0.12 para medir el eje en el tramo de cañón desnudo. Las xt de cadera salen bien con la postura player_firehip.",
+  "Turno 5 (energía): 6/10 generadas (4 fallos del servicio). Las de energía con cuerpo grueso (plasma_cutter, canon_plasma, artilleria) y la pistola tesla necesitan grip + grip_v; el lanzallamas lleva la llama piloto pintada → hint tip 0.91 (nuevo en weapon_cal.py) para que la boca quede en la tobera. La pistola de energía sale a una mano con la postura de pistola."
  ]
 }
