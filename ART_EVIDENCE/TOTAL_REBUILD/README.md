@@ -31,3 +31,8 @@ Segunda generación clase B, misma ID/ruta: `floor_00_limbo_marble`, `wall_pilla
 - `05_descent_pad.png` demuestra el **pad de descenso cian nuevo bajo los pies del protagonista** en el Refugio.
 - Integridad tras rebuild: **271/271 pass, 0 errores** (qa_run_report.json). QA headless: 0 pageErrors, 0 failedReqs, 0 console errors.
 - **Rechazados y revertidos** (composición encuadrada al fondo, lienzo casi vacío): `wall_panel_gothic_niche`, `wall_panel_heavy_base`, `wall_panel_vip_window`, `wall_core_monolith`, `portal_avaricia_gold`. Requieren regeneración v2 con «panel en retrato llenando 95% del lienzo vertical». Siguen Pendiente en la matriz.
+
+## Pasada TR_W1b (2026-11-15, segunda tanda W1)
+Aprobados e integrados (mismos IDs/rutas, integridad navegador **271/271 pass**): `wall_panel_gothic_niche`, `wall_panel_vip_window`, `portal_avaricia_gold`, `portal_baroque_gold`, `floor_10_hub_checker` (damero mármol con reflejos magenta/cian, seamless).
+**Rechazados y revertidos** (extracción sobre fondo negro destruye piedra oscura/violeta): `wall_panel_heavy_base`, `wall_core_monolith`, `door_arched_open`, `door_stained_closed`, `door_vip_crimson`.
+→ Lección: los assets con mucha piedra negra/oscura se regeneran con **fondo verde chroma #00ff00** (rama dedicada del extractor). v3 pendiente.

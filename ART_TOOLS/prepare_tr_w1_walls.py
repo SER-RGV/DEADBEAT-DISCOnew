@@ -23,6 +23,11 @@ JOBS = [
     ("portal_avaricia_gold",    f"{RAW}/portal_avaricia_gold.png",    "assets/environments/portal_avaricia_gold.png",          "rgba",  (320, 384), True,  "bottom-center"),
     ("door_gothic_closed",      f"{RAW}/door_gothic_closed.png",      "assets/environments/door_gothic_closed.png",            "rgba",  (320, 384), True,  "bottom-center"),
     ("door_gothic_open",        f"{RAW}/door_gothic_open.png",        "assets/environments/door_gothic_open.png",              "rgba",  (320, 384), True,  "bottom-center"),
+    ("portal_baroque_gold",     f"{RAW}/portal_baroque_gold.png",     "assets/environments/portal_baroque_gold.png",           "rgba",  (320, 416), True,  "bottom-center"),
+    ("door_arched_open",        f"{RAW}/door_arched_open.png",        "assets/environments/door_arched_open.png",              "rgba",  (320, 384), True,  "bottom-center"),
+    ("door_stained_closed",     f"{RAW}/door_stained_closed.png",     "assets/environments/door_stained_closed.png",           "rgba",  (320, 384), True,  "bottom-center"),
+    ("door_vip_crimson",        f"{RAW}/door_vip_crimson.png",        "assets/environments/door_vip_crimson.png",              "rgba",  (288, 384), True,  "bottom-center"),
+    ("floor_10_hub_checker",    f"{RAW}/floor_10_hub_checker.png",    "assets/floors/floor_10_hub_checker.png",                "floor", (512, 512), False, "top-left"),
 ]
 missing = [a for a, raw, *_ in JOBS if not os.path.isfile(raw)]
 if missing:
