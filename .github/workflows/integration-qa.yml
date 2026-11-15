@@ -12,6 +12,11 @@ on:
       - ".github/workflows/integration-qa.yml"
   push:
     branches: ["integration/pr22-pr29"]
+    paths:
+      - "src/**"
+      - "tools/**"
+      - "tests/**"
+      - ".github/workflows/integration-qa.yml"
 
 permissions:
   contents: write
