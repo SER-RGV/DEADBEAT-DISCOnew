@@ -100,6 +100,7 @@ El informe RESTART 14 posterior registra correcciones de menú y pruebas adicion
 
 Casos adicionales:
 - **Armería vacía al abrir (defecto confirmado por inspección estática):** `uiState.selectedCategory` nace como `"ALL"` en `src/dd_ui_system.js`; `renderShop()` crea el filtro visible `"TODAS"` y solo muestra todos los registros cuando el estado es exactamente `"TODAS"`. La primera renderización puede filtrar todo fuera. El clic en `TODAS` actualiza el estado y vuelve a renderizar. Pendiente de reproducción runtime y corrección aislada.
+- **Límite de presentación de la armería (confirmado estáticamente):** `renderShop()` aplica `.slice(0, 120)` a la lista filtrada. Si el catálogo runtime devuelve más de 120 registros, el excedente no se muestra en la tienda. Esto podría explicar una diferencia entre el catálogo y los elementos visibles, pero no confirma por sí solo la cifra de 121 armas. El exportador debe comparar IDs completos con tarjetas visibles.
 - Minimap blanco.
 - Panel de mejora que congela la partida.
 - Diálogos pegados.
