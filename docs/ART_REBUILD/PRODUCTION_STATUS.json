@@ -1,22 +1,22 @@
 {
- "updated_at": "2026-11-15T00:53:50Z",
+ "updated_at": "2026-11-15T01:37:24Z",
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
-  "registered": 275,
-  "loaded_in_game": 275,
+  "registered": 277,
+  "loaded_in_game": 277,
   "errors": 0,
   "integrity_pass": true
  },
  "classification": {
-  "total": 380,
+  "total": 382,
   "A_conservar": 25,
-  "B_rehacer_estilo": 121,
+  "B_rehacer_estilo": 113,
   "C_falta": 105,
-  "D_defectuoso": 30,
-  "E_rehecho_validado": 99
+  "D_defectuoso": 26,
+  "E_rehecho_validado": 113
  },
- "pending_to_produce": 256,
+ "pending_to_produce": 244,
  "completed_batches": [
   "R01_PROTAGONISTA",
   "R02_ENEMIGOS",
@@ -24,27 +24,38 @@
  ],
  "current_batch": "T04_ESCENARIOS (en producción)",
  "current_batch_progress": {
-  "status": "en producción · turno 1 de 3 integrado y visto en juego",
+  "status": "en producción · turnos 1 y 2 de 3 integrados y vistos en juego",
   "batch_file": "docs/ART_REBUILD/batches/T04_ESCENARIOS.json",
   "scope": "20 ilustraciones: 4 defectuosas (clase D) + 14 en pixel art (clase B) de CIRCLE_CONFIG/drawDoor/drawDescentPad/DD_HUB + 2 muros nuevos (Avaricia, Violencia). Sin fondos planos: el motor compone cada sala. Suelos (12, clase A) intactos.",
   "illustrations_total": 20,
-  "generated_masters": 4,
-  "integrated_and_validated_in_game": 4,
-  "pending": 16,
+  "generated_masters": 14,
+  "integrated_and_validated_in_game": 14,
+  "pending": 6,
   "integrated": [
    "wall_panel_gothic_niche",
    "door_gothic_closed",
    "door_gothic_open",
-   "portal_avaricia_gold"
+   "portal_avaricia_gold",
+   "wall_panel_neon_crown",
+   "wall_gula_banquet",
+   "wall_wrath_furnace",
+   "wall_panel_heavy_base",
+   "wall_panel_vip_window",
+   "wall_ice_glacier",
+   "wall_core_monolith",
+   "wall_greed_vault",
+   "wall_violence_chains",
+   "wall_pillar_obsidian"
   ],
   "renderer_fixes": [
    "módulos del muro norte proporcionales (modW = 132·w/h; antes 128×132 → aplastado 2:1)",
    "puente: estado y clase de puerta (ddDoorState: open/kind desde Mg/Ot.openT/shop/final/lift)",
    "puente: plataforma de descenso 98 px dentro de la sala (WA)",
    "portal_avaricia_gold señala la puerta de descenso (lift)",
-   "gancho QA __DD_BRIDGE.setDoorsUnlocked"
+   "gancho QA __DD_BRIDGE.setDoorsUnlocked",
+   "CIRCLE_CONFIG: Avaricia → wall_greed_vault, Violencia → wall_violence_chains (antes compartían el muro de Gula y el de Ira)"
   ],
-  "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–04)"
+  "evidence": "docs/ART_REBUILD/evidence/T04_ESCENARIOS/ (00–09)"
  },
  "last_closed_batch": {
   "batch": "R03_JEFES",

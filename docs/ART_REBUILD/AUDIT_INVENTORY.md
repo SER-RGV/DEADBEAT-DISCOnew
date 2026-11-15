@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T00:59:52Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T01:36:38Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -22,13 +22,13 @@
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 30 | 0 | 0 | 0 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
-| `walls` | 10 | 0 | 9 | 0 | 0 | 1 |
+| `walls` | 12 | 0 | 1 | 0 | 0 | 11 |
 | `environments` | 8 | 0 | 5 | 0 | 0 | 3 |
 | `ui` | 15 | 7 | 7 | 0 | 1 | 0 |
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **380** | **25** | **121** | **105** | **26** | **103** |
+| **Total** | **382** | **25** | **113** | **105** | **26** | **113** |
 
 ## `characters` (31)
 
@@ -275,20 +275,22 @@
 | `floor_10_hub_checker` | **A** | ilustración sin defectos visibles | — |
 | `floor_11_vip_velvet` | **A** | ilustración sin defectos visibles | — |
 
-## `walls` (10)
+## `walls` (12)
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `wall_core_monolith` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_gula_banquet` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_ice_glacier` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_panel_heavy_base` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_panel_neon_crown` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
 | `wall_panel_tall_neon` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_panel_vip_window` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_pillar_obsidian` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
-| `wall_wrath_furnace` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R09_ARQUITECTURA` |
+| `wall_core_monolith` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_greed_vault` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_gula_banquet` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_ice_glacier` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 | `wall_panel_gothic_niche` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_panel_heavy_base` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_panel_neon_crown` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_panel_vip_window` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_pillar_obsidian` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_violence_chains` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
+| `wall_wrath_furnace` | **E** | rehecho en la tanda T04_ESCENARIOS y validado dentro del juego | `T04_ESCENARIOS` |
 
 ## `environments` (8)
 

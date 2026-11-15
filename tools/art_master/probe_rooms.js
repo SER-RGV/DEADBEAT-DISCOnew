@@ -219,22 +219,42 @@ function installProbe() {
            por la puerta norte y cambiar de sala: se busca antes una x del muro norte
            alejada de sus puertas. */
         let tx = p0.x;
+        let cands = [tx];
         if (rr) {
           const tops = (s0.doors || []).filter(d => d.side === "top").map(d => d.x);
+          cands = [rr.x + rr.w * 0.2, rr.x + rr.w * 0.5, rr.x + rr.w * 0.8, rr.x + rr.w * 0.35, rr.x + rr.w * 0.65];
           if (tops.length) {
-            const cands = [rr.x + rr.w * 0.2, rr.x + rr.w * 0.5, rr.x + rr.w * 0.8];
             const dist = (x) => Math.min.apply(null, tops.map(t => Math.abs(t - x)));
             cands.sort((a, c) => dist(c) - dist(a));
-            tx = cands[0];
+          }
+          tx = cands[0];
+        }
+        /* Primero por teletransporte (DMO.debug.teleport recorta a la zona pisable y
+           lleva la cámara): en salas en L o en cruz la franja de muro sólo existe en el
+           borde superior del rectángulo, así que se prueban varias x y se acepta la
+           primera que quede de verdad arriba. Si no hay teletransporte, andando. */
+        let tele = false;
+        try {
+          if (rr && window.DMO.debug.teleport) {
+            let best = null;
+            for (const cx of cands) {
+              if (!window.DMO.debug.teleport(cx, rr.y + 70)) break;
+              const q = B.getSnapshot().player;
+              if (!best || q.y < best.y) best = { x: q.x, y: q.y, cx };
+              if (q.y < rr.y + 140) break;
+            }
+            if (best) { window.DMO.debug.teleport(best.cx, rr.y + 70); tx = best.cx; tele = true; }
+          }
+        } catch (e) {}
+        if (!tele) {
+          for (let i = 0; i < 12; i++) {
+            const q = B.getSnapshot().player; const dx = tx - q.x;
+            if (Math.abs(dx) < 12) break;
+            B.testStep(dx > 0 ? { right: true } : { left: true }, Math.min(40, Math.ceil(Math.abs(dx) / 3)));
           }
         }
-        for (let i = 0; i < 12; i++) {
-          const q = B.getSnapshot().player; const dx = tx - q.x;
-          if (Math.abs(dx) < 12) break;
-          B.testStep(dx > 0 ? { right: true } : { left: true }, Math.min(40, Math.ceil(Math.abs(dx) / 3)));
-        }
         let lastY = Infinity;
-        for (let i = 0; i < 8; i++) {
+        for (let i = 0; i < (tele ? 3 : 8); i++) {
           const q = B.getSnapshot().player;
           if (lastY - q.y < 2) break;
           lastY = q.y; B.testStep({ up: true }, 30);

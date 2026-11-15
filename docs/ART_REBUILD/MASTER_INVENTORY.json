@@ -3,7 +3,7 @@
   "base_build": "backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html",
   "base_sha256": "1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e",
   "generated_at": "2026-11-04T18:55:26Z",
-  "total_assets": 351,
+  "total_assets": 353,
   "batch_size": 10,
   "total_batches": 33,
   "categories_summary": {
@@ -692,12 +692,12 @@
       "tanda_number": 3,
       "original_id": "wall_lust",
       "id": "wall_panel_neon_crown",
-      "name": "Muro Modular 02 · Doble Pilastra Corona Neón",
+      "name": "Muro Modular 02 · Doble Pilastra Corona Neón (I Lujuria)",
       "category": "walls",
       "location": "assets/walls/wall_panel_neon_crown.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -706,13 +706,23 @@
         "$b",
         "d.rects.wall_lust"
       ],
-      "reference_source": "REF_05#muros_02",
-      "prompt_spec": "Modular dark architectural wall panel with twin fluted pilasters and glowing crimson-magenta neon crown frieze",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Lust, a decadent dancefloor: dark lacquered wall with a tall recessed panel of quilted wine-red velvet in the centre, a crown-shaped frieze of hot magenta neon tubes above it, and a thin horizontal magenta neon line along the cornice; faint magenta glow on the stone. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "3257627d048cd022ec6004bfdf7bbd1320df052676ecfc7d0029bf4e5d39b824",
-      "bytes": 11682
+      "sha256": "7f896387c746a4a13220940c289a82671555ab282445d1b848544262ff5f3013",
+      "bytes": 343795,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 1 Lujuria",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_panel_neon_crown.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 25,
@@ -720,12 +730,12 @@
       "tanda_number": 3,
       "original_id": "wall_envy",
       "id": "wall_panel_vip_window",
-      "name": "Muro Modular 03 · Mirador VIP Ventana Neón",
+      "name": "Muro Modular 03 · Mirador VIP Ventana Neón (VII Fraude)",
       "category": "walls",
       "location": "assets/walls/wall_panel_vip_window.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -734,13 +744,23 @@
         "$b",
         "d.rects.wall_envy"
       ],
-      "reference_source": "REF_05#muros_03",
-      "prompt_spec": "Two-tier dark industrial-gothic VIP club wall module with recessed crimson-lit upper window slits",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Fraud, a hall of mirrors and VIP boxes: dark industrial-gothic wall with an upper VIP viewing window in the centre showing a cyan-lit (#22d3ee) mirrored interior with silhouettes of masks, a cyan neon frame around the window, dark polished panels below. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "f45e22ab03fd049384051cf85ea172697841aadc9b89e2162c6db7fcacab6167",
-      "bytes": 12295
+      "sha256": "d1c8311298688e76ad244cd6d99092a98068288f2f02f44f7fecbd4b5bfbe914",
+      "bytes": 384249,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 7 Fraude",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_panel_vip_window.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 26,
@@ -752,8 +772,8 @@
       "category": "walls",
       "location": "assets/walls/wall_pillar_obsidian.png",
       "dimensions": [
-        192,
-        384
+        288,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -762,13 +782,23 @@
         "$b",
         "Lc:pillar"
       ],
-      "reference_source": "REF_05#muros_04",
-      "prompt_spec": "Tall fluted black obsidian architectural column pilaster with stepped plinth base, capital and subtle crimson trim",
+      "reference_source": "REF_05_master_sheet_assets_ui_hub.png#puertas · REF_06_guia_visual_maestra.png#escenarios",
+      "prompt_spec": "Create ONE tall fluted column of black obsidian, front elevation, strictly orthographic: stepped square plinth at the bottom, fluted shaft, carved capital at the top with a thin crimson-magenta trim line; whole column visible and centred, filling about 95 percent of the image height; the plinth's lower edge perfectly horizontal. BACKGROUND: flat solid chroma green (#00FF00) filling the entire image. No floor, no ground plane, no cast shadow, no scenery, no text, no frame. Nothing green on the object itself. The object is solid and opaque with ink outlines; its glow is drawn as flat cel-shaded bands, not as a soft halo bleeding into the background. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "791ef364a5a4fe75955f74cd59a8ea171f8d734f4461b2ad915ec1db140b8f59",
-      "bytes": 8411
+      "sha256": "2dbc490a71134262f25676ce08d2abc9a3d2b82467db320cf3e1d63a85873f4a",
+      "bytes": 102596,
+      "format": "PNG RGBA",
+      "use": "Pilastras del muro norte: esquinas de la sala y cada 320 px (buildHighResRoomCache; 148 px de alto en pantalla, ancho según proporción).",
+      "entity": "pilastra",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_pillar_obsidian.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 27,
@@ -804,12 +834,12 @@
       "tanda_number": 3,
       "original_id": "wall_pride_tile",
       "id": "wall_panel_heavy_base",
-      "name": "Muro Modular 06 · Muro Pesado Zócalo Carmesí",
+      "name": "Muro Modular 06 · Muro Pesado Zócalo Carmesí (V Herejía)",
       "category": "walls",
       "location": "assets/walls/wall_panel_heavy_base.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -818,13 +848,23 @@
         "$b",
         "d.rects.wall_pride_tile"
       ],
-      "reference_source": "REF_05#muros_06",
-      "prompt_spec": "Heavy wide black architectural wall module with recessed rectangular coffer, glowing red header slot and neon crimson baseboard",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Heresy, a profaned cathedral: dark violet-black stone with a tall recessed coffer in the centre containing a broken stained-glass window in purple (#a855f7) and gold, a glowing red header slot above the coffer, and a heavy crimson neon baseboard along the bottom. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "0f37f7e23fa9298c128541e814153b43602a653d733cebfe635cd1b62cc67cba",
-      "bytes": 12779
+      "sha256": "3f28f405a29b0d55219440d2a953779044981212ad00fd360d4b7e955415b970",
+      "bytes": 431036,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 5 Herejía",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_panel_heavy_base.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 29,
@@ -832,12 +872,12 @@
       "tanda_number": 3,
       "original_id": "wall_gula",
       "id": "wall_gula_banquet",
-      "name": "Muro Modular 07 · Panel Banquete Dorado (Gula/Avaricia)",
+      "name": "Muro Modular 07 · Panel Banquete Dorado (II Gula)",
       "category": "walls",
       "location": "assets/walls/wall_gula_banquet.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -846,13 +886,23 @@
         "$b:gula",
         "d.rects.wall_gula"
       ],
-      "reference_source": "REF_03#gula_avaricia",
-      "prompt_spec": "Opulent dark crimson and antique-gold Art-Deco banquet hall wall panel with gilded molding and warm amber sconce",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Gluttony, an opulent banquet hall: dark crimson wall with gilded Art-Deco mouldings, a warm amber wall sconce with a small flame in the centre casting a flat warm glow, gold fan-shaped ornament above the sconce, dark red marble base. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "a2766b7b3701046cac94462f65d02362b7349085089c97fb7aef1f01988c5874",
-      "bytes": 10477
+      "sha256": "4ba4f54eb488d00599c391678e7b72643281e0ba7f718192a148826353926e41",
+      "bytes": 326527,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 2 Gula",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_gula_banquet.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 30,
@@ -860,12 +910,12 @@
       "tanda_number": 3,
       "original_id": "wall_wrath",
       "id": "wall_ice_glacier",
-      "name": "Muro Modular 08 · Muro Forja y Hielo (Ira/Traición)",
+      "name": "Muro Modular 08b · Muro de Hielo Abisal (VIII Traición)",
       "category": "walls",
       "location": "assets/walls/wall_ice_glacier.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -874,13 +924,23 @@
         "$b:ice",
         "d.rects.wall_ice_tile"
       ],
-      "reference_source": "REF_03#traicion",
-      "prompt_spec": "Dark frozen gothic stone wall module encrusted with glowing cyan-blue glacial crystal ribs and ironwork",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Treachery, a frozen crypt: dark blue-black stone encrusted with glowing cyan-blue glacial crystal ribs (#38bdf8) growing in the centre, iron bands and frost; thin cold-blue neon line along the cornice. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "66cb8105d66cfd46adb3165395620c18597ca67676563826ab90cc7986409604",
-      "bytes": 21924
+      "sha256": "d4f2230c63f439039c0dcf48f9d9cc1456c6f4d6976f0a74b160a0c75f16e5fb",
+      "bytes": 473906,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 8 Traición",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_ice_glacier.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 31,
@@ -888,12 +948,12 @@
       "tanda_number": 4,
       "original_id": "wall_wrath_tile",
       "id": "wall_wrath_furnace",
-      "name": "Muro Modular 09 · Forja Magma Industrial (Ira/Violencia)",
+      "name": "Muro Modular 08 · Forja Magma Industrial (IV Ira)",
       "category": "walls",
       "location": "assets/walls/wall_wrath_furnace.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -902,13 +962,23 @@
         "$b:wrath",
         "d.rects.wall_wrath"
       ],
-      "reference_source": "REF_03#ira",
-      "prompt_spec": "Charred iron and dark basalt gothic-industrial wall panel with glowing molten crimson grate",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Wrath, an industrial forge: charred iron plates riveted over dark basalt, a square furnace grate in the centre glowing molten orange-red from inside (flat cel bands), thick pipes running vertically, scorched soot marks; red neon strip along the cornice. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "07ed3efa4776f80d6dd0c0c0fffc1ed5507f16477921bc36cb7c25ff8f182602",
-      "bytes": 18478
+      "sha256": "1bcd523a2fbdcc90141f5a259bf2568ee89e8831644b78651a64f002595c9b6d",
+      "bytes": 384705,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 4 Ira",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_wrath_furnace.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 32,
@@ -920,8 +990,8 @@
       "category": "walls",
       "location": "assets/walls/wall_core_monolith.png",
       "dimensions": [
-        256,
-        384
+        384,
+        576
       ],
       "alpha": true,
       "pivot": "bottom-center",
@@ -930,13 +1000,23 @@
         "$b:core",
         "d.rects.wall_core_tile"
       ],
-      "reference_source": "REF_03#nucleo",
-      "prompt_spec": "Stark monochrome obsidian andbone-white architectural monolith wall panel with glowing silver-magenta rift",
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the final Core: stark monochrome architecture, a tall bone-white monolithic slab in the centre set into near-black obsidian, with a thin vertical rift glowing white-magenta down the middle of the slab; minimal ornament, geometric. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
       "reconstruction_status": "DONE",
       "integration_status": "INTEGRATED",
       "validation_status": "VERIFIED",
-      "sha256": "e3dfeee05665fada9e84430d356b3bf9e87d0f78869bd72f79dbd5a627122b72",
-      "bytes": 26587
+      "sha256": "b1c5585a76bfdda2ae6808f391abfdc70c85db43d3ef21ec7ed2c9e09aa9233b",
+      "bytes": 289473,
+      "format": "PNG RGB",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 9 Núcleo",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_core_monolith.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     },
     {
       "index": 33,
@@ -11198,7 +11278,83 @@
       "updated_at": "2026-11-14T17:56:32Z",
       "evidence": "docs/ART_REBUILD/evidence/T02_ENEMIGOS",
       "validated_at": "2026-11-14T18:07:46Z"
+    },
+    {
+      "index": 352,
+      "tanda": "T04_ESCENARIOS",
+      "tanda_number": null,
+      "original_id": "wall_greed",
+      "id": "wall_greed_vault",
+      "name": "Muro Modular 11 · Cámara Acorazada Dorada (III Avaricia)",
+      "category": "walls",
+      "location": "assets/walls/wall_greed_vault.png",
+      "dimensions": [
+        384,
+        576
+      ],
+      "alpha": false,
+      "pivot": "bottom-center",
+      "dependencies": [],
+      "code_references": [
+        "CIRCLE_CONFIG",
+        "buildHighResRoomCache"
+      ],
+      "format": "PNG RGB",
+      "sha256": "b5b15a047daa7a87bc774f1acd4e381acadb9fd33f0fb6669b1e12ecdf3d1a92",
+      "bytes": 409354,
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Greed, a bank vault turned club: dark slate wall with a round gold vault door (spoked wheel, rivets) in the centre, stacks of gold coins carved in relief at the base, thin yellow-gold neon line (#facc15) along the cornice; cold grey-black stone. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 3 Avaricia",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_greed_vault.webp",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
+    },
+    {
+      "index": 353,
+      "tanda": "T04_ESCENARIOS",
+      "tanda_number": null,
+      "original_id": "wall_violence",
+      "id": "wall_violence_chains",
+      "name": "Muro Modular 12 · Jaula de Cadenas (VI Violencia)",
+      "category": "walls",
+      "location": "assets/walls/wall_violence_chains.png",
+      "dimensions": [
+        384,
+        576
+      ],
+      "alpha": false,
+      "pivot": "bottom-center",
+      "dependencies": [],
+      "code_references": [
+        "CIRCLE_CONFIG",
+        "buildHighResRoomCache"
+      ],
+      "format": "PNG RGB",
+      "sha256": "6e4c3b33787672220f6f6b0fa9c2557dbfe57ea661178ef2a0ef211c53cf1315",
+      "bytes": 413217,
+      "reference_source": "REF_06_guia_visual_maestra.png#escenarios · REF_05_master_sheet_assets_ui_hub.png#muros · suelo del círculo (assets/floors)",
+      "prompt_spec": "Create ONE modular wall panel for the north wall of a room. THEME: the circle of Violence, a fighting pit: dark steel plates and a chain-link cage panel in the centre with heavy hanging chains and a meat hook, blood-red neon strip (#fb7185) along the cornice, ash-grey riveted base. FORMAT: front elevation, strictly orthographic (camera straight on, no perspective, no vanishing lines), portrait 2:3. The wall fills the ENTIRE image edge to edge: no background, no floor in front, no ceiling, no sky, no frame, no border, no text, no people. COMPOSITION, mandatory: perfectly symmetric left-right. A continuous carved stone cornice runs along the whole top edge and a dark stone baseboard along the whole bottom edge. At the LEFT edge and at the RIGHT edge there is exactly HALF of a fluted dark-stone pilaster, cut through the pilaster's centre line, so that copies of this panel placed side by side form continuous pilasters and a continuous cornice. Everything else is centred between the two half pilasters. STYLE: high resolution stylised digital illustration for a 2D top-down action game, NOT pixel art. Crisp black ink outlines, hard-edged cel shading, no soft airbrush. Palette: near-black obsidian stone, deep violet and wine shadows, antique gold trim; the only light sources are neon tubes (hot magenta #ff2d7a, cyan #22d3ee) and small warm lamps. Mood: gothic cathedral turned into an infernal nightclub. Bold, readable shapes that stay legible when the picture is shrunk to about 100 pixels wide: no tiny clutter, no fine text.",
+      "use": "Franja del muro norte de cada sala (buildHighResRoomCache, CIRCLE_CONFIG.wall): módulos de 132 px de alto repetidos en horizontal con la proporción de la imagen (88 px de ancho para 2:3). También la usa el Refugio si es el muro del Limbo.",
+      "entity": "muro norte · 6 Violencia",
+      "art_revision": "T04_ESCENARIOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T04_ESCENARIOS/wall_violence_chains.webp",
+      "reconstruction_status": "DONE",
+      "integration_status": "INTEGRATED",
+      "validation_status": "VERIFIED",
+      "notes": null,
+      "updated_at": "2026-11-15T01:13:16Z",
+      "evidence": "evidence/T04_ESCENARIOS/07_muros_nueve_circulos.jpg, 08_muros_recorte_nativo.jpg, 09_refugio_muro_y_pilastra.jpg",
+      "validated_at": "2026-11-15T01:36:38Z"
     }
   ],
-  "updated_at": "2026-11-15T00:59:52Z"
+  "updated_at": "2026-11-15T01:36:38Z"
 }

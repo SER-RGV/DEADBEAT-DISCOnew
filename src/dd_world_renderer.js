@@ -10,10 +10,10 @@
     { idx: 0, key: "limbo",    floor: "floor_00_limbo_marble",     wall: "wall_panel_gothic_niche", pillar: "wall_pillar_obsidian", neon: "#ff2d7a", sec: "#22d3ee", haze: "rgba(255,45,122,0.08)" },
     { idx: 1, key: "lust",     floor: "floor_01_lust_dancefloor",  wall: "wall_panel_neon_crown",   pillar: "wall_pillar_obsidian", neon: "#ff2d7a", sec: "#c026d3", haze: "rgba(255,45,122,0.13)" },
     { idx: 2, key: "gula",     floor: "floor_02_gula_terracotta",  wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", neon: "#f59e0b", sec: "#ef4444", haze: "rgba(245,158,11,0.10)" },
-    { idx: 3, key: "greed",    floor: "floor_03_greed_slate_gold", wall: "wall_gula_banquet",       pillar: "wall_pillar_obsidian", neon: "#facc15", sec: "#fb7185", haze: "rgba(250,204,21,0.10)" },
+    { idx: 3, key: "greed",    floor: "floor_03_greed_slate_gold", wall: "wall_greed_vault",        pillar: "wall_pillar_obsidian", neon: "#facc15", sec: "#fb7185", haze: "rgba(250,204,21,0.10)" },
     { idx: 4, key: "wrath",    floor: "floor_04_wrath_burgundy",   wall: "wall_wrath_furnace",      pillar: "wall_pillar_obsidian", neon: "#ef4444", sec: "#f97316", haze: "rgba(239,68,68,0.12)" },
     { idx: 5, key: "pride",    floor: "floor_05_pride_obsidian_gold", wall: "wall_panel_heavy_base", pillar: "wall_pillar_obsidian", neon: "#a855f7", sec: "#facc15", haze: "rgba(168,85,247,0.11)" },
-    { idx: 6, key: "violence", floor: "floor_06_violence_ash_slabs", wall: "wall_wrath_furnace",    pillar: "wall_pillar_obsidian", neon: "#fb7185", sec: "#94a3b8", haze: "rgba(251,113,133,0.09)" },
+    { idx: 6, key: "violence", floor: "floor_06_violence_ash_slabs", wall: "wall_violence_chains", pillar: "wall_pillar_obsidian", neon: "#fb7185", sec: "#94a3b8", haze: "rgba(251,113,133,0.09)" },
     { idx: 7, key: "envy",     floor: "floor_07_envy_travertine",  wall: "wall_panel_vip_window",   pillar: "wall_pillar_obsidian", neon: "#22d3ee", sec: "#ff2d7a", haze: "rgba(34,211,238,0.11)" },
     { idx: 8, key: "ice",      floor: "floor_08_ice_abyssal",      wall: "wall_ice_glacier",        pillar: "wall_pillar_obsidian", neon: "#38bdf8", sec: "#f43f5e", haze: "rgba(56,189,248,0.12)" },
     { idx: 9, key: "core",     floor: "floor_09_core_cosmic_vein", wall: "wall_core_monolith",      pillar: "wall_pillar_obsidian", neon: "#f8fafc", sec: "#ff2d7a", haze: "rgba(248,250,252,0.10)" }

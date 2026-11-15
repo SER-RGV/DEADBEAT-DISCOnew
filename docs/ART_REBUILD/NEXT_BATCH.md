@@ -1,8 +1,9 @@
 # TANDA EN CURSO: `T04_ESCENARIOS` (TANDA 04 del pack 02–07)
 
-- **Estado:** en producción (2026-11-14): auditoría hecha, ficha `batches/T04_ESCENARIOS.json`
-  (20 ilustraciones), turno 1 generado y registrado (4/20: `wall_panel_gothic_niche`,
-  `door_gothic_closed`, `door_gothic_open`, `portal_avaricia_gold`). R03 (jefes) **cerrada 42/42**: informe en
+- **Estado:** en producción (2026-11-15): auditoría hecha, ficha `batches/T04_ESCENARIOS.json`
+  (20 ilustraciones), **turnos 1 y 2 integrados y vistos en juego (14/20)**: muro del Limbo, puertas góticas
+  cerrada/abierta, portal relicario, los ocho muros restantes (incluidos los nuevos de Avaricia y Violencia,
+  ya enlazados en `CIRCLE_CONFIG`) y la pilastra. Faltan 6 (turno 3). R03 (jefes) **cerrada 42/42**: informe en
   [`TANDA_03_INFORME.md`](TANDA_03_INFORME.md) (incluye la correspondencia de jefes, las seis
   decisiones por defecto sin confirmar y el contrato del renderizador).
 - **Alcance (plan, [`PLAN_PRODUCCION_02-07.md`](PLAN_PRODUCCION_02-07.md) §3):** rehacer los elementos
@@ -78,8 +79,12 @@ zorro 384×512. `register` admite el tamaño de la ficha (lienzos mayores que lo
 | Turno | Ilustraciones | Estado |
 |---|---|---|
 | 1 | `wall_panel_gothic_niche`, `door_gothic_closed`, `door_gothic_open` (edición de la cerrada), `portal_avaricia_gold` | **hecho** (evidencia 02–03) |
-| 2 | muros de Lujuria, Gula, Ira, Herejía, Fraude, Traición, Núcleo + `wall_greed_vault`, `wall_violence_chains` + pilastra (10) | pendiente (referencia de formato: el nicho nuevo) |
+| 2 | muros de Lujuria, Gula, Ira, Herejía, Fraude, Traición, Núcleo + `wall_greed_vault`, `wall_violence_chains` + pilastra (10) | **hecho** (10/10 válidas a la primera; evidencia 07–09) |
 | 3 | `door_stained_closed`, `door_arched_open` (edición), `door_vip_crimson`, `portal_baroque_gold`, `threshold_descent_pad`, `prop_hub_fox_neon` (6) | pendiente; cierre T04 |
+
+Observado en el turno 2 (no se corrige en esta tanda): en las salas en L o en cruz la franja de muro norte sólo
+existe en el borde superior del rectángulo de la sala; los tramos horizontales interiores quedan sin muro (sólo
+la línea de neón). Es geometría del motor (`buildHighResRoomCache` dibuja una única franja), no arte.
 
 Validación: `probe_rooms.js` sobre la compilación final (círculos I–IX, salas 2, 5 y 10; Refugio con `--hub=1`),
 evidencia en `evidence/T04_ESCENARIOS/`, `batch.py mark`, `audit_report.py render`.
