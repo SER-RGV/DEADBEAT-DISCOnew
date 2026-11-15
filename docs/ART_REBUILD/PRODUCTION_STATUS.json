@@ -3,8 +3,8 @@
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
-  "total": 297,
-  "cache_version": "20261115.8"
+  "total": 305,
+  "cache_version": "20261115.9"
  },
  "classification": {
   "total": 382,
@@ -21,7 +21,7 @@
   "R03_JEFES",
   "T04_ESCENARIOS"
  ],
- "current_batch": "T05_ARMAS (ABIERTA · 20/105 verificadas · turnos 1–2 casi completos, 3 iniciado)",
+ "current_batch": "T05_ARMAS (ABIERTA · 28/105 verificadas · turnos 1–2 completos, 3 parcial 8/10)",
  "current_batch_progress": {
   "status": "pendiente de abrir",
   "batch_file": null,
@@ -175,7 +175,7 @@
   },
   "T05_ARMAS": {
    "status": "ABIERTA",
-   "verified": 20,
+   "verified": 28,
    "total": 105,
    "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
    "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
@@ -185,7 +185,7 @@
     "batch.py calibrate",
     "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
    ],
-   "next": "reintentar c024_incendiaria (3 fallos) y c034_laser; seguir turno 3 (pesadas 38–48) → turnos 4–11"
+   "next": "reintentar c041_lanzacohetes y railgun; turno 4 (rotatorio, flamer, artilleria, energía 49–55) → turnos 5–11"
   },
   "T06_OBJETOS": {
    "status": "PENDIENTE"
@@ -198,8 +198,8 @@
  "inventory_classes": {
   "A": 25,
   "B": 107,
-  "C": 85,
+  "C": 77,
   "D": 26,
-  "E": 139
+  "E": 147
  }
 }

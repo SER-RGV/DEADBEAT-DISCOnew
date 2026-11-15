@@ -1,11 +1,12 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 3.er tramo):** **20/105 verificadas en mano.** Turno 1: 9/10 (falta `c024_incendiaria`,
-  tres fallos seguidos del servicio de generación, también con el DESIGN acortado → cambiar el enfoque del prompt:
-  «tank» en vez de «canister», sin «pilot flame»); turno 2: 10/11 (falta `c034_laser`, un fallo); turno 3 iniciado
-  con `m60` (postura de cadera correcta). Registro 297, caché `20261115.8`. Evidencias `evidence/T05_ARMAS/00–09`.
-  Siguen: `c038_minigun`, `c039_lmg_neon`, `c040_pesado`, `c041_lanzacohetes`, `c042_lanzagranadas`, `railgun`,
-  `c044_bfg`, `c045_mortero`, `c046_rotatorio`, `flamer`, `c048_artilleria`.
+- **Estado (2026-11-15, 4.º tramo):** **28/105 verificadas en mano.** Turnos 1 y 2 COMPLETOS (la incendiaria salió al
+  4.º intento con el DESIGN simplificado; el láser al 2.º); turno 3 parcial 8/10 (faltan `c041_lanzacohetes` y `railgun`,
+  un fallo del generador cada una). Las pesadas de cadera (`m60`, `c038_minigun`, `c039_lmg_neon`, `c040_pesado`,
+  `c044_bfg`, `c045_mortero`) salen bien con `player_firehip`; necesitan hints `grip` + `grip_v` (altura explícita)
+  porque el cuerpo gordo o la caja de munición tapan el pistolete. Registro 305, caché `20261115.9`. Evidencias
+  `evidence/T05_ARMAS/00–12`. Siguen (turno 4): `c046_rotatorio`, `flamer`, `c048_artilleria`, `c049_plasma_cutter`,
+  `c050_rayo_continuo`, `c051_rayo_tesla`, `c052_canon_plasma`, `c053_particulas` (+ los 2 reintentos).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

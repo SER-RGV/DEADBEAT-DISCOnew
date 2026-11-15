@@ -47,7 +47,7 @@
     "weapon_c024_incendiaria",
     "weapon_thompson"
    ],
-   "estado": "9/10 verificadas en mano (2026-11-15); c024_incendiaria ha fallado TRES veces en el generador (también con DESIGN corto): reintentar con otro enfoque (p. ej. sin «pilot flame», «canister» → «tank»)",
+   "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15; c024_incendiaria salió al 4.º intento con DESIGN simplificado)",
    "hechas": [
     "weapon_c016_de_canon",
     "weapon_c017_de_fuego",
@@ -55,13 +55,12 @@
     "weapon_c021_doble",
     "weapon_c022_de_gancho",
     "weapon_c023_flechetes",
+    "weapon_c024_incendiaria",
     "weapon_cryo",
     "weapon_spas12",
     "weapon_thompson"
    ],
-   "reintentar": [
-    "weapon_c024_incendiaria"
-   ]
+   "reintentar": []
   },
   {
    "turno": 2,
@@ -77,7 +76,7 @@
     "weapon_c034_laser",
     "weapon_winchester"
    ],
-   "estado": "10/11 ids verificadas (2026-11-15) salvo c034_laser (fallo del generador, reintentar)",
+   "estado": "COMPLETO (2026-11-15); c034_laser al 2.º intento",
    "hechas": [
     "weapon_ak47",
     "weapon_c028_famas",
@@ -85,14 +84,13 @@
     "weapon_c030_g36",
     "weapon_c031_aug",
     "weapon_c033_pulsos",
+    "weapon_c034_laser",
     "weapon_c036_bullpup",
     "weapon_m16",
     "weapon_mp40",
     "weapon_winchester"
    ],
-   "reintentar": [
-    "weapon_c034_laser"
-   ]
+   "reintentar": []
   },
   {
    "turno": 3,
@@ -108,9 +106,20 @@
     "weapon_c044_bfg",
     "weapon_c045_mortero"
    ],
-   "estado": "parcial 1/10 (m60 verificada en mano, postura de cadera)",
+   "estado": "parcial 8/10 verificadas en mano (2026-11-15); fallo del generador en c041_lanzacohetes y railgun (1.ª vez)",
    "hechas": [
+    "weapon_c036_bullpup",
+    "weapon_c038_minigun",
+    "weapon_c039_lmg_neon",
+    "weapon_c040_pesado",
+    "weapon_c042_lanzagranadas",
+    "weapon_c044_bfg",
+    "weapon_c045_mortero",
     "weapon_m60"
+   ],
+   "reintentar": [
+    "weapon_c041_lanzacohetes",
+    "weapon_railgun"
    ]
   },
   {
@@ -565,7 +574,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "escopetaBombeo"
+    "cls": "escopetaBombeo",
+    "grip": 0.2,
+    "axis_band": 0.12
    },
    "engine": {
     "wid": "c024_incendiaria",
@@ -1100,7 +1111,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "ametralladora"
+    "cls": "ametralladora",
+    "grip": 0.19,
+    "grip_v": 0.66,
+    "sup": 0.4
    },
    "engine": {
     "wid": "c038_minigun",
@@ -1138,7 +1152,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "ametralladora"
+    "cls": "ametralladora",
+    "grip": 0.22,
+    "grip_v": 0.66
    },
    "engine": {
     "wid": "c039_lmg_neon",
@@ -1176,7 +1192,10 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "ametralladora"
+    "cls": "ametralladora",
+    "grip": 0.2,
+    "grip_v": 0.66,
+    "sup": 0.45
    },
    "engine": {
     "wid": "c040_pesado",
@@ -1252,7 +1271,8 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "sup": 0.4
    },
    "engine": {
     "wid": "c042_lanzagranadas",
@@ -1328,7 +1348,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.18,
+    "grip_v": 0.72
    },
    "engine": {
     "wid": "c044_bfg",
@@ -1366,7 +1388,9 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "lanzador"
+    "cls": "lanzador",
+    "grip": 0.1,
+    "grip_v": 0.78
    },
    "engine": {
     "wid": "c045_mortero",
@@ -4242,7 +4266,7 @@
   }
  ],
  "progress": {
-  "verified": 20,
+  "verified": 28,
   "total": 105,
   "updated": "2026-11-15"
  },
@@ -4251,6 +4275,7 @@
   "La calibración medida (weapon_cal.py) acierta en pistoletes y guardamanos («hang»); con culata clásica (dobles, bombeo sin pistolete) hay que forzar hang:false y grip≈0.30, y si el pistolete está en el extremo izquierdo (SPAS-12 con culata plegada) dar grip≈0.10. Revisar SIEMPRE la hoja `calibrate --overlay` antes de registrar.",
   "En mano (probe_weapons.js) las cinco quedaron con la mano en la empuñadura, el antebrazo de apoyo en el guardamanos y la boca alineada a derecha, arriba e izquierda; la escala en juego es len·95 px (escopetas ≈ 63–67 px).",
   "Turno 2: 7/10 generadas (fallos repetidos en c023_flechetes y c024_incendiaria, nuevo en c030_g36). Calibración automática correcta en 6/7; la recortada c016 necesitó grip 0.12 (empuñadura en el extremo izquierdo, sin culata). Las 7 verificadas en mano a derecha, arriba e izquierda sin errores de página.",
-  "Turno 3: 8/10 generadas. Calibración de serie correcta en 6/8; mp40 (pistolete en el extremo izquierdo) con grip 0.08 y m60 (pistolete fundido con la caja de munición) con hang:false + grip 0.31. weapon_cal.py: en el previo directo la mano baja a media caída si en esa columna cuelga algo bajo el eje (>1,3·grosor del cañón)."
+  "Turno 3: 8/10 generadas. Calibración de serie correcta en 6/8; mp40 (pistolete en el extremo izquierdo) con grip 0.08 y m60 (pistolete fundido con la caja de munición) con hang:false + grip 0.31. weapon_cal.py: en el previo directo la mano baja a media caída si en esa columna cuelga algo bajo el eje (>1,3·grosor del cañón).",
+  "Turno 4 (pesadas): 8/10 generadas. Las armas gordas (minigun, LMG, pesado, BFG, mortero) rompen la detección por caída (el grosor del cuerpo o la caja de munición tapan el pistolete) → hints grip + grip_v (altura explícita) y sup relativo; la escopeta con depósito bajo el cañón necesita axis_band 0.12 para medir el eje en el tramo de cañón desnudo. Las xt de cadera salen bien con la postura player_firehip."
  ]
 }

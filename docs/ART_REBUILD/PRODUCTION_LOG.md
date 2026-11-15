@@ -56,3 +56,9 @@
 - 8/10 generadas (`c023_flechetes`, `c030_g36`, `c031_aug`, `mp40`, `c033_pulsos`, `winchester`, `c036_bullpup`, `m60`); fallos del servicio en `c024_incendiaria` (3.ª vez) y `c034_laser`.
 - Calibración: 6/8 de serie; `mp40` grip 0.08, `m60` hang:false + grip 0.31; mejora del previo directo en `weapon_cal.py`. Registradas (297, caché `20261115.8`), verificadas en mano (evidencias `07–09`, 0 errores de página), marcadas. Inventario A25·B107·C85·D26·E139.
 
+## 2026-11-15 (6) — T05 ARMAS, 4.º tramo: pesadas (28/105)
+
+- 8/10 generadas (`c024_incendiaria` al 4.º intento, `c034_laser`, `c038_minigun`, `c039_lmg_neon`, `c040_pesado`, `c042_lanzagranadas`, `c044_bfg`, `c045_mortero`); fallos del servicio en `c041_lanzacohetes` y `railgun`.
+- Calibración: hints `grip`/`grip_v` (nuevo en `weapon_cal.py`: altura explícita de la mano) para las gordas, `axis_band 0.12` en la incendiaria, `sup` relativo en minigun/pesado/lanzagranadas. Registradas (305, caché `20261115.9`), verificadas en mano (evidencias `10–12`, 0 errores), marcadas. Inventario A25·B107·C77·D26·E147.
+- `probe_*.js`/`capture_game.js`: el `timeout` de `waitForFunction` iba en el hueco de `arg` (se aplicaba el de 30 s por defecto y con 305 assets fallaba) → `null, { timeout: 120000 }`.
+

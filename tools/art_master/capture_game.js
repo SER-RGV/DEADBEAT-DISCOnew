@@ -53,7 +53,7 @@ fs.mkdirSync(OUT, { recursive: true });
   const step = (inp, frames) => page.evaluate(([i, f]) => { try { window.DMO.debug.heal(); } catch (e) {} return window.__DD_BRIDGE.testStep(i, f); }, [inp || {}, frames || 10]);
 
   await page.goto(URL, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForFunction(() => window.DD_ASSETS && (() => { const s = window.DD_ASSETS.stats(); return s.loaded + s.errors >= s.registered; })(), { timeout: 60000 });
+  await page.waitForFunction(() => window.DD_ASSETS && (() => { const s = window.DD_ASSETS.stats(); return s.loaded + s.errors >= s.registered; })(), null, { timeout: 120000 });
   await page.waitForTimeout(700);
   report.steps.assets = await page.evaluate(() => ({ stats: window.DD_ASSETS.stats(), integrity: window.DD_ASSETS.integrity ? window.DD_ASSETS.integrity() : null }));
   await shot("00_intro_cinematica");

@@ -236,7 +236,7 @@ python tools/art_master/weapon_cal.py assets/weapons/weapon_ak47.png --cls fusil
 Mide sobre el PNG final la empuñadura, el eje del cañón, la boca y la mano de apoyo (ver «Contrato de las armas»). La
 usa `batch.py process` cuando la ficha lleva `"calibrate": {"cls": …}` y `batch.py calibrate --overlay DIR` para
 revisar/repetir sin regenerar. Ajustes por arma en la propia clave `calibrate`: `hang:false` (culata clásica),
-`grip`/`sup` (previos en fracción del ancho de la silueta), `axis_v`, `axis_band`, `max_dev`, `spriteRot` (arcos).
+`grip`/`sup` (previos en fracción del ancho de la silueta), `grip_v` (altura explícita de la mano, fracción del alto del PNG; armas gordas), `axis_v`, `axis_band` (fracción derecha donde se mide el cañón; estrechar si hay depósitos bajo él), `max_dev`, `spriteRot` (arcos).
 
 ### `probe_cinematic.js`
 Captura un fotograma por plano de la cinemática de entrada adelantando el reloj de

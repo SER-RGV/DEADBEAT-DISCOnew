@@ -162,6 +162,11 @@ def measure(png_path: str, cls: str, hints: Optional[Dict] = None) -> Dict:
         c = cen[xi] if not np.isnan(cen[xi]) else axis_y
         b = bot[xi] if not np.isnan(bot[xi]) else axis_y
         gy = max(c, axis_y + 0.5 * (b - axis_y)) if (b - axis_y) > 1.3 * thick else c
+    if "grip_v" in hints:
+        # Altura explícita (fracción del alto del PNG): armas gordas (BFG, mortero, minigun)
+        # donde el grosor del cuerpo impide distinguir el pistolete por su caída.
+        gy = float(hints["grip_v"]) * H
+        method["grip_v"] = "hint"
     gx = float(min(max(gx, x0 + 2), x1 - 2))
     gy = float(min(max(gy, y0 + 1), y1 - 1))
 
@@ -228,7 +233,7 @@ def main() -> int:
     ap.add_argument("png")
     ap.add_argument("--cls", default="fusil")
     ap.add_argument("--out", default=None, help="PNG con la superposición de medidas")
-    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, sup, hang, axis_v, axis_band)")
+    ap.add_argument("--hints", default=None, help="JSON con ajustes (grip, grip_v, sup, hang, axis_v, axis_band, max_dev, spriteRot)")
     ap.add_argument("--json", action="store_true")
     a = ap.parse_args()
     hints = json.loads(a.hints) if a.hints else {}

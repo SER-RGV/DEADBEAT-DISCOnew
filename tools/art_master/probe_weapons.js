@@ -107,7 +107,7 @@ function installProbe() {
   page.on("response", r => { if (r.status() >= 400) report.httpErrors.push(r.status() + " " + r.url()); });
 
   await page.goto(URL, { waitUntil: "domcontentloaded", timeout: 60000 });
-  await page.waitForFunction(() => window.DD_ASSETS && (() => { const s = window.DD_ASSETS.stats(); return s.loaded + s.errors >= s.registered; })(), { timeout: 60000 });
+  await page.waitForFunction(() => window.DD_ASSETS && (() => { const s = window.DD_ASSETS.stats(); return s.loaded + s.errors >= s.registered; })(), null, { timeout: 120000 });
   await page.waitForTimeout(600);
   report.assets = await page.evaluate(() => window.DD_ASSETS.stats());
   await page.evaluate(installProbe);
