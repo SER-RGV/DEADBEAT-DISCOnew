@@ -25,6 +25,8 @@ La inspección estática de `src/dd_ui_system.js` detectó una incoherencia inic
 
 El exportador registra el estado inicial (número de tarjetas, registros de catálogo y filtro activo), y después pulsa el chip `TODAS` para capturar la lista completa. El informe indica si la tienda empezó vacía pese a existir registros. Esta instrumentación permite observar el defecto sin cambiar el código de producción.
 
+La UI aplica además `.slice(0, 120)` a la lista filtrada. El exportador compara el catálogo completo con los IDs de las tarjetas después del filtro general; así detecta registros válidos que no llegan a la tienda por el límite visual. Si aparecen 121 registros y 120 tarjetas, la causa del desfase de presentación queda identificada, aunque la condición de arma jugable sigue dependiendo del catálogo del motor.
+
 
 ## 2. Requisitos y ejecución
 
