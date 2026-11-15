@@ -1129,7 +1129,7 @@
       '      </div>' +
       '    </div>' +
       '    <div class="dd-bar-track" title="Salud Vital"><div class="dd-bar-fill" id="dd-hud-hp-fill" style="width:100%"></div></div>' +
-      '    <div class="dd-bar-track dd-bar-shield" title="Escudo / Pulso RAVE"><div class="dd-bar-fill" id="dd-hud-sh-fill" style="width:0%"></div></div>' +
+      '    <div class="dd-bar-row-shield"><img id="dd-hud-shield-img" class="dd-hud-shield-icon" alt="" src="' + assetSrc("hud_shield_badge", "pickups/pickup_shield_00.png") + '"><div class="dd-bar-track dd-bar-shield" title="Escudo / Pulso RAVE"><div class="dd-bar-fill" id="dd-hud-sh-fill" style="width:0%"></div></div></div>' +
       '    <div class="dd-hud-weapon-strip">' +
       '      <span id="dd-hud-weapon-name">M1911 · ∞</span>' +
       '      <img id="dd-hud-weapon-img" class="dd-hud-weapon-thumb" alt="" src="' + weaponImgSrc("m1911") + '">' +
@@ -1465,6 +1465,7 @@
       ["dd-menu-logo-img", assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png"],
       ["dd-hud-portrait", assetSrc("hud_portrait_protagonist")],
       ["dd-hud-coin-img", assetSrc("hud_credit_coin", "pickups/pickup_credits_00.png")],
+      ["dd-hud-shield-img", assetSrc("hud_shield_badge", "pickups/pickup_shield_00.png")],
       ["dd-skill-bomb-img", assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png")],
       ["dd-skill-boost-img", assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png")],
       ["dd-skill-dodge-img", assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png")],

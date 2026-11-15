@@ -281,6 +281,11 @@ body.dd-highres-edition #ddc-cover {
   height: 8px;
   border-color: rgba(250, 204, 21, 0.65);
 }
+/* T07 HUD: icono de escudo (hud_shield_badge, 14 px) delante de la barra de escudo /
+   pulso RAVE, como en la lámina 07. La barra ocupa el resto de la fila. */
+.dd-bar-row-shield { display: flex; align-items: center; gap: 5px; }
+.dd-bar-row-shield .dd-bar-track { flex: 1 1 auto; min-width: 0; }
+.dd-hud-shield-icon { width: 14px; height: 14px; flex: 0 0 14px; object-fit: contain; filter: drop-shadow(0 0 4px rgba(34, 211, 238, 0.55)); }
 .dd-bar-fill {
   height: 100%;
   width: 100%;

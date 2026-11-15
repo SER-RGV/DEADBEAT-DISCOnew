@@ -1,0 +1,232 @@
+{
+ "batch": "T07_HUD",
+ "title": "TANDA 07 · HUD — 8 imágenes del HUD/UI (ids existentes) según la guía visual 07 de la lámina",
+ "created": "2026-11-15",
+ "status": "CERRADA",
+ "style": "Iconografía plana de alto contraste (lámina LAM_01 §07: cómic/graffiti, neón sobre negro, siluetas claras y legibles): contorno de tinta grueso, cel 2–3 tonos, filo blanco arriba-izquierda; paleta maestra magenta #ff2d7a · cian #22d3ee · oro #facc15 · violeta · negro. El emblema de victoria sigue el acabado de ilustración del pack.",
+ "scope": {
+  "total": 8,
+  "to_produce": 8,
+  "not_in_scope": "Portada, retrato (hud_portrait_protagonist, clase A), ui_defeat_emblem y ui_shop_emblem (clase A) se conservan. No se rediseña el HUD ni se cambia su comportamiento: sólo se sustituyen las imágenes de los ids que ya consulta dd_ui_system.js / dd_cinematic_camera.js. Única integración nueva: hud_shield_badge como icono de 14 px delante de la barra de escudo (antes no tenía consumidor)."
+ },
+ "renderer": {
+  "hud": "dd_ui_system.js buildHud()/updateHud(): corazones 22×22 (.dd-heart-icon, drop-shadow magenta), moneda 16×16 (.dd-badge-cr img), habilidades 44×44 dentro de tarjetas octogonales de 62 px (.dd-skill-card img); todos <img> con object-fit contain. HUD responsive (reglas @media del CSS) — las imágenes escalan con el contenedor.",
+  "victory": "dd_cinematic_camera.js: ui_victory_emblem a 280×210 sobre el velo de victoria."
+ },
+ "contract": {
+  "canvas": "iconos 128×128 / 160×160 PNG RGBA, objeto centrado (fit contain, margen 8), pivot center, sin fondo, sin marco ni tarjeta (la tarjeta la pone el CSS), sin halo (lo pone el CSS); legibles a 16–22 px. Emblema 512×384 RGBA, margen 10.",
+  "raw": "croma verde #00FF00 plano; un solo objeto; sin texto. Crudo en /home/user/dd_work/raw/T07_HUD/<id>.png.",
+  "qa": "sonda del HUD por la ruta real de arranque (probe_hud.js): corazones llenos/vacíos, escudo, moneda, 3 habilidades (activas y gastadas), 1080p/720p; emblema de victoria por DD_CINE."
+ },
+ "defaults": {
+  "category": "ui",
+  "pivot": "center",
+  "alpha": true,
+  "key": "green",
+  "matte": "hard",
+  "band": 3
+ },
+ "assets": [
+  {
+   "id": "hud_heart_full",
+   "raw": "hud_heart_full.png",
+   "name": "HUD · corazón lleno",
+   "size": [
+    128,
+    128
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Vida (corazón)",
+   "use": "dd_ui_system.js updateHud(): <img class=dd-heart-icon> de 22×22 px por corazón de vida (hasta 8); CSS añade un drop-shadow magenta.",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a glossy hot-pink/magenta heart (#ff2d7a) with a darker magenta lower half and a crisp white specular highlight at the upper-left lobe. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "hud_heart_empty",
+   "raw": "hud_heart_empty.png",
+   "name": "HUD · corazón vacío",
+   "size": [
+    128,
+    128
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "stretch"
+   },
+   "entity": "Vida perdida (corazón vacío)",
+   "use": "dd_ui_system.js updateHud(): corazones perdidos (22×22 px); CSS lo atenúa además con opacity .28 y grayscale.",
+   "matte": "none",
+   "derived_from": "hud_heart_full",
+   "tool": "tools/art_master/derive_hud_heart_empty.py",
+   "prompt_v1": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: an EMPTY heart: the same heart silhouette drawn as a hollow outline, near-black charcoal fill (#14101c) with a thin dim magenta inner stroke, no highlight, no gloss. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image.",
+   "note": "v1 generada por IA (contorno magenta fino) quedaba invisible bajo el CSS del HUD (opacity .28 + grayscale): max 30/255 medido en juego. v2 derivada de la silueta exacta de hud_heart_full con aro rosa pálido + relleno carbón (crudo IA conservado como hud_heart_empty_ia_v1.png)."
+  },
+  {
+   "id": "hud_shield_badge",
+   "raw": "hud_shield_badge.png",
+   "name": "HUD · escudo",
+   "size": [
+    128,
+    128
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Escudo / Pulso RAVE",
+   "use": "dd_ui_system.js: icono delante de la barra de escudo (.dd-bar-shield) a 14 px (integración T07, antes sin consumidor).",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a cyan kite shield (#22d3ee) with a slightly darker cyan inner panel and a thin white border line inside the edge, bold and simple. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "hud_skill_bomb",
+   "raw": "hud_skill_bomb.png",
+   "name": "HUD · habilidad bomba",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Bomba sónica (ESP)",
+   "use": "dd_ui_system.js: <img> de 44×44 px dentro de la tarjeta octogonal .dd-skill-card #dd-skill-bomb (contador y tecla encima).",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a sonic bomb: round black cast-iron bomb with a violet speaker grille on its face and a short fuse ending in a magenta spark, with three short magenta blast strokes behind it. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "hud_skill_boost",
+   "raw": "hud_skill_boost.png",
+   "name": "HUD · habilidad boost",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Boost (SHIFT)",
+   "use": "dd_ui_system.js: <img> de 44×44 px dentro de .dd-skill-card #dd-skill-boost.",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a cyan hexagonal plate (#22d3ee) with a bold magenta lightning bolt (#ff2d7a) across it, matching the game's boost pickup. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "hud_skill_dodge",
+   "raw": "hud_skill_dodge.png",
+   "name": "HUD · habilidad esquiva",
+   "size": [
+    160,
+    160
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Esquiva táctica (ROLL)",
+   "use": "dd_ui_system.js: <img> de 44×44 px dentro de .dd-skill-card #dd-skill-dodge.",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a tactical roll icon: one thick cyan circular arrow (#22d3ee) curling clockwise almost a full turn with a bold arrowhead, and a short magenta motion streak inside the ring. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "hud_credit_coin",
+   "raw": "hud_credit_coin.png",
+   "name": "HUD · moneda de créditos",
+   "size": [
+    128,
+    128
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 8,
+    "sharpen": 25
+   },
+   "entity": "Créditos (CR)",
+   "use": "dd_ui_system.js: <img> de 16×16 px en la insignia de créditos .dd-badge-cr del HUD.",
+   "prompt": "Flat neon game HUD icon for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). Exactly ONE object, centered, filling about 80% of a square frame, straight front view, no perspective. Thick clean black ink outline, hard-edged cel shading in 2-3 flat tones, a thin white rim highlight on the upper-left edge, saturated neon colour. The icon must stay readable when shrunk to 20 pixels: bold simple silhouette, no fine detail. DESIGN: a gold coin (#facc15) seen from the front, thick rim, embossed crowned skull in the centre in darker gold, matching the game's credits pickup. NO pixel art, NO text, NO letters or numbers, NO outer glow, NO sparkles or particles outside the object, NO background scenery, NO frame, card, badge or circle behind it, NO cast shadow. Flat solid chroma-green background (#00FF00) covering the whole image."
+  },
+  {
+   "id": "ui_victory_emblem",
+   "raw": "ui_victory_emblem.png",
+   "name": "UI · emblema de victoria",
+   "size": [
+    512,
+    384
+   ],
+   "pivot": "center",
+   "alpha": true,
+   "fit": {
+    "mode": "contain",
+    "margin": 10,
+    "sharpen": 20
+   },
+   "entity": "Victoria",
+   "use": "dd_cinematic_camera.js: drawImage 280×210 centrado sobre el velo de la secuencia de victoria (DD_CINE).",
+   "prompt": "Illustrated victory emblem for DEADBEAT DISCO, a neon disco-inferno roguelite (visual guide 07: comic/graffiti high contrast, neon on black). ONE centered emblem in a WIDE landscape composition (about 4:3), leaving clear margins on all four sides. Clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left and cyan rim light on the right. DESIGN: a golden royal crown (#facc15) resting on top of a stylised hot-pink fox head (#ff2d7a) seen from the front, flanked by two gold laurel branches that curve outward like wings, and a small mirrored disco ball hanging under the chin. Gold, magenta and cyan on dark obsidian. NO pixel art, NO text, NO letters, NO ribbon with writing, NO outer glow or light rays outside the emblem, NO background scenery, NO frame or card behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
+  }
+ ],
+ "generation_plan": [
+  {
+   "turno": 1,
+   "ids": [
+    "hud_heart_full",
+    "hud_heart_empty",
+    "hud_shield_badge",
+    "hud_skill_bomb",
+    "hud_skill_boost",
+    "hud_skill_dodge",
+    "hud_credit_coin",
+    "ui_victory_emblem"
+   ],
+   "hechas": [
+    "hud_heart_full",
+    "hud_heart_empty",
+    "hud_shield_badge",
+    "hud_skill_bomb",
+    "hud_skill_boost",
+    "hud_skill_dodge",
+    "hud_credit_coin",
+    "ui_victory_emblem"
+   ],
+   "reintentar": [],
+   "estado": "HECHO (hud_heart_empty: v1 IA sustituida por v2 derivada de hud_heart_full)"
+  }
+ ],
+ "generation_lessons": [
+  "La plantilla «Flat neon game HUD icon… exactly ONE object… NO frame/badge/glow» produce iconos limpios a la primera: 8/8 crudos válidos con croma verde plano (0 reintentos).",
+  "El HUD pone él mismo marco, sombra (drop-shadow) y atenuación por CSS: el PNG debe ir sin marco ni halo, o se duplican.",
+  "Los estados «apagados» que el CSS atenúa (opacity .28 + grayscale) necesitan un asset claro: el corazón vacío con contorno magenta fino quedaba a 30/255 (invisible). Se derivó de la silueta del corazón lleno con aro rosa pálido (~80/255 tras el CSS) mediante tools/art_master/derive_hud_heart_empty.py; mismo contorno y tamaño que el lleno.",
+  "ui_victory_emblem se dibuja a 280×210 sobre un velo oscuro: el lienzo 512×384 (4:3) con contorno de tinta y sin halo propio se lee bien; el motor no lo escala por resolución.",
+  "Los iconos del HUD son DOM con tamaños fijos en px (22/16/14/44): no cambian con la resolución del lienzo; la legibilidad se valida a 1× sobre el panel oscuro del HUD."
+ ],
+ "progress": {
+  "verified": 8,
+  "total": 8,
+  "updated": "2026-11-15",
+  "turno_1": "8 generados (1 turno, 8 imágenes), procesados y registrados (caché 20261115.25); hud_heart_empty v2 derivada (caché 20261115.26); 8/8 VERIFIED en la build real por la ruta de arranque real (probe_hud.js, 1280×720) con evidencias 03–14."
+ },
+ "closure": {
+  "date": "2026-11-15",
+  "evidence": "docs/ART_REBUILD/evidence/T07_HUD",
+  "report": "docs/ART_REBUILD/TANDA_07_INFORME.md",
+  "cache_version_at_close": "20261115.26",
+  "integration": "src/dd_ui_system.js (fila .dd-bar-row-shield + #dd-hud-shield-img para hud_shield_badge; refreshAssets) y src/dd_rebuild_ui.css; el resto de ids ya los consumía dd_ui_system.js/dd_cinematic_camera.js"
+ }
+}
