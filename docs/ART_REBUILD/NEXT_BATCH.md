@@ -1,19 +1,34 @@
-# SIN TANDA EN CURSO — pack 02–07 completo (T06_OBJETOS 20/20 y T07_HUD 8/8 cerradas el 2026-11-15)
+# TANDA EN CURSO: T08_EFECTOS — turno 1 de 2 hecho (10 proyectiles); faltan 3 impactos/explosión
 
-- **Estado:** producción detenida tras T07, a la espera de la revisión del informe de cierre. Registro 382 assets, caché
-  `20261115.26`; inventario A25·B80·C0·D25·E252 (quedan 105 por producir: 80 B + 25 D, todos fuera del pack 02–07).
-- **Antes de abrir otra tanda, decidir** (hallazgos heredados, `TANDA_07_INFORME.md` §5): (1) la barra de escudo del HUD vuelca
-  las cargas `Ee` (0–3) como % de anchura (1–3 %); (2) la tarjeta de bomba dice `ESP` pero el motor usa `Q` (`tp()`), `Espacio` es
-  la esquiva; (3) ids sin consumidor `menu_main_backdrop(_a)`, `ui_shop_emblem`. Son cambios de comportamiento/texto, no de arte.
-- **Qué quedaría por producir (fuera del pack 02–07):** las 80 B + 25 D del inventario (`AUDIT_INVENTORY.md`): balas/proyectiles,
-  efectos, `ui_defeat_emblem`, fondos de menú heredados, 16 armas B antiguas, etc. Proponer tanda nueva con ficha propia.
+- **Estado (2026-11-15):** `batches/T08_EFECTOS.json` ABIERTA. Hechos y registrados (caché `20261115.27`) los 10 `proj_*`
+  (`slug heavy pellet cryo plasma ricochet lane flame rail homing`) como efectos de luz: crudo sobre negro puro en
+  `/home/user/dd_work/raw/T08_EFECTOS/` → `batch.py process` con **`matte luma`** (nuevo: luminancia → alfa) → maestros en
+  `ART_ASSETS/rebuild_masters/T08_EFECTOS/`. Vistos en vuelo (der/izq/arriba) con la nueva sonda `probe_projectiles.js`
+  (ruta real de arranque, ~165 s). Inventario sigue en A25·B80·D25 hasta `mark`.
+- **Código ya en sitio (commit `a18adaf`):** `drawProjectiles` selecciona el sprite por `b.projectile50` (el motor no pone
+  banderas `cryo/flame/…`: antes TODO salía `proj_slug`), longitud por tipo heredada de `Tt()`, cabeza sobre la posición
+  lógica; `drawImpactParticles` tiñe cada partícula `Sa` con su color (mezcla `color`, caché); `drawExplosions` +
+  `spawnExplosion` conectados a la bomba `tp()` (bloque `1g` de `tools/build_active_html.py`). `__DD_BRIDGE.getActors()`
+  expone `bullets[].projectile/weaponId` e `impacts` (nº de partículas).
+- **Turno 2 (siguiente):** `generate_image` ×3 con los prompts de la ficha → `vfx_impact_spark`, `vfx_impact_plasma`
+  (160², núcleo blanco: la luminancia se conserva al teñir), `vfx_explosion_inferno` (320²) en
+  `/home/user/dd_work/raw/T08_EFECTOS/` (comprobar borde negro ≤ 12/255) → `process --only … --no-sheet` → `register --only`
+  → `build_active_html.py` (caché `.28`) → `probe_projectiles.js /tmp/ddqa/t08 --bomb=1` → evidencias en
+  `evidence/T08_EFECTOS/` (lámina antes/después `t08_antes.jpg` está en `/tmp/ddqa`, regenerable con `sheet.py` desde
+  `git show f5a9b87:assets/effects/<id>.png`) → `mark --evidence` → `audit` → `render` → `TANDA_08_INFORME.md`, LOG §19,
+  STATUS, CHECKPOINT → commit + push.
+- **Fuera de T08 (no se producen, sin consumidor):** `vfx_muzzle_gold/plasma`, `vfx_shockwave_magenta`, `vfx_fire_plume`,
+  `vfx_soul_flame`, `vfx_lightning_purple`, `vfx_smoke_cloud`; balas enemigas `Ia` (trazado propio del motor).
+- **Decisiones pendientes del usuario** (hallazgos heredados, `TANDA_07_INFORME.md` §5): barra de escudo en %, tarjeta `ESP`
+  de la bomba (el motor usa `Q`), ids sin consumidor `menu_main_backdrop(_a)`, `ui_shop_emblem`.
 - **Flujo vigente** (ver `tools/art_master/README.md`): `generate_image` (≤10 por turno) → `batch.py process --only … --no-sheet`
-  → `register --only` → `python3 tools/build_active_html.py` → sonda en la build real (`probe_hud.js` para HUD/menú por la ruta
-  real; `probe_pickups.js`, `probe_weapons.js`, `probe_enemies.js`, `probe_rooms.js` por el atajo de QA) → `evidence/<TANDA>/` →
-  `mark --evidence` → `audit` → `audit_report.py render` → STATUS/CHECKPOINT/LOG → commit + push a la rama de la sesión.
+  → `register --only` → `python3 tools/build_active_html.py` → sonda en la build real (`probe_hud.js`/`probe_projectiles.js`
+  por la ruta real; `probe_pickups.js`, `probe_weapons.js`, `probe_enemies.js`, `probe_rooms.js` por el atajo de QA) →
+  `evidence/<TANDA>/` → `mark --evidence` → `audit` → `audit_report.py render` → STATUS/CHECKPOINT/LOG → commit + push.
 - **Regla de QA headless:** una ejecución con `#dd-boot-frame.is-failed` es inválida y se repite; nunca se oculta el panel. Lanzar
   siempre con `LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts`, un Chromium a la vez (`pkill -9 -f /tmp/chromium`
-  antes), en segundo plano; a 1920×1080 las capturas tardan 40–50 s (`--shotTimeout=150000`) y la pestaña puede caer en la incursión.
+  antes), en segundo plano y con `--mute-audio` (sin él el hilo de audio se atasca y la pestaña se cierra); a 1920×1080 las
+  capturas tardan 40–50 s y la pestaña puede caer en la incursión.
 
 ## Referencia T07 (cerrada): HUD
 
