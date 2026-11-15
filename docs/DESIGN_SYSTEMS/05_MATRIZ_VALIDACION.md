@@ -31,6 +31,7 @@ Validar que mapas, enemigos, armas y UI forman un solo sistema. Esta matriz sepa
 | UI-03 | Menú | Navegación completa teclado y mando | Suite + prueba física |
 | UI-04 | Accesibilidad | Foco, contraste y textos legibles | Checklist |
 | UI-05 | Persistencia | Nueva partida/continuar/borrar funcionan | Suite de guardado |
+| UI-06 | Armería | La tienda muestra armas al abrir y el filtro TODAS coincide con el estado inicial | Catálogo runtime + captura antes/después del filtro |
 | INT-01 | Cámara/UI | HUD no hereda zoom | Capturas en zoom min/max |
 | INT-02 | Cámara/combate | Telegráficos no salen del viewport | Escenarios de jefe |
 | INT-03 | Mapa/encuentro | No hay composición imposible | Simulación y juego real |
