@@ -18,6 +18,9 @@ Validar que mapas, enemigos, armas y UI forman un solo sistema. Esta matriz sepa
 | ENC-03 | Telegraph | Aviso precede a daño y es legible | Captura + timestamps |
 | ENC-04 | Encuentros | Composición ofrece contrajuego | Repetición de escenario |
 | ENC-05 | Jefes | Patrón completo y fase natural | Vídeo/log de combate |
+| ENC-06 | Recetas | E-01…E-08 usan solo tipos y reglas existentes | Fixture + snapshot de configuración |
+| ENC-07 | Composición | No se bloquean todas las salidas ni rutas de evasión | Captura + telemetría de navegación |
+| ENC-08 | Fairness | Avisos, daño y ventana de respuesta coinciden | Timestamps de windup/hitbox/impacto |
 | WPN-01 | Arsenal | Catálogo único y conteo reproducible | Export de definiciones |
 | WPN-02 | Integridad | Cada arma seleccionable tiene datos y asset | Informe de integridad |
 | WPN-03 | Daño | Daño calculado coincide con impactos reales | Telemetría por proyectil |
