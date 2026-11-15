@@ -36,7 +36,7 @@
     submenu: null,              /* OPCIONES / CRÉDITOS / PARTIDAS */
     submenuIndex: 0,
     busy: false,                /* anti doble pulsación */
-    selectedCategory: "ALL",
+    selectedCategory: "TODAS",
     selectedWeaponId: "m1911",
     dialogueTimer: 0,
     lastSubsText: "",
@@ -1150,7 +1150,7 @@
       '  </div>' +
       '</div>' +
       '<div class="dd-hud-skills">' +
-      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">ESP</span></div>' +
+      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">Q</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-boost"><img id="dd-skill-boost-img" alt="Boost" src="' + assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png") + '"><span class="dd-skill-count" id="dd-skill-boost-cnt">1</span><span class="dd-skill-key" id="dd-skill-boost-key">SHIFT</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-dodge"><img id="dd-skill-dodge-img" alt="Esquiva" src="' + assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png") + '"><span class="dd-skill-key">ROLL</span></div>' +
       '</div>';
@@ -1323,7 +1323,7 @@
 
     var list = weapons.filter(function (w) {
       return uiState.selectedCategory === "TODAS" || (w.category || "OTRAS").toUpperCase() === uiState.selectedCategory;
-    }).slice(0, 120);
+    });
 
     if (!list.length) {
       grid.innerHTML = '<p class="dd-opt-note">La armería está cargando desde el motor. Vuelve a abrirla en unos segundos.</p>';
