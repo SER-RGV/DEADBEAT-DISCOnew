@@ -47,9 +47,8 @@ def extract_embedded(document: str, marker: str, closing_tag: str, label: str) -
     if end < 0:
         raise AuditError(f"{label}: no se encuentra el cierre {closing_tag!r}")
     embedded = document[start:end]
-    # El generador añade un salto de línea de separación antes del cierre.
-    if embedded.endswith("\n"):
-        embedded = embedded[:-1]
+    # closing_tag incluye el salto añadido por el generador; conserva el
+    # salto final propio del archivo fuente.
     return embedded
 
 
