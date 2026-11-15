@@ -66,6 +66,46 @@ _wcc_new = "const processedWeaponCanvases = window.__DD_WEAPON_CANVAS_CACHE = Ob
 assert html.count(_wcc_old) == 1, "No se encuentra processedWeaponCanvases del módulo v3.2"
 html = html.replace(_wcc_old, _wcc_new, 1)
 
+# 1e. FASE 08 · ESCALA Y CÁMARA. Tres parches mínimos sobre el motor; todos se
+#     desactivan solos si window.DD_SCALE / window.DD_CAMERA no existen o el
+#     perfil es "legacy" (?scale=legacy), de modo que la build anterior sigue ahí.
+#     (a) Seguimiento de cámara: la función inline del motor que movía B/L con
+#         N.look delega en DD_CAMERA.step() (zona segura, anticipación, zoom
+#         adaptativo, recorte a la sala) y vuelve a escribir B, L, N.zoom y N.look.
+#         El dibujo, el ratón (Gu) y DMO.camera() siguen leyendo esas variables.
+#     Accesor de ámbito superior a las dimensiones de ventana/mundo del motor
+#     (y, x, E, k): dentro de Tf esos nombres están sombreados por locales
+#     declaradas más abajo (TDZ), así que no pueden leerse desde la función de
+#     seguimiento; se exponen desde el ámbito donde viven de verdad.
+_dims_old = "function j(){return y/N.applied}"
+_dims_new = "window.__ddViewDims=function(){return{vw:y,vh:x,ww:E,wh:k}};function j(){return y/N.applied}"
+assert html.count(_dims_old) == 1, "No se encuentra j() (ámbito de cámara)"
+html = html.replace(_dims_old, _dims_new, 1)
+_cam_old = ("function(e){const a=Math.hypot(Qr.x,Qr.y),t=Math.min(N.lead,14+.16*a),o=Math.cos(ye.aimAngle)*t,"
+            "r=Math.sin(ye.aimAngle)*t*.7,n=Math.min(1,5.5*e);N.look.x+=(o-N.look.x)*n,N.look.y+=(r-N.look.y)*n;"
+            "const l=ye.x+N.look.x,i=ye.y+N.look.y,s=Math.min(1,7.5*e);B+=(l-B)*s,L+=(i-L)*s,Q()}(e)")
+_cam_new = ("function(e){if(window.DD_CAMERA&&window.DD_CAMERA.isActive()){const dd=window.__ddViewDims();"
+            "const c=window.DD_CAMERA.step(e,{px:ye.x,py:ye.y,vx:Qr.x,vy:Qr.y,aim:ye.aimAngle,camX:B,camY:L,zoom:N.zoom,"
+            "viewW:dd.vw,viewH:dd.vh,room:Ps,worldW:dd.ww,worldH:dd.wh,enemies:Ta,boss:ir&&sr?sr:null,"
+            "roomKey:String(Yo.room)+\"|\"+(typeof Ot==\"object\"&&Ot?String(Ot.floor)+\":\"+String(Ot.key):\"\")+\"|\"+Ps.w+\"x\"+Ps.h,running:U,dying:Mr});"
+            "B=c.x,L=c.y,N.zoom=c.zoom,N.look.x=c.leadX,N.look.y=c.leadY,Q();return}"
+            "const a=Math.hypot(Qr.x,Qr.y),t=Math.min(N.lead,14+.16*a),o=Math.cos(ye.aimAngle)*t,"
+            "r=Math.sin(ye.aimAngle)*t*.7,n=Math.min(1,5.5*e);N.look.x+=(o-N.look.x)*n,N.look.y+=(r-N.look.y)*n;"
+            "const l=ye.x+N.look.x,i=ye.y+N.look.y,s=Math.min(1,7.5*e);B+=(l-B)*s,L+=(i-L)*s,Q()}(e)")
+assert html.count(_cam_old) == 1, "No se encuentra la función de seguimiento de cámara del motor"
+html = html.replace(_cam_old, _cam_new, 1)
+#     (b) Tamaño de sala: ng() decide ancho/alto por forma, nivel y azar y los
+#         acota a 960–1980 × 700–1480. Justo después se aplica el factor por
+#         función de la sala (DD_SCALE.roomScale: entrada/combate/minijefe/jefe/
+#         final; la tienda sale antes por su propio return) y se vuelve a acotar
+#         a los mismos topes, en múltiplos de 20 px como hace el motor.
+_room_old = ("d=Math.min(1980,Math.max(960,d)),u=Math.min(1480,Math.max(700,u)),0===n&&(d=Math.max(d,1600),u=Math.max(u,820));let p=")
+_room_new = ("d=Math.min(1980,Math.max(960,d)),u=Math.min(1480,Math.max(700,u)),0===n&&(d=Math.max(d,1600),u=Math.max(u,820));"
+             "if(window.DD_SCALE&&window.DD_SCALE.scaledRoomSize){const sz=window.DD_SCALE.scaledRoomSize(d,u,{index:t,slot:n,"
+             "boss:5===n||10===n||t===qe,first:0===n,final:t===qe});d=sz.w,u=sz.h}let p=")
+assert html.count(_room_old) == 1, "No se encuentra el acotado de tamaño de sala en ng()"
+html = html.replace(_room_old, _room_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
@@ -401,8 +441,11 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           ? pA.forcedAimAngle
           : ((ye && ye.aimAngle) || 0);
         pA.ddLongGun = ddIsLongGun((Yo && Yo.weapon) || "m1911");
+        // FASE 08: escala visual del protagonista (DD_SCALE.player); el arma en
+        // mano crece con él (ut.h = altura canónica × escala; `it` lee ut.h).
+        const ddPScale = (window.DD_SCALE && window.DD_SCALE.player > 0) ? window.DD_SCALE.player : 1;
         const mount = (typeof window.DD_WORLD.getPlayerWeaponMount === "function")
-          ? window.DD_WORLD.getPlayerWeaponMount(pA, aimA, 1)
+          ? window.DD_WORLD.getPlayerWeaponMount(pA, aimA, ddPScale)
           : null;
         const weaponLayer = function (layer, customCtx) {
           const c = customCtx || g;
@@ -412,7 +455,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
             if (mount) {
               const relY = mount.y - DD_WEAPON_PIVOT_Y;
               const cosA = Math.cos(aimA), sinA = Math.sin(aimA);
-              ut.h = DD_WEAPON_CANON_H;
+              ut.h = DD_WEAPON_CANON_H * ddPScale;
               ut.poseKey = pA.upperPose || "player_idle";
               ut.handLocal = [cosA * mount.x + sinA * relY, -sinA * mount.x + cosA * relY];
               c.translate(0, DD_WEAPON_PIVOT_Y);
@@ -430,7 +473,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           pA,
           weaponLayer,
           typeof Ee === "number" ? Ee : 0,
-          typeof De === "number" ? De : 0
+          typeof De === "number" ? De : 0,
+          ddPScale
         );
         if (drew) return;
       }
@@ -540,6 +584,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       if (added && f.enemyDeaths.length) {
         const rec = f.enemyDeaths[f.enemyDeaths.length - 1];
         rec.ddFamily = fam || rec.key;
+        rec.mini = !!(enemy && enemy.mini);   // FASE 08: misma escala visual que en vida
         rec.duration = 0.6;
       }
       return added;
@@ -1280,6 +1325,9 @@ MODULE_ORDER = (
     # orquesta (oculta el menú, corre la intro canónica y le da el foco).
     "dd_boot.js",
     "dd_asset_registry.js",
+    # FASE 08: perfil de escala y cámara dinámica, antes del renderizador que los lee.
+    "dd_world_scale.js",
+    "dd_camera.js",
     "dd_world_renderer.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",

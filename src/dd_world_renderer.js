@@ -858,10 +858,24 @@
     } catch (e) { return null; }
   }
 
-  function enemyFigureHeight(family, r) {
+  /* FASE 08: factor de escala VISUAL por familia (window.DD_SCALE, src/dd_world_scale.js).
+     Sólo cambia la altura de la figura dibujada; el radio r del motor (colisión) no se toca. */
+  function scaleOf(kind, key, mini) {
+    const S = window.DD_SCALE;
+    if (!S) return 1;
+    try {
+      if (kind === "enemy") return S.enemyScale(key, mini);
+      if (kind === "boss") return S.bossScale(key);
+      if (kind === "player") return S.player;
+      if (kind === "pickup") return S.pickup;
+    } catch (e) {}
+    return 1;
+  }
+
+  function enemyFigureHeight(family, r, mini) {
     const b = ENEMY_BASE[family] || ENEMY_BASE.security;
     const k = Math.pow(Math.max(0.5, Math.min(4, (Number(r) || b.r) / b.r)), 0.75);
-    return b.h * Math.max(0.8, Math.min(2.0, k));
+    return b.h * Math.max(0.8, Math.min(2.0, k)) * scaleOf("enemy", family, mini);
   }
 
   function enemyHaloAlpha(family) {
@@ -909,7 +923,7 @@
   function enemyGeometry(enemy, view) {
     const family = (view && view.family) || resolveEnemyFamily(enemy);
     const r = Math.max(6, Number(enemy && enemy.r) || 12);
-    const figH = enemyFigureHeight(family, r);
+    const figH = enemyFigureHeight(family, r, !!(enemy && enemy.mini));
     const footY = (Number(enemy && enemy.y) || 0) + r * ENEMY_FOOT_K;
     return { family: family, r: r, figH: figH, footY: footY, topY: footY - figH };
   }
@@ -1274,7 +1288,7 @@
     const dur = Math.max(0.05, Number(rec.duration) || 0.38);
     const a = Math.max(0, Math.min(1, (Number(rec.age) || 0) / dur));
     const r = Math.max(6, Number(rec.r) || 12);
-    const figH = enemyFigureHeight(family, r);
+    const figH = enemyFigureHeight(family, r, !!rec.mini);
     const footY = (Number(rec.y) || 0) + r * ENEMY_FOOT_K;
     const flip = !!rec.flip;
     const back = (flip ? 1 : -1) * 14 * (1 - Math.pow(1 - a, 2)) * (figH / 88);   // retroceso, alejándose del jugador
@@ -1397,7 +1411,7 @@
   function bossFigureHeight(slug, r) {
     const b = BOSS_BASE[slug] || BOSS_BASE.boss_00_anden;
     const k = Math.pow(Math.max(0.6, Math.min(2, (Number(r) || BOSS_REF_R) / BOSS_REF_R)), 0.75);
-    return b.h * k;
+    return b.h * k * scaleOf("boss", slug);
   }
 
   function bossHaloAlpha(slug) {
@@ -1616,7 +1630,7 @@
 
     setSmooth(ctx);
     const bob = Math.sin((timeSec || 0) * 4.5 + (p.x || 0) * 0.03) * 4;
-    const sz = kind.includes("chest") ? 82 : 44;
+    const sz = kind.includes("chest") ? 82 : 44 * scaleOf("pickup");
     drawSoftShadow(ctx, p.x, p.y + 14, sz * 0.42, sz * 0.18, 0.5);
     drawNeonGlow(ctx, p.x, p.y + bob, sz * 0.85, "#22d3ee", 0.22);
     ctx.drawImage(im, p.x - sz / 2, p.y - sz / 2 + bob, sz, sz);
@@ -1706,6 +1720,13 @@
     drawProp,
     drawProtagonist,
     getPlayerWeaponMount,
+    /* FASE 08 · QA: alturas de figura efectivas (px de mundo) con el perfil activo. */
+    __scaleDebug: function () {
+      const out = { playerH: PLAYER_BASE_H * scaleOf("player"), pickup: 44 * scaleOf("pickup"), enemies: {}, bosses: {} };
+      for (const fam in ENEMY_BASE) out.enemies[fam] = +enemyFigureHeight(fam, ENEMY_BASE[fam].r, false).toFixed(1);
+      for (const slug in BOSS_BASE) out.bosses[slug] = +bossFigureHeight(slug, BOSS_REF_R).toFixed(1);
+      return out;
+    },
     resolvePlayerPose,
     drawEnemy,
     drawEnemyDeath,
