@@ -36,3 +36,10 @@ Segunda generación clase B, misma ID/ruta: `floor_00_limbo_marble`, `wall_pilla
 Aprobados e integrados (mismos IDs/rutas, integridad navegador **271/271 pass**): `wall_panel_gothic_niche`, `wall_panel_vip_window`, `portal_avaricia_gold`, `portal_baroque_gold`, `floor_10_hub_checker` (damero mármol con reflejos magenta/cian, seamless).
 **Rechazados y revertidos** (extracción sobre fondo negro destruye piedra oscura/violeta): `wall_panel_heavy_base`, `wall_core_monolith`, `door_arched_open`, `door_stained_closed`, `door_vip_crimson`.
 → Lección: los assets con mucha piedra negra/oscura se regeneran con **fondo verde chroma #00ff00** (rama dedicada del extractor). v3 pendiente.
+
+## Pasada TR_W1c (2026-11-15, tercera tanda W1 — verde chroma #00ff00)
+Regla aplicada: assets con piedra/obsidiana oscura se generan sobre **verde #00ff00**; el extractor usa su rama chroma y ya no destruye el sujeto.
+- **Aprobados e integrados** (integridad navegador **271/271 pass**): `wall_panel_heavy_base` (V Herejía), `wall_core_monolith` (IX Núcleo), `door_arched_open`, `door_stained_closed`, `door_vip_crimson`, `wall_panel_tall_neon`, `prop_gilded_altar`, `prop_arcane_pedestal` (restos verdes despillados en postproceso), `floor_11_vip_velvet` (damasco VIP), `prop_gothic_statue`.
+- `prop_gothic_statue`: la materia prima venía con sujeto pequeño en lienzo (contain fit → estampado diminuto). Se mantiene por ser mejor arte que el provisional; **pendiente v2 con encuadre de lienzo completo** (el modelo no respetó «fill the entire frame»).
+- `prop_arcane_pedestal`: despillado con `green_excess = G - max(R,B) > 12` (568 px); runas cian intactas.
+- Walls W1 (00–11): diseño en retrato verificado, extracción limpia sobre verde.

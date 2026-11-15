@@ -28,6 +28,11 @@ JOBS = [
     ("door_stained_closed",     f"{RAW}/door_stained_closed.png",     "assets/environments/door_stained_closed.png",           "rgba",  (320, 384), True,  "bottom-center"),
     ("door_vip_crimson",        f"{RAW}/door_vip_crimson.png",        "assets/environments/door_vip_crimson.png",              "rgba",  (288, 384), True,  "bottom-center"),
     ("floor_10_hub_checker",    f"{RAW}/floor_10_hub_checker.png",    "assets/floors/floor_10_hub_checker.png",                "floor", (512, 512), False, "top-left"),
+    ("floor_11_vip_velvet",     f"{RAW}/floor_11_vip_velvet.png",     "assets/floors/floor_11_vip_velvet.png",                 "floor", (512, 512), False, "top-left"),
+    ("wall_panel_tall_neon",    f"{RAW}/wall_panel_tall_neon.png",    "assets/walls/wall_panel_tall_neon.png",                 "rgba",  (256, 384), True,  "bottom-center"),
+    ("prop_gilded_altar",       f"{RAW}/prop_gilded_altar.png",       "assets/props/prop_gilded_altar.png",                    "rgba",  (320, 320), True,  "bottom-center"),
+    ("prop_arcane_pedestal",    f"{RAW}/prop_arcane_pedestal.png",    "assets/props/prop_arcane_pedestal.png",                 "rgba",  (288, 352), True,  "bottom-center"),
+    ("prop_gothic_statue",      f"{RAW}/prop_gothic_statue.png",      "assets/props/prop_gothic_statue.png",                   "rgba",  (224, 384), True,  "bottom-center"),
 ]
 missing = [a for a, raw, *_ in JOBS if not os.path.isfile(raw)]
 if missing:

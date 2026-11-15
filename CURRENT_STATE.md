@@ -204,3 +204,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Rechazados y revertidos** (extract_clean_rgba sobre fondo negro destruye piedra oscura): `wall_panel_heavy_base`, `wall_core_monolith`, `door_arched_open`, `door_stained_closed`, `door_vip_crimson` → v3 pendiente sobre **fondo verde chroma #00ff00**. Lección documentada en ART_EVIDENCE/TOTAL_REBUILD/README.md.
 - Harness QA con timeout de screenshot 120 s (SwiftShader); QA PASS sin errores en hub y descenso.
 - Pendiente mayor: props firma por círculo, FX de fases de jefe, captura de círculos II–IX in-situ, métricas de rendimiento, HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W1c — verde chroma)
+- **Integrados (y cargados en navegador):** herejía `wall_panel_heavy_base`, Núcleo `wall_core_monolith`, puertas `door_arched_open`/`door_stained_closed`/`door_vip_crimson`, `wall_panel_tall_neon`, `prop_gilded_altar`, `prop_arcane_pedestal` (despillado), `floor_11_vip_velvet`, `prop_gothic_statue`.
+- Regla de oro: assets oscuros sobre verde #00ff00 (borrador negro destruye piedra oscura). Documentado.
+- Pendiente menor: statue v2 con lienzo completo; captura in-situ por círculo; FX de jefes; props firma por círculo; HUD definitivo. PR #31 borrador, sin merge.
