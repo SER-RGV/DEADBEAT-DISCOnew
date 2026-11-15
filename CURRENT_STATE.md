@@ -200,6 +200,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 
 ## Estado actual · 2026-11-15 (TR_W1 — suelos/muros/entornos pasa 1)
 - **Integrados y verificados en juego real:** `floor_00_limbo_marble` (mármol agrietado, visible en sala LIMBO de combate, captura 06), `threshold_descent_pad` (runas cian, visible en Refugio, captura 05), `wall_pillar_obsidian` (9/9 círculos), `door_gothic_closed/open` (círculos ≥ IV). Integridad navegador **271/271 pass**.
-- **Rechazados y revertidos** (fallo de composición: sujeto aplastado al fondo): `wall_panel_gothic_niche`, `wall_panel_heavy_base`, `wall_panel_vip_window`, `wall_core_monolith`, `portal_avaricia_gold` → v2 pendiente con encuadre vertical completo (pipeline `prepare_tr_w1_walls.py` listo).
+- **TR_W1b integrados (integridad navegador 271/271):** `wall_panel_gothic_niche`, `wall_panel_vip_window`, `portal_avaricia_gold`, `portal_baroque_gold`, `floor_10_hub_checker`.
+- **Rechazados y revertidos** (extract_clean_rgba sobre fondo negro destruye piedra oscura): `wall_panel_heavy_base`, `wall_core_monolith`, `door_arched_open`, `door_stained_closed`, `door_vip_crimson` → v3 pendiente sobre **fondo verde chroma #00ff00**. Lección documentada en ART_EVIDENCE/TOTAL_REBUILD/README.md.
 - Harness QA con timeout de screenshot 120 s (SwiftShader); QA PASS sin errores en hub y descenso.
 - Pendiente mayor: props firma por círculo, FX de fases de jefe, captura de círculos II–IX in-situ, métricas de rendimiento, HUD definitivo. PR #31 borrador, sin merge.
