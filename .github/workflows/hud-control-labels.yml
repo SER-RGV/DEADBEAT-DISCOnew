@@ -1,0 +1,33 @@
+name: HUD control labels
+
+on:
+  pull_request:
+    paths:
+      - "src/dd_ui_system.js"
+      - "tools/qa/test_hud_control_labels.js"
+      - "tools/build_active_html.py"
+      - ".github/workflows/hud-control-labels.yml"
+  push:
+    branches:
+      - "fix/hud-bomb-key-label"
+    paths:
+      - "src/dd_ui_system.js"
+      - "tools/qa/test_hud_control_labels.js"
+      - "tools/build_active_html.py"
+      - ".github/workflows/hud-control-labels.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  hud-control-labels:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Check HUD control labels
+        run: node tools/qa/test_hud_control_labels.js
