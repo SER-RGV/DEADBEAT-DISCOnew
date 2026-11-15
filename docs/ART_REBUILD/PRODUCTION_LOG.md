@@ -185,3 +185,26 @@
 - Hallazgos heredados sin tocar (§5 del informe): barra de escudo vuelca `Ee` (0–3) como %; tarjeta de bomba etiquetada `ESP` cuando el
   motor usa `Q`; ids sin consumidor.
 - `mark` T07 8/8 → `audit` 382/0 → `render` **A25·B80·C0·D25·E252**; ficha CERRADA; `TANDA_07_INFORME.md`; STATUS/CHECKPOINT/NEXT_BATCH/PLAN.
+
+## (19) 2026-11-15 · T08_EFECTOS (13/13) — CERRADA · proyectiles e impactos como pintura de luz · tres arreglos de integración
+
+- Ficha `batches/T08_EFECTOS.json`: 13 de los 20 efectos de clase B (los 7 `vfx_*` sin consumidor no se producen). Contrato nuevo: crudo
+  sobre negro puro → **`matte luma`** (`artlib.luma_matte`, rama `matte == "luma"` en `batch.py`): la luminancia pasa a ser el alfa y la
+  composición aditiva del juego reproduce el crudo. Turno 1: 10 `proj_*` (10/10 válidos, borde ≤ 3/255) → caché `20261115.27`. Turno 2:
+  `vfx_impact_spark`, `vfx_impact_plasma`, `vfx_explosion_inferno` (3/3) → caché **`20261115.28`**.
+- **Fallo heredado corregido:** `drawProjectiles` elegía el sprite por banderas `b.cryo/b.flame/…` que las balas del motor no llevan (sólo
+  `projectile50`, `weaponId`, `bounces`…): todas las balas salían `proj_slug`/`proj_ricochet`. Ahora `PROJECTILE_ASSET[b.projectile50]`,
+  longitud por tipo heredada de `Tt()` (`PROJECTILE_LEN`), cabeza sobre la posición lógica (`PROJECTILE_HEAD`), alfa por vida. Hitboxes intactas.
+- **Partículas teñidas:** `drawImpactParticles` tiñe cada partícula `Sa` con su color (`vs(x,y,color,n)` del motor: impactos, muertes,
+  bomba, atrezo, nivel) con mezcla `color` + `destination-in` y caché; la rama «explosión si `rad>56`» era código muerto y se retira.
+- **Explosión con consumidor real:** bloque `1g` de `tools/build_active_html.py` → `tp()` (bomba, `Q`) llama a
+  `DD_WORLD.spawnExplosion(ye.x, ye.y−22, 1, Z)`; `drawExplosions(g, Z)` anima `vfx_explosion_inferno` 120→320 px en 0,56 s de **reloj de
+  juego** (respeta la cámara lenta de la bomba). `__DD_BRIDGE.getActors()` expone `bullets[].projectile/weaponId` e `impacts`.
+- **Sonda nueva `probe_projectiles.js`** (ruta real; intro saltada con pulsaciones repetidas de Espacio: una sola se pierde y la intro dura
+  100 s; `--mute-audio` obligatorio): vuelo der/izq/arriba por tipo, impactos sobre un `tank` (`spawnEnemyAt`; los choques con la pared no
+  emiten partículas), bomba en 4 instantes dentro de UNA llamada (en headless cada ida y vuelta tarda ~0,6 s y se comía la animación: la
+  primera versión nunca la veía aunque `spawnExplosion` se ejecutaba). 720p: 0 errores de página; telemetría: todas las balas vivas con el
+  tipo esperado. Evidencias `evidence/T08_EFECTOS/00–05` + `t08_probe_projectiles_720.json`.
+- `mark` 13/13 → `audit` 382/0 → `render`; ficha CERRADA; `TANDA_08_INFORME.md`; STATUS/CHECKPOINT/NEXT_BATCH; README (contrato T08,
+  `matte luma`, sonda).
+

@@ -294,14 +294,17 @@ imprescindible o perro guardián de 20 s) en lugar de suponerlo.
 LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_projectiles.js <salida> \
     [--types=slug,heavy,pellet,cryo,plasma,ricochet,lane,flame,rail,homing] [--dpr=1] [--box=520x200] [--bomb=1]
 ```
-Misma ruta real que `probe_hud.js` (armazón → Espacio → intro → menú → NUEVA PARTIDA → Refugio → `exitToRun`);
-después despeja la sala (`exploreNoEnemies`, `holdSpawns`, `killAll`), equipa un arma representativa de cada tipo de
-proyectil del catálogo `ja` (`m1911 magnum spas12 cryo plasma ricochet trident flamer railgun raygun`) con
-`buyOrEquipWeapon(id, true)` y dispara con el motor (`testStep({fire:true, aim})`): capturas `der_a/der_b`
-(ráfaga a la derecha), `impacto` (pared derecha, chispas `Sa`), `izq` y `arriba`; con `--bomb=1` pulsa `Q` (tp) y
-fotografía la explosión en cuatro instantes. `probe_report.json` guarda por captura las balas vivas por tipo
-(`getActors().bullets[].projectile`), el nº de partículas `Sa` y la posición. ~165 s a 720p; lanzar con
-`--mute-audio` ya incluido (sin él, el hilo de audio de Chromium se atasca y el navegador se cierra).
+Misma ruta real que `probe_hud.js` (armazón → Espacio → intro → menú → NUEVA PARTIDA → Refugio → `exitToRun`); la intro se
+salta con pulsaciones repetidas de Espacio (una sola, antes de que `DD_OPENING` acepte entrada, se pierde y la intro dura ~100 s).
+Después despeja la sala (`exploreNoEnemies`, `holdSpawns`, `killAll`), equipa un arma representativa de cada tipo de proyectil del
+catálogo `ja` (`m1911 magnum spas12 cryo plasma ricochet trident flamer railgun raygun`) con `buyOrEquipWeapon(id, true)` y dispara con
+el motor (`testStep({fire:true, aim})`): capturas `der_a/der_b` (ráfaga a la derecha), `izq` y `arriba` en vuelo; `impacto_a/b` sobre un
+`tank` levantado con `DMO.debug.spawnEnemyAt` a 230 px (los choques con la pared **no** emiten partículas: `vs()` se llama al herir, al
+matar, al romper atrezo y con la bomba); con `--bomb=1` detona la bomba con una pulsación sintética de `Q` y toma 4 capturas (fotogramas
+1, 6, 14 y 26) **dentro de una sola llamada** (en headless cada ida y vuelta tarda ~0,6 s y la explosión dura 0,56 s de juego: con una
+captura por llamada nunca se ve). `probe_report.json` guarda por captura las balas vivas por tipo (`getActors().bullets[].projectile`),
+el nº de partículas `Sa`, las explosiones vivas (`DD_WORLD.__explosions(Z)`) y la posición. ~210 s a 720p; `--mute-audio` ya incluido
+(sin él, el hilo de audio de Chromium se atasca y el navegador se cierra).
 
 ### `derive_hud_heart_empty.py` (T07 · estado derivado)
 
@@ -518,9 +521,10 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
   (`vs(x, y, color, n)`: impactos de bala, muertes, bombas, rotura de atrezo, subidas de nivel). Cada partícula se
   tiñe con SU color (mezcla `color` sobre el sprite, caché por color), radio `max(10, r·4,2)` encogiendo al
   apagarse. Los dos sprites se alternan por índice.
-- **Explosión** `vfx_explosion_inferno` (320²): la bomba (`tp`, tecla Q) avisa a `DD_WORLD.spawnExplosion(x, y)`
-  (bloque `1g` de `tools/build_active_html.py`); `drawExplosions` la hace crecer de 120 a 320 px de mundo y la
-  apaga en 0,56 s. Si el asset falta, no dibuja nada (sin reserva).
+- **Explosión** `vfx_explosion_inferno` (320²): la bomba (`tp`, tecla Q) avisa a `DD_WORLD.spawnExplosion(x, y, escala, Z)`
+  (bloque `1g` de `tools/build_active_html.py`); `drawExplosions(ctx, Z)` la hace crecer de 120 a 320 px de mundo y la
+  apaga en 0,56 s de **reloj de juego** (`Z`: respeta la cámara lenta de la bomba como las partículas; sin reloj usa
+  `performance.now()`). Si el asset falta, no dibuja nada (sin reserva). Accesor de QA `DD_WORLD.__explosions(t)`.
 - **Sin consumidor** (no se producen, siguen en clase B): `vfx_muzzle_gold/plasma`, `vfx_shockwave_magenta`,
   `vfx_fire_plume`, `vfx_soul_flame`, `vfx_lightning_purple`, `vfx_smoke_cloud`.
 - **QA**: `probe_projectiles.js`; evidencias en `docs/ART_REBUILD/evidence/T08_EFECTOS/`.

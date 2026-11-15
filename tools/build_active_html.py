@@ -134,12 +134,13 @@ html = html.replace(_relic_list_old, _relic_list_new, 1)
 # 1g. T08 EFECTOS · BOMBA. tp() (tecla Q) sólo sacude la cámara, lanza un fogonazo y
 #     encola 70–90 partículas naranjas: no existe ningún sprite de explosión en el
 #     motor. Un aviso de una línea al renderizador (DD_WORLD.spawnExplosion) justo
-#     tras descontar la bomba; el dibujo (vfx_explosion_inferno, crece y se apaga en
-#     0,56 s) vive en src/dd_world_renderer.js. Puramente visual: daño, radio,
+#     tras descontar la bomba, con el reloj de juego Z (la explosión sigue la cámara
+#     lenta de la bomba como las partículas); el dibujo (vfx_explosion_inferno, crece y
+#     se apaga en 0,56 s de juego) vive en src/dd_world_renderer.js. Puramente visual: daño, radio,
 #     temporización y contador de bombas quedan intactos.
 _bomb_old = 'function tp(){if(!U||Y||W||Mr||Tr<=0)return!1;Tr--,'
 _bomb_new = ('function tp(){if(!U||Y||W||Mr||Tr<=0)return!1;Tr--,'
-             '(function(){try{window.DD_WORLD&&window.DD_WORLD.spawnExplosion&&window.DD_WORLD.spawnExplosion(ye.x,ye.y-22,1)}catch(err){}})(),')
+             '(function(){try{window.DD_WORLD&&window.DD_WORLD.spawnExplosion&&window.DD_WORLD.spawnExplosion(ye.x,ye.y-22,1,Z)}catch(err){}})(),')
 assert html.count(_bomb_old) == 1, "No se encuentra la detonación de la bomba tp()"
 html = html.replace(_bomb_old, _bomb_new, 1)
 
@@ -1000,7 +1001,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         }
         g.globalAlpha = 1;
       }
-      if (window.DD_WORLD && window.DD_WORLD.drawExplosions) window.DD_WORLD.drawExplosions(g);
+      if (window.DD_WORLD && window.DD_WORLD.drawExplosions) window.DD_WORLD.drawExplosions(g, Z);
 
       Kf();
       Xf();

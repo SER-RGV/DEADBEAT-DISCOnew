@@ -1,34 +1,29 @@
-# TANDA EN CURSO: T08_EFECTOS — turno 1 de 2 hecho (10 proyectiles); faltan 3 impactos/explosión
+# SIN TANDA EN CURSO — T08_EFECTOS cerrada 13/13 (2026-11-15); pack 02–07 completo
 
-- **Estado (2026-11-15):** `batches/T08_EFECTOS.json` ABIERTA. Hechos y registrados (caché `20261115.27`) los 10 `proj_*`
-  (`slug heavy pellet cryo plasma ricochet lane flame rail homing`) como efectos de luz: crudo sobre negro puro en
-  `/home/user/dd_work/raw/T08_EFECTOS/` → `batch.py process` con **`matte luma`** (nuevo: luminancia → alfa) → maestros en
-  `ART_ASSETS/rebuild_masters/T08_EFECTOS/`. Vistos en vuelo (der/izq/arriba) con la nueva sonda `probe_projectiles.js`
-  (ruta real de arranque, ~165 s). Inventario sigue en A25·B80·D25 hasta `mark`.
-- **Código ya en sitio (commit `a18adaf`):** `drawProjectiles` selecciona el sprite por `b.projectile50` (el motor no pone
-  banderas `cryo/flame/…`: antes TODO salía `proj_slug`), longitud por tipo heredada de `Tt()`, cabeza sobre la posición
-  lógica; `drawImpactParticles` tiñe cada partícula `Sa` con su color (mezcla `color`, caché); `drawExplosions` +
-  `spawnExplosion` conectados a la bomba `tp()` (bloque `1g` de `tools/build_active_html.py`). `__DD_BRIDGE.getActors()`
-  expone `bullets[].projectile/weaponId` e `impacts` (nº de partículas).
-- **Turno 2 (siguiente):** `generate_image` ×3 con los prompts de la ficha → `vfx_impact_spark`, `vfx_impact_plasma`
-  (160², núcleo blanco: la luminancia se conserva al teñir), `vfx_explosion_inferno` (320²) en
-  `/home/user/dd_work/raw/T08_EFECTOS/` (comprobar borde negro ≤ 12/255) → `process --only … --no-sheet` → `register --only`
-  → `build_active_html.py` (caché `.28`) → `probe_projectiles.js /tmp/ddqa/t08 --bomb=1` → evidencias en
-  `evidence/T08_EFECTOS/` (lámina antes/después `t08_antes.jpg` está en `/tmp/ddqa`, regenerable con `sheet.py` desde
-  `git show f5a9b87:assets/effects/<id>.png`) → `mark --evidence` → `audit` → `render` → `TANDA_08_INFORME.md`, LOG §19,
-  STATUS, CHECKPOINT → commit + push.
-- **Fuera de T08 (no se producen, sin consumidor):** `vfx_muzzle_gold/plasma`, `vfx_shockwave_magenta`, `vfx_fire_plume`,
-  `vfx_soul_flame`, `vfx_lightning_purple`, `vfx_smoke_cloud`; balas enemigas `Ia` (trazado propio del motor).
-- **Decisiones pendientes del usuario** (hallazgos heredados, `TANDA_07_INFORME.md` §5): barra de escudo en %, tarjeta `ESP`
-  de la bomba (el motor usa `Q`), ids sin consumidor `menu_main_backdrop(_a)`, `ui_shop_emblem`.
+- **Estado:** producción detenida tras T08, a la espera de revisión. Registro 382 assets, caché `20261115.28`; inventario
+  A25·B67·C0·D25·E265 (quedan 92 por producir: 67 B + 25 D).
+- **Antes de abrir otra tanda, decidir:** (a) `TANDA_08_INFORME.md` §5: tamaño de las balas en pantalla (`PROJECTILE_LEN`, un número por
+  tipo), volteo vertical de las balas hacia la izquierda, qué hacer con los 7 `vfx_*` sin consumidor (fogonazo, onda expansiva, humo…: es
+  trabajo de motor); (b) `TANDA_07_INFORME.md` §5: barra de escudo en %, tarjeta `ESP` de la bomba (el motor usa `Q`), ids sin consumidor
+  `menu_main_backdrop(_a)`, `ui_shop_emblem`.
+- **Qué quedaría por producir (clase B/D):** props B 29; armas B 16 (`weapon_*` antiguas); cinemáticas B 11 (`cine_circle_00–09`,
+  `cine_intro_club_panorama`) + D 24 (`cine_bg01–04*`); personajes B 3 (`npc_armorer_hub`, `npc_bartender_hub`, `companion_drone_ally`) +
+  D 1 (`npc_dj_booth_world`); muros B 1 (`wall_panel_tall_neon`); efectos B 7 sin consumidor. Proponer tanda nueva con ficha propia
+  (candidatas: T09 PROPS 29, T10 CINEMÁTICAS 35, T11 PERSONAJES DEL REFUGIO 4).
 - **Flujo vigente** (ver `tools/art_master/README.md`): `generate_image` (≤10 por turno) → `batch.py process --only … --no-sheet`
   → `register --only` → `python3 tools/build_active_html.py` → sonda en la build real (`probe_hud.js`/`probe_projectiles.js`
   por la ruta real; `probe_pickups.js`, `probe_weapons.js`, `probe_enemies.js`, `probe_rooms.js` por el atajo de QA) →
   `evidence/<TANDA>/` → `mark --evidence` → `audit` → `audit_report.py render` → STATUS/CHECKPOINT/LOG → commit + push.
 - **Regla de QA headless:** una ejecución con `#dd-boot-frame.is-failed` es inválida y se repite; nunca se oculta el panel. Lanzar
   siempre con `LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts`, un Chromium a la vez (`pkill -9 -f /tmp/chromium`
-  antes), en segundo plano y con `--mute-audio` (sin él el hilo de audio se atasca y la pestaña se cierra); a 1920×1080 las
-  capturas tardan 40–50 s y la pestaña puede caer en la incursión.
+  antes), en segundo plano y con `--mute-audio` (sin él el hilo de audio se atasca y la pestaña se cierra); la intro se salta con
+  pulsaciones repetidas de Espacio; a 1920×1080 las capturas tardan 40–50 s y la pestaña puede caer en la incursión.
+
+## Referencia T08 (cerrada): efectos de luz
+
+- Ficha [`batches/T08_EFECTOS.json`](batches/T08_EFECTOS.json); evidencias `evidence/T08_EFECTOS/00–05` + `t08_probe_projectiles_720.json`;
+  informe [`TANDA_08_INFORME.md`](TANDA_08_INFORME.md). Contrato: crudo sobre negro puro → `matte luma`; consumo en
+  `drawProjectiles` (por `projectile50`), `drawImpactParticles` (tinte por color) y `drawExplosions` (bomba, bloque `1g`).
 
 ## Referencia T07 (cerrada): HUD
 

@@ -2,7 +2,7 @@
  "batch": "T08_EFECTOS",
  "title": "TANDA 08 · EFECTOS — 13 sprites aditivos que consume el renderizador: 10 proyectiles del jugador (proj_*) y 3 impactos (vfx_impact_spark, vfx_impact_plasma, vfx_explosion_inferno)",
  "created": "2026-11-15",
- "status": "ABIERTA",
+ "status": "CERRADA",
  "style": "Efectos de luz neón del pack (lámina: neón sobre negro): núcleo blanco caliente + halo saturado del color del tipo de proyectil del motor (needle amarillo, gold slug oro, ember pellet naranja, ice shard cian, plasma orb magenta/violeta, green segment esmeralda, cyan lane cian, flame tongue naranja, rail beam blanco-azul, alien spiral violeta). Pintura de luz, no pixel art; sin contorno de tinta (con composición aditiva el negro desaparece).",
  "scope": {
   "total": 20,
@@ -26,7 +26,7 @@
  "contract": {
   "canvas": "proyectiles: PNG RGBA horizontal, cabeza a la DERECHA y cola a la IZQUIERDA, tamaños del registro (160×96, 192×96, 128×96, 224×96, 192×160, 256×96), fit contain margen 4, pivot center; impactos: 160×160 / 320×320 centrados, margen 6.",
   "raw": "crudo sobre NEGRO puro (#000000) → matte luma (alpha = max(R,G,B), color normalizado): la composición aditiva del PNG es idéntica al crudo. Crudo en /home/user/dd_work/raw/T08_EFECTOS/<id>.png.",
-  "qa": "probe_projectiles.js (ruta real de arranque): equipa un arma por tipo (m1911 magnum spas12 cryo plasma ricochet trident flamer railgun raygun), dispara con testStep({fire:true, aim}) y captura der/izq/arriba en vuelo, impactos contra la pared derecha (Sa) y la bomba (Q) en cuatro instantes."
+  "qa": "probe_projectiles.js (ruta real de arranque): equipa un arma por tipo (m1911 magnum spas12 cryo plasma ricochet trident flamer railgun raygun), dispara con testStep({fire:true, aim}) y captura der/izq/arriba en vuelo; impactos sobre un enemigo tank (spawnEnemyAt: los choques con la pared no emiten partículas); bomba (Q, pulsación sintética) en 4 instantes dentro de una sola llamada."
  },
  "defaults": {
   "category": "effects",
@@ -36,7 +36,7 @@
   "matte": "luma"
  },
  "progress": {
-  "verified": 0,
+  "verified": 13,
   "total": 13,
   "updated": "2026-11-15"
  },
@@ -78,9 +78,14 @@
     "vfx_impact_plasma",
     "vfx_explosion_inferno"
    ],
-   "hechas": [],
+   "hechas": [
+    "vfx_impact_spark",
+    "vfx_impact_plasma",
+    "vfx_explosion_inferno"
+   ],
    "reintentar": [],
-   "estado": "PENDIENTE"
+   "estado": "HECHO",
+   "nota": "3/3 generadas 2026-11-15 (borde negro ≤ 3/255), process matte luma OK, registradas (caché 20261115.28); impactos y bomba verificados con probe_projectiles.js."
   }
  ],
  "generation_lessons": [],
@@ -306,5 +311,7 @@
    "use": "dd_world_renderer.js drawExplosions(): bomba (tp → spawnExplosion); crece de 120 a 320 px de mundo y se apaga en 0,56 s, rotación aleatoria, lighter.",
    "prompt": "Video game impact effect sprite for DEADBEAT DISCO, a neon disco-inferno roguelite, painted as a LIGHT EFFECT (smooth glow, NOT pixel art), perfectly centered in a square frame and filling about 80% of it. DESIGN: a fireball explosion: a round orange-yellow fireball (#f97316, #facc15) with a white-hot centre, rolling flame tongues around it and a thin bright shock ring; NO dark smoke, NO debris (the effect is drawn additively). Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE effect."
   }
- ]
+ ],
+ "closed": "2026-11-15",
+ "report": "TANDA_08_INFORME.md"
 }

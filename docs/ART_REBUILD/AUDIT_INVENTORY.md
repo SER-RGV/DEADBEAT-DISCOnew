@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T12:07:41Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T13:29:35Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -19,7 +19,7 @@
 | `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
 | `weapons` | 121 | 0 | 16 | 0 | 0 | 105 |
 | `pickups` | 20 | 0 | 0 | 0 | 0 | 20 |
-| `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
+| `effects` | 22 | 2 | 7 | 0 | 0 | 13 |
 | `props` | 30 | 0 | 29 | 0 | 0 | 1 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
 | `walls` | 12 | 0 | 1 | 0 | 0 | 11 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **80** | **0** | **25** | **252** |
+| **Total** | **382** | **25** | **67** | **0** | **25** | **265** |
 
 ## `characters` (31)
 
@@ -303,20 +303,7 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `proj_cryo` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_flame` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_heavy` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_homing` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_lane` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_pellet` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_plasma` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_rail` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_ricochet` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `proj_slug` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `vfx_explosion_inferno` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
 | `vfx_fire_plume` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `vfx_impact_plasma` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
-| `vfx_impact_spark` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
 | `vfx_lightning_purple` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
 | `vfx_muzzle_gold` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
 | `vfx_muzzle_plasma` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
@@ -325,6 +312,19 @@
 | `vfx_soul_flame` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R07_EFECTOS` |
 | `effect_anamorphic_flare` | **A** | ilustración sin defectos visibles | — |
 | `effect_dust_particles` | **A** | ilustración sin defectos visibles | — |
+| `proj_cryo` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_flame` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_heavy` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_homing` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_lane` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_pellet` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_plasma` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_rail` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_ricochet` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `proj_slug` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `vfx_explosion_inferno` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `vfx_impact_plasma` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
+| `vfx_impact_spark` | **E** | rehecho en la tanda T08_EFECTOS y validado dentro del juego | `T08_EFECTOS` |
 
 ## `props` (30)
 

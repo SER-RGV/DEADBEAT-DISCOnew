@@ -88,6 +88,31 @@ function installProbe() {
     window.__DD_BRIDGE.testStep(inp || {}, frames || 1);
     return P.grab(w, h, dx, dy);
   };
+  /* Bomba: pulsación sintética de Q (el manejador del motor sólo mira e.code) y
+     varias capturas dentro de UNA sola llamada, para que el bucle rAF de la página
+     no consuma la animación entre capturas (en headless un ida y vuelta tarda
+     ~0,6 s y la explosión dura 0,56 s de juego). */
+  P.bombSequence = function (frames, w, h, dx, dy) {
+    const out = { shots: [], ages: [], impacts: [] };
+    const fire = (type) => {
+      const ev = new KeyboardEvent(type, { code: "KeyQ", key: "q", bubbles: true, cancelable: true });
+      window.dispatchEvent(ev);
+      if (!ev.defaultPrevented) document.dispatchEvent(new KeyboardEvent(type, { code: "KeyQ", key: "q", bubbles: true, cancelable: true }));
+    };
+    const Z = () => { try { return window.__DD_BRIDGE.getActors().time; } catch (e) { return null; } };
+    out.before = { impacts: window.__DD_BRIDGE.getActors().impacts, time: Z(), bombs: (document.getElementById("bombCount") || {}).textContent };
+    fire("keydown"); fire("keyup");
+    out.after = { impacts: window.__DD_BRIDGE.getActors().impacts, time: Z(), explosions: window.DD_WORLD.__explosions ? window.DD_WORLD.__explosions(Z()) : null };
+    for (const n of frames) {
+      window.__DD_BRIDGE.testStep({ aim: 0 }, n);
+      const g = P.grab(w, h, dx, dy);
+      out.shots.push(g.png);
+      out.ages.push(window.DD_WORLD.__explosions ? window.DD_WORLD.__explosions(Z()) : null);
+      out.impacts.push(g.tele && g.tele.impacts);
+    }
+    out.time = Z();
+    return out;
+  };
   window.__ddProbe = P;
 }
 
@@ -126,8 +151,15 @@ function installProbe() {
   let st = null;
   for (let i = 0; i < 60; i++) { st = await page.evaluate(() => window.DD_BOOT.getState().state); if (st === "INTRO" || st === "MAIN_MENU") break; await sleep(500); }
   if (st === "INTRO") {
-    await sleep(1200); await page.keyboard.press("Space");
-    for (let i = 0; i < 120; i++) { st = await page.evaluate(() => window.DD_BOOT.getState().state); if (st === "MAIN_MENU") break; await sleep(500); }
+    /* Un jugador que quiere saltar la intro pulsa varias veces: una sola pulsación antes de
+       que DD_OPENING acepte entrada se pierde y la intro se reproduce entera (~100 s). */
+    await sleep(1200);
+    for (let i = 0; i < 90; i++) {
+      await page.keyboard.press("Space");
+      await sleep(1200);
+      st = await page.evaluate(() => window.DD_BOOT.getState().state);
+      if (st === "MAIN_MENU") break;
+    }
   }
   console.log("menu", st, (Date.now() - T0) + " ms");
   if (st !== "MAIN_MENU") throw new Error("no se alcanzó MAIN_MENU (estado " + st + ")");
@@ -210,32 +242,47 @@ function installProbe() {
     await drain();
     await step({ aim: 0 }, 6);
   }
-  /* ---- 2. impactos contra la pared derecha (jugador cerca de ella, pared en pantalla) ---- */
-  await goTo(0.8, 0.55);
-  const sw = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-  const wallDx = sw.roomRect ? (sw.roomRect.x + sw.roomRect.w - sw.player.x) : 300;
-  report.impactSetup = { player: sw.player, wallDx };
+  /* ---- 2. impactos sobre un enemigo (los choques con la pared no emiten partículas:
+     vs() se llama al herir —hielo/plasma/fuego—, al matar, al romper atrezo y con la bomba) ---- */
+  await goTo(0.5, 0.55);
+  const spawnTarget = () => page.evaluate(() => {
+    try { window.DMO.debug.heal(); } catch (e) {}
+    try { window.DMO.debug.killAll(); } catch (e) {}
+    const p = window.__DD_BRIDGE.getSnapshot().player;
+    let cell = null, prev;
+    try { cell = window.DMO_FLOOR.state().currentCell; } catch (e) { cell = null; }
+    if (cell) { prev = cell.allowedEnemyTypes; cell.allowedEnemyTypes = null; }
+    let ok = false;
+    try { ok = !!window.DMO.debug.spawnEnemyAt("tank", p.x + 230, p.y, false, false); } catch (e) { ok = String(e); }
+    finally { if (cell) cell.allowedEnemyTypes = prev; }
+    /* que no se mueva ni ataque durante la foto: el tanque se queda quieto a 230 px */
+    const a = window.__DD_BRIDGE.getActors();
+    return { ok, enemies: a.enemies.length };
+  });
+  report.impactSetup = {};
   for (const type of TYPES) {
     const X = await equip(type);
     if (!X) continue;
-    await step({ fire: true, aim: 0 }, 16);
-    save(type + "_2_impacto_a", await stepGrab({ fire: true, aim: 0 }, 2, wallDx * 0.55, -22, 420, 240), X);
-    save(type + "_2_impacto_b", await stepGrab({ fire: true, aim: 0 }, 5, wallDx * 0.55, -22, 420, 240), X);
+    report.impactSetup[type] = await spawnTarget();
+    await step({ fire: true, aim: 0 }, 14);
+    save(type + "_2_impacto_a", await stepGrab({ fire: true, aim: 0 }, 4, 150, -30, 420, 240), X);
+    save(type + "_2_impacto_b", await stepGrab({ fire: true, aim: 0 }, 6, 150, -30, 420, 240), X);
+    await page.evaluate(() => { try { window.DMO.debug.killAll(); } catch (e) {} });
     await drain();
     await step({ aim: 0 }, 6);
   }
 
   if (BOMB) {
-    /* Bomba (Q → tp): explosión en el jugador. Varias capturas a lo largo de la animación. */
+    /* Bomba (Q → tp): explosión en el jugador, 4 instantes de la animación (fotogramas 1, 6, 14 y 26 tras la detonación). */
     await goTo(0.5, 0.5);
-    const before = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-    await page.keyboard.down("KeyQ");
-    save("bomb_0", await stepGrab({ aim: 0 }, 1, 0, -22, 420, 360), { bomb: true });
-    await page.keyboard.up("KeyQ");
-    save("bomb_1", await stepGrab({ aim: 0 }, 4, 0, -22, 420, 360), { bomb: true });
-    save("bomb_2", await stepGrab({ aim: 0 }, 6, 0, -22, 420, 360), { bomb: true });
-    save("bomb_3", await stepGrab({ aim: 0 }, 10, 0, -22, 420, 360), { bomb: true });
-    report.bomb = { before: before && before.player, after: (await page.evaluate(() => window.__DD_BRIDGE.getSnapshot())).player };
+    const seq = await page.evaluate(([w, h, dy]) => window.__ddProbe.bombSequence([1, 5, 8, 12], w, h, 0, dy), [420, 360, -22]);
+    seq.shots.forEach((png, i) => {
+      fs.writeFileSync(path.join(OUT, "bomb_" + i + ".png"), Buffer.from(png.split(",")[1], "base64"));
+      report.shots.push({ name: "bomb_" + i, bomb: true, explosions: seq.ages[i], impacts: seq.impacts[i] });
+    });
+    report.bomb = { before: seq.before, after: seq.after, time: seq.time };
+    console.log("bomb", JSON.stringify(report.bomb));
+    fs.writeFileSync(path.join(OUT, "probe_report.json"), JSON.stringify(report, null, 1));
   }
 
   report.elapsedS = +((Date.now() - T0) / 1000).toFixed(1);

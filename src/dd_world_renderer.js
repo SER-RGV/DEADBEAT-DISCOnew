@@ -1766,31 +1766,35 @@
   }
 
   // ---- T08 · explosiones (bomba tp del motor) -----------------------------------
-  // El motor sólo encola partículas y sacudida al detonar; el puente avisa aquí con
-  // spawnExplosion(x, y) y el renderizador anima vfx_explosion_inferno (crece y se
-  // apaga en EXPLOSION_MS). Puramente visual: no toca daño, radio ni temporización.
+  // El motor sólo encola partículas, sacudida y cámara lenta al detonar; el puente
+  // avisa aquí con spawnExplosion(x, y, escala, Z) y el renderizador anima
+  // vfx_explosion_inferno (crece y se apaga en EXPLOSION_S segundos de JUEGO: el
+  // reloj Z del motor, así la explosión respeta la cámara lenta de la bomba igual
+  // que las partículas). Sin reloj (t ausente) usa performance.now(). Puramente
+  // visual: no toca daño, radio ni temporización.
   const EXPLOSIONS = [];
-  const EXPLOSION_MS = 560;
-  function spawnExplosion(x, y, scale) {
+  const EXPLOSION_S = 0.56;
+  function clockOr(t) { return (typeof t === "number" && isFinite(t)) ? t : performance.now() / 1000; }
+  function spawnExplosion(x, y, scale, t) {
     if (typeof x !== "number" || typeof y !== "number") return false;
-    EXPLOSIONS.push({ x, y, k: (typeof scale === "number" && scale > 0) ? scale : 1, t0: performance.now(), rot: Math.random() * Math.PI * 2 });
+    EXPLOSIONS.push({ x, y, k: (typeof scale === "number" && scale > 0) ? scale : 1, t0: clockOr(t), rot: Math.random() * Math.PI * 2 });
     if (EXPLOSIONS.length > 12) EXPLOSIONS.splice(0, EXPLOSIONS.length - 12);
     return true;
   }
-  function drawExplosions(ctx) {
+  function drawExplosions(ctx, t) {
     if (!EXPLOSIONS.length) return false;
     const im = window.DD_ASSETS && window.DD_ASSETS.get("vfx_explosion_inferno");
-    const now = performance.now();
+    const now = clockOr(t);
     if (!im) { EXPLOSIONS.length = 0; return false; }
     setSmooth(ctx);
     ctx.save();
     ctx.globalCompositeOperation = "lighter";
     for (let i = EXPLOSIONS.length - 1; i >= 0; i--) {
       const e = EXPLOSIONS[i];
-      const u = (now - e.t0) / EXPLOSION_MS;
-      if (u >= 1) { EXPLOSIONS.splice(i, 1); continue; }
-      const grow = 1 - Math.pow(1 - u, 3);              // arranque explosivo, frenada suave
-      const size = (120 + 200 * grow) * e.k;            // 120 → 320 px de mundo
+      const u = (now - e.t0) / EXPLOSION_S;
+      if (u >= 1 || u < -0.001) { EXPLOSIONS.splice(i, 1); continue; } // agotada, o reloj reiniciado (nueva partida)
+      const grow = 1 - Math.pow(1 - Math.max(0, u), 3);   // arranque explosivo, frenada suave
+      const size = (120 + 200 * grow) * e.k;             // 120 → 320 px de mundo
       const alpha = u < 0.18 ? 1 : 1 - (u - 0.18) / 0.82;
       ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
       ctx.save();
@@ -1806,6 +1810,8 @@
   window.DD_WORLD = Object.freeze({
     spawnExplosion,
     drawExplosions,
+    /* QA: explosiones vivas (edad en s del reloj con que se crearon). Sólo lectura. */
+    __explosions: function (t) { const now = clockOr(t); return EXPLOSIONS.map(e => ({ x: e.x, y: e.y, k: e.k, t0: e.t0, age: +(now - e.t0).toFixed(3) })); },
     getCircleCfg,
     setSmooth,
     drawSoftShadow,
