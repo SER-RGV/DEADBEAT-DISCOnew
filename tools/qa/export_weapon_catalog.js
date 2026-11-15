@@ -103,7 +103,7 @@ async function main() {
     });
     if (allFilterClicked) await sleep(150);
 
-    const extracted = await page.evaluate((initialState) => {
+    const extracted = await page.evaluate((probeState) => {
       const bridge = window.__DD_BRIDGE;
       const rawList = bridge.getWeaponsList();
       if (!Array.isArray(rawList)) throw new Error("getWeaponsList() no devolvió un array");
@@ -147,13 +147,13 @@ async function main() {
         duplicateIds: Array.from(new Set(duplicateIds)),
         renderedCards: uiCards.length,
         renderedCardIds: uiCards,
-        initialShopState: initialState,
-        allFilterClicked,
+        initialShopState: probeState.initialShopState,
+        allFilterClicked: probeState.allFilterClicked,
         hdWeaponAssetKeys: hdWeaponKeys,
         manifestWeaponAssetKeys: manifestWeaponKeys,
         rows
       };
-    }, initialShopState);
+    }, { initialShopState, allFilterClicked });
 
     const rawPath = path.join(OUT, "weapon_catalog_raw.json");
     const csvPath = path.join(OUT, "weapon_catalog_normalized.csv");
