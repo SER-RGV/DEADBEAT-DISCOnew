@@ -55,6 +55,7 @@ async function main() {
     // Reproduce el arranque QA documentado: gesto -> intro -> menú.
     await page.keyboard.press("KeyX");
     await page.waitForFunction(() => window.DD_OPENING && window.DD_OPENING.isActive(), null, { timeout: 15000 });
+    await sleep(600);
     await page.keyboard.press("Space");
     await page.waitForFunction(() => window.DD_BOOT.getState().state === "MAIN_MENU", null, { timeout: 15000 });
 
