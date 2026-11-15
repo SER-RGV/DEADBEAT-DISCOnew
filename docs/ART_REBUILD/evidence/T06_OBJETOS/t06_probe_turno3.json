@@ -1,0 +1,149 @@
+{
+ "res": {
+  "ok": {
+   "heart": true,
+   "shield": true,
+   "boost": true,
+   "credits": true,
+   "damageUp": true,
+   "fireUp": true,
+   "companion": true,
+   "mutation": true,
+   "bomb": true,
+   "speedUp": true,
+   "turret": true
+  },
+  "cam": {
+   "x": 1250,
+   "y": 1075,
+   "zoom": 1.088022645814446,
+   "viewW": 1765,
+   "viewH": 993,
+   "lead": {
+    "x": 1,
+    "y": -9
+   }
+  },
+  "n": null
+ },
+ "fallbackGlyph": {
+  "cards": [
+   {
+    "title": "1 · HACHA DE CONCIERTO",
+    "art": false,
+    "glyph": "HAC",
+    "hasClass": false
+   },
+   {
+    "title": "2 · FILTRO DE BAJOS",
+    "art": false,
+    "glyph": "◌",
+    "hasClass": false
+   },
+   {
+    "title": "3 · AGUJA PERFORANTE",
+    "art": false,
+    "glyph": "↠",
+    "hasClass": false
+   },
+   {
+    "title": "4 · CONSERVAR BUILD · +70 CR",
+    "art": false,
+    "glyph": "◎",
+    "hasClass": false
+   },
+   {
+    "title": "5 · DEJAR PENDIENTE",
+    "art": false,
+    "glyph": "↶",
+    "hasClass": false
+   }
+  ],
+  "restored": true,
+  "stubApplied": true
+ },
+ "relics": {
+  "granted": [
+   "tempo",
+   "needle",
+   "lowpass",
+   "magnet",
+   "pact",
+   "echo"
+  ],
+  "chest": true,
+  "cards": [
+   {
+    "id": "loot71-0",
+    "title": "1 · HACHA DE CONCIERTO",
+    "art": null,
+    "glyph": "HAC"
+   },
+   {
+    "id": "loot71-1",
+    "title": "2 · FILTRO DE BAJOS",
+    "art": "http://127.0.0.1:8080/assets/pickups/relic_lowpa",
+    "glyph": ""
+   },
+   {
+    "id": "loot71-2",
+    "title": "3 · AGUJA PERFORANTE",
+    "art": null,
+    "glyph": "↠"
+   },
+   {
+    "id": "loot71-3",
+    "title": "4 · CONSERVAR BUILD · +70 CR",
+    "art": null,
+    "glyph": "◎"
+   },
+   {
+    "id": "loot71-4",
+    "title": "5 · DEJAR PENDIENTE",
+    "art": null,
+    "glyph": "↶"
+   }
+  ],
+  "list": [],
+  "restored": [],
+  "overlayVisible": true
+ },
+ "pauseList": {
+  "items": [
+   {
+    "text": "METRÓNOMO NEGRO",
+    "art": true
+   },
+   {
+    "text": "AGUJA DE VINILO",
+    "art": true
+   },
+   {
+    "text": "FILTRO DE BAJOS",
+    "art": true
+   },
+   {
+    "text": "IMÁN DE CABINA",
+    "art": true
+   },
+   {
+    "text": "SELLO DEL DJ",
+    "art": true
+   },
+   {
+    "text": "VINILO RETROVISOR",
+    "art": true
+   }
+  ],
+  "shown": "clone",
+  "rect": {
+   "x": 0,
+   "y": 0,
+   "w": 0,
+   "h": 0
+  }
+ },
+ "errs": [],
+ "at": "2026-11-15T12:05:38.041Z",
+ "note": "turno 3: relic_tempo + prueba de reserva al glifo (doble de DD_ASSETS que niega relic_*); entrada por atajo de QA (DD_HUB.enter/exitToRun); captura de pantalla completa con capas de menú ocultas (anotado en hidden overlays), tarjeta/lista como DOM real."
+}

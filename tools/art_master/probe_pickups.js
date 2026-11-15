@@ -81,7 +81,31 @@ const OUT = process.argv[2]; fs.mkdirSync(OUT, { recursive: true });
   // ---- RELIQUIAS (T06 turno 2): el motor las presenta como tarjetas DOM del cofre
   // (#shot-choice-overlay) y como lista de pasivos de la pausa (#rogue71-inventory .rogue71-items);
   // el build sustituye el glifo por la ilustración relic_<id> cuando existe en el registro.
-  const relics = ["needle", "lowpass", "magnet", "pact", "echo", "coil", "prism", "tempo"];
+  const relArg = process.argv.find(a => a.startsWith("--relics="));
+  const relics = relArg ? relArg.slice(9).split(",") : ["needle", "lowpass", "magnet", "pact", "echo", "coil", "prism", "tempo"];
+  // Prueba del fallback (T06 §1.7): con un doble de DD_ASSETS.get que niega los relic_* la tarjeta debe conservar el glifo.
+  const fallbackRes = await page.evaluate(() => {
+    const R = window.DMO && window.DMO.rogue; if (!R || !R.debug) return { error: "sin DMO.rogue.debug" };
+    // DD_ASSETS está congelado (Object.freeze): se sustituye el objeto entero por un doble que niega relic_*.
+    const real = window.DD_ASSETS;
+    const out = { cards: [], restored: false, stubApplied: false };
+    try {
+      const stub = Object.assign({}, real, { get: function (id) { return /^relic_/.test(String(id)) ? null : real.get(id); } });
+      window.DD_ASSETS = stub; out.stubApplied = window.DD_ASSETS === stub && window.DD_ASSETS.get("relic_pact") === null;
+      R.debug({ action: "chest", kind: "clear" }); R.debug({ action: "open" });
+      for (const b of document.querySelectorAll("#shot-choice-overlay .shot-card50")) {
+        const ic = b.querySelector(".shot-icon");
+        out.cards.push({ title: (b.querySelector("strong") || {}).textContent, art: !!(ic && ic.querySelector("img")), glyph: ic ? ic.textContent : null, hasClass: !!(ic && ic.classList.contains("has-relic-art")) });
+      }
+      R.debug({ action: "back" });
+    } finally { window.DD_ASSETS = real; out.restored = window.DD_ASSETS === real && !!real.get("relic_pact"); }
+    return out;
+  });
+  // Captura del cofre en modo reserva (glifo) para la evidencia: se repite la apertura con el doble activo.
+  await page.evaluate(() => { const real = window.DD_ASSETS; window.__ddRealAssets = real; window.DD_ASSETS = Object.assign({}, real, { get: function (id) { return /^relic_/.test(String(id)) ? null : real.get(id); } }); const R = window.DMO.rogue; R.debug({ action: "chest", kind: "clear" }); R.debug({ action: "open" }); });
+  await page.waitForTimeout(400);
+  try { const ov = await page.$("#shot-choice-overlay"); if (ov) fs.writeFileSync(path.join(OUT, "t06_relic_chest_fallback_glyph.png"), await ov.screenshot({ type: "png", timeout: 90000 })); } catch (e) { console.log("captura fallback fallida:", String(e).slice(0, 100)); }
+  await page.evaluate(() => { try { window.DMO.rogue.debug({ action: "back" }); } catch (e) {} window.DD_ASSETS = window.__ddRealAssets; delete window.__ddRealAssets; });
   const relicRes = await page.evaluate((relics) => {
     const R = window.DMO && window.DMO.rogue; const out = { granted: [], chest: null, cards: [], list: [], restored: [] };
     if (!R || !R.debug) return { error: "sin DMO.rogue.debug" };
@@ -133,7 +157,8 @@ const OUT = process.argv[2]; fs.mkdirSync(OUT, { recursive: true });
   await page.evaluate(() => { const h = document.getElementById("dd-qa-relic-host"); if (h) h.style.display = ""; });
   await page.waitForTimeout(200);
   if (listBox.width > 40 && listBox.height > 40) fs.writeFileSync(path.join(OUT, "t06_relic_pause_list.png"), await page.screenshot({ type: "png", clip: listBox }));
-  fs.writeFileSync(path.join(OUT, "t06_probe.json"), JSON.stringify({ res: res, relics: relicRes, pauseList: listInfo, errs: errs, at: new Date().toISOString() }, null, 1));
+  fs.writeFileSync(path.join(OUT, "t06_probe.json"), JSON.stringify({ res: res, fallbackGlyph: fallbackRes, relics: relicRes, pauseList: listInfo, errs: errs, at: new Date().toISOString() }, null, 1));
+  console.log("fallbackGlyph:", JSON.stringify(fallbackRes));
   console.log(JSON.stringify(res), "errs", errs.length);
   console.log("relics:", JSON.stringify(relicRes));
   console.log("pauseList:", JSON.stringify(listInfo));

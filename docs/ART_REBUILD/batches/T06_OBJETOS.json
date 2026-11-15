@@ -2,7 +2,7 @@
  "batch": "T06_OBJETOS",
  "title": "TANDA 06 · OBJETOS — 20 pickups y reliquias (ids existentes) en el acabado de ilustración neón del pack",
  "created": "2026-11-15",
- "status": "ABIERTA",
+ "status": "CERRADA",
  "style": "Ilustración digital estilizada (no pixel art): contorno de tinta, cel 3–4 tonos, luz de contorno magenta/cian; misma familia visual que R01–R03 y T04. Halo, sombra y flotación los pone el renderizador.",
  "scope": {
   "total": 20,
@@ -32,11 +32,12 @@
   "band": 3
  },
  "progress": {
-  "verified": 19,
+  "verified": 20,
   "total": 20,
   "updated": "2026-11-15",
   "turno_1": "9 pickups INTEGRATED/VERIFIED (ammo, boost, companion, credits, damageup, fireup, heart, mutation, shield); pendientes bomb, speedup, turret y 8 reliquias",
-  "turno_2": "10 generados/procesados/registrados (caché 20261115.23) y VERIFIED en juego: bomb, speedup, turret + needle, lowpass, magnet, pact, echo, coil, prism (evidencias 04–09)"
+  "turno_2": "10 generados/procesados/registrados (caché 20261115.23) y VERIFIED en juego: bomb, speedup, turret + needle, lowpass, magnet, pact, echo, coil, prism (evidencias 04–09)",
+  "turno_3": "relic_tempo generado/procesado/registrado (caché 20261115.24) y VERIFIED en cofre + lista de pasivos; reserva al glifo comprobada con doble de DD_ASSETS (evidencias 10–12, t06_probe_turno3.json)"
  },
  "generation_plan": [
   {
@@ -101,16 +102,19 @@
    "ids": [
     "relic_tempo"
    ],
-   "hechas": [],
+   "hechas": [
+    "relic_tempo"
+   ],
    "reintentar": [],
-   "estado": "PENDIENTE (único asset de T06 que falta: metrónomo negro lacado, aguja magenta)"
+   "estado": "HECHO"
   }
  ],
  "generation_lessons": [
   "Los 20 prompts de la ficha funcionan a la primera con un solo objeto y croma limpio; el único fallo (bomb, turno 1) fue del servicio, no del prompt.",
   "pickup_speedup_00 dispara el aviso baked_checker_suspect del QC: falso positivo por la zapatilla blanca/gris; sin damero real (comprobado sobre fondo claro y oscuro).",
   "relic_needle (brazo de tocadiscos) es la silueta más fina del lote: a 44 px sigue legible por la diagonal y la punta cian, pero no conviene reducirlo más.",
-  "Las reliquias no son botín de suelo: su integración real es la tarjeta del cofre y la lista de pasivos (parche 1f del build), con reserva al glifo si falta el asset."
+  "Las reliquias no son botín de suelo: su integración real es la tarjeta del cofre y la lista de pasivos (parche 1f del build), con reserva al glifo si falta el asset.",
+  "La reserva al glifo sólo se puede probar sustituyendo window.DD_ASSETS entero (el registro está congelado con Object.freeze): con el doble que niega relic_* la tarjeta vuelve al glifo de texto y no inserta <img>."
  ],
  "assets": [
   {
@@ -553,5 +557,11 @@
    "use": "drawPickup (src/dd_world_renderer.js ~l.1589): botín en el suelo a 44 px de mundo con flotación, sombra y halo cian procedurales; el HUD (dd_ui_system.js) lo usa de reserva para corazón/escudo/habilidad/moneda. Mismo id y tamaño que la entrada actual del registro.",
    "prompt": "Illustrated game pickup icon for DEADBEAT DISCO, a neon disco-inferno roguelite. Exactly ONE object, centered, filling about 85% of a square frame, three-quarter view slightly from above, floating in the air (no floor, no cast shadow). High-resolution digital illustration with the same finish as the game's characters: clean black ink outline, hard-edged cel shading in 3-4 tones, magenta rim light on the left side and cyan rim light on the right, saturated neon accents on dark obsidian and black-blue metal. DESIGN: BLACK METRONOME RELIC: a pyramid-shaped black lacquered metronome with a magenta pendulum needle, standing upright. MAIN COLOUR: black and magenta. NO pixel art, NO text, NO letters or numbers, NO outer glow, no sparkles or particles outside the object, NO background scenery, NO frame, card or badge behind it. Flat solid chroma-green background (#00FF00) covering the whole image."
   }
- ]
+ ],
+ "closure": {
+  "date": "2026-11-15",
+  "evidence": "docs/ART_REBUILD/evidence/T06_OBJETOS",
+  "report": "docs/ART_REBUILD/TANDA_06_INFORME.md",
+  "cache_version_at_close": "20261115.26"
+ }
 }
