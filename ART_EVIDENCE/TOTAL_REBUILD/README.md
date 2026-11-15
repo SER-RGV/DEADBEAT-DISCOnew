@@ -43,3 +43,8 @@ Regla aplicada: assets con piedra/obsidiana oscura se generan sobre **verde #00f
 - `prop_gothic_statue`: la materia prima venía con sujeto pequeño en lienzo (contain fit → estampado diminuto). Se mantiene por ser mejor arte que el provisional; **pendiente v2 con encuadre de lienzo completo** (el modelo no respetó «fill the entire frame»).
 - `prop_arcane_pedestal`: despillado con `green_excess = G - max(R,B) > 12` (568 px); runas cian intactas.
 - Walls W1 (00–11): diseño en retrato verificado, extracción limpia sobre verde.
+
+## Pasada TR_W2 (2026-11-15, props del HUB — verde #00ff00)
+Integrados (integridad navegador **271/271 pass**): `prop_bar_counter`, `prop_dj_booth` (despill 8886 px que eliminó el vacío verde del arco), `prop_speaker_tower`, `prop_subwoofer_cyan`, `prop_candelabra_floor`, `prop_sofa_black`, `prop_bookshelf_hub` (estantería ancha; el modelo no llena retrato: contenido, anclada abajo), `prop_cooler_neon`, `prop_gothic_statue` (contain por ancho: 201×135).
+- **Rechazado y revertido:** `prop_chandelier_gold` (el sujeto generado ocupaba dos mitades separadas; composición imposible de limpiar). Sigue provisional; v2 pendiente.
+- Evidencia visual: la captura del Refugio (`03_refugio_hub.png`) muestra la barra, el booth DJ, el pedestal violeta, el cooler y los candelabros nuevos en juego real.

@@ -209,3 +209,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Integrados (y cargados en navegador):** herejía `wall_panel_heavy_base`, Núcleo `wall_core_monolith`, puertas `door_arched_open`/`door_stained_closed`/`door_vip_crimson`, `wall_panel_tall_neon`, `prop_gilded_altar`, `prop_arcane_pedestal` (despillado), `floor_11_vip_velvet`, `prop_gothic_statue`.
 - Regla de oro: assets oscuros sobre verde #00ff00 (borrador negro destruye piedra oscura). Documentado.
 - Pendiente menor: statue v2 con lienzo completo; captura in-situ por círculo; FX de jefes; props firma por círculo; HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W2 — props del HUB)
+- **Integrados y visibles en el Refugio (navegador, 271/271):** bar_counter, dj_booth, speaker_tower, subwoofer_cyan, candelabra_floor, sofa_black, bookshelf_hub, cooler_neon, gothic_statue (estampado por ancho). Captura: 03_refugio_hub.png.
+- Pendiente v2: prop_chandelier_gold (rechazado W2), encuadre retrato para bookshelf/statue, captura in-situ de círculos II–IX, FX de jefes, HUD definitivo. PR #31 borrador, sin merge.
