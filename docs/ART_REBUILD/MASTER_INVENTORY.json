@@ -3,16 +3,16 @@
   "base_build": "backups/DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX.ORIGINAL.html",
   "base_sha256": "1fd4bc59b6db149bcc58622a3079ef0ebbce276eb6b38b7126d2d56aa999f53e",
   "generated_at": "2026-11-04T18:55:26Z",
-  "total_assets": 345,
+  "total_assets": 347,
   "batch_size": 10,
   "total_batches": 33,
   "categories_summary": {
     "logos": 2,
     "ui": 14,
     "cinematics": 11,
-    "props": 30,
+    "props": 31,
     "environments": 8,
-    "floors": 12,
+    "floors": 13,
     "walls": 10,
     "characters": 16,
     "enemies": 24,
@@ -10648,7 +10648,62 @@
       "updated_at": "2026-11-11T17:27:33Z",
       "evidence": "docs/ART_REBUILD/evidence/R01",
       "validated_at": "2026-11-11T17:27:33Z"
+    },
+    {
+      "index": 346,
+      "tanda": "TR_T01",
+      "tanda_number": 101,
+      "original_id": "hub:floor_main",
+      "id": "hub_floor_main",
+      "name": "Suelo HUB · Damero negro y granate con filete magenta (Refugio)",
+      "category": "floors",
+      "location": "assets/floors/hub_floor_main.png",
+      "dimensions": [
+        512,
+        512
+      ],
+      "alpha": false,
+      "pivot": "top-left",
+      "dependencies": [],
+      "code_references": [
+        "src/dd_hub_system.js",
+        "src/dd_world_renderer.js"
+      ],
+      "reference_source": "ART_REFERENCES/2026-11-TOTAL/Mapa del Hub Neon-Cybergótico del Disco Infernal.png",
+      "prompt_spec": "Deadbeat Disco total reconstruction · HUB increment 1",
+      "reconstruction_status": "DONE",
+      "integration_status": "PENDING_RUNTIME_CHECK",
+      "validation_status": "PENDING_BROWSER",
+      "sha256": "d3b87a060c80b416a025515edb58d7441dcf9a68219eca879dbec122171f3354",
+      "bytes": 217627
+    },
+    {
+      "index": 347,
+      "tanda": "TR_T01",
+      "tanda_number": 101,
+      "original_id": "hub:portal_frame",
+      "id": "hub_portal_frame",
+      "name": "Arco portal de círculo · Obsidiana gótica con circuitos (HUB)",
+      "category": "props",
+      "location": "assets/props/hub_portal_frame.png",
+      "dimensions": [
+        256,
+        384
+      ],
+      "alpha": true,
+      "pivot": "bottom-center",
+      "dependencies": [],
+      "code_references": [
+        "src/dd_hub_system.js"
+      ],
+      "reference_source": "ART_REFERENCES/2026-11-TOTAL/Mapa del Hub Neon-Cybergótico del Disco Infernal.png",
+      "prompt_spec": "Deadbeat Disco total reconstruction · HUB increment 1",
+      "reconstruction_status": "DONE",
+      "integration_status": "PENDING_RUNTIME_CHECK",
+      "validation_status": "PENDING_BROWSER",
+      "sha256": "5ad267fa094a80a62899739b31126c56dc49a855cda51ddc589ac8ac4ac433f4",
+      "bytes": 19664
     }
   ],
-  "updated_at": "2026-11-12T05:25:24Z"
+  "updated_at": "2026-11-15T00:00:00Z"
 }

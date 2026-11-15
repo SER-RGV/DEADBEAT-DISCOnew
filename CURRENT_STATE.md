@@ -183,3 +183,11 @@ Toda modificación debe partir de una copia de seguridad.
 
 ## 2026-11-13 · RESTART 14
 Menú revisado control por control, pantalla de carga reducida a logotipo y barra, portada antigua oculta desde el primer fotograma, intro y música del menú igualadas en nivel medido (sin escuchar). Ver `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.
+
+## Estado actual · 2026-11-15 (RECONSTRUCCIÓN TOTAL · FASE 0–2 incremento 1)
+- **FASE 0 auditoría completa** en `docs/TOTAL_ART_REBUILD/00_AUDIT_REPORT.md` (+ `01_REPLACEMENT_MATRIX.md`, `02_TECHNICAL_PLAN.md`, `03_ASSET_CONTRACT.md`): el build activo es `index.html` (generado desde backup + `src/`); `DEADBEAT_DISCO.ART.html`/`ART_PACK/` son legado congelado y no se usan; la vía de integración es el registry `DD_ASSETS` + `DD_WORLD`/`DD_HUB`. Numeración de círculos láminas vs motor registrada (se conserva la del motor; HUD sin renombrados).
+- **Referencias** archivadas con SHA-256 en `ART_REFERENCES/2026-11-TOTAL/` (12 láminas + `loreybibilia.txt`).
+- **FASE 1 contrato técnico** vigente (paleta/hex por círculo, tiles 512, pivotes, pipeline, checklist).
+- **FASE 2 HUB incremento 1 (TR_T01):** 2 assets nuevos integrados en código (`hub_floor_main` suelo damero del Refugio; `hub_portal_frame` mezzanine decorativo de los 9 círculos sobre la pared superior, flag `__DD_HUB_REBUILD`). Build activo regenerado y verificado estáticamente (sin errores; 12/13 bloques JS parsean, 1 es licencia). Registro 271 entradas sin pérdida legacy (66/66 `anchors`/`rev`).
+- **Límite honesto:** este sandbox **no tiene navegador** (Playwright/Chromium inalcanzables). No se ha ejecutado arranque ni capturas; **nada se declara APROBADO visualmente**. La verificación en navegador real queda pendiente (arneses `tools/qa/*.js` listos).
+- PRs abiertas #22/#30 (escala de mundo): no interferidas; el arte nuevo no depende de su cámara.

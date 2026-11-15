@@ -313,9 +313,62 @@
     }
   }
 
+  /* Reconstrucción total (FASE 2 · incremento 1): suelo damero del HUB y
+     mezzanine decorativo con los 9 accesos. Reversible con
+     window.__DD_HUB_REBUILD = false desde el arranque (suelo clásico, sin
+     mezzanine). No hay estaciones ni lógica detrás de los portales. */
+  const HUB_REBUILD = function () { return window.__DD_HUB_REBUILD !== false; };
+  const MEZZ_PORTALS = [
+    { name: "LUJURIA", neon: "#ff2d7a" },
+    { name: "GULA", neon: "#f59e0b" },
+    { name: "AVARICIA", neon: "#facc15" },
+    { name: "IRA", neon: "#ef4444" },
+    { name: "HEREJÍA", neon: "#a855f7" },
+    { name: "VIOLENCIA", neon: "#fb7185" },
+    { name: "FRAUDE", neon: "#22d3ee" },
+    { name: "TRAICIÓN", neon: "#38bdf8" },
+    { name: "NÚCLEO", neon: "#f8fafc" }
+  ];
+  function paintMezzanine(cctx) {
+    if (!window.DD_ASSETS) return;
+    const frame = window.DD_ASSETS.get("hub_portal_frame");
+    if (!frame) return;
+    const w = 88, h = 132, gap = 16;
+    const total = MEZZ_PORTALS.length * w + (MEZZ_PORTALS.length - 1) * gap;
+    let x = (1800 - total) / 2;
+    const y = 16;
+    for (let i = 0; i < MEZZ_PORTALS.length; i++) {
+      const p = MEZZ_PORTALS[i];
+      const cx = x + w / 2;
+      // Halo exterior del círculo (aditivo suave) + interior encendido
+      if (window.DD_WORLD && typeof window.DD_WORLD.drawNeonGlow === "function") {
+        window.DD_WORLD.drawNeonGlow(cctx, cx, y + 64, 92, p.neon, 0.34);
+      }
+      cctx.save();
+      cctx.shadowColor = p.neon;
+      cctx.shadowBlur = 26;
+      cctx.drawImage(frame, x, y, w, h);
+      cctx.restore();
+      // Vano iluminado por dentro (el marco es opaco; el vano es casi negro,
+      // así que una elipse aditiva encendida lee como interior del portal)
+      cctx.save();
+      cctx.globalCompositeOperation = "screen";
+      const g = cctx.createRadialGradient(cx, y + 74, 2, cx, y + 74, 34);
+      g.addColorStop(0, p.neon);
+      g.addColorStop(1, "rgba(0,0,0,0)");
+      cctx.globalAlpha = 0.85;
+      cctx.fillStyle = g;
+      cctx.beginPath();
+      cctx.ellipse(cx, y + 78, 25, 42, 0, 0, Math.PI * 2);
+      cctx.fill();
+      cctx.restore();
+      x += w + gap;
+    }
+  }
+
   function ensureHubCache() {
     const stats = window.DD_ASSETS ? window.DD_ASSETS.stats() : { loaded: 0 };
-    const stamp = String(stats.loaded);
+    const stamp = String(stats.loaded) + (HUB_REBUILD() ? "|rebuild" : "|classic");
     if (state.roomCache && state.roomCacheStamp === stamp) return state.roomCache;
 
     const cnv = document.createElement("canvas");
@@ -323,7 +376,13 @@
     cnv.height = 1180;
     const cctx = cnv.getContext("2d");
     if (window.DD_WORLD) {
-      window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null);
+      if (HUB_REBUILD()) {
+        window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null,
+          { floorAsset: "hub_floor_main", vipInset: false });
+        paintMezzanine(cctx);
+      } else {
+        window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null);
+      }
     }
     state.roomCache = cnv;
     state.roomCacheStamp = stamp;

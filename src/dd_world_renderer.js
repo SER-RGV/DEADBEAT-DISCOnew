@@ -159,9 +159,10 @@
   /* ------------------------------------------------------------------------
      1. ROOM CACHE BUILDER (Replaces pixel-art `qc` / `Zb` / `$b`)
      ------------------------------------------------------------------------ */
-  function buildHighResRoomCache(ctx, worldW, worldH, roomRect, circleIdx, roomSeed, clipRoomFn) {
+  function buildHighResRoomCache(ctx, worldW, worldH, roomRect, circleIdx, roomSeed, clipRoomFn, opts) {
     setSmooth(ctx);
     const cfg = getCircleCfg(circleIdx);
+    opts = opts || null;
 
     // Deep atmospheric void outside room walls
     const voidGrad = ctx.createLinearGradient(0, 0, 0, worldH);
@@ -189,6 +190,7 @@
 
     // Fill with high-res seamless Circle floor material (fallback to limbo marble or rich dark-stone gradient while pending)
     const floorPat =
+      (opts && opts.floorAsset ? getFloorPattern(ctx, opts.floorAsset) : null) ||
       getFloorPattern(ctx, cfg.floor) ||
       getFloorPattern(ctx, "floor_00_limbo_marble") ||
       getFloorPattern(ctx, "floor_10_hub_checker");
@@ -213,9 +215,14 @@
     const insetH = Math.min(rh * 0.44, 460);
     const cx = rx + rw * 0.5;
     const cy = ry + rh * 0.5;
-    const vipPat = (circleIdx === 0 || circleIdx === 2 || circleIdx === 3)
+    const vipPat = (opts && opts.vipInset === false)
+      ? null
+      : (opts && opts.vipInsetAsset
+        ? getFloorPattern(ctx, opts.vipInsetAsset)
+        : ((circleIdx === 0 || circleIdx === 2 || circleIdx === 3)
       ? getFloorPattern(ctx, "floor_11_vip_velvet")
-      : (circleIdx === 7 ? getFloorPattern(ctx, "floor_10_hub_checker") : null);
+        : (circleIdx === 7 ? getFloorPattern(ctx, "floor_10_hub_checker") : null))
+      );
     if (vipPat && rw > 760 && rh > 560) {
       ctx.save();
       ctx.globalAlpha = 0.78;

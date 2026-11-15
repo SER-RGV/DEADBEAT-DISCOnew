@@ -385,8 +385,8 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Nuevo ID propuesto | Contenido | Sistema | Estado |
 |---|---|---|---|
-| `hub_dancefloor_main` | Pista central del HUB (anillo + calavera, emisor magenta) | DD_HUB / room cache limbo | Pendiente |
-| `hub_portal_{lujuria..nucleo}` ×9 | 9 accesos con marco por círculo (ídem color de lámina, gancho visual grande) | DD_HUB estaciones | Pendiente |
+| `hub_floor_main` | Suelo damero del HUB (negro/granate/magenta) — **entregado TR_T01** (integración en código; visibilidad pendiente de navegador) | DD_HUB / room cache limbo | Integrado (código) |
+| `hub_portal_frame` | Arco obsidiana compartido por los 9 accesos (glow por círculo vía motor) — **entregado TR_T01** como mezzanine decorativo | DD_HUB (mezzanine) | Integrado (código) |
 | `hub_dj_tower` · `hub_stair_balcony_*` · `hub_bar_infernal` · `hub_arcade_row` · `hub_machines_room` · `hub_archives` · `hub_gallery_frames` · `hub_secret_*` | Kit arquitectónico/mobiliario del HUB (torres de altavoces, balcones, bar, recreativas, archivo, galería, pasadizos secretos) | DD_HUB | Pendiente |
 | `light_haze_{circle}` ×10 | Haz/niebla volumétrico emisor por círculo (sutil, ≤15 % superficie) | DD_WORLD room cache | Pendiente |
 | `prop_{circle}_signature_*` | 2 props firma por círculo (espejos vanidad, ganchos carne, bóveda caja fuerte, chatarra Ira, confesionario, tanque tóxico, tragamonedas, cadenas hielo, monolito Núcleo…) | DD_WORLD props | Pendiente |

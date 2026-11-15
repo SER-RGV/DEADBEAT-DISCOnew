@@ -191,3 +191,10 @@ Registrar aquí cada modificación:
 - VOLUMEN DEL MENÚ, MAESTRO, MÚSICA y EFECTOS cambian al instante lo que suena en el menú (antes sólo guardaban el número).
 - Archivos: `src/dd_ui_system.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
 - Pruebas: menú 53 de 53 (con medición de salida real), inicio 65 de 65, persistencia 39 de 39.
+
+## 2026-11-15 · TR_T01 — Reconstrucción total, FASE 2 HUB incremento 1
+- Nuevos: `hub_floor_main` (damero negro/granate con filete magenta) y `hub_portal_frame` (arco obsidiana gótica-tech) en `assets/` + registro (269→271, legacy intacto, `?v=20261115.1`).
+- `DD_WORLD.buildHighResRoomCache` acepta `opts.floorAsset`/`opts.vipInset` (opcional, retrocompatible). `DD_HUB` pinta suelo del HUB y mezzanine decorativo con los 9 círculos (flag `window.__DD_HUB_REBUILD !== false`).
+- `tools/asset_pipeline.py`: `rebuild_registry` ahora es **aditivo** (conserva entradas legacy con `rev`/`anchors`/`fallback`); nueva plantilla `tools/registry_template.js`.
+- Legado `DEADBEAT_DISCO.ART.html` y `ART_PACK/` **sin tocar**. Build activo regenerado e idéntico en `index.html`/`DEADBEAT_DISCO.html`.
+- Pendiente declarado: verificación visual en navegador (no hay navegador en este sandbox). Ver `docs/TOTAL_ART_REBUILD/TR_T01_report.json`.

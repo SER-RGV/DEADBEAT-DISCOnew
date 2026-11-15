@@ -1,0 +1,48 @@
+{
+  "tanda": "TR_T01",
+  "fecha": "2026-11-15",
+  "fase": "FASE 2 · HUB · incremento 1",
+  "rama": "arena/7e0496dc-deadbeat-disconew",
+  "assets": [
+    {
+      "id": "hub_floor_main",
+      "dest": "assets/floors/hub_floor_main.png",
+      "size": [
+        512,
+        512
+      ],
+      "bytes": 217627,
+      "sha256": "d3b87a060c80b416a025515edb58d7441dcf9a68219eca879dbec122171f3354",
+      "estado": "producido + registrado (271) + referenciado en DD_HUB (floorAsset) · visibilidad pendiente de navegador"
+    },
+    {
+      "id": "hub_portal_frame",
+      "dest": "assets/props/hub_portal_frame.png",
+      "size": [
+        256,
+        384
+      ],
+      "bytes": 19664,
+      "sha256": "5ad267fa094a80a62899739b31126c56dc49a855cda51ddc589ac8ac4ac433f4",
+      "estado": "producido + registrado (271) + pintado 9× en mezzanine del caché del Refugio · visibilidad pendiente de navegador"
+    }
+  ],
+  "codigo": [
+    "src/dd_world_renderer.js (buildHighResRoomCache: parámetro opcional opts.floorAsset / opts.vipInset=false; retrocompatible)",
+    "src/dd_hub_system.js (HUB_REBUILD flag __DD_HUB_REBUILD, paintMezzanine, stamp de caché con sufijo rebuild/classic)",
+    "tools/asset_pipeline.py (rebuild_registry ADITIVO: conserva entradas legacy con rev/anchors/fallback; nunca descarta en silencio; plantilla tools/registry_template.js con ASSET_CACHE_VERSION 20261115.1)",
+    "tools/registry_template.js (nuevo; fuente del JS generado)",
+    "tools/build_active_html.py (sin cambios; build reproducible verificado)"
+  ],
+  "verificacion_ejecutada": [
+    "python3 tools/asset_pipeline.py → 271 entradas, 29 legacy conservadas, anchors/rev íntegros (66/66)",
+    "node --check src/dd_world_renderer.js · src/dd_hub_system.js · src/dd_asset_registry.js",
+    "tools/build_active_html.py → index.html ≡ DEADBEAT_DISCO.html (5582139 B)",
+    "syntax check de los 13 <script> inline del build (12 OK; 1 es licencia text/plain)",
+    "grep de integración: hub_floor_main/hub_portal_frame/__DD_HUB_REBUILD/paintMezzanine presentes en el build; 0 en el legacy .ART.html"
+  ],
+  "pendiente": [
+    "Arranque real y captura A/B (este sandbox no tiene navegador; cdn.playwright.dev inalcanzable). No se declara APROBADO visual.",
+    "Mezzanine: altura/escala final de los 9 arcos a verificar en pantalla real; ajuste fino previsto en incremento 2 con capturas reales."
+  ]
+}
