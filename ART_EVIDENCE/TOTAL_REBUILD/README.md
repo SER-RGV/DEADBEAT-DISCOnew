@@ -61,3 +61,8 @@ Aprobados e integrados (integridad navegador **271/271 pass**): `prop_potted_pla
 ## Pasada TR_W5 (2026-11-15, familias Dancer, Fanatic y chef parcial)
 Aprobados e integrados (integridad navegador **271/271 pass**): familia **Dancer** (walk/windup/attack/death — cabaré porcelain mask, magenta neon), familia **Fanatic** (walk/windup/attack/death — cultista encapuchado con sigillo zorro, cadenas, brandeo ardiente), y **chef** `walk`/`windup` (gula, delantal sangriento / variante de fuego de nuevo encuadre).
 - Observación honesta: el modelo varía la paleta/encuadre entre frames de una misma familia (chef_windup sale demoníaco de fuego vs walk naranja amable). Coherencia por familia aceptable como «variante de intensidad», pero una pasada de unificación de paleta/personaje quedaría como iteración opcional. En `assets/enemies/` siguen provisionales chef attack/death.
+
+## Pasada TR_W6 (2026-11-15, cocina y seguridad pesada)
+Aprobados e integrados (integridad navegador **271/271 pass**): `enemy_chef_attack` (espachurrón ígneo), familia **Drone** (walk/windup/attack/death — policía-dron de latón, optic roja, asalto-rayo), y **Elite** walk/attack/death (juggernaut de obsidiana con espina dorsal carmesí / smash de crater / rodilla caída).
+- **Rechazados y revertidos:** `enemy_elite_windup` (el modelo ignoró el verde: RAW con fondo casi-negro, la extracción destruyó el cuerpo oscuro — v2 sobre verde explícito pendiente) y `enemy_chef_death` (prompt bloqueado por moderación con lenguaje de salpicaduras; v2 pendiente con redacción sobria). Ambos provisionales conservados.
+- Nota: chef_attack conserva un ligero filo verde en el arco de llama (despillado a 10842 px) — aceptable.

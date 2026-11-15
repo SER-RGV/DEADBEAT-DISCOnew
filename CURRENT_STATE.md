@@ -228,3 +228,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Integrados (navegador 271/271):** familias Dancer y Fanatic completas; chef walk/windup. Pendiente terminar Chef (attack/death), y Drone y Elite.
 - QA PASS completo tras cada tanda. Regla de oro intacta: oscuros sobre verde #00ff00.
 - Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W6)
+- **Integrados (navegador 271/271):** chef attack, familia Drone completa, Elite walk/attack/death.
+- **Pendiente v2:** enemy_chef_death (moderación) y enemy_elite_windup (fondo oscuro ignorando instrucción verde; exigir verde explícito).
+- Enemigos: 3 de 6 familias completas (Security, Dancer, Fanatic) + Drone completa; Chef y Elite casi completos.
+- Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).

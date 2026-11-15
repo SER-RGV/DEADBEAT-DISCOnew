@@ -55,15 +55,27 @@ JOBS = [
     ("enemy_fanatic_death",  "assets/enemies/enemy_fanatic_death.png",  (496, 448), "bottom-center"),
     ("enemy_chef_walk",    "assets/enemies/enemy_chef_walk.png",    (608, 512), "bottom-center"),
     ("enemy_chef_windup",  "assets/enemies/enemy_chef_windup.png",  (432, 704), "bottom-center"),
+    # TR_W6
+    ("enemy_chef_attack",  "assets/enemies/enemy_chef_attack.png",  (800, 528), "bottom-center"),
+    ("enemy_chef_death",   "assets/enemies/enemy_chef_death.png",   (656, 592), "bottom-center"),
+    ("enemy_drone_walk",   "assets/enemies/enemy_drone_walk.png",   (272, 432), "bottom-center"),
+    ("enemy_drone_windup", "assets/enemies/enemy_drone_windup.png", (240, 432), "bottom-center"),
+    ("enemy_drone_attack", "assets/enemies/enemy_drone_attack.png", (432, 432), "bottom-center"),
+    ("enemy_drone_death",  "assets/enemies/enemy_drone_death.png",  (416, 448), "bottom-center"),
+    ("enemy_elite_walk",   "assets/enemies/enemy_elite_walk.png",   (320, 496), "bottom-center"),
+    ("enemy_elite_windup", "assets/enemies/enemy_elite_windup.png", (336, 512), "bottom-center"),
+    ("enemy_elite_attack", "assets/enemies/enemy_elite_attack.png", (672, 432), "bottom-center"),
+    ("enemy_elite_death",  "assets/enemies/enemy_elite_death.png",  (496, 464), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
 missing = [a for a, *_ in JOBS if not os.path.isfile(rawpath(a))]
 if missing:
-    sys.exit(f"Faltan materias primas en {RAW}: {', '.join(missing)}")
+    print(f"AVISO: materias primas ausentes, se saltan (provisional conservado): {', '.join(missing)}")
+JOBS = [j for j in JOBS if os.path.isfile(rawpath(j[0]))]
 POST_DESPILL = {
     "prop_dj_booth", "prop_speaker_tower", "prop_candelabra_floor", "prop_bar_counter",
     "prop_subwoofer_cyan", "prop_cooler_neon", "prop_gothic_statue", "prop_bookshelf_hub",
@@ -73,7 +85,9 @@ POST_DESPILL = {
     "enemy_security_walk", "enemy_security_windup", "enemy_security_attack", "enemy_security_death",
     "enemy_dancer_walk", "enemy_dancer_windup", "enemy_dancer_attack", "enemy_dancer_death",
     "enemy_fanatic_walk", "enemy_fanatic_windup", "enemy_fanatic_attack", "enemy_fanatic_death",
-    "enemy_chef_walk", "enemy_chef_windup",
+    "enemy_chef_walk", "enemy_chef_windup", "enemy_chef_attack", "enemy_chef_death",
+    "enemy_drone_walk", "enemy_drone_windup", "enemy_drone_attack", "enemy_drone_death",
+    "enemy_elite_walk", "enemy_elite_windup", "enemy_elite_attack", "enemy_elite_death",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 

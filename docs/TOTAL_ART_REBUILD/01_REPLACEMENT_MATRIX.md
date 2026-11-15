@@ -162,7 +162,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
-| `enemy_chef_attack` | `enemy_chef_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `enemy_chef_attack` | `enemy_chef_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_chef_death` | `enemy_chef_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `enemy_chef_walk` | `enemy_chef_walk` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_chef_windup` | `enemy_chef_windup` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
@@ -170,13 +170,13 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `enemy_dancer_death` | `enemy_dancer_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_dancer_walk` | `enemy_dancer_walk` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_dancer_windup` | `enemy_dancer_windup` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `enemy_drone_attack` | `enemy_drone_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_drone_death` | `enemy_drone_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_drone_walk` | `enemy_drone_walk` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_drone_windup` | `enemy_drone_windup` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_elite_attack` | `enemy_elite_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_elite_death` | `enemy_elite_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `enemy_elite_walk` | `enemy_elite_walk` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `enemy_drone_attack` | `enemy_drone_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_drone_death` | `enemy_drone_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_drone_walk` | `enemy_drone_walk` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_drone_windup` | `enemy_drone_windup` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_elite_attack` | `enemy_elite_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_elite_death` | `enemy_elite_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `enemy_elite_walk` | `enemy_elite_walk` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_elite_windup` | `enemy_elite_windup` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `enemy_fanatic_attack` | `enemy_fanatic_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `enemy_fanatic_death` | `enemy_fanatic_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
