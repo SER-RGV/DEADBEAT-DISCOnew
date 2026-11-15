@@ -43,7 +43,10 @@ async function main() {
 
     await page.waitForFunction(
       () => !!(window.DD_UI && window.__DD_BRIDGE &&
-        typeof window.__DD_BRIDGE.getWeaponsList === "function"),
+        typeof window.__DD_BRIDGE.getWeaponsList === "function" &&
+        typeof window.__DD_BRIDGE.getSnapshot === "function" &&
+        Array.isArray(window.__DD_BRIDGE.getWeaponsList()) &&
+        window.__DD_BRIDGE.getWeaponsList().length > 0),
       null,
       { timeout: 60000 }
     );
@@ -115,7 +118,8 @@ async function main() {
         selectedWeaponId: window.DD_UI.getState().selectedWeaponId,
         cardCount: document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length,
         gridClientHeight: document.getElementById("dd-weapons-grid").clientHeight,
-        gridScrollHeight: document.getElementById("dd-weapons-grid").scrollHeight
+        gridScrollHeight: document.getElementById("dd-weapons-grid").scrollHeight,
+        gridOverflowY: getComputedStyle(document.getElementById("dd-weapons-grid")).overflowY
       };
     });
     check("la auditoría no altera créditos, armas propias ni arma seleccionada",
@@ -125,8 +129,11 @@ async function main() {
       "créditos " + after.credits + "; propias " + after.owned.length + "; seleccionada " + after.selectedWeaponId);
     check("la lista vuelve a mostrar todas las armas tras recorrer categorías",
       after.cardCount === before.catalogCount, after.cardCount + " / " + before.catalogCount);
+    check("el grid permite desplazamiento vertical", ["auto", "scroll"].includes(after.gridOverflowY),
+      "overflow-y: " + after.gridOverflowY);
     if (after.cardCount > 0 && after.gridScrollHeight > after.gridClientHeight) {
-      check("la lista larga dispone de scroll vertical", true,
+      check("la lista larga necesita scroll y el contenido excede el viewport",
+        after.gridScrollHeight > after.gridClientHeight,
         after.gridScrollHeight + " px / " + after.gridClientHeight + " px");
     }
 
