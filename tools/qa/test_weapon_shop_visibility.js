@@ -51,12 +51,19 @@ async function main() {
     const before = await page.evaluate(() => {
       const catalog = window.__DD_BRIDGE.getWeaponsList();
       if (!Array.isArray(catalog)) throw new Error("getWeaponsList() no devuelve un array");
+      const initialSnapshot = window.__DD_BRIDGE.getSnapshot();
+      const initialOwned = Array.isArray(initialSnapshot.owned) ? initialSnapshot.owned.slice().sort() : [];
+      const initialCredits = initialSnapshot.credits;
+      const initialSelectedWeaponId = window.DD_UI.getState().selectedWeaponId;
       window.DD_UI.openShop();
       const cards = Array.from(document.querySelectorAll("#dd-weapons-grid .dd-weapon-card"));
       const active = document.querySelector("#dd-shop-filters .dd-filter-chip.active");
       return {
         catalogCount: catalog.length,
         catalogIds: catalog.map((weapon) => String(weapon.id)),
+        initialCredits,
+        initialOwned,
+        initialSelectedWeaponId,
         catalogCategories: Array.from(new Set(catalog.map((weapon) => String((weapon.category || "OTRAS").toUpperCase())))),
         categoryById: catalog.map((weapon) => String((weapon.category || "OTRAS").toUpperCase())),
         cardCount: cards.length,
@@ -100,6 +107,28 @@ async function main() {
       const all = document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]');
       if (all) all.click();
     });
+    const after = await page.evaluate(() => {
+      const snapshot = window.__DD_BRIDGE.getSnapshot();
+      return {
+        credits: snapshot.credits,
+        owned: Array.isArray(snapshot.owned) ? snapshot.owned.slice().sort() : [],
+        selectedWeaponId: window.DD_UI.getState().selectedWeaponId,
+        cardCount: document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length,
+        gridClientHeight: document.getElementById("dd-weapons-grid").clientHeight,
+        gridScrollHeight: document.getElementById("dd-weapons-grid").scrollHeight
+      };
+    });
+    check("la auditoría no altera créditos, armas propias ni arma seleccionada",
+      after.credits === before.initialCredits &&
+      JSON.stringify(after.owned) === JSON.stringify(before.initialOwned) &&
+      after.selectedWeaponId === before.initialSelectedWeaponId,
+      "créditos " + after.credits + "; propias " + after.owned.length + "; seleccionada " + after.selectedWeaponId);
+    check("la lista vuelve a mostrar todas las armas tras recorrer categorías",
+      after.cardCount === before.catalogCount, after.cardCount + " / " + before.catalogCount);
+    if (after.cardCount > 0 && after.gridScrollHeight > after.gridClientHeight) {
+      check("la lista larga dispone de scroll vertical", true,
+        after.gridScrollHeight + " px / " + after.gridClientHeight + " px");
+    }
 
     if (OUT) {
       await page.screenshot({ path: path.join(OUT, "weapon_shop_all_categories.png"), fullPage: false });
@@ -110,6 +139,7 @@ async function main() {
         missingIds,
         extraIds,
         categoryResults,
+        after,
         pageErrors,
         results
       }, null, 2) + "\n", "utf8");
