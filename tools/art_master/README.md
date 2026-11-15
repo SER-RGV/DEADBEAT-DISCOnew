@@ -19,7 +19,7 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_pickups.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
@@ -247,6 +247,27 @@ Recorrido general: Refugio, armería, mapa, salas con enemigos y jefes. `--circl
 entra en la sala 2 del círculo N (el motor reparte 11 salas por círculo); el círculo
 real queda además en `capture_report.json`.
 
+### `probe_pickups.js`
+```
+LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_pickups.js <salida>
+```
+Entra en una incursión con la sala despejada, deja los 11 tipos de botín del motor en el suelo con
+`__DD_BRIDGE.spawnPickupAt(type, x, y)` (misma tabla `mu` y función `nf` que el botín real) y captura el lienzo
+(`t06_ingame_*`). Después abre un cofre real (`DMO.rogue.debug({action:"chest"})` + `{action:"open"}`) y captura
+las tarjetas (`t06_relic_chest_*`), concede 6 pasivos (`{action:"item", id}`) y captura la lista de la pausa
+(`t06_relic_pause_*`; la sección se clona en un panel limpio porque en headless sale parcial). Deja
+`t06_probe.json` con el resultado y los errores de página. En headless el HUD queda tapado por la pantalla de
+arranque (`#dd-boot-frame.is-failed`): la evidencia del HUD de reserva se toma a mano.
+
+### `anim_contract.py`
+```
+python3 tools/art_master/anim_contract.py            # escribe docs/ART_REBUILD/ANIMATION_CONTRACT.json
+python3 tools/art_master/anim_contract.py --check    # valida R1–R4 (salida 1 si falla)
+```
+Contrato de animación derivado del registro real: por entidad y estado, qué id dibuja el motor, cuántos fotogramas
+tiene de verdad (uno, salvo `player_walk_00..03`), qué reloj lo mueve y qué anclas usa. Ejecutar tras cada
+`register` que toque figuras. Explicación en `docs/ART_REBUILD/ANIMATION_CONTRACT.md`.
+
 ### `audit_report.py`
 `init` clasifica todos los assets en la escala A–E; `render` escribe
 `docs/ART_REBUILD/AUDIT_INVENTORY.md`.
@@ -416,6 +437,17 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
 - **QA**: hoja `calibrate --overlay` (mano roja en la empuñadura, apoyo verde bajo el guardamanos, eje amarillo en el
   cañón, boca cian en el extremo) y `probe_weapons.js` en derecha/arriba/izquierda como mínimo; evidencias en
   `docs/ART_REBUILD/evidence/T05_ARMAS/`.
+
+## Contrato de los objetos (T06)
+
+- **Lienzo** 160×160 RGBA, objeto centrado (`fit contain`, margen 8), `pivot center`, sin suelo ni sombra; silueta
+  legible a 44 px. Estilo cel 3–4 tonos, filo magenta a la izquierda y cian a la derecha, sin texto, marco ni halo
+  (el halo, la sombra y la flotación los pone `drawPickup`).
+- **Consumidores**: `pickup_*_00` → `DD_WORLD.drawPickup` (44 px × escala, flotación ±4 px, halo cian) y reserva
+  de los iconos del HUD (`dd_ui_system.js`); `relic_*` → tarjetas del cofre (`#shot-choice-overlay .shot-icon`) y
+  lista de pasivos de la pausa (`.rogue71-items`) mediante el bloque `1f` de `tools/build_active_html.py`
+  (sustituye el glifo por la imagen si el id existe; si no, queda el glifo). Las reliquias no son botín de suelo.
+- **QA**: `probe_pickups.js`; evidencias en `docs/ART_REBUILD/evidence/T06_OBJETOS/`.
 
 ## Trampas conocidas
 

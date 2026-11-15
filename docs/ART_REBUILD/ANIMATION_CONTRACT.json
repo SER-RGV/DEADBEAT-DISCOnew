@@ -1,0 +1,2056 @@
+{
+ "schema": "dd-animation-contract/1",
+ "generated_from": {
+  "registry": "src/dd_asset_registry.js",
+  "cache_version": "20261115.23",
+  "renderer": "src/dd_world_renderer.js",
+  "bridge": "tools/build_active_html.py"
+ },
+ "model": {
+  "kind": "state-frame + procedural",
+  "summary": "Un PNG por estado. El puente decide el estado por entidad; el renderizador elige el id <entidad>_<estado>, lo apoya en anchors.foot a la altura anchors.unit y añade el movimiento (zancada, balanceo, respiración, destello, colapso). No hay atlas ni controlador de fotogramas; la única secuencia multi-fotograma real es player_walk_00..03.",
+  "canvas_contract": {
+   "foot": "[u,v] punto de apoyo en el suelo, fracción del lienzo",
+   "unit": "fracción del alto del lienzo que mide la figura de referencia (walk/idle erguido); los estados de una familia comparten escala: unit × alto = mismos px en todos",
+   "pivot": "anchors.foot (figuras) · center (objetos)",
+   "legacy": "sin anclas → pivote abajo-centro y figura al 86 % del lienzo"
+  },
+  "no_mixing_rule": "si el fotograma de un estado no comparte `rev` con el base (walk/idle), se dibuja el base con señal procedimental (inclinación, destello, colapso)."
+ },
+ "clocks": {
+  "player.animT": "+= dt × (8 si se mueve, 2 parado)  [motor]",
+  "player.walk_frame": "player_walk_0{floor(8·Z) mod 4}: 4 fotogramas a 8 fps  [motor, Z = reloj de juego en s]",
+  "enemy.animT": "+= 4 × dt  [motor]; view.phase = animT × mult (tank 1.2 · sprinter 3.4 · resto 2.0)  [puente]",
+  "enemy.stride": "cyc = phase × π/2 → una zancada completa cada 4 unidades de fase; sólo si velocidad > 14 px/s",
+  "enemy.breath": "parado: sy = 1 + 0.012·sin(2.6·t + 0.05·x)",
+  "boss.motion": "balanceo sólo con desplazamiento real; entrada: alpha 0.25→1, escala 0.78→1",
+  "pickup.bob": "sin(4.5·t + 0.03·x) × 4 px; halo cian #22d3ee; sombra en y+14"
+ },
+ "procedural": {
+  "enemy": {
+   "walk_moving": {
+    "bob": "-|sin(cyc)| × 2.6 × (figH/88)",
+    "tilt": "sin(cyc) × 0.035 rad"
+   },
+   "hit": {
+    "window_s": 0.12,
+    "tilt": "-0.10·n",
+    "scale": "(1+0.05·n, 1-0.07·n)",
+    "flash": "tope 0.5, caída cuadrática en 0.14 s"
+   },
+   "windup_fallback": {
+    "tilt": -0.15,
+    "scale": [
+     1.04,
+     0.96
+    ]
+   },
+   "attack_fallback": {
+    "tilt": 0.2,
+    "scale": [
+     0.97,
+     1.04
+    ],
+    "bob": "-2·k"
+   },
+   "death": {
+    "duration_s_default": 0.38,
+    "back_px": "14 × (figH/88) con easing cuadrático",
+    "fade": "desde el 55 % de la duración",
+    "flash": "primer 18 %",
+    "fallback_without_frame": {
+     "rotate": -0.09,
+     "scale": "(1+0.16·e, max(0.24, 1-0.62·e))"
+    }
+   },
+   "variant_rim": {
+    "keys": [
+     "blindado",
+     "incendiario",
+     "criogenico",
+     "conductivo",
+     "toxico",
+     "espectral",
+     "caotico"
+    ],
+    "pulse": "alpha × (0.8 + 0.2·sin(4·t + 0.03·x))"
+   }
+  },
+  "boss": {
+   "flash_cap": 0.36,
+   "states_map": {
+    "idle": "idle",
+    "attack": "attack",
+    "recover": "hit",
+    "hit": "hit",
+    "death": "death"
+   }
+  }
+ },
+ "entities": {
+  "player": {
+   "driver": "resolvePlayerPose (renderer) ← pAnim.upperPose/lowerPose (motor, PLAYER_POSE_TO_ID)",
+   "poses": {
+    "player_idle": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_idle_00",
+       "registered": true,
+       "src": "assets/characters/player_idle_00.png",
+       "w": 288,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.4914,
+        "hand": [
+         0.678,
+         0.5848
+        ]
+       }
+      }
+     ]
+    },
+    "player_walk": {
+     "frames": 4,
+     "fps": 8,
+     "loop": true,
+     "ids": [
+      {
+       "id": "player_walk_00",
+       "registered": true,
+       "src": "assets/characters/player_walk_00.png",
+       "w": 336,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.5097
+       }
+      },
+      {
+       "id": "player_walk_01",
+       "registered": true,
+       "src": "assets/characters/player_walk_01.png",
+       "w": 336,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.5309
+       }
+      },
+      {
+       "id": "player_walk_02",
+       "registered": true,
+       "src": "assets/characters/player_walk_02.png",
+       "w": 336,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.4923
+       }
+      },
+      {
+       "id": "player_walk_03",
+       "registered": true,
+       "src": "assets/characters/player_walk_03.png",
+       "w": 336,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.5049
+       }
+      }
+     ]
+    },
+    "player_fire": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_shoot_00",
+       "registered": true,
+       "src": "assets/characters/player_shoot_00.png",
+       "w": 288,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.4914,
+        "hand": [
+         0.8886,
+         0.2555
+        ]
+       }
+      }
+     ]
+    },
+    "player_fire2": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_fire2",
+       "registered": true,
+       "src": "assets/characters/player_fire2.png",
+       "w": 384,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.4962,
+        "hand": [
+         0.6502,
+         0.3296
+        ]
+       }
+      }
+     ]
+    },
+    "player_firehip": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_firehip",
+       "registered": true,
+       "src": "assets/characters/player_firehip.png",
+       "w": 288,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.5135,
+        "hand": [
+         0.8338,
+         0.5232
+        ]
+       }
+      }
+     ]
+    },
+    "player_hit": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_hurt_00",
+       "registered": true,
+       "src": "assets/characters/player_hurt_00.png",
+       "w": 288,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": {
+        "belt": 0.4904,
+        "hand": [
+         0.589,
+         0.4596
+        ]
+       }
+      }
+     ]
+    },
+    "player_roll": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_roll_00",
+       "registered": true,
+       "src": "assets/characters/player_roll_00.png",
+       "w": 384,
+       "h": 384,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": null
+      }
+     ]
+    },
+    "player_death": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_death_00",
+       "registered": true,
+       "src": "assets/characters/player_death_00.png",
+       "w": 640,
+       "h": 320,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": null
+      }
+     ]
+    },
+    "player_boost": {
+     "frames": 1,
+     "fps": null,
+     "loop": false,
+     "ids": [
+      {
+       "id": "player_boost_00",
+       "registered": true,
+       "src": "assets/characters/player_boost_00.png",
+       "w": 512,
+       "h": 512,
+       "rev": "R01_PROTAGONISTA",
+       "frames": 1,
+       "anchors": null
+      }
+     ]
+    }
+   },
+   "aim_sectors": [
+    {
+     "elevation_deg": "+72..+90",
+     "id": "player_aim_up_03",
+     "registered": true
+    },
+    {
+     "elevation_deg": "+47..+72",
+     "id": "player_aim_up_02",
+     "registered": true
+    },
+    {
+     "elevation_deg": "+19..+47",
+     "id": "player_aim_up_01",
+     "registered": true
+    },
+    {
+     "elevation_deg": "-15..+19",
+     "id": "player_shoot_00",
+     "registered": true
+    },
+    {
+     "elevation_deg": "-41..-15",
+     "id": "player_aim_down_01",
+     "registered": true
+    },
+    {
+     "elevation_deg": "-70..-41",
+     "id": "player_aim_down_02",
+     "registered": true
+    },
+    {
+     "elevation_deg": "-90..-70",
+     "id": "player_aim_down_03",
+     "registered": true
+    }
+   ],
+   "split_overlays": {
+    "player_firehip": {
+     "overlay": "player_firehip_arms",
+     "registered": true
+    },
+    "player_aim_down_02": {
+     "overlay": "player_aim_down_02_arms",
+     "registered": true
+    },
+    "player_aim_down_03": {
+     "overlay": "player_aim_down_03_arms",
+     "registered": true
+    }
+   },
+   "hero_walk_full": [
+    {
+     "id": "hero_walk_00",
+     "registered": true
+    },
+    {
+     "id": "hero_walk_01",
+     "registered": true
+    },
+    {
+     "id": "hero_walk_02",
+     "registered": true
+    },
+    {
+     "id": "hero_walk_03",
+     "registered": true
+    }
+   ]
+  },
+  "enemies": {
+   "driver": "ddEnemyView (puente) → DD_WORLD.drawEnemy / drawEnemyDeath (renderer)",
+   "state_assets": {
+    "walk": "enemy_<fam>_walk",
+    "windup": "enemy_<fam>_windup",
+    "attack": "enemy_<fam>_attack",
+    "hit": "enemy_<fam>_hit",
+    "death": "enemy_<fam>_death"
+   },
+   "phase_mult": {
+    "tank(chef)": 1.2,
+    "sprinter(fanatic)": 3.4,
+    "otros": 2.0
+   },
+   "families": {
+    "security": {
+     "base": "enemy_security_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_security_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_security_walk.png",
+       "w": 224,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4732,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_security_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_security_windup.png",
+       "w": 400,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.505,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_security_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_security_attack.png",
+       "w": 480,
+       "h": 400,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3875,
+         0.98
+        ],
+        "unit": 1.034
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_security_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_security_hit.png",
+       "w": 352,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5597,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_security_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_security_death.png",
+       "w": 432,
+       "h": 416,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5046,
+         0.9808
+        ],
+        "unit": 0.9942
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "dancer": {
+     "base": "enemy_dancer_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_dancer_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_dancer_walk.png",
+       "w": 272,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4191,
+         0.9815
+        ],
+        "unit": 0.9357
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_dancer_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_dancer_windup.png",
+       "w": 320,
+       "h": 448,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4813,
+         0.9821
+        ],
+        "unit": 0.9023
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_dancer_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_dancer_attack.png",
+       "w": 480,
+       "h": 416,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4125,
+         0.9808
+        ],
+        "unit": 0.9717
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_dancer_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_dancer_hit.png",
+       "w": 288,
+       "h": 448,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3889,
+         0.9821
+        ],
+        "unit": 0.9023
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_dancer_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_dancer_death.png",
+       "w": 384,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4453,
+         0.9815
+        ],
+        "unit": 0.9357
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "fanatic": {
+     "base": "enemy_fanatic_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_fanatic_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_fanatic_walk.png",
+       "w": 336,
+       "h": 400,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4762,
+         0.98
+        ],
+        "unit": 0.94
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_fanatic_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_fanatic_windup.png",
+       "w": 384,
+       "h": 320,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4167,
+         0.975
+        ],
+        "unit": 1.1749
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_fanatic_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_fanatic_attack.png",
+       "w": 384,
+       "h": 400,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4896,
+         0.98
+        ],
+        "unit": 0.94
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_fanatic_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_fanatic_hit.png",
+       "w": 352,
+       "h": 448,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4631,
+         0.9821
+        ],
+        "unit": 0.8391
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_fanatic_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_fanatic_death.png",
+       "w": 496,
+       "h": 448,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4839,
+         0.9821
+        ],
+        "unit": 0.8392
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "drone": {
+     "base": "enemy_drone_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_drone_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_drone_walk.png",
+       "w": 272,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3934,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_drone_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_drone_windup.png",
+       "w": 240,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4458,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_drone_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_drone_attack.png",
+       "w": 432,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4097,
+         0.9815
+        ],
+        "unit": 0.9574
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_drone_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_drone_hit.png",
+       "w": 240,
+       "h": 464,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5875,
+         0.9828
+        ],
+        "unit": 0.8913
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_drone_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_drone_death.png",
+       "w": 416,
+       "h": 448,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4856,
+         0.9821
+        ],
+        "unit": 0.9232
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "chef": {
+     "base": "enemy_chef_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_chef_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_chef_walk.png",
+       "w": 608,
+       "h": 512,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5066,
+         0.9844
+        ],
+        "unit": 0.9547
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_chef_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_chef_windup.png",
+       "w": 432,
+       "h": 704,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5,
+         0.9886
+        ],
+        "unit": 0.6944
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_chef_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_chef_attack.png",
+       "w": 800,
+       "h": 528,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3137,
+         0.9848
+        ],
+        "unit": 0.9258
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_chef_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_chef_hit.png",
+       "w": 640,
+       "h": 512,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5125,
+         0.9844
+        ],
+        "unit": 0.9548
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_chef_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_chef_death.png",
+       "w": 656,
+       "h": 592,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4848,
+         0.9865
+        ],
+        "unit": 0.8257
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "elite": {
+     "base": "enemy_elite_walk",
+     "rev": "R02_ENEMIGOS",
+     "states": {
+      "walk": {
+       "id": "enemy_elite_walk",
+       "registered": true,
+       "src": "assets/enemies/enemy_elite_walk.png",
+       "w": 320,
+       "h": 496,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4781,
+         0.9839
+        ],
+        "unit": 0.9475
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "windup": {
+       "id": "enemy_elite_windup",
+       "registered": true,
+       "src": "assets/enemies/enemy_elite_windup.png",
+       "w": 336,
+       "h": 512,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4405,
+         0.9844
+        ],
+        "unit": 0.9179
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "enemy_elite_attack",
+       "registered": true,
+       "src": "assets/enemies/enemy_elite_attack.png",
+       "w": 672,
+       "h": 432,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.375,
+         0.9815
+        ],
+        "unit": 1.0879
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "enemy_elite_hit",
+       "registered": true,
+       "src": "assets/enemies/enemy_elite_hit.png",
+       "w": 320,
+       "h": 496,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4813,
+         0.9839
+        ],
+        "unit": 0.9475
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "enemy_elite_death",
+       "registered": true,
+       "src": "assets/enemies/enemy_elite_death.png",
+       "w": 496,
+       "h": 464,
+       "rev": "R02_ENEMIGOS",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.6512,
+         0.9828
+        ],
+        "unit": 1.0128
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    }
+   }
+  },
+  "bosses": {
+   "driver": "ddBossView (puente) → DD_WORLD.drawBoss (renderer)",
+   "slugs": {
+    "boss_00_anden": {
+     "base": "boss_00_anden_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_00_anden_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_00_anden_idle.png",
+       "w": 304,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4243,
+         0.9861
+        ],
+        "unit": 0.9527
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_00_anden_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_00_anden_attack.png",
+       "w": 464,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4612,
+         0.9861
+        ],
+        "unit": 0.9528
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_00_anden_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_00_anden_hit.png",
+       "w": 560,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.45,
+         0.9861
+        ],
+        "unit": 0.9528
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_00_anden_death",
+       "registered": true,
+       "src": "assets/bosses/boss_00_anden_death.png",
+       "w": 528,
+       "h": 544,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4261,
+         0.9853
+        ],
+        "unit": 1.0088
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_01_magneta": {
+     "base": "boss_01_magneta_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_01_magneta_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_01_magneta_idle.png",
+       "w": 352,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4716,
+         0.9861
+        ],
+        "unit": 0.9237
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_01_magneta_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_01_magneta_attack.png",
+       "w": 496,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5242,
+         0.9861
+        ],
+        "unit": 0.9237
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_01_magneta_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_01_magneta_hit.png",
+       "w": 432,
+       "h": 544,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5162,
+         0.9853
+        ],
+        "unit": 0.9779
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_01_magneta_death",
+       "registered": true,
+       "src": "assets/bosses/boss_01_magneta_death.png",
+       "w": 464,
+       "h": 368,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5022,
+         0.9783
+        ],
+        "unit": 1.4455
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_02_bufe": {
+     "base": "boss_02_bufe_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_02_bufe_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_02_bufe_idle.png",
+       "w": 464,
+       "h": 528,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4806,
+         0.9848
+        ],
+        "unit": 0.9439
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_02_bufe_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_02_bufe_attack.png",
+       "w": 592,
+       "h": 528,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3851,
+         0.9848
+        ],
+        "unit": 0.9439
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_02_bufe_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_02_bufe_hit.png",
+       "w": 528,
+       "h": 528,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4962,
+         0.9848
+        ],
+        "unit": 0.944
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_02_bufe_death",
+       "registered": true,
+       "src": "assets/bosses/boss_02_bufe_death.png",
+       "w": 400,
+       "h": 400,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4875,
+         0.98
+        ],
+        "unit": 1.246
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_03_cajero": {
+     "base": "boss_03_cajero_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_03_cajero_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_03_cajero_idle.png",
+       "w": 304,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4868,
+         0.9857
+        ],
+        "unit": 0.95
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_03_cajero_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_03_cajero_attack.png",
+       "w": 400,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3625,
+         0.9857
+        ],
+        "unit": 0.9499
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_03_cajero_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_03_cajero_hit.png",
+       "w": 464,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5216,
+         0.9857
+        ],
+        "unit": 0.95
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_03_cajero_death",
+       "registered": true,
+       "src": "assets/bosses/boss_03_cajero_death.png",
+       "w": 368,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5163,
+         0.9857
+        ],
+        "unit": 0.9499
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_04_pogo": {
+     "base": "boss_04_pogo_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_04_pogo_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_04_pogo_idle.png",
+       "w": 448,
+       "h": 544,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4754,
+         0.9853
+        ],
+        "unit": 0.9573
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_04_pogo_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_04_pogo_attack.png",
+       "w": 576,
+       "h": 544,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5156,
+         0.9853
+        ],
+        "unit": 0.9574
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_04_pogo_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_04_pogo_hit.png",
+       "w": 560,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5143,
+         0.9857
+        ],
+        "unit": 0.93
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_04_pogo_death",
+       "registered": true,
+       "src": "assets/bosses/boss_04_pogo_death.png",
+       "w": 464,
+       "h": 448,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5237,
+         0.9821
+        ],
+        "unit": 1.1625
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_05_oficiante": {
+     "base": "boss_05_oficiante_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_05_oficiante_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_05_oficiante_idle.png",
+       "w": 352,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4489,
+         0.9857
+        ],
+        "unit": 0.97
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_05_oficiante_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_05_oficiante_attack.png",
+       "w": 624,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4551,
+         0.9857
+        ],
+        "unit": 0.9701
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_05_oficiante_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_05_oficiante_hit.png",
+       "w": 528,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5985,
+         0.9857
+        ],
+        "unit": 0.97
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_05_oficiante_death",
+       "registered": true,
+       "src": "assets/bosses/boss_05_oficiante_death.png",
+       "w": 464,
+       "h": 400,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.3987,
+         0.98
+        ],
+        "unit": 1.358
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_06_matarife": {
+     "base": "boss_06_matarife_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_06_matarife_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_06_matarife_idle.png",
+       "w": 496,
+       "h": 544,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5403,
+         0.9853
+        ],
+        "unit": 0.9676
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_06_matarife_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_06_matarife_attack.png",
+       "w": 720,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5181,
+         0.9857
+        ],
+        "unit": 0.94
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_06_matarife_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_06_matarife_hit.png",
+       "w": 656,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4649,
+         0.9857
+        ],
+        "unit": 0.94
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_06_matarife_death",
+       "registered": true,
+       "src": "assets/bosses/boss_06_matarife_death.png",
+       "w": 624,
+       "h": 528,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4744,
+         0.9848
+        ],
+        "unit": 0.997
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_07_imitador": {
+     "base": "boss_07_imitador_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_07_imitador_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_07_imitador_idle.png",
+       "w": 336,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.494,
+         0.9861
+        ],
+        "unit": 0.9334
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_07_imitador_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_07_imitador_attack.png",
+       "w": 576,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.526,
+         0.9857
+        ],
+        "unit": 0.96
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_07_imitador_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_07_imitador_hit.png",
+       "w": 544,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.489,
+         0.9857
+        ],
+        "unit": 0.96
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_07_imitador_death",
+       "registered": true,
+       "src": "assets/bosses/boss_07_imitador_death.png",
+       "w": 608,
+       "h": 480,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5132,
+         0.9833
+        ],
+        "unit": 1.12
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_08_traidor": {
+     "base": "boss_08_traidor_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_08_traidor_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_08_traidor_idle.png",
+       "w": 368,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4457,
+         0.9861
+        ],
+        "unit": 0.9722
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_08_traidor_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_08_traidor_attack.png",
+       "w": 560,
+       "h": 576,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4536,
+         0.9861
+        ],
+        "unit": 0.9722
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_08_traidor_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_08_traidor_hit.png",
+       "w": 528,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5227,
+         0.9857
+        ],
+        "unit": 1.0
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_08_traidor_death",
+       "registered": true,
+       "src": "assets/bosses/boss_08_traidor_death.png",
+       "w": 528,
+       "h": 352,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.4394,
+         0.9773
+        ],
+        "unit": 1.5909
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_09_nucleo": {
+     "base": "boss_09_nucleo_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_09_nucleo_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_09_nucleo_idle.png",
+       "w": 352,
+       "h": 592,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5398,
+         0.9865
+        ],
+        "unit": 0.9648
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_09_nucleo_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_09_nucleo_attack.png",
+       "w": 544,
+       "h": 608,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5533,
+         0.9868
+        ],
+        "unit": 0.9394
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_09_nucleo_hit",
+       "registered": true,
+       "src": "assets/bosses/boss_09_nucleo_hit.png",
+       "w": 464,
+       "h": 592,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.6509,
+         0.9865
+        ],
+        "unit": 0.9648
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "death": {
+       "id": "boss_09_nucleo_death",
+       "registered": true,
+       "src": "assets/bosses/boss_09_nucleo_death.png",
+       "w": 528,
+       "h": 400,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5284,
+         0.98
+        ],
+        "unit": 1.4281
+       },
+       "loop": false,
+       "dedicated": true
+      }
+     }
+    },
+    "boss_10_arquitecto": {
+     "base": "boss_10_arquitecto_idle",
+     "rev": "R03_JEFES",
+     "states": {
+      "idle": {
+       "id": "boss_10_arquitecto_idle",
+       "registered": true,
+       "src": "assets/bosses/boss_10_arquitecto_idle.png",
+       "w": 496,
+       "h": 560,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5383,
+         0.9857
+        ],
+        "unit": 0.96
+       },
+       "loop": true,
+       "dedicated": true
+      },
+      "attack": {
+       "id": "boss_10_arquitecto_attack",
+       "registered": true,
+       "src": "assets/bosses/boss_10_arquitecto_attack.png",
+       "w": 624,
+       "h": 608,
+       "rev": "R03_JEFES",
+       "frames": 1,
+       "anchors": {
+        "foot": [
+         0.5449,
+         0.9868
+        ],
+        "unit": 0.8842
+       },
+       "loop": false,
+       "dedicated": true
+      },
+      "hit": {
+       "id": "boss_10_arquitecto_hit",
+       "registered": false,
+       "fallback": "boss_10_arquitecto_idle",
+       "note": "sin fotograma por contrato R03: reposo + señal procedimental"
+      },
+      "death": {
+       "id": "boss_10_arquitecto_death",
+       "registered": false,
+       "fallback": "boss_10_arquitecto_idle",
+       "note": "sin fotograma por contrato R03: reposo + señal procedimental"
+      }
+     }
+    }
+   }
+  },
+  "pickups": {
+   "driver": "DD_WORLD.drawPickup (suelo, 44 px × escala) · dd_ui_system.js (reserva HUD) · tarjetas del cofre y lista de pasivos (relic_*, parche 1f del build)",
+   "frames": 1,
+   "loop": false,
+   "ids": {
+    "pickup_heart_00": {
+     "id": "pickup_heart_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_heart_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_ammo_00": {
+     "id": "pickup_ammo_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_ammo_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_bomb_00": {
+     "id": "pickup_bomb_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_bomb_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_boost_00": {
+     "id": "pickup_boost_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_boost_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_shield_00": {
+     "id": "pickup_shield_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_shield_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_damageup_00": {
+     "id": "pickup_damageup_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_damageup_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_fireup_00": {
+     "id": "pickup_fireup_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_fireup_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_speedup_00": {
+     "id": "pickup_speedup_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_speedup_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_turret_00": {
+     "id": "pickup_turret_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_turret_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_companion_00": {
+     "id": "pickup_companion_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_companion_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_mutation_00": {
+     "id": "pickup_mutation_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_mutation_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "pickup_credits_00": {
+     "id": "pickup_credits_00",
+     "registered": true,
+     "src": "assets/pickups/pickup_credits_00.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_needle": {
+     "id": "relic_needle",
+     "registered": true,
+     "src": "assets/pickups/relic_needle.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_lowpass": {
+     "id": "relic_lowpass",
+     "registered": true,
+     "src": "assets/pickups/relic_lowpass.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_magnet": {
+     "id": "relic_magnet",
+     "registered": true,
+     "src": "assets/pickups/relic_magnet.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_pact": {
+     "id": "relic_pact",
+     "registered": true,
+     "src": "assets/pickups/relic_pact.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_echo": {
+     "id": "relic_echo",
+     "registered": true,
+     "src": "assets/pickups/relic_echo.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_coil": {
+     "id": "relic_coil",
+     "registered": true,
+     "src": "assets/pickups/relic_coil.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_prism": {
+     "id": "relic_prism",
+     "registered": true,
+     "src": "assets/pickups/relic_prism.png",
+     "w": 160,
+     "h": 160,
+     "rev": "T06_OBJETOS",
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    },
+    "relic_tempo": {
+     "id": "relic_tempo",
+     "registered": true,
+     "src": "assets/pickups/relic_tempo.png",
+     "w": 160,
+     "h": 160,
+     "rev": null,
+     "frames": 1,
+     "anchors": null,
+     "pivot": "center"
+    }
+   }
+  }
+ },
+ "validation": {
+  "rules": [
+   "R1 existe",
+   "R2 misma rev que el base",
+   "R3 anchors foot/unit en figuras",
+   "R4 caminata del protagonista completa"
+  ],
+  "problems": [],
+  "ok": true
+ }
+}

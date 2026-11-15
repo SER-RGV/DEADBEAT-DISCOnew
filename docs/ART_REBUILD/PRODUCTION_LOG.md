@@ -127,3 +127,19 @@
 - En paralelo, **Fase 08** (ver `docs/WORLD_SCALE_REBUILD/`): los pickups se dibujan a 44×1,15 ≈ 51 px de mundo y la cámara va a
   zoom 1,08 en calma, así que en pantalla miden ≈ 55 px (antes 35). Commits `ac78f24`…`70070f4`, PR #22.
 
+## (16) 2026-11-15 · T06_OBJETOS turno 2 (19/20) + reliquias en cofre/pausa + contrato de animación
+
+- `generate_image` ×10 (tope por turno): `pickup_bomb_00` (reintento OK), `pickup_speedup_00`, `pickup_turret_00`, `relic_needle`,
+  `relic_lowpass`, `relic_magnet`, `relic_pact`, `relic_echo`, `relic_coil`, `relic_prism`; queda `relic_tempo` para el turno 3.
+- `batch.py process --only <10> --no-sheet` → 10/10 (aviso `baked_checker_suspect` en speedup: falso positivo, zapatilla blanca);
+  `register --only` → 382 / caché `20261115.23`; `python3 tools/build_active_html.py`.
+- Hallazgo: los `relic_*` no tenían consumidor real (el motor pinta las reliquias con glifos de texto en las tarjetas del cofre
+  y en la lista de pasivos; `drawPickup` nunca recibe una reliquia). Parche mínimo `1f` en el build (dos sustituciones de una
+  línea, con reserva al glifo si falta el asset) + CSS `.dd-relic-icon` / `.dd-relic-icon-sm` en `src/dd_rebuild_ui.css`.
+- Sonda `probe_pickups.js` ampliada: cofre real (`DMO.rogue.debug chest/open`), 6 pasivos concedidos (`item`), lista de la pausa
+  (Escape; captura de la sección clonada porque en headless sale parcial). Resultado: 11/11 pickups en el suelo, tarjeta de
+  reliquia con ilustración, 6/6 pasivos con icono, 0 errores. Evidencias `evidence/T06_OBJETOS/04–09` + `t06_probe_turno2.json`.
+- `mark --only <10>` → INTEGRATED/VERIFIED; `audit` sin incidencias; `render` → **A25·B88·C0·D26·E243** (pickups 19/20).
+- Contrato de animación (FASE 02 §4): `tools/art_master/anim_contract.py` → `ANIMATION_CONTRACT.json` (+ `--check` R1–R4, 0
+  incumplimientos; `boss_10_arquitecto` sólo idle/attack por contrato R03) y `ANIMATION_CONTRACT.md` (modelo: un fotograma por
+  estado + procedimental; relojes medidos en el motor y el renderizador).

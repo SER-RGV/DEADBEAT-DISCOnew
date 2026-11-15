@@ -78,7 +78,64 @@ const OUT = process.argv[2]; fs.mkdirSync(OUT, { recursive: true });
   fs.writeFileSync(path.join(OUT, "t06_hud_bottom.png"), hud2);
   const dom = await page.screenshot({ type: "jpeg", quality: 80 });
   fs.writeFileSync(path.join(OUT, "t06_dom_full_1080.jpg"), dom);
-  fs.writeFileSync(path.join(OUT, "t06_probe.json"), JSON.stringify({ res: res, errs: errs, at: new Date().toISOString() }, null, 1));
+  // ---- RELIQUIAS (T06 turno 2): el motor las presenta como tarjetas DOM del cofre
+  // (#shot-choice-overlay) y como lista de pasivos de la pausa (#rogue71-inventory .rogue71-items);
+  // el build sustituye el glifo por la ilustración relic_<id> cuando existe en el registro.
+  const relics = ["needle", "lowpass", "magnet", "pact", "echo", "coil", "prism", "tempo"];
+  const relicRes = await page.evaluate((relics) => {
+    const R = window.DMO && window.DMO.rogue; const out = { granted: [], chest: null, cards: [], list: [], restored: [] };
+    if (!R || !R.debug) return { error: "sin DMO.rogue.debug" };
+    // el cofre se abre ANTES de conceder pasivos: con la colección llena el motor no ofrece tarjeta de objeto
+    try { R.debug({ action: "chest", kind: "clear" }); R.debug({ action: "open" }); out.chest = true; } catch (e) { out.chest = String(e); }
+    const ov = document.getElementById("shot-choice-overlay");
+    out.overlayVisible = !!(ov && ov.classList.contains("visible"));
+    for (const b of document.querySelectorAll("#shot-choice-overlay .shot-card50")) {
+      const ic = b.querySelector(".shot-icon"); const img = ic && ic.querySelector("img.dd-relic-icon");
+      out.cards.push({ id: b.id, title: (b.querySelector("strong") || {}).textContent, art: img ? img.src.slice(0, 48) : null, glyph: ic ? ic.textContent : null });
+    }
+    return out;
+  }, relics);
+  await page.waitForTimeout(500);
+  const ovShot = await page.screenshot({ type: "png" });
+  fs.writeFileSync(path.join(OUT, "t06_relic_chest_overlay_1080.png"), ovShot);
+  const ovBox = await page.evaluate(() => { const o = document.getElementById("shot-choice-options") || document.getElementById("shot-choice-overlay"); if (!o) return null; const r = o.getBoundingClientRect(); return { x: Math.max(0, r.x - 10), y: Math.max(0, r.y - 10), width: Math.min(1920, r.width + 20), height: Math.min(1080, r.height + 20) }; });
+  if (ovBox && ovBox.width > 40 && ovBox.height > 40) fs.writeFileSync(path.join(OUT, "t06_relic_chest_cards.png"), await page.screenshot({ type: "png", clip: ovBox }));
+  // lista de pasivos: la pausa real (Escape) y, si en headless no se muestra, la sección tal cual la pinta el motor
+  const granted = await page.evaluate((relics) => {
+    const R = window.DMO.rogue; const g = [];
+    try { R.debug({ action: "back" }); } catch (e) {}
+    for (const id of relics.slice(0, 6)) { try { R.debug({ action: "item", id: id }); g.push(id); } catch (e) { g.push(id + "!" + e); } }
+    return g;
+  }, relics);
+  relicRes.granted = granted;
+  await page.waitForTimeout(300);
+  await page.keyboard.press("Escape");
+  await page.waitForTimeout(700);
+  const listInfo = await page.evaluate(() => {
+    const inv = document.getElementById("rogue71-inventory"); if (!inv) return { error: "sin rogue71-inventory" };
+    const items = Array.from(inv.querySelectorAll(".rogue71-items p")).map(p => ({ text: (p.querySelector("b") || p).textContent.trim().slice(0, 40), art: !!p.querySelector("img.dd-relic-icon-sm") }));
+    const r = inv.getBoundingClientRect(); const vis = r.width > 0 && r.height > 0 && getComputedStyle(inv).visibility !== "hidden";
+    let shown = (vis && r.y < window.innerHeight && r.y + r.height > 0) ? "pause+clone" : "clone";
+    {
+      // la pausa real queda registrada en t06_relic_pause_full_1080.png; para la evidencia de la lista
+      // se clona la sección en un panel limpio (en headless la real sale parcial, tapada o fuera de pantalla)
+      const host = document.createElement("div"); host.id = "dd-qa-relic-host";
+      host.style.cssText = "position:fixed;left:40px;top:40px;width:720px;max-height:1000px;overflow:auto;background:#07030dee;border:1px solid #67e8f9;padding:16px;z-index:99999;color:#e5e7eb;font:13px system-ui";
+      host.appendChild(inv.cloneNode(true)); document.body.appendChild(host);
+    }
+    return { items: items, shown: shown, rect: { x: r.x, y: r.y, w: r.width, h: r.height } };
+  });
+  await page.waitForTimeout(300);
+  const listBox = await page.evaluate(() => { const o = document.getElementById("dd-qa-relic-host") || document.getElementById("rogue71-inventory"); const r = o.getBoundingClientRect(); return { x: Math.max(0, r.x - 8), y: Math.max(0, r.y - 8), width: Math.min(1920, r.width + 16), height: Math.min(1080, r.height + 16) }; });
+  await page.evaluate(() => { const h = document.getElementById("dd-qa-relic-host"); if (h) h.style.display = "none"; });
+  await page.waitForTimeout(200);
+  fs.writeFileSync(path.join(OUT, "t06_relic_pause_full_1080.png"), await page.screenshot({ type: "png" }));
+  await page.evaluate(() => { const h = document.getElementById("dd-qa-relic-host"); if (h) h.style.display = ""; });
+  await page.waitForTimeout(200);
+  if (listBox.width > 40 && listBox.height > 40) fs.writeFileSync(path.join(OUT, "t06_relic_pause_list.png"), await page.screenshot({ type: "png", clip: listBox }));
+  fs.writeFileSync(path.join(OUT, "t06_probe.json"), JSON.stringify({ res: res, relics: relicRes, pauseList: listInfo, errs: errs, at: new Date().toISOString() }, null, 1));
   console.log(JSON.stringify(res), "errs", errs.length);
+  console.log("relics:", JSON.stringify(relicRes));
+  console.log("pauseList:", JSON.stringify(listInfo));
   await browser.close();
 })().catch(e => { console.error(e); process.exit(1); });

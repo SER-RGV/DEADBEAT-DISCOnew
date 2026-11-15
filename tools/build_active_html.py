@@ -106,6 +106,31 @@ _room_new = ("d=Math.min(1980,Math.max(960,d)),u=Math.min(1480,Math.max(700,u)),
 assert html.count(_room_old) == 1, "No se encuentra el acotado de tamaño de sala en ng()"
 html = html.replace(_room_old, _room_new, 1)
 
+# 1f. T06 OBJETOS · RELIQUIAS. El motor presenta las reliquias (tabla `ho`: needle,
+#     lowpass, magnet, pact, echo, coil, prism, tempo) como tarjetas DOM del cofre
+#     (#shot-choice-overlay, .shot-card50 > b.shot-icon) y como lista de pasivos en
+#     la pantalla de pausa (.rogue71-items), siempre con un glifo de texto. Los PNG
+#     `relic_<id>` del registro sólo los alcanzaba drawPickup, que nunca recibe una
+#     reliquia (no existen como botín de suelo). Dos parches de una línea: si el
+#     registro tiene la ilustración, sustituye el glifo por la imagen; si no, se
+#     conserva el glifo tal cual. CSS en src/dd_rebuild_ui.css (.dd-relic-icon).
+_relic_card_old = 'n.className="shot-icon",n.textContent=o.icon;'
+_relic_card_new = ('n.className="shot-icon",n.textContent=o.icon;'
+                   'try{if(("item"===e.kind||"replaceItem"===e.kind)&&window.DD_ASSETS){'
+                   'const ri=window.DD_ASSETS.get("relic_"+e.id);'
+                   'if(ri&&ri.src){const rg=document.createElement("img");rg.src=ri.src;rg.alt="";rg.decoding="async";'
+                   'rg.className="dd-relic-icon";n.textContent="";n.appendChild(rg);n.classList.add("has-relic-art")}}}catch(err){}')
+assert html.count(_relic_card_old) == 1, "No se encuentra el icono de la tarjeta de botín (shot-icon)"
+html = html.replace(_relic_card_old, _relic_card_new, 1)
+_relic_list_old = 'o.textContent=a.icon+" "+a.name,n.textContent=a.desc,'
+_relic_list_new = ('o.textContent=a.icon+" "+a.name,'
+                   '(function(){try{const ri=window.DD_ASSETS&&window.DD_ASSETS.get("relic_"+e);'
+                   'if(ri&&ri.src){const rg=document.createElement("img");rg.src=ri.src;rg.alt="";rg.decoding="async";'
+                   'rg.className="dd-relic-icon dd-relic-icon-sm";o.textContent=" "+a.name;o.prepend(rg)}}catch(err){}})(),'
+                   'n.textContent=a.desc,')
+assert html.count(_relic_list_old) == 1, "No se encuentra la lista de pasivos de la pausa (rogue71-items)"
+html = html.replace(_relic_list_old, _relic_list_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;

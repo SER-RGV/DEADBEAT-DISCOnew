@@ -1,13 +1,19 @@
-# TANDA EN CURSO: `T06_OBJETOS` (TANDA 06 del pack 02–07) — ABIERTA 9/20 · siguiente: turno 2
+# TANDA EN CURSO: `T06_OBJETOS` (TANDA 06 del pack 02–07) — ABIERTA 19/20 · siguiente: turno 3 (`relic_tempo`) y T07_HUD
 
-- **Estado T06 (2026-11-15):** turno 1 hecho: 9 pickups generados, procesados, registrados (caché `20261115.22`), vistos en juego
-  (`evidence/T06_OBJETOS/00_ingame_pickups_1080.jpg`) y marcados INTEGRATED/VERIFIED; inventario A25·B98·C0·D26·E233.
-  **Turno 2:** `pickup_bomb_00` (reintentar: bomba redonda negra, rejilla violeta, mecha, croma #00FF00), `pickup_speedup_00`,
-  `pickup_turret_00` y las 8 `relic_*` → `batch.py process --only … --no-sheet` → `register --only` → build →
-  `node tools/art_master/probe_pickups.js OUT` (deja los 11 tipos en el suelo con `__DD_BRIDGE.spawnPickupAt`; reliquias:
-  `DD_UI.openShop`) → `mark --only --evidence` → `audit` → `audit_report.py render` → docs → commit + push.
-  Nota: en headless el HUD queda tapado por `#dd-boot-frame.is-failed`/menú; la evidencia del HUD (corazón, escudo,
-  moneda) sigue pendiente de una captura manual.
+- **Estado T06 (2026-11-15, turno 2):** 19/20 integrados y VERIFIED (caché `20261115.23`); inventario A25·B88·C0·D26·E243.
+  Turno 2: `pickup_bomb_00`, `pickup_speedup_00`, `pickup_turret_00` + `relic_{needle,lowpass,magnet,pact,echo,coil,prism}`.
+  Las reliquias NO son botín de suelo (`drawPickup` nunca las recibe): su consumidor real son las tarjetas del cofre
+  (`#shot-choice-overlay .shot-card50 .shot-icon`) y la lista de pasivos de la pausa (`#rogue71-inventory .rogue71-items`);
+  el bloque `1f` de `tools/build_active_html.py` sustituye el glifo por `relic_<id>` si existe (CSS `.dd-relic-icon` en
+  `src/dd_rebuild_ui.css`). Evidencias `evidence/T06_OBJETOS/04_ingame_turno2_pickups_crop.jpg`, `06_relic_cofre_tarjetas.jpg`,
+  `08_relic_pausa_lista_pasivos.jpg`, `09_hoja_turno2_procesados.jpg`, `t06_probe_turno2.json` (0 errores).
+  **Turno 3:** `relic_tempo` (prompt en la ficha) → `batch.py process --only relic_tempo --no-sheet` → `register --only` → build →
+  `node tools/art_master/probe_pickups.js OUT` (ya abre el cofre con `DMO.rogue.debug({action:"chest"})`+`{action:"open"}`, concede 6
+  pasivos con `{action:"item",id}` y captura la lista de la pausa) → `mark --only --evidence` → `audit` → `render` → docs → commit.
+  Nota: en headless el HUD queda tapado por `#dd-boot-frame.is-failed`/menú; la evidencia del HUD de reserva (corazón, escudo,
+  moneda, habilidades) sigue pendiente de una captura manual.
+- **Contrato de animación:** `python3 tools/art_master/anim_contract.py` regenera `ANIMATION_CONTRACT.json` (y `--check` valida
+  R1–R4) tras cada `register` que toque figuras; `ANIMATION_CONTRACT.md` explica el modelo.
 - **Estado T05 (2026-11-15):** `T05_ARMAS` **CERRADA 105/105** (14.º y último tramo: lanza espectral, orbe del abismo, bomba
   flotante, summon infernal, dragón espiritual y Director). Registro 382, caché `20261115.21`; inventario
   A25·B107·C0·D26·E224. Informe: [`TANDA_05_INFORME.md`](TANDA_05_INFORME.md); evidencias `evidence/T05_ARMAS/00–43`

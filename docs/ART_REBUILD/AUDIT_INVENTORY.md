@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T09:50:43Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T11:08:37Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -18,7 +18,7 @@
 | `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
 | `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
 | `weapons` | 121 | 0 | 16 | 0 | 0 | 105 |
-| `pickups` | 20 | 0 | 11 | 0 | 0 | 9 |
+| `pickups` | 20 | 0 | 1 | 0 | 0 | 19 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 29 | 0 | 0 | 1 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
@@ -28,7 +28,7 @@
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **98** | **0** | **26** | **233** |
+| **Total** | **382** | **25** | **88** | **0** | **26** | **243** |
 
 ## `characters` (31)
 
@@ -278,18 +278,9 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `pickup_bomb_00` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `pickup_speedup_00` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `pickup_turret_00` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_coil` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_echo` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_lowpass` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_magnet` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_needle` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_pact` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
-| `relic_prism` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
 | `relic_tempo` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
 | `pickup_ammo_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `pickup_bomb_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_boost_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_companion_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_credits_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
@@ -298,6 +289,15 @@
 | `pickup_heart_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_mutation_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_shield_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `pickup_speedup_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `pickup_turret_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_coil` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_echo` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_lowpass` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_magnet` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_needle` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_pact` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_prism` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 
 ## `effects` (22)
 

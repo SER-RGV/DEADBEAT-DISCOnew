@@ -12,12 +12,12 @@
  "renderer": {
   "world": "DD_WORLD.drawPickup: drawSoftShadow(p.x,p.y+14) + drawNeonGlow(#22d3ee) + drawImage 44×44 centrado con bob ±4 px (chest 82).",
   "hud": "dd_ui_system.js usa pickup_heart_00/pickup_shield_00/pickup_bomb_00/pickup_boost_00/pickup_credits_00 como reserva de los iconos hud_*.",
-  "shop": "Reliquias en la tienda (DD_UI.openShop) por id relic_*."
+  "shop": "Reliquias: tarjetas DOM del cofre (#shot-choice-overlay .shot-card50 .shot-icon) y lista de pasivos de la pausa (#rogue71-inventory .rogue71-items). El build (bloque 1f) sustituye el glifo de texto por relic_<id> cuando existe en el registro; drawPickup nunca recibe reliquias (no son botín de suelo). QA: DMO.rogue.debug({action:\"chest\"}) + {action:\"open\"} y {action:\"item\",id}."
  },
  "contract": {
   "canvas": "160×160 PNG RGBA, objeto centrado (fit contain, margen 8 px), pivot center, sin suelo ni sombra; silueta legible a 44 px.",
   "raw": "croma verde #00FF00 plano; un solo objeto; sin texto, marco ni fondo. Crudo en /home/user/dd_work/raw/T06_OBJETOS/<id>.png.",
-  "qa": "sonda en juego (botín tras matar enemigos + HUD de reserva) y hoja de los 20 a 44 px."
+  "qa": "sonda en juego (probe_pickups.js: 11 pickups en el suelo con __DD_BRIDGE.spawnPickupAt; cofre abierto con DMO.rogue.debug y lista de pasivos con 6 reliquias concedidas) y hoja de los 20 a 44 px. HUD de reserva no capturable en headless."
  },
  "defaults": {
   "category": "pickups",
@@ -32,10 +32,11 @@
   "band": 3
  },
  "progress": {
-  "verified": 9,
+  "verified": 19,
   "total": 20,
   "updated": "2026-11-15",
-  "turno_1": "9 pickups INTEGRATED/VERIFIED (ammo, boost, companion, credits, damageup, fireup, heart, mutation, shield); pendientes bomb, speedup, turret y 8 reliquias"
+  "turno_1": "9 pickups INTEGRATED/VERIFIED (ammo, boost, companion, credits, damageup, fireup, heart, mutation, shield); pendientes bomb, speedup, turret y 8 reliquias",
+  "turno_2": "10 generados/procesados/registrados (caché 20261115.23) y VERIFIED en juego: bomb, speedup, turret + needle, lowpass, magnet, pact, echo, coil, prism (evidencias 04–09)"
  },
  "generation_plan": [
   {
@@ -52,13 +53,24 @@
     "pickup_mutation_00",
     "pickup_shield_00"
    ],
-   "hechas": [],
+   "hechas": [
+    "pickup_ammo_00",
+    "pickup_boost_00",
+    "pickup_companion_00",
+    "pickup_credits_00",
+    "pickup_damageup_00",
+    "pickup_fireup_00",
+    "pickup_heart_00",
+    "pickup_mutation_00",
+    "pickup_shield_00"
+   ],
    "reintentar": [],
-   "estado": "PENDIENTE"
+   "estado": "HECHO (bomb pasó al turno 2 por el tope de 10 imágenes)"
   },
   {
    "turno": 2,
    "ids": [
+    "pickup_bomb_00",
     "pickup_speedup_00",
     "pickup_turret_00",
     "relic_needle",
@@ -67,15 +79,39 @@
     "relic_pact",
     "relic_echo",
     "relic_coil",
-    "relic_prism",
+    "relic_prism"
+   ],
+   "hechas": [
+    "pickup_bomb_00",
+    "pickup_speedup_00",
+    "pickup_turret_00",
+    "relic_needle",
+    "relic_lowpass",
+    "relic_magnet",
+    "relic_pact",
+    "relic_echo",
+    "relic_coil",
+    "relic_prism"
+   ],
+   "reintentar": [],
+   "estado": "HECHO"
+  },
+  {
+   "turno": 3,
+   "ids": [
     "relic_tempo"
    ],
    "hechas": [],
    "reintentar": [],
-   "estado": "PENDIENTE"
+   "estado": "PENDIENTE (único asset de T06 que falta: metrónomo negro lacado, aguja magenta)"
   }
  ],
- "generation_lessons": [],
+ "generation_lessons": [
+  "Los 20 prompts de la ficha funcionan a la primera con un solo objeto y croma limpio; el único fallo (bomb, turno 1) fue del servicio, no del prompt.",
+  "pickup_speedup_00 dispara el aviso baked_checker_suspect del QC: falso positivo por la zapatilla blanca/gris; sin damero real (comprobado sobre fondo claro y oscuro).",
+  "relic_needle (brazo de tocadiscos) es la silueta más fina del lote: a 44 px sigue legible por la diagonal y la punta cian, pero no conviene reducirlo más.",
+  "Las reliquias no son botín de suelo: su integración real es la tarjeta del cofre y la lista de pasivos (parche 1f del build), con reserva al glifo si falta el asset."
+ ],
  "assets": [
   {
    "id": "pickup_ammo_00",

@@ -14,7 +14,7 @@ que no puede crearse en esta sesión; comunicado). Sin merge automático.
 | E · Mapas | `scaledRoomSize` en `ng()` (bloque `1e(b)`), clasificación por ranura | **hecha y probada en juego** (sonda: tamaños por clase) |
 | F · Colisiones | auditoría e inventario; comprobación de `r` y de `ut.h` en simulación | **hecha** (sin cambios de hitbox, por diseño) |
 | G · QA | pruebas Node (18/18), sonda ANTES/legacy/DESPUÉS a 1920×1080, 1600×900, 1280×720, capturas de 6 situaciones, trayectoria de cámara, coste por cuadro | ver `QA_REPORT.md` |
-| H · Entrega | esta carpeta, commit por etapa, PR | en curso |
+| H · Entrega | esta carpeta, commit por etapa, PR | hecha (commits `ac78f24`, `f6d950c`, `afe1003`, `70070f4`; PR #22 abierta) |
 
 ## Archivos nuevos
 
