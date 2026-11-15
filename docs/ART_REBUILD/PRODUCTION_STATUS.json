@@ -3,8 +3,8 @@
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
-  "total": 325,
-  "cache_version": "20261115.12"
+  "total": 333,
+  "cache_version": "20261115.13"
  },
  "classification": {
   "total": 382,
@@ -21,7 +21,7 @@
   "R03_JEFES",
   "T04_ESCENARIOS"
  ],
- "current_batch": "T05_ARMAS (ABIERTA · 48/105 verificadas · turnos 1–4 completos, 5 parcial 8/10)",
+ "current_batch": "T05_ARMAS (ABIERTA · 56/105 verificadas · turnos 1–5 completos, 6 parcial 6/10)",
  "current_batch_progress": {
   "status": "pendiente de abrir",
   "batch_file": null,
@@ -175,7 +175,7 @@
   },
   "T05_ARMAS": {
    "status": "ABIERTA",
-   "verified": 48,
+   "verified": 56,
    "total": 105,
    "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
    "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
@@ -185,7 +185,7 @@
     "batch.py calibrate",
     "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
    ],
-   "next": "reintentar c060_lanza_acido y c061_fuego; turno 6 (elementales 66–72, especiales 73–75) → turnos 7–11"
+   "next": "reintentar c067_congelacios y c070_arena; c074_portal_gun, c075_dron; turno 7 (especiales 76–84) → turnos 8–11"
   },
   "T06_OBJETOS": {
    "status": "PENDIENTE"
@@ -198,8 +198,8 @@
  "inventory_classes": {
   "A": 25,
   "B": 107,
-  "C": 57,
+  "C": 49,
   "D": 26,
-  "E": 167
+  "E": 175
  }
 }
