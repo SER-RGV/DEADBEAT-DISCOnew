@@ -100,6 +100,9 @@ async function main() {
       }
       const initialSelectedWeaponId = initialUiState.selectedWeaponId;
       window.DD_UI.openShop();
+      // El test no inicia una partida: retira sólo la portada que tapa las
+      // capas de interfaz y conserva el modal de tienda abierto.
+      window.DD_UI.hideMainMenu({ keepState: true });
       const shopModal = document.getElementById("dd-shop-modal");
       const shopRect = shopModal ? shopModal.getBoundingClientRect() : null;
       const shopStyle = shopModal ? getComputedStyle(shopModal) : null;
@@ -108,7 +111,13 @@ async function main() {
         shopStyle.display !== "none" &&
         shopStyle.visibility !== "hidden" &&
         !!shopRect && shopRect.width > 0 && shopRect.height > 0;
-      const bootOverlayVisible = !!document.getElementById("dd-boot-frame");
+      const bootOverlay = document.getElementById("dd-boot-frame");
+      const bootOverlayVisible = !!bootOverlay &&
+        !bootOverlay.classList.contains("is-out") &&
+        getComputedStyle(bootOverlay).visibility !== "hidden" &&
+        Number(getComputedStyle(bootOverlay).opacity) > 0.05;
+      const menu = document.getElementById("dd-main-menu");
+      const menuOverlayVisible = !!menu && !menu.classList.contains("dd-hidden");
       const cards = Array.from(document.querySelectorAll("#dd-weapons-grid .dd-weapon-card"));
       const active = document.querySelector("#dd-shop-filters .dd-filter-chip.active");
       return {
@@ -124,11 +133,13 @@ async function main() {
         activeFilter: active ? active.getAttribute("data-cat") : null,
         allFilter: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]'),
         shopModalVisible,
-        bootOverlayVisible
+        bootOverlayVisible,
+        menuOverlayVisible
       };
     });
 
     check("el arranque terminó y se retiró el overlay", !before.bootOverlayVisible, before.bootOverlayVisible ? "overlay aún visible" : "boot retirado");
+    check("el menú principal no tapa la armería", !before.menuOverlayVisible, before.menuOverlayVisible ? "menú visible" : "menú oculto");
     check("la armería está realmente visible en pantalla", before.shopModalVisible, before.shopModalVisible ? "modal visible" : "modal oculto");
     check("el filtro inicial es TODAS", before.activeFilter === "TODAS", before.activeFilter);
     check("el chip TODAS existe", before.allFilter);
