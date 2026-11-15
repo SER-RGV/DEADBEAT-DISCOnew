@@ -2311,3 +2311,93 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 /* Si el arranque falla, el logotipo cede sitio para que el aviso y sus dos
    botones quepan enteros en 1280×720. */
 #dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }
+
+/* ---- Armería responsive: tablet y móvil ---------------------------------- */
+@media (max-width: 760px) {
+  .dd-modal-backdrop {
+    padding: 8px;
+  }
+  .dd-modal-window {
+    width: 100%;
+    max-height: 96vh;
+    max-height: 96dvh;
+  }
+  .dd-modal-header {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+  .dd-modal-title {
+    min-width: 0;
+    font-size: clamp(15px, 3.2vw, 20px);
+    line-height: 1.15;
+  }
+  .dd-shop-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    max-height: calc(96vh - 58px);
+    max-height: calc(96dvh - 58px);
+    padding: 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-content: start;
+  }
+  .dd-shop-body > div,
+  .dd-shop-inspector {
+    min-width: 0;
+  }
+  .dd-weapons-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-height: 42vh;
+    max-height: 42dvh;
+  }
+  .dd-shop-inspector {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dd-modal-header {
+    align-items: flex-start;
+    padding: 9px 10px;
+  }
+  .dd-modal-title {
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+  .dd-close-btn {
+    flex: 0 0 auto;
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .dd-shop-body {
+    padding: 10px;
+    gap: 10px;
+  }
+  .dd-filter-chip {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  .dd-weapons-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-height: 38vh;
+    max-height: 38dvh;
+  }
+  .dd-weapon-card {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .dd-shop-inspector {
+    padding: 12px;
+  }
+  .dd-stat-row {
+    grid-template-columns: 72px minmax(0, 1fr) 36px;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .dd-shop-actions {
+    flex-wrap: wrap;
+  }
+}
+
