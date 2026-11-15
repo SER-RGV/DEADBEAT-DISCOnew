@@ -53,6 +53,7 @@ La FASE 08 de escala y cámara queda en manos de Arena. Esta rama define contrat
 | [10 — Recetas de encuentros](10_RECETAS_ENCUENTROS_POR_GEOMETRIA.md) | Composiciones por rol, topología y patrones B4 |
 | [11 — Sonda runtime de geometría](../../tools/qa/audit_campaign_geometry.js) | Sonda de solo lectura para inspeccionar campaña, generador, layout y globals reales |
 | [12 — Auditoría de geometría runtime](12_AUDITORIA_GEOMETRIA_RUNTIME.md) | Hallazgos, evidencia disponible, límites y plan de extracción |
+| [13 — Auditoría del arsenal y catálogo](13_AUDITORIA_DEL_ARSENAL_Y_CATALOGO.md) | Inventario gráfico, catálogo jugable, discrepancia 120/121 y protocolo de balance |
 
 ## Estado y rigor
 
