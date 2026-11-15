@@ -2311,3 +2311,168 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 /* Si el arranque falla, el logotipo cede sitio para que el aviso y sus dos
    botones quepan enteros en 1280×720. */
 #dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }
+
+/* ---- Mapa y submenús responsive ----------------------------------------- */
+@media (max-width: 760px) {
+  .dd-modal-backdrop {
+    padding: 10px;
+  }
+  #dd-map-modal .dd-modal-window {
+    width: 100%;
+    max-height: 94vh;
+    max-height: 94dvh;
+  }
+  #dd-map-modal .dd-modal-title {
+    min-width: 0;
+    font-size: clamp(14px, 3vw, 19px);
+    letter-spacing: 0.05em;
+  }
+  .dd-map-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    align-items: stretch;
+  }
+  .dd-tower-art-wrap {
+    min-height: 180px;
+    max-height: 28vh;
+    padding: 8px;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 25vh;
+  }
+  .dd-circles-list {
+    min-width: 0;
+  }
+  .dd-circle-node {
+    gap: 10px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .dd-circle-node > span {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+  .dd-submenu-wrap {
+    padding: 10px;
+    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  }
+  .dd-submenu-card {
+    width: 100%;
+    max-height: 96vh;
+    max-height: 96dvh;
+  }
+  .dd-submenu-head {
+    gap: 10px;
+    padding: 14px 14px 10px;
+  }
+  .dd-submenu-card h2 {
+    font-size: clamp(21px, 4vw, 30px);
+  }
+  .dd-submenu-body {
+    padding: 12px 14px;
+  }
+  .dd-opt-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .dd-opt-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .dd-opt-row select {
+    min-width: 0;
+    max-width: 48vw;
+  }
+}
+
+@media (max-width: 420px) {
+  #dd-map-modal .dd-modal-header {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 9px 10px;
+  }
+  #dd-map-modal .dd-modal-title {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  #dd-map-modal .dd-close-btn {
+    flex: 0 0 auto;
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+  .dd-map-body {
+    gap: 8px;
+    padding: 9px;
+  }
+  .dd-tower-art-wrap {
+    min-height: 130px;
+    max-height: 20vh;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 18vh;
+  }
+  .dd-circle-node {
+    align-items: flex-start;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+  .dd-circle-node > span {
+    max-width: 36%;
+    font-size: 9px !important;
+    line-height: 1.2;
+  }
+  .dd-submenu-head {
+    align-items: flex-start;
+    padding: 11px 11px 9px;
+  }
+  .dd-submenu-back {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+  .dd-submenu-body {
+    padding: 10px 11px;
+  }
+  .dd-opt-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+  .dd-opt-row select {
+    width: 100%;
+    max-width: none;
+  }
+  .dd-toggle {
+    justify-self: start;
+  }
+}
+
+@media (max-height: 560px) and (max-width: 760px) {
+  #dd-map-modal .dd-modal-window,
+  .dd-submenu-card {
+    max-height: 98dvh;
+  }
+  .dd-tower-art-wrap {
+    min-height: 100px;
+    max-height: 18vh;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 16vh;
+  }
+  .dd-map-body {
+    gap: 8px;
+    padding: 8px;
+  }
+  .dd-circle-node {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .dd-submenu-head {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .dd-submenu-foot {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+}
+
