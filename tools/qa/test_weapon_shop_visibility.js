@@ -51,6 +51,39 @@ async function main() {
       { timeout: 60000 }
     );
 
+    // Completa el arranque real antes de abrir la tienda. En headless no hay
+    // activación de usuario y el boot espera una pulsación/clic para iniciar la intro.
+    await page.waitForFunction(() => {
+      const state = window.DD_BOOT && window.DD_BOOT.getState();
+      return !!state && (state.waitingGesture || state.introActive || state.state === "MAIN_MENU");
+    }, null, { timeout: 60000 });
+
+    const initialBoot = await page.evaluate(() => window.DD_BOOT.getState());
+    if (initialBoot.waitingGesture) await page.mouse.click(8, 8);
+
+    await page.waitForFunction(() => {
+      const state = window.DD_BOOT && window.DD_BOOT.getState();
+      return !!state && (state.introActive || state.state === "MAIN_MENU");
+    }, null, { timeout: 30000 });
+
+    const introActive = await page.evaluate(() => window.DD_BOOT.getState().introActive);
+    if (introActive) {
+      await page.waitForFunction(() => {
+        const state = window.DD_OPENING && window.DD_OPENING.getState();
+        return !!state && state.elapsed > 0.5;
+      }, null, { timeout: 15000 });
+      await page.evaluate(() => {
+        if (!window.DD_OPENING.skip()) throw new Error("No se pudo saltar la intro en QA");
+      });
+    }
+
+    await page.waitForFunction(() => {
+      const state = window.DD_BOOT && window.DD_BOOT.getState();
+      return !!state && state.state === "MAIN_MENU" &&
+        !document.body.classList.contains("dd-booting") &&
+        !document.body.classList.contains("dd-intro-running");
+    }, null, { timeout: 60000 });
+
     const before = await page.evaluate(() => {
       const catalog = window.__DD_BRIDGE.getWeaponsList();
       if (!Array.isArray(catalog)) throw new Error("getWeaponsList() no devuelve un array");
@@ -67,6 +100,15 @@ async function main() {
       }
       const initialSelectedWeaponId = initialUiState.selectedWeaponId;
       window.DD_UI.openShop();
+      const shopModal = document.getElementById("dd-shop-modal");
+      const shopRect = shopModal ? shopModal.getBoundingClientRect() : null;
+      const shopStyle = shopModal ? getComputedStyle(shopModal) : null;
+      const shopModalVisible = !!shopModal &&
+        !shopModal.classList.contains("dd-hidden") &&
+        shopStyle.display !== "none" &&
+        shopStyle.visibility !== "hidden" &&
+        !!shopRect && shopRect.width > 0 && shopRect.height > 0;
+      const bootOverlayVisible = !!document.getElementById("dd-boot-frame");
       const cards = Array.from(document.querySelectorAll("#dd-weapons-grid .dd-weapon-card"));
       const active = document.querySelector("#dd-shop-filters .dd-filter-chip.active");
       return {
@@ -80,10 +122,14 @@ async function main() {
         cardCount: cards.length,
         cardIds: cards.map((card) => card.getAttribute("data-w")),
         activeFilter: active ? active.getAttribute("data-cat") : null,
-        allFilter: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]')
+        allFilter: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]'),
+        shopModalVisible,
+        bootOverlayVisible
       };
     });
 
+    check("el arranque terminó y se retiró el overlay", !before.bootOverlayVisible, before.bootOverlayVisible ? "overlay aún visible" : "boot retirado");
+    check("la armería está realmente visible en pantalla", before.shopModalVisible, before.shopModalVisible ? "modal visible" : "modal oculto");
     check("el filtro inicial es TODAS", before.activeFilter === "TODAS", before.activeFilter);
     check("el chip TODAS existe", before.allFilter);
     check("todas las armas del catálogo aparecen al abrir", before.cardCount === before.catalogCount,
