@@ -3,7 +3,7 @@
 - **Estado (2026-11-15, 8.º tramo):** **56/105 verificadas en mano.** Turnos 1–5 COMPLETOS; turno 6 parcial 6/10
   (faltan `c067_congelacios` y `c070_arena`, un fallo del generador cada una, y `c074_portal_gun`, `c075_dron` sin
   generar). Registro 333, caché `20261115.13`. Evidencias `evidence/T05_ARMAS/00–24`. Siguen: esos 4 + turno 7:
-  `c076_boomerang`… (ver `generation_plan[6]` de la ficha).
+  `c076_torreta`, `c077_satelites`, `c078_mina`, `c079_trampa_laser`, `c080_ancla`, `c081_teletransportador` (ver `generation_plan[6]`).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).
