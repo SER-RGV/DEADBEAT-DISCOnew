@@ -2428,6 +2428,413 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
   .shot-card50 .shot-icon .dd-relic-icon { width: 38px; height: 38px; }
 }
 
+/* ---- Armería responsive: tablet y móvil ---------------------------------- */
+@media (max-width: 760px) {
+  .dd-modal-backdrop {
+    padding: 8px;
+  }
+  .dd-modal-window {
+    width: 100%;
+    max-height: 96vh;
+    max-height: 96dvh;
+  }
+  .dd-modal-header {
+    gap: 10px;
+    padding: 10px 12px;
+  }
+  .dd-modal-title {
+    min-width: 0;
+    font-size: clamp(15px, 3.2vw, 20px);
+    line-height: 1.15;
+  }
+  .dd-shop-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    min-height: 0;
+    max-height: calc(96vh - 58px);
+    max-height: calc(96dvh - 58px);
+    padding: 12px;
+    overflow-x: hidden;
+    overflow-y: auto;
+    align-content: start;
+  }
+  .dd-shop-body > div,
+  .dd-shop-inspector {
+    min-width: 0;
+  }
+  .dd-weapons-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-height: 42vh;
+    max-height: 42dvh;
+  }
+  .dd-shop-inspector {
+    padding: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dd-modal-header {
+    align-items: flex-start;
+    padding: 9px 10px;
+  }
+  .dd-modal-title {
+    font-size: 15px;
+    letter-spacing: 0.06em;
+  }
+  .dd-close-btn {
+    flex: 0 0 auto;
+    padding: 5px 8px;
+    font-size: 11px;
+  }
+  .dd-shop-body {
+    padding: 10px;
+    gap: 10px;
+  }
+  .dd-filter-chip {
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+  .dd-weapons-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    max-height: 38vh;
+    max-height: 38dvh;
+  }
+  .dd-weapon-card {
+    min-width: 0;
+    padding: 8px 6px;
+  }
+  .dd-shop-inspector {
+    padding: 12px;
+  }
+  .dd-stat-row {
+    grid-template-columns: 72px minmax(0, 1fr) 36px;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .dd-shop-actions {
+    flex-wrap: wrap;
+  }
+}
+
+/* ---- HUD responsive: conservar lectura y zonas seguras ------------------- */
+@media (max-width: 900px) {
+  .dd-hud-top-left {
+    top: 10px;
+    left: 10px;
+    gap: 8px;
+    padding: 8px 10px 9px 8px;
+  }
+  .dd-hud-portrait-frame {
+    width: 56px;
+    height: 56px;
+    flex-basis: 56px;
+  }
+  .dd-hud-top-right {
+    top: 10px;
+    right: 10px;
+    gap: 6px;
+  }
+  .dd-minimap-box {
+    width: 156px;
+    height: 105px;
+  }
+  .dd-room-banner {
+    max-width: 220px;
+    padding: 4px 8px;
+    font-size: 10px;
+    letter-spacing: 0.06em;
+    text-align: right;
+  }
+  .dd-quick-actions {
+    max-width: 230px;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+  }
+  .dd-quick-btn {
+    padding: 4px 7px;
+    font-size: 10px;
+  }
+  .dd-hud-skills {
+    left: 10px;
+    bottom: 10px;
+    gap: 7px;
+  }
+  .dd-skill-card {
+    width: 54px;
+    height: 54px;
+  }
+}
+
+@media (max-width: 600px) {
+  .dd-hud-top-left {
+    top: 8px;
+    left: 8px;
+    width: calc(100vw - 16px);
+    max-width: none;
+    box-sizing: border-box;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 9px;
+  }
+  .dd-hud-portrait-frame {
+    width: 46px;
+    height: 46px;
+    flex-basis: 46px;
+  }
+  .dd-hud-vitals {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+  .dd-hud-hearts-row {
+    gap: 5px;
+  }
+  .dd-hud-top-right {
+    top: 112px;
+    right: 8px;
+    gap: 5px;
+  }
+  .dd-minimap-box {
+    width: 132px;
+    height: 89px;
+  }
+  .dd-room-banner {
+    max-width: min(190px, 48vw);
+    white-space: normal;
+    overflow-wrap: anywhere;
+    font-size: 9px;
+  }
+  .dd-quick-actions {
+    max-width: min(190px, 48vw);
+    gap: 4px;
+  }
+  .dd-quick-btn {
+    padding: 4px 6px;
+    font-size: 9px;
+    letter-spacing: 0.03em;
+  }
+  .dd-hud-skills {
+    left: 8px;
+    bottom: 8px;
+    gap: 6px;
+  }
+  .dd-skill-card {
+    width: 48px;
+    height: 48px;
+  }
+}
+
+@media (max-width: 420px) {
+  .dd-hud-top-left {
+    gap: 6px;
+    padding: 6px 7px;
+  }
+  .dd-hud-portrait-frame {
+    width: 40px;
+    height: 40px;
+    flex-basis: 40px;
+  }
+  .dd-minimap-box {
+    width: 116px;
+    height: 78px;
+  }
+  .dd-hud-top-right {
+    top: 104px;
+  }
+  .dd-room-banner,
+  .dd-quick-actions {
+    max-width: 160px;
+  }
+  .dd-skill-card {
+    width: 44px;
+    height: 44px;
+  }
+}
+@media (max-height: 560px) and (max-width: 760px) {
+  .dd-hud-top-right {
+    top: 8px;
+  }
+  .dd-minimap-box {
+    width: 112px;
+    height: 76px;
+  }
+  .dd-room-banner,
+  .dd-quick-actions {
+    max-width: 150px;
+  }
+  .dd-hud-skills {
+    bottom: 6px;
+  }
+  .dd-skill-card {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+/* ---- Mapa y submenús responsive ----------------------------------------- */
+@media (max-width: 760px) {
+  .dd-modal-backdrop {
+    padding: 10px;
+  }
+  #dd-map-modal .dd-modal-window {
+    width: 100%;
+    max-height: 94vh;
+    max-height: 94dvh;
+  }
+  #dd-map-modal .dd-modal-title {
+    min-width: 0;
+    font-size: clamp(14px, 3vw, 19px);
+    letter-spacing: 0.05em;
+  }
+  .dd-map-body {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px;
+    align-items: stretch;
+  }
+  .dd-tower-art-wrap {
+    min-height: 180px;
+    max-height: 28vh;
+    padding: 8px;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 25vh;
+  }
+  .dd-circles-list {
+    min-width: 0;
+  }
+  .dd-circle-node {
+    gap: 10px;
+    padding: 8px 10px;
+    font-size: 12px;
+  }
+  .dd-circle-node > span {
+    flex: 0 0 auto;
+    text-align: right;
+  }
+  .dd-submenu-wrap {
+    padding: 10px;
+    padding: max(10px, env(safe-area-inset-top)) max(10px, env(safe-area-inset-right)) max(10px, env(safe-area-inset-bottom)) max(10px, env(safe-area-inset-left));
+  }
+  .dd-submenu-card {
+    width: 100%;
+    max-height: 96vh;
+    max-height: 96dvh;
+  }
+  .dd-submenu-head {
+    gap: 10px;
+    padding: 14px 14px 10px;
+  }
+  .dd-submenu-card h2 {
+    font-size: clamp(21px, 4vw, 30px);
+  }
+  .dd-submenu-body {
+    padding: 12px 14px;
+  }
+  .dd-opt-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+  .dd-opt-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+  .dd-opt-row select {
+    min-width: 0;
+    max-width: 48vw;
+  }
+}
+
+@media (max-width: 420px) {
+  #dd-map-modal .dd-modal-header {
+    align-items: flex-start;
+    gap: 8px;
+    padding: 9px 10px;
+  }
+  #dd-map-modal .dd-modal-title {
+    font-size: 13px;
+    line-height: 1.2;
+  }
+  #dd-map-modal .dd-close-btn {
+    flex: 0 0 auto;
+    padding: 5px 7px;
+    font-size: 10px;
+  }
+  .dd-map-body {
+    gap: 8px;
+    padding: 9px;
+  }
+  .dd-tower-art-wrap {
+    min-height: 130px;
+    max-height: 20vh;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 18vh;
+  }
+  .dd-circle-node {
+    align-items: flex-start;
+    padding: 7px 8px;
+    font-size: 11px;
+  }
+  .dd-circle-node > span {
+    max-width: 36%;
+    font-size: 9px !important;
+    line-height: 1.2;
+  }
+  .dd-submenu-head {
+    align-items: flex-start;
+    padding: 11px 11px 9px;
+  }
+  .dd-submenu-back {
+    padding: 7px 8px;
+    font-size: 10px;
+  }
+  .dd-submenu-body {
+    padding: 10px 11px;
+  }
+  .dd-opt-row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 5px;
+  }
+  .dd-opt-row select {
+    width: 100%;
+    max-width: none;
+  }
+  .dd-toggle {
+    justify-self: start;
+  }
+}
+
+@media (max-height: 560px) and (max-width: 760px) {
+  #dd-map-modal .dd-modal-window,
+  .dd-submenu-card {
+    max-height: 98dvh;
+  }
+  .dd-tower-art-wrap {
+    min-height: 100px;
+    max-height: 18vh;
+  }
+  .dd-tower-art-wrap img {
+    max-height: 16vh;
+  }
+  .dd-map-body {
+    gap: 8px;
+    padding: 8px;
+  }
+  .dd-circle-node {
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
+  .dd-submenu-head {
+    padding-top: 8px;
+    padding-bottom: 8px;
+  }
+  .dd-submenu-foot {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+}
+
   </style>
 </head>
 <body class="booting">
@@ -14805,7 +15212,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     submenu: null,              /* OPCIONES / CRÉDITOS / PARTIDAS */
     submenuIndex: 0,
     busy: false,                /* anti doble pulsación */
-    selectedCategory: "ALL",
+    selectedCategory: "TODAS",
     selectedWeaponId: "m1911",
     dialogueTimer: 0,
     lastSubsText: "",
@@ -15919,7 +16326,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       '  </div>' +
       '</div>' +
       '<div class="dd-hud-skills">' +
-      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">ESP</span></div>' +
+      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">Q</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-boost"><img id="dd-skill-boost-img" alt="Boost" src="' + assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png") + '"><span class="dd-skill-count" id="dd-skill-boost-cnt">1</span><span class="dd-skill-key" id="dd-skill-boost-key">SHIFT</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-dodge"><img id="dd-skill-dodge-img" alt="Esquiva" src="' + assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png") + '"><span class="dd-skill-key">ROLL</span></div>' +
       '</div>';
@@ -16092,7 +16499,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     var list = weapons.filter(function (w) {
       return uiState.selectedCategory === "TODAS" || (w.category || "OTRAS").toUpperCase() === uiState.selectedCategory;
-    }).slice(0, 120);
+    });
 
     if (!list.length) {
       grid.innerHTML = '<p class="dd-opt-note">La armería está cargando desde el motor. Vuelve a abrirla en unos segundos.</p>';
