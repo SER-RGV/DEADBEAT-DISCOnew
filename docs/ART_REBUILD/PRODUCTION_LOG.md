@@ -46,3 +46,8 @@
 - Nuevo: `tools/art_master/probe_weapons.js` (arma en mano, 6 posturas, telemetría `ut._gdb`) y ganchos `getWeaponCalibration/getWeaponTelemetry/setDebugGrip/applyWeaponCalibration` en `__DD_BRIDGE`.
 - Ficha `batches/T05_ARMAS.json`: 105 armas con prompt por clase+diseño, plan de 11 turnos. Turno 1: 5/10 generadas (5 fallos del servicio) → procesadas, calibradas (dos ajustes manuales: `c021_doble` hang:false, `spas12` grip 0.10), registradas (282, caché `20261115.5`), verificadas en mano (evidencias `evidence/T05_ARMAS/00–03`), marcadas. Inventario: A25·B107·C100·D26·E124.
 
+## 2026-11-15 (4) — T05 ARMAS, 2.º tramo: 7 sprites más (12/105)
+
+- Reintento del turno 1 + inicio del turno 2: 7/10 generadas (`c016_de_canon`, `c017_de_fuego`, `thompson`, `ak47`, `m16`, `c028_famas`, `c029_scar`); fallos del servicio en `c023_flechetes`, `c024_incendiaria` (2.ª vez) y `c030_g36`.
+- Calibración medida correcta de serie en 6/7 (la recortada `c016` con `grip 0.12`); registradas (289, caché `20261115.6`), verificadas en mano a derecha/arriba/izquierda sin errores de página (evidencias `04–06`), marcadas. Inventario A25·B107·C93·D26·E131.
+

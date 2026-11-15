@@ -47,20 +47,20 @@
     "weapon_c024_incendiaria",
     "weapon_thompson"
    ],
-   "estado": "parcial: 5/10 generadas, procesadas, registradas y verificadas en mano (2026-11-15); 5 fallos del generador por reintentar: c016_de_canon, c017_de_fuego, c023_flechetes, c024_incendiaria, thompson",
+   "estado": "parcial 8/10 verificadas en mano (2026-11-15); c023_flechetes y c024_incendiaria han fallado dos veces en el generador: reintentar (si vuelve a fallar, simplificar el DESIGN del prompt)",
    "hechas": [
+    "weapon_c016_de_canon",
+    "weapon_c017_de_fuego",
     "weapon_c019_electrica",
     "weapon_c021_doble",
     "weapon_c022_de_gancho",
     "weapon_cryo",
-    "weapon_spas12"
+    "weapon_spas12",
+    "weapon_thompson"
    ],
    "reintentar": [
-    "weapon_c016_de_canon",
-    "weapon_c017_de_fuego",
     "weapon_c023_flechetes",
-    "weapon_c024_incendiaria",
-    "weapon_thompson"
+    "weapon_c024_incendiaria"
    ]
   },
   {
@@ -77,7 +77,16 @@
     "weapon_c034_laser",
     "weapon_winchester"
    ],
-   "estado": "pendiente"
+   "estado": "parcial 4/10 verificadas en mano (2026-11-15); pendientes g36 (fallo del generador), aug, mp40, c033_pulsos, c034_laser, winchester, c036_bullpup",
+   "hechas": [
+    "weapon_ak47",
+    "weapon_m16",
+    "weapon_c028_famas",
+    "weapon_c029_scar"
+   ],
+   "reintentar": [
+    "weapon_c030_g36"
+   ]
   },
   {
    "turno": 3,
@@ -239,7 +248,8 @@
     "sharpen": 25
    },
    "calibrate": {
-    "cls": "escopetaDoble"
+    "cls": "escopetaDoble",
+    "grip": 0.12
    },
    "engine": {
     "wid": "c016_de_canon",
@@ -4220,13 +4230,14 @@
   }
  ],
  "progress": {
-  "verified": 5,
+  "verified": 12,
   "total": 105,
   "updated": "2026-11-15"
  },
  "generation_lessons": [
   "El prompt (HEAD + WEAPON SHAPE por clase + DESIGN por arma + acento) da crudos 1774×887 sobre croma plano; 5/10 llamadas del generador fallaron en el primer turno sin relación con el prompt: reintentar tal cual.",
   "La calibración medida (weapon_cal.py) acierta en pistoletes y guardamanos («hang»); con culata clásica (dobles, bombeo sin pistolete) hay que forzar hang:false y grip≈0.30, y si el pistolete está en el extremo izquierdo (SPAS-12 con culata plegada) dar grip≈0.10. Revisar SIEMPRE la hoja `calibrate --overlay` antes de registrar.",
-  "En mano (probe_weapons.js) las cinco quedaron con la mano en la empuñadura, el antebrazo de apoyo en el guardamanos y la boca alineada a derecha, arriba e izquierda; la escala en juego es len·95 px (escopetas ≈ 63–67 px)."
+  "En mano (probe_weapons.js) las cinco quedaron con la mano en la empuñadura, el antebrazo de apoyo en el guardamanos y la boca alineada a derecha, arriba e izquierda; la escala en juego es len·95 px (escopetas ≈ 63–67 px).",
+  "Turno 2: 7/10 generadas (fallos repetidos en c023_flechetes y c024_incendiaria, nuevo en c030_g36). Calibración automática correcta en 6/7; la recortada c016 necesitó grip 0.12 (empuñadura en el extremo izquierdo, sin culata). Las 7 verificadas en mano a derecha, arriba e izquierda sin errores de página."
  ]
 }

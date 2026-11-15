@@ -3,8 +3,8 @@
  "branch": "arena/e088e9d7-deadbeat-disconew",
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
-  "total": 282,
-  "cache_version": "20261115.5"
+  "total": 289,
+  "cache_version": "20261115.6"
  },
  "classification": {
   "total": 382,
@@ -21,7 +21,7 @@
   "R03_JEFES",
   "T04_ESCENARIOS"
  ],
- "current_batch": "T05_ARMAS (ABIERTA · turno 1 parcial 5/10 · 5/105 verificadas)",
+ "current_batch": "T05_ARMAS (ABIERTA · 12/105 verificadas · turnos 1–2 parciales)",
  "current_batch_progress": {
   "status": "pendiente de abrir",
   "batch_file": null,
@@ -175,7 +175,7 @@
   },
   "T05_ARMAS": {
    "status": "ABIERTA",
-   "verified": 5,
+   "verified": 12,
    "total": 105,
    "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
    "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
@@ -185,7 +185,7 @@
     "batch.py calibrate",
     "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
    ],
-   "next": "reintentar 5 fallos del turno 1 y seguir con turnos 2–11 (10 por mensaje)"
+   "next": "reintentar c023, c024, g36 y seguir con aug, mp40, c033, c034, winchester, c036 (turno 2) → turnos 3–11"
   },
   "T06_OBJETOS": {
    "status": "PENDIENTE"
@@ -198,8 +198,8 @@
  "inventory_classes": {
   "A": 25,
   "B": 107,
-  "C": 100,
+  "C": 93,
   "D": 26,
-  "E": 124
+  "E": 131
  }
 }
