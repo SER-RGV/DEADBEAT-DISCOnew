@@ -1,0 +1,75 @@
+name: DEADBEAT DISCO integration QA
+
+on:
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "tools/**"
+      - "tests/**"
+      - "index.html"
+      - "DEADBEAT_DISCO.html"
+      - ".github/workflows/integration-qa.yml"
+  push:
+    branches: ["integration/pr22-pr29"]
+
+permissions:
+  contents: read
+
+jobs:
+  static-and-build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Build single-file game
+        run: python3 tools/build_active_html.py
+      - name: Verify generated builds
+        run: python3 tools/qa/test_build_source_sync.py
+      - name: HUD responsive CSS
+        run: node tools/qa/test_hud_responsive_css.js
+      - name: Map and submenu responsive CSS
+        run: node tools/qa/test_map_submenu_responsive_css.js
+      - name: HUD control labels
+        run: node tools/qa/test_hud_control_labels.js
+      - name: World scale regression tests
+        run: node --test tests/world_scale/
+  browser-shop:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install browser test dependency
+        run: npm install --no-save playwright-core
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+      - name: Build single-file game
+        run: python3 tools/build_active_html.py
+      - name: Start static server
+        run: python3 -m http.server 8080 > /tmp/deadbeat-http.log 2>&1 &
+      - name: Wait for server
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:8080/index.html > /dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/deadbeat-http.log
+          exit 1
+      - name: Test weapon shop visibility
+        run: node tools/qa/test_weapon_shop_visibility.js http://127.0.0.1:8080 artifacts/weapon-shop
