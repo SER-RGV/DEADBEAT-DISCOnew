@@ -251,7 +251,7 @@
         "weapon_c094_lanza",
         "weapon_c095_cuchillo"
       ],
-      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c095_cuchillo UN fallo del generador → reintentar (si repite, DESIGN de una frase)",
+      "estado": "COMPLETO 10/10 verificadas en mano (2026-11-15); c095_cuchillo salió al 2.º intento con el prompt original",
       "hechas": [
         "weapon_c086_katana",
         "weapon_c087_hacha",
@@ -261,11 +261,10 @@
         "weapon_c091_bate",
         "weapon_c092_sierra_circular",
         "weapon_c093_cadena",
-        "weapon_c094_lanza"
-      ],
-      "reintentar": [
+        "weapon_c094_lanza",
         "weapon_c095_cuchillo"
-      ]
+      ],
+      "reintentar": []
     },
     {
       "turno": 9,
@@ -281,7 +280,19 @@
         "weapon_c104_baston_de_rayo",
         "weapon_c105_baston_de_viento"
       ],
-      "estado": "pendiente"
+      "estado": "parcial 9/10 verificadas en mano (2026-11-15); c105_baston_de_viento sin generar aún (cupo de 10 por mensaje)",
+      "hechas": [
+        "weapon_c096_alabarda",
+        "weapon_raygun",
+        "weapon_c098_thundergun",
+        "weapon_c099_wunderwaffe",
+        "weapon_c100_winter_u2019s_howl",
+        "weapon_c101_wave_gun",
+        "weapon_c102_baston_de_fuego",
+        "weapon_c103_baston_de_hielo",
+        "weapon_c104_baston_de_rayo"
+      ],
+      "reintentar": []
     },
     {
       "turno": 10,
@@ -3483,7 +3494,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "lanza"
+        "cls": "lanza",
+        "axis_v": 0.48,
+        "axis_band": 0.7
       },
       "engine": {
         "wid": "c096_alabarda",
@@ -3559,7 +3572,10 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "lanzador"
+        "cls": "lanzador",
+        "grip": 0.23,
+        "grip_v": 0.74,
+        "sup": 0.27
       },
       "engine": {
         "wid": "c098_thundergun",
@@ -3635,7 +3651,9 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "energia"
+        "cls": "energia",
+        "grip": 0.26,
+        "grip_v": 0.72
       },
       "engine": {
         "wid": "c100_winter_u2019s_howl",
@@ -3673,7 +3691,10 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "energia"
+        "cls": "energia",
+        "grip": 0.28,
+        "grip_v": 0.7,
+        "tip": 0.87
       },
       "engine": {
         "wid": "c101_wave_gun",
@@ -3711,7 +3732,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "baston"
+        "cls": "baston",
+        "grip_v": 0.574
       },
       "engine": {
         "wid": "c102_baston_de_fuego",
@@ -3749,7 +3771,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "baston"
+        "cls": "baston",
+        "grip_v": 0.551
       },
       "engine": {
         "wid": "c103_baston_de_hielo",
@@ -3787,7 +3810,8 @@
         "sharpen": 25
       },
       "calibrate": {
-        "cls": "baston"
+        "cls": "baston",
+        "grip_v": 0.537
       },
       "engine": {
         "wid": "c104_baston_de_rayo",
@@ -4421,7 +4445,7 @@
     }
   ],
   "progress": {
-    "verified": 79,
+    "verified": 89,
     "total": 105,
     "updated": "2026-11-15"
   },
@@ -4438,6 +4462,7 @@
     "Turno 8 (elementales/especiales): 8/10 generadas. Lanzadores de tubo (meteoritos, vacío) y dispositivo (gravity gun) → grip + grip_v 0.72–0.74 y sup relativo 0.40–0.45 para la empuñadura delantera; revólver de roca (fuego) → grip 0.14 + grip_v. Los fusiles de energía (relámpagos, tormenta, gravedad) calibran de serie.",
     "Turno 9 (especiales/dispositivos): 7/10 generadas. Los dispositivos tipo pistola grande (portal gun, dron, torreta, trampa láser, teletransportador) traen el pistolete en el extremo izquierdo (x 0.07–0.10) → grip + grip_v 0.68–0.76; el SMG con cargador curvo largo necesita sup 0.42 para que el apoyo no caiga en el cargador. Evitar «coordinates/readout» en el DESIGN: el generador pinta cifras (teletransportador; ilegibles a 320 px, aceptado).",
     "Turno 10 (especiales + primeras cuerpo a cuerpo): 7/10 generadas (fallos del servicio en c067 3.º, c078 2.º, c082 1.º). Las armas blancas horizontales (espada láser, katana, hacha, martillo) calibran bien DE SERIE con el prior de armaLigera/armaPesada (grip 0.173–0.231, sup 0.519 en las pesadas) y el motor las sostiene como un arma apuntada (ligera a una mano, pesada a dos) en las tres poses; no hace falta hint alguno. Los dispositivos tipo pistola (satélites, orbes) siguen la regla del pistolete izquierdo: grip 0.10 + grip_v 0.74; el clonador (doble cañón con depósito ADN central) necesita grip_v 0.68 y sup 0.40 para que el apoyo no caiga bajo la caja. Si el generador pinta el efecto en la boca (satélites: disco de energía), fijar tip explícito (0.82).",
-    "Turno 11 (reintentos + cuerpo a cuerpo 89–94): 9/10 generadas; los tres reintentos acumulados salieron con DESIGN mínimo (c067 «ice blue shotgun» al 4.º, c078 una frase sin «spiked ball» al 3.º, c082 al 2.º) → ante fallos repetidos del servicio, recortar el DESIGN a una frase funciona. Melee: bate (armaLigera) y lanza (prior lanza grip .288/sup .558 sobre el astil) calibran de serie; guadaña → grip .12 para que la mano caiga en la empuñadura vendada; cadena/mayal → sup null (una mano) porque el apoyo del prior caía sobre los eslabones; sierra circular (cuerpo de motosierra) → grip .09 + grip_v .68 en el asa trasera y sup .42 bajo el cubo del disco. El generador añade asas/pistoletes a las armas que no los tienen (manopla con asa inferior, lanza con culata-pistolete): se calibra la mano sobre esa asa (punos → grip .09, grip_v .74) y queda natural. Dispositivo con bbox < 1.9 (placa emisora alta, c082) → el calibrador lo trata como compacto y lo deja a una mano aunque se pida sup."
+    "Turno 11 (reintentos + cuerpo a cuerpo 89–94): 9/10 generadas; los tres reintentos acumulados salieron con DESIGN mínimo (c067 «ice blue shotgun» al 4.º, c078 una frase sin «spiked ball» al 3.º, c082 al 2.º) → ante fallos repetidos del servicio, recortar el DESIGN a una frase funciona. Melee: bate (armaLigera) y lanza (prior lanza grip .288/sup .558 sobre el astil) calibran de serie; guadaña → grip .12 para que la mano caiga en la empuñadura vendada; cadena/mayal → sup null (una mano) porque el apoyo del prior caía sobre los eslabones; sierra circular (cuerpo de motosierra) → grip .09 + grip_v .68 en el asa trasera y sup .42 bajo el cubo del disco. El generador añade asas/pistoletes a las armas que no los tienen (manopla con asa inferior, lanza con culata-pistolete): se calibra la mano sobre esa asa (punos → grip .09, grip_v .74) y queda natural. Dispositivo con bbox < 1.9 (placa emisora alta, c082) → el calibrador lo trata como compacto y lo deja a una mano aunque se pida sup.",
+    "Turno 12 (cuchillo + míticas 96–104): 10/10 generadas sin fallos del servicio. BASTONES (cls baston, fam staff): el motor los lleva horizontales mientras se canaliza (sin ángulo de guardia) y el ancla `hand` de player_fire2 está en la BASE del puño trasero (pensada para pistoletes): con el agarre medido sobre el propio astil, el astil quedaba ~5 px bajo las manos. Regla: grip_v = axis + 0.08 (≈3,5 px bajo el astil) → cruza los puños en horizontal y la pose «arriba» no se resiente (evidencia 36_turno12_bastones_antes_despues). La lanza/alabarda no lo necesitan porque llevan guardia de −0.27 rad. Alabarda: la hoja arrastra el eje medido hacia abajo → axis_v .48 + axis_band .70. Thundergun (lanzador): grip .23/grip_v .74 en el pistolete y sup .27 en la empuñadura delantera. Wave gun: discos de onda pintados en la boca → tip .87. Los fusiles de energía míticos con pistolete bajo la caja (Winter's Howl, Wave Gun) necesitan grip_v .70–.72 para que la mano no quede en el guardamonte."
   ]
 }

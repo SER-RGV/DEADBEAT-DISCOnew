@@ -1,13 +1,13 @@
 # SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado (2026-11-15, 11.º tramo):** **79/105 verificadas en mano.** Turnos 1–7 COMPLETOS (los reintentos
-  acumulados `c067_congelacios`, `c078_mina` y `c082_generador_de_paredes` salieron con DESIGN mínimo); turno 8 parcial 9/10
-  (`c086`–`c094`; falló `c095_cuchillo`, 1.ª vez → reintentar con el prompt de la ficha, si repite una frase).
-  Registro 356, caché `20261115.16`. Evidencias `evidence/T05_ARMAS/00–33`. Siguen: `c095_cuchillo` + turno 9 (míticas
-  96–105: `c096_alabarda`, `raygun`, `c098_thundergun`, `c099_wunderwaffe`, `c100_winter_u2019s_howl`, `c101_wave_gun`,
-  `c102`–`c105` bastones) → turno 10 (arcos 106–110 con `spriteRot`, 111–115) → turno 11 (116–120).
-  Melee: bate/lanza de serie; guadaña `grip .12`; cadena `sup null` (una mano); sierra `grip .09 grip_v .68 sup .42`;
-  si el generador añade un asa (manopla, lanza), la mano va sobre ella.
+- **Estado (2026-11-15, 12.º tramo):** **89/105 verificadas en mano.** Turnos 1–8 COMPLETOS; turno 9 parcial 9/10
+  (`c095_cuchillo`, `c096_alabarda`, `raygun`, `c098_thundergun`, `c099_wunderwaffe`, `c100_winter_u2019s_howl`,
+  `c101_wave_gun`, `c102`–`c104` bastones; falta `c105_baston_de_viento` por cupo). Registro 366, caché `20261115.18`.
+  Evidencias `evidence/T05_ARMAS/00–36`. Siguen: `c105_baston_de_viento` + turno 10 (`c106`–`c110` arcos — el PNG se
+  pide vertical y se registra con `spriteRot`; revisar `isBow` en el motor: `wHgt = len·95`, cuerda y flecha dibujadas
+  por el motor — y `c111`–`c115`) → turno 11 (`c116`–`c120`).
+  **Bastones** (`cls baston`, `fam staff`): el motor los lleva horizontales al canalizar y el ancla `hand` de
+  `player_fire2` está en la base del puño → `grip_v = axis + .08` (evidencia `36_turno12_bastones_antes_despues.jpg`).
 - **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
   `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
   del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).

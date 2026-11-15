@@ -97,3 +97,8 @@
 - 9/10 generadas (`c067_congelacios` al 4.º intento, `c078_mina` al 3.º, `c082_generador_de_paredes` al 2.º — los tres con DESIGN mínimo —, `c089_guadana`, `c090_manoplas`, `c091_bate`, `c092_sierra_circular`, `c093_cadena`, `c094_lanza`); fallo del servicio en `c095_cuchillo` (1.ª vez). Turnos 6 y 7 COMPLETOS.
 - Calibración: pistoletes izquierdos en mina/generador/manopla/sierra (`grip`+`grip_v`), guadaña `grip .12`, cadena `sup null` (mayal a una mano), sierra `sup .42`; escopeta de hielo, bate y lanza de serie. Registradas (356, caché `20261115.16`), verificadas en mano (evidencias `31–33`, 0 errores), marcadas. Inventario A25·B107·C26·D26·E198.
 
+## 2026-11-15 (13b) — T05 ARMAS, 12.º tramo: cuchillo + míticas raygun/98–104 (89/105)
+
+- 10/10 generadas sin fallos (`c095_cuchillo` 2.º intento, `c096_alabarda`, `raygun`, `c098_thundergun`, `c099_wunderwaffe`, `c100_winter_u2019s_howl`, `c101_wave_gun`, `c102_baston_de_fuego`, `c103_baston_de_hielo`, `c104_baston_de_rayo`). Turno 8 COMPLETO, turno 9 9/10.
+- Calibración: alabarda `axis_v .48` + `axis_band .70` (la hoja arrastraba el eje), thundergun pistolete + empuñadura delantera (`grip .23 grip_v .74 sup .27`), Winter's Howl / Wave Gun `grip_v .70–.72`, wave gun `tip .87`. **Hallazgo bastones:** con el agarre sobre el eje, el astil quedaba ~5 px bajo las manos en horizontal (ancla `hand` de `player_fire2` en la base del puño; el motor quita la guardia al canalizar) → regla `grip_v = axis + .08`, verificada antes/después (evidencia `36_turno12_bastones_antes_despues.jpg`). Registradas (366, caché `20261115.18`), verificadas en mano (evidencias `34–36`, 0 errores), marcadas. Inventario A25·B107·C16·D26·E208.
+

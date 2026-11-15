@@ -1,18 +1,18 @@
 {
-  "updated_at": "2026-11-15T07:25:00Z",
+  "updated_at": "2026-11-15T08:20:00Z",
   "branch": "arena/e088e9d7-deadbeat-disconew",
   "pipeline": "tools/art_master (tandas R01, R02, …)",
   "registry": {
-    "total": 356,
-    "cache_version": "20261115.16"
+    "total": 366,
+    "cache_version": "20261115.18"
   },
   "classification": {
     "total": 382,
     "A_conservar": 25,
     "B_rehacer_estilo": 107,
-    "C_falta": 26,
+    "C_falta": 16,
     "D_defectuoso": 26,
-    "E_rehecho_validado": 198
+    "E_rehecho_validado": 208
   },
   "pending_to_produce": 238,
   "completed_batches": [
@@ -21,7 +21,7 @@
     "R03_JEFES",
     "T04_ESCENARIOS"
   ],
-  "current_batch": "T05_ARMAS (ABIERTA · 79/105 verificadas · turnos 1–7 completos, 8 parcial 9/10)",
+  "current_batch": "T05_ARMAS (ABIERTA · 89/105 verificadas · turnos 1–8 completos, 9 parcial 9/10)",
   "current_batch_progress": {
     "status": "pendiente de abrir",
     "batch_file": null,
@@ -175,7 +175,7 @@
     },
     "T05_ARMAS": {
       "status": "ABIERTA",
-      "verified": 79,
+      "verified": 89,
       "total": 105,
       "ficha": "docs/ART_REBUILD/batches/T05_ARMAS.json",
       "evidence": "docs/ART_REBUILD/evidence/T05_ARMAS",
@@ -185,7 +185,7 @@
         "batch.py calibrate",
         "__DD_BRIDGE.applyWeaponCalibration/getWeaponCalibration/getWeaponTelemetry/setDebugGrip"
       ],
-      "next": "reintentar c095_cuchillo (1 fallo); turno 9 (míticas 96–105: alabarda, raygun, thundergun, wunderwaffe, winter howl, wave gun, bastones) → turno 10 (arcos 106–110, 111–115) → turno 11 (116–120)"
+      "next": "c105_baston_de_viento (grip_v = axis+.08) + turno 10 (arcos 106–110 con spriteRot, 111–115) → turno 11 (116–120)"
     },
     "T06_OBJETOS": {
       "status": "PENDIENTE"
@@ -198,8 +198,8 @@
   "inventory_classes": {
     "A": 25,
     "B": 107,
-    "C": 26,
+    "C": 16,
     "D": 26,
-    "E": 198
+    "E": 208
   }
 }
