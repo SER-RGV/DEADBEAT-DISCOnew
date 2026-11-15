@@ -61,8 +61,11 @@ async function main() {
 
     const apiCheck = await page.evaluate(() => {
       const bridge = window.__DD_BRIDGE;
+      const list = typeof bridge.getWeaponsList === "function" ? bridge.getWeaponsList() : null;
       return {
         getWeaponsList: typeof bridge.getWeaponsList === "function",
+        catalogIsArray: Array.isArray(list),
+        catalogRecords: Array.isArray(list) ? list.length : null,
         getWeaponStats: typeof bridge.getWeaponStats === "function",
         getSnapshot: typeof bridge.getSnapshot === "function",
         openShop: typeof window.DD_UI.openShop === "function",
@@ -70,7 +73,7 @@ async function main() {
         hdData: !!window.__HD_DATA
       };
     });
-    if (!apiCheck.getWeaponsList || !apiCheck.getWeaponStats) {
+    if (!apiCheck.getWeaponsList || !apiCheck.catalogIsArray || !apiCheck.getWeaponStats) {
       throw new Error("El puente no expone getWeaponsList() y getWeaponStats(id): " + JSON.stringify(apiCheck));
     }
 
@@ -205,7 +208,8 @@ async function main() {
       "- Tienda inicialmente vacía pese a existir catálogo: **" + extracted.initialShopState.initialEmptyDespiteCatalog + "**",
       "- Filtro TODAS encontrado y pulsado: **" + extracted.allFilterClicked + "**",
       "- Recursos HD de armas: **" + extracted.hdWeaponAssetKeys.length + "**",
-      "- Recursos de armas en DD_ASSETS: **" + extracted.manifestWeaponAssetKeys.length + "**", "",
+      "- Recursos de armas en DD_ASSETS: **" + extracted.manifestWeaponAssetKeys.length + "**",
+      "- Límite estático de tarjetas en renderShop(): 120 (verificado en src/dd_ui_system.js)", "",
       "## Discrepancias", "",
       "- IDs duplicados: " + (extracted.duplicateIds.join(", ") || "ninguno detectado"),
       "- Tarjetas no renderizadas: " + (extracted.rows.filter((row) => !row.rendered_in_shop).map((row) => row.id).join(", ") || "ninguna"),
