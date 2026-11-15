@@ -4,16 +4,55 @@
   "fase": "FASE 3 · Círculo I Lujuria · kit 1 (regeneración clase B)",
   "rama": "arena/7e0496dc-deadbeat-disconew",
   "assets": [
-    {"id": "floor_01_lust_dancefloor", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512], "sha16_nuevo": "3d04f9fac667040c", "nota": "art-déco neon fans + corazones; 2×2 sin costuras visibles"},
-    {"id": "wall_panel_neon_crown", "accion": "regenerado (mismo ID/ruta)", "size": [256, 384], "sha16_nuevo": "96ccb7f489c5d94d", "nota": "panel obsidiana + corona neón magenta + corazón; RGBA bottom-center"},
-    {"id": "prop_sofa_magenta", "accion": "regenerado (mismo ID/ruta)", "size": [384, 256], "sha16_nuevo": "3eac46381eb042f4", "nota": "chaise terciopelo magenta cosida + latón; RGBA bottom-center"},
-    {"id": "prop_mirror_baroque", "accion": "regenerado (mismo ID/ruta)", "size": [224, 384], "sha16_nuevo": "0f945ebbaeee3a93", "nota": "espejo barroco + bombillas + corazón neón; RGBA bottom-center"}
+    {
+      "id": "floor_01_lust_dancefloor",
+      "accion": "regenerado (mismo ID/ruta)",
+      "size": [
+        512,
+        512
+      ],
+      "sha16_nuevo": "3d04f9fac667040c",
+      "nota": "art-déco neon fans + corazones; 2×2 sin costuras visibles"
+    },
+    {
+      "id": "wall_panel_neon_crown",
+      "accion": "regenerado (mismo ID/ruta)",
+      "size": [
+        256,
+        384
+      ],
+      "sha16_nuevo": "96ccb7f489c5d94d",
+      "nota": "panel obsidiana + corona neón magenta + corazón; RGBA bottom-center"
+    },
+    {
+      "id": "prop_sofa_magenta",
+      "accion": "regenerado (mismo ID/ruta)",
+      "size": [
+        384,
+        256
+      ],
+      "sha16_nuevo": "3eac46381eb042f4",
+      "nota": "chaise terciopelo magenta cosida + latón; RGBA bottom-center"
+    },
+    {
+      "id": "prop_mirror_baroque",
+      "accion": "regenerado (mismo ID/ruta)",
+      "size": [
+        224,
+        384
+      ],
+      "sha16_nuevo": "0f945ebbaeee3a93",
+      "nota": "espejo barroco + bombillas + corazón neón; RGBA bottom-center"
+    }
   ],
   "verificacion_ejecutada": [
     "make_seamless_tile + fit_rgba_to_canvas del pipeline; alpha checks OK (trans≥40k en paredes/props)",
     "tile 2×2 de floor_01 inspeccionado (sin costuras visibles)",
     "rebuild_registry aditivo: sha16 refrescados desde disco (269 legacy intactas, anchors/rev 66/66)",
-    "build_active_html.py OK; index.html ≡ DEADBEAT_DISCO.html"
+    "build_active_html.py OK; index.html ≡ DEADBEAT_DISCO.html",
+    "Verificado en navegador: carga OK (integrity pass=true); sofá/espejo visibles en el Refugio (03_refugio_hub.png); aparición en sala Lujuria pendiente (requiere jugar pisos 12+)."
   ],
-  "pendiente": ["Arranque real y capturas A/B (sin navegador en este sandbox); feedback de escala/lectura en sala real"]
+  "pendiente": [
+    "Arranque real y capturas A/B (sin navegador en este sandbox); feedback de escala/lectura en sala real"
+  ]
 }

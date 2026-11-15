@@ -333,16 +333,20 @@
     if (!window.DD_ASSETS) return;
     const frame = window.DD_ASSETS.get("hub_portal_frame");
     if (!frame) return;
-    const w = 88, h = 132, gap = 16;
+    // Banda de mezzanine: justo sobre el muro norte pero dentro de la vista
+    // (el HUD tapa la zona y<170 en pantalla; el muro vive en y≈176..308).
+    // Los arcos van ligeramente solapados por el mobiliario trasero, que se
+    // dibuja después y les da profundidad de segunda planta.
+    const w = 96, h = 132, gap = 18;
     const total = MEZZ_PORTALS.length * w + (MEZZ_PORTALS.length - 1) * gap;
     let x = (1800 - total) / 2;
-    const y = 16;
+    const y = 188;
     for (let i = 0; i < MEZZ_PORTALS.length; i++) {
       const p = MEZZ_PORTALS[i];
       const cx = x + w / 2;
       // Halo exterior del círculo (aditivo suave) + interior encendido
       if (window.DD_WORLD && typeof window.DD_WORLD.drawNeonGlow === "function") {
-        window.DD_WORLD.drawNeonGlow(cctx, cx, y + 64, 92, p.neon, 0.34);
+        window.DD_WORLD.drawNeonGlow(cctx, cx, y + 66, 84, p.neon, 0.4);
       }
       cctx.save();
       cctx.shadowColor = p.neon;
@@ -353,13 +357,13 @@
       // así que una elipse aditiva encendida lee como interior del portal)
       cctx.save();
       cctx.globalCompositeOperation = "screen";
-      const g = cctx.createRadialGradient(cx, y + 74, 2, cx, y + 74, 34);
+      const g = cctx.createRadialGradient(cx, y + 78, 2, cx, y + 78, 30);
       g.addColorStop(0, p.neon);
       g.addColorStop(1, "rgba(0,0,0,0)");
-      cctx.globalAlpha = 0.85;
+      cctx.globalAlpha = 0.9;
       cctx.fillStyle = g;
       cctx.beginPath();
-      cctx.ellipse(cx, y + 78, 25, 42, 0, 0, Math.PI * 2);
+      cctx.ellipse(cx, y + 82, 22, 46, 0, 0, Math.PI * 2);
       cctx.fill();
       cctx.restore();
       x += w + gap;

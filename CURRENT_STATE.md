@@ -191,3 +191,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **FASE 2 HUB incremento 1 (TR_T01):** 2 assets nuevos integrados en código (`hub_floor_main` suelo damero del Refugio; `hub_portal_frame` mezzanine decorativo de los 9 círculos sobre la pared superior, flag `__DD_HUB_REBUILD`). Build activo regenerado y verificado estáticamente (sin errores; 12/13 bloques JS parsean, 1 es licencia). Registro 271 entradas sin pérdida legacy (66/66 `anchors`/`rev`).
 - **Límite honesto:** este sandbox **no tiene navegador** (Playwright/Chromium inalcanzables). No se ha ejecutado arranque ni capturas; **nada se declara APROBADO visualmente**. La verificación en navegador real queda pendiente (arneses `tools/qa/*.js` listos).
 - PRs abiertas #22/#30 (escala de mundo): no interferidas; el arte nuevo no depende de su cámara.
+
+## Estado actual · 2026-11-15 (TR_T04–T10 · QA real en navegador)
+- **Suelos de los 9 círculos + muros clave regenerados** (clase B, mismos IDs): Lujuria/Gula/Avaricia/Ira/Herejía/Violencia/Fraude/Traición/Núcleo. Identidades cromáticas según láminas y `CIRCLE_CONFIG`.
+- **Navegador real conseguido** vía `@sparticuz/chromium` (npm registry; los CDN de Playwright no son alcanzables). Evidencia en `ART_EVIDENCE/TOTAL_REBUILD/`: integridad 271/271, 0 errores, Refugio reconstruido capturado, pad de descenso funcional, primera sala de combate LIMBO correcta.
+- **PR #31** en borrador con 6 commits (`1d22612…` + TR_T01…TR_T10). Sin merge. `main` intacta.
+- **Pendiente:** captura in-situ de suelos II–IX (jugar pisos), paredes pendientes (heavy_base, panel_vip_window, core_monolith, dorado Avaricia), props firma por círculo, FX de fases de jefe, HUD definitivo, performance gate formal, aprobación de sprites WALK/SHOOT del protagonista.

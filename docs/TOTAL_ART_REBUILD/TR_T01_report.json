@@ -39,7 +39,8 @@
     "node --check src/dd_world_renderer.js · src/dd_hub_system.js · src/dd_asset_registry.js",
     "tools/build_active_html.py → index.html ≡ DEADBEAT_DISCO.html (5582139 B)",
     "syntax check de los 13 <script> inline del build (12 OK; 1 es licencia text/plain)",
-    "grep de integración: hub_floor_main/hub_portal_frame/__DD_HUB_REBUILD/paintMezzanine presentes en el build; 0 en el legacy .ART.html"
+    "grep de integración: hub_floor_main/hub_portal_frame/__DD_HUB_REBUILD/paintMezzanine presentes en el build; 0 en el legacy .ART.html",
+    "Verificación real en navegador (2026-11-15): integridad 271/271 OK, Refugio capturado (03_refugio_hub.png), transición a combate OK (06_first_room.png). Mezzanine reposicionado a banda del muro (y=188)."
   ],
   "pendiente": [
     "Arranque real y captura A/B (este sandbox no tiene navegador; cdn.playwright.dev inalcanzable). No se declara APROBADO visual.",

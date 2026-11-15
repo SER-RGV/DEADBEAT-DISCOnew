@@ -198,3 +198,10 @@ Registrar aquí cada modificación:
 - `tools/asset_pipeline.py`: `rebuild_registry` ahora es **aditivo** (conserva entradas legacy con `rev`/`anchors`/`fallback`); nueva plantilla `tools/registry_template.js`.
 - Legado `DEADBEAT_DISCO.ART.html` y `ART_PACK/` **sin tocar**. Build activo regenerado e idéntico en `index.html`/`DEADBEAT_DISCO.html`.
 - Pendiente declarado: verificación visual en navegador (no hay navegador en este sandbox). Ver `docs/TOTAL_ART_REBUILD/TR_T01_report.json`.
+
+## 2026-11-15 · TR_T04–T10 + QA REAL EN NAVEGADOR — Reconstrucción total
+- **Suelos regenerados (clase B):** `floor_03_greed_slate_gold` (Avaricia oro/azulejo), `floor_04_wrath_burgundy` (Ira brasas), `floor_05_pride_obsidian_gold` (Herejía sigillo neón violeta), `floor_06_violence_ash_slabs` (Violencia acero + verde tóxico), `floor_07_envy_travertine` (Fraude travertino/espejos cian), `floor_08_ice_abyssal` (Traición hielo/negro), `floor_09_core_cosmic_vein` (Núcleo veta cósmica). Restos LC: `wall_wrath_furnace`, `wall_ice_glacier`, `prop_barrel_infernal` — todos con mismos IDs.
+- **QA real en navegador** (Chromium headless Sparticuz 153 + playwright-core, SwiftShader): arranque sin errores, **integrity() 271/271 pass, 0 errores**, 0 404, 0 pageerror. Flujo completo: carga → intro → menú → NUEVA PARTIDA → Refugio (HUD intacto, estaciones vivas, IDLE 07B) → [E] en pad de descenso → **sala de combate CÍRCULO I · LIMBO Ronda 1 renderizada**. Capturas y reports en `ART_EVIDENCE/TOTAL_REBUILD/` (01–06).
+- Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
+- Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
+- **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.

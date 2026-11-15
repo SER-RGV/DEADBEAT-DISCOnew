@@ -47,15 +47,15 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
 | `floor_00_limbo_marble` | `floor_00_limbo_marble` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_01_lust_dancefloor` | `floor_01_lust_dancefloor` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) |
-| `floor_02_gula_terracotta` | `floor_02_gula_terracotta` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) |
-| `floor_03_greed_slate_gold` | `floor_03_greed_slate_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_04_wrath_burgundy` | `floor_04_wrath_burgundy` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_05_pride_obsidian_gold` | `floor_05_pride_obsidian_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_06_violence_ash_slabs` | `floor_06_violence_ash_slabs` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_07_envy_travertine` | `floor_07_envy_travertine` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_08_ice_abyssal` | `floor_08_ice_abyssal` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `floor_09_core_cosmic_vein` | `floor_09_core_cosmic_vein` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `floor_01_lust_dancefloor` | `floor_01_lust_dancefloor` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
+| `floor_02_gula_terracotta` | `floor_02_gula_terracotta` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
+| `floor_03_greed_slate_gold` | `floor_03_greed_slate_gold` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_04_wrath_burgundy` | `floor_04_wrath_burgundy` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_05_pride_obsidian_gold` | `floor_05_pride_obsidian_gold` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_06_violence_ash_slabs` | `floor_06_violence_ash_slabs` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_07_envy_travertine` | `floor_07_envy_travertine` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_08_ice_abyssal` | `floor_08_ice_abyssal` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
+| `floor_09_core_cosmic_vein` | `floor_09_core_cosmic_vein` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
 | `floor_10_hub_checker` | `floor_10_hub_checker` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `floor_11_vip_velvet` | `floor_11_vip_velvet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 
@@ -64,15 +64,15 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
 | `wall_core_monolith` | `wall_core_monolith` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_gula_banquet` | `wall_gula_banquet` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) |
-| `wall_ice_glacier` | `wall_ice_glacier` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `wall_gula_banquet` | `wall_gula_banquet` regenerado TR_T03 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
+| `wall_ice_glacier` | `wall_ice_glacier` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
 | `wall_panel_gothic_niche` | `wall_panel_gothic_niche` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_heavy_base` | `wall_panel_heavy_base` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_panel_neon_crown` | `wall_panel_neon_crown` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) |
+| `wall_panel_neon_crown` | `wall_panel_neon_crown` regenerado TR_T02 (mismo ID) | Escenarios | Integrado (código) + carga navegador OK |
 | `wall_panel_tall_neon` | `wall_panel_tall_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_panel_vip_window` | `wall_panel_vip_window` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `wall_pillar_obsidian` | `wall_pillar_obsidian` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `wall_wrath_furnace` | `wall_wrath_furnace` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `wall_wrath_furnace` | `wall_wrath_furnace` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
 
 ### Apéndice environments (8)
 
@@ -94,10 +94,10 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `prop_arcade_cabinet` | `prop_arcade_cabinet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_arcane_pedestal` | `prop_arcane_pedestal` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_armchair_vip` | `prop_armchair_vip` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_banquet_table` | `prop_banquet_table` regenerado TR_T03 (mismo ID) | HUB y niveles | Integrado (código) |
+| `prop_banquet_table` | `prop_banquet_table` regenerado TR_T03 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_bar_bottles` | `prop_bar_bottles` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_bar_counter` | `prop_bar_counter` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_barrel_infernal` | `prop_barrel_infernal` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_barrel_infernal` | `prop_barrel_infernal` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
 | `prop_bench_neon` | `prop_bench_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_bollard_pair` | `prop_bollard_pair` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_bookshelf_hub` | `prop_bookshelf_hub` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -111,13 +111,13 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `prop_gilded_altar` | `prop_gilded_altar` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_gothic_statue` | `prop_gothic_statue` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_hub_fox_neon` | `prop_hub_fox_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_mirror_baroque` | `prop_mirror_baroque` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) |
+| `prop_mirror_baroque` | `prop_mirror_baroque` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_neon_flower` | `prop_neon_flower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_neon_palm` | `prop_neon_palm` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_potted_plant` | `prop_potted_plant` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_sigil_poster` | `prop_sigil_poster` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_sofa_black` | `prop_sofa_black` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_sofa_magenta` | `prop_sofa_magenta` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) |
+| `prop_sofa_magenta` | `prop_sofa_magenta` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_speaker_tower` | `prop_speaker_tower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_subwoofer_cyan` | `prop_subwoofer_cyan` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_vending_machine` | `prop_vending_machine` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -385,8 +385,8 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Nuevo ID propuesto | Contenido | Sistema | Estado |
 |---|---|---|---|
-| `hub_floor_main` | Suelo damero del HUB (negro/granate/magenta) — **entregado TR_T01** (integración en código; visibilidad pendiente de navegador) | DD_HUB / room cache limbo | Integrado (código) |
-| `hub_portal_frame` | Arco obsidiana compartido por los 9 accesos (glow por círculo vía motor) — **entregado TR_T01** como mezzanine decorativo | DD_HUB (mezzanine) | Integrado (código) |
+| `hub_floor_main` | Suelo damero del HUB (negro/granate/magenta) — **entregado TR_T01** (integración en código; visibilidad pendiente de navegador) | DD_HUB / room cache limbo | Integrado (código) + carga navegador OK |
+| `hub_portal_frame` | Arco obsidiana compartido por los 9 accesos (glow por círculo vía motor) — **entregado TR_T01** como mezzanine decorativo | DD_HUB (mezzanine) | Integrado (código) + carga navegador OK |
 | `hub_dj_tower` · `hub_stair_balcony_*` · `hub_bar_infernal` · `hub_arcade_row` · `hub_machines_room` · `hub_archives` · `hub_gallery_frames` · `hub_secret_*` | Kit arquitectónico/mobiliario del HUB (torres de altavoces, balcones, bar, recreativas, archivo, galería, pasadizos secretos) | DD_HUB | Pendiente |
 | `light_haze_{circle}` ×10 | Haz/niebla volumétrico emisor por círculo (sutil, ≤15 % superficie) | DD_WORLD room cache | Pendiente |
 | `prop_{circle}_signature_*` | 2 props firma por círculo (espejos vanidad, ganchos carne, bóveda caja fuerte, chatarra Ira, confesionario, tanque tóxico, tragamonedas, cadenas hielo, monolito Núcleo…) | DD_WORLD props | Pendiente |
