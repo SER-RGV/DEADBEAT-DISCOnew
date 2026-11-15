@@ -54,6 +54,7 @@ La FASE 08 de escala y cámara queda en manos de Arena. Esta rama define contrat
 | [11 — Prototipo de sonda runtime](../../tools/qa/audit_campaign_geometry.js) | Prototipo pendiente de adaptar y validar contra el flujo de la build objetivo |
 | [12 — Auditoría de geometría runtime](12_AUDITORIA_GEOMETRIA_RUNTIME.md) | Hallazgos, evidencia disponible, límites y plan de extracción |
 | [13 — Auditoría del arsenal y catálogo](13_AUDITORIA_DEL_ARSENAL_Y_CATALOGO.md) | Inventario gráfico, catálogo jugable, discrepancia 120/121 y protocolo de balance |
+| [14 — Exportación runtime del catálogo](14_EXPORTACION_CATALOGO_ARMAS.md) | Requisitos, ejecución local, archivos de salida y límites del exportador |
 
 ## Estado y rigor
 
