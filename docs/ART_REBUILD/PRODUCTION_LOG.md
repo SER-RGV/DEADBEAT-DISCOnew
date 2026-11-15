@@ -67,3 +67,8 @@
 - 6/10 generadas (`flamer`, `c048_artilleria`, `c049_plasma_cutter`, `c050_rayo_continuo`, `c051_rayo_tesla`, `c052_canon_plasma`); fallos del servicio en `c041_lanzacohetes` y `railgun` (2.ª vez), `c046_rotatorio`, `c053_particulas`.
 - Calibración: hints `grip`/`grip_v` en las gordas y la pistola tesla; nuevo hint `tip` (boca explícita) para el lanzallamas con llama piloto pintada. Registradas (311, caché `20261115.10`), verificadas en mano (evidencias `13–15`, 0 errores), marcadas. Inventario A25·B107·C71·D26·E153.
 
+## 2026-11-15 (8) — T05 ARMAS, 6.º tramo: lanzacohetes, railgun, energía 53–54, trident, pistola tóxica (40/105)
+
+- 6/10 generadas (`c041_lanzacohetes` y `railgun` al 3.er intento, `c053_particulas`, `c054_haz_de_energia`, `trident`, `c059_pistola_toxica`); fallos del servicio en `c046_rotatorio` (2.ª vez), `c055_rayo_cadenas`, `c056_orbe_energia`, `c058_canon_sonico`.
+- Calibración: hints `grip`/`grip_v`/`sup` en lanzacohetes, partículas y trident (bastón-fusil con pistolete en el extremo). Registradas (317, caché `20261115.11`), verificadas en mano (evidencias `16–18`, 0 errores), marcadas. Turno 3 cerrado. Inventario A25·B107·C65·D26·E159.
+
