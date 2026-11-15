@@ -1,5 +1,5 @@
 {
-  "totalRegistered": 277,
+  "totalRegistered": 282,
   "totalPlanned": 353,
   "entries": {
     "logo_deadbeat_graffiti": {
@@ -4358,6 +4358,146 @@
       "tanda": "T04_ESCENARIOS",
       "sha16": "6e4c3b3378767222",
       "rev": "T04_ESCENARIOS"
+    },
+    "weapon_cryo": {
+      "id": "weapon_cryo",
+      "originalId": "weapons/weapon_cryo.png",
+      "name": "Arma 18 · LANZA CRYO",
+      "category": "weapons",
+      "src": "assets/weapons/weapon_cryo.png",
+      "w": 320,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_23",
+      "sha16": "ef96da715d109141",
+      "rev": "T05_ARMAS",
+      "anchors": {
+        "grip": [
+          0.307,
+          0.608
+        ],
+        "axis": 0.498,
+        "tip": 0.978,
+        "sup": [
+          0.615,
+          0.619
+        ],
+        "oriented": true,
+        "method": "prior"
+      }
+    },
+    "weapon_c019_electrica": {
+      "id": "weapon_c019_electrica",
+      "originalId": "weapons/weapon_c019_electrica.png",
+      "name": "Arma 19 · ESCOPETA ELÉCTRICA",
+      "category": "weapons",
+      "src": "assets/weapons/weapon_c019_electrica.png",
+      "w": 320,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_23",
+      "sha16": "1556f48754c43b79",
+      "rev": "T05_ARMAS",
+      "anchors": {
+        "grip": [
+          0.247,
+          0.56
+        ],
+        "axis": 0.403,
+        "tip": 0.978,
+        "sup": [
+          0.574,
+          0.484
+        ],
+        "oriented": true,
+        "method": "hang"
+      }
+    },
+    "weapon_spas12": {
+      "id": "weapon_spas12",
+      "originalId": "weapons/weapon_spas12.png",
+      "name": "Arma 20 · SPAS-12",
+      "category": "weapons",
+      "src": "assets/weapons/weapon_spas12.png",
+      "w": 320,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_23",
+      "sha16": "2adb3a7d9631a9d3",
+      "rev": "T05_ARMAS",
+      "anchors": {
+        "grip": [
+          0.067,
+          0.599
+        ],
+        "axis": 0.438,
+        "tip": 0.978,
+        "sup": [
+          0.394,
+          0.526
+        ],
+        "oriented": true,
+        "method": "hang"
+      }
+    },
+    "weapon_c021_doble": {
+      "id": "weapon_c021_doble",
+      "originalId": "weapons/weapon_c021_doble.png",
+      "name": "Arma 21 · DOBLE DISCO",
+      "category": "weapons",
+      "src": "assets/weapons/weapon_c021_doble.png",
+      "w": 320,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_24",
+      "sha16": "e34cf5f510ce6e51",
+      "rev": "T05_ARMAS",
+      "anchors": {
+        "grip": [
+          0.307,
+          0.462
+        ],
+        "axis": 0.372,
+        "tip": 0.978,
+        "sup": [
+          0.615,
+          0.459
+        ],
+        "oriented": true,
+        "method": "prior"
+      }
+    },
+    "weapon_c022_de_gancho": {
+      "id": "weapon_c022_de_gancho",
+      "originalId": "weapons/weapon_c022_de_gancho.png",
+      "name": "Arma 22 · GANCHO DE PISTA",
+      "category": "weapons",
+      "src": "assets/weapons/weapon_c022_de_gancho.png",
+      "w": 320,
+      "h": 160,
+      "alpha": true,
+      "pivot": "center",
+      "tanda": "TANDA_24",
+      "sha16": "ae4980eaf58363fb",
+      "rev": "T05_ARMAS",
+      "anchors": {
+        "grip": [
+          0.222,
+          0.568
+        ],
+        "axis": 0.419,
+        "tip": 0.978,
+        "sup": [
+          0.549,
+          0.5
+        ],
+        "oriented": true,
+        "method": "hang"
+      }
     }
   },
   "byOriginalId": {
@@ -4633,6 +4773,11 @@
     "atlas:drone_hit": "enemy_drone_hit",
     "atlas:elite_hit": "enemy_elite_hit",
     "wall_greed": "wall_greed_vault",
-    "wall_violence": "wall_violence_chains"
+    "wall_violence": "wall_violence_chains",
+    "weapons/weapon_cryo.png": "weapon_cryo",
+    "weapons/weapon_c019_electrica.png": "weapon_c019_electrica",
+    "weapons/weapon_spas12.png": "weapon_spas12",
+    "weapons/weapon_c021_doble.png": "weapon_c021_doble",
+    "weapons/weapon_c022_de_gancho.png": "weapon_c022_de_gancho"
   }
 }

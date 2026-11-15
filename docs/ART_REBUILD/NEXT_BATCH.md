@@ -1,28 +1,34 @@
-# SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07)
+# SIGUIENTE TANDA: `T05_ARMAS` (TANDA 05 del pack 02–07) — ABIERTA
 
-- **Estado:** pendiente de abrir (2026-11-15). **T04 ESCENARIOS cerrada 20/20**: informe en
-  [`TANDA_04_INFORME.md`](TANDA_04_INFORME.md) (auditoría, lo que no se produce, las 20 piezas, sondas, lecciones,
-  pendientes, cinco decisiones por defecto y el contrato). R03 (jefes) cerrada 42/42 ([`TANDA_03_INFORME.md`](TANDA_03_INFORME.md)).
-- **Alcance (plan, [`PLAN_PRODUCCION_02-07.md`](PLAN_PRODUCCION_02-07.md) §3):** sprites HD 320×160 para las armas
-  `cNNN_*` de la tabla `ja` del motor que hoy se dibujan de forma procedimental (hasta 105), por familias (pistola →
-  … → míticas), con calibración `hd.grip/tip` real; el icono es el mismo PNG (el motor ya lo reutiliza). No se crean
-  armas nuevas: las 9 legendarias de la biblia y el «Discobreaker» de las láminas no tienen id en `ja`.
-- **Lo que ya existe:** 16 sprites HD en `assets/weapons/` (320×160, `pivot: grip-calibrated`): `weapon_c003_laser`,
-  `c005_needler`, `c007_magnum`, `c008_silenciada`, `c009_desert_eagle`, `c010_explosiva`, `c011_de_veneno`,
-  `c012_de_hielo`, `c013_escopeta`, `c015_escopeta_automatica`, `m1911`, `magnum`, `olympia`, `plasma`, `ricochet`,
-  `uzi`. Clasificación de esos 16 en `AUDIT_INVENTORY.md` (revisar si son A o B antes de decidir si se rehacen).
-
-## Primer paso de la tanda (auditoría, antes de generar nada)
-
-1. Volcar la tabla `ja` desde `index.html` (ids, `role`, familia, `hd:{grip,tip,axis,…}`, si tiene sprite) y
-   agrupar por familia: cuántas armas y cuántos sprites por familia; decidir el orden de los turnos de 10.
-2. Ver **cómo dibuja el motor el arma en la mano** del protagonista (R01: torsos de puntería por elevación,
-   cadera, fusil) y cómo usa `grip`/`tip`: medir en un sprite existente bien calibrado (`weapon_m1911`) la relación
-   entre el PNG y los puntos `hd`, para que los nuevos salgan con el mismo contrato.
-3. Sonda nueva `probe_weapons.js` (a partir de `probe_player.js`): dar al protagonista cada arma por el gancho de QA,
-   capturar reposo, puntería a tres elevaciones y disparo, recortar la mano; informe JSON con 0 errores.
-4. Hoja de modelo por familia (siluetas de la lámina `LAM_05` ↔ ids del motor) y ficha `batches/T05_ARMAS.json`
-   con el contrato (lienzo 320×160, croma, orientación, dónde cae la culata y la boca).
+- **Estado (2026-11-15):** turno 1 **parcial 5/10**: `weapon_cryo`, `weapon_c019_electrica`, `weapon_spas12`,
+  `weapon_c021_doble`, `weapon_c022_de_gancho` generadas, procesadas, registradas (registro 282, caché `20261115.5`),
+  calibradas por medición y **verificadas en mano** (evidencias `evidence/T05_ARMAS/00–03`). Las otras 5 del turno
+  (`c016_de_canon`, `c017_de_fuego`, `c023_flechetes`, `c024_incendiaria`, `thompson`) fallaron en el generador
+  (error del servicio, no del prompt): **reintentar tal cual**. Progreso: **5/105**.
+- **Ficha:** [`batches/T05_ARMAS.json`](batches/T05_ARMAS.json) — contrato, renderer, 105 assets con prompt y
+  `calibrate`, `generation_plan` de 11 turnos (≤10 por mensaje) y `generation_lessons`. Regenerable desde las tablas
+  del motor con `/tmp/ddqa/t05/make_ficha.py` (volátil; si se pierde, la ficha ya contiene todo).
+- **Flujo por turno (mecánico):**
+  1. `generate_image` ×10 con el `prompt` de la ficha → `/home/user/dd_work/raw/T05_ARMAS/weapon_<id>.png`
+     (los crudos salen ~1774×887 sobre croma verde plano; revisar la hoja `sheet.py` antes de seguir).
+  2. `batch.py process T05_ARMAS.json --only … --no-sheet` → PNG 320×160 + maestro WebP + **anclas medidas**
+     (`weapon_cal.py`: grip/axis/tip/sup) en el report.
+  3. `batch.py calibrate … --overlay /tmp/ddqa/t05/cal_tN` → mirar la hoja: la mano (rojo) en la empuñadura, el
+     apoyo (verde) bajo el guardamanos, el eje (amarillo) en el cañón. Ajustar `calibrate` de la ficha
+     (`hang:false`, `grip`, `sup`, `axis_v`, `max_dev`) y repetir `calibrate` si hace falta.
+  4. `batch.py register … --only …` → manifest.anchors; `python3 tools/build_active_html.py`.
+  5. `node tools/art_master/probe_weapons.js /tmp/ddqa/t05/probe_tN --weapons=a,b,c --poses=quieto,der,arriba,izq,camina`
+     (≈1 min por arma; una sola instancia de Chromium) → hoja de recortes → `evidence/T05_ARMAS/`.
+  6. `batch.py mark … --evidence docs/ART_REBUILD/evidence/T05_ARMAS` → `audit` → `audit_report.py render` →
+     actualizar ficha (`generation_plan[n].estado`), STATUS, CHECKPOINT, LOG → commit + push de la rama.
+- **Cómo llega la calibración al juego:** `manifest.entries["weapon_<id>"].anchors` → puente
+  `ddApplyWeaponCalibration` (`tools/build_active_html.py`) → `WEAPON_OVERRIDES[id]` (lo que lee el `it` del módulo
+  v3.2) y `dt[id].hd` (ft/ddIsLongGun). `oriented:true` anula flipX/cropY/spriteRot heredados; los arcos llevan
+  `spriteRot:1.5708` (tumbados, cuerda abajo). Ganchos QA nuevos: `__DD_BRIDGE.getWeaponCalibration(id)`,
+  `applyWeaponCalibration(id)`, `getWeaponTelemetry()` (ut._gdb), `setDebugGrip(on)`, `buyOrEquipWeapon(id,true)`.
+- **Alcance (plan §3 fila 05):** 105 armas sin sprite (las 16 B existentes no se tocan). Orden de turnos: escopetas
+  16–24 → subfusiles/fusiles 25–36 → pesadas 37–48 → energía 49–60 → elementales 61–72 → especiales 73–84 →
+  cuerpo a cuerpo 85–96 → míticas 97–120 (arcos 106–110 con `spriteRot`).
 
 ## Pendiente arrastrado
 

@@ -20,6 +20,13 @@ Uso (siempre con /home/user/.venv/bin/python):
       w/h registrados, alfa declarado == transparencia real); con --fix corrige el dato
       registrado, nunca el PNG
 
+  batch.py calibrate docs/ART_REBUILD/batches/T05_ARMAS.json [--only id,id] [--overlay DIR]
+      ARMAS: vuelve a MEDIR grip/axis/tip/sup sobre los PNG finales ya procesados
+      (ficha: "calibrate": {"cls": "fusil", ...ajustes de weapon_cal.py}) y actualiza el
+      report; `register` copia esas anclas a manifest.entries[id].anchors y el puente
+      del juego las aplica al arrancar (ddApplyWeaponCalibration). Con --overlay dibuja
+      las medidas sobre cada sprite para revisarlas.
+
 Por qué no se usa tools/asset_pipeline.py::rebuild_registry(): reescribe el
 registro completo a partir de MASTER_INVENTORY con una plantilla antigua y
 perdería las 35 entradas añadidas después (capas de cinemática BG01–BG06,
@@ -103,6 +110,56 @@ def select(assets, only):
 
 
 # --------------------------------------------------------------------------- #
+def weapon_anchors(a, final_path):
+    """
+    Calibración medida de un sprite de arma (ficha: "calibrate": {"cls": "fusil", ...hints}).
+    Devuelve el dict que register copia a manifest.entries[id].anchors y que el puente
+    (ddApplyWeaponCalibration en tools/build_active_html.py) vuelca en WEAPON_OVERRIDES
+    y dt[id].hd al arrancar. Véase tools/art_master/weapon_cal.py.
+    """
+    import weapon_cal
+    c = a["calibrate"]
+    if isinstance(c, str):
+        c = {"cls": c}
+    hints = {k: v for k, v in c.items() if k != "cls"}
+    cal = weapon_cal.measure(final_path, c.get("cls", "fusil"), hints)
+    out = {"grip": cal["grip"], "axis": cal["axis"], "tip": cal["tip"], "sup": cal["sup"], "oriented": cal["oriented"],
+           "method": cal["method"].get("grip")}
+    if "spriteRot" in cal:
+        out["spriteRot"] = cal["spriteRot"]
+    if isinstance(c.get("len"), (int, float)):
+        out["len"] = float(c["len"])
+    return out
+
+
+def cmd_calibrate(args):
+    """Vuelve a medir las anclas de los finales ya procesados (sin regenerar) y, con --overlay, dibuja la medida."""
+    import weapon_cal
+    b, assets = load_batch(args.batch)
+    assets = [a for a in select(assets, args.only) if a.get("calibrate")]
+    report_path = os.path.splitext(args.batch)[0] + ".report.json"
+    report = load_json(report_path) if os.path.exists(report_path) else {"batch": b["batch"], "assets": {}}
+    if args.overlay:
+        os.makedirs(args.overlay, exist_ok=True)
+    n = 0
+    for a in assets:
+        dst = os.path.join(ROOT, a["location"])
+        if not os.path.exists(dst):
+            print("  [--] %-34s sin final" % a["id"])
+            continue
+        anc = weapon_anchors(a, dst)
+        rec = report["assets"].setdefault(a["id"], {})
+        rec["anchors"] = anc
+        if args.overlay:
+            c = a["calibrate"] if isinstance(a["calibrate"], dict) else {"cls": a["calibrate"]}
+            cal = weapon_cal.measure(dst, c.get("cls", "fusil"), {k: v for k, v in c.items() if k != "cls"})
+            weapon_cal.overlay(dst, cal, os.path.join(args.overlay, a["id"] + ".png"))
+        print("  [OK] %-34s grip=%s axis=%s tip=%s sup=%s (%s)" % (a["id"], anc["grip"], anc["axis"], anc["tip"], anc["sup"], anc["method"]))
+        n += 1
+    dump_json(report_path, report)
+    print("calibradas:", n, "→", report_path, "(ejecuta después `register` para volcar al manifiesto)")
+
+
 def cmd_process(args):
     from PIL import Image, ImageDraw
     import artlib
@@ -168,6 +225,9 @@ def cmd_process(args):
         else:
             saved = artlib.save_png(final, dst)
         qc = artlib.qc_metrics(final.convert("RGBA"))
+        # ARMAS (T05): calibración medida sobre el PNG final (grip/axis/tip/sup) → manifest.anchors
+        if a.get("calibrate"):
+            rec["anchors"] = weapon_anchors(a, dst)
         rec.update({"fit": finfo, "final": a["location"], "bytes": saved["bytes"], "sha256": saved["sha256"],
                     "master": os.path.relpath(mpath, ROOT), "master_bytes": mbytes, "qc": qc, "status": "PROCESSED"})
         flags = [k for k in ("ghost", "touches_edge", "baked_checker_suspect", "empty") if qc.get(k)]
@@ -438,6 +498,8 @@ def main():
     p = sub.add_parser("mark"); p.add_argument("batch"); p.add_argument("--only"); p.add_argument("--evidence", required=True)
     p.add_argument("--status", default="VERIFIED"); p.set_defaults(fn=cmd_mark)
     p = sub.add_parser("audit"); p.add_argument("--fix", action="store_true"); p.set_defaults(fn=cmd_audit)
+    p = sub.add_parser("calibrate"); p.add_argument("batch"); p.add_argument("--only"); p.add_argument("--overlay")
+    p.set_defaults(fn=cmd_calibrate)
     args = ap.parse_args()
     args.fn(args)
 

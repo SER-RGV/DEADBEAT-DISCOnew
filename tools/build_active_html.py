@@ -50,6 +50,22 @@ _ui_new = "a=y.currentTime+.005,t=x.vol*(window.DD_MENU_MIX?window.DD_MENU_MIX()
 assert html.count(_ui_old) == 1, "No se encuentra el volumen de los sonidos de interfaz"
 html = html.replace(_ui_old, _ui_new, 1)
 
+# 1d. ARMAS (T05): el módulo v3.2 dibuja el sprite del arma en la mano con las
+#     calibraciones de su constante WEAPON_OVERRIDES (grip/gripY/axis/tip/sup, flipX,
+#     cropY, spriteRot) y cachea el lienzo orientado en processedWeaponCanvases. Las dos
+#     son constantes privadas del módulo. Se exponen en window para que el puente
+#     aplique la calibración MEDIDA sobre cada PNG nuevo (manifest.entries[weapon_<id>]
+#     .anchors, escrita por tools/art_master/batch.py process con calibrate:"weapon")
+#     y para invalidar la caché cuando llega una ilustración nueva.
+_wov_old = "const WEAPON_OVERRIDES = {"
+_wov_new = "const WEAPON_OVERRIDES = window.__DD_WEAPON_OVERRIDES = {"
+assert html.count(_wov_old) == 1, "No se encuentra WEAPON_OVERRIDES del módulo v3.2"
+html = html.replace(_wov_old, _wov_new, 1)
+_wcc_old = "const processedWeaponCanvases = Object.create(null);"
+_wcc_new = "const processedWeaponCanvases = window.__DD_WEAPON_CANVAS_CACHE = Object.create(null);"
+assert html.count(_wcc_old) == 1, "No se encuentra processedWeaponCanvases del módulo v3.2"
+html = html.replace(_wcc_old, _wcc_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
@@ -318,6 +334,56 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
     // cada pose y dice dónde está la mano (getPlayerWeaponMount).
     const DD_WEAPON_CANON_H = 95;
     const DD_WEAPON_PIVOT_Y = -0.55 * DD_WEAPON_CANON_H;
+    /* ARMAS (T05) — calibración medida. Cada PNG nuevo de assets/weapons/ lleva en el
+       manifiesto (entries["weapon_<id>"].anchors) los puntos medidos sobre la propia
+       imagen por tools/art_master/weapon_cal.py: grip [u,v] (mano), axis v (eje del
+       cañón), tip u (boca), sup [u,v] (mano de apoyo, opcional) y oriented:true (el
+       sprite ya apunta a la derecha: sin flipX/cropY/spriteRot del módulo v3.2). Se
+       vuelcan sobre WEAPON_OVERRIDES (lo que lee `it` del v3.2) y sobre dt[id].hd (lo
+       que leen ft/ddIsLongGun y el `it` original). Sin anchors no se toca nada. */
+    const ddWeaponCalApplied = Object.create(null);
+    function ddApplyWeaponCalibration(onlyWid) {
+      let n = 0;
+      try {
+        const ents = window.DD_ASSETS && window.DD_ASSETS.manifest && window.DD_ASSETS.manifest.entries;
+        if (!ents) return 0;
+        const OV = window.__DD_WEAPON_OVERRIDES || null;
+        const keys = onlyWid ? ["weapon_" + onlyWid] : Object.keys(ents);
+        for (const key of keys) {
+          if (key.indexOf("weapon_") !== 0 || !ents[key]) continue;
+          const an = ents[key].anchors;
+          if (!an || !Array.isArray(an.grip)) continue;
+          const wid = key.slice(7);
+          const sig = JSON.stringify(an);
+          if (ddWeaponCalApplied[wid] === sig) continue;
+          const grip = Number(an.grip[0]), gripY = Number(an.grip[1]);
+          const axis = an.axis != null ? Number(an.axis) : gripY;
+          const tip = an.tip != null ? Number(an.tip) : 0.98;
+          const sup = Array.isArray(an.sup) ? [Number(an.sup[0]), Number(an.sup[1])] : null;
+          if (OV && OV[wid]) {
+            const o = OV[wid];
+            o.grip = grip; o.gripY = gripY; o.axis = axis; o.tip = tip;
+            if (sup) { o.sup = sup[0]; o.supY = sup[1]; } else { o.sup = null; delete o.supY; }
+            if (an.oriented) { delete o.flipX; delete o.cropY; delete o.spriteRot; delete o.scabbardCropY; }
+            if (typeof an.spriteRot === "number") { o.spriteRot = an.spriteRot; delete o.flipX; delete o.cropY; delete o.scabbardCropY; }
+            if (typeof an.len === "number") o.len = an.len;
+          }
+          const r = dt[wid];
+          if (r) {
+            r.hd = r.hd || {};
+            r.hd.grip = grip; r.hd.gripY = gripY; r.hd.axis = axis; r.hd.tip = tip;
+            if (sup) { r.hd.sup = sup[0]; r.hd.supY = sup[1]; } else { delete r.hd.sup; delete r.hd.supY; }
+            if (typeof an.len === "number") r.len = an.len;
+          }
+          if (ut && ut.gripDip) ut.gripDip[wid] = 0;
+          if (window.__DD_WEAPON_CANVAS_CACHE) delete window.__DD_WEAPON_CANVAS_CACHE[wid];
+          if (ut && ut.imgCache) delete ut.imgCache[wid];
+          ddWeaponCalApplied[wid] = sig;
+          n++;
+        }
+      } catch (e) {}
+      return n;
+    }
     function ddIsLongGun(wid) {
       try {
         if (xt[wid]) return false; // pesadas: se disparan desde la cadera
@@ -326,7 +392,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       } catch (e) { return false; }
     }
 
+    let ddWeaponCalBoot = false;
     Pf = function () {
+      if (!ddWeaponCalBoot && window.DD_ASSETS && window.DD_ASSETS.manifest) { ddWeaponCalBoot = true; ddApplyWeaponCalibration(); }
       if (window.DD_WORLD && w.playerAnim) {
         const pA = w.playerAnim;
         const aimA = (pA.forcedAimAngle !== null && pA.forcedAimAngle !== undefined)
@@ -920,13 +988,39 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       },
       invalidateRoomCache: function () { roomCacheInvalid = true; b = false; },
       invalidateWeaponCache: function (wid) {
-        // Trigger fresh lookup when new weapon illustration loads
+        // Llega (o se recarga) la ilustración de un arma: el motor original la busca
+        // en __HD_ASSETS.images["weapon_<id>"] (kt: tienda, wo) y el módulo v3.2 en
+        // __HD_GET("weapons/weapon_<id>.png") con caché propia. Se actualizan las tres
+        // vías y se aplica la calibración medida del manifiesto.
         try {
           if (window.__HD_ASSETS && window.__HD_ASSETS.images && window.__HD_EXTRA) {
             const k = "weapons/weapon_" + wid + ".png";
-            if (window.__HD_EXTRA[k]) window.__HD_ASSETS.images[k] = window.__HD_EXTRA[k];
+            if (window.__HD_EXTRA[k]) {
+              window.__HD_ASSETS.images[k] = window.__HD_EXTRA[k];
+              window.__HD_ASSETS.images["weapon_" + wid] = window.__HD_EXTRA[k];
+            }
           }
+          if (ut && ut.imgCache) delete ut.imgCache[wid];
+          if (window.__DD_WEAPON_CANVAS_CACHE) delete window.__DD_WEAPON_CANVAS_CACHE[wid];
+          ddApplyWeaponCalibration(wid);
         } catch (e) {}
+      },
+      applyWeaponCalibration: function (wid) { return ddApplyWeaponCalibration(wid); },
+      getWeaponCalibration: function (wid) {
+        try {
+          const o = (window.__DD_WEAPON_OVERRIDES || {})[wid] || null;
+          const r = pt(wid);
+          return { ov: o ? JSON.parse(JSON.stringify(o)) : null, hd: r && r.hd ? JSON.parse(JSON.stringify(r.hd)) : null, len: r ? r.len : null, hip: !!xt[wid] };
+        } catch (e) { return null; }
+      },
+      // QA (sonda de armas): telemetría del último dibujo del arma en la mano
+      // (ut._gdb la escribe el `it` del módulo v3.2) y pose/mano usadas.
+      setDebugGrip: function (on) { try { ut.debugGrip = !!on; return true; } catch (e) { return false; } },
+      getWeaponTelemetry: function () {
+        try {
+          const d = ut._gdb ? JSON.parse(JSON.stringify(ut._gdb)) : null;
+          return { weapon: Yo.weapon, pose: ut.poseKey || null, handLocal: ut.handLocal ? ut.handLocal.slice() : null, hip: !!xt[Yo.weapon], longGun: ddIsLongGun(Yo.weapon), gdb: d };
+        } catch (e) { return { error: String(e) }; }
       },
       drawPlayerAt: function (targetCtx, px, py, aimAngle) {
         const prevX = ye.x, prevY = ye.y, prevA = ye.aimAngle, prevG = g;

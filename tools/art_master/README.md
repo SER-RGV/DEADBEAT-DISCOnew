@@ -19,7 +19,7 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
@@ -220,6 +220,24 @@ pasos a/b quedaban fuera (recorte negro). `probe_report.json` lleva errores de p
 captura de página tarda >8 s en este Chromium). Refugio solo: `--circles= --rooms=` (≈100 s).
 Una sola instancia a la vez: dos sondas simultáneas acaban en `TimeoutError`.
 
+### `probe_weapons.js`
+```
+node tools/art_master/probe_weapons.js <salida> --weapons=spas12,ak47,m60 [--poses=quieto,der,arriba,abajo,izq,camina] [--box=170] [--grip=1] [--dpr=2]
+```
+Entra en una incursión con la sala despejada, equipa cada arma con `__DD_BRIDGE.buyOrEquipWeapon(id, true)` y recorta al
+protagonista con el arma dibujada por el motor en seis posturas (≈1 min por arma). Guarda por captura la telemetría
+`__DD_BRIDGE.getWeaponTelemetry()` (`ut._gdb`: len/hgt en px, grip/axis/tip/sup, boca y apoyo locales, clase) y la
+calibración vigente (`getWeaponCalibration`). Una sola instancia de Chromium; `--grip=1` dobla el tiempo.
+
+### `weapon_cal.py`
+```
+python tools/art_master/weapon_cal.py assets/weapons/weapon_ak47.png --cls fusil --out /tmp/ak47_cal.png
+```
+Mide sobre el PNG final la empuñadura, el eje del cañón, la boca y la mano de apoyo (ver «Contrato de las armas»). La
+usa `batch.py process` cuando la ficha lleva `"calibrate": {"cls": …}` y `batch.py calibrate --overlay DIR` para
+revisar/repetir sin regenerar. Ajustes por arma en la propia clave `calibrate`: `hang:false` (culata clásica),
+`grip`/`sup` (previos en fracción del ancho de la silueta), `axis_v`, `axis_band`, `max_dev`, `spriteRot` (arcos).
+
 ### `probe_cinematic.js`
 Captura un fotograma por plano de la cinemática de entrada adelantando el reloj de
 `DD_CINE` (≈40 s en total).
@@ -381,6 +399,23 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
 - QA: `probe_rooms.js … --hub=0` (el Refugio tumba a veces el Chromium de pruebas) y `--unlock=1`
   (por defecto) abre todas las puertas como el modo «SALAS ABIERTAS» del motor; los pasos `_d_` enseñan
   tienda, Residente y descenso aunque la sala sea en L o la puerta esté abajo o a un lado.
+
+## Contrato de las armas (T05)
+
+- **Lienzo** 320×160 RGBA, `fit contain` margen 6, arma horizontal, **boca/punta a la derecha**, empuñadura abajo a la
+  izquierda; sin manos ni texto. El mismo PNG es el sprite en mano (`it` del módulo v3.2 vía el puente), el icono de la
+  tienda (`wo`, 104 px), el HUD (56×26) y la armería (≤112 px).
+- **En mano**: `wLen = len·95 px`, `wHgt = wLen·alto/ancho`; `drawImage(sprite, -grip·wLen, -gripY·wHgt)` tras colocar la
+  mano; antebrazo de apoyo (recorte de `player_fire2`) en `(sup, supY)` salvo armas de cadera (`xt`: m60, minigun, LMG,
+  pesado, BFG, mortero, rotatorio, artillería, dragón, director); fogonazo en `(tip, axis)`. Mirando a la izquierda el
+  motor voltea en Y. Arcos: sprite tumbado (limbos izquierda–derecha, cuerda ABAJO) y `spriteRot = +π/2`.
+- **Calibración medida, no a ojo**: `weapon_cal.py` → `report.anchors` → `register` → `manifest.entries[id].anchors` →
+  puente `ddApplyWeaponCalibration` (`tools/build_active_html.py`) → `WEAPON_OVERRIDES[id]` y `dt[id].hd`.
+  `oriented:true` anula `flipX/cropY/spriteRot/scabbardCropY` heredados del módulo v3.2. `len` no se cambia (alcance de
+  juego) salvo `calibrate.len` explícito.
+- **QA**: hoja `calibrate --overlay` (mano roja en la empuñadura, apoyo verde bajo el guardamanos, eje amarillo en el
+  cañón, boca cian en el extremo) y `probe_weapons.js` en derecha/arriba/izquierda como mínimo; evidencias en
+  `docs/ART_REBUILD/evidence/T05_ARMAS/`.
 
 ## Trampas conocidas
 
