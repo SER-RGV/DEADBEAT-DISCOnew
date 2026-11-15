@@ -143,3 +143,45 @@
 - Contrato de animación (FASE 02 §4): `tools/art_master/anim_contract.py` → `ANIMATION_CONTRACT.json` (+ `--check` R1–R4, 0
   incumplimientos; `boss_10_arquitecto` sólo idle/attack por contrato R03) y `ANIMATION_CONTRACT.md` (modelo: un fotograma por
   estado + procedimental; relojes medidos en el motor y el renderizador).
+
+## (17) 2026-11-15 · T06_OBJETOS turno 3 (20/20) — CERRADA
+
+- `generate_image` ×1: `relic_tempo` (metrónomo negro lacado, aguja magenta) → `batch.py process --only relic_tempo --no-sheet` (160², 18,9 KB)
+  → `register --only` → caché `20261115.24` → `python3 tools/build_active_html.py`.
+- `probe_pickups.js` ampliado: parámetro `--relics=`, **prueba de reserva al glifo** sustituyendo `window.DD_ASSETS` por un doble que
+  devuelve `null` para `relic_*` (el registro está congelado con `Object.freeze`, así que no basta con parchear `get`), captura del cofre
+  en modo reserva y restauración comprobada. Resultado (`evidence/T06_OBJETOS/t06_probe_turno3.json`): 11/11 botines en el suelo;
+  cofre con ilustración `relic_lowpass`; con el doble, la misma tarjeta vuelve al glifo (`◌`, sin `<img>`); lista de pasivos 6/6 con
+  icono y `relic_tempo` (METRÓNOMO NEGRO) en cabeza; 0 errores de página. Evidencias `10_relic_cofre_tarjetas_turno3.jpg`,
+  `11_relic_pausa_lista_6_con_tempo.jpg`, `12_relic_cofre_fallback_glifo.jpg`.
+- Referencias huérfanas (script ad hoc sobre `MANIFEST` + `src/*.js` + `build_active_html.py`): 0 `src` inexistentes, 0 archivos sin
+  registrar en `assets/pickups|ui`, 0 ids `pickup_|relic_|hud_|ui_` referenciados sin existir; sin consumidor: `menu_main_backdrop(_a)`,
+  `ui_shop_emblem` (heredados).
+- `mark --only relic_tempo` → INTEGRATED/VERIFIED; ficha `T06_OBJETOS.json` **CERRADA 20/20**; `TANDA_06_INFORME.md`.
+
+## (18) 2026-11-15 · T07_HUD (8/8) — CERRADA · QA del HUD por la ruta real · diagnóstico de `is-failed`
+
+- Ficha `batches/T07_HUD.json` (8 assets, guía LAM_01 §07, prompts «Flat neon game HUD icon…»). `generate_image` ×8 (turno de 9 con
+  `relic_tempo`): 8/8 crudos válidos → `process` (128²/160²/512×384) → `register` → caché `20261115.25`.
+- Integración mínima de `hud_shield_badge` (único id sin consumidor): `src/dd_ui_system.js` `buildHud()` fila `.dd-bar-row-shield` con
+  `<img id="dd-hud-shield-img">` (14 px) delante de la barra de escudo + `refreshAssets()`; CSS en `src/dd_rebuild_ui.css`. Sin cambios
+  de lógica. Build regenerado.
+- **Sonda nueva `tools/art_master/probe_hud.js`**: ruta real (carga → `is-waiting`/intro saltada con tecla real → menú → clic en
+  NUEVA PARTIDA → descenso → Refugio → `exitToRun`), capturas de página reales (DOM + lienzo, nada oculto), comprobaciones con
+  evidencia obligatoria (una comprobación sin captura no cuenta), informe incremental. Estados: Refugio, incursión normal, daño
+  (`wp` ×2 → corazón vacío), escudo (botín `shield`), habilidades cargadas (botín `bomb`/`boost`) y bomba gastada con `Q`, jefe
+  (`DMO.debug.boss` → presentación + barra `#dd-boss-hud`), emblema de victoria (`DD_CINE.playVictory`). A 1280×720: 13/13 OK,
+  15 capturas, 0 errores de página (`evidence/T07_HUD/03–14`, `t07_probe_hud_720.json`).
+- **Corazón vacío v2:** bajo el CSS del HUD (`opacity .28 + grayscale`) la v1 IA (contorno magenta fino) medía 30/255 (invisible, igual
+  que el asset anterior). `tools/art_master/derive_hud_heart_empty.py` deriva el vacío de la silueta exacta del lleno (aro rosa pálido +
+  carbón translúcido → 87/255). Ficha: `matte none`, `fit stretch`, `derived_from`; `register --only` → caché **`20261115.26`**.
+  Evidencia `15_corazon_vacio_v1_vs_v2_bajo_css.png`, `08b_zoom_corazones_x6.png`.
+- **`#dd-boot-frame.is-failed`:** es estado de arranque (`showError`: paso imprescindible fallido, `timeoutMs` o perro guardián 20 s), no
+  de captura. Medido: ruta real 720p 0 errores (`images` 5,0 s); 1080p 1 error recuperable (`images` > 7000 ms) sin panel; atajo de las
+  sondas antiguas (`probe_boot_failure.js`, nueva) → `images` > 7000 ms y cadena de 14,5 s. Regla: ejecución con `is-failed` = inválida,
+  se repite; nunca se oculta. Detalle en `TANDA_07_INFORME.md` §4.1.
+- **1080p:** Refugio verificado (`16–19`), la pestaña cae al entrar en la incursión en dos intentos (sandbox 2 CPU/3,9 GB, `--single-process`);
+  estados de incursión a 1080p **no verificados** (documentado, no aprobado).
+- Hallazgos heredados sin tocar (§5 del informe): barra de escudo vuelca `Ee` (0–3) como %; tarjeta de bomba etiquetada `ESP` cuando el
+  motor usa `Q`; ids sin consumidor.
+- `mark` T07 8/8 → `audit` 382/0 → `render` **A25·B80·C0·D25·E252**; ficha CERRADA; `TANDA_07_INFORME.md`; STATUS/CHECKPOINT/NEXT_BATCH/PLAN.

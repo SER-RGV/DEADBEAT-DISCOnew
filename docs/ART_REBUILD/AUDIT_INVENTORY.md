@@ -1,6 +1,6 @@
 # Inventario de arte clasificado A–E
 
-> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T11:08:37Z). No editar a mano.
+> Generado por `tools/art_master/audit_report.py render` a partir de `AUDIT_CLASSIFICATION.json` (2026-11-15T12:07:41Z). No editar a mano.
 
 | Clase | Significado |
 |---|---|
@@ -18,17 +18,17 @@
 | `enemies` | 30 | 0 | 0 | 0 | 0 | 30 |
 | `bosses` | 42 | 0 | 0 | 0 | 0 | 42 |
 | `weapons` | 121 | 0 | 16 | 0 | 0 | 105 |
-| `pickups` | 20 | 0 | 1 | 0 | 0 | 19 |
+| `pickups` | 20 | 0 | 0 | 0 | 0 | 20 |
 | `effects` | 22 | 2 | 20 | 0 | 0 | 0 |
 | `props` | 30 | 0 | 29 | 0 | 0 | 1 |
 | `floors` | 12 | 12 | 0 | 0 | 0 | 0 |
 | `walls` | 12 | 0 | 1 | 0 | 0 | 11 |
 | `environments` | 8 | 0 | 0 | 0 | 0 | 8 |
-| `ui` | 15 | 7 | 7 | 0 | 1 | 0 |
+| `ui` | 15 | 7 | 0 | 0 | 0 | 8 |
 | `logos` | 3 | 3 | 0 | 0 | 0 | 0 |
 | `cinematics` | 35 | 0 | 11 | 0 | 24 | 0 |
 | `overlays` | 1 | 1 | 0 | 0 | 0 | 0 |
-| **Total** | **382** | **25** | **88** | **0** | **26** | **243** |
+| **Total** | **382** | **25** | **80** | **0** | **25** | **252** |
 
 ## `characters` (31)
 
@@ -278,7 +278,6 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `relic_tempo` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R06_RECOGIBLES` |
 | `pickup_ammo_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_bomb_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `pickup_boost_00` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
@@ -298,6 +297,7 @@
 | `relic_needle` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `relic_pact` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 | `relic_prism` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
+| `relic_tempo` | **E** | rehecho en la tanda T06_OBJETOS y validado dentro del juego | `T06_OBJETOS` |
 
 ## `effects` (22)
 
@@ -412,14 +412,6 @@
 
 | ID | Clase | Motivo | Tanda |
 |---|:---:|---|---|
-| `ui_victory_emblem` | **D** | halo / flecos claros alrededor de la silueta | `R04_PNJ_Y_HUD` |
-| `hud_credit_coin` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_heart_empty` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_heart_full` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_shield_badge` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_skill_bomb` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_skill_boost` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
-| `hud_skill_dodge` | **B** | pixel art de paleta reducida; no sigue el acabado de ilustración de las guías | `R04_PNJ_Y_HUD` |
 | `dialogue_portrait_dj` | **A** | ilustración sin defectos visibles | — |
 | `hud_portrait_protagonist` | **A** | ilustración sin defectos visibles | — |
 | `map_infernal_tower` | **A** | ilustración sin defectos visibles | — |
@@ -427,6 +419,14 @@
 | `menu_main_backdrop_a` | **A** | ilustración sin defectos visibles | — |
 | `ui_defeat_emblem` | **A** | ilustración sin defectos visibles | — |
 | `ui_shop_emblem` | **A** | ilustración sin defectos visibles | — |
+| `hud_credit_coin` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_heart_empty` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_heart_full` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_shield_badge` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_skill_bomb` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_skill_boost` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `hud_skill_dodge` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
+| `ui_victory_emblem` | **E** | rehecho en la tanda T07_HUD y validado dentro del juego | `T07_HUD` |
 
 ## `logos` (3)
 

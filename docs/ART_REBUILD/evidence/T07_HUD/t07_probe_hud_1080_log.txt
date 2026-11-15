@@ -1,0 +1,23 @@
+[OK] boot.real · arranque completado en 26427 ms sin panel de error (INTRO); errores registrados: 0
+   captura intro_running_1080.png · 11352 ms
+[OK] menu.reached · estado DD_BOOT = MAIN_MENU a los 39144 ms
+   captura menu_main_1080.png · 10486 ms
+   captura descent_running_1080.png · 11231 ms
+[OK] hub.reached · Refugio activo y #dd-hud visible a los 120786 ms
+   rAF en el Refugio: 1.4 Hz (headless, software)
+[OK] hud.icons.t07 · iconos del HUD cargados desde assets/ui/hud_* (sin reserva a pickups): {"hearts":3,"heart0":"assets/ui/hud_heart_full.png","coin":"assets/ui/hud_credit_coin.png","shield":"assets/ui/hud_shield_badge.png","bomb":"assets/ui/hud_skill_bomb.png","boost":"assets/ui/hud_skill_boost.png","dodge":"assets/ui/hud_skill_dodge.png"}
+[OK] hud.sizes · tamaños CSS: corazón [22,22] · moneda [16,16] · escudo [14,14] · habilidad [44,44] · dpr 1
+[OK] hud.on_top.hub · capas sobre el HUD (z≥6200) en retrato/habilidades: [] / []
+   captura hud_hub_full_1080.png · 47187 ms
+   captura hud_hub_topleft_1080.png · 37649 ms
+   captura hud_hub_skills_1080.png · 41586 ms
+[OK] hud.state.hub · Refugio: corazones 3/3 · CR 0 · NV. 1 · EL REFUGIO · ZONA SEGURA · bombas 3 · boosts 3
+[OK] run.reached · motor en incursión (hud.running) = true
+page.evaluate: Target page, context or browser has been closed
+Browser logs:
+
+<launching> /tmp/chromium --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,DestroyProfileOnBrowserClose,HttpsUpgrades,HttpsFirstBalancedModeAutoEnable,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,AvoidCorsURLLoaderRestartOnRedirect,TcpPortRandomizationWin,OptimizationHints,NetworkTimeServiceQuerying,AimEnabled,PreconnectToSearch,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface,SkipListAccountsWithoutGaiaCookies --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --disable-updater-scheduler --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --enable-unsafe-swiftshader --edge-skip-compat-layer-relaunch --disable-stack-profiler --disable-infobars --disable-sync --do-not-de-elevate --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ash-no-nudges --disable-domain-reliability --disable-print-preview --disk-cache-size=33554432 --no-default-browser-check --no-pings --single-process --font-render-hinting=none --disable-features=AudioServiceOutOfProcess,IsolateOrigins,site-per-process --enable-features=SharedArrayBuffer --ignore-gpu-blocklist --in-process-gpu --use-gl=angle --use-angle=swiftshader --enable-unsafe-swiftshader --allow-running-insecure-content --disable-setuid-sandbox --disable-site-isolation-trials --disable-web-security --no-sandbox --no-zygote --no-sandbox --mute-audio --user-data-dir=/tmp/playwright_chromiumdev_profile-hRyJ9j --remote-debugging-pipe --no-startup-window
+    at /home/user/DEADBEAT-DISCOnew/tools/art_master/probe_hud.js:190:16 {
+  log: []
+}
+EXIT 1

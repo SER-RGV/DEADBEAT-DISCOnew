@@ -4,60 +4,34 @@
  "pipeline": "tools/art_master (tandas R01, R02, …)",
  "registry": {
   "total": 382,
-  "cache_version": "20261115.23"
+  "cache_version": "20261115.26"
  },
  "classification": {
   "total": 382,
   "A_conservar": 25,
-  "B_rehacer_estilo": 107,
+  "B_rehacer_estilo": 80,
   "C_falta": 0,
-  "D_defectuoso": 26,
-  "E_rehecho_validado": 224
+  "D_defectuoso": 25,
+  "E_rehecho_validado": 252
  },
- "pending_to_produce": 133,
+ "pending_to_produce": 105,
  "completed_batches": [
   "R01_PROTAGONISTA",
   "R02_ENEMIGOS",
   "R03_JEFES",
   "T04_ESCENARIOS",
-  "T05_ARMAS"
+  "T05_ARMAS",
+  "T06_OBJETOS",
+  "T07_HUD"
  ],
- "current_batch": "T06_OBJETOS (ABIERTA · 19/20 integrados y verificados; falta relic_tempo → turno 3)",
+ "current_batch": "ninguna (pack 02–07 completo: T06_OBJETOS y T07_HUD cerradas 2026-11-15; detenido a la espera de la revisión del informe)",
  "current_batch_progress": {
-  "status": "ABIERTA",
-  "batch_file": "docs/ART_REBUILD/batches/T06_OBJETOS.json",
-  "scope": "20 pickups/reliquias de assets/pickups/ (160×160, pivot center) en el estilo neón del pack; ids existentes mapeados en dd_world_renderer.js (pickup_*_00) y, para relic_*, tarjetas del cofre y lista de pasivos (parche 1f del build, con reserva al glifo); gancho QA __DD_BRIDGE.spawnPickupAt",
-  "illustrations_total": 20,
-  "verified": 19,
-  "turno_1": [
-   "pickup_ammo_00",
-   "pickup_boost_00",
-   "pickup_companion_00",
-   "pickup_credits_00",
-   "pickup_damageup_00",
-   "pickup_fireup_00",
-   "pickup_heart_00",
-   "pickup_mutation_00",
-   "pickup_shield_00"
+  "status": "PACK 02–07 COMPLETO",
+  "last_closed": [
+   "T06_OBJETOS 20/20",
+   "T07_HUD 8/8"
   ],
-  "pending": [
-   "relic_tempo (único pendiente: tope de 10 imágenes por turno)"
-  ],
-  "evidence": "docs/ART_REBUILD/evidence/T06_OBJETOS",
-  "probe": "tools/art_master/probe_pickups.js",
-  "probe_errors": 0,
-  "turno_2": [
-   "pickup_bomb_00",
-   "pickup_speedup_00",
-   "pickup_turret_00",
-   "relic_needle",
-   "relic_lowpass",
-   "relic_magnet",
-   "relic_pact",
-   "relic_echo",
-   "relic_coil",
-   "relic_prism"
-  ]
+  "next_decision": "revisar TANDA_07_INFORME.md §5 (barra de escudo en %, etiqueta ESP de la bomba) antes de abrir otra tanda"
  },
  "last_closed_batch": {
   "batch": "T05_ARMAS",
@@ -295,16 +269,29 @@
    "probe_errors": 0
   },
   "T06_OBJETOS": {
-   "status": "ABIERTA 19/20",
+   "status": "CERRADA 20/20",
    "total": 20,
-   "verified": 19,
+   "verified": 20,
    "ficha": "docs/ART_REBUILD/batches/T06_OBJETOS.json",
    "evidence": "docs/ART_REBUILD/evidence/T06_OBJETOS",
-   "scope": "assets/pickups/ 160×160 pivot center, ids existentes; PLAN_PRODUCCION_02-07.md §3 fila 06",
-   "next": "turno 3: relic_tempo; después T07_HUD. Evidencia HUD de reserva (corazón/escudo/moneda) sigue pendiente de captura manual (headless tapa el HUD)."
+   "report": "docs/ART_REBUILD/TANDA_06_INFORME.md",
+   "scope": "assets/pickups/ 160×160 pivot center, ids existentes; reliquias en cofre/pausa (parche 1f) con reserva al glifo probada; PLAN_PRODUCCION_02-07.md §3 fila 06",
+   "closed_at": "2026-11-15"
   },
   "T07_HUD": {
-   "status": "PENDIENTE"
+   "status": "CERRADA 8/8",
+   "total": 8,
+   "verified": 8,
+   "ficha": "docs/ART_REBUILD/batches/T07_HUD.json",
+   "evidence": "docs/ART_REBUILD/evidence/T07_HUD",
+   "report": "docs/ART_REBUILD/TANDA_07_INFORME.md",
+   "scope": "assets/ui/ hud_heart_full/empty 128², hud_shield_badge 128², hud_credit_coin 128², hud_skill_bomb/boost/dodge 160², ui_victory_emblem 512×384; integración sólo de imágenes (+ icono de escudo 14 px delante de la barra); verificación por la ruta real de arranque a 1280×720 (probe_hud.js) y diagnóstico de #dd-boot-frame.is-failed (probe_boot_failure.js)",
+   "closed_at": "2026-11-15",
+   "pending_findings": [
+    "barra de escudo vuelca cargas 0–3 como % (heredado)",
+    "tarjeta de bomba etiquetada ESP; el motor usa Q (heredado)",
+    "verificación 1080p de incursión: ver anexo del informe"
+   ]
   }
  },
  "updated": "2026-11-15",

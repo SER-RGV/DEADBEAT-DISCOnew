@@ -1,35 +1,33 @@
-# TANDA EN CURSO: `T06_OBJETOS` (TANDA 06 del pack 02–07) — ABIERTA 19/20 · siguiente: turno 3 (`relic_tempo`) y T07_HUD
+# SIN TANDA EN CURSO — pack 02–07 completo (T06_OBJETOS 20/20 y T07_HUD 8/8 cerradas el 2026-11-15)
 
-- **Estado T06 (2026-11-15, turno 2):** 19/20 integrados y VERIFIED (caché `20261115.23`); inventario A25·B88·C0·D26·E243.
-  Turno 2: `pickup_bomb_00`, `pickup_speedup_00`, `pickup_turret_00` + `relic_{needle,lowpass,magnet,pact,echo,coil,prism}`.
-  Las reliquias NO son botín de suelo (`drawPickup` nunca las recibe): su consumidor real son las tarjetas del cofre
-  (`#shot-choice-overlay .shot-card50 .shot-icon`) y la lista de pasivos de la pausa (`#rogue71-inventory .rogue71-items`);
-  el bloque `1f` de `tools/build_active_html.py` sustituye el glifo por `relic_<id>` si existe (CSS `.dd-relic-icon` en
-  `src/dd_rebuild_ui.css`). Evidencias `evidence/T06_OBJETOS/04_ingame_turno2_pickups_crop.jpg`, `06_relic_cofre_tarjetas.jpg`,
-  `08_relic_pausa_lista_pasivos.jpg`, `09_hoja_turno2_procesados.jpg`, `t06_probe_turno2.json` (0 errores).
-  **Turno 3:** `relic_tempo` (prompt en la ficha) → `batch.py process --only relic_tempo --no-sheet` → `register --only` → build →
-  `node tools/art_master/probe_pickups.js OUT` (ya abre el cofre con `DMO.rogue.debug({action:"chest"})`+`{action:"open"}`, concede 6
-  pasivos con `{action:"item",id}` y captura la lista de la pausa) → `mark --only --evidence` → `audit` → `render` → docs → commit.
-  Nota: en headless el HUD queda tapado por `#dd-boot-frame.is-failed`/menú; la evidencia del HUD de reserva (corazón, escudo,
-  moneda, habilidades) sigue pendiente de una captura manual.
-- **Contrato de animación:** `python3 tools/art_master/anim_contract.py` regenera `ANIMATION_CONTRACT.json` (y `--check` valida
-  R1–R4) tras cada `register` que toque figuras; `ANIMATION_CONTRACT.md` explica el modelo.
-- **Estado T05 (2026-11-15):** `T05_ARMAS` **CERRADA 105/105** (14.º y último tramo: lanza espectral, orbe del abismo, bomba
-  flotante, summon infernal, dragón espiritual y Director). Registro 382, caché `20261115.21`; inventario
-  A25·B107·C0·D26·E224. Informe: [`TANDA_05_INFORME.md`](TANDA_05_INFORME.md); evidencias `evidence/T05_ARMAS/00–43`
-  (`43_catalogo_105_sprites.jpg` = catálogo completo).
-- **Alcance T06 (plan §3 fila 06):** los 20 PNG de `assets/pickups/` (12 `pickup_*_00`: ammo, bomb, boost, companion,
-  credits, damageup, fireup, heart, mutation, shield, speedup, turret; 8 `relic_*`: coil, echo, lowpass, magnet, needle,
-  pact, prism, tempo) en el estilo neón del pack. Ids existentes, mapeados en `src/dd_world_renderer.js` (~l.1592,
-  por `kind`) y consultados también como *fallback* del HUD (`dd_ui_system.js`). **Sin código.** Lienzo actual 160×160,
-  pivot center (TANDA_16); confirmar en el registro antes de fijar el contrato.
-- **Cómo abrir:** 1) auditar en `AUDIT_INVENTORY.md` las 20 entradas (clase B) y cómo las dibuja `drawPickup`
-  (escala, flotación, brillo); 2) crear `batches/T06_OBJETOS.json` con la estructura de `T05_ARMAS.json`
-  (`contract`, `defaults`, `assets[].prompt`, `generation_plan` de 2 turnos de 10, `generation_lessons`); 3) flujo
-  `generate_image` → `sheet.py` → `batch.py process --no-sheet` → `register --only` → `build_active_html.py` → sonda
-  (adaptar `probe_enemies.js`: matar enemigos con `killAllEnemies` y capturar el botín; reliquias en la tienda con
-  `DD_UI.openShop`) → `evidence/T06_OBJETOS/` → `mark` → `audit` → `render` → STATUS/CHECKPOINT/LOG → commit + push.
-- **Después:** T07 HUD (~8 PNG: corazón lleno/vacío, escudo, 3 habilidades, moneda, emblema de victoria).
+- **Estado:** producción detenida tras T07, a la espera de la revisión del informe de cierre. Registro 382 assets, caché
+  `20261115.26`; inventario A25·B80·C0·D25·E252 (quedan 105 por producir: 80 B + 25 D, todos fuera del pack 02–07).
+- **Antes de abrir otra tanda, decidir** (hallazgos heredados, `TANDA_07_INFORME.md` §5): (1) la barra de escudo del HUD vuelca
+  las cargas `Ee` (0–3) como % de anchura (1–3 %); (2) la tarjeta de bomba dice `ESP` pero el motor usa `Q` (`tp()`), `Espacio` es
+  la esquiva; (3) ids sin consumidor `menu_main_backdrop(_a)`, `ui_shop_emblem`. Son cambios de comportamiento/texto, no de arte.
+- **Qué quedaría por producir (fuera del pack 02–07):** las 80 B + 25 D del inventario (`AUDIT_INVENTORY.md`): balas/proyectiles,
+  efectos, `ui_defeat_emblem`, fondos de menú heredados, 16 armas B antiguas, etc. Proponer tanda nueva con ficha propia.
+- **Flujo vigente** (ver `tools/art_master/README.md`): `generate_image` (≤10 por turno) → `batch.py process --only … --no-sheet`
+  → `register --only` → `python3 tools/build_active_html.py` → sonda en la build real (`probe_hud.js` para HUD/menú por la ruta
+  real; `probe_pickups.js`, `probe_weapons.js`, `probe_enemies.js`, `probe_rooms.js` por el atajo de QA) → `evidence/<TANDA>/` →
+  `mark --evidence` → `audit` → `audit_report.py render` → STATUS/CHECKPOINT/LOG → commit + push a la rama de la sesión.
+- **Regla de QA headless:** una ejecución con `#dd-boot-frame.is-failed` es inválida y se repite; nunca se oculta el panel. Lanzar
+  siempre con `LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts`, un Chromium a la vez (`pkill -9 -f /tmp/chromium`
+  antes), en segundo plano; a 1920×1080 las capturas tardan 40–50 s (`--shotTimeout=150000`) y la pestaña puede caer en la incursión.
+
+## Referencia T07 (cerrada): HUD
+
+- Ficha [`batches/T07_HUD.json`](batches/T07_HUD.json); evidencias `evidence/T07_HUD/00–15` + `t07_probe_hud_720.json`,
+  `t07_boot_trace_720.json`, `t07_boot_failure_diag_720.json`; informe [`TANDA_07_INFORME.md`](TANDA_07_INFORME.md).
+- Consumo: `dd_ui_system.js` `assetSrc(id, reserva)` (corazones 22 px, moneda 16 px, habilidades 44 px, icono de escudo 14 px
+  `#dd-hud-shield-img`), `dd_cinematic_camera.js` (`ui_victory_emblem` 280×210). Los estados atenuados por CSS necesitan contorno
+  claro: `hud_heart_empty` se deriva con `tools/art_master/derive_hud_heart_empty.py` (no se regenera con IA).
+
+## Referencia T06 (cerrada): objetos y reliquias
+
+- Ficha [`batches/T06_OBJETOS.json`](batches/T06_OBJETOS.json); evidencias `evidence/T06_OBJETOS/00–12` + 3 informes de sonda;
+  informe [`TANDA_06_INFORME.md`](TANDA_06_INFORME.md). Reliquias: parche `1f` de `tools/build_active_html.py` (cofre y pausa) con
+  reserva al glifo (probada con un doble de `window.DD_ASSETS`, que está congelado). Gancho QA `__DD_BRIDGE.spawnPickupAt`.
 
 ## Referencia T05 (cerrada): flujo de armas, por si hay que regenerar alguna
 

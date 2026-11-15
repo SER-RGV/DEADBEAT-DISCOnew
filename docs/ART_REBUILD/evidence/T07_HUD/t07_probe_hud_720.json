@@ -1,0 +1,279 @@
+{
+ "viewport": {
+  "w": 1280,
+  "h": 720
+ },
+ "startedAt": "2026-11-15T11:43:48.574Z",
+ "checks": [
+  {
+   "id": "boot.real",
+   "ok": true,
+   "detail": "arranque completado en 17234 ms sin panel de error (INTRO); errores registrados: 0",
+   "evidence": null
+  },
+  {
+   "id": "menu.reached",
+   "ok": true,
+   "detail": "estado DD_BOOT = MAIN_MENU a los 25057 ms",
+   "evidence": null
+  },
+  {
+   "id": "hub.reached",
+   "ok": true,
+   "detail": "Refugio activo y #dd-hud visible a los 69251 ms",
+   "evidence": null
+  },
+  {
+   "id": "hud.icons.t07",
+   "ok": true,
+   "detail": "iconos del HUD cargados desde assets/ui/hud_* (sin reserva a pickups): {\"hearts\":3,\"heart0\":\"assets/ui/hud_heart_full.png\",\"coin\":\"assets/ui/hud_credit_coin.png\",\"shield\":\"assets/ui/hud_shield_badge.png\",\"bomb\":\"assets/ui/hud_skill_bomb.png\",\"boost\":\"assets/ui/hud_skill_boost.png\",\"dodge\":\"assets/ui/hud_skill_dodge.png\"}",
+   "evidence": null
+  },
+  {
+   "id": "hud.sizes",
+   "ok": true,
+   "detail": "tamaños CSS: corazón [22,22] · moneda [16,16] · escudo [14,14] · habilidad [44,44] · dpr 1",
+   "evidence": null
+  },
+  {
+   "id": "hud.on_top.hub",
+   "ok": true,
+   "detail": "capas sobre el HUD (z≥6200) en retrato/habilidades: [] / []",
+   "evidence": null
+  },
+  {
+   "id": "hud.state.hub",
+   "ok": true,
+   "detail": "Refugio: corazones 3/3 · CR 0 · NV. 1 · EL REFUGIO · ZONA SEGURA · bombas 3 · boosts 3",
+   "evidence": "hud_hub_topleft_720.png"
+  },
+  {
+   "id": "run.reached",
+   "ok": true,
+   "detail": "motor en incursión (hud.running) = true",
+   "evidence": null
+  },
+  {
+   "id": "hud.on_top.run",
+   "ok": true,
+   "detail": "incursión · capas sobre el HUD en retrato/habilidades: [] / []",
+   "evidence": null
+  },
+  {
+   "id": "hud.state.run.normal",
+   "ok": true,
+   "detail": "incursión normal: corazones 3/3 · hp 100% · escudo 0% · COLA DE ENTRADA · CÍRCULO I · LIMBO",
+   "evidence": "hud_run_normal_topleft_720.png"
+  },
+  {
+   "id": "hud.state.damage",
+   "ok": true,
+   "detail": "tras 2 impactos: corazones 2/3 (vacíos con hud_heart_empty) · hp 66.7% · CR 1234",
+   "evidence": "hud_run_damage_topleft_720.png"
+  },
+  {
+   "id": "hud.state.shield",
+   "ok": true,
+   "detail": "botín shield (true): cargas de escudo del motor = 1 · barra .dd-bar-shield = 1% (el HUD vuelca las cargas 0–3 como % de anchura: hallazgo heredado, no se toca)",
+   "evidence": "hud_run_shield_topleft_720.png"
+  },
+  {
+   "id": "hud.state.skills.loaded",
+   "ok": true,
+   "detail": "habilidades cargadas: bombas 4 · boosts 4",
+   "evidence": "hud_run_skills_loaded_720.png"
+  },
+  {
+   "id": "hud.state.skills.spent",
+   "ok": true,
+   "detail": "bombas 4 → tras Espacio 4 (Espacio = esquiva zt.key) → tras 5× tecla Q (tp) 0 · tarjeta .dd-empty=true",
+   "evidence": "hud_run_skills_spent_720.png"
+  },
+  {
+   "id": "hud.state.boss",
+   "ok": true,
+   "detail": "jefe invocado=true · barra #dd-boss-hud visible=true (DJ DOOM) · cinemática activa=false",
+   "evidence": "hud_run_boss_top_720.png"
+  },
+  {
+   "id": "victory.emblem",
+   "ok": true,
+   "detail": "secuencia victory de DD_CINE (280×210 sobre velo) · asset {\"ok\":true,\"src\":\"assets/ui/ui_victory_emblem.png\",\"nat\":[512,384]} · activa=[object Object]",
+   "evidence": "victory_emblem_720.png"
+  }
+ ],
+ "shots": [
+  {
+   "name": "intro_running_720.png",
+   "ok": true,
+   "ms": 6500
+  },
+  {
+   "name": "menu_main_720.png",
+   "ok": true,
+   "ms": 6332
+  },
+  {
+   "name": "descent_running_720.png",
+   "ok": true,
+   "ms": 8984
+  },
+  {
+   "name": "hud_hub_full_720.png",
+   "ok": true,
+   "ms": 24624
+  },
+  {
+   "name": "hud_hub_topleft_720.png",
+   "ok": true,
+   "ms": 20726
+  },
+  {
+   "name": "hud_hub_skills_720.png",
+   "ok": true,
+   "ms": 23841
+  },
+  {
+   "name": "hud_run_normal_full_720.png",
+   "ok": true,
+   "ms": 5391
+  },
+  {
+   "name": "hud_run_normal_topleft_720.png",
+   "ok": true,
+   "ms": 3737
+  },
+  {
+   "name": "hud_run_damage_topleft_720.png",
+   "ok": true,
+   "ms": 4843
+  },
+  {
+   "name": "hud_run_shield_topleft_720.png",
+   "ok": true,
+   "ms": 4458
+  },
+  {
+   "name": "hud_run_skills_loaded_720.png",
+   "ok": true,
+   "ms": 3323
+  },
+  {
+   "name": "hud_run_skills_spent_720.png",
+   "ok": true,
+   "ms": 5510
+  },
+  {
+   "name": "hud_run_boss_intro_720.png",
+   "ok": true,
+   "ms": 7054
+  },
+  {
+   "name": "hud_run_boss_full_720.png",
+   "ok": true,
+   "ms": 7913
+  },
+  {
+   "name": "hud_run_boss_top_720.png",
+   "ok": true,
+   "ms": 7530
+  },
+  {
+   "name": "victory_emblem_720.png",
+   "ok": true,
+   "ms": 8326
+  }
+ ],
+ "boot": {
+  "last": {
+   "state": "INTRO",
+   "classes": "is-complete is-out",
+   "assets": {
+    "registered": 382,
+    "loaded": 382,
+    "errors": 0,
+    "planned": 353
+   },
+   "loadFinished": true,
+   "watchdogFired": false,
+   "errors": 0,
+   "errHidden": true,
+   "stage": "PISTA PREPARADA",
+   "t": 17234
+  },
+  "ms": 17234,
+  "registry": [],
+  "trace": [
+   {
+    "t": 7885,
+    "pct": 0,
+    "step": ""
+   },
+   {
+    "t": 7886,
+    "pct": 10,
+    "step": "engine"
+   },
+   {
+    "t": 7887,
+    "pct": 20,
+    "step": "assets"
+   },
+   {
+    "t": 13033,
+    "pct": 30,
+    "step": "images"
+   },
+   {
+    "t": 14634,
+    "pct": 40,
+    "step": "fase01"
+   },
+   {
+    "t": 15285,
+    "pct": 50,
+    "step": "opening"
+   },
+   {
+    "t": 15288,
+    "pct": 60,
+    "step": "fonts"
+   },
+   {
+    "t": 15289,
+    "pct": 70,
+    "step": "ui"
+   },
+   {
+    "t": 15289,
+    "pct": 80,
+    "step": "audio"
+   },
+   {
+    "t": 15289,
+    "pct": 90,
+    "step": "storage"
+   },
+   {
+    "t": 15289,
+    "pct": 100,
+    "step": "final"
+   },
+   {
+    "t": 15289,
+    "pct": 100,
+    "step": "done"
+   },
+   {
+    "t": 15290,
+    "pct": 100,
+    "step": "done"
+   }
+  ]
+ },
+ "errs": [],
+ "logs": [],
+ "rafHz": 2.3,
+ "finishedAt": "2026-11-15T11:48:09.906Z",
+ "totalMs": 261331
+}

@@ -19,7 +19,7 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_pickups.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_pickups.js`, `probe_hud.js` (ruta real de arranque), `probe_boot_failure.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
@@ -249,15 +249,52 @@ real queda además en `capture_report.json`.
 
 ### `probe_pickups.js`
 ```
-LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_pickups.js <salida>
+LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_pickups.js <salida> [--relics=tempo,needle,…]
 ```
 Entra en una incursión con la sala despejada, deja los 11 tipos de botín del motor en el suelo con
 `__DD_BRIDGE.spawnPickupAt(type, x, y)` (misma tabla `mu` y función `nf` que el botín real) y captura el lienzo
 (`t06_ingame_*`). Después abre un cofre real (`DMO.rogue.debug({action:"chest"})` + `{action:"open"}`) y captura
 las tarjetas (`t06_relic_chest_*`), concede 6 pasivos (`{action:"item", id}`) y captura la lista de la pausa
 (`t06_relic_pause_*`; la sección se clona en un panel limpio porque en headless sale parcial). Deja
-`t06_probe.json` con el resultado y los errores de página. En headless el HUD queda tapado por la pantalla de
-arranque (`#dd-boot-frame.is-failed`): la evidencia del HUD de reserva se toma a mano.
+`t06_probe.json` con el resultado y los errores de página. Con `--relics=` se eligen los pasivos; antes del cofre
+real prueba la **reserva al glifo** sustituyendo `window.DD_ASSETS` (congelado) por un doble que niega `relic_*`
+(`fallbackGlyph` en el informe + `t06_relic_chest_fallback_glyph.png`). Entra por el atajo de QA y oculta las capas de
+menú para la captura completa (lo anota en `hidden overlays`); el HUD se valida con `probe_hud.js`, que usa la ruta real.
+
+### `probe_hud.js` (T07 · HUD por la ruta real)
+
+```
+LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_hud.js <salida> [--w=1280 --h=720] [--shotTimeout=90000]
+```
+
+Recorre el arranque como un jugador (carga → gesto/intro saltada con una tecla real → menú → clic en NUEVA PARTIDA → descenso →
+Refugio → `DD_HUB.exitToRun()`) y captura **la página tal cual** (DOM + lienzo; no oculta capas). Comprobaciones con evidencia
+obligatoria (`checks[]` en `hud_probe.json`, volcado tras cada una): iconos cargados desde `assets/ui/hud_*`, tamaños CSS, capas con
+`z-index ≥ #dd-hud`, estados Refugio / incursión / daño (`wp`) / escudo (botín) / habilidades cargadas y bomba gastada con `Q` / jefe
+(`DMO.debug.boss`) / emblema de victoria (`DD_CINE.playVictory`). Si el arranque termina en `#dd-boot-frame.is-failed` **aborta con
+código 2** y guarda `boot_failed_<alto>.png` + `DD_BOOT.getErrorRegistry()` en `hud_probe.json` (no se oculta el panel). Un solo
+Chromium a la vez; a 1920×1080 las capturas tardan 40–50 s (`--shotTimeout=150000`) y la pestaña puede caer al entrar en la incursión.
+
+### `probe_boot_failure.js` (diagnóstico de `is-failed`)
+
+```
+LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_boot_failure.js <salida> [--w=1280 --h=720]
+```
+
+Reproduce la entrada «por atajo» de las sondas antiguas (`DD_HUB.enter()`/`exitToRun()` nada más cargar `DD_ASSETS`, con `DD_BOOT`
+aún en marcha) y registra la línea temporal de clases de `#dd-boot-frame`, `DD_BOOT.getErrorRegistry()`, `getEvidence()` y `getTrace()`
+en `boot_failure_<alto>.json`. Sirve para atribuir un `is-failed` a su paso (`images`/`fase01`/`opening` > `timeoutMs`, paso
+imprescindible o perro guardián de 20 s) en lugar de suponerlo.
+
+### `derive_hud_heart_empty.py` (T07 · estado derivado)
+
+```
+python3 tools/art_master/derive_hud_heart_empty.py [--full assets/ui/hud_heart_full.png] [--out /home/user/dd_work/raw/T07_HUD/hud_heart_empty.png] [--ring 11 --ink 3]
+```
+
+Deriva `hud_heart_empty` de la silueta exacta de `hud_heart_full` (aro rosa pálido + relleno carbón translúcido) para que siga
+legible bajo el CSS del HUD (`opacity .28 + grayscale`). La ficha lo declara `matte none` + `fit stretch`; después
+`batch.py process … --only hud_heart_empty --no-sheet` y `register --only`.
 
 ### `anim_contract.py`
 ```
