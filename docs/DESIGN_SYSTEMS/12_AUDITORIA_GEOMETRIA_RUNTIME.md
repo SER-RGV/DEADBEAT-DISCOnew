@@ -128,3 +128,24 @@ Cuando exista el JSON runtime:
 - Si la geometría está encerrada en closures inaccesibles, extraer el bloque 6 desde el checkout local y crear un mapa de funciones estático antes de proponer cualquier refactor.
 
 No se inicia implementación de geometría ni cambio de balance hasta completar esa extracción.
+
+## 8. Revisión de seguridad de la sonda — 2026-11-15
+
+La revisión posterior del arnés QA existente ha detectado que la sonda todavía **no está lista para ejecutarse** sin adaptar su entrada al build que se quiera inspeccionar:
+
+- `tools/qa/test_restart_flow.js` describe el flujo real de `index.html`: `DD_BOOT` espera gesto, `KeyX` inicia la intro, `Space` llega al menú y «Nueva partida» ejecuta el descenso hasta el HUB.
+- `src/dd_hub_system.js` de `main` expone el ciclo del HUB por `DD_HUB`; la estación `descent` llama a `exitToRun()`, que reanuda/inicia la partida. No expone en este módulo `DMO_HUB.startCampaignFromHub()`.
+- La sonda actual apunta por defecto a `DEADBEAT_DISCO.ART.html`, espera los globales `DMO_*` y usa una secuencia de clic/Enter/Escape distinta del flujo QA documentado. Esa ruta puede ser válida para otra build, pero no está justificada por el arnés de `index.html`.
+- La documentación de TANDA 09 indica que `DMO_LAYOUT.propObjects()` devuelve un clon profundo de los props para inventario, no el array vivo usado por el renderer. La sonda sólo lee una muestra, así que no muta esos objetos; aun así, esa API no sirve para interceptar el pintor real.
+- Los métodos `DMO_HUB.state()`, `DMO_DUNGEON.state()`, `DMO.debug.state()`, `DMO.camera()`, `DMO.observe()` y `DMO.testStats()` deben verificarse en la build exacta antes de dar por válida la extracción.
+
+**Decisión:** mantener el script como prototipo no ejecutado. No se debe lanzar ni etiquetar como «sonda de solo lectura validada» hasta fijar explícitamente el HTML objetivo, confirmar sus globales y reproducir su flujo de entrada real. El siguiente cambio de QA debe ser una sonda específica por build, no una secuencia híbrida.
+
+### Ruta segura de validación
+
+1. Elegir explícitamente la build de campaña que se considera fuente de verdad.
+2. Ejecutar primero el flujo QA existente hasta llegar al HUB, sin modificar archivos del juego.
+3. Capturar el estado expuesto y comprobar qué API inicia la incursión desde esa build.
+4. Entrar a una sola sala usando la interacción real del juego; no llamar a métodos supuestos.
+5. Extraer los argumentos de geometría mediante observación temporal, sin cambiar sus valores ni el resultado de las funciones.
+6. Guardar JSON/captura en un contexto de navegador desechable y comprobar errores, semilla, nodo y estado de transición.
