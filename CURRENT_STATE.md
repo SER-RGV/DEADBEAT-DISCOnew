@@ -223,3 +223,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Integrados:** últimos 5 props de sala/HUB, chandelier v3 (v3 tras 2 rechazos), familia enemiga **Security** completa (walk/windup/attack/death) — integridad navegador 271/271.
 - **Los 271 assets del registry están regenerados o conservados legacy**; solo quedan por iterar en calidad/estilo si se decide (p.ej. unificar paleta Seguridad) y los bloques enormes: jefes, cinemáticas, HUD.
 - Sigue pendiente: captura in-situ de Círculos II–IX, FX de fases de jefe, decisión de merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W5)
+- **Integrados (navegador 271/271):** familias Dancer y Fanatic completas; chef walk/windup. Pendiente terminar Chef (attack/death), y Drone y Elite.
+- QA PASS completo tras cada tanda. Regla de oro intacta: oscuros sobre verde #00ff00.
+- Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).

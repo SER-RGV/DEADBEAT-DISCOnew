@@ -44,9 +44,20 @@ JOBS = [
     ("enemy_security_windup", "assets/enemies/enemy_security_windup.png", (400, 432), "bottom-center"),
     ("enemy_security_attack", "assets/enemies/enemy_security_attack.png", (480, 400), "bottom-center"),
     ("enemy_security_death",  "assets/enemies/enemy_security_death.png",  (432, 416), "bottom-center"),
+    # TR_W5
+    ("enemy_dancer_walk",   "assets/enemies/enemy_dancer_walk.png",   (272, 432), "bottom-center"),
+    ("enemy_dancer_windup", "assets/enemies/enemy_dancer_windup.png", (320, 448), "bottom-center"),
+    ("enemy_dancer_attack", "assets/enemies/enemy_dancer_attack.png", (480, 416), "bottom-center"),
+    ("enemy_dancer_death",  "assets/enemies/enemy_dancer_death.png",  (384, 432), "bottom-center"),
+    ("enemy_fanatic_walk",   "assets/enemies/enemy_fanatic_walk.png",   (336, 400), "bottom-center"),
+    ("enemy_fanatic_windup", "assets/enemies/enemy_fanatic_windup.png", (384, 320), "bottom-center"),
+    ("enemy_fanatic_attack", "assets/enemies/enemy_fanatic_attack.png", (384, 400), "bottom-center"),
+    ("enemy_fanatic_death",  "assets/enemies/enemy_fanatic_death.png",  (496, 448), "bottom-center"),
+    ("enemy_chef_walk",    "assets/enemies/enemy_chef_walk.png",    (608, 512), "bottom-center"),
+    ("enemy_chef_windup",  "assets/enemies/enemy_chef_windup.png",  (432, 704), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -60,6 +71,9 @@ POST_DESPILL = {
     "prop_potted_plant", "prop_hub_fox_neon", "prop_neon_flower", "prop_bar_bottles",
     "prop_chest_open",
     "enemy_security_walk", "enemy_security_windup", "enemy_security_attack", "enemy_security_death",
+    "enemy_dancer_walk", "enemy_dancer_windup", "enemy_dancer_attack", "enemy_dancer_death",
+    "enemy_fanatic_walk", "enemy_fanatic_windup", "enemy_fanatic_attack", "enemy_fanatic_death",
+    "enemy_chef_walk", "enemy_chef_windup",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 
