@@ -81,12 +81,20 @@ async function main() {
 
     // Registra el estado inicial de la tienda y después fuerza el filtro TODAS.
     // Esto evita que un sentinel interno distinto de "TODAS" oculte armas en la captura.
-    const initialShopState = await page.evaluate(() => ({
-      renderedCards: document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length,
-      activeFilter: (document.querySelector("#dd-shop-filters .dd-filter-chip.active") || {}).dataset
-        ? document.querySelector("#dd-shop-filters .dd-filter-chip.active").dataset.cat : null,
-      allFilterExists: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]')
-    }));
+    const initialShopState = await page.evaluate(() => {
+      const active = document.querySelector("#dd-shop-filters .dd-filter-chip.active");
+      const renderedCards = document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length;
+      const catalogRecords = window.__DD_BRIDGE.getWeaponsList().length;
+      const activeFilter = active && active.dataset ? active.dataset.cat : null;
+      return {
+        renderedCards,
+        catalogRecords,
+        activeFilter,
+        allFilterExists: !!document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]'),
+        initialFilterMismatch: activeFilter !== "TODAS",
+        initialEmptyDespiteCatalog: renderedCards === 0 && catalogRecords > 0
+      };
+    });
     const allFilterClicked = await page.evaluate(() => {
       const button = document.querySelector('#dd-shop-filters .dd-filter-chip[data-cat="TODAS"]');
       if (!button) return false;
@@ -192,6 +200,9 @@ async function main() {
       "- IDs duplicados: **" + extracted.duplicateIds.length + "**",
       "- Tarjetas renderizadas en la armería tras filtro TODAS: **" + extracted.renderedCards + "**",
       "- Tarjetas al abrir la armería: **" + extracted.initialShopState.renderedCards + "**",
+      "- Registros de catálogo antes del filtro: **" + extracted.initialShopState.catalogRecords + "**",
+      "- Filtro inicial distinto de TODAS: **" + extracted.initialShopState.initialFilterMismatch + "**",
+      "- Tienda inicialmente vacía pese a existir catálogo: **" + extracted.initialShopState.initialEmptyDespiteCatalog + "**",
       "- Filtro TODAS encontrado y pulsado: **" + extracted.allFilterClicked + "**",
       "- Recursos HD de armas: **" + extracted.hdWeaponAssetKeys.length + "**",
       "- Recursos de armas en DD_ASSETS: **" + extracted.manifestWeaponAssetKeys.length + "**", "",
