@@ -66,3 +66,10 @@ Aprobados e integrados (integridad navegador **271/271 pass**): familia **Dancer
 Aprobados e integrados (integridad navegador **271/271 pass**): `enemy_chef_attack` (espachurrón ígneo), familia **Drone** (walk/windup/attack/death — policía-dron de latón, optic roja, asalto-rayo), y **Elite** walk/attack/death (juggernaut de obsidiana con espina dorsal carmesí / smash de crater / rodilla caída).
 - **Rechazados y revertidos:** `enemy_elite_windup` (el modelo ignoró el verde: RAW con fondo casi-negro, la extracción destruyó el cuerpo oscuro — v2 sobre verde explícito pendiente) y `enemy_chef_death` (prompt bloqueado por moderación con lenguaje de salpicaduras; v2 pendiente con redacción sobria). Ambos provisionales conservados.
 - Nota: chef_attack conserva un ligero filo verde en el arco de llama (despillado a 10842 px) — aceptable.
+
+## Pasada TR_W7 (2026-11-15, jefes Andén y Magneta + cierre de cocina/elite)
+Aprobados e integrados (integridad navegador **271/271 pass**): `enemy_chef_death` v2 (chef derrumbado sobre losas, redacción sobria), `enemy_elite_windup` v2 (verde explícito de primer plano), y dos familias de jefes **completas**:
+- **boss_00_anden_*** (Limbo): Ghost Conductor — idle (sombrero de copa, farol carmesí, reloj), attack (barrido de gancho), hit (recoil cian), death (disgregación en niebla cian, reloj caído).
+- **boss_01_magneta_*** (Lujuria): Magneta — idle (coleta de cromo, manos imán), attack (doble arco de rayo magenta), hit (recoil ventoso), death (rodilla caída, bocinas silenciadas).
+
+**Todas las familias de enemigos y los 2 primeros jefes están integrados.** Quedan provisionales jefes 02..10 (+secreto boss_10).

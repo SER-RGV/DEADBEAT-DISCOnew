@@ -234,3 +234,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Pendiente v2:** enemy_chef_death (moderación) y enemy_elite_windup (fondo oscuro ignorando instrucción verde; exigir verde explícito).
 - Enemigos: 3 de 6 familias completas (Security, Dancer, Fanatic) + Drone completa; Chef y Elite casi completos.
 - Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W7)
+- **Integrados (navegador 271/271):** jefe Andén (Limbo) y jefe Magneta (Lujuria) completos; chef_death y elite_windup v2 cerrados.
+- Familias enemigas COMPLETAS: security, dancer, fanatic, drone; chef y elite completos (3→4+4).
+- **Jefes restantes:** 02..10 (×4 estados) + boss_10_arquitecto (secreto, idle/attack) = 38 sprites pendientes.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).

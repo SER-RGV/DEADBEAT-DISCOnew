@@ -66,9 +66,18 @@ JOBS = [
     ("enemy_elite_windup", "assets/enemies/enemy_elite_windup.png", (336, 512), "bottom-center"),
     ("enemy_elite_attack", "assets/enemies/enemy_elite_attack.png", (672, 432), "bottom-center"),
     ("enemy_elite_death",  "assets/enemies/enemy_elite_death.png",  (496, 464), "bottom-center"),
+    # TR_W7 (chef_death y elite_windup regeneradas v2 con verde explícito)
+    ("boss_00_anden_idle",   "assets/bosses/boss_00_anden_idle.png",   (304, 576), "bottom-center"),
+    ("boss_00_anden_attack", "assets/bosses/boss_00_anden_attack.png", (464, 576), "bottom-center"),
+    ("boss_00_anden_hit",    "assets/bosses/boss_00_anden_hit.png",    (384, 448), "bottom-center"),
+    ("boss_00_anden_death",  "assets/bosses/boss_00_anden_death.png",  (416, 352), "bottom-center"),
+    ("boss_01_magneta_idle",   "assets/bosses/boss_01_magneta_idle.png",   (352, 576), "bottom-center"),
+    ("boss_01_magneta_attack", "assets/bosses/boss_01_magneta_attack.png", (352, 576), "bottom-center"),
+    ("boss_01_magneta_hit",    "assets/bosses/boss_01_magneta_hit.png",    (352, 448), "bottom-center"),
+    ("boss_01_magneta_death",  "assets/bosses/boss_01_magneta_death.png",  (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -88,6 +97,8 @@ POST_DESPILL = {
     "enemy_chef_walk", "enemy_chef_windup", "enemy_chef_attack", "enemy_chef_death",
     "enemy_drone_walk", "enemy_drone_windup", "enemy_drone_attack", "enemy_drone_death",
     "enemy_elite_walk", "enemy_elite_windup", "enemy_elite_attack", "enemy_elite_death",
+    "boss_00_anden_idle", "boss_00_anden_attack", "boss_00_anden_hit", "boss_00_anden_death",
+    "boss_01_magneta_idle", "boss_01_magneta_attack", "boss_01_magneta_hit", "boss_01_magneta_death",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 
