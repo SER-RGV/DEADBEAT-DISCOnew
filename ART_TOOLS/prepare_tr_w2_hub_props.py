@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""TOTAL ART REBUILD — TR_W2 (props del HUB, clase B: regenera en su sitio).
+"""TOTAL ART REBUILD — TR_W2/W3 (props del HUB y sala, clase B: regenera en su sitio).
 Uso: python3 ART_TOOLS/prepare_tr_w2_hub_props.py
 Materias primas: /tmp/dd_raw/tr_w2/<id>.png
 Nota: fondo verde #00ff00 para sujetos oscuros (extract_clean_rgba rama chroma).
@@ -24,18 +24,70 @@ JOBS = [
     ("prop_bookshelf_hub",    "assets/props/prop_bookshelf_hub.png",    (320, 384), "bottom-center"),
     ("prop_cooler_neon",      "assets/props/prop_cooler_neon.png",      (224, 352), "bottom-center"),
     ("prop_gothic_statue",    "assets/props/prop_gothic_statue.png",    (224, 384), "bottom-center"),
+    # TR_W3
+    ("prop_arcade_cabinet",   "assets/props/prop_arcade_cabinet.png",   (256, 352), "bottom-center"),
+    ("prop_vending_machine",  "assets/props/prop_vending_machine.png",  (256, 352), "bottom-center"),
+    ("prop_crate_club",       "assets/props/prop_crate_club.png",       (256, 224), "bottom-center"),
+    ("prop_armchair_vip",     "assets/props/prop_armchair_vip.png",     (256, 256), "bottom-center"),
+    ("prop_bench_neon",       "assets/props/prop_bench_neon.png",       (320, 192), "bottom-center"),
+    ("prop_neon_palm",        "assets/props/prop_neon_palm.png",        (320, 384), "bottom-center"),
+    ("prop_sigil_poster",     "assets/props/prop_sigil_poster.png",     (224, 288), "center"),
+    ("prop_bollard_pair",     "assets/props/prop_bollard_pair.png",     (224, 288), "bottom-center"),
+    ("prop_chest_closed",     "assets/props/prop_chest_closed.png",     (256, 224), "bottom-center"),
 ]
-missing = [a for a, *_ in JOBS if not os.path.isfile(f"{RAW}/{a}.png")]
+def rawpath(a):
+    for d in ("/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+        if os.path.isfile(f"{d}/{a}.png"):
+            return f"{d}/{a}.png"
+    return f"{RAW}/{a}.png"
+missing = [a for a, *_ in JOBS if not os.path.isfile(rawpath(a))]
 if missing:
     sys.exit(f"Faltan materias primas en {RAW}: {', '.join(missing)}")
+POST_DESPILL = {
+    "prop_dj_booth", "prop_speaker_tower", "prop_candelabra_floor", "prop_bar_counter",
+    "prop_subwoofer_cyan", "prop_cooler_neon", "prop_gothic_statue", "prop_bookshelf_hub",
+    "prop_neon_palm", "prop_sigil_poster", "prop_bollard_pair",
+}
+REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
+
+def green_despill(pil_im, thr=10):
+    a = np.array(pil_im).astype(np.int32)
+    g_ex = a[:, :, 1] - np.maximum(a[:, :, 0], a[:, :, 2])
+    mask = (g_ex > thr) & (a[:, :, 3] > 0)
+    a[mask, 3] = 0
+    return Image.fromarray(a.astype(np.uint8), "RGBA"), int(mask.sum())
+
+def refit_contain(pil_im, tw, th, pivot):
+    a = np.array(pil_im)
+    mask = a[:, :, 3] > 14
+    if not mask.any():
+        return pil_im
+    ys, xs = np.where(mask)
+    crop = pil_im.crop((int(xs.min()), int(ys.min()), int(xs.max()) + 1, int(ys.max()) + 1))
+    pad = 0.05
+    aw, ah = int(tw * (1 - 2 * pad)), int(th * (1 - 2 * pad))
+    scale = min(aw / crop.size[0], ah / crop.size[1])
+    nw, nh = max(1, int(crop.size[0] * scale)), max(1, int(crop.size[1] * scale))
+    crop = crop.resize((nw, nh), Image.Resampling.LANCZOS)
+    canvas = Image.new("RGBA", (tw, th), (0, 0, 0, 0))
+    oy = (th - nh - max(2, int(th * 0.025))) if pivot == "bottom-center" else ((th - nh) // 2)
+    canvas.paste(crop, ((tw - nw) // 2, oy), crop)
+    return canvas
+
 for asset_id, dest_rel, target, pivot in JOBS:
-    im = Image.open(f"{RAW}/{asset_id}.png").convert("RGBA")
+    im = Image.open(rawpath(asset_id)).convert("RGBA")
     clean = ap.extract_clean_rgba(im)
     final = ap.fit_rgba_to_canvas(clean, target[0], target[1], pivot)
     arr = np.array(final)
     trans = int((arr[:, :, 3] == 0).sum()); opaque = int((arr[:, :, 3] > 200).sum())
     if trans < 50 or opaque < 50:
         raise RuntimeError(f"alpha check failed for {asset_id}: trans={trans} opaque={opaque}")
+    if asset_id in POST_DESPILL:
+        final, removed = green_despill(final, 10)
+        print(f"      despill {asset_id}: {removed} px")
+    if asset_id in REFIT_BOTTOM:
+        final = refit_contain(final, REFIT_BOTTOM[asset_id][0], REFIT_BOTTOM[asset_id][1], pivot)
+        print(f"      refit {asset_id}")
     dest = os.path.join(ROOT, dest_rel)
     if os.path.isfile(dest):
         Image.open(dest).save(f"/tmp/tr_w2_backup_{asset_id}.png")

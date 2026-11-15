@@ -91,36 +91,36 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
-| `prop_arcade_cabinet` | `prop_arcade_cabinet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_arcade_cabinet` | `prop_arcade_cabinet` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_arcane_pedestal` | `prop_arcane_pedestal` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `prop_armchair_vip` | `prop_armchair_vip` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_armchair_vip` | `prop_armchair_vip` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_banquet_table` | `prop_banquet_table` regenerado TR_T03 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_bar_bottles` | `prop_bar_bottles` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_bar_counter` | `prop_bar_counter` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_barrel_infernal` | `prop_barrel_infernal` regenerado (clase B, mismo ID/ruta) — **TR** | Escenarios/Props | Integrado (código) + carga navegador OK |
-| `prop_bench_neon` | `prop_bench_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_bollard_pair` | `prop_bollard_pair` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_bench_neon` | `prop_bench_neon` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `prop_bollard_pair` | `prop_bollard_pair` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_bookshelf_hub` | `prop_bookshelf_hub` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_candelabra_floor` | `prop_candelabra_floor` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_chandelier_gold` | `prop_chandelier_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_chest_closed` | `prop_chest_closed` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_chest_closed` | `prop_chest_closed` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_chest_open` | `prop_chest_open` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_cooler_neon` | `prop_cooler_neon` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `prop_crate_club` | `prop_crate_club` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_crate_club` | `prop_crate_club` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_dj_booth` | `prop_dj_booth` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_gilded_altar` | `prop_gilded_altar` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_gothic_statue` | `prop_gothic_statue` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_hub_fox_neon` | `prop_hub_fox_neon` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `prop_mirror_baroque` | `prop_mirror_baroque` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_neon_flower` | `prop_neon_flower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_neon_palm` | `prop_neon_palm` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_neon_palm` | `prop_neon_palm` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_potted_plant` | `prop_potted_plant` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `prop_sigil_poster` | `prop_sigil_poster` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_sigil_poster` | `prop_sigil_poster` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_sofa_black` | `prop_sofa_black` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_sofa_magenta` | `prop_sofa_magenta` regenerado TR_T02 (mismo ID) | HUB y niveles | Integrado (código) + carga navegador OK |
 | `prop_speaker_tower` | `prop_speaker_tower` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `prop_subwoofer_cyan` | `prop_subwoofer_cyan` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `prop_vending_machine` | `prop_vending_machine` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `prop_vending_machine` | `prop_vending_machine` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 
 ### Apéndice characters (31)
 

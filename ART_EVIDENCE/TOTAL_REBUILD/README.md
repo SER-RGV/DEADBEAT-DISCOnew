@@ -48,3 +48,8 @@ Regla aplicada: assets con piedra/obsidiana oscura se generan sobre **verde #00f
 Integrados (integridad navegador **271/271 pass**): `prop_bar_counter`, `prop_dj_booth` (despill 8886 px que eliminó el vacío verde del arco), `prop_speaker_tower`, `prop_subwoofer_cyan`, `prop_candelabra_floor`, `prop_sofa_black`, `prop_bookshelf_hub` (estantería ancha; el modelo no llena retrato: contenido, anclada abajo), `prop_cooler_neon`, `prop_gothic_statue` (contain por ancho: 201×135).
 - **Rechazado y revertido:** `prop_chandelier_gold` (el sujeto generado ocupaba dos mitades separadas; composición imposible de limpiar). Sigue provisional; v2 pendiente.
 - Evidencia visual: la captura del Refugio (`03_refugio_hub.png`) muestra la barra, el booth DJ, el pedestal violeta, el cooler y los candelabros nuevos en juego real.
+
+## Pasada TR_W3 (2026-11-15, props de sala — verde #00ff00)
+Aprobados e integrados (integridad navegador **271/271 pass**): `prop_arcade_cabinet`, `prop_vending_machine`, `prop_crate_club`, `prop_armchair_vip`, `prop_bench_neon`, `prop_neon_palm`, `prop_sigil_poster`, `prop_bollard_pair`, `prop_chest_closed`.
+- **Rechazado (2ª vez): `prop_chandelier_gold`** — v2 volvió como «trompo» cenital con verde atrapado en el aro; se conserva el provisional y el asset queda excluido del pipeline. Para v3 hacer la prueba con instrucciones de silueta colgante y candelabro por debajo de un eje central, o componer en 2 piezas.
+- El pipeline de props ahora lleva despillado verde integrado (green_excess = G − max(R,B) > 10) y REFIT_BOTTOM para bookshelf/statue/bollard — el proceso completo es reproducible con una sola orden (`prepare_tr_w2_hub_props.py`).

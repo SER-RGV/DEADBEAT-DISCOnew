@@ -213,3 +213,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 ## Estado actual · 2026-11-15 (TR_W2 — props del HUB)
 - **Integrados y visibles en el Refugio (navegador, 271/271):** bar_counter, dj_booth, speaker_tower, subwoofer_cyan, candelabra_floor, sofa_black, bookshelf_hub, cooler_neon, gothic_statue (estampado por ancho). Captura: 03_refugio_hub.png.
 - Pendiente v2: prop_chandelier_gold (rechazado W2), encuadre retrato para bookshelf/statue, captura in-situ de círculos II–IX, FX de jefes, HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W3)
+- **Integrados:** arcade, vending, crate_club, armchair_vip, bench_neon, neon_palm, sigil_poster, bollard_pair, chest_closed (navegador 271/271, QA PASS). Mobiliario de sala prácticamente completo.
+- **Rechazado 2ª vez:** prop_chandelier_gold (en mano provisional).
+- Pendiente: FX de fases de jefe, captura in-situ Círculos II–IX, HUD definitivo, cinemáticas (cine_*), merge PR #31.
