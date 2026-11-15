@@ -55,9 +55,17 @@ async function main() {
       const catalog = window.__DD_BRIDGE.getWeaponsList();
       if (!Array.isArray(catalog)) throw new Error("getWeaponsList() no devuelve un array");
       const initialSnapshot = window.__DD_BRIDGE.getSnapshot();
-      const initialOwned = Array.isArray(initialSnapshot.owned) ? initialSnapshot.owned.slice().sort() : [];
-      const initialCredits = initialSnapshot.credits;
-      const initialSelectedWeaponId = window.DD_UI.getState().selectedWeaponId;
+      if (!initialSnapshot || !Array.isArray(initialSnapshot.owned) ||
+          !Number.isFinite(Number(initialSnapshot.credits))) {
+        throw new Error("getSnapshot() no expone credits numérico y owned como array");
+      }
+      const initialOwned = initialSnapshot.owned.slice().sort();
+      const initialCredits = Number(initialSnapshot.credits);
+      const initialUiState = window.DD_UI.getState();
+      if (!initialUiState || !Object.prototype.hasOwnProperty.call(initialUiState, "selectedWeaponId")) {
+        throw new Error("DD_UI.getState() no expone selectedWeaponId");
+      }
+      const initialSelectedWeaponId = initialUiState.selectedWeaponId;
       window.DD_UI.openShop();
       const cards = Array.from(document.querySelectorAll("#dd-weapons-grid .dd-weapon-card"));
       const active = document.querySelector("#dd-shop-filters .dd-filter-chip.active");
@@ -112,9 +120,12 @@ async function main() {
     });
     const after = await page.evaluate(() => {
       const snapshot = window.__DD_BRIDGE.getSnapshot();
+      if (!snapshot || !Array.isArray(snapshot.owned) || !Number.isFinite(Number(snapshot.credits))) {
+        throw new Error("getSnapshot() dejó de exponer credits/owned durante la prueba");
+      }
       return {
-        credits: snapshot.credits,
-        owned: Array.isArray(snapshot.owned) ? snapshot.owned.slice().sort() : [],
+        credits: Number(snapshot.credits),
+        owned: snapshot.owned.slice().sort(),
         selectedWeaponId: window.DD_UI.getState().selectedWeaponId,
         cardCount: document.querySelectorAll("#dd-weapons-grid .dd-weapon-card").length,
         gridClientHeight: document.getElementById("dd-weapons-grid").clientHeight,
