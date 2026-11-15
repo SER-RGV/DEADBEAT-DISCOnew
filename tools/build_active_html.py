@@ -131,6 +131,18 @@ _relic_list_new = ('o.textContent=a.icon+" "+a.name,'
 assert html.count(_relic_list_old) == 1, "No se encuentra la lista de pasivos de la pausa (rogue71-items)"
 html = html.replace(_relic_list_old, _relic_list_new, 1)
 
+# 1g. T08 EFECTOS · BOMBA. tp() (tecla Q) sólo sacude la cámara, lanza un fogonazo y
+#     encola 70–90 partículas naranjas: no existe ningún sprite de explosión en el
+#     motor. Un aviso de una línea al renderizador (DD_WORLD.spawnExplosion) justo
+#     tras descontar la bomba; el dibujo (vfx_explosion_inferno, crece y se apaga en
+#     0,56 s) vive en src/dd_world_renderer.js. Puramente visual: daño, radio,
+#     temporización y contador de bombas quedan intactos.
+_bomb_old = 'function tp(){if(!U||Y||W||Mr||Tr<=0)return!1;Tr--,'
+_bomb_new = ('function tp(){if(!U||Y||W||Mr||Tr<=0)return!1;Tr--,'
+             '(function(){try{window.DD_WORLD&&window.DD_WORLD.spawnExplosion&&window.DD_WORLD.spawnExplosion(ye.x,ye.y-22,1)}catch(err){}})(),')
+assert html.count(_bomb_old) == 1, "No se encuentra la detonación de la bomba tp()"
+html = html.replace(_bomb_old, _bomb_new, 1)
+
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
 #    this file is deployed. src/dd_rebuild_ui.css remains the editable source of truth;
@@ -988,6 +1000,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         }
         g.globalAlpha = 1;
       }
+      if (window.DD_WORLD && window.DD_WORLD.drawExplosions) window.DD_WORLD.drawExplosions(g);
 
       Kf();
       Xf();
@@ -1121,7 +1134,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           }
         }
         for (const d of f.enemyDeaths) out.deaths.push({ x: d.x, y: d.y, r: d.r, family: d.ddFamily || d.key, age: d.age, duration: d.duration });
-        if (Array.isArray(wa)) for (const b of wa.slice(0, 40)) out.bullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
+        if (Array.isArray(wa)) for (const b of wa.slice(0, 40)) out.bullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r, projectile: b.projectile50 || null, weaponId: b.weaponId || null });
+        out.impacts = Array.isArray(Sa) ? Sa.length : 0;
         if (Array.isArray(Ia)) for (const b of Ia.slice(0, 40)) out.enemyBullets.push({ x: b.x, y: b.y, vx: b.vx, vy: b.vy, r: b.r });
         return out;
       },

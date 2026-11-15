@@ -185,6 +185,10 @@ def cmd_process(args):
             rec = {"raw": os.path.basename(raw), "raw_size": list(src.size), "source": "croma"}
             if matte == "none":
                 keyed = src.convert("RGBA" if a.get("alpha", True) else "RGB")
+            elif matte == "luma":
+                # VFX aditivos (T08): crudo sobre negro puro → alfa por luminancia, color normalizado.
+                keyed, minfo = artlib.luma_matte(src, floor=float(a.get("luma_floor", 0.035)))
+                rec["matte"] = minfo
             else:
                 keyed, minfo = artlib.chroma_matte(src, key=a.get("key", "green"), mode=matte,
                                                    band=int(a.get("band", 3)), despill_all=bool(a.get("despill_all", False)))

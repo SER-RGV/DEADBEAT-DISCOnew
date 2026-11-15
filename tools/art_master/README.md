@@ -19,13 +19,15 @@ da por hecha cuando se ha visto funcionando dentro del juego**.
 | 5 | Revisar costuras, anclas y escala fuera del motor (segundos) | `preview_rig.py`, `preview_actors.py`, `sheet.py` |
 | 6 | Alta aditiva en registro, manifiesto e inventario | `batch.py register` |
 | 7 | Reconstruir el HTML activo | `python3 tools/build_active_html.py` |
-| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_pickups.js`, `probe_hud.js` (ruta real de arranque), `probe_boot_failure.js`, `probe_cinematic.js`, `capture_game.js` |
+| 8 | **Validar en el juego** | `probe_player.js`, `probe_enemies.js`, `probe_bosses.js`, `probe_rooms.js`, `probe_weapons.js`, `probe_pickups.js`, `probe_hud.js` (ruta real de arranque), `probe_projectiles.js` (T08, ruta real), `probe_boot_failure.js`, `probe_cinematic.js`, `capture_game.js` |
 | 9 | Guardar evidencia y marcar como validado (clase E del inventario) | `batch.py mark`, `audit_report.py render` |
 
 ## Herramientas
 
 ### `artlib.py`
-Biblioteca común: recorte de croma (`chroma_matte`), limpieza puntual (`erase_regions`,
+Biblioteca común: recorte de croma (`chroma_matte`), recorte por luminancia para efectos de luz
+(`luma_matte`: crudo sobre negro puro → `alpha = max(R,G,B)` menos un suelo, color normalizado;
+falla si el marco del crudo no es negro), limpieza puntual (`erase_regions`,
 `remove_ground_line`, `fade_regions`, `mirror_half`; `apply_cleanup` las aplica en ese orden;
 `mirror_half` simetriza un módulo de muro para que las copias contiguas encajen),
 capas parciales de una misma ilustración (`keep_regions`), encaje al lienzo
@@ -58,6 +60,7 @@ Claves de cada asset del JSON de tanda:
 | Clave | Uso |
 |---|---|
 | `id`, `raw`, `size`, `location` | identidad, maestro, lienzo final y ruta |
+| `matte` | `hard`/`soft` (croma verde, por defecto), `none` (PNG opaco o ya transparente) o `luma` (efectos de luz generados sobre negro puro: la luminancia pasa a ser el alfa; `luma_floor` opcional, 0.035). Para sprites que el juego mezcla con `lighter` |
 | `fit` | encaje. Para personajes: `{"mode":"anchor","scale":s,"ax":x,"ay":y,"cx":…,"cy":…}` lleva el punto `(ax, ay)` del maestro a `(cx, cy)` del lienzo |
 | `erase` | polígonos o `{"rect":[…]}` del maestro que se borran (p. ej. una sombra de suelo no pedida) |
 | `ground_line` | `true` (o parámetros: `{"max_thick":12, "search":0.14, "min_run":28, "min_cover":0.10}`) busca y borra la raya horizontal fina que el generador dibuja bajo los pies aunque se le pida «no floor». Sólo mira la franja inferior de la figura y sólo borra tramos finos y largos: una bota, un bajo de túnica o una peana no lo son. Nunca pinta |
@@ -286,6 +289,20 @@ aún en marcha) y registra la línea temporal de clases de `#dd-boot-frame`, `DD
 en `boot_failure_<alto>.json`. Sirve para atribuir un `is-failed` a su paso (`images`/`fase01`/`opening` > `timeoutMs`, paso
 imprescindible o perro guardián de 20 s) en lugar de suponerlo.
 
+### `probe_projectiles.js` (T08 · proyectiles e impactos por la ruta real)
+```
+LD_LIBRARY_PATH=/tmp/al2023/lib FONTCONFIG_PATH=/tmp/fonts node tools/art_master/probe_projectiles.js <salida> \
+    [--types=slug,heavy,pellet,cryo,plasma,ricochet,lane,flame,rail,homing] [--dpr=1] [--box=520x200] [--bomb=1]
+```
+Misma ruta real que `probe_hud.js` (armazón → Espacio → intro → menú → NUEVA PARTIDA → Refugio → `exitToRun`);
+después despeja la sala (`exploreNoEnemies`, `holdSpawns`, `killAll`), equipa un arma representativa de cada tipo de
+proyectil del catálogo `ja` (`m1911 magnum spas12 cryo plasma ricochet trident flamer railgun raygun`) con
+`buyOrEquipWeapon(id, true)` y dispara con el motor (`testStep({fire:true, aim})`): capturas `der_a/der_b`
+(ráfaga a la derecha), `impacto` (pared derecha, chispas `Sa`), `izq` y `arriba`; con `--bomb=1` pulsa `Q` (tp) y
+fotografía la explosión en cuatro instantes. `probe_report.json` guarda por captura las balas vivas por tipo
+(`getActors().bullets[].projectile`), el nº de partículas `Sa` y la posición. ~165 s a 720p; lanzar con
+`--mute-audio` ya incluido (sin él, el hilo de audio de Chromium se atasca y el navegador se cierra).
+
 ### `derive_hud_heart_empty.py` (T07 · estado derivado)
 
 ```
@@ -485,6 +502,28 @@ berserk, _ddaAttackT, hp, sweep})` y `killBoss()` (abate por la vía real del mo
   lista de pasivos de la pausa (`.rogue71-items`) mediante el bloque `1f` de `tools/build_active_html.py`
   (sustituye el glifo por la imagen si el id existe; si no, queda el glifo). Las reliquias no son botín de suelo.
 - **QA**: `probe_pickups.js`; evidencias en `docs/ART_REBUILD/evidence/T06_OBJETOS/`.
+
+## Contrato de los efectos (T08)
+
+- **Crudos sobre negro puro** (#000) pedidos como «light effect, smooth glow», cabeza a la DERECHA y estela a la
+  IZQUIERDA; `matte luma` convierte la luminancia en alfa (sin croma: el verde contamina los bordes de un brillo).
+  Comprobar antes `borde max` del crudo (≤ 12/255); un marco gris hace fallar `luma_matte`.
+- **Proyectiles** `proj_<tipo>` (tipos del catálogo del motor `ja[arma].projectile`: slug heavy pellet cryo plasma
+  ricochet lane flame rail homing; `melee` no tiene sprite): `fit contain` margen 4, `pivot center`. Los dibuja
+  `DD_WORLD.drawProjectiles` con mezcla `lighter`, rotados según la velocidad; longitud por tipo
+  (`PROJECTILE_LEN`, heredada del trazado original `Tt()`), × radio lógico/5 acotado a [0,85, 1,5]; la cabeza del
+  sprite cae sobre la posición lógica de la bala (`PROJECTILE_HEAD` 6 % por delante) y la estela detrás; alfa
+  `1 − 0,45·vida`. Nada de esto toca la hitbox (`r`) ni la física.
+- **Impactos** `vfx_impact_spark` / `vfx_impact_plasma` (160², `fit contain` margen 6): partículas `Sa` del motor
+  (`vs(x, y, color, n)`: impactos de bala, muertes, bombas, rotura de atrezo, subidas de nivel). Cada partícula se
+  tiñe con SU color (mezcla `color` sobre el sprite, caché por color), radio `max(10, r·4,2)` encogiendo al
+  apagarse. Los dos sprites se alternan por índice.
+- **Explosión** `vfx_explosion_inferno` (320²): la bomba (`tp`, tecla Q) avisa a `DD_WORLD.spawnExplosion(x, y)`
+  (bloque `1g` de `tools/build_active_html.py`); `drawExplosions` la hace crecer de 120 a 320 px de mundo y la
+  apaga en 0,56 s. Si el asset falta, no dibuja nada (sin reserva).
+- **Sin consumidor** (no se producen, siguen en clase B): `vfx_muzzle_gold/plasma`, `vfx_shockwave_magenta`,
+  `vfx_fire_plume`, `vfx_soul_flame`, `vfx_lightning_purple`, `vfx_smoke_cloud`.
+- **QA**: `probe_projectiles.js`; evidencias en `docs/ART_REBUILD/evidence/T08_EFECTOS/`.
 
 ## Trampas conocidas
 

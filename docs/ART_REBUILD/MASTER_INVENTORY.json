@@ -6331,7 +6331,7 @@
       "tanda_number": 18,
       "original_id": "atlas:projectile_slug",
       "id": "proj_slug",
-      "name": "Proyectil · Bala Cinética Dorada",
+      "name": "Proyectil · bala cinética (tracer «needle»)",
       "category": "effects",
       "location": "assets/effects/proj_slug.png",
       "dimensions": [
@@ -6347,12 +6347,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_01",
-      "prompt_spec": "Blazing golden-white muzzle burst and supersonic bullet streak pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a slim kinetic tracer needle: an elongated pointed bullet of pale yellow-white light (#facc15 fading to white at the tip) with a short tapering amber trail; simple, bold, like a tracer round. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "6b2aa2829ac490091b4f4522f095bc8152caca42a89cff81921d23f188756c11",
-      "bytes": 2498
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "335e0ca53eb68c02b0d1fb5612083cb76f935dbbccec0de48fb3c9479ae3302e",
+      "bytes": 3054,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_slug.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 178,
@@ -6360,7 +6368,7 @@
       "tanda_number": 18,
       "original_id": "atlas:projectile_heavy",
       "id": "proj_heavy",
-      "name": "Proyectil · Calibre Pesado Ámbar",
+      "name": "Proyectil · bala pesada (gold slug)",
       "category": "effects",
       "location": "assets/effects/proj_heavy.png",
       "dimensions": [
@@ -6376,12 +6384,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_01",
-      "prompt_spec": "Heavy molten-gold armor-piercing shell trail with shockwave sparks pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a fat heavy slug: a thick rounded golden bullet (#fbbf24) with a white-hot tip, brass glints on the body and a long thick amber trail with heat ripples. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "732c2171c9240160ba8ba49c11ca299ac858e087b35df5266171f7ba9d14c6a5",
-      "bytes": 4917
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "05ce0bec7c863588a05c1ed87dcca2d56b9bef999720d555167f431854aeaa10",
+      "bytes": 9121,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_heavy.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 179,
@@ -6389,7 +6405,7 @@
       "tanda_number": 18,
       "original_id": "atlas:projectile_pellet",
       "id": "proj_pellet",
-      "name": "Proyectil · Perdigón Incandescente",
+      "name": "Proyectil · perdigón (ember pellet)",
       "category": "effects",
       "location": "assets/effects/proj_pellet.png",
       "dimensions": [
@@ -6405,12 +6421,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_09",
-      "prompt_spec": "Cluster of bright golden-orange shotgun spark pellets flying right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a shotgun ember pellet: a small round orange-red ember (#f97316 with a #e87855 rim) with a short spray of tiny sparks trailing to the left; compact and round. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "82854a238223fe2d21093dc9dcf6510927243cd92e087258c40e2a7fafa3d635",
-      "bytes": 2728
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "fcd0b781c09c515e5cad438d1205abb9d25435ffe7d679c32b23da6700e7df49",
+      "bytes": 4311,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_pellet.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 180,
@@ -6418,7 +6442,7 @@
       "tanda_number": 18,
       "original_id": "atlas:projectile_cryo",
       "id": "proj_cryo",
-      "name": "Proyectil · Pulso Criogénico Cian",
+      "name": "Proyectil · aguja cryo (ice shard)",
       "category": "effects",
       "location": "assets/effects/proj_cryo.png",
       "dimensions": [
@@ -6434,12 +6458,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_03",
-      "prompt_spec": "Crystalline electric-cyan cryo bolt with frost shards pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: an ice shard: a faceted crystalline spike of cyan-white ice (#a5f3fc, #7dd3fc) with a sharp point on the right, frost mist and a few small ice crystals trailing to the left. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "e37aedb614eefabd5f198254d1b9419ea754ba2c9182fafe344ee69645fb94e4",
-      "bytes": 3514
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "0025f4d7a0ae2bd0de4823fdc63b4a174f9a504d6b4bc9e8926e17b09818505d",
+      "bytes": 8419,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_cryo.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 181,
@@ -6447,7 +6479,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_plasma",
       "id": "proj_plasma",
-      "name": "Proyectil · Haz de Plasma Magenta",
+      "name": "Proyectil · orbe de plasma",
       "category": "effects",
       "location": "assets/effects/proj_plasma.png",
       "dimensions": [
@@ -6463,12 +6495,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_02",
-      "prompt_spec": "Crackling hot-magenta neon plasma bolt with energy nodes pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a plasma orb: a round magenta-violet ball of plasma (#e879f9, #c084fc) with a white core, followed by a long wavy sinuous plasma tail with thin electric filaments. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "34e5333dd1d1158ab929b6f8d7d617b9783baa445ef8d8c3104c819ee95aa35b",
-      "bytes": 3723
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "00f39e246623c7fb56c39aa6db919d94bced57ff5e70e20daa16f6db6972af35",
+      "bytes": 17552,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_plasma.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 182,
@@ -6476,7 +6516,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_ricochet",
       "id": "proj_ricochet",
-      "name": "Proyectil · Rebote Sónico Cian",
+      "name": "Proyectil · rebote (green segment)",
       "category": "effects",
       "location": "assets/effects/proj_ricochet.png",
       "dimensions": [
@@ -6492,12 +6532,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_13",
-      "prompt_spec": "Oscillating cyan soundwave projectile ring-streak pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a ricochet dart: a short emerald-green energy segment (#34d399) with a hard white core and an angular zig-zag spark trail that suggests bouncing. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "93cabecbe4ee245b02d39a74b61055cc59b01bf7c53723ce9ce5d9d1ec0df200",
-      "bytes": 3754
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "61c123b8d182f47b6f0ec768cf92c5d5f5db6a57bad5fca5094bef0ab3b3eb09",
+      "bytes": 7622,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_ricochet.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 183,
@@ -6505,7 +6553,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_lane",
       "id": "proj_lane",
-      "name": "Proyectil · Onda Hoja Violeta",
+      "name": "Proyectil · carril láser (cyan lane)",
       "category": "effects",
       "location": "assets/effects/proj_lane.png",
       "dimensions": [
@@ -6521,12 +6569,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_06",
-      "prompt_spec": "Luminous violet-white sword-wave energy slash projectile pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a laser lane: a long thin straight cyan beam segment (#22d3ee) with a white core line, a slightly brighter rounded head on the right, uniform width and a subtle outer glow; very clean and geometric. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "fc196e59cd4124ca9ed13f0dd24191fbd5d3f398a278dfbcfb979f60054c007d",
-      "bytes": 4327
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "63c42fc901fe48be4ebc34c837b8014269ee5303fa017b63304ccfb46cdda81d",
+      "bytes": 4430,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_lane.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 184,
@@ -6534,7 +6590,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_flame",
       "id": "proj_flame",
-      "name": "Proyectil · Llamarada Infernal",
+      "name": "Proyectil · lengua de fuego (flame tongue)",
       "category": "effects",
       "location": "assets/effects/proj_flame.png",
       "dimensions": [
@@ -6550,12 +6606,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_16",
-      "prompt_spec": "Roaring crimson-and-gold infernal fire plume",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a flame tongue: a short fat tongue of fire with an orange-yellow core (#fb923c, #facc15), a round bright head on the right and licking flame tips trailing to the left; soft fiery edges, NO smoke. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "ee5dee3044d487b79deb78afe178f6e27e2a80784c16851210dbb5f0f85d4294",
-      "bytes": 3152
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "70b9fe0e49289f817fd43ea3ae3765d60c5abd73ffb0299065e64acc191250d5",
+      "bytes": 13617,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_flame.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 185,
@@ -6563,7 +6627,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_rail",
       "id": "proj_rail",
-      "name": "Proyectil · Riel Hiperveloz Violeta",
+      "name": "Proyectil · haz de raíl (rail beam)",
       "category": "effects",
       "location": "assets/effects/proj_rail.png",
       "dimensions": [
@@ -6579,12 +6643,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_10",
-      "prompt_spec": "Piercing star-tipped white-violet railgun lance beam pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: a railgun beam: an extremely thin, very long white-blue hyper-velocity beam (#e0f2fe) with a bright star-point head on the right and a sheath of fine electric arcs along its whole length. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "ae32d92e880ac546bf65186e5918ee5d6c64f6f0b846f19ab4e5db038b497bb8",
-      "bytes": 2916
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "450795d15f08244147a63ed1f3c6a6503d69438fa54dab7d3bee5a78cdd99d98",
+      "bytes": 10517,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_rail.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 186,
@@ -6592,7 +6664,7 @@
       "tanda_number": 19,
       "original_id": "atlas:projectile_homing",
       "id": "proj_homing",
-      "name": "Proyectil · Orbe Rastreador Rosa",
+      "name": "Proyectil · orbe teledirigido (alien spiral)",
       "category": "effects",
       "location": "assets/effects/proj_homing.png",
       "dimensions": [
@@ -6608,12 +6680,20 @@
         "DD_CINE"
       ],
       "reference_source": "REF_05#efectos_04",
-      "prompt_spec": "Pulsing neon pink-violet homing arcane comet pointing right",
+      "prompt_spec": "Video game projectile sprite for DEADBEAT DISCO, a neon disco-inferno roguelite. A glowing energy bullet painted as a LIGHT EFFECT (smooth painterly glow, NOT pixel art), flying horizontally to the RIGHT: head on the right, trail streaming to the LEFT, perfectly horizontal and centered, spanning about 85% of the image width. Bright white-hot core, saturated neon glow, crisp luminous edges, motion blur only in the trail. DESIGN: an alien homing orb: a violet-purple glowing orb (#a855f7) with a white core on the right and a spiralling double-helix energy trail to the left. Rendered on a PURE SOLID BLACK background (#000000) and nothing else: no stars, no sparkles outside the trail, no ground, no scenery, no text, no frame, no watermark. Exactly ONE projectile.",
       "reconstruction_status": "DONE",
-      "integration_status": "INTEGRATED",
-      "validation_status": "VERIFIED",
-      "sha256": "1ee67ecd21a8a17a08a9daed20fdc0d7179a4c566d91776bd009e49dcc3a22c1",
-      "bytes": 5271
+      "integration_status": "REGISTERED",
+      "validation_status": "PENDING",
+      "sha256": "57d8468b19b5d7d92140893d4f4b7799723fb2ee5bdc8361701cd67b4a48c60d",
+      "bytes": 12361,
+      "format": "PNG RGBA",
+      "use": "dd_world_renderer.js drawProjectiles(): rotado hacia la velocidad, ancho len=clamp(r·6.5,28,68) px, alto proporcional, dibujado de −0,65·len (cola) a +0,35·len (cabeza) con globalCompositeOperation lighter.",
+      "entity": null,
+      "art_revision": "T08_EFECTOS",
+      "art_style": "ilustración digital estilizada (no pixel art)",
+      "master": "ART_ASSETS/rebuild_masters/T08_EFECTOS/proj_homing.webp",
+      "notes": null,
+      "updated_at": "2026-11-15T12:25:23Z"
     },
     {
       "index": 187,
@@ -12746,5 +12826,5 @@
       "validated_at": "2026-11-15T01:36:38Z"
     }
   ],
-  "updated_at": "2026-11-15T12:07:41Z"
+  "updated_at": "2026-11-15T12:25:23Z"
 }

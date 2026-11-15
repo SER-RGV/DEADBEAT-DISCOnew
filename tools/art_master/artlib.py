@@ -325,6 +325,36 @@ def fade_regions(im: Image.Image, regions) -> Image.Image:
     return out
 
 
+def luma_matte(img: Image.Image, floor: float = 0.035, gain: float = 1.0) -> Tuple[Image.Image, Dict]:
+    """
+    Matte por luminancia para VFX ADITIVOS (el motor los dibuja con
+    globalCompositeOperation "lighter"): el crudo se genera sobre NEGRO puro.
+
+    alpha = max(R,G,B) (menos un suelo de ruido) y color = rgb / max(R,G,B), de modo
+    que color·alpha == rgb: la composición aditiva del PNG resultante es idéntica a
+    la del crudo sobre negro (sin velos ni despill). Devuelve (RGBA, info).
+    """
+    rgb = np.asarray(img.convert("RGB"), dtype=np.float32) / 255.0
+    mx = rgb.max(axis=2)
+    m = 8
+    h, w = mx.shape
+    frame = np.zeros((h, w), bool)
+    frame[:m, :] = frame[-m:, :] = True
+    frame[:, :m] = frame[:, -m:] = True
+    bg = float(np.median(mx[frame]))
+    if bg > 0.12:
+        raise RuntimeError("El marco de la imagen no es negro (luminancia %.2f): el matte luma exige fondo negro puro" % bg)
+    alpha = np.clip((mx - floor) / max(1e-3, (1.0 - floor)), 0.0, 1.0) * gain
+    alpha = np.clip(alpha, 0.0, 1.0)
+    color = np.clip(rgb / np.maximum(mx[..., None], 1e-3), 0.0, 1.0)
+    color[alpha <= 0.0] = 0.0
+    out = np.dstack([color, alpha[..., None]])
+    im = Image.fromarray((out * 255.0 + 0.5).astype(np.uint8), "RGBA")
+    info = {"key": "black", "mode": "luma", "bg_luma": round(bg, 3), "floor": floor,
+            "opaque_pct": round(float((alpha > 0.5).mean() * 100.0), 1), "visible_pct": round(float((alpha > 0.02).mean() * 100.0), 1)}
+    return im, info
+
+
 def apply_cleanup(keyed: Image.Image, asset: Dict) -> Tuple[Image.Image, Dict]:
     """
     Limpiezas declaradas en el asset de una tanda, siempre en este orden y siempre en

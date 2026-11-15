@@ -1649,6 +1649,20 @@
     return true;
   }
 
+  // Tipo de proyectil del catálogo del motor → asset del registro (T08 EFECTOS).
+  const PROJECTILE_ASSET = Object.freeze({
+    slug: "proj_slug", heavy: "proj_heavy", pellet: "proj_pellet", cryo: "proj_cryo", plasma: "proj_plasma",
+    ricochet: "proj_ricochet", lane: "proj_lane", flame: "proj_flame", rail: "proj_rail", homing: "proj_homing"
+  });
+  // Longitud de la estela por tipo (px de mundo), heredada del trazado original Tt()
+  // del motor (m1911 43 · magnum 58 · spas12 20 · cryo 42 · plasma 32 · ricochet 55 ·
+  // trident 52 · flamer 16 · railgun 100 · raygun 46). La cabeza del sprite va sobre la
+  // posición lógica de la bala; la estela queda detrás, como la línea prev→actual original.
+  const PROJECTILE_LEN = Object.freeze({
+    slug: 46, heavy: 62, pellet: 26, cryo: 46, plasma: 44, ricochet: 54, lane: 58, flame: 34, rail: 112, homing: 50
+  });
+  const PROJECTILE_HEAD = 0.06; // fracción de la longitud que asoma por delante de la posición lógica
+
   function drawProjectiles(ctx, bullets, weaponCatalog) {
     if (!bullets || !bullets.length) return false;
     const slugImg = window.DD_ASSETS && window.DD_ASSETS.get("proj_slug");
@@ -1660,19 +1674,30 @@
     for (let i = 0; i < bullets.length; i++) {
       const b = bullets[i];
       const ang = Math.atan2(b.vy || 0, b.vx || 1);
-      let pid = "proj_slug";
-      if (b.cryo || b.freeze) pid = "proj_cryo";
-      else if (b.flame || b.burn) pid = "proj_flame";
-      else if (b.rail || b.beam) pid = "proj_rail";
-      else if (b.bounces > 0) pid = "proj_ricochet";
-      else if (b.homing) pid = "proj_homing";
-      else if (b.plasma || b.energy) pid = "proj_plasma";
-      else if (b.heavy) pid = "proj_heavy";
-      else if (b.pellet) pid = "proj_pellet";
+      // T08: el motor etiqueta cada bala con el tipo de proyectil del catálogo
+      // (ja[weapon].projectile → b.projectile50); las banderas sueltas quedan de reserva.
+      let type = PROJECTILE_ASSET[b.projectile50] ? b.projectile50 : null;
+      if (!type) {
+        if (b.cryo || b.freeze) type = "cryo";
+        else if (b.flame || b.burn) type = "flame";
+        else if (b.rail || b.beam) type = "rail";
+        else if (b.bounces > 0) type = "ricochet";
+        else if (b.homing) type = "homing";
+        else if (b.plasma || b.energy) type = "plasma";
+        else if (b.heavy) type = "heavy";
+        else if (b.pellet) type = "pellet";
+        else type = "slug";
+      }
+      const pid = PROJECTILE_ASSET[type];
 
       const im = (window.DD_ASSETS && window.DD_ASSETS.get(pid)) || slugImg;
-      const len = Math.max(28, Math.min(68, (b.r || 5) * 6.5));
+      // Escala suave con el radio lógico (balas mejoradas más gordas), sin tocar la hitbox.
+      const k = Math.max(0.85, Math.min(1.5, (b.r || 5) / 5));
+      const len = (PROJECTILE_LEN[type] || 46) * k;
       const h = len * (im.naturalHeight / Math.max(1, im.naturalWidth));
+      // Mismo desvanecimiento que el trazado original: la bala pierde brillo al agotar su vida.
+      const u = (b.maxLife > 0) ? Math.max(0, Math.min(1, (b.life || 0) / b.maxLife)) : 0;
+      ctx.globalAlpha = 1 - 0.45 * u;
       // El motor guarda en cada bala la altura del arma que la disparó (rigH: 56 px,
       // 38 px las de cadera) y la dibuja elevada esa altura: la lógica vuela a ras
       // de suelo, la imagen a la altura del cañón.
@@ -1680,19 +1705,46 @@
       ctx.save();
       ctx.translate(b.x, b.y - lift);
       ctx.rotate(ang);
-      ctx.drawImage(im, -len * 0.65, -h * 0.5, len, h);
+      ctx.drawImage(im, -len * (1 - PROJECTILE_HEAD), -h * 0.5, len, h);
       ctx.restore();
     }
     ctx.restore();
     return true;
   }
 
+  // ---- T08 · partículas de impacto (Sa del motor) ------------------------------
+  // El motor emite ráfagas vs(x, y, color, n) para TODO: impactos de bala (cian
+  // hielo, violeta plasma, naranja fuego), muertes (color del enemigo), bombas
+  // (#f97316), subidas de nivel, rotura de atrezo (#64748b)… Cada partícula lleva
+  // su color: el sprite se tiñe con él (mezcla «color»: conserva la luminancia del
+  // sprite —núcleo blanco— y toma el tono de la partícula) y se cachea por color.
+  const TINT_CACHE = new Map();
+  function tintedSprite(im, pid, color) {
+    if (!color || typeof color !== "string") return im;
+    const key = pid + "|" + color;
+    const hit = TINT_CACHE.get(key);
+    if (hit) return hit;
+    if (TINT_CACHE.size > 128) TINT_CACHE.clear();
+    const w = im.naturalWidth || im.width, h = im.naturalHeight || im.height;
+    if (!w || !h) return im;
+    const c = document.createElement("canvas");
+    c.width = w; c.height = h;
+    const x = c.getContext("2d");
+    x.drawImage(im, 0, 0);
+    x.globalCompositeOperation = "color";
+    x.fillStyle = color;
+    x.fillRect(0, 0, w, h);
+    x.globalCompositeOperation = "destination-in";
+    x.drawImage(im, 0, 0);
+    TINT_CACHE.set(key, c);
+    return c;
+  }
+
   function drawImpactParticles(ctx, particles) {
     if (!particles || !particles.length) return false;
     const spark = window.DD_ASSETS && window.DD_ASSETS.get("vfx_impact_spark");
     const plasma = window.DD_ASSETS && window.DD_ASSETS.get("vfx_impact_plasma");
-    const expl = window.DD_ASSETS && window.DD_ASSETS.get("vfx_explosion_inferno");
-    if (!spark && !plasma && !expl) return false;
+    if (!spark && !plasma) return false;
 
     setSmooth(ctx);
     ctx.save();
@@ -1700,16 +1752,60 @@
     for (let i = 0; i < particles.length; i++) {
       const p = particles[i];
       const t = Math.max(0, Math.min(1, 1 - (p.life || 0) / Math.max(0.001, p.maxLife || 0.3)));
-      const rad = Math.max(14, (p.r || 8) * 3.4);
-      const im = rad > 56 && expl ? expl : ((i & 1) && plasma ? plasma : (spark || plasma || expl));
-      ctx.globalAlpha = 0.85 * t;
+      // Radio lógico 2–4 px (círculo original): el sprite de brillo es más amplio y se
+      // encoge al apagarse, como la chispa real.
+      const rad = Math.max(10, (p.r || 3) * 4.2) * (0.55 + 0.45 * t);
+      const usePlasma = (i & 1) && plasma;
+      const base = usePlasma ? plasma : (spark || plasma);
+      const im = tintedSprite(base, usePlasma ? "vfx_impact_plasma" : "vfx_impact_spark", p.color);
+      ctx.globalAlpha = 0.9 * t;
       ctx.drawImage(im, p.x - rad / 2, p.y - rad / 2, rad, rad);
     }
     ctx.restore();
     return true;
   }
 
+  // ---- T08 · explosiones (bomba tp del motor) -----------------------------------
+  // El motor sólo encola partículas y sacudida al detonar; el puente avisa aquí con
+  // spawnExplosion(x, y) y el renderizador anima vfx_explosion_inferno (crece y se
+  // apaga en EXPLOSION_MS). Puramente visual: no toca daño, radio ni temporización.
+  const EXPLOSIONS = [];
+  const EXPLOSION_MS = 560;
+  function spawnExplosion(x, y, scale) {
+    if (typeof x !== "number" || typeof y !== "number") return false;
+    EXPLOSIONS.push({ x, y, k: (typeof scale === "number" && scale > 0) ? scale : 1, t0: performance.now(), rot: Math.random() * Math.PI * 2 });
+    if (EXPLOSIONS.length > 12) EXPLOSIONS.splice(0, EXPLOSIONS.length - 12);
+    return true;
+  }
+  function drawExplosions(ctx) {
+    if (!EXPLOSIONS.length) return false;
+    const im = window.DD_ASSETS && window.DD_ASSETS.get("vfx_explosion_inferno");
+    const now = performance.now();
+    if (!im) { EXPLOSIONS.length = 0; return false; }
+    setSmooth(ctx);
+    ctx.save();
+    ctx.globalCompositeOperation = "lighter";
+    for (let i = EXPLOSIONS.length - 1; i >= 0; i--) {
+      const e = EXPLOSIONS[i];
+      const u = (now - e.t0) / EXPLOSION_MS;
+      if (u >= 1) { EXPLOSIONS.splice(i, 1); continue; }
+      const grow = 1 - Math.pow(1 - u, 3);              // arranque explosivo, frenada suave
+      const size = (120 + 200 * grow) * e.k;            // 120 → 320 px de mundo
+      const alpha = u < 0.18 ? 1 : 1 - (u - 0.18) / 0.82;
+      ctx.globalAlpha = Math.max(0, Math.min(1, alpha));
+      ctx.save();
+      ctx.translate(e.x, e.y);
+      ctx.rotate(e.rot);
+      ctx.drawImage(im, -size / 2, -size / 2, size, size);
+      ctx.restore();
+    }
+    ctx.restore();
+    return true;
+  }
+
   window.DD_WORLD = Object.freeze({
+    spawnExplosion,
+    drawExplosions,
     getCircleCfg,
     setSmooth,
     drawSoftShadow,
