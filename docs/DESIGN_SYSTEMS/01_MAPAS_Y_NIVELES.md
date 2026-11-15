@@ -129,3 +129,12 @@ Cada sala nueva o rediseñada debe documentar:
 4. Asociar cada encuentro a su sala real.
 5. Comparar las medidas antes/después de FASE 08.
 6. Probar rutas con mando físico cuando esté disponible.
+
+
+## 12. Variabilidad por semilla
+
+Una segunda captura real (semilla `502304869`) confirma que los IDs de nodo no conservan una función fija entre semillas: `r1` pasa de tesoro a combate, `r6` de combate a tesoro, `r5` de rama opcional a ruta principal y la tienda cambia de vecino. El inicio también cambia de dos a tres salidas. Por ello, las fichas por nodo de la semilla 17677515 son una muestra, no una plantilla por ID. La selección de arquetipo debe usar `kind`, `main`, `distance`, grado y conexiones. Ver [08 — Variabilidad topológica](08_VARIABILIDAD_TOPOLOGICA_Y_ARQUETIPOS.md).
+
+## 13. Auditoría del renderer
+
+`src/dd_world_renderer.js` consume un `roomRect` y un `clipRoomFn` opcional para dibujar la sala. No contiene, en el fragmento auditado, el cálculo de dimensiones, puertas, colisiones ni spawns. La geometría debe localizarse en el sistema que construye esos parámetros; no debe deducirse del renderer artístico. Ver [08 — Variabilidad topológica](08_VARIABILIDAD_TOPOLOGICA_Y_ARQUETIPOS.md).
