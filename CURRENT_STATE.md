@@ -293,3 +293,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Refugio ampliado (~1.3x ancho / ~1.25x alto) y decoración recompactada por zonas; salida sustituida por GRIETA DEL REFUGIO (ojo de pozo) con descenso verificado en navegador (0 errores, 272/272).
 - Registry: 272 entradas (30 legacy); PR #31 con todos los círculos + jefe LIMBO verificados in-situ.
 - Pendiente: merge PR #31 (visto bueno del responsable); opcional FX jefes/HUD definitivo; `cine_bg01_city` inset.
+
+## Estado actual · 2026-11-15 (TR_W15 · REDISEÑO del Refugio)
+- **Rediseño arquitectónico completo del Refugio** (encargo usuario 2026-11-15; tras auditoría `docs/REFUGIO/AUDIT_2026-11-15.md`). Sectores E/C/A/D/B/F con arquitectura pintada en cache (alfombra, círculo rúnico, scorch, runner, pools de luz). Identidad visual intacta; 0 sistemas nuevos inventados.
+- Registry **275/275** (3 assets nuevos: `prop_weapon_rack`, `prop_astral_table`, `prop_tesla_orb`); IDs de estaciones conservados (`descent`/`armory`/`dj`/`map`); spawn (910,700) intacto; cámara reclampada (bounds sin cambios); hook QA `__DD_HUB_DEBUG_ZOOM`.
+- Verificado in-situ en navegador: integridad **275/275**, 0 pageErrors; flujo grieta → cinemática → Limbo OK; capturas `15..22_*_w15.png`.
+- Pendiente: merge PR #31 (borrador, bajo visto bueno del responsable); la performance headless SwiftShader es lenta (~8 fps) — en Chrome/GPU real no aplica; opcional: versión cenital «verdadera» de VR/AR no procede.

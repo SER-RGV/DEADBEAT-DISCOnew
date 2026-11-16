@@ -80,7 +80,17 @@
     bottles: "prop_bar_bottles",
     barrierunit: "prop_bollard_pair",
     queue: "prop_bollard_pair",
-    stanchion: "prop_bollard_pair"
+    stanchion: "prop_bollard_pair",
+    bollards: "prop_bollard_pair",
+    ropebarrier: "prop_bollard_pair",
+    weaponrack: "prop_weapon_rack",
+    rack_weapon: "prop_weapon_rack",
+    astraltable: "prop_astral_table",
+    mesastal: "prop_astral_table",
+    teslaorb: "prop_tesla_orb",
+    orb: "prop_tesla_orb",
+    neonflower: "prop_neon_flower",
+    flower: "prop_neon_flower"
   };
 
   const BOSS_INDEX_TO_SLUG = [
@@ -461,6 +471,12 @@
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.2);
     } else if (assetId === "prop_subwoofer_cyan" || assetId === "prop_cooler_neon" || assetId === "prop_arcade_cabinet") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.35, drawW * 0.62, "#22d3ee", 0.16);
+    } else if (assetId === "prop_astral_table") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.52, drawW * 0.72, "#a855f7", 0.24);
+    } else if (assetId === "prop_tesla_orb") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.28);
+    } else if (assetId === "prop_weapon_rack") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.2, drawW * 0.66, "#fb7185", 0.18);
     }
     return true;
   }

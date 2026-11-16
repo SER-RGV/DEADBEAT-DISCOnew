@@ -87,6 +87,9 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `portal_baroque_gold` | `portal_baroque_gold` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `threshold_descent_pad` | `threshold_descent_pad` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + captura en Refugio real |
 | `threshold_descent_crack` | `threshold_descent_crack` · NUEVO (clase B) — ojo del pozo en el suelo; sustituye al pad cian en el HUB (tanda TR_W14) | registry → DD_WORLD (drawDescentCrack) | Integrado (código) + carga navegador OK + flujo de descenso verificado |
+| `prop_weapon_rack` | `prop_weapon_rack` · NUEVO (clase B) — rack gótico de armas del sector Armería (tanda TR_W15 · rediseño del Refugio) | registry → DD_WORLD (drawProp · glow brasa) | Integrado (código) + carga navegador OK · captura `18_armeria_w15.png` |
+| `prop_astral_table` | `prop_astral_table` · NUEVO (clase B) — Mesa Astral (orrería + mapa de la Torre); anclaje visual de la estación `map` en el Mando (tanda TR_W15) | registry → DD_WORLD (drawProp · glow violeta) | Integrado (código) + carga navegador OK · capturas `15/17/22_*_w15.png` |
+| `prop_tesla_orb` | `prop_tesla_orb` · NUEVO (clase B) — orbe Tesla del ala experimental de la Torre (decorado sin interacción, tanda TR_W15) | registry → DD_WORLD (drawProp · glow eléctrico) | Integrado (código) + carga navegador OK · captura `20_dj_torre_w15.png` |
 
 ### Apéndice props (30)
 

@@ -63,37 +63,63 @@
     return true;
   }
 
-  /* Refugio ampliado: doble de fondo que la versión sept-2026; la decoración
-     se agrupa por "zonas" (barra central-izquierda, escenario DJ arriba-derecha,
-     salón VIP centrado, armería/arcade a la izquierda, pedestal-torre a la
-     derecha, grieta de descenso centrada abajo). */
+  /* Refugio rediseñado (TR_W15 · 2026-11-15): reconstrucción arquitectónica y
+     funcional por sectores, no un simple recolocado. Misma identidad aprobada
+     (damero, mezzanine de 9 portales, paleta magenta/cian/violeta, neones).
+       · E Barra Social (NO): backbar + barra + asientos altos.
+       · E Escenario DJ Virgilio (NE): torre/subwoofer + DJ detrás de la cabina.
+       · C Armería (O): rack de armas + stock + cofre + armero (estación propia).
+       · A Mando (centro): Mesa Astral — estación "map" (Torre de los 9 Círculos).
+       · D Laboratorio de la Torre (E): orbe Tesla + pedestal (decorado, sin sistema nuevo).
+       · B Salón de descanso (SO): sofás enfrentados + mesa + candelabras + alfombra.
+       · E Ocio (SE): arcades + vending + banquillo.
+       · F Circulación: grieta de descenso (S-centro), spawn (910,700), pasillos
+         naturales entre sectores; la Mesa Astral manda el eje visual. */
   const HUB_PROPS = [
-    // Upper gothic liquor bookshelves & bar lounge (izq. del centro)
-    { kind: "shelf", x: 560, y: 268, br: 46 },
-    { kind: "shelf", x: 730, y: 268, br: 46 },
-    { kind: "barcounter", x: 910, y: 292, br: 60 },
-    { kind: "cooler", x: 385, y: 288, br: 38 },
-    // DJ Virgilio Booth upper-right
-    { kind: "speaker", x: 1170, y: 266, br: 38 },
-    { kind: "djbooth", x: 1345, y: 290, br: 58 },
-    { kind: "subwoofer", x: 1485, y: 270, br: 39 },
-    { kind: "palm", x: 1615, y: 330, br: 38 },
-    // Central VIP Velvet Sofa Lounge (twin magenta sofas + low candle table)
-    { kind: "sofa", x: 705, y: 555, br: 50 },
-    { kind: "sofa", x: 1120, y: 555, br: 50, flipX: true },
-    { kind: "bench", x: 910, y: 578, br: 34 },
-    { kind: "armchair", x: 570, y: 645, br: 35 },
-    { kind: "armchair", x: 1255, y: 645, br: 35, flipX: true },
-    { kind: "candelabra", x: 645, y: 478, br: 24 },
-    { kind: "candelabra", x: 1185, y: 478, br: 24 },
-    // Left Armory & Arcade Pact corner
-    { kind: "vending", x: 348, y: 590, br: 42 },
-    { kind: "arcade", x: 348, y: 752, br: 40 },
-    { kind: "chest", x: 478, y: 638, br: 34 },
-    // Right Tower Progression Pedestal & Lounge
-    { kind: "pedestal", x: 1560, y: 678, br: 40 },
-    { kind: "plant", x: 1630, y: 915, br: 33 },
-    { kind: "plant", x: 362, y: 952, br: 33 }
+    // E · Barra social (norte-oeste)
+    { kind: "shelf", x: 285, y: 268, br: 44 },
+    { kind: "shelf", x: 462, y: 268, br: 44 },
+    { kind: "shelf", x: 640, y: 268, br: 44 },
+    { kind: "barcounter", x: 462, y: 352, br: 64 },
+    { kind: "cooler", x: 648, y: 352, br: 36 },
+    { kind: "bench", x: 368, y: 442, br: 30 },
+    { kind: "bench", x: 556, y: 442, br: 30 },
+    // E · Escenario DJ Virgilio (norte-este)
+    { kind: "speaker", x: 1155, y: 282, br: 36 },
+    { kind: "djbooth", x: 1400, y: 300, br: 58 },
+    { kind: "subwoofer", x: 1562, y: 288, br: 38 },
+    { kind: "palm", x: 1075, y: 350, br: 36 },
+    { kind: "palm", x: 1660, y: 348, br: 36 },
+    // C · Armería (oeste, muro compartido con barra)
+    { kind: "weaponrack", x: 232, y: 478, br: 62 },
+    { kind: "shelf", x: 425, y: 452, br: 42 },
+    { kind: "chest", x: 285, y: 614, br: 32 },
+    { kind: "crate", x: 500, y: 622, br: 30 },
+    // A · Centro de operaciones (mando) — Mesa Astral, eje del Refugio
+    { kind: "astraltable", x: 905, y: 578, br: 78 },
+    { kind: "candelabra", x: 742, y: 500, br: 22 },
+    { kind: "candelabra", x: 1070, y: 500, br: 22 },
+    // D · Ala experimental de la Torre (este-centro) — sin interacción falsa
+    { kind: "teslaorb", x: 1500, y: 468, br: 56 },
+    { kind: "pedestal", x: 1355, y: 520, br: 30 },
+    { kind: "bollards", x: 1292, y: 640, br: 28 },
+    { kind: "plant", x: 1638, y: 648, br: 28 },
+    // B · Salón de descanso (sudoeste)
+    { kind: "sofa", x: 300, y: 825, br: 48 },
+    { kind: "sofa", x: 505, y: 825, br: 48, flipX: true },
+    { kind: "neonflower", x: 402, y: 842, br: 16 },
+    { kind: "bench", x: 402, y: 880, br: 28 },
+    { kind: "armchair", x: 222, y: 915, br: 32 },
+    { kind: "armchair", x: 580, y: 915, br: 32, flipX: true },
+    { kind: "candelabra", x: 402, y: 748, br: 22 },
+    { kind: "plant", x: 185, y: 985, br: 30 },
+    { kind: "palm", x: 618, y: 985, br: 34 },
+    // E · Ocio (sudeste): arcades + vending
+    { kind: "arcade", x: 1328, y: 800, br: 38 },
+    { kind: "arcade", x: 1455, y: 800, br: 38 },
+    { kind: "vending", x: 1582, y: 795, br: 38 },
+    { kind: "bench", x: 1440, y: 928, br: 30 },
+    { kind: "plant", x: 1642, y: 988, br: 30 }
   ];
 
   const STATIONS = [
@@ -109,24 +135,24 @@
       id: "armory",
       label: "ARMERÍA DEL REFUGIO · INVENTARIO Y TIENDA",
       prompt: "Pulsa [E] / (A) para abrir Armería (120 Armas)",
-      x: 415,
-      y: 655,
+      x: 375,
+      y: 555,
       r: 95
     },
     {
       id: "dj",
       label: "CABINA DE DJ VIRGILIO",
       prompt: "Pulsa [E] / (A) para hablar con DJ Virgilio",
-      x: 1345,
-      y: 345,
+      x: 1400,
+      y: 305,
       r: 105
     },
     {
       id: "map",
       label: "MESA ASTRAL · MAPA DE PROGRESIÓN",
       prompt: "Pulsa [E] / (A) para inspeccionar la Torre de los 9 Círculos",
-      x: 1560,
-      y: 700,
+      x: 905,
+      y: 585,
       r: 95
     }
   ];
@@ -374,6 +400,91 @@
     }
   }
 
+  /* Arquitectura interior del Refugio rediseñado (TR_W15): delimita sectores
+     SIN levantar muros — la línea de visión se conserva (2.5D cenital).
+     Todo se pinta una vez en la caché de la sala:
+       · alfombra del Salón (violeta, SO) con doble ribete neón;
+       · círculo rúnico de la Mesa Astral (A · Mando);
+       · anillo achicharrado bajo la grieta (F · salida);
+       · runner ámbar frente a la barra (E · Social);
+       · charcos de luz de ambiente por sector (cálida/fría según función). */
+  function hexA(hex, a) {
+    const n = parseInt(String(hex).slice(1), 16);
+    const r = (n >> 16) & 255, g = (n >> 8) & 255, b = n & 255;
+    return `rgba(${r}, ${g}, ${b}, ${a})`;
+  }
+  function paintRefugeArchitecture(cctx) {
+    if (!cctx) return;
+    // — Charcos de luz por sector (base cálida/fría, muy suaves)
+    const pool = function (x, y, r, color, a) {
+      const pg = cctx.createRadialGradient(x, y, 4, x, y, r);
+      pg.addColorStop(0, hexA(color, a));
+      pg.addColorStop(1, "rgba(0,0,0,0)");
+      cctx.fillStyle = pg;
+      cctx.fillRect(x - r, y - r, r * 2, r * 2);
+    };
+    pool(462, 330, 170, "#f59e0b", 0.15);   // barra · ámbar cálido
+    pool(1400, 292, 205, "#22d3ee", 0.13);  // escenario DJ · cian frío
+    pool(280, 470, 165, "#fb7185", 0.12);   // armería · brasa
+    pool(905, 580, 245, "#a855f7", 0.16);   // mando · violeta arcano
+    pool(1500, 465, 160, "#8b5cf6", 0.19);  // orbe Tesla · violeta eléctrico
+    pool(402, 852, 220, "#ff2d7a", 0.15);   // salón · magenta sofá
+    pool(1460, 838, 178, "#22d3ee", 0.11);  // ocio · cian arcade
+    pool(910, 880, 170, "#38bdf8", 0.12);   // grieta · frío ascendente
+    // — Runner ámbar frente a la barra (entre contrabarra y taburetes)
+    const run = cctx.createLinearGradient(0, 388, 0, 446);
+    run.addColorStop(0, "rgba(250, 204, 21, 0.0)");
+    run.addColorStop(0.5, "rgba(250, 204, 21, 0.15)");
+    run.addColorStop(1, "rgba(250, 204, 21, 0.0)");
+    cctx.fillStyle = run;
+    cctx.fillRect(312, 388, 300, 58);
+    // — Alfombra del Salón (SO) con doble ribete neón
+    const rug = { x: 196, y: 782, w: 442, h: 202 };
+    const rg = cctx.createRadialGradient(rug.x + rug.w / 2, rug.y + rug.h / 2, 24, rug.x + rug.w / 2, rug.y + rug.h / 2, rug.w * 0.62);
+    rg.addColorStop(0, "rgba(88, 28, 135, 0.82)");
+    rg.addColorStop(0.72, "rgba(59, 7, 100, 0.74)");
+    rg.addColorStop(1, "rgba(30, 6, 50, 0.0)");
+    cctx.fillStyle = rg;
+    cctx.fillRect(rug.x - 44, rug.y - 44, rug.w + 88, rug.h + 88);
+    if (typeof cctx.roundRect === "function") {
+      cctx.strokeStyle = "rgba(255, 45, 122, 0.62)";
+      cctx.lineWidth = 3;
+      cctx.beginPath(); cctx.roundRect(rug.x, rug.y, rug.w, rug.h, 24); cctx.stroke();
+      cctx.strokeStyle = "rgba(250, 204, 21, 0.4)";
+      cctx.lineWidth = 1.5;
+      cctx.beginPath(); cctx.roundRect(rug.x + 9, rug.y + 9, rug.w - 18, rug.h - 18, 18); cctx.stroke();
+    }
+    // — Círculo rúnico de la Mesa Astral (Mando): elipses + radios, violeta
+    cctx.save();
+    cctx.translate(905, 586);
+    cctx.globalAlpha = 0.8;
+    cctx.strokeStyle = "rgba(192, 132, 252, 0.5)";
+    const rings = [122, 90, 56];
+    for (let i = 0; i < rings.length; i++) {
+      cctx.lineWidth = i === 0 ? 3 : 2;
+      cctx.beginPath(); cctx.ellipse(0, 8, rings[i], rings[i] * 0.5, 0, 0, Math.PI * 2); cctx.stroke();
+    }
+    for (let i = 0; i < 8; i++) {
+      const a = (i * Math.PI) / 4;
+      cctx.beginPath();
+      cctx.moveTo(Math.cos(a) * 60, 8 + Math.sin(a) * 30);
+      cctx.lineTo(Math.cos(a) * 94, 8 + Math.sin(a) * 47);
+      cctx.stroke();
+    }
+    cctx.restore();
+    // — Anillo achicharrado bajo la grieta (salida F)
+    cctx.save();
+    cctx.translate(910, 880);
+    cctx.scale(1, 0.52);
+    const sc = cctx.createRadialGradient(0, 0, 12, 0, 0, 132);
+    sc.addColorStop(0, "rgba(0, 0, 0, 0.58)");
+    sc.addColorStop(0.55, "rgba(16, 5, 20, 0.4)");
+    sc.addColorStop(1, "rgba(0, 0, 0, 0)");
+    cctx.fillStyle = sc;
+    cctx.fillRect(-132, -132, 264, 264);
+    cctx.restore();
+  }
+
   function ensureHubCache() {
     const stats = window.DD_ASSETS ? window.DD_ASSETS.stats() : { loaded: 0 };
     const stamp = String(stats.loaded) + (HUB_REBUILD() ? "|rebuild" : "|classic");
@@ -388,6 +499,7 @@
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null,
           { floorAsset: "hub_floor_main", vipInset: false });
         paintMezzanine(cctx);
+        paintRefugeArchitecture(cctx);
       } else {
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null);
       }
@@ -408,9 +520,18 @@
     // Smooth camera tracking protagonist inside Refugio.
     // Zoom keeps the clubroom filling the viewport (no black void bands at the edges)
     // and the protagonist clearly readable; camera is clamped to the room + wall band.
-    const zoom = Math.min(1.6, Math.max(1.02, Math.min(viewW / 1150, viewH / 780)));
+    // QA hook (development only): window.__DD_HUB_DEBUG_ZOOM renders the whole room
+    // centred, e.g. 0.62 — used by the redesign captures; off by default.
+    const dbgZoom = Number(window.__DD_HUB_DEBUG_ZOOM);
+    const zoom = (dbgZoom && isFinite(dbgZoom) && dbgZoom > 0)
+      ? dbgZoom
+      : Math.min(1.6, Math.max(1.02, Math.min(viewW / 1150, viewH / 780)));
     let camX = state.px * 0.55 + (HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5) * 0.45;
     let camY = state.py * 0.48 + (HUB_BOUNDS.y + HUB_BOUNDS.h * 0.42) * 0.52;
+    if (dbgZoom && isFinite(dbgZoom) && dbgZoom > 0) {
+      camX = HUB_BOUNDS.x + HUB_BOUNDS.w * 0.5;
+      camY = HUB_BOUNDS.y + HUB_BOUNDS.h * 0.46;
+    }
     const halfW = viewW * 0.5 / zoom;
     const halfH = viewH * 0.5 / zoom;
     const x0 = HUB_BOUNDS.x - 56, x1 = HUB_BOUNDS.x + HUB_BOUNDS.w + 56;
@@ -426,11 +547,12 @@
     const bg = ensureHubCache();
     ctx.drawImage(bg, 0, 0);
 
-    // Right-wall signature Neon Fox Mural (exact match to r5_refugio_hub.png!)
+    // Signature Neon Fox Mural on the east wall (ref R5). It lives mid-wall,
+    // over the Torre lab wing, clear of the DJ stage silhouette.
     const foxSign = window.DD_ASSETS && window.DD_ASSETS.get("prop_hub_fox_neon");
     if (foxSign) {
       const fx = HUB_BOUNDS.x + HUB_BOUNDS.w - 118;
-      const fy = HUB_BOUNDS.y + 150;
+      const fy = HUB_BOUNDS.y + 300;
       W.drawNeonGlow(ctx, fx + 45, fy + 65, 185, "#ff2d7a", 0.36);
       ctx.drawImage(foxSign, fx, fy, 112, 148);
     }
@@ -460,9 +582,9 @@
       const p = HUB_PROPS[i];
       drawList.push({ y: p.y, kind: "prop", obj: p });
     }
-    drawList.push({ y: 268, kind: "npc", id: "npc_dj_booth_world", x: 1345, h: 118 });
-    drawList.push({ y: 268, kind: "npc", id: "npc_bartender_hub", x: 910, h: 102 });
-    drawList.push({ y: 625, kind: "npc", id: "npc_armorer_hub", x: 432, h: 104 });
+    drawList.push({ y: 288, kind: "npc", id: "npc_dj_booth_world", x: 1400, h: 118 });
+    drawList.push({ y: 300, kind: "npc", id: "npc_bartender_hub", x: 462, h: 102 });
+    drawList.push({ y: 520, kind: "npc", id: "npc_armorer_hub", x: 448, h: 104 });
     drawList.push({ y: state.py, kind: "player" });
 
     drawList.sort((a, b) => a.y - b.y);

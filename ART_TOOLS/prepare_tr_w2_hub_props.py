@@ -108,6 +108,10 @@ JOBS = [
     ("boss_08_traidor_hit",     "assets/bosses/boss_08_traidor_hit.png",     (384, 448), "bottom-center"),
     # TR_W14 (grieta de descenso HUB)
     ("threshold_descent_crack", "assets/environments/threshold_descent_crack.png", (384, 288), "center"),
+    # TR_W15 (rediseño del Refugio: armería, Mesa Astral, Torre experimental)
+    ("prop_weapon_rack",  "assets/props/prop_weapon_rack.png",  (288, 384), "bottom-center"),
+    ("prop_astral_table", "assets/props/prop_astral_table.png", (384, 288), "bottom-center"),
+    ("prop_tesla_orb",    "assets/props/prop_tesla_orb.png",    (256, 384), "bottom-center"),
     # TR_W13 (vista 3/4 elevada para objetos planos del HUB)
     ("prop_candelabra_floor", "assets/props/prop_candelabra_floor.png", (192, 320), "bottom-center"),
     ("prop_arcane_pedestal",  "assets/props/prop_arcane_pedestal.png",  (288, 352), "bottom-center"),
@@ -124,7 +128,7 @@ JOBS = [
     ("boss_10_arquitecto_attack", "assets/bosses/boss_10_arquitecto_attack.png", (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w14", "/tmp/dd_raw/tr_w13", "/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w15", "/tmp/dd_raw/tr_w14", "/tmp/dd_raw/tr_w13", "/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -159,6 +163,7 @@ POST_DESPILL = {
     "boss_10_arquitecto_idle", "boss_10_arquitecto_attack",
     "boss_05_oficiante_idle", "boss_05_oficiante_attack", "boss_05_oficiante_hit", "boss_05_oficiante_death",
     "boss_06_matarife_idle", "boss_06_matarife_attack", "boss_06_matarife_hit",
+    "prop_weapon_rack", "prop_astral_table", "prop_tesla_orb",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 
