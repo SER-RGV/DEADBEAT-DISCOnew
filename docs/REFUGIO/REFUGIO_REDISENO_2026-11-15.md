@@ -199,3 +199,34 @@ Encargo: quick wins 1–4 (música, NPCs con diálogo, TEMPO aleatorio, ambiente
 
 ### 8.6 Capturas de esta tanda
 `23_refugio_full_w15b.png` (vista completa, TEMPO aleatorio visible) · `24_spawn_w15b.png` · `25_barra_w15b.png` (near=bar) · `26_bartender_dialogo_w15b.png` (diálogo TEMPO) · `27_armero_w15b.png` (near=armorer) · `27_armero_dialogo_w15b.png` (diálogo armero) · `28_grieta_brasas_w15b.png` (brasas, near=descent).
+
+---
+
+## 9. TR_W16 · cierre de los «fallos conocidos» del Refugio (2026-11-15)
+
+Encargo del usuario: «arreglar lo arreglable ahora» sobre la lista de §8.5.
+
+### 9.1 Retratos propios para bartender y armera (RESUELTO)
+- Dos assets NUEVOS generados e integrados en el pipeline: `dialogue_portrait_bartender.png` y `dialogue_portrait_armorer.png` (512×512, fondo negro, rim-light neón magenta/cian, estilo cómic cel-shaded idéntico al de DJ Virgilio; derivados de los sprites de mundo `npc_bartender_hub`/`npc_armorer_hub`).
+- Pipeline respetado: alta en `docs/ART_REBUILD/MASTER_INVENTORY.json` como tanda **TR_T02** (índices 348–349, `total_assets` 347→349) y `tools/asset_pipeline.py` (rebuild aditivo) → **registro 275 → 277 entradas, `legacy_kept` intactas**. `assets/manifest.json` regenerado. No se editó el registro a mano.
+- `showDialogue(speaker, text, durationSec, portraitId?)`: nuevo 4.º parámetro opcional; sin él, retrato TEMPO (compat total). Altavoz propio: **EL BARTENDER** / **LA ARMERA** con sus retratos; líneas reescritas en primera persona (antes TEMPO narraba).
+- Verificado en navegador: capturas `30_bartender_trato_w16.png` y `31_armera_trato_w16.png`; integrity **277/277**, 0 pageErrors.
+
+### 9.2 Backbar denso contra el muro norte (RESUELTO)
+- Las 3 estanterías pasan de dw 172 a **150** y se separan: x 285/462/640 → **268/459/650** (hueco ~40 px entre piezas; conviven con los portales del mezzanine sin agotar el muro).
+
+### 9.3 Charcos de luz estáticos (RESUELTO)
+- Los 8 charcos ya no se hornean en la caché: se dibujan por frame con respiración sinusoidal lenta e independiente por sector (±18 % de alpha, fases y velocidades propias; el del Tesla late más rápido que el mando). Coste: 8 gradientes radiales por frame.
+- `paintRefugeArchitecture()` conserva el resto (alfombra, círculo rúnico, anillo de la grieta, runner ámbar).
+
+### 9.4 Mezzanine parcialmente bajo el HUD (PARCIAL · documentado)
+- Banda de arcos bajada yrecortada: `y 188→206`, `h 132→118`. En viewport 1280×900 los arcos quedan por debajo del HUD en la mayoría de ángulos de cámara; el solape residual solo ocurre cuando el jugador se pega al muro norte (cámara al tope) y es inherente al render full-bleed bajo un HUD fijo de ~145 px. La corrección completa exigiría rediseño del HUD o re-layout del mundo (fuera del alcance de esta tanda).
+
+### 9.5 Persisten (documentados, no escondidos)
+1. La grieta sigue siendo calado cenital con brasas (no pozo 3D); coherente con la convención de suelo del Refugio. Convertirlo en pozo exigiría geometría/arte nuevos.
+2. SwiftShader headless ~8 fps en el harness de QA; en Chrome/GPU no aplica.
+3. Sin tests de gameplay automatizados; validación = integrity + E2E navegador (277/277, descenso intacto).
+4. Sprites de mundo del bartender/armera siguen siendo los mismos; solo se añadieron retratos de diálogo.
+
+### 9.6 Capturas de esta tanda
+`29_refugio_full_w16.png` (vista completa con luz viva y backbar aireado) · `30_bartender_trato_w16.png` (retrato + EL BARTENDER) · `31_armera_trato_w16.png` (retrato + LA ARMERA). QA completo: integrity **277/277**, 0 pageErrors, 0 console errors.

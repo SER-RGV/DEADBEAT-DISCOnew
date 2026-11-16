@@ -163,3 +163,9 @@ Respuesta a feedback («el resultado mejora, pero sigue teniendo fallos de distr
 - **Escala deliberada por activo**: drawProp acepta `dw` (ancho en world units); tabla aplicada a las 37 piezas del Refugio (referencia: protagonista ~112 px). Neon-flower apoyado sobre el banco (antes flotaba). Weapon rack dentro del muro oeste (248, dw 228) y palma este dentro de la sala (1612).
 - Capturas: `23_refugio_full_w15b.png` (vista completa con TEMPO aleatorio), `24_spawn_w15b.png`, `25_barra_w15b.png` + `26_bartender_dialogo_w15b.png` (near=bar, prompt barra, diálogo TEMPO), `27_armero_w15b.png` + `27_armero_dialogo_w15b.png` (near=armorer, diálogo), `28_grieta_brasas_w15b.png` (brasas sobre la grieta, near=descent, prompt intacto).
 - **QA re-verificado**: integrity **275/275 · 0 pageErrors · 0 console errors**; estaciones `[descent, armory, dj, map, bar, armorer]`.
+
+## Pasada TR_W16 (2026-11-15, cierre de fallos conocidos del Refugio)
+- Assets NUEVOS (tanda TR_T02): `assets/ui/dialogue_portrait_bartender.png`, `assets/ui/dialogue_portrait_armorer.png` (512², comic cel-shaded, rim-light neón). Registry 275→**277** vía pipeline aditivo (`tools/asset_pipeline.py`); `manifest.json` regenerado; **sin edición manual del registry**.
+- `showDialogue` con 4.º parámetro `portraitId`; bartender/armera hablan con su nombre y retrato.
+- Backbar: 3 estanterías dw 150, x 268/459/650. Charcos de luz **dinámicos** (respiración sinusoidal ±18 %, fuera de la caché). Mezzanine y=206 h=118.
+- Capturas: `29_refugio_full_w16.png`, `30_bartender_trato_w16.png`, `31_armera_trato_w16.png`. QA: integrity **277/277**, 0 pageErrors.

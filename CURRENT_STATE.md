@@ -305,3 +305,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Pase de escala de assets** (feedback «fallos de distribución de tamaños»): drawProp acepta `dw`; los 37 props del Refugio tienen escala deliberada (profe ~112 px de referencia); flower sobre la mesa, rack/palma dentro de la sala.
 - Capturas `ART_EVIDENCE/TOTAL_REBUILD/23..28_*_w15b.png`; QA integrity **275/275**, 0 pageErrors; estaciones nuevas `bar` y `armorer` verificadas in-situ (near/prompt/diálogo).
 - Pendientes documentados (ver docs/REFUGIO/REFUGIO_REDISENO_2026-11-15.md §TR_W15b): un solo retrato (TEMPO narra a bartender/armero), backbar denso contra el muro N, mezzanine parcialmente bajo el HUD, charcos estáticos, rendimiento SwiftShader ~8 fps en headless. Merge PR #31 sigue pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W16 · cierre «fallos conocidos» del refugio)
+- **Retratos propios**: `dialogue_portrait_bartender` y `dialogue_portrait_armorer` (tanda TR_T02, inventory 349) — registry **277/277**; `showDialogue` acepta `portraitId`; hablan «EL BARTENDER»/«LA ARMERA» en primera persona.
+- **Backbar**: estanterías dw 150 y separadas (268/459/650); **charcos de luz vivos** (respiración ±18 % por sector, fuera de la caché); **mezzanine** bajado a y=206 y recortado a h=118 (solape residual con el HUD solo con jugador pegado al muro N; documentado).
+- Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `29..31_*_w16.png`.
+- Persisten: grieta no es pozo 3D (documentado), SwiftShader headless ~8 fps (no aplica a Chrome real), mezzanine residual bajo HUD (inherente al layout actual). Merge PR #31 pendiente de visto bueno.

@@ -80,9 +80,9 @@
      escala del br de colisión (heurística heredada). */
   const HUB_PROPS = [
     // E · Barra social (norte-oeste)
-    { kind: "shelf", x: 285, y: 268, br: 44, dw: 172 },
-    { kind: "shelf", x: 462, y: 268, br: 44, dw: 172 },
-    { kind: "shelf", x: 640, y: 268, br: 44, dw: 172 },
+    { kind: "shelf", x: 268, y: 268, br: 44, dw: 150 },
+    { kind: "shelf", x: 459, y: 268, br: 44, dw: 150 },
+    { kind: "shelf", x: 650, y: 268, br: 44, dw: 150 },
     { kind: "barcounter", x: 462, y: 352, br: 64, dw: 262 },
     { kind: "cooler", x: 648, y: 352, br: 36, dw: 118 },
     { kind: "bench", x: 368, y: 442, br: 30, dw: 150 },
@@ -177,16 +177,16 @@
   ];
 
   const BAR_QUOTES = [
-    "El bartender desliza un vaso sin que se lo pidas: «La brasa canta más fuerte cuanto más cerca del escenario.» Aquí siempre te sirven a tiempo.",
-    "«Whisky de turno, por cuenta de la casa», susurra el bartender. Nadie paga la primera ronda del descenso. El Cajero ni se entera de estas cosas.",
-    "El bartender se inclina sobre la barra: «¿Primera vez en la Torre? Empieza por el Limbo y guarda el combo: el compás decide a quién se traga el piso.»",
-    "«Sin prisa, nadie te espera», dice limpiando una copa que ya brilla. En el refugio no hay turnos ni cronómetro. Sal cuando tu canción esté lista."
+    "La brasa canta más fuerte cuanto más cerca del escenario. Si vienes de bajar, la casa siempre te sirve a tiempo.",
+    "Whisky de turno, por cuenta de la casa. Nadie paga la primera ronda del descenso; el Cajero ni se entera de estas cosas.",
+    "¿Primera vez en la Torre? Empieza por el Limbo y guarda el combo: el compás decide a quién se traga el piso.",
+    "Sin prisa, nadie te espera. En el refugio no hay turnos ni cronómetro; sal cuando tu canción esté lista."
   ];
   const ARMORER_QUOTES = [
-    "El armero suelta un trapo sobre el M1911: «Munición infinita, templador. Lo que se agota es la paciencia del piso.»",
-    "«Antes de bajar, pasa por la Armería», gruñe el armero. «Lo que compres aquí vuelve contigo. Lo que olvides, se queda bailando abajo.»",
-    "El armero señala el rack: «Cada arma tiene su carácter. La MAGNUM perdona poco; el UZI, casi todo. Elige según tu compás.»",
-    "«Si ves un Residente, no improvises», susurra el armero. «La Torre avisa siempre: el flash, el latido, el silencio antes del DROP. Ese silencio es tuyo.»"
+    "M1911, siempre cargada. Munición infinita, templador; lo que se agota es la paciencia del piso.",
+    "Pasa por la Armería antes de bajar. Lo que compres aquí vuelve contigo; lo que olvides se queda bailando abajo.",
+    "Cada arma tiene su carácter: la MAGNUM perdona poco, el UZI casi todo. Elige según tu compás.",
+    "Si ves un Residente, no improvises. La Torre avisa siempre: el flash, el latido, el silencio antes del DROP. Ese silencio es tuyo."
   ];
   let barIdx = -1;
   let armorerIdx = -1;
@@ -285,10 +285,10 @@
       window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.5);
     } else if (st.id === "bar" && window.DD_UI) {
       barIdx = (barIdx + 1) % BAR_QUOTES.length;
-      window.DD_UI.showDialogue("TEMPO", BAR_QUOTES[barIdx], 5.6);
+      window.DD_UI.showDialogue("EL BARTENDER", BAR_QUOTES[barIdx], 5.6, "dialogue_portrait_bartender");
     } else if (st.id === "armorer" && window.DD_UI) {
       armorerIdx = (armorerIdx + 1) % ARMORER_QUOTES.length;
-      window.DD_UI.showDialogue("TEMPO", ARMORER_QUOTES[armorerIdx], 5.6);
+      window.DD_UI.showDialogue("LA ARMERA", ARMORER_QUOTES[armorerIdx], 5.6, "dialogue_portrait_armorer");
     }
   }
 
@@ -431,10 +431,10 @@
     // (el HUD tapa la zona y<170 en pantalla; el muro vive en y≈176..308).
     // Los arcos van ligeramente solapados por el mobiliario trasero, que se
     // dibuja después y les da profundidad de segunda planta.
-    const w = 96, h = 132, gap = 18;
+    const w = 96, h = 118, gap = 18;
     const total = MEZZ_PORTALS.length * w + (MEZZ_PORTALS.length - 1) * gap;
     let x = ((cctx.canvas.width || 2240) - total) / 2;
-    const y = 188;
+    const y = 206;
     for (let i = 0; i < MEZZ_PORTALS.length; i++) {
       const p = MEZZ_PORTALS[i];
       const cx = x + w / 2;
@@ -479,22 +479,8 @@
   }
   function paintRefugeArchitecture(cctx) {
     if (!cctx) return;
-    // — Charcos de luz por sector (base cálida/fría, muy suaves)
-    const pool = function (x, y, r, color, a) {
-      const pg = cctx.createRadialGradient(x, y, 4, x, y, r);
-      pg.addColorStop(0, hexA(color, a));
-      pg.addColorStop(1, "rgba(0,0,0,0)");
-      cctx.fillStyle = pg;
-      cctx.fillRect(x - r, y - r, r * 2, r * 2);
-    };
-    pool(462, 330, 170, "#f59e0b", 0.15);   // barra · ámbar cálido
-    pool(1400, 292, 205, "#22d3ee", 0.13);  // escenario DJ · cian frío
-    pool(280, 470, 165, "#fb7185", 0.12);   // armería · brasa
-    pool(905, 580, 245, "#a855f7", 0.16);   // mando · violeta arcano
-    pool(1500, 465, 160, "#8b5cf6", 0.19);  // orbe Tesla · violeta eléctrico
-    pool(402, 852, 220, "#ff2d7a", 0.15);   // salón · magenta sofá
-    pool(1460, 838, 178, "#22d3ee", 0.11);  // ocio · cian arcade
-    pool(910, 880, 170, "#38bdf8", 0.12);   // grieta · frío ascendente
+    // — Charcos de luz: se dibujan por frame en render() (respiración
+    //   lenta); aquí ya no se hornean en la caché.
     // — Runner ámbar frente a la barra (entre contrabarra y taburetes)
     const run = cctx.createLinearGradient(0, 388, 0, 446);
     run.addColorStop(0, "rgba(250, 204, 21, 0.0)");
@@ -553,6 +539,31 @@
      · brasas cian/magenta/ámbar que ascienden de la grieta;
      · motas de polvo flotando en los charcos de luz (barra, Mesa Astral, salón).
      Se inicializan al entrar y se actualizan/dibujan por frame. */
+  /* Charcos de luz por sector: cálida/fría según función. Base estática
+     pintada antes por la caché; ahora se dibujan por frame con una
+     respiración muy lenta (±18%) para que el Refugio no parezca una foto. */
+  const LIGHT_POOLS = [
+    { x: 462, y: 330, r: 170, color: "#f59e0b", a: 0.15, ph: 0.0, sp: 0.55 },  // barra · ámbar cálido
+    { x: 1400, y: 292, r: 205, color: "#22d3ee", a: 0.13, ph: 1.1, sp: 0.7 },   // escenario DJ · cian frío
+    { x: 280, y: 470, r: 165, color: "#fb7185", a: 0.12, ph: 2.2, sp: 0.62 },   // armería · brasa
+    { x: 905, y: 580, r: 245, color: "#a855f7", a: 0.16, ph: 0.6, sp: 0.5 },    // mando · violeta arcano
+    { x: 1500, y: 465, r: 160, color: "#8b5cf6", a: 0.19, ph: 1.7, sp: 1.15 },  // orbe Tesla · violeta eléctrico
+    { x: 402, y: 852, r: 220, color: "#ff2d7a", a: 0.15, ph: 2.8, sp: 0.58 },   // salón · magenta sofá
+    { x: 1460, y: 838, r: 178, color: "#22d3ee", a: 0.11, ph: 0.4, sp: 0.66 },  // ocio · cian arcade
+    { x: 910, y: 880, r: 170, color: "#38bdf8", a: 0.12, ph: 1.9, sp: 0.9 }     // grieta · frío ascendente
+  ];
+  function drawLightPools(ctx, t) {
+    for (let i = 0; i < LIGHT_POOLS.length; i++) {
+      const p = LIGHT_POOLS[i];
+      const a = p.a * (1 + 0.18 * Math.sin(t * p.sp + p.ph));
+      const pg = ctx.createRadialGradient(p.x, p.y, 4, p.x, p.y, p.r);
+      pg.addColorStop(0, hexA(p.color, a));
+      pg.addColorStop(1, "rgba(0,0,0,0)");
+      ctx.fillStyle = pg;
+      ctx.fillRect(p.x - p.r, p.y - p.r, p.r * 2, p.r * 2);
+    }
+  }
+
   const EMBER_N = 26;
   const MOTE_N = 34;
   function spawnEmber(q) {
@@ -684,6 +695,7 @@
 
     const bg = ensureHubCache();
     ctx.drawImage(bg, 0, 0);
+    drawLightPools(ctx, state.time);
 
     // Signature Neon Fox Mural on the east wall (ref R5). It lives mid-wall,
     // over the Torre lab wing, clear of the DJ stage silhouette.
