@@ -11637,9 +11637,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   const HUB_PROPS = [
     // E · Barra Social (NO) — backbar apoyado en el muro norte (fuera de la
     //   banda de portales, que empieza en x≈616) y barra alineada con él
-    { kind: "shelf", x: 235, y: 316, br: 44, dw: 150 },
-    { kind: "shelf", x: 390, y: 316, br: 44, dw: 150 },    { kind: "barcounter", x: 400, y: 376, br: 64, dw: 250 },
-    { kind: "cooler", x: 620, y: 432, br: 36, dw: 100 },
+    { kind: "shelf", x: 235, y: 330, br: 44, dw: 150 },
+    { kind: "shelf", x: 390, y: 330, br: 44, dw: 150 },    { kind: "barcounter", x: 400, y: 362, br: 64, dw: 250 },
+    { kind: "cooler", x: 545, y: 330, br: 36, dw: 105 },
     { kind: "bench", x: 340, y: 452, br: 30, dw: 130 },
     { kind: "bench", x: 480, y: 452, br: 30, dw: 130 },
     // E · Escenario DJ Virgilio (NE) — los tres elementos sobre la misma
@@ -11663,7 +11663,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     { kind: "armchair", x: 600, y: 858, br: 32, dw: 124, flipX: true },
     { kind: "bench", x: 402, y: 912, br: 28, dw: 128 },
     { kind: "neonflower", x: 402, y: 878, br: 14, dw: 78 },    // E · Ocio (SE) — fila alineada en el rincón (misma línea de apoyo)
-    { kind: "arcade", x: 1352, y: 838, br: 38, dw: 150 },    { kind: "vending", x: 1605, y: 830, br: 38, dw: 150 },
+    { kind: "arcade", x: 1352, y: 838, br: 38, dw: 150 },
     { kind: "bench", x: 1458, y: 935, br: 30, dw: 132 }
   ];
 
@@ -11949,63 +11949,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
   }
 
-  /* Reconstrucción total (FASE 2 · incremento 1): suelo damero del HUB y
-     mezzanine decorativo con los 9 accesos. Reversible con
+  /* Suelo damero del HUB (FASE 2). La banda de 9 portales del mezzanine se
+     retiró (TR_W20, decisión de diseño: no servía de nada y saturaba el muro).
+     Reversible con
      window.__DD_HUB_REBUILD = false desde el arranque (suelo clásico, sin
      mezzanine). No hay estaciones ni lógica detrás de los portales. */
   const HUB_REBUILD = function () { return window.__DD_HUB_REBUILD !== false; };
-  const MEZZ_PORTALS = [
-    { name: "LUJURIA", neon: "#ff2d7a" },
-    { name: "GULA", neon: "#f59e0b" },
-    { name: "AVARICIA", neon: "#facc15" },
-    { name: "IRA", neon: "#ef4444" },
-    { name: "HEREJÍA", neon: "#a855f7" },
-    { name: "VIOLENCIA", neon: "#fb7185" },
-    { name: "FRAUDE", neon: "#22d3ee" },
-    { name: "TRAICIÓN", neon: "#38bdf8" },
-    { name: "NÚCLEO", neon: "#f8fafc" }
-  ];
-  function paintMezzanine(cctx) {
-    if (!window.DD_ASSETS) return;
-    const frame = window.DD_ASSETS.get("hub_portal_frame");
-    if (!frame) return;
-    // Banda de mezzanine: justo sobre el muro norte pero dentro de la vista
-    // (el HUD tapa la zona y<170 en pantalla; el muro vive en y≈176..308).
-    // Los arcos van ligeramente solapados por el mobiliario trasero, que se
-    // dibuja después y les da profundidad de segunda planta.
-    const w = 96, h = 118, gap = 18;
-    const total = MEZZ_PORTALS.length * w + (MEZZ_PORTALS.length - 1) * gap;
-    let x = ((cctx.canvas.width || 2240) - total) / 2;
-    const y = 206;
-    for (let i = 0; i < MEZZ_PORTALS.length; i++) {
-      const p = MEZZ_PORTALS[i];
-      const cx = x + w / 2;
-      // Halo exterior del círculo (aditivo suave) + interior encendido
-      if (window.DD_WORLD && typeof window.DD_WORLD.drawNeonGlow === "function") {
-        window.DD_WORLD.drawNeonGlow(cctx, cx, y + 66, 84, p.neon, 0.4);
-      }
-      cctx.save();
-      cctx.shadowColor = p.neon;
-      cctx.shadowBlur = 26;
-      cctx.drawImage(frame, x, y, w, h);
-      cctx.restore();
-      // Vano iluminado por dentro (el marco es opaco; el vano es casi negro,
-      // así que una elipse aditiva encendida lee como interior del portal)
-      cctx.save();
-      cctx.globalCompositeOperation = "screen";
-      const g = cctx.createRadialGradient(cx, y + 78, 2, cx, y + 78, 30);
-      g.addColorStop(0, p.neon);
-      g.addColorStop(1, "rgba(0,0,0,0)");
-      cctx.globalAlpha = 0.9;
-      cctx.fillStyle = g;
-      cctx.beginPath();
-      cctx.ellipse(cx, y + 82, 22, 46, 0, 0, Math.PI * 2);
-      cctx.fill();
-      cctx.restore();
-      x += w + gap;
-    }
-  }
-
   /* Arquitectura interior del Refugio rediseñado (TR_W15): delimita sectores
      SIN levantar muros — la línea de visión se conserva (2.5D cenital).
      Todo se pinta una vez en la caché de la sala:
@@ -12189,7 +12138,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       if (HUB_REBUILD()) {
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null,
           { floorAsset: "hub_floor_main", vipInset: false });
-        paintMezzanine(cctx);
         paintRefugeArchitecture(cctx);
       } else {
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null);

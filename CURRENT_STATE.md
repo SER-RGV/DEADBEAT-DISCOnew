@@ -327,3 +327,10 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Refugio podado de 37 → **26** props (backbar 3→2, palmeras del escenario fuera, arcade gemelo fuera, planta salón fuera, caja redundante fuera). Conservados: Mesa Astral/eje, barra, escenario, armería, salón, arcade+vending, Tesla, fox, portales.
 - QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W20 · portales fuera, barra integrada, una sola máquina)
+- **Banda de 9 portales eliminada** (`paintMezzanine` y catálogo retirados; el muro norte ya luce solo sus nichos Góticos).
+- **Barra integrada**: backbar continuo en la misma línea (estantería–estantería–nevera a y=330), mostrador pegado (y=362), taburetes alineados; el cooler deja de flotar en medio de la sala.
+- **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
+- QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno.

@@ -291,3 +291,22 @@ Feedback del usuario: «sigue lleno de props/assets inútiles». Segunda tanda d
 Conservado deliberadamente (función o identidad): Mesa Astral y su eje con candelabros, barra completa, escenario DJ, armería, salón (sofás/butacas/banco/flor), arcade+vending, Tesla (orbe+pedestal), fox de neón, portales del mezzanine.
 
 Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; paseos intactos; capturas `32..35_*_w17.png` regeneradas.
+
+---
+
+## 13. TR_W20 · portales fuera, barra integrada, máquina duplicada eliminada (2026-11-15)
+
+Feedback del usuario: «los 9 portales no sirven para nada; la barra de bar no está integrada con el espacio; hay máquinas arcade duplicadas».
+
+**1. Los 9 portales — ELIMINADOS**
+- `paintMezzanine()` y el catálogo `MEZZ_PORTALS` retirados; la caché de sala ya no los pinta. El muro norte conserva sus nichos góticos del set wall_panel_* (arte del muro, no "mobiliario de portales"). Identidad intacta; ruido visual eliminado.
+
+**2. Barra integrada con el espacio**
+- Backbar continuo sobre la misma línea (y=330): estantería–estantería–**nevera** (el cooler ya no flota a y=432 en medio del paso; se integra como tercer elemento de la fila, 545,330).
+- Mostrador pegado a la fila: y=376→**362** (gap mostrador/backbar coherente con el puesto del bartender tras él; sus piernas quedan ocultas por el mostrador como manda la composición).
+- Taburetes, runner ámbar y estación `bar` (400,415) alineados con el eje de la barra.
+
+**3. Máquinas duplicadas**
+- El rincón SE mostraba **arcade + expendedor de elixires** (prop_vending_machine, siluetas gemelas de máquina alta). El arcade se queda; el expendedor sale. Resto del rincón: banco.
+
+Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas (barra integrada en 33, vista general en 32).
