@@ -6,11 +6,12 @@
 (function () {
   "use strict";
 
-  const HUB_BOUNDS = { x: 260, y: 210, w: 1240, h: 760 };
+  const HUB_BOUNDS = { x: 130, y: 145, w: 1560, h: 950 };
+  const DESCENT = { x: 910, y: 875 };
   const state = {
     active: false,
-    px: 880,
-    py: 615,
+    px: 910,
+    py: 700,
     vx: 0,
     vy: 0,
     aimAngle: -Math.PI / 4,
@@ -62,67 +63,70 @@
     return true;
   }
 
-  // Layout faithfully matching REF_05 (r5_refugio_hub.png)
+  /* Refugio ampliado: doble de fondo que la versión sept-2026; la decoración
+     se agrupa por "zonas" (barra central-izquierda, escenario DJ arriba-derecha,
+     salón VIP centrado, armería/arcade a la izquierda, pedestal-torre a la
+     derecha, grieta de descenso centrada abajo). */
   const HUB_PROPS = [
-    // Upper gothic liquor bookshelves & bar lounge
-    { kind: "shelf", x: 430, y: 245, br: 44 },
-    { kind: "shelf", x: 560, y: 245, br: 44 },
-    { kind: "barcounter", x: 740, y: 278, br: 56 },
-    { kind: "cooler", x: 325, y: 280, br: 36 },
+    // Upper gothic liquor bookshelves & bar lounge (izq. del centro)
+    { kind: "shelf", x: 560, y: 268, br: 46 },
+    { kind: "shelf", x: 730, y: 268, br: 46 },
+    { kind: "barcounter", x: 910, y: 292, br: 60 },
+    { kind: "cooler", x: 385, y: 288, br: 38 },
     // DJ Virgilio Booth upper-right
-    { kind: "speaker", x: 1035, y: 255, br: 36 },
-    { kind: "djbooth", x: 1165, y: 278, br: 58 },
-    { kind: "subwoofer", x: 1305, y: 265, br: 38 },
-    { kind: "palm", x: 1415, y: 295, br: 38 },
-    // Central VIP Velvet Sofa Lounge (exact twin magenta sofas + low candle table)
-    { kind: "sofa", x: 745, y: 470, br: 48 },
-    { kind: "sofa", x: 1015, y: 470, br: 48, flipX: true },
-    { kind: "bench", x: 880, y: 488, br: 34 },
-    { kind: "armchair", x: 635, y: 545, br: 34 },
-    { kind: "armchair", x: 1125, y: 545, br: 34, flipX: true },
-    { kind: "candelabra", x: 675, y: 410, br: 24 },
-    { kind: "candelabra", x: 1085, y: 410, br: 24 },
+    { kind: "speaker", x: 1170, y: 266, br: 38 },
+    { kind: "djbooth", x: 1345, y: 290, br: 58 },
+    { kind: "subwoofer", x: 1485, y: 270, br: 39 },
+    { kind: "palm", x: 1615, y: 330, br: 38 },
+    // Central VIP Velvet Sofa Lounge (twin magenta sofas + low candle table)
+    { kind: "sofa", x: 705, y: 555, br: 50 },
+    { kind: "sofa", x: 1120, y: 555, br: 50, flipX: true },
+    { kind: "bench", x: 910, y: 578, br: 34 },
+    { kind: "armchair", x: 570, y: 645, br: 35 },
+    { kind: "armchair", x: 1255, y: 645, br: 35, flipX: true },
+    { kind: "candelabra", x: 645, y: 478, br: 24 },
+    { kind: "candelabra", x: 1185, y: 478, br: 24 },
     // Left Armory & Arcade Pact corner
-    { kind: "vending", x: 355, y: 515, br: 42 },
-    { kind: "arcade", x: 355, y: 655, br: 40 },
-    { kind: "chest", x: 455, y: 565, br: 34 },
+    { kind: "vending", x: 348, y: 590, br: 42 },
+    { kind: "arcade", x: 348, y: 752, br: 40 },
+    { kind: "chest", x: 478, y: 638, br: 34 },
     // Right Tower Progression Pedestal & Lounge
-    { kind: "pedestal", x: 1365, y: 585, br: 40 },
-    { kind: "plant", x: 1425, y: 745, br: 32 },
-    { kind: "plant", x: 335, y: 845, br: 32 }
+    { kind: "pedestal", x: 1560, y: 678, br: 40 },
+    { kind: "plant", x: 1630, y: 915, br: 33 },
+    { kind: "plant", x: 362, y: 952, br: 33 }
   ];
 
   const STATIONS = [
     {
       id: "descent",
-      label: "PLATAFORMA DE DESCENSO · INICIAR INCURSIÓN",
-      prompt: "Pulsa [E] / (A) para descender al Círculo I · Lujuria",
-      x: 880,
-      y: 785,
-      r: 96
+      label: "GRIETA DEL REFUGIO · INICIAR INCURSIÓN",
+      prompt: "Pulsa [E] / (A) para lanzarte por la grieta · Círculo I · Lujuria",
+      x: DESCENT.x,
+      y: DESCENT.y,
+      r: 110
     },
     {
       id: "armory",
       label: "ARMERÍA DEL REFUGIO · INVENTARIO Y TIENDA",
       prompt: "Pulsa [E] / (A) para abrir Armería (120 Armas)",
       x: 415,
-      y: 535,
+      y: 655,
       r: 95
     },
     {
       id: "dj",
       label: "CABINA DE DJ VIRGILIO",
       prompt: "Pulsa [E] / (A) para hablar con DJ Virgilio",
-      x: 1165,
-      y: 335,
+      x: 1345,
+      y: 345,
       r: 105
     },
     {
       id: "map",
       label: "MESA ASTRAL · MAPA DE PROGRESIÓN",
       prompt: "Pulsa [E] / (A) para inspeccionar la Torre de los 9 Círculos",
-      x: 1345,
-      y: 605,
+      x: 1560,
+      y: 700,
       r: 95
     }
   ];
@@ -131,15 +135,15 @@
     "Has llegado al Refugio. Aquí la canción no te alcanza. Elige un arma en la Armería antes de bajar.",
     "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
     "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.",
-    "Revisa tus créditos antes de saltar a la Plataforma Cian. El Cajero no perdona deudas en el tercer piso."
+    "Revisa tus créditos antes de asomarte a la grieta. El Cajero no perdona deudas en el tercer piso."
   ];
   let quoteIdx = 0;
 
   function enter() {
     ensureRefugeIdle();
     state.active = true;
-    state.px = 880;
-    state.py = 615;
+    state.px = 910;
+    state.py = 700;
     state.vx = 0;
     state.vy = 0;
     state.interactCooldown = 0.35;
@@ -339,7 +343,7 @@
     // dibuja después y les da profundidad de segunda planta.
     const w = 96, h = 132, gap = 18;
     const total = MEZZ_PORTALS.length * w + (MEZZ_PORTALS.length - 1) * gap;
-    let x = (1800 - total) / 2;
+    let x = ((cctx.canvas.width || 2240) - total) / 2;
     const y = 188;
     for (let i = 0; i < MEZZ_PORTALS.length; i++) {
       const p = MEZZ_PORTALS[i];
@@ -376,8 +380,8 @@
     if (state.roomCache && state.roomCacheStamp === stamp) return state.roomCache;
 
     const cnv = document.createElement("canvas");
-    cnv.width = 1800;
-    cnv.height = 1180;
+    cnv.width = 2240;
+    cnv.height = 1420;
     const cctx = cnv.getContext("2d");
     if (window.DD_WORLD) {
       if (HUB_REBUILD()) {
@@ -431,8 +435,10 @@
       ctx.drawImage(foxSign, fx, fy, 112, 148);
     }
 
-    // Central Glowing Cyan Descent Pad
-    W.drawDescentPad(ctx, { x: 880, y: 785 }, state.time);
+    /* La grieta: ojo negro en la pista; el azul/magenta asciende de dentro.
+       Es decoración de suelo: se dibuja antes de la y-sort para que el
+       protagonista pise encima de los bordes. */
+    W.drawDescentCrack(ctx, DESCENT, state.time);
 
     // Interactive station floor rings
     for (let i = 0; i < STATIONS.length; i++) {
@@ -454,9 +460,9 @@
       const p = HUB_PROPS[i];
       drawList.push({ y: p.y, kind: "prop", obj: p });
     }
-    drawList.push({ y: 268, kind: "npc", id: "npc_dj_booth_world", x: 1165, h: 118 });
-    drawList.push({ y: 262, kind: "npc", id: "npc_bartender_hub", x: 740, h: 102 });
-    drawList.push({ y: 505, kind: "npc", id: "npc_armorer_hub", x: 432, h: 104 });
+    drawList.push({ y: 268, kind: "npc", id: "npc_dj_booth_world", x: 1345, h: 118 });
+    drawList.push({ y: 268, kind: "npc", id: "npc_bartender_hub", x: 910, h: 102 });
+    drawList.push({ y: 625, kind: "npc", id: "npc_armorer_hub", x: 432, h: 104 });
     drawList.push({ y: state.py, kind: "player" });
 
     drawList.sort((a, b) => a.y - b.y);
@@ -506,7 +512,7 @@
 
     // Overhead Golden Chandeliers with warm volumetric glow (matching r5_refugio_hub.png)
     const chand = window.DD_ASSETS && window.DD_ASSETS.get("prop_chandelier_gold");
-    const chandCoords = [[650, 215], [1110, 215]];
+    const chandCoords = [[700, 225], [1130, 225]];
     for (let i = 0; i < chandCoords.length; i++) {
       const [cx, cy] = chandCoords[i];
       W.drawNeonGlow(ctx, cx, cy + 40, 190, "#facc15", 0.2);

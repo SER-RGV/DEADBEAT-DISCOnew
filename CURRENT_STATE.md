@@ -288,3 +288,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Los 9 círculos + HUB verificados en navegador con arte TR; 0 errores JS. Límite actual: balance/combate no jugado exhaustivamente.
 - Capturas: ART_EVIDENCE/TOTAL_REBUILD/{07,08,10_*,11_*,12_*}_*.png — todos los ambientes (Limbo, Gula, Avaricia, Ira, Herejía, Violencia, Fraude, Traición, Núcleo) + Jefe LIMBO (DJ DOOM) en banner + enemigos visibles (Traición).
 - Pendiente: merge PR #31 (borrador) bajo visto bueno del responsable; opcional: FX jefes, HUD definitivo, limpieza de matriz (verificar «Pendiente» ↔ estado real).
+
+## Estado actual · 2026-11-15 (TR_W14)
+- Refugio ampliado (~1.3x ancho / ~1.25x alto) y decoración recompactada por zonas; salida sustituida por GRIETA DEL REFUGIO (ojo de pozo) con descenso verificado en navegador (0 errores, 272/272).
+- Registry: 272 entradas (30 legacy); PR #31 con todos los círculos + jefe LIMBO verificados in-situ.
+- Pendiente: merge PR #31 (visto bueno del responsable); opcional FX jefes/HUD definitivo; `cine_bg01_city` inset.

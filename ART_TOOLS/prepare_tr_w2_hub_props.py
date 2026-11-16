@@ -106,6 +106,8 @@ JOBS = [
     ("boss_08_traidor_idle",    "assets/bosses/boss_08_traidor_idle.png",    (368, 576), "bottom-center"),
     ("boss_08_traidor_attack",  "assets/bosses/boss_08_traidor_attack.png",  (416, 448), "bottom-center"),
     ("boss_08_traidor_hit",     "assets/bosses/boss_08_traidor_hit.png",     (384, 448), "bottom-center"),
+    # TR_W14 (grieta de descenso HUB)
+    ("threshold_descent_crack", "assets/environments/threshold_descent_crack.png", (384, 288), "center"),
     # TR_W13 (vista 3/4 elevada para objetos planos del HUB)
     ("prop_candelabra_floor", "assets/props/prop_candelabra_floor.png", (192, 320), "bottom-center"),
     ("prop_arcane_pedestal",  "assets/props/prop_arcane_pedestal.png",  (288, 352), "bottom-center"),
@@ -122,7 +124,7 @@ JOBS = [
     ("boss_10_arquitecto_attack", "assets/bosses/boss_10_arquitecto_attack.png", (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w13", "/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w14", "/tmp/dd_raw/tr_w13", "/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"

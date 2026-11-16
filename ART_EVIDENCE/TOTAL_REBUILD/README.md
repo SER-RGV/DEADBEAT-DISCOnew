@@ -134,3 +134,11 @@ Recorrido con capturas de la torre completa (PNG capt-1280x900, 0 errores JS en 
 - `12_round_93.png` — **CÍRCULO VIII · TRAICIÓN** «La Última Sala · 150 BPM» (hielo cian; **enemigos regenerados dibujados**: rostro carmesí con barra de vida sup-izq, sombra con marcador ◇ inf-dcha).
 - `10_round_88.png` — **CÍRCULO VII · FRAUDE** «El Club de los Espejos · 145 BPM» (mármol+celosía cian; tutorial «EL IMITADOR»).
 *(Nota: las salas no rectangulares muestran bordes negros = vacío fuera del polígono de la sala, diseño del juego, no defecto; no hay QA fallidos en ninguno de los 9 círculos.)*
+
+## Pasada TR_W14 (2026-11-15, Refugio remodelado y grieta de descenso)
+Solicitud del usuario: ensanchar el Refugio, colocar bien la decoración y sustituir el pad cian por **una grieta en el suelo** por la que el personaje cae.
+Cambios integrados (íntegros en navegador, 272/272 pass):
+- **Refugio ampliado** ~1560x950 (antes 1240x760); cache de sala 2240x1420; cámara clampada al nuevo marco; NPCs/estaciones/decoración re-ubicados por zonas (barra central-izquierda, tarima DJ arriba-derecha, salón VIP centrado, armería/arcade izquierda, pedestal-torre derecha, grieta centrada abajo); arranque del protagonista en (910,700).
+- **Nuevo asset `threshold_descent_crack`** (384x288, clase B, registro TR_W14, TOTAL 272/272): ojo de grieta cenital, borde de magma cian/magenta, brasas; reemplaza la plataforma cian como salida; `drawDescentCrack` en `dd_world_renderer.js` (pulso de pozo) dibujado antes de la y-sort; área de interacción `GRIETA DEL REFUGIO · Pulsa [E]...`.
+- Capturas: `13_refugio_w14.png` (sala ampliada + grieta axial) y `14_grieta_descenso.png` (pulso [E] sobre la grieta → cinemática → Vestíbulo Limbo, 0 errores).
+- `threshold_descent_pad` **sigue registrado** (fallback de puertas); ya no se dibuja en el HUB.

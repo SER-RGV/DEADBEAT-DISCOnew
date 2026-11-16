@@ -410,6 +410,24 @@
     }
   }
 
+  /* Grieta del Refugio: ojo del pozo en el suelo; plano cenital como el
+     damero, con pulso de brasas cian/magenta desde el fondo. Sustituye a la
+     plataforma cian como «puerta» al siguiente círculo. */
+  function drawDescentCrack(ctx, crack, timeSec) {
+    if (!crack) return;
+    setSmooth(ctx);
+    const px = crack.x || 0, py = crack.y || 0;
+    const im = window.DD_ASSETS && window.DD_ASSETS.get("threshold_descent_crack");
+    const pulse = 0.22 + 0.11 * Math.sin((timeSec || 0) * 2.6);
+    drawNeonGlow(ctx, px, py, 132, "#22d3ee", pulse);
+    drawNeonGlow(ctx, px, py, 74, "#c084fc", pulse * 0.8);
+    if (im) {
+      const w = 246;
+      const h = w * (im.naturalHeight / Math.max(1, im.naturalWidth));
+      ctx.drawImage(im, px - w / 2, py - h / 2, w, h);
+    }
+  }
+
   /* ------------------------------------------------------------------------
      3. ISOMETRIC PROPS & FURNITURE (Replaces pixel/blockout `Lc`)
      ------------------------------------------------------------------------ */
@@ -1671,6 +1689,7 @@
     buildHighResRoomCache,
     drawDoor,
     drawDescentPad,
+    drawDescentCrack,
     drawProp,
     drawProtagonist,
     getPlayerWeaponMount,

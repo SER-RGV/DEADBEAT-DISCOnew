@@ -86,6 +86,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `portal_avaricia_gold` | `portal_avaricia_gold` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `portal_baroque_gold` | `portal_baroque_gold` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `threshold_descent_pad` | `threshold_descent_pad` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + captura en Refugio real |
+| `threshold_descent_crack` | `threshold_descent_crack` · NUEVO (clase B) — ojo del pozo en el suelo; sustituye al pad cian en el HUB (tanda TR_W14) | registry → DD_WORLD (drawDescentCrack) | Integrado (código) + carga navegador OK + flujo de descenso verificado |
 
 ### Apéndice props (30)
 
