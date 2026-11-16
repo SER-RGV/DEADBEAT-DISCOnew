@@ -255,3 +255,23 @@ Encargo del usuario: «ahora son más grandes, pero siguen estando tirados en cu
 **Verificado en navegador**: integrity 277/277, 0 pageErrors, 0 console errors; descenso intacto; prompts «hablar con la armera» y estaciones correctos; capturas `32_refugio_distribucion_w17.png` (vista completa), `33_barra_w17.png`, `34_armeria_w17.png`, `35_centro_w17.png`.
 
 **Nota honesta**: los portales del mezzanine siguen parcialmente tras el backbar en el borde x≈545-616; el corte visual final exige o bien mover la banda de portales (decisión de arte gordo) o aceptar el solape como "mobiliario delante del portal", habitual en escenografía de club. HUD fijo + full-bleed persisten (ver §9.4).
+
+---
+
+## 11. TR_W18 · escala del protagonista y limpieza de decorado (2026-11-15)
+
+Feedback del usuario: «el personaje debería ser un poco más grande para estar en escala con la mesa central y la habitación está sobrecargada de elementos decorativos inútiles».
+
+**Escala**
+- REFUGE_IDLE.drawH 112 → **134** (+20 %; referencia protagonista ~134 px; la Mesa Astral, 235 de ancho, vuelve a dominar como pieza central).
+- NPCs del Refugio en consonancia: DJ 118→132, bartender 102→116, armera 104→118.
+- Collision radii sin cambios (el tamaño lógico y el gameplay no se tocan).
+
+**Limpieza de decorado** (se retiran 5 piezas que no aportaban lectura ni función)
+- Bolardos del ala Tesla (interrumpían el ala sin delimitar nada).
+- Plantas sueltas (ala Tesla · rincón de ocio) — saturaban las esquinas.
+- Palma solitaria del borde sur (618,1010) — leía como pieza perdida.
+- Candelabro extra de cabecera del rug — el salón ya habla con sofás/butacas/banco/flor.
+- Motas de polvo 34→24 en los charcos de luz.
+
+Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; paseos intactos (grieta alcanzable); capturas `32..35_*_w17.png` regeneradas con este build.

@@ -316,3 +316,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Redistribución completa del Refugio anclada a muros/ejes (barra en muro N con backbar fuera de la banda de portales, armería en columna W, escenario alineado, salón simétrico, ocio en fila SE); pasillo SO→grieta despejado (el harness ya no se atasca).
 - Verificado: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png`; informe §10 en REFUGIO_REDISENO_2026-11-15.md.
 - Merge PR #31 pendiente de visto bueno del usuario.
+
+## Estado actual · 2026-11-15 (TR_W18 · escala protagonista + limpieza)
+- Protagonista del Refugio **134 px** (antes 112); NPCs al alza (DJ 132 / bar 116 / armera 118); collision intacta.
+- Retirados bollardos del ala Tesla, 2 plantas sueltas, la palma solitaria del sur y el candelabro extra del salón; motas 34→24.
+- QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno del usuario.

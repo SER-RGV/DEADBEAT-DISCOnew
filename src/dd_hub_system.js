@@ -34,7 +34,7 @@
     w: 288, h: 512,          /* tamaño del PNG */
     feetY: 505, midX: 140,   /* suela y eje del cuerpo dentro del PNG */
     bodyH: 462,              /* alto del dibujo (sin márgenes transparentes) */
-    drawH: 112,              /* alto del cuerpo en unidades del Refugio (como la figura anterior y los personajes de la sala) */
+    drawH: 134,              /* alto del cuerpo en unidades del Refugio (como la figura anterior y los personajes de la sala) */
     img: null, ok: false, failed: false, lastRect: null
   };
   function ensureRefugeIdle() {
@@ -107,24 +107,19 @@
     // D · Ala experimental de la Torre (E) — exposición sobre su eje
     { kind: "teslaorb", x: 1520, y: 462, br: 56, dw: 150 },
     { kind: "pedestal", x: 1382, y: 505, br: 30, dw: 118 },
-    { kind: "bollards", x: 1290, y: 645, br: 28, dw: 128 },
-    { kind: "plant", x: 1638, y: 648, br: 28, dw: 105 },
     // B · Salón de descanso (SO) — simétrico sobre la alfombra
     { kind: "sofa", x: 300, y: 865, br: 48, dw: 205 },
     { kind: "sofa", x: 505, y: 865, br: 48, dw: 205, flipX: true },
     { kind: "armchair", x: 205, y: 858, br: 32, dw: 124 },
     { kind: "armchair", x: 600, y: 858, br: 32, dw: 124, flipX: true },
-    { kind: "candelabra", x: 402, y: 778, br: 22, dw: 96 },
     { kind: "bench", x: 402, y: 912, br: 28, dw: 128 },
     { kind: "neonflower", x: 402, y: 878, br: 14, dw: 78 },
     { kind: "plant", x: 185, y: 1010, br: 30, dw: 105 },
-    { kind: "palm", x: 618, y: 1010, br: 34, dw: 158 },
     // E · Ocio (SE) — fila alineada en el rincón (misma línea de apoyo)
     { kind: "arcade", x: 1305, y: 838, br: 38, dw: 150 },
     { kind: "arcade", x: 1435, y: 838, br: 38, dw: 150 },
     { kind: "vending", x: 1605, y: 830, br: 38, dw: 150 },
-    { kind: "bench", x: 1458, y: 935, br: 30, dw: 132 },
-    { kind: "plant", x: 1642, y: 1005, br: 30, dw: 105 }
+    { kind: "bench", x: 1458, y: 935, br: 30, dw: 132 }
   ];
 
   const STATIONS = [
@@ -567,7 +562,7 @@
   }
 
   const EMBER_N = 26;
-  const MOTE_N = 34;
+  const MOTE_N = 24;
   function spawnEmber(q) {
     q.x = 845 + Math.random() * 130;
     q.y = 856 + Math.random() * 42;
@@ -734,9 +729,9 @@
       const p = HUB_PROPS[i];
       drawList.push({ y: p.y, kind: "prop", obj: p });
     }
-    drawList.push({ y: 305, kind: "npc", id: "npc_dj_booth_world", x: 1400, h: 118 });
-    drawList.push({ y: 340, kind: "npc", id: "npc_bartender_hub", x: 400, h: 102 });
-    drawList.push({ y: 600, kind: "npc", id: "npc_armorer_hub", x: 378, h: 104 });
+    drawList.push({ y: 305, kind: "npc", id: "npc_dj_booth_world", x: 1400, h: 132 });
+    drawList.push({ y: 340, kind: "npc", id: "npc_bartender_hub", x: 400, h: 116 });
+    drawList.push({ y: 600, kind: "npc", id: "npc_armorer_hub", x: 378, h: 118 });
     drawList.push({ y: state.py, kind: "player" });
 
     drawList.sort((a, b) => a.y - b.y);
