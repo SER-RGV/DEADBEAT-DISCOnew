@@ -116,7 +116,7 @@ JOBS = [
     ("boss_10_arquitecto_attack", "assets/bosses/boss_10_arquitecto_attack.png", (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"

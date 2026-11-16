@@ -262,3 +262,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **TODAS las familias de jefes integradas excepto** `boss_06_matarife_death` (3 intentos rechazados/bloqueados; provisional conservado).
 - Jefes 00 Andén ✓, 01 Magneta ✓, 02 Bufe ✓, 03 Cajero ✓, 04 Pogo ✓, 05 Oficiante ✓, 06 Matarife (falta death), 07 Imitador ✓, 08 Traidor ✓, 09 Núcleo ✓, 10 Arquitecto ✓.
 - Pendiente mayor: FX jefes, cinemáticas (~40 capas), HUD definitivo, captura in-situ II–IX, verificación de nombres de jefe contra datos canónicos del juego, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W12)
+- **Jefes COMPLETOS e integrados (navegador 271/271):** Andén ✓, Magneta ✓, Bufe ✓, Cajero ✓, Pogo ✓, Oficiante ✓, Matarife ✓, Imitador ✓, Traidor ✓, Núcleo ✓, Arquitecto ✓.
+- Verificación de nombres canónicos hecha contra `src/dd_ui_system.js` (IDs en assets matchean; epítetos no usados en ficheros).
+- Restante según matriz (~163 filas): VFX (~20), cine Circles (~20), jugador/héroe (~25), armas (~32), proyectiles (~20), reliquias (~16), pickups (~8), cine capas (~20), UI fin/tienda. Weapons/proyectiles son pixel-art 320x160 coherentes con el resto del juego — conversión masiva NO recomendada sin decisión del usuario.
+- Pendiente mayor: FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador, NO tocar sin visto bueno).
