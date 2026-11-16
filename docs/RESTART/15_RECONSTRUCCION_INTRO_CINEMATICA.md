@@ -101,8 +101,9 @@ Barridos de tinta **entre** planos, con el negro pleno encima del corte:
    dobla; las grietas entran por el borde de la viñeta.
 7. **El suelo** — temblor, grietas que se encuentran en el centro de la pista y la página
    se parte en dos dejando ver el pozo **de lado**.
-8. **El refugio** — retroceso del pozo de 2,6× a 1,0×, el sombrero cae, el encuadre se
-   queda exactamente en `mc_07_pit` a 0,5 / 0,5 para que el menú no salte.
+8. **El refugio** — retroceso del pozo de 2,6× a 1,0×, el sombrero cae y el encuadre se
+   queda en `mc_07_pit`. **Exactamente** en `mc_07_pit`: ver §7.1, donde se mide que el
+   fondo del último fotograma y el fondo del menú coinciden **al píxel**.
 
 ---
 
@@ -252,6 +253,41 @@ Todo lo que sigue se ha **ejecutado**. Lo que no se puede ejecutar aquí está d
 | Errores | 0 | **0** |
 | Recursos en el manifiesto | 308 | **309** |
 
+### 7.1 · Continuidad entre la cinemática y el menú (`work/tools/continuity.js`)
+
+No basta con "el último plano se parece al fondo del menú". El menú real pinta esa misma
+lámina con `object-fit: cover` **más** una animación de deriva (`rs-drift`, escala
+1 → 1,04) con `transform-origin: 46% 43%`, y coloca el logotipo y el lema con un layout
+propio (`min(30vw, 50vh)` con topes y puntos de ruptura). Todo eso se ha reproducido en el
+canvas, con los mismos puntos de ruptura copiados del CSS.
+
+La prueba congela la cinemática en el instante exacto de la entrega (41,97 s), deja
+terminar el flujo de verdad, **aísla el fondo del menú** (oculta rótulos, desactiva
+animación, filtro y transform, que en ese instante están en su fotograma 0) y mide el
+desplazamiento por correlación cruzada 2D:
+
+| Ventana | Desplazamiento del fondo | Diferencia de pantalla completa |
+|---|---|---|
+| 1280×720 (16:9) | **+0, +0 px** | 9,8 % (logotipo y botones) |
+| 1920×1080 (16:9) | **+0, +0 px** | 9,1 % |
+| 1024×768 (4:3) | **+0, +0 px** | 29,0 % (menú más ancho: 5 opciones) |
+| 2560×1080 (21:9) | **+0, +0 px** | 6,5 % |
+| 844×390 (móvil apaisado) | **+0, +0 px** | 36,4 % (sin lema, botones a ancho completo) |
+
+Cero desplazamiento en las cinco ventanas. Lo que queda en la columna de la derecha es UI
+nueva que aparece encima (logotipo, opciones, pie), no un salto de la imagen: medido sobre
+el fondo aislado, los píxeles que difieren son 0 en las esquinas y el damero central.
+
+Dos cosas que se descubrieron midiendo y que estaban mal:
+
+1. **El logotipo no estaba donde el del menú.** Estaba 11 px a la izquierda y 2 px abajo, y
+   el lema arrancaba 9 px a la izquierda. Ahora `logoBox()` copia las medidas del CSS
+   —incluidos los `@media (max-aspect-ratio: 4/3)`, `(max-width: 900px)` y
+   `(max-height: 560px)`— y el lema se centra en la **caja de marca**, no en el logotipo.
+2. **El encuadre no era el del menú.** El canvas recortaba la lámina contra el borde; el
+   menú la centra. Ahora el último plano se pinta con la regla del menú, redondeando el
+   destino a píxeles enteros.
+
 ### QA de Playwright (`tools/qa/test_restart_flow.js`)
 
 Actualizado a la tabla nueva (8 planos / 42 s, `12345678`, animación en los 8, capa de
@@ -265,8 +301,11 @@ Playwright.
 
 - **Audio audible**. El banco y el navegador sin cabeza confirman que el contexto arranca y
   que se disparan 161 sucesos, pero no que suene bien por altavoces.
-- **Resoluciones distintas de 1280×720 y 1920×1080**. La composición está pensada con
-  bandas seguras (`SW = min(W, H·16/9·1,12)`), pero no se ha capturado en 4:3 ni en 21:9.
+- **Nada de lo anterior en otras máquinas.** Aquí sí se ha probado la compatibilidad de
+  resolución: 1280×720, 1920×1080, 1366×768, 1024×768, 800×600, 2560×1080, 844×390 y
+  720×1280, ejecutando la intro y el descenso enteros en cada una (`work/tools/resolutions.js`)
+  y la entrega al menú en cinco de ellas (`work/tools/continuity.js`). **Ninguna** produce
+  fotogramas negros y en todas el fondo de la entrega coincide al píxel.
 - **Mando físico** (se simula la API `Gamepad`).
 - **Hardware real**. Los tiempos son de este entorno.
 

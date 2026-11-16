@@ -190,13 +190,17 @@
 
   /* Dibuja una imagen cubriendo el lienzo. fx, fy = punto de la imagen (0–1) que
      queda en el centro; zoom ≥ 1. Devuelve el mapeo imagen → pantalla. */
-  function cover(im, fx, fy, zoom, alpha, dx, dy) {
+  /* `center` (opcional): imita object-fit: cover + object-position: 50% 50%,
+     que es como el menú pinta la misma lámina. Sin él, el encuadre se recorta
+     contra un borde para que nunca quede hueco (comportamiento de los planos). */
+  function cover(im, fx, fy, zoom, alpha, dx, dy, center) {
     var m = { s: 1, x: 0, y: 0, w: W, h: H };
     if (!ok(im)) { fallback(); return m; }
     var s = Math.max(W / im.naturalWidth, H / im.naturalHeight) * (zoom || 1);
     var w = im.naturalWidth * s, h = im.naturalHeight * s;
     var x = W / 2 - w * fx, y = H / 2 - h * fy;
-    x = clamp(x, W - w, 0); y = clamp(y, H - h, 0);
+    if (center) { x = (W - w) / 2; y = (H - h) / 2; }
+    else { x = clamp(x, W - w, 0); y = clamp(y, H - h, 0); }
     x += dx || 0; y += dy || 0;
     if (alpha != null && alpha < 1) { cx.save(); cx.globalAlpha = alpha; cx.drawImage(im, x, y, w, h); cx.restore(); }
     else cx.drawImage(im, x, y, w, h);
@@ -281,8 +285,16 @@
   /* Escenario 16:9 centrado: las viñetas y las cartelas se colocan en él para
      que la página se lea igual en 4:3, 16:9 y 21:9. Los fondos a página
      completa sí cubren todo el lienzo. */
-  var SW = 0, SX = 0, U = 1;
-  function stage() { SW = Math.min(W, H * 16 / 9 * 1.12); SX = (W - SW) / 2; U = Math.min(SW / 1920, H / 1080 * 1.12); }
+  var SW = 0, SX = 0, U = 1, SY = 0, SH = 0;
+  /* Escenario seguro de la pintura. En 16:9 ocupa el lienzo entero; en 4:3 y
+     21:9 deja bandas a los lados. `SY`/`SH` son la parte alta y baja que no
+     usa el cómic: el título del final sí puede apoyarse ahí, porque el menú
+     real no tiene escenario y se mide en píxeles de ventana. */
+  function stage() {
+    SW = Math.min(W, H * 16 / 9 * 1.12); SX = (W - SW) / 2; U = Math.min(SW / 1920, H / 1080 * 1.12);
+    var contentH = Math.min(H, W * 9 / 16 / 1.12);
+    SY = (H - contentH) / 2; SH = contentH;
+  }
   function X(f) { return SX + f * SW; }
   function Y(f) { return f * H; }
   var FONT_CAP = '"Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif';
@@ -554,11 +566,26 @@
   }
 
   /* ================================================================= INTRO */
+  /* Caja del logotipo, medida sobre el menú real en 1280×720, 1920×1080,
+     1024×768, 2560×1080 y 844×390 (work/tools/continuity.js). El CSS del menú
+     usa `width: min(30vw, 50vh)` con `min-width: 200px` y el logotipo se queda
+     en 330 px a partir de 1280 de ancho, así que hay que respetar el tope.
+     x = 4vw (el padding de .dd-menu-left), y = 5vh. */
   function logoBox() {
-    /* Misma caja que usa el menú (CSS .dd-menu-logo): el título se queda donde
-       luego está el logotipo del menú. */
-    var w = Math.min(W * 0.3, H * 0.5), h = w * 682 / 1024;
-    return { x: W * 0.04, y: H * 0.05, w: w, h: h };
+    /* .dd-menu-left deja 4vw de margen y 5vh arriba; .dd-menu-brand mide
+       min(30vw, 50vh) con un mínimo de 200 px; el logotipo es el 100 % de esa
+       caja pero con tope de 330 px. El lema, en cambio, se centra en la caja
+       de marca, NO en el logotipo: por eso su centro va más a la derecha. */
+    /* Mismas medidas y MISMOS puntos de ruptura que `dd_rebuild_ui.css`
+       (›#dd-main-menu.dd-rs .dd-menu-brand). Si allí cambian, aquí también. */
+    var brand = Math.max(Math.min(W * 0.30, H * 0.50), 200);
+    if (H <= 560) brand = Math.min(W * 0.26, H * 0.40);            /* @media (max-height: 560px) */
+    else if (W / H <= 4 / 3 || W <= 900) brand = Math.min(W * 0.46, H * 0.34);
+    var w = Math.min(brand, 330);
+    var h = w * 682 / 1024;
+    /* La caja de marca empieza a 5vh del borde de la VENTANA, no del escenario:
+       si el escenario tiene banda arriba, el título sube con ella. */
+    return { x: W * 0.04, y: H * 0.05, w: w, h: h, brandX: W * 0.04, brandW: brand, baseY: H * 0.05, tag: H > 560 };
   }
 
   function drawIntro(t) {
@@ -1006,11 +1033,41 @@
     var tq = t - TITLE_AT, sh = shakeOf(t, TITLE_AT, 0.5, 16);
     /* Empuje lento del encuadre hasta el final: el último plano no está quieto
        y la transición al menú (que deriva igual) no salta. */
-    page(img.pit, 0.5, 0.5, 1 + (1 - ease(seg(tq, 0.6, 4))) * 0.045, sh[0], sh[1], 0);
+    /* El menú real pinta esta lámina con object-fit: cover y object-position
+       50% 50%. Aquí se encuadra con la misma regla: en 16:9 coincide con el
+       centro exacto, y en otras proporciones el recorte se desplaza igual. */
+    /* Se replica EXACTAMENTE lo que hace el menú con esta misma lámina:
+       object-fit: cover sobre el viewport, y luego la animación `rs-drift`
+       (transform: scale(1) → scale(1.04)) con transform-origin en un punto fijo.
+       El relevo llega con la animación casi en su fotograma 0 (escala
+       1,00003), así que aquí se pinta con la misma composición: sin esto el
+       corte se veía como un desplazamiento de una veintena de píxeles. */
+    var drift = 1 + 0.04 * (1 - Math.cos(Math.min(1, 0) * Math.PI)) / 2;   /* = 1 en t = 0 */
+    var push = (1 + (1 - ease(seg(tq, 0.6, 4))) * 0.045) * drift;
+    var sB = Math.max(W / img.pit.naturalWidth, H / img.pit.naturalHeight) * push;
+    var bw = img.pit.naturalWidth * sB, bh = img.pit.naturalHeight * sB;
+    var ox = W * 0.46, oy = H * 0.43;                    /* transform-origin: 46% 43% */
+    cx.save();
+    cx.translate(ox, oy);
+    cx.drawImage(img.pit, (W - bw) / 2 - ox + (sh[0] || 0), (H - bh) / 2 - oy + (sh[1] || 0), bw, bh);
+    cx.restore();
+    /* La sombra lateral y el degradado inferior son EXACTAMENTE los del menú
+       (dd_rebuild_ui.css › #dd-main-menu.dd-rs .dd-menu-vig). Si cambian aquí
+       hay que cambiarlos allí: el último fotograma y el menú son la misma
+       imagen y el relevo no puede notarse. */
     var a = ease(seg(tq, 0.1, 1.6));
-    var lg = cx.createLinearGradient(0, 0, W * 0.72, 0);
-    lg.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")"); lg.addColorStop(0.5, "rgba(5,2,10," + (0.72 * a) + ")"); lg.addColorStop(1, "rgba(5,2,10,0)");
-    cx.fillStyle = lg; cx.fillRect(0, 0, W, H);
+    var side = cx.createLinearGradient(0, 0, W * 0.72, 0);
+    side.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")");
+    side.addColorStop(0.36, "rgba(5,2,10," + (0.72 * a) + ")");
+    side.addColorStop(0.72, "rgba(5,2,10,0)");
+    side.addColorStop(1, "rgba(5,2,10,0)");
+    cx.fillStyle = side; cx.fillRect(0, 0, W, H);
+    var vert = cx.createLinearGradient(0, 0, 0, H);
+    vert.addColorStop(0, "rgba(5,2,10," + (0.5 * a) + ")");
+    vert.addColorStop(0.22, "rgba(5,2,10,0)");
+    vert.addColorStop(0.72, "rgba(5,2,10,0)");
+    vert.addColorStop(1, "rgba(5,2,10," + (0.78 * a) + ")");
+    cx.fillStyle = vert; cx.fillRect(0, 0, W, H);
     var b = logoBox(), k = easeOut(seg(tq, 0, 0.35)), cxm = b.x + b.w / 2, cym = b.y + b.h / 2;
     /* Mancha de tinta detrás del logotipo: no es una ventana, es pintura. Se
        queda pequeña y se retira pronto para no competir con el título. */
@@ -1022,14 +1079,22 @@
       cx.drawImage(img.logo, cxm - b.w * sc / 2, cym - b.h * sc / 2, b.w * sc, b.h * sc);
       cx.restore();
     }
+    /* El lema, en la misma línea que el del menú: centrado con el logotipo y
+       a 1,2 vh de su borde inferior, con el mismo tamaño relativo. */
     var ta = ease(seg(tq, 0.9, 1.6));
-    if (ta > 0) {
+    if (ta > 0 && b.tag) {
       cx.save(); cx.globalAlpha = ta; cx.fillStyle = C.bone;
-      var fs = Math.max(11, b.w / 19), txt = "LA NOCHE QUE DEVORÓ EL AMANECER";
-      cx.font = "italic 700 " + fs + "px " + FONT_CAP;
-      var tw = cx.measureText(txt).width; if (tw > b.w) cx.font = "italic 700 " + (fs * b.w / tw) + "px " + FONT_CAP;
-      cx.textAlign = "center"; cx.textBaseline = "top"; cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
-      cx.fillText(txt, cxm, b.y + b.h + H * 0.012);
+      var fs = clamp(Math.min(W * 0.0158, H * 0.0263), 11, 28), txt = "LA NOCHE QUE DEVORÓ EL AMANECER";
+      cx.font = "italic 800 " + fs + "px " + FONT_CAP;
+      var track = fs * 0.02;                 /* el menú lleva letter-spacing: .02em */
+      var tw = cx.measureText(txt).width + track * (txt.length - 1);
+      var tx = b.brandX + b.brandW / 2 - tw / 2, ty = b.y + b.h + H * 0.012;
+      cx.textAlign = "left"; cx.textBaseline = "top"; cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
+      for (var ci = 0; ci < txt.length; ci++) {
+        var ch = txt.charAt(ci);
+        cx.fillText(ch, tx, ty);
+        tx += cx.measureText(ch).width + track;
+      }
       cx.restore();
     }
     var pulse2 = ease(seg(tq, 1.8, 2.6)) * (1 - ease(seg(tq, 2.6, 3.6)));
