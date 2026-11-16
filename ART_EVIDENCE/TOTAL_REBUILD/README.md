@@ -87,3 +87,8 @@ Aprobados e integrados (integridad navegador **271/271 pass**): `boss_02_bufe_hi
 ## Pasada TR_W10 (2026-11-15, cierre 04/06/07/08 de jefes)
 Aprobados e integrados (integridad navegador **271/271 pass**): `boss_04_pogo_death` v2 painterly (mismo enforcer mohawk arrodillado), familia **07 Imitador (Fraude)** completa (el doble perfecto del protagonista, traje negro, corona de espejos; attack de explosión de réplicas; death harlequín), y **08 Traidor** idle/attack/hit (Judas de hielo con llave dorada congelada; attack de aliento helado; hit vampiro-duque).
 - **Rechazado/bloqueado:** `boss_06_matarife_death` v2 bloqueado por moderación (prompt con «blutige»-ish context: «blood-dark apron»); redacción sobria pendiente.
+
+## Pasada TR_W11 (2026-11-15, cierre de jefes 08/09/10)
+Aprobados e integrados (integridad navegador **271/271 pass**): `boss_08_traidor_death` (Judas de hielo arrodillado con la llave rota), familia **09 Núcleo** completa (tormenta de cromo fundido y oro con halo-disco incandescente; attack de sierras de vinilo en explosión morada; hit moltenado; death con altavoz de pecho y halo quebrado), **10 Arquitecto** idle (agrimensor de tiza blanca con plano dorado) y attack (caballero violeta con plano ardiente que parte el suelo — acepta como «versión oscura de poder»; queda pedido v2 con el mismo personaje blanco).
+- **Rechazado: `boss_06_matarife_death` v3** — moderación bloqueó v1 («blood-dark apron») y v2; v3 en redacción sobria pasó pero salió **pixel-art** incongruente con la familia pintada; provisional conservado. 4ª solicitud pendiente (prompt painterly explícito + personaje idéntico).
+- Estado jefes: **10/11 familias completas**; falta únicamente `boss_06_matarife_death`.

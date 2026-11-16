@@ -106,9 +106,17 @@ JOBS = [
     ("boss_08_traidor_idle",    "assets/bosses/boss_08_traidor_idle.png",    (368, 576), "bottom-center"),
     ("boss_08_traidor_attack",  "assets/bosses/boss_08_traidor_attack.png",  (416, 448), "bottom-center"),
     ("boss_08_traidor_hit",     "assets/bosses/boss_08_traidor_hit.png",     (384, 448), "bottom-center"),
+    # TR_W11
+    ("boss_08_traidor_death",   "assets/bosses/boss_08_traidor_death.png",   (416, 352), "bottom-center"),
+    ("boss_09_nucleo_idle",     "assets/bosses/boss_09_nucleo_idle.png",     (352, 592), "bottom-center"),
+    ("boss_09_nucleo_attack",   "assets/bosses/boss_09_nucleo_attack.png",   (416, 448), "bottom-center"),
+    ("boss_09_nucleo_hit",      "assets/bosses/boss_09_nucleo_hit.png",      (384, 448), "bottom-center"),
+    ("boss_09_nucleo_death",    "assets/bosses/boss_09_nucleo_death.png",    (416, 352), "bottom-center"),
+    ("boss_10_arquitecto_idle", "assets/bosses/boss_10_arquitecto_idle.png", (496, 560), "bottom-center"),
+    ("boss_10_arquitecto_attack", "assets/bosses/boss_10_arquitecto_attack.png", (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -136,8 +144,10 @@ POST_DESPILL = {
     "boss_02_bufe_hit",
     "boss_04_pogo_death",
     "boss_07_imitador_idle", "boss_07_imitador_attack", "boss_07_imitador_hit", "boss_07_imitador_death",
-    "boss_08_traidor_idle", "boss_08_traidor_attack", "boss_08_traidor_hit",
+    "boss_08_traidor_idle", "boss_08_traidor_attack", "boss_08_traidor_hit", "boss_08_traidor_death",
     "boss_06_matarife_death",
+    "boss_09_nucleo_idle", "boss_09_nucleo_attack", "boss_09_nucleo_hit", "boss_09_nucleo_death",
+    "boss_10_arquitecto_idle", "boss_10_arquitecto_attack",
     "boss_05_oficiante_idle", "boss_05_oficiante_attack", "boss_05_oficiante_hit", "boss_05_oficiante_death",
     "boss_06_matarife_idle", "boss_06_matarife_attack", "boss_06_matarife_hit",
 }

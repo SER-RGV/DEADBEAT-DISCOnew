@@ -224,15 +224,15 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `boss_07_imitador_hit` | `boss_07_imitador_hit` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_07_imitador_idle` | `boss_07_imitador_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_08_traidor_attack` | `boss_08_traidor_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `boss_08_traidor_death` | `boss_08_traidor_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `boss_08_traidor_death` | `boss_08_traidor_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_08_traidor_hit` | `boss_08_traidor_hit` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_08_traidor_idle` | `boss_08_traidor_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `boss_09_nucleo_attack` | `boss_09_nucleo_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_09_nucleo_death` | `boss_09_nucleo_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_09_nucleo_hit` | `boss_09_nucleo_hit` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_09_nucleo_idle` | `boss_09_nucleo_idle` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_10_arquitecto_attack` | `boss_10_arquitecto_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_10_arquitecto_idle` | `boss_10_arquitecto_idle` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `boss_09_nucleo_attack` | `boss_09_nucleo_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_09_nucleo_death` | `boss_09_nucleo_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_09_nucleo_hit` | `boss_09_nucleo_hit` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_09_nucleo_idle` | `boss_09_nucleo_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_10_arquitecto_attack` | `boss_10_arquitecto_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_10_arquitecto_idle` | `boss_10_arquitecto_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 
 ### Apéndice weapons (16)
 
