@@ -13481,6 +13481,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
     cx.restore();
   }
+  /* Como `cover`, pero dentro de un rectángulo (para las ventanas de detalle).
+     La imagen llena el rectángulo entero y se recorta a su alrededor. */
+  function coverIn(im, x, y, w, h, fx, fy, zoom, dark) {
+    if (!ok(im)) { cx.save(); cx.fillStyle = "#0b0416"; cx.fillRect(x, y, w, h); cx.restore(); return; }
+    var sc = Math.max(w / im.naturalWidth, h / im.naturalHeight) * (zoom || 1);
+    var dw = im.naturalWidth * sc, dh = im.naturalHeight * sc;
+    var dx = x + w / 2 - dw * fx, dy = y + h / 2 - dh * fy;
+    cx.save();
+    cx.beginPath(); cx.rect(x, y, w, h); cx.clip();
+    cx.drawImage(im, dx, dy, dw, dh);
+    if (dark) { cx.globalAlpha = dark; cx.fillStyle = C.ink; cx.fillRect(x, y, w, h); }
+    cx.restore();
+  }
   function page(im, fx, fy, zoom, dx, dy, dark) {
     var m = cover(im, fx, fy, zoom, 1, dx, dy);
     if (dark) tint(C.ink, dark);
@@ -13772,6 +13785,35 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (reduced) zoom = 1.09;
     var m = page(img.floor, 0.5, 0.46, zoom, 0, frozen * -H * 0.004, 0.07 + 0.05 * kick);
 
+    /* ── MONTAJE DE LA REPETICIÓN ─────────────────────────────────────────────
+       Cada vuelta repite el encuadre general, pero entra por una ventana de
+       detalle DISTINTA: el reloj, las manos, el plato. Son los mismos tres
+       gestos siempre, en el mismo orden, con el mismo tamaño. Que se repitan es
+       la información: el jugador ve que el mundo está atrapado. En la cuarta
+       vuelta la ventana se congela con el resto.
+       Las esquinas salen del reparto 0/1/2 → no cambia entre vueltas. */
+    if (!reduced) {
+      var winPos = [[0.055, 0.085], [0.735, 0.115], [0.075, 0.615]][i % 3];
+      var wIn = last ? (1 - frozen * 0.85) : ease(seg(u, 0.08, 0.34));
+      if (wIn > 0.02) {
+        var ww = SW * 0.235 * wIn, wh = H * 0.30 * wIn;
+        var wx = X(winPos[0]) + (1 - wIn) * -14 * U, wy = Y(winPos[1]) + (1 - wIn) * 26 * U;
+        var detail = [img.floor, img.hand, img.vinyl][i % 3];
+        cx.save();
+        cx.beginPath(); cx.rect(wx, wy, ww, wh); cx.clip();
+        /* el detalle se pinta DENTRO de la ventana: mismo gesto, mismo tamaño,
+           en el mismo sitio, cada vuelta */
+        coverIn(detail, wx, wy, ww, wh, 0.5, 0.5, (i % 3 === 0 ? 2.4 : 1.06) + prog * 0.05, 0.12);
+        cx.restore();
+        cx.save();
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U);
+        cx.strokeRect(wx, wy, ww, wh);
+        cx.strokeStyle = last ? C.magenta : C.bone; cx.lineWidth = Math.max(1.5, 3 * U);
+        cx.strokeRect(wx, wy, ww, wh);
+        cx.restore();
+      }
+    }
+
     /* La multitud, en paralaje: en cada vuelta vuelve a su posición de salida. */
     var off = reduced ? 0 : Math.sin(local * 1.7) * 0.006 - prog * 0.008;
     crowdLayer(m, off, 1 + 0.03 * prog, 1);
@@ -13858,14 +13900,49 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* La página de las botas nunca se queda quieta: empuje continuo y un
        balanceo de cámara que crece hasta el paso tardío. */
     var pushO = seg(t, 14, 21);
-    page(img.boots, 0.55, 0.6, 1.06 + pushO * 0.16, Math.sin(t * 1.3) * 6 * U, Math.cos(t * 1.1) * 4 * U, 0.5);
+    /* balanceo de cámara al ritmo de la música: la página de las botas respira
+       con el compás en vez de deslizarse rígida. */
+    var bobO = beatPulse(t) * 5 * U;
+    /* una tercera componente lenta, sin periodo común con el compás, para que
+       nunca coincidan dos fotogramas iguales */
+    var slowO = Math.sin(t * 0.37) * 9 * U;
+    page(img.boots, 0.55, 0.6, 1.06 + pushO * 0.16 + Math.sin(t * 0.29) * 0.004,
+      Math.sin(t * 1.3) * 7 * U + slowO, Math.cos(t * 1.1) * 5 * U - bobO, 0.5);
     var steps = [14.6, 15.1, 15.6, 16.1];                  /* cuatro pasos; el cuarto tarde */
+    /* Tres pasos en compás y el cuarto TARDE. El cuarto no se queda quieto: abre
+       un pulso de tinta sobre la pista y el mundo se descuadra un instante —
+       es la primera consecuencia visible de que él va por libre. */
     for (var i = 0; i < steps.length; i++) {
       var p = pop(t, steps[i], 0.13);
       if (p <= 0) continue;
       var px = X(0.20 + i * 0.145) + (i === 3 ? 0.02 * SW : 0), py = Y(0.74 - i * 0.012);
       splat(px, py, (i === 3 ? 58 : 42) * U * p, i === 3 ? C.magenta : C.yellow, 20 + i, 0.95);
       if (i === 3) { sfxWord(t, 16.1, 16.8, "TAC", 0.46, 0.30, 152, C.yellow, -0.2); flash(t, 16.1, 0.12, "#fff", 0.55); }
+    }
+    if (t >= 16.1 && t < 17.6) {
+      var late = seg(t, 16.1, 17.4);
+      /* el golpe se propaga por el damero en anillos que se suceden */
+      for (var ri = 0; ri < 3; ri++) {
+        var rp = clamp((late - ri * 0.11) / 0.62, 0, 1);
+        if (rp <= 0 || rp >= 1) continue;
+        cx.save(); cx.globalAlpha = 0.55 * (1 - rp);
+        cx.strokeStyle = ri === 0 ? C.yellow : C.magenta; cx.lineWidth = Math.max(2, 4 * U * (1 - rp));
+        cx.beginPath(); cx.ellipse(X(0.62), Y(0.78), SW * 0.10 * rp + 6, H * 0.035 * rp + 4, 0, 0, Math.PI * 2); cx.stroke();
+        cx.restore();
+      }
+      /* y la pista se descuadra: las losas se separan en diagonal */
+      if (!reduced) {
+        var skew = Math.sin(late * Math.PI) * W * 0.012;
+        cx.save(); cx.globalAlpha = 0.5 * Math.sin(late * Math.PI);
+        cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(1.5, 2.5 * U);
+        for (var sv = 0; sv < 5; sv++) {
+          cx.beginPath();
+          cx.moveTo(X(0.30 + sv * 0.12) + skew, Y(0.80));
+          cx.lineTo(X(0.30 + sv * 0.12) - skew, Y(0.96));
+          cx.stroke();
+        }
+        cx.restore();
+      }
     }
     slidePanel(t, 14.1, 0, img.boots, [0.25, 0.05, 1, 1], 0.035, 0.09, 0.4, 0.4, -0.05, -0.5, 0, { py: 0, zoom: 1.02, px: 0 });
     caption(t, 14.3, 16.55, "UNO NO SIGUE EL COMPÁS.", 0.04, 0.035, 56, C.yellow, C.ink, -0.03);
@@ -13979,35 +14056,87 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
      pista. La lámina se abre de verdad: el mundo se parte y aparece el pozo. */
   function shotCracks(t, st) {
     if (t < 32.6) {
+      /* ── el suelo se rompe EN PANTALLA ────────────────────────────────────
+         Tres fases encadenadas, no un zoom: (1) el damero se agrieta y las
+         grietas se ramifican, (2) la losa se hunde por sectores —cada uno cae
+         con su propio retardo—, (3) por los huecos se ve el foso, cada vez más. */
       var sh = shakeOf(t, 31, 0.8, 20), sh2 = shakeOf(t, 32, 0.5, 26);
-      page(img.boots, 0.6, 0.62, 1.12 + seg(t, 31, 32.6) * 0.12, sh[0] + sh2[0], sh[1] + sh2[1], 0.08);
+      var push = 1.12 + seg(t, 31, 32.6) * 0.12;
+      page(img.boots, 0.6, 0.62, push, sh[0] + sh2[0], sh[1] + sh2[1], 0.08);
+
+      /* (1) grietas que se abren paso desde el centro de la pista */
       var boom = Math.exp(-(t - 31) * 1.4);
-      var g = cx.createLinearGradient(0, H, 0, H * 0.4); g.addColorStop(0, "rgba(255,45,122," + (0.6 * boom) + ")"); g.addColorStop(1, "rgba(255,45,122,0)");
+      var g = cx.createLinearGradient(0, H, 0, H * 0.4);
+      g.addColorStop(0, "rgba(255,45,122," + (0.6 * boom) + ")"); g.addColorStop(1, "rgba(255,45,122,0)");
       cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = g; cx.fillRect(0, 0, W, H); cx.restore();
       crack([[0.56, 1.02], [0.6, 0.86], [0.52, 0.76], [0.6, 0.66], [0.5, 0.58], [0.38, 0.62], [0.26, 0.55]], seg(t, 31.15, 32.1), 10);
       crack([[0.6, 0.86], [0.74, 0.82], [0.86, 0.88], [1.0, 0.8]], seg(t, 31.5, 32.2), 8);
       crack([[0.52, 0.76], [0.4, 0.84], [0.3, 0.8], [0.14, 0.9]], seg(t, 31.7, 32.4), 8);
+      crack([[0.5, 0.58], [0.44, 0.44], [0.5, 0.34], [0.42, 0.24]], seg(t, 31.9, 32.5), 7);
+
+      /* (2) la losa se hunde por sectores: cada trozo cae con su retardo y deja
+             ver el foso por el hueco. El agujero crece desde el centro. */
+      var hole = ease(seg(t, 31.85, 32.6));
+      if (hole > 0) {
+        var hx = W * 0.53, hy = H * 0.60;
+        cx.save();
+        cx.beginPath();
+        /* contorno irregular: no es un círculo, es un desgarrón */
+        for (var a = 0; a <= 26; a++) {
+          var ang = (a / 26) * Math.PI * 2;
+          var rr = 1 + (rnd(a * 4.1) - 0.5) * 0.26;
+          var rx = (W * 0.30 * hole + 4) * rr, ry = (H * 0.20 * hole + 3) * rr;
+          var pxA = hx + Math.cos(ang) * rx, pyA = hy + Math.sin(ang) * ry * 0.86;
+          if (a === 0) cx.moveTo(pxA, pyA); else cx.lineTo(pxA, pyA);
+        }
+        cx.closePath();
+        /* dentro del hueco: el foso, oscuro, con sus luces subiendo */
+        var hg = cx.createLinearGradient(0, hy - H * 0.2, 0, hy + H * 0.25);
+        hg.addColorStop(0, "#05020a"); hg.addColorStop(0.6, "#120726"); hg.addColorStop(1, "#2a1040");
+        cx.fillStyle = hg; cx.fill();
+        cx.save(); cx.clip();
+        for (var lz = 0; lz < 7; lz++) {
+          var lv = ((t * 0.55 + rnd(lz * 3.7)) % 1);
+          cx.globalAlpha = 0.5 * (1 - lv);
+          cx.fillStyle = lz % 3 === 0 ? C.magenta : (lz % 3 === 1 ? C.cyan : C.yellow);
+          cx.fillRect(hx - W * 0.2 + rnd(lz * 1.3) * W * 0.4, hy + H * 0.2 - lv * H * 0.42, Math.max(2, 3 * U), H * 0.12);
+        }
+        cx.restore();
+        /* filo del desgarrón: tinta gruesa y un ribete encendido */
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(5, 12 * U); cx.stroke();
+        cx.strokeStyle = "rgba(255,45,122,0.75)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.stroke();
+        cx.restore();
+        /* losas que se desprenderán: se marcan un instante antes de caer */
+        if (hole > 0.35) {
+          for (var sl = 0; sl < 5; sl++) {
+            var sp2 = seg(t, 31.95 + sl * 0.09, 32.6);
+            if (sp2 <= 0) continue;
+            var sx2 = hx + (rnd(sl * 7.1) - 0.5) * W * 0.5, sy2 = hy + (rnd(sl * 3.3) - 0.5) * H * 0.26;
+            cx.save(); cx.globalAlpha = 0.9; cx.translate(sx2, sy2 + sp2 * sp2 * H * 0.30); cx.rotate((rnd(sl * 5.5) - 0.5) * sp2 * 0.7);
+            cx.fillStyle = "#1a0f2c"; cx.fillRect(-W * 0.035, -H * 0.02, W * 0.07, H * 0.04);
+            cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(1.5, 2.5 * U); cx.strokeRect(-W * 0.035, -H * 0.02, W * 0.07, H * 0.04);
+            cx.restore();
+          }
+        }
+      }
+
       caption(t, 31.25, 32.5, "Y EL SUELO SE ABRE.", 0.04, 0.05, 58, C.yellow, C.ink, -0.03);
       sfxWord(t, 31.5, 32.5, "CRRRAC", 0.3, 0.36, 168, C.yellow, -0.1);
       flash(t, 31, 0.14, "#fff", 0.6);
+      motes(t, 30, 0.5, 55);
     } else {
-      /* La página se parte en dos y deja ver el pozo DE LADO. El descenso de
-         NUEVA PARTIDA empieza exactamente en este encuadre. */
-      var u = t - 32.6, sp = clamp(u / 0.45, 0, 1), s3 = shakeOf(t, 32.6, 0.35, 14);
-      var hatP = seg(u, 0.1, 1.6);
-      shaftSide(t, 0.03 * u + 0.05 * u * u, sp, lerp(0.5, 0.7, easeOut(seg(u, 0, 0.6))), hatP, s3[0], s3[1]);
-      speedLines(0.5, 0.45, 0.45 * sp, 31);
-      var open = easeOut(seg(u, 0, 0.42));
-      if (open < 1) {
-        for (var k = -1; k <= 1; k += 2) {
-          cx.save(); cx.beginPath();
-          if (k < 0) { cx.moveTo(0, 0); cx.lineTo(W * 0.56, 0); cx.lineTo(W * 0.44, H); cx.lineTo(0, H); }
-          else { cx.moveTo(W * 0.56, 0); cx.lineTo(W, 0); cx.lineTo(W, H); cx.lineTo(W * 0.44, H); }
-          cx.closePath(); cx.translate(k * open * W * 0.6, k * open * H * 0.08); cx.clip();
-          page(img.boots, 0.6, 0.62, 1.24, 0, 0, 0.08);
-          cx.restore();
-        }
-      }
+      /* ── la caída ─────────────────────────────────────────────────────────
+         Ya no hay página ni giro: el personaje cae DENTRO del foso y el foso
+         asciende. La cámara casi no se mueve (8 % en todo el tramo); lo que se
+         mueve es la Torre. */
+      var u = t - 32.6;
+      var speed = clamp(0.55 + u * 0.42, 0.55, 1);
+      var scroll = clamp(0.06 + u * 0.135, 0.06, 0.36);
+      var s3 = shakeOf(t, 32.6, 0.35, 14);
+      /* el sombrero cae junto a él, no en otro plano: se le escapa de la mano */
+      var hatP = seg(u, 0.15, 1.75);
+      shaftSide(t, scroll, speed, null, hatP, s3[0], s3[1], { mode: "fall" });
+      speedLines(0.5, 0.42, 0.55 * speed, 31);
       caption(t, 32.8, 34.2, "NO HAY SUELO QUE LO SOSTENGA.", 0.05, 0.06, 52, C.bone, C.ink, -0.03);
       sfxWord(t, 33.0, 34.2, "FSSSSH", 0.80, 0.80, 126, C.cyan, 0.12);
       flash(t, 32.6, 0.14, "#fff", 0.7);
@@ -14015,85 +14144,340 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
   }
 
+
   /* ─────────────────────── ACTO IV · EL DESCENSO ───────────────────────────
      08 · EL REFUGIO (35,5–42) — picado desde el borde del pozo, caída, título
      y encuadre EXACTO del menú (mc_07_pit). El pozo es el umbral del Refugio:
      el jugador ya está donde NUEVA PARTIDA lo va a recoger. */
+  /* ─────────────────────────── ACTO V · EL REFUGIO ───────────────────────────
+     35,5 → 42. Ya no es "el túnel y luego el título": es la LLEGADA. El foso se
+     abre por abajo, la plataforma de servicio aparece para recibirlo, su sombra
+     entra en el salón que ya conocemos —lámina de suelo, alfombra, zócalo,
+     zorro de neón y plataforma cian, que es el punto exacto por donde NUEVA
+     PARTIDA lo recogerá— y sólo entonces entra el título, con el Refugio todavía
+     debajo. El último fotograma sigue siendo, al píxel, el del menú.
+
+     Geometría del Refugio: la misma que `DD_HUB` en su primer fotograma
+     (HUB_BOUNDS 260·210·1240·760, cámara con el jugador en 880·615, zoom
+     min(1,6, max(1,02, min(W/1150, H/780))), plataforma en 880·785). */
+  var HUBG = { x: 260, y: 210, w: 1240, h: 760, hx: 880, hy: 615, padY: 785 };
+
+  function hubCam() {
+    var zoom = Math.min(1.6, Math.max(1.02, Math.min(W / 1150, H / 780)));
+    var camX = HUBG.hx * 0.55 + (HUBG.x + HUBG.w * 0.5) * 0.45;
+    var camY = HUBG.hy * 0.48 + (HUBG.y + HUBG.h * 0.42) * 0.52;
+    var halfW = W * 0.5 / zoom, halfH = H * 0.5 / zoom;
+    var x0 = HUBG.x - 56, x1 = HUBG.x + HUBG.w + 56;
+    var y0 = HUBG.y - 150, y1 = HUBG.y + HUBG.h + 56;
+    camX = (halfW * 2 >= x1 - x0) ? (x0 + x1) * 0.5 : Math.max(x0 + halfW, Math.min(x1 - halfW, camX));
+    camY = (halfH * 2 >= y1 - y0) ? (y0 + y1) * 0.5 : Math.max(y0 + halfH, Math.min(y1 - halfH, camY));
+    return { zoom: zoom, camX: camX, camY: camY };
+  }
+
+  /* El salón del Refugio, pintado a mano con la identidad del cómic pero con
+     los elementos que son SUYOS: damero en fuga, alfombra central, butacas,
+     lámparas colgantes, zorro de neón en el muro y plataforma cian de bajada.
+     Punto de vista alto, como el del HUB, para que se reconozca al instante.
+     No se usa la caché del motor a propósito: depende de props que el
+     precargador no garantiza cuando arranca la cinemática. */
+  function refugeRoom(a, drop, push, pan) {
+    push = push == null ? 1 : push; pan = pan || 0;
+    var hor = H * 0.455;                                   /* línea de horizonte */
+    var vpx = W * 0.5;
+    cx.fillStyle = "#0a0414"; cx.fillRect(0, 0, W, H);
+    /* empuje y deriva del salón: la cámara acompaña, no se queda clavada */
+    cx.save();
+    cx.translate(W * 0.5 + pan * W, H * 0.52);
+    cx.scale(push, push);
+    cx.translate(-W * 0.5, -H * 0.52);
+
+    /* ── muro del fondo con arcos ── */
+    var wg = cx.createLinearGradient(0, 0, 0, hor);
+    wg.addColorStop(0, "#0b0418"); wg.addColorStop(0.55, "#1d0d31"); wg.addColorStop(1, "#2e1340");
+    cx.fillStyle = wg; cx.fillRect(0, 0, W, hor + 2);
+    for (var ar = 0; ar < 5; ar++) {
+      var ax = W * (0.10 + ar * 0.20), aw = W * 0.055, ah = H * 0.20, ay = hor - ah - H * 0.06;
+      cx.save();
+      cx.beginPath();
+      cx.moveTo(ax - aw, hor - H * 0.02);
+      cx.lineTo(ax - aw, ay + aw * 0.9);
+      cx.arc(ax, ay + aw * 0.9, aw, Math.PI, 0);
+      cx.lineTo(ax + aw, hor - H * 0.02);
+      cx.closePath();
+      var ag = cx.createLinearGradient(0, ay, 0, hor);
+      ag.addColorStop(0, ar % 2 ? "rgba(34,211,238,0.30)" : "rgba(255,45,122,0.30)");
+      ag.addColorStop(1, "rgba(10,4,20,0.9)");
+      cx.fillStyle = ag; cx.fill();
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 6 * U); cx.stroke();
+      cx.strokeStyle = ar % 2 ? "rgba(34,211,238,0.85)" : "rgba(255,45,122,0.85)";
+      cx.lineWidth = Math.max(1.5, 2.5 * U); cx.stroke();
+      cx.restore();
+    }
+    /* zócalo */
+    cx.fillStyle = "#07030d"; cx.fillRect(0, hor - H * 0.025, W, H * 0.025);
+    cx.fillStyle = "rgba(250,204,21,0.55)"; cx.fillRect(0, hor - H * 0.028, W, Math.max(1.5, 2.5 * U));
+
+    /* ── lámparas colgantes: rombos de neón, como en el salón real ── */
+    for (var lp = 0; lp < 4; lp++) {
+      var lx = W * (0.17 + lp * 0.22), ly = H * (0.10 + (lp % 2) * 0.035), lr = H * 0.028;
+      cy_line(lx, 0, lx, ly - lr);
+      var lgl = cx.createRadialGradient(lx, ly, 2, lx, ly, lr * 5);
+      lgl.addColorStop(0, "rgba(255,45,122,0.42)"); lgl.addColorStop(1, "rgba(255,45,122,0)");
+      cx.fillStyle = lgl; cx.fillRect(lx - lr * 5, ly - lr * 5, lr * 10, lr * 10);
+      cx.save(); cx.translate(lx, ly); cx.rotate(Math.PI / 4);
+      cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 3.5 * U);
+      cx.strokeRect(-lr * 0.7, -lr * 0.7, lr * 1.4, lr * 1.4);
+      cx.restore();
+    }
+
+    /* ── suelo: damero en fuga hacia el punto de fuga ── */
+    var fg = cx.createLinearGradient(0, hor, 0, H);
+    fg.addColorStop(0, "#2a1236"); fg.addColorStop(0.5, "#3d1638"); fg.addColorStop(1, "#1d0820");
+    cx.fillStyle = fg; cx.fillRect(0, hor, W, H - hor);
+    var rows = 12;
+    for (var r = 0; r < rows; r++) {
+      var t0 = r / rows, t1 = (r + 1) / rows;
+      var y0 = hor + (H - hor) * Math.pow(t0, 2.1), y1 = hor + (H - hor) * Math.pow(t1, 2.1);
+      var spread0 = Math.pow(t0, 2.1), spread1 = Math.pow(t1, 2.1);
+      var cols = 4 + r;
+      for (var c2 = 0; c2 < cols; c2++) {
+        if ((r + c2) % 2) continue;
+        var c0 = c2 / cols, c1 = (c2 + 1) / cols;
+        var xa0 = vpx + (c0 - 0.5) * W * (0.55 + spread0 * 2.1);
+        var xb0 = vpx + (c1 - 0.5) * W * (0.55 + spread0 * 2.1);
+        var xa1 = vpx + (c0 - 0.5) * W * (0.55 + spread1 * 2.1);
+        var xb1 = vpx + (c1 - 0.5) * W * (0.55 + spread1 * 2.1);
+        cx.beginPath(); cx.moveTo(xa0, y0); cx.lineTo(xb0, y0); cx.lineTo(xb1, y1); cx.lineTo(xa1, y1); cx.closePath();
+        cx.fillStyle = "rgba(244,236,216," + (0.045 + 0.035 * (1 - r / rows)) + ")";
+        cx.fill();
+      }
+    }
+
+    /* ── alfombra central en fuga ── */
+    var rt = 0.30, rb = 0.98;
+    var ry0 = hor + (H - hor) * Math.pow(rt, 2.1), ry1 = hor + (H - hor) * Math.pow(rb, 2.1);
+    var rw0 = W * 0.16, rw1 = W * 0.62;
+    cx.save();
+    cx.beginPath();
+    cx.moveTo(vpx - rw0 / 2, ry0); cx.lineTo(vpx + rw0 / 2, ry0);
+    cx.lineTo(vpx + rw1 / 2, ry1); cx.lineTo(vpx - rw1 / 2, ry1); cx.closePath();
+    var rgd = cx.createLinearGradient(0, ry0, 0, ry1);
+    rgd.addColorStop(0, "#4d1330"); rgd.addColorStop(0.5, "#7d1f45"); rgd.addColorStop(1, "#3a0d26");
+    cx.fillStyle = rgd; cx.fill();
+    cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U); cx.stroke();
+    cx.strokeStyle = "rgba(255,45,122,0.7)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.stroke();
+    /* cenefa y rombos del dibujo de la alfombra */
+    cx.clip();
+    cx.strokeStyle = "rgba(244,236,216,0.18)"; cx.lineWidth = Math.max(1, 2 * U);
+    for (var dz = 0; dz < 5; dz++) {
+      var dz0 = ry0 + (ry1 - ry0) * (dz / 5), dz1 = ry0 + (ry1 - ry0) * ((dz + 1) / 5);
+      var hw0 = lerp(rw0, rw1, dz / 5) * 0.34;
+      cx.beginPath(); cx.moveTo(vpx, dz0); cx.lineTo(vpx + hw0, (dz0 + dz1) / 2); cx.lineTo(vpx, dz1); cx.lineTo(vpx - hw0, (dz0 + dz1) / 2); cx.closePath(); cx.stroke();
+    }
+    cx.restore();
+
+    /* ── butacas rojas a los lados ── */
+    for (var ch2 = 0; ch2 < 4; ch2++) {
+      var side = ch2 < 2 ? -1 : 1;
+      var chx = vpx + side * W * (ch2 % 2 ? 0.335 : 0.215);
+      var chy = hor + (H - hor) * (ch2 % 2 ? 0.42 : 0.30);
+      var chw = W * (ch2 % 2 ? 0.058 : 0.046), chh = H * (ch2 % 2 ? 0.085 : 0.068);
+      cx.save();
+      /* respaldo alto */
+      cx.fillStyle = "#2f0817"; cx.fillRect(chx - chw / 2, chy - chh, chw, chh * 0.82);
+      cx.strokeStyle = "rgba(255,45,122,0.5)"; cx.lineWidth = Math.max(1.2, 2 * U);
+      cx.strokeRect(chx - chw / 2, chy - chh, chw, chh * 0.82);
+      /* asiento */
+      cx.fillStyle = "#470d22"; cx.fillRect(chx - chw * 0.62, chy - chh * 0.16, chw * 1.24, chh * 0.2);
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(1.5, 2.5 * U); cx.strokeRect(chx - chw * 0.62, chy - chh * 0.16, chw * 1.24, chh * 0.2);
+      /* patas */
+      cx.strokeStyle = "rgba(7,3,13,0.95)"; cx.lineWidth = Math.max(1.5, 2.5 * U);
+      cx.beginPath(); cx.moveTo(chx - chw * 0.45, chy + chh * 0.04); cx.lineTo(chx - chw * 0.52, chy + chh * 0.3);
+      cx.moveTo(chx + chw * 0.45, chy + chh * 0.04); cx.lineTo(chx + chw * 0.52, chy + chh * 0.3); cx.stroke();
+      cx.restore();
+    }
+
+    /* ── zorro de neón en el muro derecho ── */
+    var fxx = W * 0.885, fyy = hor - H * 0.16;
+    var fgl = cx.createRadialGradient(fxx, fyy + H * 0.05, 8, fxx, fyy + H * 0.05, H * 0.24);
+    fgl.addColorStop(0, "rgba(255,45,122,0.42)"); fgl.addColorStop(1, "rgba(255,45,122,0)");
+    cx.fillStyle = fgl; cx.fillRect(fxx - H * 0.28, fyy - H * 0.2, H * 0.56, H * 0.56);
+    cx.save(); cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2.5, 5 * U);
+    var fk = H * 0.075;
+    cx.beginPath();
+    cx.moveTo(fxx - fk * 0.55, fyy + fk * 0.42); cx.lineTo(fxx - fk * 0.32, fyy - fk * 0.12);
+    cx.lineTo(fxx - fk * 0.1, fyy + fk * 0.34); cx.lineTo(fxx + fk * 0.14, fyy - fk * 0.12);
+    cx.lineTo(fxx + fk * 0.38, fyy + fk * 0.42); cx.lineTo(fxx, fyy + fk * 1.15);
+    cx.closePath(); cx.stroke(); cx.restore();
+
+    /* ── plataforma de descenso cian, delante ── */
+    var padX = W * 0.5, padY = H * 0.905, padR = W * 0.075;
+    var pgl = cx.createRadialGradient(padX, padY, 4, padX, padY, padR * 2.6);
+    pgl.addColorStop(0, "rgba(34,211,238,0.55)"); pgl.addColorStop(1, "rgba(34,211,238,0)");
+    cx.fillStyle = pgl; cx.fillRect(padX - padR * 2.6, padY - padR * 2.6, padR * 5.2, padR * 5.2);
+    cx.save();
+    cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(2.5, 4.5 * U);
+    cx.beginPath(); cx.ellipse(padX, padY, padR, padR * 0.32, 0, 0, Math.PI * 2); cx.stroke();
+    cx.strokeStyle = "rgba(34,211,238,0.45)"; cx.lineWidth = Math.max(1.2, 2.2 * U);
+    cx.beginPath(); cx.ellipse(padX, padY, padR * 1.5, padR * 0.48, 0, 0, Math.PI * 2); cx.stroke();
+    cx.restore();
+
+    /* ── luz del salón ── */
+    var sgl = cx.createLinearGradient(0, 0, W * 0.66, 0);
+    sgl.addColorStop(0, "rgba(5,2,10," + (0.9 * a) + ")"); sgl.addColorStop(0.5, "rgba(5,2,10," + (0.42 * a) + ")"); sgl.addColorStop(1, "rgba(5,2,10,0)");
+    cx.fillStyle = sgl; cx.fillRect(0, 0, W, H);
+    var bgl = cx.createLinearGradient(0, H * 0.7, 0, H);
+    bgl.addColorStop(0, "rgba(5,2,10,0)"); bgl.addColorStop(1, "rgba(5,2,10," + (0.55 * a) + ")");
+    cx.fillStyle = bgl; cx.fillRect(0, H * 0.7, W, H * 0.3);
+    cx.restore();
+    halftone(0, 0, W, H, 0.09);
+    /* las coordenadas que devuelve ya llevan el empuje aplicado */
+    var toS = function (x, y) {
+      return { x: (x - W * 0.5) * push + W * 0.5 + pan * W, y: (y - H * 0.52) * push + H * 0.52 };
+    };
+    var pd2 = toS(padX, padY);
+    return { padX: pd2.x, padY: pd2.y, floorY: (padY - H * 0.105 - H * 0.52) * push + H * 0.52, vpx: vpx };
+  }
+
+  function cy_line(x0, y0, x1, y1) {
+    cx.save(); cx.strokeStyle = "rgba(7,3,13,0.9)"; cx.lineWidth = Math.max(1, 1.6 * U);
+    cx.beginPath(); cx.moveTo(x0, y0); cx.lineTo(x1, y1); cx.stroke(); cx.restore();
+  }
+
   function shotFall(t, st) {
     if (t < 38) {
-      var v = t - 35.5, back = ease(seg(v, 0.7, 1.5));
-      var zoom = lerp(2.6, 1.0, back), fx = lerp(PIT_CAM[0], 0.5, back), fy = lerp(PIT_CAM[1], 0.5, back);
-      /* Cuando el sombrero ya ha caído, la cámara sigue retrocediendo despacio:
-         el pozo se agranda y el encuadre se prepara para ser el del menú. */
-      var creep = ease(seg(v, 1.1, 2.5)) * 0.06;
-      var m = page(img.pit, fx, fy, zoom + (1 - back) * seg(v, 0, 0.9) * 0.14 + creep, Math.sin(v * 1.7) * 5 * U, Math.cos(v * 1.3) * 3 * U, 0);
-      /* Ascuas que suben del pozo: el bucle sigue latiendo ahí abajo. */
-      if (!reduced) {
-        for (var e2 = 0; e2 < 14; e2++) {
-          var ev2 = (v * 0.22 + rnd(e2 * 3.3)) % 1;
-          var ex2 = m.x + m.w * (0.42 + rnd(e2 * 1.7) * 0.18), ey2 = m.y + m.h * (0.62 - ev2 * 0.5);
-          cx.save(); cx.globalAlpha = 0.55 * (1 - ev2) * seg(v, 1.0, 1.4);
-          cx.fillStyle = e2 % 3 === 0 ? C.yellow : C.magenta;
-          cx.beginPath(); cx.arc(ex2 + Math.sin(v * 2 + e2) * 8 * U, ey2, Math.max(1, 2.2 * U * (1 - ev2 * 0.6)), 0, 7); cx.fill();
+      var v = t - 35.5;
+      /* el foso se abre por abajo: la cámara sube con él mientras cae */
+      var open = ease(seg(v, 0.25, 1.55));
+      var camK = ease(seg(v, 0.55, 2.6));
+      var drop = (1 - ease(seg(v, 0.5, 2.4))) * H * 0.06;
+      if (open < 1) {
+        /* todavía dentro del foso: cae y abajo empieza a verse la luz del salón */
+        shaftSide(t, 0.30 + v * 0.10, 1 - ease(seg(v, 0.9, 1.7)), null, -1, 0, 0, { mode: "fall" });
+        var gOpen = cx.createLinearGradient(0, H, 0, H * (1 - 0.55 * open));
+        gOpen.addColorStop(0, "rgba(255,45,122," + (0.55 * open) + ")"); gOpen.addColorStop(1, "rgba(255,45,122,0)");
+        cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = gOpen; cx.fillRect(0, 0, W, H); cx.restore();
+      } else {
+        /* ya en el salón: entra desde arriba y se queda plantado delante de la
+           plataforma de bajada, que es donde NUEVA PARTIDA lo recogerá */
+        var rPush = 1 + ease(seg(v, 0.5, 2.6)) * 0.05;
+        var rPan = Math.sin(clamp(v, 0, 2.6) * 1.1) * 0.012;
+        var room = refugeRoom(1, drop, rPush, rPan);
+        var land = ease(seg(v, 0.95, 1.75));
+        var feetY = room.floorY, shY = feetY - (1 - land) * H * 0.28;
+        cx.save();
+        cx.globalAlpha = 0.55;
+        cx.fillStyle = C.ink; cx.beginPath();
+        cx.ellipse(room.padX - walk * W * 0.045, shY, W * (0.045 + 0.02 * (1 - land)), H * (0.013 + 0.005 * (1 - land)), 0, 0, Math.PI * 2); cx.fill();
+        cx.restore();
+        /* el héroe entra en escena desde arriba y se queda plantado en el salón.
+           Los pies, EXACTAMENTE en la línea de suelo del HUB (0,563 de alto). */
+        if (ok(img.hero)) {
+          var hh = H * 0.40, hw = hh * 288 / 512;
+          cx.save();
+          cx.globalAlpha = land;
+          cx.drawImage(img.hero, room.padX - hw * 0.49 - walk * W * 0.045,
+            feetY - hh - (1 - land) * H * 0.40 - stepBob, hw, hh);
           cx.restore();
         }
-      }
-      var pcx = m.x + m.w * PIT[0], pcy = m.y + m.h * PIT[1];
-      var far = easeOut(seg(v, 0, 1.1)), pr = m.w * lerp(0.085, 0.012, far);
-      cx.save(); cx.globalAlpha = 1 - seg(v, 0.9, 1.35);
-      cx.fillStyle = C.ink; cx.beginPath(); cx.arc(pcx, pcy, pr * 1.15, 0, 7); cx.fill();
-      cx.fillStyle = "#2a1040"; cx.beginPath(); cx.arc(pcx, pcy, pr, 0, 7); cx.fill();
-      cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(1.5, pr * 0.12); cx.beginPath(); cx.arc(pcx, pcy, pr * 0.9, 0, 7); cx.stroke();
-      cx.fillStyle = C.ink; cx.beginPath(); cx.ellipse(pcx, pcy, pr * 0.2, pr * 0.3, 0, 0, 7); cx.fill();
-      cx.restore();
-      speedLines((pcx - SX) / SW, pcy / H, 0.5 * (1 - back), 4);
-      if (v < 1.1 && ok(img.hat)) {
-        var hp = seg(v, 0, 1.1), hx = lerp(pcx, m.x + m.w * 0.77, Math.pow(hp, 1.6)), hy = lerp(pcy, m.y + m.h * 0.74, Math.pow(hp, 2.2)) - Math.sin(hp * Math.PI) * H * 0.22;
-        var hw2 = m.w * lerp(0.03, 0.2, hp), hh2 = hw2 * img.hat.naturalHeight / img.hat.naturalWidth;
-        cx.save(); cx.translate(hx, hy); cx.rotate(reduced ? 0 : hp * 7); cx.drawImage(img.hat, -hw2 / 2, -hh2 / 2, hw2, hh2); cx.restore();
+        /* Después de tocar suelo la escena SIGUE: da dos pasos hacia la sala
+           (el mismo recurso del HUB: el fotograma se desplaza con un rebote),
+           cae polvo del boquete por el que ha entrado y las lámparas laten.
+           Sin esto, del 37,3 al 40,5 sólo se movería la cámara. */
+        var walk = seg(v, 1.8, 2.55);              /* dos pasos, hasta el título */
+        var stepBob = Math.abs(Math.sin(walk * Math.PI * 2)) * H * 0.008;
+        if (!reduced) {
+          /* polvo y ascuas cayendo del boquete */
+          for (var pd = 0; pd < 16; pd++) {
+            var pv2 = ((v * 0.30 + rnd(pd * 2.7)) % 1);
+            cx.save(); cx.globalAlpha = 0.55 * (1 - pv2) * seg(v, 1.0, 1.4);
+            cx.fillStyle = pd % 3 === 0 ? C.magenta : (pd % 3 === 1 ? C.bone : C.cyan);
+            cx.beginPath();
+            cx.arc(W * (0.3 + rnd(pd * 3.1) * 0.4) + Math.sin(v * 2.2 + pd) * 10 * U,
+              H * (0.02 + pv2 * 0.62), Math.max(1, 2.4 * U * (1 - pv2 * 0.5)), 0, 7);
+            cx.fill(); cx.restore();
+          }
+        }
+        /* polvo del aterrizaje */
+        if (!reduced && land > 0 && land < 1) {
+          for (var d = 0; d < 12; d++) {
+            var dv = (1 - land) * 1.2;
+            cx.save(); cx.globalAlpha = 0.5 * (1 - land);
+            cx.fillStyle = d % 2 ? C.bone : C.magenta;
+            cx.beginPath(); cx.arc(room.padX + (rnd(d * 3.1) - 0.5) * W * 0.16 * (1 - land + 0.3) / dv * 0.4,
+              room.floorY + (rnd(d * 1.7) - 0.5) * H * 0.03, Math.max(1, (3 + 8 * rnd(d)) * U * (1 - land)), 0, 7);
+            cx.fill(); cx.restore();
+          }
+        }
+        speedLines(0.5, 0.5, 0.28 * (1 - land), 41);
       }
       caption(t, 35.7, 37.7, "LA TORRE YA NO PUEDE SOSTENERLO.", 0.045, 0.05, 54, C.bone, C.ink, -0.03);
-      flash(t, 35.5, 0.12, "#fff", 0.6); flash(t, 36.62, 0.14, C.yellow, 0.5);
+      flash(t, 35.5, 0.12, "#fff", 0.6);
     } else {
       shotTitle(t, st);
     }
   }
 
-  /* ACTO V · EL REFUGIO — el encuadre final es, exactamente, el fondo del menú
-     (mc_07_pit). Bajo el logotipo, el pozo late una vez más: el bucle no ha
-     terminado. */
+  /* El título ya no tapa el Refugio: entra SOBRE él, con el salón todavía
+     detrás y el héroe plantado en la plataforma. Los últimos 1,5 s se pintan
+     con la geometría exacta del menú (misma lámina, mismo encuadre, misma
+     sombra) para que el relevo no se note. */
   function shotTitle(t, st) {
     var tq = t - TITLE_AT, sh = shakeOf(t, TITLE_AT, 0.5, 16);
-    /* Empuje lento del encuadre hasta el final: el último plano no está quieto
-       y la transición al menú (que deriva igual) no salta. */
-    /* El menú real pinta esta lámina con object-fit: cover y object-position
-       50% 50%. Aquí se encuadra con la misma regla: en 16:9 coincide con el
-       centro exacto, y en otras proporciones el recorte se desplaza igual. */
-    /* Se replica EXACTAMENTE lo que hace el menú con esta misma lámina:
-       object-fit: cover sobre el viewport, y luego la animación `rs-drift`
-       (transform: scale(1) → scale(1.04)) con transform-origin en un punto fijo.
-       El relevo llega con la animación casi en su fotograma 0 (escala
-       1,00003), así que aquí se pinta con la misma composición: sin esto el
-       corte se veía como un desplazamiento de una veintena de píxeles. */
-    var drift = 1 + 0.04 * (1 - Math.cos(Math.min(1, 0) * Math.PI)) / 2;   /* = 1 en t = 0 */
-    var push = (1 + (1 - ease(seg(tq, 0.6, 4))) * 0.045) * drift;
-    var sB = Math.max(W / img.pit.naturalWidth, H / img.pit.naturalHeight) * push;
-    var bw = img.pit.naturalWidth * sB, bh = img.pit.naturalHeight * sB;
-    var ox = W * 0.46, oy = H * 0.43;                    /* transform-origin: 46% 43% */
-    cx.save();
-    cx.translate(ox, oy);
-    cx.drawImage(img.pit, (W - bw) / 2 - ox + (sh[0] || 0), (H - bh) / 2 - oy + (sh[1] || 0), bw, bh);
-    cx.restore();
-    /* La sombra lateral y el degradado inferior son EXACTAMENTE los del menú
-       (dd_rebuild_ui.css › #dd-main-menu.dd-rs .dd-menu-vig). Si cambian aquí
-       hay que cambiarlos allí: el último fotograma y el menú son la misma
-       imagen y el relevo no puede notarse. */
-    var a = ease(seg(tq, 0.1, 1.6));
+    /* 38 → 40,5: el salón del Refugio, vivo (respira la luz del zorro). */
+    var toMenu = ease(seg(tq, 2.2, 3.1));                    /* 40,5 → 41,4 fundido al menú */
+    if (toMenu < 1) {
+      var roomA = 1 - toMenu;                       /* se va con el fundido */
+      var room2 = refugeRoom(roomA, 0, 1.05 + easeOut(seg(tq, 0, 2.5)) * 0.03, Math.sin(tq * 0.7) * 0.008);
+      if (ok(img.hero)) {
+        var hh2 = H * 0.40, hw2 = hh2 * 288 / 512;
+        var idle = reduced ? 0 : Math.sin(tq * 1.9) * H * 0.004;   /* respira */
+        cx.save(); cx.globalAlpha = roomA;
+        cx.drawImage(img.hero, room2.padX - hw2 * 0.49 - W * 0.045, room2.floorY - hh2 - idle, hw2, hh2);
+        cx.restore();
+      }
+      if (!reduced) {
+        /* el salón sigue vivo: lámparas que laten y ascuas que se apagan */
+        for (var lb = 0; lb < 4; lb++) {
+          var lbx = W * (0.17 + lb * 0.22), lby = H * (0.10 + (lb % 2) * 0.035);
+          var pulseL = 0.5 + 0.5 * Math.sin(tq * 2.4 + lb * 1.3);
+          cx.save(); cx.globalAlpha = 0.10 + 0.16 * pulseL;
+          var lgg = cx.createRadialGradient(lbx, lby, 2, lbx, lby, H * 0.12);
+          lgg.addColorStop(0, "rgba(255,45,122,0.9)"); lgg.addColorStop(1, "rgba(255,45,122,0)");
+          cx.fillStyle = lgg; cx.fillRect(lbx - H * 0.12, lby - H * 0.12, H * 0.24, H * 0.24); cx.restore();
+        }
+        for (var em = 0; em < 10; em++) {
+          var ev3 = (tq * 0.18 + rnd(em * 4.3)) % 1;
+          cx.save(); cx.globalAlpha = 0.4 * (1 - ev3);
+          cx.fillStyle = em % 2 ? C.magenta : C.yellow;
+          cx.beginPath(); cx.arc(W * (0.34 + rnd(em * 1.7) * 0.32) + Math.sin(tq * 1.5 + em) * 8 * U,
+            H * (0.5 - ev3 * 0.44), Math.max(1, 2 * U * (1 - ev3 * 0.6)), 0, 7); cx.fill(); cx.restore();
+        }
+      }
+      if (!reduced) {
+        /* la respiración del neón: dos latidos lentos, no un fundido muerto */
+        var breath = 0.12 + 0.10 * (0.5 + 0.5 * Math.sin(tq * 2.4));
+        var bg2 = cx.createRadialGradient(W * 0.82, H * 0.34, 8, W * 0.82, H * 0.34, H * 0.5);
+        bg2.addColorStop(0, "rgba(255,45,122," + breath + ")"); bg2.addColorStop(1, "rgba(255,45,122,0)");
+        cx.fillStyle = bg2; cx.fillRect(0, 0, W, H);
+      }
+    }
+    if (toMenu > 0) {
+      /* el encuadre del menú, con la regla exacta del menú */
+      var sB = Math.max(W / img.pit.naturalWidth, H / img.pit.naturalHeight) * 1;
+      var bw = img.pit.naturalWidth * sB, bh = img.pit.naturalHeight * sB;
+      var ox = W * 0.46, oy = H * 0.43;
+      cx.save(); cx.globalAlpha = toMenu;
+      cx.translate(ox, oy);
+      cx.drawImage(img.pit, (W - bw) / 2 - ox + (sh[0] || 0), (H - bh) / 2 - oy + (sh[1] || 0), bw, bh);
+      cx.restore();
+    }
+    /* las sombras del menú, desde el primer instante del título */
+    var a = ease(seg(tq, 0.1, 1.6)) * (1 - 0.35 * (1 - toMenu));
     var side = cx.createLinearGradient(0, 0, W * 0.72, 0);
     side.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")");
     side.addColorStop(0.36, "rgba(5,2,10," + (0.72 * a) + ")");
     side.addColorStop(0.72, "rgba(5,2,10,0)");
-    side.addColorStop(1, "rgba(5,2,10,0)");
     cx.fillStyle = side; cx.fillRect(0, 0, W, H);
     var vert = cx.createLinearGradient(0, 0, 0, H);
     vert.addColorStop(0, "rgba(5,2,10," + (0.5 * a) + ")");
@@ -14101,25 +14485,22 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     vert.addColorStop(0.72, "rgba(5,2,10,0)");
     vert.addColorStop(1, "rgba(5,2,10," + (0.78 * a) + ")");
     cx.fillStyle = vert; cx.fillRect(0, 0, W, H);
-    var b = logoBox(), k = easeOut(seg(tq, 0, 0.35)), cxm = b.x + b.w / 2, cym = b.y + b.h / 2;
-    /* Mancha de tinta detrás del logotipo: no es una ventana, es pintura. Se
-       queda pequeña y se retira pronto para no competir con el título. */
-    splat(cxm + b.w * 0.06, cym + b.h * 0.05, b.w * 0.46 * k, C.magenta, 3, 0.20 * (1 - 0.7 * seg(tq, 0.5, 2)));
-    splat(cxm + b.w * 0.30, cym + b.h * 0.28, b.w * 0.17 * k, C.yellow, 8, 0.45 * (1 - 0.7 * seg(tq, 0.5, 2)));
+
+    var b = logoBox(), k = easeOut(seg(tq, 0, 0.35)), cxmB = b.x + b.w / 2, cymB = b.y + b.h / 2;
+    splat(cxmB + b.w * 0.06, cymB + b.h * 0.05, b.w * 0.46 * k, C.magenta, 3, 0.20 * (1 - 0.7 * seg(tq, 0.5, 2)));
+    splat(cxmB + b.w * 0.30, cymB + b.h * 0.28, b.w * 0.17 * k, C.yellow, 8, 0.45 * (1 - 0.7 * seg(tq, 0.5, 2)));
     if (ok(img.logo)) {
       var sc = reduced ? 1 : 1 + 0.6 * Math.pow(1 - seg(tq, 0, 0.35), 2);
       cx.save(); cx.globalAlpha = seg(tq, 0, 0.1);
-      cx.drawImage(img.logo, cxm - b.w * sc / 2, cym - b.h * sc / 2, b.w * sc, b.h * sc);
+      cx.drawImage(img.logo, cxmB - b.w * sc / 2, cymB - b.h * sc / 2, b.w * sc, b.h * sc);
       cx.restore();
     }
-    /* El lema, en la misma línea que el del menú: centrado con el logotipo y
-       a 1,2 vh de su borde inferior, con el mismo tamaño relativo. */
     var ta = ease(seg(tq, 0.9, 1.6));
     if (ta > 0 && b.tag) {
       cx.save(); cx.globalAlpha = ta; cx.fillStyle = C.bone;
       var fs = clamp(Math.min(W * 0.0158, H * 0.0263), 11, 28), txt = "LA NOCHE QUE DEVORÓ EL AMANECER";
       cx.font = "italic 800 " + fs + "px " + FONT_CAP;
-      var track = fs * 0.02;                 /* el menú lleva letter-spacing: .02em */
+      var track = fs * 0.02;
       var tw = cx.measureText(txt).width + track * (txt.length - 1);
       var tx = b.brandX + b.brandW / 2 - tw / 2, ty = b.y + b.h + H * 0.012;
       cx.textAlign = "left"; cx.textBaseline = "top"; cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
@@ -14130,48 +14511,92 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       cx.restore();
     }
-    var pulse2 = ease(seg(tq, 1.8, 2.6)) * (1 - ease(seg(tq, 2.6, 3.6)));
-    if (pulse2 > 0) glow(W * 0.62, H * 0.62, H * 0.42, "rgba(255,45,122,0.9)", 0.24 * pulse2);
-    /* Embers rising out of the pit and a soft light sweep across the logo:
-       two cheap moves that keep the closing frame from freezing while the
-       player reads the title. */
+    /* Barrido de luz sobre la lámina mientras el título está arriba: no cambia
+       la composición, sólo la ilumina, y aterriza antes de 42,0 para que el
+       relevo al menú siga siendo exacto. Evita un segundo de imagen muerta. */
     if (!reduced) {
-      for (var e3 = 0; e3 < 16; e3++) {
-        var pv = (tq * 0.24 + rnd(e3 * 5.1)) % 1;
-        var px3 = W * (0.46 + rnd(e3 * 2.9) * 0.3) + Math.sin(tq * 1.6 + e3) * 10 * U;
-        var py3 = H * (0.86 - pv * 0.7);
-        cx.save(); cx.globalAlpha = 0.5 * (1 - pv) * seg(tq, 0.6, 1.2);
-        cx.fillStyle = e3 % 4 === 0 ? C.yellow : (e3 % 4 === 1 ? C.cyan : C.magenta);
-        cx.beginPath(); cx.arc(px3, py3, Math.max(1, 2 * U * (1 - pv * 0.7)), 0, 7); cx.fill(); cx.restore();
-      }
-      var sw = ease(seg(tq, 0.9, 2.9));
-      if (sw > 0 && sw < 1) {
-        cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.10 * Math.sin(sw * Math.PI);
-        var lgx = b.x - b.w * 0.4 + sw * b.w * 1.8;
-        var sg = cx.createLinearGradient(lgx - b.w * 0.2, 0, lgx + b.w * 0.2, 0);
-        sg.addColorStop(0, "rgba(255,255,255,0)"); sg.addColorStop(0.5, "rgba(255,255,255,0.9)"); sg.addColorStop(1, "rgba(255,255,255,0)");
-        cx.fillStyle = sg; cx.fillRect(lgx - b.w * 0.25, b.y - b.h * 0.1, b.w * 0.5, b.h * 1.2);
+      var swp = ease(seg(tq, 1.1, 3.1));
+      if (swp > 0 && swp < 1) {
+        cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.10 * Math.sin(swp * Math.PI);
+        var swx = W * (0.2 + swp * 0.9);
+        var swg = cx.createLinearGradient(swx - W * 0.18, 0, swx + W * 0.18, 0);
+        swg.addColorStop(0, "rgba(255,255,255,0)"); swg.addColorStop(0.5, "rgba(190,240,255,0.9)"); swg.addColorStop(1, "rgba(255,255,255,0)");
+        cx.fillStyle = swg; cx.fillRect(swx - W * 0.2, 0, W * 0.4, H);
         cx.restore();
       }
     }
-    flash(t, TITLE_AT, 0.1, "#fff", 0.6);
+    /* Aliento final del pozo: un 1,5 % de luz que sube y baja. Invisible como
+       gesto, suficiente para que el último segundo no sea una lámina quieta, y
+       por debajo del umbral que el ojo lee como parpadeo. */
+    if (!reduced) {
+      var lastBreath = 0.5 + 0.5 * Math.sin(tq * 2.1);
+      cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.035 * lastBreath;
+      var lbg = cx.createRadialGradient(W * 0.52, H * 0.52, H * 0.08, W * 0.52, H * 0.52, H * 0.62);
+      lbg.addColorStop(0, "rgba(255,45,122,0.9)"); lbg.addColorStop(1, "rgba(255,45,122,0)");
+      cx.fillStyle = lbg; cx.fillRect(0, 0, W, H); cx.restore();
+    }
+    /* Cartela aprobada nº2: se paga al entrar en el Refugio, no en el descenso. */
+    caption(t, 38.45, 40.2, "POR FIN, HABÍA QUIEN PODÍA IMAGINAR UN MAÑANA.", 0.035, 0.845, 42, C.bone, C.ink, -0.02);
+    flash(t, TITLE_AT, 0.08, "#fff", 0.3);
   }
+
 
   /* Pozo visto de lado: plataforma, cadenas y el IDLE aceptado (07B). Lo usan la
      intro (inicio de la caída) y NUEVA PARTIDA (el resto del descenso).
      scroll: avance por la torre (0–1); hatP: -1 sin sombrero, 0–1 desprendiéndose. */
-  function shaftSide(t, scroll, speed, platFy, hatP, shx, shy) {
+  /* ──────────────────────── FOSO LATERAL (compartido) ───────────────────────
+     Un solo pintor del foso para tres usos: el descenso de NUEVA PARTIDA
+     (plataforma de servicio), la caída libre del acto IV y la llegada al
+     Refugio. Todo lo que no es fondo es FIGURA: contenido desplazándose de abajo
+     arriba mientras el personaje cae. El movimiento no es de cámara: es el
+     mundo el que asciende.
+
+     opts:
+       scroll   qué tramo del foso se ve (0 arriba · 1 fondo)
+       speed    0 quieto · 1 caída plena; gobierna estela, viento y polvo
+       platFy   altura de la plataforma (0..1) o null si no hay plataforma
+       hatP     progreso del sombrero que cae (0..1) o -1 para no dibujarlo
+       shx/shy  sacudida
+       mode     "platform" (descenso) | "fall" (caída) | "arrival" (aterrizaje)
+       t        reloj local del movimiento continuo
+       free     desplazamiento vertical propio (px) para la llegada
+  */
+  function shaftSide(t, scroll, speed, platFy, hatP, shx, shy, opts) {
+    opts = opts || {};
+    var mode = opts.mode || "platform";
+    var free = opts.free || 0;
+    /* ── fondo: las nueve plantas del foso, ascendiendo ── */
     cx.fillStyle = "#0b0416"; cx.fillRect(0, 0, W, H);
     if (ok(img.nine)) {
-      var iw = Math.max(W * 0.74, H * 1.25), s = iw / 768, ih = NINE_H * s, ix = W / 2 - iw / 2;
-      var iy = -lerp(380 * s, ih - H, clamp(scroll, 0, 1));
+      var iw = Math.max(W * 0.74, H * 1.25), sc = iw / 768, ih = NINE_H * sc, ix = W / 2 - iw / 2;
+      var iy = -lerp(380 * sc, ih - H, clamp(scroll, 0, 1)) + free * 0.45;
       cx.drawImage(img.nine, ix, iy, iw, ih);
-      tint("rgba(7,3,13,1)", 0.38);
+      tint("rgba(7,3,13,1)", mode === "fall" ? 0.24 : 0.38);
       halftone(0, 0, W, H, 0.16);
+      /* Vigas que cruzan el foso: se ven pasar a velocidad de caída. Da escala y
+         continuidad (es la misma Torre de los planos 2 y 3) y evita que el
+         descenso se lea como un simple desplazamiento del fondo. */
+      if (!reduced) {
+        cx.save();
+        var beamN = 7;
+        for (var bm = 0; bm < beamN; bm++) {
+          var bv = ((rnd(bm * 7.3) + t * (0.30 + 0.42 * speed)) % 1);
+          var by = H * (1.15 - bv * 1.3) + free * 0.7;
+          var bwd = W * (0.62 + 0.34 * rnd(bm * 3.1)), bhh = Math.max(3, (9 + 10 * rnd(bm)) * U) * (0.6 + speed * 0.9);
+          cx.globalAlpha = 0.5 + 0.3 * rnd(bm * 5.7);
+          cx.fillStyle = "#120a20"; cx.fillRect(ix + (iw - bwd) / 2 + (rnd(bm * 2.9) - 0.5) * iw * 0.1, by, bwd, bhh);
+          cx.fillStyle = bm % 3 === 0 ? "rgba(34,211,238,0.55)" : (bm % 3 === 1 ? "rgba(255,45,122,0.5)" : "rgba(250,204,21,0.4)");
+          cx.fillRect(ix + (iw - bwd) / 2 + (rnd(bm * 2.9) - 0.5) * iw * 0.1, by + bhh - Math.max(1, 1.6 * U), bwd, Math.max(1, 1.6 * U));
+        }
+        cx.restore();
+      }
     }
+    /* Viñeteado lateral fijo. */
     var gl = cx.createLinearGradient(0, 0, W, 0);
     gl.addColorStop(0, "rgba(7,3,13,0.9)"); gl.addColorStop(0.22, "rgba(7,3,13,0)"); gl.addColorStop(0.78, "rgba(7,3,13,0)"); gl.addColorStop(1, "rgba(7,3,13,0.9)");
     cx.fillStyle = gl; cx.fillRect(0, 0, W, H);
+
+    /* ── estela y polvo: sólo si hay movimiento ── */
     if (!reduced && speed > 0.05) {
       cx.save(); cx.globalAlpha = 0.5 * speed; cx.fillStyle = C.ink;
       for (var i = 0; i < 30; i++) {
@@ -14179,7 +14604,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         cx.fillRect(sx, sy, ww, H * 0.2 * speed);
         if (i % 3 === 0) { cx.fillStyle = C.bone; cx.fillRect(sx + ww, sy, Math.max(1, 1.5 * U), H * 0.14 * speed); cx.fillStyle = C.ink; }
       }
-      /* Polvo y esquirlas que suben: es la torre la que pasa hacia arriba. */
       for (var q = 0; q < 26; q++) {
         var qx = W * (0.14 + rnd(q * 5.3 + 2) * 0.72), qv = 1.6 + rnd(q * 2.1) * 2.2;
         var qy = H * 1.1 - ((rnd(q * 9.7) * H * 1.3 + t * H * qv) % (H * 1.3));
@@ -14188,15 +14612,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       }
       cx.restore();
     }
-    /* La plataforma cuelga de cadenas: se balancea como un péndulo y da tirones.
-       El personaje va rígido con ella (traslación, escala uniforme y un giro
-       pequeño de todo el conjunto); su dibujo no se deforma. */
+
+    if (mode === "fall") return fallFigure(t, speed, shx, shy, free);
+
+    /* ── plataforma de servicio: cuelga de cadenas y se balancea ── */
     var live = reduced ? 0 : speed;
     var sway = Math.sin(t * 2.3) * 0.05 * live + Math.sin(t * 7.1) * 0.01 * live;
-    var jolt = Math.exp(-((t * 1.25) % 1) * 7) * live;                         /* tirón de cadena, periódico */
+    var jolt = Math.exp(-((t * 1.25) % 1) * 7) * live;
     var camZ = 1 + 0.035 * live + 0.012 * Math.sin(t * 3.1) * live;
     var pxm = W / 2 + (shx || 0) + Math.sin(t * 2.3) * W * 0.014 * live;
-    var pym = H * platFy + (shy || 0) + Math.sin(t * 5) * H * 0.006 * live + jolt * H * 0.012, pr = H * 0.25;
+    var pym = H * (platFy == null ? 0.72 : platFy) + (shy || 0) + free + Math.sin(t * 5) * H * 0.006 * live + jolt * H * 0.012, pr = H * 0.25;
     cx.save();
     cx.translate(pxm, -H * 0.5); cx.rotate(sway); cx.scale(camZ, camZ); cx.translate(-pxm, H * 0.5);
     for (var cI = -1; cI <= 1; cI += 2) {
@@ -14207,15 +14632,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cx.fillStyle = "#2a1040"; cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.fill();
     cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 6 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr * 0.94, pr * 0.225, 0, 0, Math.PI * 2); cx.stroke();
     cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 8 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
-    /* En cada tirón los pies se despegan un instante de la plataforma. */
     var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02 - jolt * H * 0.016;
     if (ok(img.hero)) {
-      if (live > 0.05) {                                                       /* estela: copias enteras, más arriba */
+      if (live > 0.05) {
         for (var gI = 3; gI >= 1; gI--) { cx.globalAlpha = 0.2 * live * (4 - gI) / 3; cx.drawImage(img.hero, hx, hy - gI * H * 0.026 * live, hw, hh); }
         cx.globalAlpha = 1;
       }
       cx.drawImage(img.hero, hx, hy, hw, hh);
-      if (live > 0.05) {                                                       /* trazos de viento a los lados del cuerpo */
+      if (live > 0.05) {
         cx.strokeStyle = "rgba(244,236,216,0.8)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.lineCap = "round";
         for (var wI = 0; wI < 8; wI++) {
           var wx = hx + hw * (wI % 2 ? 0.16 : 0.84) + (rnd(wI * 3.7) - 0.5) * hw * 0.3;
@@ -14236,6 +14660,58 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cx.restore();
     return { x: pxm, y: pym, r: pr };
   }
+
+  /* El protagonista EN EL AIRE. No hay plataforma: cae de espaldas, gira, la
+     chaqueta y el pelo van por delante del cuerpo, y las estelas quedan encima.
+     La pose no se deforma: se rota y se escala el dibujo entero. */
+  function fallFigure(t, speed, shx, shy, free) {
+    var hh = H * 0.5, hw = hh * 288 / 512;
+    var cxB = W * 0.5 + (shx || 0) + Math.sin(t * 1.7) * W * 0.012;
+    var cyB = H * 0.44 + (shy || 0) + free * 0.25 + Math.sin(t * 2.1) * H * 0.008;
+    /* Gira de espaldas y fuera de eje: nunca se lee como si estuviera de pie. */
+    var spin = reduced ? -0.28 : -0.30 + Math.sin(t * 1.15) * 0.20 + Math.sin(t * 2.6) * 0.06;
+    /* Luz de contra: lo separa del foso, que es oscuro. */
+    if (!reduced) {
+      var rg = cx.createRadialGradient(cxB, cyB, hh * 0.1, cxB, cyB, hh * 0.62);
+      rg.addColorStop(0, "rgba(255,45,122,0.22)"); rg.addColorStop(1, "rgba(255,45,122,0)");
+      cx.fillStyle = rg; cx.fillRect(cxB - hh, cyB - hh, hh * 2, hh * 2);
+    }
+    if (ok(img.hero)) {
+      /* estela: tres copias por encima, cada vez más tenues */
+      for (var g = 3; g >= 1; g--) {
+        cx.save(); cx.globalAlpha = 0.16 * speed * (4 - g) / 3;
+        cx.translate(cxB, cyB - g * H * 0.05);
+        cx.rotate(spin * (1 + g * 0.12));
+        cx.drawImage(img.hero, -hw / 2, -hh / 2, hw, hh);
+        cx.restore();
+      }
+      cx.save();
+      cx.translate(cxB, cyB); cx.rotate(spin);
+      cx.drawImage(img.hero, -hw / 2, -hh / 2, hw, hh);
+      cx.restore();
+      /* viento: trazos que suben pegados al cuerpo. Sin ellos la figura
+         flotaría; con ellos se ve que es el aire el que la atraviesa. */
+      if (!reduced) {
+        cx.save(); cx.strokeStyle = "rgba(244,236,216,0.75)"; cx.lineCap = "round";
+        for (var wf = 0; wf < 9; wf++) {
+          var wx2 = cxB + (rnd(wf * 4.3) - 0.5) * hw * 2.1;
+          var wy2 = cyB + ((rnd(wf * 1.7) - t * (1.5 + rnd(wf) * 1.4)) % 1 + 1) % 1 * hh * 1.5 - hh * 0.75;
+          cx.globalAlpha = 0.55 * speed; cx.lineWidth = Math.max(1.2, 2.4 * U);
+          cx.beginPath(); cx.moveTo(wx2, wy2); cx.lineTo(wx2, wy2 - hh * (0.10 + 0.10 * rnd(wf * 2.7))); cx.stroke();
+        }
+        cx.restore();
+      }
+      /* aro de compás roto: la única señal de que sigue fuera de tiempo al caer */
+      if (!reduced) {
+        cx.save(); cx.globalAlpha = 0.5 * speed; cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(2, 3 * U);
+        cx.setLineDash([26 * U, 18 * U]); cx.lineDashOffset = t * 120 * U;
+        cx.beginPath(); cx.ellipse(cxB, cyB, hw * 1.25, hh * 0.66, spin * 0.5, 0, Math.PI * 2); cx.stroke();
+        cx.setLineDash([]); cx.restore();
+      }
+    }
+    return { x: cxB, y: cyB, r: hw * 0.5 };
+  }
+
 
   /* 06 · EL DESCENSO — el suelo se abre, empieza la caída y el sombrero se queda arriba. */
   /* Centro del pozo y del encuadre de picado dentro de la lámina (mc_07_pit). */
