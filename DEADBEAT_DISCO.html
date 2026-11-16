@@ -14174,169 +14174,134 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     return { zoom: zoom, camX: camX, camY: camY };
   }
 
-  /* El salón del Refugio, pintado a mano con la identidad del cómic pero con
-     los elementos que son SUYOS: damero en fuga, alfombra central, butacas,
-     lámparas colgantes, zorro de neón en el muro y plataforma cian de bajada.
-     Punto de vista alto, como el del HUB, para que se reconozca al instante.
-     No se usa la caché del motor a propósito: depende de props que el
-     precargador no garantiza cuando arranca la cinemática. */
-  function refugeRoom(a, drop, push, pan) {
-    push = push == null ? 1 : push; pan = pan || 0;
-    var hor = H * 0.455;                                   /* línea de horizonte */
-    var vpx = W * 0.5;
-    cx.fillStyle = "#0a0414"; cx.fillRect(0, 0, W, H);
-    /* empuje y deriva del salón: la cámara acompaña, no se queda clavada */
+  /* ────────────────────────────────────────────────────────────────────────
+     EL REFUGIO DE VERDAD, no una pintura del Refugio.
+
+     El motor ya sabe pintar la sala del HUB: `DD_WORLD.buildHighResRoomCache`
+     dibuja suelo en damero, mármol, alfombra VIP, muro gótico con hornacinas,
+     pilastras y zócalo con EXACTAMENTE la geometría de `DD_HUB` (HUB_BOUNDS
+     260·210·1240·760). Y en el arranque del juego ya están cargados los 270
+     recursos, así que está disponible desde el primer fotograma.
+
+     Usarlo aquí es lo que hace que el último plano de la cinemática sea el
+     mismo salón que el jugador pisa un segundo después: no hay que parecerse
+     al Refugio, es el Refugio. La caché se construye UNA vez y se reutiliza.
+
+     Sobre esa base, la cámara es la misma que la del HUB (`hubCam`), y encima
+     se añaden las tres cosas que el HUB pinta por su cuenta: el zorro de neón
+     del muro derecho, la plataforma cian de descenso y los muebles de la sala.
+     Nada de esto toca `dd_hub_system.js` ni el motor: se lee su misma API. */
+  var roomCache = null;
+  function engineRoom() {
+    if (roomCache) return roomCache;
+    var Wd = window.DD_WORLD, A = window.DD_ASSETS;
+    if (!Wd || !Wd.buildHighResRoomCache || !A || !A.get) return null;
+    /* Los materiales del salón tienen que estar ya dentro. Mientras no lo
+       estén NO se memoriza el fallo: se vuelve a intentar en el fotograma
+       siguiente, y el plano se pinta con los materiales sueltos (nunca una
+       caja negra). Cuando el motor puede, la caché se construye UNA vez. */
+    if (!ok(A.get("floor_10_hub_checker"))) return null;
+    try {
+      var cnv = document.createElement("canvas");
+      cnv.width = 1800; cnv.height = 1180;
+      Wd.buildHighResRoomCache(cnv.getContext("2d"), cnv.width, cnv.height, HUBG, 0, 777, null);
+      roomCache = cnv;
+    } catch (e) { roomCache = null; }
+    return roomCache;
+  }
+
+  /* Cámara del HUB, ya resuelta (zoom + centro), aplicada al lienzo. */
+  function roomCamera(zoomK, dx, dy) {
+    var c = hubCam();
+    var zoom = c.zoom * (zoomK == null ? 1 : zoomK);
     cx.save();
-    cx.translate(W * 0.5 + pan * W, H * 0.52);
-    cx.scale(push, push);
-    cx.translate(-W * 0.5, -H * 0.52);
+    cx.translate(W * 0.5 + (dx || 0), H * 0.5 + (dy || 0));
+    cx.scale(zoom, zoom);
+    cx.translate(-c.camX, -c.camY);
+    return { zoom: zoom, camX: c.camX, camY: c.camY };
+  }
 
-    /* ── muro del fondo con arcos ── */
-    var wg = cx.createLinearGradient(0, 0, 0, hor);
-    wg.addColorStop(0, "#0b0418"); wg.addColorStop(0.55, "#1d0d31"); wg.addColorStop(1, "#2e1340");
-    cx.fillStyle = wg; cx.fillRect(0, 0, W, hor + 2);
-    for (var ar = 0; ar < 5; ar++) {
-      var ax = W * (0.10 + ar * 0.20), aw = W * 0.055, ah = H * 0.20, ay = hor - ah - H * 0.06;
-      cx.save();
-      cx.beginPath();
-      cx.moveTo(ax - aw, hor - H * 0.02);
-      cx.lineTo(ax - aw, ay + aw * 0.9);
-      cx.arc(ax, ay + aw * 0.9, aw, Math.PI, 0);
-      cx.lineTo(ax + aw, hor - H * 0.02);
-      cx.closePath();
-      var ag = cx.createLinearGradient(0, ay, 0, hor);
-      ag.addColorStop(0, ar % 2 ? "rgba(34,211,238,0.30)" : "rgba(255,45,122,0.30)");
-      ag.addColorStop(1, "rgba(10,4,20,0.9)");
-      cx.fillStyle = ag; cx.fill();
-      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 6 * U); cx.stroke();
-      cx.strokeStyle = ar % 2 ? "rgba(34,211,238,0.85)" : "rgba(255,45,122,0.85)";
-      cx.lineWidth = Math.max(1.5, 2.5 * U); cx.stroke();
-      cx.restore();
-    }
-    /* zócalo */
-    cx.fillStyle = "#07030d"; cx.fillRect(0, hor - H * 0.025, W, H * 0.025);
-    cx.fillStyle = "rgba(250,204,21,0.55)"; cx.fillRect(0, hor - H * 0.028, W, Math.max(1.5, 2.5 * U));
-
-    /* ── lámparas colgantes: rombos de neón, como en el salón real ── */
-    for (var lp = 0; lp < 4; lp++) {
-      var lx = W * (0.17 + lp * 0.22), ly = H * (0.10 + (lp % 2) * 0.035), lr = H * 0.028;
-      cy_line(lx, 0, lx, ly - lr);
-      var lgl = cx.createRadialGradient(lx, ly, 2, lx, ly, lr * 5);
-      lgl.addColorStop(0, "rgba(255,45,122,0.42)"); lgl.addColorStop(1, "rgba(255,45,122,0)");
-      cx.fillStyle = lgl; cx.fillRect(lx - lr * 5, ly - lr * 5, lr * 10, lr * 10);
-      cx.save(); cx.translate(lx, ly); cx.rotate(Math.PI / 4);
-      cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2, 3.5 * U);
-      cx.strokeRect(-lr * 0.7, -lr * 0.7, lr * 1.4, lr * 1.4);
-      cx.restore();
-    }
-
-    /* ── suelo: damero en fuga hacia el punto de fuga ── */
-    var fg = cx.createLinearGradient(0, hor, 0, H);
-    fg.addColorStop(0, "#2a1236"); fg.addColorStop(0.5, "#3d1638"); fg.addColorStop(1, "#1d0820");
-    cx.fillStyle = fg; cx.fillRect(0, hor, W, H - hor);
-    var rows = 12;
-    for (var r = 0; r < rows; r++) {
-      var t0 = r / rows, t1 = (r + 1) / rows;
-      var y0 = hor + (H - hor) * Math.pow(t0, 2.1), y1 = hor + (H - hor) * Math.pow(t1, 2.1);
-      var spread0 = Math.pow(t0, 2.1), spread1 = Math.pow(t1, 2.1);
-      var cols = 4 + r;
-      for (var c2 = 0; c2 < cols; c2++) {
-        if ((r + c2) % 2) continue;
-        var c0 = c2 / cols, c1 = (c2 + 1) / cols;
-        var xa0 = vpx + (c0 - 0.5) * W * (0.55 + spread0 * 2.1);
-        var xb0 = vpx + (c1 - 0.5) * W * (0.55 + spread0 * 2.1);
-        var xa1 = vpx + (c0 - 0.5) * W * (0.55 + spread1 * 2.1);
-        var xb1 = vpx + (c1 - 0.5) * W * (0.55 + spread1 * 2.1);
-        cx.beginPath(); cx.moveTo(xa0, y0); cx.lineTo(xb0, y0); cx.lineTo(xb1, y1); cx.lineTo(xa1, y1); cx.closePath();
-        cx.fillStyle = "rgba(244,236,216," + (0.045 + 0.035 * (1 - r / rows)) + ")";
-        cx.fill();
+  /* Pinta el salón del motor + sus tres capas propias, dentro de la cámara. */
+  function drawEngineRoom(tv, a, zoomK, dx, dy) {
+    var bg = engineRoom();
+    var cam = roomCamera(zoomK, dx, dy);
+    if (bg) {
+      cx.drawImage(bg, 0, 0);
+    } else {
+      /* reserva: si el motor no está listo, el salón se pinta con sus propios
+         materiales (nunca una caja negra) */
+      var A = window.DD_ASSETS;
+      var fl = A && A.get && A.get("floor_10_hub_checker");
+      if (ok(fl)) {
+        var pat = cx.createPattern(fl, "repeat");
+        cx.fillStyle = pat; cx.fillRect(HUBG.x - 64, HUBG.y - 64, HUBG.w + 128, HUBG.h + 128);
+        cx.fillStyle = "rgba(10,5,22,0.42)"; cx.fillRect(HUBG.x - 64, HUBG.y - 64, HUBG.w + 128, HUBG.h + 128);
+      } else {
+        cx.fillStyle = "#161022"; cx.fillRect(HUBG.x, HUBG.y, HUBG.w, HUBG.h);
       }
     }
-
-    /* ── alfombra central en fuga ── */
-    var rt = 0.30, rb = 0.98;
-    var ry0 = hor + (H - hor) * Math.pow(rt, 2.1), ry1 = hor + (H - hor) * Math.pow(rb, 2.1);
-    var rw0 = W * 0.16, rw1 = W * 0.62;
-    cx.save();
-    cx.beginPath();
-    cx.moveTo(vpx - rw0 / 2, ry0); cx.lineTo(vpx + rw0 / 2, ry0);
-    cx.lineTo(vpx + rw1 / 2, ry1); cx.lineTo(vpx - rw1 / 2, ry1); cx.closePath();
-    var rgd = cx.createLinearGradient(0, ry0, 0, ry1);
-    rgd.addColorStop(0, "#4d1330"); rgd.addColorStop(0.5, "#7d1f45"); rgd.addColorStop(1, "#3a0d26");
-    cx.fillStyle = rgd; cx.fill();
-    cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U); cx.stroke();
-    cx.strokeStyle = "rgba(255,45,122,0.7)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.stroke();
-    /* cenefa y rombos del dibujo de la alfombra */
-    cx.clip();
-    cx.strokeStyle = "rgba(244,236,216,0.18)"; cx.lineWidth = Math.max(1, 2 * U);
-    for (var dz = 0; dz < 5; dz++) {
-      var dz0 = ry0 + (ry1 - ry0) * (dz / 5), dz1 = ry0 + (ry1 - ry0) * ((dz + 1) / 5);
-      var hw0 = lerp(rw0, rw1, dz / 5) * 0.34;
-      cx.beginPath(); cx.moveTo(vpx, dz0); cx.lineTo(vpx + hw0, (dz0 + dz1) / 2); cx.lineTo(vpx, dz1); cx.lineTo(vpx - hw0, (dz0 + dz1) / 2); cx.closePath(); cx.stroke();
+    /* zorro de neón del muro derecho, con su halo (mismas coordenadas que el HUB) */
+    var Wd = window.DD_WORLD, A2 = window.DD_ASSETS;
+    var fox = A2 && A2.get && A2.get("prop_hub_fox_neon");
+    if (ok(fox) && Wd && Wd.drawNeonGlow) {
+      var fx = HUBG.x + HUBG.w - 118, fy = HUBG.y + 150;
+      Wd.drawNeonGlow(cx, fx + 45, fy + 65, 185, "#ff2d7a", 0.36 + 0.10 * Math.sin(tv * 2.1));
+      cx.drawImage(fox, fx, fy, 112, 148);
+    }
+    /* plataforma cian de descenso, donde el jugador reaparecerá */
+    if (Wd && Wd.drawDescentPad) Wd.drawDescentPad(cx, { x: HUBG.hx, y: HUBG.padY }, tv);
+    /* muebles de la sala: los del HUB, cada uno en su sitio.
+       OJO: van DENTRO de la cámara, igual que en `DD_HUB.render`. */
+    if (Wd && Wd.drawProp) {
+      for (var i = 0; i < HUB_PROPS_CINE.length; i++) Wd.drawProp(cx, HUB_PROPS_CINE[i], tv);
     }
     cx.restore();
+    /* viñeta y halftone, para que el plano siga siendo de la cinemática */
+    var vg = cx.createRadialGradient(W * 0.5, H * 0.52, Math.min(W, H) * 0.34, W * 0.5, H * 0.52, Math.max(W, H) * 0.78);
+    vg.addColorStop(0, "rgba(5,2,10,0)"); vg.addColorStop(1, "rgba(5,2,10," + (0.72 * a) + ")");
+    cx.fillStyle = vg; cx.fillRect(0, 0, W, H);
+    halftone(0, 0, W, H, 0.07);
+    return cam;
+  }
 
-    /* ── butacas rojas a los lados ── */
-    for (var ch2 = 0; ch2 < 4; ch2++) {
-      var side = ch2 < 2 ? -1 : 1;
-      var chx = vpx + side * W * (ch2 % 2 ? 0.335 : 0.215);
-      var chy = hor + (H - hor) * (ch2 % 2 ? 0.42 : 0.30);
-      var chw = W * (ch2 % 2 ? 0.058 : 0.046), chh = H * (ch2 % 2 ? 0.085 : 0.068);
-      cx.save();
-      /* respaldo alto */
-      cx.fillStyle = "#2f0817"; cx.fillRect(chx - chw / 2, chy - chh, chw, chh * 0.82);
-      cx.strokeStyle = "rgba(255,45,122,0.5)"; cx.lineWidth = Math.max(1.2, 2 * U);
-      cx.strokeRect(chx - chw / 2, chy - chh, chw, chh * 0.82);
-      /* asiento */
-      cx.fillStyle = "#470d22"; cx.fillRect(chx - chw * 0.62, chy - chh * 0.16, chw * 1.24, chh * 0.2);
-      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(1.5, 2.5 * U); cx.strokeRect(chx - chw * 0.62, chy - chh * 0.16, chw * 1.24, chh * 0.2);
-      /* patas */
-      cx.strokeStyle = "rgba(7,3,13,0.95)"; cx.lineWidth = Math.max(1.5, 2.5 * U);
-      cx.beginPath(); cx.moveTo(chx - chw * 0.45, chy + chh * 0.04); cx.lineTo(chx - chw * 0.52, chy + chh * 0.3);
-      cx.moveTo(chx + chw * 0.45, chy + chh * 0.04); cx.lineTo(chx + chw * 0.52, chy + chh * 0.3); cx.stroke();
-      cx.restore();
-    }
+  /* Los muebles del HUB, copiados a propósito (no se importan desde el HUB para
+     no acoplar la cinemática al sistema jugable). Son los mismos tipos, en las
+     mismas coordenadas: butacas y mesa del centro, barra y estanterías arriba,
+     armario de armas y arcade a la izquierda, pedestal de la Torre a la derecha. */
+  var HUB_PROPS_CINE = [
+    { kind: "shelf", x: 430, y: 245, br: 44 },
+    { kind: "shelf", x: 560, y: 245, br: 44 },
+    { kind: "barcounter", x: 740, y: 278, br: 56 },
+    { kind: "cooler", x: 325, y: 280, br: 36 },
+    { kind: "speaker", x: 1035, y: 255, br: 36 },
+    { kind: "djbooth", x: 1165, y: 278, br: 58 },
+    { kind: "sofa", x: 745, y: 470, br: 48 },
+    { kind: "sofa", x: 1015, y: 470, br: 48, flipX: true },
+    { kind: "bench", x: 880, y: 488, br: 34 },
+    { kind: "armchair", x: 635, y: 545, br: 34 },
+    { kind: "armchair", x: 1125, y: 545, br: 34, flipX: true },
+    { kind: "candelabra", x: 675, y: 410, br: 24 },
+    { kind: "candelabra", x: 1085, y: 410, br: 24 },
+    { kind: "vending", x: 355, y: 515, br: 42 },
+    { kind: "arcade", x: 355, y: 655, br: 40 },
+    { kind: "chest", x: 455, y: 565, br: 34 },
+    { kind: "pedestal", x: 1365, y: 585, br: 40 },
+    { kind: "plant", x: 1425, y: 745, br: 32 },
+    { kind: "plant", x: 335, y: 845, br: 32 }
+  ];
 
-    /* ── zorro de neón en el muro derecho ── */
-    var fxx = W * 0.885, fyy = hor - H * 0.16;
-    var fgl = cx.createRadialGradient(fxx, fyy + H * 0.05, 8, fxx, fyy + H * 0.05, H * 0.24);
-    fgl.addColorStop(0, "rgba(255,45,122,0.42)"); fgl.addColorStop(1, "rgba(255,45,122,0)");
-    cx.fillStyle = fgl; cx.fillRect(fxx - H * 0.28, fyy - H * 0.2, H * 0.56, H * 0.56);
-    cx.save(); cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(2.5, 5 * U);
-    var fk = H * 0.075;
-    cx.beginPath();
-    cx.moveTo(fxx - fk * 0.55, fyy + fk * 0.42); cx.lineTo(fxx - fk * 0.32, fyy - fk * 0.12);
-    cx.lineTo(fxx - fk * 0.1, fyy + fk * 0.34); cx.lineTo(fxx + fk * 0.14, fyy - fk * 0.12);
-    cx.lineTo(fxx + fk * 0.38, fyy + fk * 0.42); cx.lineTo(fxx, fyy + fk * 1.15);
-    cx.closePath(); cx.stroke(); cx.restore();
-
-    /* ── plataforma de descenso cian, delante ── */
-    var padX = W * 0.5, padY = H * 0.905, padR = W * 0.075;
-    var pgl = cx.createRadialGradient(padX, padY, 4, padX, padY, padR * 2.6);
-    pgl.addColorStop(0, "rgba(34,211,238,0.55)"); pgl.addColorStop(1, "rgba(34,211,238,0)");
-    cx.fillStyle = pgl; cx.fillRect(padX - padR * 2.6, padY - padR * 2.6, padR * 5.2, padR * 5.2);
-    cx.save();
-    cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(2.5, 4.5 * U);
-    cx.beginPath(); cx.ellipse(padX, padY, padR, padR * 0.32, 0, 0, Math.PI * 2); cx.stroke();
-    cx.strokeStyle = "rgba(34,211,238,0.45)"; cx.lineWidth = Math.max(1.2, 2.2 * U);
-    cx.beginPath(); cx.ellipse(padX, padY, padR * 1.5, padR * 0.48, 0, 0, Math.PI * 2); cx.stroke();
-    cx.restore();
-
-    /* ── luz del salón ── */
-    var sgl = cx.createLinearGradient(0, 0, W * 0.66, 0);
-    sgl.addColorStop(0, "rgba(5,2,10," + (0.9 * a) + ")"); sgl.addColorStop(0.5, "rgba(5,2,10," + (0.42 * a) + ")"); sgl.addColorStop(1, "rgba(5,2,10,0)");
-    cx.fillStyle = sgl; cx.fillRect(0, 0, W, H);
-    var bgl = cx.createLinearGradient(0, H * 0.7, 0, H);
-    bgl.addColorStop(0, "rgba(5,2,10,0)"); bgl.addColorStop(1, "rgba(5,2,10," + (0.55 * a) + ")");
-    cx.fillStyle = bgl; cx.fillRect(0, H * 0.7, W, H * 0.3);
-    cx.restore();
-    halftone(0, 0, W, H, 0.09);
-    /* las coordenadas que devuelve ya llevan el empuje aplicado */
-    var toS = function (x, y) {
-      return { x: (x - W * 0.5) * push + W * 0.5 + pan * W, y: (y - H * 0.52) * push + H * 0.52 };
+  /* Paso de coordenadas del salón (mundo del HUB) a píxeles de pantalla.
+     El protagonista se dibuja FUERA de la transformación de cámara: así su
+     tamaño es el de la cinemática y no el de un prop del juego; pero sus pies
+     se clavan en el suelo del salón usando exactamente esta proyección. */
+  function roomProj() {
+    var c = hubCam();
+    var s = c.zoom;
+    return {
+      zoom: s, camX: c.camX, camY: c.camY,
+      x: function (wx, dx) { return (wx - c.camX) * s + W * 0.5 + (dx || 0); },
+      y: function (wy, dy) { return (wy - c.camY) * s + H * 0.5 + (dy || 0); }
     };
-    var pd2 = toS(padX, padY);
-    return { padX: pd2.x, padY: pd2.y, floorY: (padY - H * 0.105 - H * 0.52) * push + H * 0.52, vpx: vpx };
   }
 
   function cy_line(x0, y0, x1, y1) {
@@ -14344,72 +14309,85 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cx.beginPath(); cx.moveTo(x0, y0); cx.lineTo(x1, y1); cx.stroke(); cx.restore();
   }
 
+  /* ── ACTO V · 35,5 → 42 ───────────────────────────────────────────────────
+     El túnel no se lleva el desenlace. Estalla, se va, y lo que queda es el
+     SALÓN DEL JUEGO: el mismo que el jugador va a pisar al dar a NUEVA PARTIDA.
+     El protagonista entra desde arriba, aterriza, da dos pasos y se planta
+     delante de la plataforma, que es justo donde el HUB lo recogerá. */
   function shotFall(t, st) {
     if (t < 38) {
       var v = t - 35.5;
       /* el foso se abre por abajo: la cámara sube con él mientras cae */
       var open = ease(seg(v, 0.25, 1.55));
-      var camK = ease(seg(v, 0.55, 2.6));
       var drop = (1 - ease(seg(v, 0.5, 2.4))) * H * 0.06;
+      var walk = seg(v, 1.8, 2.55), stepBob = Math.abs(Math.sin(walk * Math.PI * 2)) * H * 0.008;
+      /* ── 1 · el foso, mientras se abre ──
+         El túnel no se corta: se queda debajo y el salón lo va tapando. */
       if (open < 1) {
-        /* todavía dentro del foso: cae y abajo empieza a verse la luz del salón */
         shaftSide(t, 0.30 + v * 0.10, 1 - ease(seg(v, 0.9, 1.7)), null, -1, 0, 0, { mode: "fall" });
         var gOpen = cx.createLinearGradient(0, H, 0, H * (1 - 0.55 * open));
         gOpen.addColorStop(0, "rgba(255,45,122," + (0.55 * open) + ")"); gOpen.addColorStop(1, "rgba(255,45,122,0)");
         cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = gOpen; cx.fillRect(0, 0, W, H); cx.restore();
-      } else {
-        /* ya en el salón: entra desde arriba y se queda plantado delante de la
-           plataforma de bajada, que es donde NUEVA PARTIDA lo recogerá */
-        var rPush = 1 + ease(seg(v, 0.5, 2.6)) * 0.05;
-        var rPan = Math.sin(clamp(v, 0, 2.6) * 1.1) * 0.012;
-        var room = refugeRoom(1, drop, rPush, rPan);
-        var land = ease(seg(v, 0.95, 1.75));
-        var feetY = room.floorY, shY = feetY - (1 - land) * H * 0.28;
-        cx.save();
-        cx.globalAlpha = 0.55;
-        cx.fillStyle = C.ink; cx.beginPath();
-        cx.ellipse(room.padX - walk * W * 0.045, shY, W * (0.045 + 0.02 * (1 - land)), H * (0.013 + 0.005 * (1 - land)), 0, 0, Math.PI * 2); cx.fill();
+      }
+      /* ── 2 · el salón, que entra FUNDIDO sobre el foso ──
+         La cámara se asienta: entra algo más cerrada y se abre hasta el
+         encuadre exacto del HUB. Así el último fotograma del acto y el primero
+         del HUB son el MISMO encuadre, y no hay corte. */
+      var roomA = ease(seg(v, 0.45, 1.30));         /* 35,95 → 36,8 */
+      if (roomA > 0) {
+        var settle = ease(seg(v, 0.5, 2.5));
+        var zoomK = 1.055 - 0.055 * settle;          /* 1,055 → 1,000 = hubCam */
+        /* deriva continua: el salón nunca se queda quieto, ni siquiera en el
+           instante en que el foso termina de apagarse */
+        var drift = Math.cos(clamp(v, 0, 2.5) * 1.35) * 7 * U;
+        var dolly = Math.sin(clamp(v, 0, 2.5) * 0.9) * 4 * U;
+        cx.save(); cx.globalAlpha = roomA;
+        drawEngineRoom(t, 1, zoomK, drift, dolly);
         cx.restore();
-        /* el héroe entra en escena desde arriba y se queda plantado en el salón.
-           Los pies, EXACTAMENTE en la línea de suelo del HUB (0,563 de alto). */
+        var pr = roomProj();
+        /* aterriza CON la sala, no después: si la sala entra sin él, el plano
+           se queda vacío justo en el momento en que el espectador mira */
+        var land = ease(seg(v, 0.50, 1.15));
+        /* los pies, en el suelo del salón (la misma línea de apoyo del HUB) */
+        var feetY = pr.y(HUBG.hy + 16);
+        var hh = H * 0.365, hw = hh * 288 / 512;      /* alto del REFUGE_IDLE aprobado */
+        /* justo al lado de la plataforma, en el borde de la alfombra */
+        var heroX = pr.x(HUBG.hx - 110) - walk * 28 * U;  /* dos pasos hacia la sala */
+        var shY = feetY - (1 - land) * H * 0.26;
+        /* sombra de contacto: se encoge al aterrizar */
+        cx.save(); cx.globalAlpha = 0.55 * land;
+        cx.fillStyle = C.ink; cx.beginPath();
+        cx.ellipse(heroX, shY - 2, W * (0.030 + 0.016 * (1 - land)), H * (0.010 + 0.005 * (1 - land)), 0, 0, Math.PI * 2); cx.fill();
+        cx.restore();
+        /* él: el fotograma aprobado, plantado en el suelo del salón */
         if (ok(img.hero)) {
-          var hh = H * 0.40, hw = hh * 288 / 512;
-          cx.save();
-          cx.globalAlpha = land;
-          cx.drawImage(img.hero, room.padX - hw * 0.49 - walk * W * 0.045,
-            feetY - hh - (1 - land) * H * 0.40 - stepBob, hw, hh);
+          cx.save(); cx.globalAlpha = land;
+          cx.drawImage(img.hero, heroX - hw * 0.49, feetY - hh - (1 - land) * H * 0.26 - stepBob, hw, hh);
           cx.restore();
         }
-        /* Después de tocar suelo la escena SIGUE: da dos pasos hacia la sala
-           (el mismo recurso del HUB: el fotograma se desplaza con un rebote),
-           cae polvo del boquete por el que ha entrado y las lámparas laten.
-           Sin esto, del 37,3 al 40,5 sólo se movería la cámara. */
-        var walk = seg(v, 1.8, 2.55);              /* dos pasos, hasta el título */
-        var stepBob = Math.abs(Math.sin(walk * Math.PI * 2)) * H * 0.008;
         if (!reduced) {
-          /* polvo y ascuas cayendo del boquete */
+          /* polvo y ascuas cayendo del boquete por el que ha entrado */
           for (var pd = 0; pd < 16; pd++) {
             var pv2 = ((v * 0.30 + rnd(pd * 2.7)) % 1);
-            cx.save(); cx.globalAlpha = 0.55 * (1 - pv2) * seg(v, 1.0, 1.4);
+            cx.save(); cx.globalAlpha = 0.50 * (1 - pv2) * seg(v, 1.0, 1.4);
             cx.fillStyle = pd % 3 === 0 ? C.magenta : (pd % 3 === 1 ? C.bone : C.cyan);
             cx.beginPath();
             cx.arc(W * (0.3 + rnd(pd * 3.1) * 0.4) + Math.sin(v * 2.2 + pd) * 10 * U,
-              H * (0.02 + pv2 * 0.62), Math.max(1, 2.4 * U * (1 - pv2 * 0.5)), 0, 7);
+              H * (0.02 + pv2 * 0.58), Math.max(1, 2.4 * U * (1 - pv2 * 0.5)), 0, 7);
             cx.fill(); cx.restore();
           }
-        }
-        /* polvo del aterrizaje */
-        if (!reduced && land > 0 && land < 1) {
-          for (var d = 0; d < 12; d++) {
-            var dv = (1 - land) * 1.2;
-            cx.save(); cx.globalAlpha = 0.5 * (1 - land);
-            cx.fillStyle = d % 2 ? C.bone : C.magenta;
-            cx.beginPath(); cx.arc(room.padX + (rnd(d * 3.1) - 0.5) * W * 0.16 * (1 - land + 0.3) / dv * 0.4,
-              room.floorY + (rnd(d * 1.7) - 0.5) * H * 0.03, Math.max(1, (3 + 8 * rnd(d)) * U * (1 - land)), 0, 7);
-            cx.fill(); cx.restore();
+          /* polvo del aterrizaje */
+          if (land > 0 && land < 1) {
+            for (var d = 0; d < 12; d++) {
+              cx.save(); cx.globalAlpha = 0.45 * (1 - land);
+              cx.fillStyle = d % 2 ? C.bone : C.magenta;
+              cx.beginPath(); cx.arc(heroX + (rnd(d * 3.1) - 0.5) * W * 0.14 * (1 - land + 0.3),
+                feetY + (rnd(d * 1.7) - 0.5) * H * 0.02, Math.max(1, (3 + 8 * rnd(d)) * U * (1 - land)), 0, 7);
+              cx.fill(); cx.restore();
+            }
           }
         }
-        speedLines(0.5, 0.5, 0.28 * (1 - land), 41);
+        speedLines(0.5, 0.5, 0.24 * (1 - land), 41);
       }
       caption(t, 35.7, 37.7, "LA TORRE YA NO PUEDE SOSTENERLO.", 0.045, 0.05, 54, C.bone, C.ink, -0.03);
       flash(t, 35.5, 0.12, "#fff", 0.6);
@@ -14427,25 +14405,29 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     /* 38 → 40,5: el salón del Refugio, vivo (respira la luz del zorro). */
     var toMenu = ease(seg(tq, 2.2, 3.1));                    /* 40,5 → 41,4 fundido al menú */
     if (toMenu < 1) {
-      var roomA = 1 - toMenu;                       /* se va con el fundido */
-      var room2 = refugeRoom(roomA, 0, 1.05 + easeOut(seg(tq, 0, 2.5)) * 0.03, Math.sin(tq * 0.7) * 0.008);
+      /* El salón del motor, con SU cámara: el mismo encuadre que el HUB, así
+         que el relevo no es un parecido, es continuidad literal. La sala no se
+         queda quieta: la cámara respira y la luz del zorro late. */
+      var roomA = 1 - toMenu;
+      /* la cámara sigue respirando TAMBIÉN durante el fundido al menú: si se
+         congela ahí, el último segundo del cine se ve como una foto */
+      var breathe = 1 + Math.sin(tq * 0.62) * 0.006;
+      var camDx = Math.sin(tq * 0.7) * 5 * U * (1 - 0.65 * toMenu);
+      cx.save();
+      cx.globalAlpha = roomA;
+      drawEngineRoom(t + 12, 1, breathe, camDx, Math.sin(tq * 0.53) * 3 * U);
+      cx.restore();
       if (ok(img.hero)) {
-        var hh2 = H * 0.40, hw2 = hh2 * 288 / 512;
-        var idle = reduced ? 0 : Math.sin(tq * 1.9) * H * 0.004;   /* respira */
+        var pr2 = roomProj();
+        var hh2 = H * 0.365, hw2 = hh2 * 288 / 512;
+        var idle = reduced ? 0 : Math.sin(tq * 1.9) * H * 0.0035;   /* respira */
         cx.save(); cx.globalAlpha = roomA;
-        cx.drawImage(img.hero, room2.padX - hw2 * 0.49 - W * 0.045, room2.floorY - hh2 - idle, hw2, hh2);
+        cx.drawImage(img.hero, pr2.x(HUBG.hx - 110) - 28 * U - hw2 * 0.49,
+          pr2.y(HUBG.hy + 16) - hh2 - idle, hw2, hh2);
         cx.restore();
       }
       if (!reduced) {
-        /* el salón sigue vivo: lámparas que laten y ascuas que se apagan */
-        for (var lb = 0; lb < 4; lb++) {
-          var lbx = W * (0.17 + lb * 0.22), lby = H * (0.10 + (lb % 2) * 0.035);
-          var pulseL = 0.5 + 0.5 * Math.sin(tq * 2.4 + lb * 1.3);
-          cx.save(); cx.globalAlpha = 0.10 + 0.16 * pulseL;
-          var lgg = cx.createRadialGradient(lbx, lby, 2, lbx, lby, H * 0.12);
-          lgg.addColorStop(0, "rgba(255,45,122,0.9)"); lgg.addColorStop(1, "rgba(255,45,122,0)");
-          cx.fillStyle = lgg; cx.fillRect(lbx - H * 0.12, lby - H * 0.12, H * 0.24, H * 0.24); cx.restore();
-        }
+        /* la sala sigue viva: ascuas que suben y se apagan */
         for (var em = 0; em < 10; em++) {
           var ev3 = (tq * 0.18 + rnd(em * 4.3)) % 1;
           cx.save(); cx.globalAlpha = 0.4 * (1 - ev3);
@@ -14453,10 +14435,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           cx.beginPath(); cx.arc(W * (0.34 + rnd(em * 1.7) * 0.32) + Math.sin(tq * 1.5 + em) * 8 * U,
             H * (0.5 - ev3 * 0.44), Math.max(1, 2 * U * (1 - ev3 * 0.6)), 0, 7); cx.fill(); cx.restore();
         }
-      }
-      if (!reduced) {
-        /* la respiración del neón: dos latidos lentos, no un fundido muerto */
-        var breath = 0.12 + 0.10 * (0.5 + 0.5 * Math.sin(tq * 2.4));
+        /* la respiración del neón del zorro: dos latidos lentos */
+        var breath = 0.10 + 0.10 * (0.5 + 0.5 * Math.sin(tq * 2.4));
         var bg2 = cx.createRadialGradient(W * 0.82, H * 0.34, 8, W * 0.82, H * 0.34, H * 0.5);
         bg2.addColorStop(0, "rgba(255,45,122," + breath + ")"); bg2.addColorStop(1, "rgba(255,45,122,0)");
         cx.fillStyle = bg2; cx.fillRect(0, 0, W, H);
