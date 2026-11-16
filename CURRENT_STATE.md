@@ -311,3 +311,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Backbar**: estanterías dw 150 y separadas (268/459/650); **charcos de luz vivos** (respiración ±18 % por sector, fuera de la caché); **mezzanine** bajado a y=206 y recortado a h=118 (solape residual con el HUD solo con jugador pegado al muro N; documentado).
 - Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `29..31_*_w16.png`.
 - Persisten: grieta no es pozo 3D (documentado), SwiftShader headless ~8 fps (no aplica a Chrome real), mezzanine residual bajo HUD (inherente al layout actual). Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W17 · distribución anclada a muros)
+- Redistribución completa del Refugio anclada a muros/ejes (barra en muro N con backbar fuera de la banda de portales, armería en columna W, escenario alineado, salón simétrico, ocio en fila SE); pasillo SO→grieta despejado (el harness ya no se atasca).
+- Verificado: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png`; informe §10 en REFUGIO_REDISENO_2026-11-15.md.
+- Merge PR #31 pendiente de visto bueno del usuario.

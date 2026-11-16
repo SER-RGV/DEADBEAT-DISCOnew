@@ -169,3 +169,8 @@ Respuesta a feedback («el resultado mejora, pero sigue teniendo fallos de distr
 - `showDialogue` con 4.º parámetro `portraitId`; bartender/armera hablan con su nombre y retrato.
 - Backbar: 3 estanterías dw 150, x 268/459/650. Charcos de luz **dinámicos** (respiración sinusoidal ±18 %, fuera de la caché). Mezzanine y=206 h=118.
 - Capturas: `29_refugio_full_w16.png`, `30_bartender_trato_w16.png`, `31_armera_trato_w16.png`. QA: integrity **277/277**, 0 pageErrors.
+
+## Pasada TR_W17 (2026-11-15, distribución y orientación)
+- **Anchoring**: barra contra muro norte (backbar 235/390/545 y 316, fuera de la banda de portales x≥616), escenario DJ alineado (y≈315-318), armería en columna oeste (rack 235,565 · estantería 232,690 · cofre 430,622 · caja 520,628), salón simétrico con candelabro de cabecera y alfombra ensanchada, ocio alineado en fila SE, palmeras enmarcando el escenario.
+- Corredor SO→grieta despejado (el harness de paseo alcanza (887,754) sin atasco). Estaciones re-ancladas: `bar` (400,415), `armory` (240,615 r75), `armorer` (378,585 r70).
+- Capturas: `32_refugio_distribucion_w17.png`, `33_barra_w17.png`, `34_armeria_w17.png`, `35_centro_w17.png`. QA: integrity **277/277**, 0 pageErrors.

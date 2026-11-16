@@ -230,3 +230,28 @@ Encargo del usuario: «arreglar lo arreglable ahora» sobre la lista de §8.5.
 
 ### 9.6 Capturas de esta tanda
 `29_refugio_full_w16.png` (vista completa con luz viva y backbar aireado) · `30_bartender_trato_w16.png` (retrato + EL BARTENDER) · `31_armera_trato_w16.png` (retrato + LA ARMERA). QA completo: integrity **277/277**, 0 pageErrors, 0 console errors.
+
+---
+
+## 10. TR_W17 · pase de distribución y orientación (2026-11-15)
+
+Encargo del usuario: «ahora son más grandes, pero siguen estando tirados en cualquier lugar; las barras no están orientadas con respecto a las paredes, etc.». Redistribución completa anclada a muros y a ejes, conservando identidad y assets:
+
+**Principios aplicados**
+1. Todo lo destinado a "almacenado/servicio" apoya en el muro norte (línea y≈315-320, bajo los portales) o en el muro oeste (x≈205-235).
+2. Simetría en lo social: salón centrado sobre la alfombra (sofás 300/505, butacas flanqueando en 205/600, candelabro en la cabecera del rug, flor sobre el banco).
+3. Fila de ocio alineada en el rincón SE sobre la misma línea de apoyo (y≈830-838).
+4. Escenario DJ: subwoofer/cabina/altavoz sobre la línea del muro (y≈315-318).
+5. Corridor SO→SE→grieta despejado (el harness de paseo antes se atascaba en la armería; ahora llega a (887,754) sin intervención).
+
+**Cambios de layout (world units)**
+- Barra: backbar x 235/390/545 y=316 (fuera de la banda de portales, que empieza en x≈616); mostrador centrado x=400 (dw 250); nevera al extremo SE del mostrador (620,432); taburetes en 340/480 y=452; bartender tras el mostrador (400,340); runner ámbar y alfombra coherente; estación `bar` en (400,415).
+- Armería: rack contra muro oeste (235,565), estantería bajo el rack (232,690), cofre (430,622) y caja de munición (520,628) a los pies del rack, armera ante él (378,600); anillo de tienda `armory` en (240,615) r75, anillo de armera (378,585) r70 — sin solapes (nearest-wins). La estación de la armera se reetiqueta «la armera».
+- Escenario: speaker (1185,318), cabina (1400,315), subwoofer (1572,318), DJ detrás (y=305), palmeras enmarcando (1100/1638,372).
+- Centro: Mesa Astral y candelabros intactos (eje visual); charcos de luz y motas siguen el nuevo layout (barra 400,345 · armería 240,640).
+- Salón: sofás y=865, butacas (205/600,858), banco (402,912) con la neon-flower encima (878), candelabro en cabecera del rug (402,778), alfombra ensanchada a 470 px.
+- Ocio: arcades (1305/1435,838) + vending (1605,830) alineados; banco (1458,935).
+
+**Verificado en navegador**: integrity 277/277, 0 pageErrors, 0 console errors; descenso intacto; prompts «hablar con la armera» y estaciones correctos; capturas `32_refugio_distribucion_w17.png` (vista completa), `33_barra_w17.png`, `34_armeria_w17.png`, `35_centro_w17.png`.
+
+**Nota honesta**: los portales del mezzanine siguen parcialmente tras el backbar en el borde x≈545-616; el corte visual final exige o bien mover la banda de portales (decisión de arte gordo) o aceptar el solape como "mobiliario delante del portal", habitual en escenografía de club. HUD fijo + full-bleed persisten (ver §9.4).
