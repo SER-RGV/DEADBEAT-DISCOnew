@@ -199,18 +199,18 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `boss_01_magneta_death` | `boss_01_magneta_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_01_magneta_hit` | `boss_01_magneta_hit` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_01_magneta_idle` | `boss_01_magneta_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
-| `boss_02_bufe_attack` | `boss_02_bufe_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_02_bufe_death` | `boss_02_bufe_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `boss_02_bufe_attack` | `boss_02_bufe_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_02_bufe_death` | `boss_02_bufe_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_02_bufe_hit` | `boss_02_bufe_hit` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_02_bufe_idle` | `boss_02_bufe_idle` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_03_cajero_attack` | `boss_03_cajero_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_03_cajero_death` | `boss_03_cajero_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_03_cajero_hit` | `boss_03_cajero_hit` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_03_cajero_idle` | `boss_03_cajero_idle` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_04_pogo_attack` | `boss_04_pogo_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `boss_02_bufe_idle` | `boss_02_bufe_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_03_cajero_attack` | `boss_03_cajero_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_03_cajero_death` | `boss_03_cajero_death` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_03_cajero_hit` | `boss_03_cajero_hit` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_03_cajero_idle` | `boss_03_cajero_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
+| `boss_04_pogo_attack` | `boss_04_pogo_attack` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_04_pogo_death` | `boss_04_pogo_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `boss_04_pogo_hit` | `boss_04_pogo_hit` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `boss_04_pogo_idle` | `boss_04_pogo_idle` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `boss_04_pogo_idle` | `boss_04_pogo_idle` regenerado (clase B, mismo ID/ruta) — **TR** | registry → DD_WORLD/DD_UI | Integrado (código) + carga navegador OK |
 | `boss_05_oficiante_attack` | `boss_05_oficiante_attack` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `boss_05_oficiante_death` | `boss_05_oficiante_death` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `boss_05_oficiante_hit` | `boss_05_oficiante_hit` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |

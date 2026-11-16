@@ -75,9 +75,20 @@ JOBS = [
     ("boss_01_magneta_attack", "assets/bosses/boss_01_magneta_attack.png", (352, 576), "bottom-center"),
     ("boss_01_magneta_hit",    "assets/bosses/boss_01_magneta_hit.png",    (352, 448), "bottom-center"),
     ("boss_01_magneta_death",  "assets/bosses/boss_01_magneta_death.png",  (448, 448), "bottom-center"),
+    # TR_W8
+    ("boss_02_bufe_idle",    "assets/bosses/boss_02_bufe_idle.png",    (464, 528), "bottom-center"),
+    ("boss_02_bufe_attack",  "assets/bosses/boss_02_bufe_attack.png",  (592, 528), "bottom-center"),
+    ("boss_02_bufe_hit",     "assets/bosses/boss_02_bufe_hit.png",     (384, 448), "bottom-center"),
+    ("boss_02_bufe_death",   "assets/bosses/boss_02_bufe_death.png",   (416, 352), "bottom-center"),
+    ("boss_03_cajero_idle",   "assets/bosses/boss_03_cajero_idle.png",   (304, 560), "bottom-center"),
+    ("boss_03_cajero_attack", "assets/bosses/boss_03_cajero_attack.png", (416, 448), "bottom-center"),
+    ("boss_03_cajero_hit",    "assets/bosses/boss_03_cajero_hit.png",    (384, 448), "bottom-center"),
+    ("boss_03_cajero_death",  "assets/bosses/boss_03_cajero_death.png",  (416, 352), "bottom-center"),
+    ("boss_04_pogo_idle",     "assets/bosses/boss_04_pogo_idle.png",     (448, 544), "bottom-center"),
+    ("boss_04_pogo_attack",   "assets/bosses/boss_04_pogo_attack.png",   (576, 544), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -99,6 +110,9 @@ POST_DESPILL = {
     "enemy_elite_walk", "enemy_elite_windup", "enemy_elite_attack", "enemy_elite_death",
     "boss_00_anden_idle", "boss_00_anden_attack", "boss_00_anden_hit", "boss_00_anden_death",
     "boss_01_magneta_idle", "boss_01_magneta_attack", "boss_01_magneta_hit", "boss_01_magneta_death",
+    "boss_02_bufe_idle", "boss_02_bufe_attack", "boss_02_bufe_hit", "boss_02_bufe_death",
+    "boss_03_cajero_idle", "boss_03_cajero_attack", "boss_03_cajero_hit", "boss_03_cajero_death",
+    "boss_04_pogo_idle", "boss_04_pogo_attack",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 

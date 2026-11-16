@@ -240,3 +240,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Familias enemigas COMPLETAS: security, dancer, fanatic, drone; chef y elite completos (3→4+4).
 - **Jefes restantes:** 02..10 (×4 estados) + boss_10_arquitecto (secreto, idle/attack) = 38 sprites pendientes.
 - Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W8)
+- **Integrados (navegador 271/271):** Bufe (Gula) idle/attack/death, Cajero (Avaricia) completa, Pogo (Ira) idle/attack. Pendiente boss_02_bufe_hit v2.
+- **Jefes integrados:** 00 Andén, 01 Magneta, 02 Bufe*, 03 Cajero, 04 Pogo* (*completa salvo bufe_hit). Quedan 05 Oficiante, 06 Matarife, 07 Imitador, 08 Traidor, 09 Núcleo, 10 Arquitecto (secreto).
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).

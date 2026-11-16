@@ -73,3 +73,8 @@ Aprobados e integrados (integridad navegador **271/271 pass**): `enemy_chef_deat
 - **boss_01_magneta_*** (Lujuria): Magneta — idle (coleta de cromo, manos imán), attack (doble arco de rayo magenta), hit (recoil ventoso), death (rodilla caída, bocinas silenciadas).
 
 **Todas las familias de enemigos y los 2 primeros jefes están integrados.** Quedan provisionales jefes 02..10 (+secreto boss_10).
+
+## Pasada TR_W8 (2026-11-15, jefes Bufe, Cajero y Pogo)
+Aprobados e integrados (integridad navegador **271/271 pass**): familia **Bufe** idle/attack/death (cardenal del banquete eterno; attack ígneo con tenedor), familia **Cajero** completa (El Cajero de Avaricia — autómata-bóveda con libro mayor; attack demoníaco con barriga-bóveda escupiendo oro; hit; death sobre montaña de monedas), y **Pogo** idle/attack (pit-champ de cresta mohawk ardiendo / sprinter de fuego).
+- **Rechazado: `boss_02_bufe_hit`** — el modelo inventó «cardenal-pollo asado» (cardenal con mitra de ave), otra identidad; v2 pendiente con instrucción explícita de MISMO personaje.
+- Nota honesta: varias familias varían cuerpo/paleta entre frames (chef, pogo, magneta, cajero). Se aceptan como frames de «poder desbordado»; coherencia por familia = iteración opcional pendiente (herramienta: unificación de paleta/personaje vía image edit).
