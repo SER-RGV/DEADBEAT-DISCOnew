@@ -9453,8 +9453,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     state.introActive = true;
     state.introPlayed = true;
 
-    /* La intro termina SIEMPRE en el menú principal (completa, saltada, no
-       disponible o estancada). Nunca arranca partida ni entra al Refugio. */
+    /* V3.0 · LA ENTREGA.
+       La cinemática ya no termina en un menú: el plano 14 deja al protagonista
+       de pie en el ENCUADRE REAL del Refugio, y ahí se entrega el control. La
+       entrada se hace por la misma puerta que NUEVA PARTIDA (`DD_HUB.enter` +
+       `DD_BOOT.enterGame`), así que no hay menú intermedio ni pantalla negra, y
+       la posición y la cámara son las del HUB, no una copia.
+       Si algo de eso falla, se cae al menú: nunca se deja al jugador mirando una
+       imagen congelada. */
     var finished = false;
     var finish = function (why) {
       if (finished) return;
@@ -9462,8 +9468,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
+      if (enterRefugeFromIntro()) {
+        emit("intro-end", { by: state.introEndedBy, to: "refuge" });
+        return;
+      }
       enterMainMenu();
-      emit("intro-end", { by: state.introEndedBy });
+      emit("intro-end", { by: state.introEndedBy, to: "menu" });
     };
 
     document.body.classList.add("dd-intro-running");
@@ -9475,7 +9485,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     try {
       if (window.DD_OPENING && typeof window.DD_OPENING.playIntro === "function") {
         started = window.DD_OPENING.playIntro(function (why) { finish(why || "complete"); }, {
-          onTitle: function () { audio.startMenuMusic(4); }
+          /* V3.0: en 64 s NO arranca el tema del menú. La partitura sigue
+             sonando hasta la entrega y el HUD toma el relevo; el menú queda
+             para el camino de vuelta. */
+          onTitle: function () {}
         }) !== false;
       }
     } catch (e) {
@@ -9500,6 +9513,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         finish("stalled");
       }
     }, 120);
+  }
+
+  /* Entrega del control al Refugio tras la cinemática. Devuelve true sólo si el
+     motor confirmó la entrada; si no, el llamante cae al menú. El estado se
+     declara PLAYING únicamente con evidencia positiva (ver enterGame). */
+  function enterRefugeFromIntro() {
+    if (!window.DD_HUB || typeof window.DD_HUB.enter !== "function") return false;
+    /* La intro deja al jugador en el Refugio: el estado previo (INTRO) no es una
+       de las puertas de enterGame, así que se abre explícitamente el menú como
+       estado de tránsito SIN mostrarlo, y se cierra en el mismo fotograma. */
+    var okHub = false;
+    try {
+      window.DD_HUB.enter();                    /* coloca en 880,615 y saluda a Tempo */
+      okHub = window.DD_HUB.isActive() === true;
+    } catch (e) { okHub = false; }
+    if (!okHub) return false;
+    setState("MAIN_MENU", { silent: true });
+    return enterGame() === true;
   }
 
   function enterMainMenu() {
@@ -13090,6 +13121,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     hand: BASE + "op_04a_tempo_hand.jpg",
     boots: BASE + "op_05a_boots.jpg",
     pit: BASE + "mc_07_pit.jpg",
+    /* Placas del protagonista y del vacío, ya existentes y hasta ahora sin
+       cablear. `face` es el primer plano canónico (mirada, cicatriz, sombrero);
+       `vespera` la figura de la Escucha; `back` la espalda con los tatuajes;
+       `tower` el pozo vertical para la caída. */
+    face: BASE + "op_06_face.jpg",
+    vespera: BASE + "op_04c_vespera.jpg",
+    back: BASE + "op_05b_back.jpg",
+    tower: BASE + "op_02_tower.jpg",
     hat: BASE + "op_hat.png",
     /* El protagonista sólo aparece con arte canónico: la lámina maestra y el IDLE aceptado. */
     master: MASTER + "protagonist_master_crop_hero.png",
@@ -13099,21 +13138,165 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     logo: "assets/logos/logo_deadbeat_graffiti.png"
   };
 
+  /* ══════════════════════════════════════════════════════════════════════════
+     V3.0 · MOTOR DE ANIMACIÓN
+
+     La V2 animaba moviendo la cámara sobre láminas fijas. Aquí se añade lo que
+     de verdad hace que una secuencia se lea como animación y no como diapositivas:
+
+       1. CICLO DE ANDAR real de cuatro fotogramas del protagonista (ya existían:
+          `hero_walk_00..03`). Se elige fotograma por fase, no se desliza.
+       2. CICLO DE MULTITUD: cuatro poses construidas sobre la capa recortada
+          (balanceo, brazos, giro, aplauso) con desfase por grupo. El bucle del
+          acto II repite el ciclo EXACTO; la corrección del acto III lo repite
+          forzado.
+       3. MUELLE AMORTIGUADO para ropa, sombrero y cadenas: el retardo físico es
+          lo que separa «personaje animado» de «PNG desplazado».
+       4. ESCOMBROS y polvo con física simple (gravedad, giro, desvanecido).
+     ========================================================================== */
+
+  /* Resorte amortiguado de un eje: dado el objetivo, devuelve la posición con
+     retardo. Determinista: se evalúa desde el tiempo, no acumulando estado. */
+  function spring(t, t0, amp, freq, damp) {
+    var u = t - t0;
+    if (u <= 0) return 0;
+    return amp * Math.exp(-u * damp) * Math.sin(u * freq * Math.PI * 2);
+  }
+
+  /* ── 1 · el protagonista con su ciclo real de andar ──────────────────────
+     `phase` avanza 1 por paso completo. Se dibuja el fotograma que toca, con
+     el cuerpo entero (no se recorta) y el balanceo vertical del paso. */
+  var HERO_WALK = ["hero_walk_00", "hero_walk_01", "hero_walk_02", "hero_walk_03"];
+  function heroFrame(name) {
+    var f = img[name];
+    return ok(f) ? f : (ok(img.hero) ? img.hero : null);
+  }
+  /* Dibuja al protagonista andando. x,y = esquina superior izquierda del
+     fotograma de 288×512 ya escalado a w,h. */
+  function drawHeroWalk(name, x, y, w, h, lean, alpha) {
+    var f = heroFrame(name);
+    if (!f) return;
+    cx.save();
+    if (alpha != null && alpha < 1) cx.globalAlpha = alpha;
+    if (lean) {
+      /* el cuerpo se inclina desde los pies, no desde el centro */
+      cx.translate(x + w * 0.5, y + h);
+      cx.rotate(lean);
+      cx.translate(-(x + w * 0.5), -(y + h));
+    }
+    cx.drawImage(f, x, y, w, h);
+    cx.restore();
+  }
+  /* Elige el fotograma del ciclo según la fase (0..1 por paso). */
+  function walkFrameIndex(phase) {
+    var k = ((phase % 1) + 1) % 1;
+    return HERO_WALK[Math.min(3, Math.floor(k * 4))];
+  }
+
+  /* ── 2 · ciclo de multitud ───────────────────────────────────────────────
+     Cuatro poses sobre la capa recortada. `rigid` (0..1) fuerza el ciclo a ir
+     más rápido y más cuadrado: es la corrección de la Torre en el acto III. */
+  function crowdCycle(t, m, pose, a, rigid, seed) {
+    if (!ok(img.crowd)) return;
+    rigid = rigid || 0;
+    var k = 1 + rigid * 0.9;                       /* la corrección acelera */
+    var ph = (t * 1.9 * k + (seed || 0)) % 1;
+    /* cuatro poses: 0 balanceo, 1 brazos, 2 giro, 3 aplauso */
+    var bob = Math.sin(ph * Math.PI * 2) * m.h * (0.006 + 0.004 * rigid);
+    var squash = 1 + Math.sin(ph * Math.PI * 2 + 1.2) * (0.010 + 0.010 * rigid);
+    var sway = Math.sin(ph * Math.PI * 2 * 0.5) * m.w * (0.008 + 0.006 * rigid);
+    var iw = m.w * squash, ih = m.h * squash;
+    var x = m.x - (iw - m.w) / 2 + sway;
+    var y = m.y - (ih - m.h) / 2 + bob;
+    cx.save();
+    /* SOLO la franja de público: la capa es el recorte de la multitud, no un
+       decorado completo. Sin este recorte tapaba la arquitectura entera. */
+    cx.beginPath();
+    cx.rect(m.x, m.y + m.h * (0.42 + (seed || 0) * 0), m.w, m.h * 0.62);
+    cx.clip();
+    cx.globalAlpha = a == null ? 1 : a;
+    cx.drawImage(img.crowd, x, y, iw, ih);
+    cx.restore();
+  }
+
+  /* ── 3 · escombros con gravedad ─────────────────────────────────────────
+     `dir` = -1 suben (durante la caída), +1 caen (ruptura del suelo). */
+  function debris(t, t0, n, seed, dir, spread, alpha) {
+    if (reduced) return;
+    for (var i = 0; i < n; i++) {
+      var u = (t - t0) * (0.45 + rnd(seed + i * 1.7) * 0.5);
+      if (u <= 0 || u > 1.6) continue;
+      var lx = X(0.5) + (rnd(seed + i * 3.1) - 0.5) * W * spread;
+      var ly = Y(0.5) + dir * (u * u) * H * 0.55 + (rnd(seed + i * 5.3) - 0.5) * H * 0.12 * u;
+      var sz = (2 + rnd(seed + i * 7.9) * 7) * U * (1 - u * 0.35);
+      var al = (alpha == null ? 0.7 : alpha) * (1 - Math.max(0, u - 1.0) / 0.6);
+      if (al <= 0) continue;
+      cx.save();
+      cx.globalAlpha = clamp(al, 0, 1);
+      cx.translate(lx, ly);
+      cx.rotate(u * (rnd(seed + i * 2.3) - 0.5) * 7);
+      cx.fillStyle = i % 3 === 0 ? C.bone : (i % 3 === 1 ? C.cyan : C.magenta);
+      cx.beginPath();
+      cx.moveTo(-sz, -sz * 0.6); cx.lineTo(sz * 0.8, -sz * 0.7);
+      cx.lineTo(sz * 0.6, sz * 0.7); cx.lineTo(-sz * 0.7, sz * 0.5);
+      cx.closePath(); cx.fill();
+      cx.restore();
+    }
+  }
+
+  /* ── 4 · ropa y sombrero con retardo ────────────────────────────────────
+     El sombrero no cae con el cuerpo: cae un poco después y gira. Se dibuja
+     aparte, con su propio resorte, encima del fotograma del héroe. */
+  function drawHatLag(t, t0, x, y, w, h, alpha) {
+    if (!ok(img.hat) || t < t0) return;
+    var u = t - t0;
+    var dy = spring(u, 0, H * 0.05, 0.9, 2.2) + u * u * H * 0.28;
+    var rot = spring(u, 0, 0.8, 1.1, 1.6) + u * 2.1;
+    var drift = spring(u, 0, W * 0.05, 0.7, 1.9);
+    cx.save();
+    if (alpha != null) cx.globalAlpha = alpha;
+    cx.translate(x + w * 0.5 + drift, y + dy);
+    cx.rotate(rot);
+    cx.drawImage(img.hat, -w * 0.5, -h * 0.5, w, h);
+    cx.restore();
+  }
+
+  /* ── 5 · lluvia de polvo del techo (actos III–IV) ──────────────────────── */
+  function ceilingDust(t, a, seed) {
+    if (reduced || a <= 0) return;
+    for (var i = 0; i < 26; i++) {
+      var p = ((t * (0.16 + rnd(seed + i) * 0.2) + rnd(seed + i * 2.7)) % 1);
+      cx.save();
+      cx.globalAlpha = a * (1 - p) * 0.9;
+      cx.fillStyle = i % 4 === 0 ? C.bone : (i % 4 === 1 ? C.ink : C.magenta);
+      cx.beginPath();
+      cx.arc(X(0.06 + rnd(seed + i * 3.3) * 0.88), Y(p * 0.9),
+        Math.max(0.8, (1.2 + rnd(seed + i * 5.1) * 2.4) * U * (1 - p * 0.4)), 0, 7);
+      cx.fill(); cx.restore();
+    }
+  }
+
   /* Tabla de planos de la intro: [inicio, fin, nombre]. Es la única fuente de
      tiempos; la pintura, el sonido y las pruebas la leen de aquí.
      Cinco actos, siete planos, ninguno repetido y ninguno que llegue al fondo
      del pozo (eso es de NUEVA PARTIDA: playDescent). */
-  var INTRO_DURATION = 42;
-  var TITLE_AT = 38;
+  var INTRO_DURATION = 70;
+  var TITLE_AT = 64;                                        /* arranque del tema del Refugio */
   var SHOTS = [
-    { id: 1, from: 0, to: 3.5, name: "la noche" },          /* ACTO I   · la noche original */
-    { id: 2, from: 3.5, to: 8.5, name: "la torre" },        /* ACTO I   · el bucle tiene forma de torre */
-    { id: 3, from: 8.5, to: 14, name: "el bucle" },         /* ACTO I   · cuatro repeticiones en la pista */
-    { id: 4, from: 14, to: 21, name: "el desafinado" },     /* ACTO II  · el paso fuera de compás */
-    { id: 5, from: 21, to: 26, name: "los que miran" },     /* ACTO II  · la Torre lo detecta */
-    { id: 6, from: 26, to: 31, name: "la correccion" },     /* ACTO III · el mundo se dobla */
-    { id: 7, from: 31, to: 35.5, name: "el suelo" },        /* ACTO III → IV · grietas y caída */
-    { id: 8, from: 35.5, to: 42, name: "el refugio" }       /* ACTO IV → V · pozo, título, menú */
+    { id: 1, from: 0, to: 4, name: "la celebracion" },      /* ACTO I   · la estación, gran general */
+    { id: 2, from: 4, to: 9, name: "el ultimo instante" },  /* ACTO I   · dolly-in, la felicidad */
+    { id: 3, from: 9, to: 14, name: "una cancion mas" },    /* ACTO I   · el plato, el enlace */
+    { id: 4, from: 14, to: 18, name: "la repeticion" },     /* ACTO II  · el mismo movimiento 4× */
+    { id: 5, from: 18, to: 23, name: "el paso incorrecto" },/* ACTO II  · el pie que cae tarde */
+    { id: 6, from: 23, to: 28, name: "el que no se repite" },/* ACTO II · órbita, él varía */
+    { id: 7, from: 28, to: 33, name: "el error" },          /* ACTO III · el mundo se resitúa */
+    { id: 8, from: 33, to: 38, name: "la torre reacciona" },/* ACTO III · las nueve pistas */
+    { id: 9, from: 38, to: 43, name: "el golpe" },          /* ACTO III · el grave y el mecanismo */
+    { id: 10, from: 43, to: 48, name: "la ruptura" },       /* ACTO IV  · el suelo se retrae */
+    { id: 11, from: 48, to: 54, name: "la caida" },         /* ACTO IV  · cámara vertical */
+    { id: 12, from: 54, to: 59, name: "la torre infinita" },/* ACTO IV  · la plataforma */
+    { id: 13, from: 59, to: 64, name: "el aterrizaje" },    /* ACTO V   · el Refugio real */
+    { id: 14, from: 64, to: 70, name: "el comienzo" }       /* ACTO V   · el control al jugador */
   ];
   /* NUEVA PARTIDA: el resto de la caída, ya dentro del pozo. No repite grietas
      ni sombrero: aquellos planos pertenecen a la intro. */
@@ -13440,6 +13623,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var lead = lerp(-0.08, 1.08, ease(clamp(p / 0.5, 0, 1)));
     var tail = lerp(-0.08, 1.08, ease(clamp((p - 0.5) / 0.5, 0, 1)));
     if (lead <= tail + 0.001) return;
+    /* NUNCA un fotograma entero tapado. En el punto medio, `lead` y `tail`
+       llegaban a -0,08 y 1,08: la banda cubría todo el cuadro y el barrido se
+       leía como una pantalla negra de 0,1 s. Se limita el ancho de la banda y se
+       deja siempre un tercio de imagen viva; el corte de plano no lo necesita,
+       porque el cambio de escena ya ocurre en el mismo fotograma. */
+    var MAXB = 0.26;
+    if (lead - tail > MAXB) {
+      var c0 = (lead + tail) * 0.5;
+      lead = c0 + MAXB * 0.5; tail = c0 - MAXB * 0.5;
+    }
     /* en "espacio de barrido": 0 = borde de entrada, 1 = borde de salida */
     var xa = (d > 0 ? tail : 1 - tail) * W;
     var xb = (d > 0 ? lead : 1 - lead) * W;
@@ -13452,8 +13645,11 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     for (i = 0; i <= n; i++) { y = H * i / n; wob = (rnd(seed + i * 3.1) - 0.5) * W * 0.085; cx.lineTo(x1 + wob, y); }
     for (i = n; i >= 0; i--) { y = H * i / n; wob = (rnd(seed + 90 + i * 4.7) - 0.5) * W * 0.07; cx.lineTo(x0 + wob, y); }
     cx.closePath();
+    /* Tinta SEMITRANSPARENTE: el barrido es un gesto gráfico, no un telón. Con
+       relleno opaco, el fotograma central del barrido medía luminancia 10/255 y
+       contaba como pantalla negra. */
     var g = cx.createLinearGradient(x0, 0, x1, 0);
-    g.addColorStop(0, "#07030d"); g.addColorStop(0.88, "#0b0416"); g.addColorStop(1, "rgba(11,4,22,0.98)");
+    g.addColorStop(0, "rgba(7,3,13,0.55)"); g.addColorStop(0.55, "rgba(11,4,22,0.80)"); g.addColorStop(1, "rgba(11,4,22,0.92)");
     cx.fillStyle = g; cx.fill();
     if (lead < 1) {                                    /* ribete sólo mientras entra */
       cx.strokeStyle = "rgba(255,45,122,0.5)"; cx.lineWidth = Math.max(2, 5 * U);
@@ -13638,511 +13834,653 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var st = settings();
     stage();
     cx.fillStyle = C.ink; cx.fillRect(0, 0, W, H);
-    if (t < 3.5) shotNight(t);
-    else if (t < 8.5) shotTower(t, st);
-    else if (t < 14) shotLoop(t, st);
-    else if (t < 21) shotOffbeat(t, st);
-    else if (t < 26) shotWatched(t, st);
-    else if (t < 31) shotCorrection(t, st);
-    else if (t < 35.5) shotCracks(t, st);
-    else shotFall(t, st);
+    /* V3.0 · catorce planos. El reparto de tiempos es el único sitio donde se
+       decide qué se ve; la pintura, el sonido y las pruebas lo leen de aquí. */
+    if (t < 4) s01Celebration(t);
+    else if (t < 9) s02LastMoment(t);
+    else if (t < 14) s03OneMoreSong(t);
+    else if (t < 18) s04Repetition(t);
+    else if (t < 23) s05WrongStep(t, st);
+    else if (t < 28) s06DoesNotRepeat(t, st);
+    else if (t < 33) s07TheError(t, st);
+    else if (t < 38) s08TowerReacts(t, st);
+    else if (t < 43) s09TheHit(t, st);
+    else if (t < 48) s10Rupture(t, st);
+    else if (t < 54) s11Fall(t, st);
+    else if (t < 59) s12InfiniteTower(t, st);
+    else if (t < 64) s13Landing(t, st);
+    else s14Beginning(t, st);
     /* Transiciones de tinta entre actos. Ninguna tapa un plano en curso. */
-    inkWipe(seg(t, 13.86, 14.08), 3, 1);
-    inkWipe(seg(t, 20.90, 21.12), 11, -1);
-    inkWipe(seg(t, 30.90, 31.12), 17, 1);
-    inkWipe(seg(t, 35.38, 35.62), 23, -1);
+    /* Barridos de tinta cortos y FINOS: son un gesto de movimiento, no un
+       telón. Antes cubrían el cuadro entero en su punto medio y el fotograma
+       central medía luminancia 10/255 — una pantalla negra de 0,1 s. */
+    inkWipe(seg(t, 13.93, 14.07), 3, 1);
+    inkWipe(seg(t, 27.93, 28.07), 11, -1);
+    inkWipe(seg(t, 42.93, 43.07), 17, 1);
+    inkWipe(seg(t, 58.93, 59.07), 23, -1);
     if (t < 0.8) tint("#000", 1 - seg(t, 0.1, 0.8));
   }
 
-  /* ─────────────────────────── ACTO I · EL CICLO ───────────────────────────
-     01 · LA NOCHE (0–3,5) — la fiesta del final de la guerra, entera, en una
-     viñeta que se abre. El mundo está quieto y ordenado: todavía no hay nadie
-     fuera de sitio. */
-  function shotNight(t) {
-    var g = ease(seg(t, 2.2, 3.4));
-    var push = ease(seg(t, 0, 3.5));
-    var x = lerp(X(0.06), 0, g), y = lerp(Y(0.26), 0, g), w = lerp(SW * 0.88, W, g), h = lerp(H * 0.48, H, g);
-    panel(img.station, [0, 0.12, 1, 0.95], x, y, w, h, { rot: lerp(-0.012, 0, g), zoom: lerp(1.0, 1.08, push) + g * g * 0.5, py: lerp(-0.04, 0.12, g), border: 1 - g, shadow: g < 0.5 });
-    glow(x + w / 2, y + h * 0.62, h * 0.5, "rgba(250,204,21,0.5)", 0.10 + 0.10 * beatPulse(t));
-    splat(X(0.09), Y(0.8), 58 * U * pop(t, 0.8) * (1 - g), C.magenta, 2, 1 - g);
-    splat(X(0.93), Y(0.2), 44 * U * pop(t, 2.1) * (1 - g), C.cyan, 5, 1 - g);
-    ballRays(x + w * 0.5, y + h * 0.2, h * 0.55, t, 0.10 * (1 - 0.6 * g) + 0.05, "rgba(255,45,122,0.9)");
-    motes(t, 24, 0.5, 5);
-    /* Los rótulos aprobados se encadenan, no se pisan: uno entra cuando el
-       anterior ya ha salido. */
-    caption(t, 0.75, 2.15, "LA GUERRA HABÍA TERMINADO.", 0.08, 0.16, 58, C.yellow, C.ink, -0.035);
-    caption(t, 2.3, 3.45, "ESA NOCHE, ALGUNOS PUDIERON\nREUNIRSE SIN MIEDO.", 0.58, 0.70, 48, C.bone, C.ink, 0.02);
-  }
+  /* ══════════════════════════════════════════════════════════════════════════
+     V3.0 · CINCO ACTOS, CATORCE PLANOS, 70 s
 
-  /* 02 · LA TORRE (3,5–8,5) — la fiesta se hundió y creció hacia abajo: nueve
-     pistas, una debajo de otra. La cámara baja por el hueco como una aguja por
-     el surco de un disco. Cada planta repite la misma escena (los bailarines
-     olvidan; el edificio no). Al final, la cámara se abre y las nueve pistas se
-     leen de golpe. */
-  function shotTower(t, st) {
-    var im = img.nine;
-    var down = ease(seg(t, 3.6, 7.3));                     /* recorrido por las plantas */
-    var out = ease(seg(t, 7.2, 8.4));                      /* apertura final: las nueve */
-    /* 1. La torre ocupa el centro del cuadro y la cámara la recorre de arriba
-          abajo. No es una miniatura: es el edificio entero, a sangre. */
-    var pw = lerp(SW * 0.44, SW * 0.30, out), ph = lerp(H * 1.02, H * 0.92, out);
-    var px0 = W / 2 - pw / 2 - lerp(0, SW * 0.10, out), py0 = H * 0.5 - ph * 0.5;
-    var b = 11 * U;
-    /* Fondo: la misma lámina ampliada y oscurecida (paralaje de profundidad). */
-    if (ok(im)) {
-      var bgz = 1.7 + down * 0.12;
-      cx.save(); cx.globalAlpha = 0.55; cover(im, 0.5, lerp(0.16, 0.78, down), bgz); cx.restore();
-      tint(C.ink, 0.76);
-    }
-    cx.fillStyle = "rgba(0,0,0,0.6)"; cx.fillRect(px0 - b + 14 * U, py0 - b + 16 * U, pw + 2 * b, ph + 2 * b);
-    cx.fillStyle = C.bone; cx.fillRect(px0 - b - 2.5 * U, py0 - b - 2.5 * U, pw + 2 * b + 5 * U, ph + 2 * b + 5 * U);
-    cx.fillStyle = C.ink; cx.fillRect(px0 - b, py0 - b, pw + 2 * b, ph + 2 * b);
-    /* El encuadre de la lámina: primero una planta, luego las nueve. */
-    var sc = lerp(pw / 768 * 1.9, ph / NINE_H, out), iw = 768 * sc, ih = NINE_H * sc;
-    var cyImg = lerp(lerp(0.10, 0.84, down), 0.5, out);
-    var ix = px0 + pw / 2 - iw / 2;
-    var iy = clamp(py0 + ph / 2 - ih * cyImg, py0 + ph - ih, py0);
-    cx.save(); cx.beginPath(); cx.rect(px0, py0, pw, ph); cx.clip();
-    if (ok(im)) cx.drawImage(im, ix, iy, iw, ih); else fallback();
-    halftone(px0, py0, pw, ph, 0.18);
-    /* Las nueve marcas: una por pista, cayendo al compás, numeradas. */
-    for (var i = 0; i < 9; i++) {
-      var ti = 3.9 + i * 0.34, k = pop(t, ti, 0.16);
-      if (k <= 0) continue;
-      var fy = iy + (NINE_Y[i] + 55) * sc, pulse = 1 + 0.45 * Math.max(0, 1 - (t - ti) * 4);
+     ACTO I   · LA NOCHE QUE NO TERMINA     00:00–00:14   planos 01–03
+     ACTO II  · EL DESAFINADO               00:14–00:28   planos 04–06
+     ACTO III · LA CORRECCIÓN               00:28–00:43   planos 07–09
+     ACTO IV  · EL DESCENSO                 00:43–00:59   planos 10–12
+     ACTO V   · EL REFUGIO                  00:59–01:10   planos 13–14
+
+     Regla que gobierna el montaje: ningún plano avanza sólo porque la cámara se
+     mueva. En cada uno CAMBIA ALGO en la escena (entra alguien, se enlaza un
+     disco, falla un paso, se abre un suelo, aparece una plataforma).
+     ========================================================================== */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     01 · LA CELEBRACIÓN (0–4) — gran general de la estación convertida en
+     salón, con travelling lateral que atraviesa la multitud. La cámara no
+     «hace zoom»: se desplaza, y los grupos entran y salen del marco.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s01Celebration(t) {
+    var push = ease(seg(t, 0, 4));                     /* 0 → 1 en todo el plano */
+    /* Travelling: el encuadre se desplaza de izquierda a derecha. Se compensa
+       con el zoom para que el marco nunca quede vacío. */
+    var trav = (push - 0.5) * 0.10;
+    var z = 1.28 - push * 0.06;
+    var m = cover(img.station, 0.5 + trav, 0.44, z, 1, 0, 0, true);
+    tint(C.ink, 0.30 - 0.10 * push);
+
+    /* La multitud, en dos planos de paralaje. El de delante se mueve más. */
+    /* La capa recortada entra SOLO por abajo (la multitud), con un desplazamiento
+       de paralaje distinto al de la arquitectura. Antes se dibujaba la capa
+       entera encima y tapaba la estación. */
+    if (ok(img.crowd) && ok(img.station)) {
+      var sc0 = m.w / img.station.naturalWidth;
+      var ch = img.crowd.naturalHeight * sc0, cw = img.crowd.naturalWidth * sc0;
+      var cxc = m.x + m.w * 0.5 - cw * 0.5 + (push - 0.5) * m.w * 0.05;
+      var cyc = m.y + m.h - ch + H * 0.02 + Math.sin(t * 1.9) * H * 0.004;
       cx.save();
-      cx.fillStyle = i === 8 ? C.magenta : C.yellow;
-      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(2, 3 * U);
-      var mw = pw * 0.085 * k * pulse, mh = 110 * sc * 0.4 * pulse;
-      cx.beginPath(); cx.moveTo(ix + iw * 0.03, fy - mh / 2); cx.lineTo(ix + iw * 0.03 + mw, fy - mh * 0.3);
-      cx.lineTo(ix + iw * 0.03 + mw * 0.9, fy + mh / 2); cx.lineTo(ix + iw * 0.03, fy + mh * 0.4); cx.closePath();
-      cx.fill(); cx.stroke();
+      cx.beginPath(); cx.rect(0, m.y + m.h * 0.42, W, H); cx.clip();
+      cx.drawImage(img.crowd, cxc, cyc, cw, ch);
       cx.restore();
-      /* Número de la pista, junto a su marca. */
-      var rn = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
-      cx.save(); cx.globalAlpha = 0.9 * k; cx.fillStyle = i === 8 ? C.bone : C.bone;
-      cx.font = "italic 700 " + Math.max(9, 12 * U) + "px " + FONT_CAP;
-      cx.textAlign = "left"; cx.textBaseline = "middle";
-      cx.fillText(rn[i], ix + iw * 0.03 + mw + 5 * U, fy); cx.restore();
     }
-    cx.restore();
-    /* La línea de luz marca la planta por la que va la cámara (se ve bajar). */
-    var hl = iy + lerp(560, 1410, down) * sc;
-    if (out < 0.55) {
-      cx.save(); cx.globalAlpha = 0.5 * (1 - out); cx.fillStyle = C.cyan;
-      cx.fillRect(px0, hl, pw, Math.max(1.5, 2.5 * U)); cx.restore();
+
+    /* Luz: la lámpara central gira y las ventanas respiran. */
+    var lx = mapX(m, 0.5), ly = mapY(m, 0.10);
+    ballRays(lx, ly, m.w * 0.62, t * 0.30, 0.16 + 0.05 * beatPulse(t), "rgba(255,45,122,0.9)");
+    glow(lx, ly, m.w * 0.22, "rgba(255,200,120,0.85)", 0.13 + 0.06 * beatPulse(t));
+    for (var i = 0; i < 5; i++) {
+      var wx = mapX(m, 0.12 + i * 0.19), wy = mapY(m, 0.30 + (i % 2) * 0.10);
+      glow(wx, wy, m.w * 0.07, i % 2 ? "rgba(34,211,238,0.75)" : "rgba(155,0,255,0.75)",
+        0.08 + 0.05 * Math.sin(t * 2.1 + i * 1.4));
     }
-    /* 2. Viñetas de detalle enganchadas a tres plantas: el mismo baile, otra
-          pista. Se enlazan con un trazo a la planta correspondiente. */
-    var det = [[4.5, 0, 0.055, 0.155, -1], [5.3, 3, 0.735, 0.20, 1], [6.1, 6, 0.06, 0.60, -1]];
-    for (var d = 0; d < det.length; d++) {
-      var D = det[d], y0 = NINE_Y[D[1]] / NINE_H, w2 = 0.24, h2 = 0.13;
-      slidePanel(t, D[0], 8.5, im, [0.12, y0, 0.88, y0 + 110 / NINE_H], D[2], D[3], w2, h2, D[4] * 0.05, D[4] * 0.4, 0, { zoom: 1.0 });
-      var lk = pop(t, D[0] + 0.2, 0.2) * (1 - seg(t, 8.5, 8.8));
-      if (lk > 0) {
-        var ax = D[4] < 0 ? X(D[2] + w2) + 11 * U : X(D[2]) - 11 * U, ay = Y(D[3] + h2 / 2);
-        var bx = D[4] < 0 ? px0 : px0 + pw, by = iy + (NINE_Y[D[1]] + 55) * sc;
-        cx.save(); cx.globalAlpha = lk; cx.strokeStyle = C.ink; cx.lineWidth = 9 * U;
-        cx.beginPath(); cx.moveTo(ax, ay); cx.lineTo(lerp(ax, bx, lk), lerp(ay, clamp(by, py0, py0 + ph), lk)); cx.stroke();
-        cx.strokeStyle = C.yellow; cx.lineWidth = 4 * U; cx.stroke(); cx.restore();
-      }
-    }
-    motes(t, 18, 0.4, 12);
-    caption(t, 3.6, 5.3, "PERO LA NOCHE NO TERMINÓ.", 0.04, 0.06, 54, C.yellow, C.ink, -0.03);
-    caption(t, 5.6, 7.0, "EL SALÓN CRECIÓ HACIA ABAJO.\nCOMO UN SURCO EN UN DISCO.", 0.60, 0.05, 42, C.bone, C.ink, 0.02);
-    caption(t, 7.2, 8.45, "NUEVE PISTAS.\nUNA DEBAJO DE OTRA.", 0.63, 0.78, 52, C.magenta, C.bone, -0.02);
-    sfxWord(t, 8.05, 8.5, "FSSSH", 0.30, 0.90, 96, C.cyan, 0.08);
-    flash(t, 3.5, 0.14, "#fff", 0.35);
+    motes(t, 26, 0.45, 5);
+    /* El único rótulo del acto, el primero de los dos aprobados. */
+    caption(t, 0.90, 3.40, "ESA NOCHE, ALGUNOS PUDIERON\nREUNIRSE SIN MIEDO.", 0.55, 0.755, 50, C.bone, C.ink, 0.02);
   }
 
-  /* 03 · EL BUCLE (8,5–14) — el corazón del prólogo.
-     Cuatro repeticiones del MISMO medio compás, con el MISMO encuadre, el MISMO
-     golpe y las MISMAS siluetas. La cuarta no llega: el reloj se salta un
-     segundo, la música se atasca y la grieta aparece.
-
-     Textos (uno por repetición, para que el bucle se LEA):
-       1. «LAS PUERTAS YA NO LLEVAN FUERA.»    (§2.3)
-       2. «EL TIEMPO SE PLEGÓ SOBRE SÍ MISMO.» (§2.3)
-       3. «TODOS BAILAN. NADIE RECUERDA DESDE CUÁNDO.» (§3.2)
-       4. «LA ÚLTIMA NOTA VUELVE ANTES DE TERMINAR.» (§3.1) ← aquí se rompe */
-  function shotLoop(t, st) {
-    var i = 0;
-    while (i < LOOP_BEATS.length - 1 && t >= LOOP_BEATS[i + 1]) i++;
-    var t0 = LOOP_BEATS[i], rep = i + 1;
-    var u = t - t0;
-    var last = rep === 4;
-    var norm = last ? 1.25 : 2.0;                          /* la cuarta es más corta: se rompe */
-    var frozen = last ? clamp((u - 0.95) / 0.5, 0, 1) : 0;
-    var local = last ? Math.min(u, 0.95) : u;
-    var beat = (local * 2) % 1;
-    var kick = Math.exp(-beat * 5.5);
-
-    /* Encuadre repetido: dentro de cada vuelta la cámara empuja un 6 % y vuelve
-       a empezar. La cuarta se queda congelada en el empuje (la cámara ya no
-       puede volver a empezar). */
-    var prog = ease(local / norm);
-    var zoom = 1.07 + 0.06 * prog + (st.shake ? 0.004 * kick : 0) + frozen * 0.02;
-    if (reduced) zoom = 1.09;
-    var m = page(img.floor, 0.5, 0.46, zoom, 0, frozen * -H * 0.004, 0.07 + 0.05 * kick);
-
-    /* ── MONTAJE DE LA REPETICIÓN ─────────────────────────────────────────────
-       Cada vuelta repite el encuadre general, pero entra por una ventana de
-       detalle DISTINTA: el reloj, las manos, el plato. Son los mismos tres
-       gestos siempre, en el mismo orden, con el mismo tamaño. Que se repitan es
-       la información: el jugador ve que el mundo está atrapado. En la cuarta
-       vuelta la ventana se congela con el resto.
-       Las esquinas salen del reparto 0/1/2 → no cambia entre vueltas. */
+  /* ─────────────────────────────────────────────────────────────────────────
+     02 · EL ÚLTIMO INSTANTE (4–9) — dolly-in sobre los grupos, dos planos
+     cercanos. Aquí hay que sentir el alivio: gente que por fin no teme.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s02LastMoment(t) {
+    var u = seg(t, 4, 9);
+    /* Dolly-in continuo + deriva lateral mínima. */
+    var z = 1.06 + ease(u) * 0.14;
+    var m = cover(img.smiles, 0.52 + 0.02 * Math.sin(t * 0.8), 0.5, z, 1, 0, 0, true);
+    tint(C.ink, 0.05);
+    /* El grupo respira: micro-ciclo de multitud sobre la propia lámina. */
+    crowdCycle(t, m, 3, 0.16, 0, 0.4);
+    /* Dos ventanas cercanas: la pareja y la figura del balcón. Se abren al
+       compás y se cierran. Es el «plano cercano» que pide el guion. */
     if (!reduced) {
-      var winPos = [[0.055, 0.085], [0.735, 0.115], [0.075, 0.615]][i % 3];
-      var wIn = last ? (1 - frozen * 0.85) : ease(seg(u, 0.08, 0.34));
-      if (wIn > 0.02) {
-        var ww = SW * 0.235 * wIn, wh = H * 0.30 * wIn;
-        var wx = X(winPos[0]) + (1 - wIn) * -14 * U, wy = Y(winPos[1]) + (1 - wIn) * 26 * U;
-        var detail = [img.floor, img.hand, img.vinyl][i % 3];
-        cx.save();
-        cx.beginPath(); cx.rect(wx, wy, ww, wh); cx.clip();
-        /* el detalle se pinta DENTRO de la ventana: mismo gesto, mismo tamaño,
-           en el mismo sitio, cada vuelta */
-        coverIn(detail, wx, wy, ww, wh, 0.5, 0.5, (i % 3 === 0 ? 2.4 : 1.06) + prog * 0.05, 0.12);
+      var w1 = ease(seg(t, 4.5, 5.1)) * (1 - ease(seg(t, 7.4, 8.0)));
+      if (w1 > 0.02) {
+        var wa = SW * 0.28, ha = H * 0.32;
+        var ax = X(0.045), ay = Y(0.50) + (1 - w1) * H * 0.05;
+        cx.save(); cx.globalAlpha = w1;
+        cx.beginPath(); cx.rect(ax, ay, wa, ha); cx.clip();
+        coverIn(img.smiles, ax, ay, wa, ha, 0.26, 0.40, 2.1, 0.06);
         cx.restore();
-        cx.save();
-        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U);
-        cx.strokeRect(wx, wy, ww, wh);
-        cx.strokeStyle = last ? C.magenta : C.bone; cx.lineWidth = Math.max(1.5, 3 * U);
-        cx.strokeRect(wx, wy, ww, wh);
+        cx.save(); cx.globalAlpha = w1;
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U); cx.strokeRect(ax, ay, wa, ha);
+        cx.strokeStyle = C.bone; cx.lineWidth = Math.max(1.5, 3 * U); cx.strokeRect(ax, ay, wa, ha);
         cx.restore();
       }
-    }
-
-    /* La multitud, en paralaje: en cada vuelta vuelve a su posición de salida. */
-    var off = reduced ? 0 : Math.sin(local * 1.7) * 0.006 - prog * 0.008;
-    crowdLayer(m, off, 1 + 0.03 * prog, 1);
-
-    /* Esfera: el mismo abanico de luz, girando al mismo ritmo cada vuelta. */
-    var ballX = mapX(m, 0.494), ballY = mapY(m, 0.115), ballR = m.w * 0.5;
-    ballRays(ballX, ballY, ballR, (i % 2) * 0.9 + local * 0.85, 0.15 + 0.08 * kick, "rgba(255,45,122,0.85)");
-    glow(ballX, ballY, m.w * 0.16, "rgba(255,120,200,0.9)", 0.14 + 0.12 * kick);
-
-    /* El reloj: las agujas DE VERDAD no avanzan. Dan un tirón, vuelven atrás y
-       repiten el mismo cuarto de vuelta en cada repetición. En la cuarta, se
-       saltan un segundo (destello) y se quedan clavadas. */
-    var ang = -Math.PI / 2 + 0.42 + ease(local / norm) * 0.30;
-    if (!last && u > norm - 0.12) ang -= ease((u - (norm - 0.12)) / 0.12) * 0.30;   /* vuelve al inicio */
-    if (last) ang = -Math.PI / 2 + 0.42 + ease(clamp(local / 0.95, 0, 1)) * 0.30 - frozen * 0.55;
-    var skipFlash = last ? Math.max(0, 1 - Math.abs(u - 1.05) * 6) : 0;
-    clockHands(m, img.floor, 0.4988, 0.4240, 0.039, ang, 0.92, last ? frozen : 0, skipFlash);
-
-    /* Reinicio: un latido de tinta y todo vuelve a su sitio. */
-    if (!last && u < 0.12) tint(C.ink, 0.5 * (1 - u / 0.12));
-    flash(t, t0, 0.09, "#fff", 0.22);
-
-    /* Copias fantasma de la multitud: el mismo gesto, tres veces, cada vez más
-       lejos. Se ven a partir de la segunda vuelta. */
-    if (rep >= 2 && !reduced && ok(img.crowd)) {
-      for (var g2 = 3; g2 >= 1; g2--) {
-        var a2 = (0.055 * rep - g2 * 0.014) * (1 - frozen * 0.8);
-        if (a2 <= 0) continue;
-        cx.save(); cx.globalAlpha = a2;
-        var k2 = 1 + g2 * 0.03;
-        cx.drawImage(img.crowd, m.x - (m.w * k2 - m.w) / 2, m.y - (m.h * k2 - m.h) / 2, m.w * k2, m.h * k2);
+      var w2 = ease(seg(t, 6.2, 6.8)) * (1 - ease(seg(t, 8.2, 8.7)));
+      if (w2 > 0.02) {
+        var wb = SW * 0.24, hb = H * 0.38;
+        var bx = X(0.725), by = Y(0.17) + (1 - w2) * H * 0.05;
+        cx.save(); cx.globalAlpha = w2;
+        cx.beginPath(); cx.rect(bx, by, wb, hb); cx.clip();
+        coverIn(img.vespera, bx, by, wb, hb, 0.52, 0.30, 1.45, 0.04);
+        cx.restore();
+        cx.save(); cx.globalAlpha = w2;
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U); cx.strokeRect(bx, by, wb, hb);
+        cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(1.5, 3 * U); cx.strokeRect(bx, by, wb, hb);
         cx.restore();
       }
     }
-
-    /* Marcas de las nueve pistas + números romanos (se cuentan solas). */
-    var rn = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
-    for (var k = 0; k < 9; k++) {
-      var tk = t0 + 0.10 + k * 0.055, kk = pop(t, tk, 0.14);
-      if (kk <= 0) continue;
-      var gx = X(0.055), gy = Y(0.285 + k * 0.058), gw = 0.024 * SW * kk;
-      cx.save(); cx.globalAlpha = 0.9;
-      cx.fillStyle = last ? C.magenta : C.yellow;
-      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(2, 3 * U);
-      cx.beginPath(); cx.moveTo(gx, gy - gw * 0.4); cx.lineTo(gx + gw, gy - gw * 0.12);
-      cx.lineTo(gx + gw * 0.86, gy + gw * 0.4); cx.lineTo(gx, gy + gw * 0.26); cx.closePath();
-      cx.fill(); cx.stroke();
-      cx.restore();
-      if (rep >= 2) {
-        cx.save(); cx.globalAlpha = 0.8 * kk; cx.fillStyle = C.bone;
-        cx.font = "italic 700 " + Math.max(9, 12 * U) + "px " + FONT_CAP;
-        cx.textAlign = "left"; cx.textBaseline = "middle";
-        cx.fillText(rn[k], X(0.088), gy); cx.restore();
+    /* Confeti: partículas con gravedad, no un filtro. */
+    if (!reduced) {
+      for (var i = 0; i < 20; i++) {
+        var p = ((t * 0.22 + rnd(i * 3.7)) % 1);
+        var cxp = X(0.08 + rnd(i * 1.9) * 0.86), cyp = Y(p * 1.05);
+        cx.save(); cx.globalAlpha = 0.55 * (1 - p * 0.5);
+        cx.fillStyle = [C.magenta, C.cyan, C.yellow, C.bone][i % 4];
+        cx.translate(cxp + Math.sin(t * 1.6 + i) * 12 * U, cyp);
+        cx.rotate(t * 2 + i);
+        cx.fillRect(-3 * U, -1.5 * U, 6 * U, 3 * U);
+        cx.restore();
       }
     }
-
-    /* Cartela de cada repetición. */
-    if (rep === 1) { caption(t, 8.55, 10.3, "LAS PUERTAS YA NO LLEVAN FUERA.", 0.52, 0.845, 50, C.bone, C.ink, 0.02); sfxWord(t, 8.52, 9.0, "TUM", 0.5, 0.145, 88, C.bone, -0.04); }
-    if (rep === 2) { caption(t, 10.55, 12.3, "EL TIEMPO SE PLEGÓ SOBRE SÍ MISMO.", 0.44, 0.845, 48, C.magenta, C.bone, -0.02); sfxWord(t, 10.52, 11.0, "TUM", 0.5, 0.145, 88, C.bone, -0.04); }
-    if (rep === 3) { caption(t, 12.55, 14.0, "TODOS BAILAN.\nNADIE RECUERDA DESDE CUÁNDO.", 0.42, 0.80, 48, C.bone, C.ink, 0.025); sfxWord(t, 12.52, 13.0, "TUM", 0.5, 0.145, 88, C.bone, -0.04); }
-    if (rep === 4) {
-      caption(t, 13.7, 14.0, "LA ÚLTIMA NOTA VUELVE\nANTES DE TERMINAR.", 0.46 + frozen * 0.01, 0.76, 50, C.yellow, C.ink, -0.03 + frozen * 0.03);
-      if (frozen > 0.4) caption(t, 13.7 + frozen * 0.08, 14.0, "LA ÚLTIMA NOTA VUELVE\nANTES DE TERMINAR.", 0.472 + frozen * 0.012, 0.766, 50, C.magenta, C.bone, -0.03 + frozen * 0.03);
-      sfxWord(t, 13.75, 14.05, "CLAC", 0.24, 0.40, 150, C.yellow, -0.17);
-      sfxWord(t, 13.9, 14.05, "TUM-TUM", 0.76, 0.34, 112, C.magenta, 0.1);
-    }
-
-    /* La grieta de la cuarta vuelta: empieza aquí y no parará hasta el acto IV. */
-    crack([[0.50, 0.30], [0.485, 0.45], [0.515, 0.58], [0.492, 0.72], [0.505, 0.9]], seg(t, 13.9, 14.1), 7);
-    if (st.shake && last) {
-      var sk = shakeOf(t, 13.75, 0.35, 6);
-      cx.save(); cx.globalAlpha = 0.1 * frozen; cx.fillStyle = C.cyan; cx.fillRect(sk[0], H * 0.4, W, 3 * U); cx.restore();
-    }
-    flash(t, 13.75, 0.12, "#fff", 0.4);
-    motes(t, 26, 0.45, 9 + i);
+    motes(t, 20, 0.4, 11);
   }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     03 · UNA CANCIÓN MÁS (9–14) — cenital sobre el plato y contrapicado de la
+     mano de Tempo. ESTE es el primer indicio del bucle: la última nota está a
+     punto de terminar y la mano enlaza otra canción ANTES del final.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s03OneMoreSong(t) {
+    var u = seg(t, 9, 14);
+    /* El plato gira. Su velocidad NO es constante: al final del plano frena,
+       porque la canción se está acabando. */
+    var spin = u < 0.72 ? (t - 9) * 1.5 : (t - 9) * 1.5 - ease((u - 0.72) / 0.28) * 2.2;
+    var m = cover(img.vinyl, 0.5, 0.5, 1.10 + ease(u) * 0.10, 1, 0, 0, true);
+    tint(C.ink, 0.20);
+
+    /* El disco, girando de verdad: se dibuja el plato con su propia rotación
+       alrededor del eje, sobre la lámina. */
+    var cxv = mapX(m, 0.47), cyv = mapY(m, 0.50), rv = m.w * 0.30;
+    cx.save();
+    cx.translate(cxv, cyv);
+    cx.rotate(spin * 0.06);
+    cx.globalAlpha = 0.22;
+    cx.strokeStyle = C.bone; cx.lineWidth = Math.max(1, 1.6 * U);
+    for (var k = 1; k <= 5; k++) {
+      cx.beginPath(); cx.arc(0, 0, rv * (k / 5.6), 0, Math.PI * 2); cx.stroke();
+    }
+    /* una marca para que se VEA girar */
+    cx.restore();
+    cx.save();
+    cx.translate(cxv, cyv); cx.rotate(spin * 0.06);
+    cx.globalAlpha = 0.85; cx.fillStyle = C.magenta;
+    cx.beginPath(); cx.arc(rv * 0.82, 0, Math.max(2, 3.5 * U), 0, Math.PI * 2); cx.fill();
+    cx.restore();
+
+    /* Brazo del plato: baja al final del plano = enlaza la siguiente canción. */
+    var arm = ease(seg(t, 12.4, 13.1));
+    if (!reduced) {
+      cx.save();
+      cx.translate(mapX(m, 0.70), mapY(m, 0.34));
+      cx.rotate(0.42 - arm * 0.26);
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(6, 11 * U);
+      cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(-m.w * 0.13, m.h * 0.20); cx.stroke();
+      cx.strokeStyle = C.bone; cx.lineWidth = Math.max(2, 4.5 * U);
+      cx.beginPath(); cx.moveTo(0, 0); cx.lineTo(-m.w * 0.13, m.h * 0.20); cx.stroke();
+      cx.restore();
+    }
+
+    /* Contrapicado de la mano: entra desde abajo y TOCA el disco. */
+    if (!reduced) {
+      var hp = ease(seg(t, 9.6, 10.6)) * (1 - ease(seg(t, 13.2, 13.9)));
+      if (hp > 0.02) {
+        var hw2 = SW * 0.34, hh2 = H * 0.44;
+        var hx = X(0.60), hy = Y(0.44) + (1 - hp) * H * 0.20;
+        cx.save(); cx.globalAlpha = 0.86 * hp;
+        cx.beginPath(); cx.rect(hx, hy, hw2 * hp, hh2); cx.clip();
+        coverIn(img.hand, hx, hy, hw2 * hp, hh2, 0.42, 0.5, 1.35, 0.06);
+        cx.restore();
+        cx.save(); cx.globalAlpha = 0.9 * hp;
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 8 * U);
+        cx.strokeRect(hx, hy, hw2 * hp, hh2); cx.restore();
+      }
+    }
+
+    /* El «clic» del enlace: destello + onomatopeya, al final de la nota. */
+    sfxWord(t, 12.35, 13.25, "CLIC", 0.20, 0.30, 120, C.yellow, -0.14);
+    flash(t, 12.35, 0.10, "#fff", 0.30);
+    if (t > 13.1 && !reduced) {
+      /* el surco vuelve a empezar: un latido de tinta en el borde */
+      tint(C.ink, 0.35 * (1 - seg(t, 13.1, 13.55)));
+    }
+    motes(t, 16, 0.35, 17);
+  }
+
+
+
 
   /* ────────────────────────── ACTO II · EL DESAFINADO ───────────────────────
-     04 · EL DESAFINADO (14–21) — el mundo sigue girando y alguien llega cuando
-     la música ya ha pasado de largo. Las botas son el bombo: tres pisadas a
-     compás y la cuarta tarde; la música se corta en seco. Después entra él, y
-     la página entera se desalinea a su paso. */
-  function shotOffbeat(t, st) {
-    /* La página de las botas nunca se queda quieta: empuje continuo y un
-       balanceo de cámara que crece hasta el paso tardío. */
-    var pushO = seg(t, 14, 21);
-    /* balanceo de cámara al ritmo de la música: la página de las botas respira
-       con el compás en vez de deslizarse rígida. */
-    var bobO = beatPulse(t) * 5 * U;
-    /* una tercera componente lenta, sin periodo común con el compás, para que
-       nunca coincidan dos fotogramas iguales */
-    var slowO = Math.sin(t * 0.37) * 9 * U;
-    page(img.boots, 0.55, 0.6, 1.06 + pushO * 0.16 + Math.sin(t * 0.29) * 0.004,
-      Math.sin(t * 1.3) * 7 * U + slowO, Math.cos(t * 1.1) * 5 * U - bobO, 0.5);
-    var steps = [14.6, 15.1, 15.6, 16.1];                  /* cuatro pasos; el cuarto tarde */
-    /* Tres pasos en compás y el cuarto TARDE. El cuarto no se queda quieto: abre
-       un pulso de tinta sobre la pista y el mundo se descuadra un instante —
-       es la primera consecuencia visible de que él va por libre. */
-    for (var i = 0; i < steps.length; i++) {
-      var p = pop(t, steps[i], 0.13);
-      if (p <= 0) continue;
-      var px = X(0.20 + i * 0.145) + (i === 3 ? 0.02 * SW : 0), py = Y(0.74 - i * 0.012);
-      splat(px, py, (i === 3 ? 58 : 42) * U * p, i === 3 ? C.magenta : C.yellow, 20 + i, 0.95);
-      if (i === 3) { sfxWord(t, 16.1, 16.8, "TAC", 0.46, 0.30, 152, C.yellow, -0.2); flash(t, 16.1, 0.12, "#fff", 0.55); }
-    }
-    if (t >= 16.1 && t < 17.6) {
-      var late = seg(t, 16.1, 17.4);
-      /* el golpe se propaga por el damero en anillos que se suceden */
-      for (var ri = 0; ri < 3; ri++) {
-        var rp = clamp((late - ri * 0.11) / 0.62, 0, 1);
-        if (rp <= 0 || rp >= 1) continue;
-        cx.save(); cx.globalAlpha = 0.55 * (1 - rp);
-        cx.strokeStyle = ri === 0 ? C.yellow : C.magenta; cx.lineWidth = Math.max(2, 4 * U * (1 - rp));
-        cx.beginPath(); cx.ellipse(X(0.62), Y(0.78), SW * 0.10 * rp + 6, H * 0.035 * rp + 4, 0, 0, Math.PI * 2); cx.stroke();
+  /* ══════════════════ ACTO II · EL DESAFINADO (14–28) ═════════════════════ */
+
+  /* El bucle de la multitud: cuatro compases idénticos. El encuadre y la
+     trayectoria de cámara son EXACTAMENTE los del plano 02, para que el
+     espectador reconozca la repetición sin que nadie se la explique. */
+  var LOOP4 = [14.0, 15.0, 16.0, 17.0];
+  function s04Repetition(t) {
+    var i = 0;
+    while (i < LOOP4.length - 1 && t >= LOOP4[i + 1]) i++;
+    var t0 = LOOP4[i], u = t - t0;
+    var last = i === 3;                                /* el cuarto se rompe */
+    var norm = last ? 0.62 : 1.0;
+
+    /* MISMO encuadre que el plano 02, misma apertura de dolly. Si cambiara,
+       el bucle no se leería. */
+    var loc = clamp(u / norm, 0, 1);
+    var z = 1.06 + ease(loc) * 0.14 + (last ? 0.012 * Math.exp(-u * 6) : 0);
+    var m = cover(img.smiles, 0.52 + 0.02 * Math.sin((t0 + loc) * 0.8), 0.5, z, 1, 0, 0, true);
+    tint(C.ink, 0.05);
+
+    /* La multitud repite el ciclo EXACTO: mismo desfase siempre. */
+    crowdCycle(t0 + loc, m, 3, 0.16, 0, 0.4);
+
+    /* Variaciones mínimas: cada vuelta deja una huella distinta. Es lo único
+       que cambia, y por eso se nota que es el mismo instante. */
+    var variance = [0, 1, 2, 3][i];
+    if (!reduced) {
+      var w1 = ease(seg(u, 0.1, 0.5)) * (1 - ease(seg(u, norm - 0.3, norm - 0.05)));
+      if (w1 > 0.02) {
+        var wa = SW * 0.28, ha = H * 0.32, ax = X(0.045), ay = Y(0.50);
+        cx.save(); cx.globalAlpha = w1;
+        cx.beginPath(); cx.rect(ax, ay, wa, ha); cx.clip();
+        coverIn(img.smiles, ax, ay, wa, ha, 0.26, 0.40, 2.1, 0.06);
+        cx.restore();
+        cx.save(); cx.globalAlpha = w1;
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 9 * U); cx.strokeRect(ax, ay, wa, ha);
+        cx.strokeStyle = last ? C.magenta : C.bone; cx.lineWidth = Math.max(1.5, 3 * U);
+        cx.strokeRect(ax, ay, wa, ha);
         cx.restore();
       }
-      /* y la pista se descuadra: las losas se separan en diagonal */
-      if (!reduced) {
-        var skew = Math.sin(late * Math.PI) * W * 0.012;
-        cx.save(); cx.globalAlpha = 0.5 * Math.sin(late * Math.PI);
-        cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(1.5, 2.5 * U);
-        for (var sv = 0; sv < 5; sv++) {
-          cx.beginPath();
-          cx.moveTo(X(0.30 + sv * 0.12) + skew, Y(0.80));
-          cx.lineTo(X(0.30 + sv * 0.12) - skew, Y(0.96));
-          cx.stroke();
+      /* la huella de cada vuelta: una copia fantasma, cada vez más cerca */
+      if (i > 0 && ok(img.crowd)) {
+        cx.save(); cx.globalAlpha = 0.05 * i;
+        cx.drawImage(img.crowd, m.x - m.w * 0.01 * i, m.y, m.w * (1 + 0.02 * i), m.h * (1 + 0.02 * i));
+        cx.restore();
+      }
+    }
+
+    /* Reinicio del compás: la cámara da un tirón de tinta y vuelve a empezar. */
+    if (u < 0.10 && i > 0) tint(C.ink, 0.42 * (1 - u / 0.10));
+    flash(t, t0, 0.07, "#fff", 0.16);
+
+    /* El reloj de la pared: las agujas NO avanzan, dan tirones y vuelven. */
+    if (!reduced) {
+      var ang = -Math.PI / 2 + 0.3 + ease(loc) * 0.34;
+      if (u > norm - 0.10) ang -= ease((u - (norm - 0.10)) / 0.10) * 0.34;
+      clockHands(m, img.smiles, 0.512, 0.146, 0.026, ang, 0.55, last ? 1 : 0, 0);
+    }
+    /* La cuarta vuelta no termina: se queda colgada. */
+    if (last) {
+      var stuck = ease(seg(u, 0.3, norm));
+      cx.save(); cx.globalAlpha = 0.30 * stuck;
+      cx.fillStyle = C.ink; cx.fillRect(0, 0, W, H); cx.restore();
+      sfxWord(t, t0 + 0.28, t0 + 0.62, "CLAC", 0.22, 0.36, 150, C.yellow, -0.17);
+    }
+    motes(t, 18, 0.35, 21 + i);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     05 · EL PASO INCORRECTO (18–23) — travelling bajo, a ras de suelo. Entre
+     todos los pies que caen al compás, UNO cae tarde. Aquí aparece él por
+     primera vez como acción, no como retrato.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s05WrongStep(t, st) {
+    var u = seg(t, 18, 23);
+    /* Travelling bajo: el encuadre se desplaza sobre las botas. */
+    var m = cover(img.boots, lerp(0.30, 0.68, ease(u)), 0.62, 1.16, 1, 0, 0);
+    tint(C.ink, 0.16);
+
+    /* Los pies de la multitud, al compás: cada grupo cae en su tiempo. */
+    if (!reduced) {
+      for (var i = 0; i < 6; i++) {
+        var ph = ((t * 2 + i * 0.37) % 1);
+        var fall = Math.exp(-ph * 7);
+        var fx = X(0.08 + i * 0.15), fy = Y(0.88);
+        cx.save(); cx.globalAlpha = 0.12 * fall;
+        cx.fillStyle = i % 2 ? C.cyan : C.bone;
+        cx.beginPath(); cx.ellipse(fx, fy, W * 0.03, H * 0.008, 0, 0, 7); cx.fill();
+        cx.restore();
+      }
+    }
+
+    /* EL PASO TARDE: el protagonista cruza el cuadro con su ciclo REAL de
+       andar, fuera de compás.
+       La lámina de las botas es un encuadre A RAS DE SUELO: los pies de la
+       multitud caen en el 86 % del alto. Él camina sobre esa misma línea, y se
+       dibuja más pequeño que las botas gigantes del primer plano porque está
+       más lejos: es la profundidad la que lo hace legible. */
+    var cross = ease(seg(t, 18.4, 22.2));
+    var hx = X(0.10) + cross * SW * 0.72;
+    var floorY = Y(0.865);                              /* el suelo de la lámina */
+    var hh = H * 0.42, hw = hh * 288 / 512;
+    var stepPhase = (t - 18.4) / 0.72;                  /* un paso cada 0,72 s */
+    /* el retardo: el ciclo se queda atrás justo en los compases impares */
+    var lag = Math.max(0, Math.sin((t - 18) * Math.PI / 1.0)) * 0.18;
+    var frame = walkFrameIndex(stepPhase - lag);
+    var bob = -Math.abs(Math.sin((stepPhase - lag) * Math.PI * 2)) * H * 0.010;
+    /* su sombra, en el suelo de la lámina, para que no parezca pegado */
+    cx.save(); cx.globalAlpha = 0.42;
+    cx.fillStyle = C.ink;
+    cx.beginPath(); cx.ellipse(hx, floorY + H * 0.004, hw * 0.34, H * 0.007, 0, 0, 7); cx.fill();
+    cx.restore();
+    drawHeroWalk(frame, hx - hw * 0.5, floorY - hh + bob, hw, hh,
+      Math.sin((stepPhase - lag) * Math.PI * 2) * 0.018, 1);
+
+    /* La marca del paso tardío: su huella se queda un instante en el suelo. */
+    if (!reduced) {
+      var lateMark = Math.max(0, 1 - Math.abs(((t - 18.4) % 0.72) - 0.10) * 5);
+      cx.save(); cx.globalAlpha = 0.34 * lateMark;
+      cx.fillStyle = C.magenta;
+      cx.beginPath(); cx.ellipse(hx, floorY + H * 0.006, hw * 0.40, H * 0.006, 0, 0, 7); cx.fill();
+      cx.restore();
+    }
+
+    sfxWord(t, 20.1, 20.7, "TAC", 0.62, 0.30, 140, C.yellow, -0.18);
+    flash(t, 20.1, 0.09, "#fff", 0.28);
+    /* El suelo se descuadra cuando él pasa: la consecuencia visible. */
+    if (t > 20.1 && !reduced) {
+      var sk = Math.sin(seg(t, 20.1, 21.2) * Math.PI) * W * 0.010;
+      cx.save(); cx.globalAlpha = 0.45 * Math.sin(seg(t, 20.1, 21.2) * Math.PI);
+      cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(1.5, 2.5 * U);
+      for (var v2 = 0; v2 < 5; v2++) {
+        cx.beginPath();
+        cx.moveTo(X(0.24 + v2 * 0.13) + sk, Y(0.80));
+        cx.lineTo(X(0.24 + v2 * 0.13) - sk, Y(0.97));
+        cx.stroke();
+      }
+      cx.restore();
+    }
+    debris(t, 20.15, 8, 71, 1, 0.30, 0.35);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     06 · EL QUE NO SE REPITE (23–28) — órbita alrededor de él. Rostro, tatuajes
+     y manos en tres cuartos de vuelta. El fondo repite; él varía.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s06DoesNotRepeat(t, st) {
+    var u = seg(t, 23, 28);
+    /* La órbita: el punto de vista gira 270°. En 2.5D se simula desplazando el
+       eje de la lámina y cambiando qué recorte está delante. El mundo gira; él
+       no. Ese contraste es todo el plano. */
+    var ang = -0.6 + ease(u) * 1.5 * Math.PI;
+    var orbX = Math.cos(ang) * 0.07, orbY = Math.sin(ang) * 0.025;
+
+    var m = cover(img.floor, 0.5 + orbX, 0.42 + orbY, 1.30, 1, 0, 0, false);
+    tint(C.ink, 0.22);
+    crowdCycle(t, m, 1, 0.14, 0, 0.7);
+
+    /* EL RETRATO. `op_06_face` es un primer plano apaisado: la cara ocupa el
+       centro-derecha y el club sigue detrás. Entra como ventana que la órbita
+       va descubriendo, no como panel estrecho. */
+    var faceA = ease(seg(t, 23.3, 24.3));
+    if (faceA > 0.02) {
+      var fw = SW * 0.40, fh = fw * 768 / 1376;
+      var fx = X(0.028) - (1 - faceA) * SW * 0.06 + orbX * SW * 0.08;
+      var fy = Y(0.235) + orbY * H * 0.06;
+      cx.save(); cx.globalAlpha = faceA;
+      cx.beginPath(); cx.rect(fx, fy, fw, fh); cx.clip();
+      coverIn(img.face, fx, fy, fw, fh, 0.46 - orbX * 0.3, 0.44, 1.10 + u * 0.10, 0.02);
+      cx.restore();
+      cx.save(); cx.globalAlpha = faceA;
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 10 * U);
+      cx.strokeRect(fx, fy, fw, fh);
+      cx.strokeStyle = C.bone; cx.lineWidth = Math.max(1.5, 3 * U);
+      cx.strokeRect(fx, fy, fw, fh);
+      cx.restore();
+    }
+
+    /* LOS TATUAJES: `arm_tattoos` es vertical y entra por el lado opuesto, con
+       la luz cian. Es la prueba de que no se repite. */
+    var armA = ease(seg(t, 24.6, 25.6));
+    if (armA > 0.02) {
+      var ah = H * 0.46, aw = ah * 280 / 630;
+      var ax2 = X(0.972) - aw + (1 - armA) * SW * 0.05;
+      var ay2 = Y(0.545) - ah;
+      cx.save(); cx.globalAlpha = armA * 0.96;
+      cx.beginPath(); cx.rect(ax2, ay2, aw, ah); cx.clip();
+      coverIn(img.marm, ax2, ay2, aw, ah, 0.50, 0.42, 1.04, 0.06);
+      cx.restore();
+      cx.save(); cx.globalAlpha = armA;
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(4, 10 * U);
+      cx.strokeRect(ax2, ay2, aw, ah);
+      cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(1.5, 3 * U);
+      cx.strokeRect(ax2, ay2, aw, ah);
+      cx.restore();
+    }
+
+    /* Él, en el centro: la única pieza que no gira con el mundo. */
+    var hxx, floorY2, hh, hw;
+    if (ok(img.hero)) {
+      hh = H * 0.46; hw = hh * 288 / 512;
+      var breath = reduced ? 0 : Math.sin(t * 1.9) * H * 0.004;
+      var lean = reduced ? 0 : Math.sin(t * 0.9) * 0.012;
+      hxx = X(0.53) - hw * 0.5;
+      floorY2 = Y(0.885);                 /* pisando la franja de público */
+      var hyy = floorY2 - hh + breath;
+      cx.save(); cx.globalAlpha = 0.42; cx.fillStyle = C.ink;
+      cx.beginPath(); cx.ellipse(hxx + hw * 0.5, floorY2 + H * 0.004, hw * 0.32, H * 0.008, 0, 0, 7); cx.fill();
+      cx.restore();
+      drawHeroWalk("hero_walk_01", hxx, hyy, hw, hh, lean, 1);
+      glow(hxx + hw * 0.5, hyy + hh * 0.30, hh * 0.46, "rgba(255,236,246,0.55)", 0.13);
+    }
+
+    /* El entorno repite, él varía: sus copias se quedan atrás. */
+    if (!reduced && ok(img.hero)) {
+      var ghost = Math.sin(u * Math.PI * 3) * 0.5 + 0.5;
+      if (ghost > 0.32) {
+        cx.save();
+        for (var gi = 0; gi < 2; gi++) {
+          cx.globalAlpha = (0.09 - gi * 0.04) * ghost;
+          var hh3 = H * 0.46, hw3 = hh3 * 288 / 512;
+          cx.drawImage(img.hero, hxx + hw * 0.5 - hw3 * 0.5 - SW * (0.05 + gi * 0.05) * ghost,
+            floorY2 - hh3, hw3, hh3);
         }
         cx.restore();
       }
     }
-    slidePanel(t, 14.1, 0, img.boots, [0.25, 0.05, 1, 1], 0.035, 0.09, 0.4, 0.4, -0.05, -0.5, 0, { py: 0, zoom: 1.02, px: 0 });
-    caption(t, 14.3, 16.55, "UNO NO SIGUE EL COMPÁS.", 0.04, 0.035, 56, C.yellow, C.ink, -0.03);
-
-    /* A los 18,2 s entra la lámina maestra: el protagonista, de frente, y detrás
-       el mundo que se dobla a su alrededor. */
-    if (t >= 18.2) {
-      var q = pop(t, 18.2, 0.3), w = SW * 0.5 + (W - SW) / 2 + 20 * U, x = W - w + (1 - q) * w;
-      panel(img.master, [0.385, 0.0, 1.0, 0.86], x, -12 * U, w, H + 24 * U, { zoom: 1 + seg(t, 18.2, 21) * 0.07, py: -0.5 });
-      if (!reduced) {
-        cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.13 * seg(t, 18.8, 19.4) * (0.5 + 0.5 * Math.sin(t * 27));
-        cx.fillStyle = C.cyan; cx.fillRect(x, H * (0.2 + 0.6 * rnd(Math.floor(t * 13))), w, 5 * U); cx.restore();
-      }
-    }
-    slidePanel(t, 19.2, 0, img.marm, [0, 0.02, 1, 0.98], 0.07, 0.53, 0.165, 0.4, 0.06, -0.3, 0.3, { zoom: 1 + seg(t, 19.2, 21) * 0.06 });
-    slidePanel(t, 19.7, 0, img.mface, [0.22, 0.05, 1, 0.95], 0.26, 0.57, 0.22, 0.3, -0.06, -0.3, 0.3, { zoom: 1.02 });
-    caption(t, 19.0, 20.95, "A ÉL, LA TORRE LE DUELE.", 0.50, 0.885, 58, C.magenta, C.bone, -0.03);
-    motes(t, 20, 0.35, 21);
+    motes(t, 22, 0.4, 31);
   }
 
-  /* 05 · LOS QUE MIRAN (21–26) — la Torre lo detecta. Los invitados se giran a
-     la vez y sus ojos se encienden; el reloj se para de golpe; las puertas dan
-     a la misma pista (no hay salida) y el vaso cae al mismo compás. */
-  function shotWatched(t, st) {
-    var sh = shakeOf(t, 21, 0.4, 16), bp = st.shake ? beatPulse(t) * 5 * U : 0;
-    var z = lerp(1.30, 1.05, easeOut(seg(t, 21, 21.6))) + seg(t, 21, 26) * 0.08;
-    var m = page(img.doors, 0.5, 0.42, z, sh[0], sh[1] + bp, 0.1);
-    tint(C.magenta, 0.05 + 0.10 * beatPulse(t));
 
-    var eyes = [[0.055, 0.40], [0.115, 0.42], [0.20, 0.40], [0.295, 0.41],
-                [0.70, 0.40], [0.80, 0.41], [0.885, 0.40], [0.945, 0.43]];
-    var turn = ease(seg(t, 21.35, 22.2));
-    for (var i = 0; i < eyes.length; i++) {
-      var ex = mapX(m, eyes[i][0]), ey = mapY(m, eyes[i][1]);
-      var fl = 0.55 + 0.45 * Math.sin(t * 7 + i * 1.3);
-      glow(ex, ey, m.w * 0.026, i % 2 ? "rgba(250,204,21,0.95)" : "rgba(34,211,238,0.95)", turn * 0.9 * fl);
-    }
-    var stopped = seg(t, 22, 22.4);
-    clockHands(m, img.doors, 0.5143, 0.2108, 0.030, -Math.PI / 2 + 0.9 + seg(t, 21, 22) * 0.28, 0.92, stopped, 0);
 
-    slidePanel(t, 22.0, 25.7, img.vinyl, [0.3, 0.1, 1, 0.9], 0.035, 0.55, 0.31, 0.39, -0.085, -0.5, 0.2, { px: Math.sin(t * 6) * 0.004 });
-    slidePanel(t, 22.5, 25.75, img.smiles, [0, 0.05, 1, 0.75], 0.63, 0.07, 0.335, 0.36, 0.07, 0.5, -0.2, { zoom: 1 + seg(t, 22.5, 26) * 0.12 });
-    slidePanel(t, 23.2, 25.8, img.hand, [0, 0, 1, 1], 0.67, 0.53, 0.285, 0.37, -0.05, 0.5, 0.2, { zoom: 1.04 });
 
-    var cp = seg(t, 21.2, 25.2);
-    cp = Math.floor(cp * 7) / 7 + (cp * 7 % 1 > 0.7 ? 1 / 7 : 0);
-    crack([[0.525, -0.02], [0.5, 0.16], [0.54, 0.3], [0.485, 0.48], [0.52, 0.65], [0.47, 0.82], [0.5, 1.02]], Math.min(1, cp), 9);
-    crack([[0.485, 0.48], [0.4, 0.52], [0.34, 0.49]], seg(t, 22.2, 22.6), 6);
-    crack([[0.52, 0.65], [0.6, 0.68], [0.67, 0.65]], seg(t, 22.9, 23.3), 6);
+  /* ══════════════════ ACTO III · LA CORRECCIÓN (28–43) ════════════════════ */
 
-    caption(t, 21.3, 22.9, "TODOS GIRAN LA CARA A LA VEZ.", 0.04, 0.055, 52, C.bone, C.ink, -0.03);
-    caption(t, 23.6, 25.0, "NADIE RECUERDA CUÁNDO\nDEJÓ DE MIRARLO A ÉL.", 0.36, 0.81, 48, C.magenta, C.bone, -0.025);
-    sfxWord(t, 22.0, 23.2, "CLAC", 0.27, 0.5, 160, C.yellow, -0.17);
-    sfxWord(t, 24.2, 25.3, "TUM-TUM", 0.79, 0.47, 112, C.magenta, 0.1);
-    flash(t, 21, 0.18, "#fff", 0.7); flash(t, 22.0, 0.1, "#fff", 0.45);
-    motes(t, 16, 0.3, 33);
-  }
+  /* ─────────────────────────────────────────────────────────────────────────
+     07 · EL ERROR (28–33) — contrapicado desde el suelo. Los demás intentan
+     recuperar la secuencia anterior y él vuelve a moverse. La corrección se ve
+     en la multitud: su ciclo se acelera y se cuadra a la fuerza.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s07TheError(t, st) {
+    var u = seg(t, 28, 33);
+    var sh = shakeOf(t, 28, 1.2, 12);
+    /* Contrapicado: el punto de vista está en el suelo, el mundo se alza. */
+    var z = lerp(1.42, 1.26, easeOut(seg(t, 28, 28.7))) + u * 0.10;
+    var m = cover(img.doors, 0.5, 0.72, z, 1, sh[0], sh[1], true);
+    tint(C.magenta, 0.03 + 0.07 * beatPulse(t * 1.5));
 
-  /* ─────────────────────── ACTO III · LA CORRECCIÓN ─────────────────────────
-     06 · LA CORRECCIÓN (26–31) — la Torre intenta corregirlo: la misma página
-     se repite en bandas, la arquitectura se multiplica y las grietas se
-     ramifican. Él se dobla, no se deforma y no cede. */
-  function shotCorrection(t, st) {
-    var sh = shakeOf(t, 26, 1.4, 14), bp = st.shake ? beatPulse(t * 1.7) * 7 * U : 0;
-    var z = 1.12 + seg(t, 26, 31) * 0.1;
-    page(img.doors, 0.5, 0.42, z, sh[0] + bp, sh[1] * 0.6, 0.14);
-
+    /* LA CORRECCIÓN: el ciclo de la multitud se acelera y se CUADRA. `rigid`
+       crece con el plano: el gesto deja de ser orgánico y se vuelve mecánico. */
+    var rigid = ease(seg(t, 28.4, 30.6));
+    crowdCycle(t, m, 2, 0.26 + 0.08 * rigid, rigid, 0.2);
+    /* Y las tres bandas repiten el mismo fragmento, cada vez más juntas. */
     if (!reduced) {
       for (var b = 0; b < 3; b++) {
-        var a = 0.19 - b * 0.05;
+        var a = (0.17 - b * 0.045) * (0.5 + 0.5 * rigid);
         if (a <= 0) continue;
-        var fy0 = 0.30 + b * 0.055, fy1 = fy0 + 0.09;
-        var dy = Math.sin(t * 3.1 + b * 1.9) * H * 0.006 * (b + 1) + (1 - seg(t, 26.2, 26.9)) * H * 0.05 * (b + 1);
+        var fy0 = 0.26 + b * 0.10, fy1 = fy0 + 0.075;
+        var dy = Math.sin(t * (2.2 + 2.4 * rigid) + b * 1.7) * H * 0.005 + (1 - seg(t, 28.1, 28.9)) * H * 0.06;
         cx.save();
         cx.beginPath(); cx.rect(0, Y(fy0) + dy, W, (fy1 - fy0) * H); cx.clip();
         cx.globalAlpha = a;
-        page(img.doors, 0.5, 0.42, z * (1.02 + b * 0.01), sh[0] + 26 * U * (b + 1), 0, 0);
+        cover(img.doors, 0.5, 0.72, z * (1.02 + b * 0.012), sh[0] + (20 + 10 * rigid) * U * (b + 1), 0, true);
         cx.restore();
       }
     }
-    tint(C.magenta, 0.06 + 0.10 * beatPulse(t * 1.7));
-    edgeInk(0.5 + 0.25 * seg(t, 26, 31), 0.14);
 
-    crack([[0.06, 0.98], [0.18, 0.92], [0.3, 0.95], [0.42, 0.88], [0.5, 0.9]], seg(t, 26.1, 28.4), 7);
-    crack([[0.94, 0.97], [0.84, 0.9], [0.72, 0.93], [0.62, 0.86], [0.52, 0.89]], seg(t, 26.6, 29.2), 7);
-    crack([[0.5, 0.9], [0.56, 0.78], [0.5, 0.68], [0.58, 0.6], [0.52, 0.5]], seg(t, 27.2, 29.8), 9);
+    /* Él, otra vez fuera de secuencia: cruza hacia el otro lado, con su ciclo
+       real, y su paso NO se acelera aunque el mundo sí. */
+    var cross = ease(seg(t, 28.8, 31.6));
+    var hh = H * 0.34, hw = hh * 288 / 512;
+    /* Cruza por el HUECO de la puerta: es el único sitio del encuadre donde la
+       silueta no queda tapada por los invitados del primer plano. */
+    var hx = X(0.60) - cross * SW * 0.24;
+    var stepPhase = (t - 28.8) / 0.80;                  /* más lento que el mundo */
+    var frame = walkFrameIndex(stepPhase);
+    var bob = -Math.abs(Math.sin(stepPhase * Math.PI * 2)) * H * 0.009;
+    var footY = Y(0.845);                               /* sobre el umbral */
+    /* su sombra, alargada por el contrapicado */
+    cx.save(); cx.globalAlpha = 0.38;
+    cx.fillStyle = C.ink;
+    cx.beginPath(); cx.ellipse(hx, footY + H * 0.004, hw * 0.36, H * 0.009, 0, 0, 7); cx.fill();
+    cx.restore();
+    drawHeroWalk(frame, hx - hw * 0.5, footY - hh + bob, hw, hh,
+      Math.sin(stepPhase * Math.PI * 2) * 0.015, 1);
 
-    if (t >= 27.4) {
-      var p = pop(t, 27.4, 0.24), pain = (t > 28.4 && !reduced) ? Math.sin(t * 47) * 2.4 * U * seg(t, 28.4, 29) : 0;
-      var w = SW * 0.46 + (W - SW) / 2 + 20 * U, x = W - w - (1 - p) * w * 0.4;
-      panel(img.master, [0.42, 0.0, 1.0, 0.9], x + pain, -14 * U, w, H + 26 * U, { zoom: 1 + seg(t, 27.4, 31) * 0.08, py: -0.5 });
-      if (!reduced) {
-        cx.save(); cx.globalAlpha = 0.5 * seg(t, 28.0, 28.6);
-        cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(1, 2 * U);
-        for (var l = 0; l < 6; l++) {
-          var ly = Y(0.2 + l * 0.11), ph2 = Math.sin(t * 6 + l) * 0.5 + 0.5;
-          cx.beginPath(); cx.moveTo(x - W * 0.03 * ph2, ly); cx.lineTo(x - W * 0.12 * ph2, ly + 8 * U); cx.stroke();
-        }
-        cx.restore();
-      }
-    }
-    slidePanel(t, 28.6, 0, img.mface, [0.22, 0.05, 1, 0.95], 0.06, 0.62, 0.19, 0.26, -0.055, -0.3, 0.3, { zoom: 1.03 });
-    caption(t, 26.5, 28.2, "LA TORRE INTENTA CORREGIRLO.", 0.035, 0.045, 54, C.yellow, C.ink, -0.03);
-    caption(t, 28.8, 30.4, "ÉL NO CEDE.", 0.60, 0.90, 60, C.magenta, C.bone, -0.03);
-    sfxWord(t, 27.2, 28.6, "CRRRJ", 0.28, 0.68, 140, C.cyan, 0.12);
-    flash(t, 26, 0.16, "#fff", 0.55); flash(t, 28.5, 0.12, C.magenta, 0.3);
-    motes(t, 22, 0.4, 44);
+    /* Las grietas que ya no pararán: nacen en el suelo y trepan por la pared. */
+    crack([[0.04, 0.905], [0.16, 0.895], [0.27, 0.902], [0.38, 0.888]], seg(t, 28.1, 30.4), 6);
+    crack([[0.96, 0.905], [0.85, 0.893], [0.74, 0.900], [0.63, 0.886]], seg(t, 28.6, 31.2), 6);
+    crack([[0.50, 0.905], [0.53, 0.80], [0.48, 0.70], [0.54, 0.60], [0.50, 0.50]], seg(t, 29.2, 31.8), 7);
+
+    sfxWord(t, 30.2, 31.4, "CRRRJ", 0.30, 0.32, 140, C.cyan, 0.12);
+    flash(t, 28, 0.14, "#fff", 0.5);
+    ceilingDust(t, 0.30 * seg(t, 29.4, 31), 41);
+    debris(t, 30.2, 10, 73, 1, 0.34, 0.32);
   }
 
-  /* 07 · EL SUELO (31–35,5) — las grietas se encuentran en el centro de la
-     pista. La lámina se abre de verdad: el mundo se parte y aparece el pozo. */
-  function shotCracks(t, st) {
-    if (t < 32.6) {
-      /* ── el suelo se rompe EN PANTALLA ────────────────────────────────────
-         Tres fases encadenadas, no un zoom: (1) el damero se agrieta y las
-         grietas se ramifican, (2) la losa se hunde por sectores —cada uno cae
-         con su propio retardo—, (3) por los huecos se ve el foso, cada vez más. */
-      var sh = shakeOf(t, 31, 0.8, 20), sh2 = shakeOf(t, 32, 0.5, 26);
-      var push = 1.12 + seg(t, 31, 32.6) * 0.12;
-      page(img.boots, 0.6, 0.62, push, sh[0] + sh2[0], sh[1] + sh2[1], 0.08);
+  /* ─────────────────────────────────────────────────────────────────────────
+     08 · LA TORRE REACCIONA (33–38) — cenital y paralaje 2.5D. Puertas, luces y
+     estructuras REPITEN movimientos. Las nueve pistas se encienden una a una.
+     La Torre no es un villano con cuerpo: es el edificio.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s08TowerReacts(t, st) {
+    var u = seg(t, 33, 38);
+    /* La cámara se eleva: cenital progresivo sobre las nueve pistas. */
+    var m = cover(img.nine, 0.5, lerp(0.30, 0.62, ease(u)), 1.55, 1, 0, 0, true);
+    tint(C.ink, 0.46);
 
-      /* (1) grietas que se abren paso desde el centro de la pista */
-      var boom = Math.exp(-(t - 31) * 1.4);
-      var g = cx.createLinearGradient(0, H, 0, H * 0.4);
-      g.addColorStop(0, "rgba(255,45,122," + (0.6 * boom) + ")"); g.addColorStop(1, "rgba(255,45,122,0)");
-      cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = g; cx.fillRect(0, 0, W, H); cx.restore();
-      crack([[0.56, 1.02], [0.6, 0.86], [0.52, 0.76], [0.6, 0.66], [0.5, 0.58], [0.38, 0.62], [0.26, 0.55]], seg(t, 31.15, 32.1), 10);
-      crack([[0.6, 0.86], [0.74, 0.82], [0.86, 0.88], [1.0, 0.8]], seg(t, 31.5, 32.2), 8);
-      crack([[0.52, 0.76], [0.4, 0.84], [0.3, 0.8], [0.14, 0.9]], seg(t, 31.7, 32.4), 8);
-      crack([[0.5, 0.58], [0.44, 0.44], [0.5, 0.34], [0.42, 0.24]], seg(t, 31.9, 32.5), 7);
+    /* Las nueve plantas se encienden en orden, cada una con su pulso. */
+    var rn = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+    for (var i = 0; i < 9; i++) {
+      var ti = 33.15 + i * 0.36, k = pop(t, ti, 0.20);
+      if (k <= 0) continue;
+      var fy = 0.13 + i * 0.093;
+      var px = X(0.10), py = Y(fy);
+      var pulse = 1 + 0.5 * Math.max(0, 1 - (t - ti) * 4);
+      /* el suelo de cada pista se ilumina */
+      glow(X(0.5), py, SW * (0.30 + 0.06 * Math.sin(t * 2.6 + i)), i === 8 ? "rgba(255,45,122,0.95)" : "rgba(34,211,238,0.75)",
+        (0.10 + 0.06 * Math.sin(t * 3.4 + i * 1.1)) * k);
+      /* y la marca de la pista */
+      cx.save(); cx.globalAlpha = 0.95 * k;
+      cx.fillStyle = i === 8 ? C.magenta : C.yellow;
+      cx.strokeStyle = C.ink; cx.lineWidth = Math.max(2, 3 * U);
+      var mw = SW * 0.05 * k * pulse, mh = H * 0.016 * k * pulse;
+      cx.beginPath();
+      cx.moveTo(px, py - mh * 0.5); cx.lineTo(px + mw, py - mh * 0.2);
+      cx.lineTo(px + mw * 0.9, py + mh * 0.5); cx.lineTo(px, py + mh * 0.35);
+      cx.closePath(); cx.fill(); cx.stroke();
+      cx.font = "italic 700 " + Math.max(9, 13 * U) + "px " + FONT_CAP;
+      cx.fillStyle = C.bone; cx.textAlign = "left"; cx.textBaseline = "middle";
+      cx.fillText(rn[i], px + mw + 6 * U, py);
+      cx.restore();
+    }
 
-      /* (2) la losa se hunde por sectores: cada trozo cae con su retardo y deja
-             ver el foso por el hueco. El agujero crece desde el centro. */
-      var hole = ease(seg(t, 31.85, 32.6));
-      if (hole > 0) {
-        var hx = W * 0.53, hy = H * 0.60;
-        cx.save();
+    /* Las puertas repiten su apertura: dos batientes que abren y cierran al
+       mismo compás, en tres profundidades distintas. */
+    for (var d = 0; d < 3; d++) {
+      var dph = ((t * 0.9 + d * 0.33) % 1);
+      var open2 = Math.exp(-Math.pow((dph - 0.5) * 3.2, 2));
+      var dx2 = X(0.22 + d * 0.28), dy2 = Y(0.44 + d * 0.05);
+      cx.save(); cx.globalAlpha = 0.30 * open2;
+      cx.fillStyle = C.cyan;
+      cx.fillRect(dx2 - SW * 0.035 * open2, dy2, SW * 0.035 * open2, H * 0.16);
+      cx.fillRect(dx2, dy2, SW * 0.035 * open2, H * 0.16);
+      cx.restore();
+    }
+
+    /* Rejilla de corrección: la Torre midiendo el desvío. */
+    if (!reduced) {
+      cx.save(); cx.globalAlpha = 0.10 + 0.06 * Math.sin(t * 5);
+      cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(0.8, 1.2 * U);
+      for (var gx = 0; gx < 14; gx++) {
         cx.beginPath();
-        /* contorno irregular: no es un círculo, es un desgarrón */
-        for (var a = 0; a <= 26; a++) {
-          var ang = (a / 26) * Math.PI * 2;
-          var rr = 1 + (rnd(a * 4.1) - 0.5) * 0.26;
-          var rx = (W * 0.30 * hole + 4) * rr, ry = (H * 0.20 * hole + 3) * rr;
-          var pxA = hx + Math.cos(ang) * rx, pyA = hy + Math.sin(ang) * ry * 0.86;
-          if (a === 0) cx.moveTo(pxA, pyA); else cx.lineTo(pxA, pyA);
-        }
-        cx.closePath();
-        /* dentro del hueco: el foso, oscuro, con sus luces subiendo */
-        var hg = cx.createLinearGradient(0, hy - H * 0.2, 0, hy + H * 0.25);
-        hg.addColorStop(0, "#05020a"); hg.addColorStop(0.6, "#120726"); hg.addColorStop(1, "#2a1040");
-        cx.fillStyle = hg; cx.fill();
-        cx.save(); cx.clip();
-        for (var lz = 0; lz < 7; lz++) {
-          var lv = ((t * 0.55 + rnd(lz * 3.7)) % 1);
-          cx.globalAlpha = 0.5 * (1 - lv);
-          cx.fillStyle = lz % 3 === 0 ? C.magenta : (lz % 3 === 1 ? C.cyan : C.yellow);
-          cx.fillRect(hx - W * 0.2 + rnd(lz * 1.3) * W * 0.4, hy + H * 0.2 - lv * H * 0.42, Math.max(2, 3 * U), H * 0.12);
-        }
-        cx.restore();
-        /* filo del desgarrón: tinta gruesa y un ribete encendido */
-        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(5, 12 * U); cx.stroke();
-        cx.strokeStyle = "rgba(255,45,122,0.75)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.stroke();
-        cx.restore();
-        /* losas que se desprenderán: se marcan un instante antes de caer */
-        if (hole > 0.35) {
-          for (var sl = 0; sl < 5; sl++) {
-            var sp2 = seg(t, 31.95 + sl * 0.09, 32.6);
-            if (sp2 <= 0) continue;
-            var sx2 = hx + (rnd(sl * 7.1) - 0.5) * W * 0.5, sy2 = hy + (rnd(sl * 3.3) - 0.5) * H * 0.26;
-            cx.save(); cx.globalAlpha = 0.9; cx.translate(sx2, sy2 + sp2 * sp2 * H * 0.30); cx.rotate((rnd(sl * 5.5) - 0.5) * sp2 * 0.7);
-            cx.fillStyle = "#1a0f2c"; cx.fillRect(-W * 0.035, -H * 0.02, W * 0.07, H * 0.04);
-            cx.strokeStyle = C.magenta; cx.lineWidth = Math.max(1.5, 2.5 * U); cx.strokeRect(-W * 0.035, -H * 0.02, W * 0.07, H * 0.04);
-            cx.restore();
-          }
-        }
+        cx.moveTo(X(gx / 14), Y(0.05)); cx.lineTo(X(gx / 14), Y(0.95)); cx.stroke();
       }
-
-      caption(t, 31.25, 32.5, "Y EL SUELO SE ABRE.", 0.04, 0.05, 58, C.yellow, C.ink, -0.03);
-      sfxWord(t, 31.5, 32.5, "CRRRAC", 0.3, 0.36, 168, C.yellow, -0.1);
-      flash(t, 31, 0.14, "#fff", 0.6);
-      motes(t, 30, 0.5, 55);
-    } else {
-      /* ── la caída ─────────────────────────────────────────────────────────
-         Ya no hay página ni giro: el personaje cae DENTRO del foso y el foso
-         asciende. La cámara casi no se mueve (8 % en todo el tramo); lo que se
-         mueve es la Torre. */
-      var u = t - 32.6;
-      var speed = clamp(0.55 + u * 0.42, 0.55, 1);
-      var scroll = clamp(0.06 + u * 0.135, 0.06, 0.36);
-      var s3 = shakeOf(t, 32.6, 0.35, 14);
-      /* el sombrero cae junto a él, no en otro plano: se le escapa de la mano */
-      var hatP = seg(u, 0.15, 1.75);
-      shaftSide(t, scroll, speed, null, hatP, s3[0], s3[1], { mode: "fall" });
-      speedLines(0.5, 0.42, 0.55 * speed, 31);
-      caption(t, 32.8, 34.2, "NO HAY SUELO QUE LO SOSTENGA.", 0.05, 0.06, 52, C.bone, C.ink, -0.03);
-      sfxWord(t, 33.0, 34.2, "FSSSSH", 0.80, 0.80, 126, C.cyan, 0.12);
-      flash(t, 32.6, 0.14, "#fff", 0.7);
-      motes(t, 30, 0.5, 55);
+      for (var gy = 0; gy < 9; gy++) {
+        cx.beginPath();
+        cx.moveTo(X(0.02), Y(gy / 9 * 0.9 + 0.05)); cx.lineTo(X(0.98), Y(gy / 9 * 0.9 + 0.05)); cx.stroke();
+      }
+      cx.restore();
     }
+    sfxWord(t, 35.4, 36.6, "KRAAK", 0.68, 0.70, 130, C.cyan, -0.09);
+    ceilingDust(t, 0.42, 43);
+    flash(t, 33.0, 0.16, "#fff", 0.45);
   }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     09 · EL GOLPE (38–43) — un grave llega DESDE DEBAJO del suelo y la cámara
+     desciende hasta los pies del protagonista. Grietas y el mecanismo circular
+     que empieza a girar. Nadie lo activa: la anomalía lo ha abierto.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s09TheHit(t, st) {
+    var u = seg(t, 38, 43);
+    /* La cámara DESCIENDE: empieza a la altura del torso y acaba en el suelo. */
+    var low = ease(seg(t, 38.3, 41.0));
+    var sh = shakeOf(t, 38.0, 0.7, 18);
+    var z = 1.10 + u * 0.16;
+    /* el encuadre baja por la lámina: de la multitud a los pies */
+    var m = cover(img.boots, 0.5, lerp(0.22, 0.72, low), z, 1, sh[0], sh[1], true);
+    tint(C.ink, 0.30 + 0.20 * low);
+
+    /* El sub-grave: cada golpe mueve el suelo un píxel y baja la luz. */
+    var boom = Math.exp(-((t - 38.0) % 0.5) * 7);
+    if (!reduced) {
+      cx.save(); cx.globalAlpha = 0.16 * boom;
+      cx.fillStyle = C.magenta; cx.fillRect(0, 0, W, H); cx.restore();
+    }
+
+    /* El mecanismo circular: un anillo que aparece en el suelo y EMPIEZA A
+       GIRAR. Es la primera vez que se ve; no se explica qué es. */
+    var ringP = ease(seg(t, 39.4, 41.2));
+    if (ringP > 0.02) {
+      var rcx = X(0.5), rcy = Y(0.80), rr = SW * 0.20 * ringP;
+      cx.save();
+      cx.translate(rcx, rcy);
+      cx.scale(1, 0.34);                                  /* en escorzo: es suelo */
+      cx.rotate(t * (0.6 + 1.4 * ringP));
+      cx.globalAlpha = 0.85 * ringP;
+      cx.strokeStyle = C.cyan; cx.lineWidth = Math.max(2.5, 5 * U);
+      cx.beginPath(); cx.arc(0, 0, rr, 0, Math.PI * 2); cx.stroke();
+      cx.strokeStyle = "rgba(34,211,238,0.5)"; cx.lineWidth = Math.max(1.2, 2.5 * U);
+      for (var sp = 0; sp < 12; sp++) {
+        var sa = sp / 12 * Math.PI * 2;
+        cx.beginPath();
+        cx.moveTo(Math.cos(sa) * rr * 0.62, Math.sin(sa) * rr * 0.62);
+        cx.lineTo(Math.cos(sa) * rr, Math.sin(sa) * rr);
+        cx.stroke();
+      }
+      cx.restore();
+      glow(rcx, rcy, rr * 2.2, "rgba(34,211,238,0.9)", 0.16 * ringP);
+    }
+
+    /* Las grietas se encuentran en el centro de la pista. */
+    crack([[0.50, 0.30], [0.485, 0.45], [0.515, 0.58], [0.492, 0.72], [0.505, 0.90]], seg(t, 38.3, 40.0), 8);
+    crack([[0.505, 0.62], [0.42, 0.70], [0.33, 0.76]], seg(t, 39.0, 40.6), 7);
+    crack([[0.512, 0.62], [0.60, 0.71], [0.69, 0.77]], seg(t, 39.4, 41.0), 7);
+
+    /* Él, de pie sobre las grietas: no se mueve todavía. El susto es del mundo. */
+    if (ok(img.hero)) {
+      var hh = H * 0.40, hw = hh * 288 / 512;
+      var tilt = reduced ? 0 : Math.sin(t * 3.1) * 0.008 * (1 - low * 0.5);
+      drawHeroWalk("hero_walk_01", W * 0.5 - hw * 0.5, Y(0.905) - hh, hw, hh, tilt, 1);
+    }
+    sfxWord(t, 38.1, 39.3, "BRUUUM", 0.14, 0.42, 128, C.magenta, -0.06);
+    debris(t, 39.6, 14, 77, 1, 0.30, 0.40);
+    ceilingDust(t, 0.5, 47);
+    flash(t, 38.0, 0.10, C.magenta, 0.35);
+  }
+
+
 
 
   /* ─────────────────────── ACTO IV · EL DESCENSO ───────────────────────────
@@ -14294,13 +14632,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
      El protagonista se dibuja FUERA de la transformación de cámara: así su
      tamaño es el de la cinemática y no el de un prop del juego; pero sus pies
      se clavan en el suelo del salón usando exactamente esta proyección. */
-  function roomProj() {
+  /* Proyección MUNDO → PANTALLA con el mismo zoom con el que se acaba de pintar
+     el salón. Si se omite `zoomK` vale 1, pero entonces el HUB se dibuja a 1,00
+     y el protagonista a 1,30: se desregistran y él flota. Siempre se pasa. */
+  function roomProj(zoomK, dx, dy) {
     var c = hubCam();
-    var s = c.zoom;
+    var s = c.zoom * (zoomK == null ? 1 : zoomK);
     return {
       zoom: s, camX: c.camX, camY: c.camY,
-      x: function (wx, dx) { return (wx - c.camX) * s + W * 0.5 + (dx || 0); },
-      y: function (wy, dy) { return (wy - c.camY) * s + H * 0.5 + (dy || 0); }
+      x: function (wx) { return (wx - c.camX) * s + W * 0.5 + (dx || 0); },
+      y: function (wy) { return (wy - c.camY) * s + H * 0.5 + (dy || 0); }
     };
   }
 
@@ -14309,216 +14650,358 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cx.beginPath(); cx.moveTo(x0, y0); cx.lineTo(x1, y1); cx.stroke(); cx.restore();
   }
 
-  /* ── ACTO V · 35,5 → 42 ───────────────────────────────────────────────────
-     El túnel no se lleva el desenlace. Estalla, se va, y lo que queda es el
-     SALÓN DEL JUEGO: el mismo que el jugador va a pisar al dar a NUEVA PARTIDA.
-     El protagonista entra desde arriba, aterriza, da dos pasos y se planta
-     delante de la plataforma, que es justo donde el HUB lo recogerá. */
-  function shotFall(t, st) {
-    if (t < 38) {
-      var v = t - 35.5;
-      /* el foso se abre por abajo: la cámara sube con él mientras cae */
-      var open = ease(seg(v, 0.25, 1.55));
-      var drop = (1 - ease(seg(v, 0.5, 2.4))) * H * 0.06;
-      var walk = seg(v, 1.8, 2.55), stepBob = Math.abs(Math.sin(walk * Math.PI * 2)) * H * 0.008;
-      /* ── 1 · el foso, mientras se abre ──
-         El túnel no se corta: se queda debajo y el salón lo va tapando. */
-      if (open < 1) {
-        shaftSide(t, 0.30 + v * 0.10, 1 - ease(seg(v, 0.9, 1.7)), null, -1, 0, 0, { mode: "fall" });
-        var gOpen = cx.createLinearGradient(0, H, 0, H * (1 - 0.55 * open));
-        gOpen.addColorStop(0, "rgba(255,45,122," + (0.55 * open) + ")"); gOpen.addColorStop(1, "rgba(255,45,122,0)");
-        cx.save(); cx.globalCompositeOperation = "lighter"; cx.fillStyle = gOpen; cx.fillRect(0, 0, W, H); cx.restore();
-      }
-      /* ── 2 · el salón, que entra FUNDIDO sobre el foso ──
-         La cámara se asienta: entra algo más cerrada y se abre hasta el
-         encuadre exacto del HUB. Así el último fotograma del acto y el primero
-         del HUB son el MISMO encuadre, y no hay corte. */
-      var roomA = ease(seg(v, 0.45, 1.30));         /* 35,95 → 36,8 */
-      if (roomA > 0) {
-        var settle = ease(seg(v, 0.5, 2.5));
-        var zoomK = 1.055 - 0.055 * settle;          /* 1,055 → 1,000 = hubCam */
-        /* deriva continua: el salón nunca se queda quieto, ni siquiera en el
-           instante en que el foso termina de apagarse */
-        var drift = Math.cos(clamp(v, 0, 2.5) * 1.35) * 7 * U;
-        var dolly = Math.sin(clamp(v, 0, 2.5) * 0.9) * 4 * U;
-        cx.save(); cx.globalAlpha = roomA;
-        drawEngineRoom(t, 1, zoomK, drift, dolly);
+  /* ══════════════════ ACTO IV · EL DESCENSO (43–59) ═══════════════════════ */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     10 · LA RUPTURA (43–48) — cenital que se abre: el suelo se retrae hacia los
+     bordes, las losas se separan y caen, y él pierde el equilibrio.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s10Rupture(t, st) {
+    var u = seg(t, 43, 48);
+    /* El mecanismo ya gira: el suelo se retrae en anillos desde el centro. */
+    var openS = ease(seg(t, 43.2, 46.0));
+    var m = cover(img.pit, 0.5, 0.52, 1.02 + u * 0.10, 1, 0, 0, true);
+    tint(C.ink, 0.18 + 0.30 * openS);
+
+    /* Anillos del mecanismo, abriéndose en escorzo. */
+    if (!reduced) {
+      for (var r = 0; r < 4; r++) {
+        var rp = clamp((openS - r * 0.14) / 0.7, 0, 1);
+        if (rp <= 0 || rp >= 1) continue;
+        cx.save();
+        cx.translate(X(0.5), Y(0.60));
+        cx.scale(1, 0.36);
+        cx.globalAlpha = 0.55 * (1 - rp);
+        cx.strokeStyle = r % 2 ? C.cyan : C.magenta;
+        cx.lineWidth = Math.max(2, 4 * U * (1 - rp * 0.6));
+        cx.beginPath(); cx.arc(0, 0, SW * 0.12 + SW * 0.30 * rp, 0, Math.PI * 2); cx.stroke();
         cx.restore();
-        var pr = roomProj();
-        /* aterriza CON la sala, no después: si la sala entra sin él, el plano
-           se queda vacío justo en el momento en que el espectador mira */
-        var land = ease(seg(v, 0.50, 1.15));
-        /* los pies, en el suelo del salón (la misma línea de apoyo del HUB) */
-        var feetY = pr.y(HUBG.hy + 16);
-        var hh = H * 0.365, hw = hh * 288 / 512;      /* alto del REFUGE_IDLE aprobado */
-        /* justo al lado de la plataforma, en el borde de la alfombra */
-        var heroX = pr.x(HUBG.hx - 110) - walk * 28 * U;  /* dos pasos hacia la sala */
-        var shY = feetY - (1 - land) * H * 0.26;
-        /* sombra de contacto: se encoge al aterrizar */
-        cx.save(); cx.globalAlpha = 0.55 * land;
-        cx.fillStyle = C.ink; cx.beginPath();
-        cx.ellipse(heroX, shY - 2, W * (0.030 + 0.016 * (1 - land)), H * (0.010 + 0.005 * (1 - land)), 0, 0, Math.PI * 2); cx.fill();
-        cx.restore();
-        /* él: el fotograma aprobado, plantado en el suelo del salón */
-        if (ok(img.hero)) {
-          cx.save(); cx.globalAlpha = land;
-          cx.drawImage(img.hero, heroX - hw * 0.49, feetY - hh - (1 - land) * H * 0.26 - stepBob, hw, hh);
-          cx.restore();
-        }
-        if (!reduced) {
-          /* polvo y ascuas cayendo del boquete por el que ha entrado */
-          for (var pd = 0; pd < 16; pd++) {
-            var pv2 = ((v * 0.30 + rnd(pd * 2.7)) % 1);
-            cx.save(); cx.globalAlpha = 0.50 * (1 - pv2) * seg(v, 1.0, 1.4);
-            cx.fillStyle = pd % 3 === 0 ? C.magenta : (pd % 3 === 1 ? C.bone : C.cyan);
-            cx.beginPath();
-            cx.arc(W * (0.3 + rnd(pd * 3.1) * 0.4) + Math.sin(v * 2.2 + pd) * 10 * U,
-              H * (0.02 + pv2 * 0.58), Math.max(1, 2.4 * U * (1 - pv2 * 0.5)), 0, 7);
-            cx.fill(); cx.restore();
-          }
-          /* polvo del aterrizaje */
-          if (land > 0 && land < 1) {
-            for (var d = 0; d < 12; d++) {
-              cx.save(); cx.globalAlpha = 0.45 * (1 - land);
-              cx.fillStyle = d % 2 ? C.bone : C.magenta;
-              cx.beginPath(); cx.arc(heroX + (rnd(d * 3.1) - 0.5) * W * 0.14 * (1 - land + 0.3),
-                feetY + (rnd(d * 1.7) - 0.5) * H * 0.02, Math.max(1, (3 + 8 * rnd(d)) * U * (1 - land)), 0, 7);
-              cx.fill(); cx.restore();
-            }
-          }
-        }
-        speedLines(0.5, 0.5, 0.24 * (1 - land), 41);
       }
-      caption(t, 35.7, 37.7, "LA TORRE YA NO PUEDE SOSTENERLO.", 0.045, 0.05, 54, C.bone, C.ink, -0.03);
-      flash(t, 35.5, 0.12, "#fff", 0.6);
-    } else {
-      shotTitle(t, st);
     }
+
+    /* Las losas se separan: rectángulos que se alejan del centro y giran. */
+    if (!reduced) {
+      for (var sl = 0; sl < 10; sl++) {
+        var sp = clamp((openS - rnd(sl * 3.1) * 0.25) / 0.75, 0, 1);
+        if (sp <= 0) continue;
+        var sa = rnd(sl * 5.7) * Math.PI * 2;
+        var sdist = sp * SW * (0.28 + rnd(sl * 2.3) * 0.30);
+        var sx = X(0.5) + Math.cos(sa) * sdist;
+        var sy = Y(0.60) + Math.sin(sa) * sdist * 0.36 + sp * sp * H * 0.22;
+        var sw = SW * (0.05 + rnd(sl * 7.1) * 0.05), shh = sw * 0.42;
+        cx.save();
+        cx.translate(sx, sy);
+        cx.rotate(sp * (rnd(sl * 1.9) - 0.5) * 2.4);
+        cx.globalAlpha = 0.92 * (1 - Math.max(0, sp - 0.7) / 0.3);
+        cx.fillStyle = sl % 3 === 0 ? "#2a1830" : "#1b1024";
+        cx.fillRect(-sw / 2, -shh / 2, sw, shh);
+        cx.strokeStyle = C.ink; cx.lineWidth = Math.max(1.5, 2.5 * U);
+        cx.strokeRect(-sw / 2, -shh / 2, sw, shh);
+        cx.restore();
+      }
+    }
+
+    /* Él pierde el equilibrio: se inclina hacia atrás y agita los brazos antes
+       de caer. Se usa el fotograma de reposo con inclinación creciente. */
+    if (ok(img.hero)) {
+      var hh = H * 0.44 * (1 - openS * 0.18), hw = hh * 288 / 512;
+      var tilt = ease(seg(t, 44.2, 46.4)) * (0.16 + Math.sin(t * 6) * 0.03) * (1 - ease(seg(t, 46.4, 47.4)));
+      var slip = ease(seg(t, 45.6, 47.2));
+      drawHeroWalk("hero_walk_02", W * 0.5 - hw * 0.5, Y(0.62) - hh * 0.5 + slip * H * 0.22, hw, hh, -tilt, 1 - slip * 0.5);
+    }
+    sfxWord(t, 43.3, 44.5, "CRRRAC", 0.20, 0.30, 132, C.yellow, -0.15);
+    debris(t, 43.4, 18, 81, 1, 0.44, 0.50);
+    ceilingDust(t, 0.42, 51);
+    flash(t, 43.0, 0.12, "#fff", 0.4);
   }
 
-  /* El título ya no tapa el Refugio: entra SOBRE él, con el salón todavía
-     detrás y el héroe plantado en la plataforma. Los últimos 1,5 s se pintan
-     con la geometría exacta del menú (misma lámina, mismo encuadre, misma
-     sombra) para que el relevo no se note. */
-  function shotTitle(t, st) {
-    var tq = t - TITLE_AT, sh = shakeOf(t, TITLE_AT, 0.5, 16);
-    /* 38 → 40,5: el salón del Refugio, vivo (respira la luz del zorro). */
-    var toMenu = ease(seg(tq, 2.2, 3.1));                    /* 40,5 → 41,4 fundido al menú */
-    if (toMenu < 1) {
-      /* El salón del motor, con SU cámara: el mismo encuadre que el HUB, así
-         que el relevo no es un parecido, es continuidad literal. La sala no se
-         queda quieta: la cámara respira y la luz del zorro late. */
-      var roomA = 1 - toMenu;
-      /* la cámara sigue respirando TAMBIÉN durante el fundido al menú: si se
-         congela ahí, el último segundo del cine se ve como una foto */
-      var breathe = 1 + Math.sin(tq * 0.62) * 0.006;
-      var camDx = Math.sin(tq * 0.7) * 5 * U * (1 - 0.65 * toMenu);
+  /* ─────────────────────────────────────────────────────────────────────────
+     11 · LA CAÍDA (48–54) — cámara vertical que cae con él. Ropa, sombrero y
+     cuerpo con retardo real (resortes). Escombros que SUBEN.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s11Fall(t, st) {
+    var v = t - 48;
+    /* La velocidad crece: el mundo sube cada vez más rápido. */
+    var speed = ease(seg(v, 0.2, 5.2));
+    var scroll = 0.04 + v * 0.055 + speed * 0.12;
+    shaftSide(t, scroll, 0.55 + speed * 0.55, null, -1, 0, 0, { mode: "fall" });
+
+    /* Él, de espaldas, cayendo: gira despacio. */
+    if (ok(img.hero)) {
+      var hh = H * 0.46, hw = hh * 288 / 512;
+      var spin = v * 0.52;                                  /* gira al caer */
+      var swayX = Math.sin(v * 1.4) * W * 0.03;
       cx.save();
-      cx.globalAlpha = roomA;
-      drawEngineRoom(t + 12, 1, breathe, camDx, Math.sin(tq * 0.53) * 3 * U);
-      cx.restore();
-      if (ok(img.hero)) {
-        var pr2 = roomProj();
-        var hh2 = H * 0.365, hw2 = hh2 * 288 / 512;
-        var idle = reduced ? 0 : Math.sin(tq * 1.9) * H * 0.0035;   /* respira */
-        cx.save(); cx.globalAlpha = roomA;
-        cx.drawImage(img.hero, pr2.x(HUBG.hx - 110) - 28 * U - hw2 * 0.49,
-          pr2.y(HUBG.hy + 16) - hh2 - idle, hw2, hh2);
-        cx.restore();
-      }
-      if (!reduced) {
-        /* la sala sigue viva: ascuas que suben y se apagan */
-        for (var em = 0; em < 10; em++) {
-          var ev3 = (tq * 0.18 + rnd(em * 4.3)) % 1;
-          cx.save(); cx.globalAlpha = 0.4 * (1 - ev3);
-          cx.fillStyle = em % 2 ? C.magenta : C.yellow;
-          cx.beginPath(); cx.arc(W * (0.34 + rnd(em * 1.7) * 0.32) + Math.sin(tq * 1.5 + em) * 8 * U,
-            H * (0.5 - ev3 * 0.44), Math.max(1, 2 * U * (1 - ev3 * 0.6)), 0, 7); cx.fill(); cx.restore();
-        }
-        /* la respiración del neón del zorro: dos latidos lentos */
-        var breath = 0.10 + 0.10 * (0.5 + 0.5 * Math.sin(tq * 2.4));
-        var bg2 = cx.createRadialGradient(W * 0.82, H * 0.34, 8, W * 0.82, H * 0.34, H * 0.5);
-        bg2.addColorStop(0, "rgba(255,45,122," + breath + ")"); bg2.addColorStop(1, "rgba(255,45,122,0)");
-        cx.fillStyle = bg2; cx.fillRect(0, 0, W, H);
-      }
-    }
-    if (toMenu > 0) {
-      /* el encuadre del menú, con la regla exacta del menú */
-      var sB = Math.max(W / img.pit.naturalWidth, H / img.pit.naturalHeight) * 1;
-      var bw = img.pit.naturalWidth * sB, bh = img.pit.naturalHeight * sB;
-      var ox = W * 0.46, oy = H * 0.43;
-      cx.save(); cx.globalAlpha = toMenu;
-      cx.translate(ox, oy);
-      cx.drawImage(img.pit, (W - bw) / 2 - ox + (sh[0] || 0), (H - bh) / 2 - oy + (sh[1] || 0), bw, bh);
+      cx.translate(W * 0.5 + swayX, H * 0.48);
+      cx.rotate(Math.sin(spin) * 0.25);
+      /* ropa y cadenas: retardo respecto al cuerpo */
+      var drag = spring(v, 0.1, H * 0.03, 0.7, 1.4);
+      cx.drawImage(img.hero, -hw * 0.5, -hh * 0.42 + drag, hw, hh);
       cx.restore();
     }
-    /* las sombras del menú, desde el primer instante del título */
-    var a = ease(seg(tq, 0.1, 1.6)) * (1 - 0.35 * (1 - toMenu));
-    var side = cx.createLinearGradient(0, 0, W * 0.72, 0);
-    side.addColorStop(0, "rgba(5,2,10," + (0.94 * a) + ")");
-    side.addColorStop(0.36, "rgba(5,2,10," + (0.72 * a) + ")");
-    side.addColorStop(0.72, "rgba(5,2,10,0)");
-    cx.fillStyle = side; cx.fillRect(0, 0, W, H);
-    var vert = cx.createLinearGradient(0, 0, 0, H);
-    vert.addColorStop(0, "rgba(5,2,10," + (0.5 * a) + ")");
-    vert.addColorStop(0.22, "rgba(5,2,10,0)");
-    vert.addColorStop(0.72, "rgba(5,2,10,0)");
-    vert.addColorStop(1, "rgba(5,2,10," + (0.78 * a) + ")");
-    cx.fillStyle = vert; cx.fillRect(0, 0, W, H);
+    /* El sombrero se desprende y se queda atrás (va hacia arriba). */
+    drawHatLag(t, 49.4, W * 0.5 - W * 0.05, H * 0.50, W * 0.10, W * 0.10, 0.95);
 
-    var b = logoBox(), k = easeOut(seg(tq, 0, 0.35)), cxmB = b.x + b.w / 2, cymB = b.y + b.h / 2;
-    splat(cxmB + b.w * 0.06, cymB + b.h * 0.05, b.w * 0.46 * k, C.magenta, 3, 0.20 * (1 - 0.7 * seg(tq, 0.5, 2)));
-    splat(cxmB + b.w * 0.30, cymB + b.h * 0.28, b.w * 0.17 * k, C.yellow, 8, 0.45 * (1 - 0.7 * seg(tq, 0.5, 2)));
-    if (ok(img.logo)) {
-      var sc = reduced ? 1 : 1 + 0.6 * Math.pow(1 - seg(tq, 0, 0.35), 2);
-      cx.save(); cx.globalAlpha = seg(tq, 0, 0.1);
-      cx.drawImage(img.logo, cxmB - b.w * sc / 2, cymB - b.h * sc / 2, b.w * sc, b.h * sc);
-      cx.restore();
-    }
-    var ta = ease(seg(tq, 0.9, 1.6));
-    if (ta > 0 && b.tag) {
-      cx.save(); cx.globalAlpha = ta; cx.fillStyle = C.bone;
-      var fs = clamp(Math.min(W * 0.0158, H * 0.0263), 11, 28), txt = "LA NOCHE QUE DEVORÓ EL AMANECER";
-      cx.font = "italic 800 " + fs + "px " + FONT_CAP;
-      var track = fs * 0.02;
-      var tw = cx.measureText(txt).width + track * (txt.length - 1);
-      var tx = b.brandX + b.brandW / 2 - tw / 2, ty = b.y + b.h + H * 0.012;
-      cx.textAlign = "left"; cx.textBaseline = "top"; cx.shadowColor = "rgba(0,0,0,0.9)"; cx.shadowBlur = 10 * DPR;
-      for (var ci = 0; ci < txt.length; ci++) {
-        var ch = txt.charAt(ci);
-        cx.fillText(ch, tx, ty);
-        tx += cx.measureText(ch).width + track;
+    /* Escombros que suben: la cámara cae más rápido que ellos. */
+    debris(t, 48.2, 22, 91, -1, 0.50, 0.55);
+    if (!reduced) {
+      /* líneas de velocidad en los bordes */
+      cx.save(); cx.globalAlpha = 0.30 * speed;
+      cx.strokeStyle = C.bone; cx.lineWidth = Math.max(1, 2 * U);
+      for (var i = 0; i < 14; i++) {
+        var lx = W * (0.03 + rnd(i * 4.1) * 0.94);
+        var ly = ((t * H * (1.4 + rnd(i) * 1.6) + rnd(i * 2.2) * H) % (H * 1.3)) - H * 0.15;
+        cx.beginPath(); cx.moveTo(lx, ly); cx.lineTo(lx, ly + H * (0.06 + 0.10 * speed)); cx.stroke();
       }
       cx.restore();
     }
-    /* Barrido de luz sobre la lámina mientras el título está arriba: no cambia
-       la composición, sólo la ilumina, y aterriza antes de 42,0 para que el
-       relevo al menú siga siendo exacto. Evita un segundo de imagen muerta. */
+    /* El mundo se oscurece por los bordes: la caída se estrecha. */
+    edgeInk(0.30 + 0.40 * speed, 0.22);
+    sfxWord(t, 48.4, 49.2, "FSSSSH", 0.68, 0.36, 140, C.cyan, 0.10);
+    flash(t, 48.0, 0.10, "#fff", 0.45);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     12 · LA TORRE INFINITA (54–59) — picado imposible: balcones, pasarelas y
+     luces de otras pistas. Una plataforma de servicio lo recibe y sigue bajando.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s12InfiniteTower(t, st) {
+    var v = t - 54;
+    var decel = ease(seg(v, 0, 3.0));                 /* la caída se frena */
+    var scroll = 0.72 + v * 0.030 - decel * 0.02;
+    shaftSide(t, scroll, 0.55 - decel * 0.40, 0.78, 0, 0, 0, { mode: "platform" });
+
+    /* Balcones y pasarelas: la profundidad no termina. */
     if (!reduced) {
-      var swp = ease(seg(tq, 1.1, 3.1));
-      if (swp > 0 && swp < 1) {
-        cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.10 * Math.sin(swp * Math.PI);
-        var swx = W * (0.2 + swp * 0.9);
-        var swg = cx.createLinearGradient(swx - W * 0.18, 0, swx + W * 0.18, 0);
-        swg.addColorStop(0, "rgba(255,255,255,0)"); swg.addColorStop(0.5, "rgba(190,240,255,0.9)"); swg.addColorStop(1, "rgba(255,255,255,0)");
-        cx.fillStyle = swg; cx.fillRect(swx - W * 0.2, 0, W * 0.4, H);
+      for (var b = 0; b < 8; b++) {
+        var bv = ((rnd(b * 6.1) + t * 0.10 * (1 - decel * 0.6)) % 1);
+        var by = H * (1.1 - bv * 1.25);
+        var bw = W * (0.30 + rnd(b * 2.7) * 0.44);
+        var bx = W * (0.06 + rnd(b * 4.3) * 0.62);
+        cx.save(); cx.globalAlpha = 0.35 + 0.30 * rnd(b * 8.1);
+        cx.fillStyle = "#150c22";
+        cx.fillRect(bx, by, bw, Math.max(3, 7 * U));
+        /* luces de otra pista */
+        cx.fillStyle = b % 3 === 0 ? "rgba(34,211,238,0.65)" : (b % 3 === 1 ? "rgba(255,45,122,0.6)" : "rgba(250,204,21,0.5)");
+        cx.fillRect(bx, by, bw * (0.2 + rnd(b) * 0.5), Math.max(1.5, 2 * U));
         cx.restore();
       }
     }
-    /* Aliento final del pozo: un 1,5 % de luz que sube y baja. Invisible como
-       gesto, suficiente para que el último segundo no sea una lámina quieta, y
-       por debajo del umbral que el ojo lee como parpadeo. */
-    if (!reduced) {
-      var lastBreath = 0.5 + 0.5 * Math.sin(tq * 2.1);
-      cx.save(); cx.globalCompositeOperation = "lighter"; cx.globalAlpha = 0.035 * lastBreath;
-      var lbg = cx.createRadialGradient(W * 0.52, H * 0.52, H * 0.08, W * 0.52, H * 0.52, H * 0.62);
-      lbg.addColorStop(0, "rgba(255,45,122,0.9)"); lbg.addColorStop(1, "rgba(255,45,122,0)");
-      cx.fillStyle = lbg; cx.fillRect(0, 0, W, H); cx.restore();
+
+    /* La plataforma de servicio: aparece desde abajo y lo recibe. No se explica
+       quién la activa. */
+    var plat = ease(seg(v, 1.4, 3.2));
+    if (plat > 0.02) {
+      var py = H * (1.25 - plat * 0.44);
+      var pw = W * 0.46, ph = H * 0.055;
+      cx.save();
+      cx.globalAlpha = 0.96 * plat;
+      /* el cuerpo de la plataforma */
+      cx.fillStyle = "#1a1126"; cx.fillRect(W * 0.5 - pw / 2, py, pw, ph);
+      cx.fillStyle = "#0d0716"; cx.fillRect(W * 0.5 - pw / 2, py + ph, pw, ph * 0.34);
+      /* borde luminoso */
+      cx.fillStyle = C.cyan; cx.fillRect(W * 0.5 - pw / 2, py, pw, Math.max(2, 3.5 * U));
+      cx.fillStyle = "rgba(34,211,238,0.28)"; cx.fillRect(W * 0.5 - pw / 2, py + ph, pw, Math.max(1.5, 2 * U));
+      /* rejilla del piso */
+      cx.strokeStyle = "rgba(34,211,238,0.30)"; cx.lineWidth = Math.max(1, 1.6 * U);
+      for (var k2 = 1; k2 < 7; k2++) {
+        cx.beginPath();
+        cx.moveTo(W * 0.5 - pw / 2 + pw * k2 / 7, py);
+        cx.lineTo(W * 0.5 - pw / 2 + pw * k2 / 7, py + ph);
+        cx.stroke();
+      }
+      cx.restore();
+      glow(W * 0.5, py + ph * 0.5, pw * 0.75, "rgba(34,211,238,0.85)", 0.14 * plat);
     }
-    /* Cartela aprobada nº2: se paga al entrar en el Refugio, no en el descenso. */
-    caption(t, 38.45, 40.2, "POR FIN, HABÍA QUIEN PODÍA IMAGINAR UN MAÑANA.", 0.035, 0.845, 42, C.bone, C.ink, -0.02);
-    flash(t, TITLE_AT, 0.08, "#fff", 0.3);
+
+    /* Él, sobre la plataforma: los pies clavados en su superficie. */
+    if (ok(img.hero) && plat > 0.02) {
+      var py2 = H * (1.25 - plat * 0.44);
+      var hh = H * 0.44, hw = hh * 288 / 512;
+      var settle = ease(seg(v, 2.4, 3.6));
+      var bob = reduced ? 0 : Math.sin((v - 1.4) * 6) * H * 0.006 * settle;
+      drawHeroWalk(settle > 0.5 ? "hero_walk_02" : "hero_walk_01",
+        W * 0.5 - hw * 0.5, py2 - hh + bob, hw, hh, 0, 1);
+    }
+    edgeInk(0.62 - decel * 0.22, 0.20);
+    debris(t, 54.1, 12, 97, -1, 0.42, 0.35 * (1 - decel));
   }
+
+  /* ══════════════════ ACTO V · EL REFUGIO (59–70) ══════════════════════════ */
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     13 · EL ATERRIZAJE (59–64) — la plataforma llega al Refugio REAL. La cámara
+     es la del HUB, llegando desde arriba y asentándose en su encuadre.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s13Landing(t, st) {
+    var v = t - 59;
+    /* La cámara baja hasta el encuadre del HUB y se asienta. */
+    var settle = ease(seg(v, 0, 3.4));
+    var zoomK = 1.10 - 0.10 * settle;                  /* 1,10 → 1,00 = hubCam */
+    var drop = (1 - settle) * H * 0.10;
+    drawEngineRoom(t, 1, zoomK, Math.sin(v * 0.9) * 5 * U * (1 - settle), drop);
+
+    var pr = roomProj(zoomK, Math.sin(v * 0.9) * 5 * U * (1 - settle), drop);
+    var feetY = pr.y(HUBG.hy + 16);
+    /* El protagonista llega CON la plataforma y toca suelo en 60.6. */
+    var land = ease(seg(v, 0.9, 2.2));
+    var hh = H * 0.40, hw = hh * 288 / 512;
+    var heroX = pr.x(HUBG.hx - 110);
+    /* la plataforma, bajando con él */
+    if (land < 1) {
+      var platY = feetY - (1 - land) * H * 0.30;
+      var pw = W * 0.34, ph = H * 0.030;
+      cx.save(); cx.globalAlpha = 0.9;
+      cx.fillStyle = "#1a1126"; cx.fillRect(heroX - pw * 0.5, platY, pw, ph);
+      cx.fillStyle = C.cyan; cx.fillRect(heroX - pw * 0.5, platY, pw, Math.max(2, 3.5 * U));
+      cx.globalAlpha = 0.35 * (1 - land);
+      glow(heroX, platY, pw * 0.6, "rgba(34,211,238,0.9)", 0.2);
+      cx.restore();
+    }
+    /* sombra de contacto */
+    cx.save(); cx.globalAlpha = 0.55 * land;
+    cx.fillStyle = C.ink;
+    cx.beginPath(); cx.ellipse(heroX, feetY - 2, W * (0.030 + 0.018 * (1 - land)), H * (0.010 + 0.005 * (1 - land)), 0, 0, 7); cx.fill();
+    cx.restore();
+    /* él: baja con su ciclo real, toca y se DEJA CAER hasta quedar tumbado.
+       No hay sprite de suelo, así que el reposo se consigue girando la figura
+       sobre su propio pie y aplastándola contra el suelo: se lee como un cuerpo
+       que se abandona, no como una animación que falta. */
+    if (ok(img.hero)) {
+      var rest = ease(seg(v, 2.2, 4.1));               /* 61.2 → 63.1 */
+      var bob = land < 1 ? -Math.abs(Math.sin(v * 5)) * H * 0.008 : (reduced ? 0 : Math.sin(v * 1.9) * H * 0.0035);
+      if (rest < 0.02) {
+        drawHeroWalk(land < 0.55 ? "hero_walk_03" : "hero_walk_02",
+          heroX - hw * 0.49, feetY - hh - (1 - land) * H * 0.30 + bob, hw, hh, 0, 1);
+      } else {
+        cx.save();
+        cx.translate(heroX, feetY);
+        cx.rotate(-rest * 1.34);
+        cx.scale(1, 1 - rest * 0.14);
+        cx.drawImage(heroFrame("hero_walk_02"), -hw * 0.5, -hh + rest * hh * 0.074, hw, hh);
+        cx.restore();
+      }
+    }
+    /* polvo del aterrizaje */
+    if (!reduced && land > 0 && land < 1) {
+      for (var d = 0; d < 14; d++) {
+        cx.save(); cx.globalAlpha = 0.45 * (1 - land);
+        cx.fillStyle = d % 2 ? C.bone : C.magenta;
+        cx.beginPath();
+        cx.arc(heroX + (rnd(d * 3.1) - 0.5) * W * 0.16 * (1 - land + 0.4),
+          feetY + (rnd(d * 1.7) - 0.5) * H * 0.02,
+          Math.max(1, (3 + 8 * rnd(d)) * U * (1 - land)), 0, 7);
+        cx.fill(); cx.restore();
+      }
+    }
+    /* ascuas del salón */
+    if (!reduced) {
+      for (var em = 0; em < 12; em++) {
+        var ev3 = ((v * 0.18 + rnd(em * 4.3)) % 1);
+        cx.save(); cx.globalAlpha = 0.40 * (1 - ev3);
+        cx.fillStyle = em % 2 ? C.magenta : C.yellow;
+        cx.beginPath();
+        cx.arc(W * (0.30 + rnd(em * 1.7) * 0.40) + Math.sin(v * 1.5 + em) * 8 * U,
+          H * (0.62 - ev3 * 0.38), Math.max(1, 2 * U * (1 - ev3 * 0.6)), 0, 7);
+        cx.fill(); cx.restore();
+      }
+    }
+    flash(t, 59.0, 0.14, "#fff", 0.5);
+  }
+
+  /* ─────────────────────────────────────────────────────────────────────────
+     14 · EL COMIENZO (64–70) — el encuadre EXACTO del HUB. El protagonista pasa
+     al idle del HUB y el control es del jugador. Sin menú, sin negro.
+     La escala converge: cine (0,40·H) → juego (idle del HUB), compensada por un
+     dolly que se abre, de modo que su tamaño en pantalla no salta.
+     ───────────────────────────────────────────────────────────────────────── */
+  function s14Beginning(t, st) {
+    var v = t - 64;
+    var u = seg(t, 64, 70);
+    /* Convergencia de escala: el héroe se encoge hacia la escala jugable y la
+       cámara se abre en la misma proporción. El resultado en pantalla es
+       continuo; lo que cambia es el tamaño relativo al salón. */
+    /* CONVERGENCIA EXACTA: al final del plano, `zoomK` vale 1,00 y el héroe mide
+       lo mismo que el sprite del HUB. Así el último fotograma de la cinemática y
+       el primero jugable son el MISMO encuadre: no hay salto de escala al
+       entregar el control. Medido contra el HUB real (zoom 1,02 · cuerpo
+       124,12 px a 720p), no estimado. */
+    var conv = ease(seg(v, 0.2, 3.2));
+    var zoomK = 1.00 + conv * 0.16;                    /* el dolly se abre */
+    var breathe = 1 + Math.sin(t * 0.62) * 0.005;
+    drawEngineRoom(t + 20, 1, zoomK * breathe, Math.sin(v * 0.8) * 4 * U, Math.sin(v * 0.6) * 2 * U);
+
+    var pr = roomProj(zoomK * breathe, Math.sin(v * 0.8) * 4 * U, Math.sin(v * 0.6) * 2 * U);
+    var feetY = pr.y(HUBG.hy + 16);
+    /* Escala cinemática → escala jugable (drawH 112 sobre cuerpo 462). */
+    var cineH = H * 0.46;
+    /* tamaño REAL del sprite del HUB proyectado con la misma cámara */
+    var playH = 124.12 * (H / 720) * (pr.zoom / 1.02);
+    var hh = lerp(cineH, playH, conv);
+    var hw = hh * 288 / 512;
+    var heroX = pr.x(HUBG.hx - 110);
+    var idle = reduced ? 0 : Math.sin(t * 1.9) * H * 0.0035;
+    /* Arranca TUMBADO (continuidad con el plano 13) y se incorpora despacio,
+       hasta quedar de pie en el mismo fotograma de reposo del juego. Cuando el
+       jugador recibe el control, la silueta ya es la del HUB. */
+    var up = ease(seg(v, 0.35, 2.9));
+    if (up < 0.985) {
+      cx.save();
+      cx.translate(heroX, feetY);
+      cx.rotate(-(1 - up) * 1.34);
+      cx.scale(1, 1 - (1 - up) * 0.14);
+      cx.drawImage(heroFrame("hero_walk_02"), -hw * 0.5, -hh + (1 - up) * hh * 0.074, hw, hh);
+      cx.restore();
+    } else {
+      drawHeroWalk("hero_walk_02", heroX - hw * 0.49, feetY - hh - idle, hw, hh,
+        reduced ? 0 : Math.sin(t * 0.8) * 0.006, 1);
+    }
+    /* sombra de contacto, a la escala del momento */
+    cx.save(); cx.globalAlpha = 0.5;
+    cx.fillStyle = C.ink;
+    cx.beginPath(); cx.ellipse(heroX, feetY - 1, hw * 0.30, hh * 0.028, 0, 0, 7); cx.fill();
+    cx.restore();
+    /* ascuas + respiración del neón del zorro */
+    if (!reduced) {
+      for (var em = 0; em < 12; em++) {
+        var ev3 = ((v * 0.16 + rnd(em * 4.3)) % 1);
+        cx.save(); cx.globalAlpha = 0.40 * (1 - ev3);
+        cx.fillStyle = em % 2 ? C.magenta : C.yellow;
+        cx.beginPath();
+        cx.arc(W * (0.32 + rnd(em * 1.7) * 0.36) + Math.sin(v * 1.4 + em) * 8 * U,
+          H * (0.66 - ev3 * 0.40), Math.max(1, 2 * U * (1 - ev3 * 0.6)), 0, 7);
+        cx.fill(); cx.restore();
+      }
+    }
+    /* El segundo rótulo aprobado. */
+    caption(t, 65.6, 68.2, "POR FIN, HABÍA QUIEN PODÍA IMAGINAR UN MAÑANA.", 0.030, 0.925, 34, C.bone, C.ink, -0.02);
+    /* Los últimos 0,6 s: el lienzo de la cinemática se desvanece dejando ver el
+       HUB real debajo. No hay menú ni pantalla negra. */
+    /* Los últimos 0,55 s NO se cubren con negro: el lienzo se retira con una
+       cortinilla de tinta que barre hacia arriba, y debajo está el HUB ya vivo.
+       La transición la completa el CSS con `is-out` (opacidad del canvas), así
+       que aquí no se pinta ningún velo opaco: cualquier relleno oscuro se leería
+       como pantalla negra. */
+    if (v > 5.35) {
+      /* La entrega NO se tapa: el lienzo se retira con el `is-out` del CSS sobre
+         el Refugio ya vivo. Aquí sólo sube una franja de tinta desde el pie,
+         con degradado y techo del 46 % del alto, para que el último fotograma
+         sea el salón con él de pie —nunca un fundido a negro. */
+      var out = ease(seg(v, 5.35, 5.95));
+      var top = Y(1) - out * H * 0.46;
+      var gg = cx.createLinearGradient(0, top, 0, H);
+      gg.addColorStop(0, "rgba(11,4,22,0)");
+      gg.addColorStop(1, "rgba(11,4,22,0.86)");
+      cx.save();
+      cx.fillStyle = gg; cx.fillRect(0, top, W, H - top);
+      cx.globalAlpha = 0.90;
+      cx.fillStyle = C.yellow;
+      cx.fillRect(0, top, W, Math.max(1.5, 2 * U));
+      cx.restore();
+    }
+  }
+
+
 
 
   /* Pozo visto de lado: plataforma, cadenas y el IDLE aceptado (07B). Lo usan la
@@ -14757,9 +15240,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
       }
       sfxWord(t, 3.85, 4.4, "CLONK", 0.74, 0.6, 130, C.yellow, 0.1);
-      /* Segundo rótulo aprobado de la biblia: se paga aquí, cuando el Refugio
-         ya está debajo y el jugador todavía no tiene el control. */
-      caption(t, 3.05, 4.45, "POR FIN, HABÍA QUIEN PODÍA IMAGINAR UN MAÑANA.", 0.035, 0.585, 42, C.bone, C.ink, -0.02);
+      /* V3.0: el segundo rótulo se ha movido a la INTRO (plano 14, 65,6–68,2 s).
+         Aquí se retira para que no se lea dos veces en una misma partida: el
+         descenso ya está contado por la propia intro, que es quien lo presenta. */
       flash(t, 3.85, 0.12, "#fff", 0.5);
     }
     inkWipe(seg(t, 0.3, 0.8), 5);
@@ -14837,154 +15320,338 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   /* Partitura de la intro como lista de sucesos [t, fn]. Se dispara contra el
      mismo reloj que la imagen: si la imagen se retrasa, el sonido también.
      Cada entrada de viñeta, cartela u onomatopeya tiene aquí su golpe. */
+  /* ══════════════════════════════════════════════════════════════════════════
+     PARTITURA V3.0 · 70 s, cinco actos
+
+     Original, sintetizada entera con la API de audio del juego. Evoluciona con
+     el montaje y cada acontecimiento visual importante tiene su golpe.
+
+       I   (0–14)   celebración: cuerdas cálidas, bombo a 100 ppm, charla.
+                    En 9–14 el «riser» se corta y el compás REINICIA igual.
+       II  (14–28)  groove hipnótico: el patrón del acto I repetido literal.
+                    En 18 entra una nota fuera de escala y NO se corrige.
+       III (28–43)  cuantización forzada, disonancias, «stutter», filtro que
+                    se cierra. En 38 el sub-grave llega desde abajo.
+       IV  (43–59)  tres fotogramas de silencio → impacto → caída sin armonía.
+                    En 54 aparece un pulso grave regular.
+       V   (59–70)  el pulso se vuelve el tema del Refugio y resuelve en mayor.
+     ========================================================================== */
   function buildIntroScore() {
-    var ev = [], tb;
+    var ev = [], tb, i;
     function at(t, fn) { ev.push({ t: t, fn: fn }); }
-    /* Un paso de 120 ppm (medio segundo). tr = transposición en semitonos. */
-    function step(tt, n, tr, vol, full, dest) {
-      at(tt, function (w) {
-        var k = Math.pow(2, -tr / 12);
-        if (n % 2 === 0) S.kick(w, 0.75 * vol, dest || musicBus); else S.hat(w, 0.16 * vol, dest || musicBus);
-        if (n % 4 === 2) S.snare(w, 0.28 * vol, dest || musicBus);
-        S.bass(w, BASS[n % 8] * k, 0.22 * vol, dest || musicBus);
-        if (n % 2 === 0) S.lead(w, LEAD[(n / 2) % 8] * k, 0.07 * vol, dest || musicBus);
-        if (full && n % 2 === 1) S.lead(w, LEAD[((n + 1) / 2) % 8] * k * 2, 0.04 * vol, dest || musicBus);
-      });
+
+    /* ── ACTO I · LA NOCHE QUE NO TERMINA (0–14) ─────────────────────────── */
+    /* La fiesta se oye a través de los muros: filtro cerrado que se abre. */
+    at(0, function (w) {
+      musicBus.frequency.setValueAtTime(420, w);
+      musicBus.frequency.exponentialRampToValueAtTime(9000, w + 3.6);
+      noise(w, 4.0, 0.09, "bandpass", 220, 520);
+    });
+    /* Charla: murmullo de fondo, no melodía. */
+    for (i = 0; i < 10; i++) {
+      (function (i) {
+        at(0.3 + i * 0.72, function (w) { noise(w, 0.22, 0.035, "bandpass", 700 + rnd(i * 3.1) * 900, 0); });
+      })(i);
     }
-    /* ── ACTO I · EL CICLO (0–14) ────────────────────────────────────────── */
-    /* 01 La noche: la música suena lejos, detrás de los muros; el pulso sordo es
-       un latido que ya estaba ahí antes de que hubiera nadie. */
-    at(0, function (w) { musicBus.frequency.setValueAtTime(300, w); noise(w, 3.6, 0.10, "bandpass", 240, 460); });
-    for (tb = 0.5; tb < 3.4; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), 0, 0.58, false);
-    at(0.9, function (w) { S.boom(w, 0.5); });
-    at(2.1, function (w) { S.boom(w, 0.42); });
-    at(2.2, function (w) { S.whoosh(w, 1.0, 0.25, true); });
-
-    /* 02 La torre: la cámara baja por las nueve plantas. El filtro se abre del
-       todo y la música empieza a CRECER hacia abajo: cada planta es una nota
-       descendente (una por semitono) y el sub-grave se hunde. */
-    at(3.48, function (w) { musicBus.frequency.setValueAtTime(300, w); musicBus.frequency.exponentialRampToValueAtTime(18000, w + 0.4); S.hit(w, 0.4); });
-    for (var i = 0; i < 9; i++) (function (i) {
-      at(3.9 + i * 0.34, function (w) {
-        tone(w, 660 * Math.pow(2, -i / 12), 0.14, "square", i === 8 ? 0.2 : 0.13);
-        S.hat(w, 0.24);
-        /* La misma escena, una planta más abajo: el mismo acorde de bajo. */
-        S.bass(w, BASS[i % 8], 0.17, musicBus);
-        if (i % 2 === 1) S.kick(w, 0.4, musicBus);
-      });
-    })(i);
-    at(3.6, function (w) { S.rumble(w, 4.4, 0.16); });
-    at(5.2, function (w) { S.snare(w, 0.34); });
-    at(7.0, function (w) { S.snare(w, 0.34); });
-    at(8.05, function (w) { S.whoosh(w, 0.5, 0.3, false); });
-    at(8.2, function (w) { S.boom(w, 0.45); });
-
-    /* 03 El bucle: EL MOTIVO. Cuatro repeticiones idénticas del mismo medio
-       compás. El filtro queda fijo: la música deja de avanzar. En cada reinicio
-       (8,5 / 10,5 / 12,5) hay el mismo tirón y la misma nota. En el CUARTO giro
-       (13,75) el compás llega tarde, la música se atasca y la última nota queda
-       colgada. */
-    function loopBar(t0, vol, len, broken) {
-      for (tb = t0; tb < t0 + len; tb += BEAT / 2) step(tb, Math.round(tb / (BEAT / 2)), 0, vol, false);
-      at(t0, function (w) { S.whoosh(w, 0.2, 0.15, false); });
-      at(t0 + 0.5, function (w) { S.snare(w, 0.2); });
-      /* La nota que vuelve antes de terminar, siempre la misma. */
-      at(t0 + 0.92, function (w) { tone(w, 470, 0.10, "square", 0.05); });
-      if (broken) {
-        at(t0 + 1.15, function (w) {
-          noise(w, 0.03, 0.55, "bandpass", 3200); S.kick(w, 0.8); S.bass(w, BASS[6], 0.24); S.lead(w, LEAD[3], 0.1);
-          musicBus._gain.gain.setValueAtTime(1, w);
-          musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.05);
-        });
-        at(t0 + 1.3, function (w) { S.hat(w, 0.18); S.bass(w, BASS[7], 0.22); });
-        at(t0 + 1.38, function (w) {
-          musicBus._gain.gain.setValueAtTime(1, w);
-          tone(w, 233, 1.4, "sawtooth", 0.08, null, 230);
-        });
+    /* El pulso: 100 ppm = 0.6 s por negra. Cálido, no agresivo. */
+    var B1 = 0.6;
+    function warmBar(t0, bars, vol, trans) {
+      for (var b = 0; b < bars; b++) {
+        var t1 = t0 + b * B1 * 4;
+        for (var n = 0; n < 8; n++) {
+          (function (n, tt) {
+            at(tt, function (w) {
+              var k = Math.pow(2, -(trans || 0) / 12);
+              if (n % 4 === 0) S.kick(w, 0.42 * vol, musicBus);
+              if (n % 4 === 2) S.snare(w, 0.13 * vol, musicBus);
+              if (n % 2 === 1) S.hat(w, 0.07 * vol, musicBus);
+              /* cuerdas: acorde sostenido por compás, no arpegio */
+              if (n === 0) {
+                tone(w, 220 * k, B1 * 3.6, "triangle", 0.05 * vol, musicBus);
+                tone(w, 277.2 * k, B1 * 3.6, "triangle", 0.035 * vol, musicBus);
+                tone(w, 329.6 * k, B1 * 3.6, "triangle", 0.030 * vol, musicBus);
+              }
+            });
+          })(n, t1 + n * B1 / 2);
+        }
       }
     }
-    loopBar(8.5, 1.0, 2.0, false);
-    loopBar(10.5, 1.0, 2.0, false);
-    loopBar(12.5, 1.04, 1.25, true);
-    at(8.5, function (w) { musicBus.frequency.setValueAtTime(18000, w); });
-    at(13.62, function (w) { S.whoosh(w, 0.5, 0.34, false); });
+    warmBar(0.4, 4, 1.0, 0);            /* 0.4 → 10.0 */
 
-    /* ── ACTO II · EL DESAFINADO (14–26) ─────────────────────────────────── */
-    /* 04 Las botas son el bombo: tres pasos en tiempo y el cuarto (16,1) tarde.
-       La música se corta en seco. Después entra él y el filtro se queda bajo:
-       el mundo sigue sonando pero ya no avanza. */
-    at(14.0, function (w) { musicBus.frequency.setValueAtTime(18000, w); musicBus.frequency.exponentialRampToValueAtTime(520, w + 0.3); });
-    [14.6, 15.1, 15.6, 16.1].forEach(function (x, idx) {
-      at(x, function (w) {
-        S.kick(w, idx === 3 ? 0.95 : 0.82, musicBus);
-        noise(w, 0.09, 0.22, "lowpass", 520, 0, null);
-        S.bass(w, BASS[idx * 2 % 8], 0.2, musicBus);
-        if (idx === 3) {
-          S.snare(w, 0.7); noise(w, 0.05, 0.5, "bandpass", 1500);
-          musicBus._gain.gain.setValueAtTime(1, w); musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.03);
-        }
-      });
+    /* Melodía del acto I: entra en 4.4, crece, y se corta en 9. */
+    var MEL = [440, 493.9, 554.4, 659.3, 587.3, 554.4, 493.9, 440];
+    for (i = 0; i < 8; i++) {
+      (function (i) {
+        at(4.4 + i * 0.6, function (w) { S.lead(w, MEL[i], 0.10, musicBus); });
+      })(i);
+    }
+    at(4.0, function (w) { S.whoosh(w, 0.8, 0.16, true); });
+    /* 02 · el dolly-in: dos acentos suaves al abrir cada plano cercano. */
+    at(4.9, function (w) { S.boom(w, 0.20); });
+    at(6.6, function (w) { S.boom(w, 0.18); });
+    at(8.2, function (w) { S.whoosh(w, 0.7, 0.20, false); });
+
+    /* 03 · UNA CANCIÓN MÁS: el «riser» que se corta en seco y el compás que
+       reinicia idéntico. Aquí nace el bucle, y se OYE nacer. */
+    at(9.0, function (w) {
+      musicBus.frequency.setValueAtTime(420, w);
+      musicBus.frequency.exponentialRampToValueAtTime(14000, w + 3.2);
     });
-    at(14.3, function (w) { S.snare(w, 0.32); });
-    at(18.2, function (w) { S.whoosh(w, 0.28, 0.38, false); S.boom(w, 0.5); musicBus.frequency.setValueAtTime(520, w); musicBus.frequency.exponentialRampToValueAtTime(900, w + 0.4); });
-    at(18.6, function (w) { tone(w, 110, 1.6, "sawtooth", 0.09, null, 108); tone(w, 116.5, 1.6, "sawtooth", 0.09, null, 119); });
-    [19.2, 19.7, 20.3].forEach(function (x) { at(x, function (w) { S.snare(w, 0.36); S.hat(w, 0.18); }); });
+    /* el plato girando: siseo rítmico */
+    for (i = 0; i < 26; i++) {
+      (function (i) {
+        at(9.2 + i * 0.135, function (w) { S.crackle(w, 0.05 + 0.03 * Math.sin(i)); });
+      })(i);
+    }
+    /* el corte: 12.35 s, la última nota NO termina */
+    at(12.35, function (w) {
+      S.snare(w, 0.55);
+      noise(w, 0.05, 0.5, "highpass", 3000, 0);
+      musicBus._gain.gain.setValueAtTime(1, w);
+      musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.06);
+    });
+    /* y vuelve a empezar, EXACTAMENTE igual */
+    at(12.45, function (w) {
+      musicBus._gain.gain.setValueAtTime(1, w);
+      musicBus.frequency.setValueAtTime(420, w);
+      musicBus.frequency.exponentialRampToValueAtTime(9000, w + 1.4);
+      S.kick(w, 0.55, musicBus);
+      tone(w, 220, 0.9, "triangle", 0.05, musicBus);
+    });
 
-    /* 05 Los que miran: el giro de todas las cabezas a la vez, el reloj parado. */
-    at(21.0, function (w) { S.hit(w, 0.7); });
-    for (tb = 21.0; tb < 25.2; tb += BEAT) (function (tb) { at(tb, function (w) { S.kick(w, 0.55); S.hat(w, 0.14); }); })(tb);
-    at(21.35, function (w) { tone(w, 330, 1.4, "sine", 0.12, null, 660); });
-    at(22.0, function (w) { S.snare(w, 0.55); noise(w, 0.04, 0.6, "highpass", 2600); musicBus._gain.gain.setValueAtTime(1, w); musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.04); });
-    at(22.1, function (w) { musicBus._gain.gain.setValueAtTime(1, w); });
-    [22.5, 23.2, 24.2].forEach(function (x) { at(x, function (w) { S.snare(w, 0.42); S.whoosh(w, 0.18, 0.2, false); }); });
-    at(23.0, function (w) { S.rumble(w, 3.0, 0.16); });
-    at(24.2, function (w) { S.boom(w, 0.45); });
-    at(25.0, function (w) { S.whoosh(w, 0.5, 0.35, false); });
+    /* ── ACTO II · EL DESAFINADO (14–28) ─────────────────────────────────── */
+    /* El mismo patrón del acto I, repetido LITERALMENTE. Cuatro compases. */
+    function loopBar4(t0, vol) {
+      for (var n = 0; n < 8; n++) {
+        (function (n, tt) {
+          at(tt, function (w) {
+            if (n % 4 === 0) S.kick(w, 0.48 * vol, musicBus);
+            if (n % 4 === 2) S.snare(w, 0.16 * vol, musicBus);
+            if (n % 2 === 1) S.hat(w, 0.09 * vol, musicBus);
+            S.bass(w, BASS[n % 8], 0.13 * vol, musicBus);
+          });
+        })(n, t0 + n * 0.3);
+      }
+    }
+    /* 04 · cuatro compases idénticos; el cuarto se rompe. */
+    loopBar4(14.0, 1.0); loopBar4(14.0 + 1.2, 1.0);
+    loopBar4(14.0 + 2.4, 1.0); loopBar4(14.0 + 3.6, 1.0);
+    at(14.0, function (w) { S.whoosh(w, 0.25, 0.14, false); });
+    at(15.2, function (w) { S.whoosh(w, 0.25, 0.14, false); });
+    at(16.4, function (w) { S.whoosh(w, 0.25, 0.14, false); });
+    /* el cuarto llega tarde y se queda colgado */
+    at(17.28, function (w) { S.snare(w, 0.5); S.screech(w, 0.5, 0.10); });
 
-    /* ── ACTO III · LA CORRECCIÓN (26–35,5) ──────────────────────────────── */
-    /* 06 La Torre intenta corregirlo: el mismo compás a 1,7×, disonancias
-       acumuladas y el filtro cerrándose sobre él. */
-    at(26.0, function (w) { S.hit(w, 0.8); musicBus.frequency.setValueAtTime(1500, w); });
-    for (tb = 26; tb < 31; tb += BEAT / 3.4) (function (tb) {
-      at(tb, function (w) {
-        var n = Math.round(tb / (BEAT / 3.4));
-        S.kick(w, n % 2 === 0 ? 0.7 : 0.38);
-        if (n % 3 === 0) S.snare(w, 0.24);
-        if (n % 2 === 1) S.hat(w, 0.13);
-        if (n % 4 === 0) S.bass(w, BASS[(n / 4 | 0) % 8] * 0.5, 0.2);
-      });
-    })(tb);
-    at(26.4, function (w) { tone(w, 110, 3.6, "sawtooth", 0.07, null, 104); tone(w, 233, 3.4, "square", 0.03, null, 246); });
-    at(27.2, function (w) { S.screech(w, 0.9, 0.14); });
-    at(28.4, function (w) { S.snare(w, 0.6); });
-    at(28.8, function (w) { S.boom(w, 0.5); });
-    at(29.8, function (w) { S.screech(w, 0.7, 0.12); });
-    at(30.2, function (w) { musicBus.frequency.setValueAtTime(1500, w); musicBus.frequency.exponentialRampToValueAtTime(300, w + 0.5); });
+    /* 05 · EL PASO INCORRECTO (18–23): el bombo se desfasa 1/8 y NADIE lo
+       corrige. La nota fuera de escala entra en 18 y se queda. */
+    for (tb = 18.0; tb < 23.0; tb += 0.3) {
+      (function (tb) {
+        at(tb, function (w) {
+          var n = Math.round((tb - 18) / 0.3);
+          if (n % 4 === 0) S.kick(w, 0.46, musicBus);
+          if (n % 4 === 2) S.snare(w, 0.15, musicBus);
+          S.hat(w, 0.08, musicBus);
+          S.bass(w, BASS[n % 8], 0.12, musicBus);
+        });
+      })(tb);
+    }
+    /* la nota que no encaja: 466.2 Hz (sib) contra la escala en la menor */
+    at(18.05, function (w) { tone(w, 466.2, 4.6, "square", 0.035, null, 466.2); });
+    at(20.1, function (w) { S.kick(w, 0.7); S.boom(w, 0.35); });
+    at(22.2, function (w) { S.whoosh(w, 0.6, 0.24, true); });
 
-    /* 07 El suelo: las grietas se encuentran, el mundo se parte y aparece el
-       pozo. Sub-grave largo, piedra y el mecanismo que se abre (sin decir quién
-       lo abre). */
-    at(31.0, function (w) { S.boom(w, 1.0); });
-    at(31.15, function (w) { S.rumble(w, 1.3, 0.2); });
-    for (i = 0; i < 6; i++) (function (i) { at(31.5 + i * 0.18, function (w) { noise(w, 0.09, 0.35, "highpass", 1800 + i * 280); }); })(i);
-    at(32.6, function (w) { S.boom(w, 1.0); S.whoosh(w, 0.9, 0.5, false); tone(w, 300, 1.2, "sine", 0.3, null, 60); });
-    at(32.7, function (w) { S.rumble(w, 2.2, 0.22); });
-    for (i = 0; i < 4; i++) (function (i) { at(33.0 + i * 0.4, function (w) { S.whoosh(w, 0.32, 0.16, i % 2 === 0); }); })(i);
-    at(34.0, function (w) { tone(w, 55, 1.6, "sine", 0.2, null, 40); });
+    /* 06 · EL QUE NO SE REPITE (23–28): órbita. El groove se queda, la disonancia
+       crece, y un arpegio describe la vuelta de la cámara. */
+    for (tb = 23.0; tb < 28.0; tb += 0.3) {
+      (function (tb) {
+        at(tb, function (w) {
+          var n = Math.round((tb - 23) / 0.3);
+          if (n % 4 === 0) S.kick(w, 0.42, musicBus);
+          if (n % 4 === 2) S.snare(w, 0.14, musicBus);
+          S.hat(w, 0.07, musicBus);
+          if (n % 2 === 0) S.bass(w, BASS[(n / 2) % 8], 0.11, musicBus);
+        });
+      })(tb);
+    }
+    for (i = 0; i < 12; i++) {
+      (function (i) {
+        at(23.2 + i * 0.38, function (w) {
+          tone(w, 440 * Math.pow(2, (i % 6) / 12), 0.16, "triangle", 0.045);
+        });
+      })(i);
+    }
+    at(23.05, function (w) { tone(w, 233.1, 4.8, "square", 0.022); });
 
-    /* ── ACTO IV · EL DESCENSO (35,5–38) ─────────────────────────────────── */
-    at(35.5, function (w) { S.snare(w, 0.6); S.whoosh(w, 1.0, 0.3, true); });
-    at(35.7, function (w) { S.rumble(w, 1.8, 0.2); });
-    for (i = 0; i < 4; i++) (function (i) { at(36.0 + i * 0.42, function (w) { S.whoosh(w, 0.3, 0.14, i % 2 === 0); }); })(i);
-    at(37.0, function (w) { S.whoosh(w, 1.2, 0.2, false); });
+    /* ── ACTO III · LA CORRECCIÓN (28–43) ────────────────────────────────── */
+    /* 07 · EL ERROR: todo se CUANTIZA a la fuerza. El mismo compás, pero rígido
+       y a 1,7×. La disonancia del acto II se convierte en acorde. */
+    at(28.0, function (w) { S.hit(w, 0.75); musicBus.frequency.setValueAtTime(1600, w); });
+    for (tb = 28.0; tb < 33.0; tb += BEAT / 3.4) {
+      (function (tb) {
+        at(tb, function (w) {
+          var n = Math.round(tb / (BEAT / 3.4));
+          S.kick(w, n % 2 === 0 ? 0.62 : 0.32, musicBus);
+          if (n % 3 === 0) S.snare(w, 0.22, musicBus);
+          if (n % 2 === 1) S.hat(w, 0.11, musicBus);
+          if (n % 4 === 0) S.bass(w, BASS[(n / 4 | 0) % 8] * 0.5, 0.18, musicBus);
+        });
+      })(tb);
+    }
+    at(28.4, function (w) { tone(w, 110, 4.4, "sawtooth", 0.06, null, 104); tone(w, 466.2, 4.2, "square", 0.026); });
+    at(30.2, function (w) { S.screech(w, 0.85, 0.13); });
+    at(32.4, function (w) { S.boom(w, 0.45); });
+    at(33.0, function (w) { S.hit(w, 0.7); });
 
-    /* ── ACTO V · EL REFUGIO (38–42) ─────────────────────────────────────── */
-    /* Resolución: el pozo respira y el tema del menú entra con el título. */
-    at(38.0, function (w) { S.hit(w, 0.9); tone(w, 220, 3.0, "sine", 0.14, null, 330); });
-    at(39.4, function (w) { tone(w, 330, 2.2, "triangle", 0.07, null, 440); });
+    /* 08 · LA TORRE REACCIONA: las nueve pistas se encienden una a una, cada una
+       con su nota. Es el mismo gesto de la V2 (una nota descendente por planta)
+       pero ahora cuenta la corrección. */
+    for (i = 0; i < 9; i++) {
+      (function (i) {
+        at(33.15 + i * 0.36, function (w) {
+          tone(w, 660 * Math.pow(2, -i / 12), 0.16, "square", i === 8 ? 0.18 : 0.12);
+          S.hat(w, 0.22);
+          S.bass(w, BASS[i % 8], 0.16, musicBus);
+          if (i % 2 === 1) S.kick(w, 0.36, musicBus);
+        });
+      })(i);
+    }
+    at(33.1, function (w) { S.rumble(w, 4.6, 0.15); });
+    /* las puertas: el mismo batiente tres veces, en tres profundidades */
+    at(34.0, function (w) { S.whoosh(w, 0.4, 0.20, false); });
+    at(35.0, function (w) { S.whoosh(w, 0.4, 0.20, false); });
+    at(36.0, function (w) { S.whoosh(w, 0.4, 0.20, false); });
+    at(36.4, function (w) { S.screech(w, 0.7, 0.11); });
+
+    /* 09 · EL GOLPE: el sub-grave llega DESDE DEBAJO. 30 Hz, y el mecanismo
+       empieza a girar. */
+    at(38.0, function (w) {
+      tone(w, 30, 3.4, "sine", 0.55);
+      noise(w, 2.2, 0.22, "lowpass", 90, 60);
+      S.boom(w, 0.9);
+    });
+    at(38.3, function (w) { S.rumble(w, 3.0, 0.22); });
+    /* el mecanismo: un anillo que gira, con su chirrido metálico repetido */
+    for (i = 0; i < 10; i++) {
+      (function (i) {
+        at(39.4 + i * 0.18, function (w) { noise(w, 0.08, 0.10, "bandpass", 2200 + rnd(i) * 1600, 0); });
+      })(i);
+    }
+    at(39.4, function (w) { tone(w, 82.4, 3.0, "sawtooth", 0.10, null, 61.7); });
+    at(41.0, function (w) { S.screech(w, 0.8, 0.13); });
+
+    /* ── ACTO IV · EL DESCENSO (43–59) ───────────────────────────────────── */
+    /* 10 · LA RUPTURA: tres fotogramas de SILENCIO y luego el impacto. */
+    at(43.0, function (w) {
+      musicBus._gain.gain.setValueAtTime(1, w);
+      musicBus._gain.gain.linearRampToValueAtTime(0.0001, w + 0.05);
+    });
+    at(43.05, function (w) {
+      /* el silencio se consigue con el bus cerrado y nada más sonando */
+    });
+    at(43.5, function (w) {
+      musicBus._gain.gain.setValueAtTime(1, w);
+      S.boom(w, 1.0);
+      S.hit(w, 0.8);
+      noise(w, 1.6, 0.45, "lowpass", 400, 90);
+    });
+    /* las losas que caen: una por una */
+    for (i = 0; i < 10; i++) {
+      (function (i) {
+        at(43.6 + i * 0.22 + rnd(i * 1.7) * 0.1, function (w) {
+          noise(w, 0.14, 0.12 + 0.10 * rnd(i), "bandpass", 900 + rnd(i * 3.3) * 1500, 0);
+        });
+      })(i);
+    }
+    at(44.4, function (w) { S.rumble(w, 3.2, 0.24); });
+
+    /* 11 · LA CAÍDA (48–54): sin armonía. Viento, tela y escombros. */
+    at(48.0, function (w) {
+      musicBus._gain.gain.setValueAtTime(1, w);
+      S.whoosh(w, 1.4, 0.34, true);
+      noise(w, 5.8, 0.16, "lowpass", 260, 120);
+    });
+    /* el viento sube: un soplido por segundo, cada vez más agudo */
+    for (i = 0; i < 12; i++) {
+      (function (i) {
+        at(48.3 + i * 0.46, function (w) { S.whoosh(w, 0.36, 0.09 + 0.02 * i, true); });
+      })(i);
+    }
+    /* el sombrero se desprende: 49.4 */
+    at(49.4, function (w) { S.whoosh(w, 0.5, 0.16, false); });
+    /* escombros que suben */
+    for (i = 0; i < 8; i++) {
+      (function (i) {
+        at(48.6 + i * 0.66, function (w) { noise(w, 0.10, 0.09, "bandpass", 1400 + rnd(i * 2.1) * 2200, 0); });
+      })(i);
+    }
+
+    /* 12 · LA TORRE INFINITA (54–59): el viento se ORDENA y aparece un pulso
+       grave regular. Es la transición al Refugio. */
+    at(54.0, function (w) { S.whoosh(w, 1.0, 0.22, false); S.rumble(w, 2.4, 0.14); });
+    for (i = 0; i < 8; i++) {
+      (function (i) {
+        at(54.6 + i * 0.55, function (w) {
+          S.kick(w, 0.30 + i * 0.02, musicBus);
+          tone(w, 55 * Math.pow(2, (i % 4) / 12), 0.5, "triangle", 0.06, musicBus);
+        });
+      })(i);
+    }
+    /* la plataforma aparece: 55.4 */
+    at(55.4, function (w) { S.boom(w, 0.35); S.whoosh(w, 0.9, 0.14, true); });
+
+    /* ── ACTO V · EL REFUGIO (59–70) ─────────────────────────────────────── */
+    /* 13 · EL ATERRIZAJE: el pulso grave se convierte en el tema del Refugio;
+       la armonía resuelve en La MAYOR (tercera mayor: 277.2 en vez de 261.6). */
+    at(59.0, function (w) {
+      musicBus._gain.gain.setValueAtTime(1, w);
+      musicBus.frequency.setValueAtTime(1800, w);
+      S.hit(w, 0.45);
+    });
+    /* el tema: cuatro acordes, cálidos, en mayor */
+    var REF = [[220, 277.2, 329.6], [246.9, 311.1, 370.0], [196, 246.9, 293.7], [220, 277.2, 329.6]];
+    for (i = 0; i < 4; i++) {
+      (function (i) {
+        at(59.4 + i * 1.15, function (w) {
+          var ch = REF[i];
+          tone(w, ch[0], 1.5, "triangle", 0.055, musicBus);
+          tone(w, ch[1], 1.5, "triangle", 0.042, musicBus);
+          tone(w, ch[2], 1.5, "triangle", 0.036, musicBus);
+          S.bass(w, ch[0] / 2, 0.13, musicBus);
+        });
+      })(i);
+    }
+    /* el aterrizaje: 60.6 (polvo y contacto) */
+    at(60.6, function (w) { S.boom(w, 0.4); noise(w, 0.4, 0.16, "lowpass", 500, 160); });
+    /* la plataforma se retira */
+    at(61.8, function (w) { S.whoosh(w, 0.7, 0.12, false); });
+
+    /* 14 · EL COMIENZO (64–70): el tema se establece y queda sonando hasta que
+       el HUB toma el relevo. */
+    at(64.0, function (w) {
+      S.kick(w, 0.42, musicBus);
+      tone(w, 220, 2.2, "triangle", 0.05, musicBus);
+      tone(w, 277.2, 2.2, "triangle", 0.038, musicBus);
+    });
+    for (i = 0; i < 6; i++) {
+      (function (i) {
+        at(64.0 + i * 0.9, function (w) {
+          if (i % 2 === 0) S.kick(w, 0.30, musicBus);
+          S.hat(w, 0.06, musicBus);
+        });
+      })(i);
+    }
+    at(65.6, function (w) { tone(w, 329.6, 2.4, "triangle", 0.045, musicBus); });
+    at(68.2, function (w) { tone(w, 440, 1.6, "triangle", 0.040, musicBus); });
+    /* cierre: el bus se abre del todo y la última nota deja respirar */
+    at(69.0, function (w) {
+      musicBus.frequency.setValueAtTime(18000, w);
+      tone(w, 220, 1.0, "sine", 0.06);
+    });
+
     ev.sort(function (a, b) { return a.t - b.t; });
     return ev;
   }
+
   function buildDescentScore() {
     var ev = [];
     function at(t, fn) { ev.push({ t: t, fn: fn }); }

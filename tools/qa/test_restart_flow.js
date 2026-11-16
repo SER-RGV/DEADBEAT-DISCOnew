@@ -1,5 +1,6 @@
 /* QA del inicio del juego sobre el JUEGO REAL (index.html), no sobre un visor:
-     carga → pulsación → intro (42 s, 8 planos, cinco actos) → menú → nueva partida → descenso (4,6 s) → Refugio
+     carga → pulsación → intro (70 s, 14 planos, cinco actos) → Refugio (control)
+     → volver al menú → nueva partida → descenso (4,6 s) → Refugio
    Uso:  DD_CHROMIUM=/ruta/a/chromium node tools/qa/test_restart_flow.js [http://localhost:8080] [carpeta_capturas]
    Requiere playwright-core y un servidor estático en la raíz del repositorio.
    Lo que NO puede comprobar: sonido audible (sólo el estado lógico del audio), mando físico
@@ -88,7 +89,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   b = await boot(pg);
   check("[INTRO] una pulsación arranca la intro; estado INTRO", b.state === "INTRO" && b.introActive);
   const table = await pg.evaluate(() => ({ shots: window.DD_OPENING.SHOTS, dur: window.DD_OPENING.INTRO_DURATION, files: window.DD_OPENING.FILES }));
-  check("[INTRO] tabla de planos: 8 planos contiguos que suman 42 s", table.shots.length === 8 && table.dur === 42 && table.shots[0].from === 0 && table.shots[7].to === 42 && table.shots.every((s, i) => i === 0 || s.from === table.shots[i - 1].to), table.shots.map((s) => s.id + ":" + s.from + "–" + s.to).join(" "));
+  check("[INTRO] tabla de planos: 14 planos contiguos que suman 70 s", table.shots.length === 14 && table.dur === 70 && table.shots[0].from === 0 && table.shots[13].to === 70 && table.shots.every((s, i) => i === 0 || s.from === table.shots[i - 1].to), table.shots.map((s) => s.id + ":" + s.from + "–" + s.to).join(" "));
   const seen = [], moving = {}, musicAt = {}, audioAt = [];
   let hubDuring = false, menuDuring = false, lastShot = 0, captured = {};
   while (true) {
@@ -112,11 +113,14 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const wall = (Date.now() - t0) / 1000;
   await waitState(pg, "MAIN_MENU");
   const end = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
-  check("[INTRO] dura 42 s de reloj real (±1,5 s)", Math.abs(wall - 42) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
+  check("[INTRO] dura 70 s de reloj real (±1,5 s)", Math.abs(wall - 70) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
   const comic = await pg.evaluate(() => ({ fonts: window.DD_OPENING.fontsReady(), cap: document.fonts.check('italic 700 40px "Barlow Condensed"'), sfx: document.fonts.check('400 40px "Bangers"'), nine: window.DD_OPENING.NINE_LEVELS, files: window.DD_OPENING.FILES }));
   check("[RÓTULOS] las dos fuentes definitivas están cargadas en el juego (Barlow Condensed y Bangers)", comic.fonts && comic.cap && comic.sfx);
   check("[PLANO 3] la tabla del corte tiene exactamente nueve pistas", comic.nine === 9, comic.nine + " (la lámina se revisa además a ojo en la captura)");
-  check("[PROTAGONISTA] sólo se cargan la lámina maestra y el IDLE 07B; ninguna ilustración generada del personaje", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && !comic.files.some((f) => /op_05b_back|op_06_face|mc_06_fall/.test(f)), comic.files.length + " archivos");
+  /* V3.0 añade `op_05b_back` (espalda, tatuajes) y `op_06_face` (primer plano):
+     son láminas CANÓNICAS ya existentes, no arte generado del personaje. Lo que
+     sigue prohibido es cualquier ilustración nueva del protagonista. */
+  check("[PROTAGONISTA] cuatro recortes maestros + IDLE 07B; ninguna ilustración generada", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 5 && !comic.files.some((f) => /mc_06_fall|pm_idle_fid_(0[1-9]|[1-9])/.test(f)), comic.files.length + " archivos");
   check("[BUCLE] la capa de multitud existe y se precarga con el resto", comic.files.some((f) => /op_03_crowd_layer\.png$/.test(f)), comic.files.filter((f) => /crowd/.test(f)).join(", "));
   check("[INTRO] los 8 planos se ven en orden", seen.map((s) => s.shot).join("") === "12345678", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
   check("[INTRO] cada plano entra en su tiempo (±0,5 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.5), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));

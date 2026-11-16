@@ -869,8 +869,14 @@
     state.introActive = true;
     state.introPlayed = true;
 
-    /* La intro termina SIEMPRE en el menú principal (completa, saltada, no
-       disponible o estancada). Nunca arranca partida ni entra al Refugio. */
+    /* V3.0 · LA ENTREGA.
+       La cinemática ya no termina en un menú: el plano 14 deja al protagonista
+       de pie en el ENCUADRE REAL del Refugio, y ahí se entrega el control. La
+       entrada se hace por la misma puerta que NUEVA PARTIDA (`DD_HUB.enter` +
+       `DD_BOOT.enterGame`), así que no hay menú intermedio ni pantalla negra, y
+       la posición y la cámara son las del HUB, no una copia.
+       Si algo de eso falla, se cae al menú: nunca se deja al jugador mirando una
+       imagen congelada. */
     var finished = false;
     var finish = function (why) {
       if (finished) return;
@@ -878,8 +884,12 @@
       state.introActive = false;
       state.introEndedBy = why || "complete";
       document.body.classList.remove("dd-intro-running");
+      if (enterRefugeFromIntro()) {
+        emit("intro-end", { by: state.introEndedBy, to: "refuge" });
+        return;
+      }
       enterMainMenu();
-      emit("intro-end", { by: state.introEndedBy });
+      emit("intro-end", { by: state.introEndedBy, to: "menu" });
     };
 
     document.body.classList.add("dd-intro-running");
@@ -891,7 +901,10 @@
     try {
       if (window.DD_OPENING && typeof window.DD_OPENING.playIntro === "function") {
         started = window.DD_OPENING.playIntro(function (why) { finish(why || "complete"); }, {
-          onTitle: function () { audio.startMenuMusic(4); }
+          /* V3.0: en 64 s NO arranca el tema del menú. La partitura sigue
+             sonando hasta la entrega y el HUD toma el relevo; el menú queda
+             para el camino de vuelta. */
+          onTitle: function () {}
         }) !== false;
       }
     } catch (e) {
@@ -916,6 +929,24 @@
         finish("stalled");
       }
     }, 120);
+  }
+
+  /* Entrega del control al Refugio tras la cinemática. Devuelve true sólo si el
+     motor confirmó la entrada; si no, el llamante cae al menú. El estado se
+     declara PLAYING únicamente con evidencia positiva (ver enterGame). */
+  function enterRefugeFromIntro() {
+    if (!window.DD_HUB || typeof window.DD_HUB.enter !== "function") return false;
+    /* La intro deja al jugador en el Refugio: el estado previo (INTRO) no es una
+       de las puertas de enterGame, así que se abre explícitamente el menú como
+       estado de tránsito SIN mostrarlo, y se cierra en el mismo fotograma. */
+    var okHub = false;
+    try {
+      window.DD_HUB.enter();                    /* coloca en 880,615 y saluda a Tempo */
+      okHub = window.DD_HUB.isActive() === true;
+    } catch (e) { okHub = false; }
+    if (!okHub) return false;
+    setState("MAIN_MENU", { silent: true });
+    return enterGame() === true;
   }
 
   function enterMainMenu() {

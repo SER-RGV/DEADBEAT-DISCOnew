@@ -181,6 +181,15 @@ function loadModule(sb, opts) {
     const wfn = new Function('window', 'document', wcode + '\n//# sourceURL=dd_world_renderer.js');
     wfn(sb.win, sb.doc);
     sb.world = sb.win.DD_WORLD;
+    /* El HUB es la fuente de verdad del mobiliario y del encuadre. Sin él la
+       llegada al Refugio se medía contra una sala vacía: los planos 13 y 14
+       salían correctos y no se parecían al Refugio real. */
+    try {
+      const hcode = fs.readFileSync(path.join(ROOT, 'src', 'dd_hub_system.js'), 'utf8');
+      const hfn = new Function('window', 'document', 'Image', hcode + '\n//# sourceURL=dd_hub_system.js');
+      hfn(sb.win, sb.doc, sb.win.Image);
+      sb.hub = sb.win.DD_HUB;
+    } catch (e) { sb.hubError = String(e && e.message || e); }
   }
   const fn = new Function('window', 'document', 'Image', 'navigator', 'localStorage', 'requestAnimationFrame', 'cancelAnimationFrame', 'performance', code + '\n//# sourceURL=dd_opening.js');
   fn(sb.win, sb.doc, sb.win.Image, sb.win.navigator, sb.win.localStorage, sb.win.requestAnimationFrame, sb.win.cancelAnimationFrame, sb.win.performance);
@@ -201,7 +210,18 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 async function start(sb, kind, seek) {
   const ok = sb.op[kind === 'intro' ? 'playIntro' : 'playDescent'](function () {}, {});
   if (!ok) throw new Error('la secuencia no arrancó');
-  await sleep(700);                        /* precarga + carga de imágenes */
+  /* Esperar a que estén TODOS los recursos. Con 700 ms fijos, en cuanto la
+     cinemática pasó de 16 a 286 imágenes las primeras hojas salían negras.
+     No basta un umbral fijo: el registro crece por tandas y 240 se alcanza
+     mientras las últimas (hero, marm, back) siguen en vuelo. Se espera a que
+     el contador se ESTABILICE, y después un margen. */
+  let prev = -1, stable = 0;
+  for (let i = 0; i < 200; i++) {
+    await sleep(100);
+    const n = sb.loaded.length;
+    if (n === prev) { if (++stable >= 4) break; } else { stable = 0; prev = n; }
+  }
+  await sleep(300);
   sb.op.debugSeek(seek == null ? 0 : seek, true);
   await sleep(60);
   return sb;
