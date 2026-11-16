@@ -119,3 +119,18 @@ Regenerados en vista 3/4 elevada ~40° (mismo ID/ruta, clase B), registro actual
 - `prop_bar_bottles` (vista cenital 40°)
 - `prop_hub_fox_neon` (cartel 3/4 con soporte + pies, gruesa carcasa — de cartel plano pasa a trofeo de neón; documentado)
 - El cartel «SIN INCURSIÓN» es DOM/CSS (no asset): nada que reorientar; candelabros y neón SÍ eran planos frontales.
+
+## Verificación in-situ círculo a círculo (2026-11-15, `DMO.playtest.start(round)`, god-mode)
+Recorrido con capturas de la torre completa (PNG capt-1280x900, 0 errores JS en todas):
+- `07_lujuria_arena.png` — Círculo I · LIMBO, Vestíbulo de Turnos (mármol+alfombra).
+- `08_lujuria_boss.png` — banner «AMENAZA RESIDENTE · DJ DOOM — CAZADOR», sprite boss_00 dibujado (barras de vida, saltar escena 4.6s).
+- `10_round_5.png` — LIMBO «PISTA CRUZADA» · Círculo I (oleada RUSH).
+- `10_round_25.png` — **CÍRCULO II · GULA** «El Banquete Interminable · 128 BPM» (cobre, terrazo, antorchas).
+- `10_round_55.png` — **CÍRCULO IV · IRA** «La Pista de las Peleas · 136 BPM» (suelo agrietado ígneo; activa tutorial «EL POGO»).
+- `11_round_40.png` — **CÍRCULO III · AVARICIA** «El Club VIP · 130 BPM» (oro-mármol, rejilla de moneda).
+- `11_round_70.png` — **CÍRCULO VI · VIOLENCIA** «El Matadero · 142 BPM» (metal industrial verde bio).
+- `11_round_100.png` / `(copia 118→100)` — **CÍRCULO IX · EL NÚCLEO FINAL** «La Última Canción · 160 BPM» (geometría sagrada; tutorial «NÚCLEO FINAL: TRES FASES»).
+- `12_round_63.png` — **CÍRCULO V · HEREJÍA** «La Catedral del Ruido · 138 BPM» (rejilla carmesí/púrpura).
+- `12_round_93.png` — **CÍRCULO VIII · TRAICIÓN** «La Última Sala · 150 BPM» (hielo cian; **enemigos regenerados dibujados**: rostro carmesí con barra de vida sup-izq, sombra con marcador ◇ inf-dcha).
+- `10_round_88.png` — **CÍRCULO VII · FRAUDE** «El Club de los Espejos · 145 BPM» (mármol+celosía cian; tutorial «EL IMITADOR»).
+*(Nota: las salas no rectangulares muestran bordes negros = vacío fuera del polígono de la sala, diseño del juego, no defecto; no hay QA fallidos en ninguno de los 9 círculos.)*
