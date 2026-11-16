@@ -1,5 +1,5 @@
 /* QA del inicio del juego sobre el JUEGO REAL (index.html), no sobre un visor:
-     carga → pulsación → intro (32 s, 7 planos) → menú → nueva partida → descenso (4,6 s) → Refugio
+     carga → pulsación → intro (42 s, 8 planos, cinco actos) → menú → nueva partida → descenso (4,6 s) → Refugio
    Uso:  DD_CHROMIUM=/ruta/a/chromium node tools/qa/test_restart_flow.js [http://localhost:8080] [carpeta_capturas]
    Requiere playwright-core y un servidor estático en la raíz del repositorio.
    Lo que NO puede comprobar: sonido audible (sólo el estado lógico del audio), mando físico
@@ -88,7 +88,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   b = await boot(pg);
   check("[INTRO] una pulsación arranca la intro; estado INTRO", b.state === "INTRO" && b.introActive);
   const table = await pg.evaluate(() => ({ shots: window.DD_OPENING.SHOTS, dur: window.DD_OPENING.INTRO_DURATION, files: window.DD_OPENING.FILES }));
-  check("[INTRO] tabla de planos: 7 planos contiguos que suman 32 s", table.shots.length === 7 && table.dur === 32 && table.shots[0].from === 0 && table.shots[6].to === 32 && table.shots.every((s, i) => i === 0 || s.from === table.shots[i - 1].to), table.shots.map((s) => s.id + ":" + s.from + "–" + s.to).join(" "));
+  check("[INTRO] tabla de planos: 8 planos contiguos que suman 42 s", table.shots.length === 8 && table.dur === 42 && table.shots[0].from === 0 && table.shots[7].to === 42 && table.shots.every((s, i) => i === 0 || s.from === table.shots[i - 1].to), table.shots.map((s) => s.id + ":" + s.from + "–" + s.to).join(" "));
   const seen = [], moving = {}, musicAt = {}, audioAt = [];
   let hubDuring = false, menuDuring = false, lastShot = 0, captured = {};
   while (true) {
@@ -102,7 +102,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       moving[s.shot] = a !== c;
       await shot(pg, "intro_plano_" + s.shot + "_" + table.shots[s.shot - 1].name.replace(/ /g, "_"));
     }
-    const st = await pg.evaluate(() => { const o = window.DD_OPENING.getState(); return { shot: o ? o.shot : 7, hub: window.DD_HUB.isActive(), menu: window.DD_UI.getState().menuVisible, music: window.DD_BOOT.getState().menuMusic, state: window.DD_BOOT.getState().state }; });
+    const st = await pg.evaluate(() => { const o = window.DD_OPENING.getState(); return { shot: o ? o.shot : 8, hub: window.DD_HUB.isActive(), menu: window.DD_UI.getState().menuVisible, music: window.DD_BOOT.getState().menuMusic, state: window.DD_BOOT.getState().state }; });
     if (st.hub) hubDuring = true;
     if (st.menu && st.state === "INTRO") menuDuring = true;
     musicAt[st.shot] = musicAt[st.shot] || st.music;   /* plano y música leídos en el mismo instante */
@@ -112,14 +112,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const wall = (Date.now() - t0) / 1000;
   await waitState(pg, "MAIN_MENU");
   const end = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
-  check("[INTRO] dura 32 s de reloj real (±1,5 s)", Math.abs(wall - 32) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
+  check("[INTRO] dura 42 s de reloj real (±1,5 s)", Math.abs(wall - 42) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
   const comic = await pg.evaluate(() => ({ fonts: window.DD_OPENING.fontsReady(), cap: document.fonts.check('italic 700 40px "Barlow Condensed"'), sfx: document.fonts.check('400 40px "Bangers"'), nine: window.DD_OPENING.NINE_LEVELS, files: window.DD_OPENING.FILES }));
   check("[RÓTULOS] las dos fuentes definitivas están cargadas en el juego (Barlow Condensed y Bangers)", comic.fonts && comic.cap && comic.sfx);
   check("[PLANO 3] la tabla del corte tiene exactamente nueve pistas", comic.nine === 9, comic.nine + " (la lámina se revisa además a ojo en la captura)");
   check("[PROTAGONISTA] sólo se cargan la lámina maestra y el IDLE 07B; ninguna ilustración generada del personaje", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && !comic.files.some((f) => /op_05b_back|op_06_face|mc_06_fall/.test(f)), comic.files.length + " archivos");
-  check("[INTRO] los 7 planos se ven en orden", seen.map((s) => s.shot).join("") === "1234567", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
+  check("[BUCLE] la capa de multitud existe y se precarga con el resto", comic.files.some((f) => /op_03_crowd_layer\.png$/.test(f)), comic.files.filter((f) => /crowd/.test(f)).join(", "));
+  check("[INTRO] los 8 planos se ven en orden", seen.map((s) => s.shot).join("") === "12345678", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
   check("[INTRO] cada plano entra en su tiempo (±0,5 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.5), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));
-  check("[INTRO] ANIM los 7 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7].every((i) => moving[i] === true), JSON.stringify(moving));
+  check("[INTRO] ANIM los 8 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7, 8].every((i) => moving[i] === true), JSON.stringify(moving));
   check("[INTRO] no entra al Refugio ni muestra el menú durante la intro", !hubDuring && !menuDuring);
   const audioOn = audioAt.filter((a) => a[1]).length / audioAt.length;
   check("[AUDIO] el sonido de la intro está activo (contexto de audio en marcha) y dispara sucesos", audioOn > 0.9 && end.audioEvents > 100, Math.round(audioOn * 100) + " % de las muestras, " + end.audioEvents + " sucesos");
@@ -404,10 +405,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   let fb = { s: "error", by: null, px: 0 };
   if (!errPanel) {
     await pf.keyboard.press("KeyX"); await pf.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 8000 });
-    await pf.evaluate(() => window.DD_OPENING.debugSeek(6, true)); await sleep(250);
+    await pf.evaluate(() => window.DD_OPENING.debugSeek(10, true)); await sleep(250);
     const px = await canvasSum(pf);
-    await shot(pf, "intro_plano_2_sin_imagen_reserva");
-    await pf.evaluate(() => window.DD_OPENING.debugSeek(31.2, false));
+    await shot(pf, "intro_plano_3_sin_imagen_reserva");
+    await pf.evaluate(() => window.DD_OPENING.debugSeek(40.5, false));
     await waitState(pf, "MAIN_MENU", 8000);
     fb = await pf.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by })); fb.px = px;
   }
