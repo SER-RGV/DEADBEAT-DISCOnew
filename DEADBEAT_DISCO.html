@@ -1424,6 +1424,10 @@ body.dd-booting {
   transform: translate3d(-12px, 0, 0);
   animation: dd-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: background 0.18s ease, border-color 0.18s ease, padding-left 0.18s ease, box-shadow 0.18s ease;
+  /* La entrada de los botones es puramente decorativa: nunca puede dejar una
+     opción sin poder pulsarse. Un clic que llega mientras el brochazo aún está
+     entrando se perdía (medido: el puntero acertaba y no pasaba nada). */
+  pointer-events: auto;
 }
 #dd-main-menu .dd-menu-btn:nth-child(1) { animation-delay: 0.46s; }
 #dd-main-menu .dd-menu-btn:nth-child(2) { animation-delay: 0.53s; }
@@ -2052,6 +2056,16 @@ body.dd-menu-owning #menu-scene53,
 body.dd-menu-owning #menu-card,
 body.dd-menu-owning #overlay {
   visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* El lienzo del juego tampoco puede tragarse los clics del menú.
+   Medido en el navegador: con el menú visible y el motor aún vivo por debajo, un
+   clic sobre CRÉDITOS aterrizaba en `CANVAS#game` (`event.target` era el lienzo)
+   y la opción no se abría — el puntero acertaba al píxel correcto y el evento se
+   perdía en la capa de abajo. Mientras el menú es dueño de la pantalla, el
+   lienzo no recibe puntero. Al jugar, `dd-menu-owning` ya no está puesto. */
+body.dd-menu-owning #game,
+body.dd-menu-owning #game-wrapper {
   pointer-events: none !important;
 }
 body.dd-menu-owning #menu-scene53 * ,
@@ -9530,7 +9544,18 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     } catch (e) { okHub = false; }
     if (!okHub) return false;
     setState("MAIN_MENU", { silent: true });
-    return enterGame() === true;
+    var entered = enterGame() === true;
+    /* V3.0 · la llegada deja ficha de partida.
+       Entrar al Refugio por la cinemática es una llegada más: debe escribir la
+       ficha igual que NUEVA PARTIDA, o el jugador que llega por la intro no
+       tiene CONTINUAR en la siguiente visita. `DD_UI.arriveAtRefuge` es la
+       puerta única (ficha + reinicio de run). Se usa DESPUÉS de `enterGame`
+       para no abrir el Refugio dos veces: si el estado ya cambió, sólo se
+       escribe la ficha. */
+    if (entered && window.DD_UI && typeof window.DD_UI.arriveAtRefuge === "function") {
+      try { window.DD_UI.arriveAtRefuge(true); } catch (e2) {}
+    }
+    return entered;
   }
 
   function enterMainMenu() {
@@ -9614,9 +9639,70 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     return true;
   }
 
+  /* Cierra el Refugio SIN emprender partida.
+     `DD_HUB` sólo expone `exitToRun()`, que hace dos cosas: (1) marca el Refugio
+     inactivo —sincrónico, y es lo único que hace falta aquí— y (2) arranca la
+     partida a través de la cinemática de descenso. La (2) sobra al volver al
+     menú: su `triggerRun` diferido tardaba unos 4,6 s, llegaba con DD_BOOT ya en
+     MAIN_MENU, arrancaba una partida POR DEBAJO del menú y encima lo ocultaba
+     (`DD_UI.hideMainMenu()`). Medido en el navegador: a los ~4,6 s el menú pasaba
+     a `dd-hidden` y todos sus botones a 0×0.
+     `dd_hub_system.js` es intocable y `DD_CINE` está congelado, así que no se
+     puede interceptar `playCircleDescent`. Se deja que el descenso ocurra de
+     verdad (es lo que cierra el Refugio) y se vigila la transición para devolver
+     la pantalla al menú en cuanto `triggerRun` la reclame. */
+  function closeRefuge() {
+    try {
+      var hub = window.DD_HUB;
+      if (!hub || typeof hub.isActive !== "function" || !hub.isActive()) return;
+      if (typeof hub.exitToRun !== "function") return;
+      var menuUp = false;
+      hub.exitToRun();
+      /* `triggerRun` puede llegar ya o en el callback; se vigila la transición
+         en lugar de suponer cuándo. */
+      var t0 = Date.now();
+      var guard = setInterval(function () {
+        /* Si el jugador ya ha vuelto a ENTRAR (CONTINUAR/NUEVA PARTIDA), la
+           vigilancia deja de tener sentido: su único trabajo era deshacer el
+           `hideMainMenu()` del arranque diferido de la partida. Sin esta salida,
+           el guardián volvía a mostrar el menú encima del Refugio recién
+           abierto (medido: menú visible 5 s después de pulsar CONTINUAR). */
+        if (state.current === "PLAYING") { clearInterval(guard); return; }
+        var vis = !!(window.DD_UI && window.DD_UI.getState().menuVisible);
+        if (vis) { menuUp = true; }
+        if (menuUp && !vis) {
+          /* `triggerRun` acaba de llamar a hideMainMenu(): se deshace. */
+          try { window.DD_UI.showMainMenu(); } catch (e4) {}
+        }
+        /* Y si el motor arrancó, se deja en pausa: en el menú nadie juega. */
+        var br = window.__DD_BRIDGE;
+        if (br && typeof br.isRunning === "function" && typeof br.setPaused === "function") {
+          try { if (br.isRunning()) br.setPaused(true); } catch (e5) {}
+        }
+        if (Date.now() - t0 > 9000) clearInterval(guard);
+      }, 100);
+      setTimeout(function () { clearInterval(guard); }, 9200);
+    } catch (e) {}
+  }
+
   function exitGameToMenu() {
-    if (window.DD_UI) window.DD_UI.showMainMenu();
+    /* V3.0: al volver al menú hay que CERRAR el Refugio. Antes se cambiaba el
+       estado de DD_BOOT pero el HUB seguía `active`, así que los planos de la
+       intro posterior y el descenso de NUEVA PARTIDA se dibujaban con el salón
+       vivo debajo: «no se entra al Refugio antes de terminar la secuencia» era
+       un fallo real, no de la prueba. */
+    /* V3.0 · SALIR DEL REFUGIO NO ES JUGAR.
+       `DD_HUB.exitToRun()` NO sirve aquí: su nombre lo dice — deja el Refugio
+       para EMPRENDER la partida, y lo hace a través de la cinemática de
+       descenso (unos 4,6 s). Su `triggerRun` diferido arranca la partida y, de
+       paso, llama a `DD_UI.hideMainMenu()`: si se usaba al volver al menú, la
+       partida quedaba corriendo POR DEBAJO del menú y medio segundo después el
+       menú se ocultaba solo, con DD_BOOT aún en MAIN_MENU y todos los botones a
+       0×0. Medido en el navegador. Aquí sólo hay que soltar el Refugio. */
+    closeRefuge();
+
     setState("MAIN_MENU");
+    if (window.DD_UI) window.DD_UI.showMainMenu();
     if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(3);
     return true;
   }
@@ -15252,6 +15338,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
   /* ================================================================= SONIDO */
   var ac = null, master = null, musicBus = null, noiseBuf = null;
+  var silenceTimer = 0;   /* ancla de silencio por reloj de PARED (ver silence) */
+  var outLim = null;      /* limitador de salida: se desconecta para asegurar silencio */
+  var outOn = false;      /* ¿el limitador está enchufado a los altavoces? */
+  function outConnected() { return !!(outLim && outOn); }
   /* Nivel de salida de la intro y del descenso (antes 0,5). Medido contra la
      música del menú: ver docs/RESTART/14. */
   var MASTER_LEVEL = 0.7;
@@ -15270,12 +15360,20 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         var lim = ac.createDynamicsCompressor();
         lim.threshold.value = -3; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = 0.002; lim.release.value = 0.12;
         master.connect(lim); lim.connect(ac.destination);
+        outLim = lim; outOn = true;
         var n = ac.sampleRate * 1.5; noiseBuf = ac.createBuffer(1, n, ac.sampleRate);
         var dta = noiseBuf.getChannelData(0);
         for (var i = 0; i < n; i++) dta[i] = Math.random() * 2 - 1;
       }
       if (ac.state === "suspended") ac.resume();
-      master.gain.cancelScheduledValues(ac.currentTime);
+      /* Reabrir el bus cancela cualquier ancla de silencio pendiente: si no, el
+         temporizador de `silence()` volvería a bajar el volumen de una secuencia
+         que ya está sonando. También se reconecta la salida si `silence()` la
+         había soltado. */
+      if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = 0; }
+      if (outLim) { try { outLim.connect(ac.destination); } catch (e0) {} }
+      outOn = true;
+      master.gain.cancelScheduledValues(0);
       master.gain.setValueAtTime(MASTER_LEVEL * st.vol, ac.currentTime);
       return ac.state === "running";
     } catch (e) { return false; }
@@ -15642,10 +15740,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     }
     at(65.6, function (w) { tone(w, 329.6, 2.4, "triangle", 0.045, musicBus); });
     at(68.2, function (w) { tone(w, 440, 1.6, "triangle", 0.040, musicBus); });
-    /* cierre: el bus se abre del todo y la última nota deja respirar */
+    /* Cierre: el último acorde SE APAGA en vez de reabrir el bus. Antes, este
+       evento ponía el filtro a 18 kHz en 69,0 s y el fundido final de `silence()`
+       medía una apertura, no un cierre: la ganancia se quedaba congelada en
+       0,26 y el tema seguía sonando encima del Refugio. */
     at(69.0, function (w) {
-      musicBus.frequency.setValueAtTime(18000, w);
-      tone(w, 220, 1.0, "sine", 0.06);
+      musicBus.frequency.cancelScheduledValues(w);
+      musicBus.frequency.setValueAtTime(musicBus.frequency.value || 18000, w);
+      musicBus.frequency.exponentialRampToValueAtTime(420, w + 0.9);
+      tone(w, 220, 0.8, "sine", 0.045);
     });
 
     ev.sort(function (a, b) { return a.t - b.t; });
@@ -15679,9 +15782,52 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (!ac || !master) return;
     try {
       var n = ac.currentTime;
+      /* `master.gain.value` es el valor YA aplicado; si había una automatización
+         en curso devuelve el último punto, no el que suena. Eso dejaba el fundido
+         a medias (0,22) y el tema seguía audible sobre el Refugio. Se cancela,
+         se ancla explícitamente a 0 y se mantiene ahí: el silencio no es una
+         rampa que pueda quedar sin terminar, es un estado. */
+      var f = Math.max(0.05, fade || 0.15);
+      /* Rampla exponencial hacia el suelo y ANCLA explícita al final. Sin el
+         ancla, una rampa exponencial sólo se ACERCA a cero: medida en el
+         navegador real se quedaba en 0,05 y el tema seguía audible bajo el
+         Refugio. Con `setTargetAtTime` + `setValueAtTime(0)` el silencio es un
+         estado garantizado, no una asíntota. */
+      var from = Math.max(0.0002, master.gain.value);
       master.gain.cancelScheduledValues(n);
-      master.gain.setValueAtTime(master.gain.value, n);
-      master.gain.linearRampToValueAtTime(0.0001, n + (fade || 0.15));
+      master.gain.setValueAtTime(from, n);
+      master.gain.exponentialRampToValueAtTime(0.0001, n + f);
+      master.gain.setValueAtTime(0, n + f + 0.01);
+      /* Red de seguridad por RELOJ DE PARED.
+         `AudioParam.value` sólo avanza cuando avanza el reloj de audio, y ese
+         reloj se atrasa cuando la pestaña va cargada (render de audio diferido).
+         Medido en la batería de pruebas: el fundido se quedaba clavado en 0,0086
+         indefinidamente aunque su automatización ya había terminado en el papel.
+         En un equipo lento eso es sonido fantasma sobre el Refugio. Un ancla
+         explícita a los `f + 0,15` s de reloj real garantiza el silencio pase lo
+         que pase con el reloj de audio. El estado queda como un valor fijo, así
+         que abrir de nuevo el bus (`master.gain.setValueAtTime` en ensure())
+         sigue funcionando sin arrastrar nada. */
+      if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = 0; }
+      silenceTimer = setTimeout(function () {
+        silenceTimer = 0;
+        try {
+          /* `cancelScheduledValues(0)`, NO `(currentTime)`: si el reloj de audio
+             se atrasó, los eventos de la rampa están en el futuro y cancelar
+             desde `currentTime` no los toca — la rampa seguiría por delante del
+             ancla y el valor nunca llegaría a cero. */
+          master.gain.cancelScheduledValues(0);
+          master.gain.setValueAtTime(0, 0);
+        } catch (e2) {}
+        /* Y la garantía física: se SUELTA la salida.
+           Ajustar una ganancia depende de que el hilo de audio avance; en una
+           pestaña cargada ese hilo se atrasa y el valor medido se quedaba en
+           0,003 durante segundos, con la partitura aún audible bajo el Refugio.
+           Desconectar el limitador de los altavoces no depende de ningún reloj:
+           si no hay arista en el grafo, no hay sonido. Volver a abrir el bus
+           (`audioReady`) la reconecta. */
+        if (outLim) { try { outLim.disconnect(); } catch (e3) {} outOn = false; }
+      }, Math.round((f + 0.15) * 1000));
     } catch (e) {}
   }
 
@@ -15749,14 +15895,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cancelAnimationFrame(s.raf);
     s.endedBy = why;
     lastEnd = { type: s.type, by: why, at: +s.t.toFixed(2), audioEvents: s.fired, frames: s.frames };
-    /* El sonido de la secuencia nunca sobrevive a la secuencia. */
-    silence(why === "complete" ? 0.6 : 0.15);
     hintEl.classList.remove("is-on");
     document.body.classList.remove("dd-opening-on");
     document.body.removeAttribute("data-dd-opening");
     /* Primero se avisa (el menú o el Refugio se colocan debajo) y después el
        lienzo se funde: nunca se pasa por negro. */
     if (typeof s.onDone === "function") { try { s.onDone(why); } catch (e) { console.warn("[DD_OPENING] onDone", e); } }
+    /* DESPUÉS del relevo, no antes: el destino (menú o Refugio) puede tocar el
+       audio al arrancar, y antes este fundido se lanzaba primero y quedaba
+       reabierto a medias. El sonido de la secuencia nunca sobrevive a la
+       secuencia, pero el silencio se aplica el último. */
+    silence(why === "complete" ? 0.6 : 0.15);
     cv.classList.add("is-out");
     setTimeout(function () { if (!seq && cv) cv.classList.remove("is-on", "is-out"); }, reduced ? 60 : 620);
   }
@@ -15802,7 +15951,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       };
     },
     getLastEnd: function () { return lastEnd; },
-    audioState: function () { return ac ? { state: ac.state, gain: master ? +master.gain.value.toFixed(4) : null } : null; },
+    /* `gain` es la ganancia REALMENTE audible: si la salida está desconectada no
+       sale nada, diga lo que diga el parámetro. `param` es el valor crudo de
+       `master.gain` y se conserva para diagnóstico: con el hilo de audio atrasado
+       se queda en el valor de la rampa aunque el grafo ya no llegue a los
+       altavoces. Antes esta función devolvía sólo el parámetro y por eso la
+       batería veía «0,003» en un estado que ya era silencio absoluto. */
+    audioState: function () {
+      if (!ac) return null;
+      var g = master ? +master.gain.value.toFixed(4) : null;
+      return { state: ac.state, connected: outConnected(), gain: outConnected() ? g : 0, param: g };
+    },
     /* Sólo para pruebas y capturas: coloca el reloj y lo congela o lo suelta. */
     debugSeek: function (t, freeze) {
       if (!seq) return false;
@@ -16098,13 +16257,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     return;
   }
   /* Sólo los botones presentes: CONTINUAR oculto no cuenta para la navegación. */
+  var selecting = false;   /* cerrojo de reentrada de selectButton (ver abajo) */
   function menuButtons() {
     return document.querySelectorAll("#dd-menu-nav .dd-menu-btn:not([hidden])");
   }
   function selectButton(btn) {
     var i = Array.prototype.indexOf.call(menuButtons(), btn);
-    if (i >= 0 && i !== uiState.menuIndex) setMenuSelection(i, false);
-    else if (i >= 0) setMenuSelection(i, false);
+    if (i < 0) return;
+    /* Guardia de reentrada.
+       `setMenuSelection` mueve el FOCO al botón elegido (`b.focus()`), y ese
+       foco dispara a su vez el listener `focus` del propio botón, que vuelve a
+       entrar aquí. En el menú principal la lista cambia de longitud según haya
+       partida guardada (CONTINUAR aparece y desaparece), así que el segundo
+       paso podía calcular un índice sobre una lista ya distinta y dejar
+       `menuIndex` apuntando a otra opción que la marcada: el clic aterrizaba en
+       CRÉDITOS y abría OPCIONES. Medido en el navegador.
+       Con el cerrojo, la reentrada no puede reescribir la selección. */
+    if (selecting) return;
+    selecting = true;
+    try { setMenuSelection(i, false); }
+    finally { selecting = false; }
   }
 
   function setMenuSelection(idx, withSfx) {
@@ -17257,7 +17429,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     stopSelfTick();
     document.body.classList.remove("dd-menu-owning");
     var m = el("dd-main-menu");
-    if (m) m.classList.add("dd-hidden");
+    /* V3.0: además de `dd-hidden`, se retira `dd-menu-in`. Sin esto el menú
+       seguía GEOMÉTRICAMENTE presente debajo del Refugio: los botones medían
+       320×53 px y recibían el puntero, y una prueba de ratón sobre el menú
+       durante la partida acertaba a un botón invisible. `dd-hidden` lo pinta
+       fuera de pantalla, pero no lo saca del árbol de accesibilidad ni del hit
+       testing. Cerrado quiere decir cerrado. */
+    if (m) { m.classList.remove("dd-menu-in"); m.classList.add("dd-hidden"); }
     var h = el("dd-hud");
     if (h) h.classList.remove("dd-hidden");
     if (!opts || !opts.keepState) {
@@ -17821,6 +17999,13 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     openSubmenu: openSubmenu,
     closeSubmenu: closeSubmenu,
     triggerMenuAction: triggerMenuAction,
+    /* La llegada al Refugio es UNA sola en todo el producto: la que crea la ficha
+       de partida y reinicia el estado de run. La intro la necesita igual que
+       NUEVA PARTIDA; antes llamaba a `DD_HUB.enter()` + `enterGame()` por su
+       cuenta y se saltaba `writeSave()`, así que entrar por la cinemática no
+       dejaba partida guardada (medido: CONTINUAR no aparecía tras la intro).
+       Expuesta para que el relevo de la intro use esta misma puerta. */
+    arriveAtRefuge: function (isNew) { return arriveAtRefuge(isNew === true); },
     readProgress: readProgress,
     hasSave: hasSave,
     readSave: readSave,

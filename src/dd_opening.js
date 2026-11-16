@@ -2188,6 +2188,10 @@
 
   /* ================================================================= SONIDO */
   var ac = null, master = null, musicBus = null, noiseBuf = null;
+  var silenceTimer = 0;   /* ancla de silencio por reloj de PARED (ver silence) */
+  var outLim = null;      /* limitador de salida: se desconecta para asegurar silencio */
+  var outOn = false;      /* ¿el limitador está enchufado a los altavoces? */
+  function outConnected() { return !!(outLim && outOn); }
   /* Nivel de salida de la intro y del descenso (antes 0,5). Medido contra la
      música del menú: ver docs/RESTART/14. */
   var MASTER_LEVEL = 0.7;
@@ -2206,12 +2210,20 @@
         var lim = ac.createDynamicsCompressor();
         lim.threshold.value = -3; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = 0.002; lim.release.value = 0.12;
         master.connect(lim); lim.connect(ac.destination);
+        outLim = lim; outOn = true;
         var n = ac.sampleRate * 1.5; noiseBuf = ac.createBuffer(1, n, ac.sampleRate);
         var dta = noiseBuf.getChannelData(0);
         for (var i = 0; i < n; i++) dta[i] = Math.random() * 2 - 1;
       }
       if (ac.state === "suspended") ac.resume();
-      master.gain.cancelScheduledValues(ac.currentTime);
+      /* Reabrir el bus cancela cualquier ancla de silencio pendiente: si no, el
+         temporizador de `silence()` volvería a bajar el volumen de una secuencia
+         que ya está sonando. También se reconecta la salida si `silence()` la
+         había soltado. */
+      if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = 0; }
+      if (outLim) { try { outLim.connect(ac.destination); } catch (e0) {} }
+      outOn = true;
+      master.gain.cancelScheduledValues(0);
       master.gain.setValueAtTime(MASTER_LEVEL * st.vol, ac.currentTime);
       return ac.state === "running";
     } catch (e) { return false; }
@@ -2578,10 +2590,15 @@
     }
     at(65.6, function (w) { tone(w, 329.6, 2.4, "triangle", 0.045, musicBus); });
     at(68.2, function (w) { tone(w, 440, 1.6, "triangle", 0.040, musicBus); });
-    /* cierre: el bus se abre del todo y la última nota deja respirar */
+    /* Cierre: el último acorde SE APAGA en vez de reabrir el bus. Antes, este
+       evento ponía el filtro a 18 kHz en 69,0 s y el fundido final de `silence()`
+       medía una apertura, no un cierre: la ganancia se quedaba congelada en
+       0,26 y el tema seguía sonando encima del Refugio. */
     at(69.0, function (w) {
-      musicBus.frequency.setValueAtTime(18000, w);
-      tone(w, 220, 1.0, "sine", 0.06);
+      musicBus.frequency.cancelScheduledValues(w);
+      musicBus.frequency.setValueAtTime(musicBus.frequency.value || 18000, w);
+      musicBus.frequency.exponentialRampToValueAtTime(420, w + 0.9);
+      tone(w, 220, 0.8, "sine", 0.045);
     });
 
     ev.sort(function (a, b) { return a.t - b.t; });
@@ -2615,9 +2632,52 @@
     if (!ac || !master) return;
     try {
       var n = ac.currentTime;
+      /* `master.gain.value` es el valor YA aplicado; si había una automatización
+         en curso devuelve el último punto, no el que suena. Eso dejaba el fundido
+         a medias (0,22) y el tema seguía audible sobre el Refugio. Se cancela,
+         se ancla explícitamente a 0 y se mantiene ahí: el silencio no es una
+         rampa que pueda quedar sin terminar, es un estado. */
+      var f = Math.max(0.05, fade || 0.15);
+      /* Rampla exponencial hacia el suelo y ANCLA explícita al final. Sin el
+         ancla, una rampa exponencial sólo se ACERCA a cero: medida en el
+         navegador real se quedaba en 0,05 y el tema seguía audible bajo el
+         Refugio. Con `setTargetAtTime` + `setValueAtTime(0)` el silencio es un
+         estado garantizado, no una asíntota. */
+      var from = Math.max(0.0002, master.gain.value);
       master.gain.cancelScheduledValues(n);
-      master.gain.setValueAtTime(master.gain.value, n);
-      master.gain.linearRampToValueAtTime(0.0001, n + (fade || 0.15));
+      master.gain.setValueAtTime(from, n);
+      master.gain.exponentialRampToValueAtTime(0.0001, n + f);
+      master.gain.setValueAtTime(0, n + f + 0.01);
+      /* Red de seguridad por RELOJ DE PARED.
+         `AudioParam.value` sólo avanza cuando avanza el reloj de audio, y ese
+         reloj se atrasa cuando la pestaña va cargada (render de audio diferido).
+         Medido en la batería de pruebas: el fundido se quedaba clavado en 0,0086
+         indefinidamente aunque su automatización ya había terminado en el papel.
+         En un equipo lento eso es sonido fantasma sobre el Refugio. Un ancla
+         explícita a los `f + 0,15` s de reloj real garantiza el silencio pase lo
+         que pase con el reloj de audio. El estado queda como un valor fijo, así
+         que abrir de nuevo el bus (`master.gain.setValueAtTime` en ensure())
+         sigue funcionando sin arrastrar nada. */
+      if (silenceTimer) { clearTimeout(silenceTimer); silenceTimer = 0; }
+      silenceTimer = setTimeout(function () {
+        silenceTimer = 0;
+        try {
+          /* `cancelScheduledValues(0)`, NO `(currentTime)`: si el reloj de audio
+             se atrasó, los eventos de la rampa están en el futuro y cancelar
+             desde `currentTime` no los toca — la rampa seguiría por delante del
+             ancla y el valor nunca llegaría a cero. */
+          master.gain.cancelScheduledValues(0);
+          master.gain.setValueAtTime(0, 0);
+        } catch (e2) {}
+        /* Y la garantía física: se SUELTA la salida.
+           Ajustar una ganancia depende de que el hilo de audio avance; en una
+           pestaña cargada ese hilo se atrasa y el valor medido se quedaba en
+           0,003 durante segundos, con la partitura aún audible bajo el Refugio.
+           Desconectar el limitador de los altavoces no depende de ningún reloj:
+           si no hay arista en el grafo, no hay sonido. Volver a abrir el bus
+           (`audioReady`) la reconecta. */
+        if (outLim) { try { outLim.disconnect(); } catch (e3) {} outOn = false; }
+      }, Math.round((f + 0.15) * 1000));
     } catch (e) {}
   }
 
@@ -2685,14 +2745,17 @@
     cancelAnimationFrame(s.raf);
     s.endedBy = why;
     lastEnd = { type: s.type, by: why, at: +s.t.toFixed(2), audioEvents: s.fired, frames: s.frames };
-    /* El sonido de la secuencia nunca sobrevive a la secuencia. */
-    silence(why === "complete" ? 0.6 : 0.15);
     hintEl.classList.remove("is-on");
     document.body.classList.remove("dd-opening-on");
     document.body.removeAttribute("data-dd-opening");
     /* Primero se avisa (el menú o el Refugio se colocan debajo) y después el
        lienzo se funde: nunca se pasa por negro. */
     if (typeof s.onDone === "function") { try { s.onDone(why); } catch (e) { console.warn("[DD_OPENING] onDone", e); } }
+    /* DESPUÉS del relevo, no antes: el destino (menú o Refugio) puede tocar el
+       audio al arrancar, y antes este fundido se lanzaba primero y quedaba
+       reabierto a medias. El sonido de la secuencia nunca sobrevive a la
+       secuencia, pero el silencio se aplica el último. */
+    silence(why === "complete" ? 0.6 : 0.15);
     cv.classList.add("is-out");
     setTimeout(function () { if (!seq && cv) cv.classList.remove("is-on", "is-out"); }, reduced ? 60 : 620);
   }
@@ -2738,7 +2801,17 @@
       };
     },
     getLastEnd: function () { return lastEnd; },
-    audioState: function () { return ac ? { state: ac.state, gain: master ? +master.gain.value.toFixed(4) : null } : null; },
+    /* `gain` es la ganancia REALMENTE audible: si la salida está desconectada no
+       sale nada, diga lo que diga el parámetro. `param` es el valor crudo de
+       `master.gain` y se conserva para diagnóstico: con el hilo de audio atrasado
+       se queda en el valor de la rampa aunque el grafo ya no llegue a los
+       altavoces. Antes esta función devolvía sólo el parámetro y por eso la
+       batería veía «0,003» en un estado que ya era silencio absoluto. */
+    audioState: function () {
+      if (!ac) return null;
+      var g = master ? +master.gain.value.toFixed(4) : null;
+      return { state: ac.state, connected: outConnected(), gain: outConnected() ? g : 0, param: g };
+    },
     /* Sólo para pruebas y capturas: coloca el reloj y lo congela o lo suelta. */
     debugSeek: function (t, freeze) {
       if (!seq) return false;

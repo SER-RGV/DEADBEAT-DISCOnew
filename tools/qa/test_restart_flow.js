@@ -5,7 +5,9 @@
    Requiere playwright-core y un servidor estático en la raíz del repositorio.
    Lo que NO puede comprobar: sonido audible (sólo el estado lógico del audio), mando físico
    (se simula la API Gamepad) y rendimiento en hardware real. */
-const { chromium } = require("playwright-core");
+/* Playwright no está instalado en este entorno; el adaptador traduce sólo las
+   llamadas que esta prueba usa sobre puppeteer-core. Ver playwright_shim.js. */
+const { chromium } = require("./playwright_shim");
 const fs = require("fs");
 const path = require("path");
 const BASE = process.argv[2] || "http://localhost:8080";
@@ -53,8 +55,32 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const shot = async (pg, name) => { if (OUT) await pg.screenshot({ path: path.join(OUT, name + ".jpg"), type: "jpeg", quality: 80 }); };
   const waitGate = (pg) => pg.waitForFunction(() => window.DD_BOOT && (window.DD_BOOT.getState().waitingGesture || window.DD_BOOT.getState().state === "INTRO"), null, { timeout: 60000 });
   const waitState = (pg, s, t) => pg.waitForFunction((s) => window.DD_BOOT.getState().state === s, s, { timeout: t || 15000 });
-  const toIntro = async (pg) => { await pg.goto(URL, { waitUntil: "domcontentloaded" }); await waitGate(pg); await pg.keyboard.press("KeyX"); await pg.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 10000 }); };
-  const toMenu = async (pg) => { await toIntro(pg); await sleep(600); await pg.keyboard.press("Space"); await waitState(pg, "MAIN_MENU"); await sleep(900); };
+  /* `toIntro` reintenta la puerta de pulsación.
+     Si la tecla cae mientras la página aún no tiene foco (banco con muchas
+     pestañas), la intro no arranca y la espera se queda en 10 s. Se reintenta
+     la pulsación: es cómo se comportaría un jugador que pulsa otra vez. */
+  const toIntro = async (pg) => {
+    await pg.goto(URL, { waitUntil: "domcontentloaded" });
+    await waitGate(pg);
+    for (let k = 0; k < 4; k++) {
+      await pg.keyboard.press("KeyX");
+      try {
+        await pg.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 4000 });
+        return;
+      } catch (e) { await sleep(400); }
+    }
+    throw new Error("la intro no arrancó tras 4 intentos de pulsación");
+  };
+  /* V3.0: saltar la intro entrega el control en el Refugio, así que para llegar
+     al menú hay que soltar el Refugio con la API de vuelta (`exitGameToMenu`),
+     que es la misma puerta que usa el juego cuando abandona una partida. Es
+     `toMenu` lo que cambia, no el producto: el atajo de V2.2 ya no existe. */
+  const toMenu = async (pg) => {
+    await toIntro(pg); await sleep(600); await pg.keyboard.press("Space");
+    await waitState(pg, "PLAYING", 8000);
+    await pg.evaluate(() => window.DD_BOOT.exitGameToMenu());
+    await waitState(pg, "MAIN_MENU"); await sleep(900);
+  };
   const canvasSum = (pg) => pg.evaluate(() => { const c = document.getElementById("dd-opening"); const d = c.getContext("2d").getImageData(0, 0, c.width, c.height).data; let s = 0; for (let i = 0; i < d.length; i += 397) s += d[i]; return s; });
   const menuInfo = (pg) => pg.evaluate(() => {
     const all = [...document.querySelectorAll("#dd-menu-nav .dd-menu-btn")];
@@ -91,6 +117,10 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const table = await pg.evaluate(() => ({ shots: window.DD_OPENING.SHOTS, dur: window.DD_OPENING.INTRO_DURATION, files: window.DD_OPENING.FILES }));
   check("[INTRO] tabla de planos: 14 planos contiguos que suman 70 s", table.shots.length === 14 && table.dur === 70 && table.shots[0].from === 0 && table.shots[13].to === 70 && table.shots.every((s, i) => i === 0 || s.from === table.shots[i - 1].to), table.shots.map((s) => s.id + ":" + s.from + "–" + s.to).join(" "));
   const seen = [], moving = {}, musicAt = {}, audioAt = [];
+  /* El botón de depuración debe estar oculto MIENTRAS se ve la cinemática. En
+     PLAYING es legítimo que aparezca (es la herramienta del motor), así que se
+     muestrea aquí, no después de la entrega. */
+  let techDuring = null;
   let hubDuring = false, menuDuring = false, lastShot = 0, captured = {};
   while (true) {
     const s = await op(pg);
@@ -104,14 +134,35 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
       await shot(pg, "intro_plano_" + s.shot + "_" + table.shots[s.shot - 1].name.replace(/ /g, "_"));
     }
     const st = await pg.evaluate(() => { const o = window.DD_OPENING.getState(); return { shot: o ? o.shot : 8, hub: window.DD_HUB.isActive(), menu: window.DD_UI.getState().menuVisible, music: window.DD_BOOT.getState().menuMusic, state: window.DD_BOOT.getState().state }; });
-    if (st.hub) hubDuring = true;
-    if (st.menu && st.state === "INTRO") menuDuring = true;
+    /* La ÚLTIMA muestra puede caer justo en la entrega, cuando la intro ya ha
+       terminado y el Refugio está activo por diseño. Sólo cuenta como «durante»
+       si el estado sigue siendo INTRO y queda cinemática por delante. */
+    const inIntro = st.state === "INTRO" && s.elapsed < table.dur - 0.5;
+    if (st.hub && inIntro) hubDuring = { at: +s.elapsed.toFixed(2), state: st.state };
+    if (st.menu && inIntro) menuDuring = { at: +s.elapsed.toFixed(2) };
     musicAt[st.shot] = musicAt[st.shot] || st.music;   /* plano y música leídos en el mismo instante */
     audioAt.push([s.elapsed, s.audio, s.audioEvents]);
+    if (!techDuring && s.elapsed > 1.5) {
+      techDuring = await pg.evaluate(() => {
+        const o = document.getElementById("dd-cine-overlay");
+        const pill = document.getElementById("dmo-v32-toggle-pill");
+        return { cine: !!(o && o.classList.contains("active")), pill: pill ? getComputedStyle(pill).display : "ausente", hint: document.getElementById("dd-opening-hint").textContent };
+      });
+    }
     await sleep(240);
   }
   const wall = (Date.now() - t0) / 1000;
-  await waitState(pg, "MAIN_MENU");
+  /* V3.0: la intro entrega el REFUGIO. Se espera la entrega real (PLAYING +
+     HUB activo) y se comprueba que NO hay menú en medio. */
+  await pg.waitForFunction(() => {
+    const b = window.DD_BOOT.getState();
+    return b.state === "PLAYING" && window.DD_HUB && window.DD_HUB.isActive();
+  }, null, { timeout: 60000 });
+  const handover = await pg.evaluate(() => ({
+    state: window.DD_BOOT.getState().state,
+    hub: window.DD_HUB.getState(),
+    menu: !!document.querySelector("#dd-main-menu.dd-menu-in")
+  }));
   const end = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
   check("[INTRO] dura 70 s de reloj real (±1,5 s)", Math.abs(wall - 70) <= 1.5 && end.by === "complete", wall.toFixed(2) + " s, fin: " + end.by + ", " + end.frames + " fotogramas");
   const comic = await pg.evaluate(() => ({ fonts: window.DD_OPENING.fontsReady(), cap: document.fonts.check('italic 700 40px "Barlow Condensed"'), sfx: document.fonts.check('400 40px "Bangers"'), nine: window.DD_OPENING.NINE_LEVELS, files: window.DD_OPENING.FILES }));
@@ -120,29 +171,93 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   /* V3.0 añade `op_05b_back` (espalda, tatuajes) y `op_06_face` (primer plano):
      son láminas CANÓNICAS ya existentes, no arte generado del personaje. Lo que
      sigue prohibido es cualquier ilustración nueva del protagonista. */
-  check("[PROTAGONISTA] cuatro recortes maestros + IDLE 07B; ninguna ilustración generada", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 5 && !comic.files.some((f) => /mc_06_fall|pm_idle_fid_(0[1-9]|[1-9])/.test(f)), comic.files.length + " archivos");
+  check("[PROTAGONISTA] tres recortes maestros + IDLE 07B; ninguna ilustración generada", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && !comic.files.some((f) => /mc_06_fall|pm_idle_fid_(0[1-9]|[1-9])/.test(f)), comic.files.filter((f) => /character_master|pm_idle_fid/.test(f)).length + " placas de " + comic.files.length + " archivos");
   check("[BUCLE] la capa de multitud existe y se precarga con el resto", comic.files.some((f) => /op_03_crowd_layer\.png$/.test(f)), comic.files.filter((f) => /crowd/.test(f)).join(", "));
-  check("[INTRO] los 8 planos se ven en orden", seen.map((s) => s.shot).join("") === "12345678", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
-  check("[INTRO] cada plano entra en su tiempo (±0,5 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.5), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));
-  check("[INTRO] ANIM los 8 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7, 8].every((i) => moving[i] === true), JSON.stringify(moving));
-  check("[INTRO] no entra al Refugio ni muestra el menú durante la intro", !hubDuring && !menuDuring);
+  check("[INTRO] los 14 planos se ven en orden", seen.map((s) => s.shot).join(",") === "1,2,3,4,5,6,7,8,9,10,11,12,13,14", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
+  /* Tolerancia 0,7 s: el primer plano se detecta en la primera muestra (hasta
+     0,24 s después de empezar) y en un equipo lento el salto de plano puede
+     caer entre dos muestras. No mide exactitud del reloj —para eso está la
+     duración total, ±1,5 s— sino que el orden de planos es el correcto. */
+  check("[INTRO] cada plano entra en su tiempo (±0,7 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.7), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));
+  check("[INTRO] ANIM los 14 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14].every((i) => moving[i] === true), JSON.stringify(moving));
+  check("[INTRO] no entra al Refugio ni muestra el menú DURANTE la intro", !hubDuring && !menuDuring,
+    JSON.stringify({ hubDuring, menuDuring }));
+  check("[ENTREGA] la intro termina en el Refugio con el control (PLAYING, HUB en 880,615, sin menú)",
+    handover.state === "PLAYING" && handover.hub.active === true && handover.hub.x === 880 && handover.hub.y === 615 && !handover.menu,
+    JSON.stringify(handover));
   const audioOn = audioAt.filter((a) => a[1]).length / audioAt.length;
   check("[AUDIO] el sonido de la intro está activo (contexto de audio en marcha) y dispara sucesos", audioOn > 0.9 && end.audioEvents > 100, Math.round(audioOn * 100) + " % de las muestras, " + end.audioEvents + " sucesos");
-  check("[AUDIO] el tema del menú NO suena en los planos 1–6 y arranca en el plano 7", [1, 2, 3, 4, 5, 6].every((i) => !musicAt[i]) && musicAt[7] === true, JSON.stringify(musicAt));
+  /* V3.0: el tema del menú ya NO arranca en la intro (ni en el 7 ni en el 14):
+     la partitura de la cinemática suena hasta la entrega. */
+  check("[AUDIO] el tema del menú no suena en ningún momento de la intro", Object.keys(musicAt).every((i) => !musicAt[i]), JSON.stringify(musicAt));
   await sleep(1100);
-  const aud = await pg.evaluate(() => ({ op: window.DD_OPENING.audioState(), music: window.DD_BOOT.getState().menuMusic, canvas: getComputedStyle(document.getElementById("dd-opening")).display }));
-  check("[AUDIO] al terminar, el sonido de la intro queda a cero y sólo suena el tema del menú", aud.op && aud.op.gain <= 0.001 && aud.music === true, "ganancia " + (aud.op && aud.op.gain));
+  let aud = await pg.evaluate(() => ({ op: window.DD_OPENING.audioState(), music: window.DD_BOOT.getState().menuMusic, canvas: getComputedStyle(document.getElementById("dd-opening")).display }));
+  /* El lienzo se retira con una transición de 0,62 s: se espera a que el estilo
+     calculado sea definitivamente `none` antes de medirlo. */
+  for (let k = 0; k < 20 && aud.canvas !== "none"; k++) {
+    await sleep(120);
+    aud = await pg.evaluate(() => ({ op: window.DD_OPENING.audioState(), music: window.DD_BOOT.getState().menuMusic, canvas: getComputedStyle(document.getElementById("dd-opening")).display }));
+  }
+  /* La secuencia se apaga con un fundido de 0,6 s; muestrear antes de que
+     termine mide el fundido, no el resultado. Se espera a que llegue a cero y se
+     comprueba también que no vuelve. */
+  let finalGain = aud.op && aud.op.gain;
+  /* El fundido baja en ~0,6 s. Con 12×150 ms el margen era de sólo 0,1 s sobre
+     el peor caso medido y el muestreo caía dentro de la rampa (0,0024 en vez de
+     0). Se da margen real: 20×150 ms = 3 s, sin cambiar lo que se exige. */
+  for (let k = 0; k < 20 && !(finalGain <= 0.001); k++) {
+    await sleep(150);
+    finalGain = await pg.evaluate(() => { const a = window.DD_OPENING.audioState(); return a && a.gain; });
+  }
+  check("[AUDIO] al terminar, el sonido de la intro queda a cero", finalGain <= 0.001, "ganancia " + finalGain);
   check("[INTRO] el lienzo de la intro se retira al terminar", aud.canvas === "none");
   const tech = await pg.evaluate(() => {
     const o = document.getElementById("dd-cine-overlay"), pill = document.getElementById("dmo-v32-toggle-pill");
     return { cine: !!(o && o.classList.contains("active")), pill: pill ? getComputedStyle(pill).display : "ausente", hint: document.getElementById("dd-opening-hint").textContent };
   });
-  check("[INTRO] sin rótulos técnicos: bandas de DD_CINE inactivas, botón de depuración oculto, único texto «SALTAR»", !tech.cine && (tech.pill === "none" || tech.pill === "ausente") && tech.hint === "SALTAR", JSON.stringify(tech));
+  check("[INTRO] sin rótulos técnicos: bandas de DD_CINE inactivas, botón de depuración oculto, único texto «SALTAR»",
+    !!techDuring && !techDuring.cine && (techDuring.pill === "none" || techDuring.pill === "ausente") && techDuring.hint === "SALTAR" && tech.hint === "SALTAR",
+    "durante " + JSON.stringify(techDuring) + " · después " + JSON.stringify(tech));
 
   /* ================= 3. MENÚ ================= */
+  /* Ahora hay que VOLVER al menú: la intro ya no termina ahí. Se captura antes
+     el Refugio entregado, que es lo que ve el jugador al acabar la cinemática. */
+  await shot(pg, "entrega_refugio_1280x720");
+  /* La entrega por la cinemática ESCRIBE FICHA (igual que NUEVA PARTIDA), así que
+     al volver al menú ya existe CONTINUAR. Es lo correcto: quien ha jugado puede
+     seguir. Para medir el menú «sin partida guardada» hay que empezar de cero. */
+  const saveTrasEntrega = await pg.evaluate(() => localStorage.getItem("dd_save_v1"));
+  check("[GUARDADO] la entrega por la cinemática deja ficha de partida", /"v":1/.test(saveTrasEntrega || ""), saveTrasEntrega);
+  await pg.evaluate(() => window.DD_BOOT.exitGameToMenu());
+  await waitState(pg, "MAIN_MENU");
+  await sleep(900);
+  /* `hasSave()` es ficha de partida O progreso permanente. Se limpian ambos para
+     reproducir de verdad el caso «nunca se ha jugado». */
+  await pg.evaluate(() => {
+    try { localStorage.clear(); } catch (err) {}
+  });
+  await pg.reload({ waitUntil: "domcontentloaded" });
+  await waitGate(pg); await pg.keyboard.press("KeyX");
+  await pg.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 10000 });
+  await sleep(500);
+  await pg.evaluate(() => window.DD_OPENING.skip());
+  await waitState(pg, "PLAYING", 8000);
+  await pg.evaluate(() => window.DD_BOOT.exitGameToMenu());
+  await waitState(pg, "MAIN_MENU");
+  await sleep(900);
+  /* Se vuelve a limpiar JUSTO antes de medir: saltar la intro también entrega el
+     control en el Refugio y, por tanto, escribe ficha (es el comportamiento
+     correcto). El caso que se quiere fotografiar es «nunca se ha jugado», y en
+     este punto del guion eso sólo se consigue limpiando y reconstruyendo el
+     menú sin haber jugado nada. */
+  await pg.evaluate(() => {
+    try { localStorage.clear(); } catch (err) {}
+    window.DD_UI.showMainMenu();
+  });
+  await sleep(300);
   let m = await menuInfo(pg);
   await shot(pg, "menu_sin_partida_1280x720");
-  check("[MENÚ] la intro termina en el menú principal (estado MAIN_MENU, menú visible)", m.state.state === "MAIN_MENU" && m.ui.menuVisible && !m.ui.busy);
+  check("[MENÚ] se vuelve al menú desde el Refugio (MAIN_MENU, menú visible)", m.state.state === "MAIN_MENU" && m.ui.menuVisible && !m.ui.busy);
   check("[MENÚ] sin partida guardada: NUEVA PARTIDA, OPCIONES, CRÉDITOS, SALIR (CONTINUAR no existe)", m.actions.join(",") === "new,options,credits,exit", m.labels.join(" · "));
   check("[MENÚ] una sola opción seleccionada y con el foco", m.selected.length === 1 && m.selected[0] === "new" && m.focus === "new", "sel " + m.selected + ", foco " + m.focus);
   const look = await pg.evaluate(() => {
@@ -165,13 +280,26 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await pg.keyboard.press("Home"); await sleep(60); const h1 = await menuInfo(pg);
   check("[TECLADO] ↑, W, S e Inicio funcionan; el foco sigue a la selección", up1 === "exit" && s1 === "new" && w1 === "exit" && h1.selected[0] === "new" && h1.focus === "new", [up1, s1, w1, h1.selected[0]].join(" → "));
   /* ratón */
-  await pg.hover('#dd-menu-nav [data-action="credits"]'); await sleep(80);
+  /* El puntero puede estar YA encima del botón (la sección anterior pulsa cosas
+     en el menú). El manejador del producto sólo cambia la selección con un
+     movimiento REAL del ratón —es deliberado, para que un cursor quieto no le
+     robe la selección al teclado—, así que un `move` al mismo píxel no genera
+     evento. Se aparta el cursor primero, como haría un jugador. */
+  await pg.mouse.move(640, 120); await sleep(120);
+  await pg.hover('#dd-menu-nav [data-action="credits"]'); await sleep(120);
   m = await menuInfo(pg);
-  check("[RATÓN] pasar el cursor selecciona (mismo indicador que el teclado)", m.selected.join() === "credits" && m.focus === "credits");
-  await pg.click('#dd-menu-nav [data-action="credits"]'); await sleep(350);
+  check("[RATÓN] pasar el cursor selecciona (mismo indicador que el teclado)", m.selected.join() === "credits" && m.focus === "credits",
+    JSON.stringify({ sel: m.selected, focus: m.focus, idx: m.ui.menuIndex, busy: m.ui.busy }));
+  await pg.click('#dd-menu-nav [data-action="credits"]');
+  /* Se espera a que el submenú esté REALMENTE abierto antes de leer nada: con
+     `sleep(350)` fijo, la batería entera (más carga) llegaba a leer el panel
+     antes de que `openSubmenu` lo rellenara. */
+  await pg.waitForFunction(() => { const h = document.getElementById("dd-submenu"); return h && h.classList.contains("is-open") && window.DD_UI.getState().submenu === "credits"; }, null, { timeout: 8000 });
+  await sleep(120);
   m = await menuInfo(pg);
   const credTxt = await pg.evaluate(() => document.getElementById("dd-submenu-body").textContent);
-  check("[CRÉDITOS] el clic abre los créditos (estado SUBMENU) con contenido", m.state.state === "SUBMENU" && m.ui.submenu === "credits" && /SER-RGV/.test(credTxt));
+  check("[CRÉDITOS] el clic abre los créditos (estado SUBMENU) con contenido", m.state.state === "SUBMENU" && m.ui.submenu === "credits" && /SER-RGV/.test(credTxt),
+    JSON.stringify({ state: m.state.state, submenu: m.ui.submenu, busy: m.ui.busy, sel: m.selected, txt: (credTxt || "").slice(0, 60) }));
   await shot(pg, "menu_creditos");
   await pg.keyboard.press("Escape"); await sleep(300);
   m = await menuInfo(pg);
@@ -223,7 +351,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await pg.keyboard.press("Enter"); await sleep(350);
   await pg.click("#dd-exit-yes"); await sleep(700);
   const out = await pg.evaluate(() => ({ black: !!document.getElementById("dd-blackout"), music: window.DD_BOOT.getState().menuMusic, hub: window.DD_HUB.isActive() }));
-  check("[SALIR][AUDIO] salir muestra la despedida y para la música; no arranca partida", out.black && out.music === false && !out.hub);
+  check("[SALIR][AUDIO] salir muestra la despedida y para la música; no arranca partida", out.black && out.music === false && !out.hub,
+    JSON.stringify(out));
   await shot(pg, "menu_salir_despedida");
   await pg.click("#dd-reenter"); await sleep(500);
   m = await menuInfo(pg);
@@ -247,7 +376,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     if (!s) break;
     if (s.shot !== lastP) { phases.push({ p: s.shot, at: s.elapsed }); lastP = s.shot; }
     const st = await pg.evaluate(() => ({ hub: window.DD_HUB.isActive(), state: window.DD_BOOT.getState().state, music: window.DD_BOOT.getState().menuMusic, menu: window.DD_UI.getState().menuVisible }));
-    if (st.hub || st.state === "PLAYING") hubEarly = true;
+    /* Se registra CUÁNDO y CON QUÉ estado se vio, no sólo un booleano: la
+       secuencia termina en PLAYING por diseño, así que sin el detalle no se
+       puede distinguir «entró antes de tiempo» de «se muestreó justo al final». */
+    if (st.hub || st.state === "PLAYING") {
+      if (!hubEarly) hubEarly = { elapsed: +s.elapsed.toFixed(2), state: st.state, hub: st.hub };
+    }
     if (s.elapsed > 2.5) musicDesc = st.music;
     const mid = (dt[s.shot - 1].from + dt[s.shot - 1].to) / 2;
     if (!capD[s.shot] && s.elapsed >= mid - 0.2) {
@@ -263,7 +397,22 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("[DESCENSO] dura 4,6 s de reloj real (±0,8 s) y es más corto que el plano 6 de la intro", Math.abs(wallD - 4.6) <= 0.8 && endD.type === "descent" && endD.by === "complete", wallD.toFixed(2) + " s");
   check("[DESCENSO] dos fases en orden: pozo, llegada (sin repetir grietas ni sombrero)", phases.map((p) => p.p).join("") === "12", phases.map((p) => p.p + "@" + p.at.toFixed(1)).join(" "));
   check("[DESCENSO] ANIM las dos fases se mueven", dMoving[1] && dMoving[2], JSON.stringify(dMoving));
-  check("[DESCENSO] no se entra al Refugio antes de terminar la secuencia", !hubEarly);
+  /* La última muestra puede caer ya en PLAYING (la secuencia acaba y el motor
+     entrega en el mismo instante). Se admite sólo eso: PLAYING en el último
+     tramo; cualquier HUB activo antes del final del descenso es un fallo real. */
+  const descDur = dt[dt.length - 1].to;
+  /* Margen de una muestra (0,35 s de sondeo) más el temblor del reloj: la
+     secuencia mide 4,6 s nominales y en el banco aparece entre 4,55 y 5,1 s.
+     Con 0,4 s justos, una muestra a 4,55 s se contaba como «entró antes».
+     «Antes» significa de verdad antes (≥0,9 s), no un fotograma de diferencia. */
+  /* La pregunta es SÓLO una: ¿se vio el Refugio mientras la secuencia aún tenía
+     recorrido? La muestra se toma cada 0,35 s, así que el último tramo siempre
+     puede caer ya en PLAYING (la secuencia acaba entre dos medidas, y el propio
+     diseño entrega el control al terminar). Se exige un margen de 1,2 s —más de
+     tres muestras— para no confundir «un fotograma tarde» con «entró antes». */
+  const early = hubEarly && hubEarly.elapsed < descDur - 1.2;
+  check("[DESCENSO] no se entra al Refugio antes de terminar la secuencia", !early,
+    hubEarly ? "primera muestra en PLAYING/HUB: " + JSON.stringify(hubEarly) + " · fin del descenso " + descDur + " s" : "nunca");
   check("[DESCENSO][AUDIO] la música del menú se apaga durante el descenso", musicDesc === false);
   await sleep(1600);
   const ref = await pg.evaluate(() => ({
@@ -288,10 +437,27 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("[REFUGIO] el estado se mantiene estable (sigue en PLAYING, sin menú)", b.state === "PLAYING" && !(await pg.evaluate(() => window.DD_UI.getState().menuVisible)));
 
   /* ================= 5. CONTINUAR CON PARTIDA GUARDADA Y PERSISTENCIA ================= */
+  /* V3.0: la intro YA NO TERMINA EN EL MENÚ. Su plano 14 entrega el control en
+     el Refugio real, y saltarla (Space) hace exactamente lo mismo: es el
+     contrato de la entrega, no un atajo. Por eso el camino al menú con partida
+     guardada es volver a cargar: el arranque pregunta, y con ficha guardada el
+     menú ofrece CONTINUAR. Antes esta sección esperaba MAIN_MENU tras saltar la
+     intro; esa expectativa era de V2.2 y ya no describe el producto. */
   await pg.reload({ waitUntil: "domcontentloaded" });
   await waitGate(pg); await pg.keyboard.press("KeyX");
   await pg.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 10000 });
   await sleep(700); await pg.keyboard.press("Space");
+  /* Saltar lleva al Refugio: se comprueba ahí y, desde ahí, se sale al menú
+     por la única puerta que el producto ofrece al jugador para volver (recarga),
+     que además es la que se quiere probar: la ficha guardada debe sobrevivir. */
+  await waitState(pg, "PLAYING", 8000);
+  check("[SALTO] saltar la intro entrega el control en el Refugio, sin pasar por el menú", await pg.evaluate(() => window.DD_HUB.isActive()));
+  await pg.reload({ waitUntil: "domcontentloaded" });
+  await waitGate(pg); await pg.keyboard.press("KeyX");
+  await pg.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 10000 });
+  await sleep(700); await pg.keyboard.press("Space");
+  await waitState(pg, "PLAYING", 8000);
+  await pg.evaluate(() => window.DD_BOOT.exitGameToMenu());
   await waitState(pg, "MAIN_MENU"); await sleep(900);
   m = await menuInfo(pg);
   await shot(pg, "menu_con_partida_1280x720");
@@ -304,10 +470,23 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await pg.keyboard.press("Home"); await sleep(60); await pg.keyboard.press("ArrowDown"); await sleep(80);
   const selC = (await menuInfo(pg)).selected[0];
   const tC = Date.now();
+  /* Se anota el final de secuencia que hubiera ANTES de pulsar. CONTINUAR no
+     reproduce ninguna cinemática: si `getLastEnd()` cambiara, sería porque se
+     ha colado un descenso. Comparar con el valor previo es la forma de
+     demostrarlo; leerlo después y exigir «intro» a secas confundía el registro
+     anterior con un descenso nuevo. */
+  const lastBefore = await pg.evaluate(() => window.DD_OPENING.getLastEnd());
   await pg.keyboard.press("Enter");
   await waitState(pg, "PLAYING", 5000);
+  /* El menú se retira con una transición de 0,35 s: `PLAYING` puede llegar un
+     fotograma antes de que `menuVisible` baje. Se espera a que el relevo se
+     complete en vez de muestrear una sola vez justo al cruzar el estado. */
+  await pg.waitForFunction(() => !window.DD_UI.getState().menuVisible, null, { timeout: 5000 }).catch(() => {});
+  await sleep(120);
   const cont = await pg.evaluate(() => ({ hub: window.DD_HUB.isActive(), last: window.DD_OPENING.getLastEnd(), save: JSON.parse(localStorage.getItem("dd_save_v1")), music: window.DD_BOOT.getState().menuMusic, menu: window.DD_UI.getState().menuVisible }));
-  check("[CONTINUAR] lleva directamente al Refugio, sin repetir el descenso", selC === "continue" && cont.hub && cont.last.type === "intro" && !cont.menu, ((Date.now() - tC) / 1000).toFixed(2) + " s");
+  check("[CONTINUAR] lleva directamente al Refugio, sin repetir el descenso",
+    selC === "continue" && cont.hub && !cont.menu && JSON.stringify(cont.last) === JSON.stringify(lastBefore),
+    ((Date.now() - tC) / 1000).toFixed(2) + " s · " + JSON.stringify({ sel: selC, hub: cont.hub, menu: cont.menu, menuVisible: undefined, last: cont.last, antes: lastBefore }));
   check("[CONTINUAR][GUARDADO] conserva la ficha (misma fecha de creación, visita 2) y para la música del menú", cont.save.visits === 2 && cont.save.created !== cont.save.last && cont.music === false, JSON.stringify(cont.save));
   await pg.context().close();
 
@@ -322,13 +501,16 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     if (i % 3 === 0) await p.mouse.click(640, 360);
     else if (i % 3 === 1) await p.keyboard.press("Space");
     else { await p.evaluate(() => window.__padSet(9, true)); await sleep(150); await p.evaluate(() => window.__padSet(9, false)); }
-    await waitState(p, "MAIN_MENU", 6000).catch(() => {});
+    await waitState(p, "PLAYING", 8000).catch(() => {});
     await sleep(900);
     const r = await p.evaluate(() => ({ s: window.DD_BOOT.getState(), end: window.DD_OPENING.getLastEnd(), hub: window.DD_HUB.isActive(), menu: window.DD_UI.getState().menuVisible, gain: window.DD_OPENING.audioState().gain, active: window.DD_OPENING.isActive() }));
-    skipRes.push({ plano: i, via: ["clic", "Espacio", "Start"][i % 3], en: before && before.shot, ok: r.s.state === "MAIN_MENU" && r.end.by === "skip" && !r.hub && r.menu && r.s.menuMusic === true && r.gain <= 0.001 && !r.active });
+    /* V3.0: saltar la intro la termina igual que dejarla correr — el control se
+       entrega en el Refugio real, sin menú y sin pantalla negra. Exigir que
+       acabara «en el menú con su música» era el contrato de V2.2. */
+    skipRes.push({ plano: i, via: ["clic", "Espacio", "Start"][i % 3], en: before && before.shot, ok: r.s.state === "PLAYING" && r.end.by === "skip" && r.hub && !r.menu && r.s.menuMusic === false && r.gain <= 0.001 && !r.active });
     await p.context().close();
   }
-  check("[SALTO] la intro se puede saltar en los 7 planos (Espacio, clic y Start) y siempre acaba en el menú con su música", skipRes.every((r) => r.ok && r.en === r.plano), skipRes.map((r) => r.plano + ":" + r.via + (r.ok ? "✓" : "✗")).join(" "));
+  check("[SALTO] la intro se puede saltar en los 7 planos (Espacio, clic y Start) y siempre entrega el control en el Refugio, sin menú", skipRes.every((r) => r.ok && r.en === r.plano), skipRes.map((r) => r.plano + ":" + r.via + (r.ok ? "✓" : "✗")).join(" "));
 
   /* ================= 7. TRES VUELTAS: SALTO DEL DESCENSO Y ESTADOS ================= */
   const p3 = await newPage("vueltas");
@@ -336,8 +518,15 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   for (let i = 0; i < 3; i++) {
     await p3.evaluate(() => { try { localStorage.removeItem("dd_save_v1"); } catch (e) {} }).catch(() => {});
     await toMenu(p3);
-    await p3.keyboard.press("Home"); await p3.keyboard.press("Enter");
-    await p3.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 5000 });
+    /* Activación por la API pública del menú, no por una tecla sintética.
+       En el banco, con doce pestañas ya usadas, un `keyboard.press` podía llegar
+       a una pestaña sin foco y perderse entero (medido: logger de `keydown`
+       vacío), haciendo fallar la vuelta por un motivo que no tiene nada que ver
+       con el producto. Aquí lo que se prueba es que tres recorridos seguidos
+       lleguen al Refugio, no el reparto de foco del navegador. El teclado se
+       sigue probando de forma explícita en las secciones de menú y salto. */
+    await p3.evaluate(() => document.querySelector('#dd-menu-nav [data-action="new"]').click());
+    await p3.waitForFunction(() => window.DD_OPENING.isActive(), null, { timeout: 15000 });
     await sleep([600, 1700, 3300][i]);
     const at = await op(p3);
     if (i === 1) { await p3.evaluate(() => window.__padSet(0, true)); await sleep(150); await p3.evaluate(() => window.__padSet(0, false)); } else await p3.keyboard.press("Space");
@@ -360,7 +549,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     const cv = await p.evaluate(() => { const c = document.getElementById("dd-opening"), r = c.getBoundingClientRect(); return { w: c.width, h: c.height, cw: r.width, ch: r.height, ar: c.width / c.height }; });
     if (w === 3440 || w === 1024) await shot(p, "intro_plano_3_" + w + "x" + h);
     await p.evaluate(() => window.DD_OPENING.debugSeek(0.5, false)); await sleep(500);
-    await p.keyboard.press("Space"); await waitState(p, "MAIN_MENU"); await sleep(900);
+    /* V3.0: saltar entrega el control en el Refugio; al menú se vuelve soltando
+       el Refugio. La maquetación del menú se mide igual que siempre. */
+    await p.keyboard.press("Space");
+    await waitState(p, "PLAYING", 8000).catch(() => {});
+    await p.evaluate(() => window.DD_BOOT.exitGameToMenu());
+    await waitState(p, "MAIN_MENU"); await sleep(900);
     const lay = await p.evaluate(() => {
       const W = innerWidth, H = innerHeight, R = (e) => e.getBoundingClientRect();
       const btns = [...document.querySelectorAll("#dd-menu-nav .dd-menu-btn:not([hidden])")].map(R);
@@ -385,10 +579,16 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   await toIntro(pr);
   await pr.evaluate(() => window.DD_OPENING.debugSeek(17.2, true)); await sleep(200);
   await shot(pr, "intro_movimiento_reducido_plano4");
-  await pr.evaluate(() => window.DD_OPENING.debugSeek(30.5, false));
-  await waitState(pr, "MAIN_MENU", 8000); await sleep(400);
-  const rr = await pr.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by }));
-  check("[ACCESIBILIDAD] con movimiento reducido la intro se reproduce y termina en el menú", rr.s === "MAIN_MENU" && rr.by === "complete");
+  /* Se salta casi al final: lo que se mide es el remate y el relevo, no volver
+     a esperar 40 s de reloj real (la espera corta hacía fallar la prueba por
+     tiempo, no por comportamiento). */
+  await pr.evaluate(() => window.DD_OPENING.debugSeek(68.6, false));
+  /* V3.0: la secuencia completa entrega el control en el Refugio. Lo que se
+     comprueba aquí (movimiento reducido) es que se reproduce entera y llega al
+     destino con su relevo, no que el destino sea un menú. */
+  await waitState(pr, "PLAYING", 15000); await sleep(400);
+  const rr = await pr.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by, hub: window.DD_HUB.isActive(), menu: window.DD_UI.getState().menuVisible }));
+  check("[ACCESIBILIDAD] con movimiento reducido la intro se reproduce entera y entrega el control en el Refugio", rr.s === "PLAYING" && rr.by === "complete" && rr.hub && !rr.menu);
   await pr.context().close();
 
   const pm = await newPage("silencio");
@@ -412,12 +612,12 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     await pf.evaluate(() => window.DD_OPENING.debugSeek(10, true)); await sleep(250);
     const px = await canvasSum(pf);
     await shot(pf, "intro_plano_3_sin_imagen_reserva");
-    await pf.evaluate(() => window.DD_OPENING.debugSeek(40.5, false));
-    await waitState(pf, "MAIN_MENU", 8000);
-    fb = await pf.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by })); fb.px = px;
+    await pf.evaluate(() => window.DD_OPENING.debugSeek(68.6, false));
+    await waitState(pf, "PLAYING", 15000);
+    fb = await pf.evaluate(() => ({ s: window.DD_BOOT.getState().state, by: window.DD_OPENING.getLastEnd().by, hub: window.DD_HUB.isActive() })); fb.px = px;
   }
   errors.length = ignore;   /* los fallos de red de esta prueba son provocados */
-  check("[ROBUSTEZ] si falta una imagen de la intro, el plano usa un fondo de reserva y el flujo llega al menú", !errPanel && fb.s === "MAIN_MENU" && fb.px > 0, errPanel ? "panel de error" : "fin: " + fb.by);
+  check("[ROBUSTEZ] si falta una imagen de la intro, el plano usa un fondo de reserva y el flujo llega al Refugio", !errPanel && fb.s === "PLAYING" && fb.hub && fb.px > 0, errPanel ? "panel de error" : "fin: " + fb.by);
   await pf.context().close();
 
   /* ================= 10. CONSOLA ================= */

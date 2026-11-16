@@ -1330,6 +1330,10 @@ body.dd-booting {
   transform: translate3d(-12px, 0, 0);
   animation: dd-item-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
   transition: background 0.18s ease, border-color 0.18s ease, padding-left 0.18s ease, box-shadow 0.18s ease;
+  /* La entrada de los botones es puramente decorativa: nunca puede dejar una
+     opción sin poder pulsarse. Un clic que llega mientras el brochazo aún está
+     entrando se perdía (medido: el puntero acertaba y no pasaba nada). */
+  pointer-events: auto;
 }
 #dd-main-menu .dd-menu-btn:nth-child(1) { animation-delay: 0.46s; }
 #dd-main-menu .dd-menu-btn:nth-child(2) { animation-delay: 0.53s; }
@@ -1958,6 +1962,16 @@ body.dd-menu-owning #menu-scene53,
 body.dd-menu-owning #menu-card,
 body.dd-menu-owning #overlay {
   visibility: hidden !important;
+  pointer-events: none !important;
+}
+/* El lienzo del juego tampoco puede tragarse los clics del menú.
+   Medido en el navegador: con el menú visible y el motor aún vivo por debajo, un
+   clic sobre CRÉDITOS aterrizaba en `CANVAS#game` (`event.target` era el lienzo)
+   y la opción no se abría — el puntero acertaba al píxel correcto y el evento se
+   perdía en la capa de abajo. Mientras el menú es dueño de la pantalla, el
+   lienzo no recibe puntero. Al jugar, `dd-menu-owning` ya no está puesto. */
+body.dd-menu-owning #game,
+body.dd-menu-owning #game-wrapper {
   pointer-events: none !important;
 }
 body.dd-menu-owning #menu-scene53 * ,

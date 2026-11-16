@@ -946,7 +946,18 @@
     } catch (e) { okHub = false; }
     if (!okHub) return false;
     setState("MAIN_MENU", { silent: true });
-    return enterGame() === true;
+    var entered = enterGame() === true;
+    /* V3.0 · la llegada deja ficha de partida.
+       Entrar al Refugio por la cinemática es una llegada más: debe escribir la
+       ficha igual que NUEVA PARTIDA, o el jugador que llega por la intro no
+       tiene CONTINUAR en la siguiente visita. `DD_UI.arriveAtRefuge` es la
+       puerta única (ficha + reinicio de run). Se usa DESPUÉS de `enterGame`
+       para no abrir el Refugio dos veces: si el estado ya cambió, sólo se
+       escribe la ficha. */
+    if (entered && window.DD_UI && typeof window.DD_UI.arriveAtRefuge === "function") {
+      try { window.DD_UI.arriveAtRefuge(true); } catch (e2) {}
+    }
+    return entered;
   }
 
   function enterMainMenu() {
@@ -1030,9 +1041,70 @@
     return true;
   }
 
+  /* Cierra el Refugio SIN emprender partida.
+     `DD_HUB` sólo expone `exitToRun()`, que hace dos cosas: (1) marca el Refugio
+     inactivo —sincrónico, y es lo único que hace falta aquí— y (2) arranca la
+     partida a través de la cinemática de descenso. La (2) sobra al volver al
+     menú: su `triggerRun` diferido tardaba unos 4,6 s, llegaba con DD_BOOT ya en
+     MAIN_MENU, arrancaba una partida POR DEBAJO del menú y encima lo ocultaba
+     (`DD_UI.hideMainMenu()`). Medido en el navegador: a los ~4,6 s el menú pasaba
+     a `dd-hidden` y todos sus botones a 0×0.
+     `dd_hub_system.js` es intocable y `DD_CINE` está congelado, así que no se
+     puede interceptar `playCircleDescent`. Se deja que el descenso ocurra de
+     verdad (es lo que cierra el Refugio) y se vigila la transición para devolver
+     la pantalla al menú en cuanto `triggerRun` la reclame. */
+  function closeRefuge() {
+    try {
+      var hub = window.DD_HUB;
+      if (!hub || typeof hub.isActive !== "function" || !hub.isActive()) return;
+      if (typeof hub.exitToRun !== "function") return;
+      var menuUp = false;
+      hub.exitToRun();
+      /* `triggerRun` puede llegar ya o en el callback; se vigila la transición
+         en lugar de suponer cuándo. */
+      var t0 = Date.now();
+      var guard = setInterval(function () {
+        /* Si el jugador ya ha vuelto a ENTRAR (CONTINUAR/NUEVA PARTIDA), la
+           vigilancia deja de tener sentido: su único trabajo era deshacer el
+           `hideMainMenu()` del arranque diferido de la partida. Sin esta salida,
+           el guardián volvía a mostrar el menú encima del Refugio recién
+           abierto (medido: menú visible 5 s después de pulsar CONTINUAR). */
+        if (state.current === "PLAYING") { clearInterval(guard); return; }
+        var vis = !!(window.DD_UI && window.DD_UI.getState().menuVisible);
+        if (vis) { menuUp = true; }
+        if (menuUp && !vis) {
+          /* `triggerRun` acaba de llamar a hideMainMenu(): se deshace. */
+          try { window.DD_UI.showMainMenu(); } catch (e4) {}
+        }
+        /* Y si el motor arrancó, se deja en pausa: en el menú nadie juega. */
+        var br = window.__DD_BRIDGE;
+        if (br && typeof br.isRunning === "function" && typeof br.setPaused === "function") {
+          try { if (br.isRunning()) br.setPaused(true); } catch (e5) {}
+        }
+        if (Date.now() - t0 > 9000) clearInterval(guard);
+      }, 100);
+      setTimeout(function () { clearInterval(guard); }, 9200);
+    } catch (e) {}
+  }
+
   function exitGameToMenu() {
-    if (window.DD_UI) window.DD_UI.showMainMenu();
+    /* V3.0: al volver al menú hay que CERRAR el Refugio. Antes se cambiaba el
+       estado de DD_BOOT pero el HUB seguía `active`, así que los planos de la
+       intro posterior y el descenso de NUEVA PARTIDA se dibujaban con el salón
+       vivo debajo: «no se entra al Refugio antes de terminar la secuencia» era
+       un fallo real, no de la prueba. */
+    /* V3.0 · SALIR DEL REFUGIO NO ES JUGAR.
+       `DD_HUB.exitToRun()` NO sirve aquí: su nombre lo dice — deja el Refugio
+       para EMPRENDER la partida, y lo hace a través de la cinemática de
+       descenso (unos 4,6 s). Su `triggerRun` diferido arranca la partida y, de
+       paso, llama a `DD_UI.hideMainMenu()`: si se usaba al volver al menú, la
+       partida quedaba corriendo POR DEBAJO del menú y medio segundo después el
+       menú se ocultaba solo, con DD_BOOT aún en MAIN_MENU y todos los botones a
+       0×0. Medido en el navegador. Aquí sólo hay que soltar el Refugio. */
+    closeRefuge();
+
     setState("MAIN_MENU");
+    if (window.DD_UI) window.DD_UI.showMainMenu();
     if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(3);
     return true;
   }

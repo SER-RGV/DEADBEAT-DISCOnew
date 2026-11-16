@@ -278,13 +278,26 @@
     return;
   }
   /* Sólo los botones presentes: CONTINUAR oculto no cuenta para la navegación. */
+  var selecting = false;   /* cerrojo de reentrada de selectButton (ver abajo) */
   function menuButtons() {
     return document.querySelectorAll("#dd-menu-nav .dd-menu-btn:not([hidden])");
   }
   function selectButton(btn) {
     var i = Array.prototype.indexOf.call(menuButtons(), btn);
-    if (i >= 0 && i !== uiState.menuIndex) setMenuSelection(i, false);
-    else if (i >= 0) setMenuSelection(i, false);
+    if (i < 0) return;
+    /* Guardia de reentrada.
+       `setMenuSelection` mueve el FOCO al botón elegido (`b.focus()`), y ese
+       foco dispara a su vez el listener `focus` del propio botón, que vuelve a
+       entrar aquí. En el menú principal la lista cambia de longitud según haya
+       partida guardada (CONTINUAR aparece y desaparece), así que el segundo
+       paso podía calcular un índice sobre una lista ya distinta y dejar
+       `menuIndex` apuntando a otra opción que la marcada: el clic aterrizaba en
+       CRÉDITOS y abría OPCIONES. Medido en el navegador.
+       Con el cerrojo, la reentrada no puede reescribir la selección. */
+    if (selecting) return;
+    selecting = true;
+    try { setMenuSelection(i, false); }
+    finally { selecting = false; }
   }
 
   function setMenuSelection(idx, withSfx) {
@@ -1437,7 +1450,13 @@
     stopSelfTick();
     document.body.classList.remove("dd-menu-owning");
     var m = el("dd-main-menu");
-    if (m) m.classList.add("dd-hidden");
+    /* V3.0: además de `dd-hidden`, se retira `dd-menu-in`. Sin esto el menú
+       seguía GEOMÉTRICAMENTE presente debajo del Refugio: los botones medían
+       320×53 px y recibían el puntero, y una prueba de ratón sobre el menú
+       durante la partida acertaba a un botón invisible. `dd-hidden` lo pinta
+       fuera de pantalla, pero no lo saca del árbol de accesibilidad ni del hit
+       testing. Cerrado quiere decir cerrado. */
+    if (m) { m.classList.remove("dd-menu-in"); m.classList.add("dd-hidden"); }
     var h = el("dd-hud");
     if (h) h.classList.remove("dd-hidden");
     if (!opts || !opts.keepState) {
@@ -2001,6 +2020,13 @@
     openSubmenu: openSubmenu,
     closeSubmenu: closeSubmenu,
     triggerMenuAction: triggerMenuAction,
+    /* La llegada al Refugio es UNA sola en todo el producto: la que crea la ficha
+       de partida y reinicia el estado de run. La intro la necesita igual que
+       NUEVA PARTIDA; antes llamaba a `DD_HUB.enter()` + `enterGame()` por su
+       cuenta y se saltaba `writeSave()`, así que entrar por la cinemática no
+       dejaba partida guardada (medido: CONTINUAR no aparecía tras la intro).
+       Expuesta para que el relevo de la intro use esta misma puerta. */
+    arriveAtRefuge: function (isNew) { return arriveAtRefuge(isNew === true); },
     readProgress: readProgress,
     hasSave: hasSave,
     readSave: readSave,
