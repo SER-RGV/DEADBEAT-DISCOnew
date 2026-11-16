@@ -152,3 +152,14 @@ Encargo del usuario: rediseño completo del Refugio (arquitectura, no «muebles 
 - **Capturas** (in-situ, SwiftShader headless): `15_refugio_full_w15.png` (vista completa), `16_refugio_full_1920_w15.png` (1920x1080), `17_refugio_spawn_w15.png`, `18_armeria_w15.png` (near=armory, prompt Armería), `19_salon_w15.png`, `20_dj_torre_w15.png`, `21_ocio_w15.png`, `22_grieta_w15.png` (near=descent, prompt grieta → E → Vestíbulo Limbo, `inGame:true`).
 - **QA**: `qa_flow.mjs` → **integrity 275/275 pass, 0 pageErrors, 0 console errors**; hook QA `window.__DD_HUB_DEBUG_ZOOM` (default off) centra y aleja cámara para capturas de vista completa.
 - **Antes/después**: el «antes» es `13_refugio_w14.png` (TR_W14). Informe completo en `docs/REFUGIO/REFUGIO_REDISENO_2026-11-15.md`.
+
+## Pasada TR_W15b (2026-11-15, «sensación de refugio entre runs» + pase de escala)
+Respuesta a feedback («el resultado mejora, pero sigue teniendo fallos de distribución de tamaños de assets»):
+**Quick wins (1-4) + coherencia de escala:**
+- **Música del refugio**: al entrar, cama de club en fundido de entrada (pista 4 de `DDC_COVER.music` vía `DD_BOOT.audio`, con `startMenuMusic(2.0)`); al descender (`exitToRun`), `stopMenuMusic(0.4)`. Programada a +900 ms para no competir con `enterGame()` (que corta el menú). Verificado en navegador: `DDC_COVER.music.playing === true` tras entrar.
+- **NPCs con voz**: bartender y armero ahora tienen **estación propia** (`bar`, `armorer`) con `showDialogue` — TEMPO narra el intercambio (un solo retrato en el registry). 4 líneas cada uno con tips reales (Armería, Torre, Limbo, M1911, compás/RAVE).
+- **TEMPO aleatorio**: al entrar dice una cita al azar (antes siempre la primera).
+- **Ambiente vivo**: parpadeo cálido en candelabros (seno doble), glow pulsante en orbe Tesla/palms, **26 brasas** cian/magenta/ámbar ascendiendo de la grieta (procedural, aditivo) y **34 motas de polvo** en los 4 charcos de luz.
+- **Escala deliberada por activo**: drawProp acepta `dw` (ancho en world units); tabla aplicada a las 37 piezas del Refugio (referencia: protagonista ~112 px). Neon-flower apoyado sobre el banco (antes flotaba). Weapon rack dentro del muro oeste (248, dw 228) y palma este dentro de la sala (1612).
+- Capturas: `23_refugio_full_w15b.png` (vista completa con TEMPO aleatorio), `24_spawn_w15b.png`, `25_barra_w15b.png` + `26_bartender_dialogo_w15b.png` (near=bar, prompt barra, diálogo TEMPO), `27_armero_w15b.png` + `27_armero_dialogo_w15b.png` (near=armorer, diálogo), `28_grieta_brasas_w15b.png` (brasas sobre la grieta, near=descent, prompt intacto).
+- **QA re-verificado**: integrity **275/275 · 0 pageErrors · 0 console errors**; estaciones `[descent, armory, dj, map, bar, armorer]`.

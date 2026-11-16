@@ -453,7 +453,10 @@
     if (!im) return false;
 
     const baseR = Math.max(24, Number(prop.br || prop.r || 38));
-    const drawW = Math.max(64, Math.min(240, baseR * 2.55));
+    // Escala de dibujo: por defecto derivada del br de colisión; cada prop del
+    // HUB puede fijar `dw` (ancho en world units) para una escala deliberada
+    // y coherente entre assets (referencia: protagonista ~112 px de alto).
+    const drawW = (prop.dw && prop.dw > 0) ? prop.dw : Math.max(64, Math.min(240, baseR * 2.55));
     const drawH = drawW * (im.naturalHeight / Math.max(1, im.naturalWidth));
 
     drawSoftShadow(ctx, prop.x, prop.y + baseR * 0.32, drawW * 0.44, drawW * 0.2, 0.56);
@@ -467,14 +470,17 @@
     ctx.drawImage(im, -drawW / 2, -drawH + baseR * 0.42, drawW, drawH);
     ctx.restore();
 
+    const flick = 0.72 + 0.28 * Math.sin((timeSec || 0) * 9 + prop.x * 0.13) * Math.sin((timeSec || 0) * 5.1 + prop.y * 0.07 + 1.7);
     if (assetId === "prop_neon_palm" || assetId === "prop_neon_flower" || assetId === "prop_hub_fox_neon") {
-      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.2);
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.16 + 0.06 * flick);
     } else if (assetId === "prop_subwoofer_cyan" || assetId === "prop_cooler_neon" || assetId === "prop_arcade_cabinet") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.35, drawW * 0.62, "#22d3ee", 0.16);
+    } else if (assetId === "prop_candelabra_floor") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.62, drawW * 0.85, "#facc15", 0.12 + 0.11 * flick);
     } else if (assetId === "prop_astral_table") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.52, drawW * 0.72, "#a855f7", 0.24);
     } else if (assetId === "prop_tesla_orb") {
-      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.28);
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.22 + 0.1 * Math.sin((timeSec || 0) * 13 + prop.x));
     } else if (assetId === "prop_weapon_rack") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.2, drawW * 0.66, "#fb7185", 0.18);
     }

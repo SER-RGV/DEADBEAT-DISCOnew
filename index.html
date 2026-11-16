@@ -10267,7 +10267,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (!im) return false;
 
     const baseR = Math.max(24, Number(prop.br || prop.r || 38));
-    const drawW = Math.max(64, Math.min(240, baseR * 2.55));
+    // Escala de dibujo: por defecto derivada del br de colisión; cada prop del
+    // HUB puede fijar `dw` (ancho en world units) para una escala deliberada
+    // y coherente entre assets (referencia: protagonista ~112 px de alto).
+    const drawW = (prop.dw && prop.dw > 0) ? prop.dw : Math.max(64, Math.min(240, baseR * 2.55));
     const drawH = drawW * (im.naturalHeight / Math.max(1, im.naturalWidth));
 
     drawSoftShadow(ctx, prop.x, prop.y + baseR * 0.32, drawW * 0.44, drawW * 0.2, 0.56);
@@ -10281,14 +10284,17 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     ctx.drawImage(im, -drawW / 2, -drawH + baseR * 0.42, drawW, drawH);
     ctx.restore();
 
+    const flick = 0.72 + 0.28 * Math.sin((timeSec || 0) * 9 + prop.x * 0.13) * Math.sin((timeSec || 0) * 5.1 + prop.y * 0.07 + 1.7);
     if (assetId === "prop_neon_palm" || assetId === "prop_neon_flower" || assetId === "prop_hub_fox_neon") {
-      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.2);
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.16 + 0.06 * flick);
     } else if (assetId === "prop_subwoofer_cyan" || assetId === "prop_cooler_neon" || assetId === "prop_arcade_cabinet") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.35, drawW * 0.62, "#22d3ee", 0.16);
+    } else if (assetId === "prop_candelabra_floor") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.62, drawW * 0.85, "#facc15", 0.12 + 0.11 * flick);
     } else if (assetId === "prop_astral_table") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.52, drawW * 0.72, "#a855f7", 0.24);
     } else if (assetId === "prop_tesla_orb") {
-      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.28);
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.22 + 0.1 * Math.sin((timeSec || 0) * 13 + prop.x));
     } else if (assetId === "prop_weapon_rack") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.2, drawW * 0.66, "#fb7185", 0.18);
     }
@@ -11625,51 +11631,54 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
        · E Ocio (SE): arcades + vending + banquillo.
        · F Circulación: grieta de descenso (S-centro), spawn (910,700), pasillos
          naturales entre sectores; la Mesa Astral manda el eje visual. */
+  /* dw = ancho de dibujo en world units (escala deliberada por activo,
+     referencia: protagonista ~112 px de alto). Sin dw, drawProp deriva la
+     escala del br de colisión (heurística heredada). */
   const HUB_PROPS = [
     // E · Barra social (norte-oeste)
-    { kind: "shelf", x: 285, y: 268, br: 44 },
-    { kind: "shelf", x: 462, y: 268, br: 44 },
-    { kind: "shelf", x: 640, y: 268, br: 44 },
-    { kind: "barcounter", x: 462, y: 352, br: 64 },
-    { kind: "cooler", x: 648, y: 352, br: 36 },
-    { kind: "bench", x: 368, y: 442, br: 30 },
-    { kind: "bench", x: 556, y: 442, br: 30 },
+    { kind: "shelf", x: 285, y: 268, br: 44, dw: 172 },
+    { kind: "shelf", x: 462, y: 268, br: 44, dw: 172 },
+    { kind: "shelf", x: 640, y: 268, br: 44, dw: 172 },
+    { kind: "barcounter", x: 462, y: 352, br: 64, dw: 262 },
+    { kind: "cooler", x: 648, y: 352, br: 36, dw: 118 },
+    { kind: "bench", x: 368, y: 442, br: 30, dw: 150 },
+    { kind: "bench", x: 556, y: 442, br: 30, dw: 150 },
     // E · Escenario DJ Virgilio (norte-este)
-    { kind: "speaker", x: 1155, y: 282, br: 36 },
-    { kind: "djbooth", x: 1400, y: 300, br: 58 },
-    { kind: "subwoofer", x: 1562, y: 288, br: 38 },
-    { kind: "palm", x: 1075, y: 350, br: 36 },
-    { kind: "palm", x: 1660, y: 348, br: 36 },
+    { kind: "speaker", x: 1155, y: 282, br: 36, dw: 96 },
+    { kind: "djbooth", x: 1400, y: 300, br: 58, dw: 196 },
+    { kind: "subwoofer", x: 1562, y: 288, br: 38, dw: 110 },
+    { kind: "palm", x: 1075, y: 350, br: 36, dw: 158 },
+    { kind: "palm", x: 1612, y: 350, br: 36, dw: 145 },
     // C · Armería (oeste, muro compartido con barra)
-    { kind: "weaponrack", x: 232, y: 478, br: 62 },
-    { kind: "shelf", x: 425, y: 452, br: 42 },
-    { kind: "chest", x: 285, y: 614, br: 32 },
-    { kind: "crate", x: 500, y: 622, br: 30 },
+    { kind: "weaponrack", x: 248, y: 478, br: 62, dw: 228 },
+    { kind: "shelf", x: 425, y: 452, br: 42, dw: 165 },
+    { kind: "chest", x: 285, y: 614, br: 32, dw: 118 },
+    { kind: "crate", x: 500, y: 622, br: 30, dw: 104 },
     // A · Centro de operaciones (mando) — Mesa Astral, eje del Refugio
-    { kind: "astraltable", x: 905, y: 578, br: 78 },
-    { kind: "candelabra", x: 742, y: 500, br: 22 },
-    { kind: "candelabra", x: 1070, y: 500, br: 22 },
+    { kind: "astraltable", x: 905, y: 578, br: 78, dw: 235 },
+    { kind: "candelabra", x: 742, y: 500, br: 22, dw: 92 },
+    { kind: "candelabra", x: 1070, y: 500, br: 22, dw: 92 },
     // D · Ala experimental de la Torre (este-centro) — sin interacción falsa
-    { kind: "teslaorb", x: 1500, y: 468, br: 56 },
-    { kind: "pedestal", x: 1355, y: 520, br: 30 },
-    { kind: "bollards", x: 1292, y: 640, br: 28 },
-    { kind: "plant", x: 1638, y: 648, br: 28 },
+    { kind: "teslaorb", x: 1500, y: 468, br: 56, dw: 150 },
+    { kind: "pedestal", x: 1355, y: 520, br: 30, dw: 118 },
+    { kind: "bollards", x: 1292, y: 640, br: 28, dw: 128 },
+    { kind: "plant", x: 1638, y: 648, br: 28, dw: 105 },
     // B · Salón de descanso (sudoeste)
-    { kind: "sofa", x: 300, y: 825, br: 48 },
-    { kind: "sofa", x: 505, y: 825, br: 48, flipX: true },
-    { kind: "neonflower", x: 402, y: 842, br: 16 },
-    { kind: "bench", x: 402, y: 880, br: 28 },
-    { kind: "armchair", x: 222, y: 915, br: 32 },
-    { kind: "armchair", x: 580, y: 915, br: 32, flipX: true },
-    { kind: "candelabra", x: 402, y: 748, br: 22 },
-    { kind: "plant", x: 185, y: 985, br: 30 },
-    { kind: "palm", x: 618, y: 985, br: 34 },
+    { kind: "sofa", x: 300, y: 825, br: 48, dw: 205 },
+    { kind: "sofa", x: 505, y: 825, br: 48, dw: 205, flipX: true },
+    { kind: "bench", x: 402, y: 882, br: 28, dw: 128 },
+    { kind: "neonflower", x: 402, y: 866, br: 14, dw: 78 },
+    { kind: "armchair", x: 222, y: 915, br: 32, dw: 124 },
+    { kind: "armchair", x: 580, y: 915, br: 32, dw: 124, flipX: true },
+    { kind: "candelabra", x: 402, y: 748, br: 22, dw: 96 },
+    { kind: "plant", x: 185, y: 985, br: 30, dw: 105 },
+    { kind: "palm", x: 618, y: 985, br: 34, dw: 158 },
     // E · Ocio (sudeste): arcades + vending
-    { kind: "arcade", x: 1328, y: 800, br: 38 },
-    { kind: "arcade", x: 1455, y: 800, br: 38 },
-    { kind: "vending", x: 1582, y: 795, br: 38 },
-    { kind: "bench", x: 1440, y: 928, br: 30 },
-    { kind: "plant", x: 1642, y: 988, br: 30 }
+    { kind: "arcade", x: 1328, y: 800, br: 38, dw: 150 },
+    { kind: "arcade", x: 1455, y: 800, br: 38, dw: 150 },
+    { kind: "vending", x: 1582, y: 795, br: 38, dw: 150 },
+    { kind: "bench", x: 1440, y: 928, br: 30, dw: 132 },
+    { kind: "plant", x: 1642, y: 988, br: 30, dw: 105 }
   ];
 
   const STATIONS = [
@@ -11704,8 +11713,39 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       x: 905,
       y: 585,
       r: 95
+    },
+    {
+      id: "bar",
+      label: "BARRA DEL REFUGIO · TEMPO EN LA RADIO",
+      prompt: "Pulsa [E] / (A) para barra y consejo de la casa",
+      x: 462,
+      y: 404,
+      r: 80
+    },
+    {
+      id: "armorer",
+      label: "ARMERO DEL REFUGIO · CONSEJO DE ARMAS",
+      prompt: "Pulsa [E] / (A) para hablar con el armero",
+      x: 505,
+      y: 470,
+      r: 70
     }
   ];
+
+  const BAR_QUOTES = [
+    "El bartender desliza un vaso sin que se lo pidas: «La brasa canta más fuerte cuanto más cerca del escenario.» Aquí siempre te sirven a tiempo.",
+    "«Whisky de turno, por cuenta de la casa», susurra el bartender. Nadie paga la primera ronda del descenso. El Cajero ni se entera de estas cosas.",
+    "El bartender se inclina sobre la barra: «¿Primera vez en la Torre? Empieza por el Limbo y guarda el combo: el compás decide a quién se traga el piso.»",
+    "«Sin prisa, nadie te espera», dice limpiando una copa que ya brilla. En el refugio no hay turnos ni cronómetro. Sal cuando tu canción esté lista."
+  ];
+  const ARMORER_QUOTES = [
+    "El armero suelta un trapo sobre el M1911: «Munición infinita, templador. Lo que se agota es la paciencia del piso.»",
+    "«Antes de bajar, pasa por la Armería», gruñe el armero. «Lo que compres aquí vuelve contigo. Lo que olvides, se queda bailando abajo.»",
+    "El armero señala el rack: «Cada arma tiene su carácter. La MAGNUM perdona poco; el UZI, casi todo. Elige según tu compás.»",
+    "«Si ves un Residente, no improvises», susurra el armero. «La Torre avisa siempre: el flash, el latido, el silencio antes del DROP. Ese silencio es tuyo.»"
+  ];
+  let barIdx = -1;
+  let armorerIdx = -1;
 
   const DJ_QUOTES = [
     "Has llegado al Refugio. Aquí la canción no te alcanza. Elige un arma en la Armería antes de bajar.",
@@ -11723,20 +11763,43 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     state.vx = 0;
     state.vy = 0;
     state.interactCooldown = 0.35;
+    initAmbient();
     // Freeze the live run (if any) while the player walks the safe zone, so no
     // offscreen simulation can damage/kill the protagonist behind the HUB camera.
     if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
       window.__DD_BRIDGE.setPaused(true);
     }
+    // TEMPO abre con una línea al azar (antes siempre la misma)
+    quoteIdx = Math.floor(Math.random() * DJ_QUOTES.length);
     if (window.DD_UI) {
       window.DD_UI.hideMainMenu();
-      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[0], 5.2);
+      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.2);
     }
+    // Cama musical del Refugio (pista del club en fundido). Se agenda con
+    // retraso: enterGame() para la música del menú al validar el arranque y
+    // llegaría después que este enter().
+    setTimeout(function () {
+      if (!state.active) return;
+      try {
+        if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.startMenuMusic === "function") {
+          window.DD_BOOT.audio.startMenuMusic(2.0);
+        } else if (window.DDC_COVER && window.DDC_COVER.music && typeof window.DDC_COVER.music.start === "function") {
+          window.DDC_COVER.music.start(4);
+        }
+      } catch (e) { /* sin audio: silencio, no rompe */ }
+    }, 900);
   }
 
   function exitToRun() {
     if (!state.active) return;
     state.active = false;
+    try {
+      if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.stopMenuMusic === "function") {
+        window.DD_BOOT.audio.stopMenuMusic(0.4);
+      } else if (window.DDC_COVER && window.DDC_COVER.music && typeof window.DDC_COVER.music.stop === "function") {
+        window.DDC_COVER.music.stop(0.4);
+      }
+    } catch (e) { /* sin audio */ }
     const triggerRun = function () {
       // rp() clears the pause flag on startRun; this covers the no-run case too.
       if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
@@ -11776,6 +11839,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     } else if (st.id === "dj" && window.DD_UI) {
       quoteIdx = (quoteIdx + 1) % DJ_QUOTES.length;
       window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.5);
+    } else if (st.id === "bar" && window.DD_UI) {
+      barIdx = (barIdx + 1) % BAR_QUOTES.length;
+      window.DD_UI.showDialogue("TEMPO", BAR_QUOTES[barIdx], 5.6);
+    } else if (st.id === "armorer" && window.DD_UI) {
+      armorerIdx = (armorerIdx + 1) % ARMORER_QUOTES.length;
+      window.DD_UI.showDialogue("TEMPO", ARMORER_QUOTES[armorerIdx], 5.6);
     }
   }
 
@@ -11802,6 +11871,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (!state.active) return;
     const cdt = Math.min(0.05, Math.max(0.001, dt || 0.016));
     state.time += cdt;
+    updateAmbient(cdt);
     if (state.interactCooldown > 0) state.interactCooldown = Math.max(0, state.interactCooldown - cdt);
 
     // Pause HUB movement while modal or blocking cinematic is open
@@ -12035,6 +12105,80 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     cctx.restore();
   }
 
+  /* Ambiente vivo del Refugio (procedural, sin assets):
+     · brasas cian/magenta/ámbar que ascienden de la grieta;
+     · motas de polvo flotando en los charcos de luz (barra, Mesa Astral, salón).
+     Se inicializan al entrar y se actualizan/dibujan por frame. */
+  const EMBER_N = 26;
+  const MOTE_N = 34;
+  function spawnEmber(q) {
+    q.x = 845 + Math.random() * 130;
+    q.y = 856 + Math.random() * 42;
+    q.vy = -40 - Math.random() * 30;
+    q.phase = Math.random() * Math.PI * 2;
+    q.swayAmp = 7 + Math.random() * 11;
+    q.life = 1.5 + Math.random() * 1.3;
+    q.age = Math.random() * q.life; // fase desincronizada
+    q.size = 1.7 + Math.random() * 2.4;
+    q.hue = Math.random() < 0.42 ? "255,45,122" : (Math.random() < 0.5 ? "56,189,248" : "250,204,21");
+    return q;
+  }
+  function spawnMote(q) {
+    const pool = [[462, 330], [905, 580], [402, 845], [1400, 292]][(Math.random() * 4) | 0];
+    q.cx = pool[0]; q.cy = pool[1];
+    q.r = 24 + Math.random() * 96;
+    q.a = Math.random() * Math.PI * 2;
+    q.w = (Math.random() < 0.5 ? -1 : 1) * (0.05 + Math.random() * 0.085);
+    q.size = 0.8 + Math.random() * 1.3;
+    q.alpha = 0.05 + Math.random() * 0.075;
+    return q;
+  }
+  function initAmbient() {
+    if (!state.embers) {
+      state.embers = [];
+      for (let i = 0; i < EMBER_N; i++) state.embers.push(spawnEmber({}));
+      state.motes = [];
+      for (let i = 0; i < MOTE_N; i++) state.motes.push(spawnMote({}));
+    }
+  }
+  function updateAmbient(cdt) {
+    if (!state.embers) return;
+    for (let i = 0; i < state.embers.length; i++) {
+      const q = state.embers[i];
+      q.age += cdt;
+      q.y += q.vy * cdt;
+      q.x += Math.sin((state.time + q.phase) * 2.1) * q.swayAmp * cdt;
+      if (q.age >= q.life) spawnEmber(q);
+    }
+    for (let i = 0; i < state.motes.length; i++) {
+      state.motes[i].a += state.motes[i].w * cdt;
+    }
+  }
+  function drawAmbient(ctx) {
+    if (!state.embers) return;
+    ctx.save();
+    ctx.globalCompositeOperation = "screen";
+    for (let i = 0; i < state.embers.length; i++) {
+      const q = state.embers[i];
+      const t = q.age / q.life;
+      const a = (1 - t) * 0.92;
+      ctx.fillStyle = "rgba(" + q.hue + "," + a.toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.arc(q.x, q.y, Math.max(0.4, q.size * (1 - t * 0.55)), 0, Math.PI * 2);
+      ctx.fill();
+    }
+    for (let i = 0; i < state.motes.length; i++) {
+      const m = state.motes[i];
+      const mx = m.cx + Math.cos(m.a) * m.r;
+      const my = m.cy + Math.sin(m.a) * m.r * 0.62;
+      ctx.fillStyle = "rgba(255, 240, 222," + m.alpha.toFixed(3) + ")";
+      ctx.beginPath();
+      ctx.arc(mx, my, m.size, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+
   function ensureHubCache() {
     const stats = window.DD_ASSETS ? window.DD_ASSETS.stats() : { loaded: 0 };
     const stamp = String(stats.loaded) + (HUB_REBUILD() ? "|rebuild" : "|classic");
@@ -12181,6 +12325,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         }
       }
     }
+
+    drawAmbient(ctx);
 
     // Overhead Golden Chandeliers with warm volumetric glow (matching r5_refugio_hub.png)
     const chand = window.DD_ASSETS && window.DD_ASSETS.get("prop_chandelier_gold");

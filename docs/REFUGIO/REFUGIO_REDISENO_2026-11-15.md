@@ -144,3 +144,58 @@ node /tmp/qa_browser/probe_hub_w15c.mjs      # capturas spawn/armería/salón/gr
 node /tmp/qa_browser/probe_hub_w15d.mjs      # DJ/Torre + ocio + E2E descenso
 ```
 (Los `probe_*.mjs` son harness de sesión en /tmp, no del repo; el flujo de descenso ya lo cubre `/tmp/qa_browser/qa_descent.mjs`/W14.)
+
+---
+
+## 8. TR_W15b · «refugio entre runs» + pase de coherencia de escala de assets (2026-11-15)
+
+Encargo: quick wins 1–4 (música, NPCs con diálogo, TEMPO aleatorio, ambiente) **y** el apunte del usuario de que, aunque el resultado mejora, seguía habiendo fallos de distribución de tamaños de assets. Esto los trata y los deja por escrito.
+
+### 8.1 Música del refugio
+- Al `enter()` se agenda (+900 ms) `DD_BOOT.audio.startMenuMusic(2.0)` — la pista del club en fundido de entrada; el retardo evita la carrera con `DD_BOOT.enterGame()`, que corta la música del menú tras aceptar el arranque.
+- Al `exitToRun()` (descenso/[H]) se ejecuta `stopMenuMusic(0.4)`.
+- Verificado en navegador: `DDC_COVER.music.playing === true` dentro del Refugio; al descender no queda la cama sonando (entra el silencio/motor de combate).
+- Honestidad: la pista es la del menú (id 4) — es la identidad musical real del juego; no es un tema nuevo de refugio (para eso, ver §6.7).
+
+### 8.2 NPCs con voz (estaciones `bar` y `armorer`)
+- `STATIONS` ampliado: `bar` (462,404 · r80) y `armorer` (505,470 · r70); anillos propios en el suelo, IDs existentes intactas, nearest-wins sin solapes efectivos.
+- `showDialogue("TEMPO", línea, 5.6)` — **TEMPO narra el intercambio** porque el registry solo tiene UN retrato (`dialogue_portrait_dj`) y esta tanda no toca el registry. Las 8 líneas (4 barra + 4 armero) llevan tips reales: Armería, Torre, Limbo, M1911, combo/RAVE, Cajero.
+- TEMPO ahora abre con una cita **aleatoria** al entrar (antes siempre la misma — el Refugio nunca sonaba igual, y ahora tampoco se lee igual).
+
+### 8.3 Ambiente vivo
+- Parpadeo en candelabros (doble seno sobre alpha del glow), pulso del orbe Tesla, palms/fox con leve respiración.
+- **26 brasas** (rosa/cian/ámbar, aditivas) ascendiendo de la grieta con balanceo senoidal y reaparición; **34 motas** de polvo en 4 charcos (barra, Mesa Astral, salón, escenario). Procedural puro: 0 assets, 0 registry.
+
+### 8.4 Pase de coherencia de escala (`dw`)
+`drawProp` acepta `prop.dw` (ancho en world units). Referencia de escala: protagonista ~112 px de alto. Aplicado a las 37 piezas:
+
+| Pieza | Antes (heurística br) | Ahora (dw) | Motivo |
+|---|---|---|---|
+| `weaponrack` | 158 | 240→228 | pieza-héroe; estaba desproporcionada |
+| `astraltable` | 199 | 235 | rey del centro; más presencia |
+| `teslaorb` | 143 | 150 | legible junto al zorro y el pedestal |
+| `barcounter` | 163 | 262 | barra real (longitud de barra) |
+| `shelf`×3 | 112 | 172 | backbar denso pero coherente |
+| `sofa`×2 | 122 | 205 | sofá ≥ butaca × ~1.65 |
+| `armchair`×2 | 82 | 124 | proporción vs sofá restaurada |
+| `bench` salón/ocio | 77/77 | 128/132 | banquetas legibles |
+| `neonflower` | 64 | 78 | centro de mesa; **movida sobre el banco** (antes flotaba) |
+| `candelabra`×3 | 64 | 92/96 | altura de araña de pie |
+| `djbooth` / `speaker` / `subwoofer` | 148/92/97 | 196/96/110 | escenario equilibrado |
+| `vending` / `arcade`×2 | 97 | 150 | ocio con masa |
+| resto | — | tabla en `HUB_PROPS` | — |
+
+**Arreglos de límites de sala**: weapon rack 248 (dentro del muro W, antes 232 con vertice fuera), palma E 1612 (dentro del muro E, antes 1660 recortada).
+
+### 8.5 Fallos conocidos que PERMANECEN (documentados, no escondidos)
+1. Un solo retrato de diálogo: bartender/armero «hablan» con la voz de TEMPO (decisión de esta tanda: sin registry). Para retratos propios haría falta una tanda de assets.
+2. Backbar denso contra el muro N: tres estanterías de 172 px compiten con los portales del mezzanine; es lectura "bar-core" deliberada pero puede pedirse más aire (bajar a 2 estanterías o dw 150).
+3. El mezzanine sigue parcialmente bajo el HUD superior (260 px de viewport ocupados por HUD a 1280×900) — diseño preexistente.
+4. Charcos de luz estáticos en caché (cero coste/frame); el parpadeo dinámico solo afecta a glows.
+5. La grieta es un calado cenital con brasas; no es un pozo 3D (coherente con la convención de suelo; ya señalado en TR_W14).
+6. Los bevel/diagonales del damero se leen fuertes a cierto zoom (identidad existente, no tocados).
+7. Headless SwiftShader ~8 fps — solo afecta al harness de QA; en Chrome/GPU no aplica.
+8. Sin tests de gameplay automatizados; validación = QA navegador + E2E de descenso (275/275, 0 pageErrors verificado tras esta tanda).
+
+### 8.6 Capturas de esta tanda
+`23_refugio_full_w15b.png` (vista completa, TEMPO aleatorio visible) · `24_spawn_w15b.png` · `25_barra_w15b.png` (near=bar) · `26_bartender_dialogo_w15b.png` (diálogo TEMPO) · `27_armero_w15b.png` (near=armorer) · `27_armero_dialogo_w15b.png` (diálogo armero) · `28_grieta_brasas_w15b.png` (brasas, near=descent).

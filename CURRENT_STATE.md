@@ -299,3 +299,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Registry **275/275** (3 assets nuevos: `prop_weapon_rack`, `prop_astral_table`, `prop_tesla_orb`); IDs de estaciones conservados (`descent`/`armory`/`dj`/`map`); spawn (910,700) intacto; cámara reclampada (bounds sin cambios); hook QA `__DD_HUB_DEBUG_ZOOM`.
 - Verificado in-situ en navegador: integridad **275/275**, 0 pageErrors; flujo grieta → cinemática → Limbo OK; capturas `15..22_*_w15.png`.
 - Pendiente: merge PR #31 (borrador, bajo visto bueno del responsable); la performance headless SwiftShader es lenta (~8 fps) — en Chrome/GPU real no aplica; opcional: versión cenital «verdadera» de VR/AR no procede.
+
+## Estado actual · 2026-11-15 (TR_W15b · refugio entre runs + escala)
+- **«Sensación de refugio entre runs»** (encargo usuario): cama musical de club al entrar (stop al descender), bartender y armero con diálogo propio (TEMPO narra), TEMPO aleatorio al entrar, ambiente vivo (parpadeo de velas, 26 brasas sobre la grieta, 34 motas en charcos de luz).
+- **Pase de escala de assets** (feedback «fallos de distribución de tamaños»): drawProp acepta `dw`; los 37 props del Refugio tienen escala deliberada (profe ~112 px de referencia); flower sobre la mesa, rack/palma dentro de la sala.
+- Capturas `ART_EVIDENCE/TOTAL_REBUILD/23..28_*_w15b.png`; QA integrity **275/275**, 0 pageErrors; estaciones nuevas `bar` y `armorer` verificadas in-situ (near/prompt/diálogo).
+- Pendientes documentados (ver docs/REFUGIO/REFUGIO_REDISENO_2026-11-15.md §TR_W15b): un solo retrato (TEMPO narra a bartender/armero), backbar denso contra el muro N, mezzanine parcialmente bajo el HUD, charcos estáticos, rendimiento SwiftShader ~8 fps en headless. Merge PR #31 sigue pendiente de visto bueno.
