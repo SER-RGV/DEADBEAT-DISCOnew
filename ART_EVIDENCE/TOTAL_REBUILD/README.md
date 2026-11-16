@@ -83,3 +83,7 @@ Aprobados e integrados (integridad navegador **271/271 pass**): familia **Bufe**
 Aprobados e integrados (integridad navegador **271/271 pass**): `boss_02_bufe_hit` v2 (MISMO cardenal con corona de colines recogiendo el golpe — v1 era «cardenal-pollo», rechazada), `boss_04_pogo_hit` (mismo enforcer mohawk recoil), familia **05 Oficiante (Herejía)** completa (cardenal censor con anti-halo rosa-oro; attack de incensario de fuego del alma; death crucificado), y familia **06 Matarife (Violencia)** idle/attack/hit (matarife con cuernos, delantal carmesí; doble hachazo cruzado; cuestión de cabeza).
 - **Rechazado: `boss_04_pogo_death`** — el modelo lo dibujó en **pixel-art** incongruente con el resto pintado/painterly; v2 pendiente («painterly smooth illustration, not pixel art»).
 - Nota: coherencia por familia vs variación de frame de poder sigue siendo el punto débil aceptado (ver TR_W8).
+
+## Pasada TR_W10 (2026-11-15, cierre 04/06/07/08 de jefes)
+Aprobados e integrados (integridad navegador **271/271 pass**): `boss_04_pogo_death` v2 painterly (mismo enforcer mohawk arrodillado), familia **07 Imitador (Fraude)** completa (el doble perfecto del protagonista, traje negro, corona de espejos; attack de explosión de réplicas; death harlequín), y **08 Traidor** idle/attack/hit (Judas de hielo con llave dorada congelada; attack de aliento helado; hit vampiro-duque).
+- **Rechazado/bloqueado:** `boss_06_matarife_death` v2 bloqueado por moderación (prompt con «blutige»-ish context: «blood-dark apron»); redacción sobria pendiente.

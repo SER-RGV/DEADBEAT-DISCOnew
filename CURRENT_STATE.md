@@ -251,3 +251,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Jefes integrados (10 frames nuevos):** 00 Andén ✓(4) 01 Magneta ✓(4) 02 Bufe ✓(4) 03 Cajero ✓(4) 04 Pogo (3/4; falta death) 05 Oficiante ✓(4) 06 Matarife (3/4; falta death).
 - Restan: 07 Imitador (Fraude) ×4, 08 Traidor (Traición) ×4, 09 Núcleo (Núcleo) ×4, 10 Arquitecto (secreto) ×2 = 14 sprites + pogo/matarife death v2.
 - Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W10)
+- **Integrados (navegador 271/271):** pogo_death v2 painterly, Imitador COMPLETO, Traidor idle/attack/hit. **Matarife death v2 pendiente (moderación).**
+- **Jefes integrados:** 00✓ 01✓ 02✓ 03✓ 04✓(4) 05✓ 06 Matarife (3/4) 07✓(4) 08 Traidor (3/4). **Restan:** 08_traidor_death, 09 Núcleo ×4, 10 Arquitecto (secreto) ×2, matarife_death v2 = 8 sprites.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).

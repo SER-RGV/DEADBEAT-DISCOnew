@@ -96,9 +96,19 @@ JOBS = [
     ("boss_06_matarife_idle",    "assets/bosses/boss_06_matarife_idle.png",    (496, 544), "bottom-center"),
     ("boss_06_matarife_attack",  "assets/bosses/boss_06_matarife_attack.png",  (416, 448), "bottom-center"),
     ("boss_06_matarife_hit",     "assets/bosses/boss_06_matarife_hit.png",     (384, 448), "bottom-center"),
+    # TR_W10 (+ pogo_death v2 painterly en tr_w9)
+    ("boss_04_pogo_death",   "assets/bosses/boss_04_pogo_death.png",   (416, 352), "bottom-center"),
+    ("boss_06_matarife_death", "assets/bosses/boss_06_matarife_death.png", (416, 352), "bottom-center"),
+    ("boss_07_imitador_idle",   "assets/bosses/boss_07_imitador_idle.png",   (336, 576), "bottom-center"),
+    ("boss_07_imitador_attack", "assets/bosses/boss_07_imitador_attack.png", (416, 448), "bottom-center"),
+    ("boss_07_imitador_hit",    "assets/bosses/boss_07_imitador_hit.png",    (384, 448), "bottom-center"),
+    ("boss_07_imitador_death",  "assets/bosses/boss_07_imitador_death.png",  (416, 352), "bottom-center"),
+    ("boss_08_traidor_idle",    "assets/bosses/boss_08_traidor_idle.png",    (368, 576), "bottom-center"),
+    ("boss_08_traidor_attack",  "assets/bosses/boss_08_traidor_attack.png",  (416, 448), "bottom-center"),
+    ("boss_08_traidor_hit",     "assets/bosses/boss_08_traidor_hit.png",     (384, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -124,6 +134,10 @@ POST_DESPILL = {
     "boss_03_cajero_idle", "boss_03_cajero_attack", "boss_03_cajero_hit", "boss_03_cajero_death",
     "boss_04_pogo_idle", "boss_04_pogo_attack", "boss_04_pogo_hit", "boss_04_pogo_death",
     "boss_02_bufe_hit",
+    "boss_04_pogo_death",
+    "boss_07_imitador_idle", "boss_07_imitador_attack", "boss_07_imitador_hit", "boss_07_imitador_death",
+    "boss_08_traidor_idle", "boss_08_traidor_attack", "boss_08_traidor_hit",
+    "boss_06_matarife_death",
     "boss_05_oficiante_idle", "boss_05_oficiante_attack", "boss_05_oficiante_hit", "boss_05_oficiante_death",
     "boss_06_matarife_idle", "boss_06_matarife_attack", "boss_06_matarife_hit",
 }
