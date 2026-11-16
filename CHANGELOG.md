@@ -191,3 +191,17 @@ Registrar aquí cada modificación:
 - VOLUMEN DEL MENÚ, MAESTRO, MÚSICA y EFECTOS cambian al instante lo que suena en el menú (antes sólo guardaban el número).
 - Archivos: `src/dd_ui_system.js`, `src/dd_opening.js`, `tools/build_active_html.py`, `tools/qa/test_menu_respuesta.js`, builds.
 - Pruebas: menú 53 de 53 (con medición de salida real), inicio 65 de 65, persistencia 39 de 39.
+
+## 2026-11-15 · TR_T01 — Reconstrucción total, FASE 2 HUB incremento 1
+- Nuevos: `hub_floor_main` (damero negro/granate con filete magenta) y `hub_portal_frame` (arco obsidiana gótica-tech) en `assets/` + registro (269→271, legacy intacto, `?v=20261115.1`).
+- `DD_WORLD.buildHighResRoomCache` acepta `opts.floorAsset`/`opts.vipInset` (opcional, retrocompatible). `DD_HUB` pinta suelo del HUB y mezzanine decorativo con los 9 círculos (flag `window.__DD_HUB_REBUILD !== false`).
+- `tools/asset_pipeline.py`: `rebuild_registry` ahora es **aditivo** (conserva entradas legacy con `rev`/`anchors`/`fallback`); nueva plantilla `tools/registry_template.js`.
+- Legado `DEADBEAT_DISCO.ART.html` y `ART_PACK/` **sin tocar**. Build activo regenerado e idéntico en `index.html`/`DEADBEAT_DISCO.html`.
+- Pendiente declarado: verificación visual en navegador (no hay navegador en este sandbox). Ver `docs/TOTAL_ART_REBUILD/TR_T01_report.json`.
+
+## 2026-11-15 · TR_T04–T10 + QA REAL EN NAVEGADOR — Reconstrucción total
+- **Suelos regenerados (clase B):** `floor_03_greed_slate_gold` (Avaricia oro/azulejo), `floor_04_wrath_burgundy` (Ira brasas), `floor_05_pride_obsidian_gold` (Herejía sigillo neón violeta), `floor_06_violence_ash_slabs` (Violencia acero + verde tóxico), `floor_07_envy_travertine` (Fraude travertino/espejos cian), `floor_08_ice_abyssal` (Traición hielo/negro), `floor_09_core_cosmic_vein` (Núcleo veta cósmica). Restos LC: `wall_wrath_furnace`, `wall_ice_glacier`, `prop_barrel_infernal` — todos con mismos IDs.
+- **QA real en navegador** (Chromium headless Sparticuz 153 + playwright-core, SwiftShader): arranque sin errores, **integrity() 271/271 pass, 0 errores**, 0 404, 0 pageerror. Flujo completo: carga → intro → menú → NUEVA PARTIDA → Refugio (HUD intacto, estaciones vivas, IDLE 07B) → [E] en pad de descenso → **sala de combate CÍRCULO I · LIMBO Ronda 1 renderizada**. Capturas y reports en `ART_EVIDENCE/TOTAL_REBUILD/` (01–06).
+- Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
+- Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
+- **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.

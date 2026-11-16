@@ -1446,14 +1446,19 @@
     }
   }
 
-  function showDialogue(speaker, text, durationSec) {
+  function showDialogue(speaker, text, durationSec, portraitId) {
     buildDOM();
     if (!text) return;
     var box = el("dd-dialogue-box");
     var spk = el("dd-dj-speaker");
     var txt = el("dd-dj-text");
+    var img = el("dd-dj-portrait");
     if (spk) spk.textContent = speaker || "TEMPO";
     if (txt) txt.textContent = text;
+    if (img) {
+      var src = assetSrc(portraitId || "dialogue_portrait_dj");
+      if (src) img.src = src;
+    }
     if (box) box.classList.remove("dd-hidden");
     uiState.dialogueTimer = durationSec || 4.2;
   }

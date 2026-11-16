@@ -80,7 +80,17 @@
     bottles: "prop_bar_bottles",
     barrierunit: "prop_bollard_pair",
     queue: "prop_bollard_pair",
-    stanchion: "prop_bollard_pair"
+    stanchion: "prop_bollard_pair",
+    bollards: "prop_bollard_pair",
+    ropebarrier: "prop_bollard_pair",
+    weaponrack: "prop_weapon_rack",
+    rack_weapon: "prop_weapon_rack",
+    astraltable: "prop_astral_table",
+    mesastal: "prop_astral_table",
+    teslaorb: "prop_tesla_orb",
+    orb: "prop_tesla_orb",
+    neonflower: "prop_neon_flower",
+    flower: "prop_neon_flower"
   };
 
   const BOSS_INDEX_TO_SLUG = [
@@ -159,9 +169,10 @@
   /* ------------------------------------------------------------------------
      1. ROOM CACHE BUILDER (Replaces pixel-art `qc` / `Zb` / `$b`)
      ------------------------------------------------------------------------ */
-  function buildHighResRoomCache(ctx, worldW, worldH, roomRect, circleIdx, roomSeed, clipRoomFn) {
+  function buildHighResRoomCache(ctx, worldW, worldH, roomRect, circleIdx, roomSeed, clipRoomFn, opts) {
     setSmooth(ctx);
     const cfg = getCircleCfg(circleIdx);
+    opts = opts || null;
 
     // Deep atmospheric void outside room walls
     const voidGrad = ctx.createLinearGradient(0, 0, 0, worldH);
@@ -189,6 +200,7 @@
 
     // Fill with high-res seamless Circle floor material (fallback to limbo marble or rich dark-stone gradient while pending)
     const floorPat =
+      (opts && opts.floorAsset ? getFloorPattern(ctx, opts.floorAsset) : null) ||
       getFloorPattern(ctx, cfg.floor) ||
       getFloorPattern(ctx, "floor_00_limbo_marble") ||
       getFloorPattern(ctx, "floor_10_hub_checker");
@@ -213,9 +225,14 @@
     const insetH = Math.min(rh * 0.44, 460);
     const cx = rx + rw * 0.5;
     const cy = ry + rh * 0.5;
-    const vipPat = (circleIdx === 0 || circleIdx === 2 || circleIdx === 3)
+    const vipPat = (opts && opts.vipInset === false)
+      ? null
+      : (opts && opts.vipInsetAsset
+        ? getFloorPattern(ctx, opts.vipInsetAsset)
+        : ((circleIdx === 0 || circleIdx === 2 || circleIdx === 3)
       ? getFloorPattern(ctx, "floor_11_vip_velvet")
-      : (circleIdx === 7 ? getFloorPattern(ctx, "floor_10_hub_checker") : null);
+        : (circleIdx === 7 ? getFloorPattern(ctx, "floor_10_hub_checker") : null))
+      );
     if (vipPat && rw > 760 && rh > 560) {
       ctx.save();
       ctx.globalAlpha = 0.78;
@@ -403,6 +420,24 @@
     }
   }
 
+  /* Grieta del Refugio: ojo del pozo en el suelo; plano cenital como el
+     damero, con pulso de brasas cian/magenta desde el fondo. Sustituye a la
+     plataforma cian como «puerta» al siguiente círculo. */
+  function drawDescentCrack(ctx, crack, timeSec) {
+    if (!crack) return;
+    setSmooth(ctx);
+    const px = crack.x || 0, py = crack.y || 0;
+    const im = window.DD_ASSETS && window.DD_ASSETS.get("threshold_descent_crack");
+    const pulse = 0.22 + 0.11 * Math.sin((timeSec || 0) * 2.6);
+    drawNeonGlow(ctx, px, py, 132, "#22d3ee", pulse);
+    drawNeonGlow(ctx, px, py, 74, "#c084fc", pulse * 0.8);
+    if (im) {
+      const w = 246;
+      const h = w * (im.naturalHeight / Math.max(1, im.naturalWidth));
+      ctx.drawImage(im, px - w / 2, py - h / 2, w, h);
+    }
+  }
+
   /* ------------------------------------------------------------------------
      3. ISOMETRIC PROPS & FURNITURE (Replaces pixel/blockout `Lc`)
      ------------------------------------------------------------------------ */
@@ -418,7 +453,10 @@
     if (!im) return false;
 
     const baseR = Math.max(24, Number(prop.br || prop.r || 38));
-    const drawW = Math.max(64, Math.min(240, baseR * 2.55));
+    // Escala de dibujo: por defecto derivada del br de colisión; cada prop del
+    // HUB puede fijar `dw` (ancho en world units) para una escala deliberada
+    // y coherente entre assets (referencia: protagonista ~112 px de alto).
+    const drawW = (prop.dw && prop.dw > 0) ? prop.dw : Math.max(64, Math.min(240, baseR * 2.55));
     const drawH = drawW * (im.naturalHeight / Math.max(1, im.naturalWidth));
 
     drawSoftShadow(ctx, prop.x, prop.y + baseR * 0.32, drawW * 0.44, drawW * 0.2, 0.56);
@@ -432,10 +470,19 @@
     ctx.drawImage(im, -drawW / 2, -drawH + baseR * 0.42, drawW, drawH);
     ctx.restore();
 
+    const flick = 0.72 + 0.28 * Math.sin((timeSec || 0) * 9 + prop.x * 0.13) * Math.sin((timeSec || 0) * 5.1 + prop.y * 0.07 + 1.7);
     if (assetId === "prop_neon_palm" || assetId === "prop_neon_flower" || assetId === "prop_hub_fox_neon") {
-      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.2);
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.45, drawW * 0.7, "#ff2d7a", 0.16 + 0.06 * flick);
     } else if (assetId === "prop_subwoofer_cyan" || assetId === "prop_cooler_neon" || assetId === "prop_arcade_cabinet") {
       drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.35, drawW * 0.62, "#22d3ee", 0.16);
+    } else if (assetId === "prop_candelabra_floor") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.62, drawW * 0.85, "#facc15", 0.12 + 0.11 * flick);
+    } else if (assetId === "prop_astral_table") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.52, drawW * 0.72, "#a855f7", 0.24);
+    } else if (assetId === "prop_tesla_orb") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.66, drawW * 0.82, "#8b5cf6", 0.22 + 0.1 * Math.sin((timeSec || 0) * 13 + prop.x));
+    } else if (assetId === "prop_weapon_rack") {
+      drawNeonGlow(ctx, prop.x, prop.y - drawH * 0.2, drawW * 0.66, "#fb7185", 0.18);
     }
     return true;
   }
@@ -1664,6 +1711,7 @@
     buildHighResRoomCache,
     drawDoor,
     drawDescentPad,
+    drawDescentCrack,
     drawProp,
     drawProtagonist,
     getPlayerWeaponMount,

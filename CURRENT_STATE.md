@@ -183,3 +183,154 @@ Toda modificación debe partir de una copia de seguridad.
 
 ## 2026-11-13 · RESTART 14
 Menú revisado control por control, pantalla de carga reducida a logotipo y barra, portada antigua oculta desde el primer fotograma, intro y música del menú igualadas en nivel medido (sin escuchar). Ver `docs/RESTART/14_MENU_CARGA_Y_VOLUMEN.md`.
+
+## Estado actual · 2026-11-15 (RECONSTRUCCIÓN TOTAL · FASE 0–2 incremento 1)
+- **FASE 0 auditoría completa** en `docs/TOTAL_ART_REBUILD/00_AUDIT_REPORT.md` (+ `01_REPLACEMENT_MATRIX.md`, `02_TECHNICAL_PLAN.md`, `03_ASSET_CONTRACT.md`): el build activo es `index.html` (generado desde backup + `src/`); `DEADBEAT_DISCO.ART.html`/`ART_PACK/` son legado congelado y no se usan; la vía de integración es el registry `DD_ASSETS` + `DD_WORLD`/`DD_HUB`. Numeración de círculos láminas vs motor registrada (se conserva la del motor; HUD sin renombrados).
+- **Referencias** archivadas con SHA-256 en `ART_REFERENCES/2026-11-TOTAL/` (12 láminas + `loreybibilia.txt`).
+- **FASE 1 contrato técnico** vigente (paleta/hex por círculo, tiles 512, pivotes, pipeline, checklist).
+- **FASE 2 HUB incremento 1 (TR_T01):** 2 assets nuevos integrados en código (`hub_floor_main` suelo damero del Refugio; `hub_portal_frame` mezzanine decorativo de los 9 círculos sobre la pared superior, flag `__DD_HUB_REBUILD`). Build activo regenerado y verificado estáticamente (sin errores; 12/13 bloques JS parsean, 1 es licencia). Registro 271 entradas sin pérdida legacy (66/66 `anchors`/`rev`).
+- **Límite honesto:** este sandbox **no tiene navegador** (Playwright/Chromium inalcanzables). No se ha ejecutado arranque ni capturas; **nada se declara APROBADO visualmente**. La verificación en navegador real queda pendiente (arneses `tools/qa/*.js` listos).
+- PRs abiertas #22/#30 (escala de mundo): no interferidas; el arte nuevo no depende de su cámara.
+
+## Estado actual · 2026-11-15 (TR_T04–T10 · QA real en navegador)
+- **Suelos de los 9 círculos + muros clave regenerados** (clase B, mismos IDs): Lujuria/Gula/Avaricia/Ira/Herejía/Violencia/Fraude/Traición/Núcleo. Identidades cromáticas según láminas y `CIRCLE_CONFIG`.
+- **Navegador real conseguido** vía `@sparticuz/chromium` (npm registry; los CDN de Playwright no son alcanzables). Evidencia en `ART_EVIDENCE/TOTAL_REBUILD/`: integridad 271/271, 0 errores, Refugio reconstruido capturado, pad de descenso funcional, primera sala de combate LIMBO correcta.
+- **PR #31** en borrador con 6 commits (`1d22612…` + TR_T01…TR_T10). Sin merge. `main` intacta.
+- **Pendiente:** captura in-situ de suelos II–IX (jugar pisos), paredes pendientes (heavy_base, panel_vip_window, core_monolith, dorado Avaricia), props firma por círculo, FX de fases de jefe, HUD definitivo, performance gate formal, aprobación de sprites WALK/SHOOT del protagonista.
+
+## Estado actual · 2026-11-15 (TR_W1 — suelos/muros/entornos pasa 1)
+- **Integrados y verificados en juego real:** `floor_00_limbo_marble` (mármol agrietado, visible en sala LIMBO de combate, captura 06), `threshold_descent_pad` (runas cian, visible en Refugio, captura 05), `wall_pillar_obsidian` (9/9 círculos), `door_gothic_closed/open` (círculos ≥ IV). Integridad navegador **271/271 pass**.
+- **TR_W1b integrados (integridad navegador 271/271):** `wall_panel_gothic_niche`, `wall_panel_vip_window`, `portal_avaricia_gold`, `portal_baroque_gold`, `floor_10_hub_checker`.
+- **Rechazados y revertidos** (extract_clean_rgba sobre fondo negro destruye piedra oscura): `wall_panel_heavy_base`, `wall_core_monolith`, `door_arched_open`, `door_stained_closed`, `door_vip_crimson` → v3 pendiente sobre **fondo verde chroma #00ff00**. Lección documentada en ART_EVIDENCE/TOTAL_REBUILD/README.md.
+- Harness QA con timeout de screenshot 120 s (SwiftShader); QA PASS sin errores en hub y descenso.
+- Pendiente mayor: props firma por círculo, FX de fases de jefe, captura de círculos II–IX in-situ, métricas de rendimiento, HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W1c — verde chroma)
+- **Integrados (y cargados en navegador):** herejía `wall_panel_heavy_base`, Núcleo `wall_core_monolith`, puertas `door_arched_open`/`door_stained_closed`/`door_vip_crimson`, `wall_panel_tall_neon`, `prop_gilded_altar`, `prop_arcane_pedestal` (despillado), `floor_11_vip_velvet`, `prop_gothic_statue`.
+- Regla de oro: assets oscuros sobre verde #00ff00 (borrador negro destruye piedra oscura). Documentado.
+- Pendiente menor: statue v2 con lienzo completo; captura in-situ por círculo; FX de jefes; props firma por círculo; HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W2 — props del HUB)
+- **Integrados y visibles en el Refugio (navegador, 271/271):** bar_counter, dj_booth, speaker_tower, subwoofer_cyan, candelabra_floor, sofa_black, bookshelf_hub, cooler_neon, gothic_statue (estampado por ancho). Captura: 03_refugio_hub.png.
+- Pendiente v2: prop_chandelier_gold (rechazado W2), encuadre retrato para bookshelf/statue, captura in-situ de círculos II–IX, FX de jefes, HUD definitivo. PR #31 borrador, sin merge.
+
+## Estado actual · 2026-11-15 (TR_W3)
+- **Integrados:** arcade, vending, crate_club, armchair_vip, bench_neon, neon_palm, sigil_poster, bollard_pair, chest_closed (navegador 271/271, QA PASS). Mobiliario de sala prácticamente completo.
+- **Rechazado 2ª vez:** prop_chandelier_gold (en mano provisional).
+- Pendiente: FX de fases de jefe, captura in-situ Círculos II–IX, HUD definitivo, cinemáticas (cine_*), merge PR #31.
+
+## Estado actual · 2026-11-15 (TR_W4)
+- **Integrados:** últimos 5 props de sala/HUB, chandelier v3 (v3 tras 2 rechazos), familia enemiga **Security** completa (walk/windup/attack/death) — integridad navegador 271/271.
+- **Los 271 assets del registry están regenerados o conservados legacy**; solo quedan por iterar en calidad/estilo si se decide (p.ej. unificar paleta Seguridad) y los bloques enormes: jefes, cinemáticas, HUD.
+- Sigue pendiente: captura in-situ de Círculos II–IX, FX de fases de jefe, decisión de merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W5)
+- **Integrados (navegador 271/271):** familias Dancer y Fanatic completas; chef walk/windup. Pendiente terminar Chef (attack/death), y Drone y Elite.
+- QA PASS completo tras cada tanda. Regla de oro intacta: oscuros sobre verde #00ff00.
+- Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W6)
+- **Integrados (navegador 271/271):** chef attack, familia Drone completa, Elite walk/attack/death.
+- **Pendiente v2:** enemy_chef_death (moderación) y enemy_elite_windup (fondo oscuro ignorando instrucción verde; exigir verde explícito).
+- Enemigos: 3 de 6 familias completas (Security, Dancer, Fanatic) + Drone completa; Chef y Elite casi completos.
+- Pendiente mayor: jefes 11×4 (+secreto), FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W7)
+- **Integrados (navegador 271/271):** jefe Andén (Limbo) y jefe Magneta (Lujuria) completos; chef_death y elite_windup v2 cerrados.
+- Familias enemigas COMPLETAS: security, dancer, fanatic, drone; chef y elite completos (3→4+4).
+- **Jefes restantes:** 02..10 (×4 estados) + boss_10_arquitecto (secreto, idle/attack) = 38 sprites pendientes.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W8)
+- **Integrados (navegador 271/271):** Bufe (Gula) idle/attack/death, Cajero (Avaricia) completa, Pogo (Ira) idle/attack. Pendiente boss_02_bufe_hit v2.
+- **Jefes integrados:** 00 Andén, 01 Magneta, 02 Bufe*, 03 Cajero, 04 Pogo* (*completa salvo bufe_hit). Quedan 05 Oficiante, 06 Matarife, 07 Imitador, 08 Traidor, 09 Núcleo, 10 Arquitecto (secreto).
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W9)
+- **Integrados (navegador 271/271):** Bufe hit v2, Pogo hit, Oficiante completa, Matarife idle/attack/hit. **Rechazado: pogo_death (pixel-art; provisional conservado, v2 pendiente).**
+- **Jefes integrados (10 frames nuevos):** 00 Andén ✓(4) 01 Magneta ✓(4) 02 Bufe ✓(4) 03 Cajero ✓(4) 04 Pogo (3/4; falta death) 05 Oficiante ✓(4) 06 Matarife (3/4; falta death).
+- Restan: 07 Imitador (Fraude) ×4, 08 Traidor (Traición) ×4, 09 Núcleo (Núcleo) ×4, 10 Arquitecto (secreto) ×2 = 14 sprites + pogo/matarife death v2.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W10)
+- **Integrados (navegador 271/271):** pogo_death v2 painterly, Imitador COMPLETO, Traidor idle/attack/hit. **Matarife death v2 pendiente (moderación).**
+- **Jefes integrados:** 00✓ 01✓ 02✓ 03✓ 04✓(4) 05✓ 06 Matarife (3/4) 07✓(4) 08 Traidor (3/4). **Restan:** 08_traidor_death, 09 Núcleo ×4, 10 Arquitecto (secreto) ×2, matarife_death v2 = 8 sprites.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W11)
+- **Integrados (navegador 271/271):** Traidor death, Núcleo Final COMPLETO, Arquitecto idle/attack (attack aceptado en versión oscura; v2 = mimo blanco pendiente).
+- **TODAS las familias de jefes integradas excepto** `boss_06_matarife_death` (3 intentos rechazados/bloqueados; provisional conservado).
+- Jefes 00 Andén ✓, 01 Magneta ✓, 02 Bufe ✓, 03 Cajero ✓, 04 Pogo ✓, 05 Oficiante ✓, 06 Matarife (falta death), 07 Imitador ✓, 08 Traidor ✓, 09 Núcleo ✓, 10 Arquitecto ✓.
+- Pendiente mayor: FX jefes, cinemáticas (~40 capas), HUD definitivo, captura in-situ II–IX, verificación de nombres de jefe contra datos canónicos del juego, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W12)
+- **Jefes COMPLETOS e integrados (navegador 271/271):** Andén ✓, Magneta ✓, Bufe ✓, Cajero ✓, Pogo ✓, Oficiante ✓, Matarife ✓, Imitador ✓, Traidor ✓, Núcleo ✓, Arquitecto ✓.
+- Verificación de nombres canónicos hecha contra `src/dd_ui_system.js` (IDs en assets matchean; epítetos no usados en ficheros).
+- Restante según matriz (~163 filas): VFX (~20), cine Circles (~20), jugador/héroe (~25), armas (~32), proyectiles (~20), reliquias (~16), pickups (~8), cine capas (~20), UI fin/tienda. Weapons/proyectiles son pixel-art 320x160 coherentes con el resto del juego — conversión masiva NO recomendada sin decisión del usuario.
+- Pendiente mayor: FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador, NO tocar sin visto bueno).
+
+## Estado actual · 2026-11-15 (auditoría pendientes)
+- Auditoría: NO regenerar en masa; pendiente = lista de verificación in-situ. 9 filas matriz → «Verificado OK visual».
+- Jerarquía de calidad: key art cine/backdrop = final; pixel art HUD/VFX/armas = coherente final; jefes/enemigos TR = integrado.
+- Pendiente mayor sin cambios: FX jefes, captura in-situ II–IX (y sala I del descenso), merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (verificación in-situ Limbo)
+- In-situ CONFIRMADO con arte TR: HUB, descenso, CÍRCULO I (Vestíbulo de Turnos), banner de jefe «DJ DOOM — CAZADOR» con sprite boss_00 regenerado. 0 errores JS.
+- Capturas guardadas en ART_EVIDENCE/TOTAL_REBUILD/{05_descent_pad,07_lujuria_arena,08_lujuria_boss}.png.
+- CÍRCULOS II–IX in-situ NO confirmados aún (partida dirigida larga); no forzar en headless.
+- Matriz: 9 filas «Verificado OK visual 2026-11-15»; jefes TODOS integrados (clase B); PR #31 sigue BORRADOR (merge pendiente de visto bueno).
+
+## Estado actual · 2026-11-15 (TR_W13)
+- HUB reorientado: 5 assets planos frontales → 3/4 elevado (candelabro, pedestal, librería, botelleros, neón zorro). Captura `09_hub_w13.png`; QA 271/271; commits empujados a PR #31 (borrador).
+- Sigue pendiente/decisión usuario: CÍRCULOS II–IX in-situ; `cine_bg01_city` inset; merge PR #31.
+
+## Estado actual · 2026-11-15 (in-situ completo)
+- Los 9 círculos + HUB verificados en navegador con arte TR; 0 errores JS. Límite actual: balance/combate no jugado exhaustivamente.
+- Capturas: ART_EVIDENCE/TOTAL_REBUILD/{07,08,10_*,11_*,12_*}_*.png — todos los ambientes (Limbo, Gula, Avaricia, Ira, Herejía, Violencia, Fraude, Traición, Núcleo) + Jefe LIMBO (DJ DOOM) en banner + enemigos visibles (Traición).
+- Pendiente: merge PR #31 (borrador) bajo visto bueno del responsable; opcional: FX jefes, HUD definitivo, limpieza de matriz (verificar «Pendiente» ↔ estado real).
+
+## Estado actual · 2026-11-15 (TR_W14)
+- Refugio ampliado (~1.3x ancho / ~1.25x alto) y decoración recompactada por zonas; salida sustituida por GRIETA DEL REFUGIO (ojo de pozo) con descenso verificado en navegador (0 errores, 272/272).
+- Registry: 272 entradas (30 legacy); PR #31 con todos los círculos + jefe LIMBO verificados in-situ.
+- Pendiente: merge PR #31 (visto bueno del responsable); opcional FX jefes/HUD definitivo; `cine_bg01_city` inset.
+
+## Estado actual · 2026-11-15 (TR_W15 · REDISEÑO del Refugio)
+- **Rediseño arquitectónico completo del Refugio** (encargo usuario 2026-11-15; tras auditoría `docs/REFUGIO/AUDIT_2026-11-15.md`). Sectores E/C/A/D/B/F con arquitectura pintada en cache (alfombra, círculo rúnico, scorch, runner, pools de luz). Identidad visual intacta; 0 sistemas nuevos inventados.
+- Registry **275/275** (3 assets nuevos: `prop_weapon_rack`, `prop_astral_table`, `prop_tesla_orb`); IDs de estaciones conservados (`descent`/`armory`/`dj`/`map`); spawn (910,700) intacto; cámara reclampada (bounds sin cambios); hook QA `__DD_HUB_DEBUG_ZOOM`.
+- Verificado in-situ en navegador: integridad **275/275**, 0 pageErrors; flujo grieta → cinemática → Limbo OK; capturas `15..22_*_w15.png`.
+- Pendiente: merge PR #31 (borrador, bajo visto bueno del responsable); la performance headless SwiftShader es lenta (~8 fps) — en Chrome/GPU real no aplica; opcional: versión cenital «verdadera» de VR/AR no procede.
+
+## Estado actual · 2026-11-15 (TR_W15b · refugio entre runs + escala)
+- **«Sensación de refugio entre runs»** (encargo usuario): cama musical de club al entrar (stop al descender), bartender y armero con diálogo propio (TEMPO narra), TEMPO aleatorio al entrar, ambiente vivo (parpadeo de velas, 26 brasas sobre la grieta, 34 motas en charcos de luz).
+- **Pase de escala de assets** (feedback «fallos de distribución de tamaños»): drawProp acepta `dw`; los 37 props del Refugio tienen escala deliberada (profe ~112 px de referencia); flower sobre la mesa, rack/palma dentro de la sala.
+- Capturas `ART_EVIDENCE/TOTAL_REBUILD/23..28_*_w15b.png`; QA integrity **275/275**, 0 pageErrors; estaciones nuevas `bar` y `armorer` verificadas in-situ (near/prompt/diálogo).
+- Pendientes documentados (ver docs/REFUGIO/REFUGIO_REDISENO_2026-11-15.md §TR_W15b): un solo retrato (TEMPO narra a bartender/armero), backbar denso contra el muro N, mezzanine parcialmente bajo el HUD, charcos estáticos, rendimiento SwiftShader ~8 fps en headless. Merge PR #31 sigue pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W16 · cierre «fallos conocidos» del refugio)
+- **Retratos propios**: `dialogue_portrait_bartender` y `dialogue_portrait_armorer` (tanda TR_T02, inventory 349) — registry **277/277**; `showDialogue` acepta `portraitId`; hablan «EL BARTENDER»/«LA ARMERA» en primera persona.
+- **Backbar**: estanterías dw 150 y separadas (268/459/650); **charcos de luz vivos** (respiración ±18 % por sector, fuera de la caché); **mezzanine** bajado a y=206 y recortado a h=118 (solape residual con el HUD solo con jugador pegado al muro N; documentado).
+- Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `29..31_*_w16.png`.
+- Persisten: grieta no es pozo 3D (documentado), SwiftShader headless ~8 fps (no aplica a Chrome real), mezzanine residual bajo HUD (inherente al layout actual). Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W17 · distribución anclada a muros)
+- Redistribución completa del Refugio anclada a muros/ejes (barra en muro N con backbar fuera de la banda de portales, armería en columna W, escenario alineado, salón simétrico, ocio en fila SE); pasillo SO→grieta despejado (el harness ya no se atasca).
+- Verificado: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png`; informe §10 en REFUGIO_REDISENO_2026-11-15.md.
+- Merge PR #31 pendiente de visto bueno del usuario.
+
+## Estado actual · 2026-11-15 (TR_W18 · escala protagonista + limpieza)
+- Protagonista del Refugio **134 px** (antes 112); NPCs al alza (DJ 132 / bar 116 / armera 118); collision intacta.
+- Retirados bollardos del ala Tesla, 2 plantas sueltas, la palma solitaria del sur y el candelabro extra del salón; motas 34→24.
+- QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno del usuario.
+
+## Estado actual · 2026-11-15 (TR_W19 · poda de props)
+- Refugio podado de 37 → **26** props (backbar 3→2, palmeras del escenario fuera, arcade gemelo fuera, planta salón fuera, caja redundante fuera). Conservados: Mesa Astral/eje, barra, escenario, armería, salón, arcade+vending, Tesla, fox, portales.
+- QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-15 (TR_W20 · portales fuera, barra integrada, una sola máquina)
+- **Banda de 9 portales eliminada** (`paintMezzanine` y catálogo retirados; el muro norte ya luce solo sus nichos Góticos).
+- **Barra integrada**: backbar continuo en la misma línea (estantería–estantería–nevera a y=330), mostrador pegado (y=362), taburetes alineados; el cooler deja de flotar en medio de la sala.
+- **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
+- QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno.
