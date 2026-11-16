@@ -97,3 +97,7 @@ Aprobados e integrados (integridad navegador **271/271 pass**): `boss_08_traidor
 Aprobados e integrados (integridad navegador **271/271 pass**): `boss_06_matarife_death` **v4** — el MISMO carnicero encapirotado con cadenas y dos cuchillos, arrodillado y con la cabeza gacha (v1/v2 bloqueadas por moderación, v3 salió pixel-art); dorado-y-crema en la línea final, pór nada pintada. `boss_10_arquitecto_attack` **v2** — el MISMO agrimensor blanco de la fase idle, cañones de tiza y T-cuadrado dorado, dibujando la línea de luz sobre el suelo (reemplaza la «versión oscura» violeta aceptada en W11 con nota honesta; v2 exigía mismo personaje).
 - **HITO: TODAS las familias de jefe completas e integradas (00–10, 44 sprites clase B regenerados en W7–W12).**
 - Pendiente post-jefes: FX de fase de jefe, cine Circles II–IX, sprites del jugador/héroe, armas/proyectiles/reliquias/pickups, HUD definitivo, captura in-situ, merge PR #31 (borrador).
+
+## Auditoría de pendientes TR (2026-11-15)
+Muestreo visual de ~12 assets marcados «Pendiente» → todos en calidad final (cine Circles/backdrop/HUD/VFX/armas coherentes). **No proceder a regeneración en masa**; in-situ selectivo. Detalle: `docs/TOTAL_ART_REBUILD/02_PENDING_AUDIT_2026-11-15.md`. Matriz: 9 filas actualizadas a «Verificado OK visual 2026-11-15».
+- `qa_descent` re-ejecutado (2026-11-15): sin errores; captura de sala I no confirmada (06_first_room.png salió igual que 05).

@@ -248,12 +248,12 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `weapon_c012_de_hielo` | `weapon_c012_de_hielo` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `weapon_c013_escopeta` | `weapon_c013_escopeta` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `weapon_c015_escopeta_automatica` | `weapon_c015_escopeta_automatica` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `weapon_m1911` | `weapon_m1911` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `weapon_m1911` | `weapon_m1911` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `weapon_magnum` | `weapon_magnum` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `weapon_olympia` | `weapon_olympia` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `weapon_plasma` | `weapon_plasma` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `weapon_ricochet` | `weapon_ricochet` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `weapon_uzi` | `weapon_uzi` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `weapon_uzi` | `weapon_uzi` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 
 ### Apéndice effects (22)
 
@@ -279,7 +279,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `vfx_muzzle_gold` | `vfx_muzzle_gold` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `vfx_muzzle_plasma` | `vfx_muzzle_plasma` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `vfx_shockwave_magenta` | `vfx_shockwave_magenta` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `vfx_smoke_cloud` | `vfx_smoke_cloud` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `vfx_smoke_cloud` | `vfx_smoke_cloud` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `vfx_soul_flame` | `vfx_soul_flame` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 
 ### Apéndice pickups (20)
@@ -314,14 +314,14 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `dialogue_portrait_dj` | `dialogue_portrait_dj` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_credit_coin` | `hud_credit_coin` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_heart_empty` | `hud_heart_empty` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `hud_heart_full` | `hud_heart_full` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `hud_heart_full` | `hud_heart_full` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `hud_portrait_protagonist` | `hud_portrait_protagonist` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_shield_badge` | `hud_shield_badge` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_skill_bomb` | `hud_skill_bomb` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_skill_boost` | `hud_skill_boost` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `hud_skill_dodge` | `hud_skill_dodge` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `map_infernal_tower` | `map_infernal_tower` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `menu_main_backdrop` | `menu_main_backdrop` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `menu_main_backdrop` | `menu_main_backdrop` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `menu_main_backdrop_a` | `menu_main_backdrop_a` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `ui_defeat_emblem` | `ui_defeat_emblem` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `ui_shop_emblem` | `ui_shop_emblem` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -345,7 +345,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 
 | Recurso actual (ID registrado) | Nuevo recurso propuesto | Sistema afectado | Estado |
 |---|---|---|---|
-| `cine_bg01_city` | `cine_bg01_city` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `cine_bg01_city` | `cine_bg01_city` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `cine_bg01_city_01_sky_moon_atmosphere` | `cine_bg01_city_01_sky_moon_atmosphere` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg01_city_02_gothic_skyline_architecture` | `cine_bg01_city_02_gothic_skyline_architecture` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg01_city_03_foreground_industrial_pipes` | `cine_bg01_city_03_foreground_industrial_pipes` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -357,7 +357,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `cine_bg03_entrance_01_vaulted_hallway_depth` | `cine_bg03_entrance_01_vaulted_hallway_depth` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg03_entrance_02_midground_columns_banners` | `cine_bg03_entrance_02_midground_columns_banners` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg03_entrance_03_foreground_pillars_occlusion` | `cine_bg03_entrance_03_foreground_pillars_occlusion` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `cine_bg04_main_hall` | `cine_bg04_main_hall` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `cine_bg04_main_hall` | `cine_bg04_main_hall` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `cine_bg04_main_hall_01_cathedral_nave_vaults` | `cine_bg04_main_hall_01_cathedral_nave_vaults` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg04_main_hall_02_laser_beams_equalizer` | `cine_bg04_main_hall_02_laser_beams_equalizer` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg04_main_hall_03_chandeliers_stage_framing` | `cine_bg04_main_hall_03_chandeliers_stage_framing` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -370,7 +370,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `cine_bg06_hero_02_hero_rimlight_spotlight` | `cine_bg06_hero_02_hero_rimlight_spotlight` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_bg06_hero_03_flanking_speakers_framing` | `cine_bg06_hero_03_flanking_speakers_framing` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_circle_00_hub` | `cine_circle_00_hub` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `cine_circle_01_lujuria` | `cine_circle_01_lujuria` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `cine_circle_01_lujuria` | `cine_circle_01_lujuria` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 | `cine_circle_02_gula` | `cine_circle_02_gula` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_circle_03_avaricia` | `cine_circle_03_avaricia` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_circle_04_ira` | `cine_circle_04_ira` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
@@ -379,7 +379,7 @@ Regla: misma tabla para todos; `ID regenerado` = clase B (mismo ID y ruta; PNG n
 | `cine_circle_07_fraude` | `cine_circle_07_fraude` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_circle_08_traicion` | `cine_circle_08_traicion` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
 | `cine_circle_09_nucleo` | `cine_circle_09_nucleo` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
-| `cine_intro_club_panorama` | `cine_intro_club_panorama` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Pendiente |
+| `cine_intro_club_panorama` | `cine_intro_club_panorama` regenerado (clase B, mismo ID/origen) | registry → DD_WORLD/DD_UI | Verificado OK visual · 2026-11-15 (sin conversión TR) |
 
 ### Apéndice C — recursos NUEVOS a producir (clase C, sin ID previo)
 

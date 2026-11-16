@@ -268,3 +268,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Verificación de nombres canónicos hecha contra `src/dd_ui_system.js` (IDs en assets matchean; epítetos no usados en ficheros).
 - Restante según matriz (~163 filas): VFX (~20), cine Circles (~20), jugador/héroe (~25), armas (~32), proyectiles (~20), reliquias (~16), pickups (~8), cine capas (~20), UI fin/tienda. Weapons/proyectiles son pixel-art 320x160 coherentes con el resto del juego — conversión masiva NO recomendada sin decisión del usuario.
 - Pendiente mayor: FX jefes, cinemáticas, HUD, captura in-situ II–IX, merge PR #31 (borrador, NO tocar sin visto bueno).
+
+## Estado actual · 2026-11-15 (auditoría pendientes)
+- Auditoría: NO regenerar en masa; pendiente = lista de verificación in-situ. 9 filas matriz → «Verificado OK visual».
+- Jerarquía de calidad: key art cine/backdrop = final; pixel art HUD/VFX/armas = coherente final; jefes/enemigos TR = integrado.
+- Pendiente mayor sin cambios: FX jefes, captura in-situ II–IX (y sala I del descenso), merge PR #31 (borrador).
