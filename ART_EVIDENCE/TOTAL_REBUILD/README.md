@@ -101,3 +101,11 @@ Aprobados e integrados (integridad navegador **271/271 pass**): `boss_06_matarif
 ## Auditoría de pendientes TR (2026-11-15)
 Muestreo visual de ~12 assets marcados «Pendiente» → todos en calidad final (cine Circles/backdrop/HUD/VFX/armas coherentes). **No proceder a regeneración en masa**; in-situ selectivo. Detalle: `docs/TOTAL_ART_REBUILD/02_PENDING_AUDIT_2026-11-15.md`. Matriz: 9 filas actualizadas a «Verificado OK visual 2026-11-15».
 - `qa_descent` re-ejecutado (2026-11-15): sin errores; captura de sala I no confirmada (06_first_room.png salió igual que 05).
+
+## Verificación in-situ (HUB → descenso → arena del Jefe, 2026-11-15)
+Captura dirigida headless (Playwright) del flujo completo con arte TR:
+- `05_descent_pad.png` — HUB con HUD completo, neón zorro, TemPO: sin errores.
+- `07_lujuria_arena.png` — tras pulsar [E] sobre el pad de descenso (corrección clave: el jugador debía estar en nearStation='descent', y=691, no y=686 como obtenía el harness antiguo): **VESTÍBULO DE TURNOS · CÍRCULO I · LIMBO** — mármol blanco agrietado, alfombra carmesí, arcos góticos, montacargas de entrada; protagonista renderizado con rig completo; HUD intacto.
+- `08_lujuria_boss.png` — `DMO.playtest.boss()` + god-mode: banner **«AMENAZA RESIDENTE · DJ DOOM — CAZADOR»** sobre la arena; **sprite del jefe regenerado (boss_00 Andén · farol) se dibuja en juego** con su barra de vida y el diálogo del tutorial («mientras vivan sus esbirros, el jefe se blinda»); escena atenuada de fondo. pageErrors 0.
+- *(Nota honesta)* `06_first_room.png` sigue saliendo idéntica a 07/05 por un problema del antiguo harness de salto de cinemática; 07 incorpora la corrección. La captura **in-situ de Círculos II–IX sigue pendiente**: requiere partida dirigida (gas tras 12 salas por piso × 9 pisos) o instrumentación adicional del Director; no se fuerza en headless.
+- `qa_descent` ejecutado 2026-11-15: 0 errores; sala I capturada en 07_lujuria_arena.png.

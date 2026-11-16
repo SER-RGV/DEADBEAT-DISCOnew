@@ -273,3 +273,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Auditoría: NO regenerar en masa; pendiente = lista de verificación in-situ. 9 filas matriz → «Verificado OK visual».
 - Jerarquía de calidad: key art cine/backdrop = final; pixel art HUD/VFX/armas = coherente final; jefes/enemigos TR = integrado.
 - Pendiente mayor sin cambios: FX jefes, captura in-situ II–IX (y sala I del descenso), merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (verificación in-situ Limbo)
+- In-situ CONFIRMADO con arte TR: HUB, descenso, CÍRCULO I (Vestíbulo de Turnos), banner de jefe «DJ DOOM — CAZADOR» con sprite boss_00 regenerado. 0 errores JS.
+- Capturas guardadas en ART_EVIDENCE/TOTAL_REBUILD/{05_descent_pad,07_lujuria_arena,08_lujuria_boss}.png.
+- CÍRCULOS II–IX in-situ NO confirmados aún (partida dirigida larga); no forzar en headless.
+- Matriz: 9 filas «Verificado OK visual 2026-11-15»; jefes TODOS integrados (clase B); PR #31 sigue BORRADOR (merge pendiente de visto bueno).
