@@ -245,3 +245,9 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Integrados (navegador 271/271):** Bufe (Gula) idle/attack/death, Cajero (Avaricia) completa, Pogo (Ira) idle/attack. Pendiente boss_02_bufe_hit v2.
 - **Jefes integrados:** 00 Andén, 01 Magneta, 02 Bufe*, 03 Cajero, 04 Pogo* (*completa salvo bufe_hit). Quedan 05 Oficiante, 06 Matarife, 07 Imitador, 08 Traidor, 09 Núcleo, 10 Arquitecto (secreto).
 - Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).
+
+## Estado actual · 2026-11-15 (TR_W9)
+- **Integrados (navegador 271/271):** Bufe hit v2, Pogo hit, Oficiante completa, Matarife idle/attack/hit. **Rechazado: pogo_death (pixel-art; provisional conservado, v2 pendiente).**
+- **Jefes integrados (10 frames nuevos):** 00 Andén ✓(4) 01 Magneta ✓(4) 02 Bufe ✓(4) 03 Cajero ✓(4) 04 Pogo (3/4; falta death) 05 Oficiante ✓(4) 06 Matarife (3/4; falta death).
+- Restan: 07 Imitador (Fraude) ×4, 08 Traidor (Traición) ×4, 09 Núcleo (Núcleo) ×4, 10 Arquitecto (secreto) ×2 = 14 sprites + pogo/matarife death v2.
+- Pendiente mayor: FX jefes, cinemáticas, HUD definitivo, captura in-situ II–IX, merge PR #31 (borrador).

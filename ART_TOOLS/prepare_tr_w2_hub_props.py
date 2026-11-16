@@ -86,9 +86,19 @@ JOBS = [
     ("boss_03_cajero_death",  "assets/bosses/boss_03_cajero_death.png",  (416, 352), "bottom-center"),
     ("boss_04_pogo_idle",     "assets/bosses/boss_04_pogo_idle.png",     (448, 544), "bottom-center"),
     ("boss_04_pogo_attack",   "assets/bosses/boss_04_pogo_attack.png",   (576, 544), "bottom-center"),
+    # TR_W9 (+ pogo/bufe v2 regeneradas en tr_w8)
+    ("boss_04_pogo_hit",   "assets/bosses/boss_04_pogo_hit.png",   (384, 448), "bottom-center"),
+    ("boss_04_pogo_death", "assets/bosses/boss_04_pogo_death.png", (416, 352), "bottom-center"),
+    ("boss_05_oficiante_idle",   "assets/bosses/boss_05_oficiante_idle.png",   (352, 560), "bottom-center"),
+    ("boss_05_oficiante_attack", "assets/bosses/boss_05_oficiante_attack.png", (416, 448), "bottom-center"),
+    ("boss_05_oficiante_hit",    "assets/bosses/boss_05_oficiante_hit.png",    (384, 448), "bottom-center"),
+    ("boss_05_oficiante_death",  "assets/bosses/boss_05_oficiante_death.png",  (416, 352), "bottom-center"),
+    ("boss_06_matarife_idle",    "assets/bosses/boss_06_matarife_idle.png",    (496, 544), "bottom-center"),
+    ("boss_06_matarife_attack",  "assets/bosses/boss_06_matarife_attack.png",  (416, 448), "bottom-center"),
+    ("boss_06_matarife_hit",     "assets/bosses/boss_06_matarife_hit.png",     (384, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -112,7 +122,10 @@ POST_DESPILL = {
     "boss_01_magneta_idle", "boss_01_magneta_attack", "boss_01_magneta_hit", "boss_01_magneta_death",
     "boss_02_bufe_idle", "boss_02_bufe_attack", "boss_02_bufe_hit", "boss_02_bufe_death",
     "boss_03_cajero_idle", "boss_03_cajero_attack", "boss_03_cajero_hit", "boss_03_cajero_death",
-    "boss_04_pogo_idle", "boss_04_pogo_attack",
+    "boss_04_pogo_idle", "boss_04_pogo_attack", "boss_04_pogo_hit", "boss_04_pogo_death",
+    "boss_02_bufe_hit",
+    "boss_05_oficiante_idle", "boss_05_oficiante_attack", "boss_05_oficiante_hit", "boss_05_oficiante_death",
+    "boss_06_matarife_idle", "boss_06_matarife_attack", "boss_06_matarife_hit",
 }
 REFIT_BOTTOM = {"prop_bookshelf_hub": (320, 384), "prop_gothic_statue": (224, 384), "prop_bollard_pair": (224, 288)}
 
