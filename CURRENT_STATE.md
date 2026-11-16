@@ -322,3 +322,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Retirados bollardos del ala Tesla, 2 plantas sueltas, la palma solitaria del sur y el candelabro extra del salón; motas 34→24.
 - QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno del usuario.
+
+## Estado actual · 2026-11-15 (TR_W19 · poda de props)
+- Refugio podado de 37 → **26** props (backbar 3→2, palmeras del escenario fuera, arcade gemelo fuera, planta salón fuera, caja redundante fuera). Conservados: Mesa Astral/eje, barra, escenario, armería, salón, arcade+vending, Tesla, fox, portales.
+- QA: integrity **277/277**, 0 pageErrors; capturas `32..35_*_w17.png` regeneradas.
+- Merge PR #31 pendiente de visto bueno.

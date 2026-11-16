@@ -275,3 +275,19 @@ Feedback del usuario: «el personaje debería ser un poco más grande para estar
 - Motas de polvo 34→24 en los charcos de luz.
 
 Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; paseos intactos (grieta alcanzable); capturas `32..35_*_w17.png` regeneradas con este build.
+
+---
+
+## 12. TR_W19 · limpieza agresiva de props (2026-11-15)
+
+Feedback del usuario: «sigue lleno de props/assets inútiles». Segunda tanda de poda sobre HUB_PROPS (37 → **26** props; toda pieza que no aporta función o lectura de zona, fuera):
+
+- **Backbar**: 3 estanterías → 2 (las dos primeras; la tercera duplicaba lectura).
+- **Escenario DJ**: fuera las 2 neon-palms que enmarcaban (el escenario ya se lee con cabina + altavoz + subwoofer).
+- **Salón**: fuera la planta de la esquina oeste.
+- **Ocio**: un solo arcade (los dos eran idénticos) + vending; arcade recolocado a x=1352.
+- **Armería**: fuera la caja de munición redundante (queda el cofre).
+
+Conservado deliberadamente (función o identidad): Mesa Astral y su eje con candelabros, barra completa, escenario DJ, armería, salón (sofás/butacas/banco/flor), arcade+vending, Tesla (orbe+pedestal), fox de neón, portales del mezzanine.
+
+Verificado: integrity **277/277**, 0 pageErrors, 0 console errors; paseos intactos; capturas `32..35_*_w17.png` regeneradas.
