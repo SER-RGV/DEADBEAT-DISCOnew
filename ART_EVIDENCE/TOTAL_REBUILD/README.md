@@ -109,3 +109,13 @@ Captura dirigida headless (Playwright) del flujo completo con arte TR:
 - `08_lujuria_boss.png` — `DMO.playtest.boss()` + god-mode: banner **«AMENAZA RESIDENTE · DJ DOOM — CAZADOR»** sobre la arena; **sprite del jefe regenerado (boss_00 Andén · farol) se dibuja en juego** con su barra de vida y el diálogo del tutorial («mientras vivan sus esbirros, el jefe se blinda»); escena atenuada de fondo. pageErrors 0.
 - *(Nota honesta)* `06_first_room.png` sigue saliendo idéntica a 07/05 por un problema del antiguo harness de salto de cinemática; 07 incorpora la corrección. La captura **in-situ de Círculos II–IX sigue pendiente**: requiere partida dirigida (gas tras 12 salas por piso × 9 pisos) o instrumentación adicional del Director; no se fuerza en headless.
 - `qa_descent` ejecutado 2026-11-15: 0 errores; sala I capturada en 07_lujuria_arena.png.
+
+## Pasada TR_W13 (2026-11-15, reorientación HUB a cámara 3/4)
+Solicitud del usuario: «orientar hacia la cámara todos los objetos y assets con orientación fija» (alcance acotado a HUB, planos frontales → 3/4 elevado).
+Regenerados en vista 3/4 elevada ~40° (mismo ID/ruta, clase B), registro actualizado, integridad navegador **271/271 pass**, captura in-situ `09_hub_w13.png`:
+- `prop_candelabra_floor` v3 (tras v2 cenital extrema tipo «alfombra», rechazada de registro al quedar sobrescrita pero documentada; v3 = 40° con columna en perspectiva)
+- `prop_arcane_pedestal` v3 (v2 trajo DOS pedestales pegados por un camino de runas; v3 = UN pilar, corona de púas + orbe zumbido + garras con runas cian)
+- `prop_bookshelf_hub` (vista cenital 40°, mismo armario de 6 compartimentos)
+- `prop_bar_bottles` (vista cenital 40°)
+- `prop_hub_fox_neon` (cartel 3/4 con soporte + pies, gruesa carcasa — de cartel plano pasa a trofeo de neón; documentado)
+- El cartel «SIN INCURSIÓN» es DOM/CSS (no asset): nada que reorientar; candelabros y neón SÍ eran planos frontales.

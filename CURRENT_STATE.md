@@ -279,3 +279,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Capturas guardadas en ART_EVIDENCE/TOTAL_REBUILD/{05_descent_pad,07_lujuria_arena,08_lujuria_boss}.png.
 - CÍRCULOS II–IX in-situ NO confirmados aún (partida dirigida larga); no forzar en headless.
 - Matriz: 9 filas «Verificado OK visual 2026-11-15»; jefes TODOS integrados (clase B); PR #31 sigue BORRADOR (merge pendiente de visto bueno).
+
+## Estado actual · 2026-11-15 (TR_W13)
+- HUB reorientado: 5 assets planos frontales → 3/4 elevado (candelabro, pedestal, librería, botelleros, neón zorro). Captura `09_hub_w13.png`; QA 271/271; commits empujados a PR #31 (borrador).
+- Sigue pendiente/decisión usuario: CÍRCULOS II–IX in-situ; `cine_bg01_city` inset; merge PR #31.

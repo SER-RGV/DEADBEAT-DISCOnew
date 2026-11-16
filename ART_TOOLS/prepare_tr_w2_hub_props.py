@@ -106,6 +106,12 @@ JOBS = [
     ("boss_08_traidor_idle",    "assets/bosses/boss_08_traidor_idle.png",    (368, 576), "bottom-center"),
     ("boss_08_traidor_attack",  "assets/bosses/boss_08_traidor_attack.png",  (416, 448), "bottom-center"),
     ("boss_08_traidor_hit",     "assets/bosses/boss_08_traidor_hit.png",     (384, 448), "bottom-center"),
+    # TR_W13 (vista 3/4 elevada para objetos planos del HUB)
+    ("prop_candelabra_floor", "assets/props/prop_candelabra_floor.png", (192, 320), "bottom-center"),
+    ("prop_arcane_pedestal",  "assets/props/prop_arcane_pedestal.png",  (288, 352), "bottom-center"),
+    ("prop_bookshelf_hub",    "assets/props/prop_bookshelf_hub.png",    (320, 384), "bottom-center"),
+    ("prop_hub_fox_neon",     "assets/props/prop_hub_fox_neon.png",     (384, 512), "bottom-center"),
+    ("prop_bar_bottles",      "assets/props/prop_bar_bottles.png",      (256, 224), "bottom-center"),
     # TR_W11
     ("boss_08_traidor_death",   "assets/bosses/boss_08_traidor_death.png",   (416, 352), "bottom-center"),
     ("boss_09_nucleo_idle",     "assets/bosses/boss_09_nucleo_idle.png",     (352, 592), "bottom-center"),
@@ -116,7 +122,7 @@ JOBS = [
     ("boss_10_arquitecto_attack", "assets/bosses/boss_10_arquitecto_attack.png", (448, 448), "bottom-center"),
 ]
 def rawpath(a):
-    for d in ("/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
+    for d in ("/tmp/dd_raw/tr_w13", "/tmp/dd_raw/tr_w12", "/tmp/dd_raw/tr_w11", "/tmp/dd_raw/tr_w10", "/tmp/dd_raw/tr_w9", "/tmp/dd_raw/tr_w8", "/tmp/dd_raw/tr_w7", "/tmp/dd_raw/tr_w6", "/tmp/dd_raw/tr_w5", "/tmp/dd_raw/tr_w4", "/tmp/dd_raw/tr_w3", "/tmp/dd_raw/tr_w2"):
         if os.path.isfile(f"{d}/{a}.png"):
             return f"{d}/{a}.png"
     return f"{RAW}/{a}.png"
@@ -146,6 +152,7 @@ POST_DESPILL = {
     "boss_07_imitador_idle", "boss_07_imitador_attack", "boss_07_imitador_hit", "boss_07_imitador_death",
     "boss_08_traidor_idle", "boss_08_traidor_attack", "boss_08_traidor_hit", "boss_08_traidor_death",
     "boss_06_matarife_death",
+    "prop_candelabra_floor", "prop_arcane_pedestal", "prop_bookshelf_hub", "prop_hub_fox_neon", "prop_bar_bottles",
     "boss_09_nucleo_idle", "boss_09_nucleo_attack", "boss_09_nucleo_hit", "boss_09_nucleo_death",
     "boss_10_arquitecto_idle", "boss_10_arquitecto_attack",
     "boss_05_oficiante_idle", "boss_05_oficiante_attack", "boss_05_oficiante_hit", "boss_05_oficiante_death",
