@@ -156,7 +156,12 @@ function loadModule(sb, opts) {
   G.cancelAnimationFrame = sb.win.cancelAnimationFrame;
   G.performance = sb.win.performance;
   G.setTimeout = setTimeout;
-  const code = fs.readFileSync(path.join(ROOT, 'src', 'dd_opening.js'), 'utf8');
+  /* Se puede pedir OTRA versión del módulo (p. ej. el de V2.2 extraído de git a
+     un archivo temporal) sin tocar el árbol de trabajo. Lo usa el montaje
+     comparativo V2.2 vs V3.0: mismo banco, mismo registro de recursos, misma
+     máquina; lo único que cambia es la cinemática. */
+  const codePath = (opts && opts.openingPath) || path.join(ROOT, 'src', 'dd_opening.js');
+  const code = fs.readFileSync(codePath, 'utf8');
   /* globales para el script */
   G.DOMMatrix = DOMMatrix; G.Path2D = Path2D;
   /* El módulo hace document.createElement("canvas") y usa appendChild sobre body. */
@@ -270,7 +275,7 @@ if (require.main === module) {
       const m = a.match(/^--([^=]+)=(.*)$/); if (m) opt[m[1]] = m[2];
     });
     const plain = args.slice(1).filter((a) => !/^--/.test(a));
-    const sb = boot({ w: +(opt.w || 1280), h: +(opt.h || 720), dpr: +(opt.dpr || 1), withWorld: !!opt.world });
+    const sb = boot({ w: +(opt.w || 1280), h: +(opt.h || 720), dpr: +(opt.dpr || 1), withWorld: !!opt.world, openingPath: opt.opening || null });
     if (cmd === 'stills') {
       await start(sb, plain[0] === 'descent' ? 'descent' : 'intro', 0);
       const times = String(plain[1] || '1').split(',').map(Number);

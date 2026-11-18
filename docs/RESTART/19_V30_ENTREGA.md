@@ -148,7 +148,40 @@ En `docs/RESTART/evidencia_cine_v30/`:
 - `v3_final_stretch.jpg` — tramo final 56–70 s cada 0,5 s.
 - `v3_wipes.jpg` — los cuatro barridos de acto y el cierre.
 - `v3_s06b.jpg` — el plano 06 (cara, tatuajes, él quieto).
-- `handover_pair.jpg` — último fotograma cinemático vs. Refugio real.
+- `handover_pair.jpg` — último fotograma cinemático vs. Refugio real (V3.0
+  contra V3.0: es la continuidad de la entrega, no la comparación de versiones).
+- `comparativa_v22_v30.jpg` — **entregable 10**: V2.2 frente a V3.0, ocho
+  momentos del relato en dos columnas. Las dos versiones se renderizan en el
+  mismo banco, con el mismo registro de recursos y la misma máquina; lo único
+  que cambia es el módulo de la cinemática (V2.2 = `2739f59`, extraído a un
+  archivo temporal para no tocar el árbol). V2.2 carga 286 recursos y V3.0 290,
+  ninguno ausente. Generado con `work/tools/compare_v22_v30.js`.
 - `entrega_refugio_real.jpg` — la entrega en el navegador real, con HUD y Tempo.
 - `auditoria.json`, `informe_navegador.json`, `continuidad_entrega.json`,
   `movimiento_intro.json` — informes de las cuatro pruebas.
+
+## 11 · Los 12 entregables de la directiva, uno a uno
+
+Recuento verificado contra el repositorio, no de memoria. Se indica **dónde**
+está cada uno; los que no tienen archivo propio, con qué se cubren.
+
+| # | Entregable | Dónde | Estado |
+|---|---|---|---|
+| 1 | Guion V3.0 | `18_V30_STORYBOARD.md` §1 (cinco actos, 14 planos, CANON/PROPUESTA/LEGADO) | hecho |
+| 2 | Storyboard de los 14 planos | `18_V30_STORYBOARD.md` + `evidencia_cine_v30/v3_14shots.jpg` | hecho |
+| 3 | Hoja de contacto completa | `v3_14shots.jpg`, `v3_final_stretch.jpg` (56–70 s cada 0,5 s), `v3_wipes.jpg` | hecho |
+| 4 | Inventario de recursos reutilizados | `18_V30_STORYBOARD.md` §0.2 (14 láminas + 6 fotogramas del protagonista + escenario del motor) | hecho |
+| 5 | Inventario de recursos nuevos | `18_V30_STORYBOARD.md` §0.3: **ninguno**. No se generó arte nuevo; se usan láminas canónicas ya en disco | hecho |
+| 6 | Secuencia implementada | `src/dd_opening.js` (14 planos, 70 s) | hecho |
+| 7 | Música y efectos | `19_V30_ENTREGA.md` §6 (partitura de 70 s, 300 eventos sincronizados) | hecho |
+| 8 | Integración con el Refugio real | `19_V30_ENTREGA.md` §4 + `entrega_refugio_real.jpg`, `handover_pair.jpg` | hecho |
+| 9 | Informe de QA | `19_V30_ENTREGA.md` §8 + `auditoria.json`, `informe_navegador.json`, `movimiento_intro.json`; batería `69/69` | hecho |
+| 10 | Capturas comparativas V2.2 vs V3.0 | **`comparativa_v22_v30.jpg`** — ocho momentos, dos columnas, mismo banco y mismo registro de recursos | hecho (añadido en esta revisión) |
+| 11 | Documentación técnica | `18_V30_STORYBOARD.md`, este documento, `19_V30_REVERSION.md` | hecho |
+| 12 | Instrucciones de rollback | `19_V30_REVERSION.md` (rollback a `2739f59` verificado: 42 s / 8 planos) | hecho |
+
+**Corrección de una afirmación anterior.** El comentario del PR decía que los 12
+estaban cubiertos *antes* de comprobarlo. Al comprobarlo, el nº10 no lo estaba:
+`handover_pair.jpg` es V3.0 contra V3.0 (último fotograma frente al Refugio), no
+una comparación de versiones. Se ha generado `comparativa_v22_v30.jpg` para
+cubrirlo de verdad, con las dos versiones renderizadas en el mismo banco.
