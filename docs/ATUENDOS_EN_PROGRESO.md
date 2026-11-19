@@ -384,3 +384,21 @@ QA `test_v2m_outfits` y captura de combate PASS.
 **Lote 3 (cierre de correcciones):** Apocalypse roll+death completan la armadura de Guerra 6/6. **Tatuajes sobre ropa corregidos**: el sigilo del hombro y las mangas se dibujaban sobre camisa/chaqueta en idle y apuntar de original, rapture, gunslinger y kitchenriot → 8 sprites regenerados con la regla CRÍTICA «el sigilo del hombro va OCULTO bajo la manga; la tela va limpia de tinta; los tatuajes sólo en piel» (verificación por zoom en `.cache/review/tattoo_fixed.jpg`). Revisión de walk/hurt de los cinco atuendos restantes (`tattoo_rest.jpg`): limpios. QA `test_v2m_outfits` PASS; capturas de combate de apocalypse y rapture actualizadas.
 
 **Estado final de las correcciones del usuario:** Fight Club kickboxer ✓ (proporciones 1:7, descalzo, vendas), Apocalypse Darksiders ✓ (6/6), Shadow sin sombrero ✓ (6/6), tatuajes sin solaparse con la ropa ✓.
+
+### ✨ Pulido completo de los ocho aspectos (petición del usuario)
+
+Pasada de revisión lámina a lámina de los 48 sprites (`polish_0..3.jpg`) → 10 celdas con defecto regeneradas y verificadas (`polish_check.jpg`):
+
+| celda | defecto | arreglo |
+|---|---|---|
+| apocalypse/hurt | nube de ruido cian | silueta limpia |
+| apocalypse/roll | figura doble | una sola figura |
+| gunslinger/walk_a y hurt | tinta sobre la manga de la chaqueta | manga limpia |
+| kitchenriot/walk_a | tinta sobre la manga blanca | manga limpia |
+| kitchenriot/hurt | chaqueta oscura (inconsistente) | chaqueta blanca coherente |
+| original/hurt | chaqueta inflada como alas | caída natural |
+| original/walk_a | patrón sospechoso en hombro | limpio |
+| rapture/roll | sigilo dibujado sobre el chaleco | chaleco limpio |
+| rapture/death | patrones sobre el pantalón | pantalón limpio |
+
+Shadow, Fight Club y Street Art pasaron la revisión sin defectos. QA `test_v2m_outfits` y `test_outfit_preview` PASS tras el pulido.
