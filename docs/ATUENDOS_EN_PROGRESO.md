@@ -303,3 +303,9 @@ Pipeline: `prepare_v2m_outfit.py` (genérico; convenciones del contrato: idle/wa
 Producido: **original 6/6** (integrado y registrado en `outfits` — sprites propias en juego, sustituyen al fallback base) + **rapture 4/6** (faltan roll/death). QA `test_outfit_preview` y `test_outfit_portraits` PASS tras el registro. Capturas reales de combate: [walk](evidence/atuendos/combate-original-walk.png) y [aim](evidence/atuendos/combate-original-aim.png) con las sprites nuevas. Nueva utilidad `tools/qa/capture_v2m_combat.js`.
 
 Pendiente: rapture (roll/death), shadow 6, apocalypse 6, gunslinger 6, fightclub 6, kitchenriot 6, streetart 6 (38 maestros) → hoja comparativa → barrido QA completo.
+
+### Fase E — segundo lote (20/48 maestros)
+
+**Rapture 6/6** y **Shadow 6/6** completos e integrados (sprites propias en juego; `m_shadow_death` volvió con fondo de ciudad → fallback `city_matte` añadido al prepare genérico). **Apocalypse 1/6** (walk_a; el idle falló por límite de imágenes del turno → próximo lote). Capturas reales: `combate-shadow-walk/aim.png`, `combate-rapture-walk/aim.png`. QA catálogo PASS.
+
+Estado sprites: original 6/6, rapture 6/6, shadow 6/6, apocalypse 1/6, gunslinger/fightclub/kitchenriot/streetart con marcadores provisionales (38→28 maestros pendientes).

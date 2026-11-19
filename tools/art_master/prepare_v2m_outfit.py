@@ -53,7 +53,11 @@ def main(only=None):
             im.save(os.path.join(ROOT, 'assets', 'characters', 'outfits', 'concepts',
                                  f'v2m_{outfit}_{src_pose}.webp'), lossless=True, method=6)
             im = normalize_blue(im)
-            cut, _ = chroma_matte(im, key='blue', mode='hard')
+            try:
+                cut, _ = chroma_matte(im, key='blue', mode='hard')
+            except Exception:
+                from city_matte import city_matte
+                cut = city_matte(Image.open(src).convert('RGB'))
             spec = dict(FIT[dst_pose])
             size = spec.pop('size')
             frame, _meta = fit_canvas(cut, size=size, fit=spec)
