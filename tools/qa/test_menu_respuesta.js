@@ -9,6 +9,9 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const b = await chromium.launch({ executablePath: process.env.DD_CHROMIUM || undefined, headless: true, args: ["--no-sandbox", "--disable-gpu"] });
   const pg = await (await b.newContext({ viewport: { width: 1280, height: 720 } })).newPage(); const errs = []; pg.on("pageerror", (e) => errs.push(e.message));
   await pg.addInitScript(() => {
+    /* El flujo actual entra directamente al menú; sembrar una partida permite probar CONTINUAR. */
+    localStorage.clear();
+    localStorage.setItem("dd_save_v1", JSON.stringify({ v: 1, created: "2026-10-01T10:00:00.000Z", last: "x", visits: 2 }));
     const mk = () => ({ id: "Xbox (simulado)", index: 0, connected: true, mapping: "standard", timestamp: 0, axes: [0, 0, 0, 0], buttons: Array.from({ length: 17 }, () => ({ pressed: false, value: 0 })) });
     window.__pad = null;
     window.__padSet = (btn, on) => { if (!window.__pad) window.__pad = mk(); if (btn != null) window.__pad.buttons[btn] = { pressed: !!on, value: on ? 1 : 0 }; };
@@ -22,41 +25,25 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
     window.__outRms = () => { let m = 0; for (const t of window.__taps) { t.an.getFloatTimeDomainData(t.buf); let q = 0; for (let i = 0; i < t.buf.length; i++) q += t.buf[i] * t.buf[i]; m = Math.max(m, Math.sqrt(q / t.buf.length)); } return m; };
   });
   await pg.goto(URL + "/index.html", { waitUntil: "domcontentloaded" });
-  await pg.evaluate(() => { localStorage.clear(); localStorage.setItem("dd_save_v1", JSON.stringify({ v: 1, created: "2026-10-01T10:00:00.000Z", last: "x", visits: 2 })); });
-  await pg.reload({ waitUntil: "domcontentloaded" });
-  /* ---------- carga ---------- */
-  await pg.waitForFunction(() => window.DD_BOOT && (window.DD_BOOT.getState().waitingGesture || window.DD_BOOT.getState().state === "INTRO"), null, { timeout: 60000 });
-  const load = await pg.evaluate(() => {
-    const f = document.getElementById("dd-boot-frame"); if (!f) return null;
-    const vis = [...f.querySelectorAll("*")].filter((e) => e.children.length === 0 && e.textContent.trim() && e.offsetParent !== null && getComputedStyle(e).visibility !== "hidden").map((e) => e.textContent.trim());
-    const c = document.getElementById("ddc-cover");
-    return { vis, cover: c ? getComputedStyle(c).display : "sin nodo", bg: getComputedStyle(f.querySelector(".dd-boot-bg")).display, logo: !!document.getElementById("dd-boot-logo").naturalWidth, bar: document.getElementById("dd-boot-bar").getBoundingClientRect().width > 100 };
-  });
-  if (load) {
-    await pg.screenshot({ path: OUT + "/carga_limpia.jpg", type: "jpeg", quality: 88 });
-    check("[CARGA] en pantalla sólo quedan el logotipo, la barra y, si hace falta, el aviso de pulsar una tecla", load.logo && load.bar && load.vis.length <= 1 && load.vis.every((t) => /PULSA CUALQUIER TECLA/.test(t)), JSON.stringify(load.vis));
-    check("[CARGA] la portada antigua no se puede ver (oculta desde la hoja de estilos, no desde un script)", load.cover === "none" || load.cover === "sin nodo", load.cover);
-    check("[CARGA] sin imagen antigua de fondo", load.bg === "none");
-    await pg.keyboard.press("KeyX");
-  } else check("[CARGA] pantalla de carga observada", false, "la carga terminó antes de poder medirla");
-  await pg.waitForFunction(() => window.DD_BOOT.getState().state === "INTRO", null, { timeout: 30000 });
-  await pg.evaluate(() => window.DD_OPENING.debugSeek(31.7, false));
-  await pg.waitForFunction(() => window.DD_BOOT.getState().state === "MAIN_MENU");
+  /* ---------- arranque vigente: menú directo, sin portada antigua ni cinemática automática ---------- */
+  await pg.waitForFunction(() => window.DD_BOOT && window.DD_BOOT.getState().state === "MAIN_MENU", null, { timeout: 30000 });
+  check("[ARRANQUE] el menú aparece directamente y no inicia una cinemática sin elegir NUEVA PARTIDA", !(await pg.evaluate(() => DD_OPENING.isActive())) && !!(await pg.locator("#dd-menu-nav").count()));
+  await pg.screenshot({ path: OUT + "/menu_inicial.jpg", type: "jpeg", quality: 88 });
   const S = () => pg.evaluate(() => { const a = document.activeElement; return { st: window.DD_BOOT.getState().state, sub: window.DD_UI.getState().submenu, sel: (document.querySelector("#dd-menu-nav .dd-selected") || { dataset: {} }).dataset.action, focus: a ? (a.id || (a.dataset && a.dataset.action) || a.tagName) : null }; });
   const val = (id) => pg.evaluate((id) => { const e = document.getElementById(id); return e.type === "checkbox" ? String(e.checked) : (e.tagName === "BUTTON" ? e.textContent.trim() : e.value); }, id);
   const focus = (id) => pg.evaluate((id) => document.getElementById(id).focus(), id);
   const key = async (k, ms) => { await pg.keyboard.press(k); await sleep(ms || 110); };
   const openSub = async (a) => { await pg.waitForFunction(() => window.DD_BOOT.getState().state === "MAIN_MENU" && !window.DD_UI.getState().busy); await pg.evaluate((a) => document.querySelector('#dd-menu-nav [data-action="' + a + '"]').focus(), a); await sleep(60); await pg.keyboard.press("Enter"); await pg.waitForFunction((a) => window.DD_UI.getState().submenu === a, a, { timeout: 5000 }); await sleep(200); };
-  const pad = async (btn, ms) => { await pg.evaluate((b) => window.__padSet(b, true), btn); await sleep(ms || 130); await pg.evaluate((b) => window.__padSet(b, false), btn); await sleep(170); };
+  const pad = async (btn, ms) => { await pg.evaluate((b) => window.__padSet(b, true), btn); await sleep(ms || 200); await pg.evaluate((b) => window.__padSet(b, false), btn); await sleep(300); };
 
   /* ---------- menú principal ---------- */
   await sleep(100); await key("ArrowDown"); let s = await S();
-  check("[MENÚ] responde desde el primer instante (tecla a 0,1 s de aparecer)", s.sel === "continue", s.sel);
+  check("[MENÚ] responde desde el primer instante (tecla a 0,1 s de aparecer)", s.sel === "customize", s.sel);
   await sleep(700);
   const order = []; for (let i = 0; i < 5; i++) { await key("ArrowDown"); order.push((await S()).sel); }
-  check("[MENÚ] teclado: ↓ recorre las cinco opciones y da la vuelta", order.join(",") === "options,credits,exit,new,continue", order.join(","));
+  check("[MENÚ] teclado: ↓ recorre las opciones y da la vuelta", order.join(",") === "progression,options,extras,exit,play", order.join(","));
   await key("KeyW"); const w = (await S()).sel; await key("KeyS"); const sd = (await S()).sel; await key("End"); const en = (await S()).sel; await key("Home"); const ho = (await S()).sel;
-  check("[MENÚ] teclado: W, S, Inicio y Fin", w === "new" && sd === "continue" && en === "exit" && ho === "new", [w, sd, en, ho].join(","));
+  check("[MENÚ] teclado: W, S, Inicio y Fin", w === "exit" && sd === "play" && en === "exit" && ho === "play", [w, sd, en, ho].join(","));
   const boxes = await pg.evaluate(() => [...document.querySelectorAll("#dd-menu-nav .dd-menu-btn")].filter((x) => !x.hidden).map((x) => { const r = x.getBoundingClientRect(); return { a: x.dataset.action, x: r.x, y: r.y, w: r.width, h: r.height }; }));
   const hov = []; for (const bx of boxes) { await pg.mouse.move(bx.x + bx.w - 6, bx.y + bx.h - 5, { steps: 3 }); await sleep(90); hov.push((await S()).sel); }
   check("[MENÚ] ratón: pasar por encima selecciona cada opción, también en el borde del botón", hov.join(",") === boxes.map((x) => x.a).join(","), hov.join(","));
@@ -68,7 +55,8 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("[MENÚ] un clic en el fondo no quita el foco y TAB / MAYÚS+TAB recorren las opciones sin salirse", f1 === f0 && f2.focus === f2.sel && f2.sel !== f0 && f3.focus === f0, [f0, f1, f2.focus, f3.focus].join(" → "));
 
   /* ---------- OPCIONES: teclado ---------- */
-  const ob = boxes.find((x) => x.a === "options"); await pg.mouse.click(ob.x + ob.w / 2, ob.y + ob.h / 2); await pg.waitForSelector("#dd-opt-erase"); await sleep(350);
+  const ob = boxes.find((x) => x.a === "options"); await pg.mouse.click(ob.x + ob.w / 2, ob.y + ob.h / 2); await pg.waitForSelector("#dd-opt-erase");
+  await pg.waitForFunction(() => document.activeElement?.id === "menu-vol-master", null, { timeout: 2500 });
   s = await S(); check("[OPCIONES] se abre con un clic y el foco entra en el primer control", s.sub === "options" && s.focus === "menu-vol-master", s.focus);
   await pg.screenshot({ path: OUT + "/opciones_foco.jpg", type: "jpeg", quality: 88 });
   const seen = []; for (let i = 0; i < 12; i++) { await key("ArrowDown", 70); seen.push((await S()).focus); }
@@ -136,32 +124,39 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   check("[OPCIONES] mando (simulado): A marca la casilla", kf1 !== kf0, kf0 + " → " + kf1);
   await sleep(300); await pad(1, 200); await sleep(350); s = await S();
   check("[OPCIONES] mando (simulado): B vuelve al menú con OPCIONES seleccionada", s.st === "MAIN_MENU" && s.sel === "options", s.st + " / " + s.sel);
-  /* ---------- VOLVER, CRÉDITOS, SALIR, BORRAR ---------- */
+  /* ---------- VOLVER, CRÉDITOS EN EXTRAS, SALIR, BORRAR ---------- */
   await sleep(400); await openSub("options"); await pg.click("#dd-submenu-back"); await sleep(300); s = await S();
   check("[SUBMENÚ] el botón VOLVER responde al ratón", s.st === "MAIN_MENU", s.st);
-  await openSub("credits"); s = await S(); const cr = s.sub; const crFocus = s.focus; await key("Tab"); await key("ArrowDown"); const crFocus2 = (await S()).focus; await pg.screenshot({ path: OUT + "/creditos.jpg", type: "jpeg", quality: 85 }); await key("Escape", 300); s = await S();
-  check("[CRÉDITOS] se abre con ENTER y se cierra con ESC, volviendo a su opción", cr === "credits" && crFocus === "dd-submenu-back" && crFocus2 === "dd-submenu-back" && s.st === "MAIN_MENU" && s.sel === "credits", cr + " (foco " + crFocus + ") → " + s.sel);
+  await openSub("extras"); s = await S(); const cr = s.sub; const crFocus = s.focus;
+  const creditsVisible = await pg.locator("#dd-submenu-body .dd-cred").count();
+  await key("Tab"); await key("ArrowDown"); const crFocus2 = (await S()).focus; await pg.screenshot({ path: OUT + "/creditos.jpg", type: "jpeg", quality: 85 }); await key("Escape", 300); s = await S();
+  check("[CRÉDITOS] se muestran dentro de EXTRAS y ESC vuelve a la opción", cr === "extras" && creditsVisible === 1 && crFocus === "dd-submenu-back" && crFocus2 === "dd-submenu-back" && s.st === "MAIN_MENU" && s.sel === "extras", cr + " (foco " + crFocus + ") → " + s.sel);
   await openSub("exit");
   const e0 = (await S()).focus; await key("ArrowRight"); const e1 = (await S()).focus; await key("ArrowLeft"); const e2 = (await S()).focus; await key("ArrowDown"); const e3 = (await S()).focus;
   check("[SALIR] ←/→ y ↑/↓ pasan de un botón al otro", e0 === "dd-exit-yes" && e1 === "dd-exit-no" && e2 === "dd-exit-yes" && e3 === "dd-exit-no", [e0, e1, e2, e3].join(" → "));
   await key("Enter", 350); s = await S(); check("[SALIR] SEGUIR BAILANDO (ENTER) vuelve al menú", s.st === "MAIN_MENU" && s.sel === "exit", s.st);
   await openSub("exit"); await pg.click("#dd-exit-yes"); await sleep(400); const out = await pg.evaluate(() => !!document.getElementById("dd-reenter")); await pg.click("#dd-reenter"); await sleep(400); s = await S();
   check("[SALIR] SALIR DEL CLUB muestra la despedida y VOLVER A ENTRAR devuelve un menú que responde", out && s.st === "MAIN_MENU", s.st);
-  await key("ArrowUp"); const afterExit = (await S()).sel; check("[SALIR] tras volver a entrar, el teclado sigue navegando", afterExit === "credits", afterExit);
-  await openSub("options"); await focus("dd-opt-erase"); await key("Enter", 350);
+  await key("ArrowUp"); const afterExit = (await S()).sel; check("[SALIR] tras volver a entrar, el teclado sigue navegando", afterExit === "extras", afterExit);
+  await openSub("options"); await sleep(650); await focus("dd-opt-erase");
+  await pg.waitForFunction(() => document.activeElement?.id === "dd-opt-erase");
+  await key("Enter", 350); await pg.waitForFunction(() => DD_UI.getState().submenu === "erase", null, { timeout: 3000 });
   const b0 = (await S()).focus; await key("ArrowRight"); const b1 = (await S()).focus; await key("ArrowLeft"); const b2 = (await S()).focus;
   check("[BORRAR DATOS] se abre con teclado, el foco entra en CANCELAR y ←/→ cambian de botón", b0 === "dd-erase-no" && b1 === "dd-erase-yes" && b2 === "dd-erase-no", [b0, b1, b2].join(" → "));
   await key("Escape", 300); s = await S(); check("[BORRAR DATOS] ESC vuelve al menú sin borrar", s.st === "MAIN_MENU" && await pg.evaluate(() => !!localStorage.getItem("dd_save_v1")));
   /* ---------- ventana baja: el control elegido se trae a la vista ---------- */
   await pg.setViewportSize({ width: 1024, height: 540 }); await sleep(300);
   await openSub("options");
-  for (let i = 0; i < 11; i++) await key("ArrowDown", 60);
+  for (let i = 0; i < 16 && (await S()).focus !== "dd-opt-erase"; i++) await key("ArrowDown", 120);
   const inView = await pg.evaluate(() => { const a = document.activeElement, r = a.getBoundingClientRect(); const host = a.closest("#dd-submenu"); const scr = [...host.querySelectorAll("*")].find((e) => e.scrollHeight > e.clientHeight + 4 && /auto|scroll/.test(getComputedStyle(e).overflowY)); const box = (scr || host).getBoundingClientRect(); return { id: a.id, ok: r.top >= box.top - 1 && r.bottom <= Math.min(box.bottom, innerHeight) + 1, scroll: !!scr }; });
   await pg.screenshot({ path: OUT + "/opciones_ventana_baja.jpg", type: "jpeg", quality: 85 });
   check("[OPCIONES] en una ventana de 1024×540 el último control queda visible al llegar a él con el teclado", inView.id === "dd-opt-erase" && inView.ok, JSON.stringify(inView));
   await key("Escape", 300); await pg.setViewportSize({ width: 1280, height: 720 }); await sleep(300);
-  /* ---------- las dos entradas a la partida ---------- */
-  await pg.evaluate(() => document.querySelector('[data-action="continue"]').focus()); await key("Enter");
+  /* ---------- CONTINUAR vive dentro de JUGAR en el flujo actual ---------- */
+  await openSub("play");
+  const continueButton = await pg.locator("#dd-scene-continue").count();
+  check("[CONTINUAR] aparece dentro de JUGAR cuando hay una partida guardada", continueButton === 1, continueButton);
+  await pg.locator("#dd-scene-continue").click();
   await pg.waitForFunction(() => window.DD_BOOT.getState().state === "PLAYING" && window.DD_HUB.isActive(), null, { timeout: 15000 });
   check("[CONTINUAR] responde y entra al Refugio", true);
   check("[GENERAL] sin errores de JavaScript durante la prueba", errs.length === 0, errs.slice(0, 2).join(" | "));
