@@ -2560,3 +2560,38 @@ body.dd-highres-edition #dd-submenu select {
   #dd-submenu .dd-opt-foot { margin-top: 6px; padding-top: 6px; }
   #dd-submenu .dd-opt-col > h3:not(:first-child) { margin-top: 10px; padding-top: 7px; }
 }
+
+/* ==========================================================================
+   PASE VISUAL · PAUSA POR ENCIMA DE LA INTERFAZ DE JUEGO
+   Reproducido: con la pausa abierta (#pause-overlay) se seguían viendo ENCIMA
+   el HUD de la partida (z 6200) y el bocadillo del DJ (z 7500), porque el
+   overlay heredado vive en z-index 10. Además el panel de pausa quedaba con su
+   contenido cortado por abajo y sin scroll utilizable.
+   No se toca la maquetación de la pausa: sólo su posición en la pila y que su
+   scroll sea el que ya declaraba el CSS del motor.
+   ========================================================================== */
+body.dd-highres-edition #pause-overlay,
+body.dd-highres-edition #shot-choice-overlay,
+body.dd-highres-edition #risk-choice-overlay {
+  z-index: 12000;
+}
+/* La interfaz de juego se retira mientras hay pausa: es lo que ya hace el resto
+   de overlays del motor y evita que un diálogo tape los botones de pausa.
+   El motor pone y quita la clase `.visible` en #pause-overlay (y lo mismo en la
+   elección de variaciones), así que basta con selectores de hermano: nada de
+   :has(), que obligaría a revisar la coincidencia en cada cambio del árbol. */
+/* Sólo la pausa retira el HUD. Ojo: la elección de variaciones también usa
+   .visible y puede quedarse puesta mientras se juega; si retirase el HUD, éste
+   ya no volvería (reproducido: opacidad 0 permanente hasta recargar). */
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-hud { opacity: 0; pointer-events: none; }
+#pause-overlay.visible ~ #dd-dialogue-box,
+#shot-choice-overlay.visible ~ #dd-dialogue-box { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* Mientras la pausa está abierta, el bocadillo del DJ no puede tapar el panel.
+   No se oculta (su texto puede ser contexto de lo último que dijo el DJ): se
+   sube al borde inferior por debajo del contenido de la pausa, que ahora está
+   en una capa superior (z 12000) y con fondo opaco. */
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-dialogue-box {
+  z-index: 1000;
+  opacity: 0.92;
+}
