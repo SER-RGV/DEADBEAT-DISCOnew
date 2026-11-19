@@ -24,6 +24,8 @@ cifra estimada ni atribuida a hardware que no sea el de este entorno**.
 | Panel de opciones | controles nativos en claro, pie recortado | una sola línea visual, pie entero |
 
 Errores de página y peticiones fallidas durante todas las pruebas: **0**.
+QA funcional: **30/30 guardas, 4/4 integración, 16/16 flujo** en esta rama **y**
+en el commit base con el arnés corregido (ver 3.3).
 
 ---
 
@@ -216,25 +218,81 @@ sobre 2 núcleos**, así que los milisegundos absolutos de pintado **no**
 representan el rendimiento en una GPU real y aquí varían mucho entre pasadas
 (±30 %). Lo que sí es sólido es el reparto script/pintado (el script nunca fue
 el problema) y la comparación relativa. Por eso este informe **no** presenta una
-tabla de FPS antes/después: no sería honesta.
+tabla de FPS antes/después como si fueran cifras de producto: no sería honesta.
+
+### 3.2b Combate en marcha (tramo antes inalcanzable)
+
+Medido con `tools/perf/combat.mjs`, que recorre el camino completo —menú →
+descenso → Refugio → pad de descenso → `[E]` → partida— y muestrea el compás de
+`requestAnimationFrame` **sólo cuando `isRunning()` ya es cierto**. Es la
+primera vez que este tramo se mide: el arnés anterior no llegaba a él.
+
+| 1280x720, CPU | Antes (`bf91d2d`) | Después |
+| --- | --- | --- |
+| Combate · media entre fotogramas | 284,6 ms | 262,4 ms |
+| Combate · fps equivalentes | 3,5 | 3,8 |
+| Combate · fotogramas >100 ms | 13/39 (33 %) | 13/39 (33 %) |
+| Refugio · media entre fotogramas | 598,8 ms | 583,9 ms |
+| Menú · media entre fotogramas | 385,0 ms | 393,1 ms |
+| Long tasks (ventana medida) | 149 | 123 |
+| script / pintado acumulados | 915 / 1132 ms | 910 / 1021 ms |
+
+Qué se puede y qué no se puede leer de esta tabla:
+
+- **Sí:** la partida arranca y corre con input real (el jugador se desplazó
+  150 px antes / 158 px después y aparecieron enemigos durante la medida), y el
+  trabajo de script por ventana es prácticamente el mismo (915 → 910 ms), es
+  decir, estos cambios **no** han añadido coste al bucle de combate.
+- **No:** ni los 3,5 ni los 3,8 fps son cifras de producto. El navegador del
+  sandbox pinta con CPU sobre 2 núcleos y el compás es **bimodal** —muchos
+  fotogramas a 16,7 ms seguidos de huecos de 300–1500 ms—, así que la media
+  describe el entorno, no el juego. La diferencia entre columnas está dentro del
+  ruido (±30 % ya observado entre pasadas) y **no se afirma mejora alguna**.
+- El 33 % de fotogramas >100 ms en combate **antes y después** dice que el
+  problema del banco es el rasterizado por software, no este trabajo. Para saber
+  si en combate hay margen real hace falta medir en hardware con GPU.
 
 ### 3.3 QA funcional
 
 `tools/qa/final_review.js` (arnés del propio repositorio):
 
-| | Antes | Después |
+| | Antes (`bf91d2d`) | Después |
 | --- | --- | --- |
 | Guardas | 30/30 | 30/30 |
 | Integración | 4/4 | 4/4 |
-| Flujo | 7/16 | 7/16 |
+| Flujo | **16/16** | **16/16** |
 | Errores de página | 0 | 0 |
 | Incidencias HTTP | 0 | 0 |
 
-El **mismo conjunto de 9 fallos** de flujo existe antes y después de estos
-cambios (comparado por nombre de paso). Arrancan en
-`menu.enter-hub + cinematic | hub button missing` y arrastran el descenso, el
-movimiento en el HUB y el arranque de partida; **son previos a este trabajo**
-(se reproducen igual en la copia del commit base) y no se han tratado aquí.
+**Corrección respecto a la primera versión de este informe.** Aquí decía
+«Flujo 7/16 antes y después» y se atribuían los 9 fallos a la copia base. La
+causa era otra: **eran defectos del propio arnés**, no del juego. Se han
+corregido en `tools/qa/final_review.js` (sólo herramienta de pruebas, no toca
+código de juego):
+
+1. **Selector inventado.** El paso `menu.enter-hub + cinematic` pulsaba
+   `data-action="hub"`, un botón que **nunca ha existido** (`MENU_ITEMS` es
+   nueva / continuar / opciones / créditos / salir). Fallaba con
+   `hub button missing` y arrastraba los 8 pasos siguientes. Ahora usa
+   `data-action="new"` (NUEVA PARTIDA), que es la ruta real: reproduce el
+   descenso de apertura y termina en el Refugio.
+2. **Paseo al pad de descenso sin realimentación.** Encadenaba retenciones de
+   tecla a ciegas y oscilaba hasta (1025,843) con `nearStation=null`. Ahora es un
+   bucle cerrado: lee `x/y`, corrige y camina hasta `nearStation === "descent"`.
+3. **Presupuesto por número de pasos en vez de por tiempo.** El HUB avanza con
+   `dt` acotado (`Math.min(0.05, dt)`), así que sin GPU cada pulsación mueve
+   pocos píxeles; un tope fijo de 24 iteraciones se quedaba corto aunque el
+   movimiento fuese correcto. Ahora hay un presupuesto de tiempo.
+4. **Espera demasiado justa tras NUEVA PARTIDA.** El descenso dura 4,6 s de
+   reloj interno, pero avanza con `dt` acotado dentro de `rAF`; en este entorno
+   baja a ~1–2 fps, así que 4,6 s de secuencia tardan ~16 s de reloj de pared y
+   la ruta completa se midió en **21,5 s**. El tope era de 25 s: pasaba o no
+   según la pasada. Ahora son 45 s.
+
+Con el arnés corregido, **la copia del commit base también da 16/16**, lo que
+confirma que los 9 fallos eran del instrumento y no del juego, y que estos
+cambios **no introducen regresiones** en el flujo (se ejecutan los 16 pasos
+completos, con 0 errores de página y 0 incidencias HTTP en ambas versiones).
 
 ---
 
@@ -319,20 +377,36 @@ propia ilustración y eso es intencionado.
 
 ### No se pudo probar aquí
 
-- **Partida jugable completa**: el fallo previo del HUB impide llegar al
-  descenso desde el arnés, así que el rendimiento en combate (oleadas, jefes,
-  partículas) **no está medido**.
-- **Pausa real** (la del motor con partida en curso): se auditó y se validó la
-  pila de capas con la clase `.visible` que pone el motor, no con una partida
-  real.
-- **Game Over y resultados**: requieren una partida en curso.
-- **FPS con GPU**: no hay GPU en el entorno (ver 3.2).
+- **Partida jugable completa**: se llega al descenso y al arranque de partida
+  (ver 3.2b y el paso 10 del arnés), y el combate **ya está medido** en cuanto a
+  compás de fotogramas y reparto script/pintado. Lo que no se ha recorrido es
+  una partida entera: varias salas, oleadas completas, jefes y victoria.
+- **Game Over y resultados**: requieren una partida en curso; el arnés confirma
+  que no se produce muerte ni fuga de estado en el tramo medido
+  (`hp 3 → 3`, `guardRegistry: 2`), pero las pantallas de derrota y resultados no
+  se han abierto.
+- **FPS con GPU**: no hay GPU en el entorno (ver 3.2 y 3.2b). Las cifras de
+  fotogramas de 3.2b describen el rasterizado por software, no el juego.
 
 ---
 
 ## 7. Siguiente paso sugerido
 
-El bloqueo real para cerrar las fases 04 y 06 es el fallo previo de entrada al
-HUB/descenso del arnés (`menu.enter-hub + cinematic | hub button missing`). No es
-un defecto visual ni de rendimiento, y arreglarlo permitiría medir el
-rendimiento en combate con datos en vez de estimaciones.
+El bloqueo anterior —el fallo de entrada al HUB/descenso del arnés— **está
+resuelto**: era del arnés, no del juego (ver 3.3), y ahora los 16 pasos de flujo
+pasan tanto en esta rama como en el commit base. Con eso, el combate ya no es
+una estimación: hay compás de fotogramas y reparto script/pintado en 3.2b.
+
+Lo que queda, por orden de valor:
+
+1. **Medir en hardware con GPU.** Es el único modo de saber si el combate tiene
+   margen real. Todo lo de la sección 3.2b está medido con rasterizado por
+   software a ~2–4 fps y no sirve como cifra de producto.
+2. **Decidir sobre los 179 activos no registrados (115,4 MB)** — sobre todo los
+   110 fondos de `backgrounds/` (47,5 MB) y los 25 de `restart/` (25,5 MB):
+   registrarlos o sacarlos del paquete. No se ha borrado nada.
+3. **Intervención de arte** en las capas de cinemática `02_*` / `03_*`: son
+   idénticas píxel a píxel a la lámina maestra y 100 % opacas, así que el
+   parallax no se puede hacer en código sin sustituir arte aprobado.
+4. Recorrer una partida completa (varias salas, oleadas, jefe y victoria) y las
+   pantallas de derrota y resultados, que siguen sin abrirse.

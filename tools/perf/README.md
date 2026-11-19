@@ -42,6 +42,17 @@ ln -s "$PWD/assets" /tmp/basecopy/assets
 | `shopshot.mjs` | armería: número de tarjetas, nombres, precios, alturas y desbordes |
 | `map3.mjs` | mapa de progresión: geometría de la ventana, del cuerpo y de las diez filas |
 | `walkdraw.mjs` | qué sprites del protagonista se dibujan de verdad (envuelve `drawImage`) |
+| `combat.mjs [url] [salida.json]` | recorre menú → descenso → Refugio → pad → `[E]` → partida y mide el compás de `requestAnimationFrame` en menú, Refugio y **combate**, más el reparto script/pintado de `long-animation-frame` |
+
+### Por qué `combat.mjs` camina en bucle cerrado
+
+El HUB avanza con `dt` acotado (`Math.min(0.05, dt)`). Sin GPU el navegador
+baja a ~1–2 fps, así que una pulsación de tecla mueve pocos píxeles y las
+retenciones «a ciegas» oscilan fuera del pad de descenso. El script lee `x/y`
+en cada vuelta, corrige y camina hasta que `nearStation === "descent"`, con un
+presupuesto de tiempo en vez de un número fijo de intentos. Por la misma razón
+la espera tras `[E]` se hace contra `isRunning()` (motor en marcha) y no contra
+el estado del FSM, que cambia antes de que el bucle corra.
 
 ## Nota sobre el entorno
 
