@@ -321,3 +321,9 @@ Estado sprites: original 6/6, rapture 6/6, shadow 6/6, apocalypse 6/6, gunslinge
 **Gunslinger 6/6 completa** (death regenerada tras fallo transitorio de walk) y **Fight Club 6/6 completa** (vendas, torso deportivo, tatuajes visibles). **Kitchen Riot 2/6** (idle/walk). Capturas reales: `combate-fightclub-walk/aim.png`, `combate-gunslinger-walk/aim.png`.
 
 Estado sprites: original/rapture/shadow/apocalypse/gunslinger/fightclub 6/6, kitchenriot 2/6, streetart con marcadores (11 maestros pendientes).
+
+### Fase E — quinto lote (46/48 maestros)
+
+**Kitchen Riot 6/6 completa** (aim regenerada tras fallo transitorio) y **Street Art 5/6** (falta death). Capturas reales: `combate-kitchenriot-walk/aim.png`, `combate-streetart-walk/aim.png`.
+
+Estado sprites: siete atuendos completos + streetart 5/6 (2 maestros pendientes: streetart death + hoja comparativa).
