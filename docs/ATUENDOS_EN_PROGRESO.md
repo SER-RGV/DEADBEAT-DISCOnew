@@ -295,3 +295,11 @@ Directiva del usuario: reconstruir el protagonista desde su lámina oficial y su
 **Fase F+G (sustitución, HECHA):** `dd_appearance.js` = catálogo de 8 con IDs nuevos, descripciones con humor, requisitos heredados por correspondencia (sin condiciones nuevas) y tabla `LEGACY` de migración (p. ej. `painter→streetart`, `diver→original`) aplicada en `sync()`/`equip()`; anclas del arma actualizadas. Sprites antiguas copiadas como marcadores provisionales en las carpetas nuevas (se sustituyen por las nuevas al producirse). QA actualizado a 8: `test_outfit_preview.js` y `test_outfit_portraits.js` PASS (incluye «catálogo antiguo ausente» y migración de IDs). Evidencia: `camerino-descripciones.png`, `hud-dialogo-shadow.png`, `hud-combate-fightclub.png`.
 
 **Pendiente (Fase E, ≈5 turnos a 10 imágenes):** 48 maestros de sprites (8×6) con la identidad v2g y los nuevos diseños → `prepare` genérico → sustituir marcadores → hoja comparativa de los ocho → QA completo (combate por atuendo) + capturas reales.
+
+### Fase E en marcha — sprites v2m (10/48 maestros)
+
+Pipeline: `prepare_v2m_outfit.py` (genérico; convenciones del contrato: idle/walk_a 288×512 figure-hip, aim/hurt 352×512 figure-bbox, roll 384×384 contain, death 640×320 contain+flip). Receta maestros v2m: `generate_image` con `images=[cocinero_<pose>.webp (pose), showcase_v2m_<outfit>.webp (atuendo), protagonista_referencia_v2.webp, protagonista_cara_v2.png]` + «DISCARD the clothing… dress him in the outfit shown in the second image» + identidad v2g.
+
+Producido: **original 6/6** (integrado y registrado en `outfits` — sprites propias en juego, sustituyen al fallback base) + **rapture 4/6** (faltan roll/death). QA `test_outfit_preview` y `test_outfit_portraits` PASS tras el registro. Capturas reales de combate: [walk](evidence/atuendos/combate-original-walk.png) y [aim](evidence/atuendos/combate-original-aim.png) con las sprites nuevas. Nueva utilidad `tools/qa/capture_v2m_combat.js`.
+
+Pendiente: rapture (roll/death), shadow 6, apocalypse 6, gunslinger 6, fightclub 6, kitchenriot 6, streetart 6 (38 maestros) → hoja comparativa → barrido QA completo.

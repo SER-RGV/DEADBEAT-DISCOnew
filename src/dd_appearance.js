@@ -26,11 +26,10 @@
   function migrate(id) { return LEGACY[id] || id; }
   var selected = 'original', cache = new WeakMap(), previewUrls = {}, portraitUrls = {}, showcaseUrls = {};
   var outfitNames = ['idle','walk_a','aim','hurt','roll','death'];
-  /* Original se registra cuando sus sprites propios estén listos; hasta entonces
-     el motor usa las sprites base. Los demás apuntan a su carpeta nueva. */
-  var outfits = { rapture: {}, shadow: {}, apocalypse: {}, gunslinger: {}, fightclub: {}, kitchenriot: {}, streetart: {} };
+  /* Cada atuendo con sus sprites propios; los pendientes llevan marcadores. */
+  var outfits = { original: {}, rapture: {}, shadow: {}, apocalypse: {}, gunslinger: {}, fightclub: {}, kitchenriot: {}, streetart: {} };
   var showcases = {};
-  var paths = { rapture: 'rapture', shadow: 'shadow', apocalypse: 'apocalypse', gunslinger: 'gunslinger', fightclub: 'fightclub', kitchenriot: 'kitchenriot', streetart: 'streetart' };
+  var paths = { original: 'original', rapture: 'rapture', shadow: 'shadow', apocalypse: 'apocalypse', gunslinger: 'gunslinger', fightclub: 'fightclub', kitchenriot: 'kitchenriot', streetart: 'streetart' };
   Object.keys(outfits).forEach(function(id) {
     outfitNames.forEach(function(name) {
       var im = new Image(); outfits[id][name] = im;
