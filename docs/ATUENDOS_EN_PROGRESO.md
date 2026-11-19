@@ -412,3 +412,15 @@ Capturador `tools/qa/capture_selector_review.js` (camerino ×8 + Extras + retrat
 - **Descripciones obsoletas** en camerino y Extras: Shadow aún decía «integrada al sombrero» (ya no lleva), Apocalypse y Fight Club actualizadas («armadura de guerra», «Kickboxing con vendas y talones al aire»).
 
 QA `test_outfit_preview` y `test_outfit_portraits` PASS; GIFs de showcases y selector regenerados con los showcases nuevos.
+
+### 🎨 Estilizado de letras de menú y navegación (petición del usuario)
+
+Capa final en `dd_rebuild_ui.css` (sin tocar `#dd-submenu::before` ni hooks de QA):
+- **Rótulos de sección** (ASPECTOS, COLECCIÓN DE ASPECTOS): oro con brillo multicapa + subrayado con barrido animado.
+- **Título de submenú** (PERSONALIZAR...): degradado blanco-rosa con doble sombra cromática cian/magenta.
+- **Botones del menú principal**: texto con degradado oro al pasar/seleccionar + barrido de luz diagonal.
+- **Tarjetas de aspecto**: nombre con degradado oro, elevación al pasar y pulso magenta/oro en la equipada.
+- **Navegación entre menús**: entrada suave de cabecera y cuerpo del submenú, brillo animado en la barra superior, desenfoque de fondo (backdrop blur), travelling entre escenas con título en degradado y estela de luz cian.
+- `prefers-reduced-motion` respeta todas las animaciones.
+
+QA `test_menu_scenes`, `test_menu_new_flow` y `test_outfit_preview` PASS.

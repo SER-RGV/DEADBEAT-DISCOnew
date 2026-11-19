@@ -2707,6 +2707,141 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
 
 .dd-look-swatch-painter { background:#9d55bc; }
 
+/* ==========================================================================
+   FASE DE ESTILIZADO — LETRAS DE MENÚ Y NAVEGACIÓN (petición del usuario)
+   Capa final: no toca #dd-submenu::before (fondo de escena) ni hooks de QA.
+   ========================================================================== */
+:root { --dd-gold-grad: linear-gradient(180deg, #ffe9a8 0%, #facc15 42%, #ff8a2b 78%, #ff2d7a 105%); }
+
+/* --- 1. Rótulos de sección (ASPECTOS, ARCHIVO VISUAL...) --- */
+.dd-scene-content h3, .dd-scene-extras h3 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: .09em;
+  color: #facc15;
+  text-shadow: 0 2px 0 rgba(64, 8, 40, .95), 0 0 18px rgba(250, 204, 21, .55), 0 0 42px rgba(255, 45, 122, .35);
+  position: relative; padding-bottom: 10px;
+}
+.dd-scene-content h3::after, .dd-scene-extras h3::after {
+  content: ""; position: absolute; left: 2px; bottom: 0; height: 3px; width: min(240px, 62%);
+  border-radius: 2px;
+  background: linear-gradient(90deg, #facc15, #ff2d7a 55%, transparent);
+  box-shadow: 0 0 14px rgba(255, 45, 122, .55);
+  transform-origin: left center;
+  animation: dd-underline-sweep .7s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-underline-sweep { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+
+/* --- 2. Título del submenú (PERSONALIZAR...) con brillo cromático --- */
+.dd-submenu-card h2 {
+  letter-spacing: .075em;
+  background: linear-gradient(180deg, #ffffff 0%, #ffe6f2 46%, #ffb9d4 88%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(2px 0 0 rgba(0, 229, 255, .38)) drop-shadow(-2px 0 0 rgba(255, 45, 122, .42)) drop-shadow(0 6px 22px rgba(255, 45, 122, .5));
+}
+.dd-submenu-kicker {
+  text-shadow: 0 0 12px rgba(0, 229, 255, .65);
+  animation: dd-kicker-pulse 3.2s ease-in-out infinite;
+}
+@keyframes dd-kicker-pulse { 0%, 100% { opacity: .82; } 50% { opacity: 1; } }
+
+/* --- 3. Botones del menú principal: resplandor y barrido --- */
+#dd-main-menu .dd-menu-btn .dd-btn-text b {
+  letter-spacing: .06em;
+  transition: color .18s ease, text-shadow .18s ease;
+}
+#dd-main-menu .dd-menu-btn:hover .dd-btn-text b,
+#dd-main-menu .dd-menu-btn:focus-visible .dd-btn-text b,
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-text b {
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 202, 21, .55)) drop-shadow(0 2px 0 rgba(64, 8, 40, .8));
+}
+#dd-main-menu .dd-menu-btn { position: relative; overflow: hidden; }
+#dd-main-menu .dd-menu-btn::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 233, 168, .16) 46%, rgba(0, 229, 255, .1) 52%, transparent 68%);
+  transform: translateX(-120%);
+  transition: transform .55s cubic-bezier(.16, 1, .3, 1);
+}
+#dd-main-menu .dd-menu-btn:hover::after, #dd-main-menu .dd-menu-btn:focus-visible::after, #dd-main-menu .dd-menu-btn.dd-selected::after { transform: translateX(120%); }
+
+/* --- 4. Tarjetas de aspecto: nombre con brillo + borde vivo --- */
+.dd-look b {
+  letter-spacing: .045em;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(255, 45, 122, .35);
+  transition: text-shadow .18s ease, color .18s ease;
+}
+.dd-look:hover b, .dd-look:focus-visible b, .dd-look[aria-pressed="true"] b {
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 202, 21, .5));
+}
+.dd-look { transition: transform .22s cubic-bezier(.16, 1, .3, 1), border-color .2s ease, box-shadow .22s ease; }
+.dd-look:hover, .dd-look:focus-visible { transform: translateY(-3px); box-shadow: 0 14px 30px -14px rgba(255, 45, 122, .45); }
+.dd-look[aria-pressed="true"] {
+  box-shadow: 0 0 0 1.5px #facc15, 0 16px 34px -16px rgba(250, 204, 21, .5);
+  animation: dd-look-pulse 2.6s ease-in-out infinite;
+}
+@keyframes dd-look-pulse {
+  0%, 100% { box-shadow: 0 0 0 1.5px #facc15, 0 16px 34px -16px rgba(250, 204, 21, .5); }
+  50% { box-shadow: 0 0 0 2.5px #ff2d7a, 0 16px 38px -14px rgba(255, 45, 122, .55); }
+}
+
+/* --- 5. Navegación entre menús: entradas suaves y travelling más vivo --- */
+.dd-submenu-wrap { backdrop-filter: blur(7px) saturate(1.15); -webkit-backdrop-filter: blur(7px) saturate(1.15); }
+.dd-submenu-wrap.is-open .dd-submenu-body {
+  animation: dd-body-enter .42s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-body-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.dd-submenu-wrap.is-open .dd-submenu-head { animation: dd-head-enter .38s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes dd-head-enter { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+.dd-submenu-wrap.is-open .dd-submenu-card::before { animation: dd-bar-shine 1s ease both; }
+@keyframes dd-bar-shine {
+  from { filter: brightness(.4); transform: scaleX(.2); opacity: .4; }
+  to { filter: brightness(1.35); transform: scaleX(1); opacity: 1; }
+}
+.dd-submenu-back kbd { box-shadow: 0 0 10px rgba(0, 229, 255, .35); }
+.dd-submenu-back:hover kbd, .dd-submenu-back:focus-visible kbd { box-shadow: 0 0 14px rgba(255, 45, 122, .6); }
+
+#dd-scene-passage .dd-passage-title {
+  letter-spacing: .38em; font-size: clamp(15px, 2.1vw, 24px);
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .9)) drop-shadow(0 0 22px rgba(255, 45, 122, .65));
+}
+#dd-scene-passage .dd-passage-light {
+  background:
+    radial-gradient(ellipse at 53% 51%, rgba(255, 45, 122, .2), transparent 38%, rgba(4, 2, 10, .68)),
+    linear-gradient(115deg, transparent 42%, rgba(0, 229, 255, .18) 50%, transparent 58%);
+}
+#dd-scene-passage .dd-passage-shade {
+  background:
+    linear-gradient(90deg, rgba(7, 3, 13, .5), transparent 32%, transparent 72%, rgba(7, 3, 13, .46)),
+    linear-gradient(0deg, rgba(255, 45, 122, .12), transparent 30%);
+}
+
+/* --- 6. Pie de ayuda y estados --- */
+.dd-submenu-foot { letter-spacing: .18em; text-shadow: 0 0 10px rgba(0, 229, 255, .35); }
+.dd-look small {
+  letter-spacing: .12em;
+  text-shadow: 0 0 8px rgba(250, 204, 21, .35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-scene-content h3::after, .dd-submenu-wrap.is-open .dd-submenu-body,
+  .dd-submenu-wrap.is-open .dd-submenu-head, .dd-submenu-wrap.is-open .dd-submenu-card::before,
+  .dd-look, .dd-look[aria-pressed="true"], .dd-submenu-kicker, #dd-main-menu .dd-menu-btn::after {
+    animation: none !important; transition: none !important;
+  }
+}
+
   </style>
 </head>
 <body class="booting">
