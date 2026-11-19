@@ -327,3 +327,29 @@ Estado sprites: original/rapture/shadow/apocalypse/gunslinger/fightclub 6/6, kit
 **Kitchen Riot 6/6 completa** (aim regenerada tras fallo transitorio) y **Street Art 5/6** (falta death). Capturas reales: `combate-kitchenriot-walk/aim.png`, `combate-streetart-walk/aim.png`.
 
 Estado sprites: siete atuendos completos + streetart 5/6 (2 maestros pendientes: streetart death + hoja comparativa).
+
+---
+
+## ✅ DIRECTIVA V1.0 — CIERRE DE PRODUCCIÓN (Fases E–I)
+
+**48/48 sprites producidas e integradas** (8 atuendos × 6 poses del contrato). Las 8 hojas de vestuario + hoja comparativa generadas (`docs/evidence/coleccion/hoja-*.png`, maestros en `concepts/sheet_v2m_*.webp`).
+
+### Informe técnico de QA (Fase H)
+- **Suite de vestuario (4/4 PASS)**: `test_outfit_preview` (8 atuendos, catálogo antiguo ausente, descripciones, equipar, persistencia, Extras, teclado), `test_outfit_portraits` (retratos HUD/diálogo, migración de IDs, refresco), `test_menu_scenes` (escenas + catálogo de 8), `test_v2m_outfits` (sprites listas, equipar, walk/aim/enemigo en combate real × 8, sin errores).
+- **Capturas reales por atuendo**: `docs/evidence/atuendos/combate-<id>-walk.png` y `-aim.png` × 8.
+- **Suite auxiliar (27 pruebas heredadas)**: 14 PASS (menús, transiciones, animaciones de jugador, UI, minimapa parcial…); 13 fallan por fixtures caducados de versiones antiguas del motor (esperan pantallas de gesto/identificadores minificados antiguos). **Verificado que fallan igual con los fuentes del hito `8668e50`** → preexistentes, ajenos a esta sustitución. Las 12 pruebas del catálogo antiguo están retiradas en `tools/qa/legacy/` (backup).
+
+### Migración de IDs (partidas guardadas)
+| antiguo | nuevo | | antiguo | nuevo |
+|---|---|---|---|---|
+| knight | apocalypse | | chef | kitchenriot |
+| assassin | shadow | | kickboxer | fightclub |
+| rider | apocalypse | | painter | streetart |
+| diver | original | | cyan/violet/gold | original |
+| gunslinger | gunslinger | | tears | rapture |
+| trainer | fightclub | | adventurer | shadow |
+
+Requisitos heredados sin condiciones nuevas; `original` = predeterminado desde el principio; `PREVIEW_UNLOCK_ALL` vigente; `dd_hub_system.js` y `dd_opening.js` sin tocar; motor, combate, IA, armas, balance, economía, progresión, HUD y cámara intactos.
+
+### Entregables
+1-2. Modelo maestro + turnaround: `concepts/model_sheet_v2m.webp`. 3. Mapa de tatuajes (dentro del modelo maestro y de cada hoja). 4-5. Ocho diseños + hojas de vestuario: `docs/evidence/coleccion/hoja-{original,rapture,shadow,apocalypse,gunslinger,fightclub,kitchenriot,streetart}.png` + `hoja-comparativa.png`. 6-7. Sprites y metadatos compatibles: `assets/characters/outfits/<id>/{idle,walk_a,aim,hurt,roll,death}.png` (convención del motor, sin sistema paralelo). 8-10. Catálogo sustituido, referencias antiguas sin enlaces rotos, personalización integrada. 11. Compatibilidad de partidas (tabla LEGACY). 12. Manifiesto: `src/dd_appearance.js` (catálogo, paths, requisitos). 13. Backups: git + `tools/qa/legacy/` + conceptos antiguos conservados. 14. Capturas reales: `docs/evidence/atuendos/`. 15. Este informe. 16. Archivos modificados: `src/dd_appearance.js`, `src/dd_world_renderer.js` (anclas), `index.html` (reconstruido), `tools/art_master/prepare_v2m_outfit.py`, `tools/qa/test_{outfit_preview,outfit_portraits,menu_scenes,v2m_outfits}.js`, `assets/characters/outfits/{original,...,streetart}/`.
