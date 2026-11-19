@@ -70,7 +70,7 @@ def despeckle(cut):
             sizes = ndimage.sum(mask, lab, range(1, n + 1))
             keep = int(np.argmax(sizes)) + 1
             a = np.where(lab == keep, a, 0).astype('uint8')
-            cut.putalpha(PILImage.fromarray(a, 'L'))
+            cut.putalpha(Image.fromarray(a, 'L'))
     except Exception:
         pass
     return cut

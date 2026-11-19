@@ -367,3 +367,5 @@ Revisión lámina a lámina de los 48 sprites (`tools/qa/` + `.cache/review/spri
 | Ruido cian suelto | apocalypse (walk/hurt/death) y afines | despiece de manchas: se conserva sólo la componente conexa mayor del alpha (scipy) |
 
 QA `test_v2m_outfits` PASS tras las correcciones; capturas de combate actualizadas de los cuatro atuendos tocados. **Pendiente menor**: los `idle` regenerados de apocalypse y streetart salieron algo frontales (contrato = perfil izquierdo como el resto) — se rehacen con instrucción estricta de perfil en el siguiente turno.
+
+**Cierre de la auditoría**: bug del despiece corregido (`Image.fromarray` mal referenciado y excepción silenciada — las motas cian sobrevivían al filtro); los 48 sprites reprocesados y verificados en lámina (`.cache/review/fix_check2.jpg`): sin figuras dobles, sin texto, sin fondos, sin ruido; el sombrero-capucha de Shadow es una sola prenda integrada; ampliación de shadow/hurt confirma que los detalles de cintura son vendas/correas, sin armas añadidas. QA `test_v2m_outfits` y `test_outfit_preview` PASS. Los `idle` de apocalypse y streetart quedaron en perfil coherente con el resto (verificados en lámina).
