@@ -456,3 +456,10 @@ QA `test_menu_new_flow` y `test_menu_scenes` PASS (nota: la animación de fondo 
 - **Extras:** el archivo visual presenta tres fotogramas existentes con pies editoriales y ocho fichas de atuendo con sus showcases reales, nombres y descripciones del catálogo. Es una cuadrícula estática, no un carrusel; imágenes lazy-loaded y tarjetas adaptadas a móvil.
 - **Aspectos:** las ocho tarjetas del camerino muestran mini-retratos del protagonista generados desde las vistas de retrato existentes; el héroe de la derecha continúa actualizándose al equipar cada aspecto.
 - **QA:** `test_menu_visuals` PASS (carga normal/reducida, cinco fondos, ocho retratos, 3 fotogramas y 8 fichas Extras, sin errores); `test_menu_new_flow`, `test_menu_scenes`, `test_outfit_preview` PASS; `test_menu_respuesta` PASS 52/52. Capturas de revisión en `.cache/review/menu_visuals/`.
+
+## Revisión de showcases: Original y Rapture
+
+- **Original:** se corrigió `assets/characters/outfits/original/showcase.png` para que la chaqueta cubra ambos hombros y las mangas asienten normalmente. El sigilo del hombro queda oculto bajo la tela, sin tatuajes sobre ropa.
+- **Rapture:** se reemplazó el showcase de medio cuerpo por una ilustración de cuerpo entero, con sombrero, camisa clara, chaleco azul marino con ribete magenta, tirantes, pantalón y botas. En el selector ahora se ven las botas y la silueta completa.
+- Se conservaron copias exactas de los dos showcases anteriores en `assets/characters/outfits/concepts/archive/`; no se modificaron Street Art ni Fight Club, cuyas vistas revisadas ya corresponden a sus atuendos.
+- `test_outfit_preview.js`, `test_outfit_portraits.js` y `test_menu_visuals.js`: PASS; comprobación visual del selector con Rapture equipable y showcase completo, y de Extras con las ocho fichas. Fight Club conserva vendas, torso descubierto, pantalón corto con vivo magenta y pies descalzos; Street Art mantiene su chaqueta intervenida. No se tocaron sprites de juego ni mecánicas.
