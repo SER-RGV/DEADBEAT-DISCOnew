@@ -647,6 +647,33 @@
       const ovId = PLAYER_SPLIT_OVERLAY[upperId];
       pose.overlayImg = ovId ? get(ovId) : null;
     }
+    // Atuendo completo: sus imágenes mantienen el lienzo, eje y suelo del
+    // protagonista. Las anclas del arma pertenecen a la pose del atuendo.
+    const appearance = window.DD_APPEARANCE;
+    const knight = appearance && appearance.outfitFrame;
+    if (knight && knight('idle')) {
+      const moving = walking || fullWalk;
+      pose.outfit = true; pose.outfitMoving = moving;
+      const m = /^player_walk_0([0-3])$/.exec(lowerId);
+      const step = m ? Number(m[1]) : 0;
+      const legs = knight(step % 2 ? 'walk_a' : 'idle');
+      if (upperId === 'player_roll_00') {
+        pose.upperImg = knight('roll'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
+      } else if (upperId === 'player_death_00') {
+        pose.upperImg = knight('death'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
+      } else if (upperId === 'player_hurt_00') {
+        pose.upperImg = knight('hurt'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
+      } else if (armed) {
+        pose.upperImg = knight('aim'); pose.lowerImg = moving ? legs : pose.upperImg;
+        pose.split = moving; pose.fullWalk = false; pose.overlayImg = null;
+        pose.beltU = pose.beltL = 0.48; pose.lift = 0;
+        const look = appearance.current().id;
+        pose.hand = look === 'diver' ? [0.87, 0.26] : (look === 'gunslinger' || look === 'kickboxer' || look === 'painter') ? [0.95, 0.25] : (look === 'tears' || look === 'trainer') ? [0.92, 0.26] : (look === 'adventurer' || look === 'chef') ? [0.90, 0.27] : [0.91, 0.26];
+      } else {
+        pose.upperImg = moving ? legs : knight('idle'); pose.lowerImg = pose.upperImg;
+        pose.split = false; pose.fullWalk = moving; pose.hand = null;
+      }
+    }
     return pose;
   }
 
@@ -711,6 +738,8 @@
 
     ctx.save();
     if (facingLeft) ctx.scale(-1, 1);
+    // Sólo los acentos de la figura reciben la paleta; armas y mundo no.
+    const recolor = function (im) { return window.DD_APPEARANCE ? window.DD_APPEARANCE.recolor(im) : im; };
 
     const targetH = (isDeath ? PLAYER_DEATH_H : (isRoll ? PLAYER_ROLL_H : PLAYER_BASE_H)) * scl;
     const widthOf = function (img) {
@@ -721,13 +750,36 @@
     if (isRoll) {
       // Bola en voltereta: gira alrededor del centro del lienzo mientras dura la esquiva.
       const w = widthOf(upperImg);
-      const el = Number(player.rollElapsed);
-      const turns = (player.rollT > 0 && isFinite(el)) ? el / 0.32 : 0.08; // 0.32 s = duración de la esquiva del motor
+      const elapsed = Number(player.rollElapsed);
+      const remaining = Number(player.rollT);
+      // El motor permite duraciones configurables: elapsed + remaining es la
+      // duración de ESTA esquiva. Así se completa una vuelta sin depender del
+      // valor predeterminado de 0,32 s ni tocar la física del movimiento.
+      const duration = elapsed + remaining;
+      const turns = isFinite(elapsed) && isFinite(remaining) && remaining > 0 && duration > 0
+        ? Math.max(0, Math.min(1, elapsed / duration)) : 0;
       ctx.translate(0, drawY + targetH * 0.5);
       ctx.rotate(turns * Math.PI * 2);
-      ctx.drawImage(upperImg, -w * 0.5, -targetH * 0.5, w, targetH);
+      ctx.drawImage(recolor(upperImg), -w * 0.5, -targetH * 0.5, w, targetH);
     } else {
-      if (!isDeath) ctx.rotate(lean * 0.55);
+      // Micro-movimiento del atuendo: respiración en reposo y balanceo con el
+      // paso. Sólo transformaciones de dibujo; física y anclas no cambian.
+      let microRoll = 0, microSway = 0;
+      if (pose.outfit && !isDeath) {
+        const breathe = (pAnim && isFinite(pAnim.breathePhase)) ? pAnim.breathePhase
+          : (typeof performance !== 'undefined' ? performance.now() / 480 : 0);
+        const stride = (pAnim && isFinite(pAnim.stridePhase)) ? pAnim.stridePhase
+          : (typeof performance !== 'undefined' ? performance.now() / 230 : 0);
+        if (pose.outfitMoving) {
+          microRoll = Math.sin(stride * Math.PI) * 0.012;
+          microSway = Math.sin(stride * Math.PI) * 0.9;
+        } else {
+          microRoll = Math.sin(breathe * 0.85) * 0.006;
+          microSway = Math.sin(breathe * 0.42) * 0.55;
+        }
+      }
+      if (!isDeath) ctx.rotate(lean * 0.55 + microRoll);
+      if (microSway) ctx.translate(microSway, 0);
       if (pose.split) {
         // Cada mitad con SU ancho (los lienzos comparten eje de torso, no anchura)
         // y cortada por SU cinturón; el torso se desplaza para casar con la pelvis.
@@ -738,12 +790,12 @@
         const torsoY = drawY + pose.lift * targetH;
         const cutU = pose.beltU + PLAYER_SEAM_OVERLAP;
         ctx.drawImage(
-          lowerImg,
+          recolor(lowerImg),
           0, lh * pose.beltL, lowerImg.naturalWidth, lh * (1 - pose.beltL),
           -lw * 0.5, drawY + targetH * pose.beltL, lw, targetH * (1 - pose.beltL)
         );
         ctx.drawImage(
-          upperImg,
+          recolor(upperImg),
           0, 0, upperImg.naturalWidth, uh * cutU,
           -uw * 0.5, torsoY, uw, targetH * cutU
         );
@@ -753,7 +805,7 @@
         }
       } else {
         const w = widthOf(upperImg);
-        ctx.drawImage(upperImg, -w * 0.5, drawY, w, targetH);
+        ctx.drawImage(recolor(upperImg), -w * 0.5, drawY, w, targetH);
       }
     }
     ctx.restore();

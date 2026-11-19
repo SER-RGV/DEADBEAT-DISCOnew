@@ -15,6 +15,10 @@
     vy: 0,
     aimAngle: -Math.PI / 4,
     time: 0,
+    walkPhase: 0,
+    walkFrame: 0,
+    walking: false,
+    facingLeft: false,
     lastTs: 0,
     keys: Object.create(null),
     nearStation: null,
@@ -23,10 +27,9 @@
     roomCacheStamp: ""
   };
 
-  /* Protagonista en el Refugio: el IDLE 07B aprobado, sin sombrero (lo perdió en
-     el descenso). Se carga aquí, directamente, sin tocar el registro de recursos
-     ni el pintor del motor. Es un único fotograma: se dibuja siempre entero, con
-     escala uniforme y sin espejar (espejarlo cambiaría los tatuajes de brazo).
+  /* En reposo se conserva el IDLE 07B, sin sombrero, entero y sin espejar.
+     Para caminar se usan imágenes derivadas de ese diseño; al desplazarse a
+     la izquierda se reflejan, por lo que los tatuajes también se reflejan.
      Los sprites de combate no cambian: fuera del Refugio pinta el motor. */
   const REFUGE_IDLE = {
     src: "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
@@ -49,16 +52,58 @@
     if (!REFUGE_IDLE.ok) return false;
     const k = REFUGE_IDLE.drawH / REFUGE_IDLE.bodyH;
     const moving = Math.hypot(state.vx, state.vy) > 12;
-    /* Sólo traslación: respiración de menos de un píxel parado, paso corto al andar. */
-    const bob = moving ? -Math.abs(Math.sin(state.time * 9.5)) * 2.2 : Math.sin(state.time * 2.4) * 0.7;
+    /* Sólo traslación y giro: respiración parado, paso corto al andar. */
+    const bob = moving ? -Math.abs(Math.sin(state.time * 9.5)) * 2.2 : Math.sin(state.time * 2.4) * 1.05;
     const dw = REFUGE_IDLE.w * k, dh = REFUGE_IDLE.h * k;
     const dx = state.px - REFUGE_IDLE.midX * k, dy = state.py + 16 - REFUGE_IDLE.feetY * k + bob;
     ctx.save();
+    /* Balanceo lentísimo de respiración alrededor de los pies. */
+    const feetX = dx + REFUGE_IDLE.midX * k, feetY = dy + REFUGE_IDLE.feetY * k;
+    ctx.translate(feetX, feetY);
+    ctx.rotate(Math.sin(state.time * 0.7) * 0.008);
+    ctx.translate(-feetX, -feetY);
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = "high";
-    ctx.drawImage(REFUGE_IDLE.img, dx, dy, dw, dh);
+    const knightIdle = window.DD_APPEARANCE && window.DD_APPEARANCE.outfitFrame('idle');
+    ctx.drawImage(knightIdle || (window.DD_APPEARANCE ? window.DD_APPEARANCE.recolor(REFUGE_IDLE.img) : REFUGE_IDLE.img), dx, dy, dw, dh);
     ctx.restore();
     REFUGE_IDLE.lastRect = { x: +dx.toFixed(1), y: +dy.toFixed(1), w: +dw.toFixed(2), h: +dh.toFixed(2) };
+    return true;
+  }
+
+  // Tres poses generadas a partir del diseño 07B; la pose intermedia se repite
+  // para suavizar la ida y vuelta. Si no cargan, se conserva el idle existente.
+  const REFUGE_WALK_ORDER = [0, 1, 2, 1];
+  const REFUGE_WALK = [0, 1, 2].map(function (i) {
+    return { src: "assets/characters/protagonist_master/walk/pm_walk_0" + i + ".png", img: null };
+  });
+  function ensureRefugeWalk() {
+    REFUGE_WALK.forEach(function (frame) {
+      if (frame.img) return;
+      frame.img = new Image();
+      frame.img.src = frame.src;
+    });
+  }
+  function drawRefugeWalk(ctx) {
+    if (!state.walking) return false;
+    ensureRefugeWalk();
+    const frame = REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].img;
+    if (!frame || !frame.complete || !frame.naturalWidth || !frame.naturalHeight) return false;
+    const k = REFUGE_IDLE.drawH / REFUGE_IDLE.bodyH;
+    const w = REFUGE_IDLE.w * k, h = REFUGE_IDLE.h * k;
+    ctx.save();
+    ctx.translate(state.px, state.py + 16);
+    if (state.facingLeft) ctx.scale(-1, 1);
+    /* Balanceo de paso fluido: bob y vaivén con la fase real de caminata. */
+    const strideAngle = state.walkPhase * Math.PI;
+    ctx.translate(Math.sin(strideAngle) * 1.1, -Math.abs(Math.sin(strideAngle)) * 2.4);
+    ctx.rotate(Math.sin(strideAngle) * 0.014);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = "high";
+    const knightWalk = window.DD_APPEARANCE && window.DD_APPEARANCE.outfitFrame(state.walkFrame % 2 ? 'walk_a' : 'idle');
+    ctx.drawImage(knightWalk || (window.DD_APPEARANCE ? window.DD_APPEARANCE.recolor(frame) : frame), -REFUGE_IDLE.midX * k, -REFUGE_IDLE.feetY * k, w, h);
+    ctx.restore();
+    REFUGE_IDLE.lastRect = { x: +(state.px - REFUGE_IDLE.midX * k).toFixed(1), y: +(state.py + 16 - REFUGE_IDLE.feetY * k).toFixed(1), w: +w.toFixed(2), h: +h.toFixed(2) };
     return true;
   }
 
@@ -137,6 +182,11 @@
 
   function enter() {
     ensureRefugeIdle();
+    ensureRefugeWalk();
+    state.walking = false;
+    state.walkFrame = 0;
+    state.walkPhase = 0;
+    state.facingLeft = false;
     state.active = true;
     state.px = 880;
     state.py = 615;
@@ -178,7 +228,7 @@
       }
     };
     if (window.DD_CINE && typeof window.DD_CINE.playCircleDescent === "function") {
-      window.DD_CINE.playCircleDescent(1, triggerRun);
+      window.DD_CINE.playCircleDescent(0, triggerRun);
     } else {
       triggerRun();
     }
@@ -226,6 +276,8 @@
 
     // Pause HUB movement while modal or blocking cinematic is open
     if ((window.DD_UI && window.DD_UI.isModalOpen()) || (window.DD_CINE && window.DD_CINE.isBlocking())) {
+      state.walking = false;
+      state.vx = state.vy = 0;
       return;
     }
 
@@ -266,8 +318,17 @@
         ny = p.y + (dy / d) * minD;
       }
     }
+    const movedX = nx - state.px, movedY = ny - state.py;
     state.px = nx;
     state.py = ny;
+    // Animar por desplazamiento real: empujar una pared no produce pasos.
+    const moved = Math.hypot(movedX, movedY);
+    state.walking = mag > 0.15 && moved > 0.25;
+    if (state.walking) {
+      state.walkPhase += moved / 30;
+      state.walkFrame = Math.floor(state.walkPhase) % REFUGE_WALK_ORDER.length;
+      if (Math.abs(movedX) > 0.2) state.facingLeft = movedX < 0;
+    }
 
     if (Math.hypot(gp.ax, gp.ay) > 0.2) {
       state.aimAngle = Math.atan2(gp.ay, gp.ax);
@@ -426,7 +487,7 @@
         ctx.fill();
         ctx.restore();
         W.drawNeonGlow(ctx, state.px, state.py + 4, 78, "#ffe4f1", 0.34);
-        const drewHi = drawRefugeIdle(ctx) || W.drawProtagonist(
+        const drewHi = drawRefugeWalk(ctx) || drawRefugeIdle(ctx) || W.drawProtagonist(
           ctx,
           { x: state.px, y: state.py, aimAngle: state.aimAngle },
           window.DMO && window.DMO.playerAnim,
@@ -502,8 +563,11 @@
         nearStation: state.nearStation ? state.nearStation.id : null,
         bounds: HUB_BOUNDS,
         stations: STATIONS.map(s => s.id),
-        protagonist: REFUGE_IDLE.ok ? "idle_07b" : "sprites_anteriores",
-        protagonistSrc: REFUGE_IDLE.src,
+        protagonist: state.walking && REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].img && REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].img.naturalWidth ? "pm_walk_0" + REFUGE_WALK_ORDER[state.walkFrame] : (REFUGE_IDLE.ok ? "idle_07b" : "sprites_anteriores"),
+        walking: state.walking,
+        walkFrame: state.walkFrame,
+        facingLeft: state.facingLeft,
+        protagonistSrc: state.walking && REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].img && REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].img.naturalWidth ? REFUGE_WALK[REFUGE_WALK_ORDER[state.walkFrame]].src : REFUGE_IDLE.src,
         protagonistRect: REFUGE_IDLE.lastRect,
         protagonistAspect: REFUGE_IDLE.lastRect ? +(REFUGE_IDLE.lastRect.w / REFUGE_IDLE.lastRect.h).toFixed(4) : null
       };

@@ -14,18 +14,16 @@
 (function () {
   "use strict";
 
-  var CIRCLES_INFO = [
-    { idx: 0, code: "REFUGIO", name: "Cola del Club · El Refugio", boss: "Andén · El Portero" },
-    { idx: 1, code: "I", name: "Lujuria · Salón de los Deseos", boss: "Magneta · La Anfitriona" },
-    { idx: 2, code: "II", name: "Gula · Banquete Interminable", boss: "Bufé · Anfitrión Sin Fondo" },
-    { idx: 3, code: "III", name: "Avaricia · El Club VIP", boss: "El Cajero · Señor del VIP" },
-    { idx: 4, code: "IV", name: "Ira · Pista de las Peleas", boss: "El Pogo · Demonio de la Fosa" },
-    { idx: 5, code: "V", name: "Herejía · Catedral del Ruido", boss: "El Oficiante · Pontífice" },
-    { idx: 6, code: "VI", name: "Violencia · El Matadero", boss: "El Matarife · Coloso" },
-    { idx: 7, code: "VII", name: "Fraude · Club de los Espejos", boss: "El Imitador · Espejismo" },
-    { idx: 8, code: "VIII", name: "Traición · La Última Sala", boss: "El Traidor · Monarca Glacial" },
-    { idx: 9, code: "IX", name: "El Núcleo Final · Última Canción", boss: "El Núcleo / El Arquitecto" }
-  ];
+  /* El Refugio no es el círculo I. Los nombres y el orden vienen del motor;
+     mantener una tabla paralela desfasada rotulaba LIMBO como Refugio. */
+  function circleInfo() {
+    var br = window.__DD_BRIDGE;
+    var list = br && br.getCircles ? br.getCircles() : [];
+    var roman = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+    return list.map(function (c, i) {
+      return { idx: i, code: c.final ? "FINAL" : (roman[i] || String(i + 1)), name: c.name, place: c.place || "" };
+    });
+  }
 
   var uiState = {
     initialized: false,
@@ -33,12 +31,15 @@
     menuIndex: 0,
     shopOpen: false,
     mapOpen: false,
+    resultsOpen: false,
+    resultsIndex: 0,
     submenu: null,              /* OPCIONES / CRÉDITOS / PARTIDAS */
     submenuIndex: 0,
     busy: false,                /* anti doble pulsación */
-    selectedCategory: "ALL",
+    selectedCategory: "TODAS",
     selectedWeaponId: "m1911",
     dialogueTimer: 0,
+    dialogueSource: null,
     lastSubsText: "",
     gpCooldown: 0,
     kbCooldown: 0
@@ -64,7 +65,7 @@
      onerror inline hubiera actuado a tiempo. */
   function menuBackdropSrc() {
     /* PROJECT RESTART: el fondo del menú es el último plano de la intro. */
-    return "assets/cinematics/restart/opening/mc_07_pit.jpg";
+    return "assets/ui/scenes/portada_descenso.jpg";
   }
 
   function weaponImgSrc(wid) {
@@ -110,10 +111,11 @@
 
   /* ============================ A. MENÚ PRINCIPAL ========================= */
   var MENU_ITEMS = [
-    { action: "new", label: "NUEVA PARTIDA", sub: "Baja al Refugio" },
-    { action: "continue", label: "CONTINUAR", sub: "Vuelve al Refugio con tu progreso" },
-    { action: "options", label: "OPCIONES", sub: "Audio, vídeo, controles y accesibilidad" },
-    { action: "credits", label: "CRÉDITOS", sub: "Quién hizo sonar esta pista" },
+    { action: "play", label: "JUGAR", sub: "Nueva partida o continuar" },
+    { action: "customize", label: "PERSONALIZAR", sub: "El camerino" },
+    { action: "progression", label: "PROGRESIÓN", sub: "Tus registros" },
+    { action: "options", label: "OPCIONES", sub: "Audio, vídeo y controles" },
+    { action: "extras", label: "EXTRAS", sub: "Archivo del club" },
     { action: "exit", label: "SALIR", sub: "Apagar las luces" }
   ];
 
@@ -134,6 +136,7 @@
       { key: "dmo_floor_v32", label: "Planta generada de la última incursión" }
     ],
     PERMANENT: [
+      { key: "dd_appearance_v1", label: "Aspecto seleccionado" },
       { key: "dmodisco_currency_v1", label: "Fichas" },
       { key: "dmodisco_upgrades_v1", label: "Mejoras compradas" },
       { key: "dmodisco_weapon_prestige_v1", label: "Prestigio de armas" },
@@ -221,12 +224,15 @@
       '<img id="dd-menu-backdrop" alt="" onerror="this.onerror=null;this.style.visibility=\'hidden\'" src="' + menuBackdropSrc() + '">' +
       '<div class="dd-menu-atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>' +
       '<div class="dd-menu-vig" aria-hidden="true"></div>' +
+      '<div class="dd-menu-beat-light" aria-hidden="true"></div>' +
+      '<div class="dd-menu-stage" aria-hidden="true"><div class="dd-menu-orbit"></div><div class="dd-menu-beam"></div><div class="dd-menu-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="dd-menu-stage-label">LA TORRE TE ESPERA <span>✦</span> 09 CÍRCULOS</div></div>' +
       '<div class="dd-menu-left">' +
       '  <div class="dd-menu-brand">' +
       '    <img id="dd-menu-logo-img" class="dd-menu-logo" alt="DEADBEAT DISCO" src="' + (assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png") + '">' +
       '    <div class="dd-menu-tagline"><span>LA NOCHE QUE DEVORÓ EL AMANECER</span><i aria-hidden="true"></i></div>' +
+      '    <p class="dd-cover-manifesto">NUEVE CÍRCULOS <span>✦</span> UN ÚLTIMO BAILE</p>' +
       '  </div>' +
-      '  <nav class="dd-menu-nav" id="dd-menu-nav" role="menu" aria-label="Opciones del menú principal">' + nav + '</nav>' +
+      '  <nav class="dd-menu-nav" id="dd-menu-nav" aria-label="Opciones del menú principal">' + nav + '</nav>' +
       '  <div class="dd-menu-footer">' +
       '    <span class="dd-pill" id="dd-gamepad-pill">TECLADO · RATÓN · MANDO</span>' +
       '    <span class="dd-menu-build" id="dd-menu-build">v3.3.0</span>' +
@@ -315,6 +321,8 @@
     if (!boot) return;
     if (!boot.canStartGame()) return;
 
+    if (action === "play") { sfx("ok"); return openSubmenu("play"); }
+    if (action === "customize" || action === "progression" || action === "extras") { sfx("ok"); return openSubmenu(action); }
     if (action === "new") return doNewGame();
     if (action === "continue") return doContinue();
     if (action === "options") { sfx("ok"); return openSubmenu("options"); }
@@ -351,27 +359,32 @@
     return entered;
   }
 
-  /* NUEVA PARTIDA: descenso (se puede saltar) → Refugio → ficha nueva y estado de
-     run reiniciado. El progreso permanente no se toca (ver STORAGE).
-     No hay camino que entre al Refugio sin pasar por la secuencia. */
+  /* NUEVA PARTIDA: intro → descenso → Refugio. Ambas secuencias se pueden
+     saltar y CONTINUAR no las reproduce. El progreso permanente no se toca. */
   function doNewGame() {
     if (uiState.busy) return;
     uiState.busy = true;
     sfx("ok");
     pressFx("new");
     var op = window.DD_OPENING;
+    var descentStarted = false;
+    function descent() {
+      if (descentStarted) return;
+      descentStarted = true;
+      var ok = false;
+      try {
+        if (op && typeof op.playDescent === "function") ok = op.playDescent(function () { arriveAtRefuge(true); }) !== false;
+      } catch (e) { console.warn("[DD_UI] descenso no disponible", e); }
+      if (!ok) arriveAtRefuge(true);
+    }
     var started = false;
+    if (window.DD_BOOT) window.DD_BOOT.audio.stopMenuMusic(0.3);
     try {
-      if (op && typeof op.playDescent === "function") {
-        started = op.playDescent(function () { arriveAtRefuge(true); }) !== false;
-      }
-    } catch (e) { started = false; }
-    if (!started) { hideMainMenu({ keepState: true }); arriveAtRefuge(true); return; }
-    /* La música del menú se apaga durante el descenso: al Refugio se llega en
-       silencio de menú. */
-    if (window.DD_BOOT) window.DD_BOOT.audio.stopMenuMusic(0.8);
-    /* El menú se retira cuando el lienzo del descenso ya lo cubre. */
-    setTimeout(function () { if (uiState.busy) hideMainMenu({ keepState: true }); }, 380);
+      if (op && typeof op.playIntro === "function") started = op.playIntro(descent) !== false;
+    } catch (e) { console.warn("[DD_UI] intro no disponible", e); }
+    if (!started) descent();
+    // Se oculta detrás del lienzo; busy impide activaciones duplicadas.
+    hideMainMenu({ keepState: true });
   }
 
   /* Arranque real de partida.
@@ -532,7 +545,8 @@
     var upgrades = storeJson("dmodisco_upgrades_v1") || {};
     var ach = storeJson("dmodisco_ach_v1") || {};
     var weaponsPrestige = storeJson("dmodisco_weapon_prestige_v1") || {};
-    var victories = storeNum("dmo_victories_v214", 0);
+    var victoryRecord = storeJson("dmo_victories_v214");
+    var victories = victoryRecord && isFinite(Number(victoryRecord.count)) ? Math.max(0, Number(victoryRecord.count)) : 0;
     var rounds = Array.isArray(hist) ? hist : [];
     return {
       best: best,
@@ -576,6 +590,10 @@
   /* ============================ B. SUBMENÚS =============================== */
 
   var SUBMENU_TITLES = {
+    play: { title: "JUGAR", sub: "Elige cómo volver a la pista" },
+    customize: { title: "PERSONALIZAR", sub: "El camerino del protagonista" },
+    progression: { title: "PROGRESIÓN", sub: "Tu historia en la torre" },
+    extras: { title: "EXTRAS", sub: "Archivo del club" },
     options: { title: "OPCIONES", sub: "Ajustes del club · se recuerdan en este navegador" },
     credits: { title: "CRÉDITOS", sub: "La pista no se construyó sola" },
     partidas: { title: "SELECCIÓN DE PARTIDA", sub: "Estado persistente del club" },
@@ -591,6 +609,7 @@
     host.className = "dd-submenu-wrap";
     host.setAttribute("role", "dialog");
     host.setAttribute("aria-modal", "true");
+    host.setAttribute("aria-labelledby", "dd-submenu-title");
     host.setAttribute("aria-hidden", "true");
     host.innerHTML =
       '<div class="dd-submenu-card">' +
@@ -610,12 +629,48 @@
     return host;
   }
 
+  // Travelling en primera persona entre fondos de las escenas existentes.
+  // Es una transición visual, no una zona navegable ni otro gestor.
+  var passageTimer = 0;
+  var scenePassages = {
+    main: "assets/cinematics/restart/opening/op_03_dancefloor.jpg",
+    play: "assets/cinematics/restart/opening/op_03_dancefloor.jpg",
+    customize: "assets/ui/scenes/customize.jpg", progression: "assets/ui/scenes/progression.jpg",
+    options: "assets/ui/scenes/options.jpg", extras: "assets/ui/scenes/extras.jpg"
+  };
+  function scenePassage(from, to, returning) {
+    if (!scenePassages[from] || !scenePassages[to] || from === to) return;
+    try { if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return; } catch (e) {}
+    var layer = el("dd-scene-passage");
+    if (!layer) {
+      layer = document.createElement("div");
+      layer.id = "dd-scene-passage";
+      layer.setAttribute("aria-hidden", "true");
+      layer.innerHTML = '<div class="dd-passage-from"></div><div class="dd-passage-to"></div><div class="dd-passage-light"></div><div class="dd-passage-shade"></div><div class="dd-passage-title"></div>';
+      document.body.appendChild(layer);
+    }
+    clearTimeout(passageTimer);
+    layer.className = "";
+    layer.style.setProperty("--passage-from", 'url("' + scenePassages[from] + '")');
+    layer.style.setProperty("--passage-to", 'url("' + scenePassages[to] + '")');
+    layer.querySelector('.dd-passage-title').textContent = to === 'main' ? 'ENTRADA PRINCIPAL' : ((SUBMENU_TITLES[to] && SUBMENU_TITLES[to].title) || 'EL CLUB');
+    void layer.offsetWidth; // Reinicia la animación si el jugador cambia rápidamente.
+    layer.className = returning ? 'is-running is-returning' : 'is-running';
+    passageTimer = setTimeout(function () { layer.className = ''; }, 1280);
+  }
+  function cancelScenePassage() {
+    clearTimeout(passageTimer);
+    var layer = el('dd-scene-passage');
+    if (layer) layer.className = '';
+  }
+
   function openSubmenu(name, opts) {
     var host = submenuHost();
+    scenePassage(uiState.submenu || 'main', name, false);
     uiState.submenu = name;
     uiState.submenuIndex = 0;
     var meta = SUBMENU_TITLES[name] || { title: name.toUpperCase(), sub: "" };
-    el("dd-submenu-kicker").textContent = "DEADBEAT DISCO · " + String(name).toUpperCase();
+    el("dd-submenu-kicker").textContent = "DEADBEAT DISCO · " + meta.title;
     el("dd-submenu-title").textContent = meta.title;
     el("dd-submenu-sub").textContent = meta.sub;
     el("dd-submenu-foot").textContent = name === "credits" ? "ESC VOLVER" : "FLECHAS NAVEGAR · ENTER APLICAR · ESC VOLVER";
@@ -623,7 +678,12 @@
     returnMixPanel();
     body.innerHTML = "";
 
-    if (name === "options") renderOptions(body);
+    host.dataset.scene = name;
+    if (name === "play") renderPlay(body);
+    else if (name === "customize") renderCustomize(body);
+    else if (name === "progression") renderProgression(body);
+    else if (name === "extras") renderExtras(body);
+    else if (name === "options") renderOptions(body);
     else if (name === "credits") renderCredits(body);
     else if (name === "partidas") renderSlots(body, opts || {});
     else if (name === "exit") renderExit(body, opts || {});
@@ -631,23 +691,107 @@
 
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
-    document.getElementById("dd-main-menu").classList.add("dd-behind");
+    var mainMenu = document.getElementById("dd-main-menu");
+    mainMenu.classList.add("dd-behind");
+    mainMenu.inert = true;
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
     var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
-    if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
+    if (first) {
+      var focusScene = function () {
+        // Una transición rápida puede haber cerrado o reemplazado esta escena.
+        if (uiState.submenu !== name || !host.classList.contains("is-open") || !first.isConnected) return;
+        if (host.contains(document.activeElement)) return;
+        try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
+      };
+      setTimeout(focusScene, 30);
+      // Si la escena se reabre durante el fundido de salida, Chromium puede
+      // rechazar el primer foco mientras actualiza visibility.
+      setTimeout(focusScene, 200);
+      setTimeout(focusScene, 550);
+    }
+  }
+
+  function renderPlay(body) {
+    body.innerHTML = '<div class="dd-scene-content"><p>Vuelve a la pista o comienza una nueva historia.</p>' +
+      '<button class="dd-scene-action" id="dd-scene-new" data-autofocus>NUEVA PARTIDA</button>' +
+      (hasSave() ? '<button class="dd-scene-action" id="dd-scene-continue">CONTINUAR</button>' : '<p class="dd-scene-note">CONTINUAR estará disponible después de llegar al Refugio.</p>') + '</div>';
+    el("dd-scene-new").addEventListener("click", function () { closeSubmenu(true); doNewGame(); });
+    var resume = el("dd-scene-continue");
+    if (resume) resume.addEventListener("click", function () { closeSubmenu(true); doContinue(); });
+  }
+
+  function renderCustomize(body) {
+    var api = window.DD_APPEARANCE;
+    if (!api) { body.textContent = 'El camerino no está disponible.'; return; }
+    api.sync();
+    var list = api.list();
+    var host = el('dd-submenu');
+    host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
+    body.innerHTML = '<div class="dd-scene-content"><h3>ASPECTOS</h3><p>Elige el aspecto de tu personaje.</p>' +
+      '<p class="dd-scene-note">Todos los aspectos están disponibles para probar. Son cosméticos y no afectan a tus habilidades.</p>' +
+      '<div class="dd-looks">' + list.map(function (s) {
+        return '<button type="button" class="dd-look" data-look="' + esc(s.id) + '" ' + (!s.unlocked ? 'disabled ' : '') + 'aria-pressed="' + (s.selected ? 'true' : 'false') + '">' +
+          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
+      }).join('') + '</div><p id="dd-look-status" role="status" aria-live="polite"></p></div>';
+    if (!host.dataset.lookReadyBound) {
+      host.dataset.lookReadyBound = '1';
+      window.addEventListener('dd-looks-ready', function () { host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")'); });
+    }
+    body.querySelectorAll('[data-look]').forEach(function(btn) {
+      btn.addEventListener('click', function () {
+        if (!api.equip(btn.dataset.look)) { el('dd-look-status').textContent = 'El aspecto aún se está cargando. Inténtalo de nuevo.'; return; }
+        host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
+        body.querySelectorAll('[data-look]').forEach(function(b) {
+          var chosen = b.dataset.look === api.current().id;
+          b.setAttribute('aria-pressed', chosen ? 'true' : 'false');
+          if (!b.disabled) b.querySelector('small').textContent = chosen ? 'EQUIPADO' : 'DISPONIBLE';
+        });
+        el('dd-look-status').textContent = api.current().name + ' equipado';
+        sfx('ok');
+      });
+    });
+  }
+
+  function renderProgression(body) {
+    var p = readProgress();
+    body.innerHTML = '<div class="dd-scene-content"><dl class="dd-scene-stats">' +
+      [["MEJOR PUNTUACIÓN", p.best], ["SALA MÁS PROFUNDA", p.bestRound], ["FICHAS", p.currency], ["VICTORIAS", p.victories], ["LOGROS GUARDADOS", p.achievements.length], ["PARTIDAS REGISTRADAS", p.history.length]].map(function (v) { return '<div><dt>' + esc(v[0]) + '</dt><dd>' + esc(v[1]) + '</dd></div>'; }).join('') +
+      '</dl><h3>DESBLOQUEOS Y LOGROS</h3><p>' + (p.achievements.length ? p.achievements.map(esc).join(' · ') : 'Todavía no hay logros guardados.') + '</p>' +
+      '<p class="dd-scene-note">Sigue bajando para descubrir más de la torre.</p></div>';
+  }
+
+  function renderExtras(body) {
+    renderCredits(body);
+    var section = document.createElement("section");
+    section.className = "dd-scene-extras";
+    var looks = window.DD_APPEARANCE ? window.DD_APPEARANCE.list() : [];
+    section.innerHTML = '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
+      '<div class="dd-scene-gallery"><img src="assets/cinematics/restart/opening/mc_03_nine.jpg" alt="Las nueve pistas"><img src="assets/cinematics/restart/opening/mc_04_doors.jpg" alt="Puertas del club"><img src="assets/cinematics/restart/opening/mc_07_pit.jpg" alt="El pozo de descenso"></div>' +
+      '<h3>COLECCIÓN DE ASPECTOS</h3><div class="dd-extra-looks">' + looks.map(function(s) {
+        return '<div><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div>';
+      }).join('') + '</div>';
+    body.insertBefore(section, body.firstChild);
   }
 
   /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
      volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
      segunda vez se destruía y la mezcla del juego desaparecía hasta recargar. */
+  var optionsResizeHandler = null;
+
   function returnMixPanel() {
+    if (optionsResizeHandler) {
+      window.removeEventListener("resize", optionsResizeHandler);
+      optionsResizeHandler = null;
+    }
     var mixSrc = el("audio-panel-menu-body");
     if (mixSrc && mixSrc._ddHome && mixSrc.parentNode !== mixSrc._ddHome) {
       try { mixSrc._ddHome.appendChild(mixSrc); } catch (e) {}
     }
   }
 
-  function closeSubmenu() {
+  function closeSubmenu(silentPassage) {
+    if (silentPassage === true) cancelScenePassage();
+    else if (uiState.submenu) scenePassage(uiState.submenu, 'main', true);
     resetDirectionalState();
     returnMixPanel();
     var host = el("dd-submenu");
@@ -656,7 +800,7 @@
       host.setAttribute("aria-hidden", "true");
     }
     var menu = el("dd-main-menu");
-    if (menu) menu.classList.remove("dd-behind");
+    if (menu) { menu.classList.remove("dd-behind"); menu.inert = false; }
     uiState.submenu = null;
     if (window.DD_BOOT && window.DD_BOOT.closeSubmenu) window.DD_BOOT.closeSubmenu();
     var btn = menu && menu.querySelector(".dd-menu-btn.dd-selected");
@@ -693,6 +837,8 @@
       if (s && typeof s.vol === "number") coverVol = s.vol;
     } catch (e) {}
 
+    var snapshot = window.__DD_BRIDGE && window.__DD_BRIDGE.getSnapshot ? window.__DD_BRIDGE.getSnapshot() : null;
+    var dodgeKey = { Space: "ESPACIO", KeyV: "V", AltLeft: "ALT IZQUIERDO" }[(snapshot && snapshot.rollKey) || "Space"] || "ESPACIO";
     body.innerHTML =
       '<div class="dd-opt-grid">' +
       '  <section class="dd-opt-col">' +
@@ -729,8 +875,10 @@
       })() + '</div>' +
       '    <p class="dd-opt-note" id="dd-opt-res"></p>' +
       '    <h3>CONTROLES</h3>' +
-      '    <div class="dd-opt-row"><label for="dd-opt-keys">TECLADO</label><span class="dd-opt-fixed">WASD / FLECHAS · ENTER · ESC</span></div>' +
-      '    <div class="dd-opt-row"><label for="dd-opt-pad">MANDO XBOX</label><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
+      '    <div class="dd-opt-row"><span>MANDO XBOX</span><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
+      '    <p class="dd-opt-note dd-controls-copy" id="dd-controls-keyboard"><strong>TECLADO Y RATÓN</strong><br>WASD / FLECHAS: mover · RATÓN: apuntar y disparar<br>' +
+      dodgeKey + ': esquivar · Q: bomba · MAYÚS: boost · E: interactuar · Z: cambiar arma<br>I / M: inventario y mapa · ESC: pausa</p>' +
+      '    <p class="dd-opt-note dd-controls-copy"><strong>MANDO XBOX</strong><br>STICK IZQUIERDO: mover · STICK DERECHO: apuntar · RT: disparar<br>B: esquivar · LB: bomba · RB: boost · A: interactuar · Y: cambiar arma · VIEW: inventario y mapa · START: pausa</p>' +
       '  </section>' +
       '</div>' +
       '<div class="dd-opt-data">' +
@@ -753,7 +901,7 @@
       mixHost.appendChild(mixSrc);
       try { if (mixSrc._sync) mixSrc._sync(); } catch (e) {}
     } else if (mixHost) {
-      mixHost.innerHTML = '<p class="dd-opt-note">La mezcla del motor aún no está lista. Vuelve a abrir OPCIONES en unos segundos.</p>';
+      mixHost.innerHTML = '<p class="dd-opt-note">La mezcla de sonido aún no está lista. Vuelve a abrir OPCIONES en unos segundos.</p>';
     }
 
     var eraseBtn = el("dd-opt-erase");
@@ -770,7 +918,9 @@
         " · ESCALA " + (window.devicePixelRatio || 1).toFixed(2) + "× · LIENZO " + (el("game") ? el("game").width + "×" + el("game").height : "—");
     }
     paintRes();
-    window.addEventListener("resize", paintRes);
+    if (optionsResizeHandler) window.removeEventListener("resize", optionsResizeHandler);
+    optionsResizeHandler = paintRes;
+    window.addEventListener("resize", optionsResizeHandler);
 
     /* Los deslizadores del motor guardan su valor al moverse; aquí se reaplica
        al instante sobre lo que suena en el menú. */
@@ -924,14 +1074,8 @@
       '    <div><dt>DIRECCIÓN Y PRODUCCIÓN</dt><dd>SER-RGV</dd></div>' +
       '    <div><dt>DISEÑO Y DESARROLLO</dt><dd>SER-RGV</dd></div>' +
       '    <div><dt>DIRECCIÓN DE ARTE Y RECURSOS</dt><dd>SER-RGV</dd></div>' +
-      '    <div><dt>MOTOR</dt><dd>' + (engine ? "DMO " + esc(engine) : "DMO") + ' · render isométrico propio · sin dependencias externas</dd></div>' +
-      '    <div><dt>TIPOGRAFÍA DE PISTA</dt><dd>DDPixel — fuente bitmap incluida en la propia build' + (fontOk ? " (cargada correctamente)" : "") + '</dd></div>' +
-      '    <div><dt>MÚSICA Y AUDIO</dt><dd>Síntesis procedural WebAudio original del proyecto</dd></div>' +
-      '    <div><dt>INTRODUCCIÓN «LA NOCHE QUE VUELVE»</dt><dd>Ilustraciones generadas con IA a partir de la lámina maestra del protagonista; montaje, animación y sonido por código</dd></div>' +
       '    <div><dt>VERSIÓN</dt><dd>v' + esc(version) + '</dd></div>' +
       '  </dl>' +
-      '  <p class="dd-cred-note">Créditos construidos sólo con la información real del proyecto. ' +
-      'No se listan personas ni colaboradores que no consten en el repositorio.</p>' +
       '</div>';
   }
 
@@ -942,7 +1086,7 @@
        (meta-progreso + mejor descenso). Se muestra la verdad y se ofrece la
        acción más pequeña compatible: reanudar ese estado. */
     var circleIdx = p.bestRound >= 100 ? 9 : Math.max(0, Math.min(8, Math.ceil(Math.max(1, p.bestRound) / 11) - 1));
-    var c = CIRCLES_INFO[circleIdx];
+    var c = circleInfo()[circleIdx] || { code: "—", name: "Datos del descenso no disponibles" };
 
     var rows = "";
     p.history.slice(0, 5).forEach(function (h, i) {
@@ -955,7 +1099,7 @@
       '  <div class="dd-slot-head">' +
       '    <span class="dd-slot-tag">' + (opts.noSave ? "SIN PROGRESO GUARDADO" : "RANURA ACTIVA") + '</span>' +
       '    <b>' + (p.hasProgress ? "DESCENSO EN " + c.code : "SIN DESCENSOS REGISTRADOS") + '</b>' +
-      '    <span>' + (p.hasProgress ? esc(c.name) : "Cada descenso empieza en el Círculo I · Lujuria") + '</span>' +
+      '    <span>' + (p.hasProgress ? esc(c.name) : "Cada descenso empieza en el Círculo I · Limbo") + '</span>' +
       '  </div>' +
       '  <dl class="dd-slot-stats">' +
       '    <div><dt>SALA MÁS PROFUNDA</dt><dd>' + (p.bestRound || "—") + '</dd></div>' +
@@ -972,9 +1116,9 @@
       '  </div>' +
       '</div>' +
       '<div class="dd-slot-note">' +
-      '  <b>LIMITACIÓN REAL DEL SISTEMA DE GUARDADO</b>' +
-      '  <p>El motor no guarda partidas a media incursión (así está diseñado: «el club no guarda partidas a medias»). ' +
-      'Por eso no se muestran ranuras ficticias. Lo que persiste es el meta-progreso: mejor descenso, fichas, ' +
+      '  <b>PROGRESO GUARDADO</b>' +
+      '  <p>El club no guarda partidas a media incursión. ' +
+      'Se conservan tu mejor descenso, fichas, ' +
       'mejoras permanentes, arsenal y logros.</p>' +
       '</div>' +
       (p.history.length
@@ -1098,7 +1242,7 @@
     var host = el("dd-submenu");
     if (host) { host.classList.remove("is-open"); host.setAttribute("aria-hidden", "true"); }
     var m = el("dd-main-menu");
-    if (m) m.classList.remove("dd-behind");
+    if (m) { m.classList.remove("dd-behind"); m.inert = false; }
     uiState.submenu = null;
     /* Invariante: el FSM no puede quedarse en SUBMENU sin submenú abierto.
        Si eso ocurre, el sondeo del mando deja de responder (consulta
@@ -1122,14 +1266,16 @@
       '  <div class="dd-hud-portrait-frame"><img id="dd-hud-portrait" alt="Protagonista" src="' + assetSrc("hud_portrait_protagonist") + '"></div>' +
       '  <div class="dd-hud-vitals">' +
       '    <div class="dd-hud-hearts-row">' +
-      '      <div class="dd-hud-hearts" id="dd-hud-hearts"></div>' +
+      '      <div class="dd-hud-hearts" id="dd-hud-hearts" role="img" aria-label="Vidas"></div>' +
       '      <div class="dd-hud-badges">' +
+      '        <span class="dd-badge-shield" id="dd-hud-shield" role="img" aria-label="Escudos 0">ESC 0</span>' +
       '        <span class="dd-badge-cr"><img id="dd-hud-coin-img" alt="" src="' + assetSrc("hud_credit_coin", "pickups/pickup_credits_00.png") + '"><b id="dd-hud-cr">0</b></span>' +
       '        <span class="dd-badge-nv" id="dd-hud-nv">NV. 1</span>' +
       '      </div>' +
       '    </div>' +
-      '    <div class="dd-bar-track" title="Salud Vital"><div class="dd-bar-fill" id="dd-hud-hp-fill" style="width:100%"></div></div>' +
-      '    <div class="dd-bar-track dd-bar-shield" title="Escudo / Pulso RAVE"><div class="dd-bar-fill" id="dd-hud-sh-fill" style="width:0%"></div></div>' +
+      '    <div class="dd-bar-track" aria-hidden="true"><div class="dd-bar-fill" id="dd-hud-hp-fill" style="width:100%"></div></div>' +
+      '    <div class="dd-hud-hype-label" id="dd-hud-hype-label">HYPE 0%</div>' +
+      '    <div class="dd-bar-track dd-bar-shield" aria-hidden="true"><div class="dd-bar-fill" id="dd-hud-sh-fill" style="width:0%"></div></div>' +
       '    <div class="dd-hud-weapon-strip">' +
       '      <span id="dd-hud-weapon-name">M1911 · ∞</span>' +
       '      <img id="dd-hud-weapon-img" class="dd-hud-weapon-thumb" alt="" src="' + weaponImgSrc("m1911") + '">' +
@@ -1141,18 +1287,18 @@
       '  <div class="dd-bar-track"><div class="dd-bar-fill" id="dd-boss-hp-fill" style="width:100%"></div></div>' +
       '</div>' +
       '<div class="dd-hud-top-right">' +
-      '  <div class="dd-minimap-box" id="dd-minimap-trigger" title="Abrir Mapa de Progresión [M]"><canvas id="dd-minimap-canvas" width="196" height="132"></canvas></div>' +
+      '  <button type="button" class="dd-minimap-box" id="dd-minimap-trigger" aria-label="Abrir torre de progresión" title="Abrir torre de progresión"><canvas id="dd-minimap-canvas" width="196" height="132" aria-hidden="true"></canvas></button>' +
       '  <div class="dd-room-banner" id="dd-hud-room">EL REFUGIO · ZONA SEGURA</div>' +
       '  <div class="dd-quick-actions">' +
-      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-shop">[I] ARMERÍA</button>' +
-      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-map">[M] TORRE</button>' +
+      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-shop">ARMERÍA</button>' +
+      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-map">TORRE</button>' +
       '    <button type="button" class="dd-quick-btn" id="dd-btn-enter-hub">[H] REFUGIO</button>' +
       '  </div>' +
       '</div>' +
       '<div class="dd-hud-skills">' +
-      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">ESP</span></div>' +
+      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">Q</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-boost"><img id="dd-skill-boost-img" alt="Boost" src="' + assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png") + '"><span class="dd-skill-count" id="dd-skill-boost-cnt">1</span><span class="dd-skill-key" id="dd-skill-boost-key">SHIFT</span></div>' +
-      '  <div class="dd-skill-card" id="dd-skill-dodge"><img id="dd-skill-dodge-img" alt="Esquiva" src="' + assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png") + '"><span class="dd-skill-key">ROLL</span></div>' +
+      '  <div class="dd-skill-card" id="dd-skill-dodge"><img id="dd-skill-dodge-img" alt="Esquiva" src="' + assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png") + '"><span class="dd-skill-key" id="dd-skill-dodge-key">ESP</span></div>' +
       '</div>';
     document.body.appendChild(hud);
 
@@ -1168,10 +1314,17 @@
     var dlg = document.createElement("aside");
     dlg.id = "dd-dialogue-box";
     dlg.className = "dd-hidden";
+    dlg.setAttribute("role", "status");
+    dlg.setAttribute("aria-live", "polite");
     dlg.innerHTML =
-      '<div class="dd-dj-portrait-wrap"><img id="dd-dj-portrait" alt="Tempo" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
+      '<div class="dd-dj-portrait-wrap" id="dd-tempo-portrait-wrap"><img id="dd-dj-portrait" alt="Tempo" src="' + assetSrc("dialogue_portrait_dj") + '"></div>' +
+      '<div class="dd-player-portrait-wrap" id="dd-player-portrait-wrap" hidden><img id="dd-player-dialogue-portrait" alt="Protagonista"></div>' +
       '<div class="dd-dj-speech"><div class="dd-dj-speaker-tab" id="dd-dj-speaker">TEMPO</div><div class="dd-dj-text" id="dd-dj-text"></div></div>';
     document.body.appendChild(dlg);
+    // El canal original sigue vivo para el motor, pero no debe anunciar el
+    // mismo mensaje dos veces cuando su presentación HD está activa.
+    var legacySubs = el("subs");
+    if (legacySubs && document.body.classList.contains("dd-highres-edition")) legacySubs.setAttribute("aria-hidden", "true");
   }
 
   function buildModals() {
@@ -1179,7 +1332,7 @@
     shop.id = "dd-shop-modal";
     shop.className = "dd-modal-backdrop dd-hidden";
     shop.innerHTML =
-      '<div class="dd-modal-window" role="dialog" aria-label="Inventario y Tienda de Armas">' +
+      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Inventario y Tienda de Armas">' +
       '  <div class="dd-modal-header">' +
       '    <span class="dd-modal-title">INVENTARIO / TIENDA · ARMERÍA INFERNAL</span>' +
       '    <div style="display:flex;align-items:center;gap:14px;">' +
@@ -1189,6 +1342,7 @@
       '  </div>' +
       '  <div class="dd-shop-body">' +
       '    <div style="display:flex;flex-direction:column;overflow:hidden;">' +
+      '      <p class="dd-shop-context" id="dd-shop-context"></p>' +
       '      <div class="dd-shop-filters" id="dd-shop-filters"></div>' +
       '      <div class="dd-weapons-grid" id="dd-weapons-grid"></div>' +
       '    </div>' +
@@ -1202,14 +1356,14 @@
     mapModal.id = "dd-map-modal";
     mapModal.className = "dd-modal-backdrop dd-hidden";
     mapModal.innerHTML =
-      '<div class="dd-modal-window" role="dialog" aria-label="Mapa de Progresión de los Nueve Círculos">' +
+      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Mapa de Progresión de los Nueve Círculos">' +
       '  <div class="dd-modal-header">' +
       '    <span class="dd-modal-title">MAPA DE PROGRESIÓN · DESCENSO POR LA TORRE</span>' +
       '    <button type="button" class="dd-close-btn" id="dd-map-close">CERRAR [ESC]</button>' +
       '  </div>' +
       '  <div class="dd-map-body">' +
       '    <div class="dd-tower-art-wrap"><img id="dd-map-tower-img" alt="Torre Infernal" src="' + assetSrc("map_infernal_tower") + '"></div>' +
-      '    <div class="dd-circles-list" id="dd-circles-list"></div>' +
+      '    <div class="dd-circles-list" id="dd-circles-list" role="region" aria-label="Círculos de la torre, desplázate para ver todos" tabindex="0"></div>' +
       '  </div>' +
       '</div>';
     document.body.appendChild(mapModal);
@@ -1230,7 +1384,11 @@
     buildMainMenu();
     buildHud();
     buildDialogue();
+    window.addEventListener('dd-appearance-change', refreshAppearancePortraits);
+    window.addEventListener('dd-looks-ready', refreshAppearancePortraits);
+    refreshAppearancePortraits();
     buildModals();
+    buildResults();
     if (!el("dd-font-probe")) {
       var probe = document.createElement("span");
       probe.id = "dd-font-probe";
@@ -1241,46 +1399,211 @@
     }
   }
 
+  /* Resultados usan exclusivamente los datos y el cierre de partida del motor.
+     El resumen completo permanece disponible sin volver a calcular premios. */
+  function buildResults() {
+    var root = document.createElement("section");
+    root.id = "dd-results";
+    root.className = "dd-hidden";
+    root.setAttribute("role", "dialog");
+    root.setAttribute("aria-modal", "true");
+    root.setAttribute("aria-labelledby", "dd-results-title");
+    root.innerHTML = '<div class="dd-results-card">' +
+      '<div class="dd-results-kicker">DEADBEAT DISCO // FIN DE LA SESIÓN</div>' +
+      '<h1 id="dd-results-title">FIN DEL DESCENSO</h1>' +
+      '<p class="dd-results-lead" id="dd-results-lead"></p>' +
+      '<dl class="dd-results-stats" id="dd-results-stats"></dl>' +
+      '<details class="dd-results-details"><summary>Ver resumen completo</summary><pre id="dd-results-summary"></pre></details>' +
+      '<div class="dd-results-actions"><button type="button" id="dd-results-retry">REINTENTAR</button>' +
+      '<button type="button" id="dd-results-menu">MENÚ PRINCIPAL</button></div>' +
+      '<p class="dd-results-hint">↑ ↓ SELECCIONAR · ENTER ELEGIR &nbsp; / &nbsp; CRUCETA + A</p>' +
+      '<p id="dd-results-error" role="status"></p></div>';
+    document.body.appendChild(root);
+    el("dd-results-retry").addEventListener("click", retryResults);
+    el("dd-results-menu").addEventListener("click", resultsToMenu);
+    resultControls().forEach(function (control, i) {
+      control.addEventListener("focus", function () {
+        uiState.resultsIndex = i;
+        resultControls().forEach(function (item) { item.classList.toggle("dd-selected", item === control); });
+      });
+    });
+  }
+
+  function resultControls() {
+    var root = el("dd-results");
+    return root ? [el("dd-results-retry"), el("dd-results-menu"), root.querySelector("summary")] : [];
+  }
+
+  function selectResult(index) {
+    var controls = resultControls();
+    uiState.resultsIndex = (index + controls.length) % controls.length;
+    controls[uiState.resultsIndex].focus({ preventScroll: true });
+    controls[uiState.resultsIndex].scrollIntoView({ block: "nearest", inline: "nearest" });
+  }
+
+  function showResults(result, summary) {
+    buildDOM();
+    closeModals();
+    uiState.resultsOpen = true;
+    uiState.resultsIndex = 0;
+    var won = !!(result && result.won);
+    var suppressed = !!(result && result.victorySuppressed);
+    var modified = !!(result && result.tainted);
+    el("dd-results-title").textContent = won ? "VICTORIA" : suppressed ? "FIN NO OFICIAL" : "FIN DEL DESCENSO";
+    el("dd-results-lead").textContent = won ? "La última canción es tuya." :
+      suppressed ? "Partida modificada · sin victoria ni recompensas oficiales." :
+      modified ? "Partida modificada · sin récords ni recompensas oficiales." : "La pista espera tu regreso.";
+    var stats = [];
+    if (result) {
+      [["SALA", "round"], ["PUNTUACIÓN", "score"], ["BAJAS", "kills"], ["TIEMPO", "t"]].forEach(function (pair) {
+        var v = result[pair[1]];
+        if (typeof v !== "number" || !isFinite(v)) return;
+        stats.push('<div><dt>' + pair[0] + '</dt><dd>' + esc(pair[1] === "t" ? v.toFixed(1) + " s" : v.toLocaleString("es-ES")) + '</dd></div>');
+      });
+    }
+    el("dd-results-stats").innerHTML = stats.join("");
+    el("dd-results-summary").textContent = summary || "";
+    el("dd-results").querySelector("details").open = false;
+    el("dd-results-error").textContent = "";
+    el("dd-results").classList.remove("dd-hidden");
+    /* La navegación del motor considera #overlay visible como su menú activo.
+       Si queda detrás de resultados, A puede accionar también JUGAR. Ocultarlo
+       sólo después de mostrar la nueva pantalla evita dos dueños del mando. */
+    var legacy = el("overlay");
+    if (legacy) { legacy.classList.add("hidden"); legacy.setAttribute("aria-hidden", "true"); legacy.inert = true; }
+    el("dd-hud").classList.add("dd-hidden");
+    /* El motor acaba de detenerse. Una marca de latido reciente no debe dejar
+       los primeros botones del mando sin leer durante un segundo. Si el motor
+       sigue llamando a tick(), volverá a actualizarla y retirará este latido. */
+    selfTick.lastEngineCall = 0;
+    startSelfTick();
+    selectResult(0);
+  }
+
+  function hideResults() {
+    uiState.resultsOpen = false;
+    el("dd-results").classList.add("dd-hidden");
+    stopSelfTick();
+  }
+
+  function retryResults() {
+    if (!uiState.resultsOpen) return;
+    var br = window.__DD_BRIDGE;
+    var ok = false;
+    try { ok = !!(br && br.startRun && br.startRun()); } catch (e) { console.warn("[DD_UI] reintento", e); }
+    if (!ok) { el("dd-results-error").textContent = "No se pudo iniciar la partida. Prueba de nuevo o vuelve al menú."; return; }
+    hideResults();
+    sfx("ok");
+  }
+
+  function resultsToMenu() {
+    if (!uiState.resultsOpen) return;
+    // El motor ya cerró la sesión. Ocultar su overlay evita que reaparezca
+    // detrás del Refugio cuando se inicia otra partida desde el menú HD.
+    var legacy = el("overlay");
+    if (legacy) { legacy.classList.add("hidden"); legacy.setAttribute("aria-hidden", "true"); legacy.inert = true; }
+    hideResults();
+    if (window.DD_BOOT && window.DD_BOOT.exitGameToMenu) window.DD_BOOT.exitGameToMenu();
+    else showMainMenu();
+    sfx("back");
+  }
+
   /* ============================ D. TIENDA / MAPA ========================== */
+  var modalReturnFocus = null;
+  function rememberModalFocus() {
+    if (!uiState.shopOpen && !uiState.mapOpen) modalReturnFocus = document.activeElement;
+  }
   function openShop() {
     buildDOM();
+    rememberModalFocus();
     uiState.mapOpen = false;
     uiState.shopOpen = true;
     el("dd-map-modal").classList.add("dd-hidden");
     el("dd-shop-modal").classList.remove("dd-hidden");
+    el("dd-hud").inert = true;
     renderShop();
+    el("dd-shop-close").focus({ preventScroll: true });
   }
 
   function openMap() {
     buildDOM();
+    rememberModalFocus();
     uiState.shopOpen = false;
     uiState.mapOpen = true;
     el("dd-shop-modal").classList.add("dd-hidden");
     var modal = el("dd-map-modal");
     modal.classList.remove("dd-hidden");
+    el("dd-hud").inert = true;
     var br = window.__DD_BRIDGE;
     var snap = br ? br.getSnapshot() : { circle: 0, running: false };
-    var activeCircle = (window.DD_HUB && window.DD_HUB.isActive()) ? 0 : (snap.circle || 0);
+    var inHub = !!(window.DD_HUB && window.DD_HUB.isActive());
+    var activeCircle = !inHub && snap.running ? snap.circle : null;
     var listEl = el("dd-circles-list");
     if (listEl) {
-      listEl.innerHTML = CIRCLES_INFO.slice().reverse().map(function (c) {
-        var cls = c.idx === activeCircle ? "current" : (c.idx < activeCircle ? "cleared" : "");
-        var tag = c.idx === activeCircle ? "UBICACIÓN ACTUAL" : (c.idx < activeCircle ? "SUPERADO" : "BLOQUEADO");
-        return '<div class="dd-circle-node ' + cls + '"><div>' +
-          '<strong style="color:#ff2d7a;margin-right:8px;">[' + esc(c.code) + ']</strong><span>' + esc(c.name) + '</span>' +
-          '<div style="font-size:11px;color:#94a3b8;margin-top:2px;">Residente: ' + esc(c.boss) + '</div></div>' +
-          '<span style="font-size:11px;font-weight:800;">' + tag + '</span></div>';
-      }).join("");
+      var circles = circleInfo();
+      listEl.innerHTML = '<p class="dd-map-location">' + (inHub ? 'UBICACIÓN ACTUAL · REFUGIO' : 'TORRE · CÍRCULOS') +
+        '<small> ↑↓ DESPLAZAR</small></p>' +
+        (circles.length ? circles.slice().reverse().map(function (c) {
+          var current = c.idx === activeCircle;
+          return '<div class="dd-circle-node ' + (current ? 'current' : '') + '"><div>' +
+            '<strong style="color:#ff2d7a;margin-right:8px;">[' + esc(c.code) + ']</strong><span>' + esc(c.name) + '</span>' +
+            '<div style="font-size:11px;color:#94a3b8;margin-top:2px;">' + esc(c.place) + '</div></div>' +
+            (current ? '<span style="font-size:11px;font-weight:800;">UBICACIÓN ACTUAL</span>' : '') + '</div>';
+        }).join("") : '<p class="dd-opt-note">El mapa aún no está disponible.</p>');
+      var currentNode = listEl.querySelector(".current");
+      listEl.scrollTop = currentNode ? Math.max(0, currentNode.offsetTop - listEl.offsetTop - listEl.clientHeight / 2) : listEl.scrollHeight;
+    }
+    el("dd-map-close").focus({ preventScroll: true });
+  }
+
+  function modalFocusStep(dir) {
+    var host = el(uiState.shopOpen ? "dd-shop-modal" : "dd-map-modal");
+    if (!host) return;
+    var items = Array.prototype.filter.call(host.querySelectorAll("button:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex=\"0\"]"), function (item) {
+      return item.getClientRects().length > 0;
+    });
+    if (!items.length) return;
+    var i = items.indexOf(document.activeElement);
+    i = i < 0 ? (dir < 0 ? items.length - 1 : 0) : (i + dir + items.length) % items.length;
+    items[i].focus({ preventScroll: true });
+    items[i].scrollIntoView({ block: "nearest", inline: "nearest" });
+    sfx("move");
+  }
+
+  function activateModalFocus() {
+    var active = document.activeElement;
+    var host = el(uiState.shopOpen ? "dd-shop-modal" : "dd-map-modal");
+    if (!host || !active || !host.contains(active) || active.disabled) return;
+    var weapon = active.getAttribute("data-w"), category = active.getAttribute("data-cat");
+    active.click();
+    // La armería vuelve a dibujar sus tarjetas al seleccionar. Recuperar el foco
+    // por valor, sin usar selectores construidos con datos externos.
+    if (uiState.shopOpen && (weapon || category)) {
+      var nodes = host.querySelectorAll(weapon ? "[data-w]" : "[data-cat]");
+      Array.prototype.some.call(nodes, function (node) {
+        if (node.getAttribute(weapon ? "data-w" : "data-cat") !== (weapon || category)) return false;
+        node.focus({ preventScroll: true });
+        return true;
+      });
     }
   }
 
-  function closeModals() {
+  function closeModals(skipFocusRestore) {
+    // Event listeners pass an Event, not this explicit internal flag.
+    skipFocusRestore = skipFocusRestore === true;
     uiState.shopOpen = false;
     uiState.mapOpen = false;
     var s = el("dd-shop-modal");
     var m = el("dd-map-modal");
     if (s) s.classList.add("dd-hidden");
     if (m) m.classList.add("dd-hidden");
+    var hud = el("dd-hud");
+    if (hud) hud.inert = false;
+    var target = modalReturnFocus;
+    modalReturnFocus = null;
+    if (!skipFocusRestore && target && target !== document.body && target.isConnected && target.getClientRects().length && target.focus) {
+      target.focus({ preventScroll: true });
+    }
   }
 
   /* ---- catálogo de la armería (mismo comportamiento que la versión previa) */
@@ -1298,6 +1621,8 @@
     var snap = br ? br.getSnapshot() : { credits: 0, owned: [], running: false };
     var cred = el("dd-shop-credits");
     if (cred) cred.textContent = String(snap.credits || 0);
+    var context = el("dd-shop-context");
+    if (context) context.textContent = snap.running ? "PRECIOS DE LA INCURSIÓN · CRÉDITOS ACTUALES" : "REFUGIO · PRUEBA SIN COSTE · PRECIOS DE INCURSIÓN";
     var weapons = getCatalogWeapons();
     var cats = ["TODAS"];
     weapons.forEach(function (w) {
@@ -1305,11 +1630,15 @@
       if (cats.indexOf(c) < 0) cats.push(c);
     });
     var filters = el("dd-shop-filters");
-    if (filters && !filters.dataset.built) {
-      filters.dataset.built = "1";
+    if (filters && filters.dataset.categories !== JSON.stringify(cats)) {
+      filters.dataset.categories = JSON.stringify(cats);
+      if (cats.indexOf(uiState.selectedCategory) < 0) uiState.selectedCategory = "TODAS";
       filters.innerHTML = cats.map(function (c) {
-        return '<button type="button" class="dd-filter-chip' + (c === "TODAS" ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
+        return '<button type="button" class="dd-filter-chip' + (c === uiState.selectedCategory ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
       }).join("");
+    }
+    if (filters && !filters.dataset.bound) {
+      filters.dataset.bound = "1";
       filters.addEventListener("click", function (ev) {
         var b = ev.target.closest(".dd-filter-chip");
         if (!b) return;
@@ -1326,22 +1655,30 @@
     }).slice(0, 120);
 
     if (!list.length) {
-      grid.innerHTML = '<p class="dd-opt-note">La armería está cargando desde el motor. Vuelve a abrirla en unos segundos.</p>';
+      grid.innerHTML = '<p class="dd-opt-note">La armería está cargando. Vuelve a abrirla en unos segundos.</p>';
     } else {
       grid.innerHTML = list.map(function (w) {
         var owned = snap.owned && snap.owned.indexOf(w.id) >= 0;
         var sel = w.id === uiState.selectedWeaponId;
         return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '">' +
           '<img alt="" src="' + weaponImgSrc(w.id) + '">' +
-          '<b>' + esc((w.name || w.id).toUpperCase()) + '</b>' +
-          '<span>' + (owned ? "EN PROPIEDAD" : (w.price || 0) + " CR") + '</span>' +
+          '<b class="dd-weapon-card-name">' + esc((w.name || w.id).toUpperCase()) + '</b>' +
+          '<span class="dd-weapon-card-price">' + (owned ? "EN PROPIEDAD" : (typeof w.price === "number" ? esc(w.price) + " CR" : "PRECIO NO DISPONIBLE")) + '</span>' +
           '</button>';
       }).join("");
       grid.onclick = function (ev) {
         var card = ev.target.closest(".dd-weapon-card");
         if (!card) return;
+        var hadFocus = document.activeElement === card;
         uiState.selectedWeaponId = card.getAttribute("data-w");
         renderShop();
+        if (hadFocus) {
+          Array.prototype.some.call(grid.querySelectorAll("[data-w]"), function (item) {
+            if (item.getAttribute("data-w") !== uiState.selectedWeaponId) return false;
+            item.focus({ preventScroll: true });
+            return true;
+          });
+        }
       };
     }
     renderInspector(snap);
@@ -1355,26 +1692,36 @@
     var stats = null;
     try { stats = br && br.getWeaponStats ? br.getWeaponStats(wid) : null; } catch (e) { stats = null; }
     var owned = snap.owned && snap.owned.indexOf(wid) >= 0;
+    var preview = !snap.running && !!(window.DD_HUB && window.DD_HUB.isActive());
+    var unavailable = !owned && !preview;
+    var metrics = [["DAÑO", "damage"], ["CADENCIA", "fireRate"], ["VELOCIDAD", "speed"], ["PROYECTILES", "pellets"], ["PERFORACIÓN", "pierce"]];
     host.innerHTML =
       '<div class="dd-inspector-preview"><img alt="" src="' + weaponImgSrc(wid) + '"></div>' +
-      '<b class="dd-inspector-name">' + esc(String(wid).toUpperCase()) + '</b>' +
+      '<b class="dd-inspector-name">' + esc(String((stats && stats.name) || wid).toUpperCase()) + '</b>' +
       '<div class="dd-inspector-stats">' +
-      Object.keys(stats || {}).slice(0, 8).map(function (k) {
-        var v = stats[k];
-        return '<div class="dd-stat-row"><span>' + esc(k.toUpperCase()) + '</span>' +
-          '<span class="dd-stat-meter"><b style="width:' + Math.max(6, Math.min(100, Number(v) || 0)) + '%"></b></span>' +
-          '<span>' + esc(typeof v === "number" ? (Math.round(v * 100) / 100) : v) + '</span></div>';
+      metrics.map(function (pair) {
+        var v = stats && stats[pair[1]];
+        if (typeof v !== "number" || !isFinite(v)) return "";
+        return '<div class="dd-stat-row"><span>' + pair[0] + '</span><b>' + esc(Math.round(v * 100) / 100) + '</b></div>';
       }).join("") +
       '</div>' +
-      '<div class="dd-shop-actions"><button type="button" class="dd-action-btn primary" id="dd-shop-equip">' +
-      (owned ? "EQUIPAR" : "COMPRAR") + '</button></div>';
+      (preview && !owned ? '<p class="dd-shop-note">Prueba en el Refugio: el equipo se reinicia al comenzar una incursión.</p>' : '') +
+      (unavailable ? '<p class="dd-shop-note">Consigue armas en las tiendas y recompensas de la incursión; allí se confirma cualquier reemplazo.</p>' : '') +
+      '<div class="dd-shop-actions"><button type="button" class="dd-action-btn primary" id="dd-shop-equip"' + (unavailable ? ' disabled' : '') + '>' +
+      (owned ? "EQUIPAR" : preview ? "PROBAR EN REFUGIO" : "DISPONIBLE EN INCURSIÓN") + '</button></div>' +
+      '<p class="dd-shop-feedback" id="dd-shop-feedback" role="status" aria-live="polite"></p>';
 
     el("dd-shop-equip").addEventListener("click", function () {
       var snapNow = br ? br.getSnapshot() : null;
       if (!br) return;
-      try { br.buyOrEquipWeapon(wid, !(snapNow && snapNow.running)); } catch (e) {}
-      sfx("ok");
+      var ok = false;
+      try { ok = !!br.buyOrEquipWeapon(wid, !(snapNow && snapNow.running)); } catch (e) { console.warn("[DD_UI] armería", e); }
       renderShop();
+      var feedback = el("dd-shop-feedback");
+      if (feedback) feedback.textContent = ok ? "Arma equipada." : "No se pudo equipar o adquirir el arma.";
+      sfx(ok ? "ok" : "back");
+      var button = el("dd-shop-equip");
+      if (button) button.focus({ preventScroll: true });
     });
   }
 
@@ -1405,7 +1752,7 @@
       if (!selfTick.on) return;
       selfTick.raf = requestAnimationFrame(step);
       /* Sólo late si nadie más lo hace y el menú sigue en pantalla. */
-      if (!uiState.menuVisible) return;
+      if (!uiState.menuVisible && !uiState.resultsOpen) return;
       if (engineIsTicking()) return;
       try { tickInner(0.016); } catch (e) {}
     };
@@ -1446,16 +1793,36 @@
     }
   }
 
-  function showDialogue(speaker, text, durationSec) {
+  function refreshAppearancePortraits() {
+    var api = window.DD_APPEARANCE;
+    var src = api && api.hudPreview ? api.hudPreview(api.current().id) : assetSrc('hud_portrait_protagonist');
+    if (!src) return;
+    ['dd-hud-portrait', 'dd-player-dialogue-portrait'].forEach(function(id) {
+      var node = el(id);
+      if (node && node.getAttribute('src') !== src) node.setAttribute('src', src);
+    });
+  }
+
+  function showDialogue(speaker, text, durationSec, source) {
     buildDOM();
     if (!text) return;
     var box = el("dd-dialogue-box");
     var spk = el("dd-dj-speaker");
     var txt = el("dd-dj-text");
-    if (spk) spk.textContent = speaker || "TEMPO";
+    var portrait = el("dd-tempo-portrait-wrap");
+    var playerPortrait = el("dd-player-portrait-wrap");
+    if (spk) { spk.textContent = speaker || ""; spk.hidden = !speaker; }
+    // Sólo asignar retratos a emisores inequívocos, nunca a avisos o residentes.
+    var name = String(speaker || '').trim().toUpperCase();
+    var isTempo = name === "TEMPO";
+    var isPlayer = name === "PROTAGONISTA" || name === "JUGADOR" || name === "PLAYER";
+    if (portrait) portrait.hidden = !isTempo;
+    if (playerPortrait) playerPortrait.hidden = !isPlayer;
+    if (isPlayer) refreshAppearancePortraits();
     if (txt) txt.textContent = text;
-    if (box) box.classList.remove("dd-hidden");
-    uiState.dialogueTimer = durationSec || 4.2;
+    if (box) { box.classList.toggle("dd-dialogue-no-portrait", !isTempo && !isPlayer); box.classList.remove("dd-hidden"); }
+    uiState.dialogueSource = source === "engine" ? "engine" : "direct";
+    uiState.dialogueTimer = source === "engine" ? 0 : (durationSec || 4.2);
   }
 
   function refreshAssets() {
@@ -1463,7 +1830,6 @@
     var map = [
       ["dd-menu-backdrop", menuBackdropSrc()],
       ["dd-menu-logo-img", assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png"],
-      ["dd-hud-portrait", assetSrc("hud_portrait_protagonist")],
       ["dd-hud-coin-img", assetSrc("hud_credit_coin", "pickups/pickup_credits_00.png")],
       ["dd-skill-bomb-img", assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png")],
       ["dd-skill-boost-img", assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png")],
@@ -1477,43 +1843,28 @@
     }
   }
 
-  /* ------------------------- minimapa isométrico -------------------------- */
-  function drawIsometricMinimap(snap) {
+  /* El motor actualiza #minimap con su propio mapa y sus reglas de visibilidad.
+     Reutilizar ese lienzo evita inventar geometría o revelar salas ocultas. */
+  function drawMinimap(snap, inHub) {
     var cnv = el("dd-minimap-canvas");
     if (!cnv) return;
     var ctx = cnv.getContext("2d");
     var w = cnv.width, h = cnv.height;
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "rgba(6,3,12,0.86)";
+    ctx.fillStyle = "#06030c";
     ctx.fillRect(0, 0, w, h);
-    var rect = null;
-    try {
-      var br = window.__DD_BRIDGE;
-      var info = br && br.getCanvasInfo ? br.getCanvasInfo() : null;
-      if (info && info.world) rect = info.world;
-    } catch (e) { rect = null; }
-    if (!rect) {
-      ctx.fillStyle = "rgba(148,163,184,0.5)";
-      ctx.font = "600 11px Inter, sans-serif";
-      ctx.textAlign = "center";
-      ctx.fillText(snap && snap.running ? "SALA ACTUAL" : "SIN INCURSIÓN", w / 2, h / 2);
+    var original = el("minimap");
+    if (!inHub && snap && snap.running && original && original.width && original.height) {
+      var scale = Math.min(w / original.width, h / original.height);
+      var dw = original.width * scale, dh = original.height * scale;
+      ctx.imageSmoothingEnabled = false;
+      ctx.drawImage(original, (w - dw) / 2, (h - dh) / 2, dw, dh);
       return;
     }
-    var scale = Math.min(w / rect.w, h / rect.h) * 0.92;
-    ctx.save();
-    ctx.translate(w / 2, h / 2);
-    ctx.strokeStyle = "rgba(255,45,122,0.85)";
-    ctx.lineWidth = 1.5;
-    ctx.strokeRect(-rect.w * scale / 2, -rect.h * scale / 2, rect.w * scale, rect.h * scale);
-    if (snap && snap.player) {
-      var px = (snap.player.x - rect.x - rect.w / 2) * scale;
-      var py = (snap.player.y - rect.y - rect.h / 2) * scale;
-      ctx.fillStyle = "#22d3ee";
-      ctx.beginPath();
-      ctx.arc(px, py, 4.5, 0, Math.PI * 2);
-      ctx.fill();
-    }
-    ctx.restore();
+    ctx.fillStyle = "#a4b2c5";
+    ctx.font = "600 11px Inter, sans-serif";
+    ctx.textAlign = "center";
+    ctx.fillText("SIN INCURSIÓN", w / 2, h / 2);
   }
 
   /* ================================ F. TICK =============================== */
@@ -1537,6 +1888,16 @@
     var br = window.__DD_BRIDGE;
     var snap = br ? br.getSnapshot() : null;
     var inHub = window.DD_HUB && window.DD_HUB.isActive();
+    var beatLight = el('dd-main-menu') && el('dd-main-menu').querySelector('.dd-menu-beat-light');
+    if (beatLight && uiState.menuVisible && !uiState.submenu) {
+      var music = window.DDC_COVER && window.DDC_COVER.music;
+      var phase = music && music.beatPhase;
+      var motion = false;
+      try { motion = window.matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) {}
+      var a11y = storeJson('dmodisco_a11y_v1') || {};
+      var on = !motion && a11y.flash !== false && typeof phase === 'number' && isFinite(phase);
+      beatLight.style.opacity = on ? (0.035 + 0.15 * Math.exp(-phase * 4)).toFixed(3) : '0';
+    }
 
     /* El menú se retira cuando hay partida REAL en curso (motor arrancado) o
        cuando el HUB toma el control.
@@ -1558,9 +1919,15 @@
     if (uiState.menuVisible && enPartida) {
       hideMainMenu();
     }
+    // Si el motor presenta una elección o pausa mientras se consulta un panel
+    // HD, el diálogo nativo tiene prioridad y conserva el foco que ya recibió.
+    if ((uiState.shopOpen || uiState.mapOpen) &&
+        document.querySelector("#shot-choice-overlay.visible, #risk-choice-overlay.visible, #pause-overlay.visible")) {
+      closeModals(true);
+    }
     var hudEl = el("dd-hud");
     var cineBlocking = !!(window.DD_CINE && window.DD_CINE.isBlocking());
-    if (hudEl) hudEl.classList.toggle("dd-hidden", uiState.menuVisible || cineBlocking);
+    if (hudEl) hudEl.classList.toggle("dd-hidden", uiState.menuVisible || uiState.resultsOpen || cineBlocking);
 
     /* Mando: una sola lectura por frame para todo el árbol. El sondeo no se
        congela por gpCooldown: el enfriamiento sólo frena las acciones discretas
@@ -1572,18 +1939,30 @@
     if (snap && (!uiState.menuVisible)) updateHud(snap, inHub);
 
     var subs = el("subs");
-    if (subs) {
-      var txt = (subs.textContent || "").trim();
-      if (txt && txt !== uiState.lastSubsText) {
-        uiState.lastSubsText = txt;
-        showDialogue("TEMPO", txt, 4.0);
+    var showEngineSubs = subs && subs.classList.contains("show") && !inHub && !uiState.menuVisible && !uiState.resultsOpen;
+    var whoNode = showEngineSubs && subs.querySelector(".subs-who");
+    var textNode = showEngineSubs && subs.querySelector(".subs-text");
+    var who = whoNode ? whoNode.textContent.trim() : "";
+    var txt = textNode ? textNode.textContent.trim() : "";
+    if (showEngineSubs && txt) {
+      var signature = JSON.stringify([who, txt]);
+      if (signature !== uiState.lastSubsText || uiState.dialogueSource !== "engine") {
+        uiState.lastSubsText = signature;
+        showDialogue(who, txt, 0, "engine");
+      }
+    } else {
+      uiState.lastSubsText = "";
+      if (uiState.dialogueSource === "engine") {
+        el("dd-dialogue-box").classList.add("dd-hidden");
+        uiState.dialogueSource = null;
       }
     }
-    if (uiState.dialogueTimer > 0) {
+    if (uiState.dialogueSource === "direct" && uiState.dialogueTimer > 0) {
       uiState.dialogueTimer -= cdt;
       if (uiState.dialogueTimer <= 0) {
         var box = el("dd-dialogue-box");
         if (box) box.classList.add("dd-hidden");
+        uiState.dialogueSource = null;
       }
     }
   }
@@ -1739,7 +2118,15 @@
       var btnB = gpEdge(gp, 1, gp.buttons[1] && gp.buttons[1].pressed);
       if (up || down || left || right || btnA || btnB) document.body.classList.add("dd-input-pad");
 
-      if (uiState.submenu) {
+      if (uiState.resultsOpen) {
+        if (up || left) selectResult(uiState.resultsIndex - 1);
+        else if (down || right) selectResult(uiState.resultsIndex + 1);
+        else if (btnA && uiState.gpCooldown <= 0) {
+          resultControls()[uiState.resultsIndex].click();
+          uiState.gpCooldown = 0.45;
+          resetDirectionalState();
+        }
+      } else if (uiState.submenu) {
         /* B (volver) manda sobre cualquier dirección y sobre A. */
         if (btnB) {
           if (uiState.gpCooldown <= 0) {
@@ -1782,10 +2169,18 @@
           uiState.gpCooldown = 0.35; resetDirectionalState();
         }
       } else if (uiState.shopOpen || uiState.mapOpen) {
+        var mapList = uiState.mapOpen ? el("dd-circles-list") : null;
         if (btnB && uiState.gpCooldown <= 0) { closeModals(); uiState.gpCooldown = 0.25; }
-      } else {
-        if (btnB && uiState.gpCooldown <= 0) { openMap(); uiState.gpCooldown = 0.3; }
+        else if (mapList && document.activeElement === mapList && (up || down)) {
+          if (up && mapList.scrollTop <= 0) modalFocusStep(-1);
+          else mapList.scrollTop += up ? -100 : 100;
+        }
+        else if (up || left) modalFocusStep(-1);
+        else if (down || right) modalFocusStep(1);
+        else if (btnA && uiState.gpCooldown <= 0) { activateModalFocus(); uiState.gpCooldown = 0.3; }
       }
+      /* Fuera de los menús B pertenece al motor (esquiva). No abrir el mapa
+         aquí: la misma pulsación también llega al control de combate. */
       break;
     }
   }
@@ -1812,7 +2207,12 @@
     var host = el("dd-submenu-body");
     if (!host) return;
     var items = Array.prototype.slice.call(host.querySelectorAll("button:not([disabled]), input, select"));
-    /* Un submenú sin controles propios (CRÉDITOS) conserva el foco en VOLVER. */
+    /* Galerías y créditos largos también deben desplazarse con teclado y mando,
+       aun cuando sólo tengan el botón VOLVER fuera del cuerpo. */
+    if (!items.length && host.scrollHeight > host.clientHeight + 2) {
+      host.scrollTop = Math.max(0, Math.min(host.scrollHeight - host.clientHeight, host.scrollTop + dir * 100));
+      return;
+    }
     if (!items.length && el("dd-submenu-back")) items = [el("dd-submenu-back")];
     if (!items.length) return;
     var i = items.indexOf(document.activeElement);
@@ -1836,8 +2236,10 @@
     var heartsEl = el("dd-hud-hearts");
     var fullSrc = assetSrc("hud_heart_full", "pickups/pickup_heart_00.png");
     var emptySrc = assetSrc("hud_heart_empty", "pickups/pickup_heart_00.png");
-    var maxHearts = Math.max(3, Math.min(8, Math.round((snap.maxHp || 100) / 25)));
-    var curHearts = Math.max(0, Math.ceil((snap.hp / Math.max(1, snap.maxHp)) * maxHearts));
+    // El motor expresa vida en unidades discretas, no en puntos sobre 100.
+    var maxHearts = Math.max(0, Math.floor(snap.maxHp || 0));
+    var curHearts = Math.max(0, Math.min(maxHearts, Math.ceil(snap.hp || 0)));
+    if (heartsEl) heartsEl.setAttribute("aria-label", "Vidas " + curHearts + " de " + maxHearts);
     var hKey = curHearts + "/" + maxHearts + ":" + fullSrc;
     if (heartsEl && heartsEl.getAttribute("data-key") !== hKey) {
       heartsEl.setAttribute("data-key", hKey);
@@ -1850,9 +2252,20 @@
     }
     var hpFill = el("dd-hud-hp-fill");
     if (hpFill) hpFill.style.width = Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)).toFixed(1) + "%";
+    var shieldEl = el("dd-hud-shield");
+    if (shieldEl) {
+      shieldEl.textContent = "ESC " + (snap.shield || 0);
+      shieldEl.setAttribute("aria-label", "Escudos " + (snap.shield || 0));
+    }
+    // Igual que Rl() en el motor: HYPE ya está en escala 0–100; durante
+    // RAVE la barra representa el tiempo restante respecto a su duración.
+    var raveActive = snap.rave > 0;
+    var hypePct = raveActive ? (snap.rave / Math.max(.01, snap.raveDuration)) * 100 : (snap.raveMeter || 0);
+    hypePct = Math.max(0, Math.min(100, hypePct));
     var shFill = el("dd-hud-sh-fill");
-    var shPct = snap.shield > 0 ? Math.min(100, snap.shield) : Math.min(100, (snap.raveMeter || 0) * 100);
-    if (shFill) shFill.style.width = shPct.toFixed(1) + "%";
+    if (shFill) shFill.style.width = hypePct.toFixed(1) + "%";
+    var hypeLabel = el("dd-hud-hype-label");
+    if (hypeLabel) hypeLabel.textContent = raveActive ? "RAVE " + snap.rave.toFixed(1) + " s" : "HYPE " + Math.round(hypePct) + "%";
     var crEl = el("dd-hud-cr");
     if (crEl) crEl.textContent = String(snap.credits || 0);
     var nvEl = el("dd-hud-nv");
@@ -1870,6 +2283,14 @@
       roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
         : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
     }
+    var usingPad = document.body.classList.contains("dd-input-pad");
+    var rollLabels = { Space: "ESP", KeyV: "V", AltLeft: "ALT" };
+    [["dd-skill-bomb-key", usingPad ? "LB" : "Q"],
+     ["dd-skill-boost-key", usingPad ? "RB" : "SHIFT"],
+     ["dd-skill-dodge-key", usingPad ? "B" : (rollLabels[snap.rollKey] || "ESP")]].forEach(function (pair) {
+      var node = el(pair[0]);
+      if (node && node.textContent !== pair[1]) node.textContent = pair[1];
+    });
     var bCnt = el("dd-skill-bomb-cnt");
     if (bCnt) bCnt.textContent = String(snap.bombs || 0);
     var bCard = el("dd-skill-bomb");
@@ -1889,16 +2310,53 @@
         bossHud.classList.add("dd-hidden");
       }
     }
-    drawIsometricMinimap(snap);
+    drawMinimap(snap, inHub);
   }
 
   /* ============================== G. TECLADO ============================== */
+  /* El motor escucha Escape en window durante la fase de burbuja. Cerrar un
+     modal HD antes de que llegue allí evita que la misma tecla abra la pausa. */
+  document.addEventListener("keydown", function (ev) {
+    if (uiState.resultsOpen && ev.code === "Tab") {
+      ev.preventDefault();
+      ev.stopPropagation();
+      selectResult(uiState.resultsIndex + (ev.shiftKey ? -1 : 1));
+      return;
+    }
+    if ((uiState.shopOpen || uiState.mapOpen) && ev.code === "Tab") {
+      ev.preventDefault();
+      ev.stopPropagation();
+      modalFocusStep(ev.shiftKey ? -1 : 1);
+      return;
+    }
+    if (!(uiState.shopOpen || uiState.mapOpen)) return;
+    // El motor escucha en window: no dejar que la navegación del modal use
+    // bombas, esquiva o interacción. Conservar el comportamiento nativo de
+    // Enter/Espacio para botones y el desplazamiento de las listas.
+    ev.stopPropagation();
+    if (ev.code === "Escape") {
+      ev.preventDefault();
+      closeModals();
+    } else if (window.DD_HUB && window.DD_HUB.isActive() && (ev.code === "KeyI" || ev.code === "KeyM")) {
+      ev.preventDefault();
+      if (ev.code === "KeyI") uiState.shopOpen ? closeModals() : openShop();
+      else uiState.mapOpen ? closeModals() : openMap();
+    }
+  }, true);
+
   window.addEventListener("keydown", function (ev) {
     var k = ev.code;
     var isLeft = k === "ArrowLeft" || k === "KeyA", isRight = k === "ArrowRight" || k === "KeyD";
     /* La repetición de tecla sólo se admite para arrastrar un deslizador. */
     if (ev.repeat && !(uiState.submenu && (isLeft || isRight) && focusedRange())) return;
     document.body.classList.remove("dd-input-pad");
+
+    if (uiState.resultsOpen) {
+      if (k === "ArrowUp" || k === "ArrowLeft" || k === "ArrowDown" || k === "ArrowRight") {
+        ev.preventDefault(); selectResult(uiState.resultsIndex + ((k === "ArrowUp" || k === "ArrowLeft") ? -1 : 1));
+      }
+      return;
+    }
 
     /* SUBCONTROL: un submenú abierto captura la navegación. Todos los controles
        responden igual con teclado que con mando:
@@ -1960,9 +2418,14 @@
       closeModals();
       return;
     }
-    if (k === "KeyI") {
+    /* En combate I/M pertenecen al inventario/pausa del motor. Abrir además
+       nuestros paneles con el mismo evento apilaba dos interfaces y dejaba el
+       motor pausado tras cerrar una de ellas. En el Refugio no hay partida
+       activa y sí pueden funcionar como accesos rápidos a estos paneles. */
+    var inHub = !!(window.DD_HUB && window.DD_HUB.isActive());
+    if (k === "KeyI" && inHub) {
       uiState.shopOpen ? closeModals() : openShop();
-    } else if (k === "KeyM") {
+    } else if (k === "KeyM" && inHub) {
       uiState.mapOpen ? closeModals() : openMap();
     } else if (k === "KeyH" && !uiState.shopOpen && !uiState.mapOpen) {
       if (window.DD_HUB) {
@@ -1995,6 +2458,7 @@
     openShop: openShop,
     openMap: openMap,
     closeModals: closeModals,
+    showResults: showResults,
     showDialogue: showDialogue,
     refreshAssets: refreshAssets,
     tick: tick,

@@ -777,7 +777,13 @@
           steps: STEPS.length,
           errors: state.criticalErrors.slice()
         });
-        return waitForExit().then(startIntro);
+        // La apertura narrativa pertenece a «Nueva partida», no al arranque.
+        // El menú debe estar disponible sin exigir una pulsación previa.
+        return new Promise(function (resolve) { setTimeout(resolve, reducedMotion ? 200 : 520); }).then(function () {
+          if (state.watchdogFired || (el.err && !el.err.hidden)) return;
+          hideLoadingScreen();
+          enterMainMenu();
+        });
       })
       .catch(showError)
       .then(function () { clearTimeout(state.watchdog); });

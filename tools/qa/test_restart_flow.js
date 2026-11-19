@@ -116,7 +116,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const comic = await pg.evaluate(() => ({ fonts: window.DD_OPENING.fontsReady(), cap: document.fonts.check('italic 700 40px "Barlow Condensed"'), sfx: document.fonts.check('400 40px "Bangers"'), nine: window.DD_OPENING.NINE_LEVELS, files: window.DD_OPENING.FILES }));
   check("[RÓTULOS] las dos fuentes definitivas están cargadas en el juego (Barlow Condensed y Bangers)", comic.fonts && comic.cap && comic.sfx);
   check("[PLANO 3] la tabla del corte tiene exactamente nueve pistas", comic.nine === 9, comic.nine + " (la lámina se revisa además a ojo en la captura)");
-  check("[PROTAGONISTA] sólo se cargan la lámina maestra y el IDLE 07B; ninguna ilustración generada del personaje", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && !comic.files.some((f) => /op_05b_back|op_06_face|mc_06_fall/.test(f)), comic.files.length + " archivos");
+  check("[PROTAGONISTA] lámina maestra, idle 07B y nueva pose de espaldas para el descenso", comic.files.filter((f) => /character_master|pm_idle_fid_00/.test(f)).length === 4 && comic.files.some((f) => /pm_descent_back\.png$/.test(f)) && !comic.files.some((f) => /op_05b_back|op_06_face|mc_06_fall/.test(f)), comic.files.length + " archivos");
   check("[INTRO] los 7 planos se ven en orden", seen.map((s) => s.shot).join("") === "1234567", seen.map((s) => s.shot + "@" + s.at.toFixed(1)).join(" "));
   check("[INTRO] cada plano entra en su tiempo (±0,5 s)", seen.every((s) => Math.abs(s.at - table.shots[s.shot - 1].from) <= 0.5), seen.map((s) => (s.at - table.shots[s.shot - 1].from).toFixed(2)).join(" "));
   check("[INTRO] ANIM los 7 planos se mueven (dos fotogramas distintos a 260 ms)", [1, 2, 3, 4, 5, 6, 7].every((i) => moving[i] === true), JSON.stringify(moving));
@@ -238,10 +238,17 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
   const phases = [], dMoving = {}; let lastP = 0, hubEarly = false, musicDesc = null; const capD = {};
   const dt = await pg.evaluate(() => window.DD_OPENING.DESCENT_PHASES);
   while (true) {
-    const s = await op(pg);
+    /* Tomar secuencia y estado en la misma tarea del navegador. Dos evaluate
+       separados podían cruzar finish(): el primero leía un descenso activo y
+       el segundo el Refugio ya correctamente activado tras terminarlo. */
+    const sample = await pg.evaluate(() => ({
+      sequence: window.DD_OPENING.getState(), hub: window.DD_HUB.isActive(),
+      state: window.DD_BOOT.getState().state, music: window.DD_BOOT.getState().menuMusic,
+      menu: window.DD_UI.getState().menuVisible
+    }));
+    const s = sample.sequence, st = sample;
     if (!s) break;
     if (s.shot !== lastP) { phases.push({ p: s.shot, at: s.elapsed }); lastP = s.shot; }
-    const st = await pg.evaluate(() => ({ hub: window.DD_HUB.isActive(), state: window.DD_BOOT.getState().state, music: window.DD_BOOT.getState().menuMusic, menu: window.DD_UI.getState().menuVisible }));
     if (st.hub || st.state === "PLAYING") hubEarly = true;
     if (s.elapsed > 2.5) musicDesc = st.music;
     const mid = (dt[s.shot - 1].from + dt[s.shot - 1].to) / 2;
