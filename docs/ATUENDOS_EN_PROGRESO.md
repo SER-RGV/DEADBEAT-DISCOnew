@@ -441,3 +441,10 @@ QA `test_menu_scenes` PASS. Capturas: `.cache/review/menu_canero.jpg` (portada) 
 - **Travelling de 2 s** (temporizador JS 2060 ms): embolado hasta escala 1,95 con blur 16 px; doble pasada de estelas (cruzan, revientan en el flash y vuelven a cruzar); destello blanco duro al 50 % (brillo 4,2×); aterrizaje con temblor lateral amortiguado; rótulo que entra desde letras muy abiertas y desenfocado.
 
 QA `test_menu_new_flow` y `test_menu_scenes` PASS (nota: la animación de fondo conserva el nombre `rs-drift` que exige la suite).
+
+### QA integral de menús (continuación)
+
+- `test_menu_new_flow`: PASS en movimiento normal y reducido; menú directo, teclado, nueva partida, saltos de cinemática y continuar.
+- `test_menu_scenes`: PASS; escenas/retorno, selección, ajustes persistentes, juego nuevo y game over; navegación por ratón/teclado y mando Xbox **simulado**; ventanas 800×600 y 375×812; sin errores de navegador.
+- `test_menu_passage`: PASS ida/vuelta y movimiento reducido. La primera pasada detectó que el zoom inicial del travelling no era perceptible con claridad; se aceleró su curva y se añadieron escalas intermedias (1,22 / 1,48 / 1,76) sin cambiar los 2 s ni los destinos. Repetido: PASS.
+- Límite: `test_menu_respuesta.js` sigue esperando la pantalla intermedia antigua de carga/INTRO tras recargar un perfil guardado y agota sus 60 s antes de empezar las comprobaciones. El flujo vigente arranca directamente en el menú; no es un fallo de navegación observado, sino un harness pendiente de actualizar. La suite de escenas confirma controles simulados, pero sigue pendiente una prueba con mando físico.
