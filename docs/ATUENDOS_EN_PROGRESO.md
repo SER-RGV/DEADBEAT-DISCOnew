@@ -261,3 +261,37 @@ Pendiente sólo de prueba manual del usuario: mando Xbox físico, audio y una pa
 ## Pose del diseño compartida por los aspectos extra (original, cian, violeta, oro)
 
 El usuario pidió que todos los aspectos —también los extra— compartan la pose del diseño. Los cuatro aspectos sin atuendo (Original, Pulso cian, Noche violeta, Último baile) se pintaban desde `hero.png` con pose antigua: ahora existe `assets/characters/outfits/original/showcase.png` (look de siempre —chaqueta de cuero, camiseta blanca, sombrero— en la pose arrogante de la lámina, cara limpia y piel melocotón) y `dd_appearance.js` lo usa en `preview()`, `showcase()` y `hudPreview()` para los cuatro, con el recoloreado de tono por paleta (cian/violeta/oro) aplicado sobre la misma imagen. El retrato del HUD recorta la cabeza del nuevo showcase con la misma geometría que los atuendos. HTML reconstruido con `tools/build_active_html.py`; QA `test_outfit_preview.js` y `test_outfit_portraits.js`: PASS. Capturas: [original](evidence/atuendos/camerino-original.png) y [oro](evidence/atuendos/camerino-oro.png); nueva utilidad `tools/qa/capture_palette_looks.js`.
+
+## 🔄 REHACER TODO con la lámina nueva (identidad definitiva v2g)
+
+El usuario adjuntó una lámina de referencia más detallada (`concepts/protagonista_referencia_v2.webp`: vistas frontal/¾/perfiles/lateral + detalle de tatuajes + paleta) y confirmó: rehacer el aspecto «Original» Y los once trajes (selector y sprites de juego) con esa lámina como identidad definitiva. Recorte facial nuevo: `concepts/protagonista_cara_v2.png`.
+
+Identidad v2g: misma cara de la lámina (sombreado de ojos como el dibujo, sin máscara), pelo rojo oscuro más salvaje y largo, piel melocotón, y tatuajes al detalle de la lámina: ankh (cuello), sigilo circular tipo pentagrama (hombro), lobo (antebrazo), patrón orgánico de llamas (otro antebrazo), sigilo circular con marcas en dedos (dorso de mano), más mangas de tatuaje en brazos.
+
+Primer lote (10 imágenes): showcase nuevo del «Original» + nueve trajes del selector (caballero, asesino, jinete, buzo, pistolero, lágrimas, entrenador, aventurero, cocinero) en la pose del diseño. El del entrenador salió apaisado y cortado → restaurado el showcase anterior; se rehace en el próximo lote. QA `test_outfit_preview.js`, `test_outfit_portraits.js`: PASS. Capturas `camerino-original.png` y `camerino-oro.png` actualizadas.
+
+Pendiente v2g (≈7 turnos a 10 imágenes): showcases de entrenador (rehacer), luchador y pintor; y los 66 maestros de sprites con la identidad v2g + regenerar sprites con los `prepare_*` + QA completo.
+
+## 📜 DIRECTIVA V1.0 — RECONSTRUCCIÓN DEL PROTAGONISTA Y SUSTITUCIÓN DEL VESTUARIO (ocho atuendos)
+
+Directiva del usuario: reconstruir el protagonista desde su lámina oficial y sustituir el catálogo por una colección definitiva de OCHO atuendos (00–07), integrada y verificada en el juego (no sólo concept art).
+
+**Colección definitiva (catálogo actual, 8/8 en el selector):**
+- 00 `original` — THE DESAFINADO (canónico, diseño de la lámina) — desde el principio
+- 01 `rapture` — RAPTURE (gentleman art déco decadente) — sala 30 (← lágrimas)
+- 02 `shadow` — SHADOW (infiltrador urbano, capucha integrada al sombrero) — sala 10 (← asesino)
+- 03 `apocalypse` — APOCALYPSE (guerrero brutal, hombrera asimétrica) — sala 5 (← caballero)
+- 04 `gunslinger` — GUNSLINGER (pistolero arcade) — sala 25 (mismo ID y condición)
+- 05 `fightclub` — FIGHT CLUB (luchador underground, vendas) — sala 50 (← kickboxer)
+- 06 `kitchenriot` — KITCHEN RIOT (cocinero punk) — sala 45 (← chef)
+- 07 `streetart` — STREET ART (artista urbano/tatuador) — sala 55 (← pintor)
+
+**Fase A (auditoría) — contrato real verificado:** 6 sprites por atuendo (`idle, walk_a, aim, hurt, roll, death`); `outfitFrame`/`knightFrame` + anclas de arma en `dd_world_renderer.js:671`; desbloqueo por `round`/`victory` con `PREVIEW_UNLOCK_ALL`; selección persistida en `localStorage['dd_appearance_v1']`. `dd_hub_system.js` y `dd_opening.js` intocados (directiva).
+
+**Fase B (modelo maestro):** `concepts/model_sheet_v2m.webp` (turnaround 6 vistas + cara + sombrero + mapa de tatuajes + botas/cinturón). Identidad v2g (lámina nueva) compartida por todos.
+
+**Fase C+D (colección, 8/8):** showcases nuevos `.cache/v2m/showcase_*.png` → `concepts/showcase_v2m_*.webp` + `assets/characters/outfits/<id>/showcase.png`, en la pose de la lámina (chaqueta abierta, mano al pecho).
+
+**Fase F+G (sustitución, HECHA):** `dd_appearance.js` = catálogo de 8 con IDs nuevos, descripciones con humor, requisitos heredados por correspondencia (sin condiciones nuevas) y tabla `LEGACY` de migración (p. ej. `painter→streetart`, `diver→original`) aplicada en `sync()`/`equip()`; anclas del arma actualizadas. Sprites antiguas copiadas como marcadores provisionales en las carpetas nuevas (se sustituyen por las nuevas al producirse). QA actualizado a 8: `test_outfit_preview.js` y `test_outfit_portraits.js` PASS (incluye «catálogo antiguo ausente» y migración de IDs). Evidencia: `camerino-descripciones.png`, `hud-dialogo-shadow.png`, `hud-combate-fightclub.png`.
+
+**Pendiente (Fase E, ≈5 turnos a 10 imágenes):** 48 maestros de sprites (8×6) con la identidad v2g y los nuevos diseños → `prepare` genérico → sustituir marcadores → hoja comparativa de los ocho → QA completo (combate por atuendo) + capturas reales.

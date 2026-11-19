@@ -10174,28 +10174,35 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 (function () {
   'use strict';
   var KEY = 'dd_appearance_v1';
+  /* Catálogo definitivo — colección de ocho atuendos (00–07) sustituyendo al
+     catálogo anterior. Los requisitos heredan las condiciones existentes por
+     correspondencia (ver LEGACY más abajo); no se inventan condiciones nuevas. */
   var styles = [
-    { id:'original', name:'Original', description:'El look de siempre. La muerte también aprecia la continuidad.', hue:0, requirement:'Disponible desde el principio', round:0 },
-    { id:'knight', name:'Caballero oscuro', description:'Armadura para rodar por el infierno. La dignidad no incluye garantía.', hue:0, requirement:'Alcanza la sala 5', round:5 },
-    { id:'assassin', name:'Sombra del club', description:'Capucha y sigilo. La música del club no recibió el memorándum.', hue:0, requirement:'Alcanza la sala 10', round:10 },
-    { id:'rider', name:'Jinete del abismo', description:'Vístete para el apocalipsis. El caballo se quedó esperando el DLC.', hue:0, requirement:'Alcanza la sala 15', round:15 },
-    { id:'diver', name:'Buzo del neón', description:'Casco de buzo para un descenso seco. La presión viene de serie.', hue:0, requirement:'Alcanza la sala 20', round:20 },
-    { id:'gunslinger', name:'Pistolero de neón', description:'Listo para el duelo. La munición infinita no mejora la puntería.', hue:0, requirement:'Alcanza la sala 25', round:25 },
-    { id:'tears', name:'Lágrima del abismo', description:'Un look para llorar por dentro. Las lágrimas no dan inmunidad.', hue:0, requirement:'Alcanza la sala 30', round:30 },
-    { id:'trainer', name:'Entrenador del neón', description:'Gorra de entrenador. Aquí las criaturas no caben en el bolsillo.', hue:0, requirement:'Alcanza la sala 35', round:35 },
-    { id:'adventurer', name:'Guardián del bosque', description:'Túnica y capucha verdes. Romper jarrones no paga el alquiler.', hue:0, requirement:'Alcanza la sala 40', round:40 },
-    { id:'chef', name:'Chef de medianoche', description:'Delantal y gorro. El menú del día: supervivencia poco hecha.', hue:0, requirement:'Alcanza la sala 45', round:45 },
-    { id:'kickboxer', name:'Luchador del neón', description:'Vendas y pantalón corto. El suelo del club no está desinfectado.', hue:0, requirement:'Alcanza la sala 50', round:50 },
-    { id:'painter', name:'Pintor del neón', description:'Manchado de pintura. El infierno también necesita una segunda capa.', hue:0, requirement:'Alcanza la sala 55', round:55 },
-    { id:'cyan', name:'Pulso cian', description:'Un toque cian. La crisis existencial sigue en alta definición.', hue:-130, requirement:'Alcanza la sala 5', round:5 },
-    { id:'violet', name:'Noche violeta', description:'Violeta de madrugada. El club no cubre la tintorería.', hue:-55, requirement:'Alcanza la sala 15', round:15 },
-    { id:'gold', name:'Último baile', description:'Oro para el último baile. El seguro de vida se vende aparte.', hue:80, requirement:'Consigue una victoria', victory:1 }
+    { id:'original', name:'El Desafinado', description:'El look de siempre. La muerte también aprecia la continuidad.', hue:0, requirement:'Disponible desde el principio', round:0 },
+    { id:'rapture', name:'Rapture', description:'Elegancia art déco para una ciudad que se hunde. El último brindis lo paga el océano.', hue:0, requirement:'Alcanza la sala 30', round:30 },
+    { id:'shadow', name:'Shadow', description:'Capucha integrada al sombrero. El sigilo es gratis; el alquiler del abrigo, no.', hue:0, requirement:'Alcanza la sala 10', round:10 },
+    { id:'apocalypse', name:'Apocalypse', description:'Armadura asimétrica para el fin del mundo. La hombrera pesa más que tus remordimientos.', hue:0, requirement:'Alcanza la sala 5', round:5 },
+    { id:'gunslinger', name:'Gunslinger', description:'Pistolero de arcade. La munición es infinita; tu paciencia, no.', hue:0, requirement:'Alcanza la sala 25', round:25 },
+    { id:'fightclub', name:'Fight Club', description:'Vendas y garra de gimnasio. Las reclamaciones se presentan con los puños.', hue:0, requirement:'Alcanza la sala 50', round:50 },
+    { id:'kitchenriot', name:'Kitchen Riot', description:'Cocina punk con delantal de combate. El menú del día: supervivencia poco hecha.', hue:0, requirement:'Alcanza la sala 45', round:45 },
+    { id:'streetart', name:'Street Art', description:'Chaqueta intervenida y bolsillos de pintura. El lienzo eres tú; el presupuesto, también.', hue:0, requirement:'Alcanza la sala 55', round:55 }
   ];
+  /* Correspondencia de IDs antiguos → nuevos para partidas guardadas. Ningún
+     dato se elimina: selecciones previas se migran al equivalente más cercano. */
+  var LEGACY = {
+    knight:'apocalypse', assassin:'shadow', rider:'apocalypse', diver:'original',
+    gunslinger:'gunslinger', tears:'rapture', trainer:'fightclub', adventurer:'shadow',
+    chef:'kitchenriot', kickboxer:'fightclub', painter:'streetart',
+    cyan:'original', violet:'original', gold:'original'
+  };
+  function migrate(id) { return LEGACY[id] || id; }
   var selected = 'original', cache = new WeakMap(), previewUrls = {}, portraitUrls = {}, showcaseUrls = {};
   var outfitNames = ['idle','walk_a','aim','hurt','roll','death'];
-  var outfits = { knight: {}, assassin: {}, rider: {}, diver: {}, gunslinger: {}, tears: {}, trainer: {}, adventurer: {}, chef: {}, kickboxer: {}, painter: {} };
+  /* Original se registra cuando sus sprites propios estén listos; hasta entonces
+     el motor usa las sprites base. Los demás apuntan a su carpeta nueva. */
+  var outfits = { rapture: {}, shadow: {}, apocalypse: {}, gunslinger: {}, fightclub: {}, kitchenriot: {}, streetart: {} };
   var showcases = {};
-  var paths = { knight: 'caballero', assassin: 'asesino', rider: 'jinete', diver: 'buzo', gunslinger: 'pistolero', tears: 'lagrimas', trainer: 'entrenador', adventurer: 'aventurero', chef: 'cocinero', kickboxer: 'kickboxer', painter: 'pintor' };
+  var paths = { rapture: 'rapture', shadow: 'shadow', apocalypse: 'apocalypse', gunslinger: 'gunslinger', fightclub: 'fightclub', kitchenriot: 'kitchenriot', streetart: 'streetart' };
   Object.keys(outfits).forEach(function(id) {
     outfitNames.forEach(function(name) {
       var im = new Image(); outfits[id][name] = im;
@@ -10227,8 +10234,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   function unlocked(s) { return PREVIEW_UNLOCK_ALL || (s.victory ? victories() >= s.victory : number('dmodisco_best_round_v1') >= s.round); }
   function item(id) { return styles.find(function(s){return s.id===id;}); }
   function setSelected(id) { if (selected !== id) { selected=id; window.dispatchEvent(new Event('dd-appearance-change')); } }
-  function sync() { var id; try { id=localStorage.getItem(KEY); } catch(e) {} var s=item(id); setSelected(s && unlocked(s) ? s.id : 'original'); return selected; }
-  function equip(id) { var s=item(id); if (!s || !unlocked(s) || (outfits[id] && !outfitReady(id))) return false; try { localStorage.setItem(KEY,id); } catch(e) { return false; } setSelected(id); return true; }
+  function sync() { var id; try { id=localStorage.getItem(KEY); } catch(e) {} id = migrate(id); var s=item(id); setSelected(s && unlocked(s) ? s.id : 'original'); return selected; }
+  function equip(id) { id = migrate(id); var s=item(id); if (!s || !unlocked(s) || (outfits[id] && !outfitReady(id))) return false; try { localStorage.setItem(KEY,id); } catch(e) { return false; } setSelected(id); return true; }
   // Sólo píxeles magenta saturados; el tono de piel, tatuajes y negros se conservan.
   // Cada fotograma se transforma una vez por paleta y se guarda en memoria.
   function recolor(img, id) {
@@ -10989,7 +10996,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         pose.split = moving; pose.fullWalk = false; pose.overlayImg = null;
         pose.beltU = pose.beltL = 0.48; pose.lift = 0;
         const look = appearance.current().id;
-        pose.hand = look === 'diver' ? [0.87, 0.26] : (look === 'gunslinger' || look === 'kickboxer' || look === 'painter') ? [0.95, 0.25] : (look === 'tears' || look === 'trainer') ? [0.92, 0.26] : (look === 'adventurer' || look === 'chef') ? [0.90, 0.27] : [0.91, 0.26];
+        pose.hand = (look === 'gunslinger' || look === 'fightclub' || look === 'streetart') ? [0.95, 0.25] : (look === 'kitchenriot') ? [0.90, 0.27] : [0.91, 0.26];
       } else {
         pose.upperImg = moving ? legs : knight('idle'); pose.lowerImg = pose.upperImg;
         pose.split = false; pose.fullWalk = moving; pose.hand = null;

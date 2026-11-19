@@ -668,7 +668,7 @@
         pose.split = moving; pose.fullWalk = false; pose.overlayImg = null;
         pose.beltU = pose.beltL = 0.48; pose.lift = 0;
         const look = appearance.current().id;
-        pose.hand = look === 'diver' ? [0.87, 0.26] : (look === 'gunslinger' || look === 'kickboxer' || look === 'painter') ? [0.95, 0.25] : (look === 'tears' || look === 'trainer') ? [0.92, 0.26] : (look === 'adventurer' || look === 'chef') ? [0.90, 0.27] : [0.91, 0.26];
+        pose.hand = (look === 'gunslinger' || look === 'fightclub' || look === 'streetart') ? [0.95, 0.25] : (look === 'kitchenriot') ? [0.90, 0.27] : [0.91, 0.26];
       } else {
         pose.upperImg = moving ? legs : knight('idle'); pose.lowerImg = pose.upperImg;
         pose.split = false; pose.fullWalk = moving; pose.hand = null;
