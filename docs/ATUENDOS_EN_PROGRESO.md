@@ -378,3 +378,5 @@ QA `test_v2m_outfits` PASS tras las correcciones; capturas de combate actualizad
 4. **Tatuajes que se solapan con la ropa** («manos y demás»): la nueva regla va en todos los prompts; revisión por zoom de los cinco atuendos no rehechos y corrección de lo que sobresalga → lote de cierre.
 
 QA `test_v2m_outfits` y captura de combate PASS.
+
+**Lote 2 de correcciones:** Shadow 6/6 sin sombrero (sólo capucha) — showcase + aim/hurt/roll/death completan lo del lote anterior. Apocalypse rehecha estilo armadura de Guerra de Darksiders (hombrera con pinchos, placas agrietadas con costuras rojas incandescentes, remaches tipo calavera, guanteletes, cadenas, tela andrajosa): showcase + idle/walk/aim/hurt listos; **roll/death pendientes** (aún con la armadura anterior). QA `test_v2m_outfits` PASS.
