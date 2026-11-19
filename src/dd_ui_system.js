@@ -36,7 +36,11 @@
     submenu: null,              /* OPCIONES / CRÉDITOS / PARTIDAS */
     submenuIndex: 0,
     busy: false,                /* anti doble pulsación */
-    selectedCategory: "ALL",
+    /* PASE VISUAL · el valor por defecto era "ALL", pero los filtros se rotulan
+       «TODAS» y la comparación se hace contra ese texto: al abrir la armería no
+       coincidía ninguna arma y la rejilla salía vacía («El motor no tiene armas
+       en esta categoría») hasta pulsar un filtro. Un solo nombre, el que se ve. */
+    selectedCategory: "TODAS",
     selectedWeaponId: "m1911",
     dialogueTimer: 0,
     lastSubsText: "",
@@ -632,10 +636,42 @@
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
+    /* PASE VISUAL · continuidad del desplazamiento.
+       En ventanas bajas el cuerpo del submenú desplaza y antes no había ninguna
+       señal: el contenido cortado se leía como contenido perdido. Aquí se mide
+       de verdad (scrollHeight > clientHeight) y se marca la tarjeta; el CSS pinta
+       la barra, el degradado inferior y el «↓ MÁS» del pie, y todo desaparece
+       cuando se llega al final o cuando no hace falta desplazar. */
+    updateSubmenuScrollHints(host);
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
     var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
   }
+
+  /* Marca la tarjeta del submenú según pueda desplazarse o no. Idempotente y sin
+     coste cuando no hay nada que medir. */
+  function updateSubmenuScrollHints(host) {
+    var card = host && host.querySelector ? host.querySelector(".dd-submenu-card") : null;
+    var body = el("dd-submenu-body");
+    if (!card || !body) return;
+    var scrollable = body.scrollHeight > body.clientHeight + 2;
+    card.classList.toggle("has-scaled-body", scrollable);
+    body.classList.toggle("is-scrollable", scrollable);
+    var atEnd = !scrollable || (body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+    card.classList.toggle("is-at-end", atEnd);
+    if (!body.dataset.ddScrollBound) {
+      body.dataset.ddScrollBound = "1";
+      body.addEventListener("scroll", function () {
+        var c = body.closest(".dd-submenu-card");
+        if (!c) return;
+        c.classList.toggle("is-at-end", body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+      }, { passive: true });
+    }
+  }
+  window.addEventListener("resize", function () {
+    var host = el("dd-submenu");
+    if (host && host.classList.contains("is-open")) updateSubmenuScrollHints(host);
+  }, { passive: true });
 
   /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
      volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
@@ -1301,7 +1337,7 @@
     var weapons = getCatalogWeapons();
     var cats = ["TODAS"];
     weapons.forEach(function (w) {
-      var c = (w.category || "OTRAS").toUpperCase();
+      var c = String(w.category || w.family || "OTRAS").toUpperCase();
       if (cats.indexOf(c) < 0) cats.push(c);
     });
     var filters = el("dd-shop-filters");
@@ -1321,12 +1357,19 @@
       });
     }
 
+    /* PASE VISUAL · el catálogo del motor usa `family` («pistolas», «rifles»…),
+       no `category`. La rejilla leía `w.category`, así que TODOS los filtros
+       menos TODAS salían vacíos y la pantalla decía «La armería está cargando…»
+       sobre un catálogo que ya estaba cargado (reproducido: 120 armas en el
+       motor, rejilla vacía). Se acepta `category` si existiera y, si no, la
+       familia real; el orden de los filtros pasa a ser el de las familias. */
+    var catOf = function (w) { return String(w.category || w.family || "OTRAS").toUpperCase(); };
     var list = weapons.filter(function (w) {
-      return uiState.selectedCategory === "TODAS" || (w.category || "OTRAS").toUpperCase() === uiState.selectedCategory;
+      return uiState.selectedCategory === "TODAS" || catOf(w) === uiState.selectedCategory;
     }).slice(0, 120);
 
     if (!list.length) {
-      grid.innerHTML = '<p class="dd-opt-note">La armería está cargando desde el motor. Vuelve a abrirla en unos segundos.</p>';
+      grid.innerHTML = '<p class="dd-opt-note">El motor no tiene armas en esta categoría.</p>';
     } else {
       grid.innerHTML = list.map(function (w) {
         var owned = snap.owned && snap.owned.indexOf(w.id) >= 0;
@@ -1355,9 +1398,19 @@
     var stats = null;
     try { stats = br && br.getWeaponStats ? br.getWeaponStats(wid) : null; } catch (e) { stats = null; }
     var owned = snap.owned && snap.owned.indexOf(wid) >= 0;
+    /* El nombre visible es el del catálogo del motor (el que ve el jugador en el
+       HUD): antes la ficha rotulaba el id interno («M1911») mientras la rejilla
+       y el HUD decían «PISTOLA CLÁSICA», así que el mismo arma tenía dos nombres
+       en la misma pantalla. */
+    var meta = null;
+    try {
+      var cat = getCatalogWeapons();
+      for (var ci = 0; ci < cat.length; ci++) { if (cat[ci] && cat[ci].id === wid) { meta = cat[ci]; break; } }
+    } catch (e) { meta = null; }
+    var shownName = String((meta && meta.name) || wid).toUpperCase();
     host.innerHTML =
       '<div class="dd-inspector-preview"><img alt="" src="' + weaponImgSrc(wid) + '"></div>' +
-      '<b class="dd-inspector-name">' + esc(String(wid).toUpperCase()) + '</b>' +
+      '<b class="dd-inspector-name">' + esc(shownName) + '</b>' +
       '<div class="dd-inspector-stats">' +
       Object.keys(stats || {}).slice(0, 8).map(function (k) {
         var v = stats[k];
@@ -1491,14 +1544,16 @@
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "rgba(6,3,12,0.86)";
     ctx.fillRect(0, 0, w, h);
-    var rect = null;
-    try {
-      var br = window.__DD_BRIDGE;
-      var info = br && br.getCanvasInfo ? br.getCanvasInfo() : null;
-      if (info && info.world) rect = info.world;
-    } catch (e) { rect = null; }
+    /* PASE VISUAL · el minimapa estaba MUERTO.
+       Leía `getCanvasInfo().world`, que el puente nunca ha expuesto (devuelve
+       cssWidth/cssHeight/bufferWidth/bufferHeight/dpr/smoothing), así que `rect`
+       era siempre null y el recuadro sólo podía decir «SIN INCURSIÓN»: incluso
+       en el Refugio, con el jugador andando, nunca se dibujaba nada.
+       El rectángulo real de la sala SÍ viene en la instantánea del motor
+       (`roomRect`), y la posición del jugador también. Se usa eso. */
+    var rect = (snap && snap.roomRect && snap.roomRect.w > 0 && snap.roomRect.h > 0) ? snap.roomRect : null;
     if (!rect) {
-      ctx.fillStyle = "rgba(148,163,184,0.5)";
+      ctx.fillStyle = "rgba(148,163,184,0.62)";
       ctx.font = "600 11px Inter, sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(snap && snap.running ? "SALA ACTUAL" : "SIN INCURSIÓN", w / 2, h / 2);
@@ -1507,16 +1562,51 @@
     var scale = Math.min(w / rect.w, h / rect.h) * 0.92;
     ctx.save();
     ctx.translate(w / 2, h / 2);
+    var rw = rect.w * scale, rh = rect.h * scale;
+    /* Suelo de la sala: da profundidad al recuadro (antes era un contorno hueco). */
+    ctx.fillStyle = "rgba(255,45,122,0.07)";
+    ctx.fillRect(-rw / 2, -rh / 2, rw, rh);
+    /* Retícula tenue al estilo de la pista. */
+    ctx.strokeStyle = "rgba(148,163,184,0.16)";
+    ctx.lineWidth = 1;
+    var step = Math.max(12, Math.min(rw, rh) / 5);
+    for (var gx = -rw / 2 + step; gx < rw / 2; gx += step) {
+      ctx.beginPath(); ctx.moveTo(gx, -rh / 2); ctx.lineTo(gx, rh / 2); ctx.stroke();
+    }
+    for (var gy = -rh / 2 + step; gy < rh / 2; gy += step) {
+      ctx.beginPath(); ctx.moveTo(-rw / 2, gy); ctx.lineTo(rw / 2, gy); ctx.stroke();
+    }
     ctx.strokeStyle = "rgba(255,45,122,0.85)";
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(-rect.w * scale / 2, -rect.h * scale / 2, rect.w * scale, rect.h * scale);
+    ctx.strokeRect(-rw / 2, -rh / 2, rw, rh);
+    /* Puertas de la sala: lo que el jugador necesita ver de un vistazo. */
+    if (snap && Array.isArray(snap.doors)) {
+      for (var di = 0; di < snap.doors.length; di++) {
+        var d = snap.doors[di];
+        if (!d) continue;
+        var dx = (d.x - rect.x - rect.w / 2) * scale;
+        var dy = (d.y - rect.y - rect.h / 2) * scale;
+        ctx.fillStyle = d.open ? "rgba(34,211,238,0.95)" : "rgba(244,236,216,0.55)";
+        ctx.fillRect(dx - 3, dy - 3, 6, 6);
+      }
+    }
     if (snap && snap.player) {
       var px = (snap.player.x - rect.x - rect.w / 2) * scale;
       var py = (snap.player.y - rect.y - rect.h / 2) * scale;
+      ctx.fillStyle = "rgba(34,211,238,0.22)";
+      ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#22d3ee";
       ctx.beginPath();
-      ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+      ctx.arc(px, py, 4, 0, Math.PI * 2);
       ctx.fill();
+      /* Rumbo del arma: el minimapa también dice hacia dónde miras. */
+      var ang = snap.player.aimAngle || 0;
+      ctx.strokeStyle = "#22d3ee";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px + Math.cos(ang) * 13, py + Math.sin(ang) * 13);
+      ctx.stroke();
     }
     ctx.restore();
   }
@@ -1572,7 +1662,18 @@
        (A/B) dentro de pollGamepad; la direccional se gestiona con repetición
        propia y necesita evaluar cada frame para el auto-repeat. */
     if (uiState.gpCooldown > 0) uiState.gpCooldown = Math.max(0, uiState.gpCooldown - wallSec);
-    if (navigator.getGamepads) pollGamepad(snap, inHub, wallSec);
+    /* PASE DE RENDIMIENTO · el mando se sondea a 15 Hz, no a la frecuencia del
+       monitor. `navigator.getGamepads()` obliga al navegador a sincronizarse con
+       el dispositivo de entrada y se llamaba en CADA fotograma, también con el
+       menú quieto y sin mando conectado. La latencia añadida es de 33 ms como
+       máximo, muy por debajo de repeatRate (85 ms), así que la navegación no
+       cambia; y el primer sondeo sigue siendo inmediato. */
+    uiState.gpPollAcc = (uiState.gpPollAcc || 0) + wallSec;
+    if (navigator.getGamepads && (uiState.gpPollAcc >= 0.066 || !uiState.gpPolledOnce)) {
+      uiState.gpPollAcc = 0;
+      uiState.gpPolledOnce = true;
+      pollGamepad(snap, inHub, wallSec);
+    }
 
     if (snap && (!uiState.menuVisible)) updateHud(snap, inHub);
 
@@ -1863,7 +1964,14 @@
     var nvEl = el("dd-hud-nv");
     if (nvEl) nvEl.textContent = "NV. " + (snap.level || 1);
     var wNameEl = el("dd-hud-weapon-name");
-    if (wNameEl) wNameEl.textContent = (snap.weaponName || "M1911").toUpperCase() + " · ∞";
+    if (wNameEl) {
+      /* PASE VISUAL · el nombre se cortaba. El catálogo del motor produce nombres
+         largos («MAGNUM (RÓTULO: PAGNUM)», «ESCOPETA AUTOMÁTICA»), y la franja
+         del arma lucía el recorte «MAGNUM (RÓTULO: …». El nombre completo se
+         conserva: si no entra, CSS lo reduce (ver .dd-hud-weapon-name). */
+      wNameEl.textContent = (snap.weaponName || "M1911").toUpperCase() + " · ∞";
+      wNameEl.setAttribute("data-fit", "auto");
+    }
     var wImgEl = el("dd-hud-weapon-img");
     var wSrc = weaponImgSrc(snap.weapon || "m1911");
     if (wImgEl && wSrc && wImgEl.getAttribute("data-w") !== snap.weapon) {

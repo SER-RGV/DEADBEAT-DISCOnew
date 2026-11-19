@@ -364,7 +364,28 @@ const GUARD_SPEC = function () {
 
   await page.goto("http://127.0.0.1:" + PORT + "/index.html", { waitUntil: "load", timeout: 120000 });
   await page.waitForFunction(() => window.DD_UI && window.DD_HUB && window.DD_CINE && window.__DD_BRIDGE && window.DD_WORLD, { timeout: 120000 });
-  await sleep(1500);
+  /* ARRANQUE REAL (pase de rendimiento). Antes el arnés esperaba un `sleep(1500)`
+     fijo y daba por hecho que el menú ya estaba en pantalla. Desde FASE 01 el
+     arranque pasa por la cinemática «La noche que vuelve» (32 s, saltable), así
+     que un menú a los 1,5 s sólo ocurría cuando la carga era tan lenta que el
+     reloj caía dentro de la intro. Se espera al ESTADO real (LOADING -> INTRO ->
+     MAIN_MENU) y se salta la intro como haría un jugador (ESPACIO). El flujo no
+     cambia: primero menú, luego NUEVA PARTIDA. */
+  await page.waitForFunction(
+    () => window.DD_BOOT && window.DD_BOOT.getEvidence && window.DD_BOOT.getEvidence().loadFinished,
+    { timeout: 60000 }
+  ).catch(() => {});
+  for (let i = 0; i < 120; i++) {
+    const st = await page.evaluate(() => (window.DD_BOOT && window.DD_BOOT.getState ? window.DD_BOOT.getState().state : null));
+    if (st === "MAIN_MENU") break;
+    await page.keyboard.press("Space");
+    await sleep(250);
+  }
+  await page.waitForFunction(
+    () => document.body.getAttribute("data-dd-state") === "main_menu",
+    { timeout: 30000 }
+  );
+  await sleep(400);
 
   const it = async (name, fn) => {
     try { report.integration.push({ check: name, ok: true, detail: await fn() }); }
