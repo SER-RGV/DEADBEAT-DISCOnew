@@ -309,3 +309,9 @@ Pendiente: rapture (roll/death), shadow 6, apocalypse 6, gunslinger 6, fightclub
 **Rapture 6/6** y **Shadow 6/6** completos e integrados (sprites propias en juego; `m_shadow_death` volvió con fondo de ciudad → fallback `city_matte` añadido al prepare genérico). **Apocalypse 1/6** (walk_a; el idle falló por límite de imágenes del turno → próximo lote). Capturas reales: `combate-shadow-walk/aim.png`, `combate-rapture-walk/aim.png`. QA catálogo PASS.
 
 Estado sprites: original 6/6, rapture 6/6, shadow 6/6, apocalypse 1/6, gunslinger/fightclub/kitchenriot/streetart con marcadores provisionales (38→28 maestros pendientes).
+
+### Fase E — tercer lote (30/48 maestros)
+
+**Apocalypse 6/6 completa** (idle fallido del lote anterior regenerado) y **Gunslinger 5/6** (falta death). Capturas reales: `combate-apocalypse-walk/aim.png`, `combate-gunslinger-walk/aim.png`.
+
+Estado sprites: original 6/6, rapture 6/6, shadow 6/6, apocalypse 6/6, gunslinger 5/6, fightclub/kitchenriot/streetart con marcadores (18 maestros pendientes: gunslinger death + fightclub 6 + kitchenriot 6 + streetart 6... total 19 → ver recuento en el cierre).
