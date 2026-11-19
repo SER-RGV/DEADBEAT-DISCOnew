@@ -641,15 +641,29 @@ body.dd-highres-edition #ddc-cover {
   font-weight: 800;
   color: var(--dd-cream);
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
+  /* PASE VISUAL · el nombre se cortaba con puntos suspensivos («MAGNUM (RÓTULO:
+     …»). Ahora cabe completo en dos líneas y la tarjeta reserva ese alto para
+     que los precios queden alineados en toda la rejilla. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+  min-height: calc(2 * 1.2em);
 }
 .dd-weapon-card-price {
   font-size: 10px;
   font-weight: 800;
   color: var(--dd-neon-gold);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+/* «EN PROPIEDAD» es más largo que un precio: que quepa sin recortarse. */
+.dd-weapon-card.equipped .dd-weapon-card-price {
+  font-size: 9.5px;
+  color: var(--dd-neon-cyan);
 }
 .dd-shop-inspector {
   background: rgba(8, 4, 16, 0.92);
@@ -2436,4 +2450,34 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Ficha del arma: rol y rasgo del catálogo del motor (antes no se mostraban) y
+   los rótulos de estadística con ancho fijo para que las barras se alineen. */
+.dd-inspector-role {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+.dd-inspector-trait {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.72);
+}
+.dd-stat-row > span:first-child {
+  min-width: 96px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(226, 232, 240, 0.66);
+}
+.dd-stat-row > span:last-child {
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--dd-cream);
 }

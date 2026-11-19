@@ -735,15 +735,29 @@ body.dd-highres-edition #ddc-cover {
   font-weight: 800;
   color: var(--dd-cream);
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
+  /* PASE VISUAL · el nombre se cortaba con puntos suspensivos («MAGNUM (RÓTULO:
+     …»). Ahora cabe completo en dos líneas y la tarjeta reserva ese alto para
+     que los precios queden alineados en toda la rejilla. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+  min-height: calc(2 * 1.2em);
 }
 .dd-weapon-card-price {
   font-size: 10px;
   font-weight: 800;
   color: var(--dd-neon-gold);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+/* «EN PROPIEDAD» es más largo que un precio: que quepa sin recortarse. */
+.dd-weapon-card.equipped .dd-weapon-card-price {
+  font-size: 9.5px;
+  color: var(--dd-neon-cyan);
 }
 .dd-shop-inspector {
   background: rgba(8, 4, 16, 0.92);
@@ -2530,6 +2544,36 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+/* Ficha del arma: rol y rasgo del catálogo del motor (antes no se mostraban) y
+   los rótulos de estadística con ancho fijo para que las barras se alineen. */
+.dd-inspector-role {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+.dd-inspector-trait {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.72);
+}
+.dd-stat-row > span:first-child {
+  min-width: 96px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(226, 232, 240, 0.66);
+}
+.dd-stat-row > span:last-child {
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--dd-cream);
 }
 
   </style>
@@ -16168,13 +16212,25 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     if (!list.length) {
       grid.innerHTML = '<p class="dd-opt-note">El motor no tiene armas en esta categoría.</p>';
     } else {
+      /* PASE VISUAL · las tarjetas no tenían ni nombre ni precio legibles:
+         - El catálogo del motor (getWeaponsList) trae n/nombre/familia/id/estado,
+           NO trae precio, así que TODAS las 120 tarjetas imprimían «0 CR». El
+           precio real está en getWeaponStats(id).cost.
+         - El marcado usaba <b> y <span> sueltos mientras la hoja de estilos
+           define .dd-weapon-card-name y .dd-weapon-card-price: ninguna regla
+           aplicaba, y los nombres largos («MAGNUM (RÓTULO: PAGNUM)») se partían
+           en tres líneas encima del precio. Se añaden las clases reales. */
+      var brW = window.__DD_BRIDGE;
       grid.innerHTML = list.map(function (w) {
         var owned = snap.owned && snap.owned.indexOf(w.id) >= 0;
         var sel = w.id === uiState.selectedWeaponId;
-        return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '">' +
+        var cost = 0;
+        try { var st = brW && brW.getWeaponStats ? brW.getWeaponStats(w.id) : null; if (st && typeof st.cost === "number") cost = st.cost; } catch (e2) { cost = 0; }
+        var priceTxt = owned ? "EN PROPIEDAD" : (cost > 0 ? cost + " CR" : "—");
+        return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '" title="' + esc((w.name || w.id)) + '">' +
           '<img alt="" src="' + weaponImgSrc(w.id) + '">' +
-          '<b>' + esc((w.name || w.id).toUpperCase()) + '</b>' +
-          '<span>' + (owned ? "EN PROPIEDAD" : (w.price || 0) + " CR") + '</span>' +
+          '<b class="dd-weapon-card-name">' + esc((w.name || w.id).toUpperCase()) + '</b>' +
+          '<span class="dd-weapon-card-price">' + esc(priceTxt) + '</span>' +
           '</button>';
       }).join("");
       grid.onclick = function (ev) {
@@ -16205,17 +16261,48 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       for (var ci = 0; ci < cat.length; ci++) { if (cat[ci] && cat[ci].id === wid) { meta = cat[ci]; break; } }
     } catch (e) { meta = null; }
     var shownName = String((meta && meta.name) || wid).toUpperCase();
+    /* PASE VISUAL · la ficha volcaba las claves del objeto de estadísticas tal
+       cual: las dos primeras filas eran «ID» y «NAME» (el id interno y el nombre
+       del motor, no estadísticas) y la barra de cada fila se escalaba con el
+       número crudo, así que «COSTE 120» o «VELOCIDAD 760» salían siempre al
+       100 % y «PERDIGONES 1» a un 6 % mínimo: las barras no informaban de nada.
+       Ahora cada estadística tiene su rótulo en castellano y su escala real, y
+       los campos de identidad no se pintan como si fuesen potencia de fuego. */
+    var STAT_META = {
+      cost:      { label: "COSTE",       max: 1000, fmt: function (v) { return v + " CR"; } },
+      damage:    { label: "DAÑO",        max: 100 },
+      fireRate:  { label: "CADENCIA",    max: 10,   fmt: function (v) { return v + " /s"; } },
+      speed:     { label: "VELOCIDAD",   max: 1000 },
+      pellets:   { label: "PERDIGONES",  max: 12 },
+      pierce:    { label: "PERFORACIÓN", max: 5 },
+      range:     { label: "ALCANCE",     max: 1000 },
+      spread:    { label: "DISPERSIÓN",  max: 1 },
+      reload:    { label: "RECARGA",     max: 5,    fmt: function (v) { return v + " s"; } },
+      mag:       { label: "CARGADOR",    max: 60 }
+    };
+    var statKeys = Object.keys(stats || {}).filter(function (k) {
+      return typeof stats[k] === "number" && isFinite(stats[k]);
+    });
+    var shownRole = (stats && stats.role) ? String(stats.role) : "";
+    var shownTrait = (stats && stats.trait) ? String(stats.trait) : "";
     host.innerHTML =
       '<div class="dd-inspector-preview"><img alt="" src="' + weaponImgSrc(wid) + '"></div>' +
       '<b class="dd-inspector-name">' + esc(shownName) + '</b>' +
+      (shownRole ? '<span class="dd-inspector-role">' + esc(shownRole) + '</span>' : '') +
       '<div class="dd-inspector-stats">' +
-      Object.keys(stats || {}).slice(0, 8).map(function (k) {
+      statKeys.map(function (k) {
         var v = stats[k];
-        return '<div class="dd-stat-row"><span>' + esc(k.toUpperCase()) + '</span>' +
-          '<span class="dd-stat-meter"><b style="width:' + Math.max(6, Math.min(100, Number(v) || 0)) + '%"></b></span>' +
-          '<span>' + esc(typeof v === "number" ? (Math.round(v * 100) / 100) : v) + '</span></div>';
+        var sm = STAT_META[k];
+        var label = sm ? sm.label : String(k).toUpperCase();
+        var pct = sm ? (v / sm.max) * 100 : v;
+        var shown = sm && sm.fmt ? sm.fmt(Math.round(v * 100) / 100)
+          : (Math.round(v * 100) / 100);
+        return '<div class="dd-stat-row"><span>' + esc(label) + '</span>' +
+          '<span class="dd-stat-meter"><b style="width:' + Math.max(2, Math.min(100, pct)).toFixed(1) + '%"></b></span>' +
+          '<span>' + esc(shown) + '</span></div>';
       }).join("") +
       '</div>' +
+      (shownTrait ? '<p class="dd-inspector-trait">' + esc(shownTrait) + '</p>' : '') +
       '<div class="dd-shop-actions"><button type="button" class="dd-action-btn primary" id="dd-shop-equip">' +
       (owned ? "EQUIPAR" : "COMPRAR") + '</button></div>';
 
