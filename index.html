@@ -105,6 +105,13 @@
   --dd-neon-magenta: #e11d74;
   --dd-neon-cyan: #22d3ee;
   --dd-neon-gold: #facc15;
+  /* PASE VISUAL · --dd-coral se usaba en diez reglas (acento de los
+     deslizadores de opciones, bordes de sección, subrayados) y NUNCA estaba
+     declarada: un var() sin valor invalida la declaración entera en tiempo de
+     análisis, así que el navegador se quedaba con su estilo por defecto. De ahí
+     que los deslizadores salieran con el azul nativo y varias secciones del
+     panel de opciones perdieran su acento. */
+  --dd-coral: #ff2d7a;
   --dd-cream: #f8fafc;
   --dd-muted: #cbd5e1;
   --dd-ink: #050208;
@@ -2574,6 +2581,78 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
   text-align: right;
   font-variant-numeric: tabular-nums;
   color: var(--dd-cream);
+}
+
+/* ==========================================================================
+   PASE VISUAL · PANEL DE OPCIONES
+   Reproducido a 1280x720: dentro de OPCIONES convivían dos lenguajes visuales.
+   Los deslizadores y el desplegable que aporta el motor (#menu-gfx, los
+   menu-vol-*) se pintaban con el estilo nativo del navegador — caja blanca
+   grisácea y deslizador azul por defecto — junto al resto del panel, que es
+   oscuro con acento coral. Además la nota al pie del panel quedaba cortada
+   por el borde inferior de la tarjeta (cuerpo 546 px para 521 disponibles).
+   ========================================================================== */
+
+/* Controles nativos del motor dentro de los submenús: mismo lenguaje que el
+   resto del panel, sin tocar su comportamiento ni su marcado. */
+#dd-submenu input[type="range"],
+body.dd-highres-edition #dd-submenu input[type="range"] {
+  accent-color: var(--dd-coral);
+  height: 22px;
+  cursor: pointer;
+  /* El propio control no pintaba fondo, así que el navegador usaba su color de
+     campo (blanco) y el deslizador del volumen del menú salía como una caja
+     blanca sobre el panel oscuro. */
+  background-color: transparent;
+  color-scheme: dark;
+}
+/* Los controles de formulario heredan el esquema oscuro de todo el panel: sin
+   esto, el navegador pinta fondos y textos con su paleta clara. */
+#dd-submenu { color-scheme: dark; }
+/* El selector de calidad gráfica del motor se pinta en blanco: `background:`
+   es atajo y el estilo nativo del navegador (light) gana al fondo oscuro.
+   Se fija con el atajo completo y más especificidad. */
+#dd-submenu select,
+body.dd-highres-edition #dd-submenu select {
+  font-family: inherit;
+  font-size: 12px;
+  min-height: 28px;
+  padding: 5px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background-color: rgba(6, 3, 12, 0.92);
+  background-image: none;
+  color: var(--dd-cream);
+  color-scheme: dark;
+  cursor: pointer;
+}
+#dd-submenu select {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 5px 8px;
+  min-height: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.9);
+  color: var(--dd-cream);
+  cursor: pointer;
+}
+#dd-submenu select:focus-visible {
+  outline: 2px solid var(--dd-neon-cyan);
+  outline-offset: 2px;
+}
+/* La nota al pie del panel se leía casi invisible sobre el fondo y el borde de
+   la tarjeta la recortaba: contraste suficiente y, en pantallas de 720 px, un
+   cuerpo más compacto para que quepa entera sin scroll. */
+.dd-opt-foot {
+  color: rgba(226, 232, 240, 0.74);
+  line-height: 1.45;
+}
+@media (max-height: 780px) {
+  #dd-submenu .dd-opt-row { padding: 3px 0; }
+  #dd-submenu .dd-opt-note { line-height: 1.4; }
+  #dd-submenu .dd-opt-foot { margin-top: 6px; padding-top: 6px; }
+  #dd-submenu .dd-opt-col > h3:not(:first-child) { margin-top: 10px; padding-top: 7px; }
 }
 
   </style>
