@@ -424,3 +424,11 @@ Capa final en `dd_rebuild_ui.css` (sin tocar `#dd-submenu::before` ni hooks de Q
 - `prefers-reduced-motion` respeta todas las animaciones.
 
 QA `test_menu_scenes`, `test_menu_new_flow` y `test_outfit_preview` PASS.
+
+### 🎛️ Menú principal más cañero y travelling épico (petición del usuario)
+
+- **Portada**: fondo con respiración lenta y saturación reforzada; aura pulsante detrás del logo; logo con flotación y parpadeo cromático ocasional (glitch de 2 fotogramas); eslogan con degradado arcoíris neón; estrella del manifiesto que gira y pulsa; luces de ritmo (beat-light) magenta/cian con latido doble; vinieta pulsante; líneas de exploración tipo cartel.
+- **Navegación**: botones con barra neón izquierda que crece al pasar/seleccionar, desplazamiento con resorte y marca luminosa ampliada; ecualizador más alto y brillante.
+- **Travelling épico** (1,5 s): embolado de movimiento al salir (blur+hasta escala 1,72) y aterrizaje con enfoque desde blur; estelas diagonales de luz cruzando la escena; destello cromático al 46% del recorrido; vinieta que respira; rótulo de destino en oro con letras que se cierran desde el embolado + subrayado arcoíris con barrido. Temporizador JS ajustado (1280→1560 ms).
+
+QA `test_menu_scenes` PASS. Capturas: `.cache/review/menu_canero.jpg` (portada) y `.cache/review/travel_epico.jpg` (travelling).

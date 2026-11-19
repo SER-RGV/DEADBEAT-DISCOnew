@@ -2747,3 +2747,199 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
     animation: none !important; transition: none !important;
   }
 }
+
+/* ==========================================================================
+   FASE CAÑERA — MENÚ PRINCIPAL POTENTE Y TRAVELLING ÉPICO
+   ========================================================================== */
+
+/* --- 1. Portada: atmósfera más viva --- */
+#dd-main-menu.dd-rs #dd-menu-backdrop {
+  animation: dd-backdrop-breathe 14s ease-in-out infinite alternate;
+  filter: saturate(1.12) contrast(1.05);
+}
+@keyframes dd-backdrop-breathe { from { transform: scale(1.02); } to { transform: scale(1.09); } }
+
+#dd-main-menu.dd-rs .dd-menu-vig {
+  background:
+    radial-gradient(ellipse at 30% 45%, rgba(255, 45, 122, .16), transparent 52%),
+    radial-gradient(ellipse at 78% 68%, rgba(0, 229, 255, .12), transparent 46%),
+    radial-gradient(ellipse at 50% 50%, transparent 42%, rgba(4, 1, 9, .82) 100%);
+  animation: dd-vig-pulse 4.6s ease-in-out infinite;
+}
+@keyframes dd-vig-pulse { 0%, 100% { opacity: .92; } 50% { opacity: 1; filter: brightness(1.12); } }
+
+#dd-main-menu.dd-rs .dd-menu-beat-light {
+  background:
+    radial-gradient(ellipse at 26% 38%, rgba(255, 45, 122, .3), transparent 44%),
+    radial-gradient(ellipse at 74% 62%, rgba(0, 229, 255, .22), transparent 40%);
+  mix-blend-mode: screen;
+  animation: dd-beat-throb 1.35s ease-in-out infinite;
+}
+@keyframes dd-beat-throb {
+  0%, 100% { opacity: .28; transform: scale(1); }
+  12% { opacity: .58; transform: scale(1.03); }
+  24% { opacity: .34; }
+  38% { opacity: .52; transform: scale(1.015); }
+  55% { opacity: .3; }
+}
+
+/* Líneas de exploración al estilo cartel */
+#dd-main-menu.dd-rs .dd-menu-stage::after {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 3px);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 75%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 75%, transparent);
+  pointer-events: none;
+}
+
+/* --- 2. Marca: logo con pulso y parpadeo cromático --- */
+#dd-main-menu.dd-rs .dd-menu-brand { position: relative; }
+#dd-main-menu.dd-rs .dd-menu-brand::before {
+  content: ""; position: absolute; left: -12%; top: -30%; width: 124%; height: 150%;
+  background: radial-gradient(ellipse at 42% 46%, rgba(255, 45, 122, .34), rgba(250, 204, 21, .1) 46%, transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: dd-brand-aura 3.4s ease-in-out infinite;
+}
+@keyframes dd-brand-aura { 0%, 100% { opacity: .55; transform: scale(.98); } 50% { opacity: 1; transform: scale(1.05); } }
+#dd-main-menu.dd-rs .dd-menu-logo {
+  filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8));
+  animation: dd-logo-float 5.2s ease-in-out infinite alternate, dd-logo-glitch 7.5s steps(1) infinite;
+}
+@keyframes dd-logo-float { from { transform: translateY(0) rotate(-.4deg); } to { transform: translateY(-7px) rotate(.35deg); } }
+@keyframes dd-logo-glitch {
+  0%, 91%, 100% { filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); transform: none; }
+  92% { filter: drop-shadow(-4px 0 0 rgba(0, 229, 255, .8)) drop-shadow(4px 0 0 rgba(255, 45, 122, .8)); transform: translateX(2px) skewX(-1.2deg); }
+  94% { filter: drop-shadow(3px 0 0 rgba(250, 204, 21, .8)) drop-shadow(-3px 0 0 rgba(0, 229, 255, .8)); transform: translateX(-2px); }
+  96% { filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); transform: none; }
+}
+#dd-main-menu.dd-rs .dd-menu-tagline span {
+  background: linear-gradient(90deg, #facc15, #ff2d7a 55%, #22d3ee);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 45, 122, .5));
+}
+#dd-main-menu.dd-rs .dd-cover-manifesto span {
+  display: inline-block;
+  animation: dd-manifesto-star 3.2s ease-in-out infinite;
+}
+@keyframes dd-manifesto-star { 0%, 100% { transform: scale(1) rotate(0deg); opacity: .85; } 50% { transform: scale(1.35) rotate(18deg); opacity: 1; } }
+
+/* --- 3. Navegación: botones con más golpe visual --- */
+#dd-main-menu.dd-rs .dd-menu-btn {
+  border-left: 3px solid rgba(255, 45, 122, .35);
+  background: linear-gradient(90deg, rgba(30, 8, 26, .72), rgba(20, 6, 20, .45) 70%, transparent);
+  transition: transform .16s cubic-bezier(.16, 1, .3, 1), border-color .16s, background .16s, box-shadow .2s;
+}
+#dd-main-menu.dd-rs .dd-menu-btn:hover,
+#dd-main-menu.dd-rs .dd-menu-btn:focus-visible,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected {
+  transform: translateX(9px);
+  border-left-color: #facc15;
+  border-left-width: 5px;
+  background: linear-gradient(90deg, rgba(255, 45, 122, .26), rgba(30, 8, 26, .5) 72%, transparent);
+  box-shadow: -14px 0 34px -18px rgba(255, 45, 122, .8), 0 0 24px -8px rgba(250, 204, 21, .35);
+}
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-mark {
+  box-shadow: 0 0 12px rgba(255, 45, 122, .5);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+#dd-main-menu.dd-rs .dd-menu-btn:hover .dd-btn-mark,
+#dd-main-menu.dd-rs .dd-menu-btn:focus-visible .dd-btn-mark,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected .dd-btn-mark {
+  transform: scale(1.22);
+  box-shadow: 0 0 18px rgba(250, 204, 21, .8);
+}
+
+/* --- 4. Ecualizador y etiqueta --- */
+#dd-main-menu.dd-rs .dd-menu-eq { opacity: .85; height: 76px; }
+#dd-main-menu.dd-rs .dd-menu-eq i { box-shadow: 0 0 10px rgba(255, 45, 122, .5); }
+
+/* --- 5. TRAVELLING ÉPICO: embolado, estelas, destello y rótulo mayor --- */
+#dd-scene-passage.is-running { animation: dd-travel-end 1.5s ease both; }
+#dd-scene-passage .dd-passage-from {
+  animation: dd-travel-depart 1.5s cubic-bezier(.4, 0, .6, 1) both;
+  filter: saturate(1.1);
+}
+#dd-scene-passage .dd-passage-to {
+  animation: dd-travel-arrive 1.5s cubic-bezier(.2, .7, .2, 1) both;
+  filter: saturate(1.1);
+}
+#dd-scene-passage .dd-passage-light {
+  background:
+    radial-gradient(ellipse at 53% 51%, rgba(255, 45, 122, .3), transparent 34%, rgba(4, 2, 10, .7)),
+    repeating-linear-gradient(108deg, transparent 0 42px, rgba(255, 255, 255, .07) 42px 44px, transparent 44px 96px),
+    linear-gradient(115deg, transparent 40%, rgba(0, 229, 255, .3) 50%, transparent 60%);
+  background-size: 100% 100%, 220% 220%, 100% 100%;
+  animation: dd-travel-light 1.5s ease-in-out both, dd-travel-streaks 1.5s cubic-bezier(.4, 0, .6, 1) both;
+  mix-blend-mode: screen;
+}
+@keyframes dd-travel-streaks {
+  0% { background-position: 0 0, -60% 0, 0 0; }
+  100% { background-position: 0 0, 160% 0, 0 0; }
+}
+#dd-scene-passage .dd-passage-shade {
+  background:
+    linear-gradient(90deg, rgba(7, 3, 13, .55), transparent 30%, transparent 74%, rgba(7, 3, 13, .52)),
+    linear-gradient(0deg, rgba(255, 45, 122, .18), transparent 32%),
+    radial-gradient(ellipse at 50% 50%, transparent 46%, rgba(2, 0, 6, .55) 100%);
+  animation: dd-travel-vignette 1.5s ease-in-out both;
+}
+@keyframes dd-travel-vignette {
+  0%, 100% { opacity: .8; }
+  48% { opacity: 1; filter: brightness(1.35) saturate(1.25); }
+}
+@keyframes dd-travel-depart {
+  0% { transform: scale(1); opacity: 1; filter: blur(0) saturate(1.1); }
+  38% { opacity: 1; }
+  70% { opacity: 0; filter: blur(7px) saturate(1.3) brightness(1.2); }
+  100% { transform: scale(1.72); opacity: 0; filter: blur(12px) saturate(1.3) brightness(1.3); }
+}
+@keyframes dd-travel-arrive {
+  0%, 28% { transform: scale(1.48); opacity: 0; filter: blur(12px) saturate(1.3); }
+  52% { opacity: .55; }
+  62% { opacity: 1; filter: blur(2px) saturate(1.15); }
+  100% { transform: scale(1.02); opacity: 1; filter: blur(0) saturate(1.1); }
+}
+@keyframes dd-travel-light {
+  0%, 100% { opacity: .3; }
+  30% { opacity: .65; }
+  46% { opacity: 1; filter: brightness(2.1); }
+  54% { opacity: .8; filter: brightness(1.4); }
+  75% { opacity: .5; }
+}
+@keyframes dd-travel-end { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
+
+#dd-scene-passage .dd-passage-title {
+  bottom: 9%;
+  font-size: clamp(17px, 2.6vw, 30px);
+  letter-spacing: .46em;
+  animation: dd-travel-label 1.5s ease both;
+}
+#dd-scene-passage .dd-passage-title::after {
+  content: ""; position: absolute; left: 8%; right: 8%; bottom: -12px; height: 2px;
+  background: linear-gradient(90deg, transparent, #facc15, #ff2d7a, #22d3ee, transparent);
+  box-shadow: 0 0 16px rgba(255, 45, 122, .8);
+  transform: scaleX(0);
+  animation: dd-travel-underline 1.5s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-travel-underline {
+  0%, 28% { transform: scaleX(0); opacity: 0; }
+  46%, 70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes dd-travel-label {
+  0%, 22% { opacity: 0; transform: translate(-50%, 16px) scale(.94); letter-spacing: .78em; filter: blur(4px); }
+  42%, 70% { opacity: 1; transform: translate(-50%, 0) scale(1); letter-spacing: .46em; filter: blur(0); }
+  100% { opacity: 0; transform: translate(-50%, -10px) scale(1.04); filter: blur(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu.dd-rs #dd-menu-backdrop, #dd-main-menu.dd-rs .dd-menu-logo,
+  #dd-main-menu.dd-rs .dd-menu-brand::before, #dd-main-menu.dd-rs .dd-menu-beat-light,
+  #dd-main-menu.dd-rs .dd-menu-vig, #dd-main-menu.dd-rs .dd-cover-manifesto span,
+  #dd-main-menu.dd-rs .dd-menu-btn, #dd-scene-passage .dd-passage-title::after {
+    animation: none !important;
+  }
+  #dd-main-menu.dd-rs .dd-menu-btn:hover { transform: none; }
+}
