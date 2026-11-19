@@ -369,3 +369,12 @@ Revisión lámina a lámina de los 48 sprites (`tools/qa/` + `.cache/review/spri
 QA `test_v2m_outfits` PASS tras las correcciones; capturas de combate actualizadas de los cuatro atuendos tocados. **Pendiente menor**: los `idle` regenerados de apocalypse y streetart salieron algo frontales (contrato = perfil izquierdo como el resto) — se rehacen con instrucción estricta de perfil en el siguiente turno.
 
 **Cierre de la auditoría**: bug del despiece corregido (`Image.fromarray` mal referenciado y excepción silenciada — las motas cian sobrevivían al filtro); los 48 sprites reprocesados y verificados en lámina (`.cache/review/fix_check2.jpg`): sin figuras dobles, sin texto, sin fondos, sin ruido; el sombrero-capucha de Shadow es una sola prenda integrada; ampliación de shadow/hurt confirma que los detalles de cintura son vendas/correas, sin armas añadidas. QA `test_v2m_outfits` y `test_outfit_preview` PASS. Los `idle` de apocalypse y streetart quedaron en perfil coherente con el resto (verificados en lámina).
+
+### 🔧 Correcciones pedidas por el usuario (kickboxer, Darksiders, capucha)
+
+1. **Fight Club rehecha como luchador de kickboxing** (showcase + 6 sprites, listos): torso tatuado al aire, pantalón corto de combate, vendas en manos y talones, DESCALZO, sin espinilleras ni calzado; proporciones humanas correctas (1:7); regla «tatuajes sólo en piel, nunca sobre ropa/vendas» aplicada. Captura `combate-fightclub-walk/aim.png` actualizada.
+2. **Shadow — sombrero eliminado** (capucha sola, sin ala que se solape): showcase + idle + walk listos; aim/hurt/roll/death PENDIENTES (aún con la versión anterior) → próximo lote.
+3. **Apocalypse — parecida a la armadura de Guerra de Darksiders**: PENDIENTE (próximo lote, showcase + 6 sprites).
+4. **Tatuajes que se solapan con la ropa** («manos y demás»): la nueva regla va en todos los prompts; revisión por zoom de los cinco atuendos no rehechos y corrección de lo que sobresalga → lote de cierre.
+
+QA `test_v2m_outfits` y captura de combate PASS.
