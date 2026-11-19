@@ -10207,6 +10207,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     sw.onload = function () { window.dispatchEvent(new Event('dd-looks-ready')); };
     sw.src = 'assets/characters/outfits/' + paths[id] + '/showcase.png';
   });
+  // Look original y paletas (cian, violeta, oro): la misma pose del diseño.
+  var swBase = new Image(); showcases['original'] = swBase;
+  swBase.onload = function () { window.dispatchEvent(new Event('dd-looks-ready')); };
+  swBase.src = 'assets/characters/outfits/original/showcase.png';
   function outfitReady(id) { return !!outfits[id] && outfitNames.every(function(n) { var im=outfits[id][n]; return im.complete && im.naturalWidth > 0; }); }
   function outfitFrame(name) { return outfitReady(selected) ? outfits[selected][name] || null : null; }
   function knightReady() { return outfitReady('knight'); }
@@ -10249,18 +10253,29 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       g.putImageData(im,0,0); variants[s.id]=c; return c;
     } catch(e) { return img; }
   }
+  function isPalette(id) { return id==='cyan'||id==='violet'||id==='gold'; }
   function preview(id) {
     // El selector usa la pose de presentación a cuerpo entero si está cargada.
-    var sw = showcases[id];
-    if (sw && sw.complete && sw.naturalWidth) return sw.src;
+    var sw = showcases[id] || (isPalette(id) ? showcases['original'] : null);
+    if (sw && sw.complete && sw.naturalWidth) {
+      if (isPalette(id)) {
+        if (!previewUrls[id]) { try { var im=recolor(sw,id); previewUrls[id]=im===sw?sw.src:im.toDataURL('image/png'); } catch(e) { return sw.src; } }
+        return previewUrls[id];
+      }
+      return sw.src;
+    }
     if(outfits[id]) return outfits[id].idle.src;
     if(!portrait.complete || !portrait.naturalWidth) return portrait.src;
     if(!previewUrls[id]) { try { var im=recolor(portrait,id); previewUrls[id]=im===portrait?portrait.src:im.toDataURL('image/png'); } catch(e) { return portrait.src; } }
     return previewUrls[id];
   }
   function showcase(id) {
-    var sw = showcases[id];
-    return sw && sw.complete && sw.naturalWidth ? sw.src : null;
+    var sw = showcases[id] || (isPalette(id) ? showcases['original'] : null);
+    if (!(sw && sw.complete && sw.naturalWidth)) return null;
+    if (isPalette(id)) {
+      try { var im=recolor(sw,id); return im===sw?sw.src:im.toDataURL('image/png'); } catch(e) { return sw.src; }
+    }
+    return sw.src;
   }
   // El retrato usa la cabeza de la pose de presentación del atuendo: misma
   // identidad que el selector. Si no está, recorte del sprite de reposo.
@@ -10268,13 +10283,15 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   function hudPreview(id) {
     var look = item(id) ? id : 'original';
     if (portraitUrls[look]) return portraitUrls[look];
-    var sw = showcases[look];
+    var sw = showcases[look] || (isPalette(look) ? showcases['original'] : null);
     if (sw && sw.complete && sw.naturalWidth) {
       try {
+        var src = sw;
+        if (isPalette(look)) src = recolor(sw, look);
         var c = document.createElement('canvas'); c.width = c.height = 256;
-        var w = sw.naturalWidth, h = sw.naturalHeight;
+        var w = src.naturalWidth || src.width, h = src.naturalHeight || src.height;
         var side = h * 0.235, top = h * 0.012;
-        c.getContext('2d').drawImage(sw, (w - side) / 2, top, side, side, 0, 0, 256, 256);
+        c.getContext('2d').drawImage(src, (w - side) / 2, top, side, side, 0, 0, 256, 256);
         return (portraitUrls[look] = c.toDataURL('image/png'));
       } catch(e) { /* Fallback below. */ }
     }

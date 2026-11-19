@@ -249,3 +249,15 @@ Pendiente de la ronda de cierre (próximo turno): QA completo consolidado, captu
 - Nueva utilidad `tools/qa/capture_extras.js` para refrescar la captura del catálogo.
 
 **TRABAJO DE IDENTIDAD COMPLETADO.** Once atuendos con el diseño del protagonista (`concepts/protagonista_diseno.webp`) en selector, HUD, diálogos, Extras y 66 sprites de juego, con pose de la lámina en el selector, cara sin maquillaje y piel de la portada.
+
+## Validación de rendimiento y commit del trabajo
+
+- **Sondeo de rendimiento** (`tools/qa/perf_probe.js`, captura `docs/evidence/atuendos/combate-turba-rendimiento.png`): incursión real con 12-18 enemigos invocados (dancer, sprinter, tank, speaker), entrada simulada (movimiento + disparo) e invulnerabilidad de prueba. Resultado en renderizado por software (SwiftShader, sin GPU): 19,9 FPS con turba / 21,9 FPS en calma → los enemigos cuestan ~4 ms/frame y el techo lo pone el software del entorno; en hardware real la escena va sobrada. p95 = 66,7 ms, máximo 83,3 ms (sin tirones ni bloqueos). **Cero errores JS ni peticiones HTTP fallidas** durante toda la sesión de combate.
+- **Cuadros raros revisados** (daño, voltereta, muerte de los once atuendos): figuras completas y coherentes — lámina de revisión en `.cache/identity_fix/review_rare_frames.jpg`.
+- **Commit `8668e50`** en `arena/3e032440-deadbeat-disconew` (297 archivos: sprites, maestros activos, herramientas, QA, docs, escenas y motor) y **push a origin**. Quedan fuera de git (añadidos a `.gitignore`): `.venv/`, `docs/evidence/`, las copias de seguridad de maestros (`backup_identity_v1/`, `backup_pose_refs/`) y las versiones antiguas de showcases (`showcase_v3/v4/v5_*`) — todo sigue en el workspace.
+
+Pendiente sólo de prueba manual del usuario: mando Xbox físico, audio y una partida completa con victoria natural.
+
+## Pose del diseño compartida por los aspectos extra (original, cian, violeta, oro)
+
+El usuario pidió que todos los aspectos —también los extra— compartan la pose del diseño. Los cuatro aspectos sin atuendo (Original, Pulso cian, Noche violeta, Último baile) se pintaban desde `hero.png` con pose antigua: ahora existe `assets/characters/outfits/original/showcase.png` (look de siempre —chaqueta de cuero, camiseta blanca, sombrero— en la pose arrogante de la lámina, cara limpia y piel melocotón) y `dd_appearance.js` lo usa en `preview()`, `showcase()` y `hudPreview()` para los cuatro, con el recoloreado de tono por paleta (cian/violeta/oro) aplicado sobre la misma imagen. El retrato del HUD recorta la cabeza del nuevo showcase con la misma geometría que los atuendos. HTML reconstruido con `tools/build_active_html.py`; QA `test_outfit_preview.js` y `test_outfit_portraits.js`: PASS. Capturas: [original](evidence/atuendos/camerino-original.png) y [oro](evidence/atuendos/camerino-oro.png); nueva utilidad `tools/qa/capture_palette_looks.js`.
