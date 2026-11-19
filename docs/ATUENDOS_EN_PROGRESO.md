@@ -432,3 +432,12 @@ QA `test_menu_scenes`, `test_menu_new_flow` y `test_outfit_preview` PASS.
 - **Travelling épico** (1,5 s): embolado de movimiento al salir (blur+hasta escala 1,72) y aterrizaje con enfoque desde blur; estelas diagonales de luz cruzando la escena; destello cromático al 46% del recorrido; vinieta que respira; rótulo de destino en oro con letras que se cierran desde el embolado + subrayado arcoíris con barrido. Temporizador JS ajustado (1280→1560 ms).
 
 QA `test_menu_scenes` PASS. Capturas: `.cache/review/menu_canero.jpg` (portada) y `.cache/review/travel_epico.jpg` (travelling).
+
+### 🎰 Apuesta máxima: flashes de cámara, póster rasgado y travelling de 2 s
+
+- **Flashes de cámara tipo reportaje** en la portada: tres ráfagas blancas (mix-blend screen) con ciclos desincronizados (8,5/11,7/13,3 s) — verificado pico de opacidad 0,75 en vivo.
+- **Logo tipo póster pegado**: entra desde escala 1,6 rotado -9° con sobreimpulso y destello de aura (0,85 s), luego flotación y glitch habituales.
+- **Beat-light estroboscópico**: picos de brillo 2,2× cada ~6,8 s.
+- **Travelling de 2 s** (temporizador JS 2060 ms): embolado hasta escala 1,95 con blur 16 px; doble pasada de estelas (cruzan, revientan en el flash y vuelven a cruzar); destello blanco duro al 50 % (brillo 4,2×); aterrizaje con temblor lateral amortiguado; rótulo que entra desde letras muy abiertas y desenfocado.
+
+QA `test_menu_new_flow` y `test_menu_scenes` PASS (nota: la animación de fondo conserva el nombre `rs-drift` que exige la suite).

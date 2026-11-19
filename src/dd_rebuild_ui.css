@@ -2754,10 +2754,9 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
 
 /* --- 1. Portada: atmósfera más viva --- */
 #dd-main-menu.dd-rs #dd-menu-backdrop {
-  animation: dd-backdrop-breathe 14s ease-in-out infinite alternate;
+  /* La respiración larga la aporta 'rs-drift' (base del proyecto); aquí sólo color. */
   filter: saturate(1.12) contrast(1.05);
 }
-@keyframes dd-backdrop-breathe { from { transform: scale(1.02); } to { transform: scale(1.09); } }
 
 #dd-main-menu.dd-rs .dd-menu-vig {
   background:
@@ -2942,4 +2941,132 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
     animation: none !important;
   }
   #dd-main-menu.dd-rs .dd-menu-btn:hover { transform: none; }
+}
+
+/* ==========================================================================
+   FASE APUERTA MÁXIMA — FLASHES DE CÁMARA, PÓSTER RASGADO, TRAVELLING 2 S
+   ========================================================================== */
+
+/* --- 1. Flash de cámara tipo reportaje en la portada (ráfagas breves) --- */
+#dd-main-menu.dd-rs .dd-menu-vig::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 86% 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 30%),
+    radial-gradient(circle at 68% 82%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 32%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation:
+    dd-flash-a 8.5s steps(1) infinite,
+    dd-flash-b 11.7s steps(1) infinite,
+    dd-flash-c 13.3s steps(1) infinite;
+}
+@keyframes dd-flash-a {
+  0%, 2%, 100% { opacity: 0; }
+  1% { opacity: .85; }
+}
+@keyframes dd-flash-b {
+  0%, 1.6%, 100% { opacity: 0; }
+  0.8% { opacity: .7; }
+}
+@keyframes dd-flash-c {
+  0%, 1.2%, 100% { opacity: 0; }
+  0.6% { opacity: .75; }
+}
+
+/* --- 2. Logo entra como póster pegado a la pared --- */
+#dd-main-menu.dd-rs .dd-menu-logo {
+  animation:
+    dd-logo-slap .85s cubic-bezier(.2, 1.4, .4, 1) both,
+    dd-logo-float 5.2s ease-in-out .85s infinite alternate,
+    dd-logo-glitch 7.5s steps(1) 1.2s infinite;
+}
+@keyframes dd-logo-slap {
+  0% { opacity: 0; transform: scale(1.6) rotate(-9deg) translateY(-26px); filter: brightness(2.6) drop-shadow(0 0 60px rgba(255, 255, 255, .9)); }
+  46% { opacity: 1; transform: scale(.94) rotate(2.2deg) translateY(4px); filter: brightness(1.5) drop-shadow(0 0 44px rgba(255, 45, 122, .9)); }
+  64% { transform: scale(1.04) rotate(-1.1deg); }
+  82% { transform: scale(.985) rotate(.4deg); }
+  100% { opacity: 1; transform: none; filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); }
+}
+#dd-main-menu.dd-rs .dd-menu-brand::before {
+  animation: dd-brand-aura 3.4s ease-in-out .85s infinite, dd-aura-burst .85s ease-out both;
+}
+@keyframes dd-aura-burst {
+  0% { opacity: 0; transform: scale(.4); }
+  40% { opacity: 1; transform: scale(1.35); }
+  100% { opacity: .55; transform: scale(.98); }
+}
+
+/* --- 3. Beat-light más estroboscópico --- */
+#dd-main-menu.dd-rs .dd-menu-beat-light {
+  animation: dd-beat-throb 1.35s ease-in-out infinite, dd-strobe 6.8s steps(1) infinite;
+}
+@keyframes dd-strobe {
+  0%, 3.2%, 3.7%, 7.1%, 7.5%, 100% { filter: none; }
+  3.4% { filter: brightness(2.2) saturate(1.4); }
+  7.3% { filter: brightness(1.9) saturate(1.3); }
+}
+
+/* --- 4. TRAVELLING 2 s: doble pasada de estelas, flash blanco, aterrizaje con temblor --- */
+#dd-scene-passage.is-running { animation: dd-travel-end 2s ease both; }
+#dd-scene-passage .dd-passage-from { animation: dd-travel-depart 2s cubic-bezier(.4, 0, .6, 1) both; }
+#dd-scene-passage .dd-passage-to { animation: dd-travel-arrive 2s cubic-bezier(.2, .7, .2, 1) both; }
+#dd-scene-passage .dd-passage-light {
+  animation: dd-travel-light 2s ease-in-out both, dd-travel-streaks 2s cubic-bezier(.4, 0, .6, 1) both;
+}
+#dd-scene-passage .dd-passage-shade { animation: dd-travel-vignette 2s ease-in-out both; }
+#dd-scene-passage .dd-passage-title { animation: dd-travel-label 2s ease both; }
+#dd-scene-passage .dd-passage-title::after { animation: dd-travel-underline 2s cubic-bezier(.16, 1, .3, 1) both; }
+
+@keyframes dd-travel-depart {
+  0% { transform: scale(1); opacity: 1; filter: blur(0) saturate(1.1); }
+  34% { opacity: 1; filter: blur(2px) saturate(1.15); }
+  62% { opacity: .35; filter: blur(9px) saturate(1.35) brightness(1.25); }
+  80% { opacity: 0; }
+  100% { transform: scale(1.95); opacity: 0; filter: blur(16px) saturate(1.4) brightness(1.4); }
+}
+@keyframes dd-travel-arrive {
+  0%, 42% { transform: scale(1.55); opacity: 0; filter: blur(14px) saturate(1.35); }
+  58% { opacity: .5; filter: blur(6px) saturate(1.2); }
+  70% { opacity: 1; filter: blur(1.5px) saturate(1.1); transform: scale(1.06); }
+  78% { transform: scale(.995) translateX(4px); }
+  84% { transform: scale(1.01) translateX(-3px); }
+  90% { transform: scale(1) translateX(2px); }
+  100% { transform: scale(1.02) translateX(0); opacity: 1; filter: blur(0) saturate(1.1); }
+}
+@keyframes dd-travel-streaks {
+  0% { background-position: 0 0, -80% 0, 0 0; }
+  48% { background-position: 0 0, 70% 0, 0 0; }
+  52% { background-position: 0 0, -40% 0, 0 0; }
+  100% { background-position: 0 0, 180% 0, 0 0; }
+}
+@keyframes dd-travel-light {
+  0%, 100% { opacity: .28; }
+  26% { opacity: .6; }
+  44% { opacity: 1; filter: brightness(1.8); }
+  50% { opacity: 1; filter: brightness(4.2) saturate(.35); }
+  56% { opacity: .92; filter: brightness(1.6) saturate(1.3); }
+  76% { opacity: .48; }
+}
+@keyframes dd-travel-vignette {
+  0%, 100% { opacity: .8; }
+  50% { opacity: 1; filter: brightness(1.7) saturate(1.35); }
+}
+@keyframes dd-travel-end { 0%, 82% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes dd-travel-label {
+  0%, 26% { opacity: 0; transform: translate(-50%, 22px) scale(.9); letter-spacing: .95em; filter: blur(6px); }
+  44%, 74% { opacity: 1; transform: translate(-50%, 0) scale(1); letter-spacing: .46em; filter: blur(0); }
+  100% { opacity: 0; transform: translate(-50%, -14px) scale(1.06); filter: blur(3px); }
+}
+@keyframes dd-travel-underline {
+  0%, 32% { transform: scaleX(0); opacity: 0; }
+  50%, 76% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu.dd-rs .dd-menu-vig::after, #dd-main-menu.dd-rs .dd-menu-logo,
+  #dd-main-menu.dd-rs .dd-menu-brand::before, #dd-main-menu.dd-rs .dd-menu-beat-light {
+    animation: none !important;
+  }
 }

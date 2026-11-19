@@ -656,7 +656,7 @@
     layer.querySelector('.dd-passage-title').textContent = to === 'main' ? 'ENTRADA PRINCIPAL' : ((SUBMENU_TITLES[to] && SUBMENU_TITLES[to].title) || 'EL CLUB');
     void layer.offsetWidth; // Reinicia la animación si el jugador cambia rápidamente.
     layer.className = returning ? 'is-running is-returning' : 'is-running';
-    passageTimer = setTimeout(function () { layer.className = ''; }, 1560);
+    passageTimer = setTimeout(function () { layer.className = ''; }, 2060);
   }
   function cancelScenePassage() {
     clearTimeout(passageTimer);
