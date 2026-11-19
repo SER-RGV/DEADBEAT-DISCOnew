@@ -39,6 +39,43 @@ def normalize_blue(im):
     return Image.fromarray(a)
 
 
+def border_key(im):
+    """Recorte de último recurso: color mediano del borde → alpha por distancia."""
+    import numpy as np
+    a = np.array(im.convert('RGB')).astype(int)
+    h, w, _ = a.shape
+    border = np.concatenate([a[0:6].reshape(-1, 3), a[-6:].reshape(-1, 3),
+                             a[:, 0:6].reshape(-1, 3), a[:, -6:].reshape(-1, 3)])
+    key = np.median(border, axis=0)
+    dist = np.sqrt(((a - key) ** 2).sum(axis=2))
+    alpha = np.where(dist < 62, 0, 255).astype('uint8')
+    out = im.convert('RGBA')
+    import PIL.Image as PILImage
+    am = PILImage.fromarray(alpha, 'L')
+    out.putalpha(am)
+    return out
+
+
+def despeckle(cut):
+    """Conserva sólo la componente conexa mayor del alpha (quita ruido cian)."""
+    import numpy as np
+    a = np.array(cut.getchannel('A'))
+    mask = a > 24
+    if mask.sum() == 0:
+        return cut
+    try:
+        from scipy import ndimage  # noqa
+        lab, n = ndimage.label(mask)
+        if n > 1:
+            sizes = ndimage.sum(mask, lab, range(1, n + 1))
+            keep = int(np.argmax(sizes)) + 1
+            a = np.where(lab == keep, a, 0).astype('uint8')
+            cut.putalpha(PILImage.fromarray(a, 'L'))
+    except Exception:
+        pass
+    return cut
+
+
 def main(only=None):
     todo = [only] if only else list(OUTFITS)
     for outfit in todo:
@@ -57,7 +94,17 @@ def main(only=None):
                 cut, _ = chroma_matte(im, key='blue', mode='hard')
             except Exception:
                 from city_matte import city_matte
-                cut = city_matte(Image.open(src).convert('RGB'))
+                try:
+                    cut = city_matte(Image.open(src).convert('RGB'))
+                except Exception:
+                    cut = border_key(Image.open(src).convert('RGB'))
+            # Si el fondo no se recortó (marco opuesto), recorte por color de borde.
+            import numpy as np
+            ab = np.array(cut.getchannel('A'))
+            edge = np.concatenate([ab[0:4].ravel(), ab[-4:].ravel(), ab[:, 0:4].ravel(), ab[:, -4:].ravel()])
+            if (edge > 24).mean() > 0.5:
+                cut = border_key(Image.open(src).convert('RGB'))
+            cut = despeckle(cut)
             spec = dict(FIT[dst_pose])
             size = spec.pop('size')
             frame, _meta = fit_canvas(cut, size=size, fit=spec)

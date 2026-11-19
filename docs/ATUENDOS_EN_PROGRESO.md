@@ -353,3 +353,17 @@ Requisitos heredados sin condiciones nuevas; `original` = predeterminado desde e
 
 ### Entregables
 1-2. Modelo maestro + turnaround: `concepts/model_sheet_v2m.webp`. 3. Mapa de tatuajes (dentro del modelo maestro y de cada hoja). 4-5. Ocho diseños + hojas de vestuario: `docs/evidence/coleccion/hoja-{original,rapture,shadow,apocalypse,gunslinger,fightclub,kitchenriot,streetart}.png` + `hoja-comparativa.png`. 6-7. Sprites y metadatos compatibles: `assets/characters/outfits/<id>/{idle,walk_a,aim,hurt,roll,death}.png` (convención del motor, sin sistema paralelo). 8-10. Catálogo sustituido, referencias antiguas sin enlaces rotos, personalización integrada. 11. Compatibilidad de partidas (tabla LEGACY). 12. Manifiesto: `src/dd_appearance.js` (catálogo, paths, requisitos). 13. Backups: git + `tools/qa/legacy/` + conceptos antiguos conservados. 14. Capturas reales: `docs/evidence/atuendos/`. 15. Este informe. 16. Archivos modificados: `src/dd_appearance.js`, `src/dd_world_renderer.js` (anclas), `index.html` (reconstruido), `tools/art_master/prepare_v2m_outfit.py`, `tools/qa/test_{outfit_preview,outfit_portraits,menu_scenes,v2m_outfits}.js`, `assets/characters/outfits/{original,...,streetart}/`.
+
+### 🔍 Auditoría visual de errores (petición del usuario: animaciones solapadas/elementos fuera de sitio)
+
+Revisión lámina a lámina de los 48 sprites (`tools/qa/` + `.cache/review/sprites_*.jpg`):
+
+| fallo | atuendo/pose | corrección |
+|---|---|---|
+| Figura doble / fantasma | apocalypse/idle, apocalypse/aim, streetart/idle | maestros regenerados con «ONE SINGLE character only… no duplicates, no second view» |
+| Texto dentro del sprite | kitchenriot/hurt («KITCHEN RIOT» título) | maestro regenerado con «absolutely no text, no titles, no labels» |
+| **Sombrero + capucha apilados** | shadow (showcase y 6 sprites) | los 6 sprites regenerados: prenda ÚNICA «hooded hat» integrada (ala y capucha = la misma pieza, sin dobles capas) |
+| Fondo sin recortar (rectángulo azul/cian) | shadow/death, apocalypse/roll | recorte por color de borde añadido como último recurso en `prepare_v2m_outfit.py` |
+| Ruido cian suelto | apocalypse (walk/hurt/death) y afines | despiece de manchas: se conserva sólo la componente conexa mayor del alpha (scipy) |
+
+QA `test_v2m_outfits` PASS tras las correcciones; capturas de combate actualizadas de los cuatro atuendos tocados. **Pendiente menor**: los `idle` regenerados de apocalypse y streetart salieron algo frontales (contrato = perfil izquierdo como el resto) — se rehacen con instrucción estricta de perfil en el siguiente turno.
