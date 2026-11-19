@@ -1536,9 +1536,39 @@
   }
 
   /* ------------------------- minimapa isométrico -------------------------- */
+  /* PASE DE RENDIMIENTO · el minimapa se redibujaba entero cada fotograma
+     (fondo, retícula, puertas, halo y aguja) aunque el jugador estuviese quieto
+     y el minimapa midiese 192x128 en pantalla: un lienzo que se reescribe cada
+     fotograma se vuelve a subir a la GPU cada fotograma. Ahora sólo se repinta
+     cuando cambia algo que se ve (planta, posición al píxel, rumbo al grado,
+     puertas, sitio) y nunca a más de 30 Hz. */
   function drawIsometricMinimap(snap) {
     var cnv = el("dd-minimap-canvas");
     if (!cnv) return;
+    var inHubNow = !!(window.DD_HUB && window.DD_HUB.isActive && window.DD_HUB.isActive());
+    var hubNow = null;
+    if (inHubNow) { try { hubNow = window.DD_HUB.getState(); } catch (e) { hubNow = null; } }
+    var nowMs = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+    var px = hubNow ? hubNow.x : (snap && snap.player ? snap.player.x : null);
+    var py = hubNow ? hubNow.y : (snap && snap.player ? snap.player.y : null);
+    var angSig = hubNow ? 3 : Math.round(((snap && snap.player && snap.player.aimAngle) || 0) * 57.29578);
+    var doorsSig = "";
+    if (snap && Array.isArray(snap.doors)) {
+      for (var dsi = 0; dsi < snap.doors.length; dsi++) {
+        var ds = snap.doors[dsi];
+        if (ds) doorsSig += Math.round(ds.x) + "," + Math.round(ds.y) + (ds.open ? "o" : "c") + ";";
+      }
+    }
+    var sig = [inHubNow,
+      snap && snap.roomRect ? [snap.roomRect.x, snap.roomRect.y, snap.roomRect.w, snap.roomRect.h].join(",") : "-",
+      px === null ? "-" : Math.round(px), py === null ? "-" : Math.round(py),
+      angSig, doorsSig,
+      hubNow ? [hubNow.bounds.x, hubNow.bounds.y, hubNow.bounds.w, hubNow.bounds.h].join(",") : "-",
+      snap && snap.running ? 1 : 0].join("|");
+    if (cnv.__ddSig === sig) return;
+    if (cnv.__ddLast && nowMs - cnv.__ddLast < 33) return;
+    cnv.__ddSig = sig;
+    cnv.__ddLast = nowMs;
     var ctx = cnv.getContext("2d");
     var w = cnv.width, h = cnv.height;
     ctx.clearRect(0, 0, w, h);
@@ -1963,6 +1993,39 @@
     a.click();
   }
 
+  /* PASE DE RENDIMIENTO · escrituras DOM con cambio real.
+     Medido con long-animation-frame en el Refugio: 0 ms de script y ~434 ms de
+     «style & layout + paint» por fotograma, todos los fotogramas. La causa es
+     que updateHud() reescribía cada fotograma el ancho de dos barras, cuatro
+     textContent y las clases del HUD aunque el valor fuese el MISMO: escribir
+     textContent crea un nodo de texto nuevo y ensucia la caja, y estas cajas
+     llevan clip-path, sombra y degradado, así que cada fotograma se repintaba
+     la interfaz entera sobre el canvas del juego. Ahora sólo se escribe cuando
+     el valor cambia (la igualdad se compara con el valor anterior, no con el
+     DOM, para no forzar lecturas de layout). */
+  function setText(node, value) {
+    if (!node) return;
+    var v = String(value);
+    if (node.__ddText === v) return;
+    node.__ddText = v;
+    node.textContent = v;
+  }
+  function setWidth(node, pct) {
+    if (!node) return;
+    var v = pct.toFixed(1) + "%";
+    if (node.__ddW === v) return;
+    node.__ddW = v;
+    node.style.width = v;
+  }
+  function setClass(node, name, on) {
+    if (!node) return;
+    var key = "__ddC_" + name;
+    var v = !!on;
+    if (node[key] === v) return;
+    node[key] = v;
+    node.classList.toggle(name, v);
+  }
+
   function updateHud(snap, inHub) {
     var heartsEl = el("dd-hud-hearts");
     var fullSrc = assetSrc("hud_heart_full", "pickups/pickup_heart_00.png");
@@ -1979,23 +2042,18 @@
       }
       heartsEl.innerHTML = html;
     }
-    var hpFill = el("dd-hud-hp-fill");
-    if (hpFill) hpFill.style.width = Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)).toFixed(1) + "%";
-    var shFill = el("dd-hud-sh-fill");
+    setWidth(el("dd-hud-hp-fill"), Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)));
     var shPct = snap.shield > 0 ? Math.min(100, snap.shield) : Math.min(100, (snap.raveMeter || 0) * 100);
-    if (shFill) shFill.style.width = shPct.toFixed(1) + "%";
-    var crEl = el("dd-hud-cr");
-    if (crEl) crEl.textContent = String(snap.credits || 0);
-    var nvEl = el("dd-hud-nv");
-    if (nvEl) nvEl.textContent = "NV. " + (snap.level || 1);
+    setWidth(el("dd-hud-sh-fill"), shPct);
+    setText(el("dd-hud-cr"), String(snap.credits || 0));
+    setText(el("dd-hud-nv"), "NV. " + (snap.level || 1));
     var wNameEl = el("dd-hud-weapon-name");
     if (wNameEl) {
       /* PASE VISUAL · el nombre se cortaba. El catálogo del motor produce nombres
          largos («MAGNUM (RÓTULO: PAGNUM)», «ESCOPETA AUTOMÁTICA»), y la franja
          del arma lucía el recorte «MAGNUM (RÓTULO: …». El nombre completo se
          conserva: si no entra, CSS lo reduce (ver .dd-hud-weapon-name). */
-      wNameEl.textContent = (snap.weaponName || "M1911").toUpperCase() + " · ∞";
-      wNameEl.setAttribute("data-fit", "auto");
+      setText(wNameEl, (snap.weaponName || "M1911").toUpperCase() + " · ∞");
     }
     var wImgEl = el("dd-hud-weapon-img");
     var wSrc = weaponImgSrc(snap.weapon || "m1911");
@@ -2003,28 +2061,21 @@
       wImgEl.setAttribute("data-w", snap.weapon);
       wImgEl.src = wSrc;
     }
-    var roomEl = el("dd-hud-room");
-    if (roomEl) {
-      roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
-        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
-    }
-    var bCnt = el("dd-skill-bomb-cnt");
-    if (bCnt) bCnt.textContent = String(snap.bombs || 0);
-    var bCard = el("dd-skill-bomb");
-    if (bCard) bCard.classList.toggle("dd-empty", !(snap.bombs > 0));
-    var sCnt = el("dd-skill-boost-cnt");
-    if (sCnt) sCnt.textContent = String(snap.boosts || 0);
-    var sCard = el("dd-skill-boost");
-    if (sCard) sCard.classList.toggle("dd-empty", !(snap.boosts > 0));
+    setText(el("dd-hud-room"), inHub ? "EL REFUGIO · ZONA SEGURA"
+      : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1))));
+    setText(el("dd-skill-bomb-cnt"), String(snap.bombs || 0));
+    setClass(el("dd-skill-bomb"), "dd-empty", !(snap.bombs > 0));
+    setText(el("dd-skill-boost-cnt"), String(snap.boosts || 0));
+    setClass(el("dd-skill-boost"), "dd-empty", !(snap.boosts > 0));
     var bossHud = el("dd-boss-hud");
     if (bossHud) {
       if (!inHub && snap.bossActive && snap.boss) {
-        bossHud.classList.remove("dd-hidden");
-        el("dd-boss-name").textContent = String(snap.boss.name || "RESIDENTE").toUpperCase();
+        setClass(bossHud, "dd-hidden", false);
+        setText(el("dd-boss-name"), String(snap.boss.name || "RESIDENTE").toUpperCase());
         var bpct = Math.max(0, Math.min(100, ((snap.boss.hp || 0) / Math.max(1, snap.boss.maxHp || 1)) * 100));
-        el("dd-boss-hp-fill").style.width = bpct.toFixed(1) + "%";
+        setWidth(el("dd-boss-hp-fill"), bpct);
       } else {
-        bossHud.classList.add("dd-hidden");
+        setClass(bossHud, "dd-hidden", true);
       }
     }
     drawIsometricMinimap(snap);
