@@ -402,3 +402,13 @@ Pasada de revisión lámina a lámina de los 48 sprites (`polish_0..3.jpg`) → 
 | rapture/death | patrones sobre el pantalón | pantalón limpio |
 
 Shadow, Fight Club y Street Art pasaron la revisión sin defectos. QA `test_v2m_outfits` y `test_outfit_preview` PASS tras el pulido.
+
+### 🖥️ Revisión de las pantallas de selección (petición del usuario)
+
+Capturador `tools/qa/capture_selector_review.js` (camerino ×8 + Extras + retratos HUD). Hallazgos y arreglos:
+- Retrato HUD del **Original** salía lejeno (encuadre del showcase) → showcase regenerado con la cabeza grande arriba.
+- Retratos de **Rapture** y **Street Art** descentrados → showcases regenerados con encuadre familiar.
+- Retrato de **Apocalypse** con rectángulo azul (matte del showcase fallido) → re-corte con `border_key` (bordes transparentes verificados).
+- **Descripciones obsoletas** en camerino y Extras: Shadow aún decía «integrada al sombrero» (ya no lleva), Apocalypse y Fight Club actualizadas («armadura de guerra», «Kickboxing con vendas y talones al aire»).
+
+QA `test_outfit_preview` y `test_outfit_portraits` PASS; GIFs de showcases y selector regenerados con los showcases nuevos.

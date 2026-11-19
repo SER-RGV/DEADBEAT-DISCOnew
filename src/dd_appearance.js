@@ -8,10 +8,10 @@
   var styles = [
     { id:'original', name:'El Desafinado', description:'El look de siempre. La muerte también aprecia la continuidad.', hue:0, requirement:'Disponible desde el principio', round:0 },
     { id:'rapture', name:'Rapture', description:'Elegancia art déco para una ciudad que se hunde. El último brindis lo paga el océano.', hue:0, requirement:'Alcanza la sala 30', round:30 },
-    { id:'shadow', name:'Shadow', description:'Capucha integrada al sombrero. El sigilo es gratis; el alquiler del abrigo, no.', hue:0, requirement:'Alcanza la sala 10', round:10 },
-    { id:'apocalypse', name:'Apocalypse', description:'Armadura asimétrica para el fin del mundo. La hombrera pesa más que tus remordimientos.', hue:0, requirement:'Alcanza la sala 5', round:5 },
+    { id:'shadow', name:'Shadow', description:'Sólo capucha, sin sombrero que se solape. El sigilo es gratis; el alquiler del abrigo, no.', hue:0, requirement:'Alcanza la sala 10', round:10 },
+    { id:'apocalypse', name:'Apocalypse', description:'Armadura de guerra para el fin del mundo. La hombrera pesa más que tus remordimientos.', hue:0, requirement:'Alcanza la sala 5', round:5 },
     { id:'gunslinger', name:'Gunslinger', description:'Pistolero de arcade. La munición es infinita; tu paciencia, no.', hue:0, requirement:'Alcanza la sala 25', round:25 },
-    { id:'fightclub', name:'Fight Club', description:'Vendas y garra de gimnasio. Las reclamaciones se presentan con los puños.', hue:0, requirement:'Alcanza la sala 50', round:50 },
+    { id:'fightclub', name:'Fight Club', description:'Kickboxing con vendas y talones al aire. Las reclamaciones se presentan con los puños.', hue:0, requirement:'Alcanza la sala 50', round:50 },
     { id:'kitchenriot', name:'Kitchen Riot', description:'Cocina punk con delantal de combate. El menú del día: supervivencia poco hecha.', hue:0, requirement:'Alcanza la sala 45', round:45 },
     { id:'streetart', name:'Street Art', description:'Chaqueta intervenida y bolsillos de pintura. El lienzo eres tú; el presupuesto, también.', hue:0, requirement:'Alcanza la sala 55', round:55 }
   ];
