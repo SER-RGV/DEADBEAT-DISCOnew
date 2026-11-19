@@ -380,3 +380,7 @@ QA `test_v2m_outfits` PASS tras las correcciones; capturas de combate actualizad
 QA `test_v2m_outfits` y captura de combate PASS.
 
 **Lote 2 de correcciones:** Shadow 6/6 sin sombrero (sólo capucha) — showcase + aim/hurt/roll/death completan lo del lote anterior. Apocalypse rehecha estilo armadura de Guerra de Darksiders (hombrera con pinchos, placas agrietadas con costuras rojas incandescentes, remaches tipo calavera, guanteletes, cadenas, tela andrajosa): showcase + idle/walk/aim/hurt listos; **roll/death pendientes** (aún con la armadura anterior). QA `test_v2m_outfits` PASS.
+
+**Lote 3 (cierre de correcciones):** Apocalypse roll+death completan la armadura de Guerra 6/6. **Tatuajes sobre ropa corregidos**: el sigilo del hombro y las mangas se dibujaban sobre camisa/chaqueta en idle y apuntar de original, rapture, gunslinger y kitchenriot → 8 sprites regenerados con la regla CRÍTICA «el sigilo del hombro va OCULTO bajo la manga; la tela va limpia de tinta; los tatuajes sólo en piel» (verificación por zoom en `.cache/review/tattoo_fixed.jpg`). Revisión de walk/hurt de los cinco atuendos restantes (`tattoo_rest.jpg`): limpios. QA `test_v2m_outfits` PASS; capturas de combate de apocalypse y rapture actualizadas.
+
+**Estado final de las correcciones del usuario:** Fight Club kickboxer ✓ (proporciones 1:7, descalzo, vendas), Apocalypse Darksiders ✓ (6/6), Shadow sin sombrero ✓ (6/6), tatuajes sin solaparse con la ropa ✓.
