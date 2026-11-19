@@ -463,3 +463,9 @@ QA `test_menu_new_flow` y `test_menu_scenes` PASS (nota: la animación de fondo 
 - **Rapture:** se reemplazó el showcase de medio cuerpo por una ilustración de cuerpo entero, con sombrero, camisa clara, chaleco azul marino con ribete magenta, tirantes, pantalón y botas. En el selector ahora se ven las botas y la silueta completa.
 - Se conservaron copias exactas de los dos showcases anteriores en `assets/characters/outfits/concepts/archive/`; no se modificaron Street Art ni Fight Club, cuyas vistas revisadas ya corresponden a sus atuendos.
 - `test_outfit_preview.js`, `test_outfit_portraits.js` y `test_menu_visuals.js`: PASS; comprobación visual del selector con Rapture equipable y showcase completo, y de Extras con las ocho fichas. Fight Club conserva vendas, torso descubierto, pantalón corto con vivo magenta y pies descalzos; Street Art mantiene su chaqueta intervenida. No se tocaron sprites de juego ni mecánicas.
+
+### Ajuste de proporciones en los showcases
+
+Tras la observación del usuario, se rehicieron los showcases de **Original** y **Rapture** tomando la referencia de personaje como guía de proporciones, no el arte previo del selector. Ambos conservan atuendo y cuerpo entero; las nuevas versiones tienen fondo transparente, rostro/cabeza más legibles y silueta humana menos alargada. Se guardaron también las versiones inmediatamente anteriores a este ajuste en `assets/characters/outfits/concepts/archive/` (`*-before-proportion-fix.png`), además de las copias iniciales.
+
+QA tras sustituir los recursos: `test_outfit_preview.js`, `test_outfit_portraits.js` y `test_menu_visuals.js`: PASS. Capturas de ambos aspectos equipados en `.cache/review/original-proportions-final.png` y `.cache/review/rapture-proportions-final.png`.
