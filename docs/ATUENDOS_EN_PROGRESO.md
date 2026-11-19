@@ -469,3 +469,9 @@ QA `test_menu_new_flow` y `test_menu_scenes` PASS (nota: la animación de fondo 
 Tras la observación del usuario, se rehicieron los showcases de **Original** y **Rapture** tomando la referencia de personaje como guía de proporciones, no el arte previo del selector. Ambos conservan atuendo y cuerpo entero; las nuevas versiones tienen fondo transparente, rostro/cabeza más legibles y silueta humana menos alargada. Se guardaron también las versiones inmediatamente anteriores a este ajuste en `assets/characters/outfits/concepts/archive/` (`*-before-proportion-fix.png`), además de las copias iniciales.
 
 QA tras sustituir los recursos: `test_outfit_preview.js`, `test_outfit_portraits.js` y `test_menu_visuals.js`: PASS. Capturas de ambos aspectos equipados en `.cache/review/original-proportions-final.png` y `.cache/review/rapture-proportions-final.png`.
+
+## Colección de showcases — Fase 02 (base `4666077`)
+
+Se completaron **Shadow, Apocalypse, Gunslinger, Fight Club, Kitchen Riot y Street Art** con seis PNG nuevos, lienzo transparente 600×1075 y altura visible uniforme de 1008 px. Original y Rapture permanecen intactos. Los seis recursos se conectan mediante el `showcase.png` ya utilizado por `DD_APPEARANCE.preview()`; no se tocó lógica del selector, navegación, CSS, combate ni motor. Copias previas en `assets/characters/outfits/concepts/archive/`.
+
+La hoja comparativa está en [fase02-ocho-showcases.png](evidence/atuendos/fase02-ocho-showcases.png) y el control detallado en [fase02-control-calidad.md](evidence/atuendos/fase02-control-calidad.md). `test_outfit_preview.js`, `test_outfit_portraits.js` y `test_menu_visuals.js`: PASS. Se verificaron los ocho recursos en el selector (HTTP 200, sin errores de página).
