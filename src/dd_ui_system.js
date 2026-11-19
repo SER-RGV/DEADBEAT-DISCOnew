@@ -36,7 +36,11 @@
     submenu: null,              /* OPCIONES / CRÉDITOS / PARTIDAS */
     submenuIndex: 0,
     busy: false,                /* anti doble pulsación */
-    selectedCategory: "ALL",
+    /* PASE VISUAL · el valor por defecto era "ALL", pero los filtros se rotulan
+       «TODAS» y la comparación se hace contra ese texto: al abrir la armería no
+       coincidía ninguna arma y la rejilla salía vacía («El motor no tiene armas
+       en esta categoría») hasta pulsar un filtro. Un solo nombre, el que se ve. */
+    selectedCategory: "TODAS",
     selectedWeaponId: "m1911",
     dialogueTimer: 0,
     lastSubsText: "",
@@ -632,10 +636,42 @@
     host.classList.add("is-open");
     host.setAttribute("aria-hidden", "false");
     document.getElementById("dd-main-menu").classList.add("dd-behind");
+    /* PASE VISUAL · continuidad del desplazamiento.
+       En ventanas bajas el cuerpo del submenú desplaza y antes no había ninguna
+       señal: el contenido cortado se leía como contenido perdido. Aquí se mide
+       de verdad (scrollHeight > clientHeight) y se marca la tarjeta; el CSS pinta
+       la barra, el degradado inferior y el «↓ MÁS» del pie, y todo desaparece
+       cuando se llega al final o cuando no hace falta desplazar. */
+    updateSubmenuScrollHints(host);
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
     var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
     if (first) setTimeout(function () { try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); } }, 30);
   }
+
+  /* Marca la tarjeta del submenú según pueda desplazarse o no. Idempotente y sin
+     coste cuando no hay nada que medir. */
+  function updateSubmenuScrollHints(host) {
+    var card = host && host.querySelector ? host.querySelector(".dd-submenu-card") : null;
+    var body = el("dd-submenu-body");
+    if (!card || !body) return;
+    var scrollable = body.scrollHeight > body.clientHeight + 2;
+    card.classList.toggle("has-scaled-body", scrollable);
+    body.classList.toggle("is-scrollable", scrollable);
+    var atEnd = !scrollable || (body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+    card.classList.toggle("is-at-end", atEnd);
+    if (!body.dataset.ddScrollBound) {
+      body.dataset.ddScrollBound = "1";
+      body.addEventListener("scroll", function () {
+        var c = body.closest(".dd-submenu-card");
+        if (!c) return;
+        c.classList.toggle("is-at-end", body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+      }, { passive: true });
+    }
+  }
+  window.addEventListener("resize", function () {
+    var host = el("dd-submenu");
+    if (host && host.classList.contains("is-open")) updateSubmenuScrollHints(host);
+  }, { passive: true });
 
   /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
      volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
@@ -1301,7 +1337,7 @@
     var weapons = getCatalogWeapons();
     var cats = ["TODAS"];
     weapons.forEach(function (w) {
-      var c = (w.category || "OTRAS").toUpperCase();
+      var c = String(w.category || w.family || "OTRAS").toUpperCase();
       if (cats.indexOf(c) < 0) cats.push(c);
     });
     var filters = el("dd-shop-filters");
@@ -1321,20 +1357,39 @@
       });
     }
 
+    /* PASE VISUAL · el catálogo del motor usa `family` («pistolas», «rifles»…),
+       no `category`. La rejilla leía `w.category`, así que TODOS los filtros
+       menos TODAS salían vacíos y la pantalla decía «La armería está cargando…»
+       sobre un catálogo que ya estaba cargado (reproducido: 120 armas en el
+       motor, rejilla vacía). Se acepta `category` si existiera y, si no, la
+       familia real; el orden de los filtros pasa a ser el de las familias. */
+    var catOf = function (w) { return String(w.category || w.family || "OTRAS").toUpperCase(); };
     var list = weapons.filter(function (w) {
-      return uiState.selectedCategory === "TODAS" || (w.category || "OTRAS").toUpperCase() === uiState.selectedCategory;
+      return uiState.selectedCategory === "TODAS" || catOf(w) === uiState.selectedCategory;
     }).slice(0, 120);
 
     if (!list.length) {
-      grid.innerHTML = '<p class="dd-opt-note">La armería está cargando desde el motor. Vuelve a abrirla en unos segundos.</p>';
+      grid.innerHTML = '<p class="dd-opt-note">El motor no tiene armas en esta categoría.</p>';
     } else {
+      /* PASE VISUAL · las tarjetas no tenían ni nombre ni precio legibles:
+         - El catálogo del motor (getWeaponsList) trae n/nombre/familia/id/estado,
+           NO trae precio, así que TODAS las 120 tarjetas imprimían «0 CR». El
+           precio real está en getWeaponStats(id).cost.
+         - El marcado usaba <b> y <span> sueltos mientras la hoja de estilos
+           define .dd-weapon-card-name y .dd-weapon-card-price: ninguna regla
+           aplicaba, y los nombres largos («MAGNUM (RÓTULO: PAGNUM)») se partían
+           en tres líneas encima del precio. Se añaden las clases reales. */
+      var brW = window.__DD_BRIDGE;
       grid.innerHTML = list.map(function (w) {
         var owned = snap.owned && snap.owned.indexOf(w.id) >= 0;
         var sel = w.id === uiState.selectedWeaponId;
-        return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '">' +
+        var cost = 0;
+        try { var st = brW && brW.getWeaponStats ? brW.getWeaponStats(w.id) : null; if (st && typeof st.cost === "number") cost = st.cost; } catch (e2) { cost = 0; }
+        var priceTxt = owned ? "EN PROPIEDAD" : (cost > 0 ? cost + " CR" : "—");
+        return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '" title="' + esc((w.name || w.id)) + '">' +
           '<img alt="" src="' + weaponImgSrc(w.id) + '">' +
-          '<b>' + esc((w.name || w.id).toUpperCase()) + '</b>' +
-          '<span>' + (owned ? "EN PROPIEDAD" : (w.price || 0) + " CR") + '</span>' +
+          '<b class="dd-weapon-card-name">' + esc((w.name || w.id).toUpperCase()) + '</b>' +
+          '<span class="dd-weapon-card-price">' + esc(priceTxt) + '</span>' +
           '</button>';
       }).join("");
       grid.onclick = function (ev) {
@@ -1355,17 +1410,58 @@
     var stats = null;
     try { stats = br && br.getWeaponStats ? br.getWeaponStats(wid) : null; } catch (e) { stats = null; }
     var owned = snap.owned && snap.owned.indexOf(wid) >= 0;
+    /* El nombre visible es el del catálogo del motor (el que ve el jugador en el
+       HUD): antes la ficha rotulaba el id interno («M1911») mientras la rejilla
+       y el HUD decían «PISTOLA CLÁSICA», así que el mismo arma tenía dos nombres
+       en la misma pantalla. */
+    var meta = null;
+    try {
+      var cat = getCatalogWeapons();
+      for (var ci = 0; ci < cat.length; ci++) { if (cat[ci] && cat[ci].id === wid) { meta = cat[ci]; break; } }
+    } catch (e) { meta = null; }
+    var shownName = String((meta && meta.name) || wid).toUpperCase();
+    /* PASE VISUAL · la ficha volcaba las claves del objeto de estadísticas tal
+       cual: las dos primeras filas eran «ID» y «NAME» (el id interno y el nombre
+       del motor, no estadísticas) y la barra de cada fila se escalaba con el
+       número crudo, así que «COSTE 120» o «VELOCIDAD 760» salían siempre al
+       100 % y «PERDIGONES 1» a un 6 % mínimo: las barras no informaban de nada.
+       Ahora cada estadística tiene su rótulo en castellano y su escala real, y
+       los campos de identidad no se pintan como si fuesen potencia de fuego. */
+    var STAT_META = {
+      cost:      { label: "COSTE",       max: 1000, fmt: function (v) { return v + " CR"; } },
+      damage:    { label: "DAÑO",        max: 100 },
+      fireRate:  { label: "CADENCIA",    max: 10,   fmt: function (v) { return v + " /s"; } },
+      speed:     { label: "VELOCIDAD",   max: 1000 },
+      pellets:   { label: "PERDIGONES",  max: 12 },
+      pierce:    { label: "PERFORACIÓN", max: 5 },
+      range:     { label: "ALCANCE",     max: 1000 },
+      spread:    { label: "DISPERSIÓN",  max: 1 },
+      reload:    { label: "RECARGA",     max: 5,    fmt: function (v) { return v + " s"; } },
+      mag:       { label: "CARGADOR",    max: 60 }
+    };
+    var statKeys = Object.keys(stats || {}).filter(function (k) {
+      return typeof stats[k] === "number" && isFinite(stats[k]);
+    });
+    var shownRole = (stats && stats.role) ? String(stats.role) : "";
+    var shownTrait = (stats && stats.trait) ? String(stats.trait) : "";
     host.innerHTML =
       '<div class="dd-inspector-preview"><img alt="" src="' + weaponImgSrc(wid) + '"></div>' +
-      '<b class="dd-inspector-name">' + esc(String(wid).toUpperCase()) + '</b>' +
+      '<b class="dd-inspector-name">' + esc(shownName) + '</b>' +
+      (shownRole ? '<span class="dd-inspector-role">' + esc(shownRole) + '</span>' : '') +
       '<div class="dd-inspector-stats">' +
-      Object.keys(stats || {}).slice(0, 8).map(function (k) {
+      statKeys.map(function (k) {
         var v = stats[k];
-        return '<div class="dd-stat-row"><span>' + esc(k.toUpperCase()) + '</span>' +
-          '<span class="dd-stat-meter"><b style="width:' + Math.max(6, Math.min(100, Number(v) || 0)) + '%"></b></span>' +
-          '<span>' + esc(typeof v === "number" ? (Math.round(v * 100) / 100) : v) + '</span></div>';
+        var sm = STAT_META[k];
+        var label = sm ? sm.label : String(k).toUpperCase();
+        var pct = sm ? (v / sm.max) * 100 : v;
+        var shown = sm && sm.fmt ? sm.fmt(Math.round(v * 100) / 100)
+          : (Math.round(v * 100) / 100);
+        return '<div class="dd-stat-row"><span>' + esc(label) + '</span>' +
+          '<span class="dd-stat-meter"><b style="width:' + Math.max(2, Math.min(100, pct)).toFixed(1) + '%"></b></span>' +
+          '<span>' + esc(shown) + '</span></div>';
       }).join("") +
       '</div>' +
+      (shownTrait ? '<p class="dd-inspector-trait">' + esc(shownTrait) + '</p>' : '') +
       '<div class="dd-shop-actions"><button type="button" class="dd-action-btn primary" id="dd-shop-equip">' +
       (owned ? "EQUIPAR" : "COMPRAR") + '</button></div>';
 
@@ -1483,42 +1579,134 @@
   }
 
   /* ------------------------- minimapa isométrico -------------------------- */
+  /* PASE DE RENDIMIENTO · el minimapa se redibujaba entero cada fotograma
+     (fondo, retícula, puertas, halo y aguja) aunque el jugador estuviese quieto
+     y el minimapa midiese 192x128 en pantalla: un lienzo que se reescribe cada
+     fotograma se vuelve a subir a la GPU cada fotograma. Ahora sólo se repinta
+     cuando cambia algo que se ve (planta, posición al píxel, rumbo al grado,
+     puertas, sitio) y nunca a más de 30 Hz. */
   function drawIsometricMinimap(snap) {
     var cnv = el("dd-minimap-canvas");
     if (!cnv) return;
+    var inHubNow = !!(window.DD_HUB && window.DD_HUB.isActive && window.DD_HUB.isActive());
+    var hubNow = null;
+    if (inHubNow) { try { hubNow = window.DD_HUB.getState(); } catch (e) { hubNow = null; } }
+    var nowMs = (typeof performance !== "undefined" && performance.now) ? performance.now() : Date.now();
+    var px = hubNow ? hubNow.x : (snap && snap.player ? snap.player.x : null);
+    var py = hubNow ? hubNow.y : (snap && snap.player ? snap.player.y : null);
+    var angSig = hubNow ? 3 : Math.round(((snap && snap.player && snap.player.aimAngle) || 0) * 57.29578);
+    var doorsSig = "";
+    if (snap && Array.isArray(snap.doors)) {
+      for (var dsi = 0; dsi < snap.doors.length; dsi++) {
+        var ds = snap.doors[dsi];
+        if (ds) doorsSig += Math.round(ds.x) + "," + Math.round(ds.y) + (ds.open ? "o" : "c") + ";";
+      }
+    }
+    var sig = [inHubNow,
+      snap && snap.roomRect ? [snap.roomRect.x, snap.roomRect.y, snap.roomRect.w, snap.roomRect.h].join(",") : "-",
+      px === null ? "-" : Math.round(px), py === null ? "-" : Math.round(py),
+      angSig, doorsSig,
+      hubNow ? [hubNow.bounds.x, hubNow.bounds.y, hubNow.bounds.w, hubNow.bounds.h].join(",") : "-",
+      snap && snap.running ? 1 : 0].join("|");
+    if (cnv.__ddSig === sig) return;
+    if (cnv.__ddLast && nowMs - cnv.__ddLast < 33) return;
+    cnv.__ddSig = sig;
+    cnv.__ddLast = nowMs;
     var ctx = cnv.getContext("2d");
     var w = cnv.width, h = cnv.height;
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "rgba(6,3,12,0.86)";
     ctx.fillRect(0, 0, w, h);
-    var rect = null;
-    try {
-      var br = window.__DD_BRIDGE;
-      var info = br && br.getCanvasInfo ? br.getCanvasInfo() : null;
-      if (info && info.world) rect = info.world;
-    } catch (e) { rect = null; }
+    /* PASE VISUAL · el minimapa estaba MUERTO.
+       Leía `getCanvasInfo().world`, que el puente nunca ha expuesto (devuelve
+       cssWidth/cssHeight/bufferWidth/bufferHeight/dpr/smoothing), así que `rect`
+       era siempre null y el recuadro sólo podía decir «SIN INCURSIÓN»: incluso
+       en el Refugio, con el jugador andando, nunca se dibujaba nada.
+       El rectángulo real de la sala SÍ viene en la instantánea del motor
+       (`roomRect`), y la posición del jugador también. Se usa eso. */
+    var rect = (snap && snap.roomRect && snap.roomRect.w > 0 && snap.roomRect.h > 0) ? snap.roomRect : null;
+    var pos = snap && snap.player;
+    /* En el Refugio el motor no está en partida: la instantánea no trae sala
+       (`snap.running` es false), así que el recuadro se quedaba en «SIN
+       INCURSIÓN» dentro de una zona segura por la que se anda. El HUB sí publica
+       su planta y su posición (DD_HUB.getState), de modo que se dibuja la planta
+       del Refugio y no un mensaje de error. */
+    var inHub = !!(window.DD_HUB && window.DD_HUB.isActive && window.DD_HUB.isActive());
+    if (inHub) {
+      try {
+        var hub = window.DD_HUB.getState();
+        if (hub && hub.bounds) {
+          rect = { x: hub.bounds.x, y: hub.bounds.y, w: hub.bounds.w, h: hub.bounds.h };
+          pos = { x: hub.x, y: hub.y, aimAngle: 0 };
+        }
+      } catch (he) { /* se queda el rect null y cae al texto de abajo */ }
+    }
     if (!rect) {
-      ctx.fillStyle = "rgba(148,163,184,0.5)";
+      ctx.fillStyle = "rgba(148,163,184,0.62)";
       ctx.font = "600 11px Inter, sans-serif";
       ctx.textAlign = "center";
       ctx.fillText(snap && snap.running ? "SALA ACTUAL" : "SIN INCURSIÓN", w / 2, h / 2);
       return;
     }
-    var scale = Math.min(w / rect.w, h / rect.h) * 0.92;
+    /* Franja superior reservada para el rótulo del sitio; sin ella el texto se
+       montaba encima del borde de la planta. */
+    var topPad = inHub ? 14 : 0;
+    var scale = Math.min(w / rect.w, (h - topPad) / rect.h) * 0.92;
     ctx.save();
-    ctx.translate(w / 2, h / 2);
+    ctx.translate(w / 2, topPad + (h - topPad) / 2);
+    var rw = rect.w * scale, rh = rect.h * scale;
+    /* Suelo de la sala: da profundidad al recuadro (antes era un contorno hueco). */
+    ctx.fillStyle = "rgba(255,45,122,0.07)";
+    ctx.fillRect(-rw / 2, -rh / 2, rw, rh);
+    /* Retícula tenue al estilo de la pista. */
+    ctx.strokeStyle = "rgba(148,163,184,0.16)";
+    ctx.lineWidth = 1;
+    var step = Math.max(12, Math.min(rw, rh) / 5);
+    for (var gx = -rw / 2 + step; gx < rw / 2; gx += step) {
+      ctx.beginPath(); ctx.moveTo(gx, -rh / 2); ctx.lineTo(gx, rh / 2); ctx.stroke();
+    }
+    for (var gy = -rh / 2 + step; gy < rh / 2; gy += step) {
+      ctx.beginPath(); ctx.moveTo(-rw / 2, gy); ctx.lineTo(rw / 2, gy); ctx.stroke();
+    }
     ctx.strokeStyle = "rgba(255,45,122,0.85)";
     ctx.lineWidth = 1.5;
-    ctx.strokeRect(-rect.w * scale / 2, -rect.h * scale / 2, rect.w * scale, rect.h * scale);
-    if (snap && snap.player) {
-      var px = (snap.player.x - rect.x - rect.w / 2) * scale;
-      var py = (snap.player.y - rect.y - rect.h / 2) * scale;
+    ctx.strokeRect(-rw / 2, -rh / 2, rw, rh);
+    /* Puertas de la sala: lo que el jugador necesita ver de un vistazo. */
+    if (snap && Array.isArray(snap.doors)) {
+      for (var di = 0; di < snap.doors.length; di++) {
+        var d = snap.doors[di];
+        if (!d) continue;
+        var dx = (d.x - rect.x - rect.w / 2) * scale;
+        var dy = (d.y - rect.y - rect.h / 2) * scale;
+        ctx.fillStyle = d.open ? "rgba(34,211,238,0.95)" : "rgba(244,236,216,0.55)";
+        ctx.fillRect(dx - 3, dy - 3, 6, 6);
+      }
+    }
+    if (pos) {
+      var px = (pos.x - rect.x - rect.w / 2) * scale;
+      var py = (pos.y - rect.y - rect.h / 2) * scale;
+      ctx.fillStyle = "rgba(34,211,238,0.22)";
+      ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#22d3ee";
       ctx.beginPath();
-      ctx.arc(px, py, 4.5, 0, Math.PI * 2);
+      ctx.arc(px, py, 4, 0, Math.PI * 2);
       ctx.fill();
+      /* Rumbo del arma: el minimapa también dice hacia dónde miras. */
+      var ang = pos.aimAngle || 0;
+      ctx.strokeStyle = "#22d3ee";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(px, py);
+      ctx.lineTo(px + Math.cos(ang) * 13, py + Math.sin(ang) * 13);
+      ctx.stroke();
     }
     ctx.restore();
+    if (inHub) {
+      ctx.fillStyle = "rgba(255,45,122,0.9)";
+      ctx.font = "700 9px Inter, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("EL REFUGIO", 6, 11);
+    }
   }
 
   /* ================================ F. TICK =============================== */
@@ -1572,7 +1760,18 @@
        (A/B) dentro de pollGamepad; la direccional se gestiona con repetición
        propia y necesita evaluar cada frame para el auto-repeat. */
     if (uiState.gpCooldown > 0) uiState.gpCooldown = Math.max(0, uiState.gpCooldown - wallSec);
-    if (navigator.getGamepads) pollGamepad(snap, inHub, wallSec);
+    /* PASE DE RENDIMIENTO · el mando se sondea a 15 Hz, no a la frecuencia del
+       monitor. `navigator.getGamepads()` obliga al navegador a sincronizarse con
+       el dispositivo de entrada y se llamaba en CADA fotograma, también con el
+       menú quieto y sin mando conectado. La latencia añadida es de 33 ms como
+       máximo, muy por debajo de repeatRate (85 ms), así que la navegación no
+       cambia; y el primer sondeo sigue siendo inmediato. */
+    uiState.gpPollAcc = (uiState.gpPollAcc || 0) + wallSec;
+    if (navigator.getGamepads && (uiState.gpPollAcc >= 0.066 || !uiState.gpPolledOnce)) {
+      uiState.gpPollAcc = 0;
+      uiState.gpPolledOnce = true;
+      pollGamepad(snap, inHub, wallSec);
+    }
 
     if (snap && (!uiState.menuVisible)) updateHud(snap, inHub);
 
@@ -1837,6 +2036,39 @@
     a.click();
   }
 
+  /* PASE DE RENDIMIENTO · escrituras DOM con cambio real.
+     Medido con long-animation-frame en el Refugio: 0 ms de script y ~434 ms de
+     «style & layout + paint» por fotograma, todos los fotogramas. La causa es
+     que updateHud() reescribía cada fotograma el ancho de dos barras, cuatro
+     textContent y las clases del HUD aunque el valor fuese el MISMO: escribir
+     textContent crea un nodo de texto nuevo y ensucia la caja, y estas cajas
+     llevan clip-path, sombra y degradado, así que cada fotograma se repintaba
+     la interfaz entera sobre el canvas del juego. Ahora sólo se escribe cuando
+     el valor cambia (la igualdad se compara con el valor anterior, no con el
+     DOM, para no forzar lecturas de layout). */
+  function setText(node, value) {
+    if (!node) return;
+    var v = String(value);
+    if (node.__ddText === v) return;
+    node.__ddText = v;
+    node.textContent = v;
+  }
+  function setWidth(node, pct) {
+    if (!node) return;
+    var v = pct.toFixed(1) + "%";
+    if (node.__ddW === v) return;
+    node.__ddW = v;
+    node.style.width = v;
+  }
+  function setClass(node, name, on) {
+    if (!node) return;
+    var key = "__ddC_" + name;
+    var v = !!on;
+    if (node[key] === v) return;
+    node[key] = v;
+    node.classList.toggle(name, v);
+  }
+
   function updateHud(snap, inHub) {
     var heartsEl = el("dd-hud-hearts");
     var fullSrc = assetSrc("hud_heart_full", "pickups/pickup_heart_00.png");
@@ -1853,45 +2085,40 @@
       }
       heartsEl.innerHTML = html;
     }
-    var hpFill = el("dd-hud-hp-fill");
-    if (hpFill) hpFill.style.width = Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)).toFixed(1) + "%";
-    var shFill = el("dd-hud-sh-fill");
+    setWidth(el("dd-hud-hp-fill"), Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)));
     var shPct = snap.shield > 0 ? Math.min(100, snap.shield) : Math.min(100, (snap.raveMeter || 0) * 100);
-    if (shFill) shFill.style.width = shPct.toFixed(1) + "%";
-    var crEl = el("dd-hud-cr");
-    if (crEl) crEl.textContent = String(snap.credits || 0);
-    var nvEl = el("dd-hud-nv");
-    if (nvEl) nvEl.textContent = "NV. " + (snap.level || 1);
+    setWidth(el("dd-hud-sh-fill"), shPct);
+    setText(el("dd-hud-cr"), String(snap.credits || 0));
+    setText(el("dd-hud-nv"), "NV. " + (snap.level || 1));
     var wNameEl = el("dd-hud-weapon-name");
-    if (wNameEl) wNameEl.textContent = (snap.weaponName || "M1911").toUpperCase() + " · ∞";
+    if (wNameEl) {
+      /* PASE VISUAL · el nombre se cortaba. El catálogo del motor produce nombres
+         largos («MAGNUM (RÓTULO: PAGNUM)», «ESCOPETA AUTOMÁTICA»), y la franja
+         del arma lucía el recorte «MAGNUM (RÓTULO: …». El nombre completo se
+         conserva: si no entra, CSS lo reduce (ver .dd-hud-weapon-name). */
+      setText(wNameEl, (snap.weaponName || "M1911").toUpperCase() + " · ∞");
+    }
     var wImgEl = el("dd-hud-weapon-img");
     var wSrc = weaponImgSrc(snap.weapon || "m1911");
     if (wImgEl && wSrc && wImgEl.getAttribute("data-w") !== snap.weapon) {
       wImgEl.setAttribute("data-w", snap.weapon);
       wImgEl.src = wSrc;
     }
-    var roomEl = el("dd-hud-room");
-    if (roomEl) {
-      roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
-        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
-    }
-    var bCnt = el("dd-skill-bomb-cnt");
-    if (bCnt) bCnt.textContent = String(snap.bombs || 0);
-    var bCard = el("dd-skill-bomb");
-    if (bCard) bCard.classList.toggle("dd-empty", !(snap.bombs > 0));
-    var sCnt = el("dd-skill-boost-cnt");
-    if (sCnt) sCnt.textContent = String(snap.boosts || 0);
-    var sCard = el("dd-skill-boost");
-    if (sCard) sCard.classList.toggle("dd-empty", !(snap.boosts > 0));
+    setText(el("dd-hud-room"), inHub ? "EL REFUGIO · ZONA SEGURA"
+      : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1))));
+    setText(el("dd-skill-bomb-cnt"), String(snap.bombs || 0));
+    setClass(el("dd-skill-bomb"), "dd-empty", !(snap.bombs > 0));
+    setText(el("dd-skill-boost-cnt"), String(snap.boosts || 0));
+    setClass(el("dd-skill-boost"), "dd-empty", !(snap.boosts > 0));
     var bossHud = el("dd-boss-hud");
     if (bossHud) {
       if (!inHub && snap.bossActive && snap.boss) {
-        bossHud.classList.remove("dd-hidden");
-        el("dd-boss-name").textContent = String(snap.boss.name || "RESIDENTE").toUpperCase();
+        setClass(bossHud, "dd-hidden", false);
+        setText(el("dd-boss-name"), String(snap.boss.name || "RESIDENTE").toUpperCase());
         var bpct = Math.max(0, Math.min(100, ((snap.boss.hp || 0) / Math.max(1, snap.boss.maxHp || 1)) * 100));
-        el("dd-boss-hp-fill").style.width = bpct.toFixed(1) + "%";
+        setWidth(el("dd-boss-hp-fill"), bpct);
       } else {
-        bossHud.classList.add("dd-hidden");
+        setClass(bossHud, "dd-hidden", true);
       }
     }
     drawIsometricMinimap(snap);

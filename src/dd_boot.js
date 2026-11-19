@@ -301,23 +301,25 @@
       detail: "Esperando las imágenes de arranque y del menú…",
       critical: true,
       run: function () {
-        var ids = ["player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00", "logo_deadbeat_cinematic"];
+        /* PASE DE RENDIMIENTO: antes se creaba una Image() NUEVA por cada id, así
+           que estas siete imágenes se descargaban DOS veces (una por el precargador
+           del registro y otra por esta comprobación). Además se esperaba al logo
+           cinematográfico, que el menú no usa (el menú usa el grafiti). Ahora se
+           reutilizan las peticiones del registro y sólo se espera lo que de verdad
+           hace falta para el primer fotograma jugable. */
+        var ids = ["player_idle_00", "player_walk_00", "player_walk_01", "player_walk_02", "player_walk_03", "player_shoot_00"];
         var t0 = performance.now();
-        return new Promise(function (resolve, reject) {
-          var missing = [], done = 0;
-          ids.forEach(function (id) {
-            var m = window.DD_ASSETS.manifest.entries[id];
-            if (!m) { missing.push(id); done++; return; }
-            var probe = new Image();
-            probe.onload = function () { if (++done === ids.length) finish(); };
-            probe.onerror = function () { missing.push(id); if (++done === ids.length) finish(); };
-            probe.src = m.src;
-          });
-          function finish() {
-            if (missing.length) return reject(new Error("Faltan imágenes esenciales: " + missing.join(", ")));
-            resolve({ ok: ids.length, ms: Math.round(performance.now() - t0) });
-          }
-          if (done === ids.length) finish();
+        var assets = window.DD_ASSETS;
+        if (!assets || typeof assets.request !== "function") {
+          return Promise.reject(new Error("El registro de recursos no ofrece carga asíncrona."));
+        }
+        return Promise.all(ids.map(function (id) {
+          if (!assets.manifest.entries[id]) return Promise.resolve(id);
+          return assets.request(id).then(function (img) { return img ? null : id; });
+        })).then(function (results) {
+          var missing = results.filter(Boolean);
+          if (missing.length) throw new Error("Faltan imágenes esenciales: " + missing.join(", "));
+          return { ok: ids.length, ms: Math.round(performance.now() - t0) };
         });
       }
     },
@@ -325,13 +327,19 @@
       id: "fase01",
       timeoutMs: 7000,
       label: "COMPOSICIÓN DE ARRANQUE",
-      detail: "Verificando las capas nuevas del menú y de la carga…",
+      detail: "Verificando las capas de la pantalla de carga…",
       run: function () {
+        /* PASE DE RENDIMIENTO · se comprueba SÓLO lo que la pantalla de carga
+           pinta de verdad. Antes se esperaba también a `menu_backdrop_2k.webp`
+           (483 KB) y a `loading_keyart_2k.webp` (675 KB), ninguna de las dos
+           dibujada: el fondo del menú es el último plano de la intro y el fondo
+           de la carga está desactivado en el CSS (tinta lisa). Eran 1,16 MB de
+           descarga que retrasaba el arranque sin cambiar un solo píxel.
+           Se conservan en el repositorio y en el manifiesto de la Fase 01; si
+           algún día se vuelven a pintar, basta con devolverlas a esta lista. */
         var t0 = performance.now();
         return new Promise(function (resolve, reject) {
           var files = [
-            "assets/fase01/menu_backdrop_2k.webp",
-            "assets/fase01/loading_keyart_2k.webp",
             "assets/fase01/emblem_fox_glow.png",
             "assets/fase01/logo_deadbeat_trim.png"
           ];
@@ -772,6 +780,23 @@
         clearTimeout(state.watchdog);
         state.loadStart = state.bootStart;
         state.loadEnd = performance.now();
+        /* PASE DE RENDIMIENTO · cargas por capas.
+           El arranque ya no espera al contenido de juego: se pide justo cuando la
+           pantalla de carga deja de ser el cuello de botella. P1 (enemigos, jefes,
+           armas, HUD, suelos, muros, props) queda listo antes de que el jugador
+           pueda bajar al Refugio; P2 (cinemáticas y ambiente) se pide después y
+           nunca compite con la intro ni con el menú. Ninguna de las dos bloquea. */
+        var assets = window.DD_ASSETS;
+        var schedule = function (fn, delay) {
+          if (typeof requestIdleCallback === "function") {
+            requestIdleCallback(function () { fn(); }, { timeout: delay });
+          } else {
+            setTimeout(fn, Math.min(delay, 120));
+          }
+        };
+        if (assets && typeof assets.preloadAll === "function") {
+          schedule(function () { try { assets.preloadAll(1); } catch (e) {} }, 800);
+        }
         emit("loading-complete", {
           ms: Math.round(state.loadEnd - state.loadStart),
           steps: STEPS.length,
@@ -925,6 +950,23 @@
     var menu = q("dd-main-menu");
     if (menu) menu.classList.add("dd-menu-in");
     setState("MAIN_MENU");
+    /* PASE DE RENDIMIENTO · segunda capa de carga.
+       Al llegar al menú la pantalla de carga ya no existe, así que este es el
+       momento honesto de pedir el resto del contenido de juego (P1) y, un poco
+       después, el ambiente y las cinemáticas (P2). Se hace cuando el navegador
+       tiene hueco: no retrasa ni el menú ni la intro, y como `ensure()` pide en
+       el acto cualquier asset que se necesite antes de tiempo, ningún fotograma
+       se queda sin sprite por haber llegado tarde. */
+    var assets = window.DD_ASSETS;
+    var idle = function (fn, timeoutMs) {
+      if (typeof requestIdleCallback === "function") requestIdleCallback(function () { fn(); }, { timeout: timeoutMs });
+      else setTimeout(fn, Math.min(timeoutMs, 200));
+    };
+    if (assets && typeof assets.preloadAll === "function") {
+      idle(function () { try { assets.preloadAll(1); } catch (e) {} }, 1500);
+      /* Las láminas de escenario NO se precargan: se piden al empezar cada
+         secuencia (DD_CINE). Ver PRIORITY en dd_asset_registry.js. */
+    }
     if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(4);
     /* Foco inicial válido y visible. */
     /* Al volver de un submenú se conserva la opción que estaba elegida. */

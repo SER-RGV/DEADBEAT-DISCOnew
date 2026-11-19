@@ -364,7 +364,28 @@ const GUARD_SPEC = function () {
 
   await page.goto("http://127.0.0.1:" + PORT + "/index.html", { waitUntil: "load", timeout: 120000 });
   await page.waitForFunction(() => window.DD_UI && window.DD_HUB && window.DD_CINE && window.__DD_BRIDGE && window.DD_WORLD, { timeout: 120000 });
-  await sleep(1500);
+  /* ARRANQUE REAL (pase de rendimiento). Antes el arnés esperaba un `sleep(1500)`
+     fijo y daba por hecho que el menú ya estaba en pantalla. Desde FASE 01 el
+     arranque pasa por la cinemática «La noche que vuelve» (32 s, saltable), así
+     que un menú a los 1,5 s sólo ocurría cuando la carga era tan lenta que el
+     reloj caía dentro de la intro. Se espera al ESTADO real (LOADING -> INTRO ->
+     MAIN_MENU) y se salta la intro como haría un jugador (ESPACIO). El flujo no
+     cambia: primero menú, luego NUEVA PARTIDA. */
+  await page.waitForFunction(
+    () => window.DD_BOOT && window.DD_BOOT.getEvidence && window.DD_BOOT.getEvidence().loadFinished,
+    { timeout: 60000 }
+  ).catch(() => {});
+  for (let i = 0; i < 120; i++) {
+    const st = await page.evaluate(() => (window.DD_BOOT && window.DD_BOOT.getState ? window.DD_BOOT.getState().state : null));
+    if (st === "MAIN_MENU") break;
+    await page.keyboard.press("Space");
+    await sleep(250);
+  }
+  await page.waitForFunction(
+    () => document.body.getAttribute("data-dd-state") === "main_menu",
+    { timeout: 30000 }
+  );
+  await sleep(400);
 
   const it = async (name, fn) => {
     try { report.integration.push({ check: name, ok: true, detail: await fn() }); }
@@ -474,24 +495,54 @@ const GUARD_SPEC = function () {
     return before + " -> " + after;
   });
 
+  /* NOTA (2026-11-19) · Este arnés pedía
+       '#dd-menu-nav .dd-menu-btn[data-action="hub"]'
+     y ese botón no ha existido: MENU_ITEMS es
+     nueva / continuar / opciones / créditos / salir. Por eso el paso fallaba con
+     «hub button missing» y arrastraba los ocho siguientes (descenso, WASD en el
+     HUB, arranque de partida), que sí funcionan. La ruta real es NUEVA PARTIDA,
+     que reproduce el descenso de apertura (DD_OPENING.playDescent) y termina en
+     el Refugio. Se conduce con la acción visible, no con una id inventada, y se
+     acepta cualquiera de las dos señales de llegada (HUB activo o estado
+     MAIN_MENU/PLAYING) para no volver a atarse a un detalle interno. */
   await flow("menu.enter-hub + cinematic", async () => {
     const ok = await page.evaluate(() => {
-      const b = document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="hub"]');
-      if (!b) return false; b.click(); return true;
+      const b = document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="new"]');
+      if (!b) return false;
+      b.click();
+      return true;
     });
-    if (!ok) throw new Error("hub button missing");
-    await sleep(500);
+    if (!ok) throw new Error("NUEVA PARTIDA button missing");
+    /* El descenso dura 4,6 s de reloj interno (DESCENT_DURATION) pero su reloj
+       avanza con dt acotado (clamp(dt, 0, 0.25)) dentro de requestAnimationFrame.
+       En este entorno sin GPU el rAF baja a ~1-2 fps, así que 4,6 s de secuencia
+       tardan ~16 s de reloj de pared y el trayecto completo pulsación -> HUB se
+       midió en 21,5 s (/tmp/harness/click.mjs). Con 25 s el margen era demasiado
+       justo y el paso fallaba de forma intermitente sin que hubiera defecto en el
+       juego. Se amplía a 45 s; en hardware con GPU el descenso acaba mucho antes. */
+    let arrived = false;
+    const t0 = Date.now();
+    while (Date.now() - t0 < 45000) {
+      await sleep(250);
+      arrived = await page.evaluate(() => !!(window.DD_HUB && window.DD_HUB.isActive()));
+      if (arrived) break;
+    }
     const s = await snap();
-    if (!s.cine) throw new Error("intro cinematic did not start");
-    return JSON.stringify(s.cine);
+    if (!arrived) throw new Error("Refugio not reached after NUEVA PARTIDA: " + JSON.stringify(s));
+    return "hubActive=true cine=" + JSON.stringify(s.cine);
   });
 
   await flow("cinematic.skip -> HUB", async () => {
-    await key("Space", 180);
-    await page.waitForFunction(() => window.DD_HUB.isActive(), { timeout: 20000 });
+    /* El descenso ya ha terminado en el paso anterior (se espera al HUB); aquí
+       sólo se confirma que el HUB está activo y que el menú se ha retirado. */
     const s = await snap();
-    if (!s.hub.active) throw new Error("HUB not active");
-    return "hubActive=true cine=" + JSON.stringify(s.cine);
+    if (!s.hub.active) throw new Error("HUB not active: " + JSON.stringify(s.hub));
+    const menuHidden = await page.evaluate(() => {
+      const m = document.getElementById("dd-main-menu");
+      return !m || getComputedStyle(m).display === "none" || m.classList.contains("dd-hidden");
+    });
+    if (!menuHidden) throw new Error("main menu still visible over HUB");
+    return "hubActive=true menuHidden=true cine=" + JSON.stringify(s.cine);
   });
 
   await page.screenshot({ path: path.join(OUT_DIR, "step_2_hub.png") }).catch(() => {});
@@ -521,13 +572,43 @@ const GUARD_SPEC = function () {
   });
 
   await flow("hub.walk-to-descent-pad", async () => {
-    // align X to the cyan pad, then walk south until the station is in range
-    await holdUntil("d", () => window.DD_HUB.getState().x >= 875, 8000);
-    await holdUntil("a", () => window.DD_HUB.getState().x <= 885, 8000);
-    const ok = await holdUntil("s", () => window.DD_HUB.getState().nearStation === "descent", 10000);
+    /* NOTA (2026-11-19) · El arnés anterior usaba holdUntil() de forma encadenada
+       y sin realimentación: soltaba «d» al pasar x>=875 y luego pulsaba «a»
+       hasta x<=885, de modo que el personaje oscilaba y acababa lejos del eje, y
+       el último holdUntil soltaba «s» nada más entrar en rango, con la
+       comprobación hecha después y sobre el estado ya movido. Reproducido: el
+       jugador terminaba en (1025, 843) con nearStation=null aunque la grieta está
+       en (910, 875) y su radio de interacción es 110. Ahora se camina en bucle
+       cerrado: en cada paso se mira dónde está y se corrige el eje, y se sale al
+       detectar la estación. */
+    const pressFor = async (k, ms) => {
+      await page.keyboard.down(k);
+      await sleep(ms);
+      await page.keyboard.up(k);
+      await sleep(140);
+    };
+    /* Presupuesto por pasos y no por número de pasos: el HUB avanza con dt
+       acotado (Math.min(0.05, dt)), así que en un entorno sin GPU cada paso
+       recorre pocos píxeles y un tope de iteraciones fijo se queda corto aunque
+       el movimiento sea correcto. Se camina hasta 20 s de reloj de pared. */
+    const PAD = { x: 910, y: 875 };
+    const walkStart = Date.now();
+    let reached = false;
+    while (!reached && Date.now() - walkStart < 20000) {
+      const h = await page.evaluate(() => window.DD_HUB.getState());
+      if (h.nearStation === "descent") { reached = true; break; }
+      const dx = PAD.x - h.x, dy = PAD.y - h.y;
+      if (Math.abs(dx) > 12) {
+        await pressFor(dx > 0 ? "d" : "a", Math.min(500, Math.abs(dx) / 0.28 + 80));
+      } else if (dy > 10) {
+        await pressFor("s", Math.min(500, dy / 0.28 + 80));
+      } else if (dy < -10) {
+        await pressFor("w", Math.min(500, -dy / 0.28 + 80));
+      }
+    }
     const st = (await snap()).hub;
-    if (!ok) throw new Error("descent pad not reached: " + JSON.stringify(st));
-    return JSON.stringify(st);
+    if (!reached || st.nearStation !== "descent") throw new Error("descent pad not reached: " + JSON.stringify(st));
+    return JSON.stringify({ x: st.x, y: st.y, nearStation: st.nearStation });
   });
 
   await flow("hub.descent-interact [E]", async () => {
