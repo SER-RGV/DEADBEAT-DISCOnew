@@ -731,11 +731,21 @@
       '<p class="dd-scene-note">Todos los aspectos están disponibles para probar. Son cosméticos y no afectan a tus habilidades.</p>' +
       '<div class="dd-looks">' + list.map(function (s) {
         return '<button type="button" class="dd-look" data-look="' + esc(s.id) + '" ' + (!s.unlocked ? 'disabled ' : '') + 'aria-pressed="' + (s.selected ? 'true' : 'false') + '">' +
-          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
+          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '" data-look-portrait="' + esc(s.id) + '" aria-hidden="true"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
       }).join('') + '</div><p id="dd-look-status" role="status" aria-live="polite"></p></div>';
+    function paintLookPortraits() {
+      body.querySelectorAll('[data-look-portrait]').forEach(function (swatch) {
+        var src = api.hudPreview(swatch.dataset.lookPortrait);
+        if (src) swatch.style.backgroundImage = 'url("' + src + '")';
+      });
+    }
+    paintLookPortraits();
     if (!host.dataset.lookReadyBound) {
       host.dataset.lookReadyBound = '1';
-      window.addEventListener('dd-looks-ready', function () { host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")'); });
+      window.addEventListener('dd-looks-ready', function () {
+        host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
+        paintLookPortraits();
+      });
     }
     body.querySelectorAll('[data-look]').forEach(function(btn) {
       btn.addEventListener('click', function () {
@@ -765,10 +775,19 @@
     var section = document.createElement("section");
     section.className = "dd-scene-extras";
     var looks = window.DD_APPEARANCE ? window.DD_APPEARANCE.list() : [];
-    section.innerHTML = '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
-      '<div class="dd-scene-gallery"><img src="assets/cinematics/restart/opening/mc_03_nine.jpg" alt="Las nueve pistas"><img src="assets/cinematics/restart/opening/mc_04_doors.jpg" alt="Puertas del club"><img src="assets/cinematics/restart/opening/mc_07_pit.jpg" alt="El pozo de descenso"></div>' +
-      '<h3>COLECCIÓN DE ASPECTOS</h3><div class="dd-extra-looks">' + looks.map(function(s) {
-        return '<div><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div>';
+    var stills = [
+      { src: 'assets/cinematics/restart/opening/mc_03_nine.jpg', alt: 'Las nueve pistas', tag: 'LAS NUEVE PISTAS' },
+      { src: 'assets/cinematics/restart/opening/mc_04_doors.jpg', alt: 'Puertas del club', tag: 'PUERTAS DEL CLUB' },
+      { src: 'assets/cinematics/restart/opening/mc_07_pit.jpg', alt: 'El pozo de descenso', tag: 'EL POZO DE DESCENSO' }
+    ];
+    section.innerHTML = '<div class="dd-extra-kicker"><span>ARCHIVO DEL CLUB</span><b>3 FOTOGRAMAS · 8 ASPECTOS</b></div>' +
+      '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
+      '<div class="dd-scene-gallery">' + stills.map(function (shot, i) {
+        return '<figure class="dd-extra-still"><img src="' + shot.src + '" alt="' + esc(shot.alt) + '" loading="lazy" decoding="async"><figcaption><span>FOTOGRAMA 0' + (i + 1) + '</span><b>' + esc(shot.tag) + '</b></figcaption></figure>';
+      }).join('') + '</div>' +
+      '<div class="dd-extra-collection-head"><h3>COLECCIÓN DE ASPECTOS</h3><span>08 / 08 · VISTA DE ARCHIVO</span></div>' +
+      '<div class="dd-extra-looks">' + looks.map(function (s, i) {
+        return '<article class="dd-extra-look"><img src="assets/characters/outfits/' + esc(s.id) + '/showcase.png" alt="Vista de cuerpo entero: ' + esc(s.name) + '" loading="lazy" decoding="async"><div class="dd-extra-look-copy"><span class="dd-extra-look-index">FICHA ' + String(i + 1).padStart(2, '0') + '</span><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div></article>';
       }).join('') + '</div>';
     body.insertBefore(section, body.firstChild);
   }

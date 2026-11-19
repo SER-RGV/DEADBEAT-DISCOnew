@@ -3166,6 +3166,304 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
   }
 }
 
+/* ========================================================================
+   FASE CLUB VIVO — PANTALLA DE CARGA + ARCHIVO/ASPECTOS + ESCENAS
+   Fondos de escena y ganchos de QA (#dd-submenu::before, data-scene) intactos.
+   ======================================================================== */
+
+/* --- Arranque: vuelve la pista de carga, con información útil y sin ruido --- */
+#dd-boot-frame {
+  background: #07030d;
+  isolation: isolate;
+}
+#dd-boot-frame .dd-boot-bg {
+  display: block !important;
+  inset: -4%;
+  background-image: url("assets/fase01/loading_keyart_2k.webp");
+  background-position: 50% 46%;
+  filter: saturate(1.08) brightness(.48);
+  transform: scale(1.06);
+  animation: dd-boot-drift 34s ease-in-out infinite alternate;
+}
+#dd-boot-frame .dd-boot-scrim {
+  background:
+    radial-gradient(ellipse 62% 56% at 50% 47%, rgba(7, 3, 13, .40), rgba(7, 3, 13, .74) 68%, rgba(7, 3, 13, .92)),
+    linear-gradient(180deg, rgba(7, 3, 13, .72), transparent 24%, rgba(7, 3, 13, .12) 64%, rgba(7, 3, 13, .88));
+}
+#dd-boot-frame .dd-boot-beams {
+  display: block !important;
+  opacity: .42;
+}
+#dd-boot-frame .dd-boot-inner { z-index: 2; }
+#dd-boot-frame .dd-boot-top,
+#dd-boot-frame .dd-boot-foot {
+  display: flex !important;
+  width: 100%;
+}
+#dd-boot-frame .dd-boot-top {
+  color: rgba(245, 230, 214, .78);
+  text-shadow: 0 2px 8px #08030f;
+}
+#dd-boot-frame .dd-boot-kicker { color: #f5e6d6; }
+#dd-boot-frame .dd-boot-ver { text-shadow: 0 0 12px rgba(0, 229, 255, .7); }
+#dd-boot-frame #dd-boot-stage {
+  visibility: visible;
+  color: #00e5ff;
+  text-shadow: 0 0 14px rgba(0, 229, 255, .48);
+}
+#dd-boot-frame #dd-boot-pct {
+  display: inline !important;
+  color: #f5e6d6;
+  text-shadow: 0 0 10px rgba(255, 0, 110, .5);
+}
+#dd-boot-frame .dd-boot-statusline { margin-top: 7px; }
+#dd-boot-frame .dd-boot-bar {
+  height: 13px;
+  border-color: rgba(0, 229, 255, .6);
+  box-shadow: 0 0 18px rgba(0, 229, 255, .18), inset 0 0 14px #000;
+}
+#dd-boot-frame .dd-boot-bar i {
+  background: linear-gradient(90deg, #00e5ff 0%, #ff006e 72%, #ffb000 100%);
+  box-shadow: 0 0 18px rgba(255, 0, 110, .72);
+}
+#dd-boot-frame .dd-boot-foot {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: rgba(245, 230, 214, .75);
+  text-shadow: 0 2px 8px #08030f;
+}
+#dd-boot-frame .dd-boot-foot span:first-child { color: #00e5ff; }
+#dd-boot-frame .dd-boot-title img {
+  filter: drop-shadow(0 10px 32px rgba(0, 0, 0, .78)) drop-shadow(0 0 28px rgba(255, 0, 110, .3));
+  animation: dd-load-mark-slam .92s cubic-bezier(.18, 1.2, .24, 1) both;
+}
+#dd-boot-frame .dd-boot-divider { filter: drop-shadow(0 0 12px rgba(255, 0, 110, .28)); }
+#dd-boot-frame .dd-boot-frame-deco span { animation: dd-load-corner 2.8s ease-in-out infinite alternate; }
+#dd-boot-frame::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -28%; left: 0; right: 0;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(0, 229, 255, .055), rgba(255, 0, 110, .045), transparent);
+  mix-blend-mode: screen;
+  animation: dd-load-scan 7.2s linear infinite;
+}
+@keyframes dd-load-mark-slam {
+  0% { opacity: 0; transform: translateY(20px) scale(1.12) rotate(-2deg); }
+  68% { opacity: 1; transform: translateY(-3px) scale(.985) rotate(.5deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes dd-load-corner { from { opacity: .52; } to { opacity: 1; } }
+@keyframes dd-load-scan { to { transform: translateY(590%); } }
+
+/* --- Escenas: travelling de fondo lento + velos de luz por estancia --- */
+#dd-submenu[data-scene="play"] { --dd-room-hot: rgba(255, 0, 110, .22); --dd-room-cold: rgba(0, 229, 255, .19); }
+#dd-submenu[data-scene="progression"] { --dd-room-hot: rgba(255, 176, 0, .20); --dd-room-cold: rgba(155, 0, 255, .16); }
+#dd-submenu[data-scene="options"] { --dd-room-hot: rgba(0, 229, 255, .19); --dd-room-cold: rgba(255, 0, 110, .17); }
+#dd-submenu[data-scene="extras"] { --dd-room-hot: rgba(155, 0, 255, .21); --dd-room-cold: rgba(0, 229, 255, .16); }
+#dd-submenu.is-open[data-scene="play"]::before,
+#dd-submenu.is-open[data-scene="customize"]::before,
+#dd-submenu.is-open[data-scene="progression"]::before,
+#dd-submenu.is-open[data-scene="options"]::before,
+#dd-submenu.is-open[data-scene="extras"]::before {
+  transform-origin: 58% 48%;
+  will-change: transform, background-position;
+  animation: dd-submenu-room-drift 22s ease-in-out infinite alternate;
+}
+#dd-submenu.is-open[data-scene="play"]::after,
+#dd-submenu.is-open[data-scene="progression"]::after,
+#dd-submenu.is-open[data-scene="options"]::after,
+#dd-submenu.is-open[data-scene="extras"]::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 76% 30%, var(--dd-room-hot), transparent 43%),
+    linear-gradient(112deg, transparent 32%, var(--dd-room-cold) 49%, transparent 63%),
+    repeating-linear-gradient(0deg, rgba(245, 230, 214, .018) 0 1px, transparent 1px 5px);
+  background-size: 100% 100%, 210% 100%, 100% 100%;
+  mix-blend-mode: screen;
+  opacity: .28;
+  will-change: transform, opacity, background-position;
+  animation: dd-submenu-light-leak 16s ease-in-out infinite alternate;
+}
+#dd-submenu[data-scene="customize"]::after {
+  filter: drop-shadow(0 10px 20px #000b) drop-shadow(0 0 18px rgba(255, 0, 110, .20));
+}
+@keyframes dd-submenu-room-drift {
+  from { transform: scale(1.035) translate3d(-.45%, .2%, 0); background-position: 49% 51%; }
+  to { transform: scale(1.115) translate3d(.65%, -.45%, 0); background-position: 52% 48%; }
+}
+@keyframes dd-submenu-light-leak {
+  0% { opacity: .16; transform: translate3d(-1.5%, 0, 0); background-position: 0 0, 0 0, 0 0; }
+  52% { opacity: .34; }
+  100% { opacity: .27; transform: translate3d(1.5%, 0, 0); background-position: 0 0, 100% 0, 0 0; }
+}
+
+/* --- Aspectos: mini-retratos reales del mismo personaje, no simples puntos --- */
+.dd-look-swatch[data-look-portrait] {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 64px;
+  border: 1px solid rgba(245, 230, 214, .38);
+  border-radius: 3px;
+  background-color: #150b19;
+  background-repeat: no-repeat;
+  background-position: center 18%;
+  background-size: cover;
+  box-shadow: 0 0 12px rgba(255, 0, 110, .2);
+  image-rendering: auto;
+}
+.dd-look[aria-pressed="true"] .dd-look-swatch[data-look-portrait] {
+  border-color: #ffb000;
+  box-shadow: 0 0 0 1px rgba(255, 176, 0, .4), 0 0 18px rgba(255, 0, 110, .44);
+}
+.dd-look:hover .dd-look-swatch[data-look-portrait],
+.dd-look:focus-visible .dd-look-swatch[data-look-portrait] { border-color: #00e5ff; }
+.dd-look { position: relative; overflow: hidden; }
+.dd-look::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, #00e5ff, #ff006e 60%, #ffb000);
+  opacity: .72;
+  pointer-events: none;
+}
+.dd-look[aria-pressed="true"]::before { opacity: 1; box-shadow: 0 0 12px #ff006e; }
+.dd-look small {
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 6px;
+  border: 1px solid rgba(0, 229, 255, .28);
+  color: #a8f6ff;
+  letter-spacing: .12em;
+}
+.dd-look[aria-pressed="true"] small { border-color: rgba(255, 176, 0, .72); color: #ffdb72; }
+
+/* --- Extras: fotogramas titulados y fichas con las ocho siluetas --- */
+.dd-extra-kicker,
+.dd-extra-collection-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dd-extra-kicker {
+  padding: 8px 10px;
+  margin: 0 0 8px;
+  border: 1px solid rgba(0, 229, 255, .24);
+  border-left: 3px solid #00e5ff;
+  background: linear-gradient(90deg, rgba(0, 229, 255, .08), rgba(255, 0, 110, .035));
+  color: #b9f8ff;
+  font-family: var(--dd-pixel);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+.dd-extra-kicker b,
+.dd-extra-collection-head > span { color: rgba(245, 230, 214, .64); font-size: 8px; letter-spacing: .1em; text-align: right; }
+.dd-scene-gallery { gap: 10px; }
+.dd-extra-still {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 0, 110, .5);
+  background: #0b0812;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .34);
+}
+.dd-extra-still::after {
+  content: "";
+  position: absolute;
+  inset: 34% 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(7, 3, 13, .86));
+}
+.dd-extra-still img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  transition: transform .55s cubic-bezier(.2, .8, .2, 1), filter .3s ease;
+}
+.dd-extra-still:hover img { transform: scale(1.06); filter: saturate(1.18); }
+.dd-extra-still figcaption {
+  position: absolute;
+  z-index: 1;
+  inset: auto 8px 7px;
+  display: grid;
+  gap: 3px;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+}
+.dd-extra-still figcaption span { color: #00e5ff; font: 8px var(--dd-pixel); letter-spacing: .14em; }
+.dd-extra-still figcaption b { font: 13px Barlow Condensed, sans-serif; letter-spacing: .08em; }
+.dd-extra-collection-head { margin-top: 18px; }
+.dd-extra-collection-head h3 { margin: 0; }
+.dd-extra-looks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.dd-extra-look {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 92px;
+  padding: 7px;
+  border: 1px solid rgba(255, 0, 110, .26);
+  border-left: 2px solid #ff006e;
+  background: linear-gradient(110deg, rgba(255, 0, 110, .09), rgba(11, 8, 18, .74) 58%);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.dd-extra-look:hover { transform: translateY(-2px); border-color: rgba(0, 229, 255, .65); background: linear-gradient(110deg, rgba(0, 229, 255, .10), rgba(11, 8, 18, .82) 58%); }
+.dd-extra-look > img {
+  width: 56px;
+  height: 78px;
+  object-fit: cover;
+  object-position: center 12%;
+  border: 1px solid rgba(245, 230, 214, .28);
+  background: #130a18;
+}
+.dd-extra-look-copy { min-width: 0; }
+.dd-extra-look-index { display: block; margin-bottom: 3px; color: #00e5ff; font: 8px var(--dd-pixel); letter-spacing: .1em; }
+.dd-extra-look-copy > b { display: block; color: #fff; font: 19px/1 Bangers, sans-serif; letter-spacing: .04em; }
+.dd-extra-look-description { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; margin: 4px 0 !important; font-size: 12px !important; line-height: 1.25 !important; }
+.dd-extra-look-copy > small { color: #ffdb72; font: 8px var(--dd-pixel); letter-spacing: .12em; }
+
+@media (max-width: 600px) {
+  #dd-boot-frame .dd-boot-inner { width: min(760px, 94vw); padding: 16px 12px; gap: 9px; }
+  #dd-boot-frame .dd-boot-top, #dd-boot-frame .dd-boot-foot { font-size: 9px; letter-spacing: .12em; }
+  #dd-boot-frame .dd-boot-foot { justify-content: center; text-align: center; }
+  #dd-boot-frame .dd-boot-foot span:first-child { display: none; }
+  #dd-boot-frame .dd-boot-title img { width: min(360px, 72vw); }
+  .dd-extra-kicker { font-size: 8px; }
+  .dd-extra-kicker b, .dd-extra-collection-head > span { font-size: 7px; }
+  .dd-extra-still figcaption span { font-size: 6px; letter-spacing: .04em; white-space: nowrap; }
+  .dd-extra-still figcaption b { font-size: 10px; }
+  .dd-extra-looks { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-boot-frame .dd-boot-bg,
+  #dd-boot-frame .dd-boot-beams,
+  #dd-boot-frame .dd-boot-title img,
+  #dd-boot-frame .dd-boot-frame-deco span,
+  #dd-boot-frame::after,
+  #dd-submenu.is-open::before,
+  #dd-submenu.is-open::after,
+  .dd-extra-still img { animation: none !important; transition: none !important; }
+  #dd-boot-frame .dd-boot-bg { transform: none; }
+}
+
   </style>
 </head>
 <body class="booting">
@@ -15958,11 +16256,21 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       '<p class="dd-scene-note">Todos los aspectos están disponibles para probar. Son cosméticos y no afectan a tus habilidades.</p>' +
       '<div class="dd-looks">' + list.map(function (s) {
         return '<button type="button" class="dd-look" data-look="' + esc(s.id) + '" ' + (!s.unlocked ? 'disabled ' : '') + 'aria-pressed="' + (s.selected ? 'true' : 'false') + '">' +
-          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
+          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '" data-look-portrait="' + esc(s.id) + '" aria-hidden="true"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
       }).join('') + '</div><p id="dd-look-status" role="status" aria-live="polite"></p></div>';
+    function paintLookPortraits() {
+      body.querySelectorAll('[data-look-portrait]').forEach(function (swatch) {
+        var src = api.hudPreview(swatch.dataset.lookPortrait);
+        if (src) swatch.style.backgroundImage = 'url("' + src + '")';
+      });
+    }
+    paintLookPortraits();
     if (!host.dataset.lookReadyBound) {
       host.dataset.lookReadyBound = '1';
-      window.addEventListener('dd-looks-ready', function () { host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")'); });
+      window.addEventListener('dd-looks-ready', function () {
+        host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
+        paintLookPortraits();
+      });
     }
     body.querySelectorAll('[data-look]').forEach(function(btn) {
       btn.addEventListener('click', function () {
@@ -15992,10 +16300,19 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     var section = document.createElement("section");
     section.className = "dd-scene-extras";
     var looks = window.DD_APPEARANCE ? window.DD_APPEARANCE.list() : [];
-    section.innerHTML = '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
-      '<div class="dd-scene-gallery"><img src="assets/cinematics/restart/opening/mc_03_nine.jpg" alt="Las nueve pistas"><img src="assets/cinematics/restart/opening/mc_04_doors.jpg" alt="Puertas del club"><img src="assets/cinematics/restart/opening/mc_07_pit.jpg" alt="El pozo de descenso"></div>' +
-      '<h3>COLECCIÓN DE ASPECTOS</h3><div class="dd-extra-looks">' + looks.map(function(s) {
-        return '<div><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div>';
+    var stills = [
+      { src: 'assets/cinematics/restart/opening/mc_03_nine.jpg', alt: 'Las nueve pistas', tag: 'LAS NUEVE PISTAS' },
+      { src: 'assets/cinematics/restart/opening/mc_04_doors.jpg', alt: 'Puertas del club', tag: 'PUERTAS DEL CLUB' },
+      { src: 'assets/cinematics/restart/opening/mc_07_pit.jpg', alt: 'El pozo de descenso', tag: 'EL POZO DE DESCENSO' }
+    ];
+    section.innerHTML = '<div class="dd-extra-kicker"><span>ARCHIVO DEL CLUB</span><b>3 FOTOGRAMAS · 8 ASPECTOS</b></div>' +
+      '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
+      '<div class="dd-scene-gallery">' + stills.map(function (shot, i) {
+        return '<figure class="dd-extra-still"><img src="' + shot.src + '" alt="' + esc(shot.alt) + '" loading="lazy" decoding="async"><figcaption><span>FOTOGRAMA 0' + (i + 1) + '</span><b>' + esc(shot.tag) + '</b></figcaption></figure>';
+      }).join('') + '</div>' +
+      '<div class="dd-extra-collection-head"><h3>COLECCIÓN DE ASPECTOS</h3><span>08 / 08 · VISTA DE ARCHIVO</span></div>' +
+      '<div class="dd-extra-looks">' + looks.map(function (s, i) {
+        return '<article class="dd-extra-look"><img src="assets/characters/outfits/' + esc(s.id) + '/showcase.png" alt="Vista de cuerpo entero: ' + esc(s.name) + '" loading="lazy" decoding="async"><div class="dd-extra-look-copy"><span class="dd-extra-look-index">FICHA ' + String(i + 1).padStart(2, '0') + '</span><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div></article>';
       }).join('') + '</div>';
     body.insertBefore(section, body.firstChild);
   }

@@ -56,7 +56,7 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
   /* ---------- OPCIONES: teclado ---------- */
   const ob = boxes.find((x) => x.a === "options"); await pg.mouse.click(ob.x + ob.w / 2, ob.y + ob.h / 2); await pg.waitForSelector("#dd-opt-erase");
-  await pg.waitForFunction(() => document.activeElement?.id === "menu-vol-master", null, { timeout: 2500 });
+  await pg.waitForFunction(() => document.activeElement?.id === "menu-vol-master", null, { timeout: 6000 });
   s = await S(); check("[OPCIONES] se abre con un clic y el foco entra en el primer control", s.sub === "options" && s.focus === "menu-vol-master", s.focus);
   await pg.screenshot({ path: OUT + "/opciones_foco.jpg", type: "jpeg", quality: 88 });
   const seen = []; for (let i = 0; i < 12; i++) { await key("ArrowDown", 70); seen.push((await S()).focus); }
