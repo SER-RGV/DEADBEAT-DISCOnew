@@ -1552,6 +1552,22 @@
        El rectángulo real de la sala SÍ viene en la instantánea del motor
        (`roomRect`), y la posición del jugador también. Se usa eso. */
     var rect = (snap && snap.roomRect && snap.roomRect.w > 0 && snap.roomRect.h > 0) ? snap.roomRect : null;
+    var pos = snap && snap.player;
+    /* En el Refugio el motor no está en partida: la instantánea no trae sala
+       (`snap.running` es false), así que el recuadro se quedaba en «SIN
+       INCURSIÓN» dentro de una zona segura por la que se anda. El HUB sí publica
+       su planta y su posición (DD_HUB.getState), de modo que se dibuja la planta
+       del Refugio y no un mensaje de error. */
+    var inHub = !!(window.DD_HUB && window.DD_HUB.isActive && window.DD_HUB.isActive());
+    if (inHub) {
+      try {
+        var hub = window.DD_HUB.getState();
+        if (hub && hub.bounds) {
+          rect = { x: hub.bounds.x, y: hub.bounds.y, w: hub.bounds.w, h: hub.bounds.h };
+          pos = { x: hub.x, y: hub.y, aimAngle: 0 };
+        }
+      } catch (he) { /* se queda el rect null y cae al texto de abajo */ }
+    }
     if (!rect) {
       ctx.fillStyle = "rgba(148,163,184,0.62)";
       ctx.font = "600 11px Inter, sans-serif";
@@ -1559,9 +1575,12 @@
       ctx.fillText(snap && snap.running ? "SALA ACTUAL" : "SIN INCURSIÓN", w / 2, h / 2);
       return;
     }
-    var scale = Math.min(w / rect.w, h / rect.h) * 0.92;
+    /* Franja superior reservada para el rótulo del sitio; sin ella el texto se
+       montaba encima del borde de la planta. */
+    var topPad = inHub ? 14 : 0;
+    var scale = Math.min(w / rect.w, (h - topPad) / rect.h) * 0.92;
     ctx.save();
-    ctx.translate(w / 2, h / 2);
+    ctx.translate(w / 2, topPad + (h - topPad) / 2);
     var rw = rect.w * scale, rh = rect.h * scale;
     /* Suelo de la sala: da profundidad al recuadro (antes era un contorno hueco). */
     ctx.fillStyle = "rgba(255,45,122,0.07)";
@@ -1590,9 +1609,9 @@
         ctx.fillRect(dx - 3, dy - 3, 6, 6);
       }
     }
-    if (snap && snap.player) {
-      var px = (snap.player.x - rect.x - rect.w / 2) * scale;
-      var py = (snap.player.y - rect.y - rect.h / 2) * scale;
+    if (pos) {
+      var px = (pos.x - rect.x - rect.w / 2) * scale;
+      var py = (pos.y - rect.y - rect.h / 2) * scale;
       ctx.fillStyle = "rgba(34,211,238,0.22)";
       ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#22d3ee";
@@ -1600,7 +1619,7 @@
       ctx.arc(px, py, 4, 0, Math.PI * 2);
       ctx.fill();
       /* Rumbo del arma: el minimapa también dice hacia dónde miras. */
-      var ang = snap.player.aimAngle || 0;
+      var ang = pos.aimAngle || 0;
       ctx.strokeStyle = "#22d3ee";
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -1609,6 +1628,12 @@
       ctx.stroke();
     }
     ctx.restore();
+    if (inHub) {
+      ctx.fillStyle = "rgba(255,45,122,0.9)";
+      ctx.font = "700 9px Inter, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("EL REFUGIO", 6, 11);
+    }
   }
 
   /* ================================ F. TICK =============================== */

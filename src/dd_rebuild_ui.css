@@ -726,6 +726,40 @@ body.dd-highres-edition #ddc-cover {
   padding: 20px 24px;
   align-items: center;
   overflow-y: auto;
+  /* PASE VISUAL · a 1024x600 y 800x600 la lista de los nueve círculos (543 px)
+     desbordaba el cuerpo del mapa (465 px) y las últimas filas quedaban cortadas
+     por el borde de la ventana. Las pistas del grid no podían encogerse
+     (`min-height:auto` por defecto), así que el hijo desbordaba en lugar de
+     repartir el alto. Ahora el grid permite encoger y la lista tiene su propio
+     scroll, de modo que las diez filas siempre son alcanzables. */
+  min-height: 0;
+  align-items: start;
+}
+.dd-map-body > * { min-height: 0; }
+.dd-circles-list { max-height: 100%; overflow-y: auto; padding-right: 6px; }
+.dd-tower-art-wrap { max-height: 100%; overflow: hidden; }
+.dd-tower-art-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; height: auto; }
+
+/* Pantallas bajas: el mapa se compacta antes que recortarse. */
+@media (max-height: 720px) {
+  .dd-map-body { padding: 12px 18px; gap: 14px; }
+  .dd-circle-node { padding: 5px 10px; }
+  .dd-circles-list { gap: 5px; }
+}
+/* Ventanas estrechas: una sola columna (la torre arriba, la lista debajo). */
+@media (max-width: 860px) {
+  .dd-map-body { grid-template-columns: 1fr; align-content: start; }
+  .dd-tower-art-wrap { max-height: 34vh; justify-self: center; }
+  /* En una sola columna la lista NO puede llevar max-height:100%: sin alto
+     definido para su fila eso resuelve a 0 px y desaparecía. Deja que sea el
+     cuerpo del mapa el que haga scroll. */
+  .dd-circles-list { max-height: none; overflow: visible; }
+}
+/* El marco de la torre declara min-height:430px para el encuadre de escritorio;
+   en pantallas bajas o estrechas eso empuja la lista fuera de la ventana, así
+   que ahí manda el contenido. Especificidad mayor para no depender del orden. */
+@media (max-height: 720px), (max-width: 860px) {
+  .dd-map-body .dd-tower-art-wrap { min-height: 0; }
 }
 .dd-tower-art-wrap {
   background: radial-gradient(circle at 50% 50%, rgba(255, 45, 122, 0.24), rgba(5, 2, 10, 0.96) 75%);
@@ -1511,7 +1545,9 @@ body.dd-booting {
   border-bottom-width: 2px;
   border-radius: 3px;
   font-family: inherit;
-  font-size: 10px;
+  /* PASE VISUAL · las teclas de la ayuda se encogían hasta 8,5 px en 1024x600 y
+     9,8 en 1280x720 (por debajo de lo legible sobre el fondo). Suelo de 11 px. */
+  font-size: max(11px, 1em);
   color: rgba(255, 255, 255, 0.82);
   background: rgba(6, 3, 12, 0.5);
 }
@@ -1608,7 +1644,8 @@ body.dd-booting {
 .dd-submenu-back kbd {
   margin-left: 5px;
   font-family: inherit;
-  font-size: 9px;
+  /* Mismo suelo de legibilidad que la ayuda del menú principal (era 9 px). */
+  font-size: 11px;
   padding: 1px 4px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 2px;
@@ -2238,7 +2275,7 @@ body:not([data-dd-state="playing"]) #dmo-v32-toggle-pill { display: none !import
   color: rgba(244, 236, 216, 0.7);
 }
 #dd-main-menu.dd-rs .dd-menu-hint kbd {
-  font: 700 0.85em/1 var(--rs-font) !important;
+  font: 700 max(11px, 0.92em)/1 var(--rs-font) !important;
   font-style: normal;
   padding: 3px 6px;
   margin-right: 5px;

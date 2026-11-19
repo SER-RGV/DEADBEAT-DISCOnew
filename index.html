@@ -820,6 +820,40 @@ body.dd-highres-edition #ddc-cover {
   padding: 20px 24px;
   align-items: center;
   overflow-y: auto;
+  /* PASE VISUAL · a 1024x600 y 800x600 la lista de los nueve círculos (543 px)
+     desbordaba el cuerpo del mapa (465 px) y las últimas filas quedaban cortadas
+     por el borde de la ventana. Las pistas del grid no podían encogerse
+     (`min-height:auto` por defecto), así que el hijo desbordaba en lugar de
+     repartir el alto. Ahora el grid permite encoger y la lista tiene su propio
+     scroll, de modo que las diez filas siempre son alcanzables. */
+  min-height: 0;
+  align-items: start;
+}
+.dd-map-body > * { min-height: 0; }
+.dd-circles-list { max-height: 100%; overflow-y: auto; padding-right: 6px; }
+.dd-tower-art-wrap { max-height: 100%; overflow: hidden; }
+.dd-tower-art-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; height: auto; }
+
+/* Pantallas bajas: el mapa se compacta antes que recortarse. */
+@media (max-height: 720px) {
+  .dd-map-body { padding: 12px 18px; gap: 14px; }
+  .dd-circle-node { padding: 5px 10px; }
+  .dd-circles-list { gap: 5px; }
+}
+/* Ventanas estrechas: una sola columna (la torre arriba, la lista debajo). */
+@media (max-width: 860px) {
+  .dd-map-body { grid-template-columns: 1fr; align-content: start; }
+  .dd-tower-art-wrap { max-height: 34vh; justify-self: center; }
+  /* En una sola columna la lista NO puede llevar max-height:100%: sin alto
+     definido para su fila eso resuelve a 0 px y desaparecía. Deja que sea el
+     cuerpo del mapa el que haga scroll. */
+  .dd-circles-list { max-height: none; overflow: visible; }
+}
+/* El marco de la torre declara min-height:430px para el encuadre de escritorio;
+   en pantallas bajas o estrechas eso empuja la lista fuera de la ventana, así
+   que ahí manda el contenido. Especificidad mayor para no depender del orden. */
+@media (max-height: 720px), (max-width: 860px) {
+  .dd-map-body .dd-tower-art-wrap { min-height: 0; }
 }
 .dd-tower-art-wrap {
   background: radial-gradient(circle at 50% 50%, rgba(255, 45, 122, 0.24), rgba(5, 2, 10, 0.96) 75%);
@@ -1605,7 +1639,9 @@ body.dd-booting {
   border-bottom-width: 2px;
   border-radius: 3px;
   font-family: inherit;
-  font-size: 10px;
+  /* PASE VISUAL · las teclas de la ayuda se encogían hasta 8,5 px en 1024x600 y
+     9,8 en 1280x720 (por debajo de lo legible sobre el fondo). Suelo de 11 px. */
+  font-size: max(11px, 1em);
   color: rgba(255, 255, 255, 0.82);
   background: rgba(6, 3, 12, 0.5);
 }
@@ -1702,7 +1738,8 @@ body.dd-booting {
 .dd-submenu-back kbd {
   margin-left: 5px;
   font-family: inherit;
-  font-size: 9px;
+  /* Mismo suelo de legibilidad que la ayuda del menú principal (era 9 px). */
+  font-size: 11px;
   padding: 1px 4px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 2px;
@@ -2332,7 +2369,7 @@ body:not([data-dd-state="playing"]) #dmo-v32-toggle-pill { display: none !import
   color: rgba(244, 236, 216, 0.7);
 }
 #dd-main-menu.dd-rs .dd-menu-hint kbd {
-  font: 700 0.85em/1 var(--rs-font) !important;
+  font: 700 max(11px, 0.92em)/1 var(--rs-font) !important;
   font-style: normal;
   padding: 3px 6px;
   margin-right: 5px;
@@ -16312,6 +16349,22 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
        El rectángulo real de la sala SÍ viene en la instantánea del motor
        (`roomRect`), y la posición del jugador también. Se usa eso. */
     var rect = (snap && snap.roomRect && snap.roomRect.w > 0 && snap.roomRect.h > 0) ? snap.roomRect : null;
+    var pos = snap && snap.player;
+    /* En el Refugio el motor no está en partida: la instantánea no trae sala
+       (`snap.running` es false), así que el recuadro se quedaba en «SIN
+       INCURSIÓN» dentro de una zona segura por la que se anda. El HUB sí publica
+       su planta y su posición (DD_HUB.getState), de modo que se dibuja la planta
+       del Refugio y no un mensaje de error. */
+    var inHub = !!(window.DD_HUB && window.DD_HUB.isActive && window.DD_HUB.isActive());
+    if (inHub) {
+      try {
+        var hub = window.DD_HUB.getState();
+        if (hub && hub.bounds) {
+          rect = { x: hub.bounds.x, y: hub.bounds.y, w: hub.bounds.w, h: hub.bounds.h };
+          pos = { x: hub.x, y: hub.y, aimAngle: 0 };
+        }
+      } catch (he) { /* se queda el rect null y cae al texto de abajo */ }
+    }
     if (!rect) {
       ctx.fillStyle = "rgba(148,163,184,0.62)";
       ctx.font = "600 11px Inter, sans-serif";
@@ -16319,9 +16372,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       ctx.fillText(snap && snap.running ? "SALA ACTUAL" : "SIN INCURSIÓN", w / 2, h / 2);
       return;
     }
-    var scale = Math.min(w / rect.w, h / rect.h) * 0.92;
+    /* Franja superior reservada para el rótulo del sitio; sin ella el texto se
+       montaba encima del borde de la planta. */
+    var topPad = inHub ? 14 : 0;
+    var scale = Math.min(w / rect.w, (h - topPad) / rect.h) * 0.92;
     ctx.save();
-    ctx.translate(w / 2, h / 2);
+    ctx.translate(w / 2, topPad + (h - topPad) / 2);
     var rw = rect.w * scale, rh = rect.h * scale;
     /* Suelo de la sala: da profundidad al recuadro (antes era un contorno hueco). */
     ctx.fillStyle = "rgba(255,45,122,0.07)";
@@ -16350,9 +16406,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         ctx.fillRect(dx - 3, dy - 3, 6, 6);
       }
     }
-    if (snap && snap.player) {
-      var px = (snap.player.x - rect.x - rect.w / 2) * scale;
-      var py = (snap.player.y - rect.y - rect.h / 2) * scale;
+    if (pos) {
+      var px = (pos.x - rect.x - rect.w / 2) * scale;
+      var py = (pos.y - rect.y - rect.h / 2) * scale;
       ctx.fillStyle = "rgba(34,211,238,0.22)";
       ctx.beginPath(); ctx.arc(px, py, 10, 0, Math.PI * 2); ctx.fill();
       ctx.fillStyle = "#22d3ee";
@@ -16360,7 +16416,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       ctx.arc(px, py, 4, 0, Math.PI * 2);
       ctx.fill();
       /* Rumbo del arma: el minimapa también dice hacia dónde miras. */
-      var ang = snap.player.aimAngle || 0;
+      var ang = pos.aimAngle || 0;
       ctx.strokeStyle = "#22d3ee";
       ctx.lineWidth = 2;
       ctx.beginPath();
@@ -16369,6 +16425,12 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       ctx.stroke();
     }
     ctx.restore();
+    if (inHub) {
+      ctx.fillStyle = "rgba(255,45,122,0.9)";
+      ctx.font = "700 9px Inter, sans-serif";
+      ctx.textAlign = "left";
+      ctx.fillText("EL REFUGIO", 6, 11);
+    }
   }
 
   /* ================================ F. TICK =============================== */
