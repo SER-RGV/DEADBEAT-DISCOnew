@@ -580,6 +580,138 @@
       : ((player && player.aimAngle) || 0);
   }
 
+  // Memoria estrictamente visual. Lee señales ya producidas por el motor y no
+  // escribe en física, estados, tiempos de combate ni datos de partida.
+  const PLAYER_OUTFIT_ACTION_MEMORY = new WeakMap();
+  const PLAYER_OUTFIT_BLEND_MEMORY = new WeakMap();
+  function playerOutfitActionMemory(pAnim) {
+    if (!pAnim || typeof pAnim !== "object") return { shotAge: Infinity, releaseAge: Infinity };
+    let m = PLAYER_OUTFIT_ACTION_MEMORY.get(pAnim);
+    const now = Number(pAnim.totalTime) || 0;
+    const serial = Number(pAnim.lastShotSerial) || 0;
+    const charge = Number(pAnim.chargeT) || 0;
+    if (!m) {
+      m = { shotSerial: serial, shotAt: -Infinity, lastCharge: charge,
+        releaseAt: -Infinity, lastState: pAnim.state || "idle", stateAt: now };
+      PLAYER_OUTFIT_ACTION_MEMORY.set(pAnim, m);
+    } else {
+      if (serial !== m.shotSerial) { m.shotSerial = serial; m.shotAt = now; }
+      if (m.lastCharge > 0.58 && charge < 0.18) m.releaseAt = now;
+      if ((pAnim.state || "idle") !== m.lastState) {
+        m.lastState = pAnim.state || "idle";
+        m.stateAt = now;
+      }
+      m.lastCharge = charge;
+    }
+    m.shotAge = Math.max(0, now - m.shotAt);
+    m.releaseAge = Math.max(0, now - m.releaseAt);
+    return m;
+  }
+
+  function drawComicBurst(ctx, x, y, radius, color, phase) {
+    const turn = Number(phase) || 0;
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(turn * 0.14);
+    ctx.beginPath();
+    for (let i = 0; i < 16; i++) {
+      const a = i * Math.PI / 8;
+      const r = i % 2 ? radius * 0.48 : radius * (0.88 + (i % 4) * 0.035);
+      const px = Math.cos(a) * r, py = Math.sin(a) * r;
+      if (!i) ctx.moveTo(px, py); else ctx.lineTo(px, py);
+    }
+    ctx.closePath();
+    ctx.fillStyle = "rgba(13,10,18,0.9)";
+    ctx.fill();
+    ctx.lineWidth = Math.max(1, radius * 0.075);
+    ctx.strokeStyle = color || "#ff2d7a";
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, 0, radius * 0.2, 0, Math.PI * 2);
+    ctx.fillStyle = "#fff4d6";
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawOutfitActionInk(ctx, player, pAnim, aimA, scale) {
+    if (!player || !pAnim) return;
+    const state = pAnim.state || "idle";
+    const t = Number(pAnim.stateTime) || 0;
+    const charge = Math.max(0, Math.min(1, Number(pAnim.chargeT) || 0));
+    const m = playerOutfitActionMemory(pAnim);
+    const cx = player.x, cy = player.y;
+    const accent = "#ff2d7a", secondary = "#22d3ee";
+
+    // Shot: brief, high-contrast muzzle punctuation and ink recoil strokes.
+    if (m.shotAge < 0.12) {
+      const k = 1 - m.shotAge / 0.12;
+      const mx = cx + Math.cos(aimA) * 37 * scale;
+      const my = cy - 59 * scale + Math.sin(aimA) * 24 * scale;
+      drawComicBurst(ctx, mx, my, (9 + 12 * k) * scale, "#fff2be", m.shotSerial);
+      ctx.save();
+      ctx.globalAlpha = 0.78 * k;
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = 2.1 * scale;
+      ctx.lineCap = "round";
+      for (let i = -1; i <= 1; i++) {
+        const ox = -Math.cos(aimA) * (18 + Math.abs(i) * 5) * scale + i * 5 * scale;
+        const oy = -Math.sin(aimA) * (18 + Math.abs(i) * 5) * scale + i * 5 * scale;
+        ctx.beginPath(); ctx.moveTo(mx + ox, my + oy);
+        ctx.lineTo(mx + ox - Math.cos(aimA) * (8 + 5 * k) * scale,
+          my + oy - Math.sin(aimA) * (8 + 5 * k) * scale); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // Bow/staff draw: orbiting segmented ink arcs rise with charge, then snap on release.
+    if (state === "charged" && charge > 0.08) {
+      const r = (22 + charge * 24) * scale;
+      ctx.save();
+      ctx.globalAlpha = 0.34 + charge * 0.46;
+      ctx.lineWidth = (1.4 + charge * 1.7) * scale;
+      ctx.strokeStyle = charge > 0.82 ? "#fff2be" : secondary;
+      ctx.setLineDash([5 * scale, 4 * scale]);
+      ctx.beginPath(); ctx.arc(cx, cy - 57 * scale, r, -2.55, 1.2 + charge * 1.7); ctx.stroke();
+      ctx.setLineDash([]);
+      for (let i = 0; i < 6; i++) {
+        const a = i * Math.PI / 3 + (Number(pAnim.totalTime) || 0) * 2.4;
+        const r1 = r + 2 * scale, r2 = r + (5 + charge * 5) * scale;
+        ctx.beginPath(); ctx.moveTo(cx + Math.cos(a) * r1, cy - 57 * scale + Math.sin(a) * r1);
+        ctx.lineTo(cx + Math.cos(a) * r2, cy - 57 * scale + Math.sin(a) * r2); ctx.stroke();
+      }
+      ctx.restore();
+    }
+    if (m.releaseAge < 0.14) {
+      const k = 1 - m.releaseAge / 0.14;
+      drawComicBurst(ctx, cx + Math.cos(aimA) * 35 * scale,
+        cy - 57 * scale + Math.sin(aimA) * 20 * scale, (13 + 18 * k) * scale, secondary, 3);
+    }
+
+    // Ability: crouched outfit frame plus a stamped floor-burst and rising streaks.
+    if (state === "ability" && t < 0.3) {
+      const k = Math.max(0, 1 - t / 0.3);
+      drawComicBurst(ctx, cx, cy + 8 * scale, (14 + 19 * k) * scale, secondary, 5);
+      ctx.save(); ctx.globalAlpha = 0.72 * k; ctx.strokeStyle = accent;
+      ctx.lineWidth = 2.2 * scale; ctx.lineCap = "round";
+      for (let i = -2; i <= 2; i++) {
+        const x = cx + i * 7 * scale;
+        ctx.beginPath(); ctx.moveTo(x, cy + 5 * scale);
+        ctx.lineTo(x - i * 3 * scale, cy - (17 + (2 - Math.abs(i)) * 7) * scale); ctx.stroke();
+      }
+      ctx.restore();
+    }
+
+    // Hurt/death use the outfit's actual reaction/fall art, accented by comic ink.
+    if ((state === "hurt" || state === "stun") && t < 0.17) {
+      const k = 1 - t / 0.17;
+      drawComicBurst(ctx, cx - Math.cos(aimA) * 17 * scale, cy - 57 * scale,
+        (8 + 10 * k) * scale, accent, 2);
+    } else if (state === "death" && t < 0.24) {
+      const k = 1 - t / 0.24;
+      drawComicBurst(ctx, cx, cy - 24 * scale, (12 + 16 * k) * scale, accent, 4);
+    }
+  }
+
   /* Resuelve qué fotogramas se dibujan para el estado actual de la animación.
      `armed` = el jugador lleva arma a la vista (en sala; en el Refugio no). */
   function resolvePlayerPose(pAnim, aimA, armed) {
@@ -654,23 +786,48 @@
     if (knight && knight('idle')) {
       const moving = walking || fullWalk;
       pose.outfit = true; pose.outfitMoving = moving;
+      pose.lookId = appearance.current().id;
       const m = /^player_walk_0([0-3])$/.exec(lowerId);
       const step = m ? Number(m[1]) : 0;
       const legs = knight(step % 2 ? 'walk_a' : 'idle');
       if (upperId === 'player_roll_00') {
+        pose.outfitActionPose = 'roll';
         pose.upperImg = knight('roll'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
       } else if (upperId === 'player_death_00') {
+        pose.outfitActionPose = 'death';
         pose.upperImg = knight('death'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
       } else if (upperId === 'player_hurt_00') {
+        pose.outfitActionPose = 'hurt';
         pose.upperImg = knight('hurt'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
       } else if (armed) {
-        pose.upperImg = knight('aim'); pose.lowerImg = moving ? legs : pose.upperImg;
-        pose.split = moving; pose.fullWalk = false; pose.overlayImg = null;
+        const action = playerOutfitActionMemory(pAnim);
+        const state = pAnim && pAnim.state;
+        const charge = Number(pAnim && pAnim.chargeT) || 0;
+        let actionPose = 'aim';
+        let hideWeapon = false;
+        // Real outfit drawings, not motor-state aliases: anticipation briefly
+        // lowers the arms, firing uses the authored hurt/recoil silhouette, and
+        // ability starts from the authored compact roll pose before recovering.
+        if (state === 'charged' && charge < 0.2) { actionPose = 'idle'; hideWeapon = true; }
+        else if (state === 'shoot' && action.shotAge < 0.052) { actionPose = 'hurt'; hideWeapon = true; }
+        else if (state === 'ability' && Number(pAnim.abilityT) > 0.235) { actionPose = 'roll'; hideWeapon = true; }
+        pose.outfitActionPose = actionPose;
+        pose.upperImg = knight(actionPose) || knight('aim');
+        if (actionPose === 'roll') {
+          pose.lowerImg = pose.upperImg; pose.split = false; pose.fullWalk = false;
+        } else {
+          pose.lowerImg = moving ? legs : pose.upperImg;
+          pose.split = moving; pose.fullWalk = false;
+        }
+        pose.overlayImg = null;
         pose.beltU = pose.beltL = 0.48; pose.lift = 0;
         const look = appearance.current().id;
-        pose.hand = (look === 'gunslinger' || look === 'fightclub' || look === 'streetart') ? [0.95, 0.25] : (look === 'kitchenriot') ? [0.90, 0.27] : [0.91, 0.26];
+        pose.hand = hideWeapon ? null : ((look === 'gunslinger' || look === 'fightclub' || look === 'streetart') ? [0.95, 0.25] : (look === 'kitchenriot') ? [0.90, 0.27] : [0.91, 0.26]);
       } else {
-        pose.upperImg = moving ? legs : knight('idle'); pose.lowerImg = pose.upperImg;
+        const abilityStart = pAnim && pAnim.state === 'ability' && Number(pAnim.abilityT) > 0.235;
+        pose.outfitActionPose = abilityStart ? 'roll' : (moving ? (step % 2 ? 'walk_a' : 'idle') : 'idle');
+        pose.upperImg = abilityStart ? knight('roll') : (moving ? legs : knight('idle'));
+        pose.lowerImg = pose.upperImg;
         pose.split = false; pose.fullWalk = moving; pose.hand = null;
       }
     }
@@ -695,6 +852,31 @@
       x: (anchor[0] - 0.5) * targetW * (facingLeft ? -1 : 1),
       y: -targetH + PLAYER_FOOT_Y + (anchor[1] + pose.lift) * targetH
     };
+  }
+
+  function updateOutfitPoseBlend(pAnim, pose, facingLeft, targetHeight) {
+    if (!pAnim || typeof pAnim !== "object" || !pose || !pose.upperImg) return null;
+    const now = Number(pAnim.totalTime) || 0;
+    const token = [pose.lookId || "original", pAnim.state || "idle", pose.outfitActionPose || "", pose.upperId || ""].join(":");
+    let m = PLAYER_OUTFIT_BLEND_MEMORY.get(pAnim);
+    if (!m) {
+      m = { token, image: pose.upperImg, height: targetHeight, facingLeft, fromImage: null, fromHeight: targetHeight, started: now, fromFacingLeft: facingLeft };
+      PLAYER_OUTFIT_BLEND_MEMORY.set(pAnim, m);
+      return null;
+    }
+    if ((token !== m.token || facingLeft !== m.facingLeft) && m.image) {
+      m.fromImage = m.image;
+      m.fromHeight = m.height;
+      m.fromFacingLeft = m.facingLeft;
+      m.started = now;
+    }
+    m.token = token;
+    m.image = pose.upperImg;
+    m.height = targetHeight;
+    m.facingLeft = facingLeft;
+    const progress = Math.max(0, Math.min(1, (now - m.started) / 0.105));
+    if (progress >= 1) m.fromImage = null;
+    return m.fromImage ? { image: m.fromImage, height: m.fromHeight, facingLeft: m.fromFacingLeft, progress } : null;
   }
 
   function drawProtagonist(ctx, player, pAnim, drawWeaponLayerFn, shieldVal, raveTimer, scaleVal) {
@@ -741,11 +923,24 @@
     // Sólo los acentos de la figura reciben la paleta; armas y mundo no.
     const recolor = function (im) { return window.DD_APPEARANCE ? window.DD_APPEARANCE.recolor(im) : im; };
 
-    const targetH = (isDeath ? PLAYER_DEATH_H : (isRoll ? PLAYER_ROLL_H : PLAYER_BASE_H)) * scl;
+    const outfitRollAction = !!(pose.outfit && pose.outfitActionPose === 'roll' && !isRoll);
+    const targetH = (isDeath ? PLAYER_DEATH_H : (isRoll || outfitRollAction ? PLAYER_ROLL_H : PLAYER_BASE_H)) * scl;
     const widthOf = function (img) {
       return targetH * (img.naturalWidth / Math.max(1, img.naturalHeight));
     };
     const drawY = -targetH + PLAYER_FOOT_Y;
+    const poseBlend = pose.outfit ? updateOutfitPoseBlend(pAnim, pose, facingLeft, targetH) : null;
+    if (poseBlend && poseBlend.progress < 1) {
+      ctx.save();
+      if (poseBlend.facingLeft !== facingLeft) ctx.scale(-1, 1);
+      ctx.globalAlpha = 1 - poseBlend.progress;
+      const fromH = poseBlend.height || targetH;
+      const fromW = fromH * (poseBlend.image.naturalWidth / Math.max(1, poseBlend.image.naturalHeight));
+      ctx.drawImage(recolor(poseBlend.image), -fromW * 0.5, -fromH + PLAYER_FOOT_Y, fromW, fromH);
+      ctx.restore();
+    }
+    ctx.save();
+    ctx.globalAlpha = poseBlend ? poseBlend.progress : 1;
 
     if (isRoll) {
       // Bola en voltereta: gira alrededor del centro del lienzo mientras dura la esquiva.
@@ -771,11 +966,13 @@
         const stride = (pAnim && isFinite(pAnim.stridePhase)) ? pAnim.stridePhase
           : (typeof performance !== 'undefined' ? performance.now() / 230 : 0);
         if (pose.outfitMoving) {
-          microRoll = Math.sin(stride * Math.PI) * 0.012;
-          microSway = Math.sin(stride * Math.PI) * 0.9;
+          microRoll = Math.sin(stride * Math.PI) * 0.018;
+          microSway = Math.sin(stride * Math.PI) * 1.25;
         } else {
-          microRoll = Math.sin(breathe * 0.85) * 0.006;
-          microSway = Math.sin(breathe * 0.42) * 0.55;
+          // One slow breath cycle rides on the authored idle pose; deliberately
+          // tiny so it adds attitude without turning the figure into a hinge.
+          microRoll = Math.sin(breathe * 0.85) * 0.009;
+          microSway = Math.sin(breathe * 0.42) * 0.8;
         }
       }
       if (!isDeath) ctx.rotate(lean * 0.55 + microRoll);
@@ -808,7 +1005,8 @@
         ctx.drawImage(recolor(upperImg), -w * 0.5, drawY, w, targetH);
       }
     }
-    ctx.restore();
+    ctx.restore(); // cuerpo actual, alpha de transición
+    ctx.restore(); // orientación local del protagonista
 
     if (carriesWeapon) {
       ctx.save();
@@ -825,6 +1023,7 @@
     }
 
     ctx.restore();
+    if (pose.outfit) drawOutfitActionInk(ctx, player, pAnim, aimA, scl);
     return true;
   }
 

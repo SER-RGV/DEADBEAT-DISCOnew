@@ -201,8 +201,8 @@ async function fresh(page, id) {
       });
       assert.strictEqual(ability.anim.state,'ability',`${id} ability state ${ability.anim.state}`);
       assert.strictEqual(ability.anim.upperPose,'player_boost');
-      assertOutfitAsset(ability.frame,id,'aim');
-      results[id].states.HABILIDAD = 'PASS (real boost action; existing armed fallback aim.png)';
+      assertOutfitAsset(ability.frame,id,'roll');
+      results[id].states.HABILIDAD = 'PASS (real boost action; outfit roll.png activation pose in FASE 04)';
 
       await page.evaluate(() => __DD_BRIDGE.testStep({}, 35));
       const hurt = await page.evaluate(() => {
