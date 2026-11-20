@@ -1814,7 +1814,8 @@
 
   function refreshAppearancePortraits() {
     var api = window.DD_APPEARANCE;
-    var src = api && api.hudPreview ? api.hudPreview(api.current().id) : assetSrc('hud_portrait_protagonist');
+    var current = api && api.current ? api.current() : null;
+    var src = api && api.hudPreview && current ? api.hudPreview(current.id) : assetSrc('hud_portrait_protagonist');
     if (!src) return;
     ['dd-hud-portrait', 'dd-player-dialogue-portrait'].forEach(function(id) {
       var node = el(id);
@@ -1822,7 +1823,9 @@
     });
   }
 
-  function showDialogue(speaker, text, durationSec, source) {
+  // portraitId supports named HUB portraits; source distinguishes direct UI
+  // messages from engine subtitles without breaking the public four-arg API.
+  function showDialogue(speaker, text, durationSec, portraitId, source) {
     buildDOM();
     if (!text) return;
     var box = el("dd-dialogue-box");
@@ -1830,16 +1833,24 @@
     var txt = el("dd-dj-text");
     var portrait = el("dd-tempo-portrait-wrap");
     var playerPortrait = el("dd-player-portrait-wrap");
+    var img = el("dd-dj-portrait");
     if (spk) { spk.textContent = speaker || ""; spk.hidden = !speaker; }
-    // Sólo asignar retratos a emisores inequívocos, nunca a avisos o residentes.
     var name = String(speaker || '').trim().toUpperCase();
     var isTempo = name === "TEMPO";
     var isPlayer = name === "PROTAGONISTA" || name === "JUGADOR" || name === "PLAYER";
-    if (portrait) portrait.hidden = !isTempo;
+    var hasNamedPortrait = !!portraitId && portraitId !== "engine";
+    if (portrait) portrait.hidden = !(isTempo || hasNamedPortrait);
     if (playerPortrait) playerPortrait.hidden = !isPlayer;
     if (isPlayer) refreshAppearancePortraits();
+    if (img) {
+      var src = assetSrc(hasNamedPortrait ? portraitId : "dialogue_portrait_dj");
+      if (src) img.src = src;
+    }
     if (txt) txt.textContent = text;
-    if (box) { box.classList.toggle("dd-dialogue-no-portrait", !isTempo && !isPlayer); box.classList.remove("dd-hidden"); }
+    if (box) {
+      box.classList.toggle("dd-dialogue-no-portrait", !isTempo && !isPlayer && !hasNamedPortrait);
+      box.classList.remove("dd-hidden");
+    }
     uiState.dialogueSource = source === "engine" ? "engine" : "direct";
     uiState.dialogueTimer = source === "engine" ? 0 : (durationSec || 4.2);
   }
@@ -1967,7 +1978,7 @@
       var signature = JSON.stringify([who, txt]);
       if (signature !== uiState.lastSubsText || uiState.dialogueSource !== "engine") {
         uiState.lastSubsText = signature;
-        showDialogue(who, txt, 0, "engine");
+        showDialogue(who, txt, 0, null, "engine");
       }
     } else {
       uiState.lastSubsText = "";

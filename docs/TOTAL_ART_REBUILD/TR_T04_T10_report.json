@@ -1,0 +1,29 @@
+{
+  "tanda": "TR_T04–T10",
+  "fecha": "2026-11-15",
+  "fase": "FASE 3–5 · Círculos III–IX · suelos y muros clave (regeneración clase B)",
+  "rama": "arena/7e0496dc-deadbeat-disconew",
+  "assets": [
+    {"id": "floor_03_greed_slate_gold", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "floor_04_wrath_burgundy", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "wall_wrath_furnace", "accion": "regenerado (mismo ID/ruta; lo comparten Ira y Violencia en CIRCLE_CONFIG)", "size": [256, 384]},
+    {"id": "floor_05_pride_obsidian_gold", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "floor_06_violence_ash_slabs", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "floor_07_envy_travertine", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "floor_08_ice_abyssal", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "wall_ice_glacier", "accion": "regenerado (mismo ID/ruta)", "size": [256, 384]},
+    {"id": "floor_09_core_cosmic_vein", "accion": "regenerado (mismo ID/ruta)", "size": [512, 512]},
+    {"id": "prop_barrel_infernal", "accion": "regenerado (mismo ID/ruta)", "size": [224, 256]}
+  ],
+  "verificacion_ejecutada": [
+    "pipeline alpha checks OK; strip de los 7 suelos inspeccionado (identidad distinta por círculo)",
+    "rebuild_registry aditivo OK (271 entradas)",
+    "build activo regenerado OK",
+    "Navegador real: integridad 271/271 pass, 0 errores (ART_EVIDENCE/TOTAL_REBUILD/qa_run_report.json)"
+  ],
+  "pendiente": [
+    "Aparición en sala de cada círculo (requiere jugar piso requerido); captura in-situ pendiente",
+    "Muros: wall_gula_banquet (III reusa con matiz dorado), wall_panel_heavy_base (Herejía), wall_panel_vip_window (Fraude), wall_core_monolith (Núcleo) — sin regenerar aún (límite 10 imágenes/turno)",
+    "Props firma por círculo y FX de fase de jefe: no producidos aún"
+  ]
+}
