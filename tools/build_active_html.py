@@ -16,6 +16,12 @@ ORIG_PATH = os.path.join(ROOT, "backups", "DEADBEAT_DISCO_v3.3_FLOORBAG_AUDITFIX
 with open(ORIG_PATH, "r", encoding="utf-8") as f:
     html = f.read()
 
+# El mismo grupo aloja disparo, botín y compras: su nombre accesible no debe
+# afirmar que siempre contiene tres variaciones de disparo.
+_choice_label = 'id="shot-choice-options" role="group" aria-label="Tres variaciones de disparo"'
+assert html.count(_choice_label) == 1
+html = html.replace(_choice_label, 'id="shot-choice-options" role="group" aria-label="Opciones disponibles"', 1)
+
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")
 if cf_idx > len(html) - 2000:
@@ -49,6 +55,60 @@ _ui_old = "a=y.currentTime+.005,t=x.vol"
 _ui_new = "a=y.currentTime+.005,t=x.vol*(window.DD_MENU_MIX?window.DD_MENU_MIX().ui:1)"
 assert html.count(_ui_old) == 1, "No se encuentra el volumen de los sonidos de interfaz"
 html = html.replace(_ui_old, _ui_new, 1)
+
+# Exponer la fase del reloj WebAudio del menú, sin alterar el secuenciador.
+# E es la siguiente subdivisión, C el número programado y R su duración.
+_beat_old = 'get playing(){return S},get ready(){return!!y}'
+_beat_new = ('get beatPhase(){if(!S||!y||y.state!=="running"||x.muted||x.vol<=0||(window.DD_MENU_MIX&&window.DD_MENU_MIX().music<=0))return null;'
+             'var z=(y.currentTime-(E-R*C))/.4;return((z%1)+1)%1},' + _beat_old)
+assert html.count(_beat_old) == 1, "No se encuentra el reloj musical del menú"
+html = html.replace(_beat_old, _beat_new, 1)
+
+# El módulo de animación legado disparaba la pose de habilidad ANTES de saber
+# si había cargas o si el motor aceptaba la acción. Conservamos los callbacks y
+# el resultado del motor; la pose sólo se activa si se consumió una carga real.
+for _fn, _call, _resource, _kind in (("tp", "origTp", "Tr", "bomb"), ("op", "origOp", "Sr", "boost")):
+    _old = ('      ' + _fn + ' = function () {\n'
+            '        pAnim.triggerAbility("' + _kind + '");\n'
+            '        return ' + _call + '.apply(this, arguments);\n'
+            '      };')
+    _new = ('      ' + _fn + ' = function () {\n'
+            '        const before = ' + _resource + ';\n'
+            '        const result = ' + _call + '.apply(this, arguments);\n'
+            '        if (' + _resource + ' < before) pAnim.triggerAbility("' + _kind + '");\n'
+            '        return result;\n'
+            '      };')
+    assert html.count(_old) == 1, "No se encuentra el hook de animación de " + _kind
+    html = html.replace(_old, _new, 1)
+
+# La invulnerabilidad `ke` también se activa al entrar en algunas salas y no
+# identifica por sí sola un impacto. Disparar hurt únicamente cuando el motor
+# consume un escudo o una vida evita falsos positivos y cubre ambos casos.
+_old = '''        if (this.stunT > 0) this.stunT = Math.max(0, this.stunT - clampedDt);'''
+_new = _old + '''
+        if (this.hurtT > 0) this.hurtT = Math.max(0, this.hurtT - clampedDt);'''
+assert html.count(_old) == 1
+html = html.replace(_old, _new, 1)
+_old = '''            } else if (typeof ke !== "undefined" && ke > 0.88) {
+              this.hurtT = ke;
+              desired = "hurt";'''
+_new = '''            } else if (this.hurtT > 0) {
+              desired = "hurt";'''
+assert html.count(_old) == 1
+html = html.replace(_old, _new, 1)
+_old = '''    // Hook into weapon switch Kh, interact Jh, bomb tp, boost op'''
+_new = '''    // Sólo un impacto que consume protección o vida produce reacción visual.
+    const ddOriginalPlayerHit = wp;
+    wp = function () {
+      const livesBefore = ve, shieldsBefore = Ee;
+      const result = ddOriginalPlayerHit.apply(this, arguments);
+      if (ve < livesBefore || Ee < shieldsBefore) pAnim.hurtT = 0.16;
+      return result;
+    };
+
+''' + _old
+assert html.count(_old) == 1
+html = html.replace(_old, _new, 1)
 
 # 2. Inline the High-Res UI CSS into <head>.
 #    index.html is the OFFICIAL SINGLE-FILE BUILD: it must keep working even when only
@@ -665,11 +725,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         maxHp: typeof Me === "number" ? Me : 100,
         shield: typeof Ee === "number" ? Ee : 0,
         rave: typeof De === "number" ? De : 0,
+        raveDuration: typeof Oe === "number" ? Oe : 0,
         raveMeter: typeof Re === "number" ? Re : 0,
         credits: Dt ? Dt.credits : 0,
         level: typeof tr === "number" ? tr : 1,
         bombs: typeof Tr === "number" ? Tr : 0,
         boosts: typeof Sr === "number" ? Sr : 0,
+        rollKey: zt && zt.key || "Space",
         weapon: wid,
         weaponName: wMeta.name || wid,
         owned: Dt && Array.isArray(Dt.owned) ? Dt.owned.slice() : [wid],
@@ -866,6 +928,31 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       if (window.DD_UI) window.DD_UI.tick(0.016);
     };
 
+    // The HD map/armory own gamepad navigation while open. Clear engine pad
+    // state and require neutral on return so a closing B/A cannot also dodge or
+    // interact in combat. Native engine dialogs retain their own input path.
+    const ddOriginalGamepadPoll = zu;
+    zu = function () {
+      if (window.DD_UI && window.DD_UI.isModalOpen && window.DD_UI.isModalOpen()) {
+        Pu(true);
+        return;
+      }
+      return ddOriginalGamepadPoll.apply(this, arguments);
+    };
+
+    // fp is the engine's single end-of-run path (death, surrender and victory).
+    // Let it finish rewards, persistence and summary before presenting the UI.
+    const ddOriginalEndRun = fp;
+    fp = function () {
+      const result = ddOriginalEndRun.apply(this, arguments);
+      try {
+        if (window.DD_UI && window.DD_UI.showResults) {
+          window.DD_UI.showResults(pr, Nn ? Nn.textContent : "");
+        }
+      } catch (e) { console.warn("[DD_UI] no se pudieron mostrar los resultados", e); }
+      return result;
+    };
+
     window.__DD_BRIDGE = Object.freeze({
       isRunning: function () { return !!U; },
       startRun: function () {
@@ -877,6 +964,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return !!U;
       },
       getSnapshot: buildSnapshot,
+      getCircles: function () {
+        return Array.isArray(Ue) ? Ue.map((c, index) => ({ index: index, name: c.name, place: c.sala, final: !!c.final, bpm: c.bpm, accent: c.accent })) : [];
+      },
       // Silent engine pause for the HUB safe zone: freezes Tf() simulation and
       // ducks the DJ while the player walks the Refugio, without opening the
       // legacy pause overlay. rp() (startRun) clears it on descent.
@@ -908,7 +998,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         }
       },
       getWeaponsList: function () {
-        return (w.weaponRig && typeof w.weaponRig.catalog === "function") ? w.weaponRig.catalog() : [];
+        const catalog = (w.weaponRig && typeof w.weaponRig.catalog === "function") ? w.weaponRig.catalog() : [];
+        // The rig catalogue describes artwork; prices and names belong to the
+        // playable engine catalogue. Do not manufacture prices for missing IDs.
+        return catalog.filter(item => item && ja && ja[item.id]).map(item => {
+          const meta = ja[item.id];
+          return Object.assign({}, item, { name: meta.name || item.name, category: item.family || "OTRAS", price: meta.cost });
+        });
       },
       /* QA: actores vivos con la vista de arte que el puente entrega a DD_WORLD
          (familia, estado, orientación) y los proyectiles. Sólo lectura. */
@@ -1030,11 +1126,11 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return {
           id: wid,
           name: meta.name || wid,
-          cost: meta.cost || 120,
-          damage: meta.damage || 25,
-          fireRate: meta.fireRate || 4,
-          speed: meta.speed || 500,
-          pellets: meta.pellets || 1,
+          cost: meta.cost,
+          damage: meta.damage,
+          fireRate: meta.fireRate,
+          speed: meta.speed,
+          pellets: meta.pellets,
           pierce: meta.pierce || 0,
           role: meta.role || "",
           trait: traitObj.trait || ""
@@ -1043,14 +1139,16 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       buyOrEquipWeapon: function (wid, freePreview) {
         if (!ja || !ja[wid]) return false;
         const alreadyOwned = Dt.owned.includes(wid);
-        const cost = ja[wid].cost || 120;
-        if (!alreadyOwned && !freePreview) {
-          if (Dt.credits < cost) return false;
-          Dt.credits -= cost;
-        }
-        if (!alreadyOwned && Dt.owned.length >= 2) {
-          const curIdx = Dt.owned.indexOf(Yo.weapon);
-          Dt.owned[curIdx >= 0 ? curIdx : 1] = wid;
+        if (!alreadyOwned) {
+          // Purchases during a run belong to the engine's station/loot flow,
+          // which owns pricing, inventory limits and replacement confirmation.
+          // This bridge must never debit credits or replace a run weapon itself.
+          const preview = !U && freePreview === true && window.DD_HUB && window.DD_HUB.isActive();
+          if (!preview) return false;
+          if (Dt.owned.length >= 2) {
+            const curIdx = Dt.owned.indexOf(Yo.weapon);
+            Dt.owned[curIdx >= 0 ? curIdx : 1] = wid;
+          }
         }
         return cd(wid, false);
       },
@@ -1155,6 +1253,7 @@ MODULE_ORDER = (
     # orquesta (oculta el menú, corre la intro canónica y le da el foco).
     "dd_boot.js",
     "dd_asset_registry.js",
+    "dd_appearance.js",
     "dd_world_renderer.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",

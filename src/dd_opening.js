@@ -31,11 +31,12 @@
     boots: BASE + "op_05a_boots.jpg",
     pit: BASE + "mc_07_pit.jpg",
     hat: BASE + "op_hat.png",
-    /* El protagonista sólo aparece con arte canónico: la lámina maestra y el IDLE aceptado. */
+    /* La pose de espalda es específica del descenso; el Refugio usa el idle. */
     master: MASTER + "protagonist_master_crop_hero.png",
     marm: MASTER + "protagonist_master_crop_arm_tattoos.png",
     mface: MASTER + "protagonist_master_crop_face.png",
     hero: "assets/characters/protagonist_master/fidelidad/pm_idle_fid_00.png",
+    descentHero: "assets/characters/protagonist_master/descent/pm_descent_back.png",
     logo: "assets/logos/logo_deadbeat_graffiti.png"
   };
 
@@ -519,7 +520,23 @@
     flash(t, late, 0.12, "#fff", 0.6);
   }
 
-  /* Pozo visto de lado: plataforma, cadenas y el IDLE aceptado (07B). Lo usan la
+  /* Articulación sencilla con el arte existente: la mitad inferior permanece
+     anclada a la plataforma y el torso reacciona al balanceo. No son nuevos
+     fotogramas dibujados; el corte solapado conserva la continuidad de cintura. */
+  function drawShaftHero(hero, x, y, w, h, t, intensity) {
+    var cut = 0.55, overlap = 0.012;
+    var lowerY = hero.naturalHeight * (cut - overlap);
+    cx.drawImage(hero, 0, lowerY, hero.naturalWidth, hero.naturalHeight - lowerY,
+      x, y + h * (cut - overlap), w, h * (1 - cut + overlap));
+    cx.save();
+    cx.translate(x + w * 0.49, y + h * cut);
+    cx.rotate(reduced ? 0 : (Math.sin(t * 3.1) * 0.085 + Math.sin(t * 7.1) * 0.025) * intensity);
+    cx.drawImage(hero, 0, 0, hero.naturalWidth, hero.naturalHeight * cut,
+      -w * 0.49, -h * cut, w, h * cut);
+    cx.restore();
+  }
+
+  /* Pozo visto de lado: plataforma, cadenas y protagonista de espaldas. Lo usan la
      intro (inicio de la caída) y NUEVA PARTIDA (el resto del descenso).
      scroll: avance por la torre (0–1); hatP: -1 sin sombrero, 0–1 desprendiéndose. */
   function shaftSide(t, scroll, speed, platFy, hatP, shx, shy) {
@@ -551,8 +568,7 @@
       cx.restore();
     }
     /* La plataforma cuelga de cadenas: se balancea como un péndulo y da tirones.
-       El personaje va rígido con ella (traslación, escala uniforme y un giro
-       pequeño de todo el conjunto); su dibujo no se deforma. */
+       El torso del personaje reacciona independientemente, con pies anclados. */
     var live = reduced ? 0 : speed;
     var sway = Math.sin(t * 2.3) * 0.05 * live + Math.sin(t * 7.1) * 0.01 * live;
     var jolt = Math.exp(-((t * 1.25) % 1) * 7) * live;                         /* tirón de cadena, periódico */
@@ -571,12 +587,13 @@
     cx.strokeStyle = C.ink; cx.lineWidth = Math.max(3, 8 * U); cx.beginPath(); cx.ellipse(pxm, pym, pr, pr * 0.25, 0, 0, Math.PI * 2); cx.stroke();
     /* En cada tirón los pies se despegan un instante de la plataforma. */
     var hh = H * 0.46, hw = hh * 288 / 512, hx = pxm - hw * 0.49, hy = pym - hh * (504 / 512) + pr * 0.02 - jolt * H * 0.016;
-    if (ok(img.hero)) {
+    var shaftHero = ok(img.descentHero) ? img.descentHero : img.hero;
+    if (ok(shaftHero)) {
       if (live > 0.05) {                                                       /* estela: copias enteras, más arriba */
-        for (var gI = 3; gI >= 1; gI--) { cx.globalAlpha = 0.2 * live * (4 - gI) / 3; cx.drawImage(img.hero, hx, hy - gI * H * 0.026 * live, hw, hh); }
+        for (var gI = 3; gI >= 1; gI--) { cx.globalAlpha = 0.2 * live * (4 - gI) / 3; cx.drawImage(shaftHero, hx, hy - gI * H * 0.026 * live, hw, hh); }
         cx.globalAlpha = 1;
       }
-      cx.drawImage(img.hero, hx, hy, hw, hh);
+      drawShaftHero(shaftHero, hx, hy, hw, hh, t, live);
       if (live > 0.05) {                                                       /* trazos de viento a los lados del cuerpo */
         cx.strokeStyle = "rgba(244,236,216,0.8)"; cx.lineWidth = Math.max(1.5, 3 * U); cx.lineCap = "round";
         for (var wI = 0; wI < 8; wI++) {
@@ -973,8 +990,12 @@
     /* Primero se avisa (el menú o el Refugio se colocan debajo) y después el
        lienzo se funde: nunca se pasa por negro. */
     if (typeof s.onDone === "function") { try { s.onDone(why); } catch (e) { console.warn("[DD_OPENING] onDone", e); } }
-    cv.classList.add("is-out");
-    setTimeout(function () { if (!seq && cv) cv.classList.remove("is-on", "is-out"); }, reduced ? 60 : 620);
+    // El callback puede encadenar otra secuencia en este mismo lienzo.
+    // No lo desvanezcas ni lo retires si la siguiente ya ha comenzado.
+    if (!seq) {
+      cv.classList.add("is-out");
+      setTimeout(function () { if (!seq && cv) cv.classList.remove("is-on", "is-out"); }, reduced ? 60 : 620);
+    }
   }
   var lastEnd = null;
 

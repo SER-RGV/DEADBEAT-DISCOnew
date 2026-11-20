@@ -265,6 +265,17 @@ body.dd-highres-edition #ddc-cover {
   border-color: rgba(34, 211, 238, 0.65);
   color: var(--dd-neon-cyan);
 }
+.dd-badge-shield {
+  white-space: nowrap;
+  color: #a9f6ff;
+  border: 1px solid rgba(34, 211, 238, .65);
+  border-radius: 6px;
+  padding: 2px 6px;
+  font-size: 11px;
+  font-weight: 800;
+  background: rgba(8, 4, 15, .9);
+}
+.dd-hud-hype-label { color: #fde68a; font-size: 10px; font-weight: 800; line-height: 1; letter-spacing: .06em; }
 .dd-badge-cr img {
   width: 16px;
   height: 16px;
@@ -371,6 +382,7 @@ body.dd-highres-edition #ddc-cover {
 }
 .dd-minimap-box {
   position: relative;
+  padding: 0;
   width: 196px;
   height: 132px;
   background: linear-gradient(160deg, rgba(11, 6, 22, 0.94), rgba(6, 3, 13, 0.96));
@@ -381,6 +393,7 @@ body.dd-highres-edition #ddc-cover {
   pointer-events: auto;
   cursor: pointer;
 }
+.dd-minimap-box:focus-visible { outline: 3px solid #83f5f1; outline-offset: 3px; clip-path: none; }
 #dd-minimap-canvas {
   width: 100%;
   height: 100%;
@@ -463,7 +476,7 @@ body.dd-highres-edition #ddc-cover {
   opacity: 0;
   transform: translateX(-50%) translateY(18px);
 }
-.dd-dj-portrait-wrap {
+.dd-dj-portrait-wrap, .dd-player-portrait-wrap {
   width: 138px;
   height: 138px;
   flex: 0 0 138px;
@@ -473,7 +486,7 @@ body.dd-highres-edition #ddc-cover {
   overflow: hidden;
   z-index: 2;
 }
-.dd-dj-portrait-wrap img {
+.dd-dj-portrait-wrap img, .dd-player-portrait-wrap img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -506,7 +519,17 @@ body.dd-highres-edition #ddc-cover {
   line-height: 1.45;
   color: var(--dd-cream);
   font-weight: 500;
+  overflow-wrap: anywhere;
 }
+.dd-dialogue-no-portrait .dd-dj-speech { margin-left: 0; }
+body.dd-highres-edition:has(#dd-cine-overlay.active) #dd-dialogue-box,
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-dialogue-box,
+body.dd-highres-edition:has(#shot-choice-overlay.visible) #dd-dialogue-box,
+body.dd-highres-edition:has(#risk-choice-overlay.visible) #dd-dialogue-box,
+body.dd-highres-edition:has(#dd-shop-modal:not(.dd-hidden)) #dd-dialogue-box,
+body.dd-highres-edition:has(#dd-map-modal:not(.dd-hidden)) #dd-dialogue-box,
+body.dd-highres-edition:has(#dd-results:not(.dd-hidden)) #dd-dialogue-box,
+body.dd-highres-edition:has(#dd-main-menu:not(.dd-hidden)) #dd-dialogue-box { visibility: hidden; }
 
 /* ==========================================================================
    4. MODAL PANELS: INVENTARIO / TIENDA & MAPA DE PROGRESIÓN (REF_05)
@@ -1702,6 +1725,8 @@ body.dd-booting {
 }
 .dd-toggle:hover { border-color: var(--dd-coral); color: #fff; }
 .dd-opt-fixed { font-family: var(--dd-pixel); font-size: 11px; color: rgba(226, 232, 240, 0.5); text-align: right; }
+.dd-opt-note.dd-controls-copy { color: #cbd5e1; font-size: 12px; line-height: 1.6; }
+.dd-controls-copy strong { color: #f8ecf6; }
 .dd-opt-note {
   margin: 6px 0 10px;
   font-size: 11.5px;
@@ -2311,3 +2336,1036 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 /* Si el arranque falla, el logotipo cede sitio para que el aviso y sus dos
    botones quepan enteros en 1280×720. */
 #dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }
+
+/* UI audit · shared treatment for engine-owned combat dialogs.
+   These are the original controls and event handlers, not duplicate modals. */
+body.dd-highres-edition {
+  --dd-surface: #100b1c;
+  --dd-line: rgba(255, 80, 150, .55);
+  --dd-accent: #ff2d7a;
+  --dd-focus: #83f5f1;
+  --dd-text: #f8ecf6;
+}
+html body.dd-highres-edition :is(#pause-overlay, #shot-choice-overlay, #risk-choice-overlay) {
+  background: radial-gradient(ellipse at 50% 20%, rgba(91, 15, 62, .48), rgba(5, 4, 16, .97) 75%) !important;
+  color: var(--dd-text);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: max(16px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right)) max(16px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+}
+html body.dd-highres-edition :is(#pause-overlay, #shot-choice-overlay, #risk-choice-overlay) h2 {
+  color: var(--dd-text) !important;
+  font-size: clamp(22px, 3.5vw, 38px) !important;
+  text-shadow: 0 0 18px rgba(255, 45, 122, .5) !important;
+}
+html body.dd-highres-edition :is(#pause-overlay, #shot-choice-overlay, #risk-choice-overlay) button {
+  min-height: 44px;
+  border-radius: 3px !important;
+}
+html body.dd-highres-edition :is(#pause-overlay, #shot-choice-overlay, #risk-choice-overlay) :is(button, input, select):focus-visible,
+html body.dd-highres-edition :is(#dd-main-menu, #dd-submenu, #dd-shop-modal, #dd-map-modal) :is(button, input, select):focus-visible {
+  outline: 3px solid var(--dd-focus) !important;
+  outline-offset: 3px;
+}
+@media (max-height: 720px) {
+  html body.dd-highres-edition :is(#pause-overlay, #shot-choice-overlay, #risk-choice-overlay) {
+    justify-content: safe center;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu *, #dd-submenu *, #dd-shop-modal *, #dd-map-modal * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+
+/* Results: the engine owns end-of-run accounting; this is its presentation. */
+#dd-results {
+  position: fixed; inset: 0; z-index: 17500; overflow-y: auto;
+  display: grid; place-items: safe center;
+  padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right)) max(24px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
+  color: #f8ecf6; background: radial-gradient(ellipse at 75% 15%, rgba(100, 17, 72, .5), transparent 50%), linear-gradient(135deg, #090610, #160a20 70%, #080711);
+  font-family: 'Barlow Condensed', system-ui, sans-serif;
+}
+#dd-results.dd-hidden { display: none; }
+.dd-results-card { width: min(860px, 100%); padding: clamp(22px, 4vw, 46px); border: 1px solid rgba(255,80,150,.45); background: rgba(13, 8, 22, .93); box-shadow: 0 22px 80px #0009, inset 4px 0 #ff2d7a; }
+.dd-results-kicker { color: #ff82b2; font-size: 13px; font-weight: 700; letter-spacing: .18em; }
+#dd-results-title { margin: .22em 0 0; font-family: Bangers, DDPixel, sans-serif; font-size: clamp(42px, 7vw, 78px); line-height: 1; letter-spacing: .04em; color: #fff5f9; }
+.dd-results-lead { margin: 8px 0 25px; color: #c9b9ca; font-size: 19px; }
+.dd-results-stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 0 0 22px; }
+.dd-results-stats > div { padding: 14px; background: #211327; border-top: 2px solid #f63780; min-width: 0; }
+.dd-results-stats dt { color: #c9a4be; font-size: 12px; font-weight: 700; letter-spacing: .1em; }
+.dd-results-stats dd { margin: 5px 0 0; font-size: clamp(19px, 2.4vw, 30px); font-weight: 800; overflow-wrap: anywhere; }
+.dd-results-details { color: #d8c9da; border-top: 1px solid #ffffff24; border-bottom: 1px solid #ffffff24; padding: 12px 0; }
+.dd-results-details summary { cursor: pointer; font-weight: 700; }
+.dd-results-details pre { white-space: pre-wrap; overflow-wrap: anywhere; font: 15px/1.5 'Barlow Condensed', system-ui, sans-serif; max-height: 24vh; overflow-y: auto; }
+.dd-results-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+.dd-results-actions button { min-height: 48px; padding: 10px 24px; border: 1px solid #ff2d7a; background: #211126; color: #fff; font: 700 17px 'Barlow Condensed', system-ui, sans-serif; letter-spacing: .08em; cursor: pointer; }
+.dd-results-actions button:first-child { background: #ff2d7a; color: #10040e; }
+.dd-results-actions button:hover { filter: brightness(1.18); }
+#dd-results :is(button, summary):focus-visible, #dd-results .dd-selected { outline: 3px solid #83f5f1; outline-offset: 3px; }
+.dd-results-hint { color: #ba9eb2; font-size: 12px; letter-spacing: .08em; margin: 18px 0 0; }
+#dd-results-error { color: #ffb4ca; margin-bottom: 0; }
+@media (max-width: 600px) { .dd-results-stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dd-results-actions button { flex: 1 1 160px; } }
+
+/* Keep the pause surface readable without the combat HUD competing for focus.
+   The F9/Alt+D debug tool remains available; only its production badge is hidden. */
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-hud { visibility: hidden; }
+body.dd-highres-edition #dmo-v32-toggle-pill { display: none !important; }
+html body.dd-highres-edition #pause-overlay #pause-title {
+  font-family: Bangers, DDPixel, sans-serif !important;
+  font-size: clamp(34px, 4vw, 52px) !important;
+  letter-spacing: .08em !important;
+}
+html body.dd-highres-edition #pause-overlay :is(#resume-btn, #quit-btn) {
+  font-family: 'Barlow Condensed', system-ui, sans-serif !important;
+  font-size: 16px !important; font-weight: 700 !important; letter-spacing: .08em !important;
+}
+html body.dd-highres-edition #pause-overlay #audio-panel :is(.mix-row label, .mix-flags label) {
+  font-family: 'Barlow Condensed', system-ui, sans-serif !important;
+  font-size: 13px !important; letter-spacing: .07em !important;
+}
+
+/* Armory values are the engine's actual values, not invented percentage bars. */
+#dd-shop-modal .dd-stat-row { grid-template-columns: 1fr auto; gap: 12px; }
+#dd-shop-modal .dd-stat-row b { color: #f8ecf6; text-align: right; }
+#dd-shop-modal .dd-shop-note, #dd-shop-modal .dd-shop-feedback { margin: 0; color: #d7c6d4; font: 14px/1.3 'Barlow Condensed', system-ui, sans-serif; }
+#dd-shop-modal .dd-shop-feedback:empty { display: none; }
+#dd-shop-modal .dd-shop-inspector { min-height: 0; overflow-y: auto; }
+#dd-map-modal .dd-circles-list { max-height: min(66vh, 560px); min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 3px 8px 3px 3px; }
+#dd-map-modal .dd-circles-list:focus-visible { outline: 3px solid var(--dd-focus); outline-offset: 2px; }
+.dd-map-location { margin: 0 0 8px; color: #83f5f1; font-weight: 700; }
+@media (max-height: 700px) {
+  #dd-shop-modal .dd-shop-body { min-height: 0; }
+  #dd-shop-modal .dd-weapons-grid { max-height: 48vh; }
+  #dd-map-modal .dd-tower-art-wrap { min-height: 0; }
+  #dd-map-modal .dd-tower-art-wrap img { max-height: 55vh; }
+}
+#dd-map-modal .dd-map-location { position: sticky; top: -3px; z-index: 1; padding: 8px 4px; background: #10091c; }
+#dd-map-modal .dd-map-location small { float: right; color: #c6b7c9; font-size: 11px; }
+#dd-shop-modal .dd-shop-context { margin: 0 0 8px; color: #e7c8da; font: 700 12px/1.2 'Barlow Condensed', system-ui, sans-serif; letter-spacing: .06em; }
+/* During engine-owned choices, leave focus on the decision instead of the HUD. */
+body.dd-highres-edition:has(#shot-choice-overlay.visible) #dd-hud,
+body.dd-highres-edition:has(#risk-choice-overlay.visible) #dd-hud { visibility: hidden; }
+html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 {
+  font-family: Bangers, DDPixel, sans-serif !important;
+  font-weight: 400 !important;
+  letter-spacing: .08em !important;
+}
+
+/* Menú: la torre tiene pulso propio sin tapar la navegación. Capas decorativas
+   sin interacción; desactivamos el movimiento para quien lo haya solicitado. */
+#dd-main-menu.dd-rs .dd-menu-stage { position:absolute; inset:0; z-index:2; pointer-events:none; overflow:hidden; }
+#dd-main-menu.dd-rs .dd-menu-orbit { position:absolute; width:min(40vw,58vh); aspect-ratio:1; right:12%; top:14%; border:1px solid rgba(255,45,122,.3); border-radius:50%; box-shadow:0 0 45px rgba(255,45,122,.14), inset 0 0 40px rgba(34,211,238,.10); animation:dd-stage-breathe 6s ease-in-out infinite alternate; }
+#dd-main-menu.dd-rs .dd-menu-orbit::before, #dd-main-menu.dd-rs .dd-menu-orbit::after { content:""; position:absolute; inset:5%; border:1px dashed rgba(34,211,238,.3); border-radius:50%; animation:dd-stage-spin 34s linear infinite; }
+#dd-main-menu.dd-rs .dd-menu-orbit::after { inset:11%; border-style:solid; border-color:rgba(250,204,21,.18); animation-direction:reverse; animation-duration:45s; }
+#dd-main-menu.dd-rs .dd-menu-beam { position:absolute; inset:0; opacity:.2; background:linear-gradient(115deg,transparent 51%,rgba(34,211,238,.20) 52%,transparent 54%,transparent 70%,rgba(255,45,122,.28) 71%,transparent 73%); animation:dd-stage-beam 8s ease-in-out infinite alternate; }
+#dd-main-menu.dd-rs .dd-menu-eq { position:absolute; right:5%; bottom:7%; height:60px; width:min(31vw,420px); display:flex; align-items:end; gap:5px; opacity:.65; }
+#dd-main-menu.dd-rs .dd-menu-eq i { flex:1; height:45%; background:linear-gradient(to top,rgba(255,45,122,.8),rgba(250,204,21,.85)); transform-origin:bottom; animation:dd-stage-eq 1.7s ease-in-out infinite alternate; }
+#dd-main-menu.dd-rs .dd-menu-eq i:nth-child(3n) { height:90%; animation-delay:-.7s; animation-duration:2.1s; }
+#dd-main-menu.dd-rs .dd-menu-eq i:nth-child(3n+1) { height:65%; animation-delay:-1.1s; animation-duration:2.4s; background:linear-gradient(to top,rgba(34,211,238,.75),rgba(255,45,122,.8)); }
+#dd-main-menu.dd-rs .dd-menu-stage-label { position:absolute; right:5%; bottom:calc(7% + 70px); font:700 clamp(10px,1vw,14px) var(--dd-font-ui); letter-spacing:.24em; color:rgba(244,236,216,.78); text-shadow:0 2px 6px #07030d; }
+#dd-main-menu.dd-rs .dd-menu-stage-label span { color:#facc15; }
+@keyframes dd-stage-breathe { from { transform:scale(.96); opacity:.55; } to { transform:scale(1.04); opacity:1; } }
+@keyframes dd-stage-spin { to { transform:rotate(360deg); } }
+@keyframes dd-stage-beam { from { transform:translateX(-2%); opacity:.12; } to { transform:translateX(2%); opacity:.3; } }
+@keyframes dd-stage-eq { from { transform:scaleY(.25); opacity:.55; } to { transform:scaleY(1); opacity:.9; } }
+@media (max-width: 760px), (max-height: 420px) { #dd-main-menu.dd-rs .dd-menu-stage { display:none; } }
+@media (prefers-reduced-motion: reduce) { #dd-main-menu.dd-rs .dd-menu-orbit, #dd-main-menu.dd-rs .dd-menu-orbit::before, #dd-main-menu.dd-rs .dd-menu-orbit::after, #dd-main-menu.dd-rs .dd-menu-beam, #dd-main-menu.dd-rs .dd-menu-eq i { animation:none !important; } }
+
+/* Escenarios de navegación: un solo gestor y un solo contenedor de contenido. */
+#dd-main-menu.dd-rs .dd-main-hero { position:absolute; z-index:2; right:4%; bottom:-2%; height:min(90vh,850px); max-width:38vw; object-fit:contain; object-position:bottom; filter:drop-shadow(0 12px 22px #000b); pointer-events:none; animation:dd-scene-hero 6s ease-in-out infinite alternate; }
+#dd-main-menu.dd-rs .dd-menu-stage { opacity:.48; }
+#dd-main-menu.dd-rs .dd-menu-left { gap:clamp(6px,1.2vh,16px); }
+#dd-main-menu.dd-rs .dd-menu-nav { margin:0; gap:2px; }
+#dd-main-menu.dd-rs .dd-menu-btn { min-height:clamp(36px,6vh,58px); }
+@keyframes dd-scene-hero { from { transform:translateY(0); } to { transform:translateY(-6px); } }
+#dd-submenu[data-scene="play"], #dd-submenu[data-scene="customize"], #dd-submenu[data-scene="progression"], #dd-submenu[data-scene="options"], #dd-submenu[data-scene="extras"] { place-items:stretch; padding:0; overflow:hidden; background:#08030f; }
+#dd-submenu[data-scene="play"]::before, #dd-submenu[data-scene="customize"]::before, #dd-submenu[data-scene="progression"]::before, #dd-submenu[data-scene="options"]::before, #dd-submenu[data-scene="extras"]::before { content:""; position:absolute; inset:0; background:linear-gradient(90deg,rgba(5,2,10,.95),rgba(5,2,10,.82) 39%,rgba(5,2,10,.17) 78%),var(--scene-image) center/cover no-repeat; transform:scale(1.07); transition:transform .8s ease; }
+#dd-submenu.is-open::before { transform:scale(1); }
+#dd-submenu[data-scene="play"] { --scene-image:url('assets/cinematics/restart/opening/op_03_dancefloor.jpg'); }
+#dd-submenu[data-scene="customize"] { --scene-image:url('assets/ui/scenes/customize.jpg'); }
+#dd-submenu[data-scene="progression"] { --scene-image:url('assets/ui/scenes/progression.jpg'); }
+#dd-submenu[data-scene="options"] { --scene-image:url('assets/ui/scenes/options.jpg'); }
+#dd-submenu[data-scene="extras"] { --scene-image:url('assets/ui/scenes/extras.jpg'); }
+#dd-submenu[data-scene="customize"]::after { content:""; position:absolute; inset:5% 3% 0 auto; width:min(38vw,460px); background:url('assets/ui/scenes/hero.png') center bottom/contain no-repeat; pointer-events:none; filter:drop-shadow(0 10px 20px #000b); animation:dd-scene-hero 6s ease-in-out infinite alternate; }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { z-index:1; width:min(68vw,950px); max-height:100vh; height:100vh; border:0; border-radius:0; background:linear-gradient(90deg,rgba(7,3,13,.96),rgba(7,3,13,.8) 83%,transparent); box-shadow:none; transform:translateX(-25px); }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]).is-open .dd-submenu-card { transform:translateX(0); }
+#dd-submenu .dd-submenu-body { overscroll-behavior:contain; }
+.dd-scene-content { max-width:700px; font: 18px/1.5 'Barlow Condensed',sans-serif; color:#f8ecf6; }
+.dd-scene-content h3, .dd-scene-extras h3 { color:#facc15; font: 28px Bangers,sans-serif; letter-spacing:.06em; }
+.dd-scene-action { display:block; width:min(100%,380px); min-height:52px; margin:12px 0; padding:10px 18px; text-align:left; border:1px solid #ff2d7a; background:#241020; color:#fff; font:700 22px Bangers,sans-serif; letter-spacing:.06em; cursor:pointer; }
+.dd-scene-action:hover,.dd-scene-action:focus-visible { background:#ffca28; color:#10040e; outline:2px solid #6deaf2; outline-offset:2px; }
+.dd-scene-badge { display:inline-block; color:#facc15; border-left:3px solid #ff2d7a; background:#281024; padding:12px 16px; font-weight:700; }
+.dd-scene-note { color:#c8aebe; font-size:16px; }
+.dd-scene-stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+.dd-scene-stats div { padding:14px; background:#1d1020dd; border-top:2px solid #ff2d7a; }
+.dd-scene-stats dt { color:#ceb6c6; font-size:13px; letter-spacing:.08em; }
+.dd-scene-stats dd { margin:4px 0 0; color:#fff; font-size:26px; font-weight:700; }
+.dd-scene-gallery { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; }
+.dd-scene-gallery img { width:100%; aspect-ratio:16/9; object-fit:cover; border:1px solid #ff2d7a88; }
+#dd-results { background:linear-gradient(90deg,rgba(5,2,10,.9),rgba(5,2,10,.58)),url('assets/ui/scenes/gameover.jpg') center/cover no-repeat; }
+@media (max-width:760px) { #dd-main-menu.dd-rs .dd-main-hero { right:-8%; opacity:.65; max-width:55vw; height:60vh; } #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { width:100%; background:rgba(7,3,13,.86); } #dd-submenu[data-scene="customize"]::after { opacity:.28; width:45vw; } .dd-scene-stats { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+@media (prefers-reduced-motion:reduce) { #dd-main-menu.dd-rs .dd-main-hero, #dd-submenu[data-scene="customize"]::after { animation:none; } #dd-submenu::before, #dd-submenu .dd-submenu-card { transition:none !important; } }
+/* Cada estancia respira a un ritmo propio sin bloquear la entrada. */
+#dd-submenu.is-open[data-scene="customize"]::before { animation:dd-scene-atmos 18s ease-in-out infinite alternate; }
+#dd-submenu.is-open[data-scene="progression"]::before { animation:dd-scene-atmos 23s ease-in-out infinite alternate-reverse; }
+#dd-submenu.is-open[data-scene="options"]::before { animation:dd-scene-atmos 26s ease-in-out infinite alternate; }
+#dd-submenu.is-open[data-scene="extras"]::before { animation:dd-scene-atmos 30s ease-in-out infinite alternate-reverse; }
+@keyframes dd-scene-atmos { from { background-position:50% 50%; } to { background-position:52% 49%; } }
+@media (prefers-reduced-motion:reduce) { #dd-submenu.is-open::before { animation:none !important; } }
+
+/* Navegación entre escenas: fundido cruzado con una pequeña deriva, sin bloquear
+   los controles ni volver a montar la interfaz. La luz de lectura es un velo
+   degradado, no una caja opaca sobre la ilustración. */
+#dd-main-menu.dd-rs { transition: opacity .48s cubic-bezier(.22,1,.36,1), transform .48s cubic-bezier(.22,1,.36,1), filter .48s ease; }
+#dd-main-menu.dd-rs.dd-behind { opacity:.72; filter:brightness(.68); transform:scale(1.015); }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) { transition:opacity .48s cubic-bezier(.22,1,.36,1), visibility .48s; }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"])::before { background-image:linear-gradient(90deg,rgba(5,2,10,.58) 0%,rgba(5,2,10,.43) 38%,rgba(5,2,10,.06) 76%),var(--scene-image); }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { background:linear-gradient(90deg,rgba(7,3,13,.85) 0%,rgba(7,3,13,.76) 66%,rgba(7,3,13,.36) 90%,transparent 100%); transform:translate3d(-22px,0,0); opacity:.72; transition:transform .52s cubic-bezier(.22,1,.36,1),opacity .42s ease; }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]).is-open .dd-submenu-card { transform:translate3d(0,0,0); opacity:1; }
+#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) :is(.dd-submenu-head,.dd-submenu-body,.dd-submenu-foot) { text-shadow:0 1px 3px #05020a,0 2px 8px #05020a; }
+.dd-scene-stats div { background:linear-gradient(115deg,rgba(29,16,32,.78),rgba(29,16,32,.38)); border-top-color:rgba(255,45,122,.75); }
+.dd-scene-badge { background:linear-gradient(90deg,rgba(40,16,36,.78),rgba(40,16,36,.28)); }
+.dd-scene-action { background:linear-gradient(90deg,rgba(36,16,32,.88),rgba(36,16,32,.42)); }
+#dd-results .dd-results-card { background:linear-gradient(100deg,rgba(13,8,22,.91),rgba(13,8,22,.72) 78%,rgba(13,8,22,.56)); }
+#dd-results .dd-results-stats > div { background:linear-gradient(110deg,rgba(33,19,39,.83),rgba(33,19,39,.42)); }
+@media (max-width:760px) {
+  #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { background:linear-gradient(90deg,rgba(7,3,13,.91),rgba(7,3,13,.72)); }
+}
+@media (prefers-reduced-motion:reduce) {
+  #dd-main-menu.dd-rs, #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]), #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { transition:none !important; }
+  #dd-main-menu.dd-rs.dd-behind { transform:none; }
+}
+
+/* Travelling subjetivo: aproximación al escenario saliente y entrada en el
+   siguiente. Las capas decorativas no capturan el teclado ni el ratón. */
+#dd-scene-passage { display:none; position:fixed; inset:0; z-index:17000; overflow:hidden; pointer-events:none; isolation:isolate; background:#08030f; }
+#dd-scene-passage.is-running { display:block; animation:dd-travel-end 1.24s ease both; }
+#dd-scene-passage .dd-passage-from, #dd-scene-passage .dd-passage-to { position:absolute; inset:-3%; background-position:center; background-size:cover; background-repeat:no-repeat; will-change:transform,opacity; }
+#dd-scene-passage .dd-passage-from { background-image:var(--passage-from); transform-origin:58% 50%; animation:dd-travel-depart 1.24s cubic-bezier(.4,0,.6,1) both; }
+#dd-scene-passage .dd-passage-to { background-image:var(--passage-to); transform-origin:55% 50%; animation:dd-travel-arrive 1.24s cubic-bezier(.2,.7,.2,1) both; }
+#dd-scene-passage.is-returning .dd-passage-from, #dd-scene-passage.is-returning .dd-passage-to { transform-origin:42% 50%; }
+#dd-scene-passage .dd-passage-light { position:absolute; inset:0; background:radial-gradient(ellipse at 53% 51%,rgba(255,45,122,.16),transparent 36%,rgba(4,2,10,.65)); animation:dd-travel-light 1.24s ease-in-out both; }
+#dd-scene-passage .dd-passage-shade { position:absolute; inset:0; background:linear-gradient(90deg,rgba(7,3,13,.45),transparent 35%,transparent 70%,rgba(7,3,13,.4)); }
+#dd-scene-passage .dd-passage-title { position:absolute; left:50%; bottom:10%; color:#fff6fa; font:700 clamp(14px,2vw,22px) 'Barlow Condensed',sans-serif; letter-spacing:.25em; text-align:center; text-shadow:0 2px 8px #000,0 0 14px #000; animation:dd-travel-label 1.24s ease both; }
+@keyframes dd-travel-depart { 0% { transform:scale(1); opacity:1; } 42% { opacity:1; } 72% { opacity:0; } 100% { transform:scale(1.42); opacity:0; } }
+@keyframes dd-travel-arrive { 0%,30% { transform:scale(1.27); opacity:0; } 62% { opacity:1; } 100% { transform:scale(1.03); opacity:1; } }
+@keyframes dd-travel-light { 0%,100% { opacity:.25; } 46% { opacity:.85; } }
+@keyframes dd-travel-end { 0%,75% { opacity:1; } 100% { opacity:0; } }
+@keyframes dd-travel-label { 0%,24% { opacity:0; transform:translate(-50%,8px); } 44%,68% { opacity:1; transform:translate(-50%,0); } 100% { opacity:0; transform:translate(-50%,-6px); } }
+@media (prefers-reduced-motion:reduce) { #dd-scene-passage { display:none !important; } }
+
+/* Portada: una sola ilustración integra al protagonista y la torre; los efectos
+   no deben tapar su rostro ni la entrada. */
+#dd-main-menu.dd-rs .dd-menu-stage { display:none; }
+#dd-main-menu.dd-rs .dd-cover-manifesto { margin:clamp(8px,1.3vh,14px) 0 0; font:700 clamp(11px,1.35vh,15px) 'Barlow Condensed',sans-serif; letter-spacing:.18em; color:#e2c3d5; text-shadow:0 2px 6px #07030d; }
+#dd-main-menu.dd-rs .dd-cover-manifesto span { color:#facc15; padding:0 .35em; }
+@media (max-height:500px) { #dd-main-menu.dd-rs .dd-cover-manifesto { display:none; } }
+@media (max-width:760px) { #dd-main-menu.dd-rs #dd-menu-backdrop { object-position:78% 50%; } }
+/* Camerino: paletas desbloqueables aplicadas a la vista previa y al juego. */
+#dd-submenu[data-scene="customize"]::after { background-image:var(--dd-appearance-image, url('assets/ui/scenes/hero.png')); }
+.dd-look-swatch-cyan { background:#31dfe9; }
+.dd-look-swatch-violet { background:#a658ed; }
+.dd-look-swatch-gold { background:#eebd46; }
+.dd-looks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; max-width:600px; }
+.dd-look { display:flex; align-items:center; gap:12px; text-align:left; min-height:76px; padding:9px; border:1px solid #ff2d7a88; background:rgba(19,8,24,.78); color:#fff; font:700 17px 'Barlow Condensed',sans-serif; cursor:pointer; }
+.dd-look[aria-pressed="true"] { border:2px solid #facc15; box-shadow:inset 0 0 16px #ff2d7a44; }
+.dd-look:disabled { opacity:.6; cursor:not-allowed; }
+.dd-look:focus-visible { outline:3px solid #83f5f1; outline-offset:2px; }
+.dd-look b,.dd-look small { display:block; }
+.dd-look small { margin-top:4px; font-size:12px; color:#e1bfd4; font-weight:600; }
+.dd-look-description, .dd-extra-look-description { display:block; margin:4px 0 0; font:400 14px/1.3 'Barlow Condensed',sans-serif; color:#e9d8e3; }
+.dd-look-swatch { flex:0 0 50px; height:56px; background:url('assets/ui/scenes/hero.png') center 12%/110px auto no-repeat; }
+.dd-extra-looks { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+.dd-extra-looks div { padding:10px; border-left:2px solid #ff2d7a; background:rgba(22,8,26,.72); }
+.dd-extra-looks b,.dd-extra-looks small { display:block; } .dd-extra-looks small { color:#dbc1d2; margin-top:4px; }
+@media (max-width:420px) { .dd-looks { grid-template-columns:1fr; } }
+/* Brillo sutil sincronizado con el reloj real del tema del menú; no tapa texto. */
+#dd-main-menu .dd-menu-beat-light { position:absolute; inset:0; z-index:1; pointer-events:none; opacity:0; mix-blend-mode:screen; background:radial-gradient(ellipse 30% 40% at 63% 27%,rgba(255,85,185,.8),transparent 72%),radial-gradient(ellipse 36% 30% at 62% 76%,rgba(34,211,238,.55),transparent 72%); }
+@media (prefers-reduced-motion:reduce) { #dd-main-menu .dd-menu-beat-light { display:none; } }
+
+.dd-look-swatch { flex:0 0 24px; height:24px; border-radius:50%; background:#ed3d93; box-shadow:0 0 12px currentColor; }
+.dd-look-swatch-cyan { background:#31dfe9; }
+.dd-look-swatch-violet { background:#a658ed; }
+.dd-look-swatch-gold { background:#eebd46; }
+.dd-look-swatch-knight { background:#7e8997; }
+.dd-look-swatch-knight { background:#7e8997; }
+
+.dd-look-swatch-assassin { background:#263544; }
+
+.dd-look-swatch-rider { background:#a34b56; }
+
+.dd-look-swatch-diver { background:#ae8247; }
+
+.dd-look-swatch-gunslinger { background:#326acd; }
+
+.dd-look-swatch-tears { background:#699eca; }
+
+.dd-look-swatch-trainer { background:#d64d51; }
+
+.dd-look-swatch-adventurer { background:#38845b; }
+
+.dd-look-swatch-chef { background:#ece6da; }
+
+.dd-look-swatch-kickboxer { background:#b72842; }
+
+.dd-look-swatch-painter { background:#9d55bc; }
+
+/* ==========================================================================
+   FASE DE ESTILIZADO — LETRAS DE MENÚ Y NAVEGACIÓN (petición del usuario)
+   Capa final: no toca #dd-submenu::before (fondo de escena) ni hooks de QA.
+   ========================================================================== */
+:root { --dd-gold-grad: linear-gradient(180deg, #ffe9a8 0%, #facc15 42%, #ff8a2b 78%, #ff2d7a 105%); }
+
+/* --- 1. Rótulos de sección (ASPECTOS, ARCHIVO VISUAL...) --- */
+.dd-scene-content h3, .dd-scene-extras h3 {
+  font-size: clamp(26px, 2.6vw, 34px);
+  letter-spacing: .09em;
+  color: #facc15;
+  text-shadow: 0 2px 0 rgba(64, 8, 40, .95), 0 0 18px rgba(250, 204, 21, .55), 0 0 42px rgba(255, 45, 122, .35);
+  position: relative; padding-bottom: 10px;
+}
+.dd-scene-content h3::after, .dd-scene-extras h3::after {
+  content: ""; position: absolute; left: 2px; bottom: 0; height: 3px; width: min(240px, 62%);
+  border-radius: 2px;
+  background: linear-gradient(90deg, #facc15, #ff2d7a 55%, transparent);
+  box-shadow: 0 0 14px rgba(255, 45, 122, .55);
+  transform-origin: left center;
+  animation: dd-underline-sweep .7s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-underline-sweep { from { transform: scaleX(0); opacity: 0; } to { transform: scaleX(1); opacity: 1; } }
+
+/* --- 2. Título del submenú (PERSONALIZAR...) con brillo cromático --- */
+.dd-submenu-card h2 {
+  letter-spacing: .075em;
+  background: linear-gradient(180deg, #ffffff 0%, #ffe6f2 46%, #ffb9d4 88%);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(2px 0 0 rgba(0, 229, 255, .38)) drop-shadow(-2px 0 0 rgba(255, 45, 122, .42)) drop-shadow(0 6px 22px rgba(255, 45, 122, .5));
+}
+.dd-submenu-kicker {
+  text-shadow: 0 0 12px rgba(0, 229, 255, .65);
+  animation: dd-kicker-pulse 3.2s ease-in-out infinite;
+}
+@keyframes dd-kicker-pulse { 0%, 100% { opacity: .82; } 50% { opacity: 1; } }
+
+/* --- 3. Botones del menú principal: resplandor y barrido --- */
+#dd-main-menu .dd-menu-btn .dd-btn-text b {
+  letter-spacing: .06em;
+  transition: color .18s ease, text-shadow .18s ease;
+}
+#dd-main-menu .dd-menu-btn:hover .dd-btn-text b,
+#dd-main-menu .dd-menu-btn:focus-visible .dd-btn-text b,
+#dd-main-menu .dd-menu-btn.dd-selected .dd-btn-text b {
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 14px rgba(255, 202, 21, .55)) drop-shadow(0 2px 0 rgba(64, 8, 40, .8));
+}
+#dd-main-menu .dd-menu-btn { position: relative; overflow: hidden; }
+#dd-main-menu .dd-menu-btn::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(105deg, transparent 30%, rgba(255, 233, 168, .16) 46%, rgba(0, 229, 255, .1) 52%, transparent 68%);
+  transform: translateX(-120%);
+  transition: transform .55s cubic-bezier(.16, 1, .3, 1);
+}
+#dd-main-menu .dd-menu-btn:hover::after, #dd-main-menu .dd-menu-btn:focus-visible::after, #dd-main-menu .dd-menu-btn.dd-selected::after { transform: translateX(120%); }
+
+/* --- 4. Tarjetas de aspecto: nombre con brillo + borde vivo --- */
+.dd-look b {
+  letter-spacing: .045em;
+  color: #fff;
+  text-shadow: 0 0 16px rgba(255, 45, 122, .35);
+  transition: text-shadow .18s ease, color .18s ease;
+}
+.dd-look:hover b, .dd-look:focus-visible b, .dd-look[aria-pressed="true"] b {
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 202, 21, .5));
+}
+.dd-look { transition: transform .22s cubic-bezier(.16, 1, .3, 1), border-color .2s ease, box-shadow .22s ease; }
+.dd-look:hover, .dd-look:focus-visible { transform: translateY(-3px); box-shadow: 0 14px 30px -14px rgba(255, 45, 122, .45); }
+.dd-look[aria-pressed="true"] {
+  box-shadow: 0 0 0 1.5px #facc15, 0 16px 34px -16px rgba(250, 204, 21, .5);
+  animation: dd-look-pulse 2.6s ease-in-out infinite;
+}
+@keyframes dd-look-pulse {
+  0%, 100% { box-shadow: 0 0 0 1.5px #facc15, 0 16px 34px -16px rgba(250, 204, 21, .5); }
+  50% { box-shadow: 0 0 0 2.5px #ff2d7a, 0 16px 38px -14px rgba(255, 45, 122, .55); }
+}
+
+/* --- 5. Navegación entre menús: entradas suaves y travelling más vivo --- */
+.dd-submenu-wrap { backdrop-filter: blur(7px) saturate(1.15); -webkit-backdrop-filter: blur(7px) saturate(1.15); }
+.dd-submenu-wrap.is-open .dd-submenu-body {
+  animation: dd-body-enter .42s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-body-enter { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+.dd-submenu-wrap.is-open .dd-submenu-head { animation: dd-head-enter .38s cubic-bezier(.16, 1, .3, 1) both; }
+@keyframes dd-head-enter { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: none; } }
+.dd-submenu-wrap.is-open .dd-submenu-card::before { animation: dd-bar-shine 1s ease both; }
+@keyframes dd-bar-shine {
+  from { filter: brightness(.4); transform: scaleX(.2); opacity: .4; }
+  to { filter: brightness(1.35); transform: scaleX(1); opacity: 1; }
+}
+.dd-submenu-back kbd { box-shadow: 0 0 10px rgba(0, 229, 255, .35); }
+.dd-submenu-back:hover kbd, .dd-submenu-back:focus-visible kbd { box-shadow: 0 0 14px rgba(255, 45, 122, .6); }
+
+#dd-scene-passage .dd-passage-title {
+  letter-spacing: .38em; font-size: clamp(15px, 2.1vw, 24px);
+  background: var(--dd-gold-grad);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  text-shadow: none;
+  filter: drop-shadow(0 3px 10px rgba(0, 0, 0, .9)) drop-shadow(0 0 22px rgba(255, 45, 122, .65));
+}
+#dd-scene-passage .dd-passage-light {
+  background:
+    radial-gradient(ellipse at 53% 51%, rgba(255, 45, 122, .2), transparent 38%, rgba(4, 2, 10, .68)),
+    linear-gradient(115deg, transparent 42%, rgba(0, 229, 255, .18) 50%, transparent 58%);
+}
+#dd-scene-passage .dd-passage-shade {
+  background:
+    linear-gradient(90deg, rgba(7, 3, 13, .5), transparent 32%, transparent 72%, rgba(7, 3, 13, .46)),
+    linear-gradient(0deg, rgba(255, 45, 122, .12), transparent 30%);
+}
+
+/* --- 6. Pie de ayuda y estados --- */
+.dd-submenu-foot { letter-spacing: .18em; text-shadow: 0 0 10px rgba(0, 229, 255, .35); }
+.dd-look small {
+  letter-spacing: .12em;
+  text-shadow: 0 0 8px rgba(250, 204, 21, .35);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dd-scene-content h3::after, .dd-submenu-wrap.is-open .dd-submenu-body,
+  .dd-submenu-wrap.is-open .dd-submenu-head, .dd-submenu-wrap.is-open .dd-submenu-card::before,
+  .dd-look, .dd-look[aria-pressed="true"], .dd-submenu-kicker, #dd-main-menu .dd-menu-btn::after {
+    animation: none !important; transition: none !important;
+  }
+}
+
+/* ==========================================================================
+   FASE CAÑERA — MENÚ PRINCIPAL POTENTE Y TRAVELLING ÉPICO
+   ========================================================================== */
+
+/* --- 1. Portada: atmósfera más viva --- */
+#dd-main-menu.dd-rs #dd-menu-backdrop {
+  /* La respiración larga la aporta 'rs-drift' (base del proyecto); aquí sólo color. */
+  filter: saturate(1.12) contrast(1.05);
+}
+
+#dd-main-menu.dd-rs .dd-menu-vig {
+  background:
+    radial-gradient(ellipse at 30% 45%, rgba(255, 45, 122, .16), transparent 52%),
+    radial-gradient(ellipse at 78% 68%, rgba(0, 229, 255, .12), transparent 46%),
+    radial-gradient(ellipse at 50% 50%, transparent 42%, rgba(4, 1, 9, .82) 100%);
+  animation: dd-vig-pulse 4.6s ease-in-out infinite;
+}
+@keyframes dd-vig-pulse { 0%, 100% { opacity: .92; } 50% { opacity: 1; filter: brightness(1.12); } }
+
+#dd-main-menu.dd-rs .dd-menu-beat-light {
+  background:
+    radial-gradient(ellipse at 26% 38%, rgba(255, 45, 122, .3), transparent 44%),
+    radial-gradient(ellipse at 74% 62%, rgba(0, 229, 255, .22), transparent 40%);
+  mix-blend-mode: screen;
+  animation: dd-beat-throb 1.35s ease-in-out infinite;
+}
+@keyframes dd-beat-throb {
+  0%, 100% { opacity: .28; transform: scale(1); }
+  12% { opacity: .58; transform: scale(1.03); }
+  24% { opacity: .34; }
+  38% { opacity: .52; transform: scale(1.015); }
+  55% { opacity: .3; }
+}
+
+/* Líneas de exploración al estilo cartel */
+#dd-main-menu.dd-rs .dd-menu-stage::after {
+  content: ""; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, rgba(255, 255, 255, .022) 0 1px, transparent 1px 3px);
+  mask-image: linear-gradient(180deg, transparent, #000 30%, #000 75%, transparent);
+  -webkit-mask-image: linear-gradient(180deg, transparent, #000 30%, #000 75%, transparent);
+  pointer-events: none;
+}
+
+/* --- 2. Marca: logo con pulso y parpadeo cromático --- */
+#dd-main-menu.dd-rs .dd-menu-brand { position: relative; }
+#dd-main-menu.dd-rs .dd-menu-brand::before {
+  content: ""; position: absolute; left: -12%; top: -30%; width: 124%; height: 150%;
+  background: radial-gradient(ellipse at 42% 46%, rgba(255, 45, 122, .34), rgba(250, 204, 21, .1) 46%, transparent 70%);
+  filter: blur(8px);
+  pointer-events: none;
+  animation: dd-brand-aura 3.4s ease-in-out infinite;
+}
+@keyframes dd-brand-aura { 0%, 100% { opacity: .55; transform: scale(.98); } 50% { opacity: 1; transform: scale(1.05); } }
+#dd-main-menu.dd-rs .dd-menu-logo {
+  filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8));
+  animation: dd-logo-float 5.2s ease-in-out infinite alternate, dd-logo-glitch 7.5s steps(1) infinite;
+}
+@keyframes dd-logo-float { from { transform: translateY(0) rotate(-.4deg); } to { transform: translateY(-7px) rotate(.35deg); } }
+@keyframes dd-logo-glitch {
+  0%, 91%, 100% { filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); transform: none; }
+  92% { filter: drop-shadow(-4px 0 0 rgba(0, 229, 255, .8)) drop-shadow(4px 0 0 rgba(255, 45, 122, .8)); transform: translateX(2px) skewX(-1.2deg); }
+  94% { filter: drop-shadow(3px 0 0 rgba(250, 204, 21, .8)) drop-shadow(-3px 0 0 rgba(0, 229, 255, .8)); transform: translateX(-2px); }
+  96% { filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); transform: none; }
+}
+#dd-main-menu.dd-rs .dd-menu-tagline span {
+  background: linear-gradient(90deg, #facc15, #ff2d7a 55%, #22d3ee);
+  -webkit-background-clip: text; background-clip: text;
+  -webkit-text-fill-color: transparent; color: transparent;
+  filter: drop-shadow(0 0 12px rgba(255, 45, 122, .5));
+}
+#dd-main-menu.dd-rs .dd-cover-manifesto span {
+  display: inline-block;
+  animation: dd-manifesto-star 3.2s ease-in-out infinite;
+}
+@keyframes dd-manifesto-star { 0%, 100% { transform: scale(1) rotate(0deg); opacity: .85; } 50% { transform: scale(1.35) rotate(18deg); opacity: 1; } }
+
+/* --- 3. Navegación: botones con más golpe visual --- */
+#dd-main-menu.dd-rs .dd-menu-btn {
+  border-left: 3px solid rgba(255, 45, 122, .35);
+  background: linear-gradient(90deg, rgba(30, 8, 26, .72), rgba(20, 6, 20, .45) 70%, transparent);
+  transition: transform .16s cubic-bezier(.16, 1, .3, 1), border-color .16s, background .16s, box-shadow .2s;
+}
+#dd-main-menu.dd-rs .dd-menu-btn:hover,
+#dd-main-menu.dd-rs .dd-menu-btn:focus-visible,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected {
+  transform: translateX(9px);
+  border-left-color: #facc15;
+  border-left-width: 5px;
+  background: linear-gradient(90deg, rgba(255, 45, 122, .26), rgba(30, 8, 26, .5) 72%, transparent);
+  box-shadow: -14px 0 34px -18px rgba(255, 45, 122, .8), 0 0 24px -8px rgba(250, 204, 21, .35);
+}
+#dd-main-menu.dd-rs .dd-menu-btn .dd-btn-mark {
+  box-shadow: 0 0 12px rgba(255, 45, 122, .5);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+#dd-main-menu.dd-rs .dd-menu-btn:hover .dd-btn-mark,
+#dd-main-menu.dd-rs .dd-menu-btn:focus-visible .dd-btn-mark,
+#dd-main-menu.dd-rs .dd-menu-btn.dd-selected .dd-btn-mark {
+  transform: scale(1.22);
+  box-shadow: 0 0 18px rgba(250, 204, 21, .8);
+}
+
+/* --- 4. Ecualizador y etiqueta --- */
+#dd-main-menu.dd-rs .dd-menu-eq { opacity: .85; height: 76px; }
+#dd-main-menu.dd-rs .dd-menu-eq i { box-shadow: 0 0 10px rgba(255, 45, 122, .5); }
+
+/* --- 5. TRAVELLING ÉPICO: embolado, estelas, destello y rótulo mayor --- */
+#dd-scene-passage.is-running { animation: dd-travel-end 1.5s ease both; }
+#dd-scene-passage .dd-passage-from {
+  animation: dd-travel-depart 1.5s cubic-bezier(.4, 0, .6, 1) both;
+  filter: saturate(1.1);
+}
+#dd-scene-passage .dd-passage-to {
+  animation: dd-travel-arrive 1.5s cubic-bezier(.2, .7, .2, 1) both;
+  filter: saturate(1.1);
+}
+#dd-scene-passage .dd-passage-light {
+  background:
+    radial-gradient(ellipse at 53% 51%, rgba(255, 45, 122, .3), transparent 34%, rgba(4, 2, 10, .7)),
+    repeating-linear-gradient(108deg, transparent 0 42px, rgba(255, 255, 255, .07) 42px 44px, transparent 44px 96px),
+    linear-gradient(115deg, transparent 40%, rgba(0, 229, 255, .3) 50%, transparent 60%);
+  background-size: 100% 100%, 220% 220%, 100% 100%;
+  animation: dd-travel-light 1.5s ease-in-out both, dd-travel-streaks 1.5s cubic-bezier(.4, 0, .6, 1) both;
+  mix-blend-mode: screen;
+}
+@keyframes dd-travel-streaks {
+  0% { background-position: 0 0, -60% 0, 0 0; }
+  100% { background-position: 0 0, 160% 0, 0 0; }
+}
+#dd-scene-passage .dd-passage-shade {
+  background:
+    linear-gradient(90deg, rgba(7, 3, 13, .55), transparent 30%, transparent 74%, rgba(7, 3, 13, .52)),
+    linear-gradient(0deg, rgba(255, 45, 122, .18), transparent 32%),
+    radial-gradient(ellipse at 50% 50%, transparent 46%, rgba(2, 0, 6, .55) 100%);
+  animation: dd-travel-vignette 1.5s ease-in-out both;
+}
+@keyframes dd-travel-vignette {
+  0%, 100% { opacity: .8; }
+  48% { opacity: 1; filter: brightness(1.35) saturate(1.25); }
+}
+@keyframes dd-travel-depart {
+  0% { transform: scale(1); opacity: 1; filter: blur(0) saturate(1.1); }
+  38% { opacity: 1; }
+  70% { opacity: 0; filter: blur(7px) saturate(1.3) brightness(1.2); }
+  100% { transform: scale(1.72); opacity: 0; filter: blur(12px) saturate(1.3) brightness(1.3); }
+}
+@keyframes dd-travel-arrive {
+  0%, 28% { transform: scale(1.48); opacity: 0; filter: blur(12px) saturate(1.3); }
+  52% { opacity: .55; }
+  62% { opacity: 1; filter: blur(2px) saturate(1.15); }
+  100% { transform: scale(1.02); opacity: 1; filter: blur(0) saturate(1.1); }
+}
+@keyframes dd-travel-light {
+  0%, 100% { opacity: .3; }
+  30% { opacity: .65; }
+  46% { opacity: 1; filter: brightness(2.1); }
+  54% { opacity: .8; filter: brightness(1.4); }
+  75% { opacity: .5; }
+}
+@keyframes dd-travel-end { 0%, 78% { opacity: 1; } 100% { opacity: 0; } }
+
+#dd-scene-passage .dd-passage-title {
+  bottom: 9%;
+  font-size: clamp(17px, 2.6vw, 30px);
+  letter-spacing: .46em;
+  animation: dd-travel-label 1.5s ease both;
+}
+#dd-scene-passage .dd-passage-title::after {
+  content: ""; position: absolute; left: 8%; right: 8%; bottom: -12px; height: 2px;
+  background: linear-gradient(90deg, transparent, #facc15, #ff2d7a, #22d3ee, transparent);
+  box-shadow: 0 0 16px rgba(255, 45, 122, .8);
+  transform: scaleX(0);
+  animation: dd-travel-underline 1.5s cubic-bezier(.16, 1, .3, 1) both;
+}
+@keyframes dd-travel-underline {
+  0%, 28% { transform: scaleX(0); opacity: 0; }
+  46%, 70% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+@keyframes dd-travel-label {
+  0%, 22% { opacity: 0; transform: translate(-50%, 16px) scale(.94); letter-spacing: .78em; filter: blur(4px); }
+  42%, 70% { opacity: 1; transform: translate(-50%, 0) scale(1); letter-spacing: .46em; filter: blur(0); }
+  100% { opacity: 0; transform: translate(-50%, -10px) scale(1.04); filter: blur(2px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu.dd-rs #dd-menu-backdrop, #dd-main-menu.dd-rs .dd-menu-logo,
+  #dd-main-menu.dd-rs .dd-menu-brand::before, #dd-main-menu.dd-rs .dd-menu-beat-light,
+  #dd-main-menu.dd-rs .dd-menu-vig, #dd-main-menu.dd-rs .dd-cover-manifesto span,
+  #dd-main-menu.dd-rs .dd-menu-btn, #dd-scene-passage .dd-passage-title::after {
+    animation: none !important;
+  }
+  #dd-main-menu.dd-rs .dd-menu-btn:hover { transform: none; }
+}
+
+/* ==========================================================================
+   FASE APUERTA MÁXIMA — FLASHES DE CÁMARA, PÓSTER RASGADO, TRAVELLING 2 S
+   ========================================================================== */
+
+/* --- 1. Flash de cámara tipo reportaje en la portada (ráfagas breves) --- */
+#dd-main-menu.dd-rs .dd-menu-vig::after {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(circle at 12% 18%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 34%),
+    radial-gradient(circle at 86% 30%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 30%),
+    radial-gradient(circle at 68% 82%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 32%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  animation:
+    dd-flash-a 8.5s steps(1) infinite,
+    dd-flash-b 11.7s steps(1) infinite,
+    dd-flash-c 13.3s steps(1) infinite;
+}
+@keyframes dd-flash-a {
+  0%, 2%, 100% { opacity: 0; }
+  1% { opacity: .85; }
+}
+@keyframes dd-flash-b {
+  0%, 1.6%, 100% { opacity: 0; }
+  0.8% { opacity: .7; }
+}
+@keyframes dd-flash-c {
+  0%, 1.2%, 100% { opacity: 0; }
+  0.6% { opacity: .75; }
+}
+
+/* --- 2. Logo entra como póster pegado a la pared --- */
+#dd-main-menu.dd-rs .dd-menu-logo {
+  animation:
+    dd-logo-slap .85s cubic-bezier(.2, 1.4, .4, 1) both,
+    dd-logo-float 5.2s ease-in-out .85s infinite alternate,
+    dd-logo-glitch 7.5s steps(1) 1.2s infinite;
+}
+@keyframes dd-logo-slap {
+  0% { opacity: 0; transform: scale(1.6) rotate(-9deg) translateY(-26px); filter: brightness(2.6) drop-shadow(0 0 60px rgba(255, 255, 255, .9)); }
+  46% { opacity: 1; transform: scale(.94) rotate(2.2deg) translateY(4px); filter: brightness(1.5) drop-shadow(0 0 44px rgba(255, 45, 122, .9)); }
+  64% { transform: scale(1.04) rotate(-1.1deg); }
+  82% { transform: scale(.985) rotate(.4deg); }
+  100% { opacity: 1; transform: none; filter: drop-shadow(0 0 22px rgba(255, 45, 122, .55)) drop-shadow(0 0 60px rgba(250, 204, 21, .3)) drop-shadow(0 10px 18px rgba(0, 0, 0, .8)); }
+}
+#dd-main-menu.dd-rs .dd-menu-brand::before {
+  animation: dd-brand-aura 3.4s ease-in-out .85s infinite, dd-aura-burst .85s ease-out both;
+}
+@keyframes dd-aura-burst {
+  0% { opacity: 0; transform: scale(.4); }
+  40% { opacity: 1; transform: scale(1.35); }
+  100% { opacity: .55; transform: scale(.98); }
+}
+
+/* --- 3. Beat-light más estroboscópico --- */
+#dd-main-menu.dd-rs .dd-menu-beat-light {
+  animation: dd-beat-throb 1.35s ease-in-out infinite, dd-strobe 6.8s steps(1) infinite;
+}
+@keyframes dd-strobe {
+  0%, 3.2%, 3.7%, 7.1%, 7.5%, 100% { filter: none; }
+  3.4% { filter: brightness(2.2) saturate(1.4); }
+  7.3% { filter: brightness(1.9) saturate(1.3); }
+}
+
+/* --- 4. TRAVELLING 2 s: doble pasada de estelas, flash blanco, aterrizaje con temblor --- */
+#dd-scene-passage.is-running { animation: dd-travel-end 2s ease both; }
+#dd-scene-passage .dd-passage-from { animation: dd-travel-depart 2s cubic-bezier(.18, .74, .24, 1) both; }
+#dd-scene-passage .dd-passage-to { animation: dd-travel-arrive 2s cubic-bezier(.2, .7, .2, 1) both; }
+#dd-scene-passage .dd-passage-light {
+  animation: dd-travel-light 2s ease-in-out both, dd-travel-streaks 2s cubic-bezier(.4, 0, .6, 1) both;
+}
+#dd-scene-passage .dd-passage-shade { animation: dd-travel-vignette 2s ease-in-out both; }
+#dd-scene-passage .dd-passage-title { animation: dd-travel-label 2s ease both; }
+#dd-scene-passage .dd-passage-title::after { animation: dd-travel-underline 2s cubic-bezier(.16, 1, .3, 1) both; }
+
+@keyframes dd-travel-depart {
+  0% { transform: scale(1); opacity: 1; filter: blur(0) saturate(1.1); }
+  16% { transform: scale(1.22); opacity: 1; filter: blur(1px) saturate(1.14); }
+  34% { transform: scale(1.48); opacity: 1; filter: blur(2px) saturate(1.15); }
+  62% { transform: scale(1.76); opacity: .35; filter: blur(9px) saturate(1.35) brightness(1.25); }
+  80% { opacity: 0; }
+  100% { transform: scale(1.95); opacity: 0; filter: blur(16px) saturate(1.4) brightness(1.4); }
+}
+@keyframes dd-travel-arrive {
+  0%, 42% { transform: scale(1.55); opacity: 0; filter: blur(14px) saturate(1.35); }
+  58% { opacity: .5; filter: blur(6px) saturate(1.2); }
+  70% { opacity: 1; filter: blur(1.5px) saturate(1.1); transform: scale(1.06); }
+  78% { transform: scale(.995) translateX(4px); }
+  84% { transform: scale(1.01) translateX(-3px); }
+  90% { transform: scale(1) translateX(2px); }
+  100% { transform: scale(1.02) translateX(0); opacity: 1; filter: blur(0) saturate(1.1); }
+}
+@keyframes dd-travel-streaks {
+  0% { background-position: 0 0, -80% 0, 0 0; }
+  48% { background-position: 0 0, 70% 0, 0 0; }
+  52% { background-position: 0 0, -40% 0, 0 0; }
+  100% { background-position: 0 0, 180% 0, 0 0; }
+}
+@keyframes dd-travel-light {
+  0%, 100% { opacity: .28; }
+  26% { opacity: .6; }
+  44% { opacity: 1; filter: brightness(1.8); }
+  50% { opacity: 1; filter: brightness(4.2) saturate(.35); }
+  56% { opacity: .92; filter: brightness(1.6) saturate(1.3); }
+  76% { opacity: .48; }
+}
+@keyframes dd-travel-vignette {
+  0%, 100% { opacity: .8; }
+  50% { opacity: 1; filter: brightness(1.7) saturate(1.35); }
+}
+@keyframes dd-travel-end { 0%, 82% { opacity: 1; } 100% { opacity: 0; } }
+@keyframes dd-travel-label {
+  0%, 26% { opacity: 0; transform: translate(-50%, 22px) scale(.9); letter-spacing: .95em; filter: blur(6px); }
+  44%, 74% { opacity: 1; transform: translate(-50%, 0) scale(1); letter-spacing: .46em; filter: blur(0); }
+  100% { opacity: 0; transform: translate(-50%, -14px) scale(1.06); filter: blur(3px); }
+}
+@keyframes dd-travel-underline {
+  0%, 32% { transform: scaleX(0); opacity: 0; }
+  50%, 76% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dd-main-menu.dd-rs .dd-menu-vig::after, #dd-main-menu.dd-rs .dd-menu-logo,
+  #dd-main-menu.dd-rs .dd-menu-brand::before, #dd-main-menu.dd-rs .dd-menu-beat-light {
+    animation: none !important;
+  }
+}
+
+/* ========================================================================
+   FASE CLUB VIVO — PANTALLA DE CARGA + ARCHIVO/ASPECTOS + ESCENAS
+   Fondos de escena y ganchos de QA (#dd-submenu::before, data-scene) intactos.
+   ======================================================================== */
+
+/* --- Arranque: vuelve la pista de carga, con información útil y sin ruido --- */
+#dd-boot-frame {
+  background: #07030d;
+  isolation: isolate;
+}
+#dd-boot-frame .dd-boot-bg {
+  display: block !important;
+  inset: -4%;
+  background-image: url("assets/fase01/loading_keyart_2k.webp");
+  background-position: 50% 46%;
+  filter: saturate(1.08) brightness(.48);
+  transform: scale(1.06);
+  animation: dd-boot-drift 34s ease-in-out infinite alternate;
+}
+#dd-boot-frame .dd-boot-scrim {
+  background:
+    radial-gradient(ellipse 62% 56% at 50% 47%, rgba(7, 3, 13, .40), rgba(7, 3, 13, .74) 68%, rgba(7, 3, 13, .92)),
+    linear-gradient(180deg, rgba(7, 3, 13, .72), transparent 24%, rgba(7, 3, 13, .12) 64%, rgba(7, 3, 13, .88));
+}
+#dd-boot-frame .dd-boot-beams {
+  display: block !important;
+  opacity: .42;
+}
+#dd-boot-frame .dd-boot-inner { z-index: 2; }
+#dd-boot-frame .dd-boot-top,
+#dd-boot-frame .dd-boot-foot {
+  display: flex !important;
+  width: 100%;
+}
+#dd-boot-frame .dd-boot-top {
+  color: rgba(245, 230, 214, .78);
+  text-shadow: 0 2px 8px #08030f;
+}
+#dd-boot-frame .dd-boot-kicker { color: #f5e6d6; }
+#dd-boot-frame .dd-boot-ver { text-shadow: 0 0 12px rgba(0, 229, 255, .7); }
+#dd-boot-frame #dd-boot-stage {
+  visibility: visible;
+  color: #00e5ff;
+  text-shadow: 0 0 14px rgba(0, 229, 255, .48);
+}
+#dd-boot-frame #dd-boot-pct {
+  display: inline !important;
+  color: #f5e6d6;
+  text-shadow: 0 0 10px rgba(255, 0, 110, .5);
+}
+#dd-boot-frame .dd-boot-statusline { margin-top: 7px; }
+#dd-boot-frame .dd-boot-bar {
+  height: 13px;
+  border-color: rgba(0, 229, 255, .6);
+  box-shadow: 0 0 18px rgba(0, 229, 255, .18), inset 0 0 14px #000;
+}
+#dd-boot-frame .dd-boot-bar i {
+  background: linear-gradient(90deg, #00e5ff 0%, #ff006e 72%, #ffb000 100%);
+  box-shadow: 0 0 18px rgba(255, 0, 110, .72);
+}
+#dd-boot-frame .dd-boot-foot {
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: rgba(245, 230, 214, .75);
+  text-shadow: 0 2px 8px #08030f;
+}
+#dd-boot-frame .dd-boot-foot span:first-child { color: #00e5ff; }
+#dd-boot-frame .dd-boot-title img {
+  filter: drop-shadow(0 10px 32px rgba(0, 0, 0, .78)) drop-shadow(0 0 28px rgba(255, 0, 110, .3));
+  animation: dd-load-mark-slam .92s cubic-bezier(.18, 1.2, .24, 1) both;
+}
+#dd-boot-frame .dd-boot-divider { filter: drop-shadow(0 0 12px rgba(255, 0, 110, .28)); }
+#dd-boot-frame .dd-boot-frame-deco span { animation: dd-load-corner 2.8s ease-in-out infinite alternate; }
+#dd-boot-frame::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: -28%; left: 0; right: 0;
+  height: 22%;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(0, 229, 255, .055), rgba(255, 0, 110, .045), transparent);
+  mix-blend-mode: screen;
+  animation: dd-load-scan 7.2s linear infinite;
+}
+@keyframes dd-load-mark-slam {
+  0% { opacity: 0; transform: translateY(20px) scale(1.12) rotate(-2deg); }
+  68% { opacity: 1; transform: translateY(-3px) scale(.985) rotate(.5deg); }
+  100% { opacity: 1; transform: none; }
+}
+@keyframes dd-load-corner { from { opacity: .52; } to { opacity: 1; } }
+@keyframes dd-load-scan { to { transform: translateY(590%); } }
+
+/* --- Escenas: travelling de fondo lento + velos de luz por estancia --- */
+#dd-submenu[data-scene="play"] { --dd-room-hot: rgba(255, 0, 110, .22); --dd-room-cold: rgba(0, 229, 255, .19); }
+#dd-submenu[data-scene="progression"] { --dd-room-hot: rgba(255, 176, 0, .20); --dd-room-cold: rgba(155, 0, 255, .16); }
+#dd-submenu[data-scene="options"] { --dd-room-hot: rgba(0, 229, 255, .19); --dd-room-cold: rgba(255, 0, 110, .17); }
+#dd-submenu[data-scene="extras"] { --dd-room-hot: rgba(155, 0, 255, .21); --dd-room-cold: rgba(0, 229, 255, .16); }
+#dd-submenu.is-open[data-scene="play"]::before,
+#dd-submenu.is-open[data-scene="customize"]::before,
+#dd-submenu.is-open[data-scene="progression"]::before,
+#dd-submenu.is-open[data-scene="options"]::before,
+#dd-submenu.is-open[data-scene="extras"]::before {
+  transform-origin: 58% 48%;
+  will-change: transform, background-position;
+  animation: dd-submenu-room-drift 22s ease-in-out infinite alternate;
+}
+#dd-submenu.is-open[data-scene="play"]::after,
+#dd-submenu.is-open[data-scene="progression"]::after,
+#dd-submenu.is-open[data-scene="options"]::after,
+#dd-submenu.is-open[data-scene="extras"]::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 76% 30%, var(--dd-room-hot), transparent 43%),
+    linear-gradient(112deg, transparent 32%, var(--dd-room-cold) 49%, transparent 63%),
+    repeating-linear-gradient(0deg, rgba(245, 230, 214, .018) 0 1px, transparent 1px 5px);
+  background-size: 100% 100%, 210% 100%, 100% 100%;
+  mix-blend-mode: screen;
+  opacity: .28;
+  will-change: transform, opacity, background-position;
+  animation: dd-submenu-light-leak 16s ease-in-out infinite alternate;
+}
+#dd-submenu[data-scene="customize"]::after {
+  filter: drop-shadow(0 10px 20px #000b) drop-shadow(0 0 18px rgba(255, 0, 110, .20));
+}
+@keyframes dd-submenu-room-drift {
+  from { transform: scale(1.035) translate3d(-.45%, .2%, 0); background-position: 49% 51%; }
+  to { transform: scale(1.115) translate3d(.65%, -.45%, 0); background-position: 52% 48%; }
+}
+@keyframes dd-submenu-light-leak {
+  0% { opacity: .16; transform: translate3d(-1.5%, 0, 0); background-position: 0 0, 0 0, 0 0; }
+  52% { opacity: .34; }
+  100% { opacity: .27; transform: translate3d(1.5%, 0, 0); background-position: 0 0, 100% 0, 0 0; }
+}
+
+/* --- Aspectos: mini-retratos reales del mismo personaje, no simples puntos --- */
+.dd-look-swatch[data-look-portrait] {
+  flex: 0 0 50px;
+  width: 50px;
+  height: 64px;
+  border: 1px solid rgba(245, 230, 214, .38);
+  border-radius: 3px;
+  background-color: #150b19;
+  background-repeat: no-repeat;
+  background-position: center 18%;
+  background-size: cover;
+  box-shadow: 0 0 12px rgba(255, 0, 110, .2);
+  image-rendering: auto;
+}
+.dd-look[aria-pressed="true"] .dd-look-swatch[data-look-portrait] {
+  border-color: #ffb000;
+  box-shadow: 0 0 0 1px rgba(255, 176, 0, .4), 0 0 18px rgba(255, 0, 110, .44);
+}
+.dd-look:hover .dd-look-swatch[data-look-portrait],
+.dd-look:focus-visible .dd-look-swatch[data-look-portrait] { border-color: #00e5ff; }
+.dd-look { position: relative; overflow: hidden; }
+.dd-look::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: linear-gradient(180deg, #00e5ff, #ff006e 60%, #ffb000);
+  opacity: .72;
+  pointer-events: none;
+}
+.dd-look[aria-pressed="true"]::before { opacity: 1; box-shadow: 0 0 12px #ff006e; }
+.dd-look small {
+  width: fit-content;
+  margin-top: 6px;
+  padding: 2px 6px;
+  border: 1px solid rgba(0, 229, 255, .28);
+  color: #a8f6ff;
+  letter-spacing: .12em;
+}
+.dd-look[aria-pressed="true"] small { border-color: rgba(255, 176, 0, .72); color: #ffdb72; }
+
+/* --- Extras: fotogramas titulados y fichas con las ocho siluetas --- */
+.dd-extra-kicker,
+.dd-extra-collection-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+.dd-extra-kicker {
+  padding: 8px 10px;
+  margin: 0 0 8px;
+  border: 1px solid rgba(0, 229, 255, .24);
+  border-left: 3px solid #00e5ff;
+  background: linear-gradient(90deg, rgba(0, 229, 255, .08), rgba(255, 0, 110, .035));
+  color: #b9f8ff;
+  font-family: var(--dd-pixel);
+  font-size: 9px;
+  letter-spacing: .12em;
+}
+.dd-extra-kicker b,
+.dd-extra-collection-head > span { color: rgba(245, 230, 214, .64); font-size: 8px; letter-spacing: .1em; text-align: right; }
+.dd-scene-gallery { gap: 10px; }
+.dd-extra-still {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(255, 0, 110, .5);
+  background: #0b0812;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, .34);
+}
+.dd-extra-still::after {
+  content: "";
+  position: absolute;
+  inset: 34% 0 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, transparent, rgba(7, 3, 13, .86));
+}
+.dd-extra-still img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  object-fit: cover;
+  transition: transform .55s cubic-bezier(.2, .8, .2, 1), filter .3s ease;
+}
+.dd-extra-still:hover img { transform: scale(1.06); filter: saturate(1.18); }
+.dd-extra-still figcaption {
+  position: absolute;
+  z-index: 1;
+  inset: auto 8px 7px;
+  display: grid;
+  gap: 3px;
+  color: #fff;
+  text-shadow: 0 2px 6px #000;
+}
+.dd-extra-still figcaption span { color: #00e5ff; font: 8px var(--dd-pixel); letter-spacing: .14em; }
+.dd-extra-still figcaption b { font: 13px Barlow Condensed, sans-serif; letter-spacing: .08em; }
+.dd-extra-collection-head { margin-top: 18px; }
+.dd-extra-collection-head h3 { margin: 0; }
+.dd-extra-looks {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+.dd-extra-look {
+  display: grid;
+  grid-template-columns: 56px minmax(0, 1fr);
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  min-height: 92px;
+  padding: 7px;
+  border: 1px solid rgba(255, 0, 110, .26);
+  border-left: 2px solid #ff006e;
+  background: linear-gradient(110deg, rgba(255, 0, 110, .09), rgba(11, 8, 18, .74) 58%);
+  transition: border-color .2s ease, background .2s ease, transform .2s ease;
+}
+.dd-extra-look:hover { transform: translateY(-2px); border-color: rgba(0, 229, 255, .65); background: linear-gradient(110deg, rgba(0, 229, 255, .10), rgba(11, 8, 18, .82) 58%); }
+.dd-extra-look > img {
+  width: 56px;
+  height: 78px;
+  object-fit: cover;
+  object-position: center 12%;
+  border: 1px solid rgba(245, 230, 214, .28);
+  background: #130a18;
+}
+.dd-extra-look-copy { min-width: 0; }
+.dd-extra-look-index { display: block; margin-bottom: 3px; color: #00e5ff; font: 8px var(--dd-pixel); letter-spacing: .1em; }
+.dd-extra-look-copy > b { display: block; color: #fff; font: 19px/1 Bangers, sans-serif; letter-spacing: .04em; }
+.dd-extra-look-description { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; margin: 4px 0 !important; font-size: 12px !important; line-height: 1.25 !important; }
+.dd-extra-look-copy > small { color: #ffdb72; font: 8px var(--dd-pixel); letter-spacing: .12em; }
+
+@media (max-width: 600px) {
+  #dd-boot-frame .dd-boot-inner { width: min(760px, 94vw); padding: 16px 12px; gap: 9px; }
+  #dd-boot-frame .dd-boot-top, #dd-boot-frame .dd-boot-foot { font-size: 9px; letter-spacing: .12em; }
+  #dd-boot-frame .dd-boot-foot { justify-content: center; text-align: center; }
+  #dd-boot-frame .dd-boot-foot span:first-child { display: none; }
+  #dd-boot-frame .dd-boot-title img { width: min(360px, 72vw); }
+  .dd-extra-kicker { font-size: 8px; }
+  .dd-extra-kicker b, .dd-extra-collection-head > span { font-size: 7px; }
+  .dd-extra-still figcaption span { font-size: 6px; letter-spacing: .04em; white-space: nowrap; }
+  .dd-extra-still figcaption b { font-size: 10px; }
+  .dd-extra-looks { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #dd-boot-frame .dd-boot-bg,
+  #dd-boot-frame .dd-boot-beams,
+  #dd-boot-frame .dd-boot-title img,
+  #dd-boot-frame .dd-boot-frame-deco span,
+  #dd-boot-frame::after,
+  #dd-submenu.is-open::before,
+  #dd-submenu.is-open::after,
+  .dd-extra-still img { animation: none !important; transition: none !important; }
+  #dd-boot-frame .dd-boot-bg { transform: none; }
+}

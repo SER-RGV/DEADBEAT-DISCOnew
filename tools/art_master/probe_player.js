@@ -171,6 +171,9 @@ function installProbe() {
   for (const wid of WEAPONS) {
     const eq = await page.evaluate((w) => { try { return window.__DD_BRIDGE.buyOrEquipWeapon(w, true); } catch (e) { return String(e); } }, wid);
     report["equip_" + wid] = eq;
+    // The production bridge no longer grants unowned weapons during a run.
+    // Never label a capture as another weapon when equip was refused.
+    if (eq !== true) { console.warn("Arma no disponible en la incursión; se omiten capturas:", wid); continue; }
     const tag = "run_" + wid + "_";
     const X = { weapon: wid };
     await step({ aim: 0 }, 40);

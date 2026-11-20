@@ -133,9 +133,11 @@ fs.mkdirSync(OUT, { recursive: true });
   /* ---- ARMAS EN MANO ---- */
   for (const wid of WEAPONS) {
     const eq = await page.evaluate((w) => window.__DD_BRIDGE.buyOrEquipWeapon(w, true), wid);
+    report.steps["weapon_" + wid] = eq;
+    // A refused equip must not produce a screenshot labelled with the wrong gun.
+    if (eq !== true) { console.warn("Arma no disponible en la incursión; se omite captura:", wid); continue; }
     await step({ fire: true, aim: 0.0 }, 8);
     await shot("09_arma_" + wid);
-    report.steps["weapon_" + wid] = eq;
   }
 
   /* ---- JEFES ---- */

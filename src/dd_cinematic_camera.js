@@ -6,18 +6,21 @@
 (function () {
   "use strict";
 
-  const CIRCLE_META = [
-    { num: "0",   title: "EL REFUGIO · COLA DEL CLUB",   sub: "Tregua Sagrada · Zona Segura",           cine: "cine_circle_00_hub",      accent: "#ff2d7a" },
-    { num: "I",   title: "CÍRCULO I · LUJURIA",          sub: "El Salón de los Deseos · 124 BPM",       cine: "cine_circle_01_lujuria",  accent: "#ff2d7a" },
-    { num: "II",  title: "CÍRCULO II · GULA",            sub: "El Banquete Interminable · 128 BPM",     cine: "cine_circle_02_gula",     accent: "#f59e0b" },
-    { num: "III", title: "CÍRCULO III · AVARICIA",       sub: "El Club VIP · 130 BPM",                  cine: "cine_circle_03_avaricia", accent: "#facc15" },
-    { num: "IV",  title: "CÍRCULO IV · IRA",             sub: "La Pista de las Peleas · 136 BPM",       cine: "cine_circle_04_ira",      accent: "#ef4444" },
-    { num: "V",   title: "CÍRCULO V · HEREJÍA",          sub: "La Catedral del Ruido · 138 BPM",        cine: "cine_circle_05_herejia",  accent: "#a855f7" },
-    { num: "VI",  title: "CÍRCULO VI · VIOLENCIA",       sub: "El Matadero · 142 BPM",                  cine: "cine_circle_06_violencia",accent: "#fb7185" },
-    { num: "VII", title: "CÍRCULO VII · FRAUDE",         sub: "El Club de los Espejos · 145 BPM",       cine: "cine_circle_07_fraude",   accent: "#22d3ee" },
-    { num: "VIII",title: "CÍRCULO VIII · TRAICIÓN",      sub: "La Última Sala · 150 BPM",               cine: "cine_circle_08_traicion", accent: "#38bdf8" },
-    { num: "IX",  title: "CÍRCULO IX · EL NÚCLEO FINAL", sub: "La Última Canción · 160 BPM",            cine: "cine_circle_09_nucleo",   accent: "#f8fafc" }
-  ];
+  const CIRCLE_NUMERALS = ["I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"];
+  const CIRCLE_ART = [null, "cine_circle_01_lujuria", "cine_circle_02_gula",
+    "cine_circle_03_avaricia", "cine_circle_04_ira", "cine_circle_05_herejia",
+    "cine_circle_06_violencia", "cine_circle_07_fraude", "cine_circle_08_traicion", "cine_circle_09_nucleo"];
+
+  // Los nombres, localizaciones y BPM pertenecen al motor; si todavía no está
+  // disponible el puente se usa un rótulo neutro, nunca una zona inventada.
+  function circleMeta(index) {
+    const bridge = window.__DD_BRIDGE;
+    const circles = bridge && bridge.getCircles ? bridge.getCircles() : [];
+    const data = circles[index];
+    const title = data && data.name ? (index < 9 ? "CÍRCULO " + CIRCLE_NUMERALS[index] + " · " + data.name : data.name) : "DESCENSO";
+    const subtitle = data ? [data.place, typeof data.bpm === "number" ? data.bpm + " BPM" : ""].filter(Boolean).join(" · ") : "";
+    return { title, sub: subtitle, cine: CIRCLE_ART[index], accent: data && data.accent || "#ff2d7a" };
+  }
 
   let reducedMotion = false;
   try {
@@ -134,17 +137,22 @@
 
   /* C. CIRCLE DESCENT TRANSITION */
   function playCircleDescent(circleIdx, onComplete) {
-    const meta = CIRCLE_META[Math.max(0, Math.min(9, circleIdx || 0))];
+    const index = Math.max(0, Math.min(9, Math.floor(Number(circleIdx) || 0)));
+    const meta = circleMeta(index);
+    // Sólo el descenso desde Refugio espera una devolución para iniciar la
+    // partida. Los cambios detectados en combate son informativos, no bloquean
+    // entrada ni ocultan HUD mientras la simulación sigue activa.
+    const waitingForRun = typeof onComplete === "function";
     startSeq({
       type: "circle",
-      circleIdx: Math.max(0, Math.min(9, circleIdx || 0)),
+      circleIdx: index,
       meta,
       tag: meta.title,
       subtitle: meta.sub,
-      duration: 2.9,
-      blocking: true,
+      duration: waitingForRun ? 2.9 : 1.8,
+      blocking: waitingForRun,
       skippable: true,
-      letterbox: true,
+      letterbox: waitingForRun,
       onComplete
     });
   }
@@ -873,6 +881,48 @@
 
       ctx.restore();
       return;
+    } else if (activeSeq.type === "circle") {
+      const meta = activeSeq.meta;
+      const alpha = Math.max(0, Math.min(1, p / 0.18, (1 - p) / 0.2));
+      const accent = meta.accent || "#ff2d7a";
+      if (activeSeq.blocking) {
+        // El Refugio ya espera al callback: aquí sí hay un lienzo de transición.
+        ctx.fillStyle = "#080411";
+        ctx.fillRect(0, 0, viewW, viewH);
+        const art = meta.cine && window.DD_ASSETS && window.DD_ASSETS.get(meta.cine);
+        if (art && art.naturalWidth > 0 && art.naturalHeight > 0) {
+          const scale = Math.max(viewW / art.naturalWidth, viewH / art.naturalHeight);
+          const aw = art.naturalWidth * scale, ah = art.naturalHeight * scale;
+          ctx.globalAlpha = 0.28;
+          ctx.drawImage(art, (viewW - aw) / 2, (viewH - ah) / 2, aw, ah);
+        }
+        ctx.globalAlpha = 1;
+        const glow = ctx.createRadialGradient(viewW * .5, viewH * .46, 0, viewW * .5, viewH * .46, Math.max(viewW, viewH) * .55);
+        glow.addColorStop(0, "rgba(84, 18, 63, .42)");
+        glow.addColorStop(1, "rgba(5, 3, 12, .82)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, viewW, viewH);
+      }
+      ctx.globalAlpha = alpha;
+      const cw = Math.min(activeSeq.blocking ? 680 : 520, viewW - 48);
+      const ch = activeSeq.blocking ? 118 : 78;
+      const cx = (viewW - cw) / 2;
+      const cy = activeSeq.blocking ? viewH * .5 - ch / 2 : Math.max(24, viewH * .16);
+      ctx.fillStyle = "rgba(8, 4, 18, .94)";
+      ctx.strokeStyle = accent;
+      ctx.lineWidth = 2;
+      ctx.fillRect(cx, cy, cw, ch);
+      ctx.strokeRect(cx, cy, cw, ch);
+      ctx.textAlign = "center";
+      ctx.fillStyle = accent;
+      ctx.font = "700 12px 'Barlow Condensed', sans-serif";
+      ctx.fillText("DESCENSO · DEADBEAT DISCO", viewW / 2, cy + 23, cw - 30);
+      ctx.fillStyle = "#f8ecf6";
+      ctx.font = (activeSeq.blocking ? "700 30px" : "700 22px") + " Bangers, sans-serif";
+      ctx.fillText(meta.title, viewW / 2, cy + (activeSeq.blocking ? 61 : 49), cw - 30);
+      ctx.fillStyle = "#d3bdce";
+      ctx.font = "600 13px 'Barlow Condensed', sans-serif";
+      ctx.fillText(meta.sub, viewW / 2, cy + (activeSeq.blocking ? 92 : 69), cw - 30);
     } else if (activeSeq.type === "room") {
       // Crisp diagonal neon club wipe + room title card
       const wipe = Math.sin(p * Math.PI);
@@ -999,7 +1049,9 @@
     getCamera: function () { return cam; },
     isBlocking: function () { return !!(activeSeq && activeSeq.blocking); },
     getState: function () {
-      return activeSeq ? { type: activeSeq.type, elapsed: +activeSeq.elapsed.toFixed(2), duration: +activeSeq.duration.toFixed(2) } : null;
+      return activeSeq ? { type: activeSeq.type, elapsed: +activeSeq.elapsed.toFixed(2), duration: +activeSeq.duration.toFixed(2),
+        blocking: !!activeSeq.blocking, title: activeSeq.meta ? activeSeq.meta.title : (activeSeq.title || ""),
+        circle: activeSeq.type === "circle" ? activeSeq.circleIdx : null } : null;
     }
   });
 })();
