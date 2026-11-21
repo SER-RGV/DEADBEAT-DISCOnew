@@ -10,7 +10,7 @@
     { id:'rapture', name:'Rapture', description:'Elegancia art déco para una ciudad que se hunde. El último brindis lo paga el océano.', hue:0, requirement:'Alcanza la sala 30', round:30 },
     { id:'shadow', name:'Shadow', description:'Sólo capucha, sin sombrero que se solape. El sigilo es gratis; el alquiler del abrigo, no.', hue:0, requirement:'Alcanza la sala 10', round:10 },
     { id:'apocalypse', name:'Apocalypse', description:'Armadura de guerra para el fin del mundo. La hombrera pesa más que tus remordimientos.', hue:0, requirement:'Alcanza la sala 5', round:5 },
-    { id:'gunslinger', name:'Gunslinger', description:'Pistolero de arcade. La munición es infinita; tu paciencia, no.', hue:0, requirement:'Alcanza la sala 25', round:25 },
+    { id:'gunslinger', name:'Gunslinger', description:'Pistolero de arcade. La mano conserva el gesto; ahora lo que sale rodando es un dado.', hue:0, requirement:'Alcanza la sala 25', round:25 },
     { id:'fightclub', name:'Fight Club', description:'Kickboxing con vendas y talones al aire. Las reclamaciones se presentan con los puños.', hue:0, requirement:'Alcanza la sala 50', round:50 },
     { id:'kitchenriot', name:'Kitchen Riot', description:'Cocina punk con delantal de combate. El menú del día: supervivencia poco hecha.', hue:0, requirement:'Alcanza la sala 45', round:45 },
     { id:'streetart', name:'Street Art', description:'Chaqueta intervenida y bolsillos de pintura. El lienzo eres tú; el presupuesto, también.', hue:0, requirement:'Alcanza la sala 55', round:55 }
@@ -58,7 +58,8 @@
   function victories() { try { var v=JSON.parse(localStorage.getItem('dmo_victories_v214') || 'null'); return v && isFinite(Number(v.count)) ? Math.max(0,Number(v.count)) : 0; } catch(e) { return 0; } }
   // Activado para que todos puedan probar los aspectos; los requisitos originales se conservan.
   var PREVIEW_UNLOCK_ALL = true;
-  function unlocked(s) { return PREVIEW_UNLOCK_ALL || (s.victory ? victories() >= s.victory : number('dmodisco_best_round_v1') >= s.round); }
+  function meetsRequirement(s) { return s.victory ? victories() >= s.victory : number('dmodisco_best_round_v1') >= s.round; }
+  function unlocked(s) { return PREVIEW_UNLOCK_ALL || meetsRequirement(s); }
   function item(id) { return styles.find(function(s){return s.id===id;}); }
   function setSelected(id) { if (selected !== id) { selected=id; window.dispatchEvent(new Event('dd-appearance-change')); } }
   function sync() { var id; try { id=localStorage.getItem(KEY); } catch(e) {} id = migrate(id); var s=item(id); setSelected(s && unlocked(s) ? s.id : 'original'); return selected; }
@@ -145,7 +146,7 @@
   sync();
   window.addEventListener('storage',function(e){if(e.key===KEY || e.key==='dmodisco_best_round_v1' || e.key==='dmo_victories_v214' || e.key===null) sync();});
   window.DD_APPEARANCE=Object.freeze({
-    list:function(){return styles.map(function(s){return {id:s.id,name:s.name,description:s.description,requirement:s.requirement,unlocked:unlocked(s),selected:s.id===selected};});},
+    list:function(){return styles.map(function(s){return {id:s.id,name:s.name,description:s.description,requirement:s.requirement,earned:meetsRequirement(s),unlocked:unlocked(s),selected:s.id===selected};});},
     current:function(){return item(selected) || styles[0];}, equip:equip, sync:sync, recolor:recolor, preview:preview, showcase:showcase, hudPreview:hudPreview, outfitFrame:outfitFrame, outfitReady:outfitReady, knightFrame:knightFrame, knightReady:knightReady, key:KEY
   });
 })();

@@ -10,7 +10,8 @@ const base=process.argv[2]||'http://localhost:8081',out=process.argv[3];
  // El catálogo antiguo no aparece.
  const looks=await p.evaluate(()=>DD_APPEARANCE.list().map(s=>s.id));
  for(const gone of ['knight','assassin','rider','diver','tears','trainer','adventurer','chef','kickboxer','painter','cyan','violet','gold'])assert(!looks.includes(gone),gone+' sigue en el catálogo');
- for(let i=0;i<8;i++){let card=cards.nth(i);assert((await card.locator('.dd-look-description').textContent()).trim().length>15);}
+ const rooms=[0,30,10,5,25,50,45,55];
+ for(let i=0;i<8;i++){let card=cards.nth(i);await card.focus();assert.equal(await p.locator('#dd-proof-name').textContent(),await card.locator('b').textContent());assert.equal(await p.locator('#dd-proof-record').textContent(),i?'En prueba · Alcanza la sala '+rooms[i]:'Hito cumplido · Disponible desde el principio');assert.equal(await p.evaluate(()=>DD_APPEARANCE.current().id),'original');assert((await card.locator('.dd-look-description').textContent()).trim().length>15);}
  if(out){fs.mkdirSync(out,{recursive:true});await p.waitForTimeout(1500);await p.screenshot({path:path.join(out,'camerino-descripciones.png')});}
  await p.waitForFunction(()=>DD_APPEARANCE.outfitReady('streetart'));await p.locator('[data-look=streetart]').click();assert.equal(await p.evaluate(()=>DD_APPEARANCE.current().id),'streetart');
  assert.equal(await p.evaluate(()=>localStorage.getItem('dmodisco_best_round_v1')),null);assert.equal(await p.evaluate(()=>localStorage.getItem('dmo_victories_v214')),null);

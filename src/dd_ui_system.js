@@ -136,9 +136,11 @@
       { key: "dmo_floor_v32", label: "Planta generada de la última incursión" }
     ],
     PERMANENT: [
+      { key: "dd_refuge_record_v1", label: "Restauraciones y encuentros del Refugio" },
       { key: "dd_appearance_v1", label: "Aspecto seleccionado" },
       { key: "dmodisco_currency_v1", label: "Fichas" },
       { key: "dmodisco_upgrades_v1", label: "Mejoras compradas" },
+      { key: "dd.dice.v1", label: "Colección de dados" },
       { key: "dmodisco_weapon_prestige_v1", label: "Prestigio de armas" },
       { key: "dmodisco_ach_v1", label: "Logros" },
       { key: "dmodisco_best_v5", label: "Mejor puntuación" },
@@ -225,12 +227,13 @@
       '<div class="dd-menu-atmos" aria-hidden="true"><i class="a1"></i><i class="a2"></i><i class="a3"></i></div>' +
       '<div class="dd-menu-vig" aria-hidden="true"></div>' +
       '<div class="dd-menu-beat-light" aria-hidden="true"></div>' +
-      '<div class="dd-menu-stage" aria-hidden="true"><div class="dd-menu-orbit"></div><div class="dd-menu-beam"></div><div class="dd-menu-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="dd-menu-stage-label">LA TORRE TE ESPERA <span>✦</span> 09 CÍRCULOS</div></div>' +
+      '<div class="dd-menu-stage" aria-hidden="true"><div class="dd-menu-orbit"></div><div class="dd-menu-beam"></div><div class="dd-menu-eq"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="dd-menu-stage-label">LA TORRE TE ESPERA <span>✦</span> 09 PISTAS</div></div>' +
+      '<div class="dd-well-seal" aria-hidden="true"><i class="dd-vault-stamp"></i><span>REFUGIO &nbsp;/&nbsp; THE DICE VAULT</span></div>' +
       '<div class="dd-menu-left">' +
       '  <div class="dd-menu-brand">' +
       '    <img id="dd-menu-logo-img" class="dd-menu-logo" alt="DEADBEAT DISCO" src="' + (assetSrc("logo_deadbeat_graffiti") || "assets/logos/logo_deadbeat_graffiti.png") + '">' +
       '    <div class="dd-menu-tagline"><span>LA NOCHE QUE DEVORÓ EL AMANECER</span><i aria-hidden="true"></i></div>' +
-      '    <p class="dd-cover-manifesto">NUEVE CÍRCULOS <span>✦</span> UN ÚLTIMO BAILE</p>' +
+      '    <p class="dd-cover-manifesto">NUEVE PISTAS <i class="dd-vault-stamp" aria-hidden="true"></i> UN ÚLTIMO BAILE</p>' +
       '  </div>' +
       '  <nav class="dd-menu-nav" id="dd-menu-nav" aria-label="Opciones del menú principal">' + nav + '</nav>' +
       '  <div class="dd-menu-footer">' +
@@ -631,9 +634,9 @@
 
   // Travelling en primera persona entre fondos de las escenas existentes.
   // Es una transición visual, no una zona navegable ni otro gestor.
-  var passageTimer = 0;
+
   var scenePassages = {
-    main: "assets/cinematics/restart/opening/op_03_dancefloor.jpg",
+    main: menuBackdropSrc(),
     play: "assets/cinematics/restart/opening/op_03_dancefloor.jpg",
     customize: "assets/ui/scenes/customize.jpg", progression: "assets/ui/scenes/progression.jpg",
     options: "assets/ui/scenes/options.jpg", extras: "assets/ui/scenes/extras.jpg"
@@ -647,19 +650,19 @@
       layer.id = "dd-scene-passage";
       layer.setAttribute("aria-hidden", "true");
       layer.innerHTML = '<div class="dd-passage-from"></div><div class="dd-passage-to"></div><div class="dd-passage-light"></div><div class="dd-passage-shade"></div><div class="dd-passage-title"></div>';
+      layer.addEventListener("animationend", function (event) {
+        if (event.target === layer && event.animationName === "dd-travel-end" && !layer.getAnimations().some(function (a) { return a.playState === "running"; })) layer.className = "";
+      });
       document.body.appendChild(layer);
     }
-    clearTimeout(passageTimer);
     layer.className = "";
     layer.style.setProperty("--passage-from", 'url("' + scenePassages[from] + '")');
     layer.style.setProperty("--passage-to", 'url("' + scenePassages[to] + '")');
     layer.querySelector('.dd-passage-title').textContent = to === 'main' ? 'ENTRADA PRINCIPAL' : ((SUBMENU_TITLES[to] && SUBMENU_TITLES[to].title) || 'EL CLUB');
     void layer.offsetWidth; // Reinicia la animación si el jugador cambia rápidamente.
     layer.className = returning ? 'is-running is-returning' : 'is-running';
-    passageTimer = setTimeout(function () { layer.className = ''; }, 2060);
   }
   function cancelScenePassage() {
-    clearTimeout(passageTimer);
     var layer = el('dd-scene-passage');
     if (layer) layer.className = '';
   }
@@ -696,19 +699,9 @@
     mainMenu.inert = true;
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
     var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
-    if (first) {
-      var focusScene = function () {
-        // Una transición rápida puede haber cerrado o reemplazado esta escena.
-        if (uiState.submenu !== name || !host.classList.contains("is-open") || !first.isConnected) return;
-        if (host.contains(document.activeElement)) return;
-        try { first.focus({ preventScroll: true }); } catch (e) { first.focus(); }
-      };
-      setTimeout(focusScene, 30);
-      // Si la escena se reabre durante el fundido de salida, Chromium puede
-      // rechazar el primer foco mientras actualiza visibility.
-      setTimeout(focusScene, 200);
-      setTimeout(focusScene, 550);
-    }
+    host.inert = false;
+    if (first) first.focus({ preventScroll: true });
+    if (!host.contains(document.activeElement)) el('dd-submenu-back').focus({ preventScroll: true });
   }
 
   function renderPlay(body) {
@@ -727,11 +720,12 @@
     var list = api.list();
     var host = el('dd-submenu');
     host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
-    body.innerHTML = '<div class="dd-scene-content"><h3>ASPECTOS</h3><p>Elige el aspecto de tu personaje.</p>' +
+    body.innerHTML = '<div class="dd-scene-content"><h3>ASPECTOS</h3><p>Ocho formas de entrar en la misma pista.</p>' +
       '<p class="dd-scene-note">Todos los aspectos están disponibles para probar. Son cosméticos y no afectan a tus habilidades.</p>' +
+      '<div class="dd-look-proof"><i class="dd-vault-stamp" aria-hidden="true"></i><span><small>CAMERINO / PRUEBA DE VESTUARIO</small><strong id="dd-proof-name"></strong></span><em id="dd-proof-record"></em></div>' +
       '<div class="dd-looks">' + list.map(function (s) {
         return '<button type="button" class="dd-look" data-look="' + esc(s.id) + '" ' + (!s.unlocked ? 'disabled ' : '') + 'aria-pressed="' + (s.selected ? 'true' : 'false') + '">' +
-          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '" data-look-portrait="' + esc(s.id) + '" aria-hidden="true"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></span></button>';
+          '<span class="dd-look-swatch dd-look-swatch-' + esc(s.id) + '" data-look-portrait="' + esc(s.id) + '" aria-hidden="true"></span><span><b>' + esc(s.name) + '</b><span class="dd-look-description">' + esc(s.description) + '</span><small>' + (s.selected ? 'EQUIPADO' : s.earned ? 'DESBLOQUEADO' : s.unlocked ? 'EN PRUEBA' : 'BLOQUEADO · ' + esc(s.requirement)) + '</small></span></button>';
       }).join('') + '</div><p id="dd-look-status" role="status" aria-live="polite"></p></div>';
     function paintLookPortraits() {
       body.querySelectorAll('[data-look-portrait]').forEach(function (swatch) {
@@ -739,23 +733,41 @@
         if (src) swatch.style.backgroundImage = 'url("' + src + '")';
       });
     }
+    function inspect(id) {
+      var look = list.find(function (entry) { return entry.id === id; });
+      if (!look) return;
+      if (host.dataset.proofLook !== id) {
+        body.querySelectorAll('[data-look]').forEach(function (card) { card.classList.toggle('is-inspected', card.dataset.look === id); });
+      }
+      host.dataset.proofLook = id;
+      host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(id) + '")');
+      el('dd-proof-name').textContent = look.name;
+      el('dd-proof-record').textContent = (look.earned ? 'Hito cumplido' : look.unlocked ? 'En prueba' : 'Bloqueado') + ' · ' + look.requirement;
+    }
+    delete host.dataset.proofLook;
+    inspect(api.current().id);
     paintLookPortraits();
     if (!host.dataset.lookReadyBound) {
       host.dataset.lookReadyBound = '1';
       window.addEventListener('dd-looks-ready', function () {
-        host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
+        if (host.dataset.scene === 'customize') host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(host.dataset.proofLook || api.current().id) + '")');
         paintLookPortraits();
       });
     }
     body.querySelectorAll('[data-look]').forEach(function(btn) {
+      btn.addEventListener('focus',function(){inspect(btn.dataset.look);});
+      btn.addEventListener('pointermove',function(ev){
+        if (ev.pointerType !== 'touch' && (ev.movementX || ev.movementY) && host.dataset.proofLook !== btn.dataset.look) inspect(btn.dataset.look);
+      });
       btn.addEventListener('click', function () {
         if (!api.equip(btn.dataset.look)) { el('dd-look-status').textContent = 'El aspecto aún se está cargando. Inténtalo de nuevo.'; return; }
         host.style.setProperty('--dd-appearance-image', 'url("' + api.preview(api.current().id) + '")');
         body.querySelectorAll('[data-look]').forEach(function(b) {
           var chosen = b.dataset.look === api.current().id;
           b.setAttribute('aria-pressed', chosen ? 'true' : 'false');
-          if (!b.disabled) b.querySelector('small').textContent = chosen ? 'EQUIPADO' : 'DISPONIBLE';
+          if (!b.disabled) b.querySelector('small').textContent = chosen ? 'EQUIPADO' : list.find(function (s) { return s.id === b.dataset.look; }).earned ? 'DESBLOQUEADO' : 'EN PRUEBA';
         });
+        inspect(api.current().id);
         el('dd-look-status').textContent = api.current().name + ' equipado';
         sfx('ok');
       });
@@ -781,13 +793,14 @@
       { src: 'assets/cinematics/restart/opening/mc_07_pit.jpg', alt: 'El pozo de descenso', tag: 'EL POZO DE DESCENSO' }
     ];
     section.innerHTML = '<div class="dd-extra-kicker"><span>ARCHIVO DEL CLUB</span><b>3 FOTOGRAMAS · 8 ASPECTOS</b></div>' +
-      '<h3>ARCHIVO VISUAL</h3><p>Las imágenes del club.</p>' +
+      '<h3>ARCHIVO VISUAL</h3><p>El Desafinado es el fragmento que Tempo no consiguió repetir. Nueve pistas lo separan del Núcleo.</p>' +
       '<div class="dd-scene-gallery">' + stills.map(function (shot, i) {
         return '<figure class="dd-extra-still"><img src="' + shot.src + '" alt="' + esc(shot.alt) + '" loading="lazy" decoding="async"><figcaption><span>FOTOGRAMA 0' + (i + 1) + '</span><b>' + esc(shot.tag) + '</b></figcaption></figure>';
       }).join('') + '</div>' +
+      '<aside class="dd-runout dd-archive-slip"><i class="dd-vault-stamp" aria-hidden="true"></i><span><b>NOTAS DEL REFUGIO / 01</b> La pista repite el compás. El dado no promete la misma cara. En The Dice Vault puedes leer sus grabados antes de bajar.</span></aside>' +
       '<div class="dd-extra-collection-head"><h3>COLECCIÓN DE ASPECTOS</h3><span>08 / 08 · VISTA DE ARCHIVO</span></div>' +
       '<div class="dd-extra-looks">' + looks.map(function (s, i) {
-        return '<article class="dd-extra-look"><img src="assets/characters/outfits/' + esc(s.id) + '/showcase.png" alt="Vista de cuerpo entero: ' + esc(s.name) + '" loading="lazy" decoding="async"><div class="dd-extra-look-copy"><span class="dd-extra-look-index">FICHA ' + String(i + 1).padStart(2, '0') + '</span><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.unlocked ? 'DISPONIBLE' : esc(s.requirement)) + '</small></div></article>';
+        return '<article class="dd-extra-look"><img src="assets/characters/outfits/' + esc(s.id) + '/showcase.png" alt="Vista de cuerpo entero: ' + esc(s.name) + '" loading="lazy" decoding="async"><div class="dd-extra-look-copy"><span class="dd-extra-look-index">FICHA ' + String(i + 1).padStart(2, '0') + '</span><b>' + esc(s.name) + '</b><p class="dd-extra-look-description">' + esc(s.description) + '</p><small>' + (s.earned ? 'DESBLOQUEADO' : s.unlocked ? 'EN PRUEBA' : 'BLOQUEADO · ' + esc(s.requirement)) + '</small></div></article>';
       }).join('') + '</div>';
     body.insertBefore(section, body.firstChild);
   }
@@ -815,6 +828,7 @@
     returnMixPanel();
     var host = el("dd-submenu");
     if (host) {
+      host.inert = true;
       host.classList.remove("is-open");
       host.setAttribute("aria-hidden", "true");
     }
@@ -895,9 +909,9 @@
       '    <p class="dd-opt-note" id="dd-opt-res"></p>' +
       '    <h3>CONTROLES</h3>' +
       '    <div class="dd-opt-row"><span>MANDO XBOX</span><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
-      '    <p class="dd-opt-note dd-controls-copy" id="dd-controls-keyboard"><strong>TECLADO Y RATÓN</strong><br>WASD / FLECHAS: mover · RATÓN: apuntar y disparar<br>' +
-      dodgeKey + ': esquivar · Q: bomba · MAYÚS: boost · E: interactuar · Z: cambiar arma<br>I / M: inventario y mapa · ESC: pausa</p>' +
-      '    <p class="dd-opt-note dd-controls-copy"><strong>MANDO XBOX</strong><br>STICK IZQUIERDO: mover · STICK DERECHO: apuntar · RT: disparar<br>B: esquivar · LB: bomba · RB: boost · A: interactuar · Y: cambiar arma · VIEW: inventario y mapa · START: pausa</p>' +
+      '    <p class="dd-opt-note dd-controls-copy" id="dd-controls-keyboard"><strong>TECLADO Y RATÓN</strong><br>WASD / FLECHAS: mover · RATÓN: apunta; pulsa y suelta para lanzar, mantén para cargar<br>' +
+      dodgeKey + ': esquivar · Q: sobrecargar dado · MAYÚS: boost · E: interactuar · Z: inspeccionar cara<br>I / M: inventario y mapa · ESC: pausa</p>' +
+      '    <p class="dd-opt-note dd-controls-copy"><strong>MANDO XBOX</strong><br>STICK IZQUIERDO: mover · STICK DERECHO: apuntar · RT: mantener y soltar para lanzar<br>B: esquivar · LB: sobrecargar dado · RB: boost · A: interactuar · Y: inspeccionar cara · VIEW: inventario y mapa · START: pausa</p>' +
       '  </section>' +
       '</div>' +
       '<div class="dd-opt-data">' +
@@ -1259,7 +1273,7 @@
   function closeSubmenuImmediate() {
     returnMixPanel();
     var host = el("dd-submenu");
-    if (host) { host.classList.remove("is-open"); host.setAttribute("aria-hidden", "true"); }
+    if (host) { host.inert = true; host.classList.remove("is-open"); host.setAttribute("aria-hidden", "true"); }
     var m = el("dd-main-menu");
     if (m) { m.classList.remove("dd-behind"); m.inert = false; }
     uiState.submenu = null;
@@ -1296,8 +1310,7 @@
       '    <div class="dd-hud-hype-label" id="dd-hud-hype-label">HYPE 0%</div>' +
       '    <div class="dd-bar-track dd-bar-shield" aria-hidden="true"><div class="dd-bar-fill" id="dd-hud-sh-fill" style="width:0%"></div></div>' +
       '    <div class="dd-hud-weapon-strip">' +
-      '      <span id="dd-hud-weapon-name">M1911 · ∞</span>' +
-      '      <img id="dd-hud-weapon-img" class="dd-hud-weapon-thumb" alt="" src="' + weaponImgSrc("m1911") + '">' +
+      '      <span id="dd-hud-weapon-name">D6 · THE HOUSE</span>' +
       '    </div>' +
       '  </div>' +
       '</div>' +
@@ -1309,13 +1322,13 @@
       '  <button type="button" class="dd-minimap-box" id="dd-minimap-trigger" aria-label="Abrir torre de progresión" title="Abrir torre de progresión"><canvas id="dd-minimap-canvas" width="196" height="132" aria-hidden="true"></canvas></button>' +
       '  <div class="dd-room-banner" id="dd-hud-room">EL REFUGIO · ZONA SEGURA</div>' +
       '  <div class="dd-quick-actions">' +
-      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-shop">ARMERÍA</button>' +
+      '    <button type="button" class="dd-quick-btn" id="dd-btn-open-shop">DICE VAULT</button>' +
       '    <button type="button" class="dd-quick-btn" id="dd-btn-open-map">TORRE</button>' +
       '    <button type="button" class="dd-quick-btn" id="dd-btn-enter-hub">[H] REFUGIO</button>' +
       '  </div>' +
       '</div>' +
       '<div class="dd-hud-skills">' +
-      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Bomba" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">Q</span></div>' +
+      '  <div class="dd-skill-card" id="dd-skill-bomb"><img id="dd-skill-bomb-img" alt="Sobrecargar dado" src="' + assetSrc("hud_skill_bomb", "pickups/pickup_bomb_00.png") + '"><span class="dd-skill-count" id="dd-skill-bomb-cnt">1</span><span class="dd-skill-key" id="dd-skill-bomb-key">Q</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-boost"><img id="dd-skill-boost-img" alt="Boost" src="' + assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png") + '"><span class="dd-skill-count" id="dd-skill-boost-cnt">1</span><span class="dd-skill-key" id="dd-skill-boost-key">SHIFT</span></div>' +
       '  <div class="dd-skill-card" id="dd-skill-dodge"><img id="dd-skill-dodge-img" alt="Esquiva" src="' + assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png") + '"><span class="dd-skill-key" id="dd-skill-dodge-key">ESP</span></div>' +
       '</div>';
@@ -1351,11 +1364,11 @@
     shop.id = "dd-shop-modal";
     shop.className = "dd-modal-backdrop dd-hidden";
     shop.innerHTML =
-      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Inventario y Tienda de Armas">' +
+      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Colección de dados">' +
       '  <div class="dd-modal-header">' +
-      '    <span class="dd-modal-title">INVENTARIO / TIENDA · ARMERÍA INFERNAL</span>' +
+      '    <span class="dd-modal-title">THE DICE VAULT</span>' +
       '    <div style="display:flex;align-items:center;gap:14px;">' +
-      '      <span class="dd-badge-cr" style="font-size:14px;padding:4px 12px;">CRÉDITOS: <b id="dd-shop-credits">0</b></span>' +
+      '      <span class="dd-badge-cr" style="font-size:14px;padding:4px 12px;">SELLOS: <b id="dd-shop-credits">0</b></span>' +
       '      <button type="button" class="dd-close-btn" id="dd-shop-close">CERRAR [ESC]</button>' +
       '    </div>' +
       '  </div>' +
@@ -1375,14 +1388,20 @@
     mapModal.id = "dd-map-modal";
     mapModal.className = "dd-modal-backdrop dd-hidden";
     mapModal.innerHTML =
-      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Mapa de Progresión de los Nueve Círculos">' +
+      '<div class="dd-modal-window" role="dialog" aria-modal="true" aria-label="Mesa Astral: sección narrativa y registro de incursión">' +
       '  <div class="dd-modal-header">' +
-      '    <span class="dd-modal-title">MAPA DE PROGRESIÓN · DESCENSO POR LA TORRE</span>' +
+      '    <span class="dd-modal-title"><small>REFUGIO &nbsp;/&nbsp; CARTOGRAFÍA</small>Atlas de la Torre</span>' +
       '    <button type="button" class="dd-close-btn" id="dd-map-close">CERRAR [ESC]</button>' +
       '  </div>' +
       '  <div class="dd-map-body">' +
-      '    <div class="dd-tower-art-wrap"><img id="dd-map-tower-img" alt="Torre Infernal" src="' + assetSrc("map_infernal_tower") + '"></div>' +
-      '    <div class="dd-circles-list" id="dd-circles-list" role="region" aria-label="Círculos de la torre, desplázate para ver todos" tabindex="0"></div>' +
+      '    <section id="dd-tower-story" aria-label="Sección narrativa fija"><header><small>RELATO / SECCIÓN VERTICAL</small><h3>El salón creció hacia abajo.</h3></header>' +
+      '      <figure><img src="assets/cinematics/restart/opening/mc_03_nine.jpg" alt="Sección de la estación y las nueve pistas bajo el salón"><ol aria-label="Pistas del relato">' +
+      Array.from({length:9}, function(_, i){return '<li style="top:'+((535+i*110)/1706*100)+'%">'+String(i+1).padStart(2,'0')+'</li>';}).join('') +
+      '      </ol></figure><footer><strong>Pista 09 · El Núcleo</strong><span>Soberano: el Rey del Compás</span></footer></section>' +
+      '    <div class="dd-circles-list" id="dd-circles-list" role="region" aria-label="Diez registros de incursión"></div>' +
+      '    <section class="dd-record-sheet"><div class="dd-sheet-title"><small id="dd-sheet-code"></small><strong id="dd-sheet-name"></strong></div>' +
+      '      <div class="dd-record-proof"><img id="dd-record-portrait" alt=""><div id="dd-chart-detail" aria-live="polite"><div><small>Sede de incursión</small><strong id="dd-sheet-place"></strong></div><div><small>Residente de incursión:</small><strong id="dd-sheet-resident"></strong></div></div></div>' +
+      '      <section id="dd-local-chart" hidden><canvas id="dd-survey" width="540" height="246" aria-label="Plano de sala y conexiones descubiertas"></canvas><small class="dd-plate-key">◆ Tú &nbsp; ▪ Obstáculo &nbsp; ● Enemigo &nbsp; ♛ Jefe &nbsp; ✦ Botín &nbsp; ⊕ Objetivo &nbsp; × Zona</small><p id="dd-chart-doors"></p></section><p class="dd-record-note">Las fichas describen el recorrido jugable, no las pistas del relato ni sus soberanos.</p></section>' +
       '  </div>' +
       '</div>';
     document.body.appendChild(mapModal);
@@ -1434,11 +1453,15 @@
       '<dl class="dd-results-stats" id="dd-results-stats"></dl>' +
       '<details class="dd-results-details"><summary>Ver resumen completo</summary><pre id="dd-results-summary"></pre></details>' +
       '<div class="dd-results-actions"><button type="button" id="dd-results-retry">REINTENTAR</button>' +
-      '<button type="button" id="dd-results-menu">MENÚ PRINCIPAL</button></div>' +
+      '<button type="button" id="dd-results-menu">MENÚ PRINCIPAL</button><button type="button" id="dd-results-refuge">VOLVER AL REFUGIO</button></div>' +
       '<p class="dd-results-hint">↑ ↓ SELECCIONAR · ENTER ELEGIR &nbsp; / &nbsp; CRUCETA + A</p>' +
       '<p id="dd-results-error" role="status"></p></div>';
     document.body.appendChild(root);
     el("dd-results-retry").addEventListener("click", retryResults);
+    el("dd-results-refuge").addEventListener("click", function () {
+      if (!uiState.resultsOpen) return;
+      hideResults(); window.DD_HUB.enter(); writeSave(false);
+    });
     el("dd-results-menu").addEventListener("click", resultsToMenu);
     resultControls().forEach(function (control, i) {
       control.addEventListener("focus", function () {
@@ -1450,7 +1473,7 @@
 
   function resultControls() {
     var root = el("dd-results");
-    return root ? [el("dd-results-retry"), el("dd-results-menu"), root.querySelector("summary")] : [];
+    return root ? [el("dd-results-retry"), el("dd-results-menu"), root.querySelector("summary"), el("dd-results-refuge")] : [];
   }
 
   function selectResult(index) {
@@ -1473,6 +1496,7 @@
       suppressed ? "Partida modificada · sin victoria ni recompensas oficiales." :
       modified ? "Partida modificada · sin récords ni recompensas oficiales." : "La pista espera tu regreso.";
     var stats = [];
+    if (result && !modified && !suppressed) window.DD_REFUGE_RECORD.outcome(won);
     if (result) {
       [["SALA", "round"], ["PUNTUACIÓN", "score"], ["BAJAS", "kills"], ["TIEMPO", "t"]].forEach(function (pair) {
         var v = result[pair[1]];
@@ -1544,11 +1568,85 @@
     el("dd-shop-close").focus({ preventScroll: true });
   }
 
+  // Inspection is local to the atlas; a chart is never a travel command.
+  var surveyAt = 0, atlasIndex = 0, atlasCircle = null, atlasResidents = [];
+  const atlasMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let recordReveal;
+  function describeCircle() {
+    var c = circleInfo()[atlasIndex], resident = atlasResidents[atlasIndex];
+    if (!c) return;
+    el('dd-sheet-code').textContent = (atlasIndex===atlasCircle?'PLANO DE INCURSIÓN':'FICHA DE INCURSIÓN')+'   /   '+c.code;
+    el('dd-sheet-name').textContent = c.name;
+    el('dd-sheet-place').textContent = c.place;
+    el('dd-sheet-resident').textContent = resident ? resident.name : '—';
+    var portrait = el('dd-record-portrait');
+    var src = resident && assetSrc('boss_'+String(atlasIndex).padStart(2,'0')+'_'+resident.id+'_idle');
+    portrait.hidden = !src;
+    if (src && portrait.getAttribute('src') !== src) portrait.setAttribute('src',src);
+    if (recordReveal) recordReveal.cancel();
+    if (!atlasMotion.matches && portrait.parentElement.animate) {
+      recordReveal = portrait.parentElement.animate([{transform:'translateY(3px)',opacity:.84},{transform:'none',opacity:1}],{duration:150,easing:'ease-out'});
+    }
+    el('dd-circles-list').querySelectorAll('button').forEach(function (b) {
+      b.setAttribute('aria-pressed', String(Number(b.dataset.circle) === atlasIndex));
+    });
+    el('dd-local-chart').hidden = atlasCircle === null || atlasIndex !== atlasCircle;
+    surveyAt = 0;
+  }
+
+  function drawSurvey() {
+    if (!uiState.mapOpen || atlasCircle === null || atlasIndex !== atlasCircle || performance.now() < surveyAt) return;
+    surveyAt = performance.now() + 250;
+    var s = window.__DD_BRIDGE.getSurvey();
+    if (!s || !s.poly.length) return;
+    var canvas = el('dd-survey'), g = canvas.getContext('2d'), w=canvas.width, h=canvas.height;
+    g.clearRect(0,0,w,h);
+    // Fit both axes with the same scale: no stretch of room geometry.
+    function project(points,left,top,width,height) {
+      var xs=points.map(p=>p.x), ys=points.map(p=>p.y), x=Math.min(...xs), y=Math.min(...ys);
+      var dx=Math.max(...xs)-x, dy=Math.max(...ys)-y, k=Math.min(width/Math.max(dx,1),height/Math.max(dy,1));
+      return p=>[left+(width-dx*k)/2+(p.x-x)*k,top+(height-dy*k)/2+(p.y-y)*k];
+    }
+    function dot(x,y,r,color,shape) {
+      g.fillStyle=color;g.beginPath();
+      if(shape==='diamond'){g.moveTo(x,y-r);g.lineTo(x+r,y);g.lineTo(x,y+r);g.lineTo(x-r,y);g.closePath();}
+      else if(shape==='square')g.rect(x-r,y-r,2*r,2*r);
+      else g.arc(x,y,r,0,2*Math.PI);g.fill();
+    }
+    // Two independent projections, not a passage between the room and the graph.
+    var split=332;
+    g.fillStyle='#101c21';g.fillRect(0,0,split,h);g.fillStyle='#19161e';g.fillRect(split+2,0,w-split-2,h);
+    g.fillStyle='#a4bcb6';g.font='bold 12px monospace';g.fillText('01 / PLANTA',12,21);
+    for(var gx=12;gx<split;gx+=16)for(var gy=34;gy<h-4;gy+=16){g.fillStyle='#304044';g.fillRect(gx,gy,1,1);}
+    var floor=project(s.poly,18,42,split-36,h-60);
+    g.beginPath();s.poly.forEach(function(p,i){var xy=floor(p);i?g.lineTo(...xy):g.moveTo(...xy);});g.closePath();
+    g.fillStyle='#273139';g.fill();g.strokeStyle='#5c7073';g.lineWidth=5;g.stroke();g.strokeStyle='#c2d4c7';g.lineWidth=1;g.stroke();
+    s.props.forEach(p=>dot(...floor(p),2,'#88919a','square'));
+    function sign(p, glyph, color) {var xy=floor(p);g.fillStyle=color;g.font='bold 12px sans-serif';g.textAlign='center';g.fillText(glyph,xy[0],xy[1]+4);g.textAlign='start';}
+    s.rewards.forEach(p=>sign(p,'✦','#f1c478'));
+    s.marks.forEach(p=>sign(p,'×','#dd91ac'));
+    s.objectives.forEach(p=>sign(p,'⊕','#a2efdf'));
+    s.enemies.forEach(p=>dot(...floor(p),2,'#f788a4'));
+    if(s.boss)sign(s.boss,'♛','#f788a4');
+    s.doors.forEach(p=>{var xy=floor(p);dot(...xy,4,p.open?'#87e4d1':'#dfa0ad','square');
+      if(p.open)dot(...xy,2,'#202534','square');else {g.fillStyle='#302632';g.fillRect(xy[0]-3,xy[1]-1,6,2);}
+    });
+    dot(...floor(s.player),4,'#fff9df','diamond');
+    g.fillStyle='#c8bdc9';g.font='12px monospace';g.fillText('02 / RED DESCUBIERTA',split+12,21);
+    if(s.nodes.length){var graph=project(s.nodes,split+20,46,w-split-54,h-70), byKey=new Map(s.nodes.map(n=>[n.key,n]));
+      s.nodes.forEach(n=>n.links.forEach(l=>{var dest=byKey.get(l.to);if(!dest||dest.key<=n.key)return;
+        var door=s.doors.find(d=>(n.key===s.key && d.to===dest.key)||(dest.key===s.key && d.to===n.key));
+        g.strokeStyle=door?(door.open?'#87e4d1':'#b07d90'):'#71687a';g.setLineDash(door&&!door.open?[3,3]:[]);g.beginPath();g.moveTo(...graph(n));g.lineTo(...graph(dest));g.stroke();}));g.setLineDash([]);
+      s.nodes.forEach(n=>{var xy=graph(n);dot(...xy,6,n.key===s.key?'#fff9df':n.shop?'#f1c478':n.boss?'#f788a4':n.visited&&n.cleared?'#87e4d1':'#9b93a5',n.key===s.key||n.boss||n.shop?'diamond':'square');if(!n.visited)dot(...xy,3,'#181420','square');var label=n.shop?'CR':String(n.room);g.font='bold 12px monospace';g.strokeStyle='#110d19';g.lineWidth=3;g.strokeText(label,xy[0]+8,xy[1]+4);g.fillStyle='#fff2e6';g.fillText(label,xy[0]+8,xy[1]+4);});}
+    var text=(s.encounter?s.encounter+' · ':'')+(s.elite?'Élite activa · ':'')+s.completed+'/'+s.total+' salas completadas · '+s.doors.map(d=>(d.lift?'Descenso':d.label)+' · '+(d.open?'abierta':'sellada')).join(' / ');
+    if(el('dd-chart-doors').textContent!==text)el('dd-chart-doors').textContent=text;
+  }
   function openMap() {
     buildDOM();
     rememberModalFocus();
     uiState.shopOpen = false;
     uiState.mapOpen = true;
+    uiState.gpCooldown = .22;
     el("dd-shop-modal").classList.add("dd-hidden");
     var modal = el("dd-map-modal");
     modal.classList.remove("dd-hidden");
@@ -1560,17 +1658,18 @@
     var listEl = el("dd-circles-list");
     if (listEl) {
       var circles = circleInfo();
-      listEl.innerHTML = '<p class="dd-map-location">' + (inHub ? 'UBICACIÓN ACTUAL · REFUGIO' : 'TORRE · CÍRCULOS') +
-        '<small> ↑↓ DESPLAZAR</small></p>' +
-        (circles.length ? circles.slice().reverse().map(function (c) {
-          var current = c.idx === activeCircle;
-          return '<div class="dd-circle-node ' + (current ? 'current' : '') + '"><div>' +
-            '<strong style="color:#ff2d7a;margin-right:8px;">[' + esc(c.code) + ']</strong><span>' + esc(c.name) + '</span>' +
-            '<div style="font-size:11px;color:#94a3b8;margin-top:2px;">' + esc(c.place) + '</div></div>' +
-            (current ? '<span style="font-size:11px;font-weight:800;">UBICACIÓN ACTUAL</span>' : '') + '</div>';
-        }).join("") : '<p class="dd-opt-note">El mapa aún no está disponible.</p>');
+      atlasCircle = activeCircle; atlasIndex = activeCircle === null ? 0 : activeCircle;
+      atlasResidents = window.DMO && DMO.circles ? DMO.circles.residents() : [];
+      listEl.innerHTML = '<p class="dd-map-location">' + 'REGISTRO DE INCURSIÓN' + '<small>'+(inHub?'REFUGIO':'EN CURSO')+'</small></p>' +
+        circles.map(function(c){
+          var current=c.idx===activeCircle, passed=activeCircle!==null&&c.idx<activeCircle;
+          var status=current?'Actual':passed?'Superado':inHub&&c.idx===0?'Primer descenso':'Pendiente';
+          return '<button type="button" data-circle="'+c.idx+'" class="dd-circle-node '+(current?'current':passed?'cleared':'')+'"><b>'+esc(c.code)+'</b><span>'+esc(c.name)+'</span><small>'+status+'</small></button>';
+        }).join('');
+      listEl.querySelectorAll('button').forEach(function(btn){btn.onclick=function(){atlasIndex=Number(btn.dataset.circle);describeCircle();drawSurvey();};});
+      describeCircle();drawSurvey();
       var currentNode = listEl.querySelector(".current");
-      listEl.scrollTop = currentNode ? Math.max(0, currentNode.offsetTop - listEl.offsetTop - listEl.clientHeight / 2) : listEl.scrollHeight;
+      listEl.scrollTop = currentNode ? Math.max(0, currentNode.offsetTop - listEl.offsetTop - listEl.clientHeight / 2) : 0;
     }
     el("dd-map-close").focus({ preventScroll: true });
   }
@@ -1610,6 +1709,7 @@
   function closeModals(skipFocusRestore) {
     // Event listeners pass an Event, not this explicit internal flag.
     skipFocusRestore = skipFocusRestore === true;
+    var returningFromAtlas = uiState.mapOpen && !skipFocusRestore;
     uiState.shopOpen = false;
     uiState.mapOpen = false;
     var s = el("dd-shop-modal");
@@ -1618,6 +1718,10 @@
     if (m) m.classList.add("dd-hidden");
     var hud = el("dd-hud");
     if (hud) hud.inert = false;
+    var locator = el('dd-minimap-trigger');
+    if (returningFromAtlas && locator && locator.animate && !atlasMotion.matches) {
+      locator.animate([{borderColor:'#acf0db'},{borderColor:'#846c7c'}],{duration:220});
+    }
     var target = modalReturnFocus;
     modalReturnFocus = null;
     if (!skipFocusRestore && target && target !== document.body && target.isConnected && target.getClientRects().length && target.focus) {
@@ -1625,123 +1729,18 @@
     }
   }
 
-  /* ---- catálogo de la armería (mismo comportamiento que la versión previa) */
-  function getCatalogWeapons() {
-    var br = window.__DD_BRIDGE;
-    var list = [];
-    try { list = br && br.getWeaponsList ? br.getWeaponsList() : []; } catch (e) { list = []; }
-    return Array.isArray(list) ? list : [];
-  }
-
+  /* Dice Vault uses the native modal focus and gamepad navigation. */
   function renderShop() {
-    var grid = el("dd-weapons-grid");
-    if (!grid) return;
-    var br = window.__DD_BRIDGE;
-    var snap = br ? br.getSnapshot() : { credits: 0, owned: [], running: false };
-    var cred = el("dd-shop-credits");
-    if (cred) cred.textContent = String(snap.credits || 0);
-    var context = el("dd-shop-context");
-    if (context) context.textContent = snap.running ? "PRECIOS DE LA INCURSIÓN · CRÉDITOS ACTUALES" : "REFUGIO · PRUEBA SIN COSTE · PRECIOS DE INCURSIÓN";
-    var weapons = getCatalogWeapons();
-    var cats = ["TODAS"];
-    weapons.forEach(function (w) {
-      var c = (w.category || "OTRAS").toUpperCase();
-      if (cats.indexOf(c) < 0) cats.push(c);
-    });
-    var filters = el("dd-shop-filters");
-    if (filters && filters.dataset.categories !== JSON.stringify(cats)) {
-      filters.dataset.categories = JSON.stringify(cats);
-      if (cats.indexOf(uiState.selectedCategory) < 0) uiState.selectedCategory = "TODAS";
-      filters.innerHTML = cats.map(function (c) {
-        return '<button type="button" class="dd-filter-chip' + (c === uiState.selectedCategory ? " active" : "") + '" data-cat="' + esc(c) + '">' + esc(c) + '</button>';
-      }).join("");
-    }
-    if (filters && !filters.dataset.bound) {
-      filters.dataset.bound = "1";
-      filters.addEventListener("click", function (ev) {
-        var b = ev.target.closest(".dd-filter-chip");
-        if (!b) return;
-        uiState.selectedCategory = b.getAttribute("data-cat");
-        Array.prototype.forEach.call(filters.querySelectorAll(".dd-filter-chip"), function (x) {
-          x.classList.toggle("active", x === b);
-        });
-        renderShop();
-      });
-    }
-
-    var list = weapons.filter(function (w) {
-      return uiState.selectedCategory === "TODAS" || (w.category || "OTRAS").toUpperCase() === uiState.selectedCategory;
-    }).slice(0, 120);
-
-    if (!list.length) {
-      grid.innerHTML = '<p class="dd-opt-note">La armería está cargando. Vuelve a abrirla en unos segundos.</p>';
-    } else {
-      grid.innerHTML = list.map(function (w) {
-        var owned = snap.owned && snap.owned.indexOf(w.id) >= 0;
-        var sel = w.id === uiState.selectedWeaponId;
-        return '<button type="button" class="dd-weapon-card' + (sel ? " selected" : "") + (owned ? " equipped" : "") + '" data-w="' + esc(w.id) + '">' +
-          '<img alt="" src="' + weaponImgSrc(w.id) + '">' +
-          '<b class="dd-weapon-card-name">' + esc((w.name || w.id).toUpperCase()) + '</b>' +
-          '<span class="dd-weapon-card-price">' + (owned ? "EN PROPIEDAD" : (typeof w.price === "number" ? esc(w.price) + " CR" : "PRECIO NO DISPONIBLE")) + '</span>' +
-          '</button>';
-      }).join("");
-      grid.onclick = function (ev) {
-        var card = ev.target.closest(".dd-weapon-card");
-        if (!card) return;
-        var hadFocus = document.activeElement === card;
-        uiState.selectedWeaponId = card.getAttribute("data-w");
-        renderShop();
-        if (hadFocus) {
-          Array.prototype.some.call(grid.querySelectorAll("[data-w]"), function (item) {
-            if (item.getAttribute("data-w") !== uiState.selectedWeaponId) return false;
-            item.focus({ preventScroll: true });
-            return true;
-          });
-        }
-      };
-    }
-    renderInspector(snap);
-  }
-
-  function renderInspector(snap) {
-    var host = el("dd-shop-inspector");
-    if (!host) return;
-    var br = window.__DD_BRIDGE;
-    var wid = uiState.selectedWeaponId;
-    var stats = null;
-    try { stats = br && br.getWeaponStats ? br.getWeaponStats(wid) : null; } catch (e) { stats = null; }
-    var owned = snap.owned && snap.owned.indexOf(wid) >= 0;
-    var preview = !snap.running && !!(window.DD_HUB && window.DD_HUB.isActive());
-    var unavailable = !owned && !preview;
-    var metrics = [["DAÑO", "damage"], ["CADENCIA", "fireRate"], ["VELOCIDAD", "speed"], ["PROYECTILES", "pellets"], ["PERFORACIÓN", "pierce"]];
-    host.innerHTML =
-      '<div class="dd-inspector-preview"><img alt="" src="' + weaponImgSrc(wid) + '"></div>' +
-      '<b class="dd-inspector-name">' + esc(String((stats && stats.name) || wid).toUpperCase()) + '</b>' +
-      '<div class="dd-inspector-stats">' +
-      metrics.map(function (pair) {
-        var v = stats && stats[pair[1]];
-        if (typeof v !== "number" || !isFinite(v)) return "";
-        return '<div class="dd-stat-row"><span>' + pair[0] + '</span><b>' + esc(Math.round(v * 100) / 100) + '</b></div>';
-      }).join("") +
-      '</div>' +
-      (preview && !owned ? '<p class="dd-shop-note">Prueba en el Refugio: el equipo se reinicia al comenzar una incursión.</p>' : '') +
-      (unavailable ? '<p class="dd-shop-note">Consigue armas en las tiendas y recompensas de la incursión; allí se confirma cualquier reemplazo.</p>' : '') +
-      '<div class="dd-shop-actions"><button type="button" class="dd-action-btn primary" id="dd-shop-equip"' + (unavailable ? ' disabled' : '') + '>' +
-      (owned ? "EQUIPAR" : preview ? "PROBAR EN REFUGIO" : "DISPONIBLE EN INCURSIÓN") + '</button></div>' +
-      '<p class="dd-shop-feedback" id="dd-shop-feedback" role="status" aria-live="polite"></p>';
-
-    el("dd-shop-equip").addEventListener("click", function () {
-      var snapNow = br ? br.getSnapshot() : null;
-      if (!br) return;
-      var ok = false;
-      try { ok = !!br.buyOrEquipWeapon(wid, !(snapNow && snapNow.running)); } catch (e) { console.warn("[DD_UI] armería", e); }
-      renderShop();
-      var feedback = el("dd-shop-feedback");
-      if (feedback) feedback.textContent = ok ? "Arma equipada." : "No se pudo equipar o adquirir el arma.";
-      sfx(ok ? "ok" : "back");
-      var button = el("dd-shop-equip");
-      if (button) button.focus({ preventScroll: true });
-    });
+    const {catalog,d,save,equip}=window.DD_DICE, grid=el('dd-weapons-grid');
+    const preview=window.DD_HUB?.isActive()&&!window.__DD_BRIDGE.isRunning();
+    const id=Number(uiState.selectedWeaponId)||save.id, c=catalog[id]||catalog[save.id];
+    el('dd-shop-credits').textContent=save.marks;
+    el('dd-shop-context').textContent='Un impacto confirmado por tirada concede un sello. Cada tres tiradas acertadas se graba una runa temporal.';
+    grid.innerHTML=Object.values(catalog).map(v=>`<button class="dd-weapon-card ${v.id===c.id?'selected':''}" data-w="${v.id}"><canvas width="110" height="80"></canvas><b class="dd-weapon-card-name">D${v.id} · ${v.name}</b><span class="dd-weapon-card-price">${v.id===save.id?'EQUIPADO':v.cost<=save.marks?'DESBLOQUEADO':v.cost+' SELLOS'}</span></button>`).join('');
+    for(const btn of grid.children){const v=catalog[btn.dataset.w],g=btn.firstChild.getContext('2d');g.translate(55,40);window.DD_DICE_GEOMETRY.draw(g,v.id,.52,.37,32,v.color);btn.onclick=()=>{uiState.selectedWeaponId=v.id;renderShop();grid.querySelector(`[data-w="${v.id}"]`).focus();};}
+    el('dd-shop-inspector').innerHTML=`<b class="dd-inspector-name">${c.name}</b><p>Masa ${c.mass} · Velocidad ${c.speed} · Retorno ${c.recovery} s</p><p>${Array.from({length:c.id},(_,i)=>`${i+1}: ${c.id===d.id&&d.runes[i+1]||'normal'}`).join(' · ')}</p><button class="dd-action-btn primary" id="dd-shop-equip" ${preview&&save.marks>=c.cost?'':'disabled'}>EQUIPAR EN REFUGIO</button><button class="dd-action-btn" id="dd-etched" ${preview&&save.marks>=c.cost+10?'':'disabled'}>EDICIÓN GRABADA · ${c.cost+10} SELLOS</button><p>La edición grabada comienza con ${c.variantRune} en la cara ${c.id}.</p><p>Runas compatibles: ${c.compatible.join(", ")}.</p>`;
+    el('dd-etched').onclick=()=>{if(!window.__DD_BRIDGE.isRunning()){equip(c.id,true);renderShop();el('dd-etched').focus();}};
+    el('dd-shop-equip').onclick=()=>{if(!window.__DD_BRIDGE.isRunning()){equip(c.id);renderShop();el('dd-shop-equip').focus();}};
   }
 
   /* ============================ E. VISIBILIDAD ============================ */
@@ -1865,7 +1864,7 @@
       ["dd-skill-boost-img", assetSrc("hud_skill_boost", "pickups/pickup_boost_00.png")],
       ["dd-skill-dodge-img", assetSrc("hud_skill_dodge", "pickups/pickup_speedup_00.png")],
       ["dd-dj-portrait", assetSrc("dialogue_portrait_dj")],
-      ["dd-map-tower-img", assetSrc("map_infernal_tower")]
+
     ];
     for (var i = 0; i < map.length; i++) {
       var node = el(map[i][0]);
@@ -1883,6 +1882,7 @@
     ctx.clearRect(0, 0, w, h);
     ctx.fillStyle = "#06030c";
     ctx.fillRect(0, 0, w, h);
+    if (inHub && window.DD_HUB) { window.DD_HUB.drawLocator(ctx,w,h); return; }
     var original = el("minimap");
     if (!inHub && snap && snap.running && original && original.width && original.height) {
       var scale = Math.min(w / original.width, h / original.height);
@@ -2148,6 +2148,7 @@
       var btnB = gpEdge(gp, 1, gp.buttons[1] && gp.buttons[1].pressed);
       if (up || down || left || right || btnA || btnB) document.body.classList.add("dd-input-pad");
 
+      if(window.DD_HUB?.inspectorOpen?.()) return;
       if (uiState.resultsOpen) {
         if (up || left) selectResult(uiState.resultsIndex - 1);
         else if (down || right) selectResult(uiState.resultsIndex + 1);
@@ -2159,20 +2160,15 @@
       } else if (uiState.submenu) {
         /* B (volver) manda sobre cualquier dirección y sobre A. */
         if (btnB) {
-          if (uiState.gpCooldown <= 0) {
-            sfx("back"); closeSubmenu(); uiState.gpCooldown = 0.45; resetDirectionalState();
-          }
+          sfx("back"); closeSubmenu();
         } else if (btnA) {
           var rangeA = focusedRange();
           if (rangeA) {
             /* A sobre un slider = un único incremento (comportamiento FASE 01),
                con clamp y evento input real. Nunca en auto-repetición. */
-            if (uiState.gpCooldown <= 0) {
-              if (adjustRange(rangeA, 1)) sfx("move");
-              uiState.gpCooldown = 0.18;
-            }
-          } else if (uiState.gpCooldown <= 0) {
-            activateFocused(); uiState.gpCooldown = 0.45;
+            if (adjustRange(rangeA, 1)) sfx("move");
+          } else {
+            activateFocused();
           }
         } else if (up) {
           focusStep(-1);
@@ -2193,18 +2189,13 @@
       } else if (uiState.menuVisible) {
         if (up) { setMenuSelection(uiState.menuIndex - 1); }
         else if (down) { setMenuSelection(uiState.menuIndex + 1); }
-        else if (btnA && uiState.gpCooldown <= 0) {
+        else if (btnA) {
           var btns = menuButtons();
           if (btns[uiState.menuIndex]) triggerMenuAction(btns[uiState.menuIndex].getAttribute("data-action"));
-          uiState.gpCooldown = 0.35; resetDirectionalState();
+          resetDirectionalState();
         }
       } else if (uiState.shopOpen || uiState.mapOpen) {
-        var mapList = uiState.mapOpen ? el("dd-circles-list") : null;
-        if (btnB && uiState.gpCooldown <= 0) { closeModals(); uiState.gpCooldown = 0.25; }
-        else if (mapList && document.activeElement === mapList && (up || down)) {
-          if (up && mapList.scrollTop <= 0) modalFocusStep(-1);
-          else mapList.scrollTop += up ? -100 : 100;
-        }
+        if (btnB && (uiState.mapOpen || uiState.gpCooldown <= 0)) { closeModals(); uiState.gpCooldown = 0.25; }
         else if (up || left) modalFocusStep(-1);
         else if (down || right) modalFocusStep(1);
         else if (btnA && uiState.gpCooldown <= 0) { activateModalFocus(); uiState.gpCooldown = 0.3; }
@@ -2301,12 +2292,20 @@
     var nvEl = el("dd-hud-nv");
     if (nvEl) nvEl.textContent = "NV. " + (snap.level || 1);
     var wNameEl = el("dd-hud-weapon-name");
-    if (wNameEl) wNameEl.textContent = (snap.weaponName || "M1911").toUpperCase() + " · ∞";
-    var wImgEl = el("dd-hud-weapon-img");
-    var wSrc = weaponImgSrc(snap.weapon || "m1911");
-    if (wImgEl && wSrc && wImgEl.getAttribute("data-w") !== snap.weapon) {
-      wImgEl.setAttribute("data-w", snap.weapon);
-      wImgEl.src = wSrc;
+    const die=window.DD_DICE.d;
+    if(wNameEl)wNameEl.title=Object.entries(die.runes).map(([n,r])=>n+": "+r).join(" · ")||"Caras sin grabar";
+    if(wNameEl){
+      let action;
+      switch(die.state){
+        case 'CHARGING': action=die.charge===1?'CARGA COMPLETA':`CARGA ${Math.round(100*die.charge)}%`;break;
+        case 'ROLLING': action='RODANDO';break;
+        case 'RESOLVING': action=`${die.face} · ${die.runes[die.face]||'TIRADA'}`;break;
+        case 'RETURNING': action='EN RETORNO';break;
+        case 'AIMING': action='APUNTANDO';break;
+        case 'FLIGHT': case 'RELEASE': action='EN VUELO';break;
+        default: action=inHub?window.DD_DICE.catalog[die.id].name:die.primed?'SOBRECARGADO':'LISTO';
+      }
+      const label=`D${die.id} · ${action}`;if(wNameEl.textContent!==label)wNameEl.textContent=label;
     }
     var roomEl = el("dd-hud-room");
     if (roomEl) {
@@ -2341,12 +2340,14 @@
       }
     }
     drawMinimap(snap, inHub);
+    if (uiState.mapOpen) drawSurvey();
   }
 
   /* ============================== G. TECLADO ============================== */
   /* El motor escucha Escape en window durante la fase de burbuja. Cerrar un
      modal HD antes de que llegue allí evita que la misma tecla abra la pausa. */
   document.addEventListener("keydown", function (ev) {
+    if(window.DD_HUB?.inspectorOpen?.()){ev.stopPropagation();return;}
     if (uiState.resultsOpen && ev.code === "Tab") {
       ev.preventDefault();
       ev.stopPropagation();
@@ -2500,7 +2501,7 @@
     readSave: readSave,
     STORAGE: STORAGE,
     storageKeys: storageKeys,
-    isModalOpen: function () { return uiState.shopOpen || uiState.mapOpen || !!uiState.submenu; },
+    isModalOpen: function () { return window.DD_HUB?.inspectorOpen?.() || uiState.shopOpen || uiState.mapOpen || !!uiState.submenu; },
     getState: function () {
       return {
         menuVisible: uiState.menuVisible,

@@ -275,6 +275,8 @@ body.dd-highres-edition #ddc-cover {
   font-weight: 800;
   background: rgba(8, 4, 15, .9);
 }
+/* The mark is decorative; the existing ESC count and accessible label stay authoritative. */
+.dd-badge-shield::before { content:""; display:inline-block; width:16px; height:16px; margin-right:3px; vertical-align:middle; background:url('assets/ui/hud_shield_badge.png') center/contain no-repeat; }
 .dd-hud-hype-label { color: #fde68a; font-size: 10px; font-weight: 800; line-height: 1; letter-spacing: .06em; }
 .dd-badge-cr img {
   width: 16px;
@@ -2521,7 +2523,6 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
    degradado, no una caja opaca sobre la ilustración. */
 #dd-main-menu.dd-rs { transition: opacity .48s cubic-bezier(.22,1,.36,1), transform .48s cubic-bezier(.22,1,.36,1), filter .48s ease; }
 #dd-main-menu.dd-rs.dd-behind { opacity:.72; filter:brightness(.68); transform:scale(1.015); }
-#dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) { transition:opacity .48s cubic-bezier(.22,1,.36,1), visibility .48s; }
 #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"])::before { background-image:linear-gradient(90deg,rgba(5,2,10,.58) 0%,rgba(5,2,10,.43) 38%,rgba(5,2,10,.06) 76%),var(--scene-image); }
 #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]) .dd-submenu-card { background:linear-gradient(90deg,rgba(7,3,13,.85) 0%,rgba(7,3,13,.76) 66%,rgba(7,3,13,.36) 90%,transparent 100%); transform:translate3d(-22px,0,0); opacity:.72; transition:transform .52s cubic-bezier(.22,1,.36,1),opacity .42s ease; }
 #dd-submenu:is([data-scene="play"],[data-scene="customize"],[data-scene="progression"],[data-scene="options"],[data-scene="extras"]).is-open .dd-submenu-card { transform:translate3d(0,0,0); opacity:1; }
@@ -3369,3 +3370,140 @@ html body.dd-highres-edition :is(#shot-choice-overlay, #risk-choice-overlay) h2 
   .dd-extra-still img { animation: none !important; transition: none !important; }
   #dd-boot-frame .dd-boot-bg { transform: none; }
 }
+
+/* Runout engraving: a small edition mark shared by the sleeve, loading card
+   and wardrobe proof. Artwork, scene framing and menu hit areas stay intact. */
+.dd-vault-stamp { display:inline-block; flex:none; width:1.65em; height:1.65em; background:url('assets/ui/vault-stamp.svg') center/contain no-repeat; vertical-align:middle; }
+.dd-runout, .dd-look-proof { display:flex; align-items:center; gap:12px; color:#f5e6d6; text-align:left; }
+.dd-runout b,.dd-look-proof small { display:block; color:#ffcf83; font:700 10px/1.4 var(--dd-font-ui,sans-serif); letter-spacing:.18em; }
+#dd-boot-frame .dd-runout { margin:0; padding:6px 14px; border-inline:1px solid #d3a36c66; background:linear-gradient(90deg,transparent,#160d1de6,transparent); font:500 clamp(13px,1.6vh,18px)/1.3 'Barlow Condensed',sans-serif; }
+#dd-main-menu.dd-rs .dd-cover-manifesto .dd-vault-stamp { width:1.5em;height:1.5em;margin:0 .4em; }
+.dd-well-seal { position:absolute; left:63%; top:71%; z-index:2; pointer-events:none; display:grid; justify-items:center; gap:6px; transform:translate(-50%,-50%); color:#ffe6ba; }
+.dd-well-seal i { width:clamp(22px,2.4vw,40px); height:clamp(22px,2.4vw,40px); filter:drop-shadow(0 2px 7px #100713); animation:dd-matrix-float 5s ease-in-out infinite alternate; }
+.dd-well-seal span { border-top:1px solid #ffcf8380; padding:4px 8px; background:#14091dbd; font:700 9px/1.2 var(--dd-font-ui,sans-serif); letter-spacing:.14em; }
+@keyframes dd-matrix-float { from{transform:translateY(2px) rotate(-5deg)} to{transform:translateY(-4px) rotate(4deg)} }
+.dd-look-proof,.dd-archive-slip { margin:12px 0; padding:10px 14px; border-left:2px solid #ffcf83; background:linear-gradient(95deg,#351a36e6,#160e20b3 72%,transparent); }
+.dd-look-proof strong {display:block;font:22px/1.15 Bangers,sans-serif;letter-spacing:.04em;color:#fff1dc;}
+.dd-look-proof em { margin-left:auto; color:#8ee7df;font:600 13px/1.3 'Barlow Condensed',sans-serif;text-align:right; }
+.dd-look[aria-pressed=true] .dd-look-swatch {border-color:#ffcf83;}
+.dd-look:disabled .dd-look-swatch {filter:grayscale(.75);}
+.dd-archive-slip {font:16px/1.4 'Barlow Condensed',sans-serif;}
+@media (max-width:760px),(max-height:480px){.dd-well-seal { display:none; }}
+@media (prefers-reduced-motion:reduce){.dd-well-seal i{animation:none;}}
+/* The original yellow brushstroke is the focus signal: use ink, not gold on gold. */
+#dd-main-menu.dd-rs .dd-menu-btn:is(:hover,:focus-visible,.dd-selected) .dd-btn-text b {
+  background:none; color:var(--rs-ink,#100817); -webkit-text-fill-color:currentColor; filter:none; text-shadow:none;
+}
+/* Keep the musical lighting on the chrome beside the portrait. The outer
+   opacity is driven by the existing mixer, so silence/flash settings win. */
+#dd-main-menu.dd-rs .dd-menu-beat-light { inset:21% 2% 11% 52%; animation:none; background:none; }
+#dd-main-menu.dd-rs .dd-menu-beat-light::before { content:""; position:absolute; inset:0; background:radial-gradient(ellipse at 72% 45%,#89d9cd77,transparent 52%),radial-gradient(ellipse at 22% 85%,#ff559466,transparent 48%); animation:dd-beat-throb 1.35s ease-in-out infinite, dd-strobe 6.8s steps(1) infinite; }
+@media (max-width:760px){.dd-look-proof::before {content:"";width:42px;height:62px;flex:none;background:var(--dd-appearance-image) center/contain no-repeat;} .dd-look-proof .dd-vault-stamp {display:none;} }
+@media (prefers-reduced-motion:reduce){#dd-main-menu.dd-rs .dd-menu-beat-light::before{animation:none;}}
+/* Fase 08: el panel recibe foco inmediatamente; sólo se difiere ocultarlo. */
+.dd-submenu-wrap { transition:opacity .22s ease,visibility 0s linear .22s; }
+.dd-submenu-wrap.is-open { transition:opacity .22s ease; }
+#dd-scene-passage.is-running, #dd-scene-passage.is-running > div, #dd-scene-passage.is-running .dd-passage-title::after { animation-duration:.68s; }
+#dd-scene-passage.is-running { pointer-events:none; }
+#dd-main-menu.dd-rs .dd-menu-vig::after { opacity:.12; animation:none; }
+#dd-main-menu.dd-rs .dd-menu-beat-light::before { animation:none; }
+#dd-boot-frame.is-out { transform:scale(1.012); }
+#dd-boot-frame .dd-runout { border-bottom:1px solid #ffcf8338; }
+.dd-look.is-inspected .dd-look-swatch { box-shadow:0 0 0 1px #8ee7df,0 0 12px #8ee7df44; }
+.dd-look .dd-look-swatch { transition:box-shadow .18s ease; }
+.dd-look-proof em { font-style:normal; color:#bcfff4; }
+@media(prefers-reduced-motion:reduce){.dd-submenu-wrap,.dd-look .dd-look-swatch{transition:none;}#dd-boot-frame.is-out{transform:none;}}
+/* Mesa Astral: a survey plate and a single index, rather than two competing posters. */
+#dd-map-modal .dd-map-body {align-items:stretch;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;min-height:0;}
+#dd-map-modal .dd-tower-art-wrap {display:flex;flex-flow:column;align-items:stretch;justify-content:space-between;min-height:0;background:#120f1a;border:1px solid #584758;padding:14px;overflow:auto;}
+#dd-map-modal .dd-tower-art-wrap img {object-fit:contain;min-height:0;height:min(35vh,290px);}
+.dd-chart-kicker,#dd-chart-doors,.dd-circle-node small {font:600 12px/1.4 'Barlow Condensed',sans-serif;letter-spacing:.07em;}
+.dd-chart-kicker {color:#ebc399;} #dd-chart-detail {margin:8px 0 0;border-top:1px solid #534553;padding-top:8px;color:#ffead6;}
+#dd-local-chart small {color:#c7bac6;} #dd-survey {display:block;width:100%;max-height:36vh;object-fit:contain;}
+#dd-chart-doors {color:#a9e7dc;margin:6px 0;}
+#dd-map-modal .dd-circle-node {position:relative;gap:12px;flex:none;text-align:left;width:100%;color:#dfd7df;border:1px solid transparent;background:none;padding:7px 8px;}
+#dd-map-modal .dd-circle-node b {z-index:1;min-width:38px;padding:3px;text-align:center;background:#201925;border:1px solid #8e7988;color:#ebcfaf;font:700 12px/1.4 monospace;}
+#dd-map-modal .dd-circle-node:not(:last-child)::after {content:'';position:absolute;left:27px;top:50%;height:calc(100% + 9px);border-left:1px solid #786374;}
+#dd-map-modal .dd-circle-node small {margin-left:auto;color:#baafb9;}
+#dd-map-modal .dd-circle-node[aria-pressed=true] {background:#29212c;border-color:#927861;}
+#dd-map-modal .dd-circle-node:focus-visible {outline:2px solid #83e9d8;outline-offset:-2px;}
+#dd-map-modal .dd-circle-node.current b {background:#9ae6da;color:#14131a;} #dd-map-modal .dd-circle-node.cleared b {border-color:#94c8bc;}
+#dd-minimap-trigger {background:#110d19;border:1px solid #846c7c;clip-path:none;}
+@media(max-width:620px){#dd-map-modal .dd-map-body {grid-template-columns:1fr;padding:8px;gap:8px;}#dd-map-modal .dd-tower-art-wrap img {height:10vh;}#dd-survey {max-height:20vh;}#dd-map-modal .dd-circles-list {max-height:32vh;}}
+/* Native floor chart: preserve its interactive waypoints, coordinate system
+   and pending-route marks; type and spacing follow the Mesa Astral. */
+#explore72-map {background:#15121d;border:1px solid #685566;padding:12px;}
+#explore72-map .explore72-map-title {color:#a7e7d9;letter-spacing:.075em;}
+#explore72-map svg {background:#100e17;} #explore72-map svg path {stroke:#766775;stroke-width:2;}
+#explore72-map p {color:#d8cbd2;line-height:1.45;}
+#explore72-map .explore72-waypoints button {background:#211b29;color:#f1e1ce;border:1px solid #836d7b;}
+#explore72-map .explore72-waypoints button:focus-visible {outline:2px solid #94ebda;outline-offset:1px;}
+/* Lectura de la torre: tinta cálida para consulta, cian para foco y ubicación. */
+#dd-map-modal .dd-circle-node[aria-pressed=true] {border-color:#d4ae86;box-shadow:inset 3px 0 #edc59a;background:#322733;}
+#dd-map-modal .dd-circle-node small {color:#d6cbd1;}
+#dd-map-modal .dd-circle-node:focus-visible {outline-offset:-4px;}
+@media(prefers-reduced-motion:no-preference){#dd-map-modal .dd-circle-node {transition:background-color .14s ease,border-color .14s ease;}}
+/* F11 / Atlas de la Torre — a numbered survey sheet mounted beside its register. */
+#dd-map-modal .dd-modal-window {width:min(1160px,96vw);background:#111217;border:1px solid #877c70;box-shadow:0 20px 65px #000b;}
+#dd-map-modal .dd-modal-header {padding:10px 20px;background:#1c1c21;border:0;border-bottom:1px solid #69605a;}
+#dd-map-modal .dd-modal-title {display:grid;gap:2px;text-shadow:none;color:#f5e5c9;font:clamp(24px,4vh,38px)/1 Bangers,sans-serif;letter-spacing:.04em;}
+#dd-map-modal .dd-modal-title small,.dd-sheet-title small,#dd-chart-detail small {color:#a5c9bd;font:700 10px/1.35 monospace;letter-spacing:.15em;text-transform:uppercase;}
+#dd-map-modal .dd-map-body {padding:0;gap:0;grid-template-columns:minmax(0,1.55fr) minmax(0,1fr);}
+#dd-map-modal .dd-tower-art-wrap {position:relative;isolation:isolate;display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:8px;padding:18px 24px;border:0;border-right:1px solid #625c56;background:#10151a;}
+.dd-tower-art-wrap::before {content:'';position:absolute;inset:0;z-index:-1;background:linear-gradient(0deg,#0d1016 0%,#11161ad9 45%,#11161ab8),url('assets/cinematics/restart/opening/op_02_tower.jpg') center/cover;}
+.dd-sheet-title {display:grid;gap:4px;} .dd-sheet-title strong {font:clamp(30px,5vh,54px)/1 Bangers,sans-serif;letter-spacing:.025em;color:#faf0db;}
+.dd-plate-figure {min-height:0;position:relative;display:grid;align-items:center;background:repeating-linear-gradient(0deg,transparent 0 24px,#bac2ad16 24px 25px);border-inline:1px solid #abb9aa38;}
+#dd-map-modal .dd-tower-art-wrap img {width:100%;height:100%;max-height:min(45vh,380px);filter:drop-shadow(0 5px 12px #000);}
+#dd-map-modal #dd-chart-detail {display:grid;grid-template-columns:1fr 1fr;gap:12px;border-top:1px solid #897e6d;padding-top:10px;margin:0;}
+#dd-chart-detail strong {display:block;color:#f6e9d5;font:700 clamp(14px,2.2vh,20px)/1.15 'Barlow Condensed',sans-serif;}
+#dd-map-modal .dd-circles-list {padding:8px 12px 12px;gap:0;max-height:69vh;background:#15151b;}
+#dd-map-modal .dd-map-location {background:#15151b;color:#a3cbbf;font:700 11px/1.5 monospace;letter-spacing:.06em;border-bottom:1px solid #514950;}
+#dd-map-modal .dd-circle-node {min-height:36px;gap:14px;padding:5px 8px;border:0;border-bottom:1px solid #33313a;border-radius:0;}
+#dd-map-modal .dd-circle-node b {min-width:38px;background:#29252b;border:1px solid #857469;color:#f2d4ae;}
+#dd-map-modal .dd-circle-node span {font:700 clamp(15px,2.15vh,21px)/1 'Barlow Condensed',sans-serif;letter-spacing:.035em;}
+#dd-map-modal .dd-circle-node[aria-pressed=true] {background:#e9caa3;color:#211b22;box-shadow:none;}
+#dd-map-modal .dd-circle-node[aria-pressed=true] small {color:#382b37;}
+#dd-map-modal .dd-circle-node.current b {background:#a4e3d2;color:#142721;}
+#dd-map-modal .dd-circle-node:focus-visible {outline:3px double #37a79e;outline-offset:-4px;}
+#dd-map-modal #dd-survey {width:100%;max-height:none;height:auto;} .dd-plate-key {display:block;padding:6px;color:#dedfd7;line-height:1.5;}
+#dd-chart-doors {padding:4px 6px;border-left:2px solid #99ccbd;}
+@media(max-width:620px){#dd-map-modal .dd-map-body {grid-template-columns:1fr;}#dd-map-modal .dd-tower-art-wrap {padding:8px 12px;gap:4px;}#dd-map-modal .dd-tower-art-wrap img {height:16vh;}#dd-map-modal #dd-survey {height:17vh;}#dd-map-modal .dd-circles-list{max-height:31vh;} .dd-sheet-title strong{font-size:24px;}}
+#dd-map-modal .dd-tower-art-wrap {grid-template-columns:minmax(0,1fr);}
+#dd-map-modal .dd-plate-figure.is-section {grid-template-columns:3fr 2fr;}
+.dd-plate-figure.is-section::after {content:attr(data-section);color:var(--resident-ink);font:italic 700 clamp(28px,5vw,70px)/1 'Barlow Condensed',sans-serif;letter-spacing:-.035em;border-block:1px solid currentColor;padding:10px 0;text-align:center;margin:0 15%;}
+#dd-map-modal .dd-circle-node {transition:none;}
+#dd-map-modal .dd-circle-node[aria-pressed=true] span {color:#211b22;}
+@media(prefers-reduced-motion:no-preference){#dd-map-modal:not(.dd-hidden) .dd-sheet-title {animation:dd-plate-enter .18s ease-out;}@keyframes dd-plate-enter{from{transform:translateY(3px);opacity:.5;}to{transform:none;opacity:1;}}}
+/* F12: a fixed cinematic section, an operational index and its own dossier. */
+#dd-map-modal .dd-map-body {grid-template-columns:minmax(0,.9fr) minmax(0,1fr) minmax(0,1.15fr);}
+#dd-tower-story,.dd-record-sheet {padding:16px;min-width:0;overflow:auto;}
+#dd-tower-story {display:flex;flex-direction:column;align-items:center;background:#141317;border-right:1px solid #837b6a;}
+#dd-tower-story header,#dd-tower-story footer {width:100%;}
+#dd-tower-story header small {font:700 10px monospace;letter-spacing:.12em;color:#e2bf89;}
+#dd-tower-story h3 {margin:4px 0 10px;color:#fff0d6;font:clamp(20px,2.3vw,32px)/1 Bangers,sans-serif;}
+#dd-tower-story figure {position:relative;margin:auto;width:fit-content;}
+#dd-tower-story img {display:block;width:auto;height:min(43vh,340px);max-width:100%;object-fit:contain;}
+#dd-tower-story ol {position:absolute;inset:0;list-style:none;margin:0;padding:0;}
+#dd-tower-story li {position:absolute;left:0;transform:translate(-70%,-50%);background:#e9d9b8;padding:0 3px;color:#211923;font:bold 10px/1.25 monospace;}
+#dd-tower-story footer {border-top:1px solid #7b6956;margin-top:10px;padding-top:6px;color:#f3ddbb;}#dd-tower-story footer span {display:block;font-size:13px;}
+.dd-record-sheet {background:#152025;border-left:1px solid #5c736e;}
+#dd-map-modal .dd-record-sheet #dd-chart-detail {grid-template-columns:1fr;margin:18px 0;gap:14px;}
+.dd-record-note {color:#c5cdc9;font-size:14px;line-height:1.4;border-top:1px solid #576660;padding-top:8px;}
+@media(max-width:760px){#dd-map-modal .dd-map-body {display:block;overflow-y:auto;}#dd-tower-story {display:grid;grid-template-columns:1fr auto;gap:4px;}#dd-tower-story figure {grid-row:1/3;grid-column:2;}#dd-tower-story img {height:160px;}#dd-tower-story li{font-size:8px;}#dd-map-modal .dd-circles-list{max-height:28vh;} }
+/* The portrait belongs to the operational sheet, never to the fixed section. */
+.dd-record-proof {display:grid;grid-template-columns:minmax(58px,30%) 1fr;align-items:center;gap:14px;margin:12px 0;padding:10px 0;border-block:1px solid #596e68;}
+#dd-record-portrait {display:block;width:100%;height:clamp(82px,15vh,126px);object-fit:contain;background:linear-gradient(0deg,#7eaaa21f,transparent);border-bottom:2px solid #849f95;}
+#dd-record-portrait[hidden]{display:none;}
+#dd-map-modal .dd-record-proof #dd-chart-detail {margin:0;padding:0;border:0;gap:12px;}
+#dd-record-portrait[hidden]+#dd-chart-detail {grid-column:1/-1;}
+#dd-map-modal .dd-record-proof small {color:#b8d4c9;font:700 10px/1.4 monospace;letter-spacing:.1em;}
+#dd-sheet-resident {font-size:clamp(19px,2.7vh,27px);color:#ffead1;overflow-wrap:anywhere;}
+#dd-sheet-place {font-size:clamp(15px,2vh,19px);}
+#dd-map-modal .dd-circle-node[aria-pressed=true] b {border-color:#47313c;}
+@media(prefers-reduced-motion:no-preference){#dd-map-modal:not(.dd-hidden) .dd-modal-window {animation:dd-atlas-settle .18s ease-out;}@keyframes dd-atlas-settle{from{transform:translateY(4px);opacity:.9;}to{transform:none;opacity:1;}}}
+/* Room-owned native offer inspector. The floor remains visible behind the card. */
+#dd-refuge-kit { background:#191523;color:#f3e3c8;border:2px solid #d99e78;border-radius:8px;max-width:min(90vw,30rem);max-height:82vh;padding:1.4rem;font:16px system-ui; }
+#dd-refuge-kit::backdrop {background:#110e1966}
+#dd-refuge-kit h2 {font:700 1.35rem system-ui;margin:0}
+#dd-refuge-kit button {display:block;width:100%;text-align:left;padding:.65rem;margin-top:.45rem;background:#332535;border:1px solid #956e77;color:#f7e9cc;border-radius:3px}
+#dd-refuge-kit button:disabled {opacity:.65} #dd-refuge-kit button:focus-visible {outline:2px solid #83d4cc}
