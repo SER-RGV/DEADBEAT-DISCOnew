@@ -187,8 +187,9 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     assert(!(await page.locator('#dd-hud').isVisible())); pass('muerte real mediante playtest y resumen del motor');
     await page.keyboard.press('Tab'); assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-results-menu');
     await page.keyboard.press('Tab'); assert.equal(await page.evaluate(() => document.activeElement.tagName), 'SUMMARY');
+    await page.keyboard.press('Tab'); assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-results-refuge');
     await page.keyboard.press('Tab'); assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-results-retry');
-    await page.keyboard.press('Shift+Tab'); assert.equal(await page.evaluate(() => document.activeElement.tagName), 'SUMMARY');
+    await page.keyboard.press('Shift+Tab'); assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-results-refuge');
     await page.keyboard.press('Tab');
     pass('foco de teclado contenido en resultados');
     for (const [w,h] of resultsSizes) {

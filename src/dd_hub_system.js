@@ -147,23 +147,23 @@
     {
       id: "descent",
       label: "GRIETA DEL REFUGIO · INICIAR INCURSIÓN",
-      prompt: "Pulsa [E] / (A) para lanzarte por la grieta · Círculo I · Lujuria",
+      prompt: "Pulsa [E] / (A) para lanzarte por la grieta · Círculo I · Limbo",
       x: DESCENT.x,
       y: DESCENT.y,
       r: 110
     },
     {
       id: "armory",
-      label: "ARMERÍA DEL REFUGIO · INVENTARIO Y TIENDA",
-      prompt: "Pulsa [E] / (A) para abrir Armería (120 Armas)",
+      label: "THE DICE VAULT",
+      prompt: "Pulsa [E] / (A) para inspeccionar los dados",
       x: 240,
       y: 615,
       r: 75
     },
     {
       id: "dj",
-      label: "CABINA DE DJ VIRGILIO",
-      prompt: "Pulsa [E] / (A) para hablar con DJ Virgilio",
+      label: "CABINA DE TEMPO",
+      prompt: "Pulsa [E] / (A) para hablar con Tempo",
       x: 1400,
       y: 330,
       r: 105
@@ -194,29 +194,106 @@
     }
   ];
 
-  const BAR_QUOTES = [
-    "La brasa canta más fuerte cuanto más cerca del escenario. Si vienes de bajar, la casa siempre te sirve a tiempo.",
-    "Whisky de turno, por cuenta de la casa. Nadie paga la primera ronda del descenso; el Cajero ni se entera de estas cosas.",
-    "¿Primera vez en la Torre? Empieza por el Limbo y guarda el combo: el compás decide a quién se traga el piso.",
-    "Sin prisa, nadie te espera. En el refugio no hay turnos ni cronómetro; sal cuando tu canción esté lista."
+  // Walkable sectors on the existing floor, not nine run rooms or narrative tracks.
+  const record=window.DD_REFUGE_RECORD;
+  const points=[
+    ['bedroom','02 · HABITACIÓN','Examinar la funda / cambiar de atuendo',1210,665],
+    ['keepsake','02 · RECUERDOS','Colocar el siguiente recuerdo encontrado',1342,651],
+    ['mix','01 · MEZCLA','Ajustar la mezcla de la cabina',1240,387],
+    ['upgrades','02 · MEJORAS','Consultar el kit permanente',1245,740],
+    ['workshop','05 · TALLER','Restaurar el equipo del Refugio',1460,535],
+    ['rest','07 · DESCANSO','Examinar el sillón / escuchar',480,943],
+    ['gallery','08 · GALERÍA','Consultar el siguiente registro',1330,908],
+    ['practice','03 · ENSAYO','Probar el dado equipado sin gastar recursos',570,650],
+    ['ledger','04 · HALLAZGOS','Leer el catálogo de hallazgos',1068,616],
+    ['prepare','09 · PREPARACIÓN','Revisar equipo antes de bajar',1065,860]
   ];
-  const ARMORER_QUOTES = [
-    "M1911, siempre cargada. Munición infinita, templador; lo que se agota es la paciencia del piso.",
-    "Pasa por la Armería antes de bajar. Lo que compres aquí vuelve contigo; lo que olvides se queda bailando abajo.",
-    "Cada arma tiene su carácter: la MAGNUM perdona poco, el UZI casi todo. Elige según tu compás.",
-    "Si ves un Residente, no improvises. La Torre avisa siempre: el flash, el latido, el silencio antes del DROP. Ese silencio es tuyo."
-  ];
-  let barIdx = -1;
-  let armorerIdx = -1;
-
-  const DJ_QUOTES = [
-    "Has llegado al Refugio. Aquí la canción no te alcanza. Elige un arma en la Armería antes de bajar.",
-    "Nueve círculos, nueve residentes y el Núcleo latiendo al fondo. Si pierdes el compás, la pista te traga.",
-    "¿Ves el zorro de neón en el muro? Mientras siga encendido, esta sala es tregua sagrada.",
-    "Revisa tus créditos antes de asomarte a la grieta. El Cajero no perdona deudas en el tercer piso."
-  ];
-  let quoteIdx = 0;
-
+  for(const [id,label,action,x,y] of points) STATIONS.push({id,label,prompt:`[E] / (A) · ${action}`,x,y,r:64});
+  HUB_PROPS.push({kind:'sofa',x:1210,y:609,br:44,dw:146},{kind:'shelf',x:1295,y:600,br:30,dw:90});
+  const WAYFINDING = { descent:'↓ DESCENSO', map:'◎ ATLAS', armory:'◇ DADOS', dj:'♫ CABINA', bar:'— BARRA', armorer:'+ ARMERA' };
+  for(const [id,label] of points)WAYFINDING[id]=label;
+  const zones={salon:['dj','mix'],habitacion:['bedroom','upgrades','keepsake'],arsenal:['armory','practice'],archivo:['map','ledger'],taller:['workshop'],residentes:['bar','armorer'],descanso:['rest'],galeria:['gallery'],acceso:['prepare','descent']};
+  const voices={
+    dj:['TEMPO','dialogue_portrait_dj',['Escucha la sala antes de bajar. Aquí puedes dejar pasar un compás.','¿Oyes la diferencia? La cabina escucha de vuelta.','Hoy puedes quedarte junto a los altavoces. No hace falta decir nada.']],
+    bar:['EL BARTENDER','dialogue_portrait_bartender',['Deja el vaso sobre la marca. Así no se desliza con los graves.','Te guardé el mismo sitio.','No hace falta pedir nada. La barra también sirve para descansar.']],
+    armorer:['LA ARMERA','dialogue_portrait_armorer',['El circuito del salón está aislado. Ya puedes encenderlo desde el taller.','Prueba tu dado en la marca de ensayo. Aquí no te cuesta nada.','Si ya reconoces el peso, cierra los ojos y escucha cómo cae.']]
+  };
+  let galleryPage=0,ledgerPage=0,practiceUntil=0,padHeld=false,pendingPad=null;
+  function speak(st){
+    const ui=window.DD_UI,p=ui.readProgress(),dice=window.DD_DICE, id=st.id;
+    let msg='';
+    if(id==='upgrades'||id==='mix'){openKit(id);return;}
+    if(voices[id]){
+      const [who,portrait,lines]=voices[id], n=record.talk(id);
+      const milestone=record.event(id,p);
+      const special={win:'Esta vez la pista ha tenido que dejarte volver.',loss:'La última incursión terminó. Aquí puedes recuperar el pulso.',boss:'Ese encuentro ha quedado registrado. No todas las noches dejan esa marca.',find:'Has encontrado las tres piezas. Pasa por el archivo: ninguna está ya sin identificar.',repair:'Se oye la mezcla desde el sillón. El circuito ha vuelto a cerrar.'};
+      const rapport=n<2?'Presentación':n<5?'Conocido':'Habitual';
+      const relationLine=n===5?['Te reconocería por el ritmo de tus pasos.','Tu vaso está donde lo dejaste.','Ya conoces el banco tan bien como yo.'][['dj','bar','armorer'].indexOf(id)]:null;
+      const line=special[milestone] || relationLine || (n===2&&p.history.length?'Has vuelto de la pista. Hoy nos quedamos un compás más.':n===3&&record.repairs?'Desde aquí se nota la luz del salón.':lines[n%lines.length]);
+      if(n>=2&&!milestone)openKit(id,{who,portrait,rapport,line});
+      else ui.showDialogue(who,line,5.6,portrait);return;
+    }
+    if(id==='workshop')msg=record.repair(p);
+    if(id==='bedroom'){
+      msg=record.discover('sleeve');
+      if(!msg){const looks=DD_APPEARANCE.list().filter(v=>v.unlocked),idx=looks.findIndex(v=>v.selected),next=looks[(idx+1)%looks.length];if(next)DD_APPEARANCE.equip(next.id);
+        msg=`Atuendo: ${DD_APPEARANCE.current().name}. Mejoras permanentes activas: ${Object.values(p.upgrades).filter(Boolean).length}.`;}
+    }
+    if(id==='rest'){
+      msg=record.discover('groove');
+      if(!msg&&record.repairs<2)msg='El reproductor está desconectado. Lleva el surco de prueba al taller.';
+      else if(!msg){const quiet=record.toggle();const audio=window.DD_BOOT?.audio;if(quiet)audio?.stopMenuMusic(.4);else audio?.startMenuMusic(.5);msg=quiet?'Reproductor en pausa.':'Suena la mezcla del Refugio.';}
+    }
+    if(id==='keepsake'){const item=record.displayNext();msg=item?'En la vitrina: '+item.name+'. '+item.description:'La vitrina está vacía. Examina la funda junto al sofá.';}
+    if(id==='ledger'&&record.reveal()){msg='Las tres marcas coinciden. El sello del zorro se enciende sobre la estantería.';}
+    else if(id==='ledger'){const list=Object.entries(record.finds),[key,entry]=list[ledgerPage++%list.length];msg=record.snapshot().found[key]?`${entry.name} · ${entry.description}`:`Pendiente · Examina ${STATIONS.find(s=>s.id===entry.zone).label}.`;}
+    if(id==='gallery'){
+      msg=record.discover('plate');
+      if(!msg){
+        const pages=[`Récord: ${p.best} puntos · Sala más profunda: ${p.bestRound} · Victorias: ${p.victories}.`];
+        for(const h of p.history)if(h)pages.push(`${h.date||'Incursión'} · Sala ${h.round??'—'} · ${h.kills??'—'} bajas · ${h.score??'—'} puntos.`);
+        if(record.repairs>=3)pages.push(...p.achievements.map(id=>'Hito registrado: '+id.replaceAll('_',' ')));
+        pages.push(p.history.length?'Fin del registro.':'Todavía no hay incursiones registradas.');
+        msg=pages[galleryPage++%pages.length];
+      }
+    }
+    if(id==='practice'){
+      if(practiceUntil>state.time){const t=2-(practiceUntil-state.time);practiceUntil=0;msg=`Tirada detenida: cara ${DD_DICE_GEOMETRY.top(dice.d.id,t*4,t*2)}. Sin coste ni daño.`;}
+      else{practiceUntil=state.time+2;msg=`Ensayo D${dice.d.id} · Pulsa otra vez para detener la tirada.`;}
+    }
+    if(id==='prepare')msg=`${DD_APPEARANCE.current().name} · D${dice.d.id} · ${dice.catalog[dice.d.id].name}. Para bajar, camina hasta la grieta.`;
+    ui.showDialogue(st.label,msg,6.5);
+  }
+  // Purchases dispatch the native offer's click. No duplicate prices, money or effect code.
+  let kit=null,kitPadNav=0;
+  function openKit(kind,conversation){
+    if(!kit){kit=document.createElement('dialog');kit.id='dd-refuge-kit';kit.setAttribute('aria-label','Kit permanente');document.body.appendChild(kit);
+      kit.addEventListener('close',()=>{state.interactCooldown=.35;state.keys=Object.create(null);});}
+    const rows=Array.from(document.querySelectorAll('#shop .shop-row'));
+    const title=document.createElement('h2');title.textContent='Habitación · Kit permanente';
+    const balance=document.createElement('p');balance.textContent=`${DD_UI.readProgress().currency} fichas · Mejoras para futuras incursiones`;
+    kit.replaceChildren(title,balance);
+    if(conversation){
+      const {who,portrait,rapport,line}=conversation;
+      title.textContent=who+' · '+rapport;kit.setAttribute('aria-label',who);balance.textContent=line;
+      const topics={dj:[['Preguntar por la cabina','Maestro mueve toda la sala. Música sólo mueve la mezcla; las voces siguen donde estaban.'],['Escuchar juntos','Cuenta el silencio entre dos golpes. Ahí también hay música.']],bar:[['Preguntar por el salón','Desde esta barra se ve quién va a bajar y quién sólo necesita sentarse.'],['Recordar la última visita','Lo primero que hago al abrir es dejar un sitio libre. Ya sabes cuál es.']],armorer:[['Preguntar por la mesa de ensayo','Detén el giro antes de que acabe. La cara que ves no se guarda en el dado de la incursión.'],['Preguntar por el taller',record.repairs?'Vi las lámparas encendidas. Buen trabajo.':'El primer trabajo es la iluminación. No hacen falta fichas, sólo cerrar el circuito.']]};
+      topics[kind].forEach(([label,reply],i)=>{const key=i?'memory':'craft',b=document.createElement('button');b.textContent=label+(record.snapshot().events[kind+':'+key]?' · leído':'');b.onclick=()=>{record.topic(kind,key);kit.close();DD_UI.showDialogue(who,reply,6,portrait);};kit.appendChild(b);});
+    }else if(kind==='mix'){
+      title.textContent='Cabina · Mesa de mezclas';kit.setAttribute('aria-label',title.textContent);
+      balance.textContent='Mezcla del juego · Los cambios se comparten con Opciones.';
+      for(const [id,label] of [['master','Maestro'],['music','Música']]){
+        const range=document.getElementById('menu-vol-'+id);if(!range)continue;
+        const level=document.createElement('p');level.textContent=`${label}: ${range.value} %`;kit.appendChild(level);
+        for(const [step,caption] of [[-5,'Bajar'],[5,'Subir']]){const b=document.createElement('button');b.textContent=`${caption} ${label.toLowerCase()}`;
+          b.onclick=()=>{range.value=String(Math.max(Number(range.min),Math.min(Number(range.max),Number(range.value)+step)));range.dispatchEvent(new Event('input',{bubbles:true}));window.DDC_COVER?.music?.setVol?.();level.textContent=`${label}: ${range.value} %`;};kit.appendChild(b);}
+      }
+    }else kit.setAttribute('aria-label',title.textContent);
+    if(kind==='upgrades')for(const row of rows){const native=row.querySelector('button'),button=document.createElement('button');button.textContent=row.querySelector('span').textContent+(native&&!native.disabled?' · Comprar':'');button.disabled=!native||native.disabled;
+      button.onclick=()=>{if(native.isConnected&&!native.disabled){native.click();openKit(kind);}};kit.appendChild(button);}
+    const back=document.createElement('button');back.textContent='Volver al Refugio';back.onclick=()=>kit.close();kit.appendChild(back);
+    state.keys=Object.create(null);kitPadNav=0;
+    if(!kit.open)kit.showModal();kit.querySelector('button:not(:disabled)').focus();
+  }
   function enter() {
     ensureRefugeIdle();
     ensureRefugeWalk();
@@ -236,17 +313,13 @@
     if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.setPaused === "function") {
       window.__DD_BRIDGE.setPaused(true);
     }
-    // TEMPO abre con una línea al azar (antes siempre la misma)
-    quoteIdx = Math.floor(Math.random() * DJ_QUOTES.length);
-    if (window.DD_UI) {
-      window.DD_UI.hideMainMenu();
-      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.2);
-    }
+    record.load();galleryPage=ledgerPage=0;practiceUntil=0;padHeld=true;pendingPad=null;state.nearStation=null;
+    if(window.DD_UI){window.DD_UI.hideMainMenu();window.DD_UI.showDialogue('TEMPO',window.DD_UI.readProgress().history.length?'Bienvenido de vuelta. Tu registro espera en la galería.':'Escucha. La cabina, la barra y el taller están abiertos.',5.2);}
     // Cama musical del Refugio (pista del club en fundido). Se agenda con
     // retraso: enterGame() para la música del menú al validar el arranque y
     // llegaría después que este enter().
     setTimeout(function () {
-      if (!state.active) return;
+      if (!state.active || record.quiet) return;
       try {
         if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.startMenuMusic === "function") {
           window.DD_BOOT.audio.startMenuMusic(2.0);
@@ -303,16 +376,7 @@
       window.DD_UI.openShop();
     } else if (st.id === "map" && window.DD_UI) {
       window.DD_UI.openMap();
-    } else if (st.id === "dj" && window.DD_UI) {
-      quoteIdx = (quoteIdx + 1) % DJ_QUOTES.length;
-      window.DD_UI.showDialogue("TEMPO", DJ_QUOTES[quoteIdx], 5.5);
-    } else if (st.id === "bar" && window.DD_UI) {
-      barIdx = (barIdx + 1) % BAR_QUOTES.length;
-      window.DD_UI.showDialogue("EL BARTENDER", BAR_QUOTES[barIdx], 5.6, "dialogue_portrait_bartender");
-    } else if (st.id === "armorer" && window.DD_UI) {
-      armorerIdx = (armorerIdx + 1) % ARMORER_QUOTES.length;
-      window.DD_UI.showDialogue("LA ARMERA", ARMORER_QUOTES[armorerIdx], 5.6, "dialogue_portrait_armorer");
-    }
+    } else if(window.DD_UI) speak(st);
   }
 
   function pollGamepad() {
@@ -328,6 +392,7 @@
       const ry = gp.axes[3] || 0;
       if (Math.hypot(lx, ly) > 0.18) { out.mx = lx; out.my = ly; }
       if (Math.hypot(rx, ry) > 0.22) { out.ax = rx; out.ay = ry; }
+      out.nav=gp.buttons[12]?.pressed||ly<-.6?-1:gp.buttons[13]?.pressed||ly>.6?1:0;out.back=gp.buttons[1]?.pressed;
       if (gp.buttons[0] && gp.buttons[0].pressed) out.interact = true;
       break;
     }
@@ -341,6 +406,15 @@
     updateAmbient(cdt);
     if (state.interactCooldown > 0) state.interactCooldown = Math.max(0, state.interactCooldown - cdt);
 
+    if(practiceUntil && state.time>=practiceUntil){practiceUntil=0;window.DD_UI?.showDialogue('ENSAYO',`Cara de muestra: ${DD_DICE_GEOMETRY.top(DD_DICE.d.id,8,4)}. El dado de la incursión no ha cambiado.`,3);}
+    const gp = pollGamepad(), pressed=gp.interact&&!padHeld;padHeld=gp.interact;
+    if(kit?.open){
+      const nav=gp.nav||0, buttons=Array.from(kit.querySelectorAll('button:not(:disabled)'));
+      if(nav&&!kitPadNav){const i=buttons.indexOf(document.activeElement);buttons[(i+buttons.length+nav)%buttons.length].focus();}
+      kitPadNav=nav;
+      if(gp.back)kit.close();else if(pressed&&kit.contains(document.activeElement))document.activeElement.click();
+      state.walking=false;state.vx=state.vy=0;return;
+    }
     // Pause HUB movement while modal or blocking cinematic is open
     if ((window.DD_UI && window.DD_UI.isModalOpen()) || (window.DD_CINE && window.DD_CINE.isBlocking())) {
       state.walking = false;
@@ -354,7 +428,6 @@
     if (state.keys["KeyA"] || state.keys["ArrowLeft"]) ix -= 1;
     if (state.keys["KeyD"] || state.keys["ArrowRight"]) ix += 1;
 
-    const gp = pollGamepad();
     if (Math.hypot(gp.mx, gp.my) > 0.1) {
       ix = gp.mx;
       iy = gp.my;
@@ -436,9 +509,10 @@
     }
     state.nearStation = best;
 
-    if (gp.interact && best) {
-      triggerStation(best);
-    }
+    if(pressed)pendingPad=best;
+    if(!gp.interact||pendingPad!==best)pendingPad=null;
+    if(pendingPad&&state.interactCooldown<=0){pendingPad=null;triggerStation(best);}
+
   }
 
   /* Suelo damero del HUB (FASE 2). La banda de 9 portales del mezzanine se
@@ -631,6 +705,11 @@
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null,
           { floorAsset: "hub_floor_main", vipInset: false });
         paintRefugeArchitecture(cctx);
+        // The three new work areas have ground plates, not interactive menu tiles.
+        cctx.save();
+        for(const [x,y,w,label] of [[1255,604,220,'02 / HABITACIÓN'],[1460,474,188,'05 / RESTAURACIÓN'],[1340,838,194,'08 / GALERÍA']]){
+          cctx.fillStyle='#211927da';cctx.fillRect(x-w/2,y-18,w,31);cctx.fillStyle='#edcba3';cctx.font='bold 13px monospace';cctx.textAlign='center';cctx.fillText(label,x,y+2);
+        }cctx.restore();
       } else {
         window.DD_WORLD.buildHighResRoomCache(cctx, cnv.width, cnv.height, HUB_BOUNDS, 0, 777, null);
       }
@@ -638,6 +717,33 @@
     state.roomCache = cnv;
     state.roomCacheStamp = stamp;
     return cnv;
+  }
+
+  // Optical model above the physical table, in the same painter's order as its prop.
+  let astralPlate, astralRequested = false;
+  const astralMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  function drawAstralModel(ctx, table) {
+    if (!astralRequested) {
+      astralRequested = true;
+      const source = new Image();
+      source.onload = () => {
+        // Cache at 2x projected size, not 768×1706 resampled every frame.
+        const plate = document.createElement('canvas');
+        plate.width = 124; plate.height = 276;
+        plate.getContext('2d').drawImage(source, 0, 0, plate.width, plate.height);
+        astralPlate = plate;
+      };
+      source.src = 'assets/cinematics/restart/opening/mc_03_nine.jpg';
+    }
+    if (!astralPlate) return;
+    const lit = state.nearStation && state.nearStation.id === 'map';
+    const breath = astralMotion.matches ? 0 : Math.sin(state.time * 1.1);
+    ctx.save();ctx.translate(table.x,table.y-62);
+    ctx.fillStyle=lit?'#85e8dc28':'#85e8dc18';ctx.beginPath();ctx.moveTo(-35,-104);ctx.lineTo(35,-104);ctx.lineTo(9,0);ctx.lineTo(-9,0);ctx.closePath();ctx.fill();
+    ctx.globalAlpha=(lit?.95:.85)+breath*.035;ctx.drawImage(astralPlate,-31,-139,62,138);
+    ctx.fillStyle='#a8e6df';ctx.globalAlpha=.15+breath*.06;ctx.fillRect(-21,-1,42,2);
+    ctx.globalAlpha=1;
+    ctx.strokeStyle='#a0d5c8';ctx.lineWidth=1;ctx.beginPath();ctx.ellipse(0,-1,22,6,0,0,Math.PI*2);ctx.stroke();ctx.restore();
   }
 
   function render(ctx, viewW, viewH) {
@@ -679,6 +785,9 @@
     ctx.drawImage(bg, 0, 0);
     drawLightPools(ctx, state.time);
 
+    if(record.repairs>=1){for(const lx of [742,1070])W.drawNeonGlow(ctx,lx,478,80,'#ffc47a',.48);}
+    // Restored furniture is added to the painter's list below, never to path blockers.
+    if(practiceUntil>state.time){const t=2-(practiceUntil-state.time);ctx.save();ctx.translate(570+48*Math.sin(t*Math.PI),630-30*Math.abs(Math.sin(t*Math.PI)));const id=DD_DICE.d.id;DD_DICE_GEOMETRY.draw(ctx,id,t*4,t*2,19,DD_DICE.catalog[id].color);ctx.restore();}
     // Signature Neon Fox Mural on the east wall (ref R5). It lives mid-wall,
     // over the Torre lab wing, clear of the DJ stage silhouette.
     const foxSign = window.DD_ASSETS && window.DD_ASSETS.get("prop_hub_fox_neon");
@@ -701,10 +810,16 @@
       ctx.save();
       ctx.strokeStyle = active ? "#22d3ee" : "rgba(255, 45, 122, 0.38)";
       ctx.lineWidth = active ? 3 : 1.6;
-      ctx.setLineDash([8, 6]);
+      ctx.setLineDash(active ? [] : [12, 10]);
       ctx.beginPath();
       ctx.ellipse(st.x, st.y + 12, st.r * 0.72, st.r * 0.34, 0, 0, Math.PI * 2);
       ctx.stroke();
+      ctx.font = 'bold 12px monospace';
+      ctx.textAlign = 'center';
+      const caption = WAYFINDING[st.id], width = ctx.measureText(caption).width + 14;
+      const sy = st.y + st.r * .34 + 18;
+      ctx.fillStyle = '#130e1c'; ctx.fillRect(st.x-width/2,sy,width,18);
+      ctx.fillStyle = active ? '#94efdc' : '#dac5bd'; ctx.fillText(caption,st.x,sy+13);
       ctx.restore();
     }
 
@@ -714,7 +829,14 @@
       const p = HUB_PROPS[i];
       drawList.push({ y: p.y, kind: "prop", obj: p });
     }
-    drawList.push({ y: 305, kind: "npc", id: "npc_dj_booth_world", x: 1400, h: 132 });
+    if(record.repairs>=2)drawList.push({y:928,kind:'prop',obj:{kind:'subwoofer',x:586,y:928,dw:64,br:12}});
+    if(record.imprint)drawList.push({y:569,kind:'prop',obj:{kind:'banner',x:1068,y:569,dw:58,br:10}});
+    if(record.repairs>=3)drawList.push({y:860,kind:'prop',obj:{kind:'pedestal',x:1260,y:860,dw:86,br:16}});
+    if(record.keepsake)drawList.push({y:608,kind:'prop',obj:{kind:{sleeve:'poster',groove:'mirror',plate:'pedestal'}[record.keepsake],x:1342,y:608,dw:48,br:12}});
+    // After the booth is repaired Tempo leans toward the working monitor. His
+    // dialogue trigger stays within reach; no event moves a resident out of the HUB.
+    const monitorOffset=record.repairs>=2?18:0;
+    drawList.push({ y: 305, kind: "npc", id: "npc_dj_booth_world", x: 1400+monitorOffset, h: 132 });
     drawList.push({ y: 340, kind: "npc", id: "npc_bartender_hub", x: 400, h: 116 });
     drawList.push({ y: 600, kind: "npc", id: "npc_armorer_hub", x: 378, h: 118 });
     drawList.push({ y: state.py, kind: "player" });
@@ -724,7 +846,17 @@
     for (let i = 0; i < drawList.length; i++) {
       const item = drawList[i];
       if (item.kind === "prop") {
-        W.drawProp(ctx, item.obj, state.time);
+        if(item.obj.kind === "weaponrack" && window.DD_DICE){
+          const {d,catalog}=window.DD_DICE;
+          ctx.save();ctx.translate(item.obj.x,item.obj.y);
+          W.drawNeonGlow(ctx,0,-24,62,catalog[d.id].color,.38);
+          ctx.fillStyle="#180e26";ctx.fillRect(-72,-12,144,24);ctx.strokeStyle=catalog[d.id].color;ctx.strokeRect(-72,-12,144,24);
+          ctx.fillStyle="#ffe5bf";ctx.font="bold 12px monospace";ctx.textAlign="center";ctx.fillText("THE DICE VAULT",0,4);
+          ctx.translate(0,-40);window.DD_DICE_GEOMETRY.draw(ctx,d.id,.4,state.time*.5,25,catalog[d.id].color);ctx.restore();
+        } else {
+          W.drawProp(ctx, item.obj, state.time);
+          if (item.obj.kind === 'astraltable') drawAstralModel(ctx, item.obj);
+        }
       } else if (item.kind === "npc") {
         const nim = (window.DD_ASSETS && window.DD_ASSETS.get(item.id)) ||
                     (item.id === "npc_dj_booth_world" && window.DD_ASSETS && window.DD_ASSETS.get("dialogue_portrait_dj"));
@@ -732,7 +864,8 @@
           const nh = item.h;
           const nw = nh * (nim.naturalWidth / Math.max(1, nim.naturalHeight));
           W.drawSoftShadow(ctx, item.x, item.y + 18, 28, 12, 0.55);
-          ctx.drawImage(nim, item.x - nw / 2, item.y - nh + 22, nw, nh);
+          const bob=astralMotion.matches?0:Math.sin(state.time*(item.id==='npc_dj_booth_world'?2.9:1.4)+item.x)*1.25;
+          ctx.drawImage(nim, item.x - nw / 2, item.y - nh + 22 + bob, nw, nh-bob);
         }
       } else if (item.kind === "player") {
         const br = window.__DD_BRIDGE;
@@ -784,7 +917,7 @@
       ctx.save();
       const txt = state.nearStation.prompt;
       ctx.font = "700 14px Inter, Segoe UI, sans-serif";
-      const tw = ctx.measureText(txt).width + 36;
+      const tw = Math.min(viewW-16,ctx.measureText(txt).width + 36);
       const bx = (viewW - tw) * 0.5;
       const by = viewH - 94;
       ctx.fillStyle = "rgba(9, 4, 18, 0.92)";
@@ -795,7 +928,7 @@
       ctx.fillStyle = "#f8fafc";
       ctx.textAlign = "center";
       ctx.textBaseline = "middle";
-      ctx.fillText(txt, viewW * 0.5, by + 19);
+      ctx.fillText(txt, viewW * 0.5, by + 19,tw-18);
       ctx.restore();
     }
     return true;
@@ -803,7 +936,7 @@
 
   window.addEventListener("keydown", function (ev) {
     state.keys[ev.code] = true;
-    if (!state.active) return;
+    if (!state.active || kit?.open || ev.repeat || window.DD_UI?.isModalOpen() || window.DD_CINE?.isBlocking()) return;
     if ((ev.code === "KeyE" || ev.code === "Enter") && state.nearStation) {
       ev.preventDefault();
       triggerStation(state.nearStation);
@@ -813,15 +946,31 @@
     state.keys[ev.code] = false;
   });
 
+  // Safe-zone inset, projected from the same walk bounds and triggers as the world.
+  function drawLocator(ctx,w,h) {
+    const k=Math.min((w-18)/HUB_BOUNDS.w,(h-25)/HUB_BOUNDS.h);
+    const left=(w-HUB_BOUNDS.w*k)/2, top=(h-HUB_BOUNDS.h*k)/2+5;
+    const x=v=>left+(v-HUB_BOUNDS.x)*k, y=v=>top+(v-HUB_BOUNDS.y)*k;
+    ctx.save();ctx.strokeStyle='#615365';ctx.strokeRect(left,top,HUB_BOUNDS.w*k,HUB_BOUNDS.h*k);
+    ctx.font='bold 9px monospace';ctx.textAlign='left';ctx.fillStyle='#c8aba6';ctx.fillText('REFUGIO / PLANTA',left,top-3);
+    for(const st of STATIONS){ctx.fillStyle=state.nearStation===st?'#a7edda':'#d7a887';ctx.fillText(WAYFINDING[st.id].split(' ')[0],x(st.x)-3,y(st.y)+3);}
+    ctx.beginPath();ctx.arc(x(state.px),y(state.py),3,0,Math.PI*2);ctx.fillStyle='#fff9df';ctx.fill();ctx.restore();
+  }
+
   window.DD_HUB = Object.freeze({
     isActive: function () { return state.active; },
     enter,
     exitToRun,
+    inspectorOpen:()=>!!kit?.open,
+    drawLocator,
+    // Read-only coordinates for wayfinding and integration checks, no travel API.
+    layout:()=>({zones:Object.fromEntries(Object.entries(zones).map(([k,v])=>[k,v.slice()])),stations:STATIONS.map(({id,x,y,r})=>({id,x,y,r})),obstacles:HUB_PROPS.map(({x,y,br})=>({x,y,r:(br||32)*.72+18}))}),
     update,
     render,
     getState: function () {
       return {
         active: state.active,
+        zones:Object.keys(zones),
         x: Math.round(state.px),
         y: Math.round(state.py),
         nearStation: state.nearStation ? state.nearStation.id : null,

@@ -17,10 +17,10 @@ const base=process.argv[2]||'http://localhost:8080',out=process.argv[3],delay=ms
   let diff=0,colors=new Set();for(let i=0;i<x.length;i+=4){if(x[i]!==y[i]||x[i+1]!==y[i+1]||x[i+2]!==y[i+2]||x[i+3]!==y[i+3])diff++;colors.add(`${x[i]},${x[i+1]},${x[i+2]}`)}return {diff,colors:colors.size,source:source.toDataURL()};
  });
  try{
- await p.goto(base+'/index.html');await p.waitForFunction(()=>window.DD_BOOT&&(DD_BOOT.getState().waitingGesture||DD_BOOT.getState().state==='INTRO'),null,{timeout:30000});await p.keyboard.press('KeyX');await p.waitForFunction(()=>DD_OPENING?.isActive());await delay(700);await p.keyboard.press('Space');await p.waitForFunction(()=>DD_BOOT.getState().state==='MAIN_MENU');
- await p.evaluate(()=>DD_UI.triggerMenuAction('new'));await delay(800);await p.keyboard.press('Space');await p.waitForFunction(()=>DD_HUB.isActive());
+ await p.goto(base+'/index.html');await p.waitForFunction(()=>window.DD_BOOT?.getState().state==='MAIN_MENU');
+ await p.evaluate(()=>DD_UI.triggerMenuAction('new'));await p.waitForFunction(()=>DD_OPENING.getState()?.type==='intro');await p.evaluate(()=>DD_OPENING.debugSeek(31.9,false));await p.waitForFunction(()=>DD_OPENING.getState()?.type==='descent');await p.evaluate(()=>DD_OPENING.debugSeek(4.55,false));await p.waitForFunction(()=>DD_HUB.isActive());
  const hub=await p.locator('#dd-minimap-canvas').evaluate(e=>e.toDataURL());
- await p.evaluate(()=>DD_HUB.exitToRun());await p.waitForFunction(()=>__DD_BRIDGE.isRunning());await p.evaluate(()=>{DMO.debug.exploreNoEnemies(true);DMO.debug.holdSpawns(true)});
+ await p.evaluate(()=>DD_HUB.exitToRun());await p.waitForFunction(()=>DD_CINE.isBlocking());await p.evaluate(()=>DD_CINE.skip());await p.waitForFunction(()=>__DD_BRIDGE.isRunning());await p.evaluate(()=>{DMO.debug.exploreNoEnemies(true);DMO.debug.holdSpawns(true)});
  await p.waitForFunction(()=>!document.querySelector('#dd-hud').classList.contains('dd-hidden'));await delay(300);
  let first=await compare();assert.equal(first.diff,0,'HD coincide con el mapa del motor');assert(first.colors>3,'mapa no es un marcador vacío');assert.notEqual(await p.locator('#dd-minimap-canvas').evaluate(e=>e.toDataURL()),hub,'mapa de incursión distinto del refugio');
  console.log('PASS mapa HD reproduce píxel a píxel el canvas del motor, preservando su escala');

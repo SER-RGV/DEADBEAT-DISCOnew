@@ -771,6 +771,16 @@
     // la pose de reposo (brazos caídos) queda para el Refugio y las cinemáticas.
     if (armed && upperId === "player_idle_00" && get("player_shoot_00")) upperId = "player_shoot_00";
 
+    // Use the actual unarmed drawings: low guard while winding, extended
+    // arms only for release. Never borrow a firing pose for locomotion.
+    const die=!armed && !window.DD_HUB?.isActive() && window.DD_DICE?.d;
+    const casting=die && !['death','dodge','hurt','stun','ability'].includes(pAnim?.state);
+    const extend=casting && (die.state==='RELEASE'||die.state==='FLIGHT'&&die.age<.13);
+    const gather=casting && (die.state==='CHARGING'||die.state==='AIMING');
+    if(casting){
+      upperId=extend?'player_shoot_00':gather?'player_firehip':'player_idle_00';
+      if(!walking)lowerId=upperId;
+    }
     let aimFamily = false;
     if (upperId === "player_shoot_00") {
       aimFamily = true;
@@ -779,7 +789,7 @@
       if (idx === PLAYER_AIM_LEVEL) {
         // Armas largas a dos manos: postura de fusil (brazo delantero extendido)
         // mientras se apunta en horizontal. `ddLongGun` lo marca el puente por arma.
-        if (pAnim && pAnim.ddLongGun && get("player_fire2")) upperId = "player_fire2";
+        if (!casting && pAnim && pAnim.ddLongGun && get("player_fire2")) upperId = "player_fire2";
       } else if (get(sectorId)) {
         upperId = sectorId;
       }
@@ -817,7 +827,7 @@
       }
     }
 
-    const pose = { upperId: upperId, lowerId: lowerId, upperImg: upperImg, lowerImg: lowerImg, split: split, fullWalk: fullWalk,
+    const pose = { dieRelease: !!extend, upperId: upperId, lowerId: lowerId, upperImg: upperImg, lowerImg: lowerImg, split: split, fullWalk: fullWalk,
                    beltU: 0, beltL: 0, lift: 0, overlayImg: null, hand: fullWalk ? null : playerHand(upperId) };
     if (split) {
       pose.beltU = playerBelt(upperId);
@@ -846,6 +856,11 @@
       } else if (upperId === 'player_hurt_00') {
         pose.outfitActionPose = 'hurt';
         pose.upperImg = knight('hurt'); pose.lowerImg = pose.upperImg; pose.split = false; pose.hand = null;
+      } else if(gather || extend){
+        pose.outfitActionPose=extend?'aim':'idle';
+        pose.upperImg=knight(pose.outfitActionPose);pose.lowerImg=moving?legs:pose.upperImg;
+        pose.split=moving;pose.fullWalk=false;pose.overlayImg=null;pose.lift=0;pose.beltU=pose.beltL=.48;
+        pose.hand=extend?[.91,.26]:[.68,.58];
       } else if (armed) {
         const action = playerOutfitActionMemory(pAnim);
         const state = pAnim && pAnim.state;
@@ -922,7 +937,8 @@
     m.height = targetHeight;
     m.facingLeft = facingLeft;
     const progress = Math.max(0, Math.min(1, (now - m.started) / 0.105));
-    if (progress >= 1) m.fromImage = null;
+    // The hand must already be extended on the release tick, not 105 ms later.
+    if (pose.dieRelease || progress >= 1) m.fromImage = null;
     return m.fromImage ? { image: m.fromImage, height: m.fromHeight, facingLeft: m.fromFacingLeft, progress } : null;
   }
 
@@ -930,7 +946,7 @@
     if (!player) return false;
     const scl = Number(scaleVal) > 0 ? Number(scaleVal) : 1;
     const aimA = playerAimAngle(player, pAnim);
-    const armed = typeof drawWeaponLayerFn === "function";
+    const armed = !window.DD_DICE && typeof drawWeaponLayerFn === "function";
     const pose = resolvePlayerPose(pAnim, aimA, armed);
     if (!pose) return false; // Falls back cleanly to the engine's own Pf
 
@@ -1020,6 +1036,20 @@
           // tiny so it adds attitude without turning the figure into a hinge.
           microRoll = Math.sin(breathe * 0.85) * 0.009;
           microSway = Math.sin(breathe * 0.42) * 0.8;
+        }
+      }
+      // In local (facing-right) coordinates: wind up against the throw,
+      // drive through release, then absorb the catch. Feet stay planted.
+      if (!isDeath && !outfitRollAction && !player.rollT && window.DD_DICE && !window.DD_HUB?.isActive()) {
+        const {d,catalog}=window.DD_DICE, motion=window.DD_DICE_MOTION;
+        const body=motion.body(d,catalog[d.id],pAnim,facingLeft);
+        ctx.translate(0,PLAYER_FOOT_Y);ctx.transform(1,0,-body.lean,1-body.squat,0,0);ctx.translate(0,-PLAYER_FOOT_Y);
+        // Actual sprite hand + local deformation. This cache is presentation
+        // only; gameplay launch position stays at the native collision origin.
+        if(pose.hand){
+          const hy=drawY+(pose.hand[1]+pose.lift)*targetH;
+          motion.attach(player,((pose.hand[0]-.5)*widthOf(upperImg)-body.lean*(hy-PLAYER_FOOT_Y))*(facingLeft?-1:1),
+            PLAYER_FOOT_Y+(hy-PLAYER_FOOT_Y)*(1-body.squat)+bobY,d.motionTime);
         }
       }
       if (!isDeath) ctx.rotate(lean * 0.55 + microRoll);
@@ -1414,7 +1444,8 @@
     }
     const moving = !frozen && speed > 14;
     const phase = (view && typeof view.phase === "number") ? view.phase : t * 8;
-    const cyc = phase * (Math.PI / 2);          // una zancada completa cada 4 unidades de fase
+    const displayT=window.DD_DICE_FEEDBACK?.poseClock(enemy,t)??t;
+    const cyc = (phase-(t-displayT)*8) * (Math.PI / 2);          // una zancada completa cada 4 unidades de fase
     const k = geo.figH / 88;
 
     let bob = 0, tilt = 0, sx = 1, sy = 1;
@@ -1442,6 +1473,7 @@
 
     ctx.save();
     ctx.translate(enemy.x, geo.footY + bob);
+    window.DD_DICE_FEEDBACK?.react(ctx,enemy);
     if (flip) ctx.scale(-1, 1);
     if (tilt) ctx.rotate(tilt);
     if (sx !== 1 || sy !== 1) ctx.scale(sx, sy);
@@ -1725,7 +1757,7 @@
           tilt = 0.07; sx = 1.045; sy = 0.965; bob = -2 * k;      // la señal del motor: se adelanta y se aplasta
         }
       } else if (moving) {
-        const cyc = t * (berserk ? 7.6 : 5.2);
+        const cyc = (window.DD_DICE_FEEDBACK?.poseClock(boss,t)??t) * (berserk ? 7.6 : 5.2);
         bob = -Math.abs(Math.sin(cyc)) * 2.4 * k;
         tilt = Math.sin(cyc) * 0.016;
       } else {
@@ -1751,6 +1783,7 @@
     ctx.save();
     ctx.globalAlpha *= alpha;
     ctx.translate(boss.x, geo.footY + bob);
+    window.DD_DICE_FEEDBACK?.react(ctx,boss);
     if (grow !== 1) ctx.scale(grow, grow);
     if (flip) ctx.scale(-1, 1);
     if (tilt) ctx.rotate(tilt);
