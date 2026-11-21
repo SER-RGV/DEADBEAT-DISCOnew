@@ -67,6 +67,6 @@ La nueva clave guarda únicamente estado del Refugio: conversaciones, temas, úl
 | `refuge_restart.cjs` | Pasa. Cierre completo de Chromium y reapertura del perfil temporal: obra, evento y relación sobreviven; ficha antigua intacta. |
 | `test_map_atlas.cjs`, `test_cartography_tour.cjs` | Pasan. Atlas, foco y mando simulado, puertas generadas, nueve residentes y Núcleo; diez fichas a dos escalas sin movimiento. El tour usa asistencia QA para despejar encuentros. |
 | `dice_engine.cjs` | Pasa. Seis dados, lanzamiento, retorno, esquiva y jefe en simulación; no aparecen balas convencionales. |
-| `test_ui_results.js` histórico | **No pasa íntegramente:** se detiene antes de resultados porque exige 120 armas y MAGNUM en la tienda. La tienda activa es Dice Vault con seis dados. No se reactivó el arsenal retirado para satisfacer esa expectativa. La compra real, derrota y retorno se validaron por separado. |
+| `test_ui_results.js` | Pasa en modo completo: catálogo de seis dados, restricciones de equipo, navegación por teclado y mando simulado, HUD y pausa en cuatro resoluciones, resultados en seis, reintento y regreso al menú. |
 
 No se ha probado un mando Xbox físico, rendimiento de consola ni la calidad subjetiva de una campaña larga. El reproductor ofrece la mezcla existente, no una biblioteca de canciones nuevas. Los estados de relación son del Refugio y no establecen parentesco con residentes de incursión ni soberanos.

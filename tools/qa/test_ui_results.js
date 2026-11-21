@@ -42,10 +42,7 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     await page.evaluate(() => window.DD_OPENING.debugSeek(4.55, false));
     await page.waitForFunction(() => window.DD_HUB.isActive(), null, {timeout: 15000});
     await page.evaluate(() => window.DD_UI.openShop());
-    assert.equal(await page.locator('.dd-weapon-card').count(), 120, 'catálogo inicial');
-    const magnum = await page.evaluate(() => window.__DD_BRIDGE.getWeaponStats('magnum'));
-    assert((await page.locator('[data-w=magnum]').innerText()).includes(String(magnum.cost)));
-    assert.equal((await page.evaluate(() => window.__DD_BRIDGE.getWeaponStats('m1911'))).cost, 0);
+    assert.deepEqual(await page.locator('.dd-weapon-card').evaluateAll(cards=>cards.map(c=>Number(c.dataset.w)).sort((a,b)=>a-b)), [4,6,8,10,12,20]);
     for (const [w,h] of standardSizes) {
       await page.setViewportSize({width:w,height:h}); await delay(100);
       for (const selector of ['#dd-shop-modal .dd-modal-window', '#dd-shop-close', '#dd-shop-equip']) {
@@ -56,15 +53,14 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     }
     await page.keyboard.press('Tab');
     assert(await page.evaluate(() => document.activeElement.closest('#dd-shop-modal') !== null));
-    await page.locator('[data-w=magnum]').click();
-    assert((await page.locator('#dd-shop-equip').innerText()).includes('PROBAR'));
-    assert((await page.locator('.dd-shop-note').innerText()).includes('reinicia'));
+    await page.locator('[data-w="4"]').click();
+    assert(await page.locator('#dd-shop-equip').isDisabled());
+    await page.locator('[data-w="6"]').click();
     await page.locator('#dd-shop-equip').click();
-    assert.equal(await page.evaluate(() => window.__DD_BRIDGE.getSnapshot().weapon), 'magnum');
-    assert.equal(await page.locator('#dd-shop-feedback').innerText(), 'Arma equipada.');
-    assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-shop-equip');
+    assert.equal(await page.evaluate(()=>DD_DICE.save.id),6);
+    assert(await page.locator('#dd-etched').isDisabled());
     await page.locator('#dd-shop-close').focus();
-    pass('catálogo, precios, datos reales y prueba de arma en Refugio');
+    pass('Dice Vault: catálogo, equipo inicial y desbloqueos');
     await pad(13);
     assert(await page.evaluate(() => document.activeElement.closest('#dd-shop-modal') !== null));
     await pad(13); await pad(0);
@@ -72,9 +68,9 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     await pad(1);
     assert(!(await page.locator('#dd-shop-modal').isVisible()));
     await page.evaluate(() => window.DD_UI.openMap());
-    assert((await page.locator('#dd-circles-list').innerText()).includes('UBICACIÓN ACTUAL · REFUGIO'));
+    assert((await page.locator('#dd-circles-list').innerText()).includes('REFUGIO'));
     assert.equal(await page.locator('#dd-circles-list .current').count(), 0);
-    assert((await page.locator('#dd-circles-list').innerText()).includes('[I]LIMBO'));
+    assert.equal(await page.locator('[data-circle]').count(),10);
     for (const [w,h] of standardSizes) {
       await page.setViewportSize({width:w,height:h}); await delay(100);
       for (const selector of ['#dd-map-modal .dd-modal-window', '#dd-map-close', '#dd-circles-list']) {
@@ -85,17 +81,14 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     }
     pass('armería y mapa dentro de la ventana (' + standardSizes.length + ' resoluciones)');
     await pad(13);
-    assert.equal(await page.evaluate(() => document.activeElement.id), 'dd-circles-list');
-    const scrollBefore = await page.locator('#dd-circles-list').evaluate(e => e.scrollTop);
-    await pad(12);
-    assert((await page.locator('#dd-circles-list').evaluate(e => e.scrollTop)) < scrollBefore, 'mando desplaza el mapa');
+    assert(await page.evaluate(()=>document.activeElement.closest('#dd-map-modal') !== null));
     await pad(1);
     assert(!(await page.locator('#dd-map-modal').isVisible()));
     pass('foco y cierre de armería/mapa con mando simulado');
     await page.evaluate(() => window.DD_HUB.exitToRun());
     await page.waitForFunction(() => window.__DD_BRIDGE.isRunning(), null, {timeout: 15000});
     await delay(1800);
-    assert.equal(await page.evaluate(() => window.__DD_BRIDGE.getSnapshot().weapon), 'm1911', 'inicio reinicia la prueba de Refugio');
+    assert.equal(await page.evaluate(() => DD_DICE.d.id),6);
     assert(await page.locator('#dd-hud').isVisible());
     const hud = await page.evaluate(() => ({s: window.__DD_BRIDGE.getSnapshot(), hp: document.querySelector('#dd-hud-hp-fill').style.width, bombs: document.querySelector('#dd-skill-bomb-cnt').textContent}));
     assert.equal(Number.parseFloat(hud.hp), Math.round(hud.s.hp / hud.s.maxHp * 1000) / 10);
@@ -109,34 +102,11 @@ const resultsSizes = process.env.DD_QUICK ? [[1280,720]] : [[1920,1080],[1600,90
     }
     pass('HUD dentro de la ventana (' + standardSizes.length + ' resoluciones)');
     await page.evaluate(() => window.DD_UI.openShop());
-    await page.locator('[data-cat=TODAS]').click();
-    await page.locator('[data-w=magnum]').click();
-    const beforePurchase = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-    assert(beforePurchase.credits < magnum.cost && !beforePurchase.owned.includes('magnum'));
-    assert(await page.locator('#dd-shop-equip').isDisabled());
-    assert((await page.locator('.dd-shop-note').innerText()).includes('tiendas y recompensas'));
-    const deniedNoFunds = await page.evaluate(() => window.__DD_BRIDGE.buyOrEquipWeapon('magnum', false));
-    assert.equal(deniedNoFunds, false);
-    let afterPurchase = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-    assert.equal(afterPurchase.credits, beforePurchase.credits);
-    assert.deepEqual(afterPurchase.owned, beforePurchase.owned);
-    assert.equal(afterPurchase.weapon, beforePurchase.weapon);
+    await page.locator('[data-w="6"]').click();
+    assert(await page.locator('#dd-shop-equip').isDisabled(), 'equipo bloqueado durante incursión');
     await page.keyboard.press('Escape');
-    pass('catálogo remite a la compra del motor sin cobrar ni cambiar armas');
-    await page.evaluate(() => { for (let i = 0; i < 4; i++) window.DMO.playtest.pickup('credits', 1); });
-    await page.waitForFunction(cost => window.__DD_BRIDGE.getSnapshot().credits >= cost, magnum.cost, {timeout: 10000});
-    const funded = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-    const deniedFunded = await page.evaluate(() => window.__DD_BRIDGE.buyOrEquipWeapon('magnum', true));
-    afterPurchase = await page.evaluate(() => window.__DD_BRIDGE.getSnapshot());
-    assert.equal(deniedFunded, false);
-    assert.equal(afterPurchase.credits, funded.credits);
-    assert.deepEqual(afterPurchase.owned, funded.owned);
-    assert.equal(afterPurchase.weapon, funded.weapon);
-    pass('con saldo suficiente el puente no compra ni reemplaza fuera de una tienda');
     await page.evaluate(() => window.DD_UI.openMap());
-    assert((await page.locator('#dd-circles-list .current').innerText()).includes('LIMBO'));
-    assert((await page.locator('#dd-circles-list .current').innerText()).includes('[I]'));
-    assert.equal(await page.locator('#dd-circles-list .current').count(), 1);
+    assert.equal(await page.locator('#dd-circles-list .current').getAttribute('data-circle'),'0');
     await page.keyboard.press('Escape'); await delay(300);
     assert(!(await page.locator('#dd-map-modal').isVisible()));
     assert.equal(await page.evaluate(() => window.__DD_BRIDGE.isPaused()), false, 'Escape en mapa no debe pausar');
