@@ -40,6 +40,7 @@ window.DD_DICE_RULES = function ({ d, catalog, geo, radius, reward }) {
       r = radius(),
       c = catalog[d.id];
     let dmg = c.results[d.face - 1] * (1 + d.charge * 0.8) * c.mass;
+    dmg *= window.DD_COMBAT_FEEL?.modifier(d,c) ?? 1;
     if (rune === "fuego") dmg *= 1.85;
     if (rune === "hielo") dmg *= 1.35;
     if (rune === "sobrecarga") dmg *= 2.5;
@@ -133,6 +134,7 @@ window.DD_DICE_RULES = function ({ d, catalog, geo, radius, reward }) {
             ? "TEMPO: ¡Sigue esa cadena!"
             : "TEMPO: ¡Veinte natural!",
       );
+    if(w.accent)window.DD_COMBAT_FEEL.resolve(d,c,w);
     w.blast(d, r);
     if (count || d.hits.size) {
       if (rune === "energía") w.energy();

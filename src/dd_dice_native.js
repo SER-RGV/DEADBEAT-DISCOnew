@@ -4,6 +4,7 @@ let ddMovingThrow = false;
 const ddDiceWorld = {
   rand: () => ue.rand(),
   thrown() {
+    window.DD_COMBAT_FEEL.begin(window.DD_DICE.d);
     ddMovingThrow = Math.hypot(ye.vx, ye.vy) > 40;
     un.shotsFired++;
     if (ddMovingThrow) un.shotsMoving++;
@@ -26,6 +27,7 @@ const ddDiceWorld = {
     );
     if (cast && d.charge >= 0.75) di(hz * 0.5, 0.09, "sine", 0.05);
   },
+  readyTone(c){di(c.tone*.84,.065,c.id===4?"square":"triangle",.022);},
   signal(event, c) {
     const hz = c.tone;
     if (event === "wind") di(hz * 0.58, 0.08, "sine", 0.026);
@@ -57,10 +59,54 @@ const ddDiceWorld = {
     t.x = pos.x;
     t.y = pos.y;
   },
-  hit(t, damage, type, rune) {
+  visible(from, to) {
+    return from === to || !rc(from.x, from.y, to.x, to.y, 3, false);
+  },
+  accent(t, recipe, hops, combo) {
+    const cfg = DD_COMBAT_FEEL.config;
+    Tp(
+      t.x,
+      t.y - 40,
+      ["","I","II","III"][recipe[1]]+" · "+recipe[0].toUpperCase() + " · " + hops + "× " + window.DD_DICE_MOTION.chord(recipe[2]),
+      "#baf9ff",
+      16,
+      true,
+    );
+    if (zi.flashAllowed() && Yc.tier > 0)
+      vs(t.x, t.y, "#84e9e3", Math.min(cfg.particles, 2 + 2 * hops), 12);
+    di(330 + 110 * hops, 0.09, "triangle", cfg.volume);
+    if (jl && !ie && Xl.music) {
+      const root = gi()[0];
+      di(root * 4, 0.14, "sine", cfg.music, 0, Xl.music);
+      di(
+        root * (recipe[1] > 1 ? 6 : 5),
+        0.17,
+        "triangle",
+        cfg.music,
+        0.12,
+        Xl.music,
+      );
+    }
+  },
+  hit(t, damage, type, rune, reaction = false, level=0) {
     const before = t.hp,
       boss = t === sr;
     const feedback = () => {
+      if (t.kind !== "generator") {
+        if (before > 0 && t.hp <= 0 && Z - ddLastKill > 0.18) {
+          ddLastKill = Z;
+          di(boss ? 110 : 165, 0.12, "triangle", DD_COMBAT_FEEL.config.volume);
+        }
+        const feel = window.DD_COMBAT_FEEL;
+        feel.hit(t, before - Math.max(0, t.hp), reaction);
+        if (
+          !reaction &&
+          before > t.hp &&
+          feel.combo &&
+          feel.combo % feel.config.comboStep === 0
+        )
+          Tp(t.x, t.y - 36, "COMPÁS ×" + feel.combo, "#fdd786", 14, true);
+      }
       if (before > Math.max(0, t.hp) && window.DD_DICE.d.state === "RESOLVING")
         window.DD_DICE.d.blastHit = true;
       window.DD_DICE_FEEDBACK.impact(
@@ -78,7 +124,7 @@ const ddDiceWorld = {
             rank === 0 ? 0.022 : 0.05,
           );
           if (rank === 3) di(990, 0.14, "sine", 0.055, 0.045);
-        },
+        },level,
       );
     };
     damage = Math.min(58, damage * (1 + (ua.damage || 0)));
@@ -126,6 +172,7 @@ const ddDiceWorld = {
       d.y += ny * depth;
       const inward = d.vx * nx + d.vy * ny;
       if (inward < 0) {
+        if(inward < -90 && (d.wallAt==null || d.motionTime-d.wallAt>.11 || d.motionTime<d.wallAt)){d.wallAt=d.motionTime;di(175/Math.sqrt(window.DD_DICE.catalog[d.id].mass),.045,"triangle",.024);}
         d.vx -= 1.58 * inward * nx;
         d.vy -= 1.58 * inward * ny;
       }
@@ -168,9 +215,54 @@ const ddDiceWorld = {
     di(300 + d.face * 24, 0.14, "triangle", 0.07);
   },
 };
+// Installed only when the development inspector exists; production never wraps hit().
+let ddMeter=null;
+function ddInstallMeter(){
+  const meter={hits:0,totalMs:0,maxMs:0},hit=ddDiceWorld.hit;
+  ddDiceWorld.hit=function(...args){const start=performance.now();try{return hit.apply(this,args);}finally{const ms=performance.now()-start;meter.totalMs+=ms;meter.maxMs=Math.max(meter.maxMs,ms);meter.hits++;}};
+  window.DD_COMBAT_FEEL.observeNative(()=>({...meter,particles:Sa.length,rings:Ra.length}));
+  return meter;
+}
+let ddBeat = -1,
+  ddLastAccent = -Infinity,
+  ddLastKill = -Infinity,
+  ddScope = -1;
+function ddFeelBeat() {
+  const step = Ci.active() ? Ci.stepIndex : Ul;
+  if (step === ddBeat) return;
+  ddBeat = step;
+  const level = DD_COMBAT_FEEL.intensity;
+  if (
+    level < 2 ||
+    !jl ||
+    ie ||
+    !Xl.music ||
+    step % (level === 4 ? 4 : 8) !== 0 ||
+    Z - ddLastAccent < 0.45
+  )
+    return;
+  ddLastAccent = Z;
+  di(
+    gi()[0] * (ir ? 1 : 2),
+    0.09,
+    "sine",
+    DD_COMBAT_FEEL.config.music,
+    0,
+    Xl.music,
+  );
+}
 let ddTap = false;
 function ddDiceTick(dt, held, auto) {
   if (Mr) return;
+  if(!ddMeter && window.DD_COMBAT_FEEL.observeNative)ddMeter=ddInstallMeter();
+  if (ddScope !== Ot.epoch) {
+    ddScope = Ot.epoch;
+    ddBeat = -1;
+    ddLastAccent = ddLastKill = -Infinity;
+    window.DD_DICE_FEEDBACK.reset();
+  }
+  window.DD_COMBAT_FEEL.tick(dt, Ot.epoch, Yo.seed);
+  ddFeelBeat();
   const tap = ddTap;
   ddTap = false;
   window.DD_DICE.update(

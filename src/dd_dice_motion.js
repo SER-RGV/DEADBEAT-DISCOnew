@@ -26,6 +26,11 @@ window.DD_DICE_MOTION = (() => {
       follow,
     };
   }
+  // Enamel colour denotes the die; the inset thread denotes retained resonance.
+  const sigils={fuego:['▲','#ff9664'],hielo:['✧','#a5edff'],electricidad:['ϟ','#ffed83'],veneno:['●','#a0e681'],perforación:['»','#91ffcd'],fragmentación:['✶','#ff9abd'],explosión:['✹','#ffae68'],rebote:['↗','#9cdddf'],energía:['+','#d5f392'],maleficio:['◆','#da9cef'],eco:['≈','#aed2ff'],distorsión:['∿','#cc99fc'],sobrecarga:['↑','#ffbfa8'],fortuna:['★','#ecd08a']};
+  function resonance(g,h,feel){const sig=sigils[feel?.retained];if(!sig)return;g.save();g.translate(h.x,h.y-24);g.fillStyle='#221b30';g.beginPath();g.arc(0,0,8,0,2*Math.PI);g.fill();g.strokeStyle=sig[1];g.lineWidth=2;g.beginPath();g.arc(0,0,8,-Math.PI/2,-Math.PI/2+2*Math.PI*feel.seconds/feel.config.memory);g.stroke();g.fillStyle=sig[1];g.textAlign='center';g.font='bold 10px sans-serif';g.fillText(sig[0],0,3);g.restore();}
+  const conditionMarks={carga:"↑",racha:"≋",grupo:"∴",crítico:"★",afinada:"◎"};
+  function chord(tags){return tags.map(t=>sigils[t]?.[0]||conditionMarks[t]||t).join("+");}
   const grip = { player: null, x: 0, y: 0, stamp: -1 };
   function attach(player, x, y, stamp) {
     Object.assign(grip, { player, x, y, stamp });
@@ -135,6 +140,8 @@ window.DD_DICE_MOTION = (() => {
     g.restore();
   }
   function accents(g, d, c, p, near, h, r) {
+    const feel=window.DD_COMBAT_FEEL;
+    if(near)resonance(g,h,feel);
     if (reduce?.matches) return;
     if (d.state === "RESOLVING") seal(g, d, c, r);
     g.save();
@@ -142,6 +149,7 @@ window.DD_DICE_MOTION = (() => {
     g.lineCap = "round";
     if (d.state === "CHARGING") {
       g.translate(h.x, h.y);
+      g.fillStyle=c.color;g.globalAlpha=.04+.12*d.charge;g.beginPath();g.arc(0,0,13+d.charge*6,0,2*Math.PI);g.fill();
       g.lineWidth = 1.4;
       g.globalAlpha = 0.35 + 0.5 * d.charge;
       for (let i = 0; i < 3; i++) {
@@ -156,10 +164,13 @@ window.DD_DICE_MOTION = (() => {
         g.lineTo(Math.cos(angle)*(r+2.4), Math.sin(angle)*(r+2.4));
         g.stroke();
       }
-    } else if (d.state === "FLIGHT" || d.state === "ROLLING") {
+      // Close a bright clasp when the existing reaction charge threshold is reached.
+      if(d.charge >= .75){g.fillStyle=c.color;for(const side of [-1,1])g.fillRect(side*20-1,-2,3,4);}
+    } else if (d.state === "RELEASE" || d.state === "FLIGHT" || d.state === "ROLLING") {
       // Streaks follow actual velocity (including reversal and chained hits).
       const speed = Math.hypot(d.vx, d.vy);
-      g.translate(0, -10 - d.z);
+      const follow=d.state==='RELEASE'||d.state==='FLIGHT'?Math.max(0,1-d.age/.085):0;
+      g.translate(h.x*follow,(-10-d.z)*(1-follow)+h.y*follow);
       g.rotate(Math.atan2(d.vy - d.vz, d.vx));
       const len = Math.min(53, speed * 0.055) * (1 + d.charge * 0.35);
       g.globalAlpha = Math.min(0.68, 0.35 + speed / 1300);
@@ -172,7 +183,7 @@ window.DD_DICE_MOTION = (() => {
         g.quadraticCurveTo(-12, base, tail, base+i);
         g.lineTo(-6, base+half);
         g.closePath();
-        g.fillStyle = i === 0 ? c.color : '#f0d3ae';
+        g.fillStyle = i === 0 ? c.color : (sigils[feel?.retained]?.[1] || '#f0d3ae');
         g.fill();
       }
     } else if (near && d.catchT > 0) {
@@ -217,5 +228,5 @@ window.DD_DICE_MOTION = (() => {
       g.restore();
     }
   }
-  return { gesture, body, attach, hand, accents };
+  return { gesture, body, attach, hand, accents, chord };
 })();

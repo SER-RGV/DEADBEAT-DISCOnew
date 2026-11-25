@@ -1,0 +1,395 @@
+{
+  "pxPerUnit": 2,
+  "playerReferenceU": [
+    64,
+    96
+  ],
+  "assets": {
+    "monitor-S-intacto": {
+      "file": "monitor-S-intacto.png",
+      "shadowFile": "monitor-S-intacto-sombra.png",
+      "state": "intacto",
+      "view": "S",
+      "artSizeU": {
+        "w": 46.08,
+        "h": 124.80000000000001
+      },
+      "sizePx": [
+        103,
+        260
+      ],
+      "pivotPx": [
+        51.5,
+        230.8
+      ],
+      "shadowRadiiPx": [
+        37.839999999999996,
+        24.200000000000003
+      ],
+      "uses": [
+        {
+          "id": "bay",
+          "segment": "balcony",
+          "anchor": {
+            "x": 1030,
+            "y": 115
+          },
+          "elevation": 42,
+          "sortY": 137,
+          "collider": {
+            "kind": "circle",
+            "r": 22,
+            "angle": 0
+          },
+          "solid": true,
+          "destructible": false,
+          "action": null,
+          "room": "r1"
+        },
+        {
+          "id": "bay",
+          "segment": "balcony",
+          "anchor": {
+            "x": 1030,
+            "y": 115
+          },
+          "elevation": 30,
+          "sortY": 137,
+          "collider": {
+            "kind": "circle",
+            "r": 22,
+            "angle": 0
+          },
+          "solid": true,
+          "destructible": false,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    },
+    "panel-E-intacto": {
+      "file": "panel-E-intacto.png",
+      "shadowFile": "panel-E-intacto-sombra.png",
+      "state": "intacto",
+      "view": "E",
+      "artSizeU": {
+        "w": 54.4,
+        "h": 86.4
+      },
+      "sizePx": [
+        119,
+        183
+      ],
+      "pivotPx": [
+        59.5,
+        167.0
+      ],
+      "shadowRadiiPx": [
+        46.44,
+        11.0
+      ],
+      "uses": [
+        {
+          "id": "rack",
+          "segment": "westRecess",
+          "anchor": {
+            "x": 132,
+            "y": 162.5
+          },
+          "elevation": 0,
+          "sortY": 189.5,
+          "collider": {
+            "kind": "rect",
+            "w": 54,
+            "h": 20,
+            "angle": 4.71238898038469
+          },
+          "solid": false,
+          "destructible": false,
+          "action": null,
+          "room": "r1"
+        },
+        {
+          "id": "rack",
+          "segment": "westRecess",
+          "anchor": {
+            "x": 132,
+            "y": 162.5
+          },
+          "elevation": 0,
+          "sortY": 189.5,
+          "collider": {
+            "kind": "rect",
+            "w": 54,
+            "h": 20,
+            "angle": 4.71238898038469
+          },
+          "solid": false,
+          "destructible": false,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    },
+    "puesto-N-intacto": {
+      "file": "puesto-N-intacto.png",
+      "shadowFile": "puesto-N-intacto-sombra.png",
+      "state": "intacto",
+      "view": "N",
+      "artSizeU": {
+        "w": 89.6,
+        "h": 86.4
+      },
+      "sizePx": [
+        190,
+        183
+      ],
+      "pivotPx": [
+        95.0,
+        157.1
+      ],
+      "shadowRadiiPx": [
+        77.4,
+        20.900000000000002
+      ],
+      "uses": [
+        {
+          "id": "front01",
+          "segment": "alcoveS",
+          "anchor": {
+            "x": 163,
+            "y": 585
+          },
+          "elevation": 0,
+          "sortY": 604,
+          "collider": {
+            "kind": "rect",
+            "w": 90,
+            "h": 38,
+            "angle": 3.141592653589793
+          },
+          "solid": true,
+          "destructible": false,
+          "action": null,
+          "room": "r1"
+        }
+      ]
+    },
+    "sofa-W-intacto": {
+      "file": "sofa-W-intacto.png",
+      "shadowFile": "sofa-W-intacto-sombra.png",
+      "state": "intacto",
+      "view": "W",
+      "artSizeU": {
+        "w": 128,
+        "h": 91.19999999999999
+      },
+      "sizePx": [
+        266,
+        193
+      ],
+      "pivotPx": [
+        133.0,
+        163.8
+      ],
+      "shadowRadiiPx": [
+        113.52,
+        24.200000000000003
+      ],
+      "uses": [
+        {
+          "id": "seat01",
+          "segment": "eastBay",
+          "anchor": {
+            "x": 1015,
+            "y": 659
+          },
+          "elevation": 0,
+          "sortY": 725,
+          "collider": {
+            "kind": "capsule",
+            "halfLength": 44,
+            "r": 22,
+            "angle": 1.5707963267948966
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r1"
+        },
+        {
+          "id": "seat01",
+          "segment": "eastBay",
+          "anchor": {
+            "x": 1015,
+            "y": 659
+          },
+          "elevation": 0,
+          "sortY": 725,
+          "collider": {
+            "kind": "capsule",
+            "halfLength": 44,
+            "r": 22,
+            "angle": 1.5707963267948966
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    },
+    "sofa-W-roto": {
+      "file": "sofa-W-roto.png",
+      "shadowFile": "sofa-W-roto-sombra.png",
+      "state": "roto",
+      "view": "W",
+      "artSizeU": {
+        "w": 128,
+        "h": 91.19999999999999
+      },
+      "sizePx": [
+        266,
+        193
+      ],
+      "pivotPx": [
+        133.0,
+        163.8
+      ],
+      "shadowRadiiPx": [
+        82.86959999999999,
+        15.004000000000001
+      ],
+      "uses": [
+        {
+          "id": "seat01",
+          "segment": "eastBay",
+          "anchor": {
+            "x": 1015,
+            "y": 659
+          },
+          "elevation": 0,
+          "sortY": 725,
+          "collider": {
+            "kind": "capsule",
+            "halfLength": 44,
+            "r": 22,
+            "angle": 1.5707963267948966
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r1"
+        },
+        {
+          "id": "seat01",
+          "segment": "eastBay",
+          "anchor": {
+            "x": 1015,
+            "y": 659
+          },
+          "elevation": 0,
+          "sortY": 725,
+          "collider": {
+            "kind": "capsule",
+            "halfLength": 44,
+            "r": 22,
+            "angle": 1.5707963267948966
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    },
+    "mesa-N-intacto": {
+      "file": "mesa-N-intacto.png",
+      "shadowFile": "mesa-N-intacto-sombra.png",
+      "state": "intacto",
+      "view": "N",
+      "artSizeU": {
+        "w": 112,
+        "h": 63.36
+      },
+      "sizePx": [
+        234,
+        137
+      ],
+      "pivotPx": [
+        117.0,
+        106.7
+      ],
+      "shadowRadiiPx": [
+        96.32,
+        25.3
+      ],
+      "uses": [
+        {
+          "id": "table01",
+          "segment": "alcoveS",
+          "anchor": {
+            "x": 163,
+            "y": 585
+          },
+          "elevation": 0,
+          "sortY": 608,
+          "collider": {
+            "kind": "rect",
+            "w": 112,
+            "h": 46,
+            "angle": 3.141592653589793
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    },
+    "mesa-N-roto": {
+      "file": "mesa-N-roto.png",
+      "shadowFile": "mesa-N-roto-sombra.png",
+      "state": "roto",
+      "view": "N",
+      "artSizeU": {
+        "w": 112,
+        "h": 63.36
+      },
+      "sizePx": [
+        234,
+        137
+      ],
+      "pivotPx": [
+        117.0,
+        106.7
+      ],
+      "shadowRadiiPx": [
+        70.3136,
+        15.686
+      ],
+      "uses": [
+        {
+          "id": "table01",
+          "segment": "alcoveS",
+          "anchor": {
+            "x": 163,
+            "y": 585
+          },
+          "elevation": 0,
+          "sortY": 608,
+          "collider": {
+            "kind": "rect",
+            "w": 112,
+            "h": 46,
+            "angle": 3.141592653589793
+          },
+          "solid": true,
+          "destructible": true,
+          "action": null,
+          "room": "r2"
+        }
+      ]
+    }
+  }
+}

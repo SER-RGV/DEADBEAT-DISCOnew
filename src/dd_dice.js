@@ -84,6 +84,7 @@ window.DD_DICE = (() => {
   }
   function reset() {
     window.DD_DICE_FEEDBACK?.reset();
+    window.DD_COMBAT_FEEL?.reset();
     Object.assign(d, {
       id: save.id,
       state: "READY",
@@ -205,6 +206,7 @@ window.DD_DICE = (() => {
         if (d.state === "AIMING" && held) w.signal?.("wind", c);
         d.state = "CHARGING";
       }
+      if(held && oldCharge<.75 && d.charge>=.75)w.readyTone?.(c);
       if (oldCharge < 1 && d.charge === 1 && held) w.signal?.("full", c);
       if (!held || auto) launch(p, w);
     } else if (d.state === "RELEASE") {
@@ -349,7 +351,7 @@ window.DD_DICE = (() => {
       d.id,
       d.a + spin,
       d.b + spin * 0.4,
-      near ? 11 : 17 - 6 * (release + back),
+      near ? 11 + (d.state === "CHARGING" ? 2*d.charge*Math.sqrt(c.mass) : 0) : 17 - 6 * (release + back),
       c.color,
     );
     g.restore();

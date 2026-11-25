@@ -279,6 +279,7 @@
     ctx.restore(); // end floor clip
 
     // ----------------------------------------------------------------------
+    if(opts && opts.hangar){window.DD_HANGAR_PILOT.shell(ctx,opts.hangar);return;}
     // 2.5D MODULAR GOTHIC NORTH WALL FACADE + PILASTERS + PERIMETER MOLDING
     // ----------------------------------------------------------------------
     const wallImg =

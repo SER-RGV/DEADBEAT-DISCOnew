@@ -28,8 +28,13 @@ def dice_hook(anchor, replacement):
     assert html.count(anchor) == 1, anchor
     html = html.replace(anchor, replacement, 1)
 
+from room_generation_migration import migrate as migrate_rooms
+html = migrate_rooms(html, ROOT)
+
 with open(os.path.join(ROOT, "src", "dd_dice_native.js"), encoding="utf8") as f:
     dice_hook("function Tf(e){", f.read() + "\nfunction Tf(e){")
+for fn in ("fp", "Eg"):
+    dice_hook("function "+fn+"(){", "function "+fn+"(){window.DD_COMBAT_FEEL?.reset();window.DD_DICE_FEEDBACK?.reset();")
 dice_hook("function rp(){", "function rp(){window.DD_DICE.reset();")
 dice_hook("h=!Mr&&ye.rollT<=0&&(fa||Aa||Mu.fire||f)", "h=(ddDiceTick(e,!!(fa||Aa||Mu.fire),f),false)")
 dice_hook("ye.aimAngle=Math.atan2(c-ye.y,s-ye.x)", "ye.aimAngle=Math.atan2(c-ye.y,s-ye.x);ye.diceReach=Math.hypot(c-ye.y,s-ye.x)")
@@ -355,6 +360,29 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return dpr;
     }
 
+    // First encounter only: other wide rooms intentionally retain the old painter.
+    const inPilot = () => U && Ot.enabled && Ot.floor===0 && Ot.key==='r0' && Rs.baseId72==='wide';
+    let hangar=null, pilotDoors=null, auditColliders=false;
+    let pilotSampler=null;
+    if(window.DD_ROOM_DEBUG){
+      pilotSampler=roomGeneration.createPilotPerf(()=>{
+        if(!inPilot()||!hangar)return 'outside pilot';
+        if(document.hidden)return 'hidden';
+        if(auditColliders||Bt.showColliders)return 'colliders enabled';
+        if(Y||W||Mr||window.DD_HUB?.isActive()||window.DD_UI?.isModalOpen()||window.DD_CINE?.isBlocking())return 'not in active play';
+        return null;
+      },()=>({room:Ot.key,seed:Yo.seed,viewport:[y,x],canvas:[h.width,h.height],dpr:window.devicePixelRatio,
+        reducedMotion:!!Yc.reduced,tier:Yc.tier,browser:navigator.userAgent}));
+      const stopHidden=()=>{if(document.hidden&&pilotSampler.running)pilotSampler.stop('hidden');};
+      document.addEventListener('visibilitychange',stopHidden);
+      window.DD_ROOM_DEBUG.perf=Object.freeze({start:pilotSampler.start,reset:pilotSampler.reset,
+        stop:()=>pilotSampler.stop(),report:pilotSampler.report});
+      window.DD_ROOM_DEBUG.pilotColliders=(enabled)=>auditColliders=!!enabled;
+      window.DD_ROOM_DEBUG.pilot=()=>({active:!!(hangar&&inPilot()),room:Ot.key,base:Rs.baseId72,
+        meshKey:hangar?.key,spans:hangar?.walls.length||0,rave:De>0,
+        warnings:Ta.filter(e=>e.st==='windup'||e.mState==='chargeWind').map(e=>({type:e.type,mini:!!e.mini,elite:!!e.elite,remaining:e.stT})),
+        laser:Zr?{elapsed:Zr.t,warning:Zr.warn}:null});
+    }
     qc = function () {
       if (window.DD_WORLD) {
         m.width = E;
@@ -362,11 +390,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         A.imageSmoothingEnabled = true;
         try { A.imageSmoothingQuality = "high"; } catch (e) {}
         d.lamps = [];
-        window.DD_WORLD.buildHighResRoomCache(A, E, k, Ps, currentCircle(), Yo ? Yo.seed : 1, Ls);
+        hangar=inPilot()?roomGeneration.hangarShell(Ot.key,Rs.edges,Ot.doors):null;pilotDoors=Ot.doors;
+        if(nativePrefab)window.DD_PREFAB_WORLD.shell(A,E,k,Ps,nativePrefab.mesh,Ls,Ot.floor);
+        else window.DD_WORLD.buildHighResRoomCache(A, E, k, Ps, currentCircle(), Yo ? Yo.seed : 1, Ls,hangar?{hangar}:null);
         b = true;
         roomCacheInvalid = false;
         d.builds = (d.builds || 0) + 1;
-        d.cacheKey = [Yo.room, Yo.seed, Rs.id, d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
+        d.cacheKey = [Yo.room, Yo.seed, Rs.id, nativePrefab?window.DD_PREFAB_WORLD.revision:0,d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
         return;
       }
       return origQc.apply(this, arguments);
@@ -389,6 +419,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
     };
 
     Lc = function (prop) {
+      if(nativePrefab&&prop.prefabId&&window.DD_PREFAB_WORLD.prop(g,prop,nativePrefab.mesh))return;
+      if(hangar && prop.onFloor) return origLc.call(this,prop); // Native fixture style/pose, not a sprite keyed by collider type.
       if (window.DD_WORLD && window.DD_WORLD.drawProp(g, prop, Z)) {
         return;
       }
@@ -796,6 +828,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
     Qf = function () {
       const now = performance.now();
+      if(pilotSampler?.running)pilotSampler.frame(now,De>0,ye.x,ye.y,Ta.length,Ia.length+wa.length);
       const dt = Math.min(0.05, Math.max(0.001, (now - lastRenderNow) / 1000));
       lastRenderNow = now;
 
@@ -836,9 +869,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         g.translate((2 * ue.rand() - 1) * pe * 0.5, (2 * ue.rand() - 1) * pe * 0.5);
       }
 
-      if(U && !Mr && !Yc.reduced) window.DD_DICE_FEEDBACK?.camera(g);
-      const expectedCacheKey = [Yo.room, Yo.seed, Rs.id, d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
-      if (!b || roomCacheInvalid || expectedCacheKey !== d.cacheKey) {
+      if(U && !Mr && !Yc.reduced && zi.st.shake) window.DD_DICE_FEEDBACK?.camera(g);
+      const expectedCacheKey = [Yo.room, Yo.seed, Rs.id, nativePrefab?window.DD_PREFAB_WORLD.revision:0,d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
+      if (!b || roomCacheInvalid || !!inPilot()!==!!hangar || (hangar&&pilotDoors!==Ot.doors) || expectedCacheKey !== d.cacheKey) {
         qc();
       }
       g.drawImage(m, 0, 0);
@@ -859,11 +892,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       hs();
       Ff();
       Ch();
-      Wf();
+      if(!hangar&&!nativePrefab)Wf();
 
       if (Ot.enabled) {
         for (const dr of Ot.doors) {
-          Bg(dr);
+          if(hangar){const port=hangar.openings.find(p=>p.to===dr.to);window.DD_HANGAR_PILOT.door(g,port,dr,Mg(dr)&&Ot.openT>=.8,Math.hypot(ye.x-dr.wallX,ye.y-dr.wallY)<137);}
+          else if(nativePrefab){const local=nativePrefab.mesh.openings.find(p=>p.to===dr.to);g.save();g.translate(Ps.x,Ps.y);window.DD_HANGAR_PILOT.door(g,local,dr,Mg(dr)&&Ot.openT>=.8,Math.hypot(ye.x-dr.wallX,ye.y-dr.wallY)<137);g.restore();}
+          else Bg(dr);
           if (dr.lift) WA(dr);
         }
         To();
@@ -878,9 +913,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       const cullB = camY + F() / 2 + 240;
 
       for (const pr of tc) {
-        if (!pr.onFloor || pr.hidden) continue;
+        if (!pr.onFloor || pr.hidden || (hangar&&pr.broken)) continue;
         if (pr.x + pr.br < cullL || pr.x - pr.br > cullR || pr.y + pr.br < cullT || pr.y - pr.br > cullB) continue;
-        if (pr.tall) renderQueue.push({ y: pr.sortY, k: "prop", o: pr });
+        if (pr.tall || hangar || nativePrefab) renderQueue.push({ y: nativePrefab&&pr.prefabId?Ps.y+nativePrefab.mesh.placements.find(p=>p.id===pr.prefabId).sortY:pr.sortY, k: "prop", o: pr });
         else Lc(pr);
       }
       for (const en of Ta) {
@@ -930,10 +965,10 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
       Xu();
       Tt();
-      rf();
+      if(!hangar&&!nativePrefab)rf();
       Vf();
 
-      if(U) window.DD_DICE_FEEDBACK?.draw(g);
+      if(U && zi.st.flash) { window.DD_DICE_FEEDBACK?.draw(g); if(zi.flashAllowed() && Yc.tier>0)window.DD_COMBAT_FEEL?.draw(g); }
       if (!(window.DD_WORLD && window.DD_WORLD.drawImpactParticles(g, Sa))) {
         for (const sp of Sa) {
           const al = Math.max(0, 1 - sp.life / sp.maxLife);
@@ -948,7 +983,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       Xf();
       Ph();
       kp.draw();
-      if (Bt.showColliders) Ym();
+      if (Bt.showColliders || (hangar&&auditColliders)) Ym();
+      // Once, after opaque scenery, Y-sort and RAVE effects; native timers/LOS unchanged.
+      if(hangar||nativePrefab){rf();Wf();}
 
       g.restore(); // camera transform
 
@@ -1322,6 +1359,7 @@ MODULE_ORDER = (
     # FASE 01: el arranque debe ejecutarse ANTES que dd_ui_system.js porque lo
     # orquesta (oculta el menú, corre la intro canónica y le da el foco).
     "dd_dice_geometry.js",
+    "dd_combat_feel.js",
     "dd_dice_rules.js",
     "dd_dice_motion.js",
     "dd_dice_feedback.js",
@@ -1331,6 +1369,15 @@ MODULE_ORDER = (
     "dd_appearance.js",
     "dd_world_renderer.js",
     "dd_refuge_record.js",
+    "dd_hangar_pilot.js",
+    "dd_prefab_world.js",
+    "dd_hub_layout.js",
+    "../previews/vestibulo/materials.js",
+    "../previews/vestibulo/organic.js",
+    "../previews/vestibulo/relief.js",
+    "../previews/vestibulo/scene.js",
+    "dd_hub_live.js",
+    "dd_hub_range.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",
     "dd_opening.js",
@@ -1340,6 +1387,11 @@ _parts = []
 for fname in MODULE_ORDER:
     with open(os.path.join(ROOT, "src", fname), "r", encoding="utf-8") as f:
         js_src = f.read()
+    if fname == "dd_prefab_world.js":
+        with open(os.path.join(ROOT,"assets/prefabs/club/pivots.json")) as piv:
+            js_src=js_src.replace("PREFAB_PIVOTS",piv.read().strip())
+    if fname == "dd_combat_feel.js" and os.getenv("DD_FEEL_DEV") == "1":
+        js_src = js_src.replace("false; /* DEV_BUILD */", "true;")
     assert "</script" not in js_src.lower(), f"{fname} must not contain </script sequences"
     _parts.append(
         "  <script>\n/* === INLINED FROM src/" + fname

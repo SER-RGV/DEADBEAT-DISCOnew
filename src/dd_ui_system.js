@@ -1738,7 +1738,7 @@
     el('dd-shop-context').textContent='Un impacto confirmado por tirada concede un sello. Cada tres tiradas acertadas se graba una runa temporal.';
     grid.innerHTML=Object.values(catalog).map(v=>`<button class="dd-weapon-card ${v.id===c.id?'selected':''}" data-w="${v.id}"><canvas width="110" height="80"></canvas><b class="dd-weapon-card-name">D${v.id} · ${v.name}</b><span class="dd-weapon-card-price">${v.id===save.id?'EQUIPADO':v.cost<=save.marks?'DESBLOQUEADO':v.cost+' SELLOS'}</span></button>`).join('');
     for(const btn of grid.children){const v=catalog[btn.dataset.w],g=btn.firstChild.getContext('2d');g.translate(55,40);window.DD_DICE_GEOMETRY.draw(g,v.id,.52,.37,32,v.color);btn.onclick=()=>{uiState.selectedWeaponId=v.id;renderShop();grid.querySelector(`[data-w="${v.id}"]`).focus();};}
-    el('dd-shop-inspector').innerHTML=`<b class="dd-inspector-name">${c.name}</b><p>Masa ${c.mass} · Velocidad ${c.speed} · Retorno ${c.recovery} s</p><p>${Array.from({length:c.id},(_,i)=>`${i+1}: ${c.id===d.id&&d.runes[i+1]||'normal'}`).join(' · ')}</p><button class="dd-action-btn primary" id="dd-shop-equip" ${preview&&save.marks>=c.cost?'':'disabled'}>EQUIPAR EN REFUGIO</button><button class="dd-action-btn" id="dd-etched" ${preview&&save.marks>=c.cost+10?'':'disabled'}>EDICIÓN GRABADA · ${c.cost+10} SELLOS</button><p>La edición grabada comienza con ${c.variantRune} en la cara ${c.id}.</p><p>Runas compatibles: ${c.compatible.join(", ")}.</p>`;
+    el('dd-shop-inspector').innerHTML=`<b class="dd-inspector-name">${c.name}</b><p>Masa ${c.mass} · Velocidad ${c.speed} · Retorno ${c.recovery} s</p><p>${Array.from({length:c.id},(_,i)=>`${i+1}: ${c.id===d.id&&d.runes[i+1]||'normal'}`).join(' · ')}</p><button class="dd-action-btn primary" id="dd-shop-equip" ${preview&&save.marks>=c.cost?'':'disabled'}>EQUIPAR EN REFUGIO</button><button class="dd-action-btn" id="dd-etched" ${preview&&save.marks>=c.cost+10?'':'disabled'}>EDICIÓN GRABADA · ${c.cost+10} SELLOS</button><p>La edición grabada comienza con ${c.variantRune} en la cara ${c.id}.</p><p>Runas compatibles: ${c.compatible.join(", ")}.</p><p>${esc(window.DD_COMBAT_FEEL.hint(c))}</p>`;
     el('dd-etched').onclick=()=>{if(!window.__DD_BRIDGE.isRunning()){equip(c.id,true);renderShop();el('dd-etched').focus();}};
     el('dd-shop-equip').onclick=()=>{if(!window.__DD_BRIDGE.isRunning()){equip(c.id);renderShop();el('dd-shop-equip').focus();}};
   }
@@ -2460,7 +2460,7 @@
       uiState.mapOpen ? closeModals() : openMap();
     } else if (k === "KeyH" && !uiState.shopOpen && !uiState.mapOpen) {
       if (window.DD_HUB) {
-        window.DD_HUB.isActive() ? window.DD_HUB.exitToRun() : window.DD_HUB.enter();
+        if (!inHub) window.DD_HUB.enter(); // In the vestibule the playable exit is the north threshold.
       }
     }
   });

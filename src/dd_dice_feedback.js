@@ -18,22 +18,23 @@ window.DD_DICE_FEEDBACK = (() => {
     kickAt = -1,
     kick = 0,
     kx = 0,
-    ky = 0;
+    ky = 0, labelCursor=0, numberAt=0, voices=0;
   function reset() {
     now = cursor = voicesAt = voiceRank = kick = 0;
+    labelCursor=numberAt=voices=0;
     kickAt = -1;
     actors = new WeakMap();
-    for (const p of pool) p.end = 0;
+    for (const p of pool) {p.end=0;p.label=null;}
   }
   function tick(dt) {
     now += Math.min(0.1, Math.max(dt, 0));
   }
-  function impact(target, loss, d, type, boss, emit) {
+  function impact(target, loss, d, type, boss, emit, level=0) {
     if (!(loss > 0)) return;
     const critical = d.state === "RESOLVING" && d.id === 20 && d.face === 20;
-    const rank = critical
+    const rank = critical || level===3
       ? 3
-      : loss >= 9 || (target.hp <= 0 && (boss || target.elite || target.mini))
+      : level===2 || (d.charge>=.75 && loss>=5) || loss >= 9 || (target.hp <= 0 && (boss || target.elite || target.mini))
         ? 2
         : loss >= 3
           ? 1
@@ -61,7 +62,7 @@ window.DD_DICE_FEEDBACK = (() => {
       ux,
       uy,
       power,
-      hold: critical ? 0.032 : rank === 2 || boss ? 0.021 : 0,
+      hold: (critical ? 0.032 : rank === 2 || boss ? 0.021 : 0)*(window.DD_COMBAT_FEEL?.config.hold??1),
     });
     const p = pool[cursor++ % pool.length];
     Object.assign(p, {
@@ -70,9 +71,16 @@ window.DD_DICE_FEEDBACK = (() => {
       a,
       rank,
       at: now,
-      end: now + 0.12 + 0.025 * rank,
+      end: now + (window.DD_COMBAT_FEEL?.config.lifetime??.18) * (0.67 + rank*.14),
       color: critical ? "#ffe398" : ink[type] || "#ffd8bf",
     });
+    // Independent cursors in the same pool: a burst can overwrite a spark,
+    // not the number that was admitted for 400 ms. At most four are live.
+    if(now>=numberAt){
+      const slot=pool[labelCursor++ % 4];
+      slot.label=loss<.1?'<0.1':String(Math.round(loss*10)/10);
+      slot.labelEnd=now+.40;slot.labelColor=p.color;slot.labelX=p.x;slot.labelY=p.y;numberAt=now+.11;
+    }
     if (rank >= 1 && (now - kickAt > 0.19 || (rank === 3 && kick < 2))) {
       kickAt = now;
       kick = [0, 0.65, 1.6, 2.5][rank];
@@ -81,7 +89,7 @@ window.DD_DICE_FEEDBACK = (() => {
     }
     // Dense AoE: play one accent, allow a stronger accent to supersede it.
     if (now >= voicesAt || rank > voiceRank) {
-      emit(rank);
+      voices++;emit(rank);
       voicesAt = now + 0.085;
       voiceRank = rank;
     }
@@ -116,12 +124,13 @@ window.DD_DICE_FEEDBACK = (() => {
   function camera(g) {
     const t = (now - kickAt) / 0.11;
     if (reduced?.matches || t >= 1 || t < 0) return;
-    const v = kick * (1 - t) ** 2 * Math.cos(t * Math.PI * 2);
+    const v = (window.DD_COMBAT_FEEL?.config.camera??1) * kick * (1 - t) ** 2 * Math.cos(t * Math.PI * 2);
     g.translate(-kx * v, -ky * v);
   }
   function draw(g) {
     g.save();
     for (const p of pool) {
+      if(p.label && now<p.labelEnd){const life=(p.labelEnd-now)/.4;g.globalAlpha=Math.min(1,life*2.5);g.fillStyle=p.labelColor;g.textAlign='center';g.font='bold 12px monospace';g.fillText(p.label,p.labelX+10,p.labelY-10-10*(1-life));}
       if (now >= p.end) continue;
       const t = (now - p.at) / (p.end - p.at),
         count = reduced?.matches ? 2 : 3 + 2 * p.rank;
@@ -147,5 +156,5 @@ window.DD_DICE_FEEDBACK = (() => {
     }
     g.restore();
   }
-  return { reset, tick, impact, react, poseClock, camera, draw };
+  return { stats:()=>({marks:pool.filter(p=>now<p.end).length,impactAccents:voices}),reset, tick, impact, react, poseClock, camera, draw };
 })();
