@@ -97,6 +97,12 @@ Juicio sobre las capturas de `ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas e
 
 Esto es una comprobación visual mía sobre cuatro fotogramas forzados, no una prueba de legibilidad con jugadores reales ni con la pista saturada de enemigos.
 
+### Cámaras del residente
+
+Las cámaras de jefe van siempre a la casa `arena-octogono`, también la del núcleo. `tools/qa/prefab_boss.cjs` abre una página nueva por círculo —para que una pelea no contamine la siguiente—, lanza el jefe real con `DMO.debug.boss()`, comprueba identidad y vida, exige que el jefe esté **de pie sobre la malla** (no dentro del mobiliario) y lo derriba por el puente. En los círculos 1 y 5 exige además que el motor apunte la cámara como despejada; en el núcleo solo exige la bandera `final` y que el jefe caiga, porque el cierre de partida no apunta ninguna cámara y su secuencia de victoria queda fuera de esta prueba.
+
+Medido: ANDÉN (147), EL POGO (204) y NÚCLEO FINAL (363). Capturas en `ART_EVIDENCE/PREFABS_BOSS/`. No se simulan fases, oleadas de añadidos ni el final de la partida.
+
 ### Teléfono y mando táctil
 
 `tools/qa/prefab_touch.cjs` abre el juego en 390 × 720 con `isMobile` y toques reales por CDP sobre la zona de movimiento: arrastra el joystick en una sala de combate de cada casa con volumen propio y exige que el corredor se desplace más de 40 px y siga dentro del polígono. Los cuatro fotogramas de `ART_EVIDENCE/PREFABS_TOUCH/` son la evidencia.
