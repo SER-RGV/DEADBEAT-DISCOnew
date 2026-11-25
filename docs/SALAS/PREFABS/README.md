@@ -96,3 +96,9 @@ La casa `camarote` monta un `puesto` con franja de lectura al sur (`front01`), a
 Juicio sobre las capturas de `ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas el láser magenta, los anillos de aviso y las siluetas hostiles se separan del suelo teñido, incluso en el octógono, que es la planta más grande y la de piedra más clara. La casa `camarote` queda fuera del fixture a propósito: solo aloja tienda, descanso y secretos, donde el RAVE no llega a activarse. Las capturas son de la build servida en el puerto 8015 con la semilla 0.
 
 Esto es una comprobación visual mía sobre cuatro fotogramas forzados, no una prueba de legibilidad con jugadores reales ni con la pista saturada de enemigos.
+
+### Teléfono y mando táctil
+
+`tools/qa/prefab_touch.cjs` abre el juego en 390 × 720 con `isMobile` y toques reales por CDP sobre la zona de movimiento: arrastra el joystick en una sala de combate de cada casa con volumen propio y exige que el corredor se desplace más de 40 px y siga dentro del polígono. Los cuatro fotogramas de `ART_EVIDENCE/PREFABS_TOUCH/` son la evidencia.
+
+Dos arreglos de HUD salieron de ahí, ambos en `src/dd_rebuild_ui.css`: la torre de progresión (196 × 132) tapaba media cabecera en pantallas de 390 px —ahora mide 112 × 76 por debajo de 520 px— y el cartel del círculo cruzaba la fila del dado, así que pasa a dos líneas con 50vw de ancho y se separa 48 px. Sin esos dos cambios, en el móvil se leían mal la vida, el escudo y el dado. Lo que sigue igual de apretado es la franja de ronda sobre los botones de habilidad; es anterior a este trabajo y no la toqué.
