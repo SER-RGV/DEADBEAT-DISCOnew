@@ -65,20 +65,42 @@ module.exports = {
       const roll = Math.hypot(d1.x - d0.x, d1.y - d0.y);
       suite.ok('la esquiva desplaza al protagonista', roll >= 0, Math.round(roll) + ' px', 'sin excepción');
 
-      /* 4 · Daño y reflejo en el HUD. */
+      /* 4 · Daño y reflejo en el HUD.
+         `DMO.playtest.hurt` aplica el golpe en un punto fijo junto al
+         protagonista: si ese punto cae sobre un muro o un prop, el daño no entra
+         (medido en CI: hp se quedaba en 3). Se reintenta moviendo al personaje
+         entre intentos y se informa de cuántos hicieron falta; no se toca el
+         juego para que una prueba sea cómoda. */
       const hud0 = await G.hud(page);
-      const hurt = await G.playtest(page, 'hurt', 1);
-      await G.sleep(700);
+      let snap1 = null;
+      let hurts = 0;
+      for (let i = 0; i < 4; i++) {
+        const hurt = await G.playtest(page, 'hurt', 1);
+        hurts++;
+        if (hurt.error) { suite.fail('el daño se puede provocar sin excepción', hurt.error, 'sin error'); break; }
+        await G.sleep(500);
+        snap1 = await G.snapshot(page);
+        if (snap1 && snap1.hp < 3) break;
+        /* otro punto de aplicación: desplazar al protagonista antes de repetir */
+        const key = i % 2 === 0 ? 'KeyA' : 'KeyS';
+        await page.keyboard.down(key);
+        await G.sleep(450);
+        await page.keyboard.up(key);
+        await G.sleep(200);
+      }
       const hud1 = await G.hud(page);
-      const snap1 = await G.snapshot(page);
-      suite.ok('recibir daño reduce la vida del motor', !!snap1 && snap1.hp < 3, snap1 && 'hp=' + snap1.hp, 'hp < 3');
+      suite.ok(
+        'recibir daño reduce la vida del motor',
+        !!snap1 && snap1.hp < 3,
+        (snap1 && 'hp=' + snap1.hp) + ' tras ' + hurts + ' intento(s)',
+        'hp < 3'
+      );
       suite.ok(
         'el HUD refleja la vida que queda',
         !!hud1 && hud1.hearts && hud0.hearts !== hud1.hearts,
         (hud0 && hud0.hearts) + ' → ' + (hud1 && hud1.hearts),
         'etiqueta de vidas actualizada'
       );
-      suite.ok('el daño se puede provocar sin excepción', !hurt.error, hurt.error || 'ok', 'sin error');
 
       /* 5 · Pausa con ESC. */
       await page.keyboard.press('Escape');
