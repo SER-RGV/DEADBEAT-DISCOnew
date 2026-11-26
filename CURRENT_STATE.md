@@ -380,3 +380,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - `__DD_ROOM_VARIANTS_V3` activa 2.4.0: variantes de proporción heredadas de cinco prefabs, con bit de seed por rol. Flag apagado por defecto; guardados conservan su versión.
 - 10.000 mapas: cero firmas repetidas entre salas compiladas, normalizando escala uniforme/giro/reflexión; Hangar excluido. Esto no demuestra diferencia visual perceptible ni dos diseños artísticos por tipo. 276 configuraciones y 624 salidas verificadas en rejilla; seed 0 comprobada puntualmente en motor.
 - Faltan sprites direccionales y validación visual; regresión de generación frente a legacy. Fase 3 sigue incompleta. Inventario, pruebas, backup y reversión: `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · visibilidad y mobiliario direccional
+- Dos pares de variantes proporcionales inspeccionados en navegador resultan prácticamente indistinguibles; no se cumple variedad perceptible. Capturas y límites en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Creadas diez vistas direccionales y diez sombras para las cinco bases; comprobados archivos, pivotes y dibujo por el renderer real en seed 0. No se han evaluado todos los círculos ni rotura en combate natural. El arte usa el cargador de pivotes de prefab existente, no `DD_ASSETS`.

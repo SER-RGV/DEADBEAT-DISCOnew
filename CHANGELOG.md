@@ -277,3 +277,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Variantes proporcionales experimentales 2.4
 - Flag opt-in `__DD_ROOM_VARIANTS_V3`: deriva proporciones deterministas de cinco prefabs existentes sin crear arte ni rotar sprites; guardados antiguos conservan su versión.
 - Auditoría de 10.000 mapas sin firmas de forma/puertas duplicadas entre salas compiladas, con Hangar excluido. No prueba variedad visual perceptible; existen sprites direccionales faltantes. Detalle y límites en la propuesta.
+
+## 2026-11-26 · Vistas cardinales y revisión visual de variantes
+- Añadidas diez vistas direccionales de mesa, sofá, monitor y panel con estados rotos cuando corresponden, diez sombras y sus pivotes; PNG RGBA generados con herramienta reproducible.
+- En dos pares capturados, las variantes 2.4 de proporción resultan prácticamente indistinguibles. El criterio de diversidad visual sigue pendiente; pruebas, límites y reversión en la propuesta.

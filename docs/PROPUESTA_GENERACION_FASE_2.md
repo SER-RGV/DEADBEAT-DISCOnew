@@ -208,3 +208,33 @@ Inventario completo de cada petición sprite, ruta exacta, existencia y pivote: 
 Las llaves de la tabla denotan las combinaciones literales enumeradas en el JSON. Faltan también los pivotes correspondientes cuando se señala en el inventario. El renderer usa representación nativa si falta la imagen; no se han fabricado vistas de otra orientación ni inspeccionado visualmente las variantes. Materiales de suelo y carcasa permanecen inalterados.
 
 Backups verificados con `sha256sum -c backups/room_variants_20261126/SHA256SUMS`. Para revertir: restaurar `tools/room_generation_migration.py` y los arneses respaldados desde esa carpeta, retirar del build el módulo nuevo restaurando la migración (se puede conservar `src/room_generation/prefab_variants.js`), ejecutar `python3 tools/build_active_html.py` y verificar ambos builds SHA-256 `6bdceff062338aefc70b4a4fc307a0a403f69abfb6269bb1e2f090b3d6302a1b`. Desactivar el flag solo afecta partidas sin marcador; el código anterior no reconoce guardados 2.4. Respaldar datos y establecer migración antes de revertirlos, nunca borrarlos. Build actual: ambos SHA-256 `ede03023444f2c69a4dd98c47b1e35eaaa2d9409d034193e4a17572e58e8d9bd`.
+
+## Comprobación visual y vistas direccionales
+
+### Perceptibilidad de las proporciones 2.4
+
+Se capturaron dos pares en Chromium headless, 1280×800, con misma base de prefab, rol y lados de puerta. Se usa navegación debug, semillas distintas y no se iguala el estado de animación ni los destinos de las puertas:
+
+| Par | Datos medidos | Observación visual |
+|---|---|---|
+| Entrada `r11`, semillas 1 y 2 | Pasillo-servicio, slots 0 y 1, anchos 1720 y 1740,64, altura 700; +1,2 % | La diferencia de proporción es **prácticamente imperceptible** en estas capturas. `docs/DIAGNOSTICO_SALAS_EVIDENCIA/variantes-visuales/{a,b}.png`. |
+| Desafío `r13`, semillas 12 y 13 | Pasillo-servicio, slots 4 y 5, anchos 1802,56 y 1823,2, altura 700; +1,15 % relativo | También resulta **prácticamente imperceptible** en esta muestra; sí cambian animaciones y rótulos ajenos a la forma. `docs/DIAGNOSTICO_SALAS_EVIDENCIA/variantes-visuales-desafio/{a,b}.png`. |
+
+Las capturas de entrada se tomaron antes de añadir vistas faltantes; las posteriores al arte están en `variantes-visuales-direccionales/`. Esto es una inspección de dos pares, no un estudio con jugadores ni una prueba de cada base, círculo o extremo de proporción. **La unicidad de firmas de 2.4 no demuestra variedad perceptible**, y no se considera cumplido ese criterio. `tools/qa/room_variants_visual.cjs` registra semillas, geometría y lados en `metadata.json`.
+
+### Mobiliario: 10 vistas y 10 sombras
+
+Se añadieron vistas cardinales propias, sin girar ni reflejar el bitmap existente: `panel-N-intacto`, `monitor-W-intacto`, `sofa-N-{intacto,roto}`, `sofa-S-{intacto,roto}`, `mesa-S-{intacto,roto}` y `mesa-W-{intacto,roto}`. Cada una incluye su PNG y `-sombra.png` en `assets/prefabs/club/`. Se heredan las sombras elípticas neutras y dimensiones/pivotes de la misma clase y estado; los estados rotos tienen dibujo propio bajo, sin colisiones nuevas. Dibujados proceduralmente mediante `tools/prefabs/directional-furniture.py`, siguiendo la paleta y formato del generador existente `furniture-art.py`, no con generación de imágenes ni sprites girados. Se dibuja directamente en RGBA transparente como el lote existente, sin extracción por croma ni verde visible: no se ha usado un fondo verde `#00ff00` como intermedio. No se modifica ningún tile de 512.
+
+Los 10 pivotes se añadieron a `assets/prefabs/club/pivots.json`, que es el registro que ya usa el cargador `DD_PREFAB_WORLD` para este lote. **No se han registrado en `DD_ASSETS`**: los sprites de `assets/prefabs/club` existentes usan ese registro específico de pivotes y su cargador, no el manifiesto general. No se ha añadido otro cargador ni cambiado IDs existentes. El arte afecta también a versiones previas, que antes caían en representación nativa cuando faltaba la vista; no es una equivalencia visual con los flags apagados.
+
+| Comprobación | Resultado y límite |
+|---|---|
+| `room_generation_variant_assets.cjs` | Ninguna ruta/pivote ausente en las vistas solicitadas por las cinco bases, incluyendo estados rotos y sombras. Inventario `variantes-assets-direccionales.json`. |
+| `PYTHONPATH=/tmp/dd-pillow python3 tools/qa/room_directional_art_assets.py` | 10 sprites con dimensiones y pivotes iguales a sus referencias, canal alfa transparente, píxeles no vacíos y sin verde visible. No aprueba calidad artística. |
+| `room_directional_art.cjs` | En Chromium seed 0, el cargador y renderer reales dibujaron las 10 vistas solicitadas, incluidos estados rotos, con píxeles visibles; cero errores de página o respuestas fallidas de assets de prefab observados. No demuestra rotura mediante combate natural ni calidad en todos los círculos. |
+| `room_generation.cjs`, `prefab_floors.cjs` | PASS en sus alcances previos: 1.030 mapas y 654 instancias. |
+
+El primer intento del arnés de render agotó la espera porque la sala piloto Hangar no activa el cargador de prefabs; tras entrar en una sala prefab el arnés pasó. No se ha ejecutado un estudio de legibilidad en GPU real ni en todos los círculos. Pillow se instaló temporalmente fuera del repo para el generador y QA, igual que requiere el generador de mobiliario existente; no se añadió dependencia al juego.
+
+Reversión: comprobar `sha256sum -c backups/room_directional_art_20261126/SHA256SUMS`, respaldar cualquier edición posterior, restaurar `assets/prefabs/club/pivots.json` desde esa carpeta y reconstruir con `python3 tools/build_active_html.py`. Los nuevos PNG quedan inertes sin sus pivotes y pueden conservarse; no borrar capturas ni backups. El build previo debe recuperar SHA-256 `ede03023444f2c69a4dd98c47b1e35eaaa2d9409d034193e4a17572e58e8d9bd`. Build actual, ambos HTML: `95a3401de46a68fd3e0eca0250b21caf9e525586018c3cdc70dc682b7d82eecd`.
