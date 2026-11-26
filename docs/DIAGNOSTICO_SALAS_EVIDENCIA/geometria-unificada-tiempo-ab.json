@@ -1,0 +1,26 @@
+{
+  "samplesPerVersion": 1000,
+  "results": {
+    "2.0.0": {
+      "mean": 0.28499999999837017,
+      "p95": 0.39999999990686774,
+      "max": 14.5
+    },
+    "2.1.0": {
+      "mean": 1.29760000000149,
+      "p95": 4,
+      "max": 29.800000000046566
+    },
+    "2.2.0": {
+      "mean": 1.5639000000009546,
+      "p95": 5.400000000023283,
+      "max": 35
+    },
+    "2.3.0": {
+      "mean": 1.6633999999987428,
+      "p95": 6.599999999976717,
+      "max": 31.399999999906868
+    }
+  },
+  "note": "Chromium headless generation + bind; 2.1/2.2/2.3 also compile and adapt population. 20 warmup sets, 100 seeds over 10 floors. Machine and timer resolution apply; not frame time."
+}

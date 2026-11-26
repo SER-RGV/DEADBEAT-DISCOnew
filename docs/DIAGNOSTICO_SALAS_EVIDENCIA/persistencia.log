@@ -1,0 +1,44 @@
+PASS [AUDITORÍA] toda clave sembrada pertenece a un grupo declarado (run, permanente o ajustes)
+PASS [MENÚ] con partida guardada, CONTINUAR está disponible
+PASS [CONTINUAR] entra al Refugio sin reproducir el descenso
+PASS [CONTINUAR] conserva la ficha: misma fecha de creación, una visita más  [2026-10-01T10:00:00.000Z · visitas 6]
+PASS [CONTINUAR] no borra el estado de run (planta guardada intacta)
+PASS [CONTINUAR] progreso permanente idéntico byte a byte  [10 claves iguales]
+PASS [NUEVA PARTIDA] al pulsar no aparece ninguna confirmación de borrado ni se borra nada
+PASS [NUEVA PARTIDA] ficha nueva: fecha de creación de hoy y visitas a 1  [2026-11-26T11:38:10.878Z · visitas 1 · partida nº 2]
+PASS [NUEVA PARTIDA] reinicia el estado de run: la planta de la incursión anterior ya no está
+PASS [NUEVA PARTIDA] conserva dd_refuge_record_v1  [undefined]
+PASS [NUEVA PARTIDA] conserva dd_appearance_v1  [undefined]
+PASS [NUEVA PARTIDA] conserva dmodisco_currency_v1  [1234]
+PASS [NUEVA PARTIDA] conserva dmodisco_upgrades_v1  [{"hp":2,"dmg":1}]
+PASS [NUEVA PARTIDA] conserva dd.dice.v1  [undefined]
+PASS [NUEVA PARTIDA] conserva dmodisco_weapon_prestige_v1  [{"m1911":1}]
+PASS [NUEVA PARTIDA] conserva dmodisco_ach_v1  [{"first_blood":true,"combo10":true}]
+PASS [NUEVA PARTIDA] conserva dmodisco_best_v5  [98765]
+PASS [NUEVA PARTIDA] conserva dmodisco_best_round_v1  [7]
+PASS [NUEVA PARTIDA] conserva dmodisco_best_combo_v216  [33]
+PASS [NUEVA PARTIDA] conserva dmodisco_hist_v3  [[{"score":98765,"round":7,"date":"2026-1]
+PASS [NUEVA PARTIDA] conserva dmo_victories_v214  [{"count":2,"best":311.5}]
+PASS [NUEVA PARTIDA] conserva dmo_secret_route_v32  [{"version":"3.2","unlockedEver":true,"vi]
+PASS [NUEVA PARTIDA] conserva los ajustes  [2 claves]
+PASS [NUEVA PARTIDA] no elimina ninguna otra clave del almacenamiento  [dmo_floor_v32]
+PASS [NUEVA PARTIDA] el juego sigue leyendo el progreso: 1234 fichas, récord 98765, 2 logros  [{"currency":1234,"best":98765,"ach":2}]
+PASS [REFUGIO] el protagonista es el IDLE 07B (PNG aprobado)  [idle_07b]
+PASS [REFUGIO] sin deformar: proporción 288:512 exacta  [0.5625]
+PASS [REFUGIO] rectángulo de dibujo del PNG a escala uniforme y tamaño configurado  [{"x":1749.4,"y":1950.5,"w":83.53,"h":148.5} · el recorte y encuadre se revisan a ojo en las capturas]
+PASS [REFUGIO] al andar sigue siendo el mismo dibujo, con la misma proporción  [de 1790,2080 a 1560,1682]
+PASS [REFUGIO] 1920×1080: IDLE 07B con proporción correcta
+PASS [REFUGIO] 2560×1440: IDLE 07B con proporción correcta
+PASS [BORRAR DATOS] es una acción aparte, dentro de OPCIONES; no está en el menú principal
+PASS [BORRAR DATOS] abrir la pantalla no borra nada
+PASS [BORRAR DATOS] informa de qué se elimina (12 conceptos, con su valor actual)  [FICHA DE LA PARTIDA ACTUAL creada el 2026-11-26 PLANTA GENERADA DE LA ÚLTIMA INCURSIÓN — RESTAURACIONES Y ENCU]
+PASS [BORRAR DATOS] informa de qué se conserva (ajustes)
+PASS [BORRAR DATOS] el foco entra en CANCELAR  [dd-erase-no]
+PASS [BORRAR DATOS] CANCELAR (Enter con el foco inicial) no borra nada y vuelve al menú
+PASS [BORRAR DATOS] ESC tampoco borra
+PASS [BORRAR DATOS] tras confirmar: partida y progreso permanente eliminados (también después de recargar)  [12 claves fuera]
+PASS [BORRAR DATOS] los ajustes siguen intactos
+PASS [BORRAR DATOS] sin partida, CONTINUAR desaparece del menú
+PASS [GENERAL] sin errores de JavaScript durante la prueba  []
+
+42 de 42 superadas

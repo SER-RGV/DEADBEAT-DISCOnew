@@ -1,0 +1,732 @@
+AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
++ actual - expected
+... Skipped lines
+
+  {
+    bounds: {
+      maxX: 2,
+      maxY: 3,
+      minX: 0,
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'compact',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 855,
+-             id: 'rg2-start-compact',
+-             label: 'Vestíbulo de pista',
+-             width: 1210
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 855,
+          id: 'rg2-start-compact',
+          index: 100,
+          label: 'Vestíbulo de pista',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.30578512396694213,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1210
+        },
+        index: 100,
+        key: 'r100',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'compact',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 700,
+-             id: 'rg2-combat-compact',
+-             label: 'Pista de baile',
+-             width: 1720
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 700,
+          id: 'rg2-combat-compact',
+          index: 101,
+          label: 'Pista de baile',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.32558139534883723,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1720
+        },
+        index: 101,
+        key: 'r101',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'wide',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 700,
+-             id: 'rg2-challenge-wide',
+-             label: 'Pasillo de servicio',
+-             width: 1720
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 700,
+          id: 'rg2-challenge-wide',
+          index: 102,
+          label: 'Pasillo de servicio',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.32558139534883723,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1720
+        },
+        index: 102,
+        key: 'r102',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'wide',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 700,
+-             id: 'rg2-event-wide',
+-             label: 'Cabina de DJ',
+-             width: 1720
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 700,
+          id: 'rg2-event-wide',
+          index: 103,
+          label: 'Cabina de DJ',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.32558139534883723,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1720
+        },
+        index: 103,
+        key: 'r103',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'wide',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 770,
+-             id: 'rg2-combat-wide',
+-             label: 'Pista de baile',
+-             width: 1210
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 770,
+          id: 'rg2-combat-wide',
+          index: 104,
+          label: 'Pista de baile',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.2644628099173554,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1210
+        },
+        index: 104,
+        key: 'r104',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'octagon',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 770,
+-             id: 'rg2-elite-octagon',
+-             label: 'Sala de máquinas',
+-             width: 1210
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 770,
+          id: 'rg2-elite-octagon',
+          index: 105,
+          label: 'Sala de máquinas',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.2644628099173554,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1210
+        },
+        index: 105,
+        key: 'r105',
+        links: [
+...
+        geometry: {
+-         architecturePattern: {
+-           description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-           door: 'finalPuerta',
+-           family: 'nine-seal-annulus',
+-           roomLayout: 'centro',
+-           silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-           special: 'final',
+-           unit: null,
+-           wall: 'muroFinal'
+-         },
+          base: 'compact',
+          center: [
+            0.5,
+            0.5
+          ],
+-         circleId: 'nucleo',
+-         circleIndex: 9,
+-         descentFusion80: {
+-           architecture: {
+-             description: 'Disco final con los nueve sellos y la cabina en el centro del anillo',
+-             door: 'finalPuerta',
+-             family: 'nine-seal-annulus',
+-             roomLayout: 'centro',
+-             silhouette: 'Anillo final de nueve sectores; cada tramo del muro cita un círculo y la cabina ocupa el centro.',
+-             special: 'final',
+-             unit: null,
+-             wall: 'muroFinal'
+-           },
+-           campaignRole: 'campaign-coda',
+-           circleId: 'nucleo',
+-           circleIndex: 9,
+-           circleLabel: 'NÚCLEO FINAL · CODA DE CAMPAÑA',
+-           circleName: 'NÚCLEO FINAL',
+-           environmentalRule: 'nucleo.final-boss',
+-           isCircle: false,
+-           isNucleo: true,
+-           isShop: false,
+-           level: 100,
+-           liftStyle: 'core',
+-           lightRig: 'beams',
+-           materials: [
+-             'finalMat'
+-           ],
+-           motif: 'nucleo',
+-           music: {
+-             bpm: 146,
+-             harmonyAvailable: true,
+-             key: 'nucleo',
+-             leitmotiv: true,
+-             profileAvailable: true,
+-             profileKey: 'nucleo',
+-             style: 'subgraves a plena carga · la melodía sin disfraz'
+-           },
+-           resident: null,
+-           roomName: 'NÚCLEO FINAL · LA ÚLTIMA CANCIÓN',
+-           rule: {
+-             cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-             id: 'nucleo.final-boss',
+-             kind: 'existing-final-boss',
+-             legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-             title: 'ÚLTIMA CANCIÓN',
+-             type: null
+-           },
+-           shape: {
+-             height: 1000,
+-             id: 'rg2-rest-compact',
+-             label: 'Salón de descanso',
+-             width: 1080
+-           },
+-           sign: 'LA ÚLTIMA CANCIÓN',
+-           subtype: 'nucleo'
+-         },
+-         environmentalRule: {
+-           cue: 'PULSOS ELECTRO / FUEGO DEL JEFE FINAL',
+-           id: 'nucleo.final-boss',
+-           kind: 'existing-final-boss',
+-           legend: 'Coda de campaña, no décimo círculo: conserva las fases, zonas electro/fuego y señales del jefe final existentes.',
+-           title: 'ÚLTIMA CANCIÓN',
+-           type: null
+-         },
+          h: 1000,
+          id: 'rg2-rest-compact',
+          index: 106,
+          label: 'Salón de descanso',
+-         materials: [
+-           'finalMat'
+-         ],
+          pts: [
+            [
+              0.2222222222222222,
+              0
+            ],
+...
+          ],
+-         roomSubtype: 'nucleo',
+          w: 1080
+        },
+        index: 106,
+        key: 'r106',
+        links: [
+
+    at /home/user/DEADBEAT-DISCOnew/tools/qa/room_generation_topology_live.cjs:50:10 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: [Object],
+  expected: [Object],
+  operator: 'deepStrictEqual',
+  diff: 'simple'
+}

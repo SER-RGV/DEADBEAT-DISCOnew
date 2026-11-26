@@ -1,0 +1,67 @@
+{
+  "seed": 0,
+  "secret": "r7",
+  "initial": {
+    "visited": false,
+    "known": false
+  },
+  "cleared": {
+    "cleared": true,
+    "doors": [
+      {
+        "to": "r0",
+        "open": true
+      },
+      {
+        "to": "r2",
+        "open": true
+      },
+      {
+        "to": "r7",
+        "open": true
+      }
+    ],
+    "visited": [
+      "r0",
+      "r1"
+    ]
+  },
+  "revealed": {
+    "visited": true,
+    "known": true
+  },
+  "revisit": {
+    "cleared": true,
+    "doors": [
+      {
+        "to": "r0",
+        "open": true
+      },
+      {
+        "to": "r2",
+        "open": true
+      },
+      {
+        "to": "r7",
+        "open": true
+      }
+    ],
+    "visited": [
+      "r0",
+      "r1",
+      "r7"
+    ],
+    "snapshots": 1
+  },
+  "restarted": {
+    "current": "r0",
+    "clearedR1": false,
+    "secretVisited": false,
+    "secretKnown": false,
+    "visited": [
+      "r0"
+    ],
+    "seed": 0
+  },
+  "scope": "Debug teleport and clear; restart via HUB.exitToRun, not a claimed save/resume of an active run. Does not test looted chests or natural combat."
+}
