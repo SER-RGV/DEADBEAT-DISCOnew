@@ -334,3 +334,13 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
 - QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+
+## Estado actual · 2026-11-26 (ART FASE 0 · AUDITORÍA GRÁFICA COMPLETA)
+- Auditoría gráfica **sin cambiar arte** del build activo (`index.html` ≡ `DEADBEAT_DISCO.html`, SHA `6fdba6c4…`, 5.726.853 B). Informe: `docs/ART_QUALITY/00_AUDITORIA.md` (§1–5 + anexo A).
+- Evidencia completa: **87 capturas JPEG** (29 pantallas × 3 resoluciones 1280×900 / 1920×1080 / 390×844) en `ART_EVIDENCE/art_quality/fase0/` + `captures.json` (90 entradas, **`errors: []`**, 0 pageerror / 0 404) + captura de estado post-jefes `hp:3, dead:false` ×3 resoluciones.
+- Hallazgos clave: **P0** CAM-1 void en LIMBO · CAM-2/3 encuadre sin zoom al aspecto · MAT-1 alfombra brocado rojo transversal · TXT-1 microtipografía 8–12 px · TXT-3 botones ARMERÍA/TORRE en combate · CIN-3 cartel de círculo infra-producido · PJE-1 enemigos intercambiables · sin sistema de tokens. **P1/P2**: wash rojo AVARICIA · minimapa · «SIN INCURSIÓN» vacío · HUD bajo barra de jefe · arranque ≈15 MB · 105 armas PENDIENTE · 70 grupos duplicados ≈53,6 MB.
+- 390 px completada en esta sesión: menús/camerino/EXTRAS/resultados/cartas de jefe usables; fallo sistémico = HUD superior recortado + solape placa/minimapa (MOB-1); cartel y cinemática se agravan (MOB-5/6); barra Q/SHIFT/ESP correcta (MOB-10).
+- Halos: sin defecto sistémico (107 sprites, 1 ≥20 %, 21 ≥10 %; rim light compatible, verificación humana en Fase 5). `prefers-reduced-motion` respetado en menú; sin opción «reducir destellos».
+- Artefacto corregido y documentado: primera tanda 390 dejó jefes idénticos (results screen); se regrabó todo; md5 finales distintos (anexo A).
+- Git: rama `arena/46b8bb0f-deadbeat-disconew`; PR de FASE 0 **en borrador**, sin merge y **pendiente de revisión del responsable**. **FASE 1 NO se abre** hasta esa revisión. Builds, `src/`, assets y manifiesto: sin tocar.

@@ -205,3 +205,10 @@ Registrar aquí cada modificación:
 - Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
 - Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
 - **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.
+
+## 2026-11-26 · ART FASE 0 — Auditoría gráfica (sin cambiar arte)
+- Auditoría de lectura del build activo `index.html` ≡ `DEADBEAT_DISCO.html` (SHA `6fdba6c4…`, 5.726.853 B) en 1280×900 / 1920×1080 / 390×844: **87 capturas** + `captures.json` con 0 errores (0 pageerror, 0 404) y estado post-jefes `hp:3` ×3.
+- Informe `docs/ART_QUALITY/00_AUDITORIA.md`: §1 método/build/SHA · §2 puntuaciones por pantalla×resolución (coherencia REF_06/legibilidad/nitidez/animación/contraste/rendimiento) · §3 hallazgos CAM/MAT/PJE/TXT/CIN/ARR/AST/MOB/ACC · §4 análisis estático (peso 5,73 MB, 250 recursos, ≈15,15 MB, assets 435 MB, 277/349 manifiesto, 0 faltantes/0 sin referenciar, **70 grupos duplicados ≈53,6 MB**, halos §4.4) · §5 tabla priorizada P0/P1/P2 · Anexo A errores verbatim.
+- P0: void LIMBO; encuadre sin zoom; alfombra brocado; microtipografía; botones en combate; cartel infra-producido; enemigos intercambiables; sin tokens. P1/P2: wash AVARICIA; minimapa; WebP/arranque; 105 armas; duplicados; nomenclatura guía↔motor.
+- Corrección de método documentada: tanda 390 regrabada (jefes pasados a arenas reales; md5 distintos).
+- Sin cambios en builds, `src/`, assets ni manifiesto. PR en borrador, pendiente de revisión; FASE 1 no se abre.
