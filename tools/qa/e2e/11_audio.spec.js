@@ -81,6 +81,20 @@ module.exports = {
       const menuNotes = menu.contexts.reduce((n, c) => n + c.notes, 0);
       const menuSec = Math.max(0.5, menu.contexts.reduce((n, c) => Math.max(n, c.sec), 0));
       const menuRate = +(menuNotes / menuSec).toFixed(1);
+      /* Sin dispositivo de salida, Chromium deja los contextos suspendidos y todo
+         mide −180 dBFS. Eso es «no verificable aquí», no «el juego no suena»:
+         se informa como SKIP con su motivo, nunca como aprobado. */
+      const ctxStates = menu.contexts.map((c) => c.state);
+      if (menu.contexts.length && ctxStates.every((st) => st !== 'running')) {
+        suite.skip(
+          'el entorno tiene salida de audio',
+          'todos los AudioContext están en ' + ctxStates.join('/') + ' (sin dispositivo de sonido en el runner)',
+          'algún contexto en running',
+          'sin salida de audio'
+        );
+        return suite;
+      }
+
       suite.ok('el menú declara que la música es suya', menuSt.owner === 'menu', 'audioOwner=' + menuSt.owner, 'menu');
       suite.ok('la música del menú es audible', menuPeak >= -24, menuPeak + ' dBFS', '>= -24 dBFS');
       suite.ok('la música del menú se mueve (notas programadas)', menuRate >= 4, menuRate + ' notas/s', '>= 4 notas/s');

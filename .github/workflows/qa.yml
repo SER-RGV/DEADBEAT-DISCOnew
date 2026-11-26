@@ -86,6 +86,9 @@ jobs:
       - name: Dejar el informe en el resumen del trabajo
         if: always()
         run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Anotar los fallos (legibles por API aunque los logs no se descarguen)
+        if: failure()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --annotations
       - name: Publicar los fallos como comentario del PR
         if: failure() && github.event_name == 'pull_request'
         env:
@@ -120,6 +123,9 @@ jobs:
       - name: Dejar el informe en el resumen del trabajo
         if: always()
         run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Anotar los fallos (legibles por API aunque los logs no se descarguen)
+        if: failure()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --annotations
       - name: Publicar los fallos como comentario del PR
         if: failure() && github.event_name == 'pull_request'
         env:
@@ -154,6 +160,9 @@ jobs:
       - name: Dejar el informe en el resumen del trabajo
         if: always()
         run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Anotar los fallos (legibles por API aunque los logs no se descarguen)
+        if: failure()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --annotations
       - name: Publicar los fallos como comentario del PR
         if: failure() && github.event_name == 'pull_request'
         env:
@@ -190,6 +199,9 @@ jobs:
       - name: Dejar el informe en el resumen del trabajo
         if: always()
         run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Anotar los fallos (legibles por API aunque los logs no se descarguen)
+        if: failure()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --annotations
       - name: Publicar los fallos como comentario del PR
         if: failure() && github.event_name == 'pull_request'
         env:
