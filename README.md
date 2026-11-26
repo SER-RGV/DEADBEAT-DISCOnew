@@ -15,6 +15,7 @@ Si acabas de abrir el proyecto, sigue este orden:
 | Carpeta | Qué contiene |
 |---|---|
 | `src/` | Código del juego. |
+| `archivo/` | Todo lo que el juego no necesita (assets sin usar, evidencias, experimentos). |
 | `assets/` | Dibujos, sonidos y recursos usados durante el juego. |
 | `ART_ASSETS/` | Dibujos originales y materiales de arte. |
 | `ART_PACK/` | Conexión e integración de los dibujos. |
