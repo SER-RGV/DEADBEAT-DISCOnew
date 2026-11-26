@@ -52,14 +52,27 @@ module.exports = {
          mueve su propio protagonista (DD_HUB), no el de la incursión: por eso se
          lee su estado, no el snapshot del motor. */
       const hubBefore = await page.evaluate(() => window.DD_HUB.getState());
-      await page.keyboard.down('KeyD');
-      await G.sleep(1200);
-      const hubDuring = await page.evaluate(() => window.DD_HUB.getState());
-      await page.keyboard.up('KeyD');
-      await G.sleep(300);
-      const hubAfter = await page.evaluate(() => window.DD_HUB.getState());
-      const moved = Math.hypot(hubAfter.x - hubBefore.x, hubAfter.y - hubBefore.y);
-      suite.ok('el protagonista se mueve con el teclado', moved > 2, Math.round(moved) + ' px (' + hubBefore.x + ',' + hubBefore.y + ' → ' + hubAfter.x + ',' + hubAfter.y + ')', '> 2 px');
+      let hubDuring = hubBefore;
+      let hubAfter = hubBefore;
+      let moved = 0;
+      let tries = 0;
+      /* Hasta tres intentos: si el lienzo no tiene el foco la tecla no llega y el
+         protagonista se queda quieto (medido en CI: 0 px con el mismo commit que
+         en local da 29 px). Antes de repetir se pulsa el lienzo para darle foco. */
+      for (; tries < 3 && moved <= 2; tries++) {
+        if (tries > 0) {
+          await page.mouse.click(640, 420);
+          await G.sleep(300);
+        }
+        await page.keyboard.down('KeyD');
+        await G.sleep(1400);
+        hubDuring = await page.evaluate(() => window.DD_HUB.getState());
+        await page.keyboard.up('KeyD');
+        await G.sleep(300);
+        hubAfter = await page.evaluate(() => window.DD_HUB.getState());
+        moved = Math.hypot(hubAfter.x - hubBefore.x, hubAfter.y - hubBefore.y);
+      }
+      suite.ok('el protagonista se mueve con el teclado', moved > 2, Math.round(moved) + ' px (' + hubBefore.x + ',' + hubBefore.y + ' → ' + hubAfter.x + ',' + hubAfter.y + ') tras ' + tries + ' intento(s)', '> 2 px');
       suite.ok('la animación de caminar responde al movimiento', hubDuring.walking === true, 'walking=' + hubDuring.walking + ' frame=' + hubDuring.walkFrame, 'walking=true');
       /* Medido en este build: 9 zonas y 16 estaciones. La documentación antigua
          hablaba de 6 y 11; se fija el valor real para detectar regresiones. */

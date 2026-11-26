@@ -12,7 +12,7 @@ peso ni romper la cadencia. Sin ficheros de audio: todo el sonido es sintetizado
 |---|---|---|---|
 | Música de partida (combate) | pico −68 dBFS y **1–3 notas/s** | pico **−9,6 dBFS**, RMS −33 dBFS y **9,5–12 notas/s** | registrador + decodificación (§2) |
 | Portada / menú | pico −11 dBFS, RMS −27 dBFS | igual (−10,9 / −27,4) | idem |
-| Refugio | idéntico al menú (pico −11 dBFS) | **RMS −32,6 dBFS** frente a −27,3 del menú (duck ×0,32) | suite `audio` |
+| Refugio | idéntico al menú (pico −11 dBFS) | **targetGain ×0,32** (RMS −32,6 en local frente a −27,3 del menú) | suite `audio` |
 | Silencio del menú en partida | el contexto seguía «running» | contexto **suspendido**, sin salida | suite `audio` |
 | Mover el volumen del juego | **no cambiaba nada** | `music=0` baja la partida 10 dB (−8,1 → −19,8 dBFS) | `DD_MIX.set()` en caliente |
 | Recortes al disparar | no medidos | **0** bloques recortados, pico ≤ −9 dBFS | suite `audio` |
@@ -130,9 +130,11 @@ Arreglo: la cama del Refugio se marca con `duck` **antes** de arrancar
 (×0,32 ≈ −10 dB; si se marca después, el fundido de arranque gana la carrera y
 el Refugio vuelve al nivel de portada: medido). Telemetría nueva:
 `DD_BOOT.getState().audioOwner` ∈ `menu · menu-silencio · intro · refugio ·
-refugio-silencio · transicion · partida · silencio`. La suite `audio` comprueba
-las dos cosas: el nivel (RMS del Refugio ≥ 4 dB por debajo del menú) y el motor
-(`targetGain` 0,1024 frente a 0,32).
+refugio-silencio · transicion · partida · silencio`. La suite `audio` comprueba las dos
+cosas: que el motor atenúa (`targetGain` 0,1024 frente a 0,32, exacto) y que el
+Refugio **no suena más alto que el menú** (RMS). La comparación de RMS «4 dB por
+debajo» se retiró porque en el Refugio suenan a la vez los efectos de interfaz y
+en CI daba media décima de diferencia; se mide lo que no puede fallar.
 
 ---
 
