@@ -19,6 +19,7 @@ on:
 
 permissions:
   contents: read
+  pull-requests: write
 
 env:
   # Informes y capturas fuera del árbol versionado; se suben como artefactos.
@@ -82,6 +83,17 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Suites rápidas
         run: node tools/qa/run.js --only=arranque,menu,teclado,semillas
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-rapido -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -105,6 +117,17 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Suites de juego
         run: node tools/qa/run.js --only=hub,plantas,partida,persistencia
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-juego -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -128,6 +151,17 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Comparar con las referencias del repositorio
         run: node tools/qa/run.js --only=visual
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-visual -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
       - uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -153,6 +187,17 @@ jobs:
       - run: npm ci --no-audit --no-fund
       - name: Medir arranque y fotogramas
         run: node tools/qa/run.js --only=presupuestos
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-presupuestos -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
       - uses: actions/upload-artifact@v4
         if: always()
         with:
