@@ -1,0 +1,22 @@
+{
+  "name": "deadbeat-disco-qa",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Arnés de pruebas automáticas de DEADBEAT DISCO (Fase 1). El juego es HTML+JS sin empaquetado: esto solo sirve para la QA.",
+  "scripts": {
+    "qa": "node tools/qa/run.js",
+    "qa:rapido": "node tools/qa/run.js --only=arranque,menu,teclado",
+    "qa:todo": "node tools/qa/run.js --all",
+    "seeds": "node tools/qa/seeds/seeds.cjs",
+    "visual:refs": "node tools/qa/visual/refs.js",
+    "visual": "node tools/qa/run.js --only=visual",
+    "presupuestos": "node tools/qa/run.js --only=presupuestos"
+  },
+  "devDependencies": {
+    "@sparticuz/chromium": "138.0.2",
+    "playwright-core": "1.49.1"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
