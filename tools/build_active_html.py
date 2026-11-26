@@ -22,6 +22,58 @@ _choice_label = 'id="shot-choice-options" role="group" aria-label="Tres variacio
 assert html.count(_choice_label) == 1
 html = html.replace(_choice_label, 'id="shot-choice-options" role="group" aria-label="Opciones disponibles"', 1)
 
+# Adapt only the native attack call site; keep simulation timing and all movement.
+def dice_hook(anchor, replacement):
+    global html
+    assert html.count(anchor) == 1, anchor
+    html = html.replace(anchor, replacement, 1)
+
+from room_generation_migration import migrate as migrate_rooms
+html = migrate_rooms(html, ROOT)
+
+with open(os.path.join(ROOT, "src", "dd_dice_native.js"), encoding="utf8") as f:
+    dice_hook("function Tf(e){", f.read() + "\nfunction Tf(e){")
+for fn in ("fp", "Eg"):
+    dice_hook("function "+fn+"(){", "function "+fn+"(){window.DD_COMBAT_FEEL?.reset();window.DD_DICE_FEEDBACK?.reset();")
+dice_hook("function rp(){", "function rp(){window.DD_DICE.reset();")
+dice_hook("h=!Mr&&ye.rollT<=0&&(fa||Aa||Mu.fire||f)", "h=(ddDiceTick(e,!!(fa||Aa||Mu.fire),f),false)")
+dice_hook("ye.aimAngle=Math.atan2(c-ye.y,s-ye.x)", "ye.aimAngle=Math.atan2(c-ye.y,s-ye.x);ye.diceReach=Math.hypot(c-ye.y,s-ye.x)")
+# Remove the conventional projectile/melee dispatcher. Legacy QA fire invokes a quick die instead.
+start, end = html.index("function wd(){"), html.index("function Td(e,a,t){")
+assert start < end and "Si(e)}" == html[end-6:end]
+html = html[:start] + "function wd(){if(!U||Y||W||Mr)return false;ddTap=true;return true;}" + html[end:]
+dice_hook("fa=!0,Gu(e.clientX,e.clientY)","ddTap=true,fa=!0,Gu(e.clientX,e.clientY)")
+dice_hook('h.addEventListener("pointerleave",function(){fa=!1})', 'h.addEventListener("pointerleave",ddCancelPointer),h.addEventListener("pointercancel",ddCancelPointer)')
+dice_hook("function Hu(){", "function Hu(){ddTap=false;window.DD_DICE?.cancelAim();")
+# Reuse native round choice focus, buttons, pause and controller navigation.
+dice_hook('textContent="VARÍA TU DISPARO"', 'textContent="GRABA UNA CARA"')
+dice_hook('const e=Object.keys(Ja).filter(e=>Ka[e]<Ja[e].max),a=[];', 'const e=Object.keys(ddRuneOffer=window.DD_DICE.offers(()=>ue.rand())),a=[];')
+dice_hook('const o=Ja[a],r=Ka[a],n=document.createElement("button")', 'const o=ddRuneOffer[a],r=0,n=document.createElement("button")')
+dice_hook('La modificación es permanente durante esta partida y funciona con cualquier arma.', 'La runa permanece en esa cara hasta el final de la incursión.')
+dice_hook('const a=Ja[e];if(!V||!a||Ka.offered.indexOf(e)<0||Ka[e]>=a.max)return!1;Ka[e]++,', 'const a=ddRuneOffer[e];if(!V||!a||!Ka.offered.includes(e))return false;window.DD_DICE.d.runes[a.face]=a.name,')
+dice_hook('Es("DISPARO MODIFICADO · "+a.name+" · "+a.next(Ka[e]-1),3)', 'Es("CARA "+a.face+" · "+a.name,3)')
+dice_hook('window.DD_DICE.d.runes[a.face]=a.name,Ka.choices++,Ka.history.push(e)', 'window.DD_DICE.d.runes[a.face]=a.name,Ka.choices++,Ka.history.push(a.desc)')
+dice_hook('Ka.history.map(e=>Ja[e].name)', 'Ka.history.map(e=>Ja[e]?.name||e)')
+# A chest or shop still follows the native claim/payment path, but its old
+# weapon/variant slot now engraves a face instead of replacing equipment.
+dice_hook('const o=function(e){if("weapon"===e.kind){const a=ja[e.id]', 'const o=function(e){if(["weapon","variant","buy"].includes(e.kind)){const v=ddEtching(e.id);if(e.kind==="buy")v.next+=" · "+mo.active.station.cost+" CR";return v;}if("weapon"===e.kind){const a=ja[e.id]')
+start = html.index('if("weapon"===o.kind&&!Dt.owned.includes(o.id)')
+end = html.index('if("item"===o.kind&&mo.items.length', start)
+assert 'mo.page="replaceWeapon"' in html[start:end] and end-start < 300
+html = html[:start] + html[end:]
+dice_hook('if("weapon"===o.kind)n=Yh(o.id,r);', 'if(["weapon","variant"].includes(o.kind)){const v=ddEtching(o.id);window.DD_DICE.d.runes[v.face]=v.name;n=true;}')
+dice_hook('"weapon"===o.kind?La:"item"===o.kind?ho[o.id].name:Ja[o.id].name', '"item"===o.kind?ho[o.id].name:ddEtching(o.id).desc')
+dice_hook('Dt.owned.includes(a.id)?a.id===Yo.weapon?(Es("YA EQUIPADA",1.1),!1):cd(a.id,!1):Dt.credits', 'Dt.credits')
+dice_hook('"Elige una recompensa. Equipada: "+La', '"Elige una recompensa. Dado: D"+window.DD_DICE.d.id')
+# Retain the limited-use action and pickups, but spend them on the die.
+start, end = html.index('function tp(){'), html.index('function op(){')
+assert 'ca.bombsUsed' in html[start:end] and end-start < 1000
+html = html[:start] + 'function tp(){if(!U||Y||W||Mr||Tr<=0||!window.DD_DICE.prime())return false;Tr--;An.textContent=String(Tr);di(400,.1,"triangle",.07);Es("DADO SOBRECARGADO",1.5);return true;}' + html[end:]
+dice_hook('"turret"===e.type?Sd(e.x,e.y):"companion"===e.type?(Dr=16,zr.ang=Math.random()*Math.PI*2,zr.cd=.2,Es("¡NAVE CON TI! · 16 s",2.2))', '["turret","companion"].includes(e.type)?(window.DD_DICE.prime(),Es("DADO SOBRECARGADO",1.5))')
+dice_hook('function Kh(){if(!U||Y||W||Mr||ye.rollT>0||Dt.owned.length<2)return!1;const e=Dt.owned.indexOf(Yo.weapon);return cd(Dt.owned[(e+1)%Dt.owned.length],!1)}','function Kh(){if(!U||Y||W||Mr)return false;const d=window.DD_DICE.d;Es("D"+d.id+" · CARA "+d.face+" · "+(d.runes[d.face]||"NORMAL"),1.5);return true;}')
+# Boost remains evasive, not a second attack that kills by body contact.
+dice_hook('if(Cr){if(t.mini){t.boostHit!==ap&&(t.boostHit=ap,pe=Math.max(pe,6),Zu(t,.25)&&Ta.splice(a,1));continue}Ep(t),vs(t.x,t.y,t.color),Ta.splice(a,1),pe=Math.max(pe,6);continue}', 'if(Cr)continue;')
+dice_hook('a<sr.r+ye.r)if(Cr)sr.boostHit!==ap&&(sr.boostHit=ap,pe=Math.max(pe,6),Cs(.15),Ku(.1));else if(wp("boss",sr.x,sr.y))', 'a<sr.r+ye.r&&!Cr&&wp("boss",sr.x,sr.y))')
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")
 if cf_idx > len(html) - 2000:
@@ -308,6 +360,29 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       return dpr;
     }
 
+    // First encounter only: other wide rooms intentionally retain the old painter.
+    const inPilot = () => U && Ot.enabled && Ot.floor===0 && Ot.key==='r0' && Rs.baseId72==='wide';
+    let hangar=null, pilotDoors=null, auditColliders=false;
+    let pilotSampler=null;
+    if(window.DD_ROOM_DEBUG){
+      pilotSampler=roomGeneration.createPilotPerf(()=>{
+        if(!inPilot()||!hangar)return 'outside pilot';
+        if(document.hidden)return 'hidden';
+        if(auditColliders||Bt.showColliders)return 'colliders enabled';
+        if(Y||W||Mr||window.DD_HUB?.isActive()||window.DD_UI?.isModalOpen()||window.DD_CINE?.isBlocking())return 'not in active play';
+        return null;
+      },()=>({room:Ot.key,seed:Yo.seed,viewport:[y,x],canvas:[h.width,h.height],dpr:window.devicePixelRatio,
+        reducedMotion:!!Yc.reduced,tier:Yc.tier,browser:navigator.userAgent}));
+      const stopHidden=()=>{if(document.hidden&&pilotSampler.running)pilotSampler.stop('hidden');};
+      document.addEventListener('visibilitychange',stopHidden);
+      window.DD_ROOM_DEBUG.perf=Object.freeze({start:pilotSampler.start,reset:pilotSampler.reset,
+        stop:()=>pilotSampler.stop(),report:pilotSampler.report});
+      window.DD_ROOM_DEBUG.pilotColliders=(enabled)=>auditColliders=!!enabled;
+      window.DD_ROOM_DEBUG.pilot=()=>({active:!!(hangar&&inPilot()),room:Ot.key,base:Rs.baseId72,
+        meshKey:hangar?.key,spans:hangar?.walls.length||0,rave:De>0,
+        warnings:Ta.filter(e=>e.st==='windup'||e.mState==='chargeWind').map(e=>({type:e.type,mini:!!e.mini,elite:!!e.elite,remaining:e.stT})),
+        laser:Zr?{elapsed:Zr.t,warning:Zr.warn}:null});
+    }
     qc = function () {
       if (window.DD_WORLD) {
         m.width = E;
@@ -315,11 +390,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         A.imageSmoothingEnabled = true;
         try { A.imageSmoothingQuality = "high"; } catch (e) {}
         d.lamps = [];
-        window.DD_WORLD.buildHighResRoomCache(A, E, k, Ps, currentCircle(), Yo ? Yo.seed : 1, Ls);
+        hangar=inPilot()?roomGeneration.hangarShell(Ot.key,Rs.edges,Ot.doors):null;pilotDoors=Ot.doors;
+        if(nativePrefab)window.DD_PREFAB_WORLD.shell(A,E,k,Ps,nativePrefab.mesh,Ls,Ot.floor);
+        else window.DD_WORLD.buildHighResRoomCache(A, E, k, Ps, currentCircle(), Yo ? Yo.seed : 1, Ls,hangar?{hangar}:null);
         b = true;
         roomCacheInvalid = false;
         d.builds = (d.builds || 0) + 1;
-        d.cacheKey = [Yo.room, Yo.seed, Rs.id, d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
+        d.cacheKey = [Yo.room, Yo.seed, Rs.id, nativePrefab?window.DD_PREFAB_WORLD.revision:0,d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
         return;
       }
       return origQc.apply(this, arguments);
@@ -342,6 +419,8 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
     };
 
     Lc = function (prop) {
+      if(nativePrefab&&prop.prefabId&&window.DD_PREFAB_WORLD.prop(g,prop,nativePrefab.mesh))return;
+      if(hangar && prop.onFloor) return origLc.call(this,prop); // Native fixture style/pose, not a sprite keyed by collider type.
       if (window.DD_WORLD && window.DD_WORLD.drawProp(g, prop, Z)) {
         return;
       }
@@ -372,7 +451,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
           ? pA.forcedAimAngle
           : ((ye && ye.aimAngle) || 0);
         pA.ddLongGun = ddIsLongGun((Yo && Yo.weapon) || "m1911");
-        const mount = (typeof window.DD_WORLD.getPlayerWeaponMount === "function")
+        const mount = (!window.DD_DICE && typeof window.DD_WORLD.getPlayerWeaponMount === "function")
           ? window.DD_WORLD.getPlayerWeaponMount(pA, aimA, 1)
           : null;
         const weaponLayer = function (layer, customCtx) {
@@ -749,6 +828,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
     Qf = function () {
       const now = performance.now();
+      if(pilotSampler?.running)pilotSampler.frame(now,De>0,ye.x,ye.y,Ta.length,Ia.length+wa.length);
       const dt = Math.min(0.05, Math.max(0.001, (now - lastRenderNow) / 1000));
       lastRenderNow = now;
 
@@ -789,8 +869,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         g.translate((2 * ue.rand() - 1) * pe * 0.5, (2 * ue.rand() - 1) * pe * 0.5);
       }
 
-      const expectedCacheKey = [Yo.room, Yo.seed, Rs.id, d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
-      if (!b || roomCacheInvalid || expectedCacheKey !== d.cacheKey) {
+      if(U && !Mr && !Yc.reduced && zi.st.shake) window.DD_DICE_FEEDBACK?.camera(g);
+      const expectedCacheKey = [Yo.room, Yo.seed, Rs.id, nativePrefab?window.DD_PREFAB_WORLD.revision:0,d.ready, window.DD_ASSETS ? window.DD_ASSETS.stats().loaded : 0].join("|");
+      if (!b || roomCacheInvalid || !!inPilot()!==!!hangar || (hangar&&pilotDoors!==Ot.doors) || expectedCacheKey !== d.cacheKey) {
         qc();
       }
       g.drawImage(m, 0, 0);
@@ -811,11 +892,13 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       hs();
       Ff();
       Ch();
-      Wf();
+      if(!hangar&&!nativePrefab)Wf();
 
       if (Ot.enabled) {
         for (const dr of Ot.doors) {
-          Bg(dr);
+          if(hangar){const port=hangar.openings.find(p=>p.to===dr.to);window.DD_HANGAR_PILOT.door(g,port,dr,Mg(dr)&&Ot.openT>=.8,Math.hypot(ye.x-dr.wallX,ye.y-dr.wallY)<137);}
+          else if(nativePrefab){const local=nativePrefab.mesh.openings.find(p=>p.to===dr.to);g.save();g.translate(Ps.x,Ps.y);window.DD_HANGAR_PILOT.door(g,local,dr,Mg(dr)&&Ot.openT>=.8,Math.hypot(ye.x-dr.wallX,ye.y-dr.wallY)<137);g.restore();}
+          else Bg(dr);
           if (dr.lift) WA(dr);
         }
         To();
@@ -830,9 +913,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       const cullB = camY + F() / 2 + 240;
 
       for (const pr of tc) {
-        if (!pr.onFloor || pr.hidden) continue;
+        if (!pr.onFloor || pr.hidden || (hangar&&pr.broken)) continue;
         if (pr.x + pr.br < cullL || pr.x - pr.br > cullR || pr.y + pr.br < cullT || pr.y - pr.br > cullB) continue;
-        if (pr.tall) renderQueue.push({ y: pr.sortY, k: "prop", o: pr });
+        if (pr.tall || hangar || nativePrefab) renderQueue.push({ y: nativePrefab&&pr.prefabId?Ps.y+nativePrefab.mesh.placements.find(p=>p.id===pr.prefabId).sortY:pr.sortY, k: "prop", o: pr });
         else Lc(pr);
       }
       for (const en of Ta) {
@@ -861,6 +944,10 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         }
       }
       renderQueue.push({ y: ddGroundY("player", ye), k: "player", o: ye });
+      if(U && !Mr && window.DD_DICE){
+        const die=window.DD_DICE.d;
+        renderQueue.push({y:(["READY","AIMING","CHARGING","RECOVERED"].includes(die.state)?ddGroundY("player",ye):die.y)+1,k:"die"});
+      }
       renderQueue.sort((a, bItem) => a.y - bItem.y);
 
       for (const item of renderQueue) {
@@ -869,6 +956,7 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         else if (item.k === "enemyDeath") f.drawEnemyDeath(item.o);
         else if (item.k === "bossDeath") f.drawBossDeath(item.o);
         else if (item.k === "player") Pf();
+        else if (item.k === "die") window.DD_DICE.draw(g,ye,ddDiceWorld.reach());
         else if (item.k === "boss") Bf(item.o);
         else if (item.k === "turret") Lf(item.o);
         else if (item.k === "pickup") Uf(item.o);
@@ -877,9 +965,10 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
 
       Xu();
       Tt();
-      rf();
+      if(!hangar&&!nativePrefab)rf();
       Vf();
 
+      if(U && zi.st.flash) { window.DD_DICE_FEEDBACK?.draw(g); if(zi.flashAllowed() && Yc.tier>0)window.DD_COMBAT_FEEL?.draw(g); }
       if (!(window.DD_WORLD && window.DD_WORLD.drawImpactParticles(g, Sa))) {
         for (const sp of Sa) {
           const al = Math.max(0, 1 - sp.life / sp.maxLife);
@@ -894,7 +983,9 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
       Xf();
       Ph();
       kp.draw();
-      if (Bt.showColliders) Ym();
+      if (Bt.showColliders || (hangar&&auditColliders)) Ym();
+      // Once, after opaque scenery, Y-sort and RAVE effects; native timers/LOS unchanged.
+      if(hangar||nativePrefab){rf();Wf();}
 
       g.restore(); // camera transform
 
@@ -964,6 +1055,21 @@ bridge_js = r"""w.organicDebug = organicDebugAPI;
         return !!U;
       },
       getSnapshot: buildSnapshot,
+      // Cartography only: read the already generated floor, never build another.
+      getSurvey: function () {
+        const floor = Ot.graphs.get(Ot.floor);
+        if (!U || !Ot.enabled || !floor) return null;
+        const point = p => ({x:p.x,y:p.y});
+        return {
+          key: Ot.key, floor: Ot.floor, encounter: Uo().n, elite: !!Xt.elite, poly: Rs.poly.map(point), player: point(ye),
+          nodes: floor.nodes.filter(Xm).map(n => ({key:n.key,x:n.x,y:n.y,room:n.index+1,shop:n.shop,
+            boss:!n.shop && ($e(n.index+1)||_e(n.index+1)),visited:Ot.visited.has(n.key),cleared:hg(n),links:n.links.map(l=>({to:l.to}))})),
+          doors: Ot.doors.map(d => ({to:d.to,x:d.wallX,y:d.wallY,label:d.label,lift:d.lift,open:Mg(d)&&Ot.openT>=.8})),
+          props: tc.filter(p=>p.onFloor&&p.solid&&!p.broken&&!p.hidden).map(point), enemies:Ta.map(point), boss:ir&&sr?point(sr):null,
+          rewards:Ca.filter(p=>!p.opened).map(point), marks:jc.activeMarks().map(point),
+          objectives:_o&&!_o.done&&Array.isArray(_o.targets)?_o.targets.filter(p=>!p.destroyed).map(point):[], completed:mg(), total:floor.nodes.filter(n=>!n.shop).length
+        };
+      },
       getCircles: function () {
         return Array.isArray(Ue) ? Ue.map((c, index) => ({ index: index, name: c.name, place: c.sala, final: !!c.final, bpm: c.bpm, accent: c.accent })) : [];
       },
@@ -1216,6 +1322,7 @@ BOOT_SHELL = """
       <img id="dd-boot-logo" alt="DEADBEAT DISCO" src="assets/fase01/logo_deadbeat_trim.png">
     </div>
     <div class="dd-boot-divider"><img alt="" src="assets/fase01/brand_divider.png" width="1200" height="64"></div>
+    <p class="dd-runout"><i class="dd-vault-stamp" aria-hidden="true"></i><span><b>NOTAS DE PISTA · LA TORRE REPITE EL COMPÁS</b> Suelta para lanzar. El dado vuelve a ti.</span></p>
     <div class="dd-boot-statusline">
       <span id="dd-boot-stage">PREPARANDO EL CLUB</span>
       <span id="dd-boot-pct" aria-hidden="true">0%</span>
@@ -1251,10 +1358,26 @@ assert body_ridx > len(html) - 100, f"Unexpected final </body> at {body_ridx}"
 MODULE_ORDER = (
     # FASE 01: el arranque debe ejecutarse ANTES que dd_ui_system.js porque lo
     # orquesta (oculta el menú, corre la intro canónica y le da el foco).
+    "dd_dice_geometry.js",
+    "dd_combat_feel.js",
+    "dd_dice_rules.js",
+    "dd_dice_motion.js",
+    "dd_dice_feedback.js",
+    "dd_dice.js",
     "dd_boot.js",
     "dd_asset_registry.js",
     "dd_appearance.js",
     "dd_world_renderer.js",
+    "dd_refuge_record.js",
+    "dd_hangar_pilot.js",
+    "dd_prefab_world.js",
+    "dd_hub_layout.js",
+    "../previews/vestibulo/materials.js",
+    "../previews/vestibulo/organic.js",
+    "../previews/vestibulo/relief.js",
+    "../previews/vestibulo/scene.js",
+    "dd_hub_live.js",
+    "dd_hub_range.js",
     "dd_hub_system.js",
     "dd_cinematic_camera.js",
     "dd_opening.js",
@@ -1264,6 +1387,11 @@ _parts = []
 for fname in MODULE_ORDER:
     with open(os.path.join(ROOT, "src", fname), "r", encoding="utf-8") as f:
         js_src = f.read()
+    if fname == "dd_prefab_world.js":
+        with open(os.path.join(ROOT,"assets/prefabs/club/pivots.json")) as piv:
+            js_src=js_src.replace("PREFAB_PIVOTS",piv.read().strip())
+    if fname == "dd_combat_feel.js" and os.getenv("DD_FEEL_DEV") == "1":
+        js_src = js_src.replace("false; /* DEV_BUILD */", "true;")
     assert "</script" not in js_src.lower(), f"{fname} must not contain </script sequences"
     _parts.append(
         "  <script>\n/* === INLINED FROM src/" + fname
