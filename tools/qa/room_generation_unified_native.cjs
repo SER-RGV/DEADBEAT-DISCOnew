@@ -2,7 +2,7 @@
 // Debug navigation; data agreement is not a visual or full-movement proof.
 const {chromium}=require('playwright-core'),assert=require('node:assert/strict');
 (async()=>{const b=await chromium.launch({executablePath:process.env.DD_CHROMIUM,args:['--no-sandbox','--disable-gpu']});
- const p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];const expectedVersion=process.env.DD_ROOM_SILHOUETTES==='1'?'2.5.0':process.env.DD_ROOM_VARIANTS==='1'?'2.4.0':'2.3.0';if(expectedVersion==='2.5.0')await p.addInitScript(()=>{window.__DD_ROOM_SILHOUETTES_V3=true;});else if(expectedVersion==='2.4.0')await p.addInitScript(()=>{window.__DD_ROOM_VARIANTS_V3=true;});else await p.addInitScript(()=>{window.__DD_UNIFIED_ROOM_GEOMETRY=true;});p.on('pageerror',e=>errors.push(e.message));
+ const p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];const expectedVersion=process.env.DD_CIRCLE_PROFILES==='1'?'2.6.0':process.env.DD_ROOM_SILHOUETTES==='1'?'2.5.0':process.env.DD_ROOM_VARIANTS==='1'?'2.4.0':'2.3.0';if(expectedVersion==='2.6.0')await p.addInitScript(()=>{window.__DD_CIRCLE_ROOM_PROFILES=true;});else if(expectedVersion==='2.5.0')await p.addInitScript(()=>{window.__DD_ROOM_SILHOUETTES_V3=true;});else if(expectedVersion==='2.4.0')await p.addInitScript(()=>{window.__DD_ROOM_VARIANTS_V3=true;});else await p.addInitScript(()=>{window.__DD_UNIFIED_ROOM_GEOMETRY=true;});p.on('pageerror',e=>errors.push(e.message));
  let rooms=0,doors=0,spawns=0;const failures=[];
  try{
   await p.goto((process.argv[2]||'http://127.0.0.1:8000')+'/?roomDebug&roomSeed=0');await p.waitForFunction(()=>DD_BOOT?.getState().state==='MAIN_MENU');assert.equal(await p.evaluate(()=>DD_ROOM_GENERATION.version),expectedVersion);

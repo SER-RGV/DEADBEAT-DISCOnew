@@ -258,3 +258,38 @@ En `siluetas-inset-25-visual/{a,b}.png`, el par de desafío `r13`, semillas 12 y
 Evidencias `docs/DIAGNOSTICO_SALAS_EVIDENCIA/siluetas-inset-25-*`. Build generado por `python3 tools/build_active_html.py`; ambos SHA-256 `41a8a59653670bf8e4efe8d194537aa28c0a06365f88433c4c6db1b9e13ca228`. Reversión: `sha256sum -c backups/room_silhouette_20261126/SHA256SUMS`, restaurar migración y arneses respaldados, reconstruir y verificar ambos builds SHA-256 `95a3401de46a68fd3e0eca0250b21caf9e525586018c3cdc70dc682b7d82eecd`. La migración anterior no reconoce guardados 2.5: respaldar datos y diseñar migración antes de revertir, no borrarlos. Apagar el flag no altera guardados ya marcados 2.5.
 
 **Fase 3 sigue abierta**: identidad diferenciada de los nueve círculos, evidencia visual por tipo/círculo, unicidad incluyendo Hangar, criterios completos de juego y rendimiento permanecen pendientes. No hay evidencia para afirmar ausencia de regresiones de frame/memoria ni campaña natural.
+
+## Perfiles por círculo y comprobación del Hangar: 2.6.0 experimental
+
+`window.__DD_CIRCLE_ROOM_PROFILES=true` selecciona 2.6.0 al arranque si no hay un guardado con versión. Se mantienen las versiones 2.0–2.5; la opción por defecto sigue siendo 2.0. En los pisos ordinarios 0–8 se asigna una mezcla fija de las bases existentes nave-quebrada, palco-profundo y pasillo-servicio a las salas locales 1–6, con orden barajado por stream determinista. Luego se aplican proporciones/entrantes 2.5. La densidad de mobiliario en esas seis salas es de 4, 3 o 2 elementos según el piso; se recortan las últimas propuestas **antes** de adaptar spawns. Entrada, Hangar, jefe y salas tranquilas conservan su asignación anterior. El núcleo piso 9 conserva la topología 2.5, con dos ciclos. No se crean assets nuevos, se usan las cinco plantillas y recursos/sombras del inventario de 2.4 y los sprites direccionales documentados arriba. No se cambia HUD ni se atribuyen nuevas historias al lore.
+
+| Piso (índice) | Mezcla nave / palco / pasillo entre 6 salas | Muebles por sala de esas seis |
+|---|---:|---:|
+| 0 | 4 / 1 / 1 | 4 |
+| 1 | 1 / 4 / 1 | 3 |
+| 2 | 1 / 1 / 4 | 2 |
+| 3 | 3 / 2 / 1 | 4 |
+| 4 | 3 / 1 / 2 | 3 |
+| 5 | 2 / 3 / 1 | 2 |
+| 6 | 1 / 3 / 2 | 4 |
+| 7 | 2 / 1 / 3 | 3 |
+| 8 | 1 / 2 / 3 | 2 |
+
+`room_circle_profiles.cjs 1000` confirma estas nueve distribuciones distintas sobre 6.000 salas por piso; detalle y conteos de referencia 2.0 en `circulos-26-perfiles.json`. La densidad cuenta todos los elementos del prefab, incluidos no sólidos, y **no mide densidad de enemigos**. Son perfiles cuantitativos de composición, no nueve conjuntos de arte o formas inéditos. En las 18 capturas de seed 0 (combate y desafío en cada piso) se aprecian materiales de suelo distintos y distintas composiciones; se siguen repitiendo las mismas familias arquitectónicas, algunos entrantes están bajo el HUD y no se ha demostrado que un jugador reconozca cada piso por forma y composición sin el suelo o el HUD. Se inspeccionaron las capturas, pero no se ha hecho una prueba ciega con jugadores ni capturas de todos los tipos y seeds. Ver `circulos-26-capturas/metadata.json`.
+
+| Validación | Resultado y alcance |
+|---|---|
+| `room_generation_circle_audit.cjs 1000 variants` | 10.000 mapas: cero firmas repetidas entre todas las salas, **incluidos 1.000 Hangar**, normalizando escala uniforme, giro/reflejo y recorrido del polígono, con lados de puerta y ascensor. El Hangar se compara con su polígono del plan legacy. No mide percepción ni posiciones continuas de puertas. |
+| `room_circle_hangar.cjs` | Seeds 0–9: polígono de plan y lados de puerta coinciden con la instalación nativa; no prueba físicamente todas las seeds ni accesibilidad. |
+| `room_generation_circle_plans.cjs 1000` | 10.000 mapas deterministas, 115.000 salas prefab y 920.000 puntos, más 1.000 Hangar excluidos del adaptador. Adaptador y validador comparten predicado; no prueba física completa. |
+| `room_generation_circle_reach.cjs 1000 variants` | 620 configuraciones y 1.552 desembarcos alcanzados en rejilla, 862.196/862.260 puntos libres conectados; Hangar no está incluido en esta prueba de rejilla, ni tránsito continuo o actores. |
+| `DD_CIRCLE_PROFILES=1 room_generation_unified_native.cjs` y `prefab_reach.cjs` | Seed 0: 115 salas prefab, 257 puertas y 920 puntos probados; 257 salidas en rejilla. No todas las seeds ni el Hangar. |
+| `DD_CIRCLE_PROFILES=1 prefab_progression.cjs`, `room_generation_topology_live.cjs`, `room_circle_victory.cjs` | Nueve descensos y núcleo asistidos; puerta final, 88 rondas debug y rama real de victoria alcanzada con jefe/oleadas forzados. Partida tainted; **no es campaña natural ni victoria no marcada**, ni prueba de reanudar incursión activa. |
+| `room_generation_circle_version.cjs ... 100` | 1.000 planes por versión 2.0–2.5 idénticos al build anterior; 2.6 determinista y prioridad de guardados 2.5/2.6 en esa muestra. |
+| `room_generation_topology_perf.cjs` | Chromium headless, 1.000 muestras/version: media/p95 de generación+bind 2.0 **0,193/0,300 ms**, 2.6 **1,281/5,000 ms**. Regresión; no activar por defecto. |
+| `room_circle_frames_ab.cjs` | Seed 0/r1, sin enemigos y 240 intervalos rAF en software: 2.0 media/p95 **31,18/50 ms**, 2.6 **32,36/50 ms**; muestreo aproximado de asignaciones 161.168/169.076 B, delta heap post-GC 394.732/343.848 B. Una sala, ejecución secuencial; no establece ausencia de regresión, pico de memoria ni fuga, ni aplica a GPU física. |
+| `room_generation.cjs`, `prefab_floors.cjs` | PASS en su alcance legacy (1.030 mapas, 654 instancias). |
+
+Evidencia completa `docs/DIAGNOSTICO_SALAS_EVIDENCIA/circulos-26-*`. Builds solo con `python3 tools/build_active_html.py`: ambos SHA-256 `385c3ed19771c877e93e17b3cab965a682c830cb3e2e05deacbb478cf4bf3592`. Reversión: `sha256sum -c backups/room_circle_profiles_20261126/SHA256SUMS`, restaurar `tools/room_generation_migration.py` y arneses respaldados, reconstruir y verificar ambos builds SHA-256 `41a8a59653670bf8e4efe8d194537aa28c0a06365f88433c4c6db1b9e13ca228`. El código anterior no reconoce guardados 2.6; respaldar datos y planear migración antes de restaurar, sin borrarlos. El flag apagado no invalida un marcador 2.6 ya guardado.
+
+**No se declara cerrada la fase 3:** faltan evidencia de identidad visual espacial perceptible para cada círculo, campaña natural, QA visual por todos los tipos y la condición de ausencia de regresión de generación, frames/memoria/asignaciones. La igualdad de firmas de Hangar se comprobó físicamente en diez seeds, no en todas.

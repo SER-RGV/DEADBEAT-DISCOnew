@@ -389,3 +389,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: variantes con entrante real de 140 unidades, sin cambios de arte ni sockets; versiones previas preservadas. En un par de capturas del pasillo se aprecia un cambio de forma; no valida percepción de todos los tipos.
 - Barrido 10.000 mapas: sin firmas duplicadas entre salas compiladas, Hangar excluido; 624 desembarcos accesibles en rejilla. Seed 0 comprobada en motor y progresión asistida. Tiempo headless medio/p95 2.0: 0,208/0,300 ms; 2.5: 1,258/5,000 ms.
 - Fase 3 abierta: falta identidad por círculo, unicidad incluyendo Hangar y validación visual/juego/rendimiento integral. Evidencias y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · perfiles de círculo 2.6
+- `__DD_CIRCLE_ROOM_PROFILES` opt-in asigna nueve mezclas deterministas de tres plantillas y tres niveles de mobiliario; el núcleo mantiene topología 2.5. Nueve distribuciones distintas comprobadas en 1.000 seeds por piso, no nueve diseños artísticos nuevos.
+- 10.000 mapas sin firma repetida incluyendo Hangar del plan; coincidencia nativa del Hangar en seeds 0–9. 18 capturas en dos tipos/círculo, nueve descensos y victoria asistida/tainted; no campaña natural.
+- Headless generación media/p95 2.0 0,193/0,300 ms vs 2.6 1,281/5,000 ms; frame/heap muestreados solo una sala. Fase 3 continúa abierta. Informe, pruebas y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.

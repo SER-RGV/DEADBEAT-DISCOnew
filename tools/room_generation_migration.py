@@ -13,37 +13,38 @@ def migrate(html, root):
     # Replace whole legacy graph/shell functions in the protected monolith. Keep
     # its collision solver, world-to-wall door projection and encounter controllers.
     rg_dir = Path(root) / "src/room_generation"
-    rg_source = "\n".join((rg_dir / name).read_text() for name in ("seed.js", "rooms.js", "population.js", "floor.js", "validate.js", "debug.js", "architecture.js", "pilot_perf.js", "prefabs.js", "playable.js", "population_compiled.js", "topology_v3.js", "prefab_variants.js", "silhouette_variants.js"))
+    rg_source = "\n".join((rg_dir / name).read_text() for name in ("seed.js", "rooms.js", "population.js", "floor.js", "validate.js", "debug.js", "architecture.js", "pilot_perf.js", "prefabs.js", "playable.js", "population_compiled.js", "topology_v3.js", "prefab_variants.js", "silhouette_variants.js", "circle_profiles.js"))
     rg_source = "const prefabCatalog=" + json.dumps(json.loads((rg_dir / "prefabs/catalog.json").read_text()), separators=(",", ":")) + ";\n" + rg_source
     start, end = html.index("function rg(e)"), html.index("function lg(e)")
-    html = html[:start] + "function ng(index,shop,install){const f=Xe(index+1),n=ug(f).nodes.find(n=>shop?n.shop:n.index===index&&!n.shop);const draft=roomGeneration.playableRoom(n);if(install)nativePrefab=draft;return draft?([\"2.3.0\",\"2.4.0\",\"2.5.0\"].includes(roomGeneration.version)?{...draft.geometry}:draft.geometry):{...n.geometry};}" + html[end:]
+    html = html[:start] + "function ng(index,shop,install){const f=Xe(index+1),n=ug(f).nodes.find(n=>shop?n.shop:n.index===index&&!n.shop);const draft=roomGeneration.playableRoom(n);if(install)nativePrefab=draft;return draft?([\"2.3.0\",\"2.4.0\",\"2.5.0\",\"2.6.0\"].includes(roomGeneration.version)?{...draft.geometry}:draft.geometry):{...n.geometry};}" + html[end:]
     start,end = html.index("function ug(e)"),html.index("function pg()")
     html = html[:start] + "function ug(f){if(!Ot.graphs.has(f))Ot.graphs.set(f,roomGeneration.generate(Yo.seed,f));return Ot.graphs.get(f);}" + html[end:]
     # Os(0) runs during engine initialization; initialize the module before it.
     replace('<head>', '<head><script>window.DD_ROOM_GENERATION=(()=>{'+rg_source+''';
-const legacyVersion="2.0.0", adaptedVersion="2.1.0", topologyVersion="2.2.0", unifiedVersion="2.3.0", variantsVersion="2.4.0", silhouetteVersion="2.5.0";
+const legacyVersion="2.0.0", adaptedVersion="2.1.0", topologyVersion="2.2.0", unifiedVersion="2.3.0", variantsVersion="2.4.0", silhouetteVersion="2.5.0", profileVersion="2.6.0";
 // Keep a saved layout on its original generator, including old saves lacking a version.
 // This is latched at boot, not toggled during a run.
 let savedVersion=null;
 try { const raw=localStorage.getItem("dmo_floor_v32"); if(raw){const saved=JSON.parse(raw); if(saved && saved.v===1) savedVersion=saved.generatorVersion || legacyVersion;} } catch(e) {}
-if(savedVersion && ![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion].includes(savedVersion)) throw Error("Unsupported room generator version: "+savedVersion);
-const selectedVersion=savedVersion || (window.__DD_ROOM_SILHOUETTES_V3===true ? silhouetteVersion : window.__DD_ROOM_VARIANTS_V3===true ? variantsVersion : window.__DD_UNIFIED_ROOM_GEOMETRY===true ? unifiedVersion : window.__DD_ROOM_TOPOLOGY_V3===true ? topologyVersion : window.__DD_ROOM_SPAWN_GUARDS===true ? adaptedVersion : legacyVersion);
+if(savedVersion && ![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion].includes(savedVersion)) throw Error("Unsupported room generator version: "+savedVersion);
+const selectedVersion=savedVersion || (window.__DD_CIRCLE_ROOM_PROFILES===true ? profileVersion : window.__DD_ROOM_SILHOUETTES_V3===true ? silhouetteVersion : window.__DD_ROOM_VARIANTS_V3===true ? variantsVersion : window.__DD_UNIFIED_ROOM_GEOMETRY===true ? unifiedVersion : window.__DD_ROOM_TOPOLOGY_V3===true ? topologyVersion : window.__DD_ROOM_SPAWN_GUARDS===true ? adaptedVersion : legacyVersion);
 function generateVersioned(s,f,version=selectedVersion){
-  if(![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion].includes(version)) throw Error("Unsupported room generator version: "+version);
-  const plan=bindPrefabs([topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion].includes(version) ? topologyPrototype(s,f) : generate(s,f));
+  if(![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion].includes(version)) throw Error("Unsupported room generator version: "+version);
+  const plan=bindPrefabs([topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion].includes(version) ? topologyPrototype(s,f) : generate(s,f));
   if(version===variantsVersion) bindPrefabVariants(plan);
   if(version===silhouetteVersion) bindSilhouetteVariants(plan);
+  if(version===profileVersion) bindCircleProfiles(plan);
   if(version!==legacyVersion){
     for(const node of plan.nodes){
       const compiled=playableRoom(node);if(!compiled)continue;
       node.population=adaptPopulationCompiled(node.population,compiled);validatePopulationCompiled(node.population,compiled);
-      if([unifiedVersion,variantsVersion,silhouetteVersion].includes(version)) node.geometry=compiled.geometry;
+      if([unifiedVersion,variantsVersion,silhouetteVersion,profileVersion].includes(version)) node.geometry=compiled.geometry;
     }
     plan.version=version;
   }
   return plan;
 }
-return Object.freeze({version:selectedVersion,topologyEnabled:[topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion].includes(selectedVersion),playableRoom,generate:generateVersioned,hangarShell:(key,edges,doors)=>compileArchitecture({key,edges,doors,props:[],spawns:[]}),...(new URLSearchParams(location.search).has("roomDebug")?{visualize,compileArchitecture,createPilotPerf,instantiatePrefab}:{})});})();</script>''')
+return Object.freeze({version:selectedVersion,topologyEnabled:[topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion].includes(selectedVersion),playableRoom,generate:generateVersioned,hangarShell:(key,edges,doors)=>compileArchitecture({key,edges,doors,props:[],spawns:[]}),...(new URLSearchParams(location.search).has("roomDebug")?{visualize,compileArchitecture,createPilotPerf,instantiatePrefab}:{})});})();</script>''')
     replace('function Os(e){','let nativePrefab=null;const roomGeneration=window.DD_ROOM_GENERATION;function Os(e){')
     replace('ng=function(e,a){const t=NA(e,a),','ng=function(e,a,install){const t=NA(e,a,install),')
     replace('function Um(){const e={made:0','function Um(){if(nativePrefab)return 0;const e={made:0')

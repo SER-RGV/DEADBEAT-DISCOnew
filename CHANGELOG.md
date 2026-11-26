@@ -285,3 +285,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Entrantes de silueta experimentales 2.5
 - Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: añade entrantes de perímetro en paredes sin puertas ni anclas; guardados anteriores conservan su versión.
 - 10.000 mapas comprobados en datos, 624 salidas de configuraciones muestreadas en rejilla. Un par de capturas muestra diferencia visible; no se han validado todas las salas ni los nueve círculos. La fase 3 sigue abierta.
+
+## 2026-11-26 · Perfiles de círculo experimentales 2.6
+- Flag opt-in `__DD_CIRCLE_ROOM_PROFILES`: nueve mezclas deterministas de plantillas y tres niveles de mobiliario en salas locales 1–6; guardados anteriores conservan versión.
+- Auditoría de 10.000 mapas sin firmas duplicadas incluyendo Hangar de plan; comprobación nativa del Hangar en diez seeds y victoria asistida. Persisten regresión de generación y QA visual/natural pendientes; detalles en la propuesta.
