@@ -334,3 +334,38 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
 - QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+---
+
+## Estado actual · 2026-11-26 (RECONSTRUCCIÓN SISTEMÁTICA · FASES 0 y 1 COMPLETADAS)
+
+Rama de trabajo: `arena/09513f9b-deadbeat-disconew` (nueva reconstrucción sistemática, siguiendo plan de fases).
+
+### FASE 0 — INVENTARIO MAESTRO (COMPLETADA)
+- `tools/phase0_inventory.py` genera CSV+MD en `docs/ASSET_REGEN/00_INVENTARIO.csv` (1046 filas × 17 columnas) y `00_INVENTARIO.md` con 9 hallazgos.
+- Métricas finales: 941 ficheros en `assets/`; 277 entradas en `assets/manifest.json`; 279 vigentes (referenciados en código); 105 huecos planificados (principalmente armas `weapon_c016+` y variantes elementales); 362 archivos sin registro (históricos, conceptos, backups, experimentos).
+- **BUG crítico confirmado:** las 6 parejas de capas `02_*`/`03_*` en `backgrounds/final/cine_bg01-06/` son byte-identical (~23 MB total), rompiendo el parallax de la cinemática de intro. Versiones alternativas más pequeñas (15–170 KB) con nombres parecidos podrían ser las capas correctas.
+- **Discrepancia manifest vs MASTER_INVENTORY:** 33 IDs en manifest no existen en `docs/ART_REBUILD/MASTER_INVENTORY.json` (24 capas cine_bg*, 3 props nuevos, 2 efectos, 1 overlay, 1 logo, 1 UI, 1 environment); 105 IDs de MASTER_INVENTORY no están en manifest (armas adicionales planificadas).
+- 9 grupos de duplicados; 0 entradas en manifest sin referencia en código.
+
+### FASE 1 — BIBLIOTECA DE PROMPTS (COMPLETADA)
+- Plantilla base: `docs/ASSET_REGEN/PROMPTS/00_STYLE_TEMPLATE.md` (bloques universales B0–B11, paleta por círculo 0–9, familias de enemigos/jefes, tabla de tamaños/pivotes/alfa).
+- **`assets/prompts.json` v1.0.0** generado: 277 entradas con prompt positivo, negativo, dimensiones, pivote, vistas, fuente y referencia.
+  - 66 prompts reutilizados de los batches existentes `docs/ART_REBUILD/batches/R01–R05B*.json` (27 personajes, 24 enemigos, 15 jefes, aliases).
+  - 211 prompts generados desde plantilla v1 para el resto (suelos, muros, entornos, props, pickups, armas, efectos, UI, logos, overlays, cinemáticas).
+- 8 fichas Markdown por categoría en `docs/ASSET_REGEN/PROMPTS/`:
+  - `01_personajes_y_npcs.md` (31) — personajes, atuendos, NPCs (incluye advertencia: NO regenerar el protagonista sin aprobación).
+  - `02_enemigos.md` (24) — 6 familias × 4 estados.
+  - `03_jefes.md` (42) — 11 jefes × 4 estados + jefe secreto.
+  - `04_entornos_suelos.md` (32) — 13 suelos, 10 muros, 9 entornos.
+  - `05_props_pickups.md` (54) — 34 props, 20 pickups/reliquias.
+  - `06_armas_efectos.md` (38) — 16 armas (pixel-art coherente, regeneración masiva no recomendada), 22 efectos/proyectiles.
+  - `07_interfaz_logos.md` (21) — 17 UI, 3 logos, 1 overlay.
+  - `08_cinematicas.md` (35) — key art, capas de parallax, escenas de círculos, efectos y logos cinemáticos.
+- Índice en `docs/ASSET_REGEN/PROMPTS/README.md`.
+- Validación: `assets/prompts.json` es JSON válido; `node --check src/dd_asset_registry.js` OK; no se ha modificado ningún asset existente ni HTML.
+
+### Pendiente
+- **FASE 2 (siguiente):** flujo de regeneración reproducible (`tools/art_master/` pipeline, convención `assets/_regen/LOTE_XX/`, validación de batch, postproceso de verde chroma/alpha, actualización de manifest, build).
+- Luego FASE 3: regeneración por lotes en orden (UI/logos → suelos/muros → props/pickups → armas/FX → enemigos → jefes → protagonista → cinemáticas), 3-5 assets de muestra por lote antes de generar el resto.
+- PR #31 de la reconstrucción anterior sigue abierto BORRADOR; no se toca.
