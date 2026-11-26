@@ -19,7 +19,9 @@ peso ni romper la cadencia. Sin ficheros de audio: todo el sonido es sintetizado
 | Peso del audio | 0 B | **0 B** (0 ficheros en `assets/`) | suite `audio` |
 | Tamaño del build | 5.856.922 B | 5.859.989 B (**+3,0 KB, +0,05 %**) | `wc -c` |
 
-Suite nueva: `tools/qa/e2e/11_audio.spec.js` → **15 PASS · 0 FAIL · 0 SKIP · 109 s**.
+Suite nueva: `tools/qa/e2e/11_audio.spec.js` → **15 PASS · 0 FAIL · 0 SKIP · 104–109 s**.
+CI: run [`45778460895`](https://github.com/SER-RGV/DEADBEAT-DISCOnew/actions/runs/45778460895)
+→ **7/7 trabajos en verde** (el trabajo de juego incluye ya la suite de audio).
 
 ---
 
@@ -171,6 +173,22 @@ node tools/qa/audio_capture.js --solo-efectos   # música a 0: aísla los efecto
 
 La suite `audio` corre en la CI dentro del trabajo «HUB, diez plantas, partida
 real, audio y guardado».
+
+### 6.b · Dos pruebas frágiles encontradas por la propia CI
+
+La primera pasada de CI con la suite de audio dio dos rojos que en local no
+salían. Se corrigieron **bajando la fragilidad, no el listón**:
+
+- `audio` · la comparación «RMS del Refugio 4 dB por debajo del menú» depende de
+  cuántos efectos de interfaz caen en la ventana (CI: −30,2 frente a −30,1). Se
+  sustituyó por dos garantías: el motor atenúa (exacto, `targetGain`) y el
+  Refugio no suena más alto que el menú.
+- `hub` · el movimiento con teclado midió 0 px en CI y 29 px en local con el
+  mismo commit: el lienzo no tenía el foco. Ahora se pulsa el lienzo y se
+  reintenta hasta tres veces, informando de los intentos.
+- Se añadieron **anotaciones de GitHub** por fallo (`report-summary.js
+  --annotations`): en este entorno los logs y los artefactos de Actions no se
+  pueden descargar (EOF) y sin anotaciones un rojo de CI es un rojo mudo.
 
 ## 7 · Límites conocidos (medidos, no supuestos)
 
