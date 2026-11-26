@@ -1,6 +1,15 @@
 # Fase 0 · Revisión de ramas · 2026-11-26
 
-Estado: **parcial, esperando decisión de integración de #36**. No se inicia la fase 1. No se ha fusionado, cerrado ni modificado ninguna rama ajena.
+Estado actualizado: **parcial, #36 fusionado y #21 cerrado con autorización expresa**. No se inicia la fase 1; #34 sigue pendiente. Las secciones de revisión inferiores conservan el diagnóstico previo a las operaciones.
+
+## Ejecución autorizada · 2026-11-26
+
+- `gh pr view 36 --json headRefOid,state,mergeable`: head validado `132d5a4`, OPEN/MERGEABLE.
+- `gh pr merge 36 --merge --match-head-commit 132d5a4bd17e2060d699252253fc45bcb74c5bea`: exit 0. Verificado MERGED, merge `29daef875fbe7e911f22de5c032d7753cf70aa57`.
+- `gh pr close 21 --comment "…"`: exit 0. Verificado CLOSED; comentario explica que queda como evidencia histórica y no se integran sus builds antiguos.
+- #34 verificado OPEN/draft; #32 verificado OPEN.
+- Fallos: ninguno en estas operaciones. No se repitieron suites ni se regeneraron builds.
+- Pendiente: rebase y validación de #34 en una sesión sobre su propia rama (esta sesión no puede escribir ramas ajenas); integración/QA de #32; fase 1 no iniciada.
 
 ## Método
 

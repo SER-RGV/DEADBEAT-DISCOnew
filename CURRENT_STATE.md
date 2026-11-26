@@ -2,8 +2,8 @@
 
 ## Estado vigente · 2026-11-26 · Fase 0 parcial
 
-- Revisión independiente de #36 en `132d5a4`: 15/15 suites solicitadas y arranque MAIN_MENU pasan. Sin fusión; pendiente de autorización. Hay 108 avisos de dressing lint por clasificar.
-- #34 permanece draft: conflictos y rebase/mediciones pendientes después de integrar #36. #21: se propone cierre por superado; #32: se propone mantener abierto hasta resolver conflictos y actualizar QA/descripción. Ninguno cerrado.
+- Revisión independiente de #36 en `132d5a4`: 15/15 suites solicitadas y arranque MAIN_MENU pasan. Fusionado con autorización el 2026-11-26 (merge `29daef875fbe7e911f22de5c032d7753cf70aa57`). Hay 108 avisos de dressing lint por clasificar.
+- #34 permanece draft: conflictos y rebase/mediciones pendientes después de integrar #36. #21 cerrado con autorización como superado; #32 continúa abierto hasta resolver conflictos y actualizar QA/descripción.
 - Fase 1 no iniciada; fase 0 aún no terminada. Código y builds del juego sin cambios en esta rama.
 - Informe y logs: [docs/FASE_0/REVISION.md](docs/FASE_0/REVISION.md). Las entradas siguientes son históricas y no sustituyen este estado.
 

@@ -1,5 +1,11 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Fase 0 · Decisiones autorizadas
+
+- Fusionado #36 mediante merge, comprobando que su head coincide con el commit validado `132d5a4`. Merge: `29daef875fbe7e911f22de5c032d7753cf70aa57`.
+- Cerrado #21 como superado con confirmación expresa. #32 sigue abierto y #34 sigue en borrador.
+- Operaciones verificadas con `gh pr view`; no se han repetido suites ni modificado builds en esta ronda.
+
 ## 2026-11-26 · Fase 0 · Revisión parcial de integración
 
 - Documentada revisión de #36, #34, #21 y #32 sin fusiones ni cierres.
