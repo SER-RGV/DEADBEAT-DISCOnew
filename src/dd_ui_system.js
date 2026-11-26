@@ -893,6 +893,12 @@
           (document.fullscreenElement ? "SÍ" : "NO") + '</button>';
       })() + '</div>' +
       '    <p class="dd-opt-note" id="dd-opt-res"></p>' +
+      '    <h3>ACCESIBILIDAD</h3>' +
+      '    <div class="dd-opt-row"><label for="dd-opt-flash">DESTELLOS DE PANTALLA</label>' +
+      '      <button type="button" class="dd-toggle" id="dd-opt-flash" aria-pressed="' + (a11y.flash !== false ? "true" : "false") + '">' + (a11y.flash !== false ? "SÍ" : "NO") + '</button></div>' +
+      '    <div class="dd-opt-row"><label for="dd-opt-shake">SACUDIDA DE CÁMARA</label>' +
+      '      <button type="button" class="dd-toggle" id="dd-opt-shake" aria-pressed="' + (a11y.shake !== false ? "true" : "false") + '">' + (a11y.shake !== false ? "SÍ" : "NO") + '</button></div>' +
+      '    <p class="dd-opt-note">DESTELLOS apaga los flashes de cámara de la portada, el estrobo del beat-light y el flash de impacto del motor; SACUDIDA, el temblor de cámara. Independiente del movimiento reducido del sistema. Se recuerda en este navegador.</p>' +
       '    <h3>CONTROLES</h3>' +
       '    <div class="dd-opt-row"><span>MANDO XBOX</span><span class="dd-opt-fixed" id="dd-opt-pad">COMPROBANDO…</span></div>' +
       '    <p class="dd-opt-note dd-controls-copy" id="dd-controls-keyboard"><strong>TECLADO Y RATÓN</strong><br>WASD / FLECHAS: mover · RATÓN: apuntar y disparar<br>' +
@@ -1057,6 +1063,7 @@
       var internal = document.querySelector('#audio-panel-menu-body input[type="checkbox"]#' +
         (key === "flash" ? "audio-panel-menu-body-flash" : "audio-panel-menu-body-shake"));
       if (internal && internal.checked !== a[key]) internal.click();
+      applyA11yFlashClass();
       sfx("ok");
     }
     var fl = el("dd-opt-flash");
@@ -1393,6 +1400,7 @@
     if (uiState.initialized) return;
     uiState.initialized = true;
     document.body.classList.add("dd-highres-edition");
+    applyA11yFlashClass();
 
     if (!el("dd-chrome-guard")) {
       var guard = document.createElement("style");
@@ -1873,6 +1881,110 @@
     }
   }
 
+  /* ============ FASE 2 · utilidades puras (comparten QA) ===================
+     expuestas en window.DD_FASE2 para las sondas estáticas; sin efectos
+     colaterales salvo el dibujo explícito del estado vacío. */
+  /* Nombres de arena authored en los datos de planta, en orden de círculo
+     (I LIMBO … IX TRAICIÓN, NÚCLEO FINAL). El "CÁMARA DEL RESIDENTE" genérico
+     del motor se sustituye por el nombre real de la arena del residente. */
+  var BOSS_CHAMBERS = [
+    "CÁMARA DEL PORTERO",  /* I LIMBO — ANDÉN */
+    "CÁMARA DE MAGNETA",   /* II LUJURIA — MAGNETA */
+    "CÁMARA DEL BUFÉ",     /* III GULA — BUFÉ */
+    "CÁMARA DEL CAJERO",   /* IV AVARICIA — EL CAJERO */
+    "CÁMARA DEL POGO",     /* V IRA — EL POGO */
+    "CÁMARA DEL OFICIANTE",/* VI HEREJÍA — EL OFICIANTE */
+    "CÁMARA DEL MATARIFE", /* VII VIOLENCIA — EL MATARIFE */
+    "CÁMARA DEL IMITADOR", /* VIII FRAUDE — EL IMITADOR */
+    "CÁMARA DEL TRAIDOR",  /* IX TRAICIÓN — EL TRAIDOR */
+    "NÚCLEO FINAL · LA ÚLTIMA CANCIÓN" /* NÚCLEO — LA ÚLTIMA CANCIÓN */
+  ];
+
+  /* TXT-8 · rotula la sala de jefe con la arena del residente del círculo.
+     "CÁMARA DEL RESIDENTE [II] · CÍRCULO n · NOMBRE" →
+     "CÁMARA DEL PORTERO · CÍRCULO n · NOMBRE". Fuera de jefes no inventa nada. */
+  function bossChamberBanner(banner, circle, bossActive) {
+    if (!banner || !bossActive) return banner;
+    var ci = Number(circle);
+    if (!isFinite(ci)) return banner;
+    ci = Math.max(0, Math.min(BOSS_CHAMBERS.length - 1, Math.floor(ci)));
+    if (ci >= BOSS_CHAMBERS.length - 1) return BOSS_CHAMBERS[BOSS_CHAMBERS.length - 1];
+    return String(banner).replace(/^CÁMARA DEL RESIDENTE(\s+II)?/i, BOSS_CHAMBERS[ci]);
+  }
+
+  /* TXT-4 · estado vacío diseñado para el panel «SIN INCURSIÓN»: retícula,
+     anillos y glifo de torre (como el botón que abre la torre de progresión).
+     Colores = tokens existentes (--dd-bg-ink #06030c, --dd-cyan #22d3ee,
+     --dd-cyan-ice #83f5f1, --dd-gold #facc15, --dd-text #f8ecf6). */
+  function drawMinimapEmptyState(ctx, w, h) {
+    var cx = w / 2, cy = 42;
+    /* resplandor cian tenue tras el glifo */
+    var glow = ctx.createRadialGradient(cx, cy, 2, cx, cy, 78);
+    glow.addColorStop(0, "rgba(34, 211, 238, 0.16)");
+    glow.addColorStop(1, "rgba(6, 3, 12, 0)");
+    ctx.fillStyle = glow;
+    ctx.fillRect(0, 0, w, h);
+    /* retícula de puntos */
+    ctx.fillStyle = "rgba(131, 245, 241, 0.12)";
+    for (var gy = 10; gy < h - 6; gy += 16) {
+      for (var gx = 10; gx < w - 5; gx += 16) {
+        ctx.fillRect(gx, gy, 1.4, 1.4);
+      }
+    }
+    /* anillos de radar */
+    ctx.strokeStyle = "rgba(34, 211, 238, 0.32)";
+    ctx.lineWidth = 1;
+    [24, 15].forEach(function (r) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, r, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+    /* glifo de torre almenada (trazo, no relleno) */
+    ctx.strokeStyle = "rgba(250, 204, 21, 0.92)";
+    ctx.lineWidth = 1.6;
+    ctx.lineJoin = "miter";
+    ctx.beginPath();
+    ctx.moveTo(cx - 9, cy + 12);
+    ctx.lineTo(cx - 9, cy - 6);
+    ctx.lineTo(cx - 5, cy - 6);
+    ctx.lineTo(cx - 5, cy - 12);
+    ctx.lineTo(cx - 2, cy - 12);
+    ctx.lineTo(cx - 2, cy - 6);
+    ctx.lineTo(cx + 2, cy - 6);
+    ctx.lineTo(cx + 2, cy - 12);
+    ctx.lineTo(cx + 5, cy - 12);
+    ctx.lineTo(cx + 5, cy - 6);
+    ctx.lineTo(cx + 9, cy - 6);
+    ctx.lineTo(cx + 9, cy + 12);
+    ctx.closePath();
+    ctx.stroke();
+    /* puerta */
+    ctx.strokeRect(cx - 2.5, cy + 3, 5, 9);
+    /* rótulos: piso TXT-1 = 12 px */
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#f8ecf6";
+    ctx.font = "800 13px Inter, sans-serif";
+    ctx.fillText("SIN INCURSIÓN", cx, 90);
+    ctx.fillStyle = "rgba(131, 245, 241, 0.82)";
+    ctx.font = "600 12px Inter, sans-serif";
+    ctx.fillText("EL DESCENSO REVELA EL MAPA", cx, 110);
+  }
+
+  window.DD_FASE2 = {
+    BOSS_CHAMBERS: BOSS_CHAMBERS,
+    bossChamberBanner: bossChamberBanner,
+    drawMinimapEmptyState: drawMinimapEmptyState
+  };
+
+  /* ACC-2 · sincroniza <body class="dd-no-flash"> con dmodisco_a11y_v1.flash.
+     La portada CSS (flashes de cámara, estrobo) se apaga con esa clase. */
+  function applyA11yFlashClass() {
+    try {
+      var st = storeJson("dmodisco_a11y_v1");
+      document.body.classList.toggle("dd-no-flash", !!(st && st.flash === false));
+    } catch (e) { /* sin localStorage: la portada se queda como está */ }
+  }
+
   /* El motor actualiza #minimap con su propio mapa y sus reglas de visibilidad.
      Reutilizar ese lienzo evita inventar geometría o revelar salas ocultas. */
   function drawMinimap(snap, inHub) {
@@ -1881,20 +1993,21 @@
     var ctx = cnv.getContext("2d");
     var w = cnv.width, h = cnv.height;
     ctx.clearRect(0, 0, w, h);
-    ctx.fillStyle = "#06030c";
+    ctx.fillStyle = "#06030c"; /* --dd-bg-ink */
     ctx.fillRect(0, 0, w, h);
     var original = el("minimap");
-    if (!inHub && snap && snap.running && original && original.width && original.height) {
+    var hasMap = !inHub && snap && snap.running && original && original.width && original.height;
+    var box = el("dd-minimap-trigger");
+    if (hasMap) {
       var scale = Math.min(w / original.width, h / original.height);
       var dw = original.width * scale, dh = original.height * scale;
       ctx.imageSmoothingEnabled = false;
       ctx.drawImage(original, (w - dw) / 2, (h - dh) / 2, dw, dh);
+      if (box) box.classList.remove("is-empty");
       return;
     }
-    ctx.fillStyle = "#a4b2c5";
-    ctx.font = "600 11px Inter, sans-serif";
-    ctx.textAlign = "center";
-    ctx.fillText("SIN INCURSIÓN", w / 2, h / 2);
+    if (box) box.classList.add("is-empty");
+    drawMinimapEmptyState(ctx, w, h);
   }
 
   /* ================================ F. TICK =============================== */
@@ -1908,6 +2021,7 @@
 
   function tickInner(dt) {
     buildDOM();
+    applyA11yFlashClass();
     var cdt = Math.min(0.05, Math.max(0.001, dt || 0.016));
     /* Los enfriamientos de entrada se miden con reloj de pared: si el render va
        a 4 fps, un contador por frame dejaría el mando inservible. */
@@ -2310,8 +2424,9 @@
     }
     var roomEl = el("dd-hud-room");
     if (roomEl) {
-      roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
-        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
+      roomEl.textContent = inHub
+        ? "EL REFUGIO · ZONA SEGURA"
+        : bossChamberBanner(snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)), snap.circle, snap.bossActive);
     }
     var usingPad = document.body.classList.contains("dd-input-pad");
     var rollLabels = { Space: "ESP", KeyV: "V", AltLeft: "ALT" };

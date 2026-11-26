@@ -286,3 +286,15 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 - MOB-1: `@media (max-width: 560px)` con geometría compacta del HUD; verificado por sonda (vitals 8→246 px, minimapa 246→382 px @390).
 - Pruebas: `tools/qa/capture_art_audit_fase0.js` reutilizado contra el build nuevo → `ART_EVIDENCE/art_quality/fase1/` (87/87, 0 errores); fps a la par (±20 % dentro del ruido SwiftShader); menú 52/52 limpio; A/B contra copia pre-FASE 1 para las suites bloqueadas por el entorno (idénticas).
 - Entregado en la misma rama del entorno (`arena/46b8bb0f-deadbeat-disconew`) encima de FASE 0; **FASE 2 no se abre sin visto bueno**. Tras fusionar PR #38, FASE 1 pasa a su propio PR.
+
+<!-- ART-FASE2:PRODUCTION -->
+### ART FASE 2 — Destellos independientes, foco, «SIN INCURSIÓN» y sala de jefe
+
+- Autorización: dirección, 2026-11-26 («FASE 1 aprobada — abre FASE 2»). Alcance cerrado en `00_AUDITORIA.md` §5: **ACC-2, ACC-3, TXT-4, TXT-8**. **Cero arte nuevo, cero cambios de motor, paleta REF_06 intacta.**
+- ACC-2: destellos CSS de portada (`dd-flash-a/b/c`, `dd-strobe`) cableados a `dmodisco_a11y_v1.flash` mediante `body.dd-no-flash` (+ `applyA11yFlashClass()` en buildDOM/tick/toggleA11y); OPCIONES gana sección ACCESIBILIDAD (DESTELLOS DE PANTALLA / SACUDIDA DE CÁMARA). Fuera de alcance declarado: `dd-logo-glitch`, `dd-travel-light` (CIN, Fase 3), wash AVARICIA (Fase 5).
+- ACC-3: `.dd-rs` anula el recorte dorado heredado (`-webkit-text-fill-color: currentColor`, tinta `--rs-ink` sobre brochazo); outline de foco sin cambios.
+- TXT-4: estado vacío del panel de minimapa con diseño propio (glifo de torre, radar, piso 12 px); `.dd-minimap-box.is-empty` con marco cian.
+- TXT-8: banner de jefe sustituye «CÁMARA DEL RESIDENTE» por la arena del círculo (tabla `BOSS_CHAMBERS`, `bossChamberBanner()`; regex cubre variante gemelo «… II»; núcleo clampeado). `window.DD_FASE2` expone las utilidades para QA.
+- Sondas `tools/qa/probe_fase2.js` 34/34; inline-parse 14/14; CSS 1000/1000. **Capturas antes/después no generadas en esta sesión (sin navegador/chromium en el entorno)** — declarado en el informe §2.1; verificación visual pendiente de la dirección en :8124 o próxima sesión con arnés.
+- Build `index.html` ≡ `DEADBEAT_DISCO.html`, 5.740.512 B (+7.205 B); backups PRE-FASE2. Rama fija del entorno (encima de `05910f4`+`182252a`); **PR #38 abierto, sin merge**.
+- Nota de integridad: el clon local arrancó desincronizado (HEAD en `6087057`, trabajo FASE 0+1 sin commitear); verificado por SHA-256 que el árbol ≡ `182252a` y reanclado con `git reset --mixed` (cero pérdida). Registro: la cifra «5.725.924 B» de sesiones anteriores era errónea; real FASE 1 = 5.733.307 B.

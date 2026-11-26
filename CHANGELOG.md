@@ -220,3 +220,11 @@ Registrar aquí cada modificación:
 - MOB-1: HUD compacto ≤560 px (390×844 verificado: vitals y minimapa sin solape).
 - Corregido en fase: 4 selectores `#ddc-*` rotos por la sustitución mecánica (capa legacy reafloró) — build regenerado y reverificado; `--dd-coral`/`--dd-core` (referenciados sin definir) definidos como alias.
 - Builds regenerados (`index.html` ≡ `DEADBEAT_DISCO.html`, 5.725.924 B); backups `backups/*_PRE-FASE1_2026-11-26.html`. Pruebas: 87/87 capturas 0 errores; menú 52/52; suites de arranque bloqueadas igual antes/después en SwiftShader (documentado). Informe `docs/ART_QUALITY/01_TOKENS.md`.
+
+## 2026-11-26 · ART FASE 2 — Destellos independientes, foco de portada, «SIN INCURSIÓN» y sala de jefe
+- FASE 1 aprobada por dirección. Alcance cerrado en auditoría §5: **ACC-2, ACC-3, TXT-4, TXT-8** (TXT-2/CAM/MAT/CIN/PJE/fases 3–6 fuera).
+- ACC-2: kill-switch `body.dd-no-flash` (CSS) + `applyA11yFlashClass()` (JS: buildDOM/tick/toggleA11y); nueva sección ACCESIBILIDAD en OPCIONES con DESTELLOS DE PANTALLA y SACUDIDA DE CÁMARA (handlers preexistentes `dd-opt-flash`/`dd-opt-shake`; sync con checkbox legacy). reduced-motion intacto.
+- ACC-3: en `.dd-rs` el texto de botón enfocado/seleccionado va en tinta `var(--rs-ink)` sin recorte dorado (causa raíz: `-webkit-text-fill-color: transparent` sobre el brochazo amarillo).
+- TXT-4: estado vacío diseñado del minimapa (canvas: retícula, radar, torre almenada; «SIN INCURSIÓN» 13 px + subtítulo 12 px `--dd-cyan-ice`); `.dd-minimap-box.is-empty` con marco cian sereno.
+- TXT-8: `bossChamberBanner()` + tabla `BOSS_CHAMBERS` rotulan la sala de jefe con la arena del residente (p.ej. «CÁMARA DEL PORTERO · CÍRCULO I · LIMBO»); NÚCLEO → «NÚCLEO FINAL · LA ÚLTIMA CANCIÓN». Sin tocar el motor.
+- Sondas `tools/qa/probe_fase2.js` **34/34**; scripts inline del build parsean (14/14); CSS 1000/1000 llaves. **Sin capturas nuevas: el entorno no tiene navegador/chromium** (limitación declarada; antes = capturas FASE 1). Builds regenerados (`index.html` ≡ `DEADBEAT_DISCO.html`, **5.740.512 B**, +7.205 B); backups `backups/*_PRE-FASE2_2026-11-26.html`. Informe `docs/ART_QUALITY/02_FASE2.md`.
