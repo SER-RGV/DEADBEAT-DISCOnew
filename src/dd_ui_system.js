@@ -214,8 +214,8 @@
     menu.setAttribute("aria-label", "Menú principal de DEADBEAT DISCO");
 
     var nav = MENU_ITEMS.map(function (it, i) {
-      return '<button type="button" class="dd-menu-btn' + (i === 0 ? " dd-selected" : "") + '" ' +
-        'data-action="' + it.action + '" data-index="' + i + '"' + (i === 0 ? ' tabindex="0"' : ' tabindex="-1"') + '>' +
+      return '<button type="button" role="menuitem" class="dd-menu-btn' + (i === 0 ? " dd-selected" : "") + '" ' +
+        'data-action="' + it.action + '" data-index="' + i + '"' + (i === 0 ? ' tabindex="0" aria-current="true"' : ' tabindex="-1"') + '>' +
         '<span class="dd-btn-icon" aria-hidden="true"></span>' +
         '<span class="dd-btn-text"><b>' + esc(it.label) + '</b><small>' + esc(it.sub) + '</small></span>' +
         '<span class="dd-btn-mark" aria-hidden="true"></span>' +
@@ -235,7 +235,10 @@
       '    <div class="dd-menu-tagline"><span>LA NOCHE QUE DEVORÓ EL AMANECER</span><i aria-hidden="true"></i></div>' +
       '    <p class="dd-cover-manifesto">NUEVE PISTAS <i class="dd-vault-stamp" aria-hidden="true"></i> UN ÚLTIMO BAILE</p>' +
       '  </div>' +
-      '  <nav class="dd-menu-nav" id="dd-menu-nav" aria-label="Opciones del menú principal">' + nav + '</nav>' +
+      /* Las flechas mueven la selección y Enter la ejecuta: es el patrón de menú
+         de ARIA, así que se anuncia como tal en vez de dejar seis botones
+         sueltos dentro de un nav. */
+      '  <div class="dd-menu-nav" id="dd-menu-nav" role="menu" aria-orientation="vertical" aria-label="Opciones del menú principal">' + nav + '</div>' +
       '  <div class="dd-menu-footer">' +
       '    <span class="dd-pill" id="dd-gamepad-pill">TECLADO · RATÓN · MANDO</span>' +
       '    <span class="dd-menu-build" id="dd-menu-build">v3.3.0</span>' +
@@ -302,12 +305,16 @@
     var n = btns.length;
     uiState.menuIndex = ((idx % n) + n) % n;
     Array.prototype.forEach.call(document.querySelectorAll("#dd-menu-nav .dd-menu-btn[hidden]"), function (b) {
-      b.classList.remove("dd-selected"); b.setAttribute("tabindex", "-1");
+      b.classList.remove("dd-selected"); b.setAttribute("tabindex", "-1"); b.removeAttribute("aria-current");
     });
     Array.prototype.forEach.call(btns, function (b, i) {
       var on = i === uiState.menuIndex;
       b.classList.toggle("dd-selected", on);
       b.setAttribute("tabindex", on ? "0" : "-1");
+      /* La opción resaltada se anuncia como actual: el lector de pantalla no
+         puede ver la clase .dd-selected. */
+      if (on) b.setAttribute("aria-current", "true");
+      else b.removeAttribute("aria-current");
       if (on && document.activeElement !== b && withSfx !== "silent") {
         /* mantiene el foco real alineado con la selección: teclado y ratón
            comparten un único indicador */
