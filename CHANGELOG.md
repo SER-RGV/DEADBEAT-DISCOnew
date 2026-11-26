@@ -1,5 +1,13 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Fase 0 · Integración de rendimiento tras #36
+
+- Integrado el delta compatible de #34 en #37, por autorización, sin restaurar la armería o atlas antiguos ni los retratos obsoletos. #34 permanece draft de referencia.
+- Carga por prioridades, cinemáticas a demanda, notificaciones agrupadas, HUD con escrituras al cambiar, scroll/opciones y pausa. Corregido fallback del cargador importado y añadido test unitario.
+- Backups previos y HTML regenerados. Arneses adaptados al menú, al plano vivo y a los textos actuales de dados; sin teletransportes para medir combate.
+- Final review 30/30 + 4/4 + 16/16; pruebas principales, esquiva y toque 390 px pasan. Medición de tres arranques por variante y logs en docs/FASE_0/integracion34.
+- Pendiente revisión/fusión de #37; #32 abierto, fase 1 no iniciada. No se fusiona ni cierra nada adicional.
+
 ## 2026-11-26 · Fase 0 · Decisiones autorizadas
 
 - Fusionado #36 mediante merge, comprobando que su head coincide con el commit validado `132d5a4`. Merge: `29daef875fbe7e911f22de5c032d7753cf70aa57`.

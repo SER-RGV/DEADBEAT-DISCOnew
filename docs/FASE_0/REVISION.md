@@ -1,6 +1,6 @@
 # Fase 0 · Revisión de ramas · 2026-11-26
 
-Estado actualizado: **parcial, #36 fusionado y #21 cerrado con autorización expresa**. No se inicia la fase 1; #34 sigue pendiente. Las secciones de revisión inferiores conservan el diagnóstico previo a las operaciones.
+Estado actualizado: **#36 fusionado y #21 cerrado con autorización expresa; cambios compatibles de #34 integrados y validados en #37 tras autorización adicional**. #34 permanece draft de referencia; no se inicia fase 1. Ver [integración y mediciones finales](INTEGRACION_PR34.md). Las secciones de revisión inferiores conservan el diagnóstico previo a las operaciones.
 
 ## Ejecución autorizada · 2026-11-26
 

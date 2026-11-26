@@ -11,6 +11,13 @@
   --dd-neon-magenta: #e11d74;
   --dd-neon-cyan: #22d3ee;
   --dd-neon-gold: #facc15;
+  /* PASE VISUAL · --dd-coral se usaba en diez reglas (acento de los
+     deslizadores de opciones, bordes de sección, subrayados) y NUNCA estaba
+     declarada: un var() sin valor invalida la declaración entera en tiempo de
+     análisis, así que el navegador se quedaba con su estilo por defecto. De ahí
+     que los deslizadores salieran con el azul nativo y varias secciones del
+     panel de opciones perdieran su acento. */
+  --dd-coral: #ff2d7a;
   --dd-cream: #f8fafc;
   --dd-muted: #cbd5e1;
   --dd-ink: #050208;
@@ -310,16 +317,28 @@ body.dd-highres-edition #ddc-cover {
   justify-content: space-between;
   gap: 10px;
   margin-top: 2px;
+  /* La franja del arma no puede crecer más que la tarjeta del HUD: el nombre se
+     parte en dos líneas si el catálogo del motor trae uno largo, en vez de
+     empujar la miniatura fuera del marco. */
+  min-width: 0;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.05em;
   color: var(--dd-cream);
 }
+/* PASE VISUAL · la miniatura del arma era un punto de 10 px.
+   El <img> mide 56x26 px y la ilustración real es 320x160 con el arma dibujada
+   dentro de un lienzo casi cuadrado (bbox 222x147), así que `object-fit:contain`
+   la reducía a ~20 px de ancho y el arma quedaba del tamaño de un guijarro. Se
+   recorta el lienzo vacío con object-position y se sube el alto para que el arma
+   se lea; el tamaño de la tarjeta no cambia. */
 .dd-hud-weapon-thumb {
-  height: 26px;
-  width: 56px;
-  object-fit: contain;
-  filter: drop-shadow(0 0 6px rgba(34, 211, 238, 0.45));
+  height: 34px;
+  width: 62px;
+  flex: none;
+  object-fit: cover;
+  object-position: 52% 50%;
+  filter: drop-shadow(0 0 7px rgba(34, 211, 238, 0.5));
 }
 
 /* Bottom-left octagonal skill cards */
@@ -672,15 +691,29 @@ body.dd-highres-edition:has(#dd-main-menu:not(.dd-hidden)) #dd-dialogue-box { vi
   font-weight: 800;
   color: var(--dd-cream);
   text-align: center;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
   width: 100%;
+  /* PASE VISUAL · el nombre se cortaba con puntos suspensivos («MAGNUM (RÓTULO:
+     …»). Ahora cabe completo en dos líneas y la tarjeta reserva ese alto para
+     que los precios queden alineados en toda la rejilla. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  overflow-wrap: anywhere;
+  line-height: 1.2;
+  min-height: calc(2 * 1.2em);
 }
 .dd-weapon-card-price {
   font-size: 10px;
   font-weight: 800;
   color: var(--dd-neon-gold);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+/* «EN PROPIEDAD» es más largo que un precio: que quepa sin recortarse. */
+.dd-weapon-card.equipped .dd-weapon-card-price {
+  font-size: 9.5px;
+  color: var(--dd-neon-cyan);
 }
 .dd-shop-inspector {
   background: rgba(8, 4, 16, 0.92);
@@ -757,6 +790,40 @@ body.dd-highres-edition:has(#dd-main-menu:not(.dd-hidden)) #dd-dialogue-box { vi
   padding: 20px 24px;
   align-items: center;
   overflow-y: auto;
+  /* PASE VISUAL · a 1024x600 y 800x600 la lista de los nueve círculos (543 px)
+     desbordaba el cuerpo del mapa (465 px) y las últimas filas quedaban cortadas
+     por el borde de la ventana. Las pistas del grid no podían encogerse
+     (`min-height:auto` por defecto), así que el hijo desbordaba en lugar de
+     repartir el alto. Ahora el grid permite encoger y la lista tiene su propio
+     scroll, de modo que las diez filas siempre son alcanzables. */
+  min-height: 0;
+  align-items: start;
+}
+.dd-map-body > * { min-height: 0; }
+.dd-circles-list { max-height: 100%; overflow-y: auto; padding-right: 6px; }
+.dd-tower-art-wrap { max-height: 100%; overflow: hidden; }
+.dd-tower-art-wrap img { max-width: 100%; max-height: 100%; object-fit: contain; height: auto; }
+
+/* Pantallas bajas: el mapa se compacta antes que recortarse. */
+@media (max-height: 720px) {
+  .dd-map-body { padding: 12px 18px; gap: 14px; }
+  .dd-circle-node { padding: 5px 10px; }
+  .dd-circles-list { gap: 5px; }
+}
+/* Ventanas estrechas: una sola columna (la torre arriba, la lista debajo). */
+@media (max-width: 860px) {
+  .dd-map-body { grid-template-columns: 1fr; align-content: start; }
+  .dd-tower-art-wrap { max-height: 34vh; justify-self: center; }
+  /* En una sola columna la lista NO puede llevar max-height:100%: sin alto
+     definido para su fila eso resuelve a 0 px y desaparecía. Deja que sea el
+     cuerpo del mapa el que haga scroll. */
+  .dd-circles-list { max-height: none; overflow: visible; }
+}
+/* El marco de la torre declara min-height:430px para el encuadre de escritorio;
+   en pantallas bajas o estrechas eso empuja la lista fuera de la ventana, así
+   que ahí manda el contenido. Especificidad mayor para no depender del orden. */
+@media (max-height: 720px), (max-width: 860px) {
+  .dd-map-body .dd-tower-art-wrap { min-height: 0; }
 }
 .dd-tower-art-wrap {
   background: radial-gradient(circle at 50% 50%, rgba(255, 45, 122, 0.24), rgba(5, 2, 10, 0.96) 75%);
@@ -1542,7 +1609,9 @@ body.dd-booting {
   border-bottom-width: 2px;
   border-radius: 3px;
   font-family: inherit;
-  font-size: 10px;
+  /* PASE VISUAL · las teclas de la ayuda se encogían hasta 8,5 px en 1024x600 y
+     9,8 en 1280x720 (por debajo de lo legible sobre el fondo). Suelo de 11 px. */
+  font-size: max(11px, 1em);
   color: rgba(255, 255, 255, 0.82);
   background: rgba(6, 3, 12, 0.5);
 }
@@ -1639,7 +1708,8 @@ body.dd-booting {
 .dd-submenu-back kbd {
   margin-left: 5px;
   font-family: inherit;
-  font-size: 9px;
+  /* Mismo suelo de legibilidad que la ayuda del menú principal (era 9 px). */
+  font-size: 11px;
   padding: 1px 4px;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 2px;
@@ -2271,7 +2341,7 @@ body:not([data-dd-state="playing"]) #dmo-v32-toggle-pill { display: none !import
   color: rgba(244, 236, 216, 0.7);
 }
 #dd-main-menu.dd-rs .dd-menu-hint kbd {
-  font: 700 0.85em/1 var(--rs-font) !important;
+  font: 700 max(11px, 0.92em)/1 var(--rs-font) !important;
   font-style: normal;
   padding: 3px 6px;
   margin-right: 5px;
@@ -2356,6 +2426,220 @@ body.dd-input-pad #dd-main-menu.dd-rs .dd-menu-hint .dd-kb { display: none; }
 /* Si el arranque falla, el logotipo cede sitio para que el aviso y sus dos
    botones quepan enteros en 1280×720. */
 #dd-boot-frame.is-failed .dd-boot-title img { max-height: 24vh !important; width: auto !important; max-width: 100%; justify-self: center; }
+
+/* ==========================================================================
+   SUBMENÚS EN PANTALLAS BAJAS (PASE VISUAL)
+   --------------------------------------------------------------------------
+   Defecto reproducido a 1024x600 (y a 1280x600 en ventana apaisada): el panel de
+   OPCIONES mide unos 660 px de alto y la tarjeta se limita a 92vh (600 x 0,92 =
+   552 px). La rejilla de dos columnas sólo se deshacía por debajo de 1100 px de
+   ANCHO, así que en esa franja el panel se recortaba a media fila: se veía la
+   mezcla del juego cortada y MÚSICA DEL MENÚ, VÍDEO, CONTROLES y el botón BORRAR
+   DATOS quedaban fuera, sin ninguna señal de que hubiera más contenido.
+
+   Corrección en dos partes, sin tocar el diseño de escritorio (1280x720 sigue
+   con dos columnas y sin desplazamiento, igual que antes):
+     1. La rejilla pasa a una columna cuando la ALTURA no da para dos.
+     2. Cuando aun así hay que desplazar, se avisa: el cuerpo lleva un degradado
+        de continuidad arriba y abajo y una barra de desplazamiento siempre
+        visible, y el pie añade «↓ MÁS» mientras quede contenido oculto.
+   ========================================================================== */
+@media (max-height: 700px) and (min-width: 1101px) {
+  .dd-opt-grid { grid-template-columns: minmax(0, 1fr); }
+  .dd-opt-grid .dd-opt-note { max-width: 78ch; }
+}
+@media (max-height: 620px) {
+  /* Ventana apaisada muy baja: la tarjeta usa todo el alto y el encabezado se
+     compacta; el cuerpo es el que desplaza. */
+  .dd-submenu-wrap { padding: 8px; }
+  .dd-submenu-card { max-height: 96vh; }
+  .dd-submenu-head { padding-top: 10px; padding-bottom: 8px; }
+  .dd-submenu-card h2 { font-size: clamp(19px, 3.4vh, 26px); }
+  .dd-submenu-body { padding-top: 8px; padding-bottom: 8px; }
+  .dd-opt-col h3 { font-size: 10px; letter-spacing: 0.16em; }
+  .dd-opt-col > h3:not(:first-child) { margin-top: 10px; padding-top: 8px; }
+  .dd-opt-note { font-size: 10px; line-height: 1.35; }
+}
+
+/* Señal de continuidad: sólo cuando el cuerpo desplaza de verdad (la clase la
+   pone openSubmenu midiendo scrollHeight, no se adivina en CSS). */
+.dd-submenu-body.is-scrollable {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 45, 122, 0.55) rgba(255, 45, 122, 0.08);
+}
+.dd-submenu-body.is-scrollable::-webkit-scrollbar { width: 9px; }
+.dd-submenu-body.is-scrollable::-webkit-scrollbar-track { background: rgba(255, 45, 122, 0.08); }
+.dd-submenu-body.is-scrollable::-webkit-scrollbar-thumb {
+  background: rgba(255, 45, 122, 0.55);
+  border-radius: 5px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+.dd-submenu-card.has-scaled-body::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: 34px;
+  height: 26px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(7, 4, 14, 0), rgba(7, 4, 14, 0.92));
+}
+.dd-submenu-card.has-scaled-body.is-at-end::after { opacity: 0; }
+.dd-submenu-card.has-scaled-body .dd-submenu-foot::after {
+  content: " · ↓ MÁS";
+  color: var(--dd-coral);
+  letter-spacing: 0.08em;
+}
+.dd-submenu-card.has-scaled-body.is-at-end .dd-submenu-foot::after { content: ""; }
+
+/* Nombre del arma en el HUD: completo, en como mucho dos líneas, con el tamaño
+   ajustado al largo real (antes se recortaba con puntos suspensivos). */
+#dd-hud-weapon-name {
+  min-width: 0;
+  line-height: 1.15;
+  font-size: clamp(10px, 1.05vw, 12px);
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Ficha del arma: rol y rasgo del catálogo del motor (antes no se mostraban) y
+   los rótulos de estadística con ancho fijo para que las barras se alineen. */
+.dd-inspector-role {
+  display: block;
+  font-size: 10.5px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  color: var(--dd-neon-cyan);
+  text-transform: uppercase;
+  margin-top: -4px;
+}
+.dd-inspector-trait {
+  margin: 0;
+  font-size: 11px;
+  line-height: 1.45;
+  color: rgba(226, 232, 240, 0.72);
+}
+.dd-stat-row > span:first-child {
+  min-width: 96px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: rgba(226, 232, 240, 0.66);
+}
+.dd-stat-row > span:last-child {
+  min-width: 56px;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  color: var(--dd-cream);
+}
+
+/* ==========================================================================
+   PASE VISUAL · PANEL DE OPCIONES
+   Reproducido a 1280x720: dentro de OPCIONES convivían dos lenguajes visuales.
+   Los deslizadores y el desplegable que aporta el motor (#menu-gfx, los
+   menu-vol-*) se pintaban con el estilo nativo del navegador — caja blanca
+   grisácea y deslizador azul por defecto — junto al resto del panel, que es
+   oscuro con acento coral. Además la nota al pie del panel quedaba cortada
+   por el borde inferior de la tarjeta (cuerpo 546 px para 521 disponibles).
+   ========================================================================== */
+
+/* Controles nativos del motor dentro de los submenús: mismo lenguaje que el
+   resto del panel, sin tocar su comportamiento ni su marcado. */
+#dd-submenu input[type="range"],
+body.dd-highres-edition #dd-submenu input[type="range"] {
+  accent-color: var(--dd-coral);
+  height: 22px;
+  cursor: pointer;
+  /* El propio control no pintaba fondo, así que el navegador usaba su color de
+     campo (blanco) y el deslizador del volumen del menú salía como una caja
+     blanca sobre el panel oscuro. */
+  background-color: transparent;
+  color-scheme: dark;
+}
+/* Los controles de formulario heredan el esquema oscuro de todo el panel: sin
+   esto, el navegador pinta fondos y textos con su paleta clara. */
+#dd-submenu { color-scheme: dark; }
+/* El selector de calidad gráfica del motor se pinta en blanco: `background:`
+   es atajo y el estilo nativo del navegador (light) gana al fondo oscuro.
+   Se fija con el atajo completo y más especificidad. */
+#dd-submenu select,
+body.dd-highres-edition #dd-submenu select {
+  font-family: inherit;
+  font-size: 12px;
+  min-height: 28px;
+  padding: 5px 8px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background-color: rgba(6, 3, 12, 0.92);
+  background-image: none;
+  color: var(--dd-cream);
+  color-scheme: dark;
+  cursor: pointer;
+}
+#dd-submenu select {
+  font-family: inherit;
+  font-size: 12px;
+  padding: 5px 8px;
+  min-height: 28px;
+  border: 1px solid rgba(148, 163, 184, 0.34);
+  border-radius: 3px;
+  background: rgba(6, 3, 12, 0.9);
+  color: var(--dd-cream);
+  cursor: pointer;
+}
+#dd-submenu select:focus-visible {
+  outline: 2px solid var(--dd-neon-cyan);
+  outline-offset: 2px;
+}
+/* La nota al pie del panel se leía casi invisible sobre el fondo y el borde de
+   la tarjeta la recortaba: contraste suficiente y, en pantallas de 720 px, un
+   cuerpo más compacto para que quepa entera sin scroll. */
+.dd-opt-foot {
+  color: rgba(226, 232, 240, 0.74);
+  line-height: 1.45;
+}
+@media (max-height: 780px) {
+  #dd-submenu .dd-opt-row { padding: 3px 0; }
+  #dd-submenu .dd-opt-note { line-height: 1.4; }
+  #dd-submenu .dd-opt-foot { margin-top: 6px; padding-top: 6px; }
+  #dd-submenu .dd-opt-col > h3:not(:first-child) { margin-top: 10px; padding-top: 7px; }
+}
+
+/* ==========================================================================
+   PASE VISUAL · PAUSA POR ENCIMA DE LA INTERFAZ DE JUEGO
+   Reproducido: con la pausa abierta (#pause-overlay) se seguían viendo ENCIMA
+   el HUD de la partida (z 6200) y el bocadillo del DJ (z 7500), porque el
+   overlay heredado vive en z-index 10. Además el panel de pausa quedaba con su
+   contenido cortado por abajo y sin scroll utilizable.
+   No se toca la maquetación de la pausa: sólo su posición en la pila y que su
+   scroll sea el que ya declaraba el CSS del motor.
+   ========================================================================== */
+body.dd-highres-edition #pause-overlay,
+body.dd-highres-edition #shot-choice-overlay,
+body.dd-highres-edition #risk-choice-overlay {
+  z-index: 12000;
+}
+/* La interfaz de juego se retira mientras hay pausa: es lo que ya hace el resto
+   de overlays del motor y evita que un diálogo tape los botones de pausa.
+   El motor pone y quita la clase `.visible` en #pause-overlay (y lo mismo en la
+   elección de variaciones), así que basta con selectores de hermano: nada de
+   :has(), que obligaría a revisar la coincidencia en cada cambio del árbol. */
+/* Sólo la pausa retira el HUD. Ojo: la elección de variaciones también usa
+   .visible y puede quedarse puesta mientras se juega; si retirase el HUD, éste
+   ya no volvería (reproducido: opacidad 0 permanente hasta recargar). */
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-hud { opacity: 0; pointer-events: none; }
+#pause-overlay.visible ~ #dd-dialogue-box,
+#shot-choice-overlay.visible ~ #dd-dialogue-box { opacity: 0; visibility: hidden; pointer-events: none; }
+
+/* Mientras la pausa está abierta, el bocadillo del DJ no puede tapar el panel.
+   No se oculta (su texto puede ser contexto de lo último que dijo el DJ): se
+   sube al borde inferior por debajo del contenido de la pausa, que ahora está
+   en una capa superior (z 12000) y con fondo opaco. */
+body.dd-highres-edition:has(#pause-overlay.visible) #dd-dialogue-box {
+  z-index: 1000;
+  opacity: 0.92;
+}
 
 /* UI audit · shared treatment for engine-owned combat dialogs.
    These are the original controls and event handlers, not duplicate modals. */
