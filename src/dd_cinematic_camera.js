@@ -52,7 +52,7 @@
     el.id = "dd-cine-overlay";
     el.innerHTML =
       '<div class="dd-letterbox-bar top"><span id="dd-cine-tag" style="color:#ff2d7a;font-weight:800;font-size:12px;letter-spacing:0.14em;text-transform:uppercase;">DEADBEAT DISCO</span><button class="dd-cine-skip" id="dd-cine-skip-btn" type="button">SALTAR [ESPACIO]</button></div>' +
-      '<div class="dd-letterbox-bar bottom"><span id="dd-cine-sub" style="color:#cbd5e1;font-size:12px;letter-spacing:0.08em;"></span><span style="color:#22d3ee;font-size:11px;font-weight:700;">CINEMÁTICA EN TIEMPO REAL</span></div>';
+      '<div class="dd-letterbox-bar bottom"><span id="dd-cine-sub" style="color:#cbd5e1;font-size:12px;letter-spacing:0.08em;"></span><span style="color:#22d3ee;font-size:12px;font-weight:700;">CINEMÁTICA EN TIEMPO REAL</span></div>';
     document.body.appendChild(el);
     document.getElementById("dd-cine-skip-btn").addEventListener("click", skip);
     return el;

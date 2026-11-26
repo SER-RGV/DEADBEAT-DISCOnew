@@ -344,3 +344,13 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Halos: sin defecto sistémico (107 sprites, 1 ≥20 %, 21 ≥10 %; rim light compatible, verificación humana en Fase 5). `prefers-reduced-motion` respetado en menú; sin opción «reducir destellos».
 - Artefacto corregido y documentado: primera tanda 390 dejó jefes idénticos (results screen); se regrabó todo; md5 finales distintos (anexo A).
 - Git: rama `arena/46b8bb0f-deadbeat-disconew`; PR de FASE 0 **en borrador**, sin merge y **pendiente de revisión del responsable**. **FASE 1 NO se abre** hasta esa revisión. Builds, `src/`, assets y manifiesto: sin tocar.
+
+
+## Estado actual · 2026-11-26 (ART FASE 1 · SISTEMA DE TOKENS)
+- **FASE 0 aprobada por la dirección** (2026-11-26, en el chat); PR #38 marcado listo para revisión. FASE 1 abierta con autorización.
+- FASE 1 entregada **en esta misma rama** (entorno fijo) y reportada en `docs/ART_QUALITY/01_TOKENS.md`: sistema de tokens CSS (`:root` ampliado; 139 hex → `var(--dd-*)`; piso tipográfico 12 px; espacio/radios/sombras/z/movimiento; `--dd-coral`/`--dd-core` ya existían referenciados sin definir → definidos como alias, pendiente confirmación Fase 2).
+- **TXT-3**: la fila ARMERÍA/TORRE/[H] REFUGIO se oculta en combate (queda en el Refugio); **MOB-1**: HUD compacto ≤560 px (sin solape vitals/minimapa en 390).
+- Incidente capturado por las capturas y corregido en la misma fase: 4 selectores `#ddc-*` rotos por la sustitución mecánica → la capa legacy volvió a pintarse; **corregido** y verificado (legacy `opacity: 0`, 0 pageerror). Las 87 capturas finales son del build corregido.
+- Pruebas: capturas 87/87, 0 errores; `test_menu_respuesta` 52/52 limpio (algunos timeouts sólo con la captura en paralelo; mismo comportamiento antes/después); `test_persistencia`/`test_restart_flow`/`test_hud_vitals` abortan igual en este sandbox por rAF/SwiftShader (A/B contra la copia previa: idéntico; no es regresión de esta fase).
+- Builds regenerados con `tools/build_active_html.py`; copias `backups/*_PRE-FASE1_2026-11-26.html` (SHA `6fdba6c4…`). **Sin tocar assets, manifiesto, arte, motor ni la paleta REF_06.**
+- Git: rama `arena/46b8bb0f-deadbeat-disconew`; los commits de FASE 1 van encima de FASE 0 (entorno fijo). **FASE 2 NO se abre sin visto bueno de la dirección.** Tras fusionar el PR #38, los commits de FASE 1 formarán su propio PR a `main`.

@@ -212,3 +212,11 @@ Registrar aquí cada modificación:
 - P0: void LIMBO; encuadre sin zoom; alfombra brocado; microtipografía; botones en combate; cartel infra-producido; enemigos intercambiables; sin tokens. P1/P2: wash AVARICIA; minimapa; WebP/arranque; 105 armas; duplicados; nomenclatura guía↔motor.
 - Corrección de método documentada: tanda 390 regrabada (jefes pasados a arenas reales; md5 distintos).
 - Sin cambios en builds, `src/`, assets ni manifiesto. PR en borrador, pendiente de revisión; FASE 1 no se abre.
+
+## 2026-11-26 · ART FASE 1 — Sistema de tokens y legibilidad base (sin cambiar arte)
+- FASE 0 aprobada por dirección. FASE 1: tokens CSS (`:root` semántico: paleta, tipografía, espacio, radios, sombras, z-index, movimiento), **139 hex → `var(--dd-*)`** (226→113 ocurrencias sueltas; 106→104 únicos).
+- Piso tipográfico **12 px** en todo el CSS (antes 39 lugares ≤ 11,5 px); los 12 px sueltos → 13 px.
+- TXT-3: botones ARMERÍA/TORRE/[H] REFUGIO ocultos en combate; H sigue como huida deliberada.
+- MOB-1: HUD compacto ≤560 px (390×844 verificado: vitals y minimapa sin solape).
+- Corregido en fase: 4 selectores `#ddc-*` rotos por la sustitución mecánica (capa legacy reafloró) — build regenerado y reverificado; `--dd-coral`/`--dd-core` (referenciados sin definir) definidos como alias.
+- Builds regenerados (`index.html` ≡ `DEADBEAT_DISCO.html`, 5.725.924 B); backups `backups/*_PRE-FASE1_2026-11-26.html`. Pruebas: 87/87 capturas 0 errores; menú 52/52; suites de arranque bloqueadas igual antes/después en SwiftShader (documentado). Informe `docs/ART_QUALITY/01_TOKENS.md`.

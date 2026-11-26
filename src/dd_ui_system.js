@@ -1566,8 +1566,8 @@
           var current = c.idx === activeCircle;
           return '<div class="dd-circle-node ' + (current ? 'current' : '') + '"><div>' +
             '<strong style="color:#ff2d7a;margin-right:8px;">[' + esc(c.code) + ']</strong><span>' + esc(c.name) + '</span>' +
-            '<div style="font-size:11px;color:#94a3b8;margin-top:2px;">' + esc(c.place) + '</div></div>' +
-            (current ? '<span style="font-size:11px;font-weight:800;">UBICACIÓN ACTUAL</span>' : '') + '</div>';
+            '<div style="font-size:12px;color:#94a3b8;margin-top:2px;">' + esc(c.place) + '</div></div>' +
+            (current ? '<span style="font-size:12px;font-weight:800;">UBICACIÓN ACTUAL</span>' : '') + '</div>';
         }).join("") : '<p class="dd-opt-note">El mapa aún no está disponible.</p>');
       var currentNode = listEl.querySelector(".current");
       listEl.scrollTop = currentNode ? Math.max(0, currentNode.offsetTop - listEl.offsetTop - listEl.clientHeight / 2) : listEl.scrollHeight;
@@ -2329,6 +2329,10 @@
     if (sCnt) sCnt.textContent = String(snap.boosts || 0);
     var sCard = el("dd-skill-boost");
     if (sCard) sCard.classList.toggle("dd-empty", !(snap.boosts > 0));
+    /* TXT-3 · fuera del Refugio los accesos rápidos del HUB se ocultan
+       (misma señal inHub que el resto del HUD; sólo cambia la clase CSS). */
+    var quickActions = document.querySelector(".dd-quick-actions");
+    if (quickActions) quickActions.classList.toggle("dd-combat-hidden", !inHub);
     var bossHud = el("dd-boss-hud");
     if (bossHud) {
       if (!inHub && snap.bossActive && snap.boss) {

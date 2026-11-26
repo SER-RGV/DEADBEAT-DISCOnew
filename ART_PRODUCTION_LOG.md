@@ -276,3 +276,13 @@ Fuentes originales conservadas en `_source/`. T02-04 se aisló con `sourceCrop=[
 - Informe: `docs/ART_QUALITY/00_AUDITORIA.md` — §2 tabla pantalla×resolución, §3 hallazgos (P0: CAM-1, CAM-2/3, MAT-1, TXT-1, TXT-3, CIN-3, PJE-1, tokens; más MOB-1…11 para 390), §4 análisis estático (duplicados 70/71/≈53,6 MB; manifiesto 277/349; halos sin defecto sistémico; reduced-motion OK sin opción «reducir destellos»), §5 priorizada, Anexo A literal de errores.
 - Nota de integridad: regrabación completa de la tanda 390 (ficheros de jefe idénticos por fallo de flujo en la pasada intermedia); los 87 finales son distintos entre sí (md5) y corresponden a salas/arenas reales.
 - Git: rama `arena/46b8bb0f-deadbeat-disconew`; PR **borrador**, sin merge, pendiente de revisión del responsable. **FASE 1 no se abre** hasta entonces.
+
+<!-- ART-FASE1:PRODUCTION -->
+### ART FASE 1 — Sistema de tokens y legibilidad base (CSS + HUD chrome)
+
+- Autorización: dirección, 2026-11-26 (tras revisar FASE 0). Alcance acotado a `dd_rebuild_ui.css`, `dd_ui_system.js` (1 bloque en `updateHud`), `dd_cinematic_camera.js` (1 font-size), builds y backups. **Cero arte nuevo, cero cambios de motor, paleta REF_06 intacta.**
+- Tokens: `:root` semántico completo (neutros/fondos, acentos, cyanes, dorados, tipografía 2xs→2xl, espacio, radios, sombras, z-index, movimiento). 139 reemplazos mecánicos hex→var con protección del bloque de definiciones; 60 `font-size` subidos (piso 12 px / 13 px); 4 selectores `#ddc-*` dañados en la sustitución → **detectados por las capturas y corregidos**; regresión verificada (legacy oculta, 0 pageerror).
+- TXT-3: `.dd-quick-actions.dd-combat-hidden` (clase aplicada desde `updateHud` fuera del Refugio).
+- MOB-1: `@media (max-width: 560px)` con geometría compacta del HUD; verificado por sonda (vitals 8→246 px, minimapa 246→382 px @390).
+- Pruebas: `tools/qa/capture_art_audit_fase0.js` reutilizado contra el build nuevo → `ART_EVIDENCE/art_quality/fase1/` (87/87, 0 errores); fps a la par (±20 % dentro del ruido SwiftShader); menú 52/52 limpio; A/B contra copia pre-FASE 1 para las suites bloqueadas por el entorno (idénticas).
+- Entregado en la misma rama del entorno (`arena/46b8bb0f-deadbeat-disconew`) encima de FASE 0; **FASE 2 no se abre sin visto bueno**. Tras fusionar PR #38, FASE 1 pasa a su propio PR.
