@@ -394,3 +394,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - `__DD_CIRCLE_ROOM_PROFILES` opt-in asigna nueve mezclas deterministas de tres plantillas y tres niveles de mobiliario; el núcleo mantiene topología 2.5. Nueve distribuciones distintas comprobadas en 1.000 seeds por piso, no nueve diseños artísticos nuevos.
 - 10.000 mapas sin firma repetida incluyendo Hangar del plan; coincidencia nativa del Hangar en seeds 0–9. 18 capturas en dos tipos/círculo, nueve descensos y victoria asistida/tainted; no campaña natural.
 - Headless generación media/p95 2.0 0,193/0,300 ms vs 2.6 1,281/5,000 ms; frame/heap muestreados solo una sala. Fase 3 continúa abierta. Informe, pruebas y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · fase 4 iniciada, tarima 2.7
+- Auditoría independiente encontró 40 esquinas de tarima camarote fuera del polígono entre 620 configuraciones 2.6. En 2.7 opt-in se reposiciona la tarima óptica; 0 esquinas fuera en el barrido equivalente. Guardados anteriores preservados.
+- Fase 4 iniciada, no aprobada; fase 3 sigue abierta. Detalles, pruebas, límites y reversión en `docs/FASE_4_GENERACION_QA.md`.

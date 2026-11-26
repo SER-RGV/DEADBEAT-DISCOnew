@@ -289,3 +289,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Perfiles de círculo experimentales 2.6
 - Flag opt-in `__DD_CIRCLE_ROOM_PROFILES`: nueve mezclas deterministas de plantillas y tres niveles de mobiliario en salas locales 1–6; guardados anteriores conservan versión.
 - Auditoría de 10.000 mapas sin firmas duplicadas incluyendo Hangar de plan; comprobación nativa del Hangar en diez seeds y victoria asistida. Persisten regresión de generación y QA visual/natural pendientes; detalles en la propuesta.
+
+## 2026-11-26 · Inicio de QA fase 4 y corrección experimental 2.7
+- Flag opt-in `__DD_PREFAB_DECK_REPAIR`: recoloca la tarima óptica del camarote que sobresalía del perímetro, sin cambiar las versiones guardadas anteriores.
+- Auditoría 10.000 mapas/620 configuraciones: 40 esquinas fuera antes, 0 después; QA y límites en `docs/FASE_4_GENERACION_QA.md`. Fases 3 y 4 no cerradas.

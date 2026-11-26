@@ -4,8 +4,9 @@ const {chromium}=require('playwright-core'),assert=require('node:assert/strict')
 (async()=>{
  const b=await chromium.launch({executablePath:process.env.DD_CHROMIUM,args:['--no-sandbox','--disable-gpu']});
  const p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];
- const expectedVersion=process.env.DD_CIRCLE_PROFILES==='1'?'2.6.0':process.env.DD_ROOM_SILHOUETTES==='1'?'2.5.0':process.env.DD_ROOM_VARIANTS==='1'?'2.4.0':process.env.DD_UNIFIED_GEOMETRY==='1'?'2.3.0':'2.2.0';
- if(expectedVersion==='2.6.0')await p.addInitScript(()=>{window.__DD_CIRCLE_ROOM_PROFILES=true;});
+ const expectedVersion=process.env.DD_DECK_REPAIR==='1'?'2.7.0':process.env.DD_CIRCLE_PROFILES==='1'?'2.6.0':process.env.DD_ROOM_SILHOUETTES==='1'?'2.5.0':process.env.DD_ROOM_VARIANTS==='1'?'2.4.0':process.env.DD_UNIFIED_GEOMETRY==='1'?'2.3.0':'2.2.0';
+ if(expectedVersion==='2.7.0')await p.addInitScript(()=>{window.__DD_PREFAB_DECK_REPAIR=true;});
+ else if(expectedVersion==='2.6.0')await p.addInitScript(()=>{window.__DD_CIRCLE_ROOM_PROFILES=true;});
  else if(expectedVersion==='2.5.0')await p.addInitScript(()=>{window.__DD_ROOM_SILHOUETTES_V3=true;});
  else if(expectedVersion==='2.4.0')await p.addInitScript(()=>{window.__DD_ROOM_VARIANTS_V3=true;});
  else if(expectedVersion==='2.3.0')await p.addInitScript(()=>{window.__DD_UNIFIED_ROOM_GEOMETRY=true;});
