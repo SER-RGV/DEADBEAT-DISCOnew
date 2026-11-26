@@ -334,3 +334,16 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
 - QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-26 (FASE 1 · pruebas automáticas y QA)
+
+- **Arnés único de QA**: `bash tools/qa/run.sh [--all] [--only=…]`. Sirve el repositorio por HTTP, resuelve Chromium desde `@sparticuz/chromium` (con sus librerías NSS empaquetadas, sin `npx playwright install` ni `apt`) y escribe `report.json` con PASS/FAIL/SKIP por comprobación. Inventario completo en `tools/qa/README.md`.
+- **Diez suites nuevas** en `tools/qa/e2e/`: arranque, menú, HUB, diez plantas + núcleo, partida real con entrada, guardado/recarga/restauración, teclado, 1.000 semillas, regresión visual y presupuestos.
+- **Ejecución completa** (`node tools/qa/run.js --all`): **161 PASS · 0 FAIL · 1 SKIP · 768 s** (node v22.22.3). El SKIP es la cadencia de la cinemática: solo 2 fotogramas en la ventana. Informe: `docs/evidence/fase1/report.json`; capturas revisadas en `docs/evidence/fase1/`.
+- **CI**: `.github/workflows/qa.yml` con build reproducible + 4 trabajos de QA en paralelo y artefactos. **La primera ejecución en GitHub está pendiente de verificación en el PR.**
+- **Regresión visual**: referencias en `tools/qa/visual/baselines/` para 1280×900, 1920×1080 y 390×844; umbral `QA_VISUAL_THRESHOLD` (1,5 % por defecto) y regeneración con `npm run visual:refs`.
+- **Presupuestos** (`tools/qa/budgets.json`): arranque **5,59 MB** y 250 recursos. Cadencia en render software: menú 3,79 fps, Refugio 12,29 fps, combate 1,58 fps. Son cotas inferiores y suelos anti-regresión, no objetivos de juego.
+- **Semillas**: 1.000 × 10 plantas = 10.000 planos validados con `src/room_generation/validate.js`; 108 salas + núcleo y **216 salidas** por semilla (el encargo citaba 223: diferencia señalada, no ajustada).
+- **Cambios en el juego (mínimos)**: el menú se anuncia con `role="menu"`/`menuitem` y `aria-current` (H-E4); comentario de la FSM corregido al contrato real, sin cambiar comportamiento (H-F1). `index.html` y `DEADBEAT_DISCO.html` regenerados con `tools/build_active_html.py`; build reproducible comprobado.
+- **Base**: esta fase incluye el contenido del PR #36 (merge, sin tocar su rama) porque `src/room_generation/validate.js` solo existe allí. PR #36 sigue abierto y sin fusionar.
+- **Fallos abiertos traspasados**: música de menú que no se corta al jugar (Fase 2); `refreshContinue()` es código muerto (decisión de interfaz); HUD recortado a 1280×900 y solapes del HUD en 390×844 (fases 4 y 5).

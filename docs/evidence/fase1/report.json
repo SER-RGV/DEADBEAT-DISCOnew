@@ -1,0 +1,1496 @@
+{
+  "startedAt": "2026-11-26T03:00:25.413Z",
+  "node": "v22.22.3",
+  "url": "http://127.0.0.1:34185",
+  "suites": [
+    {
+      "suite": "arranque",
+      "total": 11,
+      "pass": 11,
+      "fail": 0,
+      "skip": 0,
+      "ms": 7656,
+      "wallMs": 21856,
+      "file": "01_arranque.spec.js",
+      "checks": [
+        {
+          "id": "la página del juego responde 200",
+          "status": "PASS",
+          "pass": true,
+          "detail": "HTTP 200",
+          "expected": "HTTP 200",
+          "ms": 1062
+        },
+        {
+          "id": "la carga termina en MAIN_MENU",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 6585
+        },
+        {
+          "id": "la carga llega al 100 % con todos los pasos",
+          "status": "PASS",
+          "pass": true,
+          "detail": "100% · 10 pasos",
+          "expected": "100% y >= 9 pasos",
+          "ms": 3
+        },
+        {
+          "id": "el watchdog no ha tenido que intervenir",
+          "status": "PASS",
+          "pass": true,
+          "detail": "false",
+          "expected": "false",
+          "ms": 0
+        },
+        {
+          "id": "ningún error del arranque es fatal",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 registrados, 0 fatales",
+          "expected": "0 fatales",
+          "ms": 0
+        },
+        {
+          "id": "la barra de carga no retrocede",
+          "status": "PASS",
+          "pass": true,
+          "detail": "[0,10,20,30,40,50,60,70,80,90,100,100]",
+          "expected": "progreso monótono",
+          "ms": 4
+        },
+        {
+          "id": "la traza cubre de 0 % a 100 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 → 100",
+          "expected": "0 → 100",
+          "ms": 0
+        },
+        {
+          "id": "el menú queda disponible sin pulsación previa",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"estado\":\"MAIN_MENU\",\"gesto\":false}",
+          "expected": "MAIN_MENU y sin gesto pendiente",
+          "ms": 1
+        },
+        {
+          "id": "la introducción no se reproduce en el arranque (contrato actual)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "introActive=false",
+          "expected": "false",
+          "ms": 0
+        },
+        {
+          "id": "el lienzo del juego existe y tiene tamaño",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"w\":1280,\"h\":900}",
+          "expected": "lienzo con dimensiones",
+          "ms": 1
+        },
+        {
+          "id": "arranque: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "menu",
+      "total": 12,
+      "pass": 12,
+      "fail": 0,
+      "skip": 0,
+      "ms": 14704,
+      "wallMs": 29153,
+      "file": "02_menu.spec.js",
+      "checks": [
+        {
+          "id": "el menú está en pantalla",
+          "status": "PASS",
+          "pass": true,
+          "detail": "visible=true",
+          "expected": "visible",
+          "ms": 7889
+        },
+        {
+          "id": "el menú ofrece las seis acciones",
+          "status": "PASS",
+          "pass": true,
+          "detail": "play,customize,progression,options,extras,exit",
+          "expected": "play,customize,progression,options,extras,exit",
+          "ms": 0
+        },
+        {
+          "id": "cada acción tiene nombre accesible",
+          "status": "PASS",
+          "pass": true,
+          "detail": "JUGAR | PERSONALIZAR | PROGRESIÓN | OPCIONES | EXTRAS | SALIR",
+          "expected": "seis nombres",
+          "ms": 0
+        },
+        {
+          "id": "la navegación se anuncia como menú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "role=menu tag=DIV",
+          "expected": "role=\"menu\"",
+          "ms": 0
+        },
+        {
+          "id": "cada opción se anuncia como elemento de menú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "menuitem,menuitem,menuitem,menuitem,menuitem,menuitem",
+          "expected": "role=\"menuitem\"",
+          "ms": 1
+        },
+        {
+          "id": "solo una opción está en el orden de tabulación",
+          "status": "PASS",
+          "pass": true,
+          "detail": "play:0 customize:-1 progression:-1 options:-1 extras:-1 exit:-1",
+          "expected": "exactamente un tabindex=0",
+          "ms": 0
+        },
+        {
+          "id": "el foco arranca dentro del menú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"insideMenu\":true,\"visibleFocus\":true,\"action\":\"play\"}",
+          "expected": "foco en el menú",
+          "ms": 2
+        },
+        {
+          "id": "el foco es visible",
+          "status": "PASS",
+          "pass": true,
+          "detail": "true",
+          "expected": "true",
+          "ms": 0
+        },
+        {
+          "id": "la flecha abajo mueve la selección del juego",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 → 1",
+          "expected": "índice distinto",
+          "ms": 162
+        },
+        {
+          "id": "Enter abre el submenú de la opción elegida",
+          "status": "PASS",
+          "pass": true,
+          "detail": "SUBMENU",
+          "expected": "SUBMENU",
+          "ms": 6620
+        },
+        {
+          "id": "Escape vuelve al menú principal",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 29
+        },
+        {
+          "id": "menú: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 1
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "hub",
+      "total": 11,
+      "pass": 11,
+      "fail": 0,
+      "skip": 0,
+      "ms": 52114,
+      "wallMs": 58453,
+      "file": "03_hub.spec.js",
+      "checks": [
+        {
+          "id": "NUEVA PARTIDA entra al juego",
+          "status": "PASS",
+          "pass": true,
+          "detail": "estado PLAYING",
+          "expected": "PLAYING",
+          "ms": 48603
+        },
+        {
+          "id": "la apertura se puede saltar",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"skipped\":true,\"ms\":3467,\"elapsed\":0.5}",
+          "expected": "saltada",
+          "ms": 0
+        },
+        {
+          "id": "el descenso no deja la música del menú sonando",
+          "status": "PASS",
+          "pass": true,
+          "detail": "false",
+          "expected": "false",
+          "ms": 0
+        },
+        {
+          "id": "el Refugio está activo",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"active\":true,\"hasApi\":true}",
+          "expected": "true",
+          "ms": 1920
+        },
+        {
+          "id": "el motor informa de la partida",
+          "status": "PASS",
+          "pass": true,
+          "detail": "snapshot con 28 campos",
+          "expected": "snapshot",
+          "ms": 62
+        },
+        {
+          "id": "el Refugio es zona segura: la simulación está en pausa",
+          "status": "PASS",
+          "pass": true,
+          "detail": "running=false",
+          "expected": "running=false",
+          "ms": 0
+        },
+        {
+          "id": "el protagonista se mueve con el teclado",
+          "status": "PASS",
+          "pass": true,
+          "detail": "49 px (1790,2080 → 1839,2080)",
+          "expected": "> 2 px",
+          "ms": 1523
+        },
+        {
+          "id": "la animación de caminar responde al movimiento",
+          "status": "PASS",
+          "pass": true,
+          "detail": "walking=true frame=1",
+          "expected": "walking=true",
+          "ms": 0
+        },
+        {
+          "id": "el Refugio conserva sus zonas y estaciones",
+          "status": "PASS",
+          "pass": true,
+          "detail": "9 zonas · 16 estaciones",
+          "expected": "9 zonas y 16 estaciones",
+          "ms": 0
+        },
+        {
+          "id": "la llegada al Refugio queda guardada",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"v\":1,\"created\":\"2026-11-26T03:02:02.786Z\",\"visits\":1,\"runs\":1,\"last\":\"2026-11-26T03:02:02.786Z\"}",
+          "expected": "dd_save_v1 presente",
+          "ms": 6
+        },
+        {
+          "id": "HUB: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "plantas",
+      "total": 65,
+      "pass": 65,
+      "fail": 0,
+      "skip": 0,
+      "ms": 153730,
+      "wallMs": 155406,
+      "file": "04_plantas.spec.js",
+      "checks": [
+        {
+          "id": "entrada al juego por el camino del jugador",
+          "status": "PASS",
+          "pass": true,
+          "detail": "estado PLAYING",
+          "expected": "PLAYING",
+          "ms": 40539
+        },
+        {
+          "id": "la partida arranca al salir del Refugio",
+          "status": "PASS",
+          "pass": true,
+          "detail": "isRunning=true",
+          "expected": "true",
+          "ms": 49847
+        },
+        {
+          "id": "el motor publica las diez pistas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "10 pistas",
+          "expected": "10",
+          "ms": 1838
+        },
+        {
+          "id": "planta 1: la ronda 1 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 337
+        },
+        {
+          "id": "planta 1: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=1 running=true",
+          "expected": "running=true",
+          "ms": 2334
+        },
+        {
+          "id": "planta 1: el motor está en LIMBO",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=0 · Vestíbulo de pista · CÍRCULO I · LIMBO",
+          "expected": "circle=0",
+          "ms": 1526
+        },
+        {
+          "id": "planta 1: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO I · LIMBO",
+          "expected": "LIMBO",
+          "ms": 0
+        },
+        {
+          "id": "planta 1: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 1: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=25",
+          "expected": "estado con fase",
+          "ms": 4
+        },
+        {
+          "id": "planta 2: la ronda 12 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 6253
+        },
+        {
+          "id": "planta 2: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=12 running=true",
+          "expected": "running=true",
+          "ms": 2134
+        },
+        {
+          "id": "planta 2: el motor está en LUJURIA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=1 · Vestíbulo de pista · CÍRCULO II · LUJURIA",
+          "expected": "circle=1",
+          "ms": 12
+        },
+        {
+          "id": "planta 2: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO II · LUJURIA",
+          "expected": "LUJURIA",
+          "ms": 0
+        },
+        {
+          "id": "planta 2: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 2: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=42",
+          "expected": "estado con fase",
+          "ms": 2
+        },
+        {
+          "id": "planta 3: la ronda 23 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 53
+        },
+        {
+          "id": "planta 3: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=23 running=true",
+          "expected": "running=true",
+          "ms": 1962
+        },
+        {
+          "id": "planta 3: el motor está en GULA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=2 · Vestíbulo de pista · CÍRCULO III · GULA",
+          "expected": "circle=2",
+          "ms": 2475
+        },
+        {
+          "id": "planta 3: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO III · GULA",
+          "expected": "GULA",
+          "ms": 0
+        },
+        {
+          "id": "planta 3: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 3: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=57",
+          "expected": "estado con fase",
+          "ms": 11
+        },
+        {
+          "id": "planta 4: la ronda 34 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 32
+        },
+        {
+          "id": "planta 4: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=34 running=true",
+          "expected": "running=true",
+          "ms": 2128
+        },
+        {
+          "id": "planta 4: el motor está en AVARICIA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=3 · Vestíbulo de pista · CÍRCULO IV · AVARICIA",
+          "expected": "circle=3",
+          "ms": 3444
+        },
+        {
+          "id": "planta 4: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO IV · AVARICIA",
+          "expected": "AVARICIA",
+          "ms": 0
+        },
+        {
+          "id": "planta 4: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 4: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=71",
+          "expected": "estado con fase",
+          "ms": 14
+        },
+        {
+          "id": "planta 5: la ronda 45 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 2794
+        },
+        {
+          "id": "planta 5: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=45 running=true",
+          "expected": "running=true",
+          "ms": 2026
+        },
+        {
+          "id": "planta 5: el motor está en IRA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=4 · Vestíbulo de pista · CÍRCULO V · IRA",
+          "expected": "circle=4",
+          "ms": 1961
+        },
+        {
+          "id": "planta 5: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO V · IRA",
+          "expected": "IRA",
+          "ms": 0
+        },
+        {
+          "id": "planta 5: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 5: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=2 · por salir=85",
+          "expected": "estado con fase",
+          "ms": 1475
+        },
+        {
+          "id": "planta 6: la ronda 56 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 31
+        },
+        {
+          "id": "planta 6: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=56 running=true",
+          "expected": "running=true",
+          "ms": 2365
+        },
+        {
+          "id": "planta 6: el motor está en HEREJÍA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=5 · Vestíbulo de pista · CÍRCULO VI · HEREJÍA",
+          "expected": "circle=5",
+          "ms": 2
+        },
+        {
+          "id": "planta 6: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO VI · HEREJÍA",
+          "expected": "HEREJÍA",
+          "ms": 0
+        },
+        {
+          "id": "planta 6: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 6: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=1 · por salir=99",
+          "expected": "estado con fase",
+          "ms": 2
+        },
+        {
+          "id": "planta 7: la ronda 67 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 47
+        },
+        {
+          "id": "planta 7: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=67 running=true",
+          "expected": "running=true",
+          "ms": 1784
+        },
+        {
+          "id": "planta 7: el motor está en VIOLENCIA",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=6 · Vestíbulo de pista · CÍRCULO VII · VIOLENCIA",
+          "expected": "circle=6",
+          "ms": 2
+        },
+        {
+          "id": "planta 7: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO VII · VIOLENCIA",
+          "expected": "VIOLENCIA",
+          "ms": 0
+        },
+        {
+          "id": "planta 7: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 7: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=112",
+          "expected": "estado con fase",
+          "ms": 1
+        },
+        {
+          "id": "planta 8: la ronda 78 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 47
+        },
+        {
+          "id": "planta 8: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=78 running=true",
+          "expected": "running=true",
+          "ms": 1208
+        },
+        {
+          "id": "planta 8: el motor está en FRAUDE",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=7 · Vestíbulo de pista · CÍRCULO VIII · FRAUDE",
+          "expected": "circle=7",
+          "ms": 2102
+        },
+        {
+          "id": "planta 8: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO VIII · FRAUDE",
+          "expected": "FRAUDE",
+          "ms": 0
+        },
+        {
+          "id": "planta 8: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 8: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=0 · por salir=125",
+          "expected": "estado con fase",
+          "ms": 15
+        },
+        {
+          "id": "planta 9: la ronda 89 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 2418
+        },
+        {
+          "id": "planta 9: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=89 running=true",
+          "expected": "running=true",
+          "ms": 2155
+        },
+        {
+          "id": "planta 9: el motor está en TRAICIÓN",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=8 · Vestíbulo de pista · CÍRCULO IX · TRAICIÓN",
+          "expected": "circle=8",
+          "ms": 1948
+        },
+        {
+          "id": "planta 9: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vestíbulo de pista · CÍRCULO IX · TRAICIÓN",
+          "expected": "TRAICIÓN",
+          "ms": 0
+        },
+        {
+          "id": "planta 9: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 9: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=1 · por salir=139",
+          "expected": "estado con fase",
+          "ms": 1492
+        },
+        {
+          "id": "planta 10: la ronda 100 arranca",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 31
+        },
+        {
+          "id": "planta 10: la simulación está viva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "round=100 running=true",
+          "expected": "running=true",
+          "ms": 3067
+        },
+        {
+          "id": "planta 10: el motor está en NÚCLEO FINAL",
+          "status": "PASS",
+          "pass": true,
+          "detail": "circle=9 · NÚCLEO FINAL",
+          "expected": "circle=9",
+          "ms": 964
+        },
+        {
+          "id": "planta 10: la pista se rotula con su nombre",
+          "status": "PASS",
+          "pass": true,
+          "detail": "NÚCLEO FINAL",
+          "expected": "NÚCLEO FINAL",
+          "ms": 0
+        },
+        {
+          "id": "planta 10: la partida conserva vidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=3/3",
+          "expected": "hp > 0",
+          "ms": 0
+        },
+        {
+          "id": "planta 10: el director de combate responde",
+          "status": "PASS",
+          "pass": true,
+          "detail": "fase=BUILD · enemigos=2 · por salir=152",
+          "expected": "estado con fase",
+          "ms": 1919
+        },
+        {
+          "id": "las estadísticas de partida se pueden leer",
+          "status": "PASS",
+          "pass": true,
+          "detail": "dj,setlist,dt,hitStop,slowMo,fireCd",
+          "expected": "objeto de telemetría",
+          "ms": 8929
+        },
+        {
+          "id": "plantas: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "partida",
+      "total": 12,
+      "pass": 12,
+      "fail": 0,
+      "skip": 0,
+      "ms": 109137,
+      "wallMs": 115439,
+      "file": "05_partida.spec.js",
+      "checks": [
+        {
+          "id": "la partida real está en marcha",
+          "status": "PASS",
+          "pass": true,
+          "detail": "isRunning=true",
+          "expected": "true",
+          "ms": 94885
+        },
+        {
+          "id": "el protagonista avanza con el teclado",
+          "status": "PASS",
+          "pass": true,
+          "detail": "21 px",
+          "expected": "> 2 px",
+          "ms": 3202
+        },
+        {
+          "id": "el ratón orienta el apuntado",
+          "status": "PASS",
+          "pass": true,
+          "detail": "-0.395 → 2.393",
+          "expected": "ángulo distinto",
+          "ms": 2221
+        },
+        {
+          "id": "disparar no genera errores",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0",
+          "ms": 408
+        },
+        {
+          "id": "el HUD anuncia la tecla de esquiva",
+          "status": "PASS",
+          "pass": true,
+          "detail": "rollKey=Space",
+          "expected": "una tecla",
+          "ms": 1944
+        },
+        {
+          "id": "la esquiva desplaza al protagonista",
+          "status": "PASS",
+          "pass": true,
+          "detail": "41 px",
+          "expected": "sin excepción",
+          "ms": 1817
+        },
+        {
+          "id": "recibir daño reduce la vida del motor",
+          "status": "PASS",
+          "pass": true,
+          "detail": "hp=2",
+          "expected": "hp < 3",
+          "ms": 2994
+        },
+        {
+          "id": "el HUD refleja la vida que queda",
+          "status": "PASS",
+          "pass": true,
+          "detail": "Vidas 3 de 3 → Vidas 2 de 3",
+          "expected": "etiqueta de vidas actualizada",
+          "ms": 0
+        },
+        {
+          "id": "el daño se puede provocar sin excepción",
+          "status": "PASS",
+          "pass": true,
+          "detail": "ok",
+          "expected": "sin error",
+          "ms": 0
+        },
+        {
+          "id": "ESC deja la partida en pausa",
+          "status": "PASS",
+          "pass": true,
+          "detail": "paused=true",
+          "expected": "paused=true",
+          "ms": 959
+        },
+        {
+          "id": "ESC reanuda la partida",
+          "status": "PASS",
+          "pass": true,
+          "detail": "paused=false",
+          "expected": "paused=false",
+          "ms": 707
+        },
+        {
+          "id": "partida: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "persistencia",
+      "total": 12,
+      "pass": 12,
+      "fail": 0,
+      "skip": 0,
+      "ms": 59695,
+      "wallMs": 66901,
+      "file": "06_persistencia.spec.js",
+      "checks": [
+        {
+          "id": "sin partida guardada no se ofrece CONTINUAR",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"existe\":false,\"visible\":false,\"save\":null}",
+          "expected": "oculto",
+          "ms": 8006
+        },
+        {
+          "id": "se llega al Refugio para guardar",
+          "status": "PASS",
+          "pass": true,
+          "detail": "PLAYING",
+          "expected": "PLAYING",
+          "ms": 34861
+        },
+        {
+          "id": "la ficha de partida existe",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"v\":1,\"created\":\"2026-11-26T03:07:28.569Z\",\"visits\":1,\"runs\":1,\"last\":\"2026-11-26T03:07:28.569Z\"}",
+          "expected": "objeto guardado",
+          "ms": 68
+        },
+        {
+          "id": "la ficha tiene el formato esperado",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"v\":1,\"created\":\"2026-11-26T03:07:28.569Z\",\"visits\":1,\"runs\":1,\"last\":\"2026-11-26T03:07:28.569Z\"}",
+          "expected": "v=1 con created y last",
+          "ms": 0
+        },
+        {
+          "id": "tras recargar se vuelve al menú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 4605
+        },
+        {
+          "id": "el menú raíz sigue ofreciendo JUGAR",
+          "status": "PASS",
+          "pass": true,
+          "detail": "JUGAR true",
+          "expected": "true",
+          "ms": 2
+        },
+        {
+          "id": "la ficha sobrevive a la recarga",
+          "status": "PASS",
+          "pass": true,
+          "detail": "2026-11-26T03:07:28.569Z",
+          "expected": "2026-11-26T03:07:28.569Z",
+          "ms": 0
+        },
+        {
+          "id": "el submenú JUGAR ofrece CONTINUAR",
+          "status": "PASS",
+          "pass": true,
+          "detail": "botón true",
+          "expected": "true",
+          "ms": 6203
+        },
+        {
+          "id": "CONTINUAR devuelve al Refugio",
+          "status": "PASS",
+          "pass": true,
+          "detail": "PLAYING",
+          "expected": "PLAYING",
+          "ms": 5948
+        },
+        {
+          "id": "la partida restaurada está en el Refugio",
+          "status": "PASS",
+          "pass": true,
+          "detail": "DD_HUB activo=true",
+          "expected": "true",
+          "ms": 1
+        },
+        {
+          "id": "la restauración registra la visita",
+          "status": "PASS",
+          "pass": true,
+          "detail": "1 → 2",
+          "expected": "visits mayor",
+          "ms": 1
+        },
+        {
+          "id": "guardado: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "teclado",
+      "total": 9,
+      "pass": 9,
+      "fail": 0,
+      "skip": 0,
+      "ms": 12736,
+      "wallMs": 24310,
+      "file": "07_teclado.spec.js",
+      "checks": [
+        {
+          "id": "las seis opciones se alcanzan con la flecha abajo",
+          "status": "PASS",
+          "pass": true,
+          "detail": "play,customize,progression,options,extras,exit",
+          "expected": "6 distintas",
+          "ms": 8387
+        },
+        {
+          "id": "el foco sigue a la selección anunciada",
+          "status": "PASS",
+          "pass": true,
+          "detail": "[\"0:play\",\"1:customize\",\"2:progression\",\"3:options\",\"4:extras\",\"5:exit\"]",
+          "expected": "foco y selección alineados",
+          "ms": 0
+        },
+        {
+          "id": "el foco es visible en todo el recorrido",
+          "status": "PASS",
+          "pass": true,
+          "detail": "outline/box-shadow presentes",
+          "expected": "visible",
+          "ms": 3922
+        },
+        {
+          "id": "Enter abre OPCIONES sin ratón",
+          "status": "PASS",
+          "pass": true,
+          "detail": "SUBMENU",
+          "expected": "SUBMENU",
+          "ms": 402
+        },
+        {
+          "id": "el foco entra en el submenú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "{\"focusInside\":true,\"label\":\"Volumen maestro\",\"hidden\":\"false\"}",
+          "expected": "foco dentro",
+          "ms": 1
+        },
+        {
+          "id": "Tab no saca el foco del submenú abierto",
+          "status": "PASS",
+          "pass": true,
+          "detail": "foco dentro=true",
+          "expected": "true",
+          "ms": 9
+        },
+        {
+          "id": "Escape vuelve al menú principal",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 14
+        },
+        {
+          "id": "al volver, el foco regresa al menú",
+          "status": "PASS",
+          "pass": true,
+          "detail": "true",
+          "expected": "true",
+          "ms": 1
+        },
+        {
+          "id": "teclado: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "semillas",
+      "total": 9,
+      "pass": 9,
+      "fail": 0,
+      "skip": 0,
+      "ms": 2020,
+      "wallMs": 2021,
+      "file": "08_semillas.spec.js",
+      "checks": [
+        {
+          "id": "1000 semillas × 10 plantas se generan sin excepción",
+          "status": "PASS",
+          "pass": true,
+          "detail": "10000 planos · 2019 ms",
+          "expected": "0 excepciones",
+          "ms": 2019
+        },
+        {
+          "id": "las 10000 plantas pasan validate()",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 fallos",
+          "expected": "0 fallos",
+          "ms": 1
+        },
+        {
+          "id": "la generación es determinista",
+          "status": "PASS",
+          "pass": true,
+          "detail": "misma semilla → mismo plano",
+          "expected": "determinista",
+          "ms": 0
+        },
+        {
+          "id": "los nueve círculos suman 108 salas (12 por planta)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "108 salas en 9 plantas",
+          "expected": "108",
+          "ms": 0
+        },
+        {
+          "id": "el núcleo es una única sala",
+          "status": "PASS",
+          "pass": true,
+          "detail": "1 sala",
+          "expected": "1",
+          "ms": 0
+        },
+        {
+          "id": "el recorrido completo tiene 109 salas (108 + núcleo)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "109 salas",
+          "expected": "109",
+          "ms": 0
+        },
+        {
+          "id": "cada planta tiene al menos dos salidas por sala",
+          "status": "PASS",
+          "pass": true,
+          "detail": "mínimo 24 · máximo 24 salidas por planta",
+          "expected": ">= 12",
+          "ms": 0
+        },
+        {
+          "id": "las salidas del recorrido completo son estables",
+          "status": "PASS",
+          "pass": true,
+          "detail": "media 216.0 salidas por semilla (9 plantas)",
+          "expected": "216 por semilla",
+          "ms": 0
+        },
+        {
+          "id": "el recuento de salidas coincide con la medición del proyecto (216, no 223)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "216 medido · el encargo cita 223",
+          "expected": "documentado",
+          "ms": 0
+        }
+      ],
+      "metrics": {
+        "semillas": {
+          "seeds": 1000,
+          "maps": 10000,
+          "rooms": 109000,
+          "exits": 216000,
+          "perSeedExits": 216,
+          "ms": 2019,
+          "minExits": 24,
+          "maxExits": 24
+        }
+      },
+      "error": null
+    },
+    {
+      "suite": "visual",
+      "total": 12,
+      "pass": 12,
+      "fail": 0,
+      "skip": 0,
+      "ms": 176129,
+      "wallMs": 176202,
+      "file": "09_visual.spec.js",
+      "checks": [
+        {
+          "id": "1280x900: el menú carga",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 8243
+        },
+        {
+          "id": "1280x900/menu: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.000 % (0/1152000 px)",
+          "expected": "<= 1.5 %",
+          "ms": 11564
+        },
+        {
+          "id": "1280x900/refugio: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.000 % (0/1152000 px)",
+          "expected": "<= 1.5 %",
+          "ms": 38128
+        },
+        {
+          "id": "1280x900: sin errores durante las capturas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        },
+        {
+          "id": "1920x1080: el menú carga",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 13579
+        },
+        {
+          "id": "1920x1080/menu: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.000 % (0/2073600 px)",
+          "expected": "<= 1.5 %",
+          "ms": 13834
+        },
+        {
+          "id": "1920x1080/refugio: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.097 % (2004/2073600 px)",
+          "expected": "<= 1.5 %",
+          "ms": 64431
+        },
+        {
+          "id": "1920x1080: sin errores durante las capturas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        },
+        {
+          "id": "390x844: el menú carga",
+          "status": "PASS",
+          "pass": true,
+          "detail": "MAIN_MENU",
+          "expected": "MAIN_MENU",
+          "ms": 7158
+        },
+        {
+          "id": "390x844/menu: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.000 % (0/329160 px)",
+          "expected": "<= 1.5 %",
+          "ms": 5405
+        },
+        {
+          "id": "390x844/refugio: la pantalla no cambia más del 1.5 %",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0.124 % (407/329160 px)",
+          "expected": "<= 1.5 %",
+          "ms": 13787
+        },
+        {
+          "id": "390x844: sin errores durante las capturas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {},
+      "error": null
+    },
+    {
+      "suite": "presupuestos",
+      "total": 9,
+      "pass": 8,
+      "fail": 0,
+      "skip": 1,
+      "ms": 117715,
+      "wallMs": 117784,
+      "file": "10_presupuestos.spec.js",
+      "checks": [
+        {
+          "id": "arranque medido",
+          "status": "PASS",
+          "pass": true,
+          "detail": "6878 ms",
+          "expected": "MAIN_MENU",
+          "ms": 7875
+        },
+        {
+          "id": "el arranque cabe en el presupuesto (12 MB)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "5.59 MB (5.59 MB de HTML + 250 recursos)",
+          "expected": "<= 12 MB",
+          "ms": 2
+        },
+        {
+          "id": "menú: la cadencia no baja del presupuesto (0.18 fps)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "3.79 fps (p50 264.2 ms · p95 5572.3 ms · 3 fotogramas)",
+          "expected": ">= 0.18 fps",
+          "ms": 6637
+        },
+        {
+          "id": "cinemática: la cadencia no baja del presupuesto",
+          "status": "SKIP",
+          "pass": null,
+          "detail": "0.26 fps (p50 3856.9 ms · p95 3856.9 ms · 2 fotogramas)",
+          "expected": ">= 0.15 fps",
+          "ms": 11986,
+          "why": "solo 2 fotogramas en la ventana: medición no fiable"
+        },
+        {
+          "id": "se llega al Refugio para medir",
+          "status": "PASS",
+          "pass": true,
+          "detail": "PLAYING",
+          "expected": "PLAYING",
+          "ms": 22513
+        },
+        {
+          "id": "Refugio: la cadencia no baja del presupuesto (1.2 fps)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "12.29 fps (p50 81.4 ms · p95 1068.4 ms · 7 fotogramas)",
+          "expected": ">= 1.2 fps",
+          "ms": 6115
+        },
+        {
+          "id": "combate: hay enemigos en pista al medir",
+          "status": "PASS",
+          "pass": true,
+          "detail": "enemigos=4",
+          "expected": "> 0",
+          "ms": 62587
+        },
+        {
+          "id": "combate: la cadencia no baja del presupuesto (1.2 fps)",
+          "status": "PASS",
+          "pass": true,
+          "detail": "1.58 fps (p50 632.7 ms · p95 1837.1 ms · 9 fotogramas)",
+          "expected": ">= 1.2 fps",
+          "ms": 0
+        },
+        {
+          "id": "presupuestos: sin errores de consola ni peticiones fallidas",
+          "status": "PASS",
+          "pass": true,
+          "detail": "0 errores",
+          "expected": "0 errores",
+          "ms": 0
+        }
+      ],
+      "metrics": {
+        "arranque": {
+          "totalMB": 5.59,
+          "htmlMB": 5.59,
+          "recursos": 250,
+          "porTipo": {
+            "img": 0,
+            "css": 0
+          }
+        },
+        "menu": {
+          "frames": 3,
+          "p50": 264.2,
+          "p95": 5572.3,
+          "fpsMediana": 3.79
+        },
+        "cinematica": {
+          "frames": 2,
+          "p50": 3856.9,
+          "p95": 3856.9,
+          "fpsMediana": 0.26
+        },
+        "refugio": {
+          "frames": 7,
+          "p50": 81.4,
+          "p95": 1068.4,
+          "fpsMediana": 12.29
+        },
+        "combate": {
+          "frames": 9,
+          "p50": 632.7,
+          "p95": 1837.1,
+          "fpsMediana": 1.58
+        }
+      },
+      "error": null
+    }
+  ],
+  "totals": {
+    "pass": 161,
+    "fail": 0,
+    "skip": 1,
+    "total": 162
+  },
+  "wallMs": 767527
+}
