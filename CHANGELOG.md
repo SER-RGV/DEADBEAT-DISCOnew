@@ -1,5 +1,39 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Topología experimental 2.2.0
+
+- Integrados dos ciclos bajo flag y versionado, entrada r100 y jefe final r99; adaptadas puerta final y condición de victoria sin secretos obligatorios.
+- Cartografía guarda ocho celdas del piso 9; seed, versión y reconstrucción probadas tras recarga con debug. Nueve descensos y rama de victoria ensayados con intervención QA; no se declara campaña natural ni reanudación de incursión.
+- Rejilla nativa seed 0: 115 salas/257 salidas. A/B generación headless mantiene regresión 0,240 → 1,415 ms de media; modo experimental. Backups y límites en informe.
+
+
+## 2026-11-26 · Generación de salas · Prototipo topológico offline
+
+- Generados 10.000 planes con dos ciclos también sin secretos ni jefe; piso 9 modelado con entrada y jefe separados. Cuatro incidencias etiquetadas en pisos 0–8, una en piso 9.
+- Compilados 115.000 prefabs; rejilla offline conecta 100 desembarcos en 51 configuraciones. No prueba movimiento nativo.
+- No integrado ni activado: el motor identifica al jefe final mediante nivel 100 y necesita adaptación y QA antes de aceptar el nuevo piso 9.
+
+
+## 2026-11-26 · Generación de salas · Búsqueda experimental y topología
+
+- Optimizada la búsqueda de población sin caché persistente de rejillas; 108.000 poblaciones idénticas a la versión anterior. Build regenerado, backup con hashes y contraste nativo de 216 salas.
+- A/B limitado: media de generación menor frente a 2.1.0 previo, p95 mayor; se mantiene regresión frente a 2.0.0. Una muestra headless de frames no certifica ausencia de regresión ni asignaciones.
+- Diagnóstico: 2.732/9.000 pisos ordinarios sin candidato para un segundo ciclo por simple enlace; piso 9 aún requiere adaptación del límite de niveles y progresión. Fase 3 no completada.
+
+
+## 2026-11-26 · Generación de salas · Población experimental 2.1.0
+
+- Adaptador de población compilada integrado bajo flag; selección compatible con marcador de versión, SHA de 10.000 planes legacy idéntico, builds regenerados y backups verificados.
+- Contraste nativo: 216 salas y 1.728 candidatos sin bloqueos en dos seeds con debug; nueve descensos asistidos. No valida campaña completa.
+- Generación A/B headless: media 0,224 → 1,948 ms y p95 0,300 → 6,700 ms; regresión medida, modo experimental. Frame time y memoria A/B pendientes.
+
+## 2026-11-26 · Generación de salas · Inicio de fase 3
+
+- Registrada aprobación de fase 2 y requisito de dos ciclos también en piso 9.
+- Añadido prototipo aislado de adaptación/validación de población contra geometría compilada y su barrido 10×1.000; entonces no integrado en runtime.
+- Añadido diagnóstico de compatibilidad del validador con geometría compilada: 9.000/10.000 rechazos `unsafe point`, sin afirmar fallos físicos. Evidencia y comando en la propuesta. En ese momento, sin modificación del generador ni regeneración de builds.
+
+
 ## 2026-11-26 · Fase 0 · Integración de rendimiento tras #36
 
 - Integrado el delta compatible de #34 en #37, por autorización, sin restaurar la armería o atlas antiguos ni los retratos obsoletos. #34 permanece draft de referencia.
@@ -226,3 +260,8 @@ Registrar aquí cada modificación:
 - Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
 - Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
 - **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.
+
+## 2026-11-26 · Generación 2.3 experimental (fase 3 incompleta)
+- Flag opt-in `__DD_UNIFIED_ROOM_GEOMETRY`: geometría del plan alineada con prefab compilado, excepto Hangar; versión guardada prevalece. Copia de geometría evita mutación del plan por metadatos del motor.
+- QA: 10.000 mapas comprobados en datos; seed 0 con pruebas puntuales de puertas/spawns y progresión asistida. Benchmark headless revela regresión de generación; no se habilita por defecto.
+- Sin prefabs ni arte nuevos. Faltan criterios de variedad y validación; pruebas, limitaciones, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.

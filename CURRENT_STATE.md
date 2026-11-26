@@ -1,5 +1,15 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Estado vigente · 2026-11-26 · Generación de salas
+
+- Fases 0 y 1 cerradas como lectura y diagnóstico acotado; propuesta de fase 2 aprobada. Piso 9 incluido en el objetivo de dos ciclos.
+- Población compilada 2.1.0 integrada experimentalmente bajo `__DD_ROOM_SPAWN_GUARDS`; 10×1.000 mapas y 54.455 reubicaciones bajo su propio predicado. Motor nativo: 216 salas/1.728 candidatos sin bloqueos en dos seeds, con navegación debug; no prueba campaña completa.
+- Fase 3 iniciada con una comprobación previa: el validador actual rechaza 9.000/10.000 mapas al sustituir su geometría por la compilada; no demuestra 9.000 fallos físicos. Builds regenerados; validación del plan aún usa geometría previa. Modo 2.1.0 presenta regresión de tiempo de generación y permanece experimental.
+- Optimizada la búsqueda 2.1.0: 108.000 poblaciones idénticas al algoritmo previo; media A/B de generación menor en una muestra, p95 mayor y regresión frente a 2.0.0 aún presente. Topología y piso 9 multisalón integrados bajo flag; fase 3 incompleta.
+- Topología 2.2.0 integrada experimentalmente bajo `__DD_ROOM_TOPOLOGY_V3`: dos ciclos en diez pisos; entrada del núcleo r100 y jefe r99/nivel 100. Guardado de ocho celdas, seed y versión verificado en recarga de nueva incursión; reanudar una activa no verificado. Progresión y victoria probadas con debug, no campaña natural.
+- Detalles y límites: [propuesta](docs/PROPUESTA_GENERACION_FASE_2.md) y [línea base](docs/DIAGNOSTICO_GENERACION_BASELINE.md). Entradas posteriores se refieren a trabajos anteriores.
+
+
 ## Estado vigente · 2026-11-26 · Fase 0 integrada y validada
 
 - #36 fusionado y #21 cerrado con autorización. #32 sigue abierto.
@@ -352,3 +362,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
 - QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-26 · geometría experimental 2.3
+- Fase 3 **incompleta**: 2.3 opt-in publica geometría compilada, excluye Hangar y respeta versión del guardado; por defecto continúa 2.0. Detalle, límites, assets ausentes y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Medido: 10.000 mapas/115.000 salas con coincidencia de geometría; seed 0 en navegador 257 puertas y 920 spawns puntualmente, nueve descensos asistidos. No prueba campaña natural, cobertura física de todas las seeds ni arte visual.
+- Generación headless media/p95 2.0: 0,285/0,400 ms; 2.3: 1,663/6,600 ms. Regresión; no activar por defecto. Pendientes variedad, siluetas, identidad de círculos, assets y QA completo.
