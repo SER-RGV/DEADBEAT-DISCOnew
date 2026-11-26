@@ -114,7 +114,41 @@ python3 tools/build_active_html.py    # → 5.849.471 bytes
 cmp index.html <copia previa>         # idéntico: el build sale de src/
 ```
 
-Añadido como trabajo `build-reproducible` en `.github/workflows/qa.yml`.
+Añadido como trabajo `build-reproducible` en `.github/workflows/qa.yml` y
+**verificado en la CI** (ver 3.d).
+
+### 3.d · CI en GitHub Actions
+
+Ejecución del PR ([run 45749986954](https://github.com/SER-RGV/DEADBEAT-DISCOnew/actions/runs/45749986954),
+26-11-2026 03:36 UTC): **7 de 7 trabajos en verde**, 8 min 14 s de extremo a
+extremo y ~7 min de reloj por trabajo.
+
+| Trabajo | Resultado |
+|---|---|
+| `Build reproducible desde src/` | ✅ |
+| `Instalar arnés` | ✅ |
+| `Arranque, menú, teclado y semillas` | ✅ |
+| `Regresión visual (3 tamaños)` | ✅ |
+| `Presupuestos de peso y cadencia` | ✅ |
+| `HUB, diez plantas, partida real y guardado` | ✅ |
+| `Resumen de la QA` | ✅ |
+
+Dos hallazgos del primer contacto con Actions, ya corregidos:
+
+1. **`partida` era inestable**: `DMO.playtest.hurt` aplica el golpe en un punto
+   fijo junto al protagonista y, si ese punto cae sobre un muro o un prop, el
+   daño no entra (observado: `hp=3` con el HUD en «Vidas 3 de 3»). La prueba
+   ahora reintenta moviendo al personaje entre intentos, informa de cuántos
+   hicieron falta y no toca el juego.
+2. **El trabajo `Rebuild active game HTML` estaba roto de origen**: el PR #36
+   declara un paso `node tools/qa/hub_greybox.cjs` y no incluye ese fichero (no
+   existe en ninguna rama), así que el trabajo fallaba por un módulo ausente.
+   El paso queda condicionado a que el fichero exista, sin cambiar lo que
+   pretende validar.
+
+Además, cada trabajo publica el resumen del informe (`tools/qa/report-summary.js`)
+en la suma del paso y, si falla en un PR, como comentario: así el detalle de una
+comprobación fallida se lee sin descargar artefactos.
 
 ## 4 · Fallos encontrados
 
@@ -140,9 +174,11 @@ Además de los cuatro del arnés anterior:
 
 ## 5 · Pendiente o no verificado
 
-- **No se ha ejecutado la CI en GitHub todavía**: el workflow está escrito y el
-  mismo comando se ha ejecutado en local, pero la primera ejecución real en
-  Actions se verá en el PR. Hasta entonces, «CI verde» no está verificado.
+- **La CI se ha ejecutado en el PR y está en verde** (3.d). Lo que sigue sin
+  cubrirse: navegadores distintos de Chromium, Windows/macOS y GPU real.
+- **Estabilidad**: el trabajo `juego` falló una vez por la prueba de daño; se
+  corrigió y las dos ejecuciones posteriores han pasado. Con dos ejecuciones
+  verdes no se puede afirmar que no queden intermitencias.
 - **Ninguna suite anterior a esta fase se ha reejecutado entera** (salvo
   `tools/fase01_qa/run.sh`, truncada). El inventario de `tools/qa/README.md`
   describe su cobertura según cabecera y código, no por ejecución.
