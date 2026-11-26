@@ -12,7 +12,7 @@ const URL = process.argv[2] || "http://localhost:8000";
     args: ["--no-sandbox", "--disable-gpu"],
   });
   try {
-    fs.mkdirSync("ART_EVIDENCE/PREFABS_BOSS", { recursive: true });
+    fs.mkdirSync("archivo/evidencias/ART_EVIDENCE/PREFABS_BOSS", { recursive: true });
     const seen = [];
     for (const floor of [0, 4, 9]) {
       const p = await browser.newPage({ viewport: { width: 1280, height: 800 } }),
@@ -55,7 +55,7 @@ const URL = process.argv[2] || "http://localhost:8000";
         "boss spawned outside the octagon",
       );
       await p.screenshot({
-        path: "ART_EVIDENCE/PREFABS_BOSS/circulo-" + (floor + 1) + ".jpg",
+        path: "archivo/evidencias/ART_EVIDENCE/PREFABS_BOSS/circulo-" + (floor + 1) + ".jpg",
       });
       await p.evaluate(() => {
         DMO.debug.setBossHp(1);

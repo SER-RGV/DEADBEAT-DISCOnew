@@ -35,7 +35,7 @@ const { chromium } = require("playwright-core"),
       await p.evaluate(() => getComputedStyle(document.querySelector("#move-touch-zone")).display !== "none"),
       "the mobile move zone is hidden",
     );
-    fs.mkdirSync("ART_EVIDENCE/PREFABS_TOUCH", { recursive: true });
+    fs.mkdirSync("archivo/evidencias/ART_EVIDENCE/PREFABS_TOUCH", { recursive: true });
     const done = new Set();
     for (let floor = 0; floor < 10 && done.size < 4; floor++) {
       await p.evaluate((f) => DMO.explore.debug({ action: "goto", level: 1 + 11 * f }), floor);
@@ -79,7 +79,7 @@ const { chromium } = require("playwright-core"),
         // The runner must still be standing on the new shell, not pushed through it.
         const inside = await p.evaluate((pl) => DMO.explore.contains(pl.x, pl.y, 8), after);
         assert(inside, house + ": touch movement left the shell");
-        await p.screenshot({ path: "ART_EVIDENCE/PREFABS_TOUCH/" + house + ".jpg" });
+        await p.screenshot({ path: "archivo/evidencias/ART_EVIDENCE/PREFABS_TOUCH/" + house + ".jpg" });
         done.add(house);
         console.log(house, "→", key, "moved", Math.round(after.x - before.x), "px");
         if (done.size === 4) break;

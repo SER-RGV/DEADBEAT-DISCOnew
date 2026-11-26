@@ -10,7 +10,7 @@ const { chromium } = require("playwright-core"),
     args: ["--no-sandbox", "--disable-gpu"],
   });
   try {
-    fs.mkdirSync("ART_EVIDENCE/PREFABS_RAVE", { recursive: true });
+    fs.mkdirSync("archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE", { recursive: true });
     const p = await browser.newPage({ viewport: { width: 1280, height: 800 } }),
       errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
@@ -67,7 +67,7 @@ const { chromium } = require("playwright-core"),
           }));
         }
         if (!state?.rave || state.enemies < 5) continue;
-        await p.screenshot({ path: "ART_EVIDENCE/PREFABS_RAVE/" + house + ".jpg" });
+        await p.screenshot({ path: "archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE/" + house + ".jpg" });
         done.add(house);
         console.log(house, "→", key, "rave", state.rave.toFixed(2), "hosts", state.enemies);
         if (done.size === 4) break;
@@ -75,7 +75,7 @@ const { chromium } = require("playwright-core"),
     }
     assert.equal(done.size, 4, "only " + done.size + " combat houses reached");
     assert.deepEqual(errors, []);
-    console.log("PASS RAVE forced with 5 staged warnings in the 4 combat houses (frames in ART_EVIDENCE/PREFABS_RAVE)");
+    console.log("PASS RAVE forced with 5 staged warnings in the 4 combat houses (frames in archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE)");
   } finally {
     await browser.close();
   }

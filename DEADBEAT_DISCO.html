@@ -16627,7 +16627,43 @@ window.DD_PREFAB_WORLD = (() => {
   function shell(g, w, h, r, mesh, clip, floor) {
     load();
     g.save();
-    g.fillStyle = "#090911";
+    // Rooms narrower than the viewport leave bare canvas at the edges, so the
+    // void carries the circle's own stone, dimmed, under a vignette: it reads as
+    // floor falling off into the dark instead of a hole in the frame.
+    g.fillStyle = "#08070d";
+    g.fillRect(0, 0, w, h);
+    const stone = circleFloors[floor];
+    if (stone) {
+      if (!requested.has(stone)) {
+        requested.add(stone);
+        const im = new Image();
+        im.onload = () => {
+          images[stone] = im;
+          revision++;
+        };
+        im.src = "assets/floors/" + stone + ".png";
+      }
+      if (images[stone]) {
+        const pat = g.createPattern(images[stone], "repeat");
+        pat.setTransform(new DOMMatrix().scale(0.5));
+        g.save();
+        g.globalAlpha = 0.11;
+        g.fillStyle = pat;
+        g.fillRect(0, 0, w, h);
+        g.restore();
+      }
+    }
+    const vig = g.createRadialGradient(
+      w / 2,
+      h / 2,
+      Math.min(w, h) * 0.3,
+      w / 2,
+      h / 2,
+      Math.max(w, h) * 0.72,
+    );
+    vig.addColorStop(0, "rgba(8,7,13,0)");
+    vig.addColorStop(1, "rgba(4,3,8,0.9)");
+    g.fillStyle = vig;
     g.fillRect(0, 0, w, h);
     g.save();
     clip(g);
@@ -16640,14 +16676,7 @@ window.DD_PREFAB_WORLD = (() => {
       { x: 0, y: r.h },
     ];
     paint(g, "suelo", bounds, "#2c2831");
-    const stone = circleFloors[floor];
     if (stone) {
-      if (!requested.has(stone)) {
-        requested.add(stone);
-        const im = new Image();
-        im.onload = () => { images[stone] = im; revision++; };
-        im.src = 'assets/floors/' + stone + '.png';
-      }
       if (images[stone]) {
         g.globalAlpha = 0.55;
         paint(g, stone, bounds, "#292432");
