@@ -398,3 +398,6 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 ## Seguimiento · 2026-11-26 · fase 4 iniciada, tarima 2.7
 - Auditoría independiente encontró 40 esquinas de tarima camarote fuera del polígono entre 620 configuraciones 2.6. En 2.7 opt-in se reposiciona la tarima óptica; 0 esquinas fuera en el barrido equivalente. Guardados anteriores preservados.
 - Fase 4 iniciada, no aprobada; fase 3 sigue abierta. Detalles, pruebas, límites y reversión en `docs/FASE_4_GENERACION_QA.md`.
+
+### Seguimiento QA 2026-11-26
+Intento natural 2.7 por controles: derrota en primera sala; no victoria ni campaña completa. Matriz asistida seed 0: 116 capturas/10 pisos, revisadas en hojas de contacto; arquitectura repetitiva y visibilidad limitada. Perfil y experimento de preparación compartida documentados en `docs/FASE_4_GENERACION_QA.md`; mejora no concluyente, revertida. Regresión de generación y QA integral siguen abiertas; default 2.0 intacto.

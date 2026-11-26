@@ -1,0 +1,40 @@
+diff --git a/src/room_generation/population_compiled.js b/src/room_generation/population_compiled.js
+index 5d2fadc..365e878 100644
+--- a/src/room_generation/population_compiled.js
++++ b/src/room_generation/population_compiled.js
+@@ -51,9 +51,8 @@ function populationCompiledSafe(x, y, radius, geometry, mesh, prepared) {
+ const populationCompiledAxis = [];
+ for (let v = 0.05; v < 1; v += 0.025) populationCompiledAxis.push(v);
+ Object.freeze(populationCompiledAxis);
+-function adaptPopulationCompiled(population, compiled) {
++function adaptPopulationCompiled(population, compiled, prepared = preparePopulationGeometry(compiled.geometry, compiled.mesh)) {
+   const {geometry, mesh} = compiled;
+-  const prepared = preparePopulationGeometry(geometry, mesh);
+   function safe(p, radius, offsets = [0]) {
+     return offsets.every(dx => populationCompiledSafe(p.x + dx / geometry.w, p.y, radius, geometry, mesh, prepared));
+   }
+@@ -95,9 +94,8 @@ function adaptPopulationCompiled(population, compiled) {
+     reward: relocate(population.reward, 36, [-80, 0, 80]),
+   };
+ }
+-function validatePopulationCompiled(population, compiled) {
++function validatePopulationCompiled(population, compiled, prepared = preparePopulationGeometry(compiled.geometry, compiled.mesh)) {
+   const {geometry, mesh} = compiled;
+-  const prepared = preparePopulationGeometry(geometry, mesh);
+   for (const p of population.spawns)
+     if (!populationCompiledSafe(p.x, p.y, 36, geometry, mesh, prepared))
+       throw Error('unsafe compiled spawn');
+diff --git a/tools/room_generation_migration.py b/tools/room_generation_migration.py
+index 46f339f..cee6de4 100644
+--- a/tools/room_generation_migration.py
++++ b/tools/room_generation_migration.py
+@@ -38,7 +38,8 @@ function generateVersioned(s,f,version=selectedVersion){
+   if(version!==legacyVersion){
+     for(const node of plan.nodes){
+       const compiled=playableRoom(node);if(!compiled)continue;
+-      node.population=adaptPopulationCompiled(node.population,compiled);validatePopulationCompiled(node.population,compiled);
++      const prepared=preparePopulationGeometry(compiled.geometry,compiled.mesh);
++      node.population=adaptPopulationCompiled(node.population,compiled,prepared);validatePopulationCompiled(node.population,compiled,prepared);
+       if([unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion].includes(version)) node.geometry=compiled.geometry;
+     }
+     plan.version=version;

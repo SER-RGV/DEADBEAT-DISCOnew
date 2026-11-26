@@ -293,3 +293,5 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Inicio de QA fase 4 y corrección experimental 2.7
 - Flag opt-in `__DD_PREFAB_DECK_REPAIR`: recoloca la tarima óptica del camarote que sobresalía del perímetro, sin cambiar las versiones guardadas anteriores.
 - Auditoría 10.000 mapas/620 configuraciones: 40 esquinas fuera antes, 0 después; QA y límites en `docs/FASE_4_GENERACION_QA.md`. Fases 3 y 4 no cerradas.
+
+- QA 2026-11-26: intento de campaña natural (derrota en r0), matriz asistida de 116 capturas y perfil por etapas. Experimento de preparación compartida medido y revertido por mejora no concluyente; ninguna modificación activa de generación. Véase `docs/FASE_4_GENERACION_QA.md`.
