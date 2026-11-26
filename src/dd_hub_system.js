@@ -140,7 +140,7 @@
     if(id==='rest'){
       msg=record.discover('groove');
       if(!msg&&record.repairs<2)msg='El reproductor está desconectado. Lleva el surco de prueba al taller.';
-      else if(!msg){const quiet=record.toggle();const audio=window.DD_BOOT?.audio;if(quiet)audio?.stopMenuMusic(.4);else audio?.startMenuMusic(.5);msg=quiet?'Reproductor en pausa.':'Suena la mezcla del Refugio.';}
+      else if(!msg){const quiet=record.toggle();const audio=window.DD_BOOT?.audio;if(quiet){audio?.stopMenuMusic(.4);audio?.duckMenuMusic?.(false);}else{audio?.startMenuMusic(.5);audio?.duckMenuMusic?.(true);}msg=quiet?'Reproductor en pausa.':'Suena la mezcla del Refugio.';}
     }
     if(id==='keepsake'){const item=record.displayNext();msg=item?'En la vitrina: '+item.name+'. '+item.description:'La vitrina está vacía. Examina la funda junto al sofá.';}
     if(id==='ledger'&&record.reveal()){msg='Las tres marcas coinciden. El sello del zorro se enciende sobre la estantería.';}
@@ -216,6 +216,16 @@
     setTimeout(function () {
       if (!state.active || record.quiet) return;
       try {
+        /* El Refugio es un lugar, no una portada: la misma pista suena como
+           ambiente, atenuada (DDC_COVER.music.duck = x0,32 ≈ -10 dB). Se marca
+           ANTES de arrancar porque el arranque hace su propio fundido hacia el
+           nivel de menú y, si se atenúa después, el fundido gana la carrera:
+           medido, el Refugio acababa a -11,1 dBFS, igual que la portada. */
+        if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.duckMenuMusic === "function") {
+          window.DD_BOOT.audio.duckMenuMusic(true);
+        } else if (window.DDC_COVER && window.DDC_COVER.music && typeof window.DDC_COVER.music.duck === "function") {
+          window.DDC_COVER.music.duck(true);
+        }
         if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.startMenuMusic === "function") {
           window.DD_BOOT.audio.startMenuMusic(2.0);
         } else if (window.DDC_COVER && window.DDC_COVER.music && typeof window.DDC_COVER.music.start === "function") {
@@ -231,8 +241,10 @@
     try {
       if (window.DD_BOOT && window.DD_BOOT.audio && typeof window.DD_BOOT.audio.stopMenuMusic === "function") {
         window.DD_BOOT.audio.stopMenuMusic(0.4);
+        window.DD_BOOT.audio.duckMenuMusic(false);
       } else if (window.DDC_COVER && window.DDC_COVER.music && typeof window.DDC_COVER.music.stop === "function") {
         window.DDC_COVER.music.stop(0.4);
+        if (window.DDC_COVER.music.duck) window.DDC_COVER.music.duck(false);
       }
     } catch (e) { /* sin audio */ }
     const triggerRun = function () {

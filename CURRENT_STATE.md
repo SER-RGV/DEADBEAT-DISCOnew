@@ -347,3 +347,12 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Cambios en el juego (mínimos)**: el menú se anuncia con `role="menu"`/`menuitem` y `aria-current` (H-E4); comentario de la FSM corregido al contrato real, sin cambiar comportamiento (H-F1). `index.html` y `DEADBEAT_DISCO.html` regenerados con `tools/build_active_html.py`; build reproducible comprobado.
 - **Base**: esta fase incluye el contenido del PR #36 (merge, sin tocar su rama) porque `src/room_generation/validate.js` solo existe allí. PR #36 sigue abierto y sin fusionar.
 - **Fallos abiertos traspasados**: música de menú que no se corta al jugar (Fase 2); `refreshContinue()` es código muerto (decisión de interfaz); HUD recortado a 1280×900 y solapes del HUD en 390×844 (fases 4 y 5).
+
+## Fase 2 · Audio (2026-11-26)
+- El audio de partida **suena**: pico −9,6 dBFS y RMS −33 dBFS con 9,5–12 notas/s en combate (antes: −68 dBFS y 1–3 notas/s). Corregido el adelanto del planificador (0,12 → 1,25 s), su reloj (32 → 140 ms) y la ganancia de la cadena (0,29 → 2,4).
+- El **mezclador** del juego (`master/music/sfx/dj` + limitador −1,2 dB) ya se atraviesa: sus buses se publican como propiedades y `DD_MIX.set('music', 0)` baja la partida 10 dB. Antes las voces caían al `Fl` directo y el volumen del juego no hacía nada.
+- **Refugio**: cama musical propia atenuada ×0,32 (RMS −32,6 frente a −27,3 del menú) y telemetría `DD_BOOT.getState().audioOwner` (`menu`, `intro`, `refugio`, `partida`…). **G2 cerrado** con medición.
+- **QA**: suite `audio` con 15 pruebas (`node tools/qa/run.js --only=audio`, 109 s) en la CI, dentro del trabajo de juego. Instrumentos: `tools/qa/lib/audio.js` y `tools/qa/audio_capture.js`.
+- **Peso**: +3,0 KB en el build (+0,05 %); 0 B de audio en `assets/`.
+- **Límites conocidos**: con `master=0` queda −18,8 dBFS del subsistema de ambiente/DJ, que tiene buses propios; nada se ha escuchado con oído humano (son medidas de nivel y densidad).
+- Informe: `docs/AUDIO/FASE_2_AUDIO.md`.

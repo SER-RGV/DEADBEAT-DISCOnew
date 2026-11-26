@@ -74,6 +74,43 @@ dice_hook('function Kh(){if(!U||Y||W||Mr||ye.rollT>0||Dt.owned.length<2)return!1
 # Boost remains evasive, not a second attack that kills by body contact.
 dice_hook('if(Cr){if(t.mini){t.boostHit!==ap&&(t.boostHit=ap,pe=Math.max(pe,6),Zu(t,.25)&&Ta.splice(a,1));continue}Ep(t),vs(t.x,t.y,t.color),Ta.splice(a,1),pe=Math.max(pe,6);continue}', 'if(Cr)continue;')
 dice_hook('a<sr.r+ye.r)if(Cr)sr.boostHit!==ap&&(sr.boostHit=ap,pe=Math.max(pe,6),Cs(.15),Ku(.1));else if(wp("boss",sr.x,sr.y))', 'a<sr.r+ye.r&&!Cr&&wp("boss",sr.x,sr.y))')
+
+# ---------------------------------------------------------------------------
+# FASE 02 · AUDIO
+#
+# El motor de partida programa su música con un reloj de 32 ms y solo 120 ms de
+# adelanto. Bajo carga (render por software, equipos modestos) el hilo principal
+# pierde turnos y la pista se queda prácticamente en silencio: medido en el
+# arnés, −68 dBFS y 1–3 notas/s en combate frente a −11 dBFS de la portada.
+# Se amplía la ventana de adelanto, se baja la frecuencia del reloj (menos
+# despertares, misma música) y se sube la ganancia de la cadena de partida para
+# que la mezcla del juego quede al nivel de la de portada. El limitador del
+# mezclador (−1,2 dB, ratio 20) sigue delante: no se recorta la salida.
+# ---------------------------------------------------------------------------
+AUDIO_LOOKAHEAD = 1.25   # segundos programados por delante del reloj de audio
+AUDIO_TICK_MS = 140      # frecuencia del reloj del planificador (antes 32 ms)
+AUDIO_RUN_GAIN = 2.4     # ganancia de la cadena de partida (antes 0.29)
+
+dice_hook("for(;ql<jl.currentTime+.12;)", "for(;ql<jl.currentTime+%s;)" % AUDIO_LOOKAHEAD)
+dice_hook("Gl=setInterval(Li,32)", "Gl=setInterval(Li,%d)" % AUDIO_TICK_MS)
+dice_hook("Fl=jl.createGain(),Fl.gain.value=ie?0:.29", "Fl=jl.createGain(),Fl.gain.value=ie?0:%s" % AUDIO_RUN_GAIN)
+
+# El mezclador construye sus cuatro buses (master/music/sfx/dj) y un limitador a
+# -1,2 dB, pero su API solo los publicaba por `node(nombre)`. Todas las voces del
+# juego hacen `Xl.music || Fl`, `Xl.sfx || Fl`…: como esas propiedades no
+# existían, la condición caía siempre al `Fl` directo y la música, los efectos y
+# el limitador se quedaban FUERA del circuito. Medido: silenciar la música del
+# mezclador (dmodisco_vol_v1 music=0) no cambiaba ni un dB de la partida. Se
+# publican como propiedades para que el mezclador sea el que manda.
+dice_hook(
+    "node:function(e){return d[e]||null},",
+    "node:function(e){return d[e]||null},get music(){return d.music},get sfx(){return d.sfx},"
+    "get dj(){return d.dj},get master(){return d.master},"
+)
+
+# El mezclador se publica para poder auditarlo: la QA mide los buses reales
+# (ganancias, limitador) en vez de deducirlos del código.
+dice_hook("Xl.build(jl,Fl),zl.connect", "Xl.build(jl,Fl),window.DD_MIX=Xl,zl.connect")
 # 1. Strip trailing Cloudflare challenge snippet at the very end of the file
 cf_idx = html.rfind("<script>(function(){function c(){var b=a.contentDocument")
 if cf_idx > len(html) - 2000:

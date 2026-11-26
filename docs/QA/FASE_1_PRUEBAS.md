@@ -100,7 +100,7 @@ mayoría de PASS y cuatro **FAIL reales**:
 | Prueba | Resultado observado | Diagnóstico |
 |---|---|---|
 | G1 «NUEVA PARTIDA entra al juego» | `PLAYING` pero `running:false` tras 188 s | La ruta real tarda minutos en render software porque la apertura avanza por fotogramas. Es un problema de la prueba (espera fija), no del juego: `enterGame` del arnés nuevo entra en ~33 s saltando la apertura como un jugador |
-| G2 «la música de menú se corta al jugar» | `true` (no se corta) | **Fallo real de audio** → Fase 2 |
+| G2 «la música de menú se corta al jugar» | `true` (no se corta) | **Resuelto en la Fase 2**: al arrancar la partida el contexto de portada queda suspendido y no emite; lo que se oía en el Refugio es la cama musical del Refugio, decisión del propio juego, ahora atenuada y con dueño explícito (`audioOwner`). Detalle y medidas en `docs/AUDIO/FASE_2_AUDIO.md` §4.3 |
 | H-E4 «la navegación se anuncia como menú» | `role=null` | **Fallo real de accesibilidad**, corregido en esta fase y verificado por la suite `menu` |
 | H-F1 «la secuencia es BOOT→LOADING→INTRO→MAIN_MENU» | sin `INTRO` | La expectativa era antigua: la intro pertenece a «Nueva partida». Documentado y verificado el contrato vigente |
 
@@ -155,7 +155,11 @@ comprobación fallida se lee sin descargar artefactos.
 Además de los cuatro del arnés anterior:
 
 1. **G2 · la música del menú no se corta al entrar en partida.** Detectado por el
-   arnés anterior. Es de audio: Fase 2.
+   arnés anterior y **cerrado en la Fase 2** con medición: la portada se
+   suspende al arrancar la partida; el Refugio tiene cama musical propia
+   (decisión del juego, con interruptor del jugador) que ahora suena atenuada y
+   se declara en `DD_BOOT.getState().audioOwner`. Ver
+   `docs/AUDIO/FASE_2_AUDIO.md` §4.3.
 2. **`refreshContinue()` es código muerto** (`src/dd_ui_system.js`): busca un
    botón `[data-action="continue"]` que el menú raíz nunca crea. CONTINUAR solo
    existe dentro de JUGAR, y así funciona. O se elimina o el menú raíz debe

@@ -169,7 +169,14 @@ y `budgets.json`.
 - **La apertura avanza por fotogramas**: en software su reloj va a ~0,17×, por lo
   que un arranque con intro sin saltar puede tardar minutos. Las suites la saltan
   como un jugador (después del mínimo de 0,4 s que exige el propio juego).
-- **Audio**: las suites comprueban estado lógico del audio, no sonido audible.
+- **Audio**: desde la Fase 2 sí se mide sonido. La suite `audio` engancha cada
+  `AudioContext` en serie con un `ScriptProcessorNode` y exige nivel mínimo en
+  menú y partida, Refugio por debajo del menú, silencio del menú durante la
+  partida y cero recortes. Ese nodo vive en el hilo principal y bajo carga pierde
+  bloques (±5 dB): para cifras de referencia se usa
+  `node tools/qa/audio_capture.js`, que graba con `MediaRecorder` y decodifica.
+  Ninguna de las dos cosas sustituye a escucharlo. Ver
+  `docs/AUDIO/FASE_2_AUDIO.md`.
 - **Mando**: se simula la API `Gamepad`; no hay mando físico.
 - **Semillas**: el encargo cita 223 salidas; el generador de `src/room_generation`
   produce 216 (24 por planta × 9). La diferencia está señalada en el informe.

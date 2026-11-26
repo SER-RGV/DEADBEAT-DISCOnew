@@ -97,12 +97,17 @@
   /* Un único dueño por estado. Ambos motores son los existentes. */
   var audio = {
     menuOwnerWarned: false,
+    /* Escenario que posee la pista de portada: "menu" (nivel completo) o
+       "refugio" (ambiente atenuado). Lo fija quien ambienta la escena. */
+    scene: "menu",
     startMenuMusic: function (fade) {
       var cover = window.DDC_COVER;
       if (!cover || !cover.music || typeof cover.music.start !== "function") return false;
       try {
         var ok = cover.music.start(4);
-        if (cover.music.duck) cover.music.duck(false);
+        /* Se reaplica el nivel del escenario: si es el Refugio, la pista sigue
+           siendo ambiente y no vuelve al nivel de portada. */
+        if (cover.music.duck) cover.music.duck(audio.scene === "refugio");
         return ok !== false;
       } catch (e) {
         console.warn("[DD_BOOT] música de menú no disponible", e);
@@ -120,8 +125,36 @@
       if (!cover || !cover.music || typeof cover.music.ui !== "function") return;
       try { cover.music.ui(kind || "move"); } catch (e) {}
     },
+    /* Ambiente del Refugio: la misma pista, atenuada por su propio duck (x0,32).
+       El nivel lo decide quien ambienta la escena, no el motor de portada. */
+    duckMenuMusic: function (on) {
+      var cover = window.DDC_COVER;
+      audio.scene = on ? "refugio" : "menu";
+      if (!cover || !cover.music || typeof cover.music.duck !== "function") return false;
+      try { cover.music.duck(!!on); return true; } catch (e) { return false; }
+    },
     isMenuMusicPlaying: function () {
       return !!(window.DDC_COVER && window.DDC_COVER.music && window.DDC_COVER.music.playing);
+    },
+    /* Quién es el dueño del sonido ahora mismo. Antes solo se publicaba un
+       booleano (`menuMusic`), y leerlo en el Refugio parecía un fallo cuando en
+       realidad es la cama musical del Refugio. Este campo dice la verdad. */
+    owner: function () {
+      var s = state.current;
+      if (s === "INTRO") return "intro";
+      if (s === "PLAYING") {
+        try {
+          if (window.DD_HUB && typeof window.DD_HUB.isActive === "function" && window.DD_HUB.isActive()) {
+            return audio.isMenuMusicPlaying() ? "refugio" : "refugio-silencio";
+          }
+        } catch (e) {}
+        try {
+          if (window.__DD_BRIDGE && typeof window.__DD_BRIDGE.isRunning === "function" && window.__DD_BRIDGE.isRunning()) return "partida";
+        } catch (e) {}
+        return "transicion";
+      }
+      if (s === "MAIN_MENU" || s === "SUBMENU") return audio.isMenuMusicPlaying() ? "menu" : "menu-silencio";
+      return "silencio";
     }
   };
 
@@ -1014,6 +1047,8 @@
   function exitGameToMenu() {
     if (window.DD_UI) window.DD_UI.showMainMenu();
     setState("MAIN_MENU");
+    /* De vuelta a la portada, la pista recupera su nivel completo. */
+    audio.duckMenuMusic(false);
     if (!audio.isMenuMusicPlaying()) audio.startMenuMusic(3);
     return true;
   }
@@ -1032,6 +1067,7 @@
       waitingGesture: !!state.waitingGesture,
       criticalErrors: state.criticalErrors.slice(),
       menuMusic: audio.isMenuMusicPlaying(),
+      audioOwner: audio.owner(),
       loadMs: state.loadEnd ? Math.round(state.loadEnd - state.loadStart) : null,
       bootMs: state.bootStart ? Math.round(performance.now() - state.bootStart) : null
     };
@@ -1081,7 +1117,10 @@
       startMenuMusic: audio.startMenuMusic,
       stopMenuMusic: audio.stopMenuMusic,
       ui: audio.ui,
-      isMenuMusicPlaying: audio.isMenuMusicPlaying
+      isMenuMusicPlaying: audio.isMenuMusicPlaying,
+      /* Ambiente de escena: el Refugio pide su propio nivel (atenuado). */
+      duckMenuMusic: audio.duckMenuMusic,
+      owner: audio.owner
     },
     steps: STEPS.map(function (s) { return { id: s.id, label: s.label, critical: !!s.critical }; })
   });

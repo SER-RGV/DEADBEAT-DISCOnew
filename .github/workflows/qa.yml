@@ -102,7 +102,7 @@ jobs:
           if-no-files-found: warn
 
   juego:
-    name: HUB, diez plantas, partida real y guardado
+    name: HUB, diez plantas, partida real, audio y guardado
     needs: preparar
     runs-on: ubuntu-latest
     timeout-minutes: 45
@@ -116,7 +116,7 @@ jobs:
           cache: npm
       - run: npm ci --no-audit --no-fund
       - name: Suites de juego
-        run: node tools/qa/run.js --only=hub,plantas,partida,persistencia
+        run: node tools/qa/run.js --only=hub,plantas,partida,persistencia,audio
       - name: Dejar el informe en el resumen del trabajo
         if: always()
         run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"

@@ -43,6 +43,7 @@ Esta carpeta reúne documentación y pruebas. Usa este índice para encontrar ca
 
 - [Evidencias de reconstrucción artística](ART_REBUILD/evidence/)
 - [Evidencias de fase 1](FASE_01_EVIDENCE/)
+- [Informe de la Fase 2 · Audio](AUDIO/FASE_2_AUDIO.md) y sus [medidas](evidence/fase2/audio_measures.json)
 - [Evidencias de entrega 02](ENTREGA_02_EVIDENCE/)
 - [Evidencias de entrega 03.2](ENTREGA_03_2_EVIDENCE/)
 

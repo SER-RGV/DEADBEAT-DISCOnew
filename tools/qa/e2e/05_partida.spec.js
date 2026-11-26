@@ -74,19 +74,22 @@ module.exports = {
       const hud0 = await G.hud(page);
       let snap1 = null;
       let hurts = 0;
-      for (let i = 0; i < 4; i++) {
+      const RING = ['KeyA', 'KeyD', 'KeyS', 'KeyW'];
+      for (let i = 0; i < 8; i++) {
         const hurt = await G.playtest(page, 'hurt', 1);
         hurts++;
         if (hurt.error) { suite.fail('el daño se puede provocar sin excepción', hurt.error, 'sin error'); break; }
         await G.sleep(500);
         snap1 = await G.snapshot(page);
         if (snap1 && snap1.hp < 3) break;
-        /* otro punto de aplicación: desplazar al protagonista antes de repetir */
-        const key = i % 2 === 0 ? 'KeyA' : 'KeyS';
+        /* Otro punto de aplicación: se rodea el personaje antes de repetir.
+           Cuatro intentos no bastaban (la CI falló en uno de cada dos runs del
+           mismo commit): ahora se prueban las cuatro direcciones dos veces. */
+        const key = RING[i % RING.length];
         await page.keyboard.down(key);
-        await G.sleep(450);
+        await G.sleep(600);
         await page.keyboard.up(key);
-        await G.sleep(200);
+        await G.sleep(250);
       }
       const hud1 = await G.hud(page);
       suite.ok(

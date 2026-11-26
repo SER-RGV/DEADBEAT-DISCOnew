@@ -1,0 +1,93 @@
+{
+  "at": "2026-11-26T07:22:02.647Z",
+  "marks": [
+    {
+      "name": "portada",
+      "t": 13042
+    },
+    {
+      "name": "refugio",
+      "t": 49939
+    },
+    {
+      "name": "partida",
+      "t": 116509
+    }
+  ],
+  "contexts": 3,
+  "tracks": [
+    {
+      "ctx": 0,
+      "file": "docs/evidence/fase2/audio_ctx0.webm",
+      "bytes": 236875,
+      "stats": {
+        "sampleRate": 44100,
+        "seconds": 14.82,
+        "full": {
+          "sec": 14.82,
+          "peakdBFS": -10,
+          "rmsdBFS": -26.7
+        },
+        "windows": {
+          "portada": {
+            "sec": 4.5,
+            "peakdBFS": -10.9,
+            "rmsdBFS": -27.4
+          },
+          "refugio": null,
+          "partida": null
+        }
+      }
+    },
+    {
+      "ctx": 1,
+      "file": "docs/evidence/fase2/audio_ctx1.webm",
+      "bytes": 187954,
+      "stats": {
+        "sampleRate": 44100,
+        "seconds": 102.66,
+        "full": {
+          "sec": 102.66,
+          "peakdBFS": -6.1,
+          "rmsdBFS": -41.2
+        },
+        "windows": {
+          "portada": null,
+          "refugio": {
+            "sec": 3,
+            "peakdBFS": -180,
+            "rmsdBFS": -180
+          },
+          "partida": {
+            "sec": 8,
+            "peakdBFS": -180,
+            "rmsdBFS": -180
+          }
+        }
+      }
+    },
+    {
+      "ctx": 2,
+      "file": "docs/evidence/fase2/audio_ctx2.webm",
+      "bytes": 414245,
+      "stats": {
+        "sampleRate": 44100,
+        "seconds": 30.96,
+        "full": {
+          "sec": 30.96,
+          "peakdBFS": -7.3,
+          "rmsdBFS": -31.4
+        },
+        "windows": {
+          "portada": null,
+          "refugio": null,
+          "partida": {
+            "sec": 8,
+            "peakdBFS": -9.6,
+            "rmsdBFS": -33.3
+          }
+        }
+      }
+    }
+  ]
+}
