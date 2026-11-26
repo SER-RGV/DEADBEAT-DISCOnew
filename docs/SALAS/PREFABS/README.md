@@ -83,7 +83,7 @@ Evidencias en `ART_EVIDENCE/PREFABS_ROLLOUT/`: `planta-02.jpg` (lujuria), `plant
 
 `ART_EVIDENCE/PREFABS_ROLLOUT/casa-pasillo-servicio.jpg`, `casa-camarote.jpg`, `casa-tienda.jpg`, `casa-arena-octogono.jpg`, `planta-02.jpg`, `planta-05.jpg`, `planta-10-nucleo.jpg` y `refugio.jpg` están tomadas del juego normal, no del visor. El suelo de cada círculo usa su propia piedra teñida al tono de la sala; el círculo I deja de ser una losa clara y las siluetas hostiles mantienen su contraste. La cámara del residente tiene seis muebles en lugar de cuatro porque su planta es un 60 % mayor.
 
-La suite que lo comprueba: `prefab_floors.cjs` (20 corredores), `prefab_rollout.cjs` (108 salas con puertas, muebles, oleada, botín y puntos de aparición válidos), `prefab_progression.cjs` (nueve descensos con la puerta real, llegada al núcleo y reconstrucción idéntica de las diez plantas tras recargar), `playable_prefab.cjs` (r0/r1/r2 con su malla y la rotura nativa) y `prefab_reach.cjs` (223 salidas alcanzables en 108 salas), `prefab_legibility.cjs` (pista al 98-99 % sin perder el suelo), `prefab_boss.cjs` (tres cámaras del residente), `prefab_touch.cjs` (mando táctil en móvil) y `prefab_perf.cjs` (cadencia). Sigue sin certificarse el rendimiento con GPU real: aquí solo hay OpenGL por software.
+La suite que lo comprueba: `prefab_floors.cjs` (20 corredores), `prefab_rollout.cjs` (108 salas con puertas, muebles, oleada, botín y puntos de aparición válidos), `prefab_progression.cjs` (nueve descensos con la puerta real, llegada al núcleo y reconstrucción idéntica de las diez plantas tras recargar), `playable_prefab.cjs` (r0/r1/r2 con su malla y la rotura nativa) y `prefab_reach.cjs` (223 salidas alcanzables en 108 salas), `prefab_breakables.cjs` (mesa y sofá rotos y sin colisión), `prefab_legibility.cjs` (pista al 98-99 % sin perder el suelo), `prefab_boss.cjs` (tres cámaras del residente), `prefab_touch.cjs` (mando táctil en móvil) y `prefab_perf.cjs` (cadencia). Sigue sin certificarse el rendimiento con GPU real: aquí solo hay OpenGL por software.
 
 ### Mostrador y stock
 
@@ -96,6 +96,16 @@ La casa `camarote` monta un `puesto` con franja de lectura al sur (`front01`), a
 Juicio sobre las capturas de `ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas el láser magenta, los anillos de aviso y las siluetas hostiles se separan del suelo teñido, incluso en el octógono, que es la planta más grande y la de piedra más clara. La casa `camarote` queda fuera del fixture a propósito: solo aloja tienda, descanso y secretos, donde el RAVE no llega a activarse. Las capturas son de la build servida en el puerto 8015 con la semilla 0.
 
 Esto es una comprobación visual mía sobre cuatro fotogramas forzados, no una prueba de legibilidad con jugadores reales ni con la pista saturada de enemigos.
+
+### Fuera de la sala
+
+Las casas se pintan sobre el lienzo a tamaño real; cuando la sala es más estrecha que la ventana —el camarote mide 1080 × 1000 para una vista de 1280 × 800— quedaba un hueco negro que parecía un fallo de render. `src/dd_prefab_world.js` pinta ahora ese exterior con la loseta del círculo al 11 % y un viñeteado encima, así que la sala se apaga hacia la oscuridad en vez de cortarse en seco. Se ve en `ART_EVIDENCE/PREFABS_BREAK/r9-intacto.jpg`.
+
+### Mobiliario rompible
+
+La mesa y el sofá son destructibles en el catálogo, así que `tools/qa/prefab_breakables.cjs` lo exige en el juego: que la casa registre piezas con vida (`propsHp`), que al romperlas el objeto quede marcado como roto, que **deje de colisionar** y que el fotograma cambie donde estaba la pieza. Las tres cosas se comprueban en pasillo, nave y camarote. Las capturas de antes y después están en `ART_EVIDENCE/PREFABS_BREAK/`.
+
+La comprobación de píxeles es un extra, no la prueba: al romperse una pieza el motor rebasa la sala y el fotograma se mueve también fuera del mueble, así que lo que se exige es que el cambio sea local y de tamaño de mueble, no que el sprite sea idéntico al PNG del lote.
 
 ### Cadencia
 
