@@ -43,7 +43,7 @@ Todas desde la raíz, con `DD_CHROMIUM=/tmp/chromium`, `LD_LIBRARY_PATH=/tmp/al2
 - Suites `test_ui_results` (sin DD_QUICK), `test_hud_vitals`, `test_minimap_engine`, `test_map_atlas`, `refuge_walkthrough`, `test_options_controls`, `test_modal_input`, `test_accessibility_dodge`, `prefab_touch`: ejecutadas. Resultados finales consolidados en `integracion34/estado_final.tsv`.
 - `test_phase0_integration`: pasa opciones en cuatro tamaños, atlas en cuatro (incluido 390 px), Dice Vault y pausa.
 - `final_review`: **30/30 guardas, 4/4 integración y 16/16 flujo**, 0 errores de página/HTTP; exit 0. Logs y resultado final conservados en `integracion34`, con intentos previos fallidos registrados en las tablas de ejecución.
-- `git diff --check` y `node --check` en las fuentes JS modificadas: sin errores.
+- `node --check` en las fuentes JS modificadas: sin errores. `git diff origin/main...HEAD --check -- . ':!backups/FASE_0_20261126_pre_PR34'`: exit 0. El control completo detecta seis avisos de whitespace heredados en las copias exactas de los HTML; no se alteran backups para silenciarlos.
 - SHA-256 de ambos HTML finales: `44cc3c3f761cd6b95431a78bffbad169437c57f68bb551c19c3cf71e620337dc`.
 
 ## Fallos encontrados
