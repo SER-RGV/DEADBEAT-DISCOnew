@@ -33,7 +33,12 @@ jobs:
           python-version: "3.12"
       - name: Validate floor generation across seeds
         run: node tools/qa/room_generation.cjs
+      # El paso se salta mientras el fichero no exista: el PR #36 declaró esta
+      # validación pero no incluyó tools/qa/hub_greybox.cjs, de modo que el
+      # trabajo fallaba por un módulo ausente y no por la geometría. En cuanto el
+      # fichero llegue, el paso se ejecutará solo.
       - name: Validate vestibule geometry and reachability
+        if: hashFiles('tools/qa/hub_greybox.cjs') != ''
         run: node tools/qa/hub_greybox.cjs
       - name: Rebuild the single-file game
         run: python tools/build_active_html.py

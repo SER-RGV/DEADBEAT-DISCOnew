@@ -205,3 +205,12 @@ Registrar aquí cada modificación:
 - Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
 - Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
 - **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.
+
+## 2026-11-26 · FASE 1 · Pruebas automáticas y QA
+- Versión: sin versión de juego nueva; se añade el arnés de QA y dos correcciones de accesibilidad y documentación.
+- Archivos nuevos: `package.json`, `package-lock.json`, `tools/qa/run.js`, `tools/qa/run.sh`, `tools/qa/README.md`, `tools/qa/budgets.json`, `tools/qa/lib/{chrome,server,game,harness}.js`, `tools/qa/visual/compare.js`, `tools/qa/visual/baselines/*`, `tools/qa/e2e/01…10`, `.github/workflows/qa.yml`, `docs/QA/FASE_1_PRUEBAS.md`, `docs/evidence/fase1/`.
+- Archivos modificados: `src/dd_ui_system.js` (menú con `role="menu"`/`menuitem` y `aria-current`), `src/dd_boot.js` (contrato real de la FSM en el comentario), `tools/qa/test_accessibility_dodge.js` (rol esperado), `index.html` y `DEADBEAT_DISCO.html` (regenerados), `CURRENT_STATE.md`.
+- Sistemas afectados: menú principal (semántica, no comportamiento), arranque (solo documentación), build jugable.
+- Pruebas realizadas: `node tools/qa/run.js --all` → 161 PASS · 0 FAIL · 1 SKIP · 768 s; `bash tools/fase01_qa/run.sh` (truncada a 900 s) → 4 FAIL reales analizados; `python3 tools/build_active_html.py` → build idéntico.
+- Resultado: arranque sin errores ni 404, menú accesible, refugio, diez plantas, guardado y restauración, teclado, 10.000 planos de salas validados y regresión visual en tres tamaños. Queda pendiente la primera ejecución del workflow en GitHub.
+- CI verificada: ejecución [45749986954](https://github.com/SER-RGV/DEADBEAT-DISCOnew/actions/runs/45749986954) con **7/7 trabajos en verde** (8 min 14 s). Se corrigieron dos defectos encontrados ahí: la prueba de daño era inestable (reintenta moviendo al personaje) y el paso `hub_greybox` del workflow de reconstrucción, heredado del PR #36, apuntaba a un fichero inexistente y ahora es condicional.

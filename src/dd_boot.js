@@ -4,7 +4,13 @@
 
    Una única máquina de estados explícita para el arranque:
 
-       BOOT -> LOADING -> INTRO -> MAIN_MENU <-> SUBMENU -> EXIT
+       BOOT -> LOADING -> MAIN_MENU <-> SUBMENU -> EXIT
+       MAIN_MENU -> (Nueva partida) INTRO -> PLAYING
+
+   La intro NO se reproduce al arrancar: la apertura narrativa pertenece a
+   «Nueva partida», de modo que el menú está disponible sin exigir una pulsación
+   previa (el navegador no habría permitido sonar todavía). startIntro() sigue
+   existiendo para la entrada en partida y es el único camino a INTRO.
 
    Esta pieza ORQUESTA los subsistemas que ya existen; no duplica ninguno:
 
@@ -20,7 +26,7 @@
      · El progreso de carga sólo avanza con hitos REALES y verificables.
      · Si un recurso crítico falta, se muestra un error accionable; nunca una
        pantalla negra indefinida.
-     · La intro se reproduce UNA vez por arranque, se puede saltar y no se
+     · La intro se reproduce UNA vez por partida nueva, se puede saltar y no se
        reinicia al recuperar el foco de la ventana.
    ========================================================================== */
 (function () {

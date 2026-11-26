@@ -1,0 +1,223 @@
+name: QA · Fase 1
+
+# Pruebas automáticas sobre el juego real (index.html) con Chromium headless.
+# No usa `npx playwright install`: el navegador llega por npm (@sparticuz/chromium)
+# con sus librerías empaquetadas, así que el mismo comando corre en local y aquí.
+
+on:
+  push:
+    branches:
+      - main
+      - "arena/**"
+      - "fix/**"
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+  schedule:
+    - cron: "0 4 * * 1"
+
+permissions:
+  contents: read
+  pull-requests: write
+
+env:
+  # Informes y capturas fuera del árbol versionado; se suben como artefactos.
+  QA_OUT: ${{ github.workspace }}/qa-out
+  CI: "1"
+
+jobs:
+  # 0 · El HTML jugable se genera desde src/. Si alguien edita el build a mano,
+  #     esta comprobación lo detecta.
+  build-reproducible:
+    name: Build reproducible desde src/
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerar los HTML jugables
+        run: python tools/build_active_html.py
+      - name: El build versionado coincide con src/
+        run: |
+          if ! git diff --quiet -- index.html DEADBEAT_DISCO.html; then
+            echo "::error::index.html o DEADBEAT_DISCO.html no coinciden con src/. Regenera con tools/build_active_html.py y commitea el resultado."
+            git diff --stat -- index.html DEADBEAT_DISCO.html
+            exit 1
+          fi
+          echo "Build reproducible: los HTML versionados salen de src/."
+
+  preparar:
+    name: Instalar arnés
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Chromium disponible
+        run: node -e "require('./tools/qa/lib/chrome.js').resolveChrome().then(p=>console.log('Chromium:',p))"
+
+  rapido:
+    name: Arranque, menú, teclado y semillas
+    needs: preparar
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Suites rápidas
+        run: node tools/qa/run.js --only=arranque,menu,teclado,semillas
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-rapido -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-rapido
+          path: ${{ env.QA_OUT }}
+          if-no-files-found: warn
+
+  juego:
+    name: HUB, diez plantas, partida real y guardado
+    needs: preparar
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Suites de juego
+        run: node tools/qa/run.js --only=hub,plantas,partida,persistencia
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-juego -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-juego
+          path: ${{ env.QA_OUT }}
+          if-no-files-found: warn
+
+  visual:
+    name: Regresión visual (3 tamaños)
+    needs: preparar
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Comparar con las referencias del repositorio
+        run: node tools/qa/run.js --only=visual
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-visual -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-visual
+          path: |
+            ${{ env.QA_OUT }}
+            node_modules/.cache/qa-visual
+          if-no-files-found: warn
+
+  presupuestos:
+    name: Presupuestos de peso y cadencia
+    needs: preparar
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci --no-audit --no-fund
+      - name: Medir arranque y fotogramas
+        run: node tools/qa/run.js --only=presupuestos
+      - name: Dejar el informe en el resumen del trabajo
+        if: always()
+        run: node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown >> "$GITHUB_STEP_SUMMARY"
+      - name: Publicar los fallos como comentario del PR
+        if: failure() && github.event_name == 'pull_request'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          node tools/qa/report-summary.js "${{ env.QA_OUT }}/report.json" --markdown > /tmp/qa-resumen.md
+          printf '\n<!-- qa-presupuestos -->\n' >> /tmp/qa-resumen.md
+          gh pr comment ${{ github.event.pull_request.number }} --body-file /tmp/qa-resumen.md
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qa-presupuestos
+          path: ${{ env.QA_OUT }}
+          if-no-files-found: warn
+
+  resumen:
+    name: Resumen de la QA
+    needs: [build-reproducible, rapido, juego, visual, presupuestos]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Comprobar el resultado de todas las suites
+        run: |
+          echo "build=${{ needs.build-reproducible.result }} rapido=${{ needs.rapido.result }} juego=${{ needs.juego.result }} visual=${{ needs.visual.result }} presupuestos=${{ needs.presupuestos.result }}"
+          for r in "${{ needs.build-reproducible.result }}" "${{ needs.rapido.result }}" "${{ needs.juego.result }}" "${{ needs.visual.result }}" "${{ needs.presupuestos.result }}"; do
+            if [ "$r" != "success" ]; then
+              echo "::error::Alguna suite de QA no ha terminado en éxito ($r)."
+              exit 1
+            fi
+          done
+          echo "Todas las suites de la Fase 1 han pasado."

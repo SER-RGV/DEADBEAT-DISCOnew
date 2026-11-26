@@ -22,14 +22,17 @@ const base=process.argv[2]||'http://localhost:8080',delay=ms=>new Promise(r=>set
  await p.route('**/index.html',r=>r.fulfill({status:200,contentType:'text/html; charset=utf-8',body}));
  await p.goto(base+'/index.html');await p.waitForFunction(()=>window.DD_BOOT&&(DD_BOOT.getState().waitingGesture||DD_BOOT.getState().state==='INTRO'),null,{timeout:30000});
  await p.keyboard.press('KeyX');await p.waitForFunction(()=>window.DD_OPENING?.isActive());await delay(700);await p.keyboard.press('Space');await p.waitForFunction(()=>DD_BOOT.getState().state==='MAIN_MENU');
- let tree=await ax();assert(has(tree,'navigation','Opciones del menú principal'),'navegación principal');
+ let tree=await ax();
+ /* Fase 1: el menú se anuncia como widget de menú (role=menu), no como
+    landmark de navegación, para que las flechas y Enter tengan semántica. */
+ assert(has(tree,'menu','Opciones del menú principal'),'menú principal anunciado como menú');
  assert(has(tree,'button','OPCIONES Audio, vídeo, controles y accesibilidad')||tree.some(n=>n.role==='button'&&n.name?.includes('OPCIONES')),'opciones accesible');
  for(const [key,label] of [['Space','ESPACIO'],['KeyV','V'],['AltLeft','ALT IZQUIERDO']]){
   await p.evaluate(k=>__QA_DODGE.set(k),key);assert.equal(await p.evaluate(()=>__QA_DODGE.get().key),key);
   await p.evaluate(()=>DD_UI.triggerMenuAction('options'));await p.waitForSelector('#dd-submenu.is-open');
   assert((await p.locator('#dd-controls-keyboard').innerText()).includes(label+': esquivar'));
   tree=await ax();assert(has(tree,'dialog','OPCIONES'),'diálogo de opciones nombrado');
-  assert(!tree.some(n=>n.role==='navigation'&&n.name==='Opciones del menú principal'),'menú detrás excluido');
+  assert(!tree.some(n=>n.role==='menu'&&n.name==='Opciones del menú principal'),'menú detrás excluido');
   assert(tree.some(n=>n.name?.includes(label+': esquivar')),'texto accesible '+key);
   assert(tree.some(n=>n.role==='slider'&&n.name?.toUpperCase().includes('MAESTRO')),'control de audio accesible');
   await p.locator('#dd-submenu-back').click();await p.waitForSelector('#dd-submenu.is-open',{state:'hidden'});
