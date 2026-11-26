@@ -83,7 +83,7 @@ Evidencias en `ART_EVIDENCE/PREFABS_ROLLOUT/`: `planta-02.jpg` (lujuria), `plant
 
 `ART_EVIDENCE/PREFABS_ROLLOUT/casa-pasillo-servicio.jpg`, `casa-camarote.jpg`, `casa-tienda.jpg`, `casa-arena-octogono.jpg`, `planta-02.jpg`, `planta-05.jpg`, `planta-10-nucleo.jpg` y `refugio.jpg` están tomadas del juego normal, no del visor. El suelo de cada círculo usa su propia piedra teñida al tono de la sala; el círculo I deja de ser una losa clara y las siluetas hostiles mantienen su contraste. La cámara del residente tiene seis muebles en lugar de cuatro porque su planta es un 60 % mayor.
 
-La suite que lo comprueba: `prefab_floors.cjs` (20 corredores), `prefab_rollout.cjs` (108 salas con puertas, muebles, oleada, botín y puntos de aparición válidos), `prefab_progression.cjs` (nueve descensos con la puerta real, llegada al núcleo y reconstrucción idéntica de las diez plantas tras recargar), `playable_prefab.cjs` (r0/r1/r2 con su malla y la rotura nativa) y `prefab_reach.cjs` (223 salidas alcanzables en 108 salas), `prefab_legibility.cjs` (pista al 98-99 % sin perder el suelo), `prefab_boss.cjs` (tres cámaras del residente), `prefab_touch.cjs` (mando táctil en móvil) y `prefab_perf.cjs` (cadencia). Sigue sin certificarse el rendimiento con GPU real: aquí solo hay OpenGL por software, 30-37 ms de media.
+La suite que lo comprueba: `prefab_floors.cjs` (20 corredores), `prefab_rollout.cjs` (108 salas con puertas, muebles, oleada, botín y puntos de aparición válidos), `prefab_progression.cjs` (nueve descensos con la puerta real, llegada al núcleo y reconstrucción idéntica de las diez plantas tras recargar), `playable_prefab.cjs` (r0/r1/r2 con su malla y la rotura nativa) y `prefab_reach.cjs` (223 salidas alcanzables en 108 salas), `prefab_legibility.cjs` (pista al 98-99 % sin perder el suelo), `prefab_boss.cjs` (tres cámaras del residente), `prefab_touch.cjs` (mando táctil en móvil) y `prefab_perf.cjs` (cadencia). Sigue sin certificarse el rendimiento con GPU real: aquí solo hay OpenGL por software.
 
 ### Mostrador y stock
 
@@ -96,6 +96,17 @@ La casa `camarote` monta un `puesto` con franja de lectura al sur (`front01`), a
 Juicio sobre las capturas de `ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas el láser magenta, los anillos de aviso y las siluetas hostiles se separan del suelo teñido, incluso en el octógono, que es la planta más grande y la de piedra más clara. La casa `camarote` queda fuera del fixture a propósito: solo aloja tienda, descanso y secretos, donde el RAVE no llega a activarse. Las capturas son de la build servida en el puerto 8015 con la semilla 0.
 
 Esto es una comprobación visual mía sobre cuatro fotogramas forzados, no una prueba de legibilidad con jugadores reales ni con la pista saturada de enemigos.
+
+### Cadencia
+
+`tools/qa/prefab_perf.cjs` mide 60 fotogramas por casa en reposo y luego repite en tres de ellas con 25 invitados alrededor. En este entorno el render es OpenGL por software, así que **no es una cifra de GPU real**: es un suelo y sirve para comparar casas entre sí.
+
+| estado | media |
+| --- | --- |
+| cinco casas en reposo | 29 – 33 ms |
+| pasillo, palco y nave con 25 invitados | 36 – 39 ms |
+
+Las casas cuestan lo mismo entre sí (peor/mejor ≈ 1,1) y la multitud añade alrededor de un 25 %: ninguna sala es un caso patológico. La cifra baila unos milisegundos entre ejecuciones, así que la prueba compara casas, no fotogramas sueltos. Probé antes una pasada con el CPU frenado 4×, pero el entorno era demasiado inestable —de 208 s a más de 480 s entre ejecuciones, con el mismo guion—, así que la cambié por la multitud, que es carga del juego y no del emulador. Las aserciones son relativas a propósito; un listón absoluto de 60 fps sobre llvmpipe sería inventado.
 
 ### Legibilidad con la pista saturada
 
