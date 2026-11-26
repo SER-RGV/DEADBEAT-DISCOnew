@@ -1,0 +1,151 @@
+{
+  "batch": "LOTE_03.sample",
+  "title": "Props del Refugio y firma por círculo · MUESTRA",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_03",
+  "sample_only": true,
+  "phase": "3C",
+  "priority": "high",
+  "note": "5 muestras: prop_bar_counter, prop_dj_booth, prop_sofa_magenta, prop_weapon_rack, prop_hub_fox_neon (fox neón mural).",
+  "existing_source": null,
+  "needs_decision": false,
+  "needs_approval": false,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_03",
+  "backup_dir": "backups/regen/LOTE_03_pre",
+  "master_dir": "assets/_regen/LOTE_03/_masters",
+  "assets": [
+    {
+      "id": "prop_hub_fox_neon",
+      "raw": "prop_hub_fox_neon.png",
+      "name": "Neón Mural Zorro Refugio HUB",
+      "category": "props",
+      "size": [
+        384,
+        512
+      ],
+      "location": "assets/_regen/LOTE_03/props/prop_hub_fox_neon.png",
+      "final_location": "assets/props/prop_hub_fox_neon.png",
+      "original_id": "prop_hub_fox_neon",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. CÍRCULO REFUGIO. Paleta: fondo #0e1525, superficie #1e293b, alto #475569, neón #38bdf8 (#facc15 acento). Saturación del entorno baja; neón ≤15% de superficie. Materiales: damero negro/blanco clásico de club, moqueta terciopelo carmesí VIP, nichos góticos de obsidiana, neón cian y magenta, oro como acento. Perspectiva isométrica 2.5D, prop con apoyo en suelo. Pivote bottom-center. Silueta reconocible antes del detalle. Neón mural del zorro coronado en la pared del Refugio, silueta de zorro con corona emitiendo luz magenta/cian, montado en la pared. RGBA.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 1.0
+      }
+    },
+    {
+      "id": "prop_sofa_magenta",
+      "raw": "prop_sofa_magenta.png",
+      "name": "Sofá Terciopelo Magenta VIP Isométrico",
+      "category": "props",
+      "size": [
+        384,
+        256
+      ],
+      "location": "assets/_regen/LOTE_03/props/prop_sofa_magenta.png",
+      "final_location": "assets/props/prop_sofa_magenta.png",
+      "original_id": "prop_sofa_magenta",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. CÍRCULO REFUGIO. Paleta: fondo #0e1525, superficie #1e293b, alto #475569, neón #38bdf8 (#facc15 acento). Saturación del entorno baja; neón ≤15% de superficie. Materiales: damero negro/blanco clásico de club, moqueta terciopelo carmesí VIP, nichos góticos de obsidiana, neón cian y magenta, oro como acento. Perspectiva isométrica 2.5D, prop con apoyo en suelo. Pivote bottom-center. Silueta reconocible antes del detalle. Sofá de terciopelo magenta VIP isométrico de tres plazas, patas de metal oscuro, cojines brillantes. RGBA.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 1.0
+      }
+    },
+    {
+      "id": "prop_dj_booth",
+      "raw": "prop_dj_booth.png",
+      "name": "Prop 20 · Cabina de DJ Turntables Neón",
+      "category": "props",
+      "size": [
+        448,
+        288
+      ],
+      "location": "assets/_regen/LOTE_03/props/prop_dj_booth.png",
+      "final_location": "assets/props/prop_dj_booth.png",
+      "original_id": "prop_dj_booth",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. CÍRCULO REFUGIO. Paleta: fondo #0e1525, superficie #1e293b, alto #475569, neón #38bdf8 (#facc15 acento). Saturación del entorno baja; neón ≤15% de superficie. Materiales: damero negro/blanco clásico de club, moqueta terciopelo carmesí VIP, nichos góticos de obsidiana, neón cian y magenta, oro como acento. Perspectiva isométrica 2.5D, prop con apoyo en suelo. Pivote bottom-center. Silueta reconocible antes del detalle. Cabina de DJ con mesa de mezclas, dos tocadiscos, pantalla de ecualizador y logotipo del club. RGBA.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 1.0
+      }
+    },
+    {
+      "id": "prop_bar_counter",
+      "raw": "prop_bar_counter.png",
+      "name": "Prop 26 · Barra de Club Iluminada",
+      "category": "props",
+      "size": [
+        416,
+        256
+      ],
+      "location": "assets/_regen/LOTE_03/props/prop_bar_counter.png",
+      "final_location": "assets/props/prop_bar_counter.png",
+      "original_id": "prop_bar_counter",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. CÍRCULO REFUGIO. Paleta: fondo #0e1525, superficie #1e293b, alto #475569, neón #38bdf8 (#facc15 acento). Saturación del entorno baja; neón ≤15% de superficie. Materiales: damero negro/blanco clásico de club, moqueta terciopelo carmesí VIP, nichos góticos de obsidiana, neón cian y magenta, oro como acento. Perspectiva isométrica 2.5D, prop con apoyo en suelo. Pivote bottom-center. Silueta reconocible antes del detalle. Mostrador de bar de ébano con superficie pulida, frente de bar con estantes de botellas al fondo, patas metálicas. RGBA.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 1.0
+      }
+    },
+    {
+      "id": "prop_weapon_rack",
+      "raw": "prop_weapon_rack.png",
+      "name": "Armero de armas del Refugio (rack gótico)",
+      "category": "props",
+      "size": [
+        288,
+        384
+      ],
+      "location": "assets/_regen/LOTE_03/props/prop_weapon_rack.png",
+      "final_location": "assets/props/prop_weapon_rack.png",
+      "original_id": "prop_weapon_rack",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. CÍRCULO REFUGIO. Paleta: fondo #0e1525, superficie #1e293b, alto #475569, neón #38bdf8 (#facc15 acento). Saturación del entorno baja; neón ≤15% de superficie. Materiales: damero negro/blanco clásico de club, moqueta terciopelo carmesí VIP, nichos góticos de obsidiana, neón cian y magenta, oro como acento. Perspectiva isométrica 2.5D, prop con apoyo en suelo. Pivote bottom-center. Silueta reconocible antes del detalle. Rack gótico de armas en la pared, armas varias colgadas (escopetas, pistolas) sobre panel de cuero rojo. RGBA.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 1.0
+      }
+    }
+  ]
+}

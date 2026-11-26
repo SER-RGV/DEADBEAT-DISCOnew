@@ -1,0 +1,554 @@
+{
+  "batch": "LOTE_06",
+  "title": "Efectos y proyectiles VFX",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_06",
+  "sample_only": false,
+  "phase": "3D",
+  "priority": "medium",
+  "note": "FX aditivos sobre fondo oscuro. 5 muestras: vfx_muzzle_gold, vfx_impact_spark, proj_pellet, vfx_explosion_inferno, vfx_lightning_purple.",
+  "existing_source": null,
+  "needs_decision": false,
+  "needs_approval": false,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_06",
+  "backup_dir": "backups/regen/LOTE_06_pre",
+  "master_dir": "assets/_regen/LOTE_06/_masters",
+  "assets": [
+    {
+      "id": "proj_slug",
+      "raw": "proj_slug.png",
+      "name": "Proyectil · Bala Cinética Dorada",
+      "category": "effects",
+      "size": [
+        160,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_slug.png",
+      "final_location": "assets/effects/proj_slug.png",
+      "original_id": "proj_slug",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil slug pesado, bola de fuego naranja con estela. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_heavy",
+      "raw": "proj_heavy.png",
+      "name": "Proyectil · Calibre Pesado Ámbar",
+      "category": "effects",
+      "size": [
+        192,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_heavy.png",
+      "final_location": "assets/effects/proj_heavy.png",
+      "original_id": "proj_heavy",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil pesado, proyectil grande rojo/amarillo. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_pellet",
+      "raw": "proj_pellet.png",
+      "name": "Proyectil · Perdigón Incandescente",
+      "category": "effects",
+      "size": [
+        128,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_pellet.png",
+      "final_location": "assets/effects/proj_pellet.png",
+      "original_id": "proj_pellet",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Perdigones de escopeta, múltiples puntos naranja. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_cryo",
+      "raw": "proj_cryo.png",
+      "name": "Proyectil · Pulso Criogénico Cian",
+      "category": "effects",
+      "size": [
+        160,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_cryo.png",
+      "final_location": "assets/effects/proj_cryo.png",
+      "original_id": "proj_cryo",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil criogénico, dardo azul cian con estela de escarcha. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_plasma",
+      "raw": "proj_plasma.png",
+      "name": "Proyectil · Haz de Plasma Magenta",
+      "category": "effects",
+      "size": [
+        224,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_plasma.png",
+      "final_location": "assets/effects/proj_plasma.png",
+      "original_id": "proj_plasma",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil de plasma, bola de plasma magenta/cian pulsante. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_ricochet",
+      "raw": "proj_ricochet.png",
+      "name": "Proyectil · Rebote Sónico Cian",
+      "category": "effects",
+      "size": [
+        192,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_ricochet.png",
+      "final_location": "assets/effects/proj_ricochet.png",
+      "original_id": "proj_ricochet",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil rebotador, bola amarilla/verde que rebota. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_lane",
+      "raw": "proj_lane.png",
+      "name": "Proyectil · Onda Hoja Violeta",
+      "category": "effects",
+      "size": [
+        224,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_lane.png",
+      "final_location": "assets/effects/proj_lane.png",
+      "original_id": "proj_lane",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Disparo en línea/riel, rayo láser recto delgado. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_flame",
+      "raw": "proj_flame.png",
+      "name": "Proyectil · Llamarada Infernal",
+      "category": "effects",
+      "size": [
+        192,
+        160
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_flame.png",
+      "final_location": "assets/effects/proj_flame.png",
+      "original_id": "proj_flame",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil de fuego, llama disparada como chorro. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_rail",
+      "raw": "proj_rail.png",
+      "name": "Proyectil · Riel Hiperveloz Violeta",
+      "category": "effects",
+      "size": [
+        256,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_rail.png",
+      "final_location": "assets/effects/proj_rail.png",
+      "original_id": "proj_rail",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Disparo de riel/railgun, rayo largo recto cian muy brillante. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "proj_homing",
+      "raw": "proj_homing.png",
+      "name": "Proyectil · Orbe Rastreador Rosa",
+      "category": "effects",
+      "size": [
+        192,
+        96
+      ],
+      "location": "assets/_regen/LOTE_06/effects/proj_homing.png",
+      "final_location": "assets/effects/proj_homing.png",
+      "original_id": "proj_homing",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Proyectil teledirigido, misil pequeño que busca. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_muzzle_gold",
+      "raw": "vfx_muzzle_gold.png",
+      "name": "VFX · Fogonazo Disparo Dorado",
+      "category": "effects",
+      "size": [
+        192,
+        160
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_muzzle_gold.png",
+      "final_location": "assets/effects/vfx_muzzle_gold.png",
+      "original_id": "vfx_muzzle_gold",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Destello de boca de arma dorada, flash compacto y corto. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_muzzle_plasma",
+      "raw": "vfx_muzzle_plasma.png",
+      "name": "VFX · Fogonazo Neón Magenta",
+      "category": "effects",
+      "size": [
+        192,
+        160
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_muzzle_plasma.png",
+      "final_location": "assets/effects/vfx_muzzle_plasma.png",
+      "original_id": "vfx_muzzle_plasma",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Destello de boca de arma de plasma, aro magenta/cian con corazón blanco. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_impact_spark",
+      "raw": "vfx_impact_spark.png",
+      "name": "VFX · Impacto Chispa Balística",
+      "category": "effects",
+      "size": [
+        160,
+        160
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_impact_spark.png",
+      "final_location": "assets/effects/vfx_impact_spark.png",
+      "original_id": "vfx_impact_spark",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Chispa de impacto, cortas líneas de luz amarilla/blanca disparándose en abanico. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_impact_plasma",
+      "raw": "vfx_impact_plasma.png",
+      "name": "VFX · Impacto Estrella Magenta",
+      "category": "effects",
+      "size": [
+        160,
+        160
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_impact_plasma.png",
+      "final_location": "assets/effects/vfx_impact_plasma.png",
+      "original_id": "vfx_impact_plasma",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Impacto de plasma, aro cian/magenta expansivo con motas. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_explosion_inferno",
+      "raw": "vfx_explosion_inferno.png",
+      "name": "VFX · Explosión Bomba Infernal",
+      "category": "effects",
+      "size": [
+        320,
+        320
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_explosion_inferno.png",
+      "final_location": "assets/effects/vfx_explosion_inferno.png",
+      "original_id": "vfx_explosion_inferno",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Explosión infernal, hongo de fuego magenta/naranja con anillo de humo. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_shockwave_magenta",
+      "raw": "vfx_shockwave_magenta.png",
+      "name": "VFX · Anillo Rúnico / RAVE Magenta",
+      "category": "effects",
+      "size": [
+        320,
+        320
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_shockwave_magenta.png",
+      "final_location": "assets/effects/vfx_shockwave_magenta.png",
+      "original_id": "vfx_shockwave_magenta",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Onda de choque magenta, anillo expansivo delgado. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_fire_plume",
+      "raw": "vfx_fire_plume.png",
+      "name": "VFX · Columna de Fuego Infernal",
+      "category": "effects",
+      "size": [
+        160,
+        256
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_fire_plume.png",
+      "final_location": "assets/effects/vfx_fire_plume.png",
+      "original_id": "vfx_fire_plume",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Columna de fuego/pluma, llamas ascendentes naranja/magenta. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_soul_flame",
+      "raw": "vfx_soul_flame.png",
+      "name": "VFX · Descarga Cian Sónica",
+      "category": "effects",
+      "size": [
+        192,
+        192
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_soul_flame.png",
+      "final_location": "assets/effects/vfx_soul_flame.png",
+      "original_id": "vfx_soul_flame",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Llama de alma, fuego azul/cian frío espectral que ondea. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_lightning_purple",
+      "raw": "vfx_lightning_purple.png",
+      "name": "VFX · Relámpago Arcano Púrpura",
+      "category": "effects",
+      "size": [
+        224,
+        256
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_lightning_purple.png",
+      "final_location": "assets/effects/vfx_lightning_purple.png",
+      "original_id": "vfx_lightning_purple",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Rayo violeta, zig-zag eléctrico ramificado con núcleo blanco. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "vfx_smoke_cloud",
+      "raw": "vfx_smoke_cloud.png",
+      "name": "VFX · Nube de Humo Volumétrico",
+      "category": "effects",
+      "size": [
+        256,
+        256
+      ],
+      "location": "assets/_regen/LOTE_06/effects/vfx_smoke_cloud.png",
+      "final_location": "assets/effects/vfx_smoke_cloud.png",
+      "original_id": "vfx_smoke_cloud",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Nube de humo gris oscuro, expansión difusa, opacidad alta. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: normal. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "effect_anamorphic_flare",
+      "raw": "effect_anamorphic_flare.png",
+      "name": "Efecto Visual · Destello de Lente Anamórfico Horizontal",
+      "category": "effects",
+      "size": [
+        1920,
+        256
+      ],
+      "location": "assets/_regen/LOTE_06/effects/effect_anamorphic_flare.png",
+      "final_location": "assets/cinematics/effects/effect_anamorphic_flare.png",
+      "original_id": "effect_anamorphic_flare",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Destello anamórfico de lente, línea horizontal de luz magenta/cian con estrellas. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    },
+    {
+      "id": "effect_dust_particles",
+      "raw": "effect_dust_particles.png",
+      "name": "Efecto Ambiental · Mota de Polvo y Partículas Neón Volumétricas",
+      "category": "effects",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_06/effects/effect_dust_particles.png",
+      "final_location": "assets/cinematics/effects/effect_dust_particles.png",
+      "original_id": "effect_dust_particles",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Efecto visual VFX para el juego. Partículas de polvo flotantes, motas brillantes en el aire. Sprite centrado, borde fundido, sin contorno opaco a menos que sea una chispa nítida. Modo de mezcla: aditivo. NO debe tapar sprites de amenazas. Brevedad: el efecto dura fracciones de segundo.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, opaco sólido, contornos duros, texto, objeto solido",
+      "fit": {
+        "mode": "contain",
+        "halo": 8
+      }
+    }
+  ]
+}

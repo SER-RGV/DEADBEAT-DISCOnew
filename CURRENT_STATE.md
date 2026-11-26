@@ -369,3 +369,43 @@ Rama de trabajo: `arena/09513f9b-deadbeat-disconew` (nueva reconstrucción siste
 - **FASE 2 (siguiente):** flujo de regeneración reproducible (`tools/art_master/` pipeline, convención `assets/_regen/LOTE_XX/`, validación de batch, postproceso de verde chroma/alpha, actualización de manifest, build).
 - Luego FASE 3: regeneración por lotes en orden (UI/logos → suelos/muros → props/pickups → armas/FX → enemigos → jefes → protagonista → cinemáticas), 3-5 assets de muestra por lote antes de generar el resto.
 - PR #31 de la reconstrucción anterior sigue abierto BORRADOR; no se toca.
+
+---
+
+## Estado actual · 2026-11-26 (FASE 2 COMPLETADA · flujo de regeneración reproducible)
+
+Rama `arena/09513f9b-deadbeat-disconew`.
+
+### FASE 2 · Pipeline (COMPLETADA)
+- **Plan de lotes:** `docs/ASSET_REGEN/LOTES_PLAN.json` (13 lotes, 277 assets cubiertos, 0 IDs sin lote).
+  - LOTE_00: iconos HUD/emblemas/logos (11) — priority alta, muestra de 5.
+  - LOTE_01: suelos (13) — alta.
+  - LOTE_02: muros y entornos (19) — alta.
+  - LOTE_03: props (34) — alta.
+  - LOTE_04: pickups/reliquias (20) — media.
+  - LOTE_05: armas (16) — baja, necesita decisión (pixel-art coherente).
+  - LOTE_06: VFX (22) — media.
+  - LOTE_07: retratos/backdrop/logo cinemático (10) — media.
+  - LOTE_08: enemigos (24) — media, usa R02 como semilla.
+  - LOTE_09: jefes (42) — media, usa R03 como semilla.
+  - LOTE_10: protagonista (31) — **bloqueado**, requiere aprobación explícita.
+  - **LOTE_11: corrección bug capas duplicadas (12) — crítico**.
+  - LOTE_12: cinemáticas composite/escenas (23) — media.
+- **`tools/regen/planner.py`**: genera JSON de lote completos y de muestra (`docs/ASSET_REGEN/LOTES/LOTE_XX.json` y `.sample.json`) desde el plan + `assets/prompts.json` + `manifest.json`.
+- **`tools/regen/process_lote.py`**: postproceso de PNG crudos (verde croma) usando `artlib.chroma_matte` + `fit_canvas` + `save_png`. Salida en `assets/_regen/LOTE_XX/<cat>/<id>.png` + WebP maestro en `_masters/` + hoja de contacto en `_qc/` + `report.json`.
+- **`tools/regen/validate_lote.py`**: comprueba dimensiones, canal alfa, peso, flags QC (ghost/empty/green_spill/clipped), presencia de maestro. Exit code 1 si hay fallos.
+- **`tools/regen/apply_lote.py`**: backup automático a `backups/regen/LOTE_XX_pre*/` (espejo), copia a `assets/<cat>/`, actualiza `manifest.json` + `dd_asset_registry.js` (sha16 + rev + ASSET_CACHE_VERSION bump), regenera HTML vía `tools/build_active_html.py`. Tiene `--dry-run`. Escribe `.applied.json` para rollback.
+- **`tools/regen/rollback_lote.py`**: revierte un lote aplicado (restaura backup, borra assets nuevos, reconstruye manifest/registry, regenera HTML).
+- **`docs/ASSET_REGEN/FASE2_PIPELINE.md`**: documentación completa del flujo.
+- **`.gitignore` actualizado** para no trackear salidas generadas en `assets/_regen/` ni backups en `backups/regen/`.
+
+### Pruebas realizadas
+- Prueba end-to-end con imágenes sintéticas sobre verde croma: process_lote OK (5/5 PNG procesados con transparencia correcta en esquinas, objeto opaco en centro), validate_lote OK (20/20 checks OK), apply_lote `--dry-run` OK (rutas de backup y copia correctas).
+- Limpieza de la prueba (borrado `assets/_regen/LOTE_00/` de prueba); no se modificó ningún asset final ni HTML.
+- Todos los scripts con sintaxis Python OK.
+- `node --check src/dd_asset_registry.js` sigue OK.
+- `python3 tools/build_active_html.py` se ejecuta con éxito.
+
+### Pendiente (FASE 3)
+Regeneración por lotes en el orden definido. La regla es **3-5 muestras por lote → aprobación visual → resto del lote**.
+Siguiente lote natural: **LOTE_00 muestra** (iconos HUD + logos), pero el bug de capas duplicadas (LOTE_11) es crítico. La primera generación real de imágenes requiere intervención de un generador de imágenes (externo a este sandbox) — las herramientas están listas para consumir los PNG crudos.

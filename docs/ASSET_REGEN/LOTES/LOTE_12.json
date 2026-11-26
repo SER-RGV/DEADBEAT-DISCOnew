@@ -1,0 +1,578 @@
+{
+  "batch": "LOTE_12",
+  "title": "Cinemáticas: composite bg y escenas de círculos",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_12",
+  "sample_only": false,
+  "phase": "3H",
+  "priority": "medium",
+  "note": "Después de LOTE_11. Composites opacos de fondos completos (2560x1440), capas 01 (cielo/profundidad, 1920x1080 RGBA), escenas de círculos (960x540) y key art del intro. Muestra inicial: cine_bg01_city, cine_bg01_city_01_sky, cine_circle_00_hub, cine_intro_club_panorama.",
+  "existing_source": null,
+  "needs_decision": false,
+  "needs_approval": false,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_12",
+  "backup_dir": "backups/regen/LOTE_12_pre",
+  "master_dir": "assets/_regen/LOTE_12/_masters",
+  "assets": [
+    {
+      "id": "cine_bg01_city",
+      "raw": "cine_bg01_city.png",
+      "name": "Cinemática BG01 · Ciudad Exterior (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg01_city.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg01_city/cine_bg01_city.png",
+      "original_id": "cine_bg01_city",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG01 · Ciudad Exterior (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg02_club_exterior",
+      "raw": "cine_bg02_club_exterior.png",
+      "name": "Cinemática BG02 · Fachada del Club (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg02_club_exterior.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/cine_bg02_club_exterior.png",
+      "original_id": "cine_bg02_club_exterior",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG02 · Fachada del Club (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg03_entrance",
+      "raw": "cine_bg03_entrance.png",
+      "name": "Cinemática BG03 · Vestíbulo y Corredor (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg03_entrance.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg03_entrance/cine_bg03_entrance.png",
+      "original_id": "cine_bg03_entrance",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG03 · Vestíbulo y Corredor (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg04_main_hall",
+      "raw": "cine_bg04_main_hall.png",
+      "name": "Cinemática BG04 · Gran Nave Principal (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg04_main_hall.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/cine_bg04_main_hall.png",
+      "original_id": "cine_bg04_main_hall",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG04 · Gran Nave Principal (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg05_dancefloor",
+      "raw": "cine_bg05_dancefloor.png",
+      "name": "Cinemática BG05 · Pista Principal (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg05_dancefloor.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/cine_bg05_dancefloor.png",
+      "original_id": "cine_bg05_dancefloor",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG05 · Pista Principal (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg06_hero",
+      "raw": "cine_bg06_hero.png",
+      "name": "Cinemática BG06 · Escenario Heroico (Master 2.5K)",
+      "category": "cinematics",
+      "size": [
+        2560,
+        1440
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg06_hero.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg06_hero/cine_bg06_hero.png",
+      "original_id": "cine_bg06_hero",
+      "pivot": "center",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG06 · Escenario Heroico (Master 2.5K). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg01_city_01_sky_moon_atmosphere",
+      "raw": "cine_bg01_city_01_sky_moon_atmosphere.png",
+      "name": "Cinemática BG01 · Fondo / Infinito (01_sky_moon_atmosphere.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg01_city_01_sky_moon_atmosphere.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg01_city/01_sky_moon_atmosphere.png",
+      "original_id": "cine_bg01_city_01_sky_moon_atmosphere",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG01 · Fondo / Infinito (01_sky_moon_atmosphere.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+      "raw": "cine_bg02_club_exterior_01_gothic_cathedral_facade.png",
+      "name": "Cinemática BG02 · Fondo / Muro (01_gothic_cathedral_facade.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg02_club_exterior_01_gothic_cathedral_facade.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg02_club_exterior/01_gothic_cathedral_facade.png",
+      "original_id": "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG02 · Fondo / Muro (01_gothic_cathedral_facade.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg03_entrance_01_vaulted_hallway_depth",
+      "raw": "cine_bg03_entrance_01_vaulted_hallway_depth.png",
+      "name": "Cinemática BG03 · Fondo / Bóvedas en fuga (01_vaulted_hallway_depth.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg03_entrance_01_vaulted_hallway_depth.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg03_entrance/01_vaulted_hallway_depth.png",
+      "original_id": "cine_bg03_entrance_01_vaulted_hallway_depth",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG03 · Fondo / Bóvedas en fuga (01_vaulted_hallway_depth.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg04_main_hall_01_cathedral_nave_vaults",
+      "raw": "cine_bg04_main_hall_01_cathedral_nave_vaults.png",
+      "name": "Cinemática BG04 · Fondo / Bóvedas superiores (01_cathedral_nave_vaults.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg04_main_hall_01_cathedral_nave_vaults.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg04_main_hall/01_cathedral_nave_vaults.png",
+      "original_id": "cine_bg04_main_hall_01_cathedral_nave_vaults",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG04 · Fondo / Bóvedas superiores (01_cathedral_nave_vaults.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg05_dancefloor_01_astrological_dancefloor_grid",
+      "raw": "cine_bg05_dancefloor_01_astrological_dancefloor_grid.png",
+      "name": "Cinemática BG05 · Suelo / Pavimento reactivo (01_astrological_dancefloor_grid.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg05_dancefloor_01_astrological_dancefloor_grid.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg05_dancefloor/01_astrological_dancefloor_grid.png",
+      "original_id": "cine_bg05_dancefloor_01_astrological_dancefloor_grid",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG05 · Suelo / Pavimento reactivo (01_astrological_dancefloor_grid.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_bg06_hero_01_axial_portal_rosette",
+      "raw": "cine_bg06_hero_01_axial_portal_rosette.png",
+      "name": "Cinemática BG06 · Fondo / Portal axial (01_axial_portal_rosette.png)",
+      "category": "cinematics",
+      "size": [
+        1920,
+        1080
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_bg06_hero_01_axial_portal_rosette.png",
+      "final_location": "assets/cinematics/backgrounds/final/cine_bg06_hero/01_axial_portal_rosette.png",
+      "original_id": "cine_bg06_hero_01_axial_portal_rosette",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Capa de paralax de cinemática: Cinemática BG06 · Fondo / Portal axial (01_axial_portal_rosette.png). Capa 16:9 con transparencia para composición multicapa. Profundidad y perspectiva, neón del club, arquitectura apropiada al plano. El fondo composite (sin _01_/_02_/_03_) es opaco 2560x1440; las capas son RGBA 1920x1080.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, protagonista en la capa (se compone por separado)",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_00_hub",
+      "raw": "cine_circle_00_hub.png",
+      "name": "Cinemática Círculo 0 · El Refugio y Cola del Club",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_00_hub.png",
+      "final_location": "assets/cinematics/cine_circle_00_hub.png",
+      "original_id": "cine_circle_00_hub",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo 0 · El Refugio y Cola del Club para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_01_lujuria",
+      "raw": "cine_circle_01_lujuria.png",
+      "name": "Cinemática Círculo I · Lujuria (El Salón de los Deseos)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_01_lujuria.png",
+      "final_location": "assets/cinematics/cine_circle_01_lujuria.png",
+      "original_id": "cine_circle_01_lujuria",
+      "pivot": "top-left",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo I · Lujuria (El Salón de los Deseos) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_02_gula",
+      "raw": "cine_circle_02_gula.png",
+      "name": "Cinemática Círculo II · Gula (El Banquete Interminable)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_02_gula.png",
+      "final_location": "assets/cinematics/cine_circle_02_gula.png",
+      "original_id": "cine_circle_02_gula",
+      "pivot": "top-left",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo II · Gula (El Banquete Interminable) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_03_avaricia",
+      "raw": "cine_circle_03_avaricia.png",
+      "name": "Cinemática Círculo III · Avaricia (El Club VIP)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_03_avaricia.png",
+      "final_location": "assets/cinematics/cine_circle_03_avaricia.png",
+      "original_id": "cine_circle_03_avaricia",
+      "pivot": "top-left",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo III · Avaricia (El Club VIP) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_04_ira",
+      "raw": "cine_circle_04_ira.png",
+      "name": "Cinemática Círculo IV · Ira (La Pista de las Peleas)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_04_ira.png",
+      "final_location": "assets/cinematics/cine_circle_04_ira.png",
+      "original_id": "cine_circle_04_ira",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo IV · Ira (La Pista de las Peleas) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_05_herejia",
+      "raw": "cine_circle_05_herejia.png",
+      "name": "Cinemática Círculo V · Herejía (La Catedral del Ruido)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_05_herejia.png",
+      "final_location": "assets/cinematics/cine_circle_05_herejia.png",
+      "original_id": "cine_circle_05_herejia",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo V · Herejía (La Catedral del Ruido) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_06_violencia",
+      "raw": "cine_circle_06_violencia.png",
+      "name": "Cinemática Círculo VI · Violencia (El Matadero)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_06_violencia.png",
+      "final_location": "assets/cinematics/cine_circle_06_violencia.png",
+      "original_id": "cine_circle_06_violencia",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo VI · Violencia (El Matadero) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_07_fraude",
+      "raw": "cine_circle_07_fraude.png",
+      "name": "Cinemática Círculo VII · Fraude (El Club de los Espejos)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_07_fraude.png",
+      "final_location": "assets/cinematics/cine_circle_07_fraude.png",
+      "original_id": "cine_circle_07_fraude",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo VII · Fraude (El Club de los Espejos) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_08_traicion",
+      "raw": "cine_circle_08_traicion.png",
+      "name": "Cinemática Círculo VIII · Traición (La Última Sala)",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_08_traicion.png",
+      "final_location": "assets/cinematics/cine_circle_08_traicion.png",
+      "original_id": "cine_circle_08_traicion",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo VIII · Traición (La Última Sala) para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_circle_09_nucleo",
+      "raw": "cine_circle_09_nucleo.png",
+      "name": "Cinemática Círculo IX · El Núcleo Final",
+      "category": "cinematics",
+      "size": [
+        960,
+        540
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_circle_09_nucleo.png",
+      "final_location": "assets/cinematics/cine_circle_09_nucleo.png",
+      "original_id": "cine_circle_09_nucleo",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Ilustración/miniatura del Cinemática Círculo IX · El Núcleo Final para la interfaz de selección de círculo o transición. Composición rica con el color dominante del círculo y silueta arquitectónica representativa.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    },
+    {
+      "id": "cine_intro_club_panorama",
+      "raw": "cine_intro_club_panorama.png",
+      "name": "Key Art Discoteca Infernal Panorama",
+      "category": "cinematics",
+      "size": [
+        1280,
+        720
+      ],
+      "location": "assets/_regen/LOTE_12/cinematics/cine_intro_club_panorama.png",
+      "final_location": "assets/cinematics/cine_intro_club_panorama.png",
+      "original_id": "cine_intro_club_panorama",
+      "pivot": "top-left",
+      "alpha": false,
+      "key": "green",
+      "matte": "none",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Key art de la discoteca infernal: panorama ancho de la pista principal del club con catedral gótica, altavoces colosales, neón magenta y cian, columnas, público en silueta y el DJ al fondo. Composición 16:9.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "fit": {
+        "mode": "cover",
+        "trim": 0
+      }
+    }
+  ]
+}

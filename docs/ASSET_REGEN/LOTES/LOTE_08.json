@@ -1,0 +1,794 @@
+{
+  "batch": "LOTE_08",
+  "title": "Enemigos (familias walk de referencia; prompts R02 como semilla)",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_08",
+  "sample_only": false,
+  "phase": "3E",
+  "priority": "medium",
+  "note": "Usar lotes R02 existentes como semilla; regenerar solo si el contrato de paleta/círculo lo requiere. 5 muestras walk: enemy_security_walk, enemy_dancer_walk, enemy_chef_walk, enemy_drone_walk, enemy_elite_walk.",
+  "existing_source": "docs/ART_REBUILD/batches/R02_ENEMIGOS.json",
+  "needs_decision": false,
+  "needs_approval": false,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_08",
+  "backup_dir": "backups/regen/LOTE_08_pre",
+  "master_dir": "assets/_regen/LOTE_08/_masters",
+  "assets": [
+    {
+      "id": "enemy_security_walk",
+      "raw": "enemy_security_walk.png",
+      "name": "Seguridad · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        224,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_security_walk.png",
+      "final_location": "assets/enemies/enemy_security_walk.png",
+      "original_id": "enemy_security_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: caminando erguido y amenazante, torso algo adelantado, la porra baja junto al muslo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          112,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_security_windup",
+      "raw": "enemy_security_windup.png",
+      "name": "Seguridad · aviso",
+      "category": "enemies",
+      "size": [
+        400,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_security_windup.png",
+      "final_location": "assets/enemies/enemy_security_windup.png",
+      "original_id": "enemy_security_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con la porra alzada por detrás de la cabeza y el otro brazo extendido al frente para equilibrarse. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          200,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_security_attack",
+      "raw": "enemy_security_attack.png",
+      "name": "Seguridad · ataque",
+      "category": "enemies",
+      "size": [
+        480,
+        400
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_security_attack.png",
+      "final_location": "assets/enemies/enemy_security_attack.png",
+      "original_id": "enemy_security_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: fondo de esgrima hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, brazo derecho totalmente extendido a la altura del hombro con la porra horizontal prolongando el brazo, brazo izquierdo recogido atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          240,
+          360
+        ],
+        "unit": 400
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_security_death",
+      "raw": "enemy_security_death.png",
+      "name": "Seguridad · muerte",
+      "category": "enemies",
+      "size": [
+        432,
+        416
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_security_death.png",
+      "final_location": "assets/enemies/enemy_security_death.png",
+      "original_id": "enemy_security_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SEGURIDAD: gorila antidisturbios del club. Casco negro cerrado con ranura de visor magenta encendida, chaleco táctico negro con hombreras angulosas y ribete magenta, emblema de calavera magenta en el pecho, guantes, pantalón táctico con rodilleras, botas. Porra negra de punta magenta. MUERTE: recibe el disparo de frente y cae de espaldas (hacia la izquierda): torso arqueado unos 40°, casco vencido hacia atrás, brazos abiertos, la porra saliendo despedida; una pierna pateando al aire y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          216,
+          374
+        ],
+        "unit": 416
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_fanatic_walk",
+      "raw": "enemy_fanatic_walk.png",
+      "name": "Sprinter · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        336,
+        400
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_fanatic_walk.png",
+      "final_location": "assets/enemies/enemy_fanatic_walk.png",
+      "original_id": "enemy_fanatic_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: acecho agazapado: torso muy inclinado, rodillas flexionadas, cabeza adelantada, garras abiertas colgando. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          360
+        ],
+        "unit": 400
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_fanatic_windup",
+      "raw": "enemy_fanatic_windup.png",
+      "name": "Sprinter · aviso",
+      "category": "enemies",
+      "size": [
+        384,
+        320
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_fanatic_windup.png",
+      "final_location": "assets/enemies/enemy_fanatic_windup.png",
+      "original_id": "enemy_fanatic_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: agazapado para saltar: torso doblado hacia el suelo, ambas manos tocando el suelo por delante, cabeza baja mirando al frente con la mandíbula abierta, caderas altas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          192,
+          288
+        ],
+        "unit": 320
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_fanatic_attack",
+      "raw": "enemy_fanatic_attack.png",
+      "name": "Sprinter · ataque",
+      "category": "enemies",
+      "size": [
+        384,
+        400
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_fanatic_attack.png",
+      "final_location": "assets/enemies/enemy_fanatic_attack.png",
+      "original_id": "enemy_fanatic_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: embestida a la carrera: torso casi horizontal, boca abierta, pierna trasera estirada, brazos lanzados hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          192,
+          360
+        ],
+        "unit": 400
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_fanatic_death",
+      "raw": "enemy_fanatic_death.png",
+      "name": "Sprinter · muerte",
+      "category": "enemies",
+      "size": [
+        496,
+        448
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_fanatic_death.png",
+      "final_location": "assets/enemies/enemy_fanatic_death.png",
+      "original_id": "enemy_fanatic_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "SPRINTER: corredor no-muerto. Fibroso, cara de calavera, cresta corta rosa. Mono ceñido azul marino con vivos rosas, cinturón rosa, mitones y zapatillas rosas, dedos en garra. MUERTE: el disparo lo levanta del suelo y lo dobla hacia atrás: cabeza a la izquierda y pies a la derecha, pecho y calavera hacia arriba, mandíbula abierta, brazos con las garras lacias al aire; una pierna pateando y la otra apoyada. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          248,
+          403
+        ],
+        "unit": 448
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_chef_walk",
+      "raw": "enemy_chef_walk.png",
+      "name": "Tanque · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        608,
+        512
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_chef_walk.png",
+      "final_location": "assets/enemies/enemy_chef_walk.png",
+      "original_id": "enemy_chef_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar de gorila sobre los nudillos: un puño plantado delante, piernas cortas flexionadas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          304,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_chef_windup",
+      "raw": "enemy_chef_windup.png",
+      "name": "Tanque · aviso",
+      "category": "enemies",
+      "size": [
+        432,
+        704
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_chef_windup.png",
+      "final_location": "assets/enemies/enemy_chef_windup.png",
+      "original_id": "enemy_chef_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. AVISO antes de la carga: se yergue sobre las dos piernas como un gorila enfurecido, mucho más alto que al caminar, con los dos puños alzados y juntos por encima de la cabeza, pecho fuera y boca abierta rugiendo; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          216,
+          633
+        ],
+        "unit": 704
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_chef_attack",
+      "raw": "enemy_chef_attack.png",
+      "name": "Tanque · ataque",
+      "category": "enemies",
+      "size": [
+        800,
+        528
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_chef_attack.png",
+      "final_location": "assets/enemies/enemy_chef_attack.png",
+      "original_id": "enemy_chef_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. ATAQUE, puñetazo en carrera: se lanza hacia la derecha sobre dos piernas, cuerpo inclinado unos 45°, pierna trasera estirada, brazo derecho totalmente extendido en horizontal con el puño por delante de la cabeza, brazo izquierdo atrás; ninguna mano toca el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          400,
+          475
+        ],
+        "unit": 528
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_chef_death",
+      "raw": "enemy_chef_death.png",
+      "name": "Tanque · muerte",
+      "category": "enemies",
+      "size": [
+        656,
+        592
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_chef_death.png",
+      "final_location": "assets/enemies/enemy_chef_death.png",
+      "original_id": "enemy_chef_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TANQUE: bruto colosal de cuerpo de gorila. Espalda y hombros enormes, puños como su cabeza, cabeza calva hundida entre los hombros, gran barba violeta, ojos pequeños encendidos, piel cetrina con cicatrices. Torso desnudo, pantalón marrón raído, cinturón de tachuelas, botas negras. MUERTE: acaba de recibir un disparo en el pecho desde la derecha y cae de ESPALDAS hacia la izquierda, con todo el cuerpo inclinado unos 40 grados: cabeza echada atrás arriba a la izquierda, boca abierta y ojos cerrados, pecho y vientre hacia arriba, los dos brazos sueltos con las manos abiertas (ninguna toca el suelo), una pierna pateando hacia la derecha y el talón de la otra bota todavía en el suelo. UNA sola figura en la imagen; la pose de la referencia se sustituye por completo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          328,
+          532
+        ],
+        "unit": 592
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_dancer_walk",
+      "raw": "enemy_dancer_walk.png",
+      "name": "Bailarina · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        272,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_dancer_walk.png",
+      "final_location": "assets/enemies/enemy_dancer_walk.png",
+      "original_id": "enemy_dancer_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: paso de baile arrastrado: rodillas flexionadas, caderas ladeadas, ambos brazos al frente con las muñecas caídas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          136,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_dancer_windup",
+      "raw": "enemy_dancer_windup.png",
+      "name": "Bailarina · aviso",
+      "category": "enemies",
+      "size": [
+        320,
+        448
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_dancer_windup.png",
+      "final_location": "assets/enemies/enemy_dancer_windup.png",
+      "original_id": "enemy_dancer_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa muy atrás sobre la pierna trasera, torso inclinado hacia atrás, ambos brazos alzados por encima de la cabeza con las garras abiertas, boca abierta en un chillido, pierna delantera estirada con la punta en el suelo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          160,
+          403
+        ],
+        "unit": 448
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_dancer_attack",
+      "raw": "enemy_dancer_attack.png",
+      "name": "Bailarina · ataque",
+      "category": "enemies",
+      "size": [
+        480,
+        416
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_dancer_attack.png",
+      "final_location": "assets/enemies/enemy_dancer_attack.png",
+      "original_id": "enemy_dancer_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: zancada profunda hacia la derecha: rodilla delantera muy flexionada, pierna trasera estirada, torso lanzado adelante, ambos brazos extendidos al frente a la altura del hombro con las garras abiertas, melena hacia atrás. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          240,
+          374
+        ],
+        "unit": 416
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_dancer_death",
+      "raw": "enemy_dancer_death.png",
+      "name": "Bailarina · muerte",
+      "category": "enemies",
+      "size": [
+        384,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_dancer_death.png",
+      "final_location": "assets/enemies/enemy_dancer_death.png",
+      "original_id": "enemy_dancer_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "BAILARINA: gogó no-muerta. Demacrada, extremidades muy largas, piel rosa chicle, cara de calavera con cuencas oscuras, melena corta rosa. Top rosa de manga larga, minifalda plisada azul celeste, botines rosas, dedos en garra. MUERTE: recibe el disparo de frente y cae de espaldas: cuerpo arqueado como un arco, cabeza vencida hacia atrás con la melena al vuelo, mandíbula abierta, brazos lanzados arriba, falda al vuelo; una pierna al aire y el tacón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          192,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_drone_walk",
+      "raw": "enemy_drone_walk.png",
+      "name": "Tirador · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        272,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_drone_walk.png",
+      "final_location": "assets/enemies/enemy_drone_walk.png",
+      "original_id": "enemy_drone_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: avance cauteloso con las rodillas flexionadas y el arma lista a la altura del pecho, sin disparar. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          136,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_drone_windup",
+      "raw": "enemy_drone_windup.png",
+      "name": "Tirador · aviso",
+      "category": "enemies",
+      "size": [
+        240,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_drone_windup.png",
+      "final_location": "assets/enemies/enemy_drone_windup.png",
+      "original_id": "enemy_drone_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se planta con los pies separados y alza el subfusil en vertical junto a la cara, cañón hacia arriba, las dos manos en el arma, mirando a su objetivo. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          120,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_drone_attack",
+      "raw": "enemy_drone_attack.png",
+      "name": "Tirador · ataque",
+      "category": "enemies",
+      "size": [
+        432,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_drone_attack.png",
+      "final_location": "assets/enemies/enemy_drone_attack.png",
+      "original_id": "enemy_drone_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. POSE DE ATAQUE: el golpe en su punto máximo. En concreto: postura de tiro baja y abierta, cuerpo volcado hacia adelante, ambos brazos totalmente extendidos al frente a la altura del hombro, cañón horizontal; sin fogonazo (el motor pone los proyectiles). Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          216,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_drone_death",
+      "raw": "enemy_drone_death.png",
+      "name": "Tirador · muerte",
+      "category": "enemies",
+      "size": [
+        416,
+        448
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_drone_death.png",
+      "final_location": "assets/enemies/enemy_drone_death.png",
+      "original_id": "enemy_drone_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "TIRADOR: pistolero no-muerto. Delgado, piel gris. Cazadora bomber roja con puños y cuello negros, gorra roja calada, pañuelo negro con dientes de calavera sobre media cara, pantalón cargo negro, zapatillas blancas y rojas. Subfusil compacto negro a dos manos. MUERTE: recibe el disparo de frente y cae de espaldas: torso arqueado, cabeza vencida hacia atrás, la gorra roja saliendo despedida, brazos abiertos y el subfusil girando en el aire; una pierna al aire y el talón de la otra en el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          208,
+          403
+        ],
+        "unit": 448
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_elite_walk",
+      "raw": "enemy_elite_walk.png",
+      "name": "Élite · Mascota · caminar / reposo",
+      "category": "enemies",
+      "size": [
+        320,
+        496
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_elite_walk.png",
+      "final_location": "assets/enemies/enemy_elite_walk.png",
+      "original_id": "enemy_elite_walk",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE: avanzando hacia la derecha a media zancada, ambos pies cerca del suelo. Es el fotograma de reposo y de caminar (el motor le añade balanceo). En concreto: andar pesado y amenazante, torso adelantado, brazos algo abiertos con las garras listas. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          160,
+          446
+        ],
+        "unit": 496
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_elite_windup",
+      "raw": "enemy_elite_windup.png",
+      "name": "Élite · Mascota · aviso",
+      "category": "enemies",
+      "size": [
+        336,
+        512
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_elite_windup.png",
+      "final_location": "assets/enemies/enemy_elite_windup.png",
+      "original_id": "enemy_elite_windup",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. POSE DE AVISO: carga el golpe antes de atacar (telegrafía el ataque al jugador). En concreto: se echa atrás con ambos brazos alzados por encima de la cabeza y las garras de acero abiertas, un pie en el aire al dar el paso. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA (el motor refleja al enemigo para encararlo al jugador). Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_elite_attack",
+      "raw": "enemy_elite_attack.png",
+      "name": "Élite · Mascota · ataque",
+      "category": "enemies",
+      "size": [
+        672,
+        432
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_elite_attack.png",
+      "final_location": "assets/enemies/enemy_elite_attack.png",
+      "original_id": "enemy_elite_attack",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. ATAQUE de garra: zancada larga hacia la derecha con el torso adelantado; brazo derecho extendido en horizontal a la altura del hombro con las garras abiertas por delante, brazo izquierdo recogido atrás; el cabezón entero a la vista, sin nada que lo tape. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          336,
+          388
+        ],
+        "unit": 432
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "enemy_elite_death",
+      "raw": "enemy_elite_death.png",
+      "name": "Mascota (élite) · muerte",
+      "category": "enemies",
+      "size": [
+        496,
+        464
+      ],
+      "location": "assets/_regen/LOTE_08/enemies/enemy_elite_death.png",
+      "final_location": "assets/enemies/enemy_elite_death.png",
+      "original_id": "enemy_elite_death",
+      "pivot": "anchors.foot",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "MASCOTA: matón disfrazado de mascota del club. Corpulento, mono de peluche rosa, cabezón de oso de peluche color crema con orejas redondas, sonrisa cosida, un ojo de botón y otro magenta encendido, manchas y costuras. Manoplas de peluche con garras de acero, botas rosas, collar negro de pinchos. MUERTE: cae de espaldas con el cuerpo a unos 45°: cabezón de oso vencido hacia atrás y torcido, relleno blanco saliendo por una costura reventada del pecho, brazos arriba con las garras abiertas; una bota al aire y el talón de la otra tocando el suelo. Mismo personaje y mismo tamaño que la referencia. Ilustración digital de alta resolución, mismo acabado que el protagonista (R01): contorno de tinta negra, sombreado cel de bordes duros, luz de contorno magenta en la espalda y cian en el frente. NO pixel art. Perfil estricto mirando a la DERECHA. Fondo croma verde liso (#00FF00); sin suelo, sin sombra, sin sangre, sin efectos, sin texto; nada verde en el personaje.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          248,
+          417
+        ],
+        "unit": 464
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    }
+  ]
+}

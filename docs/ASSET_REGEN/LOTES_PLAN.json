@@ -1,0 +1,172 @@
+{
+  "version": "1.0.1",
+  "description": "Plan de lotes FASE 3. Orden y agrupación de assets para regeneración sistemática. Cada lote empieza con SAMPLE (3-5 assets iniciales para aprobación visual) antes de generar el resto.",
+  "policy": {
+    "output_dir": "assets/_regen/LOTE_XX",
+    "backup_dir": "backups/regen/LOTE_XX_pre",
+    "master_dir": "assets/_regen/LOTE_XX/_masters",
+    "postprocess": {
+      "key": "green",
+      "matte": "hard",
+      "band": 3
+    },
+    "approval_required": true,
+    "sample_size": 5
+  },
+  "lotes": [
+    {
+      "id": "LOTE_00",
+      "title": "UI · iconos HUD, emblemas pequeños y logos (sin retratos ni backdrop)",
+      "phase": "3A",
+      "include_ids": [
+        "hud_heart_full", "hud_heart_empty", "hud_shield_badge", "hud_credit_coin",
+        "hud_skill_bomb", "hud_skill_boost", "hud_skill_dodge",
+        "ui_shop_emblem", "overlay_vignette_gothic",
+        "emblem_fox_crown", "logo_deadbeat_graffiti"
+      ],
+      "note": "Empezar con iconos HUD y logos (chasis oscuro, trazo nítido). 5 muestras: logo_deadbeat_graffiti, emblem_fox_crown, hud_heart_full, hud_credit_coin, ui_shop_emblem.",
+      "samples": ["logo_deadbeat_graffiti", "emblem_fox_crown", "hud_heart_full", "hud_credit_coin", "ui_shop_emblem"],
+      "priority": "high"
+    },
+    {
+      "id": "LOTE_01",
+      "title": "Suelos (todos los círculos + HUB + VIP)",
+      "phase": "3B",
+      "categories": ["floors"],
+      "note": "Tiles 512x512 seamless opacos. 5 muestras: floor_00_limbo_marble, floor_01_lust_dancefloor, floor_10_hub_checker, floor_03_greed_slate_gold, floor_09_core_cosmic_vein.",
+      "samples": ["floor_00_limbo_marble", "floor_01_lust_dancefloor", "floor_10_hub_checker", "floor_03_greed_slate_gold", "floor_09_core_cosmic_vein"],
+      "priority": "high"
+    },
+    {
+      "id": "LOTE_02",
+      "title": "Muros y entornos (paneles, pilares, puertas, portales, pad, grieta)",
+      "phase": "3B",
+      "categories": ["walls", "environments"],
+      "note": "5 muestras: wall_pillar_obsidian, wall_panel_gothic_niche, door_gothic_closed, threshold_descent_pad, threshold_descent_crack.",
+      "samples": ["wall_pillar_obsidian", "wall_panel_gothic_niche", "door_gothic_closed", "threshold_descent_pad", "threshold_descent_crack"],
+      "priority": "high"
+    },
+    {
+      "id": "LOTE_03",
+      "title": "Props del Refugio y firma por círculo",
+      "phase": "3C",
+      "categories": ["props"],
+      "note": "5 muestras: prop_bar_counter, prop_dj_booth, prop_sofa_magenta, prop_weapon_rack, prop_hub_fox_neon (fox neón mural).",
+      "samples": ["prop_bar_counter", "prop_dj_booth", "prop_sofa_magenta", "prop_weapon_rack", "prop_hub_fox_neon"],
+      "priority": "high"
+    },
+    {
+      "id": "LOTE_04",
+      "title": "Pickups y reliquias",
+      "phase": "3C",
+      "categories": ["pickups"],
+      "note": "5 muestras: pickup_heart_00, pickup_credits_00, relic_tempo, relic_magnet, relic_prism.",
+      "samples": ["pickup_heart_00", "pickup_credits_00", "relic_tempo", "relic_magnet", "relic_prism"],
+      "priority": "medium"
+    },
+    {
+      "id": "LOTE_05",
+      "title": "Armas (evaluación: pixel-art actual vs painterly)",
+      "phase": "3D",
+      "categories": ["weapons"],
+      "note": "EVALUACIÓN OBLIGATORIA antes de masivo: las armas actuales son pixel-art 320x160 coherente. Generar 3 muestras painterly (weapon_m1911, weapon_c013_escopeta, weapon_plasma) y comparar contra el pixel-art actual antes de decidir si regenerar todo el lote.",
+      "samples": ["weapon_m1911", "weapon_c013_escopeta", "weapon_plasma"],
+      "priority": "low",
+      "needs_decision": true
+    },
+    {
+      "id": "LOTE_06",
+      "title": "Efectos y proyectiles VFX",
+      "phase": "3D",
+      "categories": ["effects"],
+      "note": "FX aditivos sobre fondo oscuro. 5 muestras: vfx_muzzle_gold, vfx_impact_spark, proj_pellet, vfx_explosion_inferno, vfx_lightning_purple.",
+      "samples": ["vfx_muzzle_gold", "vfx_impact_spark", "proj_pellet", "vfx_explosion_inferno", "vfx_lightning_purple"],
+      "priority": "medium"
+    },
+    {
+      "id": "LOTE_07",
+      "title": "Retratos UI, backdrop de menú, logo cinemático y emblemas de estado",
+      "phase": "3A2",
+      "include_ids": [
+        "hud_portrait_protagonist",
+        "dialogue_portrait_dj", "dialogue_portrait_bartender", "dialogue_portrait_armorer",
+        "map_infernal_tower", "menu_main_backdrop", "menu_main_backdrop_a",
+        "ui_defeat_emblem", "ui_victory_emblem",
+        "logo_deadbeat_cinematic"
+      ],
+      "note": "Después de aprobado LOTE_00. Incluye backdrop de menú (1280x720 / 2560x1440 opacos), 4 retratos (512x512), mapa 640x640 y emblemas fin/victoria. 5 muestras: hud_portrait_protagonist, dialogue_portrait_bartender, menu_main_backdrop, map_infernal_tower, ui_victory_emblem.",
+      "samples": ["hud_portrait_protagonist", "dialogue_portrait_bartender", "menu_main_backdrop", "map_infernal_tower", "ui_victory_emblem"],
+      "priority": "medium"
+    },
+    {
+      "id": "LOTE_08",
+      "title": "Enemigos (familias walk de referencia; prompts R02 como semilla)",
+      "phase": "3E",
+      "categories": ["enemies"],
+      "note": "Usar lotes R02 existentes como semilla; regenerar solo si el contrato de paleta/círculo lo requiere. 5 muestras walk: enemy_security_walk, enemy_dancer_walk, enemy_chef_walk, enemy_drone_walk, enemy_elite_walk.",
+      "samples": ["enemy_security_walk", "enemy_dancer_walk", "enemy_chef_walk", "enemy_drone_walk", "enemy_elite_walk"],
+      "priority": "medium",
+      "existing_source": "docs/ART_REBUILD/batches/R02_ENEMIGOS.json"
+    },
+    {
+      "id": "LOTE_09",
+      "title": "Jefes (idle de referencia; prompts R03 como semilla)",
+      "phase": "3F",
+      "categories": ["bosses"],
+      "note": "Usar lotes R03 existentes como semilla. 5 muestras idle: boss_00_anden_idle, boss_01_magneta_idle, boss_05_oficiante_idle, boss_09_nucleo_idle, boss_10_arquitecto_idle.",
+      "samples": ["boss_00_anden_idle", "boss_01_magneta_idle", "boss_05_oficiante_idle", "boss_09_nucleo_idle", "boss_10_arquitecto_idle"],
+      "priority": "medium",
+      "existing_source": "docs/ART_REBUILD/batches/R03_JEFES.json"
+    },
+    {
+      "id": "LOTE_10",
+      "title": "Protagonista (animaciones de combate)",
+      "phase": "3G",
+      "categories": ["characters"],
+      "note": "REQUIERE APROBACIÓN EXPLÍCITA. El IDLE 07B está cerrado. Las animaciones de combate (walk/shoot/roll/etc.) siguen el diseño maestro de protagonist_master_approved.png. NO INICIAR sin visto bueno del autor. Si se aprueba, muestra inicial = player_idle/walk.",
+      "samples": [],
+      "priority": "blocked",
+      "needs_approval": true,
+      "protected_ids": ["pm_idle_00"]
+    },
+    {
+      "id": "LOTE_11",
+      "title": "Cinemáticas: corrección bug capas duplicadas (CRÍTICO)",
+      "phase": "3H",
+      "include_ids": [
+        "cine_bg01_city_02_gothic_skyline_architecture", "cine_bg01_city_03_foreground_industrial_pipes",
+        "cine_bg02_club_exterior_02_portal_speakers_entrance", "cine_bg02_club_exterior_03_wet_pavement_reflections",
+        "cine_bg03_entrance_02_midground_columns_banners", "cine_bg03_entrance_03_foreground_pillars_occlusion",
+        "cine_bg04_main_hall_02_laser_beams_equalizer", "cine_bg04_main_hall_03_chandeliers_stage_framing",
+        "cine_bg05_dancefloor_02_sound_towers_dj_stage", "cine_bg05_dancefloor_03_tables_foreground_ambient",
+        "cine_bg06_hero_02_hero_rimlight_spotlight", "cine_bg06_hero_03_flanking_speakers_framing"
+      ],
+      "note": "🐛 PRIORIDAD CRÍTICA: las 12 capas 02_*/03_* de cine_bg01-06 son byte-identical (~23 MB), rompiendo el parallax de intro. Regenerar con contenido diferenciado (02 = plano medio arquitectónico, 03 = primer plano con siluetas/marco). 5 muestras: bg01 02+03, bg02 02+03, bg04 02.",
+      "samples": [
+        "cine_bg01_city_02_gothic_skyline_architecture", "cine_bg01_city_03_foreground_industrial_pipes",
+        "cine_bg02_club_exterior_02_portal_speakers_entrance", "cine_bg02_club_exterior_03_wet_pavement_reflections",
+        "cine_bg04_main_hall_02_laser_beams_equalizer"
+      ],
+      "priority": "critical"
+    },
+    {
+      "id": "LOTE_12",
+      "title": "Cinemáticas: composite bg y escenas de círculos",
+      "phase": "3H",
+      "include_ids": [
+        "cine_bg01_city", "cine_bg02_club_exterior", "cine_bg03_entrance", "cine_bg04_main_hall",
+        "cine_bg05_dancefloor", "cine_bg06_hero",
+        "cine_bg01_city_01_sky_moon_atmosphere", "cine_bg02_club_exterior_01_gothic_cathedral_facade",
+        "cine_bg03_entrance_01_vaulted_hallway_depth", "cine_bg04_main_hall_01_cathedral_nave_vaults",
+        "cine_bg05_dancefloor_01_astrological_dancefloor_grid", "cine_bg06_hero_01_axial_portal_rosette",
+        "cine_circle_00_hub", "cine_circle_01_lujuria", "cine_circle_02_gula", "cine_circle_03_avaricia",
+        "cine_circle_04_ira", "cine_circle_05_herejia", "cine_circle_06_violencia", "cine_circle_07_fraude",
+        "cine_circle_08_traicion", "cine_circle_09_nucleo",
+        "cine_intro_club_panorama"
+      ],
+      "note": "Después de LOTE_11. Composites opacos de fondos completos (2560x1440), capas 01 (cielo/profundidad, 1920x1080 RGBA), escenas de círculos (960x540) y key art del intro. Muestra inicial: cine_bg01_city, cine_bg01_city_01_sky, cine_circle_00_hub, cine_intro_club_panorama.",
+      "samples": ["cine_bg01_city", "cine_bg01_city_01_sky_moon_atmosphere", "cine_circle_00_hub", "cine_circle_09_nucleo", "cine_intro_club_panorama"],
+      "priority": "medium"
+    }
+  ]
+}

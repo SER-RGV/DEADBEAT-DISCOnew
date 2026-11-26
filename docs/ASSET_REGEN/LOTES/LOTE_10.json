@@ -1,0 +1,1018 @@
+{
+  "batch": "LOTE_10",
+  "title": "Protagonista (animaciones de combate)",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_10",
+  "sample_only": false,
+  "phase": "3G",
+  "priority": "blocked",
+  "note": "REQUIERE APROBACIÓN EXPLÍCITA. El IDLE 07B está cerrado. Las animaciones de combate (walk/shoot/roll/etc.) siguen el diseño maestro de protagonist_master_approved.png. NO INICIAR sin visto bueno del autor. Si se aprueba, muestra inicial = player_idle/walk.",
+  "existing_source": null,
+  "needs_decision": false,
+  "needs_approval": true,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_10",
+  "backup_dir": "backups/regen/LOTE_10_pre",
+  "master_dir": "assets/_regen/LOTE_10/_masters",
+  "assets": [
+    {
+      "id": "npc_dj_booth_world",
+      "raw": "npc_dj_booth_world.png",
+      "name": "Personaje · DJ Virgilio en Cabina (Mundo)",
+      "category": "characters",
+      "size": [
+        384,
+        320
+      ],
+      "location": "assets/_regen/LOTE_10/characters/npc_dj_booth_world.png",
+      "final_location": "assets/characters/npc_dj_booth_world.png",
+      "original_id": "npc_dj_booth_world",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Personaje NPC: Personaje · DJ Virgilio en Cabina (Mundo). Seguir la dirección de NPC de club (bartender, armera, DJ, compañero dron) manteniendo coherencia de trazo y luz con el protagonista.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "anchors_raw": {
+        "foot": [
+          192,
+          288
+        ],
+        "unit": 320
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "npc_armorer_hub",
+      "raw": "npc_armorer_hub.png",
+      "name": "Personaje · Armera del Refugio HUB",
+      "category": "characters",
+      "size": [
+        256,
+        320
+      ],
+      "location": "assets/_regen/LOTE_10/characters/npc_armorer_hub.png",
+      "final_location": "assets/characters/npc_armorer_hub.png",
+      "original_id": "npc_armorer_hub",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Personaje NPC: Personaje · Armera del Refugio HUB. Seguir la dirección de NPC de club (bartender, armera, DJ, compañero dron) manteniendo coherencia de trazo y luz con el protagonista.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "anchors_raw": {
+        "foot": [
+          128,
+          288
+        ],
+        "unit": 320
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "npc_bartender_hub",
+      "raw": "npc_bartender_hub.png",
+      "name": "Personaje · Camarero Sombrío del Refugio",
+      "category": "characters",
+      "size": [
+        256,
+        320
+      ],
+      "location": "assets/_regen/LOTE_10/characters/npc_bartender_hub.png",
+      "final_location": "assets/characters/npc_bartender_hub.png",
+      "original_id": "npc_bartender_hub",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Personaje NPC: Personaje · Camarero Sombrío del Refugio. Seguir la dirección de NPC de club (bartender, armera, DJ, compañero dron) manteniendo coherencia de trazo y luz con el protagonista.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "anchors_raw": {
+        "foot": [
+          128,
+          288
+        ],
+        "unit": 320
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "companion_drone_ally",
+      "raw": "companion_drone_ally.png",
+      "name": "Personaje · Dron Aliado / Torreta Sónica",
+      "category": "characters",
+      "size": [
+        224,
+        224
+      ],
+      "location": "assets/_regen/LOTE_10/characters/companion_drone_ally.png",
+      "final_location": "assets/characters/companion_drone_ally.png",
+      "original_id": "companion_drone_ally",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Personaje NPC: Personaje · Dron Aliado / Torreta Sónica. Seguir la dirección de NPC de club (bartender, armera, DJ, compañero dron) manteniendo coherencia de trazo y luz con el protagonista.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado",
+      "anchors_raw": {
+        "foot": [
+          112,
+          201
+        ],
+        "unit": 224
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_idle_00",
+      "raw": "player_idle_00.png",
+      "name": "Protagonista · Pose Idle Respiración",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_idle_00.png",
+      "final_location": "assets/characters/player_idle_00.png",
+      "original_id": "player_idle_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: de pie en reposo, perfil mirando a la derecha, brazos relajados, manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_walk_00",
+      "raw": "player_walk_00.png",
+      "name": "Protagonista · Piernas de caminata en guardia 1/4 (zancada máxima)",
+      "category": "characters",
+      "size": [
+        336,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_walk_00.png",
+      "final_location": "assets/characters/player_walk_00.png",
+      "original_id": "player_walk_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 1/4 del ciclo: zancada máxima. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_walk_01",
+      "raw": "player_walk_01.png",
+      "name": "Protagonista · Piernas de caminata en guardia 2/4 (zancada cerrándose)",
+      "category": "characters",
+      "size": [
+        336,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_walk_01.png",
+      "final_location": "assets/characters/player_walk_01.png",
+      "original_id": "player_walk_01",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 2/4 del ciclo: zancada cerrándose. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_walk_02",
+      "raw": "player_walk_02.png",
+      "name": "Protagonista · Piernas de caminata en guardia 3/4 (paso, pierna adelantando)",
+      "category": "characters",
+      "size": [
+        336,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_walk_02.png",
+      "final_location": "assets/characters/player_walk_02.png",
+      "original_id": "player_walk_02",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 3/4 del ciclo: paso — pierna de apoyo recta bajo la cadera, la otra adelanta con la rodilla apenas flexionada y la bota a pocos centímetros del suelo; SIN rodilla alta. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_walk_03",
+      "raw": "player_walk_03.png",
+      "name": "Protagonista · Piernas de caminata en guardia 4/4 (zancada abriéndose)",
+      "category": "characters",
+      "size": [
+        336,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_walk_03.png",
+      "final_location": "assets/characters/player_walk_03.png",
+      "original_id": "player_walk_03",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha con el torso en guardia de disparo (ambos puños alzados ante el pecho, sin arma); fase 4/4 del ciclo: zancada abriéndose. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          168,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_shoot_00",
+      "raw": "player_shoot_00.png",
+      "name": "Protagonista · Disparo 1 Mano",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_shoot_00.png",
+      "final_location": "assets/characters/player_shoot_00.png",
+      "original_id": "player_shoot_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: guardia de disparo con pistola: rodillas algo flexionadas, ambos puños juntos ante el pecho a la altura de la barbilla como empuñando una pistola invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_fire2",
+      "raw": "player_fire2.png",
+      "name": "Protagonista · Disparo 2 Manos Rifle",
+      "category": "characters",
+      "size": [
+        384,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_fire2.png",
+      "final_location": "assets/characters/player_fire2.png",
+      "original_id": "player_fire2",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: postura de fusil a dos manos: piernas abiertas, brazo delantero extendido como sosteniendo el cañón de un arma larga invisible, mano trasera junto al hombro; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          192,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_firehip",
+      "raw": "player_firehip.png",
+      "name": "Protagonista · Disparo Cadera Arma Pesada",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_firehip.png",
+      "final_location": "assets/characters/player_firehip.png",
+      "original_id": "player_firehip",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: disparo pesado desde la cadera: piernas muy abiertas, torso echado atrás, puños a la altura de la cintura como sujetando una ametralladora invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_boost_00",
+      "raw": "player_boost_00.png",
+      "name": "Protagonista · Impulso / Dash Sónico",
+      "category": "characters",
+      "size": [
+        512,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_boost_00.png",
+      "final_location": "assets/characters/player_boost_00.png",
+      "original_id": "player_boost_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: embestida explosiva hacia la derecha: cuerpo muy inclinado, puño adelantado, pierna trasera extendida, rayos finos cian y magenta en puños y botas. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          256,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_roll_00",
+      "raw": "player_roll_00.png",
+      "name": "Protagonista · Esquiva Acrobática",
+      "category": "characters",
+      "size": [
+        384,
+        384
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_roll_00.png",
+      "final_location": "assets/characters/player_roll_00.png",
+      "original_id": "player_roll_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: voltereta de esquiva: cuerpo recogido en bola, rodillas al pecho, brazos abrazando las espinillas. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          192,
+          345
+        ],
+        "unit": 384
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_hurt_00",
+      "raw": "player_hurt_00.png",
+      "name": "Protagonista · Impacto / Daño",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_hurt_00.png",
+      "final_location": "assets/characters/player_hurt_00.png",
+      "original_id": "player_hurt_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: recibiendo un golpe: cabeza y hombros hacia atrás, antebrazo alzado cubriendo la cara, rodillas cediendo, mueca de dolor. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_death_00",
+      "raw": "player_death_00.png",
+      "name": "Protagonista · Caído / Derrota",
+      "category": "characters",
+      "size": [
+        640,
+        320
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_death_00.png",
+      "final_location": "assets/characters/player_death_00.png",
+      "original_id": "player_death_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: derribado, tumbado boca arriba en horizontal, cabeza a la izquierda y botas a la derecha, ojos cerrados. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          320,
+          288
+        ],
+        "unit": 320
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_walk_00",
+      "raw": "hero_walk_00.png",
+      "name": "Protagonista · Caminata cuerpo entero 1/4 (zancada máxima (contacto))",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_walk_00.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_walk_00.png",
+      "original_id": "hero_walk_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 1/4 del ciclo: zancada máxima (contacto). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_walk_01",
+      "raw": "hero_walk_01.png",
+      "name": "Protagonista · Caminata cuerpo entero 2/4 (zancada cerrándose (carga de peso))",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_walk_01.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_walk_01.png",
+      "original_id": "hero_walk_01",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 2/4 del ciclo: zancada cerrándose (carga de peso). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_walk_02",
+      "raw": "hero_walk_02.png",
+      "name": "Protagonista · Caminata cuerpo entero 3/4 (paso (piernas juntas, rodilla adelantada))",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_walk_02.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_walk_02.png",
+      "original_id": "hero_walk_02",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 3/4 del ciclo: paso (piernas juntas, rodilla adelantada). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_walk_03",
+      "raw": "hero_walk_03.png",
+      "name": "Protagonista · Caminata cuerpo entero 4/4 (zancada abriéndose (impulso))",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_walk_03.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_walk_03.png",
+      "original_id": "hero_walk_03",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: caminando hacia la derecha de cuerpo entero con los brazos al costado; fase 4/4 del ciclo: zancada abriéndose (impulso). Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_idle_00",
+      "raw": "hero_idle_00.png",
+      "name": "Protagonista Cinemático · Pose Estática (Idle)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_idle_00.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_idle_00.png",
+      "original_id": "hero_idle_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: de pie en reposo, perfil mirando a la derecha, brazos relajados, manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "hero_shoot_00",
+      "raw": "hero_shoot_00.png",
+      "name": "Protagonista Cinemático · Guardia de disparo",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/hero_shoot_00.png",
+      "final_location": "assets/cinematics/characters/protagonist/hero_shoot_00.png",
+      "original_id": "hero_shoot_00",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: guardia de disparo con pistola: rodillas algo flexionadas, ambos puños juntos ante el pecho a la altura de la barbilla como empuñando una pistola invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_firehip_arms",
+      "raw": "player_firehip_arms.png",
+      "name": "Protagonista · Antebrazos y puños de la pose de cadera (capa sobre el corte de cintura)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_firehip_arms.png",
+      "final_location": "assets/characters/player_firehip_arms.png",
+      "original_id": "player_firehip_arms",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Protagonista (el Desafinado): joven delgado, pelo negro de punta, chaleco de cuero negro sin mangas con cuello alto y tachuelas rojas, camiseta de tirantes hueso, ambos brazos tatuados, muñequeras de pinchos, cinturón de tachuelas, vaqueros negros con cadena, botas militares. POSE: disparo pesado desde la cadera: piernas muy abiertas, torso echado atrás, puños a la altura de la cintura como sujetando una ametralladora invisible; manos vacías. Ilustración digital estilizada tipo cómic/graffiti: contorno de tinta negra, sombreado cel pintado a mano, luz de contorno magenta (espalda) y cian (frente). NO pixel art. Fondo croma verde liso; sin suelo, sin sombra, sin texto.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_up_01",
+      "raw": "player_aim_up_01.png",
+      "name": "Protagonista · Puntería alta 1 (≈ +38°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_up_01.png",
+      "final_location": "assets/characters/player_aim_up_01.png",
+      "original_id": "player_aim_up_01",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims diagonally UPWARD: both arms fully extended together, up and forward at a 45-degree angle above horizontal, both hands clasped together in a two-handed pistol grip at the end of the arms (hands EMPTY, no weapon, no gun), fists higher than the top of his head, head tilted back, eyes looking up along the arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_up_02",
+      "raw": "player_aim_up_02.png",
+      "name": "Protagonista · Puntería alta 2 (≈ +57°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_up_02.png",
+      "final_location": "assets/characters/player_aim_up_02.png",
+      "original_id": "player_aim_up_02",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims almost STRAIGHT UP at the ceiling: both arms fully extended together almost vertically (about 80 degrees above horizontal, leaning only slightly forward), both hands clasped together high above his head in a two-handed pistol grip (hands EMPTY, no weapon, no gun), head tilted far back, looking up at his hands. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_up_03",
+      "raw": "player_aim_up_03.png",
+      "name": "Protagonista · Puntería vertical arriba (≈ +88°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_up_03.png",
+      "final_location": "assets/characters/player_aim_up_03.png",
+      "original_id": "player_aim_up_03",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: both arms stretched STRAIGHT UP above his head, perfectly vertical like a diver reaching for the ceiling: upper arms right next to his ears, elbows locked, forearms vertical, both hands clasped together DIRECTLY ABOVE the top of his own head (not in front of him) in a two-handed pistol grip, hands EMPTY, no weapon, no gun; head tilted back, face looking straight up at the ceiling between his arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_down_01",
+      "raw": "player_aim_down_01.png",
+      "name": "Protagonista · Puntería baja 1 (≈ −30°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_down_01.png",
+      "final_location": "assets/characters/player_aim_down_01.png",
+      "original_id": "player_aim_down_01",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims diagonally DOWNWARD: both arms fully extended together, down and forward at a 45-degree angle below horizontal, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) out in front of his hips, held well away from the body so that green background is clearly visible between the arms and the legs, head tilted down, eyes looking down along the arms. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_down_02",
+      "raw": "player_aim_down_02.png",
+      "name": "Protagonista · Puntería baja 2 (≈ −52°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_down_02.png",
+      "final_location": "assets/characters/player_aim_down_02.png",
+      "original_id": "player_aim_down_02",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims steeply DOWN at the floor just ahead of his boots: torso bent slightly forward at the waist, both arms fully extended together pointing down and a little forward (about 70 degrees below horizontal), both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his knees, held clearly in front of the legs so that a strip of green background is visible between the forearms/hands and the legs; head bowed, looking down at the floor. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_down_03",
+      "raw": "player_aim_down_03.png",
+      "name": "Protagonista · Puntería vertical abajo (≈ −88°)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_down_03.png",
+      "final_location": "assets/characters/player_aim_down_03.png",
+      "original_id": "player_aim_down_03",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: low-ready stance aiming STRAIGHT DOWN at the floor right in front of his boots: both arms straight down in front of his body with elbows locked, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his upper thighs just below the belt buckle, fists pointing at the floor; head bowed, looking straight down. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_down_02_arms",
+      "raw": "player_aim_down_02_arms.png",
+      "name": "Protagonista · Antebrazos y puños de la puntería baja 2 (capa sobre el corte de cintura)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_down_02_arms.png",
+      "final_location": "assets/characters/player_aim_down_02_arms.png",
+      "original_id": "player_aim_down_02_arms",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: he aims steeply DOWN at the floor just ahead of his boots: torso bent slightly forward at the waist, both arms fully extended together pointing down and a little forward (about 70 degrees below horizontal), both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his knees, held clearly in front of the legs so that a strip of green background is visible between the forearms/hands and the legs; head bowed, looking down at the floor. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    },
+    {
+      "id": "player_aim_down_03_arms",
+      "raw": "player_aim_down_03_arms.png",
+      "name": "Protagonista · Muñecas y puños de la puntería vertical abajo (capa sobre el corte de cintura)",
+      "category": "characters",
+      "size": [
+        288,
+        512
+      ],
+      "location": "assets/_regen/LOTE_10/characters/player_aim_down_03_arms.png",
+      "final_location": "assets/characters/player_aim_down_03_arms.png",
+      "original_id": "player_aim_down_03_arms",
+      "pivot": "bottom-center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "Same character, same outfit, same tattoos, same proportions, same art style and same side view facing right as the reference image, drawn at the same size and in the same position in the frame (belt and boots in the same place as the reference). Full body, standing upright, torso upright, legs straight and close together. NEW POSE: low-ready stance aiming STRAIGHT DOWN at the floor right in front of his boots: both arms straight down in front of his body with elbows locked, both hands clasped together in a two-handed pistol grip (hands EMPTY, no weapon, no gun) in front of his upper thighs just below the belt buckle, fists pointing at the floor; head bowed, looking straight down. Stylized digital comic / graffiti illustration: bold black ink outlines, hand-painted cel shading, magenta rim light on his back, cyan rim light on his front. NOT pixel art. Flat uniform chroma green (#00FF00) background, no ground, no cast shadow, no text, nothing cropped.",
+      "negative_prompt": "sin texto, letras, marcas, pixel art, sombras horneadas, halos blancos, verde croma en bordes, blanco puro, collage, varios personajes, marcas de agua",
+      "anchors_raw": {
+        "foot": [
+          144,
+          460
+        ],
+        "unit": 512
+      },
+      "fit": {
+        "mode": "contain",
+        "halo": 24,
+        "ground_line": 0.9
+      }
+    }
+  ]
+}

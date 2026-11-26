@@ -11,3 +11,8 @@ assets/characters/outfits/concepts/backup_pose_refs/
 assets/characters/outfits/concepts/showcase_v3_*
 assets/characters/outfits/concepts/showcase_v4_*
 assets/characters/outfits/concepts/showcase_v5_*
+# Pipeline de regeneración de arte (FASE 2+)
+assets/_regen/*/          # salidas generadas por lote (PNG finales, WebP maestros, _raw)
+!assets/_regen/.gitkeep
+!assets/_regen/README.md
+backups/regen/            # backups automáticos de apply_lote (rollback)

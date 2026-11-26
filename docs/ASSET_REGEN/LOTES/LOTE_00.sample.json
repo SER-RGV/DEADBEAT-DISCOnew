@@ -1,0 +1,146 @@
+{
+  "batch": "LOTE_00.sample",
+  "title": "UI · iconos HUD, emblemas pequeños y logos (sin retratos ni backdrop) · MUESTRA",
+  "created": "2026-11-26",
+  "lote_id": "LOTE_00",
+  "sample_only": true,
+  "phase": "3A",
+  "priority": "high",
+  "note": "Empezar con iconos HUD y logos (chasis oscuro, trazo nítido). 5 muestras: logo_deadbeat_graffiti, emblem_fox_crown, hud_heart_full, hud_credit_coin, ui_shop_emblem.",
+  "existing_source": null,
+  "needs_decision": false,
+  "needs_approval": false,
+  "style": "DEADBEAT DISCO · ilustración digital estilizada (no pixel art). Ver docs/ASSET_REGEN/PROMPTS/.",
+  "defaults": {
+    "key": "green",
+    "matte": "hard",
+    "band": 3,
+    "pivot": "bottom-center",
+    "alpha": true
+  },
+  "regen_output_dir": "assets/_regen/LOTE_00",
+  "backup_dir": "backups/regen/LOTE_00_pre",
+  "master_dir": "assets/_regen/LOTE_00/_masters",
+  "assets": [
+    {
+      "id": "hud_heart_full",
+      "raw": "hud_heart_full.png",
+      "name": "Marco UI · Minimapa Isométrico y Corazones Neón",
+      "category": "ui",
+      "size": [
+        128,
+        128
+      ],
+      "location": "assets/_regen/LOTE_00/ui/hud_heart_full.png",
+      "final_location": "assets/ui/hud_heart_full.png",
+      "original_id": "hud_heart_full",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Elemento de interfaz de HUD/menú de DEADBEAT DISCO. Diseño sobre chasis oscuro #0a0c12, trazo nítido ≥ 2 px a tamaño final. Icono de corazón lleno de vida, chasis oscuro con brillo dorado/magenta, símbolo claro de vida. Canal alfa, fondo transparente. Sin texto incrustado cuando el texto lo pinta la UI.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, texto incrustado, bordes pixelados, miniatura ilegible",
+      "fit": {
+        "mode": "contain",
+        "halo": 16
+      }
+    },
+    {
+      "id": "hud_credit_coin",
+      "raw": "hud_credit_coin.png",
+      "name": "Icono UI · Moneda Créditos (CR) Oro",
+      "category": "ui",
+      "size": [
+        128,
+        128
+      ],
+      "location": "assets/_regen/LOTE_00/ui/hud_credit_coin.png",
+      "final_location": "assets/ui/hud_credit_coin.png",
+      "original_id": "hud_credit_coin",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Elemento de interfaz de HUD/menú de DEADBEAT DISCO. Diseño sobre chasis oscuro #0a0c12, trazo nítido ≥ 2 px a tamaño final. Moneda de crédito dorada con el emblema del zorro, reverso con valor, brillo de oro. Canal alfa, fondo transparente. Sin texto incrustado cuando el texto lo pinta la UI.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, texto incrustado, bordes pixelados, miniatura ilegible",
+      "fit": {
+        "mode": "contain",
+        "halo": 16
+      }
+    },
+    {
+      "id": "ui_shop_emblem",
+      "raw": "ui_shop_emblem.png",
+      "name": "Emblema Armería · Pistola Infernal Tienda",
+      "category": "ui",
+      "size": [
+        320,
+        160
+      ],
+      "location": "assets/_regen/LOTE_00/ui/ui_shop_emblem.png",
+      "final_location": "assets/ui/ui_shop_emblem.png",
+      "original_id": "ui_shop_emblem",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Elemento de interfaz de HUD/menú de DEADBEAT DISCO. Diseño sobre chasis oscuro #0a0c12, trazo nítido ≥ 2 px a tamaño final. Emblema de tienda 'TIENDA', cartel colgante con letras de neón dorado y marco. Canal alfa, fondo transparente. Sin texto incrustado cuando el texto lo pinta la UI.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, texto incrustado, bordes pixelados, miniatura ilegible",
+      "fit": {
+        "mode": "contain",
+        "halo": 16
+      }
+    },
+    {
+      "id": "emblem_fox_crown",
+      "raw": "emblem_fox_crown.png",
+      "name": "Emblema Zorro Coronado Neón",
+      "category": "logos",
+      "size": [
+        512,
+        512
+      ],
+      "location": "assets/_regen/LOTE_00/logos/emblem_fox_crown.png",
+      "final_location": "assets/logos/emblem_fox_crown.png",
+      "original_id": "emblem_fox_crown",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Logotipo/emblema del juego DEADBEAT DISCO. Emblema del zorro coronado de neón, silueta de cabeza de zorro estilizada de perfil con corona de tres puntas, contornos dorados, ojos cian brillantes, sobre fondo oscuro. Canal alfa, fondo transparente. Pivote center.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, otros logos, texto incorrecto",
+      "fit": {
+        "mode": "contain",
+        "halo": 16
+      }
+    },
+    {
+      "id": "logo_deadbeat_graffiti",
+      "raw": "logo_deadbeat_graffiti.png",
+      "name": "Logotipo Graffiti Deadbeat Disco",
+      "category": "logos",
+      "size": [
+        1024,
+        682
+      ],
+      "location": "assets/_regen/LOTE_00/logos/logo_deadbeat_graffiti.png",
+      "final_location": "assets/logos/logo_deadbeat_graffiti.png",
+      "original_id": "logo_deadbeat_graffiti",
+      "pivot": "center",
+      "alpha": true,
+      "key": "green",
+      "matte": "hard",
+      "band": 3,
+      "prompt": "DEADBEAT DISCO · ilustración digital estilizada tipo cómic/graffiti, no pixel art. Contorno de tinta negra nítido y cerrado. Sombreado cel con 2-3 tonos por material. Iluminación principal desde el noroeste, rim light magenta a la derecha y cian a la izquierda cuando aporten lectura. Logotipo/emblema del juego DEADBEAT DISCO. Logotipo oficial de DEADBEAT DISCO en estilo graffiti callejero, letras gruesas inclinadas en magenta y blanco con contorno negro, chorros de pintura, sobre fondo oscuro. Canal alfa, fondo transparente. Pivote center.  Fondo verde croma liso (#00ff00). Sin suelo dibujado, sin sombra de contacto (la pinta el motor). Sin texto, letras, números, logotipos ni marcas. SIN pixel art, dithering, grano, ruido ni sombras horneadas. Sin halos blancos ni restos de croma. SIN varios personajes, sin collage de vistas, sin marcas de agua.",
+      "negative_prompt": "texto, letras, números, marcas, pixel art, dithering, grano, sombras horneadas, halos blancos, restos de verde croma en bordes, blanco puro, collage de vistas, varios personajes, marcas de agua, piso de más, sombra de suelo, suelo dibujado, otros logos, texto incorrecto",
+      "fit": {
+        "mode": "contain",
+        "halo": 16
+      }
+    }
+  ]
+}
