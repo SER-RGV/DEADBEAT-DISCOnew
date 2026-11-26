@@ -176,3 +176,35 @@ Se conserva una optimización sin cambiar la selección de puntos: `adaptPopulat
 Evidencias `docs/DIAGNOSTICO_SALAS_EVIDENCIA/poblacion-precalculo-*`. Build producido exclusivamente con `python3 tools/build_active_html.py`, ambos SHA-256 `6bdceff062338aefc70b4a4fc307a0a403f69abfb6269bb1e2f090b3d6302a1b`. Para revertir, verificar `sha256sum -c backups/room_population_precompute_20261126/SHA256SUMS`, restaurar `population_compiled.js` desde ese backup a `src/room_generation/`, reconstruir y verificar ambos builds SHA-256 `83eb5abf961a500b630877c258a5c8f4ac43455709989e31be4b9a26f00a80f4`. No se altera el formato de guardado ni se eliminan datos.
 
 **Fase 3 continúa incompleta:** faltan nuevas variantes y sus assets/colisiones, unicidad de siluetas y puertas, diferenciación demostrada de círculos, capturas y QA de campaña natural; los ensayos no prueban ausencia de regresión general de frames, memoria o generación.
+
+## Variantes proporcionales experimentales 2.4.0
+
+Implementadas en `src/room_generation/prefab_variants.js`, con `window.__DD_ROOM_VARIANTS_V3=true` antes del arranque; por defecto se mantiene 2.0.0 y la versión guardada prevalece. 2.4 deriva cada prefab compilado de una de las cinco plantillas existentes, estirando su eje X en un factor `1 + 0,012 × (2 × local + bit)`, donde el bit es determinista por seed/piso/sala. Los 24 slots producen factores entre 1 y 1,276; la asignación por `local` impide compartir factor dentro del piso, mientras el bit proporciona al menos dos proporciones por rol entre seeds. Perímetro, sockets y tarima se recalculan; mobiliario, collider, pivote, vista, elevación y arte siguen la plantilla. No se giran bitmaps, ni se crean sprites, ni se altera el Hangar piloto. El conjunto de plantillas derivadas se crea bajo demanda y se conserva en el catálogo en memoria, como máximo 24 por plantilla base; no es una asignación por frame. 2.4 publica geometría compilada y reutiliza la adaptación de población.
+
+**Límite importante:** son variantes de proporciones de cinco diseños existentes, no siluetas artísticamente diseñadas de cero. Diferencias sucesivas pueden ser sutiles; no se ha demostrado que se perciban como habitaciones distintas. El test normaliza escala uniforme, giro/reflexión y orden/sentido del polígono, pero acepta diferencias de proporción; no evalúa percepción, composición ni Hangar. Por ello la unicidad matemática del barrido **no cierra** el criterio de variedad visual ni el de todas las salas incluido Hangar.
+
+| Comprobación | Resultado / alcance |
+|---|---|
+| `node tools/qa/room_generation_variety_audit.cjs 1000 variants` | 10.000 mapas, cero firmas silueta/puertas repetidas entre salas compiladas, Hangar excluido; al menos dos IDs de proporción por tipo entre seeds. No prueba dos composiciones artísticas distintas por tipo. |
+| `node tools/qa/room_generation_variants.cjs 1000` | 10.000 mapas, 115.000 salas, 920.000 candidatos, 1.000 Hangar excluidos, determinismo y coherencia plan/compilado; adaptación y validación comparten predicado. |
+| `node tools/qa/room_generation_topology_reach.cjs 1000 variants` | 276 configuraciones de plantilla/puertas, 624 desembarcos alcanzados, rejilla paso 25 y radio 16; 401.518/401.577 puntos libres conectados. No demuestra tránsito continuo, actores o Hangar. |
+| `DD_ROOM_VARIANTS=1 room_generation_unified_native.cjs` y `prefab_reach.cjs` | Seed 0 en navegador: 115 salas, 257 puertas, 920 puntos de spawn; puertas alcanzables en rejilla. No cubre todas las seeds ni combate. |
+| `DD_ROOM_VARIANTS=1 prefab_progression.cjs`, `room_generation_topology_live.cjs` | Nueve descensos asistidos, núcleo con puerta de jefe y grafo/guardado reconstruidos tras reload; jefe forzado con debug. No prueba partida natural ni reanudación activa. |
+| `room_generation_variants_version.cjs ... 100` | 1.000 planes por versión 2.0–2.3 iguales al build previo; 2.4 determinista en el mismo alcance; guardados 2.3 y 2.4 prevalecen sobre flag. |
+| `room_generation_topology_perf.cjs` | Headless 1.000 muestras/version: 2.0 media/p95 0,266/0,300 ms; 2.3 1,373/5,700; 2.4 1,317/4,400. Sigue la regresión frente a 2.0; no mide frames ni memoria. |
+
+### Recursos heredados y faltantes
+
+Inventario completo de cada petición sprite, ruta exacta, existencia y pivote: `docs/DIAGNOSTICO_SALAS_EVIDENCIA/variantes-assets-24.json`, generado por `tools/qa/room_generation_variant_assets.cjs`. Las variantes comparten los mismos recursos que su base, sin IDs de arte nuevos. Los nombres que siguen son relativos a `assets/prefabs/club/`:
+
+| Base | Vistas usadas | Archivos de vista o sombra faltantes |
+|---|---|---|
+| nave-quebrada | monitor-S, panel-E, mesa-N, sofa-W | Ninguno de los estados y sombras solicitados. |
+| palco-profundo | monitor-S, panel-E, puesto-N, sofa-W | Ninguno de los estados y sombras solicitados. |
+| pasillo-servicio | monitor-S, panel-N, mesa-N, sofa-S | `panel-N-intacto{,-sombra}.png`; `sofa-S-{intacto,roto}{,-sombra}.png`. |
+| arena-octogono | monitor-S, panel-E, mesa-S, sofa-N, mesa-W | `{mesa-S,sofa-N,mesa-W}-{intacto,roto}{,-sombra}.png`. |
+| camarote | monitor-W, panel-E, puesto-N, sofa-N | `monitor-W-intacto{,-sombra}.png`; `sofa-N-{intacto,roto}{,-sombra}.png`. |
+
+Las llaves de la tabla denotan las combinaciones literales enumeradas en el JSON. Faltan también los pivotes correspondientes cuando se señala en el inventario. El renderer usa representación nativa si falta la imagen; no se han fabricado vistas de otra orientación ni inspeccionado visualmente las variantes. Materiales de suelo y carcasa permanecen inalterados.
+
+Backups verificados con `sha256sum -c backups/room_variants_20261126/SHA256SUMS`. Para revertir: restaurar `tools/room_generation_migration.py` y los arneses respaldados desde esa carpeta, retirar del build el módulo nuevo restaurando la migración (se puede conservar `src/room_generation/prefab_variants.js`), ejecutar `python3 tools/build_active_html.py` y verificar ambos builds SHA-256 `6bdceff062338aefc70b4a4fc307a0a403f69abfb6269bb1e2f090b3d6302a1b`. Desactivar el flag solo afecta partidas sin marcador; el código anterior no reconoce guardados 2.4. Respaldar datos y establecer migración antes de revertirlos, nunca borrarlos. Build actual: ambos SHA-256 `ede03023444f2c69a4dd98c47b1e35eaaa2d9409d034193e4a17572e58e8d9bd`.

@@ -19,9 +19,13 @@ const URL = process.argv[2] || "http://localhost:8000";
       await p.addInitScript(() => { window.__DD_ROOM_TOPOLOGY_V3 = true; });
     if (process.env.DD_UNIFIED_GEOMETRY === "1")
       await p.addInitScript(() => { window.__DD_UNIFIED_ROOM_GEOMETRY = true; });
+    if (process.env.DD_ROOM_VARIANTS === "1")
+      await p.addInitScript(() => { window.__DD_ROOM_VARIANTS_V3 = true; });
     await p.goto(URL + "/?roomDebug&roomSeed=0");
     await p.waitForFunction(() => window.DD_BOOT?.getState().state === "MAIN_MENU");
-    if (process.env.DD_UNIFIED_GEOMETRY === "1")
+    if (process.env.DD_ROOM_VARIANTS === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.4.0");
+    else if (process.env.DD_UNIFIED_GEOMETRY === "1")
       assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.3.0");
     else if (process.env.DD_TOPOLOGY_V3 === "1")
       assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.2.0");
@@ -93,7 +97,7 @@ const URL = process.argv[2] || "http://localhost:8000";
         { timeout: 15000 },
       );
       templates.push(await p.evaluate(() => DD_ROOM_DEBUG.prefab().template));
-      if (floor === 9 && (process.env.DD_TOPOLOGY_V3 === "1" || process.env.DD_UNIFIED_GEOMETRY === "1")) {
+      if (floor === 9 && (process.env.DD_TOPOLOGY_V3 === "1" || process.env.DD_UNIFIED_GEOMETRY === "1" || process.env.DD_ROOM_VARIANTS === "1")) {
         const arrival = await p.evaluate(() => ({key:DMO.explore.state().key, type:DD_ROOM_DEBUG.inspect().room.type, boss:__DD_BRIDGE.getBoss()?.active || false}));
         assert.deepEqual(arrival, {key:"r100",type:"start",boss:false}, "núcleo must start outside the final boss room");
       }

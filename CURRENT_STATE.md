@@ -375,3 +375,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 ## Seguimiento · 2026-11-26 · precálculo de población
 - Se reutilizan segmentos y trigonometría durante cada adaptación/validación, sin caché global ni cambios al bucle de frame. 108.000 poblaciones legacy y 115.000 topológicas idénticas a la copia anterior; 1.000 planes por versión 2.0–2.3 comparados en navegador.
 - A/B secuencial 2.1 headless: media/p95 2,608/9,9 → 1,667/7,0 ms; 2.3 sigue más lento que 2.0 (1,686/6,2 frente a 0,304/0,4 ms en otro ensayo). Alcance, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`. Fase 3 incompleta.
+
+## Seguimiento · 2026-11-26 · variantes 2.4 opt-in
+- `__DD_ROOM_VARIANTS_V3` activa 2.4.0: variantes de proporción heredadas de cinco prefabs, con bit de seed por rol. Flag apagado por defecto; guardados conservan su versión.
+- 10.000 mapas: cero firmas repetidas entre salas compiladas, normalizando escala uniforme/giro/reflexión; Hangar excluido. Esto no demuestra diferencia visual perceptible ni dos diseños artísticos por tipo. 276 configuraciones y 624 salidas verificadas en rejilla; seed 0 comprobada puntualmente en motor.
+- Faltan sprites direccionales y validación visual; regresión de generación frente a legacy. Fase 3 sigue incompleta. Inventario, pruebas, backup y reversión: `docs/PROPUESTA_GENERACION_FASE_2.md`.

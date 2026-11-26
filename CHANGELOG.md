@@ -273,3 +273,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Precalcular geometría de población
 - Segmentos y trigonometría se preparan por llamada para el adaptador y el validador; sin caché persistente ni cambio intencional de resultados.
 - 223.000 poblaciones comparadas idénticas; A/B headless 2.1 mejora en la muestra, pero persiste regresión de generación 2.3 frente a 2.0. Fase 3 sigue incompleta; límites y reversión en la propuesta.
+
+## 2026-11-26 · Variantes proporcionales experimentales 2.4
+- Flag opt-in `__DD_ROOM_VARIANTS_V3`: deriva proporciones deterministas de cinco prefabs existentes sin crear arte ni rotar sprites; guardados antiguos conservan su versión.
+- Auditoría de 10.000 mapas sin firmas de forma/puertas duplicadas entre salas compiladas, con Hangar excluido. No prueba variedad visual perceptible; existen sprites direccionales faltantes. Detalle y límites en la propuesta.

@@ -2,10 +2,10 @@
 // Debug navigation; data agreement is not a visual or full-movement proof.
 const {chromium}=require('playwright-core'),assert=require('node:assert/strict');
 (async()=>{const b=await chromium.launch({executablePath:process.env.DD_CHROMIUM,args:['--no-sandbox','--disable-gpu']});
- const p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];await p.addInitScript(()=>{window.__DD_UNIFIED_ROOM_GEOMETRY=true;});p.on('pageerror',e=>errors.push(e.message));
+ const p=await b.newPage({viewport:{width:1280,height:800}}),errors=[];const expectedVersion=process.env.DD_ROOM_VARIANTS==='1'?'2.4.0':'2.3.0';if(expectedVersion==='2.4.0')await p.addInitScript(()=>{window.__DD_ROOM_VARIANTS_V3=true;});else await p.addInitScript(()=>{window.__DD_UNIFIED_ROOM_GEOMETRY=true;});p.on('pageerror',e=>errors.push(e.message));
  let rooms=0,doors=0,spawns=0;const failures=[];
  try{
-  await p.goto((process.argv[2]||'http://127.0.0.1:8000')+'/?roomDebug&roomSeed=0');await p.waitForFunction(()=>DD_BOOT?.getState().state==='MAIN_MENU');assert.equal(await p.evaluate(()=>DD_ROOM_GENERATION.version),'2.3.0');
+  await p.goto((process.argv[2]||'http://127.0.0.1:8000')+'/?roomDebug&roomSeed=0');await p.waitForFunction(()=>DD_BOOT?.getState().state==='MAIN_MENU');assert.equal(await p.evaluate(()=>DD_ROOM_GENERATION.version),expectedVersion);
   await p.evaluate(()=>{DD_HUB.enter();DD_HUB.exitToRun();});await p.waitForFunction(()=>__DD_BRIDGE.isRunning());
   for(let f=0;f<10;f++){
    await p.evaluate(i=>DMO.explore.debug({action:'goto',level:1+11*i}),f);
@@ -26,6 +26,6 @@ const {chromium}=require('playwright-core'),assert=require('node:assert/strict')
    }
   }
   assert.equal(rooms,115);assert.deepEqual(failures,[]);assert.deepEqual(errors,[]);
-  console.log(JSON.stringify({seed:0,version:'2.3.0',rooms,doors,spawns,failures,errors,note:'Debug navigation; compares installed native polygon/socket centres and point probes. No visual screenshot inspection, continuous movement, natural combat or all-seed physical coverage.'},null,2));
+  console.log(JSON.stringify({seed:0,version:expectedVersion,rooms,doors,spawns,failures,errors,note:'Debug navigation; compares installed native polygon/socket centres and point probes. No visual screenshot inspection, continuous movement, natural combat or all-seed physical coverage.'},null,2));
  }finally{await b.close();}
 })().catch(e=>{console.error(e);process.exitCode=1});

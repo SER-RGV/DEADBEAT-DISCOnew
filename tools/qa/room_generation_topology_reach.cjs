@@ -3,9 +3,9 @@
 const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path');
 const dir=path.resolve(__dirname,'../../src/room_generation');
 const catalog=require(path.join(dir,'prefabs/catalog.json'));
-const api=Function('prefabCatalog',['seed','rooms','population','floor','validate','architecture','prefabs','playable','topology_v3'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n')+';return {topologyPrototype,bindPrefabs,playableRoom};')(catalog);
-const n=Number(process.argv[2]||1000);assert(Number.isInteger(n)&&n>0);const configs=new Map();
-for(let floor=0;floor<10;floor++)for(let seed=0;seed<n;seed++)for(const node of api.bindPrefabs(api.topologyPrototype(seed,floor)).nodes){
+const api=Function('prefabCatalog',['seed','rooms','population','floor','validate','architecture','prefabs','playable','topology_v3','prefab_variants'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n')+';return {topologyPrototype,bindPrefabs,bindPrefabVariants,playableRoom};')(catalog);
+const n=Number(process.argv[2]||1000);assert(Number.isInteger(n)&&n>0);const configs=new Map(), variants=process.argv[3]==='variants';
+for(let floor=0;floor<10;floor++)for(let seed=0;seed<n;seed++)for(const node of (variants?api.bindPrefabVariants(api.bindPrefabs(api.topologyPrototype(seed,floor))):api.bindPrefabs(api.topologyPrototype(seed,floor))).nodes){
  const compiled=api.playableRoom(node);if(!compiled)continue;
  const signature=node.prefab.template+'|'+node.prefab.connections.map(c=>c.side+(c.lift?':lift':'')).sort().join(',');
  if(!configs.has(signature))configs.set(signature,compiled);
