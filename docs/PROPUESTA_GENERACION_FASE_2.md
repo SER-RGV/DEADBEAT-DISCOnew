@@ -238,3 +238,23 @@ Los 10 pivotes se añadieron a `assets/prefabs/club/pivots.json`, que es el regi
 El primer intento del arnés de render agotó la espera porque la sala piloto Hangar no activa el cargador de prefabs; tras entrar en una sala prefab el arnés pasó. No se ha ejecutado un estudio de legibilidad en GPU real ni en todos los círculos. Pillow se instaló temporalmente fuera del repo para el generador y QA, igual que requiere el generador de mobiliario existente; no se añadió dependencia al juego.
 
 Reversión: comprobar `sha256sum -c backups/room_directional_art_20261126/SHA256SUMS`, respaldar cualquier edición posterior, restaurar `assets/prefabs/club/pivots.json` desde esa carpeta y reconstruir con `python3 tools/build_active_html.py`. Los nuevos PNG quedan inertes sin sus pivotes y pueden conservarse; no borrar capturas ni backups. El build previo debe recuperar SHA-256 `ede03023444f2c69a4dd98c47b1e35eaaa2d9409d034193e4a17572e58e8d9bd`. Build actual, ambos HTML: `95a3401de46a68fd3e0eca0250b21caf9e525586018c3cdc70dc682b7d82eecd`.
+
+## Entrantes de silueta experimentales 2.5.0
+
+`window.__DD_ROOM_SILHOUETTES_V3=true` selecciona 2.5.0 solo en arranque y si no hay versión guardada. Se conserva 2.0 por defecto y las versiones 2.0–2.4. Sobre las proporciones 2.4, los slots impares introducen un **entrante físico de 140 unidades** en un borde de la plantilla que no tiene socket ni ancla de mobiliario; los pares mantienen su perímetro previo. El perímetro, muros y población se compilan de nuevo. Los bordes elegidos son `alcoveN` en nave y palco, `cornerNW` en pasillo, `returnNE` en arena y `returnSW` en camarote. Se mantienen assets, vistas, pivotes, sombras y colliders de las plantillas; no se crea arte ni otro canvas. El Hangar piloto permanece excluido. Se cachean las plantillas en el catálogo durante la generación, no por frame.
+
+En `siluetas-inset-25-visual/{a,b}.png`, el par de desafío `r13`, semillas 12 y 13, misma base y lados de puerta, **muestra un entrante visible** arriba a la izquierda en el slot 5. Parte queda bajo el HUD y las animaciones/destinos difieren; es una inspección de un par, no demuestra percepción en todos los cinco prefabs, salas o círculos ni la aprobación de jugadores. El criterio de identidad de nueve círculos aún no se ha implementado ni evaluado.
+
+| Prueba | Resultado / límite |
+|---|---|
+| `room_generation_silhouette_audit.cjs 1000 variants` | 10.000 mapas, cero firmas forma/puertas repetidas entre compilados, Hangar excluido; compara polígonos normalizados, no variedad perceptiva de todas las salas. |
+| `room_generation_silhouette_plans.cjs 1000` | 10.000 mapas, 115.000 salas, 920.000 candidatos, 1.000 Hangar excluidos; determinismo y perímetro compilado. Adaptador y validador comparten predicado. |
+| `room_generation_silhouette_reach.cjs 1000 variants` | 276 configuraciones, 624 desembarcos accesibles en rejilla de paso 25/radio 16; 394.303/394.362 puntos libres conectados. No cubre movimiento continuo ni Hangar. |
+| `DD_ROOM_SILHOUETTES=1 room_generation_unified_native.cjs` y `prefab_reach.cjs` | Seed 0: 115 salas, 257 puertas, 920 puntos de spawn comprobados y 257 salidas en rejilla. No prueba todas las seeds ni combate. |
+| `DD_ROOM_SILHOUETTES=1 prefab_progression.cjs` y `room_generation_topology_live.cjs` | Nueve descensos asistidos; puerta del jefe y grafo/guardado reconstruidos. Debug; no campaña natural ni reanudación activa. |
+| `room_generation_silhouette_version.cjs ... 100` | 1.000 planes por versión 2.0–2.4 idénticos al build anterior, 2.5 determinista en esa muestra y guardados 2.4/2.5 prevalecen sobre flag. |
+| `room_generation_topology_perf.cjs` | Headless, 1.000 muestras/version: 2.0 media/p95 0,208/0,300 ms; 2.5 1,258/5,000 ms. Regresión frente a 2.0, sin prueba de frame o memoria. |
+
+Evidencias `docs/DIAGNOSTICO_SALAS_EVIDENCIA/siluetas-inset-25-*`. Build generado por `python3 tools/build_active_html.py`; ambos SHA-256 `41a8a59653670bf8e4efe8d194537aa28c0a06365f88433c4c6db1b9e13ca228`. Reversión: `sha256sum -c backups/room_silhouette_20261126/SHA256SUMS`, restaurar migración y arneses respaldados, reconstruir y verificar ambos builds SHA-256 `95a3401de46a68fd3e0eca0250b21caf9e525586018c3cdc70dc682b7d82eecd`. La migración anterior no reconoce guardados 2.5: respaldar datos y diseñar migración antes de revertir, no borrarlos. Apagar el flag no altera guardados ya marcados 2.5.
+
+**Fase 3 sigue abierta**: identidad diferenciada de los nueve círculos, evidencia visual por tipo/círculo, unicidad incluyendo Hangar, criterios completos de juego y rendimiento permanecen pendientes. No hay evidencia para afirmar ausencia de regresiones de frame/memoria ni campaña natural.

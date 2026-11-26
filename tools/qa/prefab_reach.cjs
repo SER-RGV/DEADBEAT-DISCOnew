@@ -105,8 +105,12 @@ const PROBE = `(() => {
       await p.addInitScript(() => { window.__DD_UNIFIED_ROOM_GEOMETRY = true; });
     if (process.env.DD_ROOM_VARIANTS === "1")
       await p.addInitScript(() => { window.__DD_ROOM_VARIANTS_V3 = true; });
+    if (process.env.DD_ROOM_SILHOUETTES === "1")
+      await p.addInitScript(() => { window.__DD_ROOM_SILHOUETTES_V3 = true; });
     await p.goto((process.argv[2] || "http://localhost:8000") + "/?roomDebug&roomSeed=0");
-    if (process.env.DD_ROOM_VARIANTS === "1")
+    if (process.env.DD_ROOM_SILHOUETTES === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.5.0");
+    else if (process.env.DD_ROOM_VARIANTS === "1")
       assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.4.0");
     else if (process.env.DD_UNIFIED_GEOMETRY === "1")
       assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.3.0");
@@ -149,7 +153,7 @@ const PROBE = `(() => {
         for (const d of r.doors) if (!d.ok) broken.push(key + " → " + d.to + (d.lift ? " (lift)" : ""));
       }
     }
-    const expectedRooms = process.env.DD_TOPOLOGY_V3 === "1" || process.env.DD_UNIFIED_GEOMETRY === "1" || process.env.DD_ROOM_VARIANTS === "1" ? 115 : 108;
+    const expectedRooms = process.env.DD_TOPOLOGY_V3 === "1" || process.env.DD_UNIFIED_GEOMETRY === "1" || process.env.DD_ROOM_VARIANTS === "1" || process.env.DD_ROOM_SILHOUETTES === "1" ? 115 : 108;
     assert.equal(rooms, expectedRooms, "walked " + rooms + " rooms, expected " + expectedRooms);
     assert.deepEqual(broken, [], "unreachable exits: " + broken.join(", "));
     assert.deepEqual(errors, []);

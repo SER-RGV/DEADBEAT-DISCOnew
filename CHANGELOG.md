@@ -281,3 +281,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Vistas cardinales y revisión visual de variantes
 - Añadidas diez vistas direccionales de mesa, sofá, monitor y panel con estados rotos cuando corresponden, diez sombras y sus pivotes; PNG RGBA generados con herramienta reproducible.
 - En dos pares capturados, las variantes 2.4 de proporción resultan prácticamente indistinguibles. El criterio de diversidad visual sigue pendiente; pruebas, límites y reversión en la propuesta.
+
+## 2026-11-26 · Entrantes de silueta experimentales 2.5
+- Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: añade entrantes de perímetro en paredes sin puertas ni anclas; guardados anteriores conservan su versión.
+- 10.000 mapas comprobados en datos, 624 salidas de configuraciones muestreadas en rejilla. Un par de capturas muestra diferencia visible; no se han validado todas las salas ni los nueve círculos. La fase 3 sigue abierta.

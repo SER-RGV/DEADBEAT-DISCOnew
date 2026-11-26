@@ -384,3 +384,8 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 ## Seguimiento · 2026-11-26 · visibilidad y mobiliario direccional
 - Dos pares de variantes proporcionales inspeccionados en navegador resultan prácticamente indistinguibles; no se cumple variedad perceptible. Capturas y límites en `docs/PROPUESTA_GENERACION_FASE_2.md`.
 - Creadas diez vistas direccionales y diez sombras para las cinco bases; comprobados archivos, pivotes y dibujo por el renderer real en seed 0. No se han evaluado todos los círculos ni rotura en combate natural. El arte usa el cargador de pivotes de prefab existente, no `DD_ASSETS`.
+
+## Seguimiento · 2026-11-26 · entrantes de silueta 2.5
+- Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: variantes con entrante real de 140 unidades, sin cambios de arte ni sockets; versiones previas preservadas. En un par de capturas del pasillo se aprecia un cambio de forma; no valida percepción de todos los tipos.
+- Barrido 10.000 mapas: sin firmas duplicadas entre salas compiladas, Hangar excluido; 624 desembarcos accesibles en rejilla. Seed 0 comprobada en motor y progresión asistida. Tiempo headless medio/p95 2.0: 0,208/0,300 ms; 2.5: 1,258/5,000 ms.
+- Fase 3 abierta: falta identidad por círculo, unicidad incluyendo Hangar y validación visual/juego/rendimiento integral. Evidencias y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
