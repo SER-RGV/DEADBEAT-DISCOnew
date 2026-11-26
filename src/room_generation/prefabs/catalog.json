@@ -1,0 +1,813 @@
+{
+  "version": 2,
+  "playerArtHeight": 96,
+  "playerArtWidth": 64,
+  "frame": "world +X east +Y south; clockwise perimeter",
+  "templates": {
+    "nave-quebrada": {
+      "perimeter": [
+        [
+          "dockN",
+          320,
+          0,
+          72
+        ],
+        [
+          "returnNE",
+          890,
+          0,
+          38
+        ],
+        [
+          "balcony",
+          890,
+          85,
+          52
+        ],
+        [
+          "cornerNE",
+          1170,
+          85,
+          40
+        ],
+        [
+          "dockE",
+          1210,
+          125,
+          34
+        ],
+        [
+          "eastInset",
+          1210,
+          575,
+          32
+        ],
+        [
+          "eastBay",
+          1110,
+          575,
+          44
+        ],
+        [
+          "cornerSE",
+          1110,
+          715,
+          32
+        ],
+        [
+          "dockS",
+          1055,
+          770,
+          22
+        ],
+        [
+          "returnSW",
+          310,
+          770,
+          34
+        ],
+        [
+          "alcoveS",
+          310,
+          690,
+          30
+        ],
+        [
+          "cornerSW",
+          65,
+          690,
+          26
+        ],
+        [
+          "dockW",
+          0,
+          625,
+          36
+        ],
+        [
+          "westBay",
+          0,
+          225,
+          30
+        ],
+        [
+          "westRecess",
+          120,
+          225,
+          38
+        ],
+        [
+          "alcoveN",
+          120,
+          100,
+          48
+        ],
+        [
+          "returnNW",
+          320,
+          100,
+          48
+        ]
+      ],
+      "sockets": {
+        "top": "dockN",
+        "right": "dockE",
+        "bottom": "dockS",
+        "left": "dockW"
+      },
+      "decks": [
+        {
+          "id": "cabina",
+          "x": 928,
+          "y": 87,
+          "w": 205,
+          "h": 94,
+          "rise": 30,
+          "steps": 5,
+          "run": 74,
+          "approach": "S"
+        }
+      ],
+      "placements": [
+        {
+          "id": "bay",
+          "edge": "balcony",
+          "t": 0.5,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "inward"
+        },
+        {
+          "id": "rack",
+          "edge": "westRecess",
+          "t": 0.5,
+          "inset": 12,
+          "asset": "panel",
+          "facing": "inward"
+        },
+        {
+          "id": "table01",
+          "edge": "alcoveS",
+          "t": 0.6,
+          "inset": 105,
+          "asset": "mesa",
+          "facing": "N"
+        },
+        {
+          "id": "seat01",
+          "edge": "eastBay",
+          "t": 0.6,
+          "inset": 95,
+          "asset": "sofa",
+          "facing": "W"
+        }
+      ]
+    },
+    "palco-profundo": {
+      "perimeter": [
+        [
+          "dockN",
+          370,
+          0,
+          72
+        ],
+        [
+          "returnNE",
+          890,
+          0,
+          38
+        ],
+        [
+          "balcony",
+          890,
+          85,
+          52
+        ],
+        [
+          "cornerNE",
+          1170,
+          85,
+          40
+        ],
+        [
+          "dockE",
+          1210,
+          125,
+          34
+        ],
+        [
+          "eastInset",
+          1210,
+          575,
+          32
+        ],
+        [
+          "eastBay",
+          1110,
+          575,
+          44
+        ],
+        [
+          "cornerSE",
+          1110,
+          715,
+          32
+        ],
+        [
+          "dockS",
+          1055,
+          855,
+          22
+        ],
+        [
+          "returnSW",
+          310,
+          855,
+          34
+        ],
+        [
+          "alcoveS",
+          310,
+          690,
+          30
+        ],
+        [
+          "cornerSW",
+          65,
+          690,
+          26
+        ],
+        [
+          "dockW",
+          0,
+          625,
+          36
+        ],
+        [
+          "westBay",
+          0,
+          225,
+          30
+        ],
+        [
+          "westRecess",
+          120,
+          225,
+          38
+        ],
+        [
+          "alcoveN",
+          120,
+          100,
+          48
+        ],
+        [
+          "returnNW",
+          370,
+          100,
+          48
+        ]
+      ],
+      "sockets": {
+        "top": "dockN",
+        "right": "dockE",
+        "bottom": "dockS",
+        "left": "dockW"
+      },
+      "decks": [
+        {
+          "id": "cabina",
+          "x": 928,
+          "y": 87,
+          "w": 205,
+          "h": 94,
+          "rise": 42,
+          "steps": 7,
+          "run": 105,
+          "approach": "S"
+        }
+      ],
+      "placements": [
+        {
+          "id": "bay",
+          "edge": "balcony",
+          "t": 0.5,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "inward"
+        },
+        {
+          "id": "rack",
+          "edge": "westRecess",
+          "t": 0.5,
+          "inset": 12,
+          "asset": "panel",
+          "facing": "inward"
+        },
+        {
+          "id": "front01",
+          "edge": "alcoveS",
+          "t": 0.6,
+          "inset": 105,
+          "asset": "puesto",
+          "facing": "N",
+          "readingDepth": 48
+        },
+        {
+          "id": "seat01",
+          "edge": "eastBay",
+          "t": 0.6,
+          "inset": 95,
+          "asset": "sofa",
+          "facing": "W"
+        }
+      ]
+    },
+    "pasillo-servicio": {
+      "perimeter": [
+        [
+          "dockN",
+          560,
+          0,
+          64
+        ],
+        [
+          "returnNE",
+          1160,
+          0,
+          40
+        ],
+        [
+          "nicheNE",
+          1160,
+          104,
+          34
+        ],
+        [
+          "cornerNE",
+          1660,
+          104,
+          32
+        ],
+        [
+          "dockE",
+          1720,
+          164,
+          34
+        ],
+        [
+          "cornerE",
+          1720,
+          536,
+          32
+        ],
+        [
+          "cornerSE",
+          1660,
+          596,
+          30
+        ],
+        [
+          "dockS",
+          1160,
+          700,
+          26
+        ],
+        [
+          "returnSW",
+          560,
+          700,
+          34
+        ],
+        [
+          "nicheSW",
+          560,
+          596,
+          30
+        ],
+        [
+          "cornerSW",
+          60,
+          596,
+          26
+        ],
+        [
+          "dockW",
+          0,
+          536,
+          34
+        ],
+        [
+          "cornerW",
+          0,
+          164,
+          32
+        ],
+        [
+          "cornerNW",
+          60,
+          104,
+          30
+        ],
+        [
+          "returnNW",
+          560,
+          104,
+          40
+        ]
+      ],
+      "sockets": {
+        "top": "dockN",
+        "right": "dockE",
+        "bottom": "dockS",
+        "left": "dockW"
+      },
+      "decks": [
+        {
+          "id": "pasarela",
+          "x": 120,
+          "y": 420,
+          "w": 300,
+          "h": 140,
+          "rise": 34,
+          "steps": 5,
+          "run": 90,
+          "approach": "S"
+        }
+      ],
+      "placements": [
+        {
+          "id": "bay",
+          "edge": "nicheNE",
+          "t": 0.5,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "inward"
+        },
+        {
+          "id": "rack",
+          "edge": "nicheSW",
+          "t": 0.5,
+          "inset": 12,
+          "asset": "panel",
+          "facing": "inward"
+        },
+        {
+          "id": "table01",
+          "edge": "dockS",
+          "t": 0.2,
+          "inset": 90,
+          "asset": "mesa",
+          "facing": "N"
+        },
+        {
+          "id": "seat01",
+          "edge": "returnNW",
+          "t": 0.85,
+          "inset": 95,
+          "asset": "sofa",
+          "facing": "S"
+        }
+      ]
+    },
+    "arena-octogono": {
+      "perimeter": [
+        [
+          "dockN",
+          450,
+          0,
+          70
+        ],
+        [
+          "returnNE",
+          1050,
+          0,
+          44
+        ],
+        [
+          "dockE",
+          1500,
+          450,
+          42
+        ],
+        [
+          "cornerE",
+          1500,
+          670,
+          40
+        ],
+        [
+          "dockS",
+          1050,
+          1120,
+          38
+        ],
+        [
+          "returnSW",
+          450,
+          1120,
+          44
+        ],
+        [
+          "dockW",
+          0,
+          670,
+          42
+        ],
+        [
+          "cornerW",
+          0,
+          450,
+          40
+        ]
+      ],
+      "sockets": {
+        "top": "dockN",
+        "right": "dockE",
+        "bottom": "dockS",
+        "left": "dockW"
+      },
+      "decks": [
+        {
+          "id": "tarima",
+          "x": 980,
+          "y": 760,
+          "w": 240,
+          "h": 150,
+          "rise": 42,
+          "steps": 7,
+          "run": 96,
+          "approach": "W"
+        }
+      ],
+      "placements": [
+        {
+          "id": "bay",
+          "edge": "dockN",
+          "t": 0.15,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "inward"
+        },
+        {
+          "id": "rack",
+          "edge": "dockW",
+          "t": 0.85,
+          "inset": 12,
+          "asset": "panel",
+          "facing": "E"
+        },
+        {
+          "id": "table01",
+          "edge": "dockN",
+          "t": 0.85,
+          "inset": 90,
+          "asset": "mesa",
+          "facing": "S"
+        },
+        {
+          "id": "seat01",
+          "edge": "dockS",
+          "t": 0.15,
+          "inset": 95,
+          "asset": "sofa",
+          "facing": "N"
+        },
+        {
+          "id": "bay2",
+          "edge": "dockN",
+          "t": 0.4,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "S"
+        },
+        {
+          "id": "table02",
+          "edge": "dockE",
+          "t": 0.95,
+          "inset": 90,
+          "asset": "mesa",
+          "facing": "W"
+        }
+      ]
+    },
+    "camarote": {
+      "perimeter": [
+        [
+          "dockN",
+          240,
+          0,
+          58
+        ],
+        [
+          "returnNE",
+          840,
+          0,
+          40
+        ],
+        [
+          "cornerNE",
+          840,
+          140,
+          34
+        ],
+        [
+          "dockE",
+          1080,
+          260,
+          36
+        ],
+        [
+          "cornerE",
+          1080,
+          740,
+          32
+        ],
+        [
+          "cornerSE",
+          960,
+          860,
+          30
+        ],
+        [
+          "dockS",
+          840,
+          1000,
+          34
+        ],
+        [
+          "returnSW",
+          240,
+          1000,
+          36
+        ],
+        [
+          "cornerSW",
+          0,
+          860,
+          28
+        ],
+        [
+          "dockW",
+          0,
+          760,
+          36
+        ],
+        [
+          "westRecess",
+          0,
+          240,
+          32
+        ],
+        [
+          "recessBack",
+          120,
+          240,
+          34
+        ],
+        [
+          "recessUp",
+          120,
+          120,
+          40
+        ],
+        [
+          "returnNW",
+          240,
+          120,
+          44
+        ]
+      ],
+      "sockets": {
+        "top": "dockN",
+        "right": "dockE",
+        "bottom": "dockS",
+        "left": "dockW"
+      },
+      "decks": [
+        {
+          "id": "booth",
+          "x": 660,
+          "y": 150,
+          "w": 260,
+          "h": 120,
+          "rise": 38,
+          "steps": 5,
+          "run": 92,
+          "approach": "S"
+        }
+      ],
+      "placements": [
+        {
+          "id": "bay",
+          "edge": "returnNE",
+          "t": 0.5,
+          "inset": 50,
+          "asset": "monitor",
+          "facing": "inward"
+        },
+        {
+          "id": "rack",
+          "edge": "recessBack",
+          "t": 0.5,
+          "inset": 12,
+          "asset": "panel",
+          "facing": "E"
+        },
+        {
+          "id": "front01",
+          "edge": "dockS",
+          "t": 0.25,
+          "inset": 90,
+          "asset": "puesto",
+          "facing": "N",
+          "readingDepth": 48
+        },
+        {
+          "id": "seat01",
+          "edge": "dockS",
+          "t": 0.78,
+          "inset": 95,
+          "asset": "sofa",
+          "facing": "N"
+        }
+      ]
+    }
+  },
+  "assets": {
+    "mesa": {
+      "nativeFront": "S",
+      "sizePlayers": [
+        1.75,
+        0.66
+      ],
+      "footprint": {
+        "kind": "rect",
+        "w": 112,
+        "h": 46
+      },
+      "solid": true,
+      "destructible": true,
+      "prompt": "Mesa baja de pista, borde frontal limpio, cuatro patas ancladas; versión astillada sin tablero que sugiera un obstáculo intacto."
+    },
+    "sofa": {
+      "nativeFront": "S",
+      "sizePlayers": [
+        2,
+        0.95
+      ],
+      "footprint": {
+        "kind": "capsule",
+        "halfLength": 44,
+        "r": 22
+      },
+      "solid": true,
+      "destructible": true,
+      "prompt": "Sofá de vinilo granate. Respaldo en el lado opuesto al asiento accesible. Despiece roto con muelles y cojines al ras del suelo."
+    },
+    "monitor": {
+      "nativeFront": "S",
+      "sizePlayers": [
+        0.72,
+        1.3
+      ],
+      "footprint": {
+        "kind": "circle",
+        "r": 22
+      },
+      "solid": true,
+      "destructible": false,
+      "prompt": "Monitor de club vertical, rejilla y conos en la cara útil; laterales de carcasa mate y patas cortas."
+    },
+    "panel": {
+      "nativeFront": "S",
+      "sizePlayers": [
+        0.85,
+        0.9
+      ],
+      "footprint": {
+        "kind": "rect",
+        "w": 54,
+        "h": 20
+      },
+      "solid": false,
+      "destructible": false,
+      "prompt": "Panel de conexiones empotrado en el muro, conectores orientados al pasillo, sin botón ni halo de interacción."
+    },
+    "puesto": {
+      "nativeFront": "S",
+      "sizePlayers": [
+        1.4,
+        0.9
+      ],
+      "footprint": {
+        "kind": "rect",
+        "w": 90,
+        "h": 38
+      },
+      "solid": true,
+      "destructible": false,
+      "prompt": "Mostrador compacto, canto de atención hacia la pista, superficie libre. Sin texto, precios ni mercancía ficticia."
+    }
+  }
+}

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  /><title>Vestíbulo del Infierno · Estudio de escena</title
+  ><link rel="stylesheet" href="studio.css" />
+  <header>
+    <div class="brand">DEADBEAT <em>DISCO</em></div>
+    <span>ESTUDIO DE ESCENA <b>/ 01</b></span
+    ><small>● &nbsp; SIMULACIÓN LOCAL</small>
+  </header>
+  <main>
+    <aside>
+      <p class="eyebrow">REFUGIO &nbsp; / &nbsp; DIRECCIÓN DE ARTE</p>
+      <h1>Vestíbulo<br />del Infierno</h1>
+      <p class="lead">Inspección de escala, materiales y líneas de tránsito.</p>
+      <label>01 &nbsp; MONTAJE</label>
+      <div class="pair">
+        <button id="grey">Gris · 1×</button
+        ><button id="final" aria-pressed="true">Materiales · 2×</button>
+      </div>
+      <label for="station">02 &nbsp; CÁMARA DE INSPECCIÓN</label
+      ><select id="station">
+        <option value="all">Planta completa</option>
+        <option value="walk">Seguir al jugador</option>
+      </select>
+      <div class="pair">
+        <button id="overview">Ver planta</button
+        ><button id="walk">Recorrer ↗</button>
+      </div>
+      <label>03 &nbsp; CAPAS DE REVISIÓN</label>
+      <div class="checks">
+        <label><input id="hud" type="checkbox" /> HUD de muestra</label
+        ><label><input id="rave" type="checkbox" /> Luz RAVE local</label
+        ><label><input id="foot" type="checkbox" /> Huellas y atención</label><label><input id="fronts" type="checkbox"> Vectores de frente</label>
+      </div>
+      <output id="dimensions"></output>
+      <p class="fine">
+        Solo inspección. Sin compras, descenso ni escritura de partida.
+      </p>
+    </aside>
+    <section>
+      <div class="strip">
+        <strong>ESCENA / <span id="scene">PLANTA GENERAL</span></strong
+        ><span> N ↑ </span>
+      </div>
+      <div class="stage">
+        <canvas
+          id="view"
+          tabindex="0"
+          aria-label="Vista del Refugio; WASD o flechas para caminar"
+        ></canvas>
+        <div id="overlay" hidden>
+          <img src="../../assets/ui/hud_portrait_protagonist.png" alt="" />
+          <div>HYPE &nbsp; ▰▰▰▱▱<br /><small>D6 · HUD DE MUESTRA</small></div>
+        </div>
+        <div id="mapHud" hidden>
+          REFUGIO / PLANTA
+          <div class="mini"></div>
+          ZONA SEGURA
+        </div>
+        <div id="skills" hidden>
+          ◇ &nbsp; Q &nbsp; · &nbsp; ⇧ SHIFT &nbsp; · &nbsp; ↻ ESP
+        </div>
+        <div class="pad" aria-label="Movimiento táctil">
+          <button data-key="ArrowLeft">←</button
+          ><button data-key="ArrowUp">↑</button
+          ><button data-key="ArrowDown">↓</button
+          ><button data-key="ArrowRight">→</button>
+        </div>
+      </div>
+      <footer>
+        <span id="status">Cargando materiales…</span
+        ><span>WASD / FLECHAS · CAMINAR</span>
+      </footer>
+    </section>
+  </main>
+  <script src="../../src/dd_hub_layout.js"></script>
+  <script src="materials.js"></script>
+  <script src="organic.js"></script>
+  <script src="relief.js"></script>
+  <script src="scene.js"></script>
+  <script src="studio.js"></script>
+</html>
