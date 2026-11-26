@@ -1,0 +1,13 @@
+Animation after dodge input: dodge
+PASS simulated RT / right-stick aim, release and return; pointer cancellation
+┌─────────┬────┬─────────┬───────────┬───────┬─────────┬──────┬──────┬─────────┐
+│ (index) │ id │ spawned │ state     │ moved │ end     │ hits │ face │ bullets │
+├─────────┼────┼─────────┼───────────┼───────┼─────────┼──────┼──────┼─────────┤
+│ 0       │ 6  │ true    │ 'RELEASE' │ true  │ 'READY' │ 1    │ 3    │ 0       │
+│ 1       │ 4  │ true    │ 'RELEASE' │ true  │ 'READY' │ 1    │ 4    │ 0       │
+│ 2       │ 8  │ true    │ 'RELEASE' │ true  │ 'READY' │ 0    │ 3    │ 0       │
+│ 3       │ 10 │ true    │ 'RELEASE' │ true  │ 'READY' │ 1    │ 6    │ 0       │
+│ 4       │ 12 │ true    │ 'RELEASE' │ true  │ 'READY' │ 2    │ 6    │ 0       │
+│ 5       │ 20 │ true    │ 'RELEASE' │ true  │ 'READY' │ 0    │ 8    │ 0       │
+└─────────┴────┴─────────┴───────────┴───────┴─────────┴──────┴──────┴─────────┘
+Boss test (native simulation, one draw per batch): { initial: 111, after: 108.32, frames: 30, ms: 13 }

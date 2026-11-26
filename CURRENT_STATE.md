@@ -1,5 +1,13 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Estado vigente · 2026-11-26 · Fase 0 parcial
+
+- Revisión independiente de #36 en `132d5a4`: 15/15 suites solicitadas y arranque MAIN_MENU pasan. Sin fusión; pendiente de autorización. Hay 108 avisos de dressing lint por clasificar.
+- #34 permanece draft: conflictos y rebase/mediciones pendientes después de integrar #36. #21: se propone cierre por superado; #32: se propone mantener abierto hasta resolver conflictos y actualizar QA/descripción. Ninguno cerrado.
+- Fase 1 no iniciada; fase 0 aún no terminada. Código y builds del juego sin cambios en esta rama.
+- Informe y logs: [docs/FASE_0/REVISION.md](docs/FASE_0/REVISION.md). Las entradas siguientes son históricas y no sustituyen este estado.
+
+
 ## Build de referencia
 v9_t3_fase1b_cache_probe.html
 

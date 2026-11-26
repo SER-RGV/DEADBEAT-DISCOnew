@@ -1,0 +1,13 @@
+┌─────────┬───────┬────────────────────┬─────────┬────────┬───────┐
+│ (index) │ key   │ house              │ enemies │ meanMs │ p95Ms │
+├─────────┼───────┼────────────────────┼─────────┼────────┼───────┤
+│ 0       │ 'r1'  │ 'pasillo-servicio' │ 5       │ 23.5   │ 33.4  │
+│ 1       │ 'r3'  │ 'palco-profundo'   │ 3       │ 23.5   │ 33.4  │
+│ 2       │ 'r4'  │ 'nave-quebrada'    │ 3       │ 21.4   │ 33.4  │
+│ 3       │ 'r9'  │ 'camarote'         │ 0       │ 22.6   │ 33.4  │
+│ 4       │ 'r10' │ 'arena-octogono'   │ 0       │ 22.9   │ 33.4  │
+│ 5       │ 'r1'  │ 'pasillo-servicio' │ 30      │ 27.1   │ 33.4  │
+│ 6       │ 'r3'  │ 'palco-profundo'   │ 28      │ 27.9   │ 33.4  │
+│ 7       │ 'r4'  │ 'nave-quebrada'    │ 28      │ 26     │ 33.4  │
+└─────────┴───────┴────────────────────┴─────────┴────────┴───────┘
+PASS 5 rooms at rest 21.4-23.5 ms mean; with 25 hosts 26-27.9 ms (software GL; no real-GPU figure)

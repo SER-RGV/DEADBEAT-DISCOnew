@@ -1,5 +1,12 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Fase 0 · Revisión parcial de integración
+
+- Documentada revisión de #36, #34, #21 y #32 sin fusiones ni cierres.
+- Ejecutadas 15 suites de #36 y smoke de arranque; logs conservados en docs/FASE_0/evidencias.
+- Registrados límites, conflictos y decisiones pendientes; sin cambios de código ni regeneración de builds.
+
+
 ## v9_t3_fase1b_cache_probe
 - Incorporación de build HTML de referencia.
 - Conservación de recursos integrados.
