@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const crypto = require('node:crypto');
 const root = path.resolve(__dirname,'../..'), dir=path.join(root,'src/room_generation');
-const old = require(path.join(root,'backups/room_population_perf_20261126/population_compiled.js'));
+const old = require(path.join(root,process.argv[3] || 'backups/room_population_perf_20261126/population_compiled.js'));
 const current = require(path.join(dir,'population_compiled.js'));
 const catalog = require(path.join(dir,'prefabs/catalog.json'));
 const api=Function('prefabCatalog',['seed','rooms','population','floor','validate','architecture','prefabs','playable'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n')+';return {generate,bindPrefabs,playableRoom};')(catalog);

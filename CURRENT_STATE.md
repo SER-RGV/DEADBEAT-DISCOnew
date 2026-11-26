@@ -367,3 +367,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - Fase 3 **incompleta**: 2.3 opt-in publica geometría compilada, excluye Hangar y respeta versión del guardado; por defecto continúa 2.0. Detalle, límites, assets ausentes y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
 - Medido: 10.000 mapas/115.000 salas con coincidencia de geometría; seed 0 en navegador 257 puertas y 920 spawns puntualmente, nueve descensos asistidos. No prueba campaña natural, cobertura física de todas las seeds ni arte visual.
 - Generación headless media/p95 2.0: 0,285/0,400 ms; 2.3: 1,663/6,600 ms. Regresión; no activar por defecto. Pendientes variedad, siluetas, identidad de círculos, assets y QA completo.
+
+## Seguimiento · 2026-11-26 · variedad y rendimiento
+- Auditoría de silueta y puertas canónicas 2.2/2.3: 7.516/10.000 mapas con al menos una repetición entre salas compiladas; Hangar excluido. Siete tipos cuentan con una sola plantilla en la muestra. Detalles en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Se descartó una optimización de búsqueda de población: resultados idénticos en 108.000 salas, pero A/B headless no mejoró el tiempo. Código y builds originales restaurados. Fase 3 sigue incompleta.

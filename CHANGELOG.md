@@ -265,3 +265,7 @@ Registrar aquí cada modificación:
 - Flag opt-in `__DD_UNIFIED_ROOM_GEOMETRY`: geometría del plan alineada con prefab compilado, excepto Hangar; versión guardada prevalece. Copia de geometría evita mutación del plan por metadatos del motor.
 - QA: 10.000 mapas comprobados en datos; seed 0 con pruebas puntuales de puertas/spawns y progresión asistida. Benchmark headless revela regresión de generación; no se habilita por defecto.
 - Sin prefabs ni arte nuevos. Faltan criterios de variedad y validación; pruebas, limitaciones, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## 2026-11-26 · Auditoría de variedad y ensayo descartado
+- Nuevo arnés de firmas de silueta/puertas, con rotaciones y reflejos; 7.516/10.000 mapas 2.2/2.3 presentan repetición entre las salas medidas, Hangar excluido.
+- Poda de filas ensayada sin cambio de resultados, descartada al no mejorar el A/B de tiempo. Sin cambios de generación en este seguimiento; evidencia y límites en la propuesta.

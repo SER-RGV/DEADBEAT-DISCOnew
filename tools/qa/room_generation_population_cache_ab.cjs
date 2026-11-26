@@ -8,7 +8,7 @@ const fs=require('node:fs'),path=require('node:path');
  try{
   for(const mode of ['original','optimized']){
    const p=await b.newPage();
-   if(mode==='original')await p.route('**/?roomDebug',route=>route.fulfill({status:200,contentType:'text/html',body:fs.readFileSync(path.resolve(__dirname,'../../backups/room_population_perf_20261126/index.html'))}));
+   if(mode==='original')await p.route('**/?roomDebug',route=>route.fulfill({status:200,contentType:'text/html',body:fs.readFileSync(path.resolve(__dirname,'../..',process.argv[3]||'backups/room_population_perf_20261126/index.html'))}));
    await p.goto(base+'/?roomDebug');await p.waitForFunction(()=>DD_BOOT?.getState().state==='MAIN_MENU');await p.waitForTimeout(2000);
    const cdp=await p.context().newCDPSession(p);await cdp.send('HeapProfiler.collectGarbage');const before=await cdp.send('Runtime.getHeapUsage');
    const times=await p.evaluate(()=>{const samples=[];for(let i=0;i<1020;i++){const start=performance.now();DD_ROOM_GENERATION.generate(Math.floor(i/10)%100,i%10,'2.1.0');if(i>=20)samples.push(performance.now()-start);}samples.sort((a,b)=>a-b);return {mean:samples.reduce((a,b)=>a+b,0)/samples.length,p95:samples[950],max:samples[999],count:samples.length};});
