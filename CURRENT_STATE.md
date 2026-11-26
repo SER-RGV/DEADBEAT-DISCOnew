@@ -371,3 +371,7 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 ## Seguimiento · 2026-11-26 · variedad y rendimiento
 - Auditoría de silueta y puertas canónicas 2.2/2.3: 7.516/10.000 mapas con al menos una repetición entre salas compiladas; Hangar excluido. Siete tipos cuentan con una sola plantilla en la muestra. Detalles en `docs/PROPUESTA_GENERACION_FASE_2.md`.
 - Se descartó una optimización de búsqueda de población: resultados idénticos en 108.000 salas, pero A/B headless no mejoró el tiempo. Código y builds originales restaurados. Fase 3 sigue incompleta.
+
+## Seguimiento · 2026-11-26 · precálculo de población
+- Se reutilizan segmentos y trigonometría durante cada adaptación/validación, sin caché global ni cambios al bucle de frame. 108.000 poblaciones legacy y 115.000 topológicas idénticas a la copia anterior; 1.000 planes por versión 2.0–2.3 comparados en navegador.
+- A/B secuencial 2.1 headless: media/p95 2,608/9,9 → 1,667/7,0 ms; 2.3 sigue más lento que 2.0 (1,686/6,2 frente a 0,304/0,4 ms en otro ensayo). Alcance, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`. Fase 3 incompleta.

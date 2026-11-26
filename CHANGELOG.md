@@ -269,3 +269,7 @@ Registrar aquí cada modificación:
 ## 2026-11-26 · Auditoría de variedad y ensayo descartado
 - Nuevo arnés de firmas de silueta/puertas, con rotaciones y reflejos; 7.516/10.000 mapas 2.2/2.3 presentan repetición entre las salas medidas, Hangar excluido.
 - Poda de filas ensayada sin cambio de resultados, descartada al no mejorar el A/B de tiempo. Sin cambios de generación en este seguimiento; evidencia y límites en la propuesta.
+
+## 2026-11-26 · Precalcular geometría de población
+- Segmentos y trigonometría se preparan por llamada para el adaptador y el validador; sin caché persistente ni cambio intencional de resultados.
+- 223.000 poblaciones comparadas idénticas; A/B headless 2.1 mejora en la muestra, pero persiste regresión de generación 2.3 frente a 2.0. Fase 3 sigue incompleta; límites y reversión en la propuesta.

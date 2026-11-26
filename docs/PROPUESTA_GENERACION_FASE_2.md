@@ -158,3 +158,21 @@ Se añadió `node tools/qa/room_generation_variety_audit.cjs 1000`: sobre el enl
 Se ensayó una poda por filas en la búsqueda de población sin cambiar el resultado: `room_generation_population_cache.cjs 1000 backups/room_population_rows_20261126/population_compiled.js` comparó 108.000 poblaciones iguales al código anterior. Sin embargo, A/B secuencial Chromium 2.1 de 1.000 muestras por variante dio media/p95 anterior 2,114/8,7 ms frente a ensayo 2,694/9,5 ms; medición ruidosa de generación/bind, no frames. **No se ha adoptado la optimización** y se ha reconstruido el código original; los dos builds recuperaron SHA-256 `83eb5abf961a500b630877c258a5c8f4ac43455709989e31be4b9a26f00a80f4`. Se conserva backup verificado `backups/room_population_rows_20261126/` y evidencia `poblacion-filas-*`. El arnés de igualdad permite elegir copia previa como tercer argumento; el A/B permite elegir HTML previo como segundo argumento tras la URL. Una ejecución de compatibilidad durante el ensayo cubrió 1.000 mapas; no convierte el ensayo descartado en solución del rendimiento.
 
 El criterio de variedad sigue incumplido. Hay que diseñar e integrar variantes reales, validar sus assets existentes y colisiones y repetir el barrido, la inspección visual y el A/B; este diagnóstico no completa fase 3.
+
+## Precalcular geometría de población por llamada
+
+Se conserva una optimización sin cambiar la selección de puntos: `adaptPopulationCompiled` y su validación preparan por llamada los segmentos y senos/cosenos de colliders sólidos, reutilizándolos durante las comprobaciones. No hay caché global persistente ni se modifica el bucle de frame. El predicado público sin preparación sigue aceptando los mismos argumentos. Se mantiene el orden de operaciones y desempate de la búsqueda. El cambio no pretende resolver el coste de compilación de prefabs ni las condiciones pendientes de variedad.
+
+| Comprobación | Resultado y alcance |
+|---|---|
+| `room_generation_population_cache.cjs 1000 backups/room_population_precompute_20261126/population_compiled.js` | 10.000 mapas legacy, 108.000 poblaciones idénticas al código anterior. |
+| Mismo comando con cuarto argumento `topology` | 10.000 mapas topológicos 2.2/2.3, 115.000 poblaciones idénticas, Hangar excluido. Comparación del adaptador, no movimiento físico. |
+| `room_generation_precompute_version.cjs ... 100` | 1.000 planes por versión 2.0–2.3 idénticos al build previo; flag apagado selecciona 2.0. Una ejecución de 1.000 seeds por piso superó el límite de 180 s sin resultado y **no se cuenta como PASS**. |
+| `room_generation_unified_native.cjs`, `DD_UNIFIED_GEOMETRY=1 prefab_reach.cjs` | Seed 0: 115 salas, 257 puertas, 920 puntos de spawn y rejilla de acceso PASS; no prueba campaña natural ni todas las seeds. |
+| `DD_UNIFIED_GEOMETRY=1 prefab_progression.cjs`, `room_generation.cjs`, `prefab_floors.cjs` | PASS en sus alcances: nueve descensos asistidos, 1.030 mapas legacy y 654 instancias respectivamente. |
+| `room_generation_population_cache_ab.cjs ... backups/room_population_precompute_20261126/index.html` | 2.1 headless, 1.000 muestras secuenciales por variante: media/p95 anterior 2,608/9,9 ms, nuevo 1,667/7,0 ms. Muestra dependiente de máquina, orden y actividad del navegador; no prueba frame time ni memoria total. |
+| `room_generation_topology_perf.cjs` | Nuevo build, 1.000 muestras por versión: 2.0 media/p95 0,304/0,4 ms; 2.3 1,686/6,2 ms. Sigue existiendo regresión de generación frente a 2.0. |
+
+Evidencias `docs/DIAGNOSTICO_SALAS_EVIDENCIA/poblacion-precalculo-*`. Build producido exclusivamente con `python3 tools/build_active_html.py`, ambos SHA-256 `6bdceff062338aefc70b4a4fc307a0a403f69abfb6269bb1e2f090b3d6302a1b`. Para revertir, verificar `sha256sum -c backups/room_population_precompute_20261126/SHA256SUMS`, restaurar `population_compiled.js` desde ese backup a `src/room_generation/`, reconstruir y verificar ambos builds SHA-256 `83eb5abf961a500b630877c258a5c8f4ac43455709989e31be4b9a26f00a80f4`. No se altera el formato de guardado ni se eliminan datos.
+
+**Fase 3 continúa incompleta:** faltan nuevas variantes y sus assets/colisiones, unicidad de siluetas y puertas, diferenciación demostrada de círculos, capturas y QA de campaña natural; los ensayos no prueban ausencia de regresión general de frames, memoria o generación.

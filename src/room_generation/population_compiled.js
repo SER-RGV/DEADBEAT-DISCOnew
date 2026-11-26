@@ -1,24 +1,34 @@
 // Experimental, version-gated population adapter; legacy plans remain unchanged.
 // Coordinates in the public population remain normalized; collision tests use
 // world units. Native runtime collision/spawn filters remain authoritative.
-function populationCompiledSafe(x, y, radius, geometry, mesh) {
-  if (![x, y, radius, geometry.w, geometry.h].every(Number.isFinite) || radius < 0) return false;
-  const px = x * geometry.w, py = y * geometry.h, pts = geometry.pts;
-  let inside = false;
+// Prepare immutable per-call geometry, never a global or per-frame cache.
+function preparePopulationGeometry(geometry, mesh) {
+  const pts = geometry.pts, edges = [];
   for (let i = 0, j = pts.length - 1; i < pts.length; j = i++) {
     const ax = pts[j][0] * geometry.w, ay = pts[j][1] * geometry.h;
     const bx = pts[i][0] * geometry.w, by = pts[i][1] * geometry.h;
-    const dx = bx - ax, dy = by - ay, len2 = dx * dx + dy * dy;
+    const dx = bx - ax, dy = by - ay;
+    edges.push({ax, ay, by, dx, dy, len2: dx * dx + dy * dy});
+  }
+  const placements = mesh.placements.filter(p => p.solid).map(p => ({
+    p, cs: Math.cos(p.collider.angle || 0), sn: Math.sin(p.collider.angle || 0),
+  }));
+  return {edges, placements};
+}
+function populationCompiledSafe(x, y, radius, geometry, mesh, prepared) {
+  if (![x, y, radius, geometry.w, geometry.h].every(Number.isFinite) || radius < 0) return false;
+  const px = x * geometry.w, py = y * geometry.h;
+  const {edges, placements} = prepared || preparePopulationGeometry(geometry, mesh);
+  let inside = false;
+  for (const {ax, ay, by, dx, dy, len2} of edges) {
     if (!len2) return false;
     if ((ay > py) !== (by > py) && px < ax + (py - ay) * dx / dy) inside = !inside;
     const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
     if (Math.hypot(px - ax - t * dx, py - ay - t * dy) < radius) return false;
   }
   if (!inside) return false;
-  for (const p of mesh.placements) {
-    if (!p.solid) continue;
+  for (const {p, cs, sn} of placements) {
     const c = p.collider, dx = px - p.anchor.x, dy = py - p.anchor.y;
-    const cs = Math.cos(c.angle || 0), sn = Math.sin(c.angle || 0);
     const lx = dx * cs + dy * sn, ly = -dx * sn + dy * cs;
     let distance;
     if (c.kind === 'circle') distance = Math.hypot(lx, ly) - c.r;
@@ -43,8 +53,9 @@ for (let v = 0.05; v < 1; v += 0.025) populationCompiledAxis.push(v);
 Object.freeze(populationCompiledAxis);
 function adaptPopulationCompiled(population, compiled) {
   const {geometry, mesh} = compiled;
+  const prepared = preparePopulationGeometry(geometry, mesh);
   function safe(p, radius, offsets = [0]) {
-    return offsets.every(dx => populationCompiledSafe(p.x + dx / geometry.w, p.y, radius, geometry, mesh));
+    return offsets.every(dx => populationCompiledSafe(p.x + dx / geometry.w, p.y, radius, geometry, mesh, prepared));
   }
   function relocate(p, radius, offsets) {
     if (safe(p, radius, offsets)) return {...p};
@@ -86,11 +97,12 @@ function adaptPopulationCompiled(population, compiled) {
 }
 function validatePopulationCompiled(population, compiled) {
   const {geometry, mesh} = compiled;
+  const prepared = preparePopulationGeometry(geometry, mesh);
   for (const p of population.spawns)
-    if (!populationCompiledSafe(p.x, p.y, 36, geometry, mesh))
+    if (!populationCompiledSafe(p.x, p.y, 36, geometry, mesh, prepared))
       throw Error('unsafe compiled spawn');
   for (const dx of [-80, 0, 80])
-    if (!populationCompiledSafe(population.reward.x + dx / geometry.w, population.reward.y, 36, geometry, mesh))
+    if (!populationCompiledSafe(population.reward.x + dx / geometry.w, population.reward.y, 36, geometry, mesh, prepared))
       throw Error('unsafe compiled reward');
   return population;
 }
