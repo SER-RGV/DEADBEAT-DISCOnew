@@ -77,11 +77,11 @@ El Refugio activo comparte el plano orgánico, las placas, el pintor y el reliev
 
 `tools/qa/prefab_progression.cjs` recorre la ruta principal de **los nueve descensos**, del círculo I al núcleo: exige que la puerta del ascensor caiga sobre su hueco del prefab (misma pared, mismo origen, aterrizaje libre), despeja las salas obligatorias, comprueba que la puerta del ascensor se abra de verdad y desciende con `kg()`, la misma función que invoca la puerta (`wg` → `kg`). En cada llegada exige la malla montada y que todos los nodos de la planta lleven prefab; el núcleo es un fondo de saco legítimo, con muros y tarima pero sin aberturas, así que ahí solo se exige malla. Después recarga la página y compara la asignación de prefabs de los diez círculos: el círculo en curso no forma parte del guardado —el juego reinicia la incursión—, pero `dmo_floor_v32` debe reconstruir exactamente las mismas plantas.
 
-Evidencias en `ART_EVIDENCE/PREFABS_ROLLOUT/`: `planta-02.jpg` (lujuria), `planta-05.jpg` (ira), `planta-10-nucleo.jpg` (arena del residente) y `refugio.jpg` (vestíbulo activo con la galería al oeste y el descenso al norte).
+Evidencias en `archivo/evidencias/ART_EVIDENCE/PREFABS_ROLLOUT/`: `planta-02.jpg` (lujuria), `planta-05.jpg` (ira), `planta-10-nucleo.jpg` (arena del residente) y `refugio.jpg` (vestíbulo activo con la galería al oeste y el descenso al norte).
 
 ### Cinco casas en juego
 
-`ART_EVIDENCE/PREFABS_ROLLOUT/casa-pasillo-servicio.jpg`, `casa-camarote.jpg`, `casa-tienda.jpg`, `casa-arena-octogono.jpg`, `planta-02.jpg`, `planta-05.jpg`, `planta-10-nucleo.jpg` y `refugio.jpg` están tomadas del juego normal, no del visor. El suelo de cada círculo usa su propia piedra teñida al tono de la sala; el círculo I deja de ser una losa clara y las siluetas hostiles mantienen su contraste. La cámara del residente tiene seis muebles en lugar de cuatro porque su planta es un 60 % mayor.
+`archivo/evidencias/ART_EVIDENCE/PREFABS_ROLLOUT/casa-pasillo-servicio.jpg`, `casa-camarote.jpg`, `casa-tienda.jpg`, `casa-arena-octogono.jpg`, `planta-02.jpg`, `planta-05.jpg`, `planta-10-nucleo.jpg` y `refugio.jpg` están tomadas del juego normal, no del visor. El suelo de cada círculo usa su propia piedra teñida al tono de la sala; el círculo I deja de ser una losa clara y las siluetas hostiles mantienen su contraste. La cámara del residente tiene seis muebles en lugar de cuatro porque su planta es un 60 % mayor.
 
 La suite que lo comprueba: `prefab_floors.cjs` (20 corredores), `prefab_rollout.cjs` (108 salas con puertas, muebles, oleada, botín y puntos de aparición válidos), `prefab_progression.cjs` (nueve descensos con la puerta real, llegada al núcleo y reconstrucción idéntica de las diez plantas tras recargar), `playable_prefab.cjs` (r0/r1/r2 con su malla y la rotura nativa) y `prefab_reach.cjs` (223 salidas alcanzables en 108 salas), `prefab_breakables.cjs` (mesa y sofá rotos y sin colisión), `prefab_legibility.cjs` (pista al 98-99 % sin perder el suelo), `prefab_boss.cjs` (tres cámaras del residente), `prefab_touch.cjs` (mando táctil en móvil) y `prefab_perf.cjs` (cadencia). Sigue sin certificarse el rendimiento con GPU real: aquí solo hay OpenGL por software.
 
@@ -93,17 +93,17 @@ La casa `camarote` monta un `puesto` con franja de lectura al sur (`front01`), a
 
 `tools/qa/prefab_rave.cjs` monta el mismo fixture que el piloto Hangar —cinco avisos reales en pantalla, láser y RAVE— dentro de una sala de combate de cada casa con volumen propio: `pasillo-servicio`, `nave-quebrada`, `palco-profundo` y `arena-octogono`. La prueba afirma que el medidor de RAVE está activo y que hay cinco o más hostiles en pantalla antes de capturar; no afirma nada sobre estética.
 
-Juicio sobre las capturas de `ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas el láser magenta, los anillos de aviso y las siluetas hostiles se separan del suelo teñido, incluso en el octógono, que es la planta más grande y la de piedra más clara. La casa `camarote` queda fuera del fixture a propósito: solo aloja tienda, descanso y secretos, donde el RAVE no llega a activarse. Las capturas son de la build servida en el puerto 8015 con la semilla 0.
+Juicio sobre las capturas de `archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE/`: en las cuatro casas el láser magenta, los anillos de aviso y las siluetas hostiles se separan del suelo teñido, incluso en el octógono, que es la planta más grande y la de piedra más clara. La casa `camarote` queda fuera del fixture a propósito: solo aloja tienda, descanso y secretos, donde el RAVE no llega a activarse. Las capturas son de la build servida en el puerto 8015 con la semilla 0.
 
 Esto es una comprobación visual mía sobre cuatro fotogramas forzados, no una prueba de legibilidad con jugadores reales ni con la pista saturada de enemigos.
 
 ### Fuera de la sala
 
-Las casas se pintan sobre el lienzo a tamaño real; cuando la sala es más estrecha que la ventana —el camarote mide 1080 × 1000 para una vista de 1280 × 800— quedaba un hueco negro que parecía un fallo de render. `src/dd_prefab_world.js` pinta ahora ese exterior con la loseta del círculo al 11 % y un viñeteado encima, así que la sala se apaga hacia la oscuridad en vez de cortarse en seco. Se ve en `ART_EVIDENCE/PREFABS_BREAK/r9-intacto.jpg`.
+Las casas se pintan sobre el lienzo a tamaño real; cuando la sala es más estrecha que la ventana —el camarote mide 1080 × 1000 para una vista de 1280 × 800— quedaba un hueco negro que parecía un fallo de render. `src/dd_prefab_world.js` pinta ahora ese exterior con la loseta del círculo al 11 % y un viñeteado encima, así que la sala se apaga hacia la oscuridad en vez de cortarse en seco. Se ve en `archivo/evidencias/ART_EVIDENCE/PREFABS_BREAK/r9-intacto.jpg`.
 
 ### Mobiliario rompible
 
-La mesa y el sofá son destructibles en el catálogo, así que `tools/qa/prefab_breakables.cjs` lo exige en el juego: que la casa registre piezas con vida (`propsHp`), que al romperlas el objeto quede marcado como roto, que **deje de colisionar** y que el fotograma cambie donde estaba la pieza. Las tres cosas se comprueban en pasillo, nave y camarote. Las capturas de antes y después están en `ART_EVIDENCE/PREFABS_BREAK/`.
+La mesa y el sofá son destructibles en el catálogo, así que `tools/qa/prefab_breakables.cjs` lo exige en el juego: que la casa registre piezas con vida (`propsHp`), que al romperlas el objeto quede marcado como roto, que **deje de colisionar** y que el fotograma cambie donde estaba la pieza. Las tres cosas se comprueban en pasillo, nave y camarote. Las capturas de antes y después están en `archivo/evidencias/ART_EVIDENCE/PREFABS_BREAK/`.
 
 La comprobación de píxeles es un extra, no la prueba: al romperse una pieza el motor rebasa la sala y el fotograma se mueve también fuera del mueble, así que lo que se exige es que el cambio sea local y de tamaño de mueble, no que el sprite sea idéntico al PNG del lote.
 
@@ -120,26 +120,27 @@ Las casas cuestan lo mismo entre sí (peor/mejor ≈ 1,1) y la multitud añade a
 
 ### Legibilidad con la pista saturada
 
-`tools/qa/prefab_legibility.cjs` lleva la barra de RAVE al 98–99 % en tres casas —pasillo, nave y arena— y mide dos parches de suelo antes y después. La escena centellea, así que la muestra en vivo es ruido: la prueba pausa el juego y repinta con `renderNow`, pide tres muestras y exige que coincidan (si el fotograma se mueve, falla en vez de promediar basura). Compara dos cosas: energía de borde del suelo (detalle de la textura) y brillo medio.
+`tools/qa/prefab_legibility.cjs` lleva la barra de RAVE al 98–99 % en las cuatro casas de combate —pasillo, palco, nave y arena— (el camarote es zona segura y nunca enciende RAVE) y mide dos parches de suelo antes y después. La escena centellea, así que la muestra en vivo es ruido: la prueba pausa el juego y repinta con `renderNow`, pide tres muestras y exige que coincidan (si el fotograma se mueve, falla en vez de promediar basura). Compara dos cosas: energía de borde del suelo (detalle de la textura) y brillo medio.
 
-Medido, con el listón en «conserva al menos dos tercios del detalle» y «el brillo no se mueve más de 8/255»:
+En el octógono la multitud de prueba no sirve —la sala retiene sus añadidos hasta que entra el residente—, así que allí se arranca la pelea de verdad y se satura sobre ella. Medido, con el listón en «conserva al menos dos tercios del detalle» y «el brillo no se mueve más de 8/255»:
 
 | casa | detalle | brillo |
 | --- | --- | --- |
-| pasillo-servicio | 77 % / 87 % | −2,9 |
-| nave-quebrada | 82 % / 88 % | −2,5 |
-| arena-octogono | 92 % / 91 % | −0,4 |
+| pasillo-servicio | 79 % / 86 % | −2,7 |
+| palco-profundo | 102 % / 104 % | −0,6 |
+| nave-quebrada | 94 % / 103 % | −0,1 |
+| arena-octogono | 95 % / 91 % | −0,3 |
 
-Los destellos y el rótulo de entrada de RAVE son transitorios y no se miden; lo que se mide es el estado sostenido. Fotogramas en `ART_EVIDENCE/PREFABS_RAVE/*-saturado.jpg`.
+Los destellos y el rótulo de entrada de RAVE son transitorios y no se miden; lo que se mide es el estado sostenido. Fotogramas en `archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE/*-saturado.jpg`.
 
 ### Cámaras del residente
 
 Las cámaras de jefe van siempre a la casa `arena-octogono`, también la del núcleo. `tools/qa/prefab_boss.cjs` abre una página nueva por círculo —para que una pelea no contamine la siguiente—, lanza el jefe real con `DMO.debug.boss()`, comprueba identidad y vida, exige que el jefe esté **de pie sobre la malla** (no dentro del mobiliario) y lo derriba por el puente. En los círculos 1 y 5 exige además que el motor apunte la cámara como despejada; en el núcleo solo exige la bandera `final` y que el jefe caiga, porque el cierre de partida no apunta ninguna cámara y su secuencia de victoria queda fuera de esta prueba.
 
-Medido: ANDÉN (147), EL POGO (204) y NÚCLEO FINAL (363). Capturas en `ART_EVIDENCE/PREFABS_BOSS/`. No se simulan fases, oleadas de añadidos ni el final de la partida.
+Medido: ANDÉN (147), EL POGO (204) y NÚCLEO FINAL (363). Capturas en `archivo/evidencias/ART_EVIDENCE/PREFABS_BOSS/`. No se simulan fases, oleadas de añadidos ni el final de la partida.
 
 ### Teléfono y mando táctil
 
-`tools/qa/prefab_touch.cjs` abre el juego en 390 × 720 con `isMobile` y toques reales por CDP sobre la zona de movimiento: arrastra el joystick en una sala de combate de cada casa con volumen propio y exige que el corredor se desplace más de 40 px y siga dentro del polígono. Los cuatro fotogramas de `ART_EVIDENCE/PREFABS_TOUCH/` son la evidencia.
+`tools/qa/prefab_touch.cjs` abre el juego en 390 × 720 con `isMobile` y toques reales por CDP sobre la zona de movimiento: arrastra el joystick en una sala de combate de cada casa con volumen propio y exige que el corredor se desplace más de 40 px y siga dentro del polígono. Los cuatro fotogramas de `archivo/evidencias/ART_EVIDENCE/PREFABS_TOUCH/` son la evidencia.
 
 Dos arreglos de HUD salieron de ahí, ambos en `src/dd_rebuild_ui.css`: la torre de progresión (196 × 132) tapaba media cabecera en pantallas de 390 px —ahora mide 112 × 76 por debajo de 520 px— y el cartel del círculo cruzaba la fila del dado, así que pasa a dos líneas con 50vw de ancho y se separa 48 px. Sin esos dos cambios, en el móvil se leían mal la vida, el escudo y el dado. Lo que sigue igual de apretado es la franja de ronda sobre los botones de habilidad; es anterior a este trabajo y no la toqué.

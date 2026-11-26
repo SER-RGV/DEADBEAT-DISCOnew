@@ -56,7 +56,7 @@ async function still(p) {
     args: ["--no-sandbox", "--disable-gpu"],
   });
   try {
-    fs.mkdirSync("ART_EVIDENCE/PREFABS_RAVE", { recursive: true });
+    fs.mkdirSync("archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE", { recursive: true });
     const p = await browser.newPage({ viewport: { width: 1280, height: 800 } }),
       errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
@@ -69,6 +69,7 @@ async function still(p) {
     await p.waitForFunction(() => __DD_BRIDGE.isRunning());
     for (const [key, house] of [
       ["r1", "pasillo-servicio"],
+      ["r3", "palco-profundo"],
       ["r4", "nave-quebrada"],
       ["r10", "arena-octogono"],
     ]) {
@@ -100,7 +101,7 @@ async function still(p) {
       }
       await p.evaluate(() => __DD_BRIDGE.setPaused(true));
       const saturated = await still(p);
-      await p.screenshot({ path: "ART_EVIDENCE/PREFABS_RAVE/" + house + "-saturado.jpg" });
+      await p.screenshot({ path: "archivo/evidencias/ART_EVIDENCE/PREFABS_RAVE/" + house + "-saturado.jpg" });
       await p.evaluate(() => __DD_BRIDGE.setPaused(false));
       assert(saturated.meter >= 97, house + ": the track only reached " + saturated.meter + "%");
       // The runner must carry more edges than bare floor; otherwise the sampled
@@ -129,7 +130,7 @@ async function still(p) {
       );
     }
     assert.deepEqual(errors, []);
-    console.log("PASS the floor keeps its detail and brightness with the RAVE track at 99%+");
+    console.log("PASS the floor keeps its detail and brightness with the RAVE track at 99%+ in the 4 combat houses");
   } finally {
     await browser.close();
   }

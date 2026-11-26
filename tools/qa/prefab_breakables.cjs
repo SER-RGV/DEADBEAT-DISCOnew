@@ -40,7 +40,7 @@ const DIFF = `(() => { const c = document.querySelector("canvas").getContext("2d
     args: ["--no-sandbox", "--disable-gpu"],
   });
   try {
-    fs.mkdirSync("ART_EVIDENCE/PREFABS_BREAK", { recursive: true });
+    fs.mkdirSync("archivo/evidencias/ART_EVIDENCE/PREFABS_BREAK", { recursive: true });
     const p = await browser.newPage({ viewport: { width: 1280, height: 800 } }),
       errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
@@ -74,7 +74,7 @@ const DIFF = `(() => { const c = document.querySelector("canvas").getContext("2d
         { x: target.x, y: target.y },
       );
       await p.waitForTimeout(700);
-      await p.screenshot({ path: "ART_EVIDENCE/PREFABS_BREAK/" + key + "-intacto.jpg" });
+      await p.screenshot({ path: "archivo/evidencias/ART_EVIDENCE/PREFABS_BREAK/" + key + "-intacto.jpg" });
       await p.evaluate(() => __DD_BRIDGE.setPaused(true));
       await p.evaluate(FREEZE);
       await p.evaluate(() => __DD_BRIDGE.setPaused(false));
@@ -103,7 +103,7 @@ const DIFF = `(() => { const c = document.querySelector("canvas").getContext("2d
       assert(diff.changed > 150, key + ": only " + diff.changed + " pixels changed when " + target.name + " broke");
       assert(diff.bw >= 30 && diff.bh >= 20, key + ": the change is not prop sized (" + diff.bw + "x" + diff.bh + ")");
       assert(diff.share < 0.2, key + ": " + (diff.share * 100).toFixed(0) + "% of the frame changed, that is not one piece");
-      await p.screenshot({ path: "ART_EVIDENCE/PREFABS_BREAK/" + key + "-roto.jpg" });
+      await p.screenshot({ path: "archivo/evidencias/ART_EVIDENCE/PREFABS_BREAK/" + key + "-roto.jpg" });
       await p.evaluate(() => __DD_BRIDGE.setPaused(false));
       done.push(key + " " + target.name + " (" + diff.changed + " px in " + diff.bw + "x" + diff.bh + ")");
     }
