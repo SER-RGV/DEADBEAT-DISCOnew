@@ -1,0 +1,590 @@
+{
+  "pxPerUnit": 2,
+  "referencePlayerU": [
+    64,
+    96
+  ],
+  "assets": {
+    "suelo": {
+      "file": "png/suelo.png",
+      "pixels": [
+        256,
+        256
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        128,
+        128
+      ],
+      "view": "cenital",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Muestra 128 × 128 u, repetición bidireccional. Juntas de loseta desplazadas; sin borde perimetral.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "tapa": {
+      "file": "png/tapa.png",
+      "pixels": [
+        128,
+        48
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        64,
+        24
+      ],
+      "view": "cenital",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Módulo UV de 64 × 24 u: metal bruñido, sin labio de puerta ni esquina pintada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "cara": {
+      "file": "png/cara.png",
+      "pixels": [
+        128,
+        144
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        64,
+        72
+      ],
+      "view": "alzado",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Módulo frontal 64 × 72 u; recortar a la altura de cada tramo. Chapa de ritmo vertical, sin biseles laterales falsos.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "tarima": {
+      "file": "png/tarima.png",
+      "pixels": [
+        410,
+        188
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        205,
+        94
+      ],
+      "view": "cenital",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Placa antideslizante independiente del canto. No repetir la silueta del monitor.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "cantoTarima": {
+      "file": "png/cantoTarima.png",
+      "pixels": [
+        128,
+        84
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        64,
+        42
+      ],
+      "view": "alzado",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Módulo 64 × 42 u; en nave usar solo 30 u de altura, sin comprimir el acanalado.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "contrahuella": {
+      "file": "png/contrahuella.png",
+      "pixels": [
+        410,
+        12
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        205,
+        6
+      ],
+      "view": "S",
+      "uses": [
+        "r1",
+        "r2"
+      ],
+      "detail": "Una sola faja vertical. Sin huella superior ni franja luminosa.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "pisada-7": {
+      "file": "png/pisada-7.png",
+      "pixels": [
+        410,
+        30
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        205,
+        15
+      ],
+      "view": "S",
+      "uses": [
+        "r1"
+      ],
+      "detail": "Una sola huella, microperforación sobria y nariz de níquel al sur; no dibujar contrahuella. Conservar la profundidad lógica, no usar la altura redondeada del PNG.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "umbral-W": {
+      "file": "png/umbral-W.png",
+      "pixels": [
+        180,
+        348
+      ],
+      "pivotPx": [
+        176,
+        174
+      ],
+      "nominalU": [
+        86,
+        170,
+        0
+      ],
+      "view": "W",
+      "uses": [
+        {
+          "link": "r1:dockE→r7",
+          "anchorXY": [
+            1210,
+            350
+          ],
+          "z": 0,
+          "sortY": null
+        }
+      ],
+      "detail": "Marco de 4 px alfa. Pivote en el punto medio del borde exterior, no en el centro de la placa. Perfil de entrada discreto y centro libre.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-W-0": {
+      "file": "png/jamba-W-0.png",
+      "pixels": [
+        56,
+        96
+      ],
+      "pivotPx": [
+        28.0,
+        82.0
+      ],
+      "nominalU": [
+        24,
+        10,
+        34
+      ],
+      "view": "W",
+      "uses": [
+        {
+          "link": "r1:dockE→r7",
+          "anchorXY": [
+            1222.0,
+            260.0
+          ],
+          "z": 0,
+          "sortY": 265
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-W-1": {
+      "file": "png/jamba-W-1.png",
+      "pixels": [
+        56,
+        96
+      ],
+      "pivotPx": [
+        28.0,
+        82.0
+      ],
+      "nominalU": [
+        24,
+        10,
+        34
+      ],
+      "view": "W",
+      "uses": [
+        {
+          "link": "r1:dockE→r7",
+          "anchorXY": [
+            1222.0,
+            440.0
+          ],
+          "z": 0,
+          "sortY": 445
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "umbral-N": {
+      "file": "png/umbral-N.png",
+      "pixels": [
+        348,
+        180
+      ],
+      "pivotPx": [
+        174.0,
+        176
+      ],
+      "nominalU": [
+        170.0,
+        86,
+        0
+      ],
+      "view": "N",
+      "uses": [
+        {
+          "link": "r1:dockS→r2",
+          "anchorXY": [
+            682.5,
+            855
+          ],
+          "z": 0,
+          "sortY": null
+        }
+      ],
+      "detail": "Marco de 4 px alfa. Pivote en el punto medio del borde exterior, no en el centro de la placa. Perfil de entrada discreto y centro libre.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-N-0": {
+      "file": "png/jamba-N-0.png",
+      "pixels": [
+        28,
+        100
+      ],
+      "pivotPx": [
+        14.0,
+        72.0
+      ],
+      "nominalU": [
+        10.0,
+        24,
+        22
+      ],
+      "view": "N",
+      "uses": [
+        {
+          "link": "r1:dockS→r2",
+          "anchorXY": [
+            772.5,
+            867.0
+          ],
+          "z": 0,
+          "sortY": 879
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-N-1": {
+      "file": "png/jamba-N-1.png",
+      "pixels": [
+        28,
+        100
+      ],
+      "pivotPx": [
+        14.0,
+        72.0
+      ],
+      "nominalU": [
+        10.0,
+        24,
+        22
+      ],
+      "view": "N",
+      "uses": [
+        {
+          "link": "r1:dockS→r2",
+          "anchorXY": [
+            592.5,
+            867.0
+          ],
+          "z": 0,
+          "sortY": 879
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "umbral-E": {
+      "file": "png/umbral-E.png",
+      "pixels": [
+        180,
+        348
+      ],
+      "pivotPx": [
+        4,
+        174
+      ],
+      "nominalU": [
+        86,
+        170,
+        0
+      ],
+      "view": "E",
+      "uses": [
+        {
+          "link": "r1:dockW→r0",
+          "anchorXY": [
+            0,
+            425
+          ],
+          "z": 0,
+          "sortY": null
+        },
+        {
+          "link": "r2:dockW→r3",
+          "anchorXY": [
+            0,
+            425
+          ],
+          "z": 0,
+          "sortY": null
+        }
+      ],
+      "detail": "Marco de 4 px alfa. Pivote en el punto medio del borde exterior, no en el centro de la placa. Perfil de entrada discreto y centro libre.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-E-0": {
+      "file": "png/jamba-E-0.png",
+      "pixels": [
+        56,
+        100
+      ],
+      "pivotPx": [
+        28.0,
+        86.0
+      ],
+      "nominalU": [
+        24,
+        10,
+        36
+      ],
+      "view": "E",
+      "uses": [
+        {
+          "link": "r1:dockW→r0",
+          "anchorXY": [
+            -12.0,
+            515.0
+          ],
+          "z": 0,
+          "sortY": 520
+        },
+        {
+          "link": "r2:dockW→r3",
+          "anchorXY": [
+            -12.0,
+            515.0
+          ],
+          "z": 0,
+          "sortY": 520
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-E-1": {
+      "file": "png/jamba-E-1.png",
+      "pixels": [
+        56,
+        100
+      ],
+      "pivotPx": [
+        28.0,
+        86.0
+      ],
+      "nominalU": [
+        24,
+        10,
+        36
+      ],
+      "view": "E",
+      "uses": [
+        {
+          "link": "r1:dockW→r0",
+          "anchorXY": [
+            -12.0,
+            335.0
+          ],
+          "z": 0,
+          "sortY": 340
+        },
+        {
+          "link": "r2:dockW→r3",
+          "anchorXY": [
+            -12.0,
+            335.0
+          ],
+          "z": 0,
+          "sortY": 340
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "pisada-5": {
+      "file": "png/pisada-5.png",
+      "pixels": [
+        410,
+        30
+      ],
+      "pivotPx": [
+        0,
+        0
+      ],
+      "nominalU": [
+        205,
+        14.8
+      ],
+      "view": "S",
+      "uses": [
+        "r2"
+      ],
+      "detail": "Una sola huella, microperforación sobria y nariz de níquel al sur; no dibujar contrahuella. Conservar la profundidad lógica, no usar la altura redondeada del PNG.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "umbral-S": {
+      "file": "png/umbral-S.png",
+      "pixels": [
+        348,
+        180
+      ],
+      "pivotPx": [
+        174,
+        4
+      ],
+      "nominalU": [
+        170,
+        86,
+        0
+      ],
+      "view": "S",
+      "uses": [
+        {
+          "link": "r2:dockN→r1",
+          "anchorXY": [
+            605,
+            0
+          ],
+          "z": 0,
+          "sortY": null
+        }
+      ],
+      "detail": "Marco de 4 px alfa. Pivote en el punto medio del borde exterior, no en el centro de la placa. Perfil de entrada discreto y centro libre.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-S-0": {
+      "file": "png/jamba-S-0.png",
+      "pixels": [
+        28,
+        200
+      ],
+      "pivotPx": [
+        14.0,
+        172.0
+      ],
+      "nominalU": [
+        10,
+        24,
+        72
+      ],
+      "view": "S",
+      "uses": [
+        {
+          "link": "r2:dockN→r1",
+          "anchorXY": [
+            515.0,
+            -12.0
+          ],
+          "z": 0,
+          "sortY": 0
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    },
+    "jamba-S-1": {
+      "file": "png/jamba-S-1.png",
+      "pixels": [
+        28,
+        200
+      ],
+      "pivotPx": [
+        14.0,
+        172.0
+      ],
+      "nominalU": [
+        10,
+        24,
+        72
+      ],
+      "view": "S",
+      "uses": [
+        {
+          "link": "r2:dockN→r1",
+          "anchorXY": [
+            695.0,
+            -12.0
+          ],
+          "z": 0,
+          "sortY": 0
+        }
+      ],
+      "detail": "Marco de 4 px alfa; pivote en centro de base del montante. Solo bisel hacia la luz; sin sombra horneada.",
+      "shadow": "separate",
+      "rotationRuntime": 0
+    }
+  }
+}

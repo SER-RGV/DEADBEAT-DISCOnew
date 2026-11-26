@@ -1,0 +1,10 @@
+// Drive the production resolver with genuine catalog affinities and legal engravings.
+const assert=require('node:assert/strict');global.window=global;for(const n of ['combat_feel','dice_geometry','dice_rules','dice'])require('../../src/dd_'+n+'.js');
+const f=DD_COMBAT_FEEL,catalog=DD_DICE.catalog;const cases=[['Sobrecarga disco',6,'electricidad',1,5],['Arco térmico',8,'fuego',1,1],['Corte de retorno',20,'rebote',1,1,'perforación'],['Pulso tóxico',12,'veneno',0,2],['Circuito cruzado',6,'electricidad',0,1],['Escarcha de veinte',20,'hielo',0,1],['Cristal de pista',6,'hielo',1,1],['Contratiempo',4,null,1,2],['Eco de cara',4,'perforación',1,1]];
+for(const [name,id,rune,charge,hits,previous] of cases){let got=false;for(let seed=0;seed<100&&!got;seed++){f.reset();f.tick(0,1,seed);const c=catalog[id];assert(!rune||c.compatible.includes(rune));const targets=Array.from({length:5},(_,i)=>({x:i*6,y:0,hp:100})),names=[];const w={targets:()=>targets,visible:()=>true,hit:(t,n)=>t.hp-=n,accent:(t,r,n)=>{names.push(r[0]);assert(n<=r[1]);}};const d={id,face:id,charge,runes:{}};if(previous){assert(c.compatible.includes(previous));d.runes[id]=previous;f.begin();f.hit(targets[0],1,false);f.resolve(d,c,w);assert.equal(f.retained,previous);}
+ d.runes[id]=rune;f.begin();for(let i=0;i<hits;i++)f.hit(targets[i],1,false);f.resolve(d,c,w);f.resolve(d,c,w);assert(names.length<=1);if(names.length){assert.equal(names[0],name);got=true;}for(let t=0;t<42;t++)f.tick(.1,1,seed);assert.equal(f.retained,null);assert.equal(f.seconds,0);
+ }assert(got,name);console.log('PASS',name);}
+// One simulated hour, alternating active rooms; no entity may survive its scope.
+const actor={x:0,y:0,hp:100};let activations=0;const world={visible:()=>true,targets:()=>[actor],hit(){},accent(){activations++}};
+for(let i=0;i<36000;i++){f.tick(.1,i/600|0,23);if(i%600===0){assert.equal(f.combo,0);assert.equal(f.retained,null);}if(i%10===1){f.begin();f.hit(actor,1,false);f.resolve({id:6,face:1,charge:1,runes:{1:'electricidad'}},catalog[6],world);}}
+assert(activations>0);f.reset();assert.equal(f.combo,0);console.log('PASS 3600s resolver soak, 60 room scopes;',activations,'activations');

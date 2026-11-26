@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="es">
+  <meta charset="utf-8" /><meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  /><title>RG2 · Prueba de ensamblaje</title
+  ><style>
+    @font-face {
+      font-family: club;
+      src: url("../../assets/fonts/barlow-condensed-latin-700-italic.woff2");
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      background: #111016;
+      color: #e9ddce;
+      font: 14px system-ui;
+    }
+    main {
+      width: min(1320px, 96vw);
+      margin: auto;
+    }
+    header,
+    nav,
+    footer {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      flex-wrap: wrap;
+      padding: 12px 0;
+    }
+    header {
+      border-bottom: 1px solid #48414c;
+    }
+    h1 {
+      font:
+        36px club,
+        sans-serif;
+      margin: 0;
+    }
+    small,
+    footer {
+      font: 12px monospace;
+      color: #bfaeb5;
+    }
+    header small {
+      margin-left: auto;
+    }
+    button,
+    select {
+      background: #292530;
+      border: 1px solid #655761;
+      border-radius: 4px;
+      color: inherit;
+      padding: 8px 12px;
+    }
+    button[aria-pressed="true"] {
+      background: #e0bda9;
+      color: #211b21;
+    }
+    canvas {
+      width: 100%;
+      height: 70vh;
+      display: block;
+      background: #18151d;
+      border: 1px solid #514552;
+    }
+    input {
+      accent-color: #d7ae93;
+    }
+    footer {
+      justify-content: space-between;
+    }
+  </style>
+  <main>
+    <header>
+      <h1>DEADBEAT DISCO / Prueba de ensamblaje</h1>
+      <small>ARTE TÉCNICO · LOTES 01 + 02</small>
+    </header>
+    <nav>
+      <button id="r1" aria-pressed="true">r1 · Palco profundo</button
+      ><button id="r2" aria-pressed="false">r2 · Nave quebrada</button
+      ><label
+        >Encuadre
+        <select id="focus"></select></label
+      ><label><input id="broken" type="checkbox" /> Cobertura rota</label
+      ><label><input id="guides" type="checkbox" /> Pivotes / frentes</label>
+    </nav>
+    <nav aria-label="Control de profundidad">
+      <label
+        ><input type="checkbox" id="probe" /> Figura patrón · 64 × 96 u</label
+      >
+      <label
+        >Recorrido
+        <input id="phase" type="range" min="0" max="100" value="0" disabled
+      /></label>
+      <button id="play" disabled>Reproducir</button
+      ><output id="height"></output>
+    </nav>
+    <canvas
+      id="scene"
+      aria-label="Plano de la sala con sus sprites cardinales"
+    ></canvas>
+    <footer>
+      <span id="status" role="status">Cargando piezas…</span
+      ><span>SEMILLA 0 · PLANTA 0 · SIN ESTADO DE PARTIDA</span>
+    </footer>
+  </main>
+  <script src="depth.js"></script>
+  <script src="scene.js"></script>
+</html>
