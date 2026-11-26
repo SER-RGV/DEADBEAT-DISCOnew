@@ -1,5 +1,26 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Fase 0 · Integración de rendimiento tras #36
+
+- Integrado el delta compatible de #34 en #37, por autorización, sin restaurar la armería o atlas antiguos ni los retratos obsoletos. #34 permanece draft de referencia.
+- Carga por prioridades, cinemáticas a demanda, notificaciones agrupadas, HUD con escrituras al cambiar, scroll/opciones y pausa. Corregido fallback del cargador importado y añadido test unitario.
+- Backups previos y HTML regenerados. Arneses adaptados al menú, al plano vivo y a los textos actuales de dados; sin teletransportes para medir combate.
+- Final review 30/30 + 4/4 + 16/16; pruebas principales, esquiva y toque 390 px pasan. Medición de tres arranques por variante y logs en docs/FASE_0/integracion34.
+- Pendiente revisión/fusión de #37; #32 abierto, fase 1 no iniciada. No se fusiona ni cierra nada adicional.
+
+## 2026-11-26 · Fase 0 · Decisiones autorizadas
+
+- Fusionado #36 mediante merge, comprobando que su head coincide con el commit validado `132d5a4`. Merge: `29daef875fbe7e911f22de5c032d7753cf70aa57`.
+- Cerrado #21 como superado con confirmación expresa. #32 sigue abierto y #34 sigue en borrador.
+- Operaciones verificadas con `gh pr view`; no se han repetido suites ni modificado builds en esta ronda.
+
+## 2026-11-26 · Fase 0 · Revisión parcial de integración
+
+- Documentada revisión de #36, #34, #21 y #32 sin fusiones ni cierres.
+- Ejecutadas 15 suites de #36 y smoke de arranque; logs conservados en docs/FASE_0/evidencias.
+- Registrados límites, conflictos y decisiones pendientes; sin cambios de código ni regeneración de builds.
+
+
 ## v9_t3_fase1b_cache_probe
 - Incorporación de build HTML de referencia.
 - Conservación de recursos integrados.

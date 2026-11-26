@@ -10,8 +10,8 @@ const base=process.argv[2]||'http://localhost:8080',delay=ms=>new Promise(r=>set
  const pad=async i=>{await p.evaluate(i=>__setPad(i,true),i);await delay(150);await p.evaluate(i=>__setPad(i,false),i);await delay(350)};
  try{
  await p.route('**/index.html',r=>r.fulfill({status:200,contentType:'text/html; charset=utf-8',body}));await p.goto(base+'/index.html');
- await p.waitForFunction(()=>window.DD_BOOT&&(DD_BOOT.getState().waitingGesture||DD_BOOT.getState().state==='INTRO'),null,{timeout:30000});await p.keyboard.press('KeyX');await p.waitForFunction(()=>DD_OPENING?.isActive());await delay(700);await p.keyboard.press('Space');await p.waitForFunction(()=>DD_BOOT.getState().state==='MAIN_MENU');
- await p.evaluate(()=>DD_UI.triggerMenuAction('new'));await delay(800);await p.keyboard.press('Space');await p.waitForFunction(()=>DD_HUB.isActive());await p.evaluate(()=>DD_HUB.exitToRun());await p.waitForFunction(()=>__DD_BRIDGE.isRunning());await p.evaluate(()=>{DMO.debug.exploreNoEnemies(true);DMO.debug.holdSpawns(true)});
+ await p.waitForFunction(()=>window.DD_BOOT?.getState().state==='MAIN_MENU',null,{timeout:30000});
+ await (await import('../perf/lib.mjs')).enterHub(p);await p.evaluate(()=>DD_HUB.exitToRun());await p.waitForFunction(()=>__DD_BRIDGE.isRunning());await p.evaluate(()=>{DMO.debug.exploreNoEnemies(true);DMO.debug.holdSpawns(true)});
  await p.evaluate(()=>DD_UI.openMap());await p.waitForSelector('#dd-map-modal:not(.dd-hidden)');const before=await p.evaluate(()=>__QA_INPUT());
  assert(await p.evaluate(()=>document.querySelector('#dd-hud').inert),'HUD fuera de la navegación mientras el modal está abierto');
  await p.keyboard.press('q');await delay(200);assert.equal((await p.evaluate(()=>__QA_INPUT())).bombs,before.bombs,'Q no gasta bomba detrás del mapa');

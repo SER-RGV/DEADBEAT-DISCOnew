@@ -1,5 +1,23 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Estado vigente · 2026-11-26 · Fase 0 integrada y validada
+
+- #36 fusionado y #21 cerrado con autorización. #32 sigue abierto.
+- Por autorización expresa, delta de #34 integrado en esta rama y #37 sobre main tras #36; #34 se conserva abierto/draft como referencia, sin escribir en su rama.
+- Builds regenerados desde fuentes, copia en `backups/FASE_0_20261126_pre_PR34/`. Se conservan Dice Vault, atlas, minimapa, foco y retratos actuales.
+- QA final: 30/30 guardas, 4/4 integración, 16/16 flujo; suites de resultados, HUD, minimapa, atlas, Refugio, controles, input modal, esquiva accesible y toque 390 px pasan.
+- Tres arranques por variante: 115,470 → 29,569 MB hasta menú; 51,344 MB tras otros 2 s por carga P1. Mediana de menú 3072 → 2043 ms en Chromium headless sin GPU.
+- Límite: avisos diagnósticos visuales, 108 dressing lint previos, GPU/mando/audio físicos y campaña larga no verificados. Fase 1 no iniciada; entrega de fase 0 pendiente de revisión/fusión de #37, no automática.
+- Informe: [docs/FASE_0/INTEGRACION_PR34.md](docs/FASE_0/INTEGRACION_PR34.md). Las entradas siguientes son históricas.
+
+## Estado vigente · 2026-11-26 · Fase 0 parcial
+
+- Revisión independiente de #36 en `132d5a4`: 15/15 suites solicitadas y arranque MAIN_MENU pasan. Fusionado con autorización el 2026-11-26 (merge `29daef875fbe7e911f22de5c032d7753cf70aa57`). Hay 108 avisos de dressing lint por clasificar.
+- #34 permanece draft: conflictos y rebase/mediciones pendientes después de integrar #36. #21 cerrado con autorización como superado; #32 continúa abierto hasta resolver conflictos y actualizar QA/descripción.
+- Fase 1 no iniciada; fase 0 aún no terminada. Código y builds del juego sin cambios en esta rama.
+- Informe y logs: [docs/FASE_0/REVISION.md](docs/FASE_0/REVISION.md). Las entradas siguientes son históricas y no sustituyen este estado.
+
+
 ## Build de referencia
 v9_t3_fase1b_cache_probe.html
 

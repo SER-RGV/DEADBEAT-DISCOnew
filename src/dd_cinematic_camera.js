@@ -62,6 +62,31 @@
     const durScale = reducedMotion ? 0.45 : 1.0;
     seq.duration = Math.max(0.35, seq.duration * durScale);
     seq.elapsed = 0;
+
+    /* Se piden las láminas de ESTA secuencia antes de pintarla. La secuencia
+       queda retenida (pendingSeq) hasta que estén, con un tope de 2,5 s: si la
+       red va muy lenta se pinta igualmente con respaldo, como antes. El bloqueo
+       del juego (`blocking`) no cambia, así que ningún fotograma de partida se
+       dibuja sin sus capas. */
+    const assets = window.DD_ASSETS;
+    const layers = layersFor(seq);
+    const commit = function () {
+      if (pendingSeq !== seq) return;
+      pendingSeq = null;
+      seq.ready = true;
+    };
+    if (assets && typeof assets.ensure === "function" && layers.length) {
+      pendingSeq = seq;
+      seq.ready = false;
+      /* Tope corto: una secuencia de 2,9 s no puede quedarse 2,5 s en negro. Si
+         las imágenes no llegan a tiempo, se pinta con el respaldo de siempre. */
+      const guard = setTimeout(commit, 1200);
+      assets.ensure(layers).then(function () { clearTimeout(guard); commit(); },
+        function () { clearTimeout(guard); commit(); });
+    } else {
+      seq.ready = true;
+    }
+
     activeSeq = seq;
     const dom = ensureLetterboxDOM();
     if (seq.letterbox !== false) {
@@ -73,6 +98,69 @@
     } else {
       dom.classList.remove("active");
     }
+  }
+
+  /* ==========================================================================
+     CARGA A DEMANDA DE LOS FONDOS DE ESCENARIO (PASE DE RENDIMIENTO)
+     --------------------------------------------------------------------------
+     Los 35 recursos de `cinematics` suman 82,8 MB. Antes se descargaban todos en
+     el primer tick del registro, obras de 1920x1080/2560x1440 incluidas, mucho
+     antes de que ninguna secuencia fuese a pintarlas: el arranque pagaba 110 MB
+     de red para mostrar un menú.
+
+     Ahora, al empezar una secuencia se piden SÓLO sus láminas (`DD_ASSETS.ensure`)
+     y la pintura espera a que estén listas. Mientras tanto no hay fotogramas en
+     blanco: se dibuja el color de tinta de la secuencia y la cartela con su
+     título, que es exactamente lo que ya se veía cuando un asset faltaba. En
+     cuanto las láminas llegan, la secuencia arranca desde su primer fotograma.
+     ========================================================================== */
+
+  /* Ids que pinta cada tipo de secuencia (los del renderOverlay). */
+  const SEQ_LAYERS = {
+    intro: [
+      "cine_bg01_city_01_sky_moon_atmosphere", "cine_bg01_city_02_gothic_skyline_architecture",
+      "cine_bg01_city_03_foreground_industrial_pipes", "cine_bg01_city",
+      "cine_bg02_club_exterior_01_gothic_cathedral_facade", "cine_bg02_club_exterior_02_portal_speakers_entrance",
+      "cine_bg02_club_exterior_03_wet_pavement_reflections", "cine_bg02_club_exterior",
+      "cine_bg03_entrance_01_vaulted_hallway_depth", "cine_bg03_entrance_02_midground_columns_banners",
+      "cine_bg03_entrance_03_foreground_pillars_occlusion", "cine_bg03_entrance",
+      "cine_bg04_main_hall_01_cathedral_nave_vaults", "cine_bg04_main_hall_02_laser_beams_equalizer",
+      "cine_bg04_main_hall_03_chandeliers_stage_framing", "cine_bg04_main_hall",
+      "cine_bg05_dancefloor_01_astrological_dancefloor_grid", "cine_bg05_dancefloor_02_sound_towers_dj_stage",
+      "cine_bg05_dancefloor_03_tables_foreground_ambient", "cine_bg05_dancefloor",
+      "cine_bg06_hero_01_axial_portal_rosette", "cine_bg06_hero_02_hero_rimlight_spotlight",
+      "cine_bg06_hero_03_flanking_speakers_framing", "cine_bg06_hero",
+      "hero_idle_00", "hero_shoot_00", "hero_walk_00", "hero_walk_01", "hero_walk_02", "hero_walk_03",
+      "effect_dust_particles", "effect_anamorphic_flare", "overlay_vignette_gothic",
+      "logo_deadbeat_cinematic"
+    ],
+    circle: ["cine_circle_00_hub", "cine_circle_01_lujuria", "cine_circle_02_gula", "cine_circle_03_avaricia",
+      "cine_circle_04_ira", "cine_circle_05_herejia", "cine_circle_06_violencia", "cine_circle_07_fraude",
+      "cine_circle_08_traicion", "cine_circle_09_nucleo"],
+    room: ["effect_dust_particles", "overlay_vignette_gothic"],
+    boss: ["effect_dust_particles", "effect_anamorphic_flare"],
+    defeat: ["ui_defeat_emblem", "overlay_vignette_gothic"],
+    victory: ["ui_victory_emblem", "overlay_vignette_gothic"],
+    event: ["effect_anamorphic_flare", "overlay_vignette_gothic"]
+  };
+
+  /* Estados de una secuencia que está esperando sus imágenes. El render lo lee
+     para no pintar un fotograma a medias. */
+  let pendingSeq = null;
+
+  function layersFor(seq) {
+    /* Sólo lo que ESTA secuencia va a pintar. Un descenso de círculo necesita su
+       lámina (960x540, ~350 KB), no las diez. */
+    if (seq.type === "circle") {
+      const own = seq.meta && seq.meta.cine;
+      return own ? [own] : (SEQ_LAYERS.circle || []);
+    }
+    const base = SEQ_LAYERS[seq.type] || [];
+    const extra = [];
+    if (seq.type === "boss" && seq.slug) {
+      extra.push(seq.slug + "_idle", seq.slug + "_attack", seq.slug + "_hit", seq.slug + "_death");
+    }
+    return base.concat(extra);
   }
 
   function finishSeq() {
@@ -224,6 +312,11 @@
 
   function update(dt, engineSnap) {
     const cdt = Math.min(0.05, Math.max(0.001, dt || 0.016));
+
+    /* Secuencia retenida esperando sus láminas: el reloj NO avanza, así que al
+       llegar las imágenes la secuencia empieza por su primer fotograma en vez de
+       aparecer a mitad. El tope de espera está en startSeq(). */
+    if (activeSeq && activeSeq.ready === false) return;
 
     // Observe real engine events automatically
     if (engineSnap && engineSnap.running) {
@@ -378,6 +471,15 @@
 
   function renderOverlay(ctx, viewW, viewH) {
     if (!activeSeq) return;
+    /* Mientras la secuencia espera sus láminas se pinta su base (tinta + rótulo):
+       nunca un lienzo congelado del fotograma anterior ni un plano a medias. */
+    if (activeSeq.ready === false) {
+      ctx.save();
+      ctx.fillStyle = "#06020c";
+      ctx.fillRect(0, 0, viewW, viewH);
+      ctx.restore();
+      return;
+    }
     const p = Math.max(0, Math.min(1, activeSeq.elapsed / activeSeq.duration));
     ctx.save();
     ctx.imageSmoothingEnabled = true;

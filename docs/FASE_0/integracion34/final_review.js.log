@@ -1,0 +1,49 @@
+START FLOW menu.visible
+PASS FLOW menu.visible
+START FLOW menu.keyboard-nav
+PASS FLOW menu.keyboard-nav
+START FLOW menu.enter-hub + cinematic
+PASS FLOW menu.enter-hub + cinematic
+START FLOW cinematic.skip -> HUB
+PASS FLOW cinematic.skip -> HUB
+START FLOW hub.no-run => engine not paused
+PASS FLOW hub.no-run => engine not paused
+START FLOW hub.keyboard-move (WASD reaches HUB)
+PASS FLOW hub.keyboard-move (WASD reaches HUB)
+START FLOW hub.emulated-gamepad-move
+PASS FLOW hub.emulated-gamepad-move
+START FLOW hub.walk-to-descent-pad
+PASS FLOW hub.walk-to-descent-pad
+START FLOW hub.descent-interact [E]
+PASS FLOW hub.descent-interact [E]
+START FLOW descent.cinematic -> run starts
+PASS FLOW descent.cinematic -> run starts
+START FLOW run.pause released after descent
+PASS FLOW run.pause released after descent
+START FLOW run.keyboard-move (engine input intact)
+PASS FLOW run.keyboard-move (engine input intact)
+START FLOW run.simulated frames + fire
+PASS FLOW run.simulated frames + fire
+START FLOW run.re-enter HUB freezes live run
+PASS FLOW run.re-enter HUB freezes live run
+START FLOW second descent releases pause again
+PASS FLOW second descent releases pause again
+START FLOW run.stable after descent (no leak / no death)
+PASS FLOW run.stable after descent (no leak / no death)
+{
+  "guard": {
+    "total": 30,
+    "passed": 30
+  },
+  "integration": {
+    "total": 4,
+    "passed": 4
+  },
+  "flow": {
+    "total": 16,
+    "passed": 16
+  },
+  "pageErrors": 0,
+  "httpIssues": 0
+}
+verdict: PASS -> /home/user/DEADBEAT-DISCOnew/.cache/phase0/final-review/regression.json

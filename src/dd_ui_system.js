@@ -697,6 +697,7 @@
     var mainMenu = document.getElementById("dd-main-menu");
     mainMenu.classList.add("dd-behind");
     mainMenu.inert = true;
+    updateSubmenuScrollHints(host);
     if (window.DD_BOOT && window.DD_BOOT.openSubmenu) window.DD_BOOT.openSubmenu(name.toUpperCase());
     var first = body.querySelector("[data-autofocus]") || body.querySelector("button, input, select") || el("dd-submenu-back");
     host.inert = false;
@@ -804,6 +805,31 @@
       }).join('') + '</div>';
     body.insertBefore(section, body.firstChild);
   }
+
+  /* Marca la tarjeta del submenú según pueda desplazarse o no. Idempotente y sin
+     coste cuando no hay nada que medir. */
+  function updateSubmenuScrollHints(host) {
+    var card = host && host.querySelector ? host.querySelector(".dd-submenu-card") : null;
+    var body = el("dd-submenu-body");
+    if (!card || !body) return;
+    var scrollable = body.scrollHeight > body.clientHeight + 2;
+    card.classList.toggle("has-scaled-body", scrollable);
+    body.classList.toggle("is-scrollable", scrollable);
+    var atEnd = !scrollable || (body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+    card.classList.toggle("is-at-end", atEnd);
+    if (!body.dataset.ddScrollBound) {
+      body.dataset.ddScrollBound = "1";
+      body.addEventListener("scroll", function () {
+        var c = body.closest(".dd-submenu-card");
+        if (!c) return;
+        c.classList.toggle("is-at-end", body.scrollTop + body.clientHeight >= body.scrollHeight - 4);
+      }, { passive: true });
+    }
+  }
+  window.addEventListener("resize", function () {
+    var host = el("dd-submenu");
+    if (host && host.classList.contains("is-open")) updateSubmenuScrollHints(host);
+  }, { passive: true });
 
   /* El panel de mezcla es un nodo del motor que OPCIONES toma prestado. Debe
      volver a su sitio antes de vaciar el submenú: si no, al abrir OPCIONES por
@@ -1964,7 +1990,18 @@
        (A/B) dentro de pollGamepad; la direccional se gestiona con repetición
        propia y necesita evaluar cada frame para el auto-repeat. */
     if (uiState.gpCooldown > 0) uiState.gpCooldown = Math.max(0, uiState.gpCooldown - wallSec);
-    if (navigator.getGamepads) pollGamepad(snap, inHub, wallSec);
+    /* PASE DE RENDIMIENTO · el mando se sondea a 15 Hz, no a la frecuencia del
+       monitor. `navigator.getGamepads()` obliga al navegador a sincronizarse con
+       el dispositivo de entrada y se llamaba en CADA fotograma, también con el
+       menú quieto y sin mando conectado. La latencia añadida es de 33 ms como
+       máximo, muy por debajo de repeatRate (85 ms), así que la navegación no
+       cambia; y el primer sondeo sigue siendo inmediato. */
+    uiState.gpPollAcc = (uiState.gpPollAcc || 0) + wallSec;
+    if (navigator.getGamepads && (uiState.gpPollAcc >= 0.066 || !uiState.gpPolledOnce)) {
+      uiState.gpPollAcc = 0;
+      uiState.gpPolledOnce = true;
+      pollGamepad(snap, inHub, wallSec);
+    }
 
     if (snap && (!uiState.menuVisible)) updateHud(snap, inHub);
 
@@ -2253,6 +2290,39 @@
     a.click();
   }
 
+  /* PASE DE RENDIMIENTO · escrituras DOM con cambio real.
+     Medido con long-animation-frame en el Refugio: 0 ms de script y ~434 ms de
+     «style & layout + paint» por fotograma, todos los fotogramas. La causa es
+     que updateHud() reescribía cada fotograma el ancho de dos barras, cuatro
+     textContent y las clases del HUD aunque el valor fuese el MISMO: escribir
+     textContent crea un nodo de texto nuevo y ensucia la caja, y estas cajas
+     llevan clip-path, sombra y degradado, así que cada fotograma se repintaba
+     la interfaz entera sobre el canvas del juego. Ahora sólo se escribe cuando
+     el valor cambia (la igualdad se compara con el valor anterior, no con el
+     DOM, para no forzar lecturas de layout). */
+  function setText(node, value) {
+    if (!node) return;
+    var v = String(value);
+    if (node.__ddText === v) return;
+    node.__ddText = v;
+    node.textContent = v;
+  }
+  function setWidth(node, pct) {
+    if (!node) return;
+    var v = pct.toFixed(1) + "%";
+    if (node.__ddW === v) return;
+    node.__ddW = v;
+    node.style.width = v;
+  }
+  function setClass(node, name, on) {
+    if (!node) return;
+    var key = "__ddC_" + name;
+    var v = !!on;
+    if (node[key] === v) return;
+    node[key] = v;
+    node.classList.toggle(name, v);
+  }
+
   function updateHud(snap, inHub) {
     var heartsEl = el("dd-hud-hearts");
     var fullSrc = assetSrc("hud_heart_full", "pickups/pickup_heart_00.png");
@@ -2260,7 +2330,7 @@
     // El motor expresa vida en unidades discretas, no en puntos sobre 100.
     var maxHearts = Math.max(0, Math.floor(snap.maxHp || 0));
     var curHearts = Math.max(0, Math.min(maxHearts, Math.ceil(snap.hp || 0)));
-    if (heartsEl) heartsEl.setAttribute("aria-label", "Vidas " + curHearts + " de " + maxHearts);
+    if (heartsEl && heartsEl.getAttribute("aria-label") !== "Vidas " + curHearts + " de " + maxHearts) heartsEl.setAttribute("aria-label", "Vidas " + curHearts + " de " + maxHearts);
     var hKey = curHearts + "/" + maxHearts + ":" + fullSrc;
     if (heartsEl && heartsEl.getAttribute("data-key") !== hKey) {
       heartsEl.setAttribute("data-key", hKey);
@@ -2272,11 +2342,11 @@
       heartsEl.innerHTML = html;
     }
     var hpFill = el("dd-hud-hp-fill");
-    if (hpFill) hpFill.style.width = Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)).toFixed(1) + "%";
+    setWidth(hpFill, Math.max(0, Math.min(100, (snap.hp / Math.max(1, snap.maxHp)) * 100)));
     var shieldEl = el("dd-hud-shield");
     if (shieldEl) {
-      shieldEl.textContent = "ESC " + (snap.shield || 0);
-      shieldEl.setAttribute("aria-label", "Escudos " + (snap.shield || 0));
+      setText(shieldEl, "ESC " + (snap.shield || 0));
+      if (shieldEl.getAttribute("aria-label") !== "Escudos " + (snap.shield || 0)) shieldEl.setAttribute("aria-label", "Escudos " + (snap.shield || 0));
     }
     // Igual que Rl() en el motor: HYPE ya está en escala 0–100; durante
     // RAVE la barra representa el tiempo restante respecto a su duración.
@@ -2284,16 +2354,16 @@
     var hypePct = raveActive ? (snap.rave / Math.max(.01, snap.raveDuration)) * 100 : (snap.raveMeter || 0);
     hypePct = Math.max(0, Math.min(100, hypePct));
     var shFill = el("dd-hud-sh-fill");
-    if (shFill) shFill.style.width = hypePct.toFixed(1) + "%";
+    setWidth(shFill, hypePct);
     var hypeLabel = el("dd-hud-hype-label");
-    if (hypeLabel) hypeLabel.textContent = raveActive ? "RAVE " + snap.rave.toFixed(1) + " s" : "HYPE " + Math.round(hypePct) + "%";
+    setText(hypeLabel, raveActive ? "RAVE " + snap.rave.toFixed(1) + " s" : "HYPE " + Math.round(hypePct) + "%");
     var crEl = el("dd-hud-cr");
-    if (crEl) crEl.textContent = String(snap.credits || 0);
+    setText(crEl, String(snap.credits || 0));
     var nvEl = el("dd-hud-nv");
-    if (nvEl) nvEl.textContent = "NV. " + (snap.level || 1);
+    setText(nvEl, "NV. " + (snap.level || 1));
     var wNameEl = el("dd-hud-weapon-name");
     const die=window.DD_DICE.d;
-    if(wNameEl)wNameEl.title=Object.entries(die.runes).map(([n,r])=>n+": "+r).join(" · ")||"Caras sin grabar";
+    if(wNameEl){const title=Object.entries(die.runes).map(([n,r])=>n+": "+r).join(" · ")||"Caras sin grabar";if(wNameEl.title!==title)wNameEl.title=title;}
     if(wNameEl){
       let action;
       switch(die.state){
@@ -2309,8 +2379,8 @@
     }
     var roomEl = el("dd-hud-room");
     if (roomEl) {
-      roomEl.textContent = inHub ? "EL REFUGIO · ZONA SEGURA"
-        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1)));
+      setText(roomEl, inHub ? "EL REFUGIO · ZONA SEGURA"
+        : (snap.roomBanner || ("CÍRCULO " + (snap.circle + 1))));
     }
     var usingPad = document.body.classList.contains("dd-input-pad");
     var rollLabels = { Space: "ESP", KeyV: "V", AltLeft: "ALT" };
@@ -2321,22 +2391,22 @@
       if (node && node.textContent !== pair[1]) node.textContent = pair[1];
     });
     var bCnt = el("dd-skill-bomb-cnt");
-    if (bCnt) bCnt.textContent = String(snap.bombs || 0);
+    setText(bCnt, String(snap.bombs || 0));
     var bCard = el("dd-skill-bomb");
-    if (bCard) bCard.classList.toggle("dd-empty", !(snap.bombs > 0));
+    setClass(bCard, "dd-empty", !(snap.bombs > 0));
     var sCnt = el("dd-skill-boost-cnt");
-    if (sCnt) sCnt.textContent = String(snap.boosts || 0);
+    setText(sCnt, String(snap.boosts || 0));
     var sCard = el("dd-skill-boost");
-    if (sCard) sCard.classList.toggle("dd-empty", !(snap.boosts > 0));
+    setClass(sCard, "dd-empty", !(snap.boosts > 0));
     var bossHud = el("dd-boss-hud");
     if (bossHud) {
       if (!inHub && snap.bossActive && snap.boss) {
-        bossHud.classList.remove("dd-hidden");
-        el("dd-boss-name").textContent = String(snap.boss.name || "RESIDENTE").toUpperCase();
+        setClass(bossHud, "dd-hidden", false);
+        setText(el("dd-boss-name"), String(snap.boss.name || "RESIDENTE").toUpperCase());
         var bpct = Math.max(0, Math.min(100, ((snap.boss.hp || 0) / Math.max(1, snap.boss.maxHp || 1)) * 100));
-        el("dd-boss-hp-fill").style.width = bpct.toFixed(1) + "%";
+        setWidth(el("dd-boss-hp-fill"), bpct);
       } else {
-        bossHud.classList.add("dd-hidden");
+        setClass(bossHud, "dd-hidden", true);
       }
     }
     drawMinimap(snap, inHub);
