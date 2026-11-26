@@ -112,29 +112,61 @@ def apply_lote(batch_path: Path, dry_run: bool):
         else:
             applied["assets"][aid] = {"replaced": False}
 
-    # Phase 2: copy new files to final location
-    for a in b["assets"]:
-        aid = a["id"]
-        src_path = REPO / a["location"]
-        final_path = REPO / a.get("final_location", a.get("src", a["location"]))
-        rel_final = str(final_path.relative_to(REPO))
-        if not src_path.exists():
-            print(f"  [SALTA] {aid}: no existe {src_path.relative_to(REPO)}")
-            applied["assets"][aid]["status"] = "MISSING_SOURCE"
-            continue
-        if dry_run:
-            print(f"  [DRY] copia {src_path.relative_to(REPO)} → {rel_final}")
-            applied["assets"][aid]["status"] = "WOULD_COPY"
-            continue
-        final_path.parent.mkdir(parents=True, exist_ok=True)
-        shutil.copy2(src_path, final_path)
-        f = file_facts(final_path)
-        applied["assets"][aid].update({
-            "status": "APPLIED",
-            "final": rel_final,
-            "w": f["w"], "h": f["h"], "bytes": f["bytes"], "sha256": f["sha256"],
-        })
-        print(f"  [OK] {aid:42s} → {a['src']} ({f['bytes']/1024:.1f} KB)")
+    def _do_restore():
+        """Rollback parcial si algo falla a mitad del apply."""
+        print("\n  [ROLLBACK AUTOMÁTICO] restaurando desde backup...")
+        for aid2, info2 in applied["assets"].items():
+            if info2.get("replaced") and info2.get("backup"):
+                bpath = REPO / info2["backup"]
+                final_loc = info2.get("final") or a2_rel(aid2)
+                fpath = REPO / final_loc if final_loc else None
+                if fpath and bpath.exists():
+                    fpath.parent.mkdir(parents=True, exist_ok=True)
+                    shutil.copy2(bpath, fpath)
+            elif not info2.get("replaced") and info2.get("status") == "APPLIED":
+                final_loc = info2.get("final")
+                if final_loc:
+                    fpath = REPO / final_loc
+                    if fpath.exists():
+                        fpath.unlink()
+        print("  [ROLLBACK AUTOMÁTICO] completado.")
+
+    def a2_rel(aid2):
+        for aa in b["assets"]:
+            if aa["id"] == aid2:
+                return str((REPO / aa.get("final_location", aa.get("src", aa["location"]))).relative_to(REPO))
+        return None
+
+    # Phase 2: copy new files to final location (with atomic rollback on failure)
+    copied = []
+    try:
+        for a in b["assets"]:
+            aid = a["id"]
+            src_path = REPO / a["location"]
+            final_path = REPO / a.get("final_location", a.get("src", a["location"]))
+            rel_final = str(final_path.relative_to(REPO))
+            if not src_path.exists():
+                print(f"  [SALTA] {aid}: no existe {src_path.relative_to(REPO)}")
+                applied["assets"][aid]["status"] = "MISSING_SOURCE"
+                continue
+            if dry_run:
+                print(f"  [DRY] copia {src_path.relative_to(REPO)} → {rel_final}")
+                applied["assets"][aid]["status"] = "WOULD_COPY"
+                continue
+            final_path.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copy2(src_path, final_path)
+            copied.append(aid)
+            f = file_facts(final_path)
+            applied["assets"][aid].update({
+                "status": "APPLIED",
+                "final": rel_final,
+                "w": f["w"], "h": f["h"], "bytes": f["bytes"], "sha256": f["sha256"],
+            })
+            print(f"  [OK] {aid:42s} → {rel_final} ({f['bytes']/1024:.1f} KB)")
+    except Exception as e:
+        print(f"\n  [ERROR] durante la copia: {e}")
+        _do_restore()
+        raise
 
     if dry_run:
         print("\nDry run terminado. Sin cambios.")
@@ -145,13 +177,13 @@ def apply_lote(batch_path: Path, dry_run: bool):
     n_added = n_updated = 0
     for a in b["assets"]:
         aid = a["id"]
-        final_path = REPO / a["src"]
+        final_src = a.get("final_location", a.get("src", a["location"]))
+        final_path = REPO / final_src
         if not final_path.exists():
             continue
         f = file_facts(final_path)
         prev = manifest["entries"].get(aid)
         entry = dict(prev or {})
-        final_src = a.get("final_location", a.get("src", a["location"]))
         entry.update({
             "id": aid,
             "name": a["name"],

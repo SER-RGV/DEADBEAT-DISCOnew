@@ -409,3 +409,40 @@ Rama `arena/09513f9b-deadbeat-disconew`.
 ### Pendiente (FASE 3)
 Regeneración por lotes en el orden definido. La regla es **3-5 muestras por lote → aprobación visual → resto del lote**.
 Siguiente lote natural: **LOTE_00 muestra** (iconos HUD + logos), pero el bug de capas duplicadas (LOTE_11) es crítico. La primera generación real de imágenes requiere intervención de un generador de imágenes (externo a este sandbox) — las herramientas están listas para consumir los PNG crudos.
+
+---
+
+## Estado actual · 2026-11-26 (FASE 3 · LOTE_00 muestra + resto aplicados)
+
+Rama `arena/09513f9b-deadbeat-disconew`.
+
+### FASE 3 · LOTE_00 (UI iconos/emblemas/logos) — APLICADO AL JUEGO
+Los 11 assets del LOTE_00 han sido regenerados y aplicados con backup automático:
+
+| Asset | Estado | Nota |
+|---|---|---|
+| `hud_heart_full` 128×128 | ✅ aplicado | corazón magenta con borde dorado |
+| `hud_heart_empty` 128×128 | ✅ aplicado | contorno dorado hueco con fisura |
+| `hud_shield_badge` 128×128 | ✅ aplicado | escudo azul cian |
+| `hud_credit_coin` 128×128 | ✅ aplicado | moneda dorada con silueta de zorro |
+| `hud_skill_bomb` 160×160 | ✅ aplicado | bomba negra con mecha naranja |
+| `hud_skill_boost` 160×160 | ✅ aplicado | rayo cian (velocidad) |
+| `hud_skill_dodge` 160×160 | ✅ aplicado | remolino magenta (esquiva) |
+| `ui_shop_emblem` 320×160 | ✅ aplicado | letrero colgante con emblema de zorro, SIN TEXTO (la UI lo pinta) |
+| `emblem_fox_crown` 512×512 | ✅ aplicado | cabeza de zorro de perfil con corona (concepto corregido) |
+| `logo_deadbeat_graffiti` 1024×682 | ✅ aplicado | graffiti "DEADBEAT DISCO" con corona y salpicaduras cyan/magenta |
+| `overlay_vignette_gothic` 1920×1080 | ✅ aplicado | vignette gótico procedural (arcos en esquinas, centro transparente) |
+
+- Pipeline ejercitado de extremo a extremo: `generate_image` → `process_lote.py` (chroma matte + fit_canvas + PNG+WebP) → `validate_lote.py` (20/20 OK) → `apply_lote.py` (backup automático en `backups/regen/`, copia a `assets/`, actualiza manifest/registry, bump de ASSET_CACHE_VERSION, regenera `index.html`/`DEADBEAT_DISCO.html`).
+- Versión de caché: `20261126.3`.
+- Rollback disponible en tres comandos separados:
+  - `python3 tools/regen/rollback_lote.py LOTE_00 --batch LOTE_00.sample`
+  - `python3 tools/regen/rollback_lote.py LOTE_00 --batch LOTE_00.icons2`
+  - `python3 tools/regen/rollback_lote.py LOTE_00 --batch LOTE_00.vignette`
+- Servidor HTTP de prueba verificado: todos los assets devuelven 200.
+- Tamaño del build HTML: 5 856 301 bytes (ligeramente menor que el anterior, 5 848 586 → 5 856 301; diferencia por el PNG de logo que es 867 KB vs 227 KB anterior; los iconos HUD pasaron de 16-57 KB a 14-42 KB y la vignette de 70 KB es nueva).
+
+### Pendiente
+- Siguiente lote recomendado: **LOTE_01 suelos** (13 tiles 512×512, 5 muestras iniciales) o **LOTE_11 bug capas cinemáticas** (crítico).
+- Capturas antes/después y QA en navegador real (este sandbox no tiene Chromium/Playwright funcionales; el arnés `--dry-run` y el HTTP server verifican solo que los archivos se sirven).
+- Commit + push + actualización del PR #40 con los assets del LOTE_00.
