@@ -1,0 +1,35 @@
+{
+  "results": {
+    "before": {
+      "baseHeap": 7634720,
+      "generatedHeap": 24067916,
+      "firstHeap": 24067328,
+      "allHeap": 24089700,
+      "releasedHeap": 7755332,
+      "generatedDelta": 16433196,
+      "firstDelta": 16432608,
+      "allDelta": 16454980,
+      "releaseDelta": 120612,
+      "plans": 100,
+      "first": 100,
+      "all": 1150,
+      "errors": []
+    },
+    "draft": {
+      "baseHeap": 7033636,
+      "generatedHeap": 9427096,
+      "firstHeap": 11131256,
+      "allHeap": 24846248,
+      "releasedHeap": 7784664,
+      "generatedDelta": 2393460,
+      "firstDelta": 4097620,
+      "allDelta": 17812612,
+      "releaseDelta": 751028,
+      "plans": 100,
+      "first": 100,
+      "all": 1150,
+      "errors": []
+    }
+  },
+  "note": "Sequential headless Chromium, 100 retained seed/floor pairs and forced GC at each stage. Includes QA globals, app/catalog/browser activity; not peak memory, live run, proof of leak or proof of frame allocations."
+}

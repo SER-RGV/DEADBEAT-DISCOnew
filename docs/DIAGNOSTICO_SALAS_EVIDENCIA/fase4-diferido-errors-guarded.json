@@ -1,0 +1,27 @@
+{
+  "cases": [
+    {
+      "test": "bad orientation on non-solid prefab",
+      "full": {
+        "outcome": "rejected",
+        "message": "mount needs an authored cardinal view: rack"
+      },
+      "draft": {
+        "outcome": "rejected",
+        "message": "mount needs an authored cardinal view: rack"
+      }
+    },
+    {
+      "test": "door socket too short",
+      "full": {
+        "outcome": "rejected",
+        "message": "portal or jamb does not fit: r15"
+      },
+      "draft": {
+        "outcome": "rejected",
+        "message": "portal or jamb does not fit: r15"
+      }
+    }
+  ],
+  "note": "Artificial malformed catalog fixtures; exercises draft construction only, not whole generation or validation. Two crafted cases agree; not exhaustive, not a naturally generated broken room."
+}

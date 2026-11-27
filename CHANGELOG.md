@@ -301,3 +301,4 @@ Registrar aquí cada modificación:
 - QA: matriz visual canvas seed 1 y comparación de tarima 2.6/2.7 sin HUD DOM; nuevo intento natural con Q y Shift terminó en r1. Sin cambios activos en generación.
 - QA: seguimiento de estados del dado y partida natural hasta r2; corrección explícita de cobertura de benchmarks previos y nuevo A/B con 1.000 pares seed/piso distintos. Experimento revertido.
 - QA: prototipo reversible de borrador físico, medición separada del coste diferido, comparación de planos y mallas; no se activó por regresión restante y validación incompleta. Piloto natural con evasión terminó en r2.
+- QA: memoria con planos retenidos, frames asistidos y dos fixtures inválidos para el prototipo diferido; guardas experimentales rechazaron ambos. Sin cambios activos en producto.

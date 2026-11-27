@@ -413,3 +413,5 @@ Continuación: 116 capturas canvas seed 1, 10 pisos, revisadas en hojas de conta
 Continuación: telemetría del dado confirma tiradas e impactos de área/contacto; piloto rápido despejó r0 y r1, llegó a r2 y murió. Corregida cobertura de A/B previos: 1.000 mediciones eran 100 pares seed/piso repetidos. Nuevo A/B con 1.000 pares distintos: 2.0 0,254 ms, 2.7 2,120 ms, experimento 1,674 ms media. Revertido; pendientes sin cambios. Véase informe de fase 4.
 
 Continuación: piloto natural con evasión llegó a r2 y murió. Prototipo de borrador físico difiere compilación de salas: combinado media/p95 de generación 0,857/3,4 ms frente a 2.7 2,448/9,5 y 2.0 0,245/0,4 en un A/B; traslada coste a primera entrada y continúa por encima de legacy. Revertido; pruebas, parches y límites en informe de fase 4.
+
+Continuación: medidos 100 planos retenidos y 12 salas con prototipo diferido. Dos fixtures inválidos revelaron errores diferidos; un prototipo con guardas anticipadas rechazó ambos y conservó 10.000 planes 2.7 muestreados, pero 0,902 ms/mapa frente a 0,196 de 2.0 en A/B. Sigue revertido; memoria/frames y límites en informe de fase 4.
