@@ -422,3 +422,5 @@ Auditoría detectó 2.024 esquinas de escalón fuera en datos y 1.960 proyectada
 Continuación QA 2.8: 792 esquinas de tarima proyectadas fuera del suelo; un muestreo geométrico encontró todas las 178.677 muestras fuera cubiertas por caras/tapas de muro dibujadas después, sin demostrar píxeles finales. Nuevo intento natural con interacción de recompensas terminó en r1. Ver informe de fase 4; no se modifica producto ni se cierra la fase.
 
 Perfil Node 2.8 de 10.000 mapas: adaptación de población 0,459 ms/mapa; salas con alguna posición reubicada 0,0701 ms/sala frente a 0,0147 sin cambios. Es una pista para optimización, no A/B navegador ni prueba causal. Ver informe de fase 4; regresión sigue pendiente.
+
+Investigación de búsqueda por cercanía 2.8: 10.000 hashes de planes coinciden, pero A/B Chromium media/p95 1,926/7,1 original vs 1,787/7,8 ms experimental y legacy 0,266/0,4. Experimento revertido y SHA restaurados; no corrige la regresión. Ver informe de fase 4.

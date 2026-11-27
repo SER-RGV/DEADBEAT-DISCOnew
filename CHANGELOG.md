@@ -305,3 +305,4 @@ Registrar aquí cada modificación:
 - Generación 2.8 opt-in: reposiciona escaleras decorativas de pasillo/arena detectadas fuera de perímetro. Versiones y guardados anteriores preservados; backups y reversión verificados. Ver QA: regresión de generación y campaña natural siguen abiertas.
 - QA: auditoría de proyección y oclusión muestreada de tarimas 2.8, y nuevo intento natural con interacción de recompensas (derrota en r1). Sin cambios de producto.
 - QA: perfil por familia y por presencia de reubicación en 10.000 mapas 2.8; sin cambios de producto ni afirmación de mejora.
+- QA: búsqueda experimental por cercanía comparada y revertida; igualdad de 10.000 planes observada, sin mejora suficiente de rendimiento ni cambios de producto.

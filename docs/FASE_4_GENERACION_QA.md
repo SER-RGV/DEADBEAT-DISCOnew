@@ -151,3 +151,12 @@ Fase 4 sigue abierta: no hay victoria natural ni demostración de ausencia de re
 | Adaptación, pasillo-servicio (23.213 salas) | 0,0704 ms/sala |
 
 Se cambiaron 62.665 propuestas de spawn y ninguna de recompensa en esta muestra. La diferencia entre grupos sugiere investigar la búsqueda de reubicación, pero no demuestra causalidad ni justifica eliminar la validación; las familias y composiciones también difieren. El perfil no resuelve la regresión frente a 2.0 ni sustituye las pruebas de equivalencia, colisión y memoria. No se activó ni modificó ninguna optimización.
+
+## Investigación: búsqueda por cercanía (experimento revertido)
+
+Se probó una búsqueda que ordena las coordenadas de cada eje por distancia y termina cada fila o columna al superar la mejor distancia encontrada. Conserva la comparación exacta y el desempate original por fila/columna, pero crea y ordena arrays temporales. Parche y copias previas con SHA en `backups/room_perf_nearest_20261126/`; **no está aplicado**. Para repetirlo hay que aplicar el parche experimental y regenerar ambos HTML; las pruebas `phase4_nearest_experiment.cjs` y `phase4_nearest_heap.cjs` comparan con el build anterior guardado. Luego restaurar las copias SHA y reconstruir.
+
+- Igualdad de salida en Chromium: hashes idénticos de 10.000 planes 2.8, 1.000 semillas por piso. No cubre todos los números posibles, errores, física en movimiento ni reanudación.
+- A/B Chromium intercalado, 1.000 pares semilla/piso distintos por versión, 100 mapas de calentamiento: 2.0 media/p95 **0,266/0,4 ms**, 2.8 original **1,926/7,1 ms**, experimento **1,787/7,8 ms**. Una ejecución con temporizador cuantizado: mejora media pequeña, p95 peor y todavía muy por encima de 2.0. El perfil de Node del experimento también está guardado, pero no es el mismo entorno ni ejecución del perfil previo.
+- Dos páginas secuenciales tras GC, 1.000 generaciones 2.8 sin retener mapas: variación del heap usado 352.856 bytes original y 526.996 experimental; incluye actividad de aplicación/navegador. No es pico de memoria ni prueba de fuga. No se midieron frames.
+- Decisión: **descartado por falta de evidencia suficiente de mejora**, sin tocar versiones publicadas ni el comportamiento de producción. Restaurados fuente y ambos builds y comprobados contra SHA; no se ha corregido la regresión. Datos `fase4-nearest-comparativa.json`, `fase4-nearest-heap.json`, `fase4-perfil-nearest-experimental.json`.
