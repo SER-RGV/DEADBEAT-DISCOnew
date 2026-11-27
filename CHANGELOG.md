@@ -304,3 +304,4 @@ Registrar aquí cada modificación:
 - QA: memoria con planos retenidos, frames asistidos y dos fixtures inválidos para el prototipo diferido; guardas experimentales rechazaron ambos. Sin cambios activos en producto.
 - Generación 2.8 opt-in: reposiciona escaleras decorativas de pasillo/arena detectadas fuera de perímetro. Versiones y guardados anteriores preservados; backups y reversión verificados. Ver QA: regresión de generación y campaña natural siguen abiertas.
 - QA: auditoría de proyección y oclusión muestreada de tarimas 2.8, y nuevo intento natural con interacción de recompensas (derrota en r1). Sin cambios de producto.
+- QA: perfil por familia y por presencia de reubicación en 10.000 mapas 2.8; sin cambios de producto ni afirmación de mejora.

@@ -1,0 +1,138 @@
+{
+  "samples": 10000,
+  "warmupMaps": 100,
+  "uniqueSeedFloorPairs": true,
+  "aggregateMsPerMap": {
+    "rooms": 115000,
+    "compileMs": 0.275081,
+    "adaptMs": 0.458601,
+    "validateMs": 0.160681,
+    "changedSpawns": 62665,
+    "changedRewards": 0
+  },
+  "byRelocationMeanMsPerRoom": {
+    "unchanged": {
+      "rooms": 62747,
+      "adaptMs": 0.014714
+    },
+    "changed": {
+      "rooms": 52253,
+      "adaptMs": 0.070096
+    }
+  },
+  "byFamilyMeanMsPerRoom": {
+    "nave-quebrada": {
+      "rooms": 22402,
+      "compileMs": 0.027213,
+      "adaptMs": 0.05211,
+      "validateMs": 0.016391,
+      "changedSpawns": 16800,
+      "changedRewards": 0
+    },
+    "palco-profundo": {
+      "rooms": 22385,
+      "compileMs": 0.027424,
+      "adaptMs": 0.049265,
+      "validateMs": 0.015934,
+      "changedSpawns": 18985,
+      "changedRewards": 0
+    },
+    "pasillo-servicio": {
+      "rooms": 23213,
+      "compileMs": 0.025644,
+      "adaptMs": 0.070435,
+      "validateMs": 0.013271,
+      "changedSpawns": 26767,
+      "changedRewards": 0
+    },
+    "camarote": {
+      "rooms": 37000,
+      "compileMs": 0.020209,
+      "adaptMs": 0.014981,
+      "validateMs": 0.012655,
+      "changedSpawns": 0,
+      "changedRewards": 0
+    },
+    "arena-octogono": {
+      "rooms": 10000,
+      "compileMs": 0.01843,
+      "adaptMs": 0.012655,
+      "validateMs": 0.010663,
+      "changedSpawns": 113,
+      "changedRewards": 0
+    }
+  },
+  "byFloorMeanMsPerMap": [
+    {
+      "maps": 1000,
+      "ms": 1.145006,
+      "rooms": 11000,
+      "changedSpawns": 5299,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.277242,
+      "rooms": 12000,
+      "changedSpawns": 6968,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.112592,
+      "rooms": 12000,
+      "changedSpawns": 4610,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.24506,
+      "rooms": 12000,
+      "changedSpawns": 6577,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.331672,
+      "rooms": 12000,
+      "changedSpawns": 7234,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.146606,
+      "rooms": 12000,
+      "changedSpawns": 5168,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.307243,
+      "rooms": 12000,
+      "changedSpawns": 7495,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.315031,
+      "rooms": 12000,
+      "changedSpawns": 8063,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 1.121331,
+      "rooms": 12000,
+      "changedSpawns": 4746,
+      "changedRewards": 0
+    },
+    {
+      "maps": 1000,
+      "ms": 0.816549,
+      "rooms": 8000,
+      "changedSpawns": 6505,
+      "changedRewards": 0
+    }
+  ],
+  "note": "Sequential Node instrumentation with per-room performance.now overhead; measured map includes bookkeeping and profiling. Not Chromium, frame time, memory, or statistical causality. Hangar omitted from room counters."
+}

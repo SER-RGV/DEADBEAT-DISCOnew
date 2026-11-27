@@ -136,3 +136,18 @@ El parche `guarded-combined.patch` es un artefacto de investigación, no un incr
 - Nuevo intento de campaña 2.8, con piloto que se aproxima a recompensas y usa E por controles normales: `r0` despejada, entrada a `r1` con 2 HP y derrota a los 114 s; 51 pulsaciones, `d.wins=29` tiradas con contacto/área, una entrada E cerca de una recompensa, sin errores JS. No se verificó que la interacción haya abierto o recogido la recompensa. Sin debug ni invulnerabilidad, semilla no fijada; no demuestra campaña completa ni imposibilidad humana. `fase4-campana-natural-recompensas-28/`.
 
 Fase 4 sigue abierta: no hay victoria natural ni demostración de ausencia de regresión general en generación, frames y memoria.
+
+## Perfil de coste por sala 2.8 (Node, sin cambios de producto)
+
+`node tools/qa/phase4_stair_profile_rooms.cjs 10000` perfila 10.000 pares semilla/piso distintos y 115.000 salas prefab, tras 100 mapas de calentamiento. Los temporizadores y el registro añaden sobrecoste; no es un A/B de Chromium ni mide frames o memoria. Datos completos: `fase4-perfil-salas-28.json`.
+
+| Medida | Media observada |
+|---|---:|
+| Compilación, por mapa | 0,275 ms |
+| Adaptación de población, por mapa | 0,459 ms |
+| Validación de población, por mapa | 0,161 ms |
+| Adaptación, 62.747 salas sin posiciones cambiadas | 0,0147 ms/sala |
+| Adaptación, 52.253 salas con alguna posición cambiada | 0,0701 ms/sala |
+| Adaptación, pasillo-servicio (23.213 salas) | 0,0704 ms/sala |
+
+Se cambiaron 62.665 propuestas de spawn y ninguna de recompensa en esta muestra. La diferencia entre grupos sugiere investigar la búsqueda de reubicación, pero no demuestra causalidad ni justifica eliminar la validación; las familias y composiciones también difieren. El perfil no resuelve la regresión frente a 2.0 ni sustituye las pruebas de equivalencia, colisión y memoria. No se activó ni modificó ninguna optimización.
