@@ -405,3 +405,5 @@ Intento natural 2.7 por controles: derrota en primera sala; no victoria ni campa
 Continuación: segundo intento natural con esquiva terminó en derrota en r0. La optimización experimental de distancias redujo el tiempo frente a 2.7 en A/B, pero siguió lejos de 2.0 y se revirtió; datos y parche en informe de fase 4. Sin cambios activos en generación.
 
 Continuación QA: búsqueda acotada combinada con distancias redujo 2.7 en A/B de 2,151 a 1,590 ms/mapa, pero 2.0 midió 0,268; revertida y guardada con SHA. Perfil anidado del compilador y comparación de 10.000 planes 2.7 en `docs/FASE_4_GENERACION_QA.md`. Regresión y campaña natural continúan pendientes.
+
+Continuación: corregido piloto natural para pulsar y soltar ratón; una partida despejó r0 y terminó por tiempo, otra alcanzó r1 y fue derrotada. La prueba previa mantuvo el botón pulsado y tiene ese límite. Experimento de caché de aristas mostró mejora temporal pequeña y mayor delta post-GC, y se revirtió; sin cambios activos. Detalles y límites en `docs/FASE_4_GENERACION_QA.md`.

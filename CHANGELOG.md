@@ -297,3 +297,4 @@ Registrar aquí cada modificación:
 - QA 2026-11-26: intento de campaña natural (derrota en r0), matriz asistida de 116 capturas y perfil por etapas. Experimento de preparación compartida medido y revertido por mejora no concluyente; ninguna modificación activa de generación. Véase `docs/FASE_4_GENERACION_QA.md`.
 - QA: segundo intento natural (derrota en r0) y experimento de distancias cuadradas; se midió frente a 2.7 y 2.0 y se revirtió, sin declarar resuelta la regresión.
 - QA: búsqueda acotada y distancias combinadas, comparación de 10.000 planes 2.7 y perfil anidado de compilación. Experimento revertido: mejora parcial, todavía existe regresión frente a 2.0.
+- QA: corregido piloto natural de pulsación/liberación, una partida alcanzó r1 antes de derrota. Se midieron heap de búsqueda acotada y caché de aristas; esta se revirtió por ganancia pequeña y mayor delta de heap.
