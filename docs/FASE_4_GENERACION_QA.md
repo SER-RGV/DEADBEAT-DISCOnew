@@ -66,3 +66,14 @@ Permanecen abiertos la regresión, victoria natural, revisión visual detallada 
 - También se midió la combinación de búsqueda acotada/distancias del apartado anterior: delta post-GC 498.828 bytes original vs 515.716 experimental; muestra aislada, no prueba ausencia de regresión de memoria ni asignaciones por frame. `fase4-acotada-heap.json`. La combinación sigue revertida.
 
 Ambos builds restaurados SHA `af9519a507ba73051dce990d46e6bf6181846784c3bb5fccb1afc8c6192d5c01`. Siguen pendientes la victoria natural, revisión visual detallada sin oclusiones, solución de regresión frente a 2.0 y A/B representativo de frame/memoria.
+
+## Continuación: matriz visual canvas seed 1 y comparación de tarima
+
+- Segunda matriz: 116 capturas, 10 pisos y los 12 tipos presentes en el conjunto, semilla 1, versión 2.7.0. Se extrajo el canvas del juego sin las capas DOM del HUD; algunas etiquetas de sala y de tienda están dibujadas dentro del propio canvas y permanecen. Navegación asistida con debug, invulnerabilidad y spawns detenidos; espera de 800 ms por sala. 0 errores JavaScript y 0 respuestas fallidas observadas para `assets/prefabs` y `assets/floors`; esto no certifica carga/decodificación de todos los assets ni el resto de solicitudes.
+- Revisadas las diez hojas de contacto (`fase4-visual-sin-hud-seed1/sheet-*.jpg`). Se ven diferencias de textura entre círculos, mientras los mismos tipos de perímetro, tarima y mobiliario se repiten en muchos pisos. En varias salas el encuadre corta bordes y las etiquetas se superponen, por lo que no demuestra identidad arquitectónica claramente diferenciada ni revalidación de cada detalle o estado de combate.
+- Comparación específica: ocho capturas canvas a los 6 s, semillas 0 y 1, salas `r9` y `s0`, 2.6 vs 2.7 (`fase4-tarima-sin-hud/`). Revisados los pares `0/r9` y `1/s0`: el desplazamiento hacia el interior se distingue; en la tienda las tarjetas dibujadas por el juego aún tapan parte de los escalones. Son tomas asistidas, no validan movimiento, física, todas las variantes ni una experiencia de tienda natural. Datos geométricos y revisión previa de 2.480 esquinas se mantienen en el apartado de 2.7.
+
+## Continuación: intento natural con habilidades
+
+- Piloto por controles, partida sin semilla fija: pulsación/liberación de ratón, WASD, esquiva, Q y Shift. Despejó `r0`, llegó a `r1` y sufrió derrota a los 92 s; 108 pulsaciones de ratón, tres entradas Q y tres Shift, contadores de bombas y boosts a 0 en el último estado, sin errores JS. Muestreo de proyectiles cada ~300 ms no observó ninguno; no prueba ausencia entre muestras. `fase4-campana-natural-habilidades/`.
+- Esto no demuestra una campaña completa ni evalúa habilidad humana; las pruebas de las nueve bajadas continúan siendo asistidas. El requisito de victoria natural, el examen visual integral y la regresión de generación siguen abiertos; no hay cambios activos de producto en esta continuación.
