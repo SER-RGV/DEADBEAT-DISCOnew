@@ -1,0 +1,23 @@
+{
+  "result": {
+    "legacy": {
+      "mean": 0.2677000000011176,
+      "p95": 0.5,
+      "max": 19.5,
+      "samples": 1000
+    },
+    "before": {
+      "mean": 2.15120000000298,
+      "p95": 9.299999999813735,
+      "max": 32.5,
+      "samples": 1000
+    },
+    "after": {
+      "mean": 1.5896000000052155,
+      "p95": 6.5,
+      "max": 29.200000000186265,
+      "samples": 1000
+    }
+  },
+  "note": "Chromium headless, matched batches of 10 maps and alternating version order, 100 warmup maps/version; legacy and after share a page. Generation+bind, not frame/memory or GPU. Timer resolution/noise apply."
+}

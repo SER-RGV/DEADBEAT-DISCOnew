@@ -1,0 +1,30 @@
+diff --git a/src/room_generation/population_compiled.js b/src/room_generation/population_compiled.js
+index 5d2fadc..c18eac6 100644
+--- a/src/room_generation/population_compiled.js
++++ b/src/room_generation/population_compiled.js
+@@ -77,10 +77,21 @@ function adaptPopulationCompiled(population, compiled) {
+         }
+     }
+     // Verify the true nearest point and preserve the original row-major tie.
+-    for (const y of axis) for (const x of axis) {
+-      const d = ((x - p.x) * geometry.w) ** 2 + ((y - p.y) * geometry.h) ** 2;
+-      if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
+-        best = {x, y}; bestDist = d;
++    for (const y of axis) {
++      const dy2 = ((y - p.y) * geometry.h) ** 2;
++      // A conservative rounding margin cannot exclude a candidate that could
++      // tie or improve the original distance comparison. Exact ordering below
++      // remains the same, including the row-major tie break.
++      const bound = bestDist * (1 + 1e-12) + 1e-9;
++      if (dy2 > bound) continue;
++      const reach = Math.sqrt(bound - dy2) / geometry.w;
++      let lo = 0, hi = axis.length;
++      while (lo < hi) { const mid = (lo + hi) >> 1; if (axis[mid] < p.x - reach) lo = mid + 1; else hi = mid; }
++      for (let ix = lo; ix < axis.length && axis[ix] <= p.x + reach; ix++) {
++        const x = axis[ix], d = ((x - p.x) * geometry.w) ** 2 + dy2;
++        if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
++          best = {x, y}; bestDist = d;
++        }
+       }
+     }
+     if (!best) throw Error('no safe candidate for compiled prefab');
