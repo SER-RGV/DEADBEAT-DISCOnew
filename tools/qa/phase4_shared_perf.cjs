@@ -9,5 +9,5 @@ const {chromium}=require('playwright-core'),assert=require('node:assert/strict')
   const batch=await pages[name].evaluate(block=>{let a=[];for(let i=0;i<10;i++){let s=(block*10+i)%100,f=i,t=performance.now();DD_ROOM_GENERATION.generate(s,f,'2.7.0');if(block>=10)a.push(performance.now()-t);}return a;},block);times[name].push(...batch);
  }
  const result={};for(const name of Object.keys(times)){const t=times[name].sort((a,b)=>a-b);assert.equal(t.length,1000);result[name]={mean:t.reduce((x,y)=>x+y,0)/t.length,p95:t[950],max:t[999],samples:t.length};}
- console.log(JSON.stringify({result,note:'Chromium headless, matched batches of 10 maps and alternating page order, 100 warmup maps/page. Generation+bind, not frame/memory or GPU. Timer resolution/noise apply.'},null,2));
+ console.log(JSON.stringify({result,note:'Chromium headless, 100 unique seed/floor pairs repeated ten times, matched batches alternating page order, 100 warmup maps/page. Generation+bind, not frame/memory or GPU. Timer resolution/noise apply.'},null,2));
 }finally{await b.close();}})().catch(e=>{console.error(e);process.exitCode=1});

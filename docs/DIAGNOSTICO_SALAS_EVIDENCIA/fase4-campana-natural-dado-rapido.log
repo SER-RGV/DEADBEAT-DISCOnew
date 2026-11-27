@@ -1,0 +1,1734 @@
+{
+  "mode": "2.7.0",
+  "actions": "UI, keyboard, pointer only; no debug or taint overrides",
+  "steps": [
+    "menu",
+    "hub via menu and cinematic skips",
+    "entered run using descent station"
+  ],
+  "errors": [],
+  "visited": [
+    {
+      "key": "r0",
+      "floor": 0,
+      "completed": 0,
+      "hp": 3
+    },
+    {
+      "key": "r1",
+      "floor": 0,
+      "completed": 1,
+      "hp": 3
+    },
+    {
+      "key": "r2",
+      "floor": 0,
+      "completed": 2,
+      "hp": 2
+    }
+  ],
+  "outcome": "defeat",
+  "hub": {
+    "active": true,
+    "practice": null,
+    "zones": [
+      "salon",
+      "habitacion",
+      "arsenal",
+      "archivo",
+      "taller",
+      "residentes",
+      "descanso",
+      "galeria",
+      "acceso"
+    ],
+    "x": 1790,
+    "y": 408,
+    "nearStation": "descent",
+    "bounds": {
+      "x": 260,
+      "y": 290,
+      "w": 3120,
+      "h": 1900
+    },
+    "stations": [
+      "armory",
+      "upgrades",
+      "armorer",
+      "practice",
+      "workshop",
+      "dj",
+      "mix",
+      "bar",
+      "rest",
+      "map",
+      "ledger",
+      "gallery",
+      "bedroom",
+      "keepsake",
+      "prepare",
+      "descent"
+    ],
+    "protagonist": "pm_walk_01",
+    "walking": true,
+    "walkFrame": 3,
+    "facingLeft": false,
+    "protagonistSrc": "assets/characters/protagonist_master/walk/pm_walk_01.png",
+    "protagonistRect": {
+      "x": 1749.4,
+      "y": 278,
+      "w": 83.53,
+      "h": 148.5
+    },
+    "protagonistAspect": 0.5625
+  },
+  "actualVersion": "2.7.0",
+  "shots": 66,
+  "bulletSamples": 0,
+  "maxPlayerBullets": 0,
+  "cleared": [
+    "0:s0",
+    "0:r0",
+    "0:r1"
+  ],
+  "detours": 0,
+  "bombInputs": 3,
+  "boostInputs": 3,
+  "aimSamples": [
+    {
+      "errorRadians": -0.03660472661501779,
+      "dist": 591.9792825300726,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000108
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03339999999999964,
+        "wins": 0
+      }
+    },
+    {
+      "errorRadians": 0.0831720830222955,
+      "dist": 263.9981666504286,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11659999999999855
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 0
+      }
+    },
+    {
+      "errorRadians": -0.08863842837353886,
+      "dist": 415.12332224364013,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000148
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999928,
+        "wins": 1
+      }
+    },
+    {
+      "errorRadians": 0.06436966119714782,
+      "dist": 298.3058415366899,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.16659999999999855
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 2
+      }
+    },
+    {
+      "errorRadians": 0.014196865705471962,
+      "dist": 151.14934568891107,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.08329999999999928
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999928,
+        "wins": 3
+      }
+    },
+    {
+      "errorRadians": -0.13296557153099187,
+      "dist": 153.01935849551515,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999928,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": -0.045480235728434966,
+      "dist": 129.83085716294383,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.16670000000000074
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": -0.05557277366936686,
+      "dist": 181.01846816657056,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000148
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033200000000000736,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": 0.101463150765976,
+      "dist": 52.320216111742184,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000148
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": 0.10147621242331462,
+      "dist": 160.4636759452235,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": -0.07382441083976099,
+      "dist": 147.96353722674723,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999999564
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 5
+      }
+    },
+    {
+      "errorRadians": -0.009106078708211339,
+      "dist": 115.7847765043224,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000145
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049900000000001464,
+        "wins": 5
+      }
+    },
+    {
+      "errorRadians": 0.05871674912373992,
+      "dist": 156.74400115762563,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15000000000000002
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049900000000001464,
+        "wins": 6
+      }
+    },
+    {
+      "errorRadians": 0.12293230444184955,
+      "dist": 77.22516200502976,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000145
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 7
+      }
+    },
+    {
+      "errorRadians": 0.07448298420126577,
+      "dist": 62.21178848920152,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000145
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 8
+      }
+    },
+    {
+      "errorRadians": 0.02916747171335987,
+      "dist": 150.76689510073592,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1333999999999942
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 9
+      }
+    },
+    {
+      "errorRadians": -0.27747732852182083,
+      "dist": 96.62195699323053,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11659999999999854
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 9
+      }
+    },
+    {
+      "errorRadians": -0.35841504166421334,
+      "dist": 102.65014387132476,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13340000000000146
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999564,
+        "wins": 9
+      }
+    },
+    {
+      "errorRadians": -0.6480690843999783,
+      "dist": 81.15395752933529,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13320000000000437
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 10
+      }
+    },
+    {
+      "errorRadians": -0.2744562718368475,
+      "dist": 91.27845146939693,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.05,
+        "wins": 11
+      }
+    },
+    {
+      "errorRadians": -0.02864403725916986,
+      "dist": 253.72103847945942,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999999564
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 11
+      }
+    },
+    {
+      "errorRadians": -0.01618572398880214,
+      "dist": 169.87241086830534,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11670000000000437
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 12
+      }
+    },
+    {
+      "errorRadians": -0.059236601572316916,
+      "dist": 296.9715133053016,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1166999999999971
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.06669999999999708,
+        "wins": 13
+      }
+    },
+    {
+      "errorRadians": -0.02403406907624861,
+      "dist": 262.87917684249743,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049899999999994185,
+        "wins": 13
+      }
+    },
+    {
+      "errorRadians": 0.03432679575739184,
+      "dist": 368.00998037196285,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.0666999999999971,
+        "wins": 14
+      }
+    },
+    {
+      "errorRadians": 0.014531343751901626,
+      "dist": 263.56582517038555,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 14
+      }
+    },
+    {
+      "errorRadians": -0.02234432457811497,
+      "dist": 66.40688917292375,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999998837,
+        "wins": 14
+      }
+    },
+    {
+      "errorRadians": -0.004192589811504277,
+      "dist": 38.65715202827545,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.0666999999999971,
+        "wins": 14
+      }
+    },
+    {
+      "errorRadians": -0.048840953629653246,
+      "dist": 78.65813496342521,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1331999999999971
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03340000000000873,
+        "wins": 15
+      }
+    },
+    {
+      "errorRadians": -0.061238154757974776,
+      "dist": 324.3955808402067,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1333999999999942
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 16
+      }
+    },
+    {
+      "errorRadians": -0.0908040528109414,
+      "dist": 259.8530913401307,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999998837
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 17
+      }
+    },
+    {
+      "errorRadians": -0.05499876210865173,
+      "dist": 233.58103640397044,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.1500999999999913
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 17
+      }
+    },
+    {
+      "errorRadians": 0.08219272377384201,
+      "dist": 76.13432580120572,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 18
+      }
+    },
+    {
+      "errorRadians": -0.10445717978618085,
+      "dist": 114.06653106086692,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 19
+      }
+    },
+    {
+      "errorRadians": -0.01328558808479574,
+      "dist": 39.27000850473899,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 20
+      }
+    },
+    {
+      "errorRadians": -0.04372353278529384,
+      "dist": 97.8124129023695,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 21
+      }
+    },
+    {
+      "errorRadians": -0.03697939199168764,
+      "dist": 173.7022491774424,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1331999999999971
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 22
+      }
+    },
+    {
+      "errorRadians": 0.08003180734092785,
+      "dist": 117.41729541848765,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 23
+      }
+    },
+    {
+      "errorRadians": -0.1055112455178655,
+      "dist": 173.35718316250873,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 23
+      }
+    },
+    {
+      "errorRadians": 0.023395033749208594,
+      "dist": 88.15574695054973,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 24
+      }
+    },
+    {
+      "errorRadians": 0.1006974292900647,
+      "dist": 47.393116801295754,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14989999999999418
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 25
+      }
+    },
+    {
+      "errorRadians": 0.018489258750901016,
+      "dist": 221.91485791858946,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03340000000000873,
+        "wins": 26
+      }
+    },
+    {
+      "errorRadians": 0.036648733964774964,
+      "dist": 131.68892545915523,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 27
+      }
+    },
+    {
+      "errorRadians": 0.040940185412947645,
+      "dist": 52.54100311466381,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 28
+      }
+    },
+    {
+      "errorRadians": 0.05658166696285826,
+      "dist": 227.74400015654703,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1331999999999971
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": -0.039675168398601635,
+      "dist": 253.885041492614,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11669999999999708
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": 0.03838476692871983,
+      "dist": 226.9951141598862,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13340000000000873
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03340000000000873,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": 0.010177154874468117,
+      "dist": 188.09720527614527,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11669999999999708
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.05,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": 0.0671455404169161,
+      "dist": 203.74671984632016,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.16660000000000583
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.06659999999999128,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": 0.0037134747084923707,
+      "dist": 99.9301625336314,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.16660000000000583
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03330000000000292,
+        "wins": 29
+      }
+    },
+    {
+      "errorRadians": -0.038059589512615226,
+      "dist": 66.18779633098514,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1168000000000029
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0,
+        "wins": 30
+      }
+    },
+    {
+      "errorRadians": 0.011649194009592854,
+      "dist": 347.4648426991271,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.06660000000000582,
+        "wins": 31
+      }
+    },
+    {
+      "errorRadians": -0.002209834356451834,
+      "dist": 224.95137831761917,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11669999999999708
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.06669999999998254,
+        "wins": 32
+      }
+    },
+    {
+      "errorRadians": -0.011934152066388037,
+      "dist": 683.5677690260975,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.1499000000000233
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999998837,
+        "wins": 33
+      }
+    },
+    {
+      "errorRadians": -0.03241322085369447,
+      "dist": 343.2459179186527,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11660000000000582
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 33
+      }
+    },
+    {
+      "errorRadians": -0.03215218424726082,
+      "dist": 265.4048658649781,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999998837
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.05,
+        "wins": 33
+      }
+    },
+    {
+      "errorRadians": -0.05189043526030568,
+      "dist": 310.54217985593823,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11669999999998254
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000023286,
+        "wins": 34
+      }
+    },
+    {
+      "errorRadians": -0.3065617690839795,
+      "dist": 273.91690594237446,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000001746
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 35
+      }
+    },
+    {
+      "errorRadians": -0.06081591863550412,
+      "dist": 112.78090857616053,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15000000000000002
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000023286,
+        "wins": 35
+      }
+    },
+    {
+      "errorRadians": 0.169305772916157,
+      "dist": 100.44221701612051,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1333999999999942
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999998837,
+        "wins": 36
+      }
+    },
+    {
+      "errorRadians": -0.05778878457767242,
+      "dist": 148.82768934136234,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.1498999999999942
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999998837,
+        "wins": 37
+      }
+    },
+    {
+      "errorRadians": 0.3827100377859947,
+      "dist": 45.744716928896025,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11660000000000581
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 37
+      }
+    },
+    {
+      "errorRadians": 0.018993715211137463,
+      "dist": 59.74740687900497,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.1333999999999942
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0,
+        "wins": 38
+      }
+    },
+    {
+      "errorRadians": 0.08666866327901078,
+      "dist": 74.3034114911192,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11659999999997672
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999998837,
+        "wins": 39
+      }
+    },
+    {
+      "errorRadians": 0.003920924144527937,
+      "dist": 85.6808635658545,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14989999999999418
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 40
+      }
+    },
+    {
+      "errorRadians": -0.03782689581668397,
+      "dist": 33.80779011757272,
+      "element": "game",
+      "charge": {
+        "state": "READY",
+        "charge": 0
+      },
+      "after": {
+        "state": "READY",
+        "age": 0.8331666666666955,
+        "wins": 41
+      }
+    }
+  ],
+  "diceStates": {
+    "READY": 96,
+    "FLIGHT": 25,
+    "ROLLING": 72,
+    "RETURNING": 50,
+    "RESOLVING": 34,
+    "RECOVERED": 6
+  },
+  "last": {
+    "snapshot": {
+      "running": true,
+      "paused": false,
+      "dead": true,
+      "circle": 0,
+      "room": 2,
+      "globalRoom": 3,
+      "roomName": "Pasillo de servicio",
+      "roomBanner": "Pasillo de servicio · CÍRCULO I · LIMBO",
+      "hp": 0,
+      "maxHp": 3,
+      "shield": 0,
+      "rave": 0,
+      "raveDuration": 6.3,
+      "raveMeter": 69.3,
+      "credits": 1404,
+      "level": 4,
+      "bombs": 0,
+      "boosts": 0,
+      "rollKey": "Space",
+      "weapon": "m1911",
+      "weaponName": "M1911",
+      "owned": [
+        "m1911"
+      ],
+      "bossActive": false,
+      "boss": null,
+      "player": {
+        "x": 761.8170671454432,
+        "y": 660.0194704562306,
+        "aimAngle": 0.6124231531063535
+      },
+      "roomRect": {
+        "x": 616,
+        "y": 540,
+        "w": 1268.0800000000002,
+        "h": 770
+      },
+      "doors": [
+        {
+          "x": 1884.0800000000002,
+          "y": 890,
+          "open": false
+        },
+        {
+          "x": 1331.26,
+          "y": 1310,
+          "open": false
+        },
+        {
+          "x": 1250.04,
+          "y": 540,
+          "open": false
+        }
+      ],
+      "enemies": [
+        {
+          "x": 769.9092053919352,
+          "y": 743.8782501910792
+        },
+        {
+          "x": 752.8833022381846,
+          "y": 685.566692613637
+        },
+        {
+          "x": 692.281337311636,
+          "y": 980.6192167122973
+        },
+        {
+          "x": 881.7812558701817,
+          "y": 959.6576553626973
+        },
+        {
+          "x": 781.411618353142,
+          "y": 666.4434613860819
+        },
+        {
+          "x": 708.2275022716624,
+          "y": 881.6443575867376
+        },
+        {
+          "x": 761.8683171886823,
+          "y": 901.043890186394
+        },
+        {
+          "x": 729.2174303738518,
+          "y": 846.2221674466801
+        },
+        {
+          "x": 745.7555892310027,
+          "y": 942.7768422553504
+        },
+        {
+          "x": 573.7827320811336,
+          "y": 792.6180887800836
+        },
+        {
+          "x": 965.0472882008789,
+          "y": 909.9549204042697
+        },
+        {
+          "x": 482.67329362018035,
+          "y": 939.8816520963201
+        }
+      ]
+    },
+    "survey": {
+      "key": "r2",
+      "floor": 0,
+      "encounter": "SALA DEL TORNO",
+      "elite": false,
+      "poly": [
+        {
+          "x": 951.3599999999999,
+          "y": 540
+        },
+        {
+          "x": 1548.7199999999998,
+          "y": 540
+        },
+        {
+          "x": 1548.7199999999998,
+          "y": 625
+        },
+        {
+          "x": 1842.16,
+          "y": 625
+        },
+        {
+          "x": 1884.0800000000002,
+          "y": 665
+        },
+        {
+          "x": 1884.0800000000002,
+          "y": 1115
+        },
+        {
+          "x": 1779.28,
+          "y": 1115
+        },
+        {
+          "x": 1779.28,
+          "y": 1255
+        },
+        {
+          "x": 1721.64,
+          "y": 1310
+        },
+        {
+          "x": 940.88,
+          "y": 1310
+        },
+        {
+          "x": 940.88,
+          "y": 1230
+        },
+        {
+          "x": 684.12,
+          "y": 1230
+        },
+        {
+          "x": 616,
+          "y": 1165
+        },
+        {
+          "x": 616,
+          "y": 765
+        },
+        {
+          "x": 741.76,
+          "y": 765
+        },
+        {
+          "x": 741.76,
+          "y": 640
+        },
+        {
+          "x": 951.3599999999999,
+          "y": 640
+        }
+      ],
+      "player": {
+        "x": 761.8170671454432,
+        "y": 660.0194704562306
+      },
+      "nodes": [
+        {
+          "key": "r0",
+          "x": 0,
+          "y": 0,
+          "room": 1,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "s0"
+            }
+          ]
+        },
+        {
+          "key": "r1",
+          "x": 0,
+          "y": -1,
+          "room": 2,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r4"
+            }
+          ]
+        },
+        {
+          "key": "r2",
+          "x": -1,
+          "y": -1,
+          "room": 3,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "r5"
+            }
+          ]
+        },
+        {
+          "key": "r3",
+          "x": -1,
+          "y": 0,
+          "room": 4,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r7"
+            },
+            {
+              "to": "r8"
+            }
+          ]
+        },
+        {
+          "key": "r4",
+          "x": 0,
+          "y": -2,
+          "room": 5,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r5"
+            },
+            {
+              "to": "r9"
+            }
+          ]
+        },
+        {
+          "key": "r5",
+          "x": -1,
+          "y": -2,
+          "room": 6,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r4"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r6"
+            },
+            {
+              "to": "r10"
+            }
+          ]
+        },
+        {
+          "key": "s0",
+          "x": 0,
+          "y": 1,
+          "room": 12,
+          "shop": true,
+          "boss": false,
+          "visited": false,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            }
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "to": "r1",
+          "x": 1884.0800000000002,
+          "y": 890,
+          "label": "SALA 02",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r3",
+          "x": 1331.26,
+          "y": 1310,
+          "label": "SALA 04",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r5",
+          "x": 1250.04,
+          "y": 540,
+          "label": "SALA 06",
+          "lift": false,
+          "open": false
+        }
+      ],
+      "props": [
+        {
+          "x": 1695.44,
+          "y": 675
+        },
+        {
+          "x": 1684.28,
+          "y": 1199
+        }
+      ],
+      "enemies": [
+        {
+          "x": 769.9092053919352,
+          "y": 743.8782501910792
+        },
+        {
+          "x": 752.8833022381846,
+          "y": 685.566692613637
+        },
+        {
+          "x": 692.281337311636,
+          "y": 980.6192167122973
+        },
+        {
+          "x": 881.7812558701817,
+          "y": 959.6576553626973
+        },
+        {
+          "x": 781.411618353142,
+          "y": 666.4434613860819
+        },
+        {
+          "x": 708.2275022716624,
+          "y": 881.6443575867376
+        },
+        {
+          "x": 761.8683171886823,
+          "y": 901.043890186394
+        },
+        {
+          "x": 729.2174303738518,
+          "y": 846.2221674466801
+        },
+        {
+          "x": 745.7555892310027,
+          "y": 942.7768422553504
+        },
+        {
+          "x": 573.7827320811336,
+          "y": 792.6180887800836
+        },
+        {
+          "x": 965.0472882008789,
+          "y": 909.9549204042697
+        },
+        {
+          "x": 482.67329362018035,
+          "y": 939.8816520963201
+        }
+      ],
+      "boss": null,
+      "rewards": [
+        {
+          "x": 836.9900968121011,
+          "y": 1204.8209888375786
+        },
+        {
+          "x": 783.4422833160133,
+          "y": 866.1528633760138
+        },
+        {
+          "x": 795.8306206861582,
+          "y": 936.8507573101423
+        }
+      ],
+      "marks": [],
+      "objectives": [],
+      "completed": 2,
+      "total": 11
+    },
+    "actors": {
+      "time": 147.05408200000215,
+      "circle": 0,
+      "player": {
+        "x": 761.8170671454432,
+        "y": 660.0194704562306,
+        "r": 14,
+        "aim": 0.6124231531063535
+      },
+      "enemies": [
+        {
+          "x": 769.9092053919352,
+          "y": 743.8782501910792,
+          "r": 13.919999999999998,
+          "type": "dancer",
+          "elite": true,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 2,
+          "maxHp": 2,
+          "variant": null,
+          "family": "elite",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": "elite",
+          "frozen": false
+        },
+        {
+          "x": 752.8833022381846,
+          "y": 685.566692613637,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "attack",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 692.281337311636,
+          "y": 980.6192167122973,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 881.7812558701817,
+          "y": 959.6576553626973,
+          "r": 13.919999999999998,
+          "type": "dancer",
+          "elite": true,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 2,
+          "maxHp": 2,
+          "variant": null,
+          "family": "elite",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": "elite",
+          "frozen": false
+        },
+        {
+          "x": 781.411618353142,
+          "y": 666.4434613860819,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "attack",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 708.2275022716624,
+          "y": 881.6443575867376,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 761.8683171886823,
+          "y": 901.043890186394,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 729.2174303738518,
+          "y": 846.2221674466801,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 2,
+          "maxHp": 2,
+          "variant": "espectral",
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 745.7555892310027,
+          "y": 942.7768422553504,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 573.7827320811336,
+          "y": 792.6180887800836,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 965.0472882008789,
+          "y": 909.9549204042697,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 482.67329362018035,
+          "y": 939.8816520963201,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        }
+      ],
+      "deaths": [],
+      "bullets": [],
+      "enemyBullets": []
+    },
+    "dice": {
+      "state": "READY",
+      "wins": 41,
+      "charge": 0
+    }
+  },
+  "elapsedSeconds": 148
+}

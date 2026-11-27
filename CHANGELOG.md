@@ -299,3 +299,4 @@ Registrar aquí cada modificación:
 - QA: búsqueda acotada y distancias combinadas, comparación de 10.000 planes 2.7 y perfil anidado de compilación. Experimento revertido: mejora parcial, todavía existe regresión frente a 2.0.
 - QA: corregido piloto natural de pulsación/liberación, una partida alcanzó r1 antes de derrota. Se midieron heap de búsqueda acotada y caché de aristas; esta se revirtió por ganancia pequeña y mayor delta de heap.
 - QA: matriz visual canvas seed 1 y comparación de tarima 2.6/2.7 sin HUD DOM; nuevo intento natural con Q y Shift terminó en r1. Sin cambios activos en generación.
+- QA: seguimiento de estados del dado y partida natural hasta r2; corrección explícita de cobertura de benchmarks previos y nuevo A/B con 1.000 pares seed/piso distintos. Experimento revertido.
