@@ -1,0 +1,176 @@
+{
+  "version": "2.7.0-prototype",
+  "seedsPerFloor": 1000,
+  "maps": 10000,
+  "uniqueConfigs": 620,
+  "skippedHangar": 1000,
+  "selfIntersections": 0,
+  "invalidPerimeters": 0,
+  "outsideAnchors": 0,
+  "outsideLandings": 0,
+  "outsideDeckCorners": 0,
+  "deckCornersChecked": 2480,
+  "stepCornersChecked": 14032,
+  "outsideStepCorners": 2024,
+  "projectedCornersChecked": 14032,
+  "crossingStepRectangles": 316,
+  "outsideProjectedCorners": 1960,
+  "projectedByDeck": {
+    "pasarela": 1880,
+    "tarima": 80
+  },
+  "projectedByTemplate": {
+    "pasillo-servicio": 1880,
+    "arena-octogono": 80
+  },
+  "examples": {
+    "self": [],
+    "bad": [],
+    "outsideAnchors": [],
+    "outsideLandings": [],
+    "outsideDecks": [],
+    "outsideSteps": [
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 614
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 614
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 614
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 614
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 632
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 632
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 632
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 632
+      }
+    ],
+    "outsideProjected": [
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 600.4
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 600.4
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 600.4
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 600.4
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 625.1999999999999
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 625.1999999999999
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 138.72,
+        "y": 625.2
+      },
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "x": 485.52,
+        "y": 625.2
+      }
+    ],
+    "crossingRects": [
+      {
+        "id": "pasillo-servicio--proporcion-13--entrante|right",
+        "deck": "pasarela",
+        "kind": "projected"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "ground"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "ground"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "ground"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "projected"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "ground"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "projected"
+      },
+      {
+        "id": "arena-octogono--proporcion-21--entrante|bottom,top:lift",
+        "deck": "tarima",
+        "kind": "ground"
+      }
+    ]
+  },
+  "note": "Step corners include floor and rendered coordinates (including riser); not full polygon containment, excludes clipped/camera state. Independent point/polygon and segment audit of catalog data. Anchor and deck checks are optical/candidate checks, not full collider containment, reachability, native behavior or proof of a bug. Hangar excluded."
+}

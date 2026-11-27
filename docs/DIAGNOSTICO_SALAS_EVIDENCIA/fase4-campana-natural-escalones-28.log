@@ -1,0 +1,808 @@
+{
+  "mode": "2.8.0",
+  "actions": "UI, keyboard, pointer only; no debug or taint overrides",
+  "steps": [
+    "menu",
+    "hub via menu and cinematic skips",
+    "entered run using descent station"
+  ],
+  "errors": [],
+  "visited": [
+    {
+      "key": "r0",
+      "floor": 0,
+      "completed": 0,
+      "hp": 3
+    }
+  ],
+  "outcome": "defeat",
+  "hub": {
+    "active": true,
+    "practice": null,
+    "zones": [
+      "salon",
+      "habitacion",
+      "arsenal",
+      "archivo",
+      "taller",
+      "residentes",
+      "descanso",
+      "galeria",
+      "acceso"
+    ],
+    "x": 1790,
+    "y": 396,
+    "nearStation": "descent",
+    "bounds": {
+      "x": 260,
+      "y": 290,
+      "w": 3120,
+      "h": 1900
+    },
+    "stations": [
+      "armory",
+      "upgrades",
+      "armorer",
+      "practice",
+      "workshop",
+      "dj",
+      "mix",
+      "bar",
+      "rest",
+      "map",
+      "ledger",
+      "gallery",
+      "bedroom",
+      "keepsake",
+      "prepare",
+      "descent"
+    ],
+    "protagonist": "pm_walk_00",
+    "walking": true,
+    "walkFrame": 0,
+    "facingLeft": false,
+    "protagonistSrc": "assets/characters/protagonist_master/walk/pm_walk_00.png",
+    "protagonistRect": {
+      "x": 1749.4,
+      "y": 265.9,
+      "w": 83.53,
+      "h": 148.5
+    },
+    "protagonistAspect": 0.5625
+  },
+  "actualVersion": "2.8.0",
+  "shots": 12,
+  "bulletSamples": 0,
+  "maxPlayerBullets": 0,
+  "cleared": [
+    "0:s0"
+  ],
+  "detours": 0,
+  "bombInputs": 1,
+  "boostInputs": 1,
+  "aimSamples": [
+    {
+      "errorRadians": 0.037164243235499494,
+      "dist": 378.3639032233989,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.06670000000000073,
+        "wins": 0
+      }
+    },
+    {
+      "errorRadians": 0.03701734026077275,
+      "dist": 456.29278832701397,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999999928
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.04989999999999782,
+        "wins": 1
+      }
+    },
+    {
+      "errorRadians": 0.4147981392597551,
+      "dist": 434.4110654968931,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11659999999999855
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03339999999999782,
+        "wins": 2
+      }
+    },
+    {
+      "errorRadians": 0.5639253063409512,
+      "dist": 347.52760453534216,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999999928
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 2
+      }
+    },
+    {
+      "errorRadians": 0.5547450914151184,
+      "dist": 225.9920057738321,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13339999999999783
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033400000000001456,
+        "wins": 2
+      }
+    },
+    {
+      "errorRadians": 0.666053168859624,
+      "dist": 233.362386080476,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.1498999999999978
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999928,
+        "wins": 2
+      }
+    },
+    {
+      "errorRadians": 0.7237595461831453,
+      "dist": 123.7462326007549,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15000000000000002
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 3
+      }
+    },
+    {
+      "errorRadians": 0.36115621060359226,
+      "dist": 198.43979972319957,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13329999999999928
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.033399999999994184,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": 0.1599939661993233,
+      "dist": 248.60742187219248,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.11659999999999854
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 4
+      }
+    },
+    {
+      "errorRadians": 0.027124796482864255,
+      "dist": 141.42265479498133,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.15000000000000002
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049900000000001464,
+        "wins": 5
+      }
+    },
+    {
+      "errorRadians": -0.06952768663991882,
+      "dist": 154.6205739520326,
+      "element": "game",
+      "charge": {
+        "state": "AIMING",
+        "charge": 0.13330000000000292
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.049999999999999996,
+        "wins": 5
+      }
+    },
+    {
+      "errorRadians": 0.406444944677981,
+      "dist": 12.772813204164008,
+      "element": "game",
+      "charge": {
+        "state": "CHARGING",
+        "charge": 0.14990000000000145
+      },
+      "after": {
+        "state": "FLIGHT",
+        "age": 0.03329999999999564,
+        "wins": 6
+      }
+    }
+  ],
+  "diceStates": {
+    "READY": 23,
+    "ROLLING": 10,
+    "RESOLVING": 8,
+    "FLIGHT": 6,
+    "RETURNING": 9,
+    "RECOVERED": 2
+  },
+  "last": {
+    "snapshot": {
+      "running": true,
+      "paused": false,
+      "dead": true,
+      "circle": 0,
+      "room": 0,
+      "globalRoom": 1,
+      "roomName": "Vestíbulo de pista",
+      "roomBanner": "Vestíbulo de pista · CÍRCULO I · LIMBO",
+      "hp": 0,
+      "maxHp": 3,
+      "shield": 0,
+      "rave": 0,
+      "raveDuration": 6.3,
+      "raveMeter": 0,
+      "credits": 288,
+      "level": 2,
+      "bombs": 2,
+      "boosts": 2,
+      "rollKey": "Space",
+      "weapon": "m1911",
+      "weaponName": "M1911",
+      "owned": [
+        "m1911"
+      ],
+      "bossActive": false,
+      "boss": null,
+      "player": {
+        "x": 593.2719647009413,
+        "y": 1147.9229767061022,
+        "aimAngle": -1.8606066877852685
+      },
+      "roomRect": {
+        "x": 330,
+        "y": 510,
+        "w": 1840,
+        "h": 830
+      },
+      "doors": [
+        {
+          "x": 385.2,
+          "y": 902.3329285271642,
+          "open": false
+        },
+        {
+          "x": 1199.5158180025405,
+          "y": 534.9,
+          "open": false
+        },
+        {
+          "x": 1204.6868999053042,
+          "y": 1315.1,
+          "open": false
+        },
+        {
+          "x": 2114.8,
+          "y": 988.1333198551363,
+          "open": false
+        }
+      ],
+      "enemies": [
+        {
+          "x": 507.3046677658877,
+          "y": 990.0110968765727
+        },
+        {
+          "x": 718.5615090073961,
+          "y": 868.9338721468959
+        },
+        {
+          "x": 706.5523870508553,
+          "y": 997.1981439483925
+        },
+        {
+          "x": 748.6723472876346,
+          "y": 934.7514643932251
+        },
+        {
+          "x": 623.9523809066274,
+          "y": 1223.480038685277
+        },
+        {
+          "x": 609.6322076539763,
+          "y": 958.6152515965618
+        },
+        {
+          "x": 595.4465481862742,
+          "y": 1015.3863761716547
+        },
+        {
+          "x": 606.3738313984979,
+          "y": 1044.9540554359455
+        },
+        {
+          "x": 599.7961845685869,
+          "y": 1123.2782656186214
+        }
+      ]
+    },
+    "survey": {
+      "key": "r0",
+      "floor": 0,
+      "encounter": "VESTÍBULO DE TURNOS",
+      "elite": false,
+      "poly": [
+        {
+          "x": 462.3141664166003,
+          "y": 534.9
+        },
+        {
+          "x": 1936.7174695884808,
+          "y": 534.9
+        },
+        {
+          "x": 2114.8,
+          "y": 615.2307066530223
+        },
+        {
+          "x": 2114.8,
+          "y": 1287.4960063633275
+        },
+        {
+          "x": 2053.6056044681,
+          "y": 1315.1
+        },
+        {
+          "x": 535.2508809464052,
+          "y": 1315.1
+        },
+        {
+          "x": 385.2,
+          "y": 1247.4140047904802
+        },
+        {
+          "x": 385.2,
+          "y": 569.6851946335752
+        }
+      ],
+      "player": {
+        "x": 593.2719647009413,
+        "y": 1147.9229767061022
+      },
+      "nodes": [
+        {
+          "key": "r0",
+          "x": 0,
+          "y": 0,
+          "room": 1,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "r7"
+            },
+            {
+              "to": "s0"
+            }
+          ]
+        },
+        {
+          "key": "r1",
+          "x": -1,
+          "y": 0,
+          "room": 2,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r4"
+            }
+          ]
+        },
+        {
+          "key": "r3",
+          "x": 0,
+          "y": -1,
+          "room": 4,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r0"
+            }
+          ]
+        },
+        {
+          "key": "s0",
+          "x": 1,
+          "y": 0,
+          "room": 12,
+          "shop": true,
+          "boss": false,
+          "visited": false,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            }
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "to": "r1",
+          "x": 385.2,
+          "y": 902.3329285271642,
+          "label": "SALA 02",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r3",
+          "x": 1199.5158180025405,
+          "y": 534.9,
+          "label": "SALA 04",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r7",
+          "x": 1204.6868999053042,
+          "y": 1315.1,
+          "label": "PASO DE SERVICIO",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "s0",
+          "x": 2114.8,
+          "y": 988.1333198551363,
+          "label": "TIENDA · LA CABINA · A 1 SALA",
+          "lift": false,
+          "open": false
+        }
+      ],
+      "props": [
+        {
+          "x": 769.6958763625473,
+          "y": 727.3329099981114
+        },
+        {
+          "x": 1711.832246210519,
+          "y": 731.5009923090228
+        },
+        {
+          "x": 819.5278013190255,
+          "y": 1102.991091047786
+        },
+        {
+          "x": 1706.1920003794135,
+          "y": 1104.8914055484347
+        },
+        {
+          "x": 964.1281071133014,
+          "y": 993.0676113712803
+        },
+        {
+          "x": 690.4735805104586,
+          "y": 931.0438640962344
+        },
+        {
+          "x": 1937,
+          "y": 703
+        }
+      ],
+      "enemies": [
+        {
+          "x": 507.3046677658877,
+          "y": 990.0110968765727
+        },
+        {
+          "x": 718.5615090073961,
+          "y": 868.9338721468959
+        },
+        {
+          "x": 706.5523870508553,
+          "y": 997.1981439483925
+        },
+        {
+          "x": 748.6723472876346,
+          "y": 934.7514643932251
+        },
+        {
+          "x": 623.9523809066274,
+          "y": 1223.480038685277
+        },
+        {
+          "x": 609.6322076539763,
+          "y": 958.6152515965618
+        },
+        {
+          "x": 595.4465481862742,
+          "y": 1015.3863761716547
+        },
+        {
+          "x": 606.3738313984979,
+          "y": 1044.9540554359455
+        },
+        {
+          "x": 599.7961845685869,
+          "y": 1123.2782656186214
+        }
+      ],
+      "boss": null,
+      "rewards": [
+        {
+          "x": 600.2114855665461,
+          "y": 851.443259234952
+        },
+        {
+          "x": 751.1086967874952,
+          "y": 945.969569380449
+        },
+        {
+          "x": 613.9612148477049,
+          "y": 925.7807090213106
+        }
+      ],
+      "marks": [],
+      "objectives": [],
+      "completed": 0,
+      "total": 11
+    },
+    "actors": {
+      "time": 29.44925200000015,
+      "circle": 0,
+      "player": {
+        "x": 593.2719647009413,
+        "y": 1147.9229767061022,
+        "r": 14,
+        "aim": -1.8606066877852685
+      },
+      "enemies": [
+        {
+          "x": 507.3046677658877,
+          "y": 990.0110968765727,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 718.5615090073961,
+          "y": 868.9338721468959,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 706.5523870508553,
+          "y": 997.1981439483925,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 748.6723472876346,
+          "y": 934.7514643932251,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 623.9523809066274,
+          "y": 1223.480038685277,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 609.6322076539763,
+          "y": 958.6152515965618,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 595.4465481862742,
+          "y": 1015.3863761716547,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 606.3738313984979,
+          "y": 1044.9540554359455,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 599.7961845685869,
+          "y": 1123.2782656186214,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "attack",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        }
+      ],
+      "deaths": [],
+      "bullets": [],
+      "enemyBullets": []
+    },
+    "dice": {
+      "state": "RECOVERED",
+      "wins": 7,
+      "charge": 0.2333000000000029
+    }
+  },
+  "elapsedSeconds": 30
+}

@@ -297,3 +297,6 @@ Evidencia completa `docs/DIAGNOSTICO_SALAS_EVIDENCIA/circulos-26-*`. Builds solo
 ## Inicio de fase 4: auditoría y corrección de tarimas 2.7
 
 Se ha iniciado QA independiente, no cerrado ni aprobado; ver `docs/FASE_4_GENERACION_QA.md`. La auditoría detectó 40 esquinas de tarima fuera del perímetro entre 620 configuraciones 2.6. El modo 2.7 `window.__DD_PREFAB_DECK_REPAIR=true`, apagado por defecto, reposiciona la tarima óptica del camarote y deja 0 esquinas fuera en el mismo barrido. No altera versiones guardadas anteriores; pruebas de unicidad incl. Hangar, rejilla, navegador y compatibilidad descritas en el informe. Persisten regresión de generación, QA de campaña natural y reconocimiento perceptivo por círculo; la fase 3 continúa abierta.
+
+### Seguimiento 2.8 (fase 4, no cierre)
+Auditoría ampliada detectó escalones de pasillo y arena fuera del perímetro en 2.7. El incremento opt-in 2.8 desplaza las tarimas 60 unidades hacia interior usando assets existentes, sin cambiar perímetro ni colliders. Mediciones, visuales, compatibilidad y reversión en `docs/FASE_4_GENERACION_QA.md`; la regresión respecto a 2.0 y campaña natural siguen pendientes.
