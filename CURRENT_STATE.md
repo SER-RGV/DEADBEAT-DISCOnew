@@ -401,3 +401,5 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 
 ### Seguimiento QA 2026-11-26
 Intento natural 2.7 por controles: derrota en primera sala; no victoria ni campaña completa. Matriz asistida seed 0: 116 capturas/10 pisos, revisadas en hojas de contacto; arquitectura repetitiva y visibilidad limitada. Perfil y experimento de preparación compartida documentados en `docs/FASE_4_GENERACION_QA.md`; mejora no concluyente, revertida. Regresión de generación y QA integral siguen abiertas; default 2.0 intacto.
+
+Continuación: segundo intento natural con esquiva terminó en derrota en r0. La optimización experimental de distancias redujo el tiempo frente a 2.7 en A/B, pero siguió lejos de 2.0 y se revirtió; datos y parche en informe de fase 4. Sin cambios activos en generación.
