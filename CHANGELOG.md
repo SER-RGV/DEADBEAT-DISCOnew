@@ -303,3 +303,4 @@ Registrar aquí cada modificación:
 - QA: prototipo reversible de borrador físico, medición separada del coste diferido, comparación de planos y mallas; no se activó por regresión restante y validación incompleta. Piloto natural con evasión terminó en r2.
 - QA: memoria con planos retenidos, frames asistidos y dos fixtures inválidos para el prototipo diferido; guardas experimentales rechazaron ambos. Sin cambios activos en producto.
 - Generación 2.8 opt-in: reposiciona escaleras decorativas de pasillo/arena detectadas fuera de perímetro. Versiones y guardados anteriores preservados; backups y reversión verificados. Ver QA: regresión de generación y campaña natural siguen abiertas.
+- QA: auditoría de proyección y oclusión muestreada de tarimas 2.8, y nuevo intento natural con interacción de recompensas (derrota en r1). Sin cambios de producto.
