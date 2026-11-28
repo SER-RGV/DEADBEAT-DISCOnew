@@ -1,5 +1,10 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Dirección propuesta · dungeon crawler de acción
+
+- Propuesta conceptual en `docs/PROPUESTA_DUNGEON_CRAWLER_ACCION.md`: exploración y expediciones, manteniendo acción en tiempo real, rave y objetivo de armas/sinergias, con magias a diseñar. Sin aprobación de implementación ni cambios de producto.
+- La fase 4 anterior sigue cerrada administrativamente con pendientes, no aprobada. Próximo paso propuesto: inventariar el estado funcional real de combate, armas, rave, generación y persistencia antes de decidir la implementación.
+
 ## Estado vigente · 2026-11-26 · Cierre administrativo de fase 4
 
 - Por petición del usuario, fase 4 cerrada administrativamente **con pendientes, sin aprobación de QA**. Las referencias posteriores a fase 4 abierta son históricas.
