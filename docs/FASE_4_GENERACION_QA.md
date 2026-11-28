@@ -1,6 +1,21 @@
-# Fase 4 · QA de generación — en curso
+# Fase 4 · QA de generación — cierre administrativo con pendientes
 
-2026-11-26. La fase 4 se ha iniciado, **no está aprobada ni terminada**. La fase 3 tampoco está cerrada: la identidad visual reconocible por círculo, la campaña natural y la ausencia de regresión de rendimiento siguen sin demostrarse. Metodología histórica y cambios: `docs/PROPUESTA_GENERACION_FASE_2.md`.
+2026-11-26. A petición del usuario se cierra administrativamente la fase 4 con el estado y las limitaciones de este informe. **El cierre no es una aprobación de QA ni certifica los criterios no cumplidos o no verificados**. Las entradas posteriores de este documento son históricas: sus referencias a la fase abierta describen el estado en el momento de cada prueba. La fase 3 tampoco se declara aprobada. Metodología y cambios: `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Acta de cierre y pendientes
+
+| Criterio | Estado al cierre y evidencia |
+|---|---|
+| Barrido determinista y variedad de planes | 2.8: 10.000 mapas, 115.000 salas prefab, 920.000 candidatos y 0 firmas duplicadas en la muestra, incluido Hangar en unicidad. Auditorías de datos, no 10.000 partidas completas. |
+| Topología y recorrido | Dos ciclos también en piso 9 en las pruebas de planes; seed 0 con 115 salas, 257 puertas y nueve descensos **asistidos**. No valida todo movimiento continuo ni todas las semillas en el motor. |
+| Colisión, spawns y geometría | Los puntos de seed 0 y las comprobaciones de rejilla pasaron; escaleras corregidas en 2.8. No se acredita colisión continua ni ausencia universal de huecos. |
+| Campaña natural | **No verificada:** ningún piloto completó la campaña. Los descensos y la victoria observados antes fueron asistidos. |
+| Rendimiento | **No cumple ausencia de regresión de generación** en las muestras: último A/B headless 2.0 media/p95 0,266/0,4 ms frente a 2.8 1,926/7,1 ms. Frames y memoria representativos, GPU real y asignaciones por frame no acreditados. |
+| Visual y persistencia | **No verificación integral:** capturas asistidas y muestras revisadas, pero identidad visual por círculo, todos los estados y píxeles, objetos persistidos y reanudación activa siguen sin acreditar. |
+
+**Decisión de operación:** 2.0 permanece por defecto; 2.8 continúa opt-in mediante `window.__DD_PREFAB_STAIR_REPAIR=true` antes del arranque, y la versión guardada prevalece. Desactivar el flag no convierte guardados 2.8; una build previa que no los reconozca no podrá cargarlos. Respaldar los datos antes de revertir y usar el procedimiento y SHA registrados más abajo. No se han cambiado producto ni builds para este cierre. El PR #43 permanece abierto en borrador, sin fusión.
+
+Seguimiento posterior necesario antes de declarar aceptación: resolver la regresión y medir generación, frames, asignaciones y memoria en condiciones representativas; completar campaña natural y persistencia activa; terminar revisión visual, física y de variedad según criterios originales. No se fijan fechas ni se afirma que estas tareas se hayan completado.
 
 ## Auditoría independiente de geometría
 

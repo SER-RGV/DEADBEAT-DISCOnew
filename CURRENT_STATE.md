@@ -1,5 +1,11 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Estado vigente · 2026-11-26 · Cierre administrativo de fase 4
+
+- Por petición del usuario, fase 4 cerrada administrativamente **con pendientes, sin aprobación de QA**. Las referencias posteriores a fase 4 abierta son históricas.
+- 2.0 sigue por defecto y 2.8 opt-in; guardados conservan su versión. PR #43 sigue abierto en borrador, sin fusionar.
+- Pendientes: regresión de generación, mediciones representativas de frames/memoria/asignaciones, campaña natural, persistencia activa y validación visual y física integral. Datos y límites: [acta de cierre](docs/FASE_4_GENERACION_QA.md#acta-de-cierre-y-pendientes). Fase 3 tampoco se declara aprobada.
+
 ## Estado vigente · 2026-11-26 · Generación de salas
 
 - Fases 0 y 1 cerradas como lectura y diagnóstico acotado; propuesta de fase 2 aprobada. Piso 9 incluido en el objetivo de dos ciclos.

@@ -1,5 +1,9 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Cierre administrativo de fase 4
+
+- Cerrada por petición del usuario con pendientes explícitos y sin aprobación de QA; 2.0 permanece por defecto y 2.8 opt-in. Sin cambios de producto ni fusión. Ver `docs/FASE_4_GENERACION_QA.md`.
+
 ## 2026-11-26 · Topología experimental 2.2.0
 
 - Integrados dos ciclos bajo flag y versionado, entrada r100 y jefe final r99; adaptadas puerta final y condición de victoria sin secretos obligatorios.
