@@ -1,0 +1,10 @@
+// Before/after physical data audit; decorative deck and elevation may differ.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');const dir=path.resolve(__dirname,'../../src/room_generation'),catalog=require(path.join(dir,'prefabs/catalog.json'));
+const src=['seed','rooms','population','floor','validate','architecture','prefabs','playable','topology_v3','prefab_variants','silhouette_variants','circle_profiles','deck_repair','stair_repair'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n');const api=Function('prefabCatalog',src+';return {topologyPrototype,bindPrefabs,repairCircleDecks,repairPrefabStairs,playableRoom};')(catalog);
+const count=Number(process.argv[2]||1000);assert(Number.isInteger(count)&&count>0);let rooms=0,hangar=0,elevationChanges=0,changesById={};
+for(let floor=0;floor<10;floor++)for(let seed=0;seed<count;seed++){
+ const a=api.repairCircleDecks(api.bindPrefabs(api.topologyPrototype(seed,floor))),b=api.repairPrefabStairs(api.bindPrefabs(api.topologyPrototype(seed,floor)));assert.equal(a.nodes.length,b.nodes.length);
+ for(let i=0;i<a.nodes.length;i++){const ca=api.playableRoom(a.nodes[i]),cb=api.playableRoom(b.nodes[i]);if(!ca){assert.equal(cb,null);hangar++;continue;}assert.deepEqual(ca.geometry,cb.geometry);assert.deepEqual(ca.sockets,cb.sockets);assert.deepEqual(ca.mesh.openings,cb.mesh.openings);assert.deepEqual(ca.mesh.walls,cb.mesh.walls);assert.equal(ca.mesh.placements.length,cb.mesh.placements.length);
+ for(let j=0;j<ca.mesh.placements.length;j++){const x=ca.mesh.placements[j],y=cb.mesh.placements[j];if(x.elevation!==y.elevation){elevationChanges++;changesById[x.id]=(changesById[x.id]||0)+1;}const {elevation:ea,...xa}=x,{elevation:eb,...yb}=y;assert.deepEqual(xa,yb);}rooms++;
+ }}
+console.log(JSON.stringify({seedsPerFloor:count,maps:count*10,rooms,hangarExcluded:hangar,physicalDataUnchanged:true,elevationChanges,changesById,note:'Compares geometry, sockets, openings, wall meshes and placement data except decorative elevation. Not native movement or continuous collision; repeated templates may be counted many times.'},null,2));

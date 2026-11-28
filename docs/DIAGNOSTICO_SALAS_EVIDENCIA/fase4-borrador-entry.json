@@ -1,0 +1,39 @@
+{
+  "result": {
+    "before": {
+      "gen": {
+        "mean": 2.4325999999940398,
+        "p95": 9.100000000558794,
+        "count": 1000
+      },
+      "first": {
+        "mean": 0.000900000000372529,
+        "p95": 0,
+        "count": 1000
+      },
+      "all": {
+        "mean": 0.002399999998509884,
+        "p95": 0,
+        "count": 1000
+      }
+    },
+    "draft": {
+      "gen": {
+        "mean": 1.5014000000357628,
+        "p95": 5.5,
+        "count": 1000
+      },
+      "first": {
+        "mean": 0.11369999999552965,
+        "p95": 0.20000000018626451,
+        "count": 1000
+      },
+      "all": {
+        "mean": 0.7029999999590218,
+        "p95": 3.5,
+        "count": 1000
+      }
+    }
+  },
+  "note": "Headless Chromium, 1000 distinct seed/floor pairs, 100 warmups, alternating pages. first is one playableRoom call; all includes first and subsequent calls for all non-Hangar nodes. Excludes actual engine room installation, rendering, and frames; timer quantization applies."
+}

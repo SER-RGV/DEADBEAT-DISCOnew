@@ -1,5 +1,39 @@
 # CHANGELOG — DEADBEAT DISCO
 
+## 2026-11-26 · Topología experimental 2.2.0
+
+- Integrados dos ciclos bajo flag y versionado, entrada r100 y jefe final r99; adaptadas puerta final y condición de victoria sin secretos obligatorios.
+- Cartografía guarda ocho celdas del piso 9; seed, versión y reconstrucción probadas tras recarga con debug. Nueve descensos y rama de victoria ensayados con intervención QA; no se declara campaña natural ni reanudación de incursión.
+- Rejilla nativa seed 0: 115 salas/257 salidas. A/B generación headless mantiene regresión 0,240 → 1,415 ms de media; modo experimental. Backups y límites en informe.
+
+
+## 2026-11-26 · Generación de salas · Prototipo topológico offline
+
+- Generados 10.000 planes con dos ciclos también sin secretos ni jefe; piso 9 modelado con entrada y jefe separados. Cuatro incidencias etiquetadas en pisos 0–8, una en piso 9.
+- Compilados 115.000 prefabs; rejilla offline conecta 100 desembarcos en 51 configuraciones. No prueba movimiento nativo.
+- No integrado ni activado: el motor identifica al jefe final mediante nivel 100 y necesita adaptación y QA antes de aceptar el nuevo piso 9.
+
+
+## 2026-11-26 · Generación de salas · Búsqueda experimental y topología
+
+- Optimizada la búsqueda de población sin caché persistente de rejillas; 108.000 poblaciones idénticas a la versión anterior. Build regenerado, backup con hashes y contraste nativo de 216 salas.
+- A/B limitado: media de generación menor frente a 2.1.0 previo, p95 mayor; se mantiene regresión frente a 2.0.0. Una muestra headless de frames no certifica ausencia de regresión ni asignaciones.
+- Diagnóstico: 2.732/9.000 pisos ordinarios sin candidato para un segundo ciclo por simple enlace; piso 9 aún requiere adaptación del límite de niveles y progresión. Fase 3 no completada.
+
+
+## 2026-11-26 · Generación de salas · Población experimental 2.1.0
+
+- Adaptador de población compilada integrado bajo flag; selección compatible con marcador de versión, SHA de 10.000 planes legacy idéntico, builds regenerados y backups verificados.
+- Contraste nativo: 216 salas y 1.728 candidatos sin bloqueos en dos seeds con debug; nueve descensos asistidos. No valida campaña completa.
+- Generación A/B headless: media 0,224 → 1,948 ms y p95 0,300 → 6,700 ms; regresión medida, modo experimental. Frame time y memoria A/B pendientes.
+
+## 2026-11-26 · Generación de salas · Inicio de fase 3
+
+- Registrada aprobación de fase 2 y requisito de dos ciclos también en piso 9.
+- Añadido prototipo aislado de adaptación/validación de población contra geometría compilada y su barrido 10×1.000; entonces no integrado en runtime.
+- Añadido diagnóstico de compatibilidad del validador con geometría compilada: 9.000/10.000 rechazos `unsafe point`, sin afirmar fallos físicos. Evidencia y comando en la propuesta. En ese momento, sin modificación del generador ni regeneración de builds.
+
+
 ## 2026-11-26 · Fase 0 · Integración de rendimiento tras #36
 
 - Integrado el delta compatible de #34 en #37, por autorización, sin restaurar la armería o atlas antiguos ni los retratos obsoletos. #34 permanece draft de referencia.
@@ -226,3 +260,49 @@ Registrar aquí cada modificación:
 - Mezzanine de portales del HUB reposicionado a la banda del muro (y=188, w=96/h=132) — ahora visible tras el mobiliario trasero (ver 03_refugio_hub.png).
 - Harness reutilizable: `ART_TOOLS/qa/qa_flow.mjs`, `qa_descent.mjs` (requiere `npm i playwright-core @sparticuz/chromium`; servidor estático :8123).
 - **Límite honesto:** suelos II–IX verificados a nivel de carga/asset, no en pantalla de combate real (requiere jugar pisos). LIMBO verificado en sala real (floor_00 sin regenerar). PR #31 sigue en borrador, sin merge.
+
+## 2026-11-26 · Generación 2.3 experimental (fase 3 incompleta)
+- Flag opt-in `__DD_UNIFIED_ROOM_GEOMETRY`: geometría del plan alineada con prefab compilado, excepto Hangar; versión guardada prevalece. Copia de geometría evita mutación del plan por metadatos del motor.
+- QA: 10.000 mapas comprobados en datos; seed 0 con pruebas puntuales de puertas/spawns y progresión asistida. Benchmark headless revela regresión de generación; no se habilita por defecto.
+- Sin prefabs ni arte nuevos. Faltan criterios de variedad y validación; pruebas, limitaciones, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## 2026-11-26 · Auditoría de variedad y ensayo descartado
+- Nuevo arnés de firmas de silueta/puertas, con rotaciones y reflejos; 7.516/10.000 mapas 2.2/2.3 presentan repetición entre las salas medidas, Hangar excluido.
+- Poda de filas ensayada sin cambio de resultados, descartada al no mejorar el A/B de tiempo. Sin cambios de generación en este seguimiento; evidencia y límites en la propuesta.
+
+## 2026-11-26 · Precalcular geometría de población
+- Segmentos y trigonometría se preparan por llamada para el adaptador y el validador; sin caché persistente ni cambio intencional de resultados.
+- 223.000 poblaciones comparadas idénticas; A/B headless 2.1 mejora en la muestra, pero persiste regresión de generación 2.3 frente a 2.0. Fase 3 sigue incompleta; límites y reversión en la propuesta.
+
+## 2026-11-26 · Variantes proporcionales experimentales 2.4
+- Flag opt-in `__DD_ROOM_VARIANTS_V3`: deriva proporciones deterministas de cinco prefabs existentes sin crear arte ni rotar sprites; guardados antiguos conservan su versión.
+- Auditoría de 10.000 mapas sin firmas de forma/puertas duplicadas entre salas compiladas, con Hangar excluido. No prueba variedad visual perceptible; existen sprites direccionales faltantes. Detalle y límites en la propuesta.
+
+## 2026-11-26 · Vistas cardinales y revisión visual de variantes
+- Añadidas diez vistas direccionales de mesa, sofá, monitor y panel con estados rotos cuando corresponden, diez sombras y sus pivotes; PNG RGBA generados con herramienta reproducible.
+- En dos pares capturados, las variantes 2.4 de proporción resultan prácticamente indistinguibles. El criterio de diversidad visual sigue pendiente; pruebas, límites y reversión en la propuesta.
+
+## 2026-11-26 · Entrantes de silueta experimentales 2.5
+- Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: añade entrantes de perímetro en paredes sin puertas ni anclas; guardados anteriores conservan su versión.
+- 10.000 mapas comprobados en datos, 624 salidas de configuraciones muestreadas en rejilla. Un par de capturas muestra diferencia visible; no se han validado todas las salas ni los nueve círculos. La fase 3 sigue abierta.
+
+## 2026-11-26 · Perfiles de círculo experimentales 2.6
+- Flag opt-in `__DD_CIRCLE_ROOM_PROFILES`: nueve mezclas deterministas de plantillas y tres niveles de mobiliario en salas locales 1–6; guardados anteriores conservan versión.
+- Auditoría de 10.000 mapas sin firmas duplicadas incluyendo Hangar de plan; comprobación nativa del Hangar en diez seeds y victoria asistida. Persisten regresión de generación y QA visual/natural pendientes; detalles en la propuesta.
+
+## 2026-11-26 · Inicio de QA fase 4 y corrección experimental 2.7
+- Flag opt-in `__DD_PREFAB_DECK_REPAIR`: recoloca la tarima óptica del camarote que sobresalía del perímetro, sin cambiar las versiones guardadas anteriores.
+- Auditoría 10.000 mapas/620 configuraciones: 40 esquinas fuera antes, 0 después; QA y límites en `docs/FASE_4_GENERACION_QA.md`. Fases 3 y 4 no cerradas.
+
+- QA 2026-11-26: intento de campaña natural (derrota en r0), matriz asistida de 116 capturas y perfil por etapas. Experimento de preparación compartida medido y revertido por mejora no concluyente; ninguna modificación activa de generación. Véase `docs/FASE_4_GENERACION_QA.md`.
+- QA: segundo intento natural (derrota en r0) y experimento de distancias cuadradas; se midió frente a 2.7 y 2.0 y se revirtió, sin declarar resuelta la regresión.
+- QA: búsqueda acotada y distancias combinadas, comparación de 10.000 planes 2.7 y perfil anidado de compilación. Experimento revertido: mejora parcial, todavía existe regresión frente a 2.0.
+- QA: corregido piloto natural de pulsación/liberación, una partida alcanzó r1 antes de derrota. Se midieron heap de búsqueda acotada y caché de aristas; esta se revirtió por ganancia pequeña y mayor delta de heap.
+- QA: matriz visual canvas seed 1 y comparación de tarima 2.6/2.7 sin HUD DOM; nuevo intento natural con Q y Shift terminó en r1. Sin cambios activos en generación.
+- QA: seguimiento de estados del dado y partida natural hasta r2; corrección explícita de cobertura de benchmarks previos y nuevo A/B con 1.000 pares seed/piso distintos. Experimento revertido.
+- QA: prototipo reversible de borrador físico, medición separada del coste diferido, comparación de planos y mallas; no se activó por regresión restante y validación incompleta. Piloto natural con evasión terminó en r2.
+- QA: memoria con planos retenidos, frames asistidos y dos fixtures inválidos para el prototipo diferido; guardas experimentales rechazaron ambos. Sin cambios activos en producto.
+- Generación 2.8 opt-in: reposiciona escaleras decorativas de pasillo/arena detectadas fuera de perímetro. Versiones y guardados anteriores preservados; backups y reversión verificados. Ver QA: regresión de generación y campaña natural siguen abiertas.
+- QA: auditoría de proyección y oclusión muestreada de tarimas 2.8, y nuevo intento natural con interacción de recompensas (derrota en r1). Sin cambios de producto.
+- QA: perfil por familia y por presencia de reubicación en 10.000 mapas 2.8; sin cambios de producto ni afirmación de mejora.
+- QA: búsqueda experimental por cercanía comparada y revertida; igualdad de 10.000 planes observada, sin mejora suficiente de rendimiento ni cambios de producto.

@@ -1,0 +1,29 @@
+{
+  "results": {
+    "original": {
+      "frames": {
+        "mean": 31.179166666666667,
+        "p95": 50,
+        "max": 50.099999999998545,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 394732,
+      "sampledBytes": 161168,
+      "errors": []
+    },
+    "optimized": {
+      "frames": {
+        "mean": 32.35958333333333,
+        "p95": 50,
+        "max": 50.100000000000364,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 343848,
+      "sampledBytes": 169076,
+      "errors": []
+    }
+  },
+  "note": "2.0 original versus 2.6 profiles, sequential Chromium headless software GL; one seed/room, spawns held, 240 rAF intervals. Sampling is approximate, includes app and QA activity; post-GC delta is not peak memory or leak proof."
+}

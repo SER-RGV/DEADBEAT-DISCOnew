@@ -1,0 +1,23 @@
+{
+  "result": {
+    "legacy": {
+      "mean": 0.24499999999813735,
+      "p95": 0.40000000037252903,
+      "max": 12.5,
+      "samples": 1000
+    },
+    "before": {
+      "mean": 2.4481999999955297,
+      "p95": 9.5,
+      "max": 52.299999999813735,
+      "samples": 1000
+    },
+    "after": {
+      "mean": 0.8572000000001863,
+      "p95": 3.400000000372529,
+      "max": 16.799999999813735,
+      "samples": 1000
+    }
+  },
+  "note": "Chromium headless, Matched unique seeds 10..109 for each floor (1000 distinct seed/floor pairs), 100 warmup maps/version, alternating version order; legacy and after share a page. Generation+bind, not frame/memory or GPU. Timer resolution/noise apply."
+}

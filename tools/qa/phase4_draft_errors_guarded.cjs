@@ -1,0 +1,11 @@
+// Fault injection: compare when full compiler vs experimental draft rejects invalid data.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const dir=path.resolve(__dirname,'../../src/room_generation');const source=['seed','rooms','population','floor','validate','architecture','prefabs','playable','population_compiled','topology_v3','prefab_variants','silhouette_variants','circle_profiles','deck_repair'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n');
+const catalog=structuredClone(require(path.join(dir,'prefabs/catalog.json')));const api=Function('prefabCatalog',source+';return {topologyPrototype,bindPrefabs,repairCircleDecks,playableRoom,populationRoomDraft};')(catalog);
+let index=0;
+function setup(){const p=api.repairCircleDecks(api.bindPrefabs(api.topologyPrototype(0,1)));const n=p.nodes.find(n=>n.local===9);assert(n&&n.prefab.connections.length);const id='fault-'+index++;catalog.templates[id]=structuredClone(catalog.templates[n.prefab.template]);n.prefab={...n.prefab,template:id};return {n,spec:catalog.templates[id]};}
+function result(fn){try{fn();return {outcome:'accepted'};}catch(e){return {outcome:'rejected',message:e.message};}}
+let cases=[];{
+const {n,spec}=setup(),p=spec.placements.find(p=>!catalog.assets[p.asset].solid);assert(p);p.facing='NOT-A-VIEW';cases.push({test:'bad orientation on non-solid prefab',full:result(()=>api.playableRoom(n)),draft:result(()=>api.populationRoomDraft(n))});
+}{const {n,spec}=setup(),side=n.prefab.connections[0].side,id=spec.sockets[side],i=spec.perimeter.findIndex(v=>v[0]===id),a=spec.perimeter[i],b=spec.perimeter[(i+1)%spec.perimeter.length];b[1]=a[1]+(b[1]-a[1])*.05;b[2]=a[2]+(b[2]-a[2])*.05;cases.push({test:'door socket too short',full:result(()=>api.playableRoom(n)),draft:result(()=>api.populationRoomDraft(n))});}
+assert(cases.every(x=>x.full.outcome==='rejected'&&x.draft.outcome==='rejected'&&x.full.message===x.draft.message));console.log(JSON.stringify({cases,note:'Artificial malformed catalog fixtures; exercises draft construction only, not whole generation or validation. Two crafted cases agree; not exhaustive, not a naturally generated broken room.'},null,2));

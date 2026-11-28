@@ -7,8 +7,10 @@ const SEED={dmodisco_currency_v1:"1234",dmodisco_upgrades_v1:JSON.stringify({hp:
  dmodisco_vol_v1:JSON.stringify({master:0.5,music:0.4,sfx:0.6,dj:0.3}),dmodisco_a11y_v1:JSON.stringify({gfx:"low",flash:false,shake:true}),
  dd_save_v1:JSON.stringify({v:1,created:"2026-10-01T10:00:00.000Z",last:"2026-10-02T10:00:00.000Z",visits:5}),dmo_floor_v32:JSON.stringify({v:1,seed:42,circle:3,floors:{}})};
 const dump=pg=>pg.evaluate(()=>{const o={};for(let i=0;i<localStorage.length;i++){const k=localStorage.key(i);o[k]=localStorage.getItem(k);}return o;});
-async function toMenu(pg){await pg.waitForFunction(()=>window.DD_BOOT&&DD_BOOT.getState().state==='INTRO',null,{timeout:60000});await pg.evaluate(()=>DD_OPENING.debugSeek(31.7,false));await pg.waitForFunction(()=>DD_BOOT.getState().state==='MAIN_MENU');await sleep(700);}
-async function act(pg,a){await pg.evaluate(a=>{const b=document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="'+a+'"]');b.focus();},a);await pg.keyboard.press("Enter");}
+async function toMenu(pg){await pg.waitForFunction(()=>window.DD_BOOT&&DD_BOOT.getState().state==='MAIN_MENU',null,{timeout:60000});await sleep(700);}
+async function playScene(pg){await pg.locator('#dd-menu-nav [data-action="play"]').click();await pg.waitForSelector('#dd-scene-new');}
+async function hasContinue(pg){await playScene(pg);const visible=await pg.locator('#dd-scene-continue').isVisible();await pg.keyboard.press('Escape');await pg.waitForFunction(()=>DD_BOOT.getState().state==='MAIN_MENU');return visible;}
+async function act(pg,a){if(a==='new'||a==='continue'){await playScene(pg);await pg.locator('#dd-scene-'+a).click();return;}await pg.evaluate(a=>{const b=document.querySelector('#dd-menu-nav .dd-menu-btn[data-action="'+a+'"]');b.focus();},a);await pg.keyboard.press("Enter");}
 (async()=>{const b=await chromium.launch({executablePath:process.env.DD_CHROMIUM || undefined,headless:true,args:["--no-sandbox","--disable-gpu"]});
 const cxt=await b.newContext({viewport:{width:1280,height:720}}); const pg=await cxt.newPage(); const errs=[]; pg.on("pageerror",e=>errs.push(e.message));
 await pg.goto(URL+"/index.html",{waitUntil:"domcontentloaded"});
@@ -17,7 +19,7 @@ await pg.reload({waitUntil:"domcontentloaded"}); await toMenu(pg);
 const G=await pg.evaluate(()=>({run:DD_UI.storageKeys("RUN"),perm:DD_UI.storageKeys("PERMANENT"),set:DD_UI.storageKeys("SETTINGS")}));
 const before=await dump(pg);
 check("[AUDITORÍA] toda clave sembrada pertenece a un grupo declarado (run, permanente o ajustes)",Object.keys(SEED).every(k=>G.run.concat(G.perm,G.set).includes(k)));
-check("[MENÚ] con partida guardada, CONTINUAR está disponible",await pg.evaluate(()=>!document.querySelector('[data-action="continue"]').hidden));
+check("[MENÚ] con partida guardada, CONTINUAR está disponible",await hasContinue(pg));
 /* ---- CONTINUAR */
 await act(pg,"continue"); const sawDescent=await pg.evaluate(()=>new Promise(r=>{let seen=false;const t0=performance.now();(function f(){if(DD_OPENING.isActive())seen=true;if(DD_BOOT.getState().state==='PLAYING'&&DD_HUB.isActive()||performance.now()-t0>8000)return r(seen);requestAnimationFrame(f);})();})); await sleep(500);
 let d=await dump(pg); let sv=JSON.parse(d.dd_save_v1);
@@ -32,6 +34,8 @@ const b2=await dump(pg);
 await act(pg,"new"); await pg.waitForFunction(()=>DD_OPENING.isActive());
 const mid=await dump(pg);
 check("[NUEVA PARTIDA] al pulsar no aparece ninguna confirmación de borrado ni se borra nada",G.perm.every(k=>mid[k]===b2[k])&&await pg.evaluate(()=>!document.getElementById("dd-erase-yes")));
+await pg.waitForFunction(()=>DD_OPENING.getState()?.type==='intro'); await pg.evaluate(()=>DD_OPENING.debugSeek(31.9,false));
+await pg.waitForFunction(()=>DD_OPENING.getState()?.type==='descent'); await pg.evaluate(()=>DD_OPENING.debugSeek(4.55,false));
 await pg.waitForFunction(()=>DD_BOOT.getState().state==='PLAYING'&&DD_HUB.isActive(),null,{timeout:20000}); await sleep(500);
 d=await dump(pg); sv=JSON.parse(d.dd_save_v1);
 check("[NUEVA PARTIDA] ficha nueva: fecha de creación de hoy y visitas a 1",sv.created!==JSON.parse(SEED.dd_save_v1).created&&sv.visits===1&&sv.v===1,sv.created+" · visitas "+sv.visits+" · partida nº "+sv.runs);
@@ -45,7 +49,7 @@ const hub=await pg.evaluate(()=>DD_HUB.getState());
 check("[REFUGIO] el protagonista es el IDLE 07B (PNG aprobado)",hub.protagonist==="idle_07b"&&/fidelidad\/pm_idle_fid_00\.png$/.test(hub.protagonistSrc),hub.protagonist);
 check("[REFUGIO] sin deformar: proporción 288:512 exacta",Math.abs(hub.protagonistAspect-288/512)<0.001,hub.protagonistAspect);
 const r=hub.protagonistRect, gm=await pg.evaluate(()=>{const c=document.getElementById("game");return {w:c.width,h:c.height};});
-check("[REFUGIO] se dibuja el PNG completo (288×512 a escala uniforme), no un recorte",!!r&&Math.abs(r.w/288-r.h/512)<0.001&&r.h>100&&r.h<140,JSON.stringify(r)+" · el encuadre en pantalla se revisa a ojo en las capturas");
+check("[REFUGIO] rectángulo de dibujo del PNG a escala uniforme y tamaño configurado",!!r&&Math.abs(r.w/288-r.h/512)<0.001&&Math.abs(r.h-512*134/462)<0.1,JSON.stringify(r)+" · el recorte y encuadre se revisan a ojo en las capturas");
 await pg.screenshot({path:OUT+"/refugio_idle07b_1280x720.jpg",type:"jpeg",quality:92});
 await pg.screenshot({path:OUT+"/refugio_idle07b_detalle.png",clip:{x:500,y:240,width:280,height:240}});
 await pg.keyboard.down("a"); await sleep(900); await pg.screenshot({path:OUT+"/refugio_idle07b_andando.jpg",type:"jpeg",quality:90}); await pg.keyboard.up("a");
@@ -78,7 +82,7 @@ await Promise.all([pg.waitForNavigation({waitUntil:"domcontentloaded"}),pg.click
 await toMenu(pg); cur=await dump(pg);
 check("[BORRAR DATOS] tras confirmar: partida y progreso permanente eliminados (también después de recargar)",G.run.concat(G.perm).every(k=>!(k in cur)),G.run.concat(G.perm).filter(k=>k in cur).join(",")||"12 claves fuera");
 check("[BORRAR DATOS] los ajustes siguen intactos",cur.dmodisco_vol_v1===SEED.dmodisco_vol_v1&&cur.dmodisco_a11y_v1===SEED.dmodisco_a11y_v1);
-check("[BORRAR DATOS] sin partida, CONTINUAR desaparece del menú",await pg.evaluate(()=>document.querySelector('[data-action="continue"]').hidden));
+check("[BORRAR DATOS] sin partida, CONTINUAR desaparece del menú",!(await hasContinue(pg)));
 await pg.screenshot({path:OUT+"/menu_tras_borrar_datos.jpg",type:"jpeg",quality:88});
 check("[GENERAL] sin errores de JavaScript durante la prueba",errs.length===0,errs.slice(0,2).join(" | "));
 const okN=res.filter(r=>r.ok).length; console.log("\n"+okN+" de "+res.length+" superadas");

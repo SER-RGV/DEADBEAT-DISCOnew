@@ -1,0 +1,36 @@
+// Conservative physical footprint + door signature audit of the current 2.2/2.3 prefab binding.
+// Rigid rotations/reflections, perimeter starting point and winding are normalized;
+// lift and ordinary door sockets are distinguished. Hangar is excluded explicitly.
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
+const dir=path.resolve(__dirname,'../../src/room_generation');
+const catalog=require(path.join(dir,'prefabs/catalog.json'));
+const api=Function('prefabCatalog',['seed','rooms','population','floor','validate','architecture','prefabs','playable','topology_v3'].map(n=>fs.readFileSync(path.join(dir,n+'.js'),'utf8')).join('\n')+';return {topologyPrototype,bindPrefabs,playableRoom};')(catalog);
+const count=Number(process.argv[2]||1000);assert(Number.isInteger(count)&&count>0);
+const dirs={top:[0,-1],right:[1,0],bottom:[0,1],left:[-1,0]};
+function canonical(node){
+ const spec=catalog.templates[node.prefab.template], variants=[];
+ for(let reflect=0;reflect<2;reflect++)for(let rot=0;rot<4;rot++){
+  function transform(x,y){if(reflect)x=-x;for(let i=0;i<rot;i++)[x,y]=[-y,x];return [x,y];}
+  const pts=spec.perimeter.map(([,x,y])=>transform(x,y));
+  const minX=Math.min(...pts.map(p=>p[0])),minY=Math.min(...pts.map(p=>p[1]));
+  const points=pts.map(([x,y])=>`${x-minX},${y-minY}`), loops=[];
+  for(const seq of [points,[...points].reverse()])for(let i=0;i<seq.length;i++)loops.push([...seq.slice(i),...seq.slice(0,i)].join(';'));
+  loops.sort();
+  const doors=node.prefab.connections.map(d=>{const [x,y]=transform(...dirs[d.side]);return `${x},${y},${d.lift?'lift':'door'}`;}).sort().join(';');
+  variants.push(loops[0]+'|'+doors);
+ }
+ return variants.sort()[0];
+}
+const floors={},types={},pairs={};let total=0,duplicates=0,hangar=0;
+for(let f=0;f<10;f++)for(let s=0;s<count;s++){
+ const plan=api.bindPrefabs(api.topologyPrototype(s,f)),seen=new Map();let has=false;
+ for(const node of plan.nodes){
+  if(!api.playableRoom(node)){hangar++;continue;}
+  (types[node.type] ||= new Set()).add(node.prefab.template);
+  const key=canonical(node), prior=seen.get(key);
+  if(prior){has=true;const pair=[prior.type,node.type].sort().join('+');pairs[pair]=(pairs[pair]||0)+1;}else seen.set(key,node);
+ }
+ total++;if(has)duplicates++;
+ const result=floors[f] ||= {maps:0,withDuplicate:0};result.maps++;if(has)result.withDuplicate++;
+}
+console.log(JSON.stringify({seedsPerFloor:count,maps:total,mapsWithDuplicate:duplicates,skippedHangar:hangar,floors,templatesByType:Object.fromEntries(Object.entries(types).map(([k,v])=>[k,[...v].sort()])),duplicatePairs:pairs,note:'Uses catalog perimeter in world units, canonicalized under rigid quarter-turns/reflections, loop start and winding, and door direction plus lift type. Excludes Hangar; no visual inspection, pathfinding or guarantee of interchangeable rotated artwork. Multiple repeats count relative to first signature owner.'},null,2));

@@ -1,0 +1,129 @@
+{
+  "version": "2.4.0-prototype",
+  "seedsPerFloor": 1000,
+  "maps": 10000,
+  "mapsWithDuplicate": 0,
+  "skippedHangar": 1000,
+  "floors": {
+    "0": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "1": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "2": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "3": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "4": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "5": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "6": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "7": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "8": {
+      "maps": 1000,
+      "withDuplicate": 0
+    },
+    "9": {
+      "maps": 1000,
+      "withDuplicate": 0
+    }
+  },
+  "templatesByType": {
+    "combat": [
+      "nave-quebrada--proporcion-2",
+      "nave-quebrada--proporcion-3",
+      "nave-quebrada--proporcion-8",
+      "nave-quebrada--proporcion-9",
+      "palco-profundo--proporcion-2",
+      "palco-profundo--proporcion-3",
+      "palco-profundo--proporcion-8",
+      "palco-profundo--proporcion-9",
+      "pasillo-servicio--proporcion-2",
+      "pasillo-servicio--proporcion-3",
+      "pasillo-servicio--proporcion-8",
+      "pasillo-servicio--proporcion-9"
+    ],
+    "challenge": [
+      "pasillo-servicio--proporcion-4",
+      "pasillo-servicio--proporcion-5"
+    ],
+    "event": [
+      "nave-quebrada--proporcion-6",
+      "nave-quebrada--proporcion-7",
+      "palco-profundo--proporcion-6",
+      "palco-profundo--proporcion-7",
+      "pasillo-servicio--proporcion-6",
+      "pasillo-servicio--proporcion-7"
+    ],
+    "elite": [
+      "nave-quebrada--proporcion-10",
+      "nave-quebrada--proporcion-11",
+      "palco-profundo--proporcion-10",
+      "palco-profundo--proporcion-11",
+      "pasillo-servicio--proporcion-10",
+      "pasillo-servicio--proporcion-11"
+    ],
+    "treasure": [
+      "nave-quebrada--proporcion-12",
+      "nave-quebrada--proporcion-13",
+      "palco-profundo--proporcion-12",
+      "palco-profundo--proporcion-13",
+      "pasillo-servicio--proporcion-12",
+      "pasillo-servicio--proporcion-13"
+    ],
+    "rest": [
+      "camarote--proporcion-12",
+      "camarote--proporcion-13",
+      "camarote--proporcion-18",
+      "camarote--proporcion-19"
+    ],
+    "boss": [
+      "arena-octogono--proporcion-20",
+      "arena-octogono--proporcion-21"
+    ],
+    "secret": [
+      "camarote--proporcion-14",
+      "camarote--proporcion-15"
+    ],
+    "supersecret": [
+      "camarote--proporcion-16",
+      "camarote--proporcion-17"
+    ],
+    "shop": [
+      "camarote--proporcion-22",
+      "camarote--proporcion-23"
+    ],
+    "special": [
+      "camarote--proporcion-18",
+      "camarote--proporcion-19"
+    ],
+    "start": [
+      "nave-quebrada--proporcion-0",
+      "nave-quebrada--proporcion-1",
+      "palco-profundo--proporcion-0",
+      "palco-profundo--proporcion-1",
+      "pasillo-servicio--proporcion-0",
+      "pasillo-servicio--proporcion-1"
+    ]
+  },
+  "duplicatePairs": {},
+  "note": "Uses catalog perimeter, canonicalized under quarter-turns/reflections, loop start and winding, and door direction plus lift type. Variant mode also normalizes uniform scale to six decimals; aspect-ratio changes still count, not a measure of perceptual difference. Excludes Hangar; no visual inspection, pathfinding or guarantee of interchangeable rotated artwork. Multiple repeats count relative to first signature owner."
+}

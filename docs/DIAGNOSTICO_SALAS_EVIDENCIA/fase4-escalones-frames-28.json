@@ -1,0 +1,29 @@
+{
+  "results": {
+    "original": {
+      "frames": {
+        "mean": 31.73458333333333,
+        "p95": 50,
+        "max": 66.60000000000036,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 308696,
+      "sampledBytes": 73788,
+      "errors": []
+    },
+    "optimized": {
+      "frames": {
+        "mean": 31.526250000000005,
+        "p95": 33.400000000001455,
+        "max": 50,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 272864,
+      "sampledBytes": 66360,
+      "errors": []
+    }
+  },
+  "note": "2.7 original versus 2.8 stair repair, sequential Chromium headless software GL; one seed and affected room r6, spawns held, 240 rAF intervals. Sampling is approximate, includes app and QA activity; post-GC delta is not peak memory or leak proof."
+}

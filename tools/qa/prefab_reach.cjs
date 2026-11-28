@@ -99,7 +99,31 @@ const PROBE = `(() => {
     const p = await browser.newPage({ viewport: { width: 1280, height: 800 } }),
       errors = [];
     p.on("pageerror", (e) => errors.push(e.message));
+    if (process.env.DD_TOPOLOGY_V3 === "1")
+      await p.addInitScript(() => { window.__DD_ROOM_TOPOLOGY_V3 = true; });
+    if (process.env.DD_UNIFIED_GEOMETRY === "1")
+      await p.addInitScript(() => { window.__DD_UNIFIED_ROOM_GEOMETRY = true; });
+    if (process.env.DD_ROOM_VARIANTS === "1")
+      await p.addInitScript(() => { window.__DD_ROOM_VARIANTS_V3 = true; });
+    if (process.env.DD_ROOM_SILHOUETTES === "1")
+      await p.addInitScript(() => { window.__DD_ROOM_SILHOUETTES_V3 = true; });
+    if (process.env.DD_CIRCLE_PROFILES === "1")
+      await p.addInitScript(() => { window.__DD_CIRCLE_ROOM_PROFILES = true; });
+    if (process.env.DD_DECK_REPAIR === "1")
+      await p.addInitScript(() => { window.__DD_PREFAB_DECK_REPAIR = true; });
     await p.goto((process.argv[2] || "http://localhost:8000") + "/?roomDebug&roomSeed=0");
+    if (process.env.DD_DECK_REPAIR === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.7.0");
+    else if (process.env.DD_CIRCLE_PROFILES === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.6.0");
+    else if (process.env.DD_ROOM_SILHOUETTES === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.5.0");
+    else if (process.env.DD_ROOM_VARIANTS === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.4.0");
+    else if (process.env.DD_UNIFIED_GEOMETRY === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.3.0");
+    else if (process.env.DD_TOPOLOGY_V3 === "1")
+      assert.equal(await p.evaluate(() => DD_ROOM_GENERATION.version), "2.2.0");
     await p.waitForFunction(() => window.DD_BOOT?.getState().state === "MAIN_MENU");
     await p.evaluate(() => {
       DD_HUB.enter();
@@ -137,11 +161,12 @@ const PROBE = `(() => {
         for (const d of r.doors) if (!d.ok) broken.push(key + " → " + d.to + (d.lift ? " (lift)" : ""));
       }
     }
-    assert.equal(rooms, 108, "walked " + rooms + " rooms, expected 108");
+    const expectedRooms = process.env.DD_TOPOLOGY_V3 === "1" || process.env.DD_UNIFIED_GEOMETRY === "1" || process.env.DD_ROOM_VARIANTS === "1" || process.env.DD_ROOM_SILHOUETTES === "1" || process.env.DD_CIRCLE_PROFILES === "1" || process.env.DD_DECK_REPAIR === "1" ? 115 : 108;
+    assert.equal(rooms, expectedRooms, "walked " + rooms + " rooms, expected " + expectedRooms);
     assert.deepEqual(broken, [], "unreachable exits: " + broken.join(", "));
     assert.deepEqual(errors, []);
     console.log(
-      "PASS every door reachable from the spawn in 108 rooms (" +
+      "PASS every door reachable from the spawn in " + rooms + " rooms (" +
         doors +
         " exits, " +
         Object.entries(perHouse).map(([h, n]) => h + " " + n).join(", ") +

@@ -1,0 +1,407 @@
+{
+  "mode": "2.7.0",
+  "actions": "UI, keyboard, pointer only; no debug or taint overrides",
+  "steps": [
+    "menu",
+    "hub via menu and cinematic skips",
+    "entered run using descent station"
+  ],
+  "errors": [],
+  "visited": [
+    {
+      "key": "r0",
+      "floor": 0,
+      "completed": 0,
+      "hp": 3
+    }
+  ],
+  "outcome": "defeat",
+  "hub": {
+    "active": true,
+    "practice": null,
+    "zones": [
+      "salon",
+      "habitacion",
+      "arsenal",
+      "archivo",
+      "taller",
+      "residentes",
+      "descanso",
+      "galeria",
+      "acceso"
+    ],
+    "x": 1790,
+    "y": 416,
+    "nearStation": "descent",
+    "bounds": {
+      "x": 260,
+      "y": 290,
+      "w": 3120,
+      "h": 1900
+    },
+    "stations": [
+      "armory",
+      "upgrades",
+      "armorer",
+      "practice",
+      "workshop",
+      "dj",
+      "mix",
+      "bar",
+      "rest",
+      "map",
+      "ledger",
+      "gallery",
+      "bedroom",
+      "keepsake",
+      "prepare",
+      "descent"
+    ],
+    "protagonist": "pm_walk_01",
+    "walking": true,
+    "walkFrame": 3,
+    "facingLeft": false,
+    "protagonistSrc": "assets/characters/protagonist_master/walk/pm_walk_01.png",
+    "protagonistRect": {
+      "x": 1749.4,
+      "y": 286,
+      "w": 83.53,
+      "h": 148.5
+    },
+    "protagonistAspect": 0.5625
+  },
+  "actualVersion": "2.7.0",
+  "last": {
+    "snapshot": {
+      "running": true,
+      "paused": false,
+      "dead": true,
+      "circle": 0,
+      "room": 0,
+      "globalRoom": 1,
+      "roomName": "Vestíbulo de pista",
+      "roomBanner": "Vestíbulo de pista · CÍRCULO I · LIMBO",
+      "hp": 0,
+      "maxHp": 3,
+      "shield": 0,
+      "rave": 0,
+      "raveDuration": 6,
+      "raveMeter": 73.07124999999999,
+      "credits": 234,
+      "level": 2,
+      "bombs": 3,
+      "boosts": 3,
+      "rollKey": "Space",
+      "weapon": "m1911",
+      "weaponName": "M1911",
+      "owned": [
+        "m1911"
+      ],
+      "bossActive": false,
+      "boss": null,
+      "player": {
+        "x": 1529.6762979717018,
+        "y": 995.0620229323913,
+        "aimAngle": -1.8437807820549201
+      },
+      "roomRect": {
+        "x": 660,
+        "y": 335,
+        "w": 1180,
+        "h": 1180
+      },
+      "doors": [
+        {
+          "x": 1804.6,
+          "y": 985.6683750626795,
+          "open": false
+        },
+        {
+          "x": 1184.441474120722,
+          "y": 1479.6,
+          "open": false
+        },
+        {
+          "x": 695.4,
+          "y": 914.8255296588997,
+          "open": false
+        }
+      ],
+      "enemies": [
+        {
+          "x": 1526.2381279056754,
+          "y": 1049.0810016835517
+        },
+        {
+          "x": 1406.8395098519698,
+          "y": 839.1107992742446
+        },
+        {
+          "x": 1433.847353171941,
+          "y": 1094.9039953080432
+        },
+        {
+          "x": 1389.9758775663838,
+          "y": 964.9239130886317
+        },
+        {
+          "x": 1520.5980570904328,
+          "y": 932.9589949919008
+        },
+        {
+          "x": 1304.7323123091253,
+          "y": 651.5630007335901
+        },
+        {
+          "x": 1673.181220316537,
+          "y": 1090.9962680720548
+        },
+        {
+          "x": 1552.1252966919437,
+          "y": 988.275385816563
+        },
+        {
+          "x": 1461.051923803375,
+          "y": 1187.3896083671336
+        },
+        {
+          "x": 1662.551869894042,
+          "y": 823.9154235775353
+        },
+        {
+          "x": 1404.7287198021488,
+          "y": 1204.4603753981753
+        },
+        {
+          "x": 1193.1726002073265,
+          "y": 1030.5327204829905
+        }
+      ]
+    },
+    "survey": {
+      "key": "r0",
+      "floor": 0,
+      "encounter": "VESTÍBULO DE TURNOS",
+      "elite": false,
+      "poly": [
+        {
+          "x": 695.4,
+          "y": 370.4
+        },
+        {
+          "x": 1804.6,
+          "y": 370.4
+        },
+        {
+          "x": 1804.6,
+          "y": 1479.6
+        },
+        {
+          "x": 695.4,
+          "y": 1479.6
+        }
+      ],
+      "player": {
+        "x": 1529.6762979717018,
+        "y": 995.0620229323913
+      },
+      "nodes": [
+        {
+          "key": "r0",
+          "x": 0,
+          "y": 0,
+          "room": 1,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "s0"
+            }
+          ]
+        },
+        {
+          "key": "r1",
+          "x": 1,
+          "y": 0,
+          "room": 2,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r4"
+            }
+          ]
+        },
+        {
+          "key": "r3",
+          "x": 0,
+          "y": 1,
+          "room": 4,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r7"
+            },
+            {
+              "to": "r8"
+            }
+          ]
+        },
+        {
+          "key": "s0",
+          "x": -1,
+          "y": 0,
+          "room": 12,
+          "shop": true,
+          "boss": false,
+          "visited": false,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            }
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "to": "r1",
+          "x": 1804.6,
+          "y": 985.6683750626795,
+          "label": "SALA 02",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r3",
+          "x": 1184.441474120722,
+          "y": 1479.6,
+          "label": "SALA 04",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "s0",
+          "x": 695.4,
+          "y": 914.8255296588997,
+          "label": "TIENDA · LA CABINA · A 1 SALA",
+          "lift": false,
+          "open": false
+        }
+      ],
+      "props": [
+        {
+          "x": 972.4878071536077,
+          "y": 662.7334173658862
+        },
+        {
+          "x": 1528.8885710651055,
+          "y": 650.5405184751377
+        },
+        {
+          "x": 985.9151793139987,
+          "y": 1178.522166145593
+        },
+        {
+          "x": 1366,
+          "y": 1161
+        },
+        {
+          "x": 1576.8375478046612,
+          "y": 867.9992162770033
+        },
+        {
+          "x": 839.5874807994962,
+          "y": 693.739012333034
+        }
+      ],
+      "enemies": [
+        {
+          "x": 1526.2381279056754,
+          "y": 1049.0810016835517
+        },
+        {
+          "x": 1406.8395098519698,
+          "y": 839.1107992742446
+        },
+        {
+          "x": 1433.847353171941,
+          "y": 1094.9039953080432
+        },
+        {
+          "x": 1389.9758775663838,
+          "y": 964.9239130886317
+        },
+        {
+          "x": 1520.5980570904328,
+          "y": 932.9589949919008
+        },
+        {
+          "x": 1304.7323123091253,
+          "y": 651.5630007335901
+        },
+        {
+          "x": 1673.181220316537,
+          "y": 1090.9962680720548
+        },
+        {
+          "x": 1552.1252966919437,
+          "y": 988.275385816563
+        },
+        {
+          "x": 1461.051923803375,
+          "y": 1187.3896083671336
+        },
+        {
+          "x": 1662.551869894042,
+          "y": 823.9154235775353
+        },
+        {
+          "x": 1404.7287198021488,
+          "y": 1204.4603753981753
+        },
+        {
+          "x": 1193.1726002073265,
+          "y": 1030.5327204829905
+        }
+      ],
+      "boss": null,
+      "rewards": [],
+      "marks": [
+        {
+          "x": 1580,
+          "y": 765
+        }
+      ],
+      "objectives": [],
+      "completed": 0,
+      "total": 11
+    }
+  },
+  "elapsedSeconds": 26
+}

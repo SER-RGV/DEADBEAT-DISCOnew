@@ -1,0 +1,28 @@
+diff --git a/src/room_generation/prefabs.js b/src/room_generation/prefabs.js
+index f8662e8..85956ac 100644
+--- a/src/room_generation/prefabs.js
++++ b/src/room_generation/prefabs.js
+@@ -26,10 +26,13 @@ function bindPrefabs(plan) {
+   }
+   return plan;
+ }
++const templateEdgeCache = new WeakMap();
+ function instantiatePrefab(node) {
+   const spec = prefabCatalog.templates[node.prefab.template],
+     loop = spec.perimeter;
+-  const edges = loop.map(([id, x, y, height], i) => {
++  let edges = templateEdgeCache.get(spec);
++  if (!edges) {
++  edges = loop.map(([id, x, y, height], i) => {
+     const [, u, v] = loop[(i + 1) % loop.length],
+       dx = u - x,
+       dy = v - y,
+@@ -45,6 +48,8 @@ function instantiatePrefab(node) {
+       ny: dx / len,
+     };
+   });
++  templateEdgeCache.set(spec, edges);
++  }
+   const edge = (id) => {
+     const e = edges.find((e) => e.id === id);
+     if (!e) throw Error("missing anchor " + id);

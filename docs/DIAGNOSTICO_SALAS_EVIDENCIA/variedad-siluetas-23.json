@@ -1,0 +1,106 @@
+{
+  "seedsPerFloor": 1000,
+  "maps": 10000,
+  "mapsWithDuplicate": 7516,
+  "skippedHangar": 1000,
+  "floors": {
+    "0": {
+      "maps": 1000,
+      "withDuplicate": 693
+    },
+    "1": {
+      "maps": 1000,
+      "withDuplicate": 861
+    },
+    "2": {
+      "maps": 1000,
+      "withDuplicate": 871
+    },
+    "3": {
+      "maps": 1000,
+      "withDuplicate": 852
+    },
+    "4": {
+      "maps": 1000,
+      "withDuplicate": 849
+    },
+    "5": {
+      "maps": 1000,
+      "withDuplicate": 836
+    },
+    "6": {
+      "maps": 1000,
+      "withDuplicate": 852
+    },
+    "7": {
+      "maps": 1000,
+      "withDuplicate": 842
+    },
+    "8": {
+      "maps": 1000,
+      "withDuplicate": 860
+    },
+    "9": {
+      "maps": 1000,
+      "withDuplicate": 0
+    }
+  },
+  "templatesByType": {
+    "combat": [
+      "nave-quebrada",
+      "palco-profundo",
+      "pasillo-servicio"
+    ],
+    "challenge": [
+      "pasillo-servicio"
+    ],
+    "event": [
+      "nave-quebrada",
+      "palco-profundo",
+      "pasillo-servicio"
+    ],
+    "elite": [
+      "nave-quebrada",
+      "palco-profundo",
+      "pasillo-servicio"
+    ],
+    "treasure": [
+      "nave-quebrada",
+      "palco-profundo",
+      "pasillo-servicio"
+    ],
+    "rest": [
+      "camarote"
+    ],
+    "boss": [
+      "arena-octogono"
+    ],
+    "secret": [
+      "camarote"
+    ],
+    "supersecret": [
+      "camarote"
+    ],
+    "shop": [
+      "camarote"
+    ],
+    "special": [
+      "camarote"
+    ],
+    "start": [
+      "nave-quebrada",
+      "palco-profundo",
+      "pasillo-servicio"
+    ]
+  },
+  "duplicatePairs": {
+    "challenge+elite": 1280,
+    "combat+combat": 2556,
+    "secret+shop": 4432,
+    "elite+event": 725,
+    "elite+start": 1338,
+    "combat+start": 2606,
+    "challenge+start": 672
+  },
+  "note": "Uses catalog perimeter in world units, canonicalized under rigid quarter-turns/reflections, loop start and winding, and door direction plus lift type. Excludes Hangar; no visual inspection, pathfinding or guarantee of interchangeable rotated artwork. Multiple repeats count relative to first signature owner."
+}

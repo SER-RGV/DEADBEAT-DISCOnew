@@ -1,0 +1,43 @@
+diff --git a/src/room_generation/population_compiled.js b/src/room_generation/population_compiled.js
+index 5d2fadc..991948b 100644
+--- a/src/room_generation/population_compiled.js
++++ b/src/room_generation/population_compiled.js
+@@ -61,26 +61,19 @@ function adaptPopulationCompiled(population, compiled) {
+     if (safe(p, radius, offsets)) return {...p};
+     let best = null, bestDist = Infinity;
+     const axis = populationCompiledAxis;
+-    const nearest = value => axis.reduce((best, v, i) => Math.abs(v - value) < Math.abs(axis[best] - value) ? i : best, 0);
+-    const cx = nearest(p.x), cy = nearest(p.y);
+-    // Find a nearby safe upper bound first; no candidate list survives this call.
+-    for (let ring = 0; ring < axis.length && !best; ring++) {
+-      for (let iy = Math.max(0, cy - ring); iy <= Math.min(axis.length - 1, cy + ring) && !best; iy++)
+-        for (let ix = Math.max(0, cx - ring); ix <= Math.min(axis.length - 1, cx + ring); ix++) {
+-          if (Math.max(Math.abs(ix - cx), Math.abs(iy - cy)) !== ring) continue;
+-          const x = axis[ix], y = axis[iy];
+-          if (safe({x, y}, radius, offsets)) {
+-            best = {x, y};
+-            bestDist = ((x - p.x) * geometry.w) ** 2 + ((y - p.y) * geometry.h) ** 2;
+-            break;
+-          }
++    // Enumerate nearest rows and columns first. A component alone is a lower
++    // bound on squared distance; inspect ties to preserve row-major selection.
++    const xs = axis.map(x => ({v:x, d:((x-p.x)*geometry.w)**2})).sort((a,b)=>a.d-b.d || a.v-b.v);
++    const ys = axis.map(y => ({v:y, d:((y-p.y)*geometry.h)**2})).sort((a,b)=>a.d-b.d || a.v-b.v);
++    for (const yy of ys) {
++      if (yy.d > bestDist) break;
++      for (const xx of xs) {
++        const d = xx.d + yy.d;
++        if (d > bestDist) break;
++        const x=xx.v,y=yy.v;
++        if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
++          best={x,y}; bestDist=d;
+         }
+-    }
+-    // Verify the true nearest point and preserve the original row-major tie.
+-    for (const y of axis) for (const x of axis) {
+-      const d = ((x - p.x) * geometry.w) ** 2 + ((y - p.y) * geometry.h) ** 2;
+-      if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
+-        best = {x, y}; bestDist = d;
+       }
+     }
+     if (!best) throw Error('no safe candidate for compiled prefab');

@@ -1,0 +1,648 @@
+{
+  "mode": "2.7.0",
+  "actions": "UI, keyboard, pointer only; no debug or taint overrides",
+  "steps": [
+    "menu",
+    "hub via menu and cinematic skips",
+    "entered run using descent station"
+  ],
+  "errors": [],
+  "visited": [
+    {
+      "key": "r0",
+      "floor": 0,
+      "completed": 0,
+      "hp": 3
+    },
+    {
+      "key": "r1",
+      "floor": 0,
+      "completed": 1,
+      "hp": 3
+    }
+  ],
+  "outcome": "defeat",
+  "hub": {
+    "active": true,
+    "practice": null,
+    "zones": [
+      "salon",
+      "habitacion",
+      "arsenal",
+      "archivo",
+      "taller",
+      "residentes",
+      "descanso",
+      "galeria",
+      "acceso"
+    ],
+    "x": 1790,
+    "y": 455,
+    "nearStation": "descent",
+    "bounds": {
+      "x": 260,
+      "y": 290,
+      "w": 3120,
+      "h": 1900
+    },
+    "stations": [
+      "armory",
+      "upgrades",
+      "armorer",
+      "practice",
+      "workshop",
+      "dj",
+      "mix",
+      "bar",
+      "rest",
+      "map",
+      "ledger",
+      "gallery",
+      "bedroom",
+      "keepsake",
+      "prepare",
+      "descent"
+    ],
+    "protagonist": "pm_walk_02",
+    "walking": true,
+    "walkFrame": 2,
+    "facingLeft": false,
+    "protagonistSrc": "assets/characters/protagonist_master/walk/pm_walk_02.png",
+    "protagonistRect": {
+      "x": 1749.4,
+      "y": 324.8,
+      "w": 83.53,
+      "h": 148.5
+    },
+    "protagonistAspect": 0.5625
+  },
+  "actualVersion": "2.7.0",
+  "shots": 119,
+  "bulletSamples": 0,
+  "maxPlayerBullets": 0,
+  "cleared": [
+    "0:s0",
+    "0:r0"
+  ],
+  "detours": 0,
+  "last": {
+    "snapshot": {
+      "running": true,
+      "paused": false,
+      "dead": true,
+      "circle": 0,
+      "room": 1,
+      "globalRoom": 2,
+      "roomName": "Pista de baile",
+      "roomBanner": "Pista de baile · CÍRCULO I · LIMBO",
+      "hp": 0,
+      "maxHp": 3,
+      "shield": 0,
+      "rave": 0,
+      "raveDuration": 6.821429999999999,
+      "raveMeter": 0,
+      "credits": 900,
+      "level": 3,
+      "bombs": 3,
+      "boosts": 3,
+      "rollKey": "Space",
+      "weapon": "m1911",
+      "weaponName": "M1911",
+      "owned": [
+        "m1911"
+      ],
+      "bossActive": false,
+      "boss": null,
+      "player": {
+        "x": 1848.8743862282276,
+        "y": 1044.4496282186124,
+        "aimAngle": 2.763789760654938
+      },
+      "roomRect": {
+        "x": 630,
+        "y": 540,
+        "w": 1239.04,
+        "h": 770
+      },
+      "doors": [
+        {
+          "x": 1869.04,
+          "y": 890,
+          "open": false
+        },
+        {
+          "x": 1328.8799999999999,
+          "y": 1310,
+          "open": false
+        },
+        {
+          "x": 630,
+          "y": 965,
+          "open": false
+        }
+      ],
+      "enemies": [
+        {
+          "x": 1675.475675321335,
+          "y": 971.9265933345395
+        },
+        {
+          "x": 1628.5615768717676,
+          "y": 983.1771297700313
+        },
+        {
+          "x": 1642.6754895591941,
+          "y": 761.5667262992681
+        },
+        {
+          "x": 1803.0276802346507,
+          "y": 691.345419569467
+        },
+        {
+          "x": 1722.718804711661,
+          "y": 1205.468239966567
+        },
+        {
+          "x": 1575.3970905753006,
+          "y": 757.7851334524088
+        },
+        {
+          "x": 1853.1292931140592,
+          "y": 1021.3236425984019
+        }
+      ]
+    },
+    "survey": {
+      "key": "r1",
+      "floor": 0,
+      "encounter": "PATIO DE ARMAS",
+      "elite": false,
+      "poly": [
+        {
+          "x": 957.6800000000001,
+          "y": 540
+        },
+        {
+          "x": 1541.3600000000001,
+          "y": 540
+        },
+        {
+          "x": 1541.3600000000001,
+          "y": 625
+        },
+        {
+          "x": 1828.08,
+          "y": 625
+        },
+        {
+          "x": 1869.04,
+          "y": 665
+        },
+        {
+          "x": 1869.04,
+          "y": 1115
+        },
+        {
+          "x": 1766.64,
+          "y": 1115
+        },
+        {
+          "x": 1766.64,
+          "y": 1255
+        },
+        {
+          "x": 1710.32,
+          "y": 1310
+        },
+        {
+          "x": 947.4399999999999,
+          "y": 1310
+        },
+        {
+          "x": 947.4399999999999,
+          "y": 1230
+        },
+        {
+          "x": 696.56,
+          "y": 1230
+        },
+        {
+          "x": 630,
+          "y": 1165
+        },
+        {
+          "x": 630,
+          "y": 765
+        },
+        {
+          "x": 752.88,
+          "y": 765
+        },
+        {
+          "x": 752.88,
+          "y": 640
+        },
+        {
+          "x": 957.6800000000001,
+          "y": 640
+        }
+      ],
+      "player": {
+        "x": 1848.8743862282276,
+        "y": 1044.4496282186124
+      },
+      "nodes": [
+        {
+          "key": "r0",
+          "x": 0,
+          "y": 0,
+          "room": 1,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "r7"
+            },
+            {
+              "to": "s0"
+            }
+          ]
+        },
+        {
+          "key": "r1",
+          "x": -1,
+          "y": 0,
+          "room": 2,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r4"
+            }
+          ]
+        },
+        {
+          "key": "r2",
+          "x": -1,
+          "y": 1,
+          "room": 3,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "r5"
+            }
+          ]
+        },
+        {
+          "key": "r3",
+          "x": 0,
+          "y": 1,
+          "room": 4,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r8"
+            }
+          ]
+        },
+        {
+          "key": "r4",
+          "x": -2,
+          "y": 0,
+          "room": 5,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r5"
+            },
+            {
+              "to": "r9"
+            }
+          ]
+        },
+        {
+          "key": "s0",
+          "x": 1,
+          "y": 0,
+          "room": 12,
+          "shop": true,
+          "boss": false,
+          "visited": false,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            }
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "to": "r0",
+          "x": 1869.04,
+          "y": 890,
+          "label": "SALA 01",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r2",
+          "x": 1328.8799999999999,
+          "y": 1310,
+          "label": "SALA 03",
+          "lift": false,
+          "open": false
+        },
+        {
+          "to": "r4",
+          "x": 630,
+          "y": 965,
+          "label": "SALA 05",
+          "lift": false,
+          "open": false
+        }
+      ],
+      "props": [
+        {
+          "x": 1684.72,
+          "y": 675
+        },
+        {
+          "x": 796.912,
+          "y": 1125
+        },
+        {
+          "x": 1671.64,
+          "y": 1199
+        }
+      ],
+      "enemies": [
+        {
+          "x": 1675.475675321335,
+          "y": 971.9265933345395
+        },
+        {
+          "x": 1628.5615768717676,
+          "y": 983.1771297700313
+        },
+        {
+          "x": 1642.6754895591941,
+          "y": 761.5667262992681
+        },
+        {
+          "x": 1803.0276802346507,
+          "y": 691.345419569467
+        },
+        {
+          "x": 1722.718804711661,
+          "y": 1205.468239966567
+        },
+        {
+          "x": 1575.3970905753006,
+          "y": 757.7851334524088
+        },
+        {
+          "x": 1853.1292931140592,
+          "y": 1021.3236425984019
+        }
+      ],
+      "boss": null,
+      "rewards": [
+        {
+          "x": 1593.9365105688914,
+          "y": 768.2983892645833
+        },
+        {
+          "x": 1607.9493681671854,
+          "y": 785.8055462782808
+        },
+        {
+          "x": 1658.5342407219466,
+          "y": 897.2021769571804
+        }
+      ],
+      "marks": [
+        {
+          "x": 920,
+          "y": 1130
+        }
+      ],
+      "objectives": [],
+      "completed": 1,
+      "total": 11
+    },
+    "actors": {
+      "time": 95.06959999999916,
+      "circle": 0,
+      "player": {
+        "x": 1848.8743862282276,
+        "y": 1044.4496282186124,
+        "r": 14,
+        "aim": 2.763789760654938
+      },
+      "enemies": [
+        {
+          "x": 1675.475675321335,
+          "y": 971.9265933345395,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1628.5615768717676,
+          "y": 983.1771297700313,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "windup",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1642.6754895591941,
+          "y": 761.5667262992681,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1803.0276802346507,
+          "y": 691.345419569467,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1722.718804711661,
+          "y": 1205.468239966567,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1575.3970905753006,
+          "y": 757.7851334524088,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": null,
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "walk",
+          "flip": false,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        },
+        {
+          "x": 1853.1292931140592,
+          "y": 1021.3236425984019,
+          "r": 12,
+          "type": "dancer",
+          "elite": false,
+          "mini": false,
+          "guardian": false,
+          "st": "chase",
+          "mState": "roam",
+          "hp": 1,
+          "maxHp": 1,
+          "variant": null,
+          "family": "security",
+          "state": "attack",
+          "flip": true,
+          "flash": 0,
+          "marker": null,
+          "frozen": false
+        }
+      ],
+      "deaths": [
+        {
+          "x": 1809.1054811478448,
+          "y": 810.6090977524879,
+          "r": 12,
+          "family": "security",
+          "age": 0.3444000000000087,
+          "duration": 0.6
+        },
+        {
+          "x": 1834.753910313708,
+          "y": 863.2218746607166,
+          "r": 12,
+          "family": "security",
+          "age": 0.3444000000000087,
+          "duration": 0.6
+        }
+      ],
+      "bullets": [],
+      "enemyBullets": []
+    }
+  },
+  "elapsedSeconds": 95
+}

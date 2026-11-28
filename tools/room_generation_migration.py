@@ -13,14 +13,40 @@ def migrate(html, root):
     # Replace whole legacy graph/shell functions in the protected monolith. Keep
     # its collision solver, world-to-wall door projection and encounter controllers.
     rg_dir = Path(root) / "src/room_generation"
-    rg_source = "\n".join((rg_dir / name).read_text() for name in ("seed.js", "rooms.js", "population.js", "floor.js", "validate.js", "debug.js", "architecture.js", "pilot_perf.js", "prefabs.js", "playable.js"))
+    rg_source = "\n".join((rg_dir / name).read_text() for name in ("seed.js", "rooms.js", "population.js", "floor.js", "validate.js", "debug.js", "architecture.js", "pilot_perf.js", "prefabs.js", "playable.js", "population_compiled.js", "topology_v3.js", "prefab_variants.js", "silhouette_variants.js", "circle_profiles.js", "deck_repair.js", "stair_repair.js"))
     rg_source = "const prefabCatalog=" + json.dumps(json.loads((rg_dir / "prefabs/catalog.json").read_text()), separators=(",", ":")) + ";\n" + rg_source
     start, end = html.index("function rg(e)"), html.index("function lg(e)")
-    html = html[:start] + "function ng(index,shop,install){const f=Xe(index+1),n=ug(f).nodes.find(n=>shop?n.shop:n.index===index&&!n.shop);const draft=roomGeneration.playableRoom(n);if(install)nativePrefab=draft;return draft?draft.geometry:{...n.geometry};}" + html[end:]
+    html = html[:start] + "function ng(index,shop,install){const f=Xe(index+1),n=ug(f).nodes.find(n=>shop?n.shop:n.index===index&&!n.shop);const draft=roomGeneration.playableRoom(n);if(install)nativePrefab=draft;return draft?([\"2.3.0\",\"2.4.0\",\"2.5.0\",\"2.6.0\",\"2.7.0\",\"2.8.0\"].includes(roomGeneration.version)?{...draft.geometry}:draft.geometry):{...n.geometry};}" + html[end:]
     start,end = html.index("function ug(e)"),html.index("function pg()")
     html = html[:start] + "function ug(f){if(!Ot.graphs.has(f))Ot.graphs.set(f,roomGeneration.generate(Yo.seed,f));return Ot.graphs.get(f);}" + html[end:]
     # Os(0) runs during engine initialization; initialize the module before it.
-    replace('<head>', '<head><script>window.DD_ROOM_GENERATION=(()=>{'+rg_source+';return Object.freeze({playableRoom,generate:(s,f)=>bindPrefabs(generate(s,f)),hangarShell:(key,edges,doors)=>compileArchitecture({key,edges,doors,props:[],spawns:[]}),...(new URLSearchParams(location.search).has("roomDebug")?{visualize,compileArchitecture,createPilotPerf,instantiatePrefab}:{})});})();</script>')
+    replace('<head>', '<head><script>window.DD_ROOM_GENERATION=(()=>{'+rg_source+''';
+const legacyVersion="2.0.0", adaptedVersion="2.1.0", topologyVersion="2.2.0", unifiedVersion="2.3.0", variantsVersion="2.4.0", silhouetteVersion="2.5.0", profileVersion="2.6.0", repairVersion="2.7.0", stairVersion="2.8.0";
+// Keep a saved layout on its original generator, including old saves lacking a version.
+// This is latched at boot, not toggled during a run.
+let savedVersion=null;
+try { const raw=localStorage.getItem("dmo_floor_v32"); if(raw){const saved=JSON.parse(raw); if(saved && saved.v===1) savedVersion=saved.generatorVersion || legacyVersion;} } catch(e) {}
+if(savedVersion && ![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion,stairVersion].includes(savedVersion)) throw Error("Unsupported room generator version: "+savedVersion);
+const selectedVersion=savedVersion || (window.__DD_PREFAB_STAIR_REPAIR===true ? stairVersion : window.__DD_PREFAB_DECK_REPAIR===true ? repairVersion : window.__DD_CIRCLE_ROOM_PROFILES===true ? profileVersion : window.__DD_ROOM_SILHOUETTES_V3===true ? silhouetteVersion : window.__DD_ROOM_VARIANTS_V3===true ? variantsVersion : window.__DD_UNIFIED_ROOM_GEOMETRY===true ? unifiedVersion : window.__DD_ROOM_TOPOLOGY_V3===true ? topologyVersion : window.__DD_ROOM_SPAWN_GUARDS===true ? adaptedVersion : legacyVersion);
+function generateVersioned(s,f,version=selectedVersion){
+  if(![legacyVersion,adaptedVersion,topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion,stairVersion].includes(version)) throw Error("Unsupported room generator version: "+version);
+  const plan=bindPrefabs([topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion,stairVersion].includes(version) ? topologyPrototype(s,f) : generate(s,f));
+  if(version===variantsVersion) bindPrefabVariants(plan);
+  if(version===silhouetteVersion) bindSilhouetteVariants(plan);
+  if(version===profileVersion) bindCircleProfiles(plan);
+  if(version===repairVersion) repairCircleDecks(plan);
+  if(version===stairVersion) repairPrefabStairs(plan);
+  if(version!==legacyVersion){
+    for(const node of plan.nodes){
+      const compiled=playableRoom(node);if(!compiled)continue;
+      node.population=adaptPopulationCompiled(node.population,compiled);validatePopulationCompiled(node.population,compiled);
+      if([unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion,stairVersion].includes(version)) node.geometry=compiled.geometry;
+    }
+    plan.version=version;
+  }
+  return plan;
+}
+return Object.freeze({version:selectedVersion,topologyEnabled:[topologyVersion,unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion,stairVersion].includes(selectedVersion),playableRoom,generate:generateVersioned,hangarShell:(key,edges,doors)=>compileArchitecture({key,edges,doors,props:[],spawns:[]}),...(new URLSearchParams(location.search).has("roomDebug")?{visualize,compileArchitecture,createPilotPerf,instantiatePrefab}:{})});})();</script>''')
     replace('function Os(e){','let nativePrefab=null;const roomGeneration=window.DD_ROOM_GENERATION;function Os(e){')
     replace('ng=function(e,a){const t=NA(e,a),','ng=function(e,a,install){const t=NA(e,a,install),')
     replace('function Um(){const e={made:0','function Um(){if(nativePrefab)return 0;const e={made:0')
@@ -28,9 +54,16 @@ def migrate(html, root):
     replace('function cg(e,a){','function cg(e,a){if(nativePrefab){const edge=Rs.edges[nativePrefab.sockets[e]],wallX=edge.a.x+edge.dx/2,wallY=edge.a.y+edge.dy/2;return {side:e,edge,wallX,wallY,x:wallX+edge.nx*(a||0),y:wallY+edge.ny*(a||0),nx:edge.nx,ny:edge.ny,tx:edge.dx/edge.len,ty:edge.dy/edge.len};}')
     replace('r&&!t&&Wo>=3&&(Gr.encoreOffer||Math.random()<.24)', 'r&&!t&&Wo>=3&&(Gr.encoreOffer||o.type==="event")')
     replace('gg()&&function(){if(!Ot.enabled)', 'r&&["treasure","secret","supersecret","special"].includes(o.type)&&Qh(Wo,o.type==="supersecret"?"reserve":"route"),gg()&&function(){if(!Ot.enabled)')
-    replace('function Mg(e){', 'function mandatoryClear(boss){return ug(Ot.floor).nodes.filter(n=>!n.shop&&!["secret","supersecret"].includes(n.type)&&(boss||n.local!==10)).every(hg)}function Mg(e){')
+    replace('function Mg(e){', 'function mandatoryClear(boss){return ug(Ot.floor).nodes.filter(n=>!n.shop&&!["secret","supersecret"].includes(n.type)&&(boss||n.local!==10)).every(hg)}function allMandatoryClearedV3(){for(let f=0;f<=9;f++){if(!ug(f).nodes.filter(n=>!n.shop&&!["secret","supersecret"].includes(n.type)&&!(f===9&&n.type==="boss")).every(hg))return false;}return true}function Mg(e){')
+    replace('un.roundsCompleted>=He.finalRound-1', '(roomGeneration.topologyEnabled?allMandatoryClearedV3():un.roundsCompleted>=He.finalRound-1)')
     replace('e.lift?mg()===Ge:!e.final||mg()>=10', 'e.lift?mandatoryClear(true):!e.final||mandatoryClear(false)')
     replace('if(!Bt.unlockRooms&&mg()!==Ge||Ot.floor>=9)', 'if(!Bt.unlockRooms&&!mandatoryClear(true)||Ot.floor>=9)')
+    # The 2.2 núcleo starts at r100; the final boss remains r99 / level 100.
+    replace('Ot.key="r"+(Ot.floor>=9?qe:Ot.floor*Ge)', 'Ot.key="r"+(Ot.floor>=9&&roomGeneration.topologyEnabled?100:Ot.floor>=9?qe:Ot.floor*Ge)')
+    replace('vg("r"+(Ot.floor>=9?qe:Ot.floor*Ge),null,!0)', 'vg("r"+(Ot.floor>=9&&roomGeneration.topologyEnabled?100:Ot.floor>=9?qe:Ot.floor*Ge),null,!0)')
+    # Levels above 100 are ordinary núcleo rooms in 2.2, not final-boss rewards.
+    assert html.count('Wo>=100') == 2
+    html = html.replace('Wo>=100', '(roomGeneration.topologyEnabled?_e(Wo):Wo>=100)')
     replace('despeja las otras 10 salas','despeja las salas principales')
     replace('completa las 11 salas del círculo','completa la ruta principal')
     replace('function pg(){','if(new URLSearchParams(location.search).has("roomDebug"))window.DD_ROOM_DEBUG={prefab:(key=Ot.key)=>roomGeneration.instantiatePrefab(ug(Ot.floor).nodes.find(n=>n.key===key)),architecture:()=>roomGeneration.compileArchitecture({key:Ot.key,edges:Rs.edges,doors:Ot.doors,props:tc,spawns:pg().population.spawns.map(p=>({x:Ps.x+p.x*Ps.w,y:Ps.y+p.y*Ps.h}))}),generate:roomGeneration.generate,current:()=>structuredClone(ug(Ot.floor)),inspect:()=>({room:structuredClone(pg()),doors:Ot.doors.map(({side,x,y,to})=>({side,x,y,to})),obstacles:Ac.props(),spawns:Ac.spawnProbePoints()}),map:()=>console.table(ug(Ot.floor).nodes.map(({key,type,x,y,links})=>({key,type,x,y,doors:links.map(l=>l.side+":"+l.to).join(" ")})))};function pg(){')
@@ -53,11 +86,15 @@ def migrate(html, root):
     replace('seed:1e9*Math.random()|0,lastAmmoDrop:0','seed:roomRunSeed(),lastAmmoDrop:0')
     replace('function rp(){','function roomRunSeed(){const q=new URLSearchParams(location.search),v=q.get("roomSeed");return q.has("roomDebug")&&v!==null&&/^\\d+$/.test(v)?Number(v)>>>0:crypto.getRandomValues(new Uint32Array(1))[0];}function rp(){')
     replace('STATE.seed = (seed | 0) || mintSeed();','STATE.seed = seed == null ? mintSeed() : seed >>> 0; visitedCells = {}; typeCursor = 0;')
-    replace('var payload = { v: 1, seed: STATE.seed','var payload = { v: 1, generatorVersion: "2.0.0", seed: STATE.seed')
+    replace('var payload = { v: 1, seed: STATE.seed','var payload = { v: 1, generatorVersion: root.DD_ROOM_GENERATION.version, seed: STATE.seed')
     replace('if (!nodes) nodes = internalNodes(circleIndex, rng);','if (!nodes) nodes = root.DD_ROOM_GENERATION.generate(STATE.seed, circleIndex).nodes;')
     a,b=html.index('  function internalNodes('),html.index('  function generateLayout(');html=html[:a]+html[b:]
-    a,b=html.index('    // Tesoro: hoja más lejana'),html.index('    if (treasure && !treasure.role)');html=html[:a]+"    treasure=cells.find(c=>c.local===6);\n"+html[b:]
+    a,b=html.index('    // Tesoro: hoja más lejana'),html.index('    if (treasure && !treasure.role)');html=html[:a]+"    treasure=cells.find(c=>c.local===6 && !(circleIndex===9 && root.DD_ROOM_GENERATION.topologyEnabled));\n"+html[b:]
     replace('layout.cols = 5; layout.rows = 5;', 'layout.cols=Math.max(...nodes.map(n=>n.x))-Math.min(...nodes.map(n=>n.x))+1;layout.rows=Math.max(...nodes.map(n=>n.y))-Math.min(...nodes.map(n=>n.y))+1;')
+    # The legacy cartography deliberately saves no cells for the old single-room
+    # nucleus. Version 2.2 needs the actual graph persisted and displayed instead.
+    replace('if (circle >= 9) {', 'if (circle >= 9 && !root.DD_ROOM_GENERATION.topologyEnabled) {')
+    replace('if (room.biomes.indexOf(circleIndex) === -1) continue;', 'if (room.biomes.indexOf(circleIndex === 9 && root.DD_ROOM_GENERATION.topologyEnabled ? 8 : circleIndex) === -1) continue;')
     replace('generate:roomGeneration.generate,current:', 'show:(seed=Yo.seed,floor=Ot.floor)=>roomGeneration.visualize(roomGeneration.generate(seed,floor),Ot.key),generate:roomGeneration.generate,current:')
     replace('spawns:Ac.spawnProbePoints()', 'spawns:pg().population.spawns.map(p=>({x:Ps.x+p.x*Ps.w,y:Ps.y+p.y*Ps.h}))')
     replace('const o=-Math.PI/2+.9*(a-1),r={x:Rs.cx+145*Math.cos(o),y:Rs.cy+145*Math.sin(o)}','const p=pg().population.reward,r={x:Ps.x+p.x*Ps.w+80*(a-1),y:Ps.y+p.y*Ps.h}')

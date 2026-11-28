@@ -1,0 +1,37 @@
+{
+  "seedsPerFloor": 1000,
+  "planHashesMatch": true,
+  "hashes": [
+    "793095e94c99485633dcb818a7429bafaf4be7027ca8eed07afc74aeb9f84401",
+    "20be2fdf4567bd12e95baa7ef61f26b400c2b5b621b9d5242b8b367ae7a30cb7",
+    "4cf0b2efa5b65985b10fb227b37d1f1263484dba3789bb5aaf0615058330c366",
+    "e648e293399534d659637322102eddded2958ff9f6cf2aa1efc6aec5f57a0abb",
+    "3aecc7eba040d7cda5e8aa62b794f0f7920d17dd0a795bf55ea8b33572b74f97",
+    "b7b0e964366e1b2285faed4d621330f11cbb284bb1a72cadd9d230bf7186e270",
+    "88f9c1bfcbf9f3faf1ae7f80c3486cdbfad2812a7d35d41f04a72fb6fe705467",
+    "0d27c145a28321ee836e3476cb25dc83dadca24c9f54aae1e194b04fbb1996f2",
+    "10bb45b7e42c8752a63f176a4c91c7e53e7da8001407be6a2210e5085e892926",
+    "888cbde2de35c4c808f2cc5320521fe579f3c53dffe50c1ade8e109f91d12667"
+  ],
+  "result": {
+    "legacy": {
+      "mean": 0.2656000000014901,
+      "p95": 0.40000000037252903,
+      "max": 12.400000000372529,
+      "samples": 1000
+    },
+    "before": {
+      "mean": 1.9255999999996274,
+      "p95": 7.099999999627471,
+      "max": 31.699999999254942,
+      "samples": 1000
+    },
+    "after": {
+      "mean": 1.7869000000022353,
+      "p95": 7.799999998882413,
+      "max": 38.40000000037253,
+      "samples": 1000
+    }
+  },
+  "note": "Chromium headless; 10k plan hashes when n=1000. A/B unique 1000 seed/floor pairs, 100 warmups, alternating order; legacy and before share page. Hashes cover output only; not native movement, exceptions outside inputs, frame or memory."
+}

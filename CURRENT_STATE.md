@@ -1,5 +1,15 @@
 # CURRENT STATE — DEADBEAT DISCO
 
+## Estado vigente · 2026-11-26 · Generación de salas
+
+- Fases 0 y 1 cerradas como lectura y diagnóstico acotado; propuesta de fase 2 aprobada. Piso 9 incluido en el objetivo de dos ciclos.
+- Población compilada 2.1.0 integrada experimentalmente bajo `__DD_ROOM_SPAWN_GUARDS`; 10×1.000 mapas y 54.455 reubicaciones bajo su propio predicado. Motor nativo: 216 salas/1.728 candidatos sin bloqueos en dos seeds, con navegación debug; no prueba campaña completa.
+- Fase 3 iniciada con una comprobación previa: el validador actual rechaza 9.000/10.000 mapas al sustituir su geometría por la compilada; no demuestra 9.000 fallos físicos. Builds regenerados; validación del plan aún usa geometría previa. Modo 2.1.0 presenta regresión de tiempo de generación y permanece experimental.
+- Optimizada la búsqueda 2.1.0: 108.000 poblaciones idénticas al algoritmo previo; media A/B de generación menor en una muestra, p95 mayor y regresión frente a 2.0.0 aún presente. Topología y piso 9 multisalón integrados bajo flag; fase 3 incompleta.
+- Topología 2.2.0 integrada experimentalmente bajo `__DD_ROOM_TOPOLOGY_V3`: dos ciclos en diez pisos; entrada del núcleo r100 y jefe r99/nivel 100. Guardado de ocho celdas, seed y versión verificado en recarga de nueva incursión; reanudar una activa no verificado. Progresión y victoria probadas con debug, no campaña natural.
+- Detalles y límites: [propuesta](docs/PROPUESTA_GENERACION_FASE_2.md) y [línea base](docs/DIAGNOSTICO_GENERACION_BASELINE.md). Entradas posteriores se refieren a trabajos anteriores.
+
+
 ## Estado vigente · 2026-11-26 · Fase 0 integrada y validada
 
 - #36 fusionado y #21 cerrado con autorización. #32 sigue abierto.
@@ -352,3 +362,65 @@ Menú revisado control por control, pantalla de carga reducida a logotipo y barr
 - **Máquina duplicada eliminada**: expendedor de elixires (prop_vending_machine) fuera; el rincón SE queda con arcade único + banco.
 - QA: integrity **277/277**, 0 pageErrors, 0 console errors; capturas `32..35_*_w17.png` regeneradas.
 - Merge PR #31 pendiente de visto bueno.
+
+## Estado actual · 2026-11-26 · geometría experimental 2.3
+- Fase 3 **incompleta**: 2.3 opt-in publica geometría compilada, excluye Hangar y respeta versión del guardado; por defecto continúa 2.0. Detalle, límites, assets ausentes y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Medido: 10.000 mapas/115.000 salas con coincidencia de geometría; seed 0 en navegador 257 puertas y 920 spawns puntualmente, nueve descensos asistidos. No prueba campaña natural, cobertura física de todas las seeds ni arte visual.
+- Generación headless media/p95 2.0: 0,285/0,400 ms; 2.3: 1,663/6,600 ms. Regresión; no activar por defecto. Pendientes variedad, siluetas, identidad de círculos, assets y QA completo.
+
+## Seguimiento · 2026-11-26 · variedad y rendimiento
+- Auditoría de silueta y puertas canónicas 2.2/2.3: 7.516/10.000 mapas con al menos una repetición entre salas compiladas; Hangar excluido. Siete tipos cuentan con una sola plantilla en la muestra. Detalles en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Se descartó una optimización de búsqueda de población: resultados idénticos en 108.000 salas, pero A/B headless no mejoró el tiempo. Código y builds originales restaurados. Fase 3 sigue incompleta.
+
+## Seguimiento · 2026-11-26 · precálculo de población
+- Se reutilizan segmentos y trigonometría durante cada adaptación/validación, sin caché global ni cambios al bucle de frame. 108.000 poblaciones legacy y 115.000 topológicas idénticas a la copia anterior; 1.000 planes por versión 2.0–2.3 comparados en navegador.
+- A/B secuencial 2.1 headless: media/p95 2,608/9,9 → 1,667/7,0 ms; 2.3 sigue más lento que 2.0 (1,686/6,2 frente a 0,304/0,4 ms en otro ensayo). Alcance, backup y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`. Fase 3 incompleta.
+
+## Seguimiento · 2026-11-26 · variantes 2.4 opt-in
+- `__DD_ROOM_VARIANTS_V3` activa 2.4.0: variantes de proporción heredadas de cinco prefabs, con bit de seed por rol. Flag apagado por defecto; guardados conservan su versión.
+- 10.000 mapas: cero firmas repetidas entre salas compiladas, normalizando escala uniforme/giro/reflexión; Hangar excluido. Esto no demuestra diferencia visual perceptible ni dos diseños artísticos por tipo. 276 configuraciones y 624 salidas verificadas en rejilla; seed 0 comprobada puntualmente en motor.
+- Faltan sprites direccionales y validación visual; regresión de generación frente a legacy. Fase 3 sigue incompleta. Inventario, pruebas, backup y reversión: `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · visibilidad y mobiliario direccional
+- Dos pares de variantes proporcionales inspeccionados en navegador resultan prácticamente indistinguibles; no se cumple variedad perceptible. Capturas y límites en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+- Creadas diez vistas direccionales y diez sombras para las cinco bases; comprobados archivos, pivotes y dibujo por el renderer real en seed 0. No se han evaluado todos los círculos ni rotura en combate natural. El arte usa el cargador de pivotes de prefab existente, no `DD_ASSETS`.
+
+## Seguimiento · 2026-11-26 · entrantes de silueta 2.5
+- Flag opt-in `__DD_ROOM_SILHOUETTES_V3`: variantes con entrante real de 140 unidades, sin cambios de arte ni sockets; versiones previas preservadas. En un par de capturas del pasillo se aprecia un cambio de forma; no valida percepción de todos los tipos.
+- Barrido 10.000 mapas: sin firmas duplicadas entre salas compiladas, Hangar excluido; 624 desembarcos accesibles en rejilla. Seed 0 comprobada en motor y progresión asistida. Tiempo headless medio/p95 2.0: 0,208/0,300 ms; 2.5: 1,258/5,000 ms.
+- Fase 3 abierta: falta identidad por círculo, unicidad incluyendo Hangar y validación visual/juego/rendimiento integral. Evidencias y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · perfiles de círculo 2.6
+- `__DD_CIRCLE_ROOM_PROFILES` opt-in asigna nueve mezclas deterministas de tres plantillas y tres niveles de mobiliario; el núcleo mantiene topología 2.5. Nueve distribuciones distintas comprobadas en 1.000 seeds por piso, no nueve diseños artísticos nuevos.
+- 10.000 mapas sin firma repetida incluyendo Hangar del plan; coincidencia nativa del Hangar en seeds 0–9. 18 capturas en dos tipos/círculo, nueve descensos y victoria asistida/tainted; no campaña natural.
+- Headless generación media/p95 2.0 0,193/0,300 ms vs 2.6 1,281/5,000 ms; frame/heap muestreados solo una sala. Fase 3 continúa abierta. Informe, pruebas y reversión en `docs/PROPUESTA_GENERACION_FASE_2.md`.
+
+## Seguimiento · 2026-11-26 · fase 4 iniciada, tarima 2.7
+- Auditoría independiente encontró 40 esquinas de tarima camarote fuera del polígono entre 620 configuraciones 2.6. En 2.7 opt-in se reposiciona la tarima óptica; 0 esquinas fuera en el barrido equivalente. Guardados anteriores preservados.
+- Fase 4 iniciada, no aprobada; fase 3 sigue abierta. Detalles, pruebas, límites y reversión en `docs/FASE_4_GENERACION_QA.md`.
+
+### Seguimiento QA 2026-11-26
+Intento natural 2.7 por controles: derrota en primera sala; no victoria ni campaña completa. Matriz asistida seed 0: 116 capturas/10 pisos, revisadas en hojas de contacto; arquitectura repetitiva y visibilidad limitada. Perfil y experimento de preparación compartida documentados en `docs/FASE_4_GENERACION_QA.md`; mejora no concluyente, revertida. Regresión de generación y QA integral siguen abiertas; default 2.0 intacto.
+
+Continuación: segundo intento natural con esquiva terminó en derrota en r0. La optimización experimental de distancias redujo el tiempo frente a 2.7 en A/B, pero siguió lejos de 2.0 y se revirtió; datos y parche en informe de fase 4. Sin cambios activos en generación.
+
+Continuación QA: búsqueda acotada combinada con distancias redujo 2.7 en A/B de 2,151 a 1,590 ms/mapa, pero 2.0 midió 0,268; revertida y guardada con SHA. Perfil anidado del compilador y comparación de 10.000 planes 2.7 en `docs/FASE_4_GENERACION_QA.md`. Regresión y campaña natural continúan pendientes.
+
+Continuación: corregido piloto natural para pulsar y soltar ratón; una partida despejó r0 y terminó por tiempo, otra alcanzó r1 y fue derrotada. La prueba previa mantuvo el botón pulsado y tiene ese límite. Experimento de caché de aristas mostró mejora temporal pequeña y mayor delta post-GC, y se revirtió; sin cambios activos. Detalles y límites en `docs/FASE_4_GENERACION_QA.md`.
+
+Continuación: 116 capturas canvas seed 1, 10 pisos, revisadas en hojas de contacto; persisten etiquetas dibujadas y recortes de cámara. Ocho capturas específicas de tarima y dos pares revisados; en tienda las tarjetas tapan parte de la escalera. Nuevo piloto natural con habilidades despejó r0 y cayó en r1. QA integral y regresión siguen abiertos; detalle en informe de fase 4.
+
+Continuación: telemetría del dado confirma tiradas e impactos de área/contacto; piloto rápido despejó r0 y r1, llegó a r2 y murió. Corregida cobertura de A/B previos: 1.000 mediciones eran 100 pares seed/piso repetidos. Nuevo A/B con 1.000 pares distintos: 2.0 0,254 ms, 2.7 2,120 ms, experimento 1,674 ms media. Revertido; pendientes sin cambios. Véase informe de fase 4.
+
+Continuación: piloto natural con evasión llegó a r2 y murió. Prototipo de borrador físico difiere compilación de salas: combinado media/p95 de generación 0,857/3,4 ms frente a 2.7 2,448/9,5 y 2.0 0,245/0,4 en un A/B; traslada coste a primera entrada y continúa por encima de legacy. Revertido; pruebas, parches y límites en informe de fase 4.
+
+Continuación: medidos 100 planos retenidos y 12 salas con prototipo diferido. Dos fixtures inválidos revelaron errores diferidos; un prototipo con guardas anticipadas rechazó ambos y conservó 10.000 planes 2.7 muestreados, pero 0,902 ms/mapa frente a 0,196 de 2.0 en A/B. Sigue revertido; memoria/frames y límites en informe de fase 4.
+
+### Incremento 2.8 opt-in: escalones (fase 4 sigue abierta)
+Auditoría detectó 2.024 esquinas de escalón fuera en datos y 1.960 proyectadas en 2.7. `__DD_PREFAB_STAIR_REPAIR` deriva pasillo y arena, desplaza sus tarimas 60 unidades hacia dentro; en 2.8 quedan 0 esquinas fuera y 0 cruces estrictos en 620 configuraciones. 10.000 mapas deterministas, físicos comparados, seed 0 nativo y nueve descensos asistidos PASS; capturas antes/después revisadas. Default 2.0 y guardados anteriores prevalecen. Persisten regresión respecto a 2.0, campaña natural y QA visual integral; no se declara fase 4 terminada. Detalle, límites, assets y reversión en `docs/FASE_4_GENERACION_QA.md`.
+
+Continuación QA 2.8: 792 esquinas de tarima proyectadas fuera del suelo; un muestreo geométrico encontró todas las 178.677 muestras fuera cubiertas por caras/tapas de muro dibujadas después, sin demostrar píxeles finales. Nuevo intento natural con interacción de recompensas terminó en r1. Ver informe de fase 4; no se modifica producto ni se cierra la fase.
+
+Perfil Node 2.8 de 10.000 mapas: adaptación de población 0,459 ms/mapa; salas con alguna posición reubicada 0,0701 ms/sala frente a 0,0147 sin cambios. Es una pista para optimización, no A/B navegador ni prueba causal. Ver informe de fase 4; regresión sigue pendiente.
+
+Investigación de búsqueda por cercanía 2.8: 10.000 hashes de planes coinciden, pero A/B Chromium media/p95 1,926/7,1 original vs 1,787/7,8 ms experimental y legacy 0,266/0,4. Experimento revertido y SHA restaurados; no corrige la regresión. Ver informe de fase 4.

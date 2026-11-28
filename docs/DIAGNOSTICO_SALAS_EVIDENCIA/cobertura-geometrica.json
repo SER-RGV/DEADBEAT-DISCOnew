@@ -1,0 +1,58 @@
+{
+  "method": {
+    "grid": 20,
+    "playerRadius": 18,
+    "rayDistance": 400,
+    "rayStep": 5,
+    "angles": "four cardinal directions",
+    "obstacles": "solid prefab footprint, including destructible; excludes native scenery, doors, hazards and entities",
+    "meaning": "obstructed rays are a geometric proxy only, not verified native projectile cover"
+  },
+  "templates": {
+    "pasillo-servicio": {
+      "freeGridPoints": 2207,
+      "eligiblePoints": 2203,
+      "pointsWithAtLeastOneBlockedRay": 56,
+      "percentEligibleCovered": 2.5419881979119383,
+      "validRays": 4410,
+      "blockedRays": 56,
+      "percentRaysBlocked": 1.2698412698412698
+    },
+    "palco-profundo": {
+      "freeGridPoints": 1955,
+      "eligiblePoints": 1955,
+      "pointsWithAtLeastOneBlockedRay": 76,
+      "percentEligibleCovered": 3.887468030690537,
+      "validRays": 4057,
+      "blockedRays": 76,
+      "percentRaysBlocked": 1.873305398077397
+    },
+    "nave-quebrada": {
+      "freeGridPoints": 1807,
+      "eligiblePoints": 1807,
+      "pointsWithAtLeastOneBlockedRay": 57,
+      "percentEligibleCovered": 3.154399557277255,
+      "validRays": 3581,
+      "blockedRays": 57,
+      "percentRaysBlocked": 1.5917341524713766
+    },
+    "camarote": {
+      "freeGridPoints": 2104,
+      "eligiblePoints": 2104,
+      "pointsWithAtLeastOneBlockedRay": 74,
+      "percentEligibleCovered": 3.517110266159696,
+      "validRays": 4681,
+      "blockedRays": 74,
+      "percentRaysBlocked": 1.5808587908566545
+    },
+    "arena-octogono": {
+      "freeGridPoints": 2897,
+      "eligiblePoints": 2897,
+      "pointsWithAtLeastOneBlockedRay": 94,
+      "percentEligibleCovered": 3.2447359337245425,
+      "validRays": 6917,
+      "blockedRays": 94,
+      "percentRaysBlocked": 1.3589706520167704
+    }
+  }
+}

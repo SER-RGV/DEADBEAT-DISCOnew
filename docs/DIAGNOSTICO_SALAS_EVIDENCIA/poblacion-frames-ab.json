@@ -1,0 +1,29 @@
+{
+  "results": {
+    "original": {
+      "frames": {
+        "mean": 30.901249999999997,
+        "p95": 33.400000000001455,
+        "max": 66.70000000000073,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 558224,
+      "sampledBytes": 59608,
+      "errors": []
+    },
+    "optimized": {
+      "frames": {
+        "mean": 30.623750000000005,
+        "p95": 33.400000000001455,
+        "max": 50.100000000000364,
+        "count": 240,
+        "enemies": 0
+      },
+      "postGcDelta": 312072,
+      "sampledBytes": 126388,
+      "errors": []
+    }
+  },
+  "note": "Sequential Chromium headless software GL; one seed/room, spawns held, 240 rAF intervals. Sampling is approximate, includes app and QA activity; post-GC delta is not peak memory or leak proof."
+}

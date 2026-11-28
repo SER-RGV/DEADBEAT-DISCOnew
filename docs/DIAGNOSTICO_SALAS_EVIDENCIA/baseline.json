@@ -1,0 +1,832 @@
+{
+  "seeds": "0..999",
+  "note": "Areas are polygon areas of compiled prefab shells; footprint sum may overlap. Free area is a 20px grid of centres with 18px clearance; spawns are checked at radius 36. These omit native/scenic additions and actors; neither tests reachability. Door distances include lifts. Timing includes generate, validate, bind; excludes duplicate generation and prefab compilation. Literal point mismatch does not establish runtime inconsistency.",
+  "all": {
+    "maps": 10000,
+    "rooms": 109000,
+    "types": {
+      "start": 9000,
+      "combat": 18000,
+      "challenge": 9000,
+      "event": 9000,
+      "elite": 9000,
+      "treasure": 9000,
+      "rest": 5956,
+      "boss": 10000,
+      "secret": 9000,
+      "supersecret": 9000,
+      "shop": 9000,
+      "special": 3044
+    },
+    "shells": {
+      "wide": 27198,
+      "compact": 29202,
+      "octagon": 19000,
+      "tower": 33600
+    },
+    "prefabs": {
+      "pasillo-servicio": 26886,
+      "palco-profundo": 18062,
+      "nave-quebrada": 18052,
+      "camarote": 36000,
+      "arena-octogono": 10000
+    },
+    "templatesByType": {
+      "start": {
+        "pasillo-servicio": 2933,
+        "palco-profundo": 3028,
+        "nave-quebrada": 3039
+      },
+      "combat": {
+        "pasillo-servicio": 5975,
+        "nave-quebrada": 6052,
+        "palco-profundo": 5973
+      },
+      "challenge": {
+        "pasillo-servicio": 9000
+      },
+      "event": {
+        "palco-profundo": 2993,
+        "pasillo-servicio": 3054,
+        "nave-quebrada": 2953
+      },
+      "elite": {
+        "pasillo-servicio": 2982,
+        "nave-quebrada": 2989,
+        "palco-profundo": 3029
+      },
+      "treasure": {
+        "palco-profundo": 3039,
+        "pasillo-servicio": 2942,
+        "nave-quebrada": 3019
+      },
+      "rest": {
+        "camarote": 5956
+      },
+      "boss": {
+        "arena-octogono": 10000
+      },
+      "secret": {
+        "camarote": 9000
+      },
+      "supersecret": {
+        "camarote": 9000
+      },
+      "shop": {
+        "camarote": 9000
+      },
+      "special": {
+        "camarote": 3044
+      }
+    },
+    "sizeCounts": {
+      "1720x700": 26548,
+      "1210x855": 17722,
+      "1210x770": 17730,
+      "1080x1000": 36000,
+      "1500x1120": 10000
+    },
+    "rect": 25122,
+    "polygon": 83878,
+    "mismatch": 108000,
+    "nativeExceptions": [],
+    "generationExceptions": [],
+    "nondeterministic": [],
+    "connectionT": {
+      "0.500000": 222392
+    },
+    "playableSkipped": 1000,
+    "candidateSpawns": 864000,
+    "candidateSpawnsBlocked": 28236,
+    "roomsWithoutSafeCandidate": 0,
+    "spawnsByTemplate": {
+      "pasillo-servicio": {
+        "total": 212384,
+        "blocked": 26548,
+        "roomsWithoutSafe": 0
+      },
+      "palco-profundo": {
+        "total": 141776,
+        "blocked": 1688,
+        "roomsWithoutSafe": 0
+      },
+      "nave-quebrada": {
+        "total": 141840,
+        "blocked": 0,
+        "roomsWithoutSafe": 0
+      },
+      "camarote": {
+        "total": 288000,
+        "blocked": 0,
+        "roomsWithoutSafe": 0
+      },
+      "arena-octogono": {
+        "total": 80000,
+        "blocked": 0,
+        "roomsWithoutSafe": 0
+      }
+    },
+    "bossPredecessorTypes": {
+      "rest": 2464,
+      "treasure": 3484,
+      "special": 1229,
+      "elite": 1593,
+      "combat": 227,
+      "challenge": 3
+    },
+    "criticalPathThroughElite": 5420,
+    "entropyBits": {
+      "types": 3.4953963416453417,
+      "shells": 1.9714776188084087,
+      "prefabs": 2.2014892081366506
+    },
+    "generationAndBindMs": {
+      "min": 0.007475999998860061,
+      "mean": 0.19447957769999508,
+      "p50": 0.14859599999999773,
+      "p95": 0.2878149999996822,
+      "max": 11.276102000000037
+    },
+    "doorPairDistance": {
+      "min": 674.2820255649708,
+      "mean": 914.8929221065055,
+      "p50": 928.4934033152847,
+      "p95": 1720,
+      "max": 1720
+    }
+  },
+  "perFloor": [
+    {
+      "floor": 0,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 649,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 351
+      },
+      "shells": {
+        "wide": 2970,
+        "compact": 3276,
+        "octagon": 2000,
+        "tower": 3754
+      },
+      "prefabs": {
+        "pasillo-servicio": 2998,
+        "palco-profundo": 1983,
+        "nave-quebrada": 2019,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 6,
+        "4": 383,
+        "5": 456,
+        "6": 140,
+        "7": 15
+      },
+      "deadEnds": {
+        "4": 208,
+        "5": 605,
+        "6": 184,
+        "7": 3
+      },
+      "eliteRewardWithin2": 769,
+      "eliteWithoutRewardWithin2": 231,
+      "duplicatePrefabDoorPairs": 1269,
+      "prefabDoorPairMaps": 798,
+      "solidFootprintArea": 129614533.41969547,
+      "placements": 46000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 951577.3988636363,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012382744079316929,
+      "placementsPerMillionArea": 4.394616966325666
+    },
+    {
+      "floor": 1,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 659,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 341
+      },
+      "shells": {
+        "tower": 3791,
+        "compact": 3193,
+        "wide": 3016,
+        "octagon": 2000
+      },
+      "prefabs": {
+        "palco-profundo": 2022,
+        "pasillo-servicio": 2955,
+        "nave-quebrada": 2023,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 2,
+        "4": 376,
+        "5": 469,
+        "6": 140,
+        "7": 13
+      },
+      "deadEnds": {
+        "4": 201,
+        "5": 584,
+        "6": 213,
+        "7": 2
+      },
+      "eliteRewardWithin2": 738,
+      "eliteWithoutRewardWithin2": 262,
+      "duplicatePrefabDoorPairs": 1416,
+      "prefabDoorPairMaps": 827,
+      "solidFootprintArea": 141023167.10835704,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946044.3041666667,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012422177841570434,
+      "placementsPerMillionArea": 4.4043039510046205
+    },
+    {
+      "floor": 2,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "special": 318,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "rest": 682
+      },
+      "shells": {
+        "wide": 3009,
+        "compact": 3267,
+        "octagon": 2000,
+        "tower": 3724
+      },
+      "prefabs": {
+        "pasillo-servicio": 2978,
+        "nave-quebrada": 2032,
+        "palco-profundo": 1990,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 2,
+        "4": 386,
+        "5": 473,
+        "6": 130,
+        "7": 9
+      },
+      "deadEnds": {
+        "4": 203,
+        "5": 574,
+        "6": 217,
+        "7": 6
+      },
+      "eliteRewardWithin2": 762,
+      "eliteWithoutRewardWithin2": 238,
+      "duplicatePrefabDoorPairs": 1358,
+      "prefabDoorPairMaps": 803,
+      "solidFootprintArea": 141078591.10835704,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946229.57875,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.01242462666888995,
+      "placementsPerMillionArea": 4.4034415751101
+    },
+    {
+      "floor": 3,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 682,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 318
+      },
+      "shells": {
+        "compact": 3220,
+        "wide": 3084,
+        "tower": 3696,
+        "octagon": 2000
+      },
+      "prefabs": {
+        "pasillo-servicio": 2980,
+        "nave-quebrada": 2032,
+        "camarote": 4000,
+        "arena-octogono": 1000,
+        "palco-profundo": 1988
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 1,
+        "4": 406,
+        "5": 459,
+        "6": 124,
+        "7": 10
+      },
+      "deadEnds": {
+        "4": 184,
+        "5": 599,
+        "6": 207,
+        "7": 10
+      },
+      "eliteRewardWithin2": 763,
+      "eliteWithoutRewardWithin2": 237,
+      "duplicatePrefabDoorPairs": 1452,
+      "prefabDoorPairMaps": 841,
+      "solidFootprintArea": 141082055.10835695,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946249.6458333334,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012424668244226948,
+      "placementsPerMillionArea": 4.403348191477747
+    },
+    {
+      "floor": 4,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 666,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 334
+      },
+      "shells": {
+        "tower": 3690,
+        "wide": 3085,
+        "octagon": 2000,
+        "compact": 3225
+      },
+      "prefabs": {
+        "palco-profundo": 2005,
+        "pasillo-servicio": 3010,
+        "nave-quebrada": 1985,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 3,
+        "4": 406,
+        "5": 450,
+        "6": 128,
+        "7": 13
+      },
+      "deadEnds": {
+        "4": 194,
+        "5": 604,
+        "6": 192,
+        "7": 10
+      },
+      "eliteRewardWithin2": 757,
+      "eliteWithoutRewardWithin2": 243,
+      "duplicatePrefabDoorPairs": 1474,
+      "prefabDoorPairMaps": 845,
+      "solidFootprintArea": 141052611.10835695,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946788.246875,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012415008633479184,
+      "placementsPerMillionArea": 4.400843251296477
+    },
+    {
+      "floor": 5,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "special": 356,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "rest": 644
+      },
+      "shells": {
+        "wide": 2975,
+        "octagon": 2000,
+        "tower": 3808,
+        "compact": 3217
+      },
+      "prefabs": {
+        "palco-profundo": 2023,
+        "nave-quebrada": 1975,
+        "pasillo-servicio": 3002,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 5,
+        "4": 387,
+        "5": 457,
+        "6": 132,
+        "7": 19
+      },
+      "deadEnds": {
+        "4": 209,
+        "5": 587,
+        "6": 198,
+        "7": 6
+      },
+      "eliteRewardWithin2": 766,
+      "eliteWithoutRewardWithin2": 234,
+      "duplicatePrefabDoorPairs": 1393,
+      "prefabDoorPairMaps": 832,
+      "solidFootprintArea": 141021435.10835698,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946758.530625,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012412654207902241,
+      "placementsPerMillionArea": 4.400981382144034
+    },
+    {
+      "floor": 6,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 655,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 345
+      },
+      "shells": {
+        "tower": 3746,
+        "wide": 3029,
+        "octagon": 2000,
+        "compact": 3225
+      },
+      "prefabs": {
+        "pasillo-servicio": 2985,
+        "nave-quebrada": 1985,
+        "palco-profundo": 2030,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 3,
+        "4": 376,
+        "5": 477,
+        "6": 135,
+        "7": 9
+      },
+      "deadEnds": {
+        "4": 206,
+        "5": 565,
+        "6": 221,
+        "7": 8
+      },
+      "eliteRewardWithin2": 758,
+      "eliteWithoutRewardWithin2": 242,
+      "duplicatePrefabDoorPairs": 1452,
+      "prefabDoorPairMaps": 846,
+      "solidFootprintArea": 141009311.10835704,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946537.4083333333,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012414486550919557,
+      "placementsPerMillionArea": 4.402009503251804
+    },
+    {
+      "floor": 7,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "rest": 642,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "special": 358
+      },
+      "shells": {
+        "compact": 3269,
+        "tower": 3593,
+        "wide": 3138,
+        "octagon": 2000
+      },
+      "prefabs": {
+        "nave-quebrada": 1999,
+        "pasillo-servicio": 3007,
+        "palco-profundo": 1994,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 1,
+        "4": 409,
+        "5": 466,
+        "6": 114,
+        "7": 10
+      },
+      "deadEnds": {
+        "4": 197,
+        "5": 597,
+        "6": 197,
+        "7": 9
+      },
+      "eliteRewardWithin2": 781,
+      "eliteWithoutRewardWithin2": 219,
+      "duplicatePrefabDoorPairs": 1430,
+      "prefabDoorPairMaps": 852,
+      "solidFootprintArea": 141071663.10835698,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946687.3733333333,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012418008581125418,
+      "placementsPerMillionArea": 4.401312179749082
+    },
+    {
+      "floor": 8,
+      "maps": 1000,
+      "rooms": 12000,
+      "types": {
+        "start": 1000,
+        "combat": 2000,
+        "challenge": 1000,
+        "event": 1000,
+        "elite": 1000,
+        "treasure": 1000,
+        "special": 323,
+        "boss": 1000,
+        "secret": 1000,
+        "supersecret": 1000,
+        "shop": 1000,
+        "rest": 677
+      },
+      "shells": {
+        "wide": 2892,
+        "compact": 3310,
+        "tower": 3798,
+        "octagon": 2000
+      },
+      "prefabs": {
+        "pasillo-servicio": 2971,
+        "nave-quebrada": 2002,
+        "palco-profundo": 2027,
+        "camarote": 4000,
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "1": 1000
+      },
+      "degree": {
+        "2.000": 1000
+      },
+      "bossDepth": {
+        "3": 2,
+        "4": 378,
+        "5": 467,
+        "6": 140,
+        "7": 13
+      },
+      "deadEnds": {
+        "4": 212,
+        "5": 608,
+        "6": 173,
+        "7": 7
+      },
+      "eliteRewardWithin2": 774,
+      "eliteWithoutRewardWithin2": 226,
+      "duplicatePrefabDoorPairs": 1376,
+      "prefabDoorPairMaps": 828,
+      "solidFootprintArea": 141014507.108357,
+      "placements": 50000,
+      "areaStats": {
+        "min": 808775,
+        "mean": 946311.0002083334,
+        "p50": 939600,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.012417914325321541,
+      "placementsPerMillionArea": 4.403062698995744
+    },
+    {
+      "floor": 9,
+      "maps": 1000,
+      "rooms": 1000,
+      "types": {
+        "boss": 1000
+      },
+      "shells": {
+        "octagon": 1000
+      },
+      "prefabs": {
+        "arena-octogono": 1000
+      },
+      "cycles": {
+        "0": 1000
+      },
+      "degree": {
+        "0.000": 1000
+      },
+      "bossDepth": {
+        "0": 1000
+      },
+      "deadEnds": {
+        "0": 1000
+      },
+      "eliteRewardWithin2": 0,
+      "eliteWithoutRewardWithin2": 0,
+      "duplicatePrefabDoorPairs": 0,
+      "prefabDoorPairMaps": 0,
+      "solidFootprintArea": 18737592.533013526,
+      "placements": 6000,
+      "areaStats": {
+        "min": 1275000,
+        "mean": 1275000,
+        "p50": 1275000,
+        "p95": 1275000,
+        "max": 1275000
+      },
+      "solidFootprintFractionApprox": 0.01469615100628512,
+      "placementsPerMillionArea": 4.705882352941177
+    }
+  ],
+  "freeAreaByPrefab": {
+    "pasillo-servicio": {
+      "step": 20,
+      "radius": 18,
+      "freeSamples": 2207,
+      "totalSamples": 3010,
+      "freeAreaApprox": 882800
+    },
+    "palco-profundo": {
+      "step": 20,
+      "radius": 18,
+      "freeSamples": 1955,
+      "totalSamples": 2580,
+      "freeAreaApprox": 782000
+    },
+    "nave-quebrada": {
+      "step": 20,
+      "radius": 18,
+      "freeSamples": 1807,
+      "totalSamples": 2280,
+      "freeAreaApprox": 722800
+    },
+    "camarote": {
+      "step": 20,
+      "radius": 18,
+      "freeSamples": 2104,
+      "totalSamples": 2700,
+      "freeAreaApprox": 841600
+    },
+    "arena-octogono": {
+      "step": 20,
+      "radius": 18,
+      "freeSamples": 2897,
+      "totalSamples": 4200,
+      "freeAreaApprox": 1158800
+    }
+  }
+}

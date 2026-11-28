@@ -1,0 +1,27 @@
+{
+  "results": {
+    "original": {
+      "times": {
+        "mean": 1.8760999999996275,
+        "p95": 8.5,
+        "max": 27.40000000037253,
+        "count": 1000
+      },
+      "beforeUsed": 7436300,
+      "afterUsed": 7935480,
+      "retainedDifference": 499180
+    },
+    "optimized": {
+      "times": {
+        "mean": 1.82139999999851,
+        "p95": 7.599999999627471,
+        "max": 26.899999999441206,
+        "count": 1000
+      },
+      "beforeUsed": 7440172,
+      "afterUsed": 8305392,
+      "retainedDifference": 865220
+    }
+  },
+  "note": "Sequential headless page samples, 20 warmup maps and 1000 measured maps each (2.7). Post-GC heap deltas include app/browser activity and do not prove leak or total memory; no frame measurements."
+}

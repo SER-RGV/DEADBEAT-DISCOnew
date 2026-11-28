@@ -1,0 +1,343 @@
+{
+  "mode": "2.7.0",
+  "actions": "UI, keyboard, pointer only; no debug or taint overrides",
+  "steps": [
+    "menu",
+    "hub via menu and cinematic skips",
+    "entered run using descent station"
+  ],
+  "errors": [],
+  "visited": [
+    {
+      "key": "r0",
+      "floor": 0,
+      "completed": 0,
+      "hp": 3
+    }
+  ],
+  "outcome": "time limit",
+  "hub": {
+    "active": true,
+    "practice": null,
+    "zones": [
+      "salon",
+      "habitacion",
+      "arsenal",
+      "archivo",
+      "taller",
+      "residentes",
+      "descanso",
+      "galeria",
+      "acceso"
+    ],
+    "x": 1790,
+    "y": 423,
+    "nearStation": "descent",
+    "bounds": {
+      "x": 260,
+      "y": 290,
+      "w": 3120,
+      "h": 1900
+    },
+    "stations": [
+      "armory",
+      "upgrades",
+      "armorer",
+      "practice",
+      "workshop",
+      "dj",
+      "mix",
+      "bar",
+      "rest",
+      "map",
+      "ledger",
+      "gallery",
+      "bedroom",
+      "keepsake",
+      "prepare",
+      "descent"
+    ],
+    "protagonist": "pm_walk_01",
+    "walking": true,
+    "walkFrame": 3,
+    "facingLeft": false,
+    "protagonistSrc": "assets/characters/protagonist_master/walk/pm_walk_01.png",
+    "protagonistRect": {
+      "x": 1749.4,
+      "y": 293,
+      "w": 83.53,
+      "h": 148.5
+    },
+    "protagonistAspect": 0.5625
+  },
+  "actualVersion": "2.7.0",
+  "shots": 85,
+  "bulletSamples": 0,
+  "maxPlayerBullets": 0,
+  "last": {
+    "snapshot": {
+      "running": true,
+      "paused": false,
+      "dead": false,
+      "circle": 0,
+      "room": 0,
+      "globalRoom": 1,
+      "roomName": "Vestíbulo de pista",
+      "roomBanner": "Vestíbulo de pista · CÍRCULO I · LIMBO",
+      "hp": 3,
+      "maxHp": 3,
+      "shield": 0,
+      "rave": 0,
+      "raveDuration": 6.5729999999999995,
+      "raveMeter": 29.049999999999997,
+      "credits": 540,
+      "level": 2,
+      "bombs": 3,
+      "boosts": 3,
+      "rollKey": "Space",
+      "weapon": "m1911",
+      "weaponName": "M1911",
+      "owned": [
+        "m1911"
+      ],
+      "bossActive": false,
+      "boss": null,
+      "player": {
+        "x": 818.1935146585793,
+        "y": 913.6328695289626,
+        "aimAngle": 0.2877676706059878
+      },
+      "roomRect": {
+        "x": 460,
+        "y": 410,
+        "w": 1580,
+        "h": 1030
+      },
+      "doors": [
+        {
+          "x": 507.4,
+          "y": 916.1188945327683,
+          "open": false
+        },
+        {
+          "x": 1250,
+          "y": 440.9,
+          "open": false
+        },
+        {
+          "x": 1162.2182450091022,
+          "y": 1409.1,
+          "open": false
+        },
+        {
+          "x": 1992.6,
+          "y": 977.9562934869152,
+          "open": false
+        }
+      ],
+      "enemies": []
+    },
+    "survey": {
+      "key": "r0",
+      "floor": 0,
+      "encounter": "VESTÍBULO DE TURNOS",
+      "elite": false,
+      "poly": [
+        {
+          "x": 507.4,
+          "y": 440.9
+        },
+        {
+          "x": 1992.6,
+          "y": 440.9
+        },
+        {
+          "x": 1992.6,
+          "y": 1409.1
+        },
+        {
+          "x": 507.4,
+          "y": 1409.1
+        }
+      ],
+      "player": {
+        "x": 818.1935146585793,
+        "y": 913.6328695289626
+      },
+      "nodes": [
+        {
+          "key": "r0",
+          "x": 0,
+          "y": 0,
+          "room": 1,
+          "shop": false,
+          "boss": false,
+          "visited": true,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r1"
+            },
+            {
+              "to": "r3"
+            },
+            {
+              "to": "r7"
+            },
+            {
+              "to": "s0"
+            }
+          ]
+        },
+        {
+          "key": "r1",
+          "x": -1,
+          "y": 0,
+          "room": 2,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r4"
+            }
+          ]
+        },
+        {
+          "key": "r3",
+          "x": 0,
+          "y": -1,
+          "room": 4,
+          "shop": false,
+          "boss": false,
+          "visited": false,
+          "cleared": false,
+          "links": [
+            {
+              "to": "r2"
+            },
+            {
+              "to": "r0"
+            },
+            {
+              "to": "r8"
+            }
+          ]
+        },
+        {
+          "key": "s0",
+          "x": 1,
+          "y": 0,
+          "room": 12,
+          "shop": true,
+          "boss": false,
+          "visited": false,
+          "cleared": true,
+          "links": [
+            {
+              "to": "r0"
+            }
+          ]
+        }
+      ],
+      "doors": [
+        {
+          "to": "r1",
+          "x": 507.4,
+          "y": 916.1188945327683,
+          "label": "SALA 02",
+          "lift": false,
+          "open": true
+        },
+        {
+          "to": "r3",
+          "x": 1250,
+          "y": 440.9,
+          "label": "SALA 04",
+          "lift": false,
+          "open": true
+        },
+        {
+          "to": "r7",
+          "x": 1162.2182450091022,
+          "y": 1409.1,
+          "label": "PASO DE SERVICIO",
+          "lift": false,
+          "open": true
+        },
+        {
+          "to": "s0",
+          "x": 1992.6,
+          "y": 977.9562934869152,
+          "label": "TIENDA · LA CABINA · A 1 SALA",
+          "lift": false,
+          "open": true
+        }
+      ],
+      "props": [
+        {
+          "x": 851.2334433514159,
+          "y": 676.5731023999863
+        },
+        {
+          "x": 1615.1105621049646,
+          "y": 690.1849973401986
+        },
+        {
+          "x": 844.4114446876338,
+          "y": 1181.5409411980772
+        },
+        {
+          "x": 1661.7639801211656,
+          "y": 1163.4570586977525
+        },
+        {
+          "x": 1499.142730408849,
+          "y": 1107.306719251989
+        },
+        {
+          "x": 957.5717888144712,
+          "y": 954.507172318894
+        },
+        {
+          "x": 773.4309120379812,
+          "y": 930.4961143360761
+        }
+      ],
+      "enemies": [],
+      "boss": null,
+      "rewards": [
+        {
+          "x": 1170,
+          "y": 852.9
+        }
+      ],
+      "marks": [],
+      "objectives": [],
+      "completed": 1,
+      "total": 11
+    },
+    "actors": {
+      "time": 90.55970000000008,
+      "circle": 0,
+      "player": {
+        "x": 818.1935146585793,
+        "y": 913.6328695289626,
+        "r": 14,
+        "aim": 0.2877676706059878
+      },
+      "enemies": [],
+      "deaths": [],
+      "bullets": [],
+      "enemyBullets": []
+    }
+  },
+  "elapsedSeconds": 90
+}

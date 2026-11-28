@@ -1,0 +1,128 @@
+diff --git a/src/room_generation/playable.js b/src/room_generation/playable.js
+index 1d6ff89..e1166ad 100644
+--- a/src/room_generation/playable.js
++++ b/src/room_generation/playable.js
+@@ -29,3 +29,29 @@ function playableRoom(node) {
+   playableCache.set(node, compiled);
+   return compiled;
+ }
++
++// Experimental generation-only draft: physical geometry needed by population
++// safety checks, not a render mesh. Compiled room is still built on entry.
++function populationRoomDraft(node) {
++  if (node.floor === 0 && node.key === 'r0') return null;
++  const spec = prefabCatalog.templates[node.prefab.template], loop=spec.perimeter;
++  const edges=loop.map(([id,x,y],i)=>{
++    const [,u,v]=loop[(i+1)%loop.length],dx=u-x,dy=v-y,len=Math.hypot(dx,dy);
++    return {id,a:{x,y},dx,dy,len,nx:-dy/len,ny:dx/len};
++  });
++  const edge=id=>{const e=edges.find(e=>e.id===id);if(!e)throw Error('missing anchor '+id);return e;};
++  const point=(e,t,inset)=>({x:e.a.x+t*e.dx+e.nx*inset,y:e.a.y+t*e.dy+e.ny*inset});
++  const openings=node.prefab.connections.map(d=>{
++    const e=edge(spec.sockets[d.side]),p=point(e,0.5,0),tx=e.dx/e.len,ty=e.dy/e.len;
++    const u=(p.x-e.a.x)*tx+(p.y-e.a.y)*ty;
++    return {origin:{x:e.a.x+tx*u+e.nx*0,y:e.a.y+ty*u+e.ny*0},useRadius:137};
++  });
++  const cardinal=[[0,1,'S'],[-1,0,'W'],[0,-1,'N'],[1,0,'E']];
++  const placements=spec.placements.filter(p=>prefabCatalog.assets[p.asset].solid).map(p=>{
++    const e=edge(p.edge),asset=prefabCatalog.assets[p.asset],front=p.facing==='inward'?cardinal.find(([x,y])=>x===e.nx&&y===e.ny):cardinal.find(v=>v[2]===p.facing);
++    if(!front)throw Error('mount needs an authored cardinal view: '+p.id);
++    return {anchor:point(e,p.t,p.inset),collider:{...asset.footprint,angle:(cardinal.indexOf(front)*Math.PI)/2},solid:asset.solid};
++  });
++  const w=Math.max(...loop.map(v=>v[1])),h=Math.max(...loop.map(v=>v[2]));
++  return {mesh:{openings,placements},geometry:{...node.geometry,w,h,pts:loop.map(([,x,y])=>[x/w,y/h]),center:[.5,.5]}};
++}
+diff --git a/src/room_generation/population_compiled.js b/src/room_generation/population_compiled.js
+index 5d2fadc..a2c4935 100644
+--- a/src/room_generation/population_compiled.js
++++ b/src/room_generation/population_compiled.js
+@@ -15,6 +15,15 @@ function preparePopulationGeometry(geometry, mesh) {
+   }));
+   return {edges, placements};
+ }
++// Squared distance avoids sqrt in the common case. Near the boundary, use the
++// original hypot comparison to retain its rounding and strict inequality.
++function populationDistanceLess(dx, dy, limit) {
++  if (limit <= 0) return false;
++  const squared = dx * dx + dy * dy, target = limit * limit;
++  if (!Number.isFinite(squared) || !Number.isFinite(target) || Math.abs(squared - target) <= 1e-12 * target)
++    return Math.hypot(dx, dy) < limit;
++  return squared < target;
++}
+ function populationCompiledSafe(x, y, radius, geometry, mesh, prepared) {
+   if (![x, y, radius, geometry.w, geometry.h].every(Number.isFinite) || radius < 0) return false;
+   const px = x * geometry.w, py = y * geometry.h;
+@@ -24,15 +33,22 @@ function populationCompiledSafe(x, y, radius, geometry, mesh, prepared) {
+     if (!len2) return false;
+     if ((ay > py) !== (by > py) && px < ax + (py - ay) * dx / dy) inside = !inside;
+     const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / len2));
+-    if (Math.hypot(px - ax - t * dx, py - ay - t * dy) < radius) return false;
++    if (populationDistanceLess(px - ax - t * dx, py - ay - t * dy, radius)) return false;
+   }
+   if (!inside) return false;
+   for (const {p, cs, sn} of placements) {
+     const c = p.collider, dx = px - p.anchor.x, dy = py - p.anchor.y;
+     const lx = dx * cs + dy * sn, ly = -dx * sn + dy * cs;
+     let distance;
+-    if (c.kind === 'circle') distance = Math.hypot(lx, ly) - c.r;
+-    else if (c.kind === 'capsule') distance = Math.hypot(Math.max(0, Math.abs(lx) - c.halfLength), ly) - c.r;
++    if (c.kind === 'circle' || c.kind === 'capsule') {
++      const dx = c.kind === 'circle' ? lx : Math.max(0, Math.abs(lx) - c.halfLength);
++      // Compare the original subtraction near the boundary, not a rounded sum.
++      const limit = c.r + radius, squared = dx * dx + ly * ly, target = limit * limit;
++      if (!Number.isFinite(squared) || !Number.isFinite(target) || Math.abs(squared - target) <= 1e-12 * target) {
++        if (Math.hypot(dx, ly) - c.r < radius) return false;
++      } else if (squared < target) return false;
++      continue;
++    }
+     else if (c.kind === 'rect') {
+       // Native ec() expands each half-extent by the radius (square corners).
+       if (Math.abs(lx) < c.w / 2 + radius && Math.abs(ly) < c.h / 2 + radius) return false;
+@@ -43,7 +59,7 @@ function populationCompiledSafe(x, y, radius, geometry, mesh, prepared) {
+   }
+   // Conservative doorway exclusion; runtime also checks its own gap geometry.
+   for (const o of mesh.openings)
+-    if (Math.hypot(px - o.origin.x, py - o.origin.y) < o.useRadius + radius) return false;
++    if (populationDistanceLess(px - o.origin.x, py - o.origin.y, o.useRadius + radius)) return false;
+   return true;
+ }
+ // Keep the original floating-point grid order exactly, with a tiny immutable
+@@ -77,10 +93,21 @@ function adaptPopulationCompiled(population, compiled) {
+         }
+     }
+     // Verify the true nearest point and preserve the original row-major tie.
+-    for (const y of axis) for (const x of axis) {
+-      const d = ((x - p.x) * geometry.w) ** 2 + ((y - p.y) * geometry.h) ** 2;
+-      if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
+-        best = {x, y}; bestDist = d;
++    for (const y of axis) {
++      const dy2 = ((y - p.y) * geometry.h) ** 2;
++      // A conservative rounding margin cannot exclude a candidate that could
++      // tie or improve the original distance comparison. Exact ordering below
++      // remains the same, including the row-major tie break.
++      const bound = bestDist * (1 + 1e-12) + 1e-9;
++      if (dy2 > bound) continue;
++      const reach = Math.sqrt(bound - dy2) / geometry.w;
++      let lo = 0, hi = axis.length;
++      while (lo < hi) { const mid = (lo + hi) >> 1; if (axis[mid] < p.x - reach) lo = mid + 1; else hi = mid; }
++      for (let ix = lo; ix < axis.length && axis[ix] <= p.x + reach; ix++) {
++        const x = axis[ix], d = ((x - p.x) * geometry.w) ** 2 + dy2;
++        if ((d < bestDist || (d === bestDist && best && (y < best.y || (y === best.y && x < best.x)))) && safe({x, y}, radius, offsets)) {
++          best = {x, y}; bestDist = d;
++        }
+       }
+     }
+     if (!best) throw Error('no safe candidate for compiled prefab');
+diff --git a/tools/room_generation_migration.py b/tools/room_generation_migration.py
+index 46f339f..f6a0c85 100644
+--- a/tools/room_generation_migration.py
++++ b/tools/room_generation_migration.py
+@@ -37,7 +37,7 @@ function generateVersioned(s,f,version=selectedVersion){
+   if(version===repairVersion) repairCircleDecks(plan);
+   if(version!==legacyVersion){
+     for(const node of plan.nodes){
+-      const compiled=playableRoom(node);if(!compiled)continue;
++      const compiled=populationRoomDraft(node);if(!compiled)continue;
+       node.population=adaptPopulationCompiled(node.population,compiled);validatePopulationCompiled(node.population,compiled);
+       if([unifiedVersion,variantsVersion,silhouetteVersion,profileVersion,repairVersion].includes(version)) node.geometry=compiled.geometry;
+     }
